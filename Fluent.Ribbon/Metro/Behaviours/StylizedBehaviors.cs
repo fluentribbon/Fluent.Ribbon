@@ -51,8 +51,8 @@ namespace Fluent.Metro.Behaviours
             {
                 var currentBehavior = itemBehaviors[i];
 
-                if (currentBehavior == behavior
-                    || currentBehavior == orignalBehavior)
+                if (ReferenceEquals(currentBehavior, behavior)
+                    || ReferenceEquals(currentBehavior, orignalBehavior))
                 {
                     index = i;
                     break;
@@ -60,8 +60,8 @@ namespace Fluent.Metro.Behaviours
 
                 var currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
 
-                if (currentOrignalBehavior == behavior
-                    || currentOrignalBehavior == orignalBehavior)
+                if (ReferenceEquals(currentOrignalBehavior, behavior)
+                    || ReferenceEquals(currentOrignalBehavior, orignalBehavior))
                 {
                     index = i;
                     break;
@@ -85,7 +85,7 @@ namespace Fluent.Metro.Behaviours
             var newBehaviors = e.NewValue as StylizedBehaviorCollection;
             var oldBehaviors = e.OldValue as StylizedBehaviorCollection;
 
-            if (newBehaviors == oldBehaviors)
+            if (ReferenceEquals(newBehaviors, oldBehaviors))
             {
                 return;
             }

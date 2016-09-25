@@ -377,7 +377,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             this.IsPressed = false;
-            if (Mouse.Captured == this)
+            if (ReferenceEquals(Mouse.Captured, this))
             {
                 Mouse.Capture(null);
             }

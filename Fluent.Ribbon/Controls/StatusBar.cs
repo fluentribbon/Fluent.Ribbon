@@ -138,7 +138,7 @@ namespace Fluent
                     if (dataTemplateContent is StatusBarItem
                         || dataTemplateContent is Separator)
                     {
-                        return dataTemplateContent as DependencyObject;
+                        return (DependencyObject)dataTemplateContent;
                     }
 
                     throw new InvalidOperationException("Invalid ItemContainer");

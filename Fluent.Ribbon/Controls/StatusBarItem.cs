@@ -77,10 +77,17 @@ namespace Fluent
         // Handles IsChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var item = d as StatusBarItem;
+            var item = (StatusBarItem)d;
             item.CoerceValue(VisibilityProperty);
-            if ((bool)e.NewValue) item.RaiseChecked();
-            else item.RaiseUnchecked();
+
+            if ((bool)e.NewValue)
+            {
+                item.RaiseChecked();
+            }
+            else
+            {
+                item.RaiseUnchecked();
+            }
         }
 
         #endregion
@@ -136,7 +143,12 @@ namespace Fluent
         {
             var item = (StatusBarItem)d;
             // if content is null returns value
-            if ((basevalue == null) && (item.Value != null)) return item.Value;
+            if (basevalue == null
+                && item.Value != null)
+            {
+                return item.Value;
+            }
+
             return basevalue;
         }
 
@@ -144,7 +156,11 @@ namespace Fluent
         private static object CoerceVisibility(DependencyObject d, object basevalue)
         {
             // If unchecked when not visible in status bar
-            if (!(d as StatusBarItem).IsChecked) return Visibility.Collapsed;
+            if (((StatusBarItem)d).IsChecked == false)
+            {
+                return Visibility.Collapsed;
+            }
+
             return basevalue;
         }
 

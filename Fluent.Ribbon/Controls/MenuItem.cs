@@ -265,7 +265,7 @@ namespace Fluent
             if (!groupedButtons.ContainsKey(threadId)) return;
             if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return;
 
-            buttons.RemoveAt(buttons.FindIndex(x => x.IsAlive && (MenuItem)x.Target == button));
+            buttons.RemoveAt(buttons.FindIndex(x => x.IsAlive && ReferenceEquals(x.Target, button)));
         }
 
         // Remove from group
@@ -339,7 +339,7 @@ namespace Fluent
             {
                 foreach (var item in GetItemsInGroup(button.GroupName))
                 {
-                    if (item != button)
+                    if (ReferenceEquals(item, button) == false)
                     {
                         item.IsChecked = false;
                     }
@@ -654,20 +654,32 @@ namespace Fluent
             if (e.Key == Key.Escape)
             {
                 if (this.IsSubmenuOpen)
+                {
                     this.IsSubmenuOpen = false;
+                }
                 else
                 {
                     var parent = this.FindParentDropDownOrMenuItem();
                     if (parent != null)
                     {
                         var dropDown = parent as IDropDownControl;
-                        if (dropDown != null) dropDown.IsDropDownOpen = false;
-                        else (parent as System.Windows.Controls.MenuItem).IsSubmenuOpen = false;
+                        if (dropDown != null)
+                        {
+                            dropDown.IsDropDownOpen = false;
+                        }
+                        else
+                        {
+                            ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
+                        }
                     }
                 }
+
                 e.Handled = true;
             }
-            else base.OnKeyDown(e);
+            else
+            {
+                base.OnKeyDown(e);
+            }
         }
 
         private DependencyObject FindParentDropDownOrMenuItem()
@@ -676,11 +688,20 @@ namespace Fluent
             while (parent != null)
             {
                 var dropDown = parent as IDropDownControl;
-                if (dropDown != null) return parent;
+                if (dropDown != null)
+                {
+                    return parent;
+                }
+
                 var menuItem = parent as System.Windows.Controls.MenuItem;
-                if (menuItem != null) return parent;
+                if (menuItem != null)
+                {
+                    return parent;
+                }
+
                 parent = LogicalTreeHelper.GetParent(parent);
             }
+
             return null;
         }
 
@@ -735,19 +756,14 @@ namespace Fluent
         // Handles drop down opened
         private void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (this.DropDownClosed != null)
-            {
-                this.DropDownClosed(this, e);
-            }
-            //if (Mouse.Captured == this) Mouse.Capture(null);
+            this.DropDownClosed?.Invoke(this, e);
         }
 
         // Handles drop down closed
         private void OnDropDownOpened(object sender, EventArgs e)
         {
             if (this.scrollViewer != null
-                &&
-                this.ResizeMode != ContextMenuResizeMode.None)
+                && this.ResizeMode != ContextMenuResizeMode.None)
             {
                 this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             }
@@ -758,11 +774,7 @@ namespace Fluent
                 this.menuPanel.Height = double.NaN;
             }
 
-            if (this.DropDownOpened != null)
-            {
-                this.DropDownOpened(this, e);
-            }
-            //Mouse.Capture(this, CaptureMode.SubTree);
+            this.DropDownOpened?.Invoke(this, e);
         }
 
         #endregion

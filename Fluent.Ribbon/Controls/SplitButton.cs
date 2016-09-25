@@ -21,6 +21,8 @@ namespace Fluent
         // Inner button
         private ToggleButton button;
 
+        private SplitButton quickAccessButton;
+
         #endregion
 
         #region Properties
@@ -174,9 +176,12 @@ namespace Fluent
 
         private static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            var button = d as SplitButton;
+            var button = (SplitButton)d;
 
-            if (!button.IsCheckable) return false;
+            if (button.IsCheckable == false)
+            {
+                return false;
+            }
 
             return ToggleButtonHelper.CoerceIsChecked(d, basevalue);
         }
@@ -379,7 +384,8 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource != this && e.OriginalSource != this._quickAccessButton)
+            if (ReferenceEquals(e.OriginalSource, this) == false
+                && ReferenceEquals(e.OriginalSource, this.quickAccessButton) == false)
             {
                 e.Handled = true;
             }
@@ -458,15 +464,15 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            var button = new SplitButton();
-            button.Click += (sender, e) => this.RaiseEvent(e);
-            RibbonProperties.SetSize(button, RibbonControlSize.Small);
-            button.CanAddButtonToQuickAccessToolBar = false;
-            this.BindQuickAccessItem(button);
-            this.BindQuickAccessItemDropDownEvents(button);
-            button.DropDownOpened += this.OnQuickAccessOpened;
-            this._quickAccessButton = button;
-            return button;
+            var buttonForQAT = new SplitButton();
+            buttonForQAT.Click += (sender, e) => this.RaiseEvent(e);
+            RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
+            buttonForQAT.CanAddButtonToQuickAccessToolBar = false;
+            this.BindQuickAccessItem(buttonForQAT);
+            this.BindQuickAccessItemDropDownEvents(buttonForQAT);
+            buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
+            this.quickAccessButton = buttonForQAT;
+            return buttonForQAT;
         }
 
         /// <summary>
@@ -506,8 +512,6 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
-
-        private SplitButton _quickAccessButton;
 
         #endregion
     }

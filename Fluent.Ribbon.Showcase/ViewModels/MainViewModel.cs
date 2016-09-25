@@ -1,5 +1,6 @@
 ﻿namespace FluentTest.ViewModels
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
@@ -20,7 +21,7 @@
         private RelayCommand exitCommand;
         private double zoom;
         private ICommand testCommand;
-        private string[] manyItems;
+        private IList<string> manyItems;
         private bool? isCheckedToggleButton3;
 
         public MainViewModel()
@@ -70,7 +71,7 @@
             {
                 if (value.Equals(this.zoom)) return;
                 this.zoom = value;
-                this.OnPropertyChanged("Zoom");
+                this.OnPropertyChanged(nameof(this.Zoom));
             }
         }
 
@@ -81,7 +82,7 @@
             {
                 if (Equals(value, this.colorViewModel)) return;
                 this.colorViewModel = value;
-                this.OnPropertyChanged("ColorViewModel");
+                this.OnPropertyChanged(nameof(this.ColorViewModel));
             }
         }
 
@@ -92,7 +93,7 @@
             {
                 if (Equals(value, this.fontsViewModel)) return;
                 this.fontsViewModel = value;
-                this.OnPropertyChanged("FontsViewModel");
+                this.OnPropertyChanged(nameof(this.FontsViewModel));
             }
         }
 
@@ -103,7 +104,7 @@
             {
                 if (Equals(value, this.galleryViewModel)) return;
                 this.galleryViewModel = value;
-                this.OnPropertyChanged("GalleryViewModel");
+                this.OnPropertyChanged(nameof(this.GalleryViewModel));
             }
         }
 
@@ -128,7 +129,7 @@
             }
         }
 
-        public string[] ManyItems
+        public IList<string> ManyItems
         {
             get { return this.manyItems ?? (this.manyItems = this.GenerateStrings(5000)); }
         }
@@ -141,14 +142,14 @@
                 if (this.isCheckedToggleButton3 != value)
                 {
                     this.isCheckedToggleButton3 = value;
-                    this.OnPropertyChanged("ToggleButton3IsChecked");
+                    this.OnPropertyChanged(nameof(this.IsCheckedToggleButton3));
                 }
             }
         }
 
-        private string[] GenerateStrings(int count)
+        private IList<string> GenerateStrings(int count)
         {
-            return Enumerable.Repeat("Test", count).ToArray();
+            return Enumerable.Repeat("Test", count).ToList();
         }
 
         public ICommand PreviewCommand { get; private set; }
@@ -161,7 +162,7 @@
             set
             {
                 this.boundSpinnerValue = value;
-                this.OnPropertyChanged("BoundSpinnerValue");
+                this.OnPropertyChanged(nameof(this.BoundSpinnerValue));
             }
         }
 

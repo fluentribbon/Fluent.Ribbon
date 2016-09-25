@@ -533,11 +533,19 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as RibbonGroupBox;
+            var element = (RibbonGroupBox)d;
+
             var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
             var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
@@ -891,7 +899,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (e.Source != this
+            if (ReferenceEquals(e.Source, this) == false
                 || this.DropDownPopup == null)
             {
                 return;
@@ -952,7 +960,7 @@ namespace Fluent
         private void OnRibbonGroupBoxPopupClosing()
         {
             //IsHitTestVisible = true;
-            if (Mouse.Captured == this)
+            if (ReferenceEquals(Mouse.Captured, this))
             {
                 Mouse.Capture(null);
             }

@@ -176,7 +176,7 @@ namespace Fluent
             }
         }
 
-        private static UIElement[] GetVisibleChildren(UIElement element)
+        private static IList<UIElement> GetVisibleChildren(UIElement element)
         {
             var logicalChildren = LogicalTreeHelper.GetChildren(element)
                 .OfType<UIElement>();
@@ -196,7 +196,7 @@ namespace Fluent
             return children
                 .Where(x => x.Visibility == Visibility.Visible)
                 .Distinct()
-                .ToArray();
+                .ToList();
         }
 
         #endregion
@@ -399,7 +399,7 @@ namespace Fluent
 
             var children = GetVisibleChildren(element);
 
-            if (children.Length == 0)
+            if (children.Count == 0)
             {
                 this.Terminate();
                 return;

@@ -129,7 +129,7 @@
             var children = LogicalTreeHelper.GetChildren(root);
             foreach (var child in children.OfType<DependencyObject>())
             {
-                if (LogicalTreeHelper.GetParent(child) != root)
+                if (ReferenceEquals(LogicalTreeHelper.GetParent(child), root) == false)
                 {
                     Debug.WriteLine($"Incorrect logical parent for {GetDebugInfo(child)}");
                     Debug.WriteLine($"\tExpected: {GetDebugInfo(root)}");
@@ -181,7 +181,7 @@
         private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)
         {
             if (current == null
-                || current == this.ribbon)
+                || ReferenceEquals(current, this.ribbon))
             {
                 return;
             }

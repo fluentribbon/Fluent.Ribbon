@@ -76,7 +76,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null, OnIconChanged));
 
-        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var element = (RibbonControl)d;
 

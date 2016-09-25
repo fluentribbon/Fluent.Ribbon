@@ -354,14 +354,14 @@
         protected virtual UIElement CreateQuickAccessItem(string data)
         {
             var indices = data.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToArray();
+                .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToList();
 
             DependencyObject current = this.ribbon;
 
             foreach (var index in indices)
             {
-                var children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToArray();
-                var indexIsInvalid = children.Length <= index;
+                var children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToList();
+                var indexIsInvalid = children.Count <= index;
                 var item = indexIsInvalid
                                ? null
                                : children[index] as DependencyObject;

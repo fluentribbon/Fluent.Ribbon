@@ -158,11 +158,19 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as ComboBox;
+            var element = (ComboBox)d;
+
             var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
             var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
@@ -395,14 +403,28 @@ namespace Fluent
             this.isQuickAccessOpened = true;
             this.quickAccessCombo.DropDownClosed += this.OnQuickAccessMenuClosed;
             this.quickAccessCombo.UpdateLayout();
-            if (!this.isQuickAccessFocused)
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)(() =>
-                                                                                     {
-                                                                                         this.Freeze();
-                                                                                         this.Dispatcher.BeginInvoke(DispatcherPriority.Input, (ThreadStart)(() => { if (this.quickAccessCombo.SelectedItem != null) (this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView(); }
-                                                                                                                                                            ));
-                                                                                     }
-                                                                                    ));
+
+            if (this.isQuickAccessFocused == false)
+            {
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)this.FreezeAnBringSelectedItemIntoView);
+            }
+        }
+
+        private void FreezeAnBringSelectedItemIntoView()
+        {
+            this.Freeze();
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Input, (ThreadStart)this.BringSelectedItemIntoView);
+        }
+
+        private void BringSelectedItemIntoView()
+        {
+            if (this.quickAccessCombo.SelectedItem == null)
+            {
+                return;
+            }
+
+            var containerFromItem = this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as FrameworkElement;
+            containerFromItem?.BringIntoView();
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)

@@ -524,7 +524,7 @@ namespace Fluent
                         IsDefinitive = false
                     };
 
-                    if (this.Filters[i] == this.SelectedFilter)
+                    if (ReferenceEquals(this.Filters[i], this.SelectedFilter))
                     {
                         item.IsChecked = true;
                     }

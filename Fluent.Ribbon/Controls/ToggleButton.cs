@@ -134,19 +134,16 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as ToggleButton;
+            var element = (ToggleButton)d;
 
             var oldElement = e.OldValue as FrameworkElement;
-
             if (oldElement != null)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
             var newElement = e.NewValue as FrameworkElement;
-
-            if (newElement != null
-                && LogicalTreeHelper.GetParent(newElement) == null)
+            if (newElement != null)
             {
                 element.AddLogicalChild(newElement);
             }

@@ -107,7 +107,7 @@ namespace Fluent
             if (oldRibbonControl!=null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
-                if (parent == quickAccessMenuItem)
+                if (ReferenceEquals(parent, quickAccessMenuItem))
                 {
                     quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
                 }

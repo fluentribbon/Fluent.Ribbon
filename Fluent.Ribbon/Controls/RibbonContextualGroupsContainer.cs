@@ -7,6 +7,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents contextual groups container
@@ -75,7 +76,7 @@ namespace Fluent
 
                     foreach (var item in visibleItems)
                     {
-                        if (item.DesiredWidth == 0)
+                        if (DoubleUtil.AreClose(item.DesiredWidth, 0))
                         {
                             item.DesiredWidth = item.DesiredSize.Width + delta;
                             item.Measure(new Size(item.DesiredWidth, item.DesiredSize.Height));

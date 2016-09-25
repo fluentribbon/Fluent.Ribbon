@@ -128,8 +128,7 @@
                                               SnapsToDevicePixels="True"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                                    <StackPanel x:Name="PART_MenuPanel"
-                                                Orientation="Vertical"
+                                    <StackPanel Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Local" />
                                 </ScrollViewer>

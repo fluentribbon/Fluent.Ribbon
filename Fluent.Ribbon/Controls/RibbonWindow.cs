@@ -25,9 +25,11 @@ namespace Fluent
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
     public class RibbonWindow : Window
     {
-        private const string PART_Icon = "PART_Icon";
+        // ReSharper disable InconsistentNaming
+        private const string PART_Icon = "PART_Icon";        
         private const string PART_ContentPresenter = "PART_ContentPresenter";
         private const string PART_WindowCommands = "PART_WindowCommands";
+        // ReSharper restore InconsistentNaming
 
         private FrameworkElement iconImage;
 

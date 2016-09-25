@@ -1,4 +1,5 @@
-﻿namespace Fluent.Metro.Native
+﻿// ReSharper disable InconsistentNaming
+namespace Fluent.Metro.Native
 {
 #pragma warning disable 1591
 #pragma warning disable 3003

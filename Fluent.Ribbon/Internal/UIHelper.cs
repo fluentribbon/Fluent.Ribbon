@@ -10,6 +10,7 @@
     /// <summary>
     /// Class with helper functions for UI related stuff
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     internal static class UIHelper
     {
         /// <summary>
@@ -125,14 +126,16 @@
                 throw new ArgumentNullException(nameof(visual));
             }
 
-            if (visual is AdornerDecorator)
+            var decorator = visual as AdornerDecorator;
+            if (decorator != null)
             {
-                return ((AdornerDecorator)visual).AdornerLayer;
+                return decorator.AdornerLayer;
             }
 
-            if (visual is ScrollContentPresenter)
+            var scrollContentPresenter = visual as ScrollContentPresenter;
+            if (scrollContentPresenter != null)
             {
-                return ((ScrollContentPresenter)visual).AdornerLayer;
+                return scrollContentPresenter.AdornerLayer;
             }
 
             return AdornerLayer.GetAdornerLayer(visual);

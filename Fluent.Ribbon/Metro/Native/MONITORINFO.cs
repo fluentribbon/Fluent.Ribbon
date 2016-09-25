@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
 
 namespace Fluent.Metro.Native
 {

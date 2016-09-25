@@ -112,9 +112,9 @@
         }
 
         // ReSharper disable once ReturnTypeCanBeEnumerable.Local
-        private static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
+        private static IList<Type> GetTypesInNamespace(Assembly assembly, string nameSpace)
         {
-            return assembly.GetTypes().Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
+            return assembly.GetTypes().Where(t => string.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToList();
         }
     }
 }

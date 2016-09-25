@@ -21,7 +21,6 @@ namespace Fluent
     [ContentProperty(nameof(Items))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
@@ -34,8 +33,6 @@ namespace Fluent
 
         // Thumb to resize vertical
         private Thumb resizeVerticalThumb;
-
-        private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -145,7 +142,24 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null, OnIconChanged));
+
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var element = (DropDownButton)d;
+
+            var oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            var newElement = e.NewValue as FrameworkElement;
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
+        }
 
         #endregion
 
@@ -436,8 +450,6 @@ namespace Fluent
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
 
             this.resizeBothThumb = this.Template.FindName("PART_ResizeBothThumb", this) as Thumb;
-
-            this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as Panel;
 
             this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
 

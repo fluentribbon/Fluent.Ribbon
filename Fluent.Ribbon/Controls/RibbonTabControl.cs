@@ -687,7 +687,7 @@ namespace Fluent
                 ribbonTabItem.IsHitTestVisible = true;
             }
 
-            if (Mouse.Captured == this)
+            if (ReferenceEquals(Mouse.Captured, this))
             {
                 Mouse.Capture(null);
             }
