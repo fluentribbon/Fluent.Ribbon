@@ -8,7 +8,7 @@ namespace Fluent
     /// <summary>
     /// Represent logical container for toolbar items
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Items))]
     public class RibbonToolBarControlGroup : ItemsControl
     {
         #region Properties

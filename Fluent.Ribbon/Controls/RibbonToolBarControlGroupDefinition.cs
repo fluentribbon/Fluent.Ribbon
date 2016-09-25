@@ -9,7 +9,7 @@ namespace Fluent
     /// <summary>
     /// Represent logical container for toolbar items
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Children))]
     public class RibbonToolBarControlGroupDefinition : DependencyObject
     {
         #region Events

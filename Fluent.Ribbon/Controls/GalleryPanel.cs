@@ -152,7 +152,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register(nameof(GroupHeaderStyle), typeof(Style),
+            DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
             typeof(GalleryPanel), new UIPropertyMetadata(null));
 
         #endregion

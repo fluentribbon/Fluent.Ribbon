@@ -281,7 +281,7 @@
         ///     etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register(nameof(InitialDropDownHeight), typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
 
         #endregion
 
@@ -305,14 +305,24 @@
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var combo = d as ComboBox;
-            if (!combo.isQuickAccessOpened && !combo.isQuickAccessFocused && (combo.quickAccessCombo != null)) combo.UpdateQuickAccessCombo();
+            var combo = (ComboBox)d;
+            if (combo.isQuickAccessOpened == false
+                && combo.isQuickAccessFocused == false
+                && combo.quickAccessCombo != null)
+            {
+                combo.UpdateQuickAccessCombo();
+            }
         }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            var combo = d as ComboBox;
-            if (combo.isQuickAccessOpened || combo.isQuickAccessFocused) return combo.selectedItem;
+            var combo = (ComboBox)d;
+            if (combo.isQuickAccessOpened
+                || combo.isQuickAccessFocused)
+            {
+                return combo.selectedItem;
+            }
+
             return basevalue;
         }
 

@@ -7,7 +7,7 @@ namespace Fluent
     /// <summary>
     /// Represents group separator menu item
     /// </summary>
-    [ContentProperty("Header")]
+    [ContentProperty(nameof(Header))]
     public class GroupSeparatorMenuItem : MenuItem
     {
         [SuppressMessage("Microsoft.Performance", "CA1810")]

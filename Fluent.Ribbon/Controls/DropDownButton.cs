@@ -17,7 +17,7 @@
     /// <summary>
     /// Represents drop down button
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]

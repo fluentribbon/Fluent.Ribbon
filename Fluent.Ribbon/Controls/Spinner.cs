@@ -17,7 +17,7 @@
     /// <summary>
     /// Represents spinner control
     /// </summary>
-    [ContentProperty("Value")]
+    [ContentProperty(nameof(Value))]
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]

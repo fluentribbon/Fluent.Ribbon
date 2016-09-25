@@ -24,7 +24,7 @@ namespace Fluent
     /// containing groups of controls.  The Ribbon also provides improved context
     /// menus, enhanced screen tips, and keyboard shortcuts.
     /// </summary>
-    [ContentProperty("Tabs")]
+    [ContentProperty(nameof(Tabs))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control

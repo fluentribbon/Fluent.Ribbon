@@ -881,7 +881,7 @@
             }
 
             var formatted = string.Format(format, args);
-            Debug.WriteLine($"{$"[{name}] "}{formatted}", "KeyTipAdorner");
+            Debug.WriteLine($"[{name}] {formatted}", "KeyTipAdorner");
         }
 
         #endregion

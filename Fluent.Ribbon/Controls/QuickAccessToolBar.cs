@@ -19,7 +19,7 @@
     [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
-    [ContentProperty("QuickAccessItems")]
+    [ContentProperty(nameof(QuickAccessItems))]
     public class QuickAccessToolBar : Control
     {
         #region Events

@@ -18,7 +18,7 @@ namespace Fluent
     /// <summary>
     /// Represents menu item
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl
     {
         #region Fields

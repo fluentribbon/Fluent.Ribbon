@@ -9,7 +9,7 @@ namespace Fluent
     /// <summary>
     /// Represents size definition for group box
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Children))]
     [SuppressMessage("Microsoft.Naming", "CA1702", Justification = "We mean here 'bar row' instead of 'barrow'")]
     public class RibbonToolBarRow : DependencyObject
     {

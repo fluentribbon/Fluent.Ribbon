@@ -8,7 +8,7 @@ namespace Fluent
     /// <summary>
     /// Represents Fluent UI specific RadioButton
     /// </summary>
-    [ContentProperty("Header")]
+    [ContentProperty(nameof(Header))]
     public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties

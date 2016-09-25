@@ -32,7 +32,7 @@ namespace Fluent
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
-    [ContentProperty("Target")]
+    [ContentProperty(nameof(Target))]
     public class QuickAccessMenuItem : MenuItem
     {
         #region Fields

@@ -26,7 +26,7 @@
     /// a default subset of items directly in the Ribbon. Any remaining items 
     /// are displayed when a drop-down menu button is clicked
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
     {

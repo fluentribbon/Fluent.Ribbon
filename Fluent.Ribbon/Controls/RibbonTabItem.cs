@@ -20,9 +20,8 @@ namespace Fluent
     /// Represents ribbon tab item
     /// </summary>
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
-    [ContentProperty("Groups")]
-    [DefaultProperty("Groups")]
-    [DefaultEvent("IsSelectedChanged")]
+    [ContentProperty(nameof(Groups))]
+    [DefaultProperty(nameof(Groups))]
     public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl
     {
         #region Fields

@@ -10,7 +10,7 @@ namespace Fluent
     /// <summary>
     /// Represents menu in combo box and gallery
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     public class RibbonMenu : MenuBase
     {
         #region Constructors

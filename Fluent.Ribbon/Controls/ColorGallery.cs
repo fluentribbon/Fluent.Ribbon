@@ -115,7 +115,7 @@
     /// <summary>
     /// Represents color gallery
     /// </summary>
-    [ContentProperty("ThemeColors")]
+    [ContentProperty(nameof(ThemeColors))]
     public class ColorGallery : Control
     {
         #region Constants

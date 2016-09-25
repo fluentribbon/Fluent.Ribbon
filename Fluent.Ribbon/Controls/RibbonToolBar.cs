@@ -18,7 +18,7 @@ namespace Fluent
     /// <summary>
     /// Represent panel for group box panel
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Children))]
     public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink
     {
         #region Fields
@@ -85,13 +85,18 @@ namespace Fluent
         {
             get
             {
-                if (this.LayoutDefinitions.Count == 0) return this.Children.Count;
+                if (this.LayoutDefinitions.Count == 0)
+                {
+                    return this.Children.Count;
+                }
+
                 if (this.rebuildVisualAndLogicalChildren)
                 {
                     //TODO: Exception during theme changing
                     // UpdateLayout();
                     this.InvalidateMeasure();
                 }
+
                 return this.actualChildren.Count;
             }
         }
@@ -106,12 +111,17 @@ namespace Fluent
         /// if the provided index is out of range, an exception is thrown</returns>
         protected override Visual GetVisualChild(int index)
         {
-            if (this.LayoutDefinitions.Count == 0) return this.Children[index];
+            if (this.LayoutDefinitions.Count == 0)
+            {
+                return this.Children[index];
+            }
+
             if (this.rebuildVisualAndLogicalChildren)
             {
                 // UpdateLayout();
                 this.InvalidateMeasure();
             }
+
             return this.actualChildren[index];
         }
 
@@ -174,12 +184,22 @@ namespace Fluent
         /// <returns>Layout definition or null</returns>
         internal RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
         {
-            if (this.LayoutDefinitions.Count == 0) return null;
-            if (this.LayoutDefinitions.Count == 1) return this.LayoutDefinitions[0];
+            if (this.LayoutDefinitions.Count == 0)
+            {
+                return null;
+            }
+
+            if (this.LayoutDefinitions.Count == 1)
+            {
+                return this.LayoutDefinitions[0];
+            }
 
             foreach (var definition in this.LayoutDefinitions)
             {
-                if (RibbonProperties.GetSize(definition) == RibbonProperties.GetSize(this)) return definition;
+                if (RibbonProperties.GetSize(definition) == RibbonProperties.GetSize(this))
+                {
+                    return definition;
+                }
             }
 
             // TODO: try to find a better definition
@@ -230,10 +250,12 @@ namespace Fluent
                 foreach (var child in this.actualChildren)
                 {
                     var controlGroup = child as RibbonToolBarControlGroup;
-                    if (controlGroup != null) controlGroup.Items.Clear();
+                    controlGroup?.Items.Clear();
+
                     this.RemoveVisualChild(child);
                     this.RemoveLogicalChild(child);
                 }
+
                 this.actualChildren.Clear();
                 this.cachedControlGroups.Clear();
             }
@@ -249,8 +271,10 @@ namespace Fluent
                         this.AddVisualChild(child);
                         this.AddLogicalChild(child);
                     }
+
                     this.rebuildVisualAndLogicalChildren = false;
                 }
+
                 return this.WrapPanelLayuot(availableSize, true);
             }
             else
@@ -259,8 +283,6 @@ namespace Fluent
                 this.rebuildVisualAndLogicalChildren = false;
                 return result;
             }
-
-
         }
 
         /// <summary>
@@ -273,10 +295,14 @@ namespace Fluent
         protected override Size ArrangeOverride(Size finalSize)
         {
             var layoutDefinition = this.GetCurrentLayoutDefinition();
-            if (layoutDefinition == null) return this.WrapPanelLayuot(finalSize, false);
+
+            if (layoutDefinition == null)
+            {
+                return this.WrapPanelLayuot(finalSize, false);
+            }
+
             return this.CustomLayout(layoutDefinition, finalSize, false, false);
         }
-
 
         #region Wrap Panel Layout
 
@@ -289,7 +315,9 @@ namespace Fluent
         private Size WrapPanelLayuot(Size availableSize, bool measure)
         {
             var arrange = !measure;
-            var availableHeight = double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
+            var availableHeight = double.IsPositiveInfinity(availableSize.Height) 
+                ? 0 
+                : availableSize.Height;
 
             double currentheight = 0;
             double columnWidth = 0;
@@ -298,10 +326,14 @@ namespace Fluent
             double resultHeight = 0;
 
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+
             foreach (var child in this.Children)
             {
                 // Measuring
-                if (measure) child.Measure(infinity);
+                if (measure)
+                {
+                    child.Measure(infinity);
+                }
 
                 if (currentheight + child.DesiredSize.Height > availableHeight)
                 {
@@ -313,11 +345,10 @@ namespace Fluent
                 }
 
                 // Arranging
-                if (arrange) child.Arrange(new Rect(
-                    resultWidth,
-                    currentheight,
-                    child.DesiredSize.Width,
-                    child.DesiredSize.Height));
+                if (arrange)
+                {
+                    child.Arrange(new Rect(resultWidth, currentheight, child.DesiredSize.Width, child.DesiredSize.Height));
+                }
 
                 columnWidth = Math.Max(columnWidth, child.DesiredSize.Width);
                 currentheight += child.DesiredSize.Height;
@@ -340,17 +371,22 @@ namespace Fluent
 
         private RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
         {
-            RibbonToolBarControlGroup controlGroup = null;
-            if (!this.cachedControlGroups.TryGetValue(controlGroupDefinition, out controlGroup))
+            RibbonToolBarControlGroup controlGroup;
+
+            if (this.cachedControlGroups.TryGetValue(controlGroupDefinition, out controlGroup))
             {
-                controlGroup = new RibbonToolBarControlGroup();
-                // Add items to the group
-                foreach (var child in controlGroupDefinition.Children)
-                {
-                    controlGroup.Items.Add(this.GetControl(child));
-                }
-                this.cachedControlGroups.Add(controlGroupDefinition, controlGroup);
+                return controlGroup;
             }
+
+            controlGroup = new RibbonToolBarControlGroup();
+
+            // Add items to the group
+            foreach (var child in controlGroupDefinition.Children)
+            {
+                controlGroup.Items.Add(this.GetControl(child));
+            }
+
+            this.cachedControlGroups.Add(controlGroupDefinition, controlGroup);
             return controlGroup;
         }
 
@@ -372,30 +408,33 @@ namespace Fluent
         private Size CustomLayout(RibbonToolBarLayoutDefinition layoutDefinition, Size availableSize, bool measure, bool addchildren)
         {
             var arrange = !measure;
-            var availableHeight = double.IsPositiveInfinity(availableSize.Height) ? 0 : availableSize.Height;
+            var availableHeight = double.IsPositiveInfinity(availableSize.Height) 
+                ? 0 
+                : availableSize.Height;
 
             // Clear separator cahce
             if (addchildren)
+            {
                 this.separatorCache.Clear();
+            }
 
             // Get the first control and measure, its height accepts as row height
             var rowHeight = this.GetRowHeight(layoutDefinition);
-
 
             // Calculate whitespace
             var rowCountInColumn = Math.Min(layoutDefinition.RowCount, layoutDefinition.Rows.Count);
             var whitespace = (availableHeight - rowCountInColumn * rowHeight) / (rowCountInColumn + 1);
 
             double y = 0;
-            double x = 0;
             double currentRowBegin = 0;
             double currentMaxX = 0;
             double maxy = 0;
+
             for (var rowIndex = 0; rowIndex < layoutDefinition.Rows.Count; rowIndex++)
             {
                 var row = layoutDefinition.Rows[rowIndex];
 
-                x = currentRowBegin;
+                var x = currentRowBegin;
 
                 if (rowIndex % rowCountInColumn == 0)
                 {
@@ -435,19 +474,22 @@ namespace Fluent
                         #endregion
                     }
                 }
-                y += whitespace;
 
+                y += whitespace;
 
                 // Measure & arrange new row
                 for (var i = 0; i < row.Children.Count; i++)
                 {
-                    if (row.Children[i] is RibbonToolBarControlDefinition)
+                    // Control Definition Case
+                    var ribbonToolBarControlDefinition = row.Children[i] as RibbonToolBarControlDefinition;
+                    if (ribbonToolBarControlDefinition != null)
                     {
-                        // Control Definition Case
-                        var controlDefinition =
-                            (RibbonToolBarControlDefinition)row.Children[i];
-                        var control = this.GetControl(controlDefinition);
-                        if (control == null) continue;
+                        var control = this.GetControl(ribbonToolBarControlDefinition);
+
+                        if (control == null)
+                        {
+                            continue;
+                        }
 
                         if (addchildren)
                         {
@@ -460,26 +502,24 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            RibbonProperties.SetSize(control, RibbonProperties.GetSize(controlDefinition));
-                            control.Width = controlDefinition.Width;
+                            RibbonProperties.SetSize(control, RibbonProperties.GetSize(ribbonToolBarControlDefinition));
+                            control.Width = ribbonToolBarControlDefinition.Width;
                             control.Measure(availableSize);
                         }
+
                         if (arrange)
                         {
-                            control.Arrange(new Rect(x, y,
-                                control.DesiredSize.Width,
-                                control.DesiredSize.Height));
+                            control.Arrange(new Rect(x, y, control.DesiredSize.Width, control.DesiredSize.Height));
                         }
 
                         x += control.DesiredSize.Width;
                     }
-                    if (row.Children[i] is RibbonToolBarControlGroupDefinition)
-                    {
-                        // Control Definition Case
-                        var controlGroupDefinition =
-                            (RibbonToolBarControlGroupDefinition)row.Children[i];
 
-                        var control = this.GetControlGroup(controlGroupDefinition);
+                    // Control Group Definition Case
+                    var ribbonToolBarControlGroupDefinition = row.Children[i] as RibbonToolBarControlGroupDefinition;
+                    if (ribbonToolBarControlGroupDefinition != null)
+                    {
+                        var control = this.GetControlGroup(ribbonToolBarControlGroupDefinition);
 
                         if (addchildren)
                         {
@@ -496,11 +536,10 @@ namespace Fluent
                             control.IsLastInRow = i == row.Children.Count - 1;
                             control.Measure(availableSize);
                         }
+
                         if (arrange)
                         {
-                            control.Arrange(new Rect(x, y,
-                                control.DesiredSize.Width,
-                                control.DesiredSize.Height));
+                            control.Arrange(new Rect(x, y, control.DesiredSize.Width, control.DesiredSize.Height));
                         }
 
                         x += control.DesiredSize.Width;
@@ -508,8 +547,16 @@ namespace Fluent
                 }
 
                 y += rowHeight;
-                if (currentMaxX < x) currentMaxX = x;
-                if (maxy < y) maxy = y;
+
+                if (currentMaxX < x)
+                {
+                    currentMaxX = x;
+                }
+
+                if (maxy < y)
+                {
+                    maxy = y;
+                }
             }
 
             return new Size(currentMaxX, maxy + whitespace);
@@ -519,6 +566,7 @@ namespace Fluent
         private double GetRowHeight(RibbonToolBarLayoutDefinition layoutDefinition)
         {
             const double defaultRowHeight = 0;
+
             foreach (var row in layoutDefinition.Rows)
             {
                 foreach (var item in row.Children)
@@ -526,15 +574,27 @@ namespace Fluent
                     var controlDefinition = item as RibbonToolBarControlDefinition;
                     var controlGroupDefinition = item as RibbonToolBarControlGroupDefinition;
                     FrameworkElement control = null;
-                    if (controlDefinition != null) control = this.GetControl(controlDefinition);
-                    else if (controlGroupDefinition != null)
-                        control = this.GetControlGroup(controlGroupDefinition);
 
-                    if (control == null) return defaultRowHeight;
+                    if (controlDefinition != null)
+                    {
+                        control = this.GetControl(controlDefinition);
+                    }
+                    else if (controlGroupDefinition != null)
+                    {
+                        control = this.GetControlGroup(controlGroupDefinition);
+                    }
+
+                    if (control == null)
+                    {
+                        return defaultRowHeight;
+                    }
+
                     control.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
                     return control.DesiredSize.Height;
                 }
             }
+
             return defaultRowHeight;
         }
 

@@ -15,7 +15,7 @@ namespace Fluent
     /// Represents gallery control. 
     /// Usually a gallery is hosted in context menu
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     public class Gallery : ListBox
     {
         #region Fields

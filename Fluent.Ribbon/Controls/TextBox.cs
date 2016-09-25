@@ -17,7 +17,7 @@ namespace Fluent
     /// Represents custom Fluent UI TextBox
     /// </summary>
     [TemplatePart(Name = "PART_TextBox")]
-    [ContentProperty("Text")]
+    [ContentProperty(nameof(Text))]
     public class TextBox : RibbonControl
     {
         #region Events
