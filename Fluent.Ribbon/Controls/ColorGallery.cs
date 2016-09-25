@@ -218,11 +218,7 @@ namespace Fluent
         /// </summary>
         public static ObservableCollection<Color> RecentColors
         {
-            get
-            {
-                if (recentColors == null) recentColors = new ObservableCollection<Color>();
-                return recentColors;
-            }
+            get { return recentColors ?? (recentColors = new ObservableCollection<Color>()); }
         }
 
         #endregion
@@ -546,20 +542,20 @@ namespace Fluent
             }
 
             // Remove selection from others
-            for (var i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
                 if (isSetted == false
-                    && this.listBoxes[i].Visibility == Visibility.Visible)
+                    && listBox.Visibility == Visibility.Visible)
                 {
-                    if (this.listBoxes[i].Items.Contains(color.Value))
+                    if (listBox.Items.Contains(color.Value))
                     {
-                        this.listBoxes[i].SelectedItem = color.Value;
+                        listBox.SelectedItem = color.Value;
                         isSetted = true;
                     }
                 }
                 else
                 {
-                    this.listBoxes[i].SelectedItem = null;
+                    listBox.SelectedItem = null;
                 }
             }
 
@@ -639,7 +635,7 @@ namespace Fluent
 
         // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly("ThemeGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -661,7 +657,7 @@ namespace Fluent
 
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly("StandardGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -851,9 +847,9 @@ namespace Fluent
             this.noColorButton.IsChecked = false;
             this.automaticButton.IsChecked = true;
             // Remove selection from listboxes
-            for (var i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
-                this.listBoxes[i].SelectedItem = null;
+                listBox.SelectedItem = null;
             }
 
             this.SelectedColor = null;
@@ -915,7 +911,9 @@ namespace Fluent
                     this.ThemeGradients = this.GenerateThemeGradients();
                 }
                 else
+                {
                     this.ThemeGradients = null;
+                }
 
                 if (this.StandardColorGridRows > 0)
                 {

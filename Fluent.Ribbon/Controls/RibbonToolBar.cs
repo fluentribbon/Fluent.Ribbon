@@ -450,8 +450,10 @@ namespace Fluent
                         Separator separator;
                         if (!this.separatorCache.TryGetValue(rowIndex, out separator))
                         {
-                            separator = new Separator();
-                            separator.Style = this.SeparatorStyle;
+                            separator = new Separator
+                                        {
+                                            Style = this.SeparatorStyle
+                                        };
                             this.separatorCache.Add(rowIndex, separator);
                         }
                         if (measure)

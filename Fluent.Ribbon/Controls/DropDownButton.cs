@@ -629,8 +629,7 @@ namespace Fluent
         {
             this.IsDropDownOpen = true;
 
-            if (this.DropDownPopup != null
-                && this.DropDownPopup.Child != null)
+            if (this.DropDownPopup?.Child != null)
             {
                 Keyboard.Focus(this.DropDownPopup.Child);
                 this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -743,19 +742,13 @@ namespace Fluent
         // Handles drop down closed
         private void OnDropDownClosed()
         {
-            if (this.DropDownClosed != null)
-            {
-                this.DropDownClosed(this, EventArgs.Empty);
-            }
+            this.DropDownClosed?.Invoke(this, EventArgs.Empty);
         }
 
         // Handles drop down opened
         private void OnDropDownOpened()
         {
-            if (this.DropDownOpened != null)
-            {
-                this.DropDownOpened(this, EventArgs.Empty);
-            }
+            this.DropDownOpened?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

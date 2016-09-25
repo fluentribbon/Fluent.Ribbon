@@ -339,10 +339,7 @@ namespace Fluent
                                                          .OfType<RibbonTitleBar>()
                                                          .FirstOrDefault();
 
-            if (ribbonTitleBar != null)
-            {
-                ribbonTitleBar.InvalidateMeasure();
-            }
+            ribbonTitleBar?.InvalidateMeasure();
 
             return finalSize;
         }

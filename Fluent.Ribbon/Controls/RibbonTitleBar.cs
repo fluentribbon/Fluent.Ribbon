@@ -245,8 +245,7 @@ namespace Fluent
             {
                 var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
 
-                if (firstVisibleItem != null
-                    && firstVisibleItem.Parent != null)
+                if (firstVisibleItem?.Parent != null)
                 {
                     canRibbonTabControlScroll = ((RibbonTabControl)firstVisibleItem.Parent).CanScroll;
                 }

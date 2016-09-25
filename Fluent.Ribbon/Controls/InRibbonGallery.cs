@@ -446,7 +446,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterTitle", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterTitle. 
@@ -464,7 +464,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterGroups", typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string), typeof(InRibbonGallery), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterGroups. 
@@ -481,7 +481,7 @@ namespace Fluent
             private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly("HasFilter", typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
+        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  

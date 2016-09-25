@@ -101,15 +101,13 @@ namespace Fluent
         // Raises checked event
         private void RaiseChecked()
         {
-            if (this.Checked != null)
-                this.Checked(this, new RoutedEventArgs());
+            this.Checked?.Invoke(this, new RoutedEventArgs());
         }
 
         // Raises unchecked event
         private void RaiseUnchecked()
         {
-            if (this.Unchecked != null)
-                this.Unchecked(this, new RoutedEventArgs());
+            this.Unchecked?.Invoke(this, new RoutedEventArgs());
         }
 
         #endregion

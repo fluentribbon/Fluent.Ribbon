@@ -195,26 +195,26 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                {
+                    foreach (var newItem in e.NewItems)
                     {
-                        for (var i = 0; i < e.NewItems.Count; i++)
-                        {
-                            var container = this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]);
-                            var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
-                            var item = container as StatusBarItem;
+                        var container = this.ItemContainerGenerator.ContainerFromItem(newItem);
+                        var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
+                        var item = container as StatusBarItem;
 
-                            if (item != null)
-                            {
-                                item.Checked += this.OnItemChecked;
-                                item.Unchecked += this.OnItemUnchecked;
-                                this.contextMenu.Items.Insert(containerIndex, new StatusBarMenuItem(item));
-                            }
-                            else
-                            {
-                                this.contextMenu.Items.Insert(containerIndex, new Separator());
-                            }
+                        if (item != null)
+                        {
+                            item.Checked += this.OnItemChecked;
+                            item.Unchecked += this.OnItemUnchecked;
+                            this.contextMenu.Items.Insert(containerIndex, new StatusBarMenuItem(item));
                         }
-                        break;
+                        else
+                        {
+                            this.contextMenu.Items.Insert(containerIndex, new Separator());
+                        }
                     }
+                    break;
+                }
 
                 case NotifyCollectionChangedAction.Move:
                     {
@@ -327,10 +327,10 @@ namespace Fluent
             var isPrevSeparator = false;
             var isFirstVsible = true;
 
-            for (var i = 0; i < this.Items.Count; i++)
+            foreach (var item in this.Items)
             {
-                var item = this.ItemContainerGenerator.ContainerFromItem(this.Items[i]);
-                var separator = item as Separator;
+                var containerFromItem = this.ItemContainerGenerator.ContainerFromItem(item);
+                var separator = containerFromItem as Separator;
 
                 if (separator != null)
                 {
@@ -346,9 +346,9 @@ namespace Fluent
                     isPrevSeparator = true;
                     isFirstVsible = false;
                 }
-                else if (item is StatusBarItem)
+                else if (containerFromItem is StatusBarItem)
                 {
-                    if ((item as StatusBarItem).Visibility == Visibility.Visible)
+                    if ((containerFromItem as StatusBarItem).Visibility == Visibility.Visible)
                     {
                         isPrevSeparator = false;
                         isFirstVsible = false;

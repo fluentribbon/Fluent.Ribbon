@@ -156,7 +156,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsContextualPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(IsContextual), typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsContextual.  

@@ -82,7 +82,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
-            DependencyProperty.RegisterReadOnly("InnerVisibility", typeof(Visibility), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(Visibility.Visible));
+            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(Visibility.Visible));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...

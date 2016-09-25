@@ -93,7 +93,7 @@ namespace Fluent
         }
 
         // DependencyProperty key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
@@ -789,12 +789,7 @@ namespace Fluent
         /// </summary>
         public void RaiseRequestBackstageClose()
         {
-            var handler = this.RequestBackstageClose;
-
-            if (handler != null)
-            {
-                handler(this, null);
-            }
+            this.RequestBackstageClose?.Invoke(this, null);
         }
 
         #endregion

@@ -50,8 +50,7 @@ namespace Fluent
 
         private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.ChildrenChanged != null)
-                this.ChildrenChanged(sender, e);
+            this.ChildrenChanged?.Invoke(sender, e);
         }
 
         #endregion

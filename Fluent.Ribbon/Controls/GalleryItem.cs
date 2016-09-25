@@ -48,7 +48,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsPressed", typeof(bool),
+            DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
             typeof(GalleryItem), new UIPropertyMetadata(false));
 
         /// <summary>

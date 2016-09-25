@@ -451,7 +451,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
-            DependencyProperty.RegisterReadOnly("LauncherButton", typeof(Button), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(LauncherButton), typeof(Button), typeof(RibbonGroupBox), new UIPropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...

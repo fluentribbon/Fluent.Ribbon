@@ -63,12 +63,7 @@ namespace Fluent
         {
             var sink = d as IRibbonSizeChangedSink;
 
-            if (sink == null)
-            {
-                return;
-            }
-
-            sink.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
+            sink?.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
         }
 
         /// <summary>

@@ -148,7 +148,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
-            DependencyProperty.RegisterReadOnly("HasOverflowItems", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...

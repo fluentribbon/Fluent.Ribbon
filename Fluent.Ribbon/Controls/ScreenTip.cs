@@ -383,10 +383,7 @@ namespace Fluent
 
             e.Handled = true;
 
-            if (HelpPressed != null)
-            {
-                HelpPressed(null, new ScreenTipHelpEventArgs(this.HelpTopic));
-            }
+            HelpPressed?.Invoke(null, new ScreenTipHelpEventArgs(this.HelpTopic));
         }
 
         #endregion

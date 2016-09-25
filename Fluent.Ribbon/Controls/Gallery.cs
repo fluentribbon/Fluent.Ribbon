@@ -180,10 +180,17 @@ namespace Fluent
                         if (this.groupsMenuButton != null)
                         {
                             var filter = (GalleryGroupFilter)e.NewItems[i];
-                            var menuItem = new MenuItem();
-                            menuItem.Header = filter.Title;
-                            menuItem.Tag = filter;
-                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            var menuItem = new MenuItem
+                                           {
+                                               Header = filter.Title,
+                                               Tag = filter
+                                           };
+
+                            if (ReferenceEquals(filter, this.SelectedFilter))
+                            {
+                                menuItem.IsChecked = true;
+                            }
+
                             menuItem.Click += this.OnFilterMenuItemClick;
                             this.groupsMenuButton.Items.Insert(e.NewStartingIndex + i, menuItem);
                         }
@@ -212,10 +219,17 @@ namespace Fluent
                         if (this.groupsMenuButton != null)
                         {
                             var filter = item;
-                            var menuItem = new MenuItem();
-                            menuItem.Header = filter.Title;
-                            menuItem.Tag = filter;
-                            if (filter == this.SelectedFilter) menuItem.IsChecked = true;
+                            var menuItem = new MenuItem
+                                           {
+                                               Header = filter.Title,
+                                               Tag = filter
+                                           };
+
+                            if (ReferenceEquals(filter, this.SelectedFilter))
+                            {
+                                menuItem.IsChecked = true;
+                            }
+
                             menuItem.Click += this.OnFilterMenuItemClick;
                             this.groupsMenuButton.Items.Add(menuItem);
                         }
@@ -245,7 +259,12 @@ namespace Fluent
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
         {
             var gallery = (Gallery)d;
-            if ((basevalue == null) && (gallery.Filters.Count > 0)) return gallery.Filters[0];
+            if (basevalue == null
+                && gallery.Filters.Count > 0)
+            {
+                return gallery.Filters[0];
+            }
+
             return basevalue;
         }
 
@@ -264,6 +283,7 @@ namespace Fluent
                 gallery.SelectedFilterTitle = "";
                 gallery.SelectedFilterGroups = null;
             }
+
             gallery.UpdateLayout();
         }
 
@@ -277,7 +297,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterTitle", typeof(string),
+            DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string),
             typeof(Gallery), new UIPropertyMetadata(null));
 
         /// <summary>
@@ -296,7 +316,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
-            DependencyProperty.RegisterReadOnly("SelectedFilterGroups", typeof(string),
+            DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string),
             typeof(Gallery), new UIPropertyMetadata(null));
 
         /// <summary>
@@ -314,7 +334,7 @@ namespace Fluent
             private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly("HasFilter", typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
+        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  
@@ -386,7 +406,7 @@ namespace Fluent
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly("IsLastItem", typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
+        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>
