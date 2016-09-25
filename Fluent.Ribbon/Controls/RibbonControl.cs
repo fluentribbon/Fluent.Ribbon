@@ -496,8 +496,7 @@ namespace Fluent
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
@@ -521,8 +520,8 @@ namespace Fluent
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();

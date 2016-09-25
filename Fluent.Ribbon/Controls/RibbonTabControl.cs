@@ -731,9 +731,7 @@ namespace Fluent
                 bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
             };
 
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor == IntPtr.Zero)
             {
                 return null;

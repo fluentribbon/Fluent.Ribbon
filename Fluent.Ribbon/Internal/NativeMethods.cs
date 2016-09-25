@@ -31,7 +31,7 @@ namespace Fluent
         /// If the rectangle does not intersect a display monitor, the return value depends on the value of dwFlags.
         /// </returns>
         [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, uint dwFlags);
+        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, MONITORINFO.MonitorOptions dwFlags);
 
         /// <summary>
         /// Loads an icon, cursor, animated cursor, or bitmap.
