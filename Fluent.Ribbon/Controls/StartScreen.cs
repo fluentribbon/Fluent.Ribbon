@@ -34,7 +34,7 @@
         /// </summary>
         protected override bool Show()
         {
-            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            var parentRibbon = GetParentRibbon(this);
 
             if (parentRibbon?.TitleBar != null)
             {
@@ -57,7 +57,7 @@
         {
             base.Hide();
 
-            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            var parentRibbon = GetParentRibbon(this);
             if (parentRibbon?.TitleBar != null)
             {
                 parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;

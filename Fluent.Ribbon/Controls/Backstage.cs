@@ -285,7 +285,7 @@ namespace Fluent
 
             this.ShowAdorner();
 
-            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            var parentRibbon = GetParentRibbon(this);
             if (parentRibbon != null)
             {
                 parentRibbon.TabControl.IsDropDownOpen = false;
@@ -462,7 +462,7 @@ namespace Fluent
 
             this.HideAdorner();
 
-            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            var parentRibbon = GetParentRibbon(this);
             if (parentRibbon != null)
             {
                 parentRibbon.TabControl.HighlightSelectedItem = true;
