@@ -35,10 +35,25 @@ namespace Fluent
 
         #region Properties
 
+        #region TitelBar
+
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>
-        public RibbonTitleBar TitleBar { get; private set; }
+        public RibbonTitleBar TitleBar
+        {
+            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            private set { this.SetValue(titleBarPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey titleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(RibbonWindow), new PropertyMetadata());
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty = titleBarPropertyKey.DependencyProperty;
+
+        #endregion
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title.

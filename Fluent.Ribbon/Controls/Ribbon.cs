@@ -591,8 +591,10 @@ namespace Fluent
         /// </summary>
         internal RibbonTabControl TabControl { get; private set; }
 
+        #region TitelBar
+
         /// <summary>
-        /// Gets or sets the <see cref="RibbonTitleBar"/> which is used for displaying <see cref="QuickAccessToolBar"/> when <see cref="ShowQuickAccessToolBarAboveRibbon"/> is <c>true</c>.
+        /// Gets ribbon titlebar
         /// </summary>
         public RibbonTitleBar TitleBar
         {
@@ -603,8 +605,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
         /// </summary>
-        public static readonly DependencyProperty TitleBarProperty =
-            DependencyProperty.Register(nameof(TitleBar), typeof(RibbonTitleBar), typeof(Ribbon), new PropertyMetadata(OnTitleBarChanged));
+        public static readonly DependencyProperty TitleBarProperty = DependencyProperty.Register(nameof(TitleBar), typeof(RibbonTitleBar), typeof(Ribbon), new PropertyMetadata(OnTitleBarChanged));
 
         private static void OnTitleBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -639,6 +640,8 @@ namespace Fluent
                 }
             }
         }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets whether quick access toolbar showes above ribbon
