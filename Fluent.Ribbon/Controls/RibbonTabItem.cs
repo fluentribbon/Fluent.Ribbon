@@ -254,7 +254,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Group.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register(nameof(Group), typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new PropertyMetadata(null, OnGroupChanged));
+            DependencyProperty.Register(nameof(Group), typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new PropertyMetadata(OnGroupChanged));
 
         // handles Group property chanhged
         private static void OnGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -396,7 +396,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new PropertyMetadata(null, OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new PropertyMetadata(OnHeaderChanged));
 
         // Header changed handler
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -62,7 +62,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register(nameof(Menu), typeof(UIElement),
-            typeof(RibbonTabControl), new PropertyMetadata(null));
+            typeof(RibbonTabControl), new PropertyMetadata());
 
         #endregion
 
@@ -93,7 +93,7 @@ namespace Fluent
         }
 
         // DependencyProperty key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
@@ -203,7 +203,7 @@ namespace Fluent
 
         // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
         internal static readonly DependencyProperty SelectedTabItemProperty =
-            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(RibbonTabControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(RibbonTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Gets collection of ribbon toolbar items

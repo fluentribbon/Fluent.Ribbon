@@ -25,7 +25,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata());
 
         #endregion
 
@@ -46,7 +46,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
-            new PropertyMetadata(null, OnValueChanged));
+            new PropertyMetadata(OnValueChanged));
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -128,7 +128,7 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBarItem), new FrameworkPropertyMetadata(typeof(StatusBarItem)));
             VisibilityProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, CoerceVisibility));
-            ContentProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, OnContentChanged, CoerceContent));
+            ContentProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(OnContentChanged, CoerceContent));
         }
 
         // Content changing handler

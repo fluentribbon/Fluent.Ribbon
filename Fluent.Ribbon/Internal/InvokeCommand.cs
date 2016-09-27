@@ -20,13 +20,13 @@
         /// ICommand to execute
         /// </summary>
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(InvokeCommand), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(InvokeCommand), new PropertyMetadata());
 
         /// <summary>
         /// Command parameter to pass to command execution
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(InvokeCommand), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(InvokeCommand), new PropertyMetadata());
 
         /// <summary>
         /// Command to execute

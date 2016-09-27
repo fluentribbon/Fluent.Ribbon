@@ -102,7 +102,7 @@ namespace Fluent
             private set { this.SetValue(textPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata(null));
+        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.  

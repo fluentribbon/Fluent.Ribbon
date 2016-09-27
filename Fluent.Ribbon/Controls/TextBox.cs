@@ -94,8 +94,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextBox),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
-                null, null, true, UpdateSourceTrigger.LostFocus));
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null, null, true, UpdateSourceTrigger.LostFocus));
 
         #endregion
 
@@ -322,7 +321,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CaretBrushProperty =
             DependencyProperty.Register(nameof(CaretBrush), typeof(Brush), typeof(TextBox),
-            new PropertyMetadata(null));
+            new PropertyMetadata());
 
         #endregion
 

@@ -491,7 +491,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(null, OnSelectedColorChanged));
+            DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(OnSelectedColorChanged));
 
         // Handles selected color changed
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -602,7 +602,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorsSourceProperty =
-            DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(null, OnThemeColorsSourceChanged));
+            DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(OnThemeColorsSourceChanged));
 
         private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -635,7 +635,7 @@ namespace Fluent
 
         // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -657,7 +657,7 @@ namespace Fluent
 
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...

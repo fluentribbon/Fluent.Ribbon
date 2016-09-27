@@ -237,7 +237,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(MenuItem),
-            new PropertyMetadata(null, OnGroupNameChanged));
+            new PropertyMetadata(OnGroupNameChanged));
 
         // Group name changed
         private static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

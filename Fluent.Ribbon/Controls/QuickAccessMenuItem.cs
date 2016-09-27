@@ -79,7 +79,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register(nameof(Target), typeof(Control), typeof(QuickAccessMenuItem), new PropertyMetadata(null,OnTargetChanged));
+            DependencyProperty.Register(nameof(Target), typeof(Control), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

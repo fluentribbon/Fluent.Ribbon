@@ -20,7 +20,7 @@ namespace Fluent
           "Keys",
           typeof(string),
           typeof(KeyTip),
-          new PropertyMetadata(null, KeysPropertyChanged)
+          new PropertyMetadata(KeysPropertyChanged)
         );
 
         private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

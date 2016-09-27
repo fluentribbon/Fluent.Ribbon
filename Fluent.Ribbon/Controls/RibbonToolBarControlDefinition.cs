@@ -74,7 +74,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(string),
-            typeof(RibbonToolBarControlDefinition), new PropertyMetadata(null, OnTargetPropertyChanged));
+            typeof(RibbonToolBarControlDefinition), new PropertyMetadata(OnTargetPropertyChanged));
 
         private static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

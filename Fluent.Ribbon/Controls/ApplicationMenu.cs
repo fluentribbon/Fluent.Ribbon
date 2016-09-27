@@ -40,7 +40,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RightPaneContentProperty =
-            DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets application menu bottom pane content
@@ -55,7 +55,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FooterPaneContentProperty =
-            DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata());
 
         #endregion
 
@@ -74,7 +74,7 @@ namespace Fluent
             // Disable QAT for this control
             CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
             // Make default KeyTip
-            KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, null, CoerceKeyTipKeys));
+            KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceKeyTipKeys));
         }
 
         private static object CoerceKeyTipKeys(DependencyObject d, object basevalue)

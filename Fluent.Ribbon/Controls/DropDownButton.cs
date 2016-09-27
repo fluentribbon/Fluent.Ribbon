@@ -142,7 +142,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -180,7 +180,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register(nameof(LargeIcon), typeof(object),
-            typeof(DropDownButton), new PropertyMetadata(null));
+            typeof(DropDownButton), new PropertyMetadata());
 
         #endregion
 

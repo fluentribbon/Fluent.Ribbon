@@ -23,7 +23,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for StatusBarItem.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StatusBarItemProperty =
-            DependencyProperty.Register(nameof(StatusBarItem), typeof(StatusBarItem), typeof(StatusBarMenuItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(StatusBarItem), typeof(StatusBarItem), typeof(StatusBarMenuItem), new PropertyMetadata());
 
 
         #endregion

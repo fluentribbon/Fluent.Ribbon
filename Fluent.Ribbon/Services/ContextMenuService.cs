@@ -16,7 +16,7 @@ namespace Fluent
         public static void Attach(Type type)
         {
             System.Windows.Controls.ContextMenuService.ShowOnDisabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(true));
-            FrameworkElement.ContextMenuProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, OnContextMenuChanged, CoerceContextMenu));
+            FrameworkElement.ContextMenuProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnContextMenuChanged, CoerceContextMenu));
         }
 
         private static void OnContextMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

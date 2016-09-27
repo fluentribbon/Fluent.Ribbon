@@ -81,7 +81,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
             DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel),
-            new PropertyMetadata(null, OnGroupByChanged));
+            new PropertyMetadata(OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -127,7 +127,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemContainerGeneratorProperty =
             DependencyProperty.Register(nameof(ItemContainerGenerator), typeof(ItemContainerGenerator),
-            typeof(GalleryPanel), new PropertyMetadata(null, OnItemContainerGeneratorChanged));
+            typeof(GalleryPanel), new PropertyMetadata(OnItemContainerGeneratorChanged));
 
         private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -154,7 +154,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
             DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
-            typeof(GalleryPanel), new PropertyMetadata(null));
+            typeof(GalleryPanel), new PropertyMetadata());
 
         #endregion
 
@@ -219,7 +219,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
             DependencyProperty.Register(nameof(Filter), typeof(string),
-            typeof(GalleryPanel), new PropertyMetadata(null, OnFilterChanged));
+            typeof(GalleryPanel), new PropertyMetadata(OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

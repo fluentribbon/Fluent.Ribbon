@@ -89,7 +89,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
             DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery),
-            new PropertyMetadata(null));
+            new PropertyMetadata());
 
         #endregion
 
@@ -298,7 +298,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string),
-            typeof(Gallery), new PropertyMetadata(null));
+            typeof(Gallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterTitle. 
@@ -317,7 +317,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string),
-            typeof(Gallery), new PropertyMetadata(null));
+            typeof(Gallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterGroups. 
