@@ -262,7 +262,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register(nameof(Mode), typeof(ColorGalleryMode), typeof(ColorGallery), new UIPropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
+            DependencyProperty.Register(nameof(Mode), typeof(ColorGalleryMode), typeof(ColorGallery), new PropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
 
         private static void OnModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -286,7 +286,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ChipWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ChipWidthProperty =
-            DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0, null, CoerceChipSize));
+            DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
         private static object CoerceChipSize(DependencyObject d, object basevalue)
         {
@@ -308,7 +308,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ChipHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ChipHeightProperty =
-            DependencyProperty.Register(nameof(ChipHeight), typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0, null, CoerceChipSize));
+            DependencyProperty.Register(nameof(ChipHeight), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
         #endregion
 
@@ -327,7 +327,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsAutomaticColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticColorButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
 
         #endregion
 
@@ -346,7 +346,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsNoColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsNoColorButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
 
         #endregion
 
@@ -365,7 +365,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMoreColorsButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMoreColorsButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
 
         #endregion
 
@@ -384,7 +384,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsRecentColorsVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsRecentColorsVisibleProperty =
-            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
 
 
 
@@ -405,7 +405,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ColumnsProperty =
-            DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new UIPropertyMetadata(10, OnColumnsChanged, CoerceColumns));
+            DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new PropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
         private static object CoerceColumns(DependencyObject d, object basevalue)
         {
@@ -436,7 +436,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for StandardColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StandardColorGridRowsProperty =
-            DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new UIPropertyMetadata(0, OnStandardColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(0, OnStandardColorGridRowsChanged, CoeceGridRows));
 
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
@@ -467,7 +467,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ThemeColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorGridRowsProperty =
-            DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new UIPropertyMetadata(0, OnThemeColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(0, OnThemeColorGridRowsChanged, CoeceGridRows));
 
         private static void OnThemeColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -491,7 +491,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new UIPropertyMetadata(null, OnSelectedColorChanged));
+            DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(null, OnSelectedColorChanged));
 
         // Handles selected color changed
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -602,7 +602,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorsSourceProperty =
-            DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new UIPropertyMetadata(null, OnThemeColorsSourceChanged));
+            DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(null, OnThemeColorsSourceChanged));
 
         private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -635,7 +635,7 @@ namespace Fluent
 
         // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -657,7 +657,7 @@ namespace Fluent
 
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...

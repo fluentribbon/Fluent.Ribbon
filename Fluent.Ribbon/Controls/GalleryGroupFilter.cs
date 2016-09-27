@@ -23,7 +23,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), 
-            typeof(GalleryGroupFilter), new UIPropertyMetadata("GalleryGroupFilter"));
+            typeof(GalleryGroupFilter), new PropertyMetadata("GalleryGroupFilter"));
                
         /// <summary>
         /// Gets or sets list pf groups splitted by comma
@@ -40,6 +40,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
             DependencyProperty.Register(nameof(Groups), typeof(string), 
-            typeof(GalleryGroupFilter), new UIPropertyMetadata(string.Empty));
+            typeof(GalleryGroupFilter), new PropertyMetadata(string.Empty));
     }
 }

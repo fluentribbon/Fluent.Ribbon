@@ -18,7 +18,7 @@ namespace Fluent
         static WindowSteeringHelperControl()
         {
             BackgroundProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(Brushes.Transparent));
-            IsHitTestVisibleProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new UIPropertyMetadata(true));
+            IsHitTestVisibleProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(true));
             HorizontalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(HorizontalAlignment.Stretch));
             VerticalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(VerticalAlignment.Stretch));
         }

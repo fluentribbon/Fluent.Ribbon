@@ -93,7 +93,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(ToggleButton),
-            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
+            new PropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -130,7 +130,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(null, OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -143,7 +143,8 @@ namespace Fluent
             }
 
             var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null)
+            if (newElement != null
+                && LogicalTreeHelper.GetParent(newElement) == null)
             {
                 element.AddLogicalChild(newElement);
             }
@@ -168,7 +169,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register(nameof(LargeIcon), typeof(object),
-            typeof(ToggleButton), new UIPropertyMetadata(null));
+            typeof(ToggleButton), new PropertyMetadata(null));
 
         #endregion
 
@@ -187,7 +188,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new PropertyMetadata(true));
 
         #endregion
 
@@ -275,7 +276,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

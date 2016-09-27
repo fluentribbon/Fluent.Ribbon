@@ -46,7 +46,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(Gallery), new UIPropertyMetadata(1));
+            typeof(Gallery), new PropertyMetadata(1));
 
         #endregion
 
@@ -67,7 +67,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(Gallery), new UIPropertyMetadata(int.MaxValue));
+            typeof(Gallery), new PropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -89,7 +89,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
             DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery),
-            new UIPropertyMetadata(null));
+            new PropertyMetadata(null));
 
         #endregion
 
@@ -110,7 +110,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
-            typeof(Gallery), new UIPropertyMetadata(Orientation.Horizontal));
+            typeof(Gallery), new PropertyMetadata(Orientation.Horizontal));
 
         #endregion
 
@@ -129,7 +129,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -144,7 +144,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -253,7 +253,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
             DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
-            typeof(Gallery), new UIPropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            typeof(Gallery), new PropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
@@ -298,7 +298,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string),
-            typeof(Gallery), new UIPropertyMetadata(null));
+            typeof(Gallery), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterTitle. 
@@ -317,7 +317,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string),
-            typeof(Gallery), new UIPropertyMetadata(null));
+            typeof(Gallery), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for SelectedFilterGroups. 
@@ -334,7 +334,7 @@ namespace Fluent
             private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
+        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  
@@ -383,7 +383,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register(nameof(Selectable), typeof(bool),
-            typeof(Gallery), new UIPropertyMetadata(true, OnSelectableChanged));
+            typeof(Gallery), new PropertyMetadata(true, OnSelectableChanged));
 
         private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -406,7 +406,7 @@ namespace Fluent
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new UIPropertyMetadata(false));
+        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new PropertyMetadata(false));
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>

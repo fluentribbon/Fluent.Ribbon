@@ -46,7 +46,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasTwoLinesProperty =
-            DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new UIPropertyMetadata(true, OnHasTwoLinesChanged));
+            DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(true, OnHasTwoLinesChanged));
 
         /// <summary>
         /// Handles HasTwoLines property changes
@@ -71,7 +71,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HasGlyph.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasGlyphProperty =
-            DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new UIPropertyMetadata(false, OnHasGlyphChanged));
+            DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(false, OnHasGlyphChanged));
 
         /// <summary>
         /// Handles HasGlyph property changes
@@ -96,7 +96,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new UIPropertyMetadata(string.Empty, OnTextChanged));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(string.Empty, OnTextChanged));
 
         #endregion
 

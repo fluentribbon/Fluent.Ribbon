@@ -42,7 +42,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
             DependencyProperty.Register(nameof(IsHeadered), typeof(bool),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(true));
+            typeof(GalleryGroupContainer), new PropertyMetadata(true));
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Orientation.Horizontal));
+            typeof(GalleryGroupContainer), new PropertyMetadata(Orientation.Horizontal));
 
         #endregion
 
@@ -85,7 +85,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
+            typeof(GalleryGroupContainer), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
+            typeof(GalleryGroupContainer), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -128,7 +128,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(0, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new PropertyMetadata(0, OnMaxMinItemsInRowChanged));
 
         #endregion
 
@@ -149,7 +149,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new PropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
 
         #endregion
 

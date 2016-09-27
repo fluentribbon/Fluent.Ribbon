@@ -8,7 +8,7 @@ namespace Fluent.Metro.Behaviours
     /// </summary>
     public class StylizedBehaviors
     {
-        private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached("OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new UIPropertyMetadata(null));
+        private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached("OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Behaviors.  
@@ -18,7 +18,7 @@ namespace Fluent.Metro.Behaviours
             "Behaviors",
             typeof(StylizedBehaviorCollection),
             typeof(StylizedBehaviors),
-            new FrameworkPropertyMetadata(null, OnPropertyChanged));
+            new PropertyMetadata(null, OnPropertyChanged));
 
         /// <summary>
         /// Gets Behaviors for element

@@ -148,7 +148,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
@@ -263,7 +263,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
             DependencyProperty.Register(nameof(ShowAboveRibbon), typeof(bool),
-            typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            typeof(QuickAccessToolBar), new PropertyMetadata(true));
 
         #endregion
 
@@ -297,7 +297,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(true));
 
         #endregion
 

@@ -25,7 +25,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RightPaneWidthProperty =
-            DependencyProperty.Register(nameof(RightPaneWidth), typeof(double), typeof(ApplicationMenu), new UIPropertyMetadata(300.0));
+            DependencyProperty.Register(nameof(RightPaneWidth), typeof(double), typeof(ApplicationMenu), new PropertyMetadata(300.0));
 
         /// <summary>
         /// Gets or sets application menu right pane content
@@ -40,7 +40,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RightPaneContentProperty =
-            DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets application menu bottom pane content
@@ -55,7 +55,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FooterPaneContentProperty =
-            DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(null));
 
         #endregion
 

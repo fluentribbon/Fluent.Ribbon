@@ -73,7 +73,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -115,7 +115,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(TextBox), new PropertyMetadata(false));
 
         #endregion
 
@@ -136,7 +136,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CharacterCasingProperty =
             DependencyProperty.Register(nameof(CharacterCasing), typeof(CharacterCasing), typeof(TextBox),
-            new UIPropertyMetadata(CharacterCasing.Normal));
+            new PropertyMetadata(CharacterCasing.Normal));
 
         #endregion
 
@@ -156,7 +156,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxLengthProperty =
-            DependencyProperty.Register(nameof(MaxLength), typeof(int), typeof(TextBox), new UIPropertyMetadata(int.MaxValue));
+            DependencyProperty.Register(nameof(MaxLength), typeof(int), typeof(TextBox), new PropertyMetadata(int.MaxValue));
 
         #endregion
 
@@ -177,7 +177,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register(nameof(TextAlignment), typeof(TextAlignment), typeof(TextBox),
-            new UIPropertyMetadata(TextAlignment.Left));
+            new PropertyMetadata(TextAlignment.Left));
 
         #endregion
 
@@ -198,7 +198,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TextDecorationsProperty =
             DependencyProperty.Register(nameof(TextDecorations), typeof(TextDecorationCollection), typeof(TextBox),
-            new UIPropertyMetadata(new TextDecorationCollection()));
+            new PropertyMetadata(new TextDecorationCollection()));
 
         #endregion
 
@@ -219,7 +219,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsUndoEnabledProperty =
             DependencyProperty.Register(nameof(IsUndoEnabled), typeof(bool), typeof(TextBox),
-            new UIPropertyMetadata(true));
+            new PropertyMetadata(true));
 
         #endregion
 
@@ -239,7 +239,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty UndoLimitProperty =
-            DependencyProperty.Register(nameof(UndoLimit), typeof(int), typeof(TextBox), new UIPropertyMetadata(1000));
+            DependencyProperty.Register(nameof(UndoLimit), typeof(int), typeof(TextBox), new PropertyMetadata(1000));
 
         #endregion
 
@@ -259,7 +259,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutoWordSelectionProperty =
-            DependencyProperty.Register(nameof(AutoWordSelection), typeof(bool), typeof(TextBox), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(AutoWordSelection), typeof(bool), typeof(TextBox), new PropertyMetadata(false));
 
         #endregion
 
@@ -280,7 +280,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectionBrushProperty =
             DependencyProperty.Register(nameof(SelectionBrush), typeof(Brush), typeof(TextBox),
-            new UIPropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x99, 0xFF))));
+            new PropertyMetadata(new SolidColorBrush(Color.FromArgb(0xFF, 0x33, 0x99, 0xFF))));
 
         #endregion
 
@@ -300,7 +300,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectionOpacityProperty =
-            DependencyProperty.Register(nameof(SelectionOpacity), typeof(double), typeof(TextBox), new UIPropertyMetadata(0.4d));
+            DependencyProperty.Register(nameof(SelectionOpacity), typeof(double), typeof(TextBox), new PropertyMetadata(0.4d));
 
         #endregion
 
@@ -322,7 +322,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CaretBrushProperty =
             DependencyProperty.Register(nameof(CaretBrush), typeof(Brush), typeof(TextBox),
-            new UIPropertyMetadata(null));
+            new PropertyMetadata(null));
 
         #endregion
 

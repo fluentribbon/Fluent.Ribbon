@@ -142,7 +142,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(null, OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -180,7 +180,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
             DependencyProperty.Register(nameof(LargeIcon), typeof(object),
-            typeof(DropDownButton), new UIPropertyMetadata(null));
+            typeof(DropDownButton), new PropertyMetadata(null));
 
         #endregion
 
@@ -201,7 +201,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty HasTriangleProperty =
             DependencyProperty.Register(
-                "HasTriangle", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(true));
+                "HasTriangle", typeof(bool), typeof(DropDownButton), new PropertyMetadata(true));
 
         #endregion
 
@@ -222,7 +222,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(DropDownButton),
-            new UIPropertyMetadata(false, OnIsDropDownOpenChanged));
+            new PropertyMetadata(false, OnIsDropDownOpenChanged));
 
         #endregion
 
@@ -243,7 +243,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
-            typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            typeof(DropDownButton), new PropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -262,7 +262,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
         #endregion
 
@@ -281,7 +281,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -861,7 +861,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

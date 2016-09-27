@@ -54,7 +54,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
             DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(GalleryPanel),
-            new UIPropertyMetadata(true, OnIsGroupedChanged));
+            new PropertyMetadata(true, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -81,7 +81,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupByProperty =
             DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel),
-            new UIPropertyMetadata(null, OnGroupByChanged));
+            new PropertyMetadata(null, OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -127,7 +127,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemContainerGeneratorProperty =
             DependencyProperty.Register(nameof(ItemContainerGenerator), typeof(ItemContainerGenerator),
-            typeof(GalleryPanel), new UIPropertyMetadata(null, OnItemContainerGeneratorChanged));
+            typeof(GalleryPanel), new PropertyMetadata(null, OnItemContainerGeneratorChanged));
 
         private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -154,7 +154,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupStyleProperty =
             DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
-            typeof(GalleryPanel), new UIPropertyMetadata(null));
+            typeof(GalleryPanel), new PropertyMetadata(null));
 
         #endregion
 
@@ -176,7 +176,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
-            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            typeof(GalleryPanel), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -198,7 +198,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
-            typeof(GalleryPanel), new UIPropertyMetadata(double.NaN));
+            typeof(GalleryPanel), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -219,7 +219,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty FilterProperty =
             DependencyProperty.Register(nameof(Filter), typeof(string),
-            typeof(GalleryPanel), new UIPropertyMetadata(null, OnFilterChanged));
+            typeof(GalleryPanel), new PropertyMetadata(null, OnFilterChanged));
 
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -246,7 +246,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new UIPropertyMetadata(1));
+            typeof(GalleryPanel), new PropertyMetadata(1));
 
         #endregion
 
@@ -267,7 +267,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new UIPropertyMetadata(int.MaxValue));
+            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue));
 
         #endregion
 

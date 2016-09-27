@@ -20,7 +20,7 @@ namespace Fluent
           "Keys",
           typeof(string),
           typeof(KeyTip),
-          new FrameworkPropertyMetadata(null, KeysPropertyChanged)
+          new PropertyMetadata(null, KeysPropertyChanged)
         );
 
         private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -63,7 +63,7 @@ namespace Fluent
           "AutoPlacement",
           typeof(bool),
           typeof(KeyTip),
-          new FrameworkPropertyMetadata(true)
+          new PropertyMetadata(true)
         );
 
 
@@ -104,7 +104,7 @@ namespace Fluent
           nameof(HorizontalAlignment),
           typeof(HorizontalAlignment),
           typeof(KeyTip),
-          new FrameworkPropertyMetadata(HorizontalAlignment.Center)
+          new PropertyMetadata(HorizontalAlignment.Center)
         );
 
 
@@ -165,7 +165,7 @@ namespace Fluent
         public new static readonly DependencyProperty VerticalAlignmentProperty =
             DependencyProperty.RegisterAttached("VerticalAlignment",
             typeof(VerticalAlignment), typeof(KeyTip),
-            new UIPropertyMetadata(VerticalAlignment.Center));
+            new PropertyMetadata(VerticalAlignment.Center));
 
         #endregion
 
@@ -200,7 +200,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public new static readonly DependencyProperty MarginProperty =
-            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new UIPropertyMetadata(new Thickness()));
+            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new PropertyMetadata(new Thickness()));
 
         #endregion
 

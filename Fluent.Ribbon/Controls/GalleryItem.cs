@@ -49,7 +49,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
-            typeof(GalleryItem), new UIPropertyMetadata(false));
+            typeof(GalleryItem), new PropertyMetadata(false));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPressed.  
@@ -72,7 +72,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
             DependencyProperty.Register(nameof(Group), typeof(string),
-            typeof(GalleryItem), new UIPropertyMetadata(null));
+            typeof(GalleryItem), new PropertyMetadata(null));
 
 
         #region Command
@@ -130,17 +130,17 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, OnCommandChanged));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null, OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new PropertyMetadata(null));
 
         /// <summary>
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.

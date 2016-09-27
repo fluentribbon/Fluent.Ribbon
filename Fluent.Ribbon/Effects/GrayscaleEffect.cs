@@ -23,7 +23,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty FilterColorProperty =
             DependencyProperty.Register(nameof(FilterColor), typeof(Color), typeof(GrayscaleEffect),
-            new UIPropertyMetadata(Color.FromArgb(255, 255, 255, 255), PixelShaderConstantCallback(0)));
+            new PropertyMetadata(Color.FromArgb(255, 255, 255, 255), PixelShaderConstantCallback(0)));
 
         /// <summary>
         /// Default constructor

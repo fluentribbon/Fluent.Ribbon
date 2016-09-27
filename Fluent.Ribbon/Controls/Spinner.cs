@@ -102,7 +102,7 @@ namespace Fluent
             private set { this.SetValue(textPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new UIPropertyMetadata(null));
+        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata(null));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.  
@@ -128,7 +128,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new UIPropertyMetadata(1.0d));
+            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(1.0d));
 
         #endregion
 
@@ -234,7 +234,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FormatProperty =
-            DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new UIPropertyMetadata("F1", OnFormatChanged));
+            DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new PropertyMetadata("F1", OnFormatChanged));
 
         private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -263,7 +263,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
             DependencyProperty.Register(nameof(Delay), typeof(int), typeof(Spinner),
-            new UIPropertyMetadata(400));
+            new PropertyMetadata(400));
 
         #endregion
 
@@ -285,7 +285,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IntervalProperty =
-            DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new UIPropertyMetadata(80));
+            DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new PropertyMetadata(80));
 
         #endregion
 
@@ -304,7 +304,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(double.NaN));
 
         #endregion
 
@@ -354,8 +354,8 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
 
-            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
-            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
+            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new PropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
+            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new PropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
             ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));

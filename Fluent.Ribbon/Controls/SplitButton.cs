@@ -135,7 +135,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
             DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton),
-            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
+            new PropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -203,7 +203,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckableProperty =
-            DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(SplitButton), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(SplitButton), new PropertyMetadata(false));
 
         #endregion
 
@@ -222,7 +222,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for DropDownToolTip.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownToolTipProperty =
-            DependencyProperty.Register(nameof(DropDownToolTip), typeof(object), typeof(SplitButton), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(DropDownToolTip), typeof(object), typeof(SplitButton), new PropertyMetadata(null));
 
         #endregion
 
@@ -241,7 +241,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
-            DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new PropertyMetadata(true));
 
         #endregion
 
@@ -260,7 +260,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(SplitButton), new PropertyMetadata(true));
 
         #endregion
 
@@ -511,7 +511,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
     }

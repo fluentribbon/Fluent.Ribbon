@@ -461,7 +461,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new PropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         #endregion
 
@@ -478,7 +478,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new UIPropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new PropertyMetadata(null, AddOrRemoveLogicalChildOnPropertyChanged));
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -493,7 +493,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="SelectedTabItem"/>.
         /// </summary>
         public static readonly DependencyProperty SelectedTabItemProperty =
-            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(Ribbon), new UIPropertyMetadata(null, OnSelectedTabItemChanged));
+            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(Ribbon), new PropertyMetadata(null, OnSelectedTabItemChanged));
 
         private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -529,7 +529,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="SelectedTabIndex"/>.
         /// </summary>
         public static readonly DependencyProperty SelectedTabIndexProperty =
-            DependencyProperty.Register(nameof(SelectedTabIndex), typeof(int), typeof(Ribbon), new UIPropertyMetadata(-1, OnSelectedTabIndexChanged));
+            DependencyProperty.Register(nameof(SelectedTabIndex), typeof(int), typeof(Ribbon), new PropertyMetadata(-1, OnSelectedTabIndexChanged));
 
         private static void OnSelectedTabIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -656,7 +656,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
-            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
+            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
 
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
@@ -967,7 +967,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBar), typeof(bool),
-            typeof(Ribbon), new UIPropertyMetadata(false));
+            typeof(Ribbon), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets whether items can be added or removed from the quick access toolbar by users.
@@ -1000,7 +1000,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
             DependencyProperty.Register(nameof(CanCustomizeRibbon), typeof(bool),
-            typeof(Ribbon), new UIPropertyMetadata(false));
+            typeof(Ribbon), new PropertyMetadata(false));
 
         /// <summary>
         /// Gets or sets whether ribbon can be minimized
@@ -1026,13 +1026,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
             DependencyProperty.Register(nameof(IsMinimized), typeof(bool),
-            typeof(Ribbon), new UIPropertyMetadata(false, OnIsMinimizedChanged));
+            typeof(Ribbon), new PropertyMetadata(false, OnIsMinimizedChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnCanMinimizeChanged));
 
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1064,7 +1064,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new UIPropertyMetadata(5D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(5D));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
@@ -1081,7 +1081,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
-            typeof(Ribbon), new FrameworkPropertyMetadata(false, OnIsCollapsedChanged));
+            typeof(Ribbon), new PropertyMetadata(false, OnIsCollapsedChanged));
 
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -1118,7 +1118,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsQuickAccessToolBarVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
-            DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
 
 
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
 
 
         /// <summary>
@@ -1860,7 +1860,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new UIPropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
