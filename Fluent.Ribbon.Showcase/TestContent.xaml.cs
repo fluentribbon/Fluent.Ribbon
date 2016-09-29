@@ -70,12 +70,18 @@
 
         private void OnEnlargeClick(object sender, RoutedEventArgs e)
         {
-            this.InRibbonGallery.Enlarge();
+            if (this.InRibbonGallery.IsLoaded)
+            {
+                this.InRibbonGallery.Enlarge();
+            }
         }
 
         private void OnReduceClick(object sender, RoutedEventArgs e)
         {
-            this.InRibbonGallery.Reduce();
+            if (this.InRibbonGallery.IsLoaded)
+            {
+                this.InRibbonGallery.Reduce();
+            }
         }
 
         public Button CreateRibbonButton()
