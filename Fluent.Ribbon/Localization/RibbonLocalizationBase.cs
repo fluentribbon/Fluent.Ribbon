@@ -1,11 +1,12 @@
 ﻿namespace Fluent.Localization
 {
+    using System.ComponentModel;
     using Fluent.Localization.Languages;
 
     /// <summary>
     /// Base class for localizations.
     /// </summary>
-    public abstract class RibbonLocalizationBase
+    public abstract class RibbonLocalizationBase : INotifyPropertyChanged
     {
         /// <summary>
         /// Fallback instance of <see cref="English"/> for localization.
@@ -146,5 +147,11 @@
         /// Gets ScreenTip's disable reason header
         /// </summary>
         public abstract string ScreenTipF1LabelHeader { get; }
+
+        /// <summary>
+        /// Change notifications are not implemented. 
+        /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
