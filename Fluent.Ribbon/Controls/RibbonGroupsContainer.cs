@@ -103,7 +103,7 @@ namespace Fluent
             while (desiredSize.Width <= availableSize.Width)
             {
                 var hasMoreVariants = this.reduceOrderIndex < this.reduceOrder.Length - 1;
-                if (!hasMoreVariants)
+                if (hasMoreVariants == false)
                 {
                     break;
                 }
@@ -119,7 +119,7 @@ namespace Fluent
             while (desiredSize.Width > availableSize.Width)
             {
                 var hasMoreVariants = this.reduceOrderIndex >= 0;
-                if (!hasMoreVariants)
+                if (hasMoreVariants == false)
                 {
                     break;
                 }
@@ -140,8 +140,8 @@ namespace Fluent
                     continue;
                 }
 
-                if ((groupBox.State != groupBox.StateIntermediate) ||
-                    (groupBox.Scale != groupBox.ScaleIntermediate))
+                if (groupBox.State != groupBox.StateIntermediate 
+                    || groupBox.Scale != groupBox.ScaleIntermediate)
                 {
                     groupBox.SuppressCacheReseting = true;
                     groupBox.State = groupBox.StateIntermediate;
@@ -190,6 +190,7 @@ namespace Fluent
         {
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+
             if (groupBox == null)
             {
                 return;
@@ -212,6 +213,7 @@ namespace Fluent
         {
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+
             if (groupBox == null)
             {
                 return;
@@ -243,6 +245,7 @@ namespace Fluent
                     return child as RibbonGroupBox;
                 }
             }
+
             return null;
         }
 
@@ -258,6 +261,7 @@ namespace Fluent
             {
                 X = -this.HorizontalOffset
             };
+
             foreach (UIElement item in this.InternalChildren)
             {
                 finalRect.Width = item.DesiredSize.Width;
@@ -265,6 +269,7 @@ namespace Fluent
                 item.Arrange(finalRect);
                 finalRect.X += item.DesiredSize.Width;
             }
+
             return finalSize;
         }
 
@@ -288,6 +293,7 @@ namespace Fluent
         public void SetHorizontalOffset(double offset)
         {
             var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
                 this.scrollData.OffsetX = newValue;
@@ -424,60 +430,70 @@ namespace Fluent
         public void MouseWheelDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelLeft()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelRight()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void LineDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void LineUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageLeft()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageRight()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
@@ -485,6 +501,7 @@ namespace Fluent
         public void SetVerticalOffset(double offset)
         {
         }
+
         /// <summary>
         /// Gets or sets a value that indicates whether scrolling on the vertical axis is possible.
         /// </summary>
@@ -493,6 +510,7 @@ namespace Fluent
             get { return false; }
             set { }
         }
+
         /// <summary>
         /// Gets or sets a value that indicates whether scrolling on the horizontal axis is possible.
         /// </summary>
@@ -501,20 +519,23 @@ namespace Fluent
             get { return true; }
             set { }
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public double ExtentHeight
         {
             get { return 0.0; }
-        }/// <summary>
-         /// Not implemented
-         /// </summary>
+        }
 
+        /// <summary>
+        /// Not implemented
+        /// </summary>
         public double VerticalOffset
         {
             get { return 0.0; }
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
@@ -569,12 +590,9 @@ namespace Fluent
             this.ScrollData.ExtentWidth = extentWidth;
             this.ScrollData.OffsetX = offsetX;
 
-            if (!isValid)
+            if (isValid == false)
             {
-                if (this.ScrollOwner != null)
-                {
-                    this.ScrollOwner.InvalidateScrollInfo();
-                }
+                this.ScrollOwner?.InvalidateScrollInfo();
             }
         }
 

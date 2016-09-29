@@ -162,11 +162,8 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl == null)
-                {
-                    continue;
-                }
-                scalableRibbonControl.Enlarge();
+
+                scalableRibbonControl?.Enlarge();
             }
         }
 
@@ -194,8 +191,8 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var scalableRibbonControl = item as IScalableRibbonControl;
-                if (scalableRibbonControl == null) continue;
-                scalableRibbonControl.Reduce();
+
+                scalableRibbonControl?.Reduce();
             }
         }
 
@@ -448,16 +445,16 @@ namespace Fluent
         public Button LauncherButton
         {
             get { return (Button)this.GetValue(LauncherButtonProperty); }
-            private set { this.SetValue(LauncherButtonPropertyKey, value); }
+            private set { this.SetValue(launcherButtonPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
+        private static readonly DependencyPropertyKey launcherButtonPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(LauncherButton), typeof(Button), typeof(RibbonGroupBox), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LauncherButtonProperty = LauncherButtonPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty LauncherButtonProperty = launcherButtonPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -755,20 +752,12 @@ namespace Fluent
         /// <summary>
         /// Gets or sets intermediate state of the group box
         /// </summary>
-        internal RibbonGroupBoxState StateIntermediate
-        {
-            get;
-            set;
-        }
+        internal RibbonGroupBoxState StateIntermediate { get; set; }
 
         /// <summary>
         /// Gets or sets intermediate scale of the group box
         /// </summary>
-        internal int ScaleIntermediate
-        {
-            get;
-            set;
-        }
+        internal int ScaleIntermediate { get; set; }
 
         /// <summary>
         /// Gets intermediate desired size
@@ -1052,8 +1041,8 @@ namespace Fluent
 
         private void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            if (!this.IsDropDownOpen
-                && !this.IsSnapped)
+            if (this.IsDropDownOpen == false
+                && this.IsSnapped == false)
             {
                 var groupBox = (RibbonGroupBox)sender;
                 // Save state
