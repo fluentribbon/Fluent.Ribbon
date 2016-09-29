@@ -6,6 +6,8 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represent logical container for toolbar items
     /// </summary>
@@ -28,7 +30,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsFirstInRowProperty =
-            DependencyProperty.Register(nameof(IsFirstInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsFirstInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Gets whether the group is the last control in the row
@@ -44,7 +46,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLastInRowProperty =
-            DependencyProperty.Register(nameof(IsLastInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsLastInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 

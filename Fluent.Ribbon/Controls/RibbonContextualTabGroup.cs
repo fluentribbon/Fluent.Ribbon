@@ -10,6 +10,7 @@ using System.Windows.Input;
 namespace Fluent
 {
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents contextual tab group
@@ -70,7 +71,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(RibbonContextualTabGroup), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(RibbonContextualTabGroup), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)
@@ -82,7 +83,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Visible));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...
@@ -122,7 +123,7 @@ namespace Fluent
         static RibbonContextualTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
-            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(Visibility.Collapsed, OnVisibilityChanged));
+            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Collapsed, OnVisibilityChanged));
         }
 
         /// <summary>

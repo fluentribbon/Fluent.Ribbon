@@ -15,6 +15,7 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents menu item
@@ -119,7 +120,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DescriptionProperty =
-            DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -151,7 +152,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -211,7 +212,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSplited.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsSplitedProperty =
-            DependencyProperty.Register(nameof(IsSplited), typeof(bool), typeof(MenuItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsSplited), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -379,7 +380,7 @@ namespace Fluent
             //PopupService.Attach(type);            
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, OnIsCheckedChanged, CoerceIsChecked));
+            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, OnIsCheckedChanged, CoerceIsChecked));
         }
 
         /// <summary>

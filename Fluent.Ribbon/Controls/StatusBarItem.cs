@@ -3,6 +3,8 @@
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents ribbon status bar item
     /// </summary>
@@ -72,7 +74,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(true, OnIsCheckedChanged));
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsCheckedChanged));
 
         // Handles IsChecked changed
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

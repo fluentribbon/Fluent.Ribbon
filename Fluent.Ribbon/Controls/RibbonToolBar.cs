@@ -15,6 +15,7 @@ using System.Windows.Media;
 namespace Fluent
 {
     using Fluent.Extensibility;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represent panel for group box panel
@@ -150,7 +151,7 @@ namespace Fluent
             // Override default style
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToolBar), new FrameworkPropertyMetadata(typeof(RibbonToolBar)));
             // Disable QAT for this control
-            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(RibbonToolBar), new FrameworkPropertyMetadata(false));
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(RibbonToolBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         /// <summary>

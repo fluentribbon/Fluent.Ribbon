@@ -12,6 +12,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Media;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents color gallery modes
@@ -327,7 +328,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsAutomaticColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticColorButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -346,7 +347,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsNoColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsNoColorButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -365,7 +366,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMoreColorsButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMoreColorsButtonVisibleProperty =
-            DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -384,7 +385,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsRecentColorsVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsRecentColorsVisibleProperty =
-            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
 
@@ -436,7 +437,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for StandardColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StandardColorGridRowsProperty =
-            DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(0, OnStandardColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnStandardColorGridRowsChanged, CoeceGridRows));
 
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
@@ -467,7 +468,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ThemeColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorGridRowsProperty =
-            DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(0, OnThemeColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnThemeColorGridRowsChanged, CoeceGridRows));
 
         private static void OnThemeColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

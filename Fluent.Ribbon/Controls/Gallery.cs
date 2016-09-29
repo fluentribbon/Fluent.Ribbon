@@ -10,6 +10,8 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     // TODO: add TemplatePart's in Gallery (!)
 
     /// <summary>
@@ -129,7 +131,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -144,7 +146,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -334,7 +336,7 @@ namespace Fluent
             private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(false));
+        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  
@@ -383,7 +385,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register(nameof(Selectable), typeof(bool),
-            typeof(Gallery), new PropertyMetadata(true, OnSelectableChanged));
+            typeof(Gallery), new PropertyMetadata(BooleanBoxes.TrueBox, OnSelectableChanged));
 
         private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -406,7 +408,7 @@ namespace Fluent
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new PropertyMetadata(false));
+        public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
         /// <summary>
         ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
         /// </summary>

@@ -17,6 +17,7 @@ namespace Fluent
     using System.Threading.Tasks;
     using Fluent.Extensions;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents backstage button
@@ -50,7 +51,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(false, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged));
 
         /// <summary>
         /// Gets or sets the duration for the hide animation
@@ -90,14 +91,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpenAnimationEnabled.  This enables animation, styling, binding, etc...
         /// </summary>        
         public static readonly DependencyProperty IsOpenAnimationEnabledProperty =
-            DependencyProperty.Register(nameof(IsOpenAnimationEnabled), typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsOpenAnimationEnabled), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HideContextTabsOnOpenProperty =
-            DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether to close the backstage when Esc is pressed
@@ -113,7 +114,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CloseOnEscProperty =
-            DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -213,7 +214,7 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
             // Disable QAT for this control
-            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(false));
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }

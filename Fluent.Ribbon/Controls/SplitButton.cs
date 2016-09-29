@@ -9,6 +9,8 @@ using System.Windows.Input;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents button control that allows 
     /// you to add menu and handle clicks
@@ -154,7 +156,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -203,7 +205,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckableProperty =
-            DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(SplitButton), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -241,7 +243,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
-            DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -260,7 +262,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(SplitButton), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -511,7 +513,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
     }

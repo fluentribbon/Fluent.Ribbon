@@ -17,6 +17,7 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using ControlzEx.Microsoft.Windows.Shell;
+    using Fluent.Internal.KnownBoxes;
 
     // TODO: improve style parts naming & using
 
@@ -656,7 +657,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
-            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnShowQuickAccesToolBarAboveRibbonChanged));
+            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnShowQuickAccesToolBarAboveRibbonChanged));
 
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
@@ -967,7 +968,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBar), typeof(bool),
-            typeof(Ribbon), new PropertyMetadata(false));
+            typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether items can be added or removed from the quick access toolbar by users.
@@ -983,7 +984,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarItemsProperty =
-            DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBarItems), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBarItems), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Gets or sets whether Customize Ribbon menu item is shown
@@ -1000,7 +1001,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
             DependencyProperty.Register(nameof(CanCustomizeRibbon), typeof(bool),
-            typeof(Ribbon), new PropertyMetadata(false));
+            typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether ribbon can be minimized
@@ -1026,13 +1027,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
             DependencyProperty.Register(nameof(IsMinimized), typeof(bool),
-            typeof(Ribbon), new PropertyMetadata(false, OnIsMinimizedChanged));
+            typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsMinimizedChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanMinimizeChanged));
 
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1081,7 +1082,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
-            typeof(Ribbon), new PropertyMetadata(false, OnIsCollapsedChanged));
+            typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsCollapsedChanged));
 
         private static void OnIsCollapsedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -1103,7 +1104,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Gets or sets whether QAT is visible
@@ -1118,7 +1119,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsQuickAccessToolBarVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
-            DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
         /// <summary>
@@ -1134,7 +1135,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
         /// <summary>
@@ -1860,7 +1861,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(true, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutoStateManagement, CoerceAutoStateManagement));
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {

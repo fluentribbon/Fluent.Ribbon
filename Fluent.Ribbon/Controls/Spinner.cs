@@ -14,6 +14,7 @@ namespace Fluent
     using System.Windows.Threading;
     using Fluent.Converters;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents spinner control
@@ -304,7 +305,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -340,7 +341,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
         /// </summary>
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
-            DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -354,9 +355,9 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
 
-            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new PropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
-            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new PropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
-            ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
+            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.MaxValue, OnMaximumChanged, CoerceMaximum));
+            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.Zero, OnMinimumChanged, CoerceMinimum));
+            ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(DoubleBoxes.Zero, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
         }

@@ -14,6 +14,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Threading;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents drop down button
@@ -201,7 +202,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty HasTriangleProperty =
             DependencyProperty.Register(
-                "HasTriangle", typeof(bool), typeof(DropDownButton), new PropertyMetadata(true));
+                "HasTriangle", typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -222,7 +223,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(DropDownButton),
-            new PropertyMetadata(false, OnIsDropDownOpenChanged));
+            new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged));
 
         #endregion
 
@@ -281,7 +282,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -300,7 +301,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDown.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownProperty =
-            DependencyProperty.Register(nameof(ClosePopupOnMouseDown), typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(ClosePopupOnMouseDown), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -861,7 +862,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

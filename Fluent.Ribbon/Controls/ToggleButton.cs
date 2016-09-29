@@ -6,6 +6,8 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents toggle button
     /// </summary>
@@ -188,7 +190,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -276,7 +278,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

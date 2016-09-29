@@ -3,6 +3,8 @@
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents gallery group filter definition
     /// </summary>
@@ -40,6 +42,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
             DependencyProperty.Register(nameof(Groups), typeof(string), 
-            typeof(GalleryGroupFilter), new PropertyMetadata(string.Empty));
+            typeof(GalleryGroupFilter), new PropertyMetadata(StringBoxes.Empty));
     }
 }

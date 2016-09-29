@@ -10,6 +10,8 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// This interface must be implemented for controls
     /// which are intended to insert to quick access toolbar
@@ -47,7 +49,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(true));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));            
         }
 
         /// <summary>

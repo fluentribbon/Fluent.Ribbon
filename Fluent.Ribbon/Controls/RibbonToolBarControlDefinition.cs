@@ -5,6 +5,7 @@ using System.Windows;
 namespace Fluent
 {
     using Fluent.Extensibility;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represent logical definition for a control in toolbar
@@ -100,7 +101,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(double.NaN, OnWidthPropertyChanged));
+            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(DoubleBoxes.NaN, OnWidthPropertyChanged));
 
         private static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

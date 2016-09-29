@@ -96,6 +96,11 @@
     <Compile Include="Internal\FocusWrapper.cs" />
     <Compile Include="Internal\ItemsControlHelper.cs" />
     <Compile Include="Internal\KeyEventUtility.cs" />
+    <Compile Include="Internal\KnownBoxes\BooleanBoxes.cs" />
+    <Compile Include="Internal\KnownBoxes\IntBoxes.cs" />
+    <Compile Include="Internal\KnownBoxes\DoubleBoxes.cs" />
+    <Compile Include="Internal\KnownBoxes\StringBoxes.cs" />
+    <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />

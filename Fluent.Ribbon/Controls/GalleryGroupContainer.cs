@@ -7,6 +7,8 @@ using System.Windows.Media;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents container of grouped gallery items in GalleryPanel or Gallery
     /// </summary>
@@ -42,7 +44,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
             DependencyProperty.Register(nameof(IsHeadered), typeof(bool),
-            typeof(GalleryGroupContainer), new PropertyMetadata(true));
+            typeof(GalleryGroupContainer), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -85,7 +87,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
-            typeof(GalleryGroupContainer), new PropertyMetadata(double.NaN));
+            typeof(GalleryGroupContainer), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -107,7 +109,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
-            typeof(GalleryGroupContainer), new PropertyMetadata(double.NaN));
+            typeof(GalleryGroupContainer), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -128,7 +130,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new PropertyMetadata(0, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new PropertyMetadata(IntBoxes.Zero, OnMaxMinItemsInRowChanged));
 
         #endregion
 

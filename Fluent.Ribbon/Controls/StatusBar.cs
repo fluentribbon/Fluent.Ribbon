@@ -9,6 +9,8 @@ using System.Windows.Threading;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents ribbon status bar
     /// </summary>
@@ -40,7 +42,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(StatusBar), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(StatusBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
 #if NET45
         private object currentItem;

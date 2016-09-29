@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 namespace Fluent
 {
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -76,7 +77,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
 
-        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var element = (RibbonControl)d;
 
@@ -418,7 +419,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonControl), new PropertyMetadata(true, OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonControl), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanAddToQuickAccessToolbarChanged));
 
         /// <summary>
         /// Occurs then CanAddToQuickAccessToolBar property changed

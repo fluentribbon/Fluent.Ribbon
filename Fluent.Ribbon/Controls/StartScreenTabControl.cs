@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Windows;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Control for representing the left and right side of the start screen.
@@ -66,7 +67,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="IsWindowSteeringHelperEnabled"/>.
         /// </summary>
         public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
-            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(StartScreenTabControl), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(StartScreenTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Static constructor.

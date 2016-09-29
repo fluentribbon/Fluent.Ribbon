@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Windows;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents the container for the <see cref="StartScreenTabControl"/>.
@@ -23,7 +24,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Shown"/>.  
         /// </summary>
         public static readonly DependencyProperty ShownProperty =
-            DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
+            DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
 
         static StartScreen()
         {

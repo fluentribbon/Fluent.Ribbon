@@ -13,6 +13,8 @@ using System.Windows.Threading;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents custom Fluent UI TextBox
     /// </summary>
@@ -73,7 +75,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -114,7 +116,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(TextBox), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(TextBox), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -218,7 +220,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsUndoEnabledProperty =
             DependencyProperty.Register(nameof(IsUndoEnabled), typeof(bool), typeof(TextBox),
-            new PropertyMetadata(true));
+            new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -258,7 +260,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutoWordSelectionProperty =
-            DependencyProperty.Register(nameof(AutoWordSelection), typeof(bool), typeof(TextBox), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(AutoWordSelection), typeof(bool), typeof(TextBox), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 

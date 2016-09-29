@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Documents;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// ScreenTips display the name of the control, 
@@ -197,7 +198,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(""));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -220,7 +221,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(""));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -243,7 +244,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DisableReasonProperty =
-            DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(""));
+            DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -311,7 +312,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HelpLabelVisibilityProperty =
-            DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new PropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new PropertyMetadata(VisibilityBoxes.Visible));
         #endregion
 
         #region Help Invocation
@@ -340,7 +341,7 @@ namespace Fluent
         /// </summary> 
         public static readonly DependencyProperty IsRibbonAlignedProperty =
             DependencyProperty.Register(nameof(IsRibbonAligned), typeof(bool), typeof(ScreenTip),
-            new PropertyMetadata(true));
+            new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 

@@ -6,6 +6,8 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents Fluent UI specific RadioButton
     /// </summary>
@@ -201,7 +203,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

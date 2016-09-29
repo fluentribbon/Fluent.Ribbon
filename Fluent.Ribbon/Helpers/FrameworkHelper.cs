@@ -5,6 +5,7 @@ namespace Fluent
     using System.Reflection;
     using System.Windows;
     using System.Windows.Media;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents class to determine .NET Framework version difference
@@ -40,7 +41,7 @@ namespace Fluent
         ///  Using a DependencyProperty as the backing store for UseLayoutRounding.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty UseLayoutRoundingProperty =
-            DependencyProperty.RegisterAttached("UseLayoutRounding", typeof(bool), typeof(FrameworkHelper), new PropertyMetadata(false, OnUseLayoutRoundingChanged));
+            DependencyProperty.RegisterAttached("UseLayoutRounding", typeof(bool), typeof(FrameworkHelper), new PropertyMetadata(BooleanBoxes.FalseBox, OnUseLayoutRoundingChanged));
 
         private static void OnUseLayoutRoundingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

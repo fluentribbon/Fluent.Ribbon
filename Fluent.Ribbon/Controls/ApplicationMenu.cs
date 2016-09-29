@@ -5,6 +5,8 @@ using System.Windows;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents backstage button
     /// </summary>
@@ -72,7 +74,7 @@ namespace Fluent
             // Override style metadata
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             // Disable QAT for this control
-            CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false));
+            CanAddToQuickAccessToolBarProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
             // Make default KeyTip
             KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceKeyTipKeys));
         }

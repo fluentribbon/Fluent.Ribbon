@@ -5,6 +5,8 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents KeyTip control
     /// </summary>
@@ -63,7 +65,7 @@ namespace Fluent
           "AutoPlacement",
           typeof(bool),
           typeof(KeyTip),
-          new PropertyMetadata(true)
+          new PropertyMetadata(BooleanBoxes.TrueBox)
         );
 
 

@@ -12,6 +12,7 @@ namespace Fluent
 
     using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     //using WindowChrome = System.Windows.Shell.WindowChrome;
     using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
@@ -112,7 +113,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GlassFrameThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(0D)));
+            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness()));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -127,7 +128,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RibbonWindow), new PropertyMetadata(new CornerRadius(0D)));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RibbonWindow), new PropertyMetadata(new CornerRadius()));
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -141,7 +142,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether icon is visible
         /// </summary>
-        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
@@ -159,7 +160,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
-            typeof(RibbonWindow), new PropertyMetadata(false));
+            typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="Ribbon.MinimalVisibleWidth"/> or <see cref="Ribbon.MinimalVisibleHeight"/>
@@ -175,7 +176,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 

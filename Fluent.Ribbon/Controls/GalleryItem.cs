@@ -10,6 +10,7 @@ using System.Windows.Input;
 namespace Fluent
 {
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents gallery item
@@ -49,7 +50,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
-            typeof(GalleryItem), new PropertyMetadata(false));
+            typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPressed.  
@@ -311,7 +312,7 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
-            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
         }
 
         private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

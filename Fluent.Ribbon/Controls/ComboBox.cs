@@ -14,6 +14,7 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
 	///     Represents custom Fluent UI ComboBox
@@ -209,7 +210,7 @@ namespace Fluent
         ///     Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -290,7 +291,7 @@ namespace Fluent
         ///     etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(ComboBox), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -512,7 +513,7 @@ namespace Fluent
         ///     Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling,
         ///     binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

@@ -14,6 +14,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Fluent.Internal.KnownBoxes;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -112,7 +113,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="IsMinimized"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(false, OnMinimizedChanged));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnMinimizedChanged));
 
         /// <summary>
         /// Gets or sets whether ribbon can be minimized
@@ -126,7 +127,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(true));
+        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
         /// <summary>
@@ -141,7 +142,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="IsDropDownOpen"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(false, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -173,7 +174,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for <see cref="HighlightSelectedItem"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HighlightSelectedItemProperty =
-            DependencyProperty.RegisterAttached("HighlightSelectedItem", typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
+            DependencyProperty.RegisterAttached("HighlightSelectedItem", typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Gets whether ribbon tabs can scroll

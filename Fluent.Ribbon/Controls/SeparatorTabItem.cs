@@ -5,6 +5,8 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents separator to use in the TabControl
     /// </summary>
@@ -20,9 +22,9 @@ namespace Fluent
         {
             var type = typeof(SeparatorTabItem);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IsEnabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
-            IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, null, CoerceIsEnabledAndTabStop));
-            IsSelectedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(false, OnIsSelectedChanged));
+            IsEnabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, null, CoerceIsEnabledAndTabStop));
+            IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, null, CoerceIsEnabledAndTabStop));
+            IsSelectedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, OnIsSelectedChanged));
         }
 
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

@@ -17,6 +17,7 @@ namespace Fluent
     using System.Linq;
     using System.Windows.Data;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents ribbon tab item
@@ -118,7 +119,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMinimized.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether ribbon is opened
@@ -133,7 +134,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets reduce order
@@ -156,7 +157,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsContextualPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsContextual), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(IsContextual), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsContextual.  
@@ -197,7 +198,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSelected.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
+        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
 
         /// <summary>
         /// Gets ribbon tab control parent
@@ -239,7 +240,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSeparatorVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
-            DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets ribbon contextual tab group
@@ -301,7 +302,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasLeftGroupBorderProperty =
-            DependencyProperty.Register(nameof(HasLeftGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasLeftGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether tab item has right group border
@@ -316,7 +317,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasRightGroupBorderProperty =
-            DependencyProperty.Register(nameof(HasRightGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasRightGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// get collection of ribbon groups

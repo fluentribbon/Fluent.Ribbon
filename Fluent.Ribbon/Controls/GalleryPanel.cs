@@ -11,6 +11,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents panel for Gallery, InRibbonGallery, ComboBox 
@@ -54,7 +55,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
             DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(GalleryPanel),
-            new PropertyMetadata(true, OnIsGroupedChanged));
+            new PropertyMetadata(BooleanBoxes.TrueBox, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -176,7 +177,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
-            typeof(GalleryPanel), new PropertyMetadata(double.NaN));
+            typeof(GalleryPanel), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -198,7 +199,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
-            typeof(GalleryPanel), new PropertyMetadata(double.NaN));
+            typeof(GalleryPanel), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 

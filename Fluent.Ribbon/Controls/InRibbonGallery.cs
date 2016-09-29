@@ -19,6 +19,7 @@ namespace Fluent
     using System.Windows.Threading;
     using Fluent.Extensibility;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents the In-Ribbon Gallery, a gallery-based control that exposes 
@@ -236,7 +237,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         /// <summary>
         /// Gets or sets item height
@@ -251,7 +252,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -498,7 +499,7 @@ namespace Fluent
             private set { this.SetValue(HasFilterPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(false));
+        private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasFilter.  
@@ -547,7 +548,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register(nameof(Selectable), typeof(bool),
-            typeof(InRibbonGallery), new PropertyMetadata(true, OnSelectableChanged));
+            typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox, OnSelectableChanged));
 
         private static void OnSelectableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -582,7 +583,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -620,7 +621,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanCollapseToButton.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCollapseToButtonProperty =
-            DependencyProperty.Register(nameof(CanCollapseToButton), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanCollapseToButton), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -639,7 +640,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsCollapsed.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -854,7 +855,7 @@ namespace Fluent
         /// /Using a DependencyProperty as the backing store for DropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -873,7 +874,7 @@ namespace Fluent
         /// /Using a DependencyProperty as the backing store for DropDownWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownWidthProperty =
-            DependencyProperty.Register(nameof(DropDownWidth), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownWidth), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -1516,7 +1517,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

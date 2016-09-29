@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 namespace Fluent
 {
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// RibbonGroup represents a logical group of controls as they appear on
@@ -260,7 +261,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsLauncherVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLauncherVisibleProperty =
-            DependencyProperty.Register(nameof(IsLauncherVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsLauncherVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -435,7 +436,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsLauncherEnabled.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLauncherEnabledProperty =
-            DependencyProperty.Register(nameof(IsLauncherEnabled), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsLauncherEnabled), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -474,7 +475,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(false, OnIsOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -565,7 +566,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="IsSeparatorVisible"/>
         /// </summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
-          DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true));
+          DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -1102,7 +1103,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 
