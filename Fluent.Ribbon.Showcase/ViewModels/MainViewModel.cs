@@ -1,9 +1,11 @@
 ﻿namespace FluentTest.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
+    using System.Timers;
     using System.Windows;
     using System.Windows.Input;
     using Fluent;
@@ -24,6 +26,8 @@
         private IList<string> manyItems;
         private bool? isCheckedToggleButton3;
 
+        private readonly Timer memoryTimer;
+
         public MainViewModel()
         {
             this.Title = $"Fluent.Ribbon {GetVersionText()}";
@@ -35,34 +39,21 @@
             this.FontsViewModel = new FontsViewModel();
             this.GalleryViewModel = new GalleryViewModel();
 
-            this.PreviewCommand = new RelayCommand<GalleryItem>(this.Preview);
-            this.CancelPreviewCommand = new RelayCommand<GalleryItem>(this.CancelPreview);
+            this.PreviewCommand = new RelayCommand<GalleryItem>(Preview);
+            this.CancelPreviewCommand = new RelayCommand<GalleryItem>(CancelPreview);
+
+            this.memoryTimer = new Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
+            this.memoryTimer.Elapsed += this.HandleMemoryTimer_Elapsed;
+            this.memoryTimer.Start();
+
+            ////string.Format("{0:##,000}", this.UsedMemory)
         }
 
-        private static string GetVersionText()
-        {
-            var version = typeof(Ribbon).Assembly.GetName().Version;
-
-            var attributes = typeof(Ribbon).Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
-                    as AssemblyInformationalVersionAttribute[];
-
-            var attrib = attributes.FirstOrDefault();
-
-            return $"{version} ({attrib.InformationalVersion})";
-        }
-
-        private void Preview(GalleryItem galleryItem)
-        {
-            Trace.WriteLine($"Preview: {galleryItem}");
-        }
-
-        private void CancelPreview(GalleryItem galleryItem)
-        {
-            Trace.WriteLine($"CancelPreview: {galleryItem}");
-        }
+        #region Properties
 
         public string Title { get; private set; }
+
+        public long UsedMemory => GC.GetTotalMemory(true) / 1014;
 
         public double Zoom
         {
@@ -147,11 +138,6 @@
             }
         }
 
-        private IList<string> GenerateStrings(int count)
-        {
-            return Enumerable.Repeat("Test", count).ToList();
-        }
-
         public ICommand PreviewCommand { get; private set; }
 
         public ICommand CancelPreviewCommand { get; private set; }
@@ -197,6 +183,41 @@
 
                 return this.testCommand;
             }
+        }
+
+        #endregion Properties
+
+        private static string GetVersionText()
+        {
+            var version = typeof(Ribbon).Assembly.GetName().Version;
+
+            var attributes = typeof(Ribbon).Assembly
+                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
+                    as AssemblyInformationalVersionAttribute[];
+
+            var attrib = attributes.FirstOrDefault();
+
+            return $"{version} ({attrib.InformationalVersion})";
+        }
+
+        private static void Preview(GalleryItem galleryItem)
+        {
+            Trace.WriteLine($"Preview: {galleryItem}");
+        }
+
+        private static void CancelPreview(GalleryItem galleryItem)
+        {
+            Trace.WriteLine($"CancelPreview: {galleryItem}");
+        }
+
+        private IList<string> GenerateStrings(int count)
+        {
+            return Enumerable.Repeat("Test", count).ToList();
+        }
+
+        private void HandleMemoryTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            this.OnPropertyChanged(nameof(this.UsedMemory));
         }
     }
 }

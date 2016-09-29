@@ -36,10 +36,12 @@
             </Canvas>
         </ResourceDictionary>
     </UserControl.Resources>
+    
     <UserControl.LayoutTransform>
         <ScaleTransform ScaleX="{Binding Zoom}"
                         ScaleY="{Binding Zoom}" />
     </UserControl.LayoutTransform>
+    
     <Grid>
         <Grid.Resources>
             <Style x:Key="GalleryItemStyleWithCustomContextMenu"
@@ -80,9 +82,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Fluent:Ribbon AutomaticStateManagement="True"
-                       x:Name="ribbon">
-
+        <Fluent:Ribbon x:Name="ribbon"
+                       AutomaticStateManagement="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  BorderBrush="Magenta"
@@ -2797,16 +2798,27 @@
                                   HorizontalAlignment="Left">
                 <TextBlock Text="150 px" />
             </Fluent:StatusBarItem>
+            
             <Separator HorizontalAlignment="Left" />
+            
             <Fluent:StatusBarItem Title="Selected Words"
                                   Value="15"
                                   ToolTip="This is Selected Words"
                                   Content="15"
                                   HorizontalAlignment="Left" />
+            
             <Separator HorizontalAlignment="Left" />
+
+            <Fluent:StatusBarItem Title="Used memory"
+                                  HorizontalAlignment="Right"
+                                  Value="{Binding UsedMemory, StringFormat={}{0:##\,000} KB}" />
+
+            <Separator HorizontalAlignment="Right" />
+
             <Fluent:StatusBarItem Title="Zoom"
                                   HorizontalAlignment="Right"
                                   Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:P}}" />
+
             <Fluent:StatusBarItem Title="Zoom Slider"
                                   HorizontalAlignment="Right">
                 <Slider x:Name="zoomSlider"
