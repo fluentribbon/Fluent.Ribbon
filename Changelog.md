@@ -6,6 +6,8 @@
   - Office 2010 and Windows 8 themes got removed. 
     Office 2013 theme was moved from "Themes/Office2013/Generic.xaml" to "Themes/Generic.xaml".
     This was a [community voted decision](../../issues/282).
+  - `ComboBox` now uses the default `ItemsPanelTemplate` instead of `VirtualizingStackPanel` again.  
+    If you prefer to use `VirtualizingStackPanel` you can change this on a per instance level or add it to your default `Style`.
   - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
   - [#302](../../issues/302) - Rename Office 2013 theme to Generic
   - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
