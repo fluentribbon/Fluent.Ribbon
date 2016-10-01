@@ -144,10 +144,7 @@ namespace Fluent
 
             var titleBar = group.Parent as RibbonTitleBar;
 
-            if (titleBar != null)
-            {
-                titleBar.InvalidateMeasure();
-            }
+            titleBar?.InvalidateMeasure();
         }
 
         /// <summary>
