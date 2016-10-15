@@ -2464,6 +2464,14 @@
                                    Fluent:KeyTip.HorizontalAlignment="Center"
                                    Fluent:KeyTip.VerticalAlignment="Top"
                                    Fluent:KeyTip.Keys="T" />
+                    <Fluent:Button Header="Left, Top, Margin"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
+                                   Fluent:KeyTip.AutoPlacement="False"
+                                   Fluent:KeyTip.HorizontalAlignment="Left"
+                                   Fluent:KeyTip.VerticalAlignment="Top"
+                                   Fluent:KeyTip.Margin="40,0,0,0"
+                                   Fluent:KeyTip.Keys="LTM" />                    
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2804,7 +2812,7 @@
             <Fluent:StatusBarItem Title="Selected Words"
                                   Value="15"
                                   ToolTip="This is Selected Words"
-                                  Content="15"
+                                  Content="15 words"
                                   HorizontalAlignment="Left" />
             
             <Separator HorizontalAlignment="Left" />
@@ -2818,6 +2826,9 @@
             <Fluent:StatusBarItem Title="Zoom"
                                   HorizontalAlignment="Right"
                                   Value="{Binding Value, ElementName=zoomSlider, StringFormat={}{0:P}}" />
+
+            <Fluent:StatusBarItem Title="Test (no content, no value)"
+                                  HorizontalAlignment="Right" />
 
             <Fluent:StatusBarItem Title="Zoom Slider"
                                   HorizontalAlignment="Right">
