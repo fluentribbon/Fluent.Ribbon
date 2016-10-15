@@ -620,7 +620,7 @@ namespace Fluent
                 var associatedElementInVisualTree = VisualTreeHelper.GetParent(this.associatedElements[i]) != null;
                 this.keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
-                if (!KeyTip.GetAutoPlacement(this.associatedElements[i]))
+                if (KeyTip.GetAutoPlacement(this.associatedElements[i]) == false)
                 {
                     #region Custom Placement
 
