@@ -138,6 +138,8 @@ namespace Fluent
                     this.AddVisualChild(keyTip);
                     this.associatedElements.Add(child);
 
+                    this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", child, keys);
+
                     if (groupBox != null)
                     {
                         if (groupBox.State == RibbonGroupBoxState.Collapsed)
@@ -178,7 +180,7 @@ namespace Fluent
 
         private static IList<UIElement> GetVisibleChildren(UIElement element)
         {
-            var logicalChildren = LogicalTreeHelper.GetChildren(element)
+            var logicalChildren = LogicalTreeHelper.GetChildren(element)                
                 .OfType<UIElement>();
 
             var children = logicalChildren;
