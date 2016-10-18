@@ -12,5 +12,7 @@
                 Value="True" />
         <Setter Property="IsOpenAnimationEnabled"
                 Value="False" />
+        <Setter Property="Fluent:KeyTip.Keys"
+                Value="{x:Null}" />
     </Style>
 </ResourceDictionary>
