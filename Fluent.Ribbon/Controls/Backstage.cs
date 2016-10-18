@@ -51,7 +51,22 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, OnCoerceIsOpen));
+
+        /// <summary>
+        /// Gets or sets whether backstage can be openend or closed.
+        /// </summary>
+        public bool CanChangeIsOpen
+        {
+            get { return (bool)this.GetValue(CanChangeIsOpenProperty); }
+            set { this.SetValue(CanChangeIsOpenProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="CanChangeIsOpen"/>
+        /// </summary>
+        public static readonly DependencyProperty CanChangeIsOpenProperty =
+            DependencyProperty.Register(nameof(CanChangeIsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Gets or sets the duration for the hide animation
@@ -115,6 +130,18 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        private static object OnCoerceIsOpen(DependencyObject d, object baseValue)
+        {
+            var backstage = (Backstage)d;
+
+            if (backstage.CanChangeIsOpen == false)
+            {
+                return backstage.IsOpen;
+            }
+
+            return baseValue;
+        }
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -407,7 +434,13 @@ namespace Fluent
             this.adorner = new BackstageAdorner(elementToAdorn, this);
             layer.Add(this.adorner);
 
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted));
+            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted, HandleOpenBackstageCommandCanExecute));
+        }
+
+        private static void HandleOpenBackstageCommandCanExecute(object sender, CanExecuteRoutedEventArgs args)
+        {
+            var target = ((BackstageAdorner)args.Source).Backstage;
+            args.CanExecute = target.CanChangeIsOpen;
         }
 
         private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)

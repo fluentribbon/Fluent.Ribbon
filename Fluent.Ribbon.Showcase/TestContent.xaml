@@ -134,6 +134,18 @@
                 <Grid>
                     <!--Backstage items can be keytipped-->
                     <Fluent:Backstage Visibility="{Binding IsChecked, ElementName=UseBackstage, Converter={StaticResource boolToVisibilityConverter}}">
+                        
+                        <!--<Fluent:Backstage.Style>
+                            <Style TargetType="Fluent:Backstage">
+                                <Style.Triggers>
+                                    <Trigger Property="Fluent:Backstage.IsOpen"
+                                             Value="True">
+                                        <Setter Property="Fluent:Backstage.CanChangeIsOpen"
+                                                Value="False" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Fluent:Backstage.Style>-->
                         <Fluent:BackstageTabControl>
                             <Fluent:Button Header="Save"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Save.png"
