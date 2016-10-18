@@ -539,26 +539,7 @@ namespace Fluent
         /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
         public static Ribbon GetParentRibbon(DependencyObject obj)
         {
-            var item = obj;
-
-            while (item != null
-                && item is Ribbon == false)
-            {
-                item = VisualTreeHelper.GetParent(item);
-            }
-
-            if (item == null)
-            {
-                item = obj;
-
-                while (item != null &&
-                       item is Ribbon == false)
-                {
-                    item = LogicalTreeHelper.GetParent(item);
-                }
-            }
-
-            return (Ribbon)item;
+            return UIHelper.GetParent<Ribbon>(obj);
         }
 
         #endregion
