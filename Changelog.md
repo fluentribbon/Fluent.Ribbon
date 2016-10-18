@@ -41,6 +41,8 @@
   - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
   - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
   - [#334](../../issues/334) - Select all text in Spinner on focus
+  - [#360](../../issues/360) - Toggling of KeyTips should not happen when Shift is pressed (thanks to @stylefish)
+  - Added `CanChangeIsOpen` to `Backstage`
   - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
 
 ## 4.0.3
