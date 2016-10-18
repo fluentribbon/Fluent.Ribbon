@@ -875,6 +875,11 @@ namespace Fluent
                     yield return this.layoutRoot;
                 }
 
+                if (this.Menu != null)
+                {
+                    yield return this.Menu;
+                }
+
                 if (this.StartScreen != null)
                 {
                     yield return this.StartScreen;
