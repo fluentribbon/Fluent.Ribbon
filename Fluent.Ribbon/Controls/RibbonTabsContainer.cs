@@ -379,15 +379,6 @@ namespace Fluent
                 finalRect.X += item.DesiredSize.Width;
             }
 
-            var ribbonTabItemsWithGroups = this.InternalChildren.OfType<RibbonTabItem>()
-                                               .Where(item => item.Group != null);
-
-            var ribbonTitleBar = ribbonTabItemsWithGroups.Select(ribbonTabItemsWithGroup => ribbonTabItemsWithGroup.Group.Parent)
-                                                         .OfType<RibbonTitleBar>()
-                                                         .FirstOrDefault();
-
-            ribbonTitleBar?.InvalidateMeasure();
-
             return finalSize;
         }
 
@@ -402,7 +393,10 @@ namespace Fluent
             {
                 if (tab.IsContextual)
                 {
-                    if (tab.IsSeparatorVisible != contextualTabs) tab.IsSeparatorVisible = contextualTabs;
+                    if (tab.IsSeparatorVisible != contextualTabs)
+                    {
+                        tab.IsSeparatorVisible = contextualTabs;
+                    }
                 }
                 else if (tab.IsSeparatorVisible != regularTabs)
                 {
