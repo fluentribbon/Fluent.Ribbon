@@ -322,11 +322,11 @@ namespace Fluent
 
         private static bool IsShowOrHideKey(KeyEventArgs e)
         {
-            return e.Key == Key.System
-                && (e.SystemKey == Key.LeftAlt
-                   || e.SystemKey == Key.RightAlt
-                   || e.SystemKey == Key.F10
-                   || e.SystemKey == Key.Space);
+            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
+                   && (e.SystemKey == Key.LeftAlt
+                       || e.SystemKey == Key.RightAlt
+                       || e.SystemKey == Key.F10
+                       || e.SystemKey == Key.Space);
         }
 
         private void ClearUserInput()
