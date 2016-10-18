@@ -546,11 +546,12 @@ namespace Fluent
 
         private void InvalidateMeasureOfTitleBar()
         {
-            var parentRibbon = RibbonControl.GetParentRibbon(this);
+            var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
+                ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
-            parentRibbon?.TitleBar?.InvalidateMeasure();
+            titleBar?.InvalidateMeasure();
 
-            parentRibbon?.TitleBar?.UpdateLayout();
+            titleBar?.UpdateLayout();
         }
 
         // Updates keys for keytip access
