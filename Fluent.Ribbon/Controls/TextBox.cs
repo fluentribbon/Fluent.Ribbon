@@ -13,6 +13,7 @@ using System.Windows.Threading;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows.Controls.Primitives;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -414,7 +415,7 @@ namespace Fluent
             this.textBox.SelectionChanged += (s, e) => this.RaiseSelectionChanged();
             this.textBox.TextChanged += (s, e) => this.RaiseTextChanged(e);
 
-            this.ForwardBindings(this.textBox, this);
+            this.ForwardBindingToRealTextBox(this.textBox, this);
         }
 
         #endregion
@@ -529,11 +530,11 @@ namespace Fluent
                 this.textBoxTemplated.TextChanged -= this.OnTextBoxTemplatedTextChanged;
                 BindingOperations.ClearAllBindings(this.textBoxTemplated);
             }
+
             this.textBoxTemplated = this.GetTemplateChild("PART_TextBox") as System.Windows.Controls.TextBox;
 
-
             // Check template
-            if (!this.IsTemplateValid())
+            if (this.IsTemplateValid() == false)
             {
                 Debug.WriteLine("Template for TextBox control is invalid");
                 return;
@@ -545,7 +546,7 @@ namespace Fluent
             // Bindings
             BindingOperations.ClearAllBindings(this.textBox);
 
-            this.ForwardBindings(this, this.textBoxTemplated);
+            this.ForwardBindingToRealTextBox(this, this.textBoxTemplated);
 
             this.textBoxTemplated.PreviewKeyDown += this.OnTextBoxTemplatedKeyDown;
             this.textBoxTemplated.SelectionChanged += this.OnTextBoxTemplatedSelectionChanged;
@@ -672,12 +673,13 @@ namespace Fluent
             textBoxQAT.Width = this.Width;
             textBoxQAT.InputWidth = this.InputWidth;
 
-            this.ForwardBindings(this, textBoxQAT);
+            this.ForwardBindingsForQAT(this, textBoxQAT);
 
             RibbonControl.BindQuickAccessItem(this, element);
         }
 
-        private void ForwardBindings(object source, FrameworkElement target)
+        // ReSharper disable once SuggestBaseTypeForParameter
+        private void ForwardBindingsForQAT(TextBox source, TextBox target)
         {
             Bind(source, target, nameof(this.Text), TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
             Bind(source, target, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
@@ -691,6 +693,23 @@ namespace Fluent
             Bind(source, target, nameof(this.SelectionBrush), SelectionBrushProperty, BindingMode.TwoWay);
             Bind(source, target, nameof(this.SelectionOpacity), SelectionOpacityProperty, BindingMode.TwoWay);
             Bind(source, target, nameof(this.CaretBrush), CaretBrushProperty, BindingMode.TwoWay);
+
+        }
+
+        private void ForwardBindingToRealTextBox(object source, FrameworkElement target)
+        {
+            Bind(source, target, nameof(this.Text), System.Windows.Controls.TextBox.TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
+            Bind(source, target, nameof(this.IsReadOnly), TextBoxBase.IsReadOnlyProperty, BindingMode.OneWay);
+            Bind(source, target, nameof(this.CharacterCasing), System.Windows.Controls.TextBox.CharacterCasingProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.MaxLength), System.Windows.Controls.TextBox.MaxLengthProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.TextAlignment), System.Windows.Controls.TextBox.TextAlignmentProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.TextDecorations), System.Windows.Controls.TextBox.TextDecorationsProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.IsUndoEnabled), TextBoxBase.IsUndoEnabledProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.UndoLimit), TextBoxBase.UndoLimitProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.AutoWordSelection), TextBoxBase.AutoWordSelectionProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.SelectionBrush), TextBoxBase.SelectionBrushProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.SelectionOpacity), TextBoxBase.SelectionOpacityProperty, BindingMode.TwoWay);
+            Bind(source, target, nameof(this.CaretBrush), TextBoxBase.CaretBrushProperty, BindingMode.TwoWay);
         }
 
         #endregion
