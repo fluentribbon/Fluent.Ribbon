@@ -11,37 +11,6 @@ namespace Fluent
     /// </summary>
     public class RibbonProperties
     {
-        #region TitleBarHeight Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for TitleBarHeight.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata(27D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
-
-        /// <summary>
-        /// Sets TitleBarHeight for element
-        /// </summary>
-        public static void SetTitleBarHeight(UIElement element, double value)
-        {
-            element.SetValue(TitleBarHeightProperty, value);
-        }
-
-        /// <summary>
-        /// Gets TitleBarHeight for element
-        /// </summary>
-        [AttachedPropertyBrowsableForType(typeof(Ribbon))]
-        [AttachedPropertyBrowsableForType(typeof(RibbonTitleBar))]
-        [AttachedPropertyBrowsableForType(typeof(RibbonWindow))]
-        public static double GetTitleBarHeight(UIElement element)
-        {
-            return (double)element.GetValue(TitleBarHeightProperty);
-        }
-
-        #endregion
-
         #region Size Property
 
         /// <summary>

@@ -11,7 +11,6 @@
         MinWidth="80"
         MinHeight="60"
         mc:Ignorable="d"
-        WindowState="Normal"
-        Fluent:RibbonProperties.TitleBarHeight="0">
+        WindowState="Normal">
     <fluentTest:TestContent x:Name="TestContent" />
 </Window>

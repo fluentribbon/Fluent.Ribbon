@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System.Windows;
-    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Control for representing the left and right side of the start screen.
@@ -53,21 +52,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty LeftContentMarginProperty =
             DependencyProperty.Register(nameof(LeftContentMargin), typeof(Thickness), typeof(StartScreenTabControl), new PropertyMetadata(default(Thickness)));
-
-        /// <summary>
-        /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
-        /// </summary>
-        public bool IsWindowSteeringHelperEnabled
-        {
-            get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
-            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, value); }
-        }
-
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsWindowSteeringHelperEnabled"/>.
-        /// </summary>
-        public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
-            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(StartScreenTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Static constructor.

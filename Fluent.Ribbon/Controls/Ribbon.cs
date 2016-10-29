@@ -686,6 +686,21 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Gets or sets the height which is used to render the window title.
+        /// </summary>
+        public double QuickAccessToolBarHeight
+        {
+            get { return (double)this.GetValue(QuickAccessToolBarHeightProperty); }
+            set { this.SetValue(QuickAccessToolBarHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBarHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessToolBarHeightProperty =
+            DependencyProperty.Register(nameof(QuickAccessToolBarHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(27D));
+
+        /// <summary>
         /// Gets collection of contextual tab groups
         /// </summary>
         public ObservableCollection<RibbonContextualTabGroup> ContextualGroups

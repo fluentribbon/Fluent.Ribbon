@@ -14,20 +14,15 @@
         <Grid>
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0"
-							   Grid.Column="0"
+                               Height="{TemplateBinding TitleBarHeight}"
                                VerticalAlignment="Top"
-                               HorizontalAlignment="Left"
+                               HorizontalAlignment="Stretch"
                                Background="Transparent"
                                LastChildFill="True">
                         <Image x:Name="PART_Icon"
@@ -38,6 +33,14 @@
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                                Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
                                SnapsToDevicePixels="True" />
+
+                        <ContentPresenter x:Name="PART_WindowCommands"
+                                          DockPanel.Dock="Right"
+                                          Content="{TemplateBinding WindowCommands}"                                          
+                                          Grid.Row="0"
+                                          Panel.ZIndex="1"
+                                          VerticalAlignment="Top"
+                                          HorizontalAlignment="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
                                                Style="{DynamicResource RibbonTitleBarStyle}"
@@ -58,17 +61,8 @@
                         </Fluent:RibbonTitleBar>
                     </DockPanel>
 
-                    <ContentPresenter Content="{TemplateBinding WindowCommands}"
-                                      x:Name="PART_WindowCommands"
-                                      Grid.Row="0"
-									  Grid.Column="1"
-                                      Panel.ZIndex="1"
-                                      VerticalAlignment="Top"
-                                      HorizontalAlignment="Right" />
-
                     <ContentPresenter x:Name="PART_ContentPresenter" 
-                                      Grid.Row="1"
-                                      Grid.ColumnSpan="2" />
+                                      Grid.Row="1" />
                 </Grid>
             </AdornerDecorator>
 
@@ -145,6 +139,8 @@
                 Value="{StaticResource RibbonWindowControlTemplate}" />
         <Setter Property="WindowStyle"
                 Value="None" />
+        <Setter Property="TitleBarHeight"
+                Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">

@@ -4,7 +4,6 @@
                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:fluentTest="clr-namespace:FluentTest"
-                   Fluent:RibbonProperties.TitleBarHeight="0"
                    Style="{DynamicResource CleanWindowStyleKey}"
                    GlowBrush="{DynamicResource AccentColorBrush}"
                    ShowIconOnTitleBar="False"

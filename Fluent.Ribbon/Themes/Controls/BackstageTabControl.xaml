@@ -201,6 +201,10 @@
             </Grid.ColumnDefinitions>
             <Grid VerticalAlignment="Stretch"
                   Background="{TemplateBinding ItemsPanelBackground}">
+                <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    VerticalAlignment="Top"
+                                                    IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />                
+                
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
@@ -212,18 +216,11 @@
                 <ItemsPresenter Margin="0,69,0,0"
                                 Height="Auto" />
             </Grid>
+
             <Grid Height="Auto"
                   Grid.Column="1"
-                  Background="{TemplateBinding Background}">
-                <Grid.Margin>
-                    <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
-                        <Binding Source="0" />
-                        <Binding RelativeSource="{RelativeSource Self}"
-                                 Path="(Fluent:RibbonProperties.TitleBarHeight)" />
-                        <Binding Source="0" />
-                        <Binding Source="0" />
-                    </MultiBinding>
-                </Grid.Margin>
+                  Background="{TemplateBinding Background}"
+                  Margin="{TemplateBinding SelectedContentMargin}">
                 <Grid.Resources>
                     <ResourceDictionary>
                         <Style x:Key="{x:Type Fluent:Button}"
@@ -285,5 +282,17 @@
                 Value="{DynamicResource BackstageBackgroundBrush}" />
         <Setter Property="ItemsPanelBackground"
                 Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
+        <Setter Property="SelectedContentMargin">
+            <Setter.Value>
+                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                    <Binding Source="0" />
+                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}"
+                             Path="TitleBarHeight"
+                             FallbackValue="0" />
+                        <Binding Source="0" />
+                    <Binding Source="0" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

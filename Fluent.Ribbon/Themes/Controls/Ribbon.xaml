@@ -24,7 +24,7 @@
                     BorderThickness="0"
                     Grid.Row="1"
                     Background="{DynamicResource RibbonBackgoundBrush}"
-                    Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+                    Height="{TemplateBinding QuickAccessToolBarHeight}">
                 <ContentControl x:Name="contentControl"
                                 HorizontalAlignment="Left">
                     <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
@@ -84,6 +84,8 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="TitleBar"
-                Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}}" />
+                Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue={x:Null}}" />
+        <Setter Property="QuickAccessToolBarHeight"
+                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=27}" />
     </Style>
 </ResourceDictionary>

@@ -24,17 +24,12 @@
         /// <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding"/> produces. The value <see cref="F:System.Windows.DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Any(x => x == DependencyProperty.UnsetValue))
-            {
-                if (parameter != null)
-                {
-                    return (Thickness)systemThicknessConverter.ConvertFromString((string)parameter);
-                }
+            var left = ConvertSingleValue(values[0]);
+            var top = ConvertSingleValue(values[1]);
+            var right = ConvertSingleValue(values[2]);
+            var bottom = ConvertSingleValue(values[3]);
 
-                return new Thickness();
-            }
-
-            return new Thickness(System.Convert.ToDouble(values[0]), System.Convert.ToDouble(values[1]), System.Convert.ToDouble(values[2]), System.Convert.ToDouble(values[3]));
+            return new Thickness(left, top, right, bottom);
         }
 
         /// <summary>
@@ -50,5 +45,17 @@
         }
 
         #endregion
+
+        private static double ConvertSingleValue(object value)
+        {
+            try
+            {
+                return System.Convert.ToDouble(value);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

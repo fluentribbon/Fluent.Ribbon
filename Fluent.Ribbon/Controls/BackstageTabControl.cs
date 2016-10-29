@@ -10,6 +10,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents Backstage tab control.
@@ -17,6 +18,21 @@ namespace Fluent
     public class BackstageTabControl : Selector
     {
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the margin which is used to render selected content.
+        /// </summary>
+        public Thickness SelectedContentMargin
+        {
+            get { return (Thickness)this.GetValue(SelectedContentMarginProperty); }
+            set { this.SetValue(SelectedContentMarginProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="SelectedContentMargin"/>.
+        /// </summary>
+        public static readonly DependencyProperty SelectedContentMarginProperty =
+            DependencyProperty.Register(nameof(SelectedContentMargin), typeof(Thickness), typeof(BackstageTabControl), new PropertyMetadata(default(Thickness)));
 
         // Dependency property key for SelectedContent
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata());
@@ -205,6 +221,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ParentBackstageProperty =
             DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata());
+
+        /// <summary>
+        /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
+        /// </summary>
+        public bool IsWindowSteeringHelperEnabled
+        {
+            get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
+            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsWindowSteeringHelperEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
+            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(BackstageTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 

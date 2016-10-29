@@ -34,7 +34,6 @@ Controls\BackstageTabItem.xaml
 Controls\BackstageControls.xaml
 Controls\BackstageTabControl.xaml
 Controls\StartScreen.xaml
-Controls\StartScreenTabControlTemplate.xaml
 Controls\StartScreenTabControl.xaml
 Controls\RibbonSeparator.xaml
 Controls\RibbonToolBar.xaml

@@ -7,11 +7,13 @@
                 Value="{DynamicResource RibbonTitleBarControlTemplate}" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="Height"
+                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=27}" />
     </Style>
 
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTitleBar}">
-        <Grid Height="{Binding Path=(Fluent:RibbonProperties.TitleBarHeight), RelativeSource={RelativeSource Self}}">
+        <Grid>
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
                               ContentSource="QuickAccessToolBar" />
             

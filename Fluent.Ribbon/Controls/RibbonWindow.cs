@@ -57,6 +57,21 @@ namespace Fluent
         #endregion
 
         /// <summary>
+        /// Gets or sets the height which is used to render the window title.
+        /// </summary>
+        public double TitleBarHeight
+        {
+            get { return (double)this.GetValue(TitleBarHeightProperty); }
+            set { this.SetValue(TitleBarHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBarHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarHeightProperty =
+            DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(RibbonWindow), new PropertyMetadata(DoubleBoxes.Zero));
+
+        /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title.
         /// </summary>
         public Brush TitleForeground
@@ -211,7 +226,7 @@ namespace Fluent
         private void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(RibbonProperties.TitleBarHeightProperty), Source = this });
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(TitleBarHeightProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
@@ -295,7 +310,7 @@ namespace Fluent
                     {
                         e.Handled = true;
 
-                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, RibbonProperties.GetTitleBarHeight(this))));
+                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, this.TitleBarHeight)));
                     }
                     else if (e.ClickCount == 2)
                     {
