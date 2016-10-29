@@ -43,14 +43,8 @@
                                     Grid.ColumnSpan="1"
                                     Width="{TemplateBinding InputWidth}"
                                     HorizontalAlignment="Right">
-                                <TextBox HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch"
-                                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                         TextWrapping="NoWrap"
-                                         BorderThickness="0,0,0,0"
-                                         x:Name="PART_TextBox"
-                                         Background="{DynamicResource TextBoxBackgroundBrush}" />
+                                <ScrollViewer Margin="0"
+                                              x:Name="PART_ContentHost" />
                             </Border>
                         </Grid>
                     </Border>
@@ -81,9 +75,6 @@
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False">
-                            <Setter Property="IsEnabled"
-                                    TargetName="PART_TextBox"
-                                    Value="False" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
@@ -91,7 +82,7 @@
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxDisabledBorderBrush}" />
                             <Setter Property="BorderBrush"
-                                    TargetName="PART_TextBox"
+                                    TargetName="PART_ContentHost"
                                     Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
                             <Setter Property="Opacity"
                                     TargetName="iconImage"
@@ -112,7 +103,7 @@
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
-                                    TargetName="PART_TextBox"
+                                    TargetName="PART_ContentHost"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
@@ -124,7 +115,7 @@
                                     TargetName="PART_ContentBorder"
                                     Value="{DynamicResource TextBoxHoverBorderBrush}" />
                             <Setter Property="Background"
-                                    TargetName="PART_TextBox"
+                                    TargetName="PART_ContentHost"
                                     Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
