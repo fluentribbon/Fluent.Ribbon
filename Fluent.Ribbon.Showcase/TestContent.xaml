@@ -1101,6 +1101,7 @@
                                     Text="CurrentText" />
 
                     <Fluent:Button Header="PrintVisual"
+                                   CanAddToQuickAccessToolBar="False"
                                    Click="OnPrintVisualClick" />
                 </Fluent:RibbonGroupBox>
 
