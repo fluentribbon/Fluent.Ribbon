@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Metro.Native;
@@ -197,6 +198,7 @@ namespace Fluent
 
             control.UpdateCanExecute();
         }
+
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
@@ -217,23 +219,6 @@ namespace Fluent
                 this.currentCanExecute = canExecute;
                 this.CoerceValue(IsEnabledProperty);
             }
-        }
-
-        /// <summary>
-        /// Execute command
-        /// </summary>
-        protected void ExecuteCommand()
-        {
-            CommandHelper.Execute(this.Command, this.CommandParameter, this.CommandTarget);
-        }
-
-        /// <summary>
-        /// Determines whether the Command can be executed
-        /// </summary>
-        /// <returns>Returns Command CanExecute</returns>
-        protected bool CanExecuteCommand()
-        {
-            return CommandHelper.CanExecute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         #endregion
