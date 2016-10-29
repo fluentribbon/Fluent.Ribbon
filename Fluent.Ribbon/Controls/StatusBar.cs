@@ -10,6 +10,7 @@ using System.Windows.Threading;
 namespace Fluent
 {
     using Fluent.Internal.KnownBoxes;
+    using Fluent.Localization;
 
     /// <summary>
     /// Represents ribbon status bar
@@ -301,7 +302,7 @@ namespace Fluent
 
             // Adding header separator
             this.contextMenu.Items.Add(new GroupSeparatorMenuItem());
-            RibbonControl.Bind(RibbonLocalization.Current.Localization, this.contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonLocalization.Current.Localization, this.contextMenu.Items[0] as FrameworkElement, nameof(RibbonLocalizationBase.CustomizeStatusBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
 
             for (var i = 0; i < this.Items.Count; i++)
             {

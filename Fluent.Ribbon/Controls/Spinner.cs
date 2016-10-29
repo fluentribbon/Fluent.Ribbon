@@ -402,10 +402,10 @@ namespace Fluent
             }
 
             // Bindings
-            Bind(this, this.buttonUp, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, this.buttonDown, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, this.buttonUp, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
-            Bind(this, this.buttonDown, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, this.buttonUp, nameof(this.Delay), RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, nameof(this.Delay), RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonUp, nameof(this.Interval), RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, nameof(this.Interval), RepeatButton.IntervalProperty, BindingMode.OneWay);
 
             // Events subscribing
             this.buttonUp.Click += this.OnButtonUpClick;
@@ -566,13 +566,13 @@ namespace Fluent
             spinner.Width = this.Width;
             spinner.InputWidth = this.InputWidth;
 
-            Bind(this, spinner, "Value", ValueProperty, BindingMode.TwoWay);
-            Bind(this, spinner, "Increment", IncrementProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Minimum", MinimumProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Maximum", MaximumProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Format", FormatProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Value), ValueProperty, BindingMode.TwoWay);
+            Bind(this, spinner, nameof(this.Increment), IncrementProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Minimum), MinimumProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Maximum), MaximumProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Format), FormatProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Delay), DelayProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Interval), IntervalProperty, BindingMode.OneWay);
 
             BindQuickAccessItem(this, element);
         }

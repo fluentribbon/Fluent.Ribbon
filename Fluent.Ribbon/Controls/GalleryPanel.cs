@@ -483,12 +483,12 @@ namespace Fluent
                     {
                         Header = propertyValue
                     };
-                    RibbonControl.Bind(this, galleryGroupContainer, "GroupStyle", GroupStyleProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "Orientation", GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "ItemWidth", GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "ItemHeight", GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "MaxItemsInRow", GalleryGroupContainer.MaxItemsInRowProperty, BindingMode.OneWay);
-                    RibbonControl.Bind(this, galleryGroupContainer, "MinItemsInRow", GalleryGroupContainer.MinItemsInRowProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.GroupStyle), GroupStyleProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.Orientation), GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemWidth), GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemHeight), GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.MaxItemsInRow), GalleryGroupContainer.MaxItemsInRowProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.MinItemsInRow), GalleryGroupContainer.MinItemsInRowProperty, BindingMode.OneWay);
                     dictionary.Add(propertyValue, galleryGroupContainer);
                     this.galleryGroupContainers.Add(galleryGroupContainer);
 

@@ -24,10 +24,10 @@
         /// <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding"/> produces. The value <see cref="F:System.Windows.DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var left = ConvertSingleValue(values[0]);
-            var top = ConvertSingleValue(values[1]);
-            var right = ConvertSingleValue(values[2]);
-            var bottom = ConvertSingleValue(values[3]);
+            var left = TryConvertSingleValue(values[0]);
+            var top = TryConvertSingleValue(values[1]);
+            var right = TryConvertSingleValue(values[2]);
+            var bottom = TryConvertSingleValue(values[3]);
 
             return new Thickness(left, top, right, bottom);
         }
@@ -46,7 +46,7 @@
 
         #endregion
 
-        private static double ConvertSingleValue(object value)
+        private static double TryConvertSingleValue(object value)
         {
             try
             {

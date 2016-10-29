@@ -358,21 +358,21 @@ namespace Fluent
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
-            RibbonControl.Bind(this, combo, "ActualWidth", WidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "InputWidth", InputWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "IsEditable", IsEditableProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ResizeMode", ResizeModeProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "Text", TextProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, combo, nameof(this.ActualWidth), WidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.InputWidth), InputWidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.IsEditable), IsEditableProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.Text), TextProperty, BindingMode.TwoWay);
 
-            RibbonControl.Bind(this, combo, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += this.OnQuickAccessOpened;
             if (this.IsEditable) combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;
             this.quickAccessCombo = combo;

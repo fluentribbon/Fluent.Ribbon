@@ -92,7 +92,7 @@ namespace Fluent
                 && ribbonControl != null)
             {
                 // Set Default Text Value
-                RibbonControl.Bind(ribbonControl, quickAccessMenuItem, "Header", HeaderProperty, BindingMode.OneWay);
+                RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
             }
 
             if (ribbonControl != null)
@@ -243,12 +243,12 @@ namespace Fluent
 
             if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
             {
-                RibbonControl.Bind(element, result, "Visibility", UIElement.VisibilityProperty, BindingMode.OneWay);
+                RibbonControl.Bind(element, result, nameof(UIElement.Visibility), UIElement.VisibilityProperty, BindingMode.OneWay);
             }
 
             if (BindingOperations.IsDataBound(result, UIElement.IsEnabledProperty) == false)
             {
-                RibbonControl.Bind(element, result, "IsEnabled", UIElement.IsEnabledProperty, BindingMode.OneWay);
+                RibbonControl.Bind(element, result, nameof(UIElement.IsEnabled), UIElement.IsEnabledProperty, BindingMode.OneWay);
             }
 
             return result;
