@@ -240,10 +240,6 @@
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Themes\Controls\StartScreenTabControlTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Themes\Controls\StartScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
