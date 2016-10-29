@@ -285,24 +285,14 @@ namespace Fluent
             MinimizeTheRibbonMenuItem.IsChecked = ribbon.IsMinimized;
 
             // Set minimize the ribbon menu item visibility
-            if (ribbon.CanMinimize)
-            {
-                MinimizeTheRibbonMenuItem.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                MinimizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
-            }
+            MinimizeTheRibbonMenuItem.Visibility = ribbon.CanMinimize
+                                                       ? Visibility.Visible
+                                                       : Visibility.Collapsed;
 
             // Set customize the ribbon menu item visibility
-            if (ribbon.CanCustomizeRibbon)
-            {
-                CustomizeTheRibbonMenuItem.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                CustomizeTheRibbonMenuItem.Visibility = Visibility.Collapsed;
-            }
+            CustomizeTheRibbonMenuItem.Visibility = ribbon.CanCustomizeRibbon
+                                                        ? Visibility.Visible
+                                                        : Visibility.Collapsed;
 
             // Hide quick access position menu items
             ShowQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Collapsed;
