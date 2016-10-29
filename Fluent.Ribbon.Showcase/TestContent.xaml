@@ -386,22 +386,21 @@
                                    Command="{Binding TestCommand}"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
-                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
+                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference pasteButton}}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}"
+                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference cutButton}}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
-                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=dropDownGreen}"
+                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference copyButton}}" />
+                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference dropDownGreen}}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=gallerySampleInRibbonGallery}"
+                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference gallerySampleInRibbonGallery}}"
                                             IsChecked="True" />
                 <Fluent:QuickAccessMenuItem IsChecked="True"
-                                            Target="{Binding ElementName=UndoButton}" />
+                                            Target="{Binding Source={x:Reference UndoButton}}" />
             </Fluent:Ribbon.QuickAccessItems>
 
-            <Fluent:RibbonTabItem x:Name="homeTabItem"
-                                  Header="Home"
-                                  KeyTip="H"
+            <Fluent:RibbonTabItem Header="Options"
+                                  KeyTip="O"
                                   ToolTip="Regular Tool Tip">
                 <Fluent:RibbonGroupBox Header="Menu">
                     <Fluent:ToggleButton GroupName="Menu"
