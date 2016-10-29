@@ -58,6 +58,9 @@ namespace Fluent
             ContextMenuService.Attach(typeof(TextBox));
         }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         public TextBox()
         {
             ContextMenuService.Coerce(this);
@@ -156,6 +159,7 @@ namespace Fluent
 
         #region Implementation of Ribbon interfaces
 
+        /// <inheritdoc />
         public void OnKeyTipPressed()
         {
             // Use dispatcher to avoid focus moving to backup'ed element 
@@ -168,6 +172,7 @@ namespace Fluent
                 }));
         }
 
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
         }
