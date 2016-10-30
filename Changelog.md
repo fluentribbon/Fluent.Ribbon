@@ -16,6 +16,11 @@
     - `RibbonWindow` exposes `TitleBar` which is of type `RibbonTitleBar`.  
       `Ribbon` uses the `TitleBar` provided by the `RibbonWindow` by default, through it's `Style`.  
       This allows changing the `TitleBar` being used by the `Ribbon`.
+  - Removed `RibbonProperties.TitleBarHeight` to simplify usage of the `Ribbon` in non `RibbonWindow`.  
+    To support this the following things were added: 
+    - `SelectedContentMargin` was added to `BackstageTabControl`
+    - `QuickAccessToolBarHeight` on `Ribbon`
+    - `TitleBarHeight` on `RibbonWindow`
 
 - ### Bug fixes
   - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed
@@ -41,6 +46,7 @@
   - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
   - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
   - [#334](../../issues/334) - Select all text in Spinner on focus
+  - [#340](../../issues/340) - Expose GroupByAdvanced from GalleryPanel on Gallery and InRibbonGallery
   - [#360](../../issues/360) - Toggling of KeyTips should not happen when Shift is pressed (thanks to @stylefish)
   - Added `CanChangeIsOpen` to `Backstage`
   - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
