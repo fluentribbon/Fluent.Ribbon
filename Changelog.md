@@ -35,6 +35,7 @@
   - [#341](../../issues/341) - Fix text going under custom window commands (thanks @chrfin)
   - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
   - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
+  - [#365](../../issues/365) - BackstageAdorner is not removed
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground

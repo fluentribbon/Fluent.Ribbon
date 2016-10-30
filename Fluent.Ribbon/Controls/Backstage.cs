@@ -317,9 +317,12 @@ namespace Fluent
             var parentRibbon = GetParentRibbon(this);
             if (parentRibbon != null)
             {
-                parentRibbon.TabControl.IsDropDownOpen = false;
-                parentRibbon.TabControl.HighlightSelectedItem = false;
-                parentRibbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
+                if (parentRibbon.TabControl != null)
+                {
+                    parentRibbon.TabControl.IsDropDownOpen = false;
+                    parentRibbon.TabControl.HighlightSelectedItem = false;
+                    parentRibbon.TabControl.RequestBackstageClose += this.OnTabControlRequestBackstageClose;
+                }
 
                 // Disable QAT & title bar
                 if (parentRibbon.QuickAccessToolBar != null)
@@ -496,8 +499,11 @@ namespace Fluent
             var parentRibbon = GetParentRibbon(this);
             if (parentRibbon != null)
             {
-                parentRibbon.TabControl.HighlightSelectedItem = true;
-                parentRibbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
+                if (parentRibbon.TabControl != null)
+                {
+                    parentRibbon.TabControl.HighlightSelectedItem = true;
+                    parentRibbon.TabControl.RequestBackstageClose -= this.OnTabControlRequestBackstageClose;
+                }
 
                 // Restore enable under QAT & title bar
                 if (parentRibbon.QuickAccessToolBar != null)
@@ -661,6 +667,8 @@ namespace Fluent
         private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
         {
             this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+
+            this.DestroyAdorner();
         }
 
         #endregion
