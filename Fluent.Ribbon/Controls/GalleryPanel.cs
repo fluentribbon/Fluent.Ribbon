@@ -30,9 +30,6 @@ namespace Fluent
         // Designate that gallery panel must be refreshed its groups
         private bool needsRefresh;
 
-        // Group name resolver
-        private Func<object, string> groupByAdvanced;
-
         #endregion
 
         #region Properties
@@ -80,9 +77,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GroupBy.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel),
-            new PropertyMetadata(OnGroupByChanged));
+        public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel), new PropertyMetadata(OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -95,17 +90,25 @@ namespace Fluent
         #region GroupByAdvanced
 
         /// <summary>
-        /// Gets or sets custom user method to group items. 
-        /// If this property is not null, GroupBy property is ignored
+        /// Gets or sets name of property which
+        /// will use to group items in the Gallery.
         /// </summary>
         public Func<object, string> GroupByAdvanced
         {
-            get { return this.groupByAdvanced; }
-            set
-            {
-                this.groupByAdvanced = value;
-                this.Invalidate();
-            }
+            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            set { this.SetValue(GroupByAdvancedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupBy.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
+
+        private static void OnGroupByAdvancedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryPanel = (GalleryPanel)d;
+            galleryPanel.Invalidate();
         }
 
         #endregion

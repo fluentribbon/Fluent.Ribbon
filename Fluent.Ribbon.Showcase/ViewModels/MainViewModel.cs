@@ -42,6 +42,8 @@
             this.PreviewCommand = new RelayCommand<GalleryItem>(Preview);
             this.CancelPreviewCommand = new RelayCommand<GalleryItem>(CancelPreview);
 
+            this.GroupByAdvancedSample = x => ((GallerySampleDataItemViewModel)x).Text.Substring(0, 1);
+
             this.memoryTimer = new Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
             this.memoryTimer.Elapsed += this.HandleMemoryTimer_Elapsed;
             this.memoryTimer.Start();
@@ -119,6 +121,8 @@
                 });
             }
         }
+
+        public Func<object, string> GroupByAdvancedSample { get; private set; }
 
         public IList<string> ManyItems
         {

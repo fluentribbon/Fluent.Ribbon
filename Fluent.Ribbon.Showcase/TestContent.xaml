@@ -558,7 +558,8 @@
                         <TextBlock Tag="Group2">3 (G 2)</TextBlock>
                     </Fluent:InRibbonGallery>
 
-                    <Fluent:InRibbonGallery MinItemsInDropDownRow="5"
+                    <Fluent:InRibbonGallery Header="Many items"
+                                            MinItemsInDropDownRow="5"
                                             MaxItemsInDropDownRow="5"
                                             IsCollapsed="True"
                                             ItemHeight="100"
@@ -1270,9 +1271,7 @@
                 <Fluent:RibbonGroupBox Header="With Grouping"
                                        Name="SecondGalleryGroup">
 
-                    <!--To group items in Gallery (or InRibbonGallery) 
-                  you can use GroupBy for simplified grouping method or 
-                  use traditional method as in System.Windows.Controls.ListBox -->
+                    <!--To group items in Gallery (or InRibbonGallery) you can use GroupBy for simplified grouping method or use traditional method as in System.Windows.Controls.ListBox -->
                     <Fluent:InRibbonGallery Name="gallerySampleInRibbonGallery"
                                             MinItemsInRow="1"
                                             MaxItemsInRow="5"
@@ -1293,6 +1292,19 @@
                             <Fluent:GalleryGroupFilter Title="Group B"
                                                        Groups="Group B" />
                         </Fluent:InRibbonGallery.Filters>
+                    </Fluent:InRibbonGallery>
+
+                    <!--To group items in Gallery (or InRibbonGallery) you can use GroupedByAdvanced as an advanced grouping method -->
+                    <Fluent:InRibbonGallery MinItemsInRow="1"
+                                            MaxItemsInRow="5"
+                                            Icon="Images\Gray.png"
+                                            Header="GroupedByAdvanced"
+                                            ItemWidth="50"
+                                            ItemHeight="18"
+                                            ItemsSource="{Binding DataItems}"
+                                            ItemTemplate="{DynamicResource middleDataItemTemplate}"
+                                            GroupByAdvanced="{Binding GroupByAdvancedSample}"
+                                            ResizeMode="Both">
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>
 

@@ -384,6 +384,7 @@
                                                      Orientation="{TemplateBinding Orientation}"
                                                      Filter="{TemplateBinding SelectedFilterGroups}"
                                                      GroupBy="{TemplateBinding GroupBy}"
+                                                     GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
                                                      IsGrouped="False" />
                             </ContentControl>
                             <Image x:Name="PART_FakeImage"

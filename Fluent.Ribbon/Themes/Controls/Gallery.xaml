@@ -140,6 +140,7 @@
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"
+                                         GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
                                          IsItemsHost="True"
                                          ItemHeight="{TemplateBinding ItemHeight}"
                                          ItemWidth="{TemplateBinding ItemWidth}"

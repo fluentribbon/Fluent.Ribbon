@@ -10,6 +10,7 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
     using Fluent.Internal.KnownBoxes;
 
     // TODO: add TemplatePart's in Gallery (!)
@@ -89,9 +90,27 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GroupBy.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery),
-            new PropertyMetadata());
+        public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery), new PropertyMetadata());
+
+        #endregion
+
+        #region GroupByAdvanced
+
+        /// <summary>
+        /// Gets or sets name of property which
+        /// will use to group items in the Gallery.
+        /// </summary>
+        public Func<object, string> GroupByAdvanced
+        {
+            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            set { this.SetValue(GroupByAdvancedProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for GroupBy.  
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(Gallery), new PropertyMetadata());
 
         #endregion
 
