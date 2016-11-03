@@ -6,11 +6,16 @@
     <PublishDirectory>$(Root)/Publish/</PublishDirectory>
   </PropertyGroup>
 
-  <Target Name="Build">
+  <Target Name="Restore">
+      <Exec Command="$(Root)\Tools\NuGet.exe restore &quot;$(Root)\Fluent.Ribbon.sln&quot;" />
+      <Exec Command="$(Root)\Tools\NuGet.exe restore &quot;$(Root)\Tools\packages.config&quot; -OutputDirectory &quot;$(Root)\Tools&quot;" />
+  </Target>
+    
+  <Target Name="Build" DependsOnTargets="Restore">
     <MSBuild Projects="$(Root)Fluent.Ribbon.sln" Properties="Configuration=$(Configuration);" />
   </Target>
 
-  <Target Name="ReadVersion" DependsOnTargets="Build">
+  <Target Name="ReadVersion">
     <!-- Read assembly version from the DLL -->
     <GetAssemblyIdentity AssemblyFiles="$(Root)build/bin/NET 4.5/$(Configuration)/Fluent.dll">
         <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
@@ -25,21 +30,27 @@
   <Target Name="EnsurePublishDir">
     <MakeDir Directories="$(PublishDirectory)" />
   </Target>
+
+  <Target Name="RunTests">    
+    <Exec Command="$(Root)\Tools\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe --noheader &quot;$(Root)build/bin/NET 4.5/$(Configuration)/Fluent.Tests.dll&quot;" />
+  </Target>
+
+  <Target Name="RunGitLink">
+    <Exec Command="$(Root)\Tools\GitLink.2.3.0\tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
+  </Target>
   
-  <Target Name="RunGitLink" DependsOnTargets="Build">
-    <Exec Command="$(Root)\Tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
-  </Target>  
-  
-  <Target Name="MakeNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
+  <Target Name="CreateNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Build NuGet package -->
     <Exec Command="$(Root)\Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
   </Target>
 
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
-    <Exec Command="$(Root)\Tools\7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
+    <Exec Command="$(Root)\Tools\7-Zip.CommandLine.9.20.0\tools\7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
           WorkingDirectory="$(Root)/build/bin" />
   </Target>  
 
-  <Target Name="PublishVersion" DependsOnTargets="RunGitLink; MakeNuGetPackage; CreateZipPackages" />
+  <Target Name="Test" DependsOnTargets="Build; RunTests" />
+  <Target Name="Pack" DependsOnTargets="Build; RunPack" />
+  <Target Name="RunPack" DependsOnTargets="RunGitLink; CreateNuGetPackage; CreateZipPackages" />
 </Project>
