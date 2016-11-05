@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Root>$(MSBuildProjectDirectory)/</Root>
+    <Root>$(MSBuildProjectDirectory)</Root>
     <Configuration Condition="$(Configuration) == ''">Release</Configuration>
-    <PublishDirectory>$(Root)/Publish/</PublishDirectory>
+    <PublishDirectory>$(Root)/Publish</PublishDirectory>
   </PropertyGroup>
 
   <Target Name="Restore">
-      <Exec Command="$(Root)\Tools\NuGet.exe restore &quot;$(Root)\Fluent.Ribbon.sln&quot;" />
-      <Exec Command="$(Root)\Tools\NuGet.exe restore &quot;$(Root)\Tools\packages.config&quot; -OutputDirectory &quot;$(Root)\Tools&quot;" />
+      <Exec Command="$(Root)/Tools/NuGet.exe restore &quot;$(Root)/Fluent.Ribbon.sln&quot;" />
+      <Exec Command="$(Root)/Tools/NuGet.exe restore &quot;$(Root)/Tools/packages.config&quot; -OutputDirectory &quot;$(Root)/Tools&quot;" />
   </Target>
     
   <Target Name="Build" DependsOnTargets="Restore">
-    <MSBuild Projects="$(Root)Fluent.Ribbon.sln" Properties="Configuration=$(Configuration);" />
+    <MSBuild Projects="$(Root)/Fluent.Ribbon.sln" Properties="Configuration=$(Configuration);" />
   </Target>
 
   <Target Name="ReadVersion">
     <!-- Read assembly version from the DLL -->
-    <GetAssemblyIdentity AssemblyFiles="$(Root)build/bin/NET 4.5/$(Configuration)/Fluent.dll">
+    <GetAssemblyIdentity AssemblyFiles="$(Root)/build/bin/NET 4.5/$(Configuration)/Fluent.dll">
         <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
     </GetAssemblyIdentity>
     <PropertyGroup>
@@ -32,21 +32,21 @@
   </Target>
 
   <Target Name="RunTests">    
-    <Exec Command="$(Root)\Tools\NUnit.ConsoleRunner.3.5.0\tools\nunit3-console.exe --noheader &quot;$(Root)build/bin/NET 4.5/$(Configuration)/Fluent.Tests.dll&quot;" />
+    <Exec Command="$(Root)/Tools/NUnit.ConsoleRunner.3.5.0/tools/nunit3-console.exe --noheader &quot;$(Root)/build/bin/NET 4.5/$(Configuration)/Fluent.Tests.dll&quot;" />
   </Target>
 
   <Target Name="RunGitLink">
-    <Exec Command="$(Root)\Tools\GitLink.2.3.0\tools\GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
+    <Exec Command="$(Root)/Tools/GitLink.2.3.0/tools/GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
   </Target>
   
   <Target Name="CreateNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Build NuGet package -->
-    <Exec Command="$(Root)\Tools\NuGet.exe pack $(Root)Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory Publish -Properties Configuration=$(Configuration)" />
+    <Exec Command="$(Root)/Tools/NuGet.exe pack $(Root)/Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory &quot;$(PublishDirectory)&quot; -Properties Configuration=$(Configuration)" />
   </Target>
 
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
-    <Exec Command="$(Root)\Tools\7-Zip.CommandLine.9.20.0\tools\7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
+    <Exec Command="$(Root)/Tools/7-Zip.CommandLine.9.20.0/tools/7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
           WorkingDirectory="$(Root)/build/bin" />
   </Target>  
 
