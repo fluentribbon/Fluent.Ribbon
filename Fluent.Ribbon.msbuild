@@ -36,7 +36,7 @@
   </Target>
 
   <Target Name="RunGitLink">
-    <Exec Command="$(Root)/Tools/GitLink.2.3.0/tools/GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
+    <Exec Command="$(Root)/Tools/GitLink.2.3.0/lib/net45/GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
   </Target>
   
   <Target Name="CreateNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
