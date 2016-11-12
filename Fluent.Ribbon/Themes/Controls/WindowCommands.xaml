@@ -41,6 +41,7 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
+                        
                         <Button x:Name="PART_Min"
                                 Focusable="False"
                                 Style="{DynamicResource CaptionButtonStyle}"
@@ -57,19 +58,26 @@
                                 Focusable="False"
                                 Style="{DynamicResource CaptionButtonStyle}"
                                 Padding="0"
+                                Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static Converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Grid>
-                                <Path x:Name="PART_MaximizeButtonContent"
-                                      SnapsToDevicePixels="True"
-                                      Data="F1M0,0L0,9 9,9 9,0 0,0 0,3 8,3 8,8 1,8 1,3z"
-                                      Fill="{DynamicResource TabItemFontBrush}" />
-                                <Path x:Name="PART_RestoreButtonContent"
-                                      SnapsToDevicePixels="True"
-                                      Data="F1M0,10L0,3 3,3 3,0 10,0 10,2 4,2 4,3 7,3 7,6 6,6 6,5 1,5 1,10z M1,10L7,10 7,7 10,7 10,2 9,2 9,6 6,6 6,9 1,9z"
-                                      Fill="{DynamicResource TabItemFontBrush}" />
-                            </Grid>
+                            <Path SnapsToDevicePixels="True"
+                                  Data="F1M0,0L0,9 9,9 9,0 0,0 0,3 8,3 8,8 1,8 1,3z"
+                                  Fill="{DynamicResource TabItemFontBrush}" />
+                        </Button>
+
+                        <Button x:Name="PART_Restore"
+                                Focusable="False"
+                                Style="{DynamicResource CaptionButtonStyle}"
+                                Padding="0"
+                                Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static Converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
+                                Foreground="{TemplateBinding Foreground}"
+                                ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                                Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                            <Path SnapsToDevicePixels="True"
+                                  Data="F1M0,10L0,3 3,3 3,0 10,0 10,2 4,2 4,3 7,3 7,6 6,6 6,5 1,5 1,10z M1,10L7,10 7,7 10,7 10,2 9,2 9,6 6,6 6,9 1,9z"
+                                  Fill="{DynamicResource TabItemFontBrush}" />
                         </Button>
 
                         <Button x:Name="PART_Close"
@@ -93,12 +101,18 @@
                             <Setter Property="Visibility"
                                     TargetName="PART_Max"
                                     Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Restore"
+                                    Value="Collapsed" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
                                      Value="CanMinimize">
                             <Setter Property="Visibility"
                                     TargetName="PART_Max"
                                     Value="Collapsed" />
+                            <Setter Property="Visibility"
+                                    TargetName="PART_Restore"
+                                    Value="Collapsed" />                            
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

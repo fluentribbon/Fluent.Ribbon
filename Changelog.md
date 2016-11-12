@@ -36,6 +36,7 @@
   - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
   - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
   - [#365](../../issues/365) - BackstageAdorner is not removed
+  - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground

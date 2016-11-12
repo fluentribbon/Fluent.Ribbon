@@ -290,17 +290,6 @@ namespace Fluent
             this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.StateChanged"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-        protected override void OnStateChanged(EventArgs e)
-        {
-            this.WindowCommands?.RefreshMaximizeIconState();
-
-            base.OnStateChanged(e);
-        }
-
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
         {
             switch (e.ChangedButton)

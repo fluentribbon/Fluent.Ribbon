@@ -88,6 +88,7 @@
     <Compile Include="Controls\StartScreen.cs" />
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
