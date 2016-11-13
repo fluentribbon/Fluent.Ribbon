@@ -8,6 +8,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interactivity;
     using System.Windows.Media;
+    using System.Windows.Threading;
     using ControlzEx.Behaviors;
 
     using Fluent.Extensions;
@@ -288,6 +289,18 @@ namespace Fluent
 
             this.GetPart<UIElement>(PART_Icon)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
             this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+        }
+
+        protected override void OnStateChanged(EventArgs e)
+        {
+            base.OnStateChanged(e);
+
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          this.TitleBar?.InvalidateMeasure();
+                                          this.TitleBar?.InvalidateArrange();
+                                          this.TitleBar?.UpdateLayout();
+                                      }, DispatcherPriority.Background);
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)

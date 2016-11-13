@@ -45,7 +45,7 @@
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
                                                Style="{DynamicResource RibbonTitleBarStyle}"
                                                VerticalAlignment="Top"
-                                               HorizontalAlignment="Left"
+                                               HorizontalAlignment="Stretch"
                                                IsCollapsed="{TemplateBinding IsCollapsed}">
                             <Fluent:RibbonTitleBar.Header>
                                 <TextBlock x:Name="PART_Title"
