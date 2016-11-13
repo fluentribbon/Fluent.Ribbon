@@ -261,9 +261,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -291,6 +289,7 @@ namespace Fluent
             this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
         }
 
+        /// <inheritdoc />
         protected override void OnStateChanged(EventArgs e)
         {
             base.OnStateChanged(e);
