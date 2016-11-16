@@ -34,6 +34,7 @@
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
+            this.IsCheckedToggleButton3 = true;
 
             this.ColorViewModel = new ColorViewModel();
             this.FontsViewModel = new FontsViewModel();
