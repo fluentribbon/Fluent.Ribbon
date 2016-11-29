@@ -1137,6 +1137,45 @@
                     <Fluent:ToggleButton Header="Toggle 3"
                                          GroupName="Group1"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}" />
+
+                    <Fluent:DropDownButton Header="ToggleButton width test">
+                        <Grid ShowGridLines="True">
+                            <Grid.Resources>
+                                <Style TargetType="{x:Type Fluent:ToggleButton}">
+                                    <Setter Property="GroupName"
+                                            Value="MonthsGroup" />
+                                    <Setter Property="Width"
+                                            Value="100" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Fluent:ToggleButton Grid.Column="0">January</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="1">February</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="2">March</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="3">April</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="4">May</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="5">June</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="6">July</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="7">August</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="8">September</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="9">October</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="10">November</Fluent:ToggleButton>
+                            <Fluent:ToggleButton Grid.Column="11">December</Fluent:ToggleButton>
+                        </Grid>
+                    </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>

@@ -38,6 +38,7 @@
   - [#365](../../issues/365) - BackstageAdorner is not removed
   - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled 
   - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
+  - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground

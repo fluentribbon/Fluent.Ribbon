@@ -141,27 +141,27 @@
     </Style>
     <ControlTemplate x:Key="ToggleButtonBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
-        <Grid x:Name="grid">
-            <Border x:Name="border"
-                    BorderThickness="1"
-                    Margin="0"
-                    BorderBrush="LightGray">
-                <StackPanel x:Name="stackPanel">
-                    <ContentPresenter x:Name="iconImage"
-                                      HorizontalAlignment="Center"
-                                      Height="32"
-                                      VerticalAlignment="Center"
-                                      Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                      Width="32"
-                                      Margin="9,9,9,0"
-                                      SnapsToDevicePixels="True" />
-                    <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                         Margin="7,7,7,5"
-                                         VerticalAlignment="Center"
-                                         Text="{TemplateBinding Header}" />
-                </StackPanel>
-            </Border>
-        </Grid>
+        <Border x:Name="border"
+                BorderThickness="1"
+                Margin="0"
+                BorderBrush="LightGray"
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+            <StackPanel x:Name="stackPanel">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="32"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="32"
+                                  Margin="9,9,9,0"
+                                  SnapsToDevicePixels="True" />
+                <Fluent:TwoLineLabel x:Name="twoLineLabel"
+                                     Margin="7,7,7,5"
+                                     VerticalAlignment="Center"
+                                     Text="{TemplateBinding Header}" />
+            </StackPanel>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -196,12 +196,6 @@
                 <Setter Property="Margin"
                         TargetName="twoLineLabel"
                         Value="2" />
-                <Setter Property="Width"
-                        TargetName="grid"
-                        Value="Auto" />
-                <Setter Property="Height"
-                        TargetName="grid"
-                        Value="Auto" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="twoLineLabel"
                         Value="Center" />
@@ -223,12 +217,6 @@
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="9,2,9,0" />
-                <Setter Property="Width"
-                        TargetName="grid"
-                        Value="Auto" />
-                <Setter Property="Height"
-                        TargetName="grid"
-                        Value="Auto" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">

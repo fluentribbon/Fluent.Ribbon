@@ -28,8 +28,8 @@
                 Background="White"
                 BorderBrush="{DynamicResource ButtonBorderBrush}"
                 Height="Auto"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}">
             <Grid Height="Auto"
                   HorizontalAlignment="Right">
                 <Rectangle x:Name="rectangle"
