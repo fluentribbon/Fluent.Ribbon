@@ -112,6 +112,12 @@
     
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush"
                      Color="#FFE4E7EB" />
+    
+    <SolidColorBrush x:Key="CloseButtonHoverBackgroundBrush"
+                     Color="#E81123" />
+
+    <SolidColorBrush x:Key="CloseButtonPressedBackgroundBrush"
+                     Color="#F1707A" />
 
     <!-- CheckBox -->
     <SolidColorBrush x:Key="CheckBoxOutterBorderBrush"

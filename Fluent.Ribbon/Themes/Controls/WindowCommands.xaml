@@ -112,7 +112,19 @@
                                     Value="Collapsed" />
                             <Setter Property="Visibility"
                                     TargetName="PART_Restore"
-                                    Value="Collapsed" />                            
+                                    Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Close}"
+                                 Value="True">
+                            <Setter TargetName="PART_Close"
+                                    Property="Background"
+                                    Value="{DynamicResource CloseButtonHoverBackgroundBrush}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}"
+                                     Value="True">
+                            <Setter TargetName="PART_Close"
+                                    Property="Background"
+                                    Value="{DynamicResource CloseButtonPressedBackgroundBrush}" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

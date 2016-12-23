@@ -41,21 +41,12 @@
                             <Setter TargetName="contentPresenter"
                                     Property="Opacity"
                                     Value="1" />
-                            <Setter TargetName="grid"
-                                    Property="Background"
-                                    Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="False">
                             <Setter TargetName="contentPresenter"
                                     Property="Opacity"
                                     Value=".5" />
-                        </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter TargetName="grid"
-                                    Property="Background"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="false">
@@ -66,6 +57,18 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Background"
+                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
