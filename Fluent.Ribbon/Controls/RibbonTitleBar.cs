@@ -97,7 +97,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HideContextTabsProperty =
-            DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(BooleanBoxes.FalseBox));
+            DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         ///  Gets or sets whether context tabs are hidden.

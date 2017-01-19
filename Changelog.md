@@ -39,6 +39,7 @@
   - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled 
   - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
   - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
+  - [#388](../../issues/388) - QuickAccess item not visible when added from backstage
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground
