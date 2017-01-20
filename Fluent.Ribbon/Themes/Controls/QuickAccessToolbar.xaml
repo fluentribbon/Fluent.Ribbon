@@ -308,6 +308,7 @@
                                        Height="22"
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
+                                       Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">

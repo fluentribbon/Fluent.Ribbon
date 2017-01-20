@@ -30,6 +30,7 @@
                     <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
                                                Style="{DynamicResource QuickAccessToolbarStyle}"
                                                ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                               IsMenuDropDownVisible="{TemplateBinding IsQuickAccessToolBarMenuDropDownVisible}"
                                                HorizontalAlignment="Left"
                                                Focusable="False" />
                 </ContentControl>

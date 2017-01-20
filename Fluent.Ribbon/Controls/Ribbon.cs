@@ -998,6 +998,21 @@ namespace Fluent
             DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBarItems), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
+        /// Gets or sets whether the QAT Menu-DropDown is visible or not.
+        /// </summary>
+        public bool IsQuickAccessToolBarMenuDropDownVisible
+        {
+            get { return (bool)this.GetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty); }
+            set { this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsQuickAccessToolBarMenuDropDownVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsQuickAccessToolBarMenuDropDownVisibleProperty =
+            DependencyProperty.Register(nameof(IsQuickAccessToolBarMenuDropDownVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
         /// Gets or sets whether Customize Ribbon menu item is shown
         /// </summary>
         public bool CanCustomizeRibbon

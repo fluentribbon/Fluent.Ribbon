@@ -53,6 +53,8 @@
   - [#334](../../issues/334) - Select all text in Spinner on focus
   - [#340](../../issues/340) - Expose GroupByAdvanced from GalleryPanel on Gallery and InRibbonGallery
   - [#360](../../issues/360) - Toggling of KeyTips should not happen when Shift is pressed (thanks to @stylefish)
+  - [#387](../../issues/387) - Disable/Hide the Menu-DropDown in QuickAccessToolbar
+    - `Ribbon` now has `IsQuickAccessToolBarMenuDropDownVisible` and `QuickAccessToolbar` now has `IsMenuDropDownVisible`.
   - Added `CanChangeIsOpen` to `Backstage`
   - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
 

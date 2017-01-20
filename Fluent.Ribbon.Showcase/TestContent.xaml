@@ -459,6 +459,9 @@
                     <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         IsQuickAccessToolBarVisible
                     </Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarMenuDropDownVisible , RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
+                        IsQuickAccessToolBarMenuDropDownVisible
+                    </Fluent:CheckBox>                    
                     <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
                         CanQuickAccessLocationChanging
                     </Fluent:CheckBox>

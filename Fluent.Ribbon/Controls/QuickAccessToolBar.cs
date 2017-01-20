@@ -302,6 +302,25 @@ namespace Fluent
 
         #endregion
 
+        #region DropDownVisibility
+
+        /// <summary>
+        /// Gets or sets whether the Menu-DropDown is visible or not.
+        /// </summary>
+        public bool IsMenuDropDownVisible
+        {
+            get { return (bool)this.GetValue(IsMenuDropDownVisibleProperty); }
+            set { this.SetValue(IsMenuDropDownVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsMenuDropDownVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsMenuDropDownVisibleProperty =
+            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        #endregion DropDownVisibility
+
         #endregion
 
         #region Initialization
