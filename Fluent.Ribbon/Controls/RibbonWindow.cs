@@ -204,6 +204,8 @@ namespace Fluent
         static RibbonWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
+
+            TitleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnTitleChanged));
         }
 
         /// <summary>
@@ -341,6 +343,15 @@ namespace Fluent
             where T : DependencyObject
         {
             return this.GetTemplateChild(name) as T;
+        }
+
+        private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbonWindow = (RibbonWindow)d;
+
+            ribbonWindow.TitleBar?.InvalidateMeasure();
+            ribbonWindow.TitleBar?.InvalidateArrange();
+            ribbonWindow.TitleBar?.UpdateLayout();
         }
     }
 }
