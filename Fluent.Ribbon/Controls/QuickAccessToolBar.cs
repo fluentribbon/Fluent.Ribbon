@@ -11,6 +11,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -560,6 +561,7 @@ namespace Fluent
         public void Refresh()
         {
             this.InvalidateMeasure();
+
             this.InvalidateMeasureOfTitleBar();
         }
 
@@ -568,9 +570,7 @@ namespace Fluent
             var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
                 ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
-            titleBar?.InvalidateMeasure();
-
-            titleBar?.UpdateLayout();
+            titleBar?.ForceMeasureAndArrange();
         }
 
         // Updates keys for keytip access

@@ -9,6 +9,7 @@ using Fluent.Internal;
 namespace Fluent
 {
     using ControlzEx.Microsoft.Windows.Shell;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -58,7 +59,7 @@ namespace Fluent
         private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var titleBar = (RibbonTitleBar)d;
-            titleBar.InvalidateMeasure();
+            titleBar.ForceMeasureAndArrange();
         }
 
         /// <summary>

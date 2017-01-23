@@ -91,6 +91,7 @@
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
+    <Compile Include="Extensions\UIElementExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="ILargeIconProvider.cs" />

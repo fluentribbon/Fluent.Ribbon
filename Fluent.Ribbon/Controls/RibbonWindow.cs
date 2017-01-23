@@ -296,12 +296,7 @@ namespace Fluent
         {
             base.OnStateChanged(e);
 
-            this.RunInDispatcherAsync(() =>
-                                      {
-                                          this.TitleBar?.InvalidateMeasure();
-                                          this.TitleBar?.InvalidateArrange();
-                                          this.TitleBar?.UpdateLayout();
-                                      }, DispatcherPriority.Background);
+            this.RunInDispatcherAsync(() => this.TitleBar?.ForceMeasureAndArrange(), DispatcherPriority.Background);
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
@@ -326,10 +321,7 @@ namespace Fluent
                 case MouseButton.Right:
                     e.Handled = true;
 
-                    this.RunInDispatcherAsync(() =>
-                                              {
-                                                  WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
-                                              });
+                    this.RunInDispatcherAsync(() => WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e));
                     break;
             }
         }

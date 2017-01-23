@@ -9,6 +9,7 @@ using System.Windows.Input;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
@@ -347,13 +348,11 @@ namespace Fluent
 
         private static void ForceRedraw(RibbonContextualTabGroup @group)
         {
-            @group.InvalidateMeasure();
-            @group.UpdateLayout();
+            group.ForceMeasure();
 
             var titleBar = @group.Parent as RibbonTitleBar;
 
-            titleBar?.InvalidateMeasure();
-            titleBar?.UpdateLayout();
+            titleBar?.ForceMeasureAndArrange();
         }
     }
 }
