@@ -341,9 +341,7 @@ namespace Fluent
         {
             var ribbonWindow = (RibbonWindow)d;
 
-            ribbonWindow.TitleBar?.InvalidateMeasure();
-            ribbonWindow.TitleBar?.InvalidateArrange();
-            ribbonWindow.TitleBar?.UpdateLayout();
+            ribbonWindow.RunInDispatcherAsync(() => ribbonWindow.TitleBar?.ForceMeasureAndArrange());
         }
     }
 }
