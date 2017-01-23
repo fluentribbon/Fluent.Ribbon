@@ -83,12 +83,19 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Visible));
+            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Visible, OnInnerVisibilityChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InnerVisibilityProperty = InnerVisibilityPropertyKey.DependencyProperty;
+
+        private static void OnInnerVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var group = (RibbonContextualTabGroup)d;
+
+            ForceRedraw(@group);
+        }
 
         /// <summary>
         /// Gets the first visible TabItem in this group
@@ -142,9 +149,7 @@ namespace Fluent
 
             group.UpdateInnerVisiblityAndGroupBorders();
 
-            var titleBar = group.Parent as RibbonTitleBar;
-
-            titleBar?.InvalidateMeasure();
+            ForceRedraw(group);
         }
 
         /// <summary>
@@ -330,12 +335,25 @@ namespace Fluent
         /// </summary>
         private void UpdateInnerVisibility()
         {
-            this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
+            this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) 
+                ? Visibility.Visible 
+                : Visibility.Collapsed;
         }
 
         private void OnParentWindowStateChanged(object sender, EventArgs e)
         {
             this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
+        }
+
+        private static void ForceRedraw(RibbonContextualTabGroup @group)
+        {
+            @group.InvalidateMeasure();
+            @group.UpdateLayout();
+
+            var titleBar = @group.Parent as RibbonTitleBar;
+
+            titleBar?.InvalidateMeasure();
+            titleBar?.UpdateLayout();
         }
     }
 }

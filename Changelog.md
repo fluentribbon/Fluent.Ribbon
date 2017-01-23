@@ -40,6 +40,7 @@
   - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
   - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
   - [#388](../../issues/388) - QuickAccess item not visible when added from backstage
+  - [#391](../../issues/391) - QAT items not displayed properly if tab is made visible after initialization
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground
