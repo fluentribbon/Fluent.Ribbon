@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <BitmapImage x:Key="MenuCutIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Cut.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuCopyIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Copy.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MenuPasteIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Paste.png"
+                 x:Shared="False" />
+    <BitmapImage x:Key="MoreColorsIcon"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/MoreColors.png" />
+    <BitmapImage x:Key="ScreenTipHelpImage"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Office2013/Images/Help.png" />
+    <BitmapImage x:Key="MenuCheckedImage"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;Component/Themes/Office2013/Images/Checked.png" />
+    <BitmapImage x:Key="ScreenTipWarningImage"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;Component/Themes/Office2013/Images/Warning.png" />
+</ResourceDictionary>

@@ -38,9 +38,11 @@ namespace Fluent
     [ContentProperty(nameof(Target))]
     public class QuickAccessMenuItem : MenuItem
     {
-        #region Fields
 
-        internal Ribbon Ribbon;
+
+    #region Fields
+
+    internal Ribbon Ribbon;
 
         #endregion
 
@@ -63,14 +65,29 @@ namespace Fluent
             this.Loaded += this.OnItemLoaded;            
         }
 
-        #endregion
+    #endregion
 
-        #region Target Property
+    #region Target Property
 
-        /// <summary>
-        /// Gets or sets shortcut to the target control
-        /// </summary>
-        public Control Target
+
+    public string TargetName
+    {
+      get { return (string)GetValue(TargetNameProperty); }
+      set { SetValue(TargetProperty, value); }
+    }
+
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for shortcut. 
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static readonly DependencyProperty TargetNameProperty =
+        DependencyProperty.Register("TargetName", typeof(string), typeof(QuickAccessMenuItem));
+
+
+    /// <summary>
+    /// Gets or sets shortcut to the target control
+    /// </summary>
+    public Control Target
         {
             get { return (Control)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
@@ -93,6 +110,12 @@ namespace Fluent
             {
                 // Set Default Text Value
                 RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
+            }
+            if (quickAccessMenuItem.Icon == null
+                && ribbonControl != null)
+            {
+              // Set Default Text Value
+              RibbonControl.Bind(ribbonControl, quickAccessMenuItem, "Icon", IconProperty, BindingMode.OneWay);
             }
 
             if (ribbonControl != null)

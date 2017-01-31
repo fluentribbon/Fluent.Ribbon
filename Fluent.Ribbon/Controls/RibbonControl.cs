@@ -23,12 +23,55 @@ namespace Fluent
     /// </summary>
     public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemProvider, IRibbonControl
     {
-        #region KeyTip
 
-        /// <summary>
-        /// Gets or sets KeyTip for element.
-        /// </summary>
-        public string KeyTip
+    #region WhiteIcon
+    public static readonly DependencyProperty WhiteIconProperty = DependencyProperty.RegisterAttached(
+    "WhiteIcon",
+    typeof(object),
+    typeof(RibbonControl),
+    new FrameworkPropertyMetadata(null, IconChanged)
+  );
+
+    private static void IconChanged(DependencyObject targetObject, DependencyPropertyChangedEventArgs e)
+    {
+
+    }
+
+    public static void SetWhiteIcon(UIElement element, object value)
+    {
+      element.SetValue(WhiteIconProperty, value);
+    }
+    public static object GetWhiteIcon(UIElement element)
+    {
+      return element.GetValue(WhiteIconProperty);
+    }
+    #endregion
+
+    #region IsQuickAccessItem
+    public static readonly DependencyProperty IsQuickAccessItemProperty = DependencyProperty.RegisterAttached(
+    "IsQuickAccessItem",
+    typeof(bool),
+    typeof(RibbonControl),
+    new FrameworkPropertyMetadata(false)
+  );
+
+
+    public static void SetIsQuickAccessItem(UIElement element, bool value)
+    {
+      element.SetValue(IsQuickAccessItemProperty, value);
+    }
+    public static bool GetIsQuickAccessItem(UIElement element)
+    {
+      return (bool)element.GetValue(IsQuickAccessItemProperty);
+    }
+    #endregion
+
+    #region KeyTip
+
+    /// <summary>
+    /// Gets or sets KeyTip for element.
+    /// </summary>
+    public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
@@ -321,7 +364,8 @@ namespace Fluent
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
             Bind(source, element, nameof(source.DataContext), DataContextProperty, BindingMode.OneWay);
-
+            RibbonControl.SetIsQuickAccessItem(element, true);
+            
             if (source is ICommandSource)
             {
                 if (source is MenuItem)
@@ -387,7 +431,13 @@ namespace Fluent
                     Bind(source, element, nameof(IRibbonControl.Icon), IconProperty, BindingMode.OneWay);
                 }
             }
+              
+            Bind(source, element, new PropertyPath(RibbonControl.WhiteIconProperty), RibbonControl.WhiteIconProperty, BindingMode.OneWay);
 
+            var attachedProperties = DependencyObjectHelper.GetAttachedProperties(source);
+            foreach (var attachedProperty in attachedProperties)
+              RibbonControl.Bind(source, element, new PropertyPath(attachedProperty), attachedProperty, BindingMode.OneWay);
+            
             RibbonProperties.SetSize(element, RibbonControlSize.Small);
         }
 

@@ -3,6 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonTitleBarStyle"
            TargetType="{x:Type Fluent:RibbonTitleBar}">
+        <Setter Property="Foreground" 
+                Value="{DynamicResource TitleBrush}"/>
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTitleBarControlTemplate}" />
         <Setter Property="Focusable"

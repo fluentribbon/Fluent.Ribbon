@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d"
+                    xmlns:Diagnostics="clr-namespace:System.Diagnostics;assembly=WindowsBase">
+    <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}"
+                     x:Key="GalleryItemControlTemplate">
+        <Grid Background="{DynamicResource TransparentBrush}">
+            <Border x:Name="hoverBorder"
+                    d:LayoutOverrides="Width, Height"
+                    Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
+                                     Opacity="0.12" />
+                </Border.Background>
+            </Border>
+            <Border x:Name="selectedBorder"
+                    d:LayoutOverrides="Width, Height"
+                    Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
+                                     Opacity="0.2" />
+                </Border.Background>
+            </Border>
+            <ContentPresenter x:Name="contentPresenter"
+                              Margin="1"
+                              Opacity="1" />
+            <Border x:Name="pressedBorder"
+                    d:LayoutOverrides="Width, Height"
+                    Visibility="Collapsed">
+                <Border.Background>
+                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
+                                     Opacity="0.3" />
+                </Border.Background>
+            </Border>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="contentPresenter"
+                        Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsSelected"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="selectedBorder"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="selectedBorder"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="pressedBorder"
+                        Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="GalleryItemStyle"
+           TargetType="{x:Type Fluent:GalleryItem}">
+        <Setter Property="Template"
+                Value="{DynamicResource GalleryItemControlTemplate}" />
+    </Style>
+</ResourceDictionary>

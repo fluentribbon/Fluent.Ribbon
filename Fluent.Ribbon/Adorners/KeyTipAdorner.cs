@@ -142,7 +142,7 @@ namespace Fluent
 
                     if (groupBox != null)
                     {
-                        if (groupBox.State == RibbonGroupBoxState.Collapsed)
+                        if (groupBox.State == RibbonGroupBoxState.Collapsed || groupBox.State== RibbonGroupBoxState.QuickAccess)
                         {
                             keyTip.Visibility = Visibility.Visible;
                             this.FindKeyTips(child, true);
@@ -178,7 +178,7 @@ namespace Fluent
             }
         }
 
-        private static IList<UIElement> GetVisibleChildren(UIElement element)
+        public static IList<UIElement> GetVisibleChildren(UIElement element)
         {
             var logicalChildren = LogicalTreeHelper.GetChildren(element)                
                 .OfType<UIElement>();
@@ -189,11 +189,29 @@ namespace Fluent
             // Using the visual tree here, in addition to the logical, partially fixes #244.
             if (element is ContentPresenter
                 || element is ContentControl)
+                
             {
                 children = children
                     .Concat(UIHelper.GetVisualChildren(element))
                     .OfType<UIElement>();
             }
+
+            if(element is ItemsControl)
+            {
+              ItemsControl db = (ItemsControl)element;
+              List<UIElement> items = new List<UIElement>();
+              foreach(var item in db.Items)
+              {
+                if (item != null)
+                {
+                  UIElement ui = db.ItemContainerGenerator.ContainerFromItem(item) as UIElement;
+                  if (ui != null)
+                    items.Add(ui);
+                }
+              }
+              
+              children = items;
+          }
 
             return children
                 .Where(x => x.Visibility == Visibility.Visible)
@@ -703,6 +721,11 @@ namespace Fluent
                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                         elementSize.Height - keyTipSize.Height / 2.0), this.AdornedElement);
                 }
+                else if (IsWithinQuickAccessToolbar(this.associatedElements[i]))
+                {
+                  var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.associatedElements[i].DesiredSize.Width / 2.0 - this.keyTips[i].DesiredSize.Width / 2.0, this.associatedElements[i].DesiredSize.Height - this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);
+                  this.keyTipPositions[i] = translatedPoint;
+                }
                 else if (this.associatedElements[i] is RibbonGroupBox)
                 {
                     // Ribbon Group Box Exclusive Placement
@@ -712,11 +735,7 @@ namespace Fluent
                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                         elementSize.Height + 1), this.AdornedElement);
                 }
-                else if (IsWithinQuickAccessToolbar(this.associatedElements[i]))
-                {
-                    var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.associatedElements[i].DesiredSize.Width / 2.0 - this.keyTips[i].DesiredSize.Width / 2.0, this.associatedElements[i].DesiredSize.Height - this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);
-                    this.keyTipPositions[i] = translatedPoint;
-                }
+                
                 else if (this.associatedElements[i] is MenuItem)
                 {
                     // MenuItem Exclusive Placement                    

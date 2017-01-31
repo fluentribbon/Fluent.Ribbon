@@ -16,14 +16,16 @@ using System.Windows.Shapes;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using Fluent.Internal;
-    using Fluent.Internal.KnownBoxes;
+  using System.Windows.Automation.Peers;
+  using Extensions;
+  using Fluent.Internal;
+  using Fluent.Internal.KnownBoxes;
 
-    /// <summary>
-    /// RibbonGroup represents a logical group of controls as they appear on
-    /// a RibbonTab.  These groups can resize its content
-    /// </summary>
-    [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
+  /// <summary>
+  /// RibbonGroup represents a logical group of controls as they appear on
+  /// a RibbonTab.  These groups can resize its content
+  /// </summary>
+  [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl
@@ -619,15 +621,62 @@ namespace Fluent
             this.ToolTip = new ToolTip();
             ((ToolTip)this.ToolTip).Template = null;
             this.CoerceValue(ContextMenuProperty);
-            this.Focusable = false;
+            //this.Focusable = false;
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+            this.KeyDown += RibbonGroupBox_KeyDown;
 
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+    private void RibbonGroupBox_KeyDown(object sender, KeyEventArgs e)
+    {
+      if(State==RibbonGroupBoxState.Collapsed && !DropDownPopup.IsOpen && (e.Key==Key.Space || e.Key==Key.Down))
+      {
+        IsDropDownOpen = true;
+        var item = FindFirstFocusableElement(DropDownPopup.Child);
+        if(item!=null)
+          Keyboard.Focus(item);
+        e.Handled = true;
+      }
+      if (State == RibbonGroupBoxState.Collapsed && DropDownPopup.IsOpen && (e.Key == Key.Escape))
+      {
+        IsDropDownOpen = false;
+        Keyboard.Focus(this);
+        e.Handled = true;
+      }
+    }
+
+    private static UIElement FindFirstFocusableElement(UIElement element)
+    {
+      if (element == null)
+      {
+        return null;
+      }
+
+
+      for (var i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
+      {
+        var child = VisualTreeHelper.GetChild(element, i) as UIElement;
+
+        if (child == null)
+        {
+          continue;
+        }
+        if(child.Focusable)
+        {
+          return child;
+        }
+
+        var item = FindFirstFocusableElement(child);
+        if (item != null)
+          return item;
+      }
+      return null;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.SubscribeEvents();
         }
@@ -932,6 +981,12 @@ namespace Fluent
             return stateScale;
         }
 
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+          RibbonAutomationPeer peer = new RibbonAutomationPeer(this);
+          return peer;
+        }
+
         #endregion
 
         #region Event Handling
@@ -952,37 +1007,37 @@ namespace Fluent
             //IsHitTestVisible = true;
             if (ReferenceEquals(Mouse.Captured, this))
             {
-                Mouse.Capture(null);
+               Mouse.Capture(null);
             }
         }
 
-        // handles popup opening
-        private void OnRibbonGroupBoxPopupOpening()
-        {
-            //IsHitTestVisible = false;            
-            Mouse.Capture(this, CaptureMode.SubTree);
-        }
-
-        /// <summary>
-        /// Handles IsOpen propertyu changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (RibbonGroupBox)d;
-
-            if (ribbon.IsDropDownOpen)
+            // handles popup opening
+            private void OnRibbonGroupBoxPopupOpening()
             {
-                ribbon.OnRibbonGroupBoxPopupOpening();
+                //IsHitTestVisible = false;            
+                Mouse.Capture(this, CaptureMode.SubTree);
             }
-            else
-            {
-                ribbon.OnRibbonGroupBoxPopupClosing();
-            }
-        }
 
-        #endregion
+            /// <summary>
+            /// Handles IsOpen propertyu changes
+            /// </summary>
+            /// <param name="d">Object</param>
+            /// <param name="e">The event data</param>
+            private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            {
+                var ribbon = (RibbonGroupBox)d;
+
+                if (ribbon.IsDropDownOpen)
+                {
+                    ribbon.OnRibbonGroupBoxPopupOpening();
+                }
+                else
+                {
+                    ribbon.OnRibbonGroupBoxPopupClosing();
+                }
+            }
+
+            #endregion
 
         #region Quick Access Item Creating
 
@@ -996,7 +1051,7 @@ namespace Fluent
         {
             var groupBox = new RibbonGroupBox();
 
-            RibbonControl.BindQuickAccessItem(this, groupBox);
+            
 
             groupBox.DropDownOpened += this.OnQuickAccessOpened;
             groupBox.DropDownClosed += this.OnQuickAccessClosed;
@@ -1034,6 +1089,17 @@ namespace Fluent
                 {
                     RibbonControl.Bind(this, groupBox, nameof(this.Icon), RibbonControl.IconProperty, BindingMode.OneWay);
                 }
+            }
+
+            //var attachedProperties = DependencyObjectHelper.GetAttachedProperties(this);
+            //foreach (var attachedProperty in attachedProperties)
+            //  RibbonControl.Bind(this, groupBox, new PropertyPath(attachedProperty), attachedProperty, BindingMode.OneWay);
+
+            RibbonControl.BindQuickAccessItem(this, groupBox);
+
+            if (this.Header != null)
+            {
+                RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
             }
 
             return groupBox;

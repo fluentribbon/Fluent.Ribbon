@@ -428,8 +428,7 @@ namespace Fluent
             {
                 if (this.IsMinimized)
                 {
-                    this.IsDropDownOpen = true;
-
+                    //this.IsDropDownOpen = true;
                     ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
                 }
             }
@@ -482,7 +481,30 @@ namespace Fluent
                         this.IsDropDownOpen = false;
                     }
                     break;
-            }
+                case Key.Space:
+                    if (!this.IsDropDownOpen && this.IsMinimized)
+                    {
+                      this.IsDropDownOpen = true;
+                      var fe = this.SelectedTabItem.FindFirstEnabledItem();
+                      if (fe != null)
+                      {
+                        Keyboard.Focus(fe);
+                        e.Handled = true;
+                      }
+                    }
+                  break;
+                  case Key.Down:
+                    if (!this.IsMinimized)
+                    {
+                      var fe = this.SelectedTabItem.FindFirstEnabledItem();
+                      if (fe != null)
+                      {
+                        Keyboard.Focus(fe);
+                        e.Handled = true;
+                      }
+                    }
+                    break;
+      }
         }
 
         #endregion

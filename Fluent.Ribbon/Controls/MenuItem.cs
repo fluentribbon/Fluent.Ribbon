@@ -347,7 +347,27 @@ namespace Fluent
             }
         }
 
-        #endregion
+    #endregion
+
+    #endregion
+
+        #region DismissPopup
+
+        /// <summary>
+        /// Useless property only used in secon level application menu items
+        /// </summary>
+        public bool DismissPopupOnClick
+        {
+          get { return (bool)this.GetValue(DismissPopupOnClickProperty); }
+          set { this.SetValue(DismissPopupOnClickProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for Description.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DismissPopupOnClickProperty =
+            DependencyProperty.Register(nameof(DismissPopupOnClick), typeof(bool), typeof(MenuItem), new UIPropertyMetadata(true));
+
 
         #endregion
 
@@ -360,12 +380,12 @@ namespace Fluent
         /// </summary>
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when context menu is closed
-        /// </summary>
-        public event EventHandler DropDownClosed;
+            /// <summary>
+            /// Occurs when context menu is closed
+            /// </summary>
+            public event EventHandler DropDownClosed;
 
-        #endregion
+            #endregion
 
         #region Constructors
 
@@ -440,6 +460,7 @@ namespace Fluent
                     RibbonControl.Bind(this, button, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, button, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, button, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+                    RibbonControl.Bind(this, button, nameof(this.ItemsSource), ItemsSourceProperty, BindingMode.OneWay);
                     button.DropDownOpened += this.OnQuickAccessOpened;
                     return button;
                 }
@@ -464,7 +485,7 @@ namespace Fluent
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+            ItemsControlHelper.MoveItemsToDifferentControl(this,buttonInQuickAccess);
         }
 
         /// <summary>
@@ -582,10 +603,13 @@ namespace Fluent
             if (this.IsDefinitive
                 && (!this.HasItems || this.IsSplited))
             {
-                PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
+                if(DismissPopupOnClick)
+                  PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
             }
 
             base.OnClick();
+            if (!DismissPopupOnClick)
+              this.Focus();
         }
 
         /// <summary>
@@ -685,6 +709,10 @@ namespace Fluent
         private DependencyObject FindParentDropDownOrMenuItem()
         {
             var parent = this.Parent;
+            var pp = System.Windows.Media.VisualTreeHelper.GetParent(this);
+
+            if(parent==null)
+              parent= System.Windows.Media.VisualTreeHelper.GetParent(this);
             while (parent != null)
             {
                 var dropDown = parent as IDropDownControl;
@@ -698,8 +726,14 @@ namespace Fluent
                 {
                     return parent;
                 }
-
-                parent = LogicalTreeHelper.GetParent(parent);
+                if(parent is Popup)
+                {
+                  Popup p = (Popup)parent;
+                  if (p.TemplatedParent != null)
+                    parent = p.TemplatedParent;
+                }
+                else
+                  parent = LogicalTreeHelper.GetParent(parent);
             }
 
             return null;

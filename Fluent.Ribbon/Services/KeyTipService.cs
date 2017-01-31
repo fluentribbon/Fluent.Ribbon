@@ -325,7 +325,7 @@ namespace Fluent
             return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
                    && (e.SystemKey == Key.LeftAlt
                        || e.SystemKey == Key.RightAlt
-                       || e.SystemKey == Key.F10
+                       || e.SystemKey == Key.F10 && e.KeyboardDevice.Modifiers == ModifierKeys.None
                        || e.SystemKey == Key.Space);
         }
 

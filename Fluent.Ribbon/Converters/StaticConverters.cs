@@ -29,5 +29,10 @@
         /// Get a static instance of <see cref="EqualsToVisibilityConverter"/>
         /// </summary>
         public static readonly EqualsToVisibilityConverter EqualsToVisibilityConverter = new EqualsToVisibilityConverter();
+
+        /// <summary>
+        /// Get a static instance of <see cref="ObjectToStringConverter"/>
+        /// </summary>
+        public static readonly ObjectToStringConverter ObjectToStringConverter = new ObjectToStringConverter();
     }
 }

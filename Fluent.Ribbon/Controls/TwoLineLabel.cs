@@ -135,6 +135,15 @@ namespace Fluent
             this.UpdateTextRun();
         }
 
+        protected override Size MeasureOverride(Size constraint)
+        {
+          this.textRun.Measure(constraint);
+          this.textRun2.Measure(constraint);
+          var size = base.MeasureOverride(constraint);
+
+          return size;
+        }
+
         #endregion
 
         #region Event handling
@@ -145,12 +154,12 @@ namespace Fluent
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var label = (TwoLineLabel)d;
-            label?.UpdateTextRun();
-        }
+            {
+                var label = (TwoLineLabel)d;
+                label?.UpdateTextRun();
+            }
 
-        #endregion
+            #endregion
 
         #region Private methods
 

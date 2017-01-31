@@ -9,13 +9,14 @@ using System.Windows.Media;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using Fluent.Internal;
+  using System.Windows.Automation.Peers;
+  using Fluent.Internal;
 
-    /// <summary>
-    /// Represent panel with ribbon tab items.
-    /// It is automatically adjusting size of tabs
-    /// </summary>
-    public class RibbonTabsContainer : Panel, IScrollInfo
+  /// <summary>
+  /// Represent panel with ribbon tab items.
+  /// It is automatically adjusting size of tabs
+  /// </summary>
+  public class RibbonTabsContainer : Panel, IScrollInfo
     {
         /// <summary>
         /// Default constructor
@@ -771,8 +772,14 @@ namespace Fluent
             return offset;
         }
 
-        #endregion
+    #endregion
+
+    protected override AutomationPeer OnCreateAutomationPeer()
+    {
+      RibbonAutomationPeer peer = new RibbonAutomationPeer(this);
+      return peer;
     }
+  }
 
     #region ScrollData
 

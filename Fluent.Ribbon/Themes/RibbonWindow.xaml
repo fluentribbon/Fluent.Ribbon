@@ -140,7 +140,7 @@
         <Setter Property="WindowStyle"
                 Value="None" />
         <Setter Property="TitleBarHeight"
-                Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
+                Value="35" />
         <Style.Triggers>
             <Trigger Property="WindowState"
                      Value="Maximized">

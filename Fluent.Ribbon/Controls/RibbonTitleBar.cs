@@ -21,6 +21,7 @@ namespace Fluent
     public class RibbonTitleBar : HeaderedItemsControl
     {
         #region Fields
+   
 
         // Quick access toolbar holder
         private FrameworkElement quickAccessToolbarHolder;
@@ -35,6 +36,31 @@ namespace Fluent
         // Items rect
         private Rect itemsRect;
 
+        private double? _windowCommandWidth;
+        private double WindowCommandWidth
+        {
+          get
+          {
+            if (_windowCommandWidth.HasValue)
+              return _windowCommandWidth.Value;
+            var windowCommands = UIHelper.FindVisualChildByName<FrameworkElement>(Window.GetWindow(this),"PART_WindowCommands");
+            if (windowCommands == null || windowCommands.ActualWidth==0)
+              return 110;
+            _windowCommandWidth = windowCommands.ActualWidth;
+            return _windowCommandWidth.Value;
+          }
+        }
+
+        private double WindowWidth
+        {
+          get
+          {
+            var window = Window.GetWindow(this);
+            if (window == null)
+              return 0;
+            return window.Width;
+          }
+        }
         #endregion
 
         #region Properties
@@ -43,72 +69,72 @@ namespace Fluent
         /// Gets or sets quick access toolbar
         /// </summary>
         public UIElement QuickAccessToolBar
-        {
-            get { return (UIElement)this.GetValue(QuickAccessToolBarProperty); }
-            set { this.SetValue(QuickAccessToolBarProperty, value); }
-        }
+                {
+                    get { return (UIElement)this.GetValue(QuickAccessToolBarProperty); }
+                    set { this.SetValue(QuickAccessToolBarProperty, value); }
+                }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarProperty =
-            DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(UIElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolbarChanged));
+                /// <summary>
+                /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
+                /// </summary>
+                public static readonly DependencyProperty QuickAccessToolBarProperty =
+                    DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(UIElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolbarChanged));
 
-        // Handles QuickAccessToolBar property chages
-        private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var titleBar = (RibbonTitleBar)d;
-            titleBar.InvalidateMeasure();
-        }
+                // Handles QuickAccessToolBar property chages
+                private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+                {
+                    var titleBar = (RibbonTitleBar)d;
+                    titleBar.InvalidateMeasure();
+                }
 
-        /// <summary>
-        /// Gets or sets header alignment
-        /// </summary>
-        public HorizontalAlignment HeaderAlignment
-        {
-            get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
-            set { this.SetValue(HeaderAlignmentProperty, value); }
-        }
+                /// <summary>
+                /// Gets or sets header alignment
+                /// </summary>
+                public HorizontalAlignment HeaderAlignment
+                {
+                    get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
+                    set { this.SetValue(HeaderAlignmentProperty, value); }
+                }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
-        /// </summary> 
-        public static readonly DependencyProperty HeaderAlignmentProperty =
-            DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
+                /// <summary>
+                /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
+                /// </summary> 
+                public static readonly DependencyProperty HeaderAlignmentProperty =
+                    DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
 
-        /// <summary>
-        /// Defines whether title bar is collapsed
-        /// </summary>
-        public bool IsCollapsed
-        {
-            get { return (bool)this.GetValue(IsCollapsedProperty); }
-            set { this.SetValue(IsCollapsedProperty, value); }
-        }
+                /// <summary>
+                /// Defines whether title bar is collapsed
+                /// </summary>
+                public bool IsCollapsed
+                {
+                    get { return (bool)this.GetValue(IsCollapsedProperty); }
+                    set { this.SetValue(IsCollapsedProperty, value); }
+                }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsCollapsed"/>
-        /// </summary>
-        public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+                /// <summary>
+                /// DependencyProperty for <see cref="IsCollapsed"/>
+                /// </summary>
+                public static readonly DependencyProperty IsCollapsedProperty =
+                    DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-        private bool isAtLeastOneRequiredControlPresent;
+                private bool isAtLeastOneRequiredControlPresent;
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty HideContextTabsProperty =
-            DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(BooleanBoxes.FalseBox));
+                /// <summary>
+                /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
+                /// </summary>
+                public static readonly DependencyProperty HideContextTabsProperty =
+                    DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        ///  Gets or sets whether context tabs are hidden.
-        /// </summary>
-        public bool HideContextTabs
-        {
-            get { return (bool)this.GetValue(HideContextTabsProperty); }
-            set { this.SetValue(HideContextTabsProperty, value); }
-        }
+                /// <summary>
+                ///  Gets or sets whether context tabs are hidden.
+                /// </summary>
+                public bool HideContextTabs
+                {
+                    get { return (bool)this.GetValue(HideContextTabsProperty); }
+                    set { this.SetValue(HideContextTabsProperty, value); }
+                }
 
-        #endregion
+                #endregion
 
         #region Initialize
 
@@ -278,7 +304,17 @@ namespace Fluent
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Center)
                     {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
+                        double headerSpace = 25; 
+                        double windowWidth = WindowWidth;
+                        if (windowWidth > (this.quickAccessToolbarHolder.DesiredSize.Width + this.headerHolder.DesiredSize.Width+WindowCommandWidth))
+                        {
+                          if(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace < ((windowWidth / 2) - (this.headerHolder.DesiredSize.Width / 2)))
+                            this.headerRect = new Rect((windowWidth / 2) - (this.headerHolder.DesiredSize.Width/2), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
+                          else
+                            this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace, 0, Math.Min(allTextWidth -50 , this.headerHolder.DesiredSize.Width), constraint.Height);
+                        }
+                        else
+                          this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace + Math.Max(0, (allTextWidth- headerSpace) / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth-headerSpace, this.headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Right)
                     {

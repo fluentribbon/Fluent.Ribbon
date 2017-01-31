@@ -1,25 +1,26 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System;
-    using System.Collections;
-    using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Threading;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Data;
-    using System.Windows.Input;
-    using System.Windows.Markup;
-    using System.Windows.Threading;
-    using Fluent.Internal;
-    using Fluent.Internal.KnownBoxes;
+  using System;
+  using System.Collections;
+  using System.Collections.Specialized;
+  using System.Diagnostics;
+  using System.Diagnostics.CodeAnalysis;
+  using System.Threading;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Controls.Primitives;
+  using System.Windows.Data;
+  using System.Windows.Input;
+  using System.Windows.Markup;
+  using System.Windows.Threading;
+  using Fluent.Internal;
+  using Fluent.Internal.KnownBoxes;
 
-    /// <summary>
-    /// Represents drop down button
-    /// </summary>
-    [ContentProperty(nameof(Items))]
+  /// <summary>
+  /// Represents drop down button
+  /// </summary>
+  [ContentProperty(nameof(Items))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
@@ -355,11 +356,11 @@ namespace Fluent
 
             KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
         }
+
 
         /// <summary>
         /// Default constructor

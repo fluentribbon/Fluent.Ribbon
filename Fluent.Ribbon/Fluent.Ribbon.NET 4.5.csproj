@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=2.1.4.13, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net45\ControlzEx.dll</HintPath>
+      <HintPath>..\..\..\..\packages\ControlzEx.2.1.4.13\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -61,7 +61,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\packages\ControlzEx.2.1.4.13\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -89,7 +89,9 @@
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
+    <Compile Include="Converters\ObjectToStringConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Extensions\DependencyObjectHelper.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
@@ -143,7 +145,9 @@
     <Compile Include="Localization\Languages\Vietnamese.cs" />
     <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
     <Compile Include="Localization\RibbonLocalizationBase.cs" />
+    <Compile Include="RibbonAutomationPeer.cs" />
     <Compile Include="RibbonLocalization.cs" />
+    <Compile Include="StringRibbonStateStorage.cs" />
     <Compile Include="RibbonStateStorage.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
@@ -365,10 +369,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\RibbonWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Themes\Controls\RibbonScrollViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -457,6 +457,230 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Generic\Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\EmptyFocusStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\GalleryGroupContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\MenuSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonScrollViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonTitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\RibbonToolBarControlGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\SeparatorTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\StartScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\StartScreenTabControlTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\TwoLineLabel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls\WindowCommands.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Colors\ColorsWhite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ApplicationMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Backstage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\BackstageControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\BackstageTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\BackstageTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ComboBoxItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\DropDownButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Gallery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\GalleryItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\InRibbonGallery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\KeyTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\MenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\QuickAccessToolbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Ribbon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonContextualTabGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonGroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonSeparator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonStatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\RibbonTitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ScreenTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\Spinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\SplitButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\StartScreenTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\StatusBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Controls\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Office2016\Images\Images.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Office2016\RibbonWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\Warning.png" />
@@ -474,7 +698,9 @@
     <None Include="Themes\Generic.txt" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Themes\Office2010\Images\QuickAccessToolbarDropDownWhite.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\ApplicationMenu.png" />
     <Resource Include="Themes\Images\DialogLauncher.png" />
@@ -484,11 +710,42 @@
     <Resource Include="Themes\Images\RibbonExpand.png" />
     <Resource Include="Themes\Images\RibbonPin.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2016\Generic.txt" />
+    <Resource Include="Themes\Office2016\Images\Checked.png" />
+    <Resource Include="Themes\Office2016\Images\Copy.png" />
+    <Resource Include="Themes\Office2016\Images\Cut.png" />
+    <Resource Include="Themes\Office2016\Images\Help.png" />
+    <Resource Include="Themes\Office2016\Images\MoreColors.png" />
+    <Resource Include="Themes\Office2016\Images\Paste.png" />
+    <Resource Include="Themes\Office2016\Images\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2016\Images\ApplicationMenu.png" />
+    <Resource Include="Themes\Office2016\Images\BackstageCorner.png" />
+    <Resource Include="Themes\Office2016\Images\CaptionButtonClose.png" />
+    <Resource Include="Themes\Office2016\Images\CaptionButtonMaximize.png" />
+    <Resource Include="Themes\Office2016\Images\CaptionButtonMinimize.png" />
+    <Resource Include="Themes\Office2016\Images\CaptionButtonNormalize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2016\Images\DialogLauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarDropDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarDropDownWhite.png" />
+    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarExtender.png" />
+    <Resource Include="Themes\Office2016\Images\ResizeGrip.png" />
+    <Resource Include="Themes\Office2016\Images\RibbonCollapse.png" />
+    <Resource Include="Themes\Office2016\Images\RibbonExpand.png" />
+    <Resource Include="Themes\Office2016\Images\RibbonPin.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>SET tmpError=0
-"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
-SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
-SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
+"$(ProjectDir)Themes\XamlCombine.exe" Office2016\Generic.txt Office2016\Generic.xaml
+SET tmpError=%25tmpError%25 + %25ERRORLEVEL%25</PreBuildEvent>
   </PropertyGroup>
 </Project>

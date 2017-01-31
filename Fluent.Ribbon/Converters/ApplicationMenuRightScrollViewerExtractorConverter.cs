@@ -24,7 +24,7 @@
             var menu = value as ApplicationMenu;
             if (menu != null)
             {
-                return menu.Template.FindName("PART_ScrollViewer", menu) as UIElement;
+                return menu.Template.FindName("PART_SubMenuBorder", menu) as UIElement;
             }
 
             return value;

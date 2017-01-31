@@ -1,16 +1,17 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System;
-    using System.Reflection;
-    using System.Windows;
-    using System.Windows.Media;
-    using Fluent.Internal.KnownBoxes;
+  using System;
+  using System.Reflection;
+  using System.Windows;
+  using System.Windows.Input;
+  using System.Windows.Media;
+  using Fluent.Internal.KnownBoxes;
 
-    /// <summary>
-    /// Represents class to determine .NET Framework version difference
-    /// </summary>
-    public static class FrameworkHelper
+  /// <summary>
+  /// Represents class to determine .NET Framework version difference
+  /// </summary>
+  public static class FrameworkHelper
     {
         /// <summary>
         /// Version of WPF
@@ -50,5 +51,20 @@ namespace Fluent
             d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
         }
 
+    public static bool NavigateFocus(this FrameworkElement self, FocusNavigationDirection dircetion)
+    {
+
+      try
+      {
+        var res = self.MoveFocus(new TraversalRequest(dircetion));
+        return res;
+      }
+      catch (ArgumentNullException)
+      {
+        //Fluent sometimes throws an exception on load when dynamically created items are in the DropDownButton's items collection
+      }
+      return false;
     }
+
+  }
 }
