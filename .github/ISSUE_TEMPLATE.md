@@ -1,4 +1,6 @@
-Place your issue description here.
+**Place your issue description here.**
+
+**Please do not include large amounts of code in your issue.**
 
 ---
 ### Environment
