@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Root>$(MSBuildProjectDirectory)</Root>
-    <Configuration Condition="$(Configuration) == ''">Release</Configuration>
-    <PublishDirectory>$(Root)/Publish</PublishDirectory>
+      <Root>$(MSBuildProjectDirectory)</Root>
+      <Configuration Condition="$(Configuration) == ''">Release</Configuration>
+      <PublishDirectory>$(Root)/Publish</PublishDirectory>
+      <Version Condition="$(Version) == ''">$(appveyor_build_version)</Version>
   </PropertyGroup>
 
   <Target Name="Restore">
@@ -22,9 +23,12 @@
     </GetAssemblyIdentity>
     <PropertyGroup>
         <!-- Construct NuGet package version according to SemVer -->
-        <PrereleaseSuffix Condition="$(Prerelease) != ''">-$(Prerelease)</PrereleaseSuffix>
-        <Version>$([System.String]::new(%(FluentAssembly.Version)).TrimEnd('0').TrimEnd('.'))$(PrereleaseSuffix)</Version>
+        <PrereleaseSuffix Condition="$(Prerelease) != ''">-dev$(Prerelease)</PrereleaseSuffix>
+        <Version Condition="$(Version) == ''">$([System.String]::new(%(FluentAssembly.Version)).TrimEnd('0').TrimEnd('.'))$(PrereleaseSuffix)</Version>
     </PropertyGroup>
+
+      <Message Text="Version: $(Version)"
+               Importance="high" />
   </Target>
 
   <Target Name="EnsurePublishDir">
