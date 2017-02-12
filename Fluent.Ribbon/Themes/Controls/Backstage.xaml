@@ -80,7 +80,7 @@
         <Setter Property="Fluent:KeyTip.Keys"
                 Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
         <Setter Property="HideAnimationDuration"
-                Value="0:0:0.2" />
+                Value="0:0:0.3" />
         <Setter Property="HideContextTabsOnOpen"
                 Value="True" />
         <Setter Property="IsOpenAnimationEnabled"

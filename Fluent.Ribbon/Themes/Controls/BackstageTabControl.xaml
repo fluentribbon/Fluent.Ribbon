@@ -169,11 +169,11 @@
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
-                                                 Value="-30,0,0,0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
+                                                 Value="-125,0,0,0" />
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.5"
                                                  Value="0">
                             <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut" />
+                                <CubicEase EasingMode="EaseOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
@@ -183,10 +183,10 @@
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
                                                  Value="0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
-                                                 Value="-30,0,0,0">
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.3"
+                                                 Value="-125,0,0,0">
                             <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut" />
+                                <CubicEase EasingMode="EaseOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
@@ -195,7 +195,7 @@
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="115"
+                <ColumnDefinition MinWidth="125"
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
