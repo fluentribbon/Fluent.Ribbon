@@ -49,8 +49,8 @@
         private static double TryConvertSingleValue(object value)
         {
             try
-            {
-                return System.Convert.ToDouble(value);
+            {             
+                return (value as IConvertible)?.ToDouble(null) ?? 0;
             }
             catch
             {
