@@ -13,6 +13,8 @@
             <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
                    BasedOn="{StaticResource MenuSeparatorStyle}"
                    TargetType="{x:Type Separator}" />
+            <Style BasedOn="{StaticResource FluentRibbonDefaultContextMenuStyle}"
+                   TargetType="{x:Type ContextMenu}" />                        
         </ControlTemplate.Resources>
         <Grid x:Name="PART_LayoutRoot" 
               Width="Auto"
