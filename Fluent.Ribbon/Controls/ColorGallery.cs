@@ -504,12 +504,12 @@ namespace Fluent
                 return;
             }
 
-            // Raise event
-            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
-
             // Set color in gallery
             var color = (Color?)e.NewValue;
             gallery.UpdateSelectedColor(color);
+
+            // Raise event
+            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
         }
 
         private void UpdateSelectedColor(Color? color)
