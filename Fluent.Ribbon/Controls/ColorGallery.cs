@@ -688,7 +688,7 @@ namespace Fluent
         /// <summary>
         /// Identifies the SelectedColorChanged routed event.
         /// </summary>
-        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent("SelectedColorChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
+        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
 
         /// <summary>
         /// Raises SelectedColorChanged event

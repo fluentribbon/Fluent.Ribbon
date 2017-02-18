@@ -272,7 +272,7 @@ namespace Fluent
         /// <summary>
         /// Identifies the RibbonControl.Click routed event.
         /// </summary>
-        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GalleryItem));
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GalleryItem));
 
         /// <summary>
         /// Raises click event
