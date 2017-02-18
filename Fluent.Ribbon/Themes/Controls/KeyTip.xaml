@@ -6,7 +6,7 @@
                     mc:Ignorable="d">
 
     <Style x:Key="KeyTipStyle"
-           TargetType="Fluent:KeyTip">
+           TargetType="{x:Type Fluent:KeyTip}">
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="Background"
@@ -17,7 +17,7 @@
                 Value="0" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Fluent:KeyTip">
+                <ControlTemplate TargetType="{x:Type Fluent:KeyTip}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">

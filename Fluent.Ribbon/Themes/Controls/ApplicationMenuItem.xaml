@@ -170,7 +170,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
                 <Style x:Key="{x:Type Fluent:MenuItem}"
                        TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource MenuItemStyle}" />
+                       BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -512,7 +512,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
                 <Style x:Key="{x:Type Fluent:MenuItem}"
                        TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource MenuItemStyle}" />
+                       BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"

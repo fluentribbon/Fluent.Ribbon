@@ -21,6 +21,9 @@
     - `SelectedContentMargin` was added to `BackstageTabControl`
     - `QuickAccessToolBarHeight` on `Ribbon`
     - `TitleBarHeight` on `RibbonWindow`
+  - [#400](../../issues/400) - Default menu / menuitem appearance overridden by FluentRibbon
+    - Styles for the following types are no longer overwritten globally `ContextMenu`, `MenuItem`, `MenuItem.SeparatorStyleKey`, `StatusBar`, `StatusBarItem`, `StatusBar.SeparatorStyleKey`
+    - `MenuItemStyle` is renamed to `FluentDefaultSystemMenuItemStyle`
 
 - ### Bug fixes
   - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed

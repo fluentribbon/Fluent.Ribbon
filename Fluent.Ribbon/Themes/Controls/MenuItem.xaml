@@ -52,6 +52,7 @@
                        Height="2" />
         </Grid>
     </ControlTemplate>
+    
     <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
         <Grid Background="#00000000">
@@ -276,6 +277,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <!--Header Menu Item Template-->
     <ControlTemplate x:Key="HeaderMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
@@ -527,6 +529,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <!--Splited Menu Item Template-->
     <ControlTemplate x:Key="SplitedMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
@@ -829,7 +832,7 @@
     </ControlTemplate>
 
     <!--Menu Item Style-->
-    <Style x:Key="MenuItemStyle"
+    <Style x:Key="FluentDefaultSystemMenuItemStyle"
            TargetType="{x:Type MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
@@ -866,8 +869,4 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="{x:Type MenuItem}"
-           BasedOn="{StaticResource MenuItemStyle}" />
-    <Style TargetType="{x:Type Fluent:MenuItem}"
-           BasedOn="{StaticResource {x:Type MenuItem}}" />
 </ResourceDictionary>

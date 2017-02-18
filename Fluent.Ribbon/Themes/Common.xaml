@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <!-- Set default controls -->
-    <Style TargetType="Fluent:Spinner"
+    <Style TargetType="{x:Type Fluent:Spinner}"
            BasedOn="{StaticResource SpinnerStyle}" />
-    <Style TargetType="Fluent:TwoLineLabel"
+    <Style TargetType="{x:Type Fluent:TwoLineLabel}"
            BasedOn="{StaticResource TwoLineLabelStyle}" />
-    <Style TargetType="Fluent:KeyTip"
+    <Style TargetType="{x:Type Fluent:KeyTip}"
            BasedOn="{StaticResource KeyTipStyle}" />
     <Style TargetType="{x:Type Fluent:ScreenTip}"
            BasedOn="{StaticResource ScreenTipStyle}" />
@@ -55,4 +55,12 @@
            BasedOn="{StaticResource RibbonStyle}" />
     <Style TargetType="{x:Type Fluent:RibbonWindow}"
            BasedOn="{StaticResource RibbonWindowStyle}" />
+
+    <Style TargetType="{x:Type Fluent:MenuItem}"
+           BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
+    <Style BasedOn="{StaticResource RibbonStatusBarItemStyle}"
+           TargetType="{x:Type Fluent:StatusBarItem}" />
+    <Style x:Key="{x:Type Fluent:GroupSeparatorMenuItem}"
+           TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
+           BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
 </ResourceDictionary>

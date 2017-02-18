@@ -47,7 +47,6 @@ Controls\ComboBox.xaml
 Controls\Ribbon.xaml
 Controls\ColorGallery.xaml
 Controls\SeparatorTabItem.xaml
-Controls\RibbonStatusBar.xaml
 Controls\Slider.xaml
 Images\Images.xaml
 RibbonWindow.xaml

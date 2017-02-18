@@ -7,7 +7,14 @@
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
-        <Grid x:Name="PART_LayoutRoot"
+        <ControlTemplate.Resources>
+            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
+                   TargetType="{x:Type Separator}" />
+            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}"
+                   TargetType="{x:Type Separator}" />
+        </ControlTemplate.Resources>
+        <Grid x:Name="PART_LayoutRoot" 
               Width="Auto"
               Height="Auto">
             <Grid.RowDefinitions>

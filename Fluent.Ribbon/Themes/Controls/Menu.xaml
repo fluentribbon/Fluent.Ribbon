@@ -18,7 +18,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
     </Style>
-    
+
     <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
@@ -135,24 +135,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Default menu style for wpf context menu-->
-
-    <Style TargetType="{x:Type ContextMenu}">
-        <Setter Property="Template"
-                Value="{DynamicResource PopupMenuControlTemplate}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="MinWidth"
-                Value="0" />
-        <Setter Property="MinHeight"
-                Value="0" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-    </Style>
     <ControlTemplate x:Key="PopupMenuControlTemplate"
-                     TargetType="{x:Type ContextMenu}">
+                     TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"
                    TargetType="{x:Type Separator}" />

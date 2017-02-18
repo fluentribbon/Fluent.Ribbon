@@ -4,17 +4,12 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-
     <Style x:Key="MenuSeparatorStyle"
            TargetType="{x:Type Separator}">
         <Setter Property="Template"
                 Value="{DynamicResource MenuSeparatorControlTemplate}" />
     </Style>
-    <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}"
-           TargetType="{x:Type Separator}">
-        <Setter Property="Template"
-                Value="{DynamicResource MenuSeparatorControlTemplate}" />
-    </Style>
+       
     <ControlTemplate x:Key="MenuSeparatorControlTemplate"
                      TargetType="{x:Type Separator}">
         <Grid Height="Auto">
@@ -28,11 +23,13 @@
                   Data="M0,0L1,0" />
         </Grid>
     </ControlTemplate>
+    
     <Style x:Key="MenuGroupSeparatorStyle"
            TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
         <Setter Property="Template"
                 Value="{DynamicResource MenuGroupSeparatorControlTemplate}" />
     </Style>
+    
     <ControlTemplate x:Key="MenuGroupSeparatorControlTemplate"
                      TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
         <Grid Height="Auto"
@@ -46,7 +43,4 @@
                        FontWeight="Bold" />
         </Grid>
     </ControlTemplate>
-    <Style x:Key="{x:Type Fluent:GroupSeparatorMenuItem}"
-           TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
-           BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
 </ResourceDictionary>
