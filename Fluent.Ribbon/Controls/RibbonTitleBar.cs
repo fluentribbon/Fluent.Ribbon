@@ -224,6 +224,7 @@ namespace Fluent
             this.itemsContainer.Arrange(this.itemsRect);
             this.headerHolder.Arrange(this.headerRect);
             this.quickAccessToolbarHolder.Arrange(this.quickAccessToolbarRect);
+
             return arrangeBounds;
         }
 
@@ -258,6 +259,7 @@ namespace Fluent
             {
                 // Collapse itemRect
                 this.itemsRect = new Rect(0, 0, 0, 0);
+
                 // Set quick launch toolbar and header position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
 
@@ -297,34 +299,28 @@ namespace Fluent
             }
             else
             {
-                // Set items container size and position
-                var firstItem = visibleGroups.First().FirstVisibleItem;
-                var lastItem = visibleGroups.Last().LastVisibleItem;
+                var pointZero = new Point();
 
-                var startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                var endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                // get initial StartX value
+                var startX = visibleGroups.First().FirstVisibleItem.TranslatePoint(pointZero, this).X;
+                var endX = 0D;                
 
                 //Get minimum x point (workaround)
                 foreach (var group in visibleGroups)
                 {
-                    firstItem = group.FirstVisibleItem;
+                    var currentStartX = group.FirstVisibleItem.TranslatePoint(pointZero, this).X;
 
-                    if (firstItem != null)
+                    if (currentStartX < startX)
                     {
-                        if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
-                        {
-                            startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                        }
+                        startX = currentStartX;
                     }
 
-                    lastItem = group.LastVisibleItem;
+                    var lastItem = group.LastVisibleItem;
+                    var currentEndX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
 
-                    if (lastItem != null)
+                    if (currentEndX > endX)
                     {
-                        if (lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
-                        {
-                            endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
-                        }
+                        endX = currentEndX;
                     }
                 }
 
