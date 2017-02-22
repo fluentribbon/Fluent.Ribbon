@@ -90,7 +90,7 @@
         public static T GetParent<T>(DependencyObject element)
             where T : DependencyObject
         {
-            var item = element;
+            var item = VisualTreeHelper.GetParent(element);
 
             while (item != null
                 && item is T == false)
@@ -100,7 +100,7 @@
 
             if (item == null)
             {
-                item = element;
+                item = LogicalTreeHelper.GetParent(element);
 
                 while (item != null &&
                        item is T == false)
