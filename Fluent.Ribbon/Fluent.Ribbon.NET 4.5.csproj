@@ -106,6 +106,7 @@
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
+    <Compile Include="IRibbonWindow.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />

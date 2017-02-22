@@ -43,22 +43,9 @@
                                           HorizontalAlignment="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                               Style="{DynamicResource RibbonTitleBarStyle}"
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Stretch"
-                                               IsCollapsed="{TemplateBinding IsCollapsed}">
-                            <Fluent:RibbonTitleBar.Header>
-                                <TextBlock x:Name="PART_Title"
-                                           Margin="-2,0"
-                                           VerticalAlignment="Center"
-                                           d:LayoutOverrides="Width"
-                                           HorizontalAlignment="Center"
-                                           Text="{TemplateBinding Title}"
-                                           Foreground="{TemplateBinding TitleForeground}"
-                                           TextWrapping="NoWrap"
-                                           TextTrimming="CharacterEllipsis" />
-                            </Fluent:RibbonTitleBar.Header>
-                        </Fluent:RibbonTitleBar>
+                                               Header="{TemplateBinding Title}"
+                                               IsCollapsed="{TemplateBinding IsCollapsed}"
+                                               Foreground="{TemplateBinding TitleForeground}" />
                     </DockPanel>
 
                     <ContentPresenter x:Name="PART_ContentPresenter" 

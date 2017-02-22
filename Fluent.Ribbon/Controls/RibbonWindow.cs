@@ -25,7 +25,7 @@ namespace Fluent
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
-    public class RibbonWindow : Window
+    public class RibbonWindow : Window, IRibbonWindow
     {
         // ReSharper disable InconsistentNaming
         private const string PART_Icon = "PART_Icon";        
