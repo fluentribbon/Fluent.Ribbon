@@ -16,6 +16,7 @@ namespace Fluent
 {
     using System.Linq;
     using System.Windows.Data;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -591,8 +592,9 @@ namespace Fluent
                 && this.Group != null)
             {
                 this.cachedWidth = baseConstraint.Width;
-                var parent = VisualTreeHelper.GetParent(this.Group) as FrameworkElement;
-                parent?.InvalidateMeasure();
+
+                var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+                ribbonTitleBar?.ForceMeasureAndArrange();
             }
 
             return baseConstraint;

@@ -11,6 +11,7 @@ namespace Fluent
 {
     using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -350,9 +351,8 @@ namespace Fluent
         {
             group.ForceMeasure();
 
-            var titleBar = @group.Parent as RibbonTitleBar;
-
-            titleBar?.ForceMeasureAndArrange();
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(group);
+            ribbonTitleBar?.ForceMeasureAndArrange();
         }
     }
 }
