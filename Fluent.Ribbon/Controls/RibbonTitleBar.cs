@@ -15,7 +15,7 @@ namespace Fluent
     /// <summary>
     /// Represents title bar
     /// </summary>
-    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonContextualTabGroup))]
+    [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonContextualTabGroup))]
     [TemplatePart(Name = "PART_QuickAccessToolbarHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_HeaderHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ItemsContainer", Type = typeof(Panel))]
