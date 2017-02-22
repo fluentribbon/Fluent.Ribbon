@@ -26,5 +26,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Metro:MetroWindow.Resources>
+       
+    <Metro:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar" 
+                                   Header="{Binding ElementName=window, Path=Title}"/>
+        </DataTemplate>
+    </Metro:MetroWindow.TitleTemplate>
+    
     <fluentTest:TestContent x:Name="TestContent" />
 </Metro:MetroWindow>
