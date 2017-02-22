@@ -418,13 +418,18 @@ namespace Fluent
             }
             else
             {
-                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this) 
-                    ?? UIHelper.GetParent<AdornerDecorator>(LogicalTreeHelper.GetParent(this));
+                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this);                
             }
 
             if (elementToAdorn == null)
             {
                 return;
+            }
+
+            AdornerDecorator currentAdornerDecorator;
+            while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+            {
+                elementToAdorn = currentAdornerDecorator;
             }
 
             var layer = UIHelper.GetAdornerLayer(elementToAdorn);
