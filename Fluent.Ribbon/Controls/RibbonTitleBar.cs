@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Fluent.Internal;
 
 // ReSharper disable once CheckNamespace
 namespace Fluent
@@ -328,11 +327,9 @@ namespace Fluent
                 startX = Math.Max(0, startX);
                 endX = Math.Max(0, endX);
 
-                //Looks like thr titlebar things are ordered in an other way
-                if (DoubleUtil.AreClose(startX, endX) == false)
-                {
-                    this.itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
-                }
+                // Set contextual groups position and size
+                this.itemsContainer.Measure(infinity);
+                this.itemsRect = new Rect(startX, 0, this.itemsContainer.DesiredSize.Width, constraint.Height);
 
                 // Set quick launch toolbar position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
