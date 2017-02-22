@@ -90,6 +90,11 @@
         public static T GetParent<T>(DependencyObject element)
             where T : DependencyObject
         {
+            if (element == null)
+            {
+                return null;
+            }
+
             var item = VisualTreeHelper.GetParent(element);
 
             while (item != null
