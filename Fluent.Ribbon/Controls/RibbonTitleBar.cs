@@ -302,7 +302,7 @@ namespace Fluent
 
                 // get initial StartX value
                 var startX = visibleGroups.First().FirstVisibleItem.TranslatePoint(pointZero, this).X;
-                var endX = 0D;                
+                var endX = 0D;
 
                 //Get minimum x point (workaround)
                 foreach (var group in visibleGroups)
@@ -329,7 +329,8 @@ namespace Fluent
 
                 // Set contextual groups position and size
                 this.itemsContainer.Measure(infinity);
-                this.itemsRect = new Rect(startX, 0, this.itemsContainer.DesiredSize.Width, constraint.Height);
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, endX - startX));
+                this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
 
                 // Set quick launch toolbar position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
