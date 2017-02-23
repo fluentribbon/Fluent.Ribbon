@@ -327,23 +327,16 @@ namespace Fluent
                 startX = Math.Max(0, startX);
                 endX = Math.Max(0, endX);
 
-                // Set contextual groups position and size
-                this.itemsContainer.Measure(infinity);
-                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, endX - startX));
-                this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
-
                 // Set quick launch toolbar position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
-
                 var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
-                this.quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), this.quickAccessToolbarHolder.DesiredSize.Height);
+                this.quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarWidth, this.quickAccessToolbarHolder.DesiredSize.Height);
 
-                if (quickAccessToolbarWidth > startX)
-                {
-                    this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
-                    this.quickAccessToolbarRect = new Rect(0, 0, this.quickAccessToolbarHolder.DesiredSize.Width, this.quickAccessToolbarHolder.DesiredSize.Height);
-                    quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
-                }
+                // Set contextual groups position and size
+                var minimumContextualTabsStart = Math.Max(startX, this.TranslatePoint(new Point(quickAccessToolbarWidth, 0), this).X);
+                this.itemsContainer.Measure(infinity);
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, endX - minimumContextualTabsStart));
+                this.itemsRect = new Rect(minimumContextualTabsStart, 0, itemsRectWidth, constraint.Height);
 
                 // Set header
                 this.headerHolder.Measure(infinity);
