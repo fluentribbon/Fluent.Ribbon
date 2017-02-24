@@ -34,5 +34,17 @@
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>
     
+    <Metro:MetroWindow.LeftWindowCommands>
+        <Metro:WindowCommands>
+            <Button>Left</Button>
+        </Metro:WindowCommands>
+    </Metro:MetroWindow.LeftWindowCommands>
+    
+    <Metro:MetroWindow.RightWindowCommands>
+        <Metro:WindowCommands>
+            <Button>Right</Button>
+        </Metro:WindowCommands>
+    </Metro:MetroWindow.RightWindowCommands>    
+    
     <fluentTest:TestContent x:Name="TestContent" />
 </Metro:MetroWindow>
