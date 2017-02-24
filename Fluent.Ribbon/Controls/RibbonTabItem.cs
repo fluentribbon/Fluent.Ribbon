@@ -593,6 +593,9 @@ namespace Fluent
             {
                 this.cachedWidth = baseConstraint.Width;
 
+                var contextualTabGroupContainer = UIHelper.GetParent<RibbonContextualGroupsContainer>(this.Group);
+                contextualTabGroupContainer?.InvalidateMeasure();
+
                 var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
                 ribbonTitleBar?.ForceMeasureAndArrange();
             }
