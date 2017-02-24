@@ -398,7 +398,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new PropertyMetadata(OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, OnHeaderChanged));
 
         // Header changed handler
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
