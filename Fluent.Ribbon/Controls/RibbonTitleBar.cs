@@ -333,9 +333,10 @@ namespace Fluent
                 this.quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarWidth, this.quickAccessToolbarHolder.DesiredSize.Height);
 
                 // Set contextual groups position and size
-                var minimumContextualTabsStart = Math.Max(startX, this.TranslatePoint(new Point(quickAccessToolbarWidth, 0), this).X);
                 this.itemsContainer.Measure(infinity);
-                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, endX - minimumContextualTabsStart));
+                var minimumContextualTabsStart = Math.Max(startX, this.TranslatePoint(new Point(quickAccessToolbarWidth, 0), this).X);
+                var maximumContextualTabsEnd = Math.Min(endX, this.TranslatePoint(new Point(this.ActualWidth, 0), this).X);                
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, maximumContextualTabsEnd - minimumContextualTabsStart));
                 this.itemsRect = new Rect(minimumContextualTabsStart, 0, itemsRectWidth, constraint.Height);
 
                 // Set header
