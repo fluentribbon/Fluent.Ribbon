@@ -603,6 +603,7 @@ namespace Fluent
             return baseConstraint;
         }
 
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             var result = base.ArrangeOverride(arrangeBounds);
