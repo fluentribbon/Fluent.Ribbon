@@ -603,6 +603,16 @@ namespace Fluent
             return baseConstraint;
         }
 
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            var result = base.ArrangeOverride(arrangeBounds);
+
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+            ribbonTitleBar?.ForceMeasureAndArrange();
+
+            return result;
+        }
+
         /// <summary>
         /// On new style applying
         /// </summary>
