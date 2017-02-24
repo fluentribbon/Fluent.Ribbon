@@ -15,7 +15,7 @@ This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
 Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
-![Fluent.png](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Fluent.png)
+![Showcase](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/develop/Images/Showcase.gif)
 
 *   [More Screenshots](https://github.com/fluentribbon/Fluent.Ribbon/wiki/Screenshots)
 
@@ -47,8 +47,7 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
       * Position first attribute on same line as start tag
 
 # Documentation
-Please, [download walkthrough](https://github.com/fluentribbon/Fluent.Ribbon/blob/master/Doc/Fluent%20Ribbon%20Control%20Suite%20Walkthrough.pdf?raw=true)
-This document covers the main features of this framework and highlights how to use it, but is pretty outdated right now.
+Visit the [documentation](http://fluentribbon.github.io/documentation/).
 Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
