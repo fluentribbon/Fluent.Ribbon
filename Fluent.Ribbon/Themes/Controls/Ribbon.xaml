@@ -96,6 +96,6 @@
         <Setter Property="TitleBar"
                 Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue={x:Null}}" />
         <Setter Property="QuickAccessToolBarHeight"
-                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=27}" />
+                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
     </Style>
 </ResourceDictionary>

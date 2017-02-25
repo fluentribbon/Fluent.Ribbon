@@ -689,7 +689,7 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBarHeight"/>.
         /// </summary>
         public static readonly DependencyProperty QuickAccessToolBarHeightProperty =
-            DependencyProperty.Register(nameof(QuickAccessToolBarHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(27D));
+            DependencyProperty.Register(nameof(QuickAccessToolBarHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(23D));
 
         /// <summary>
         /// Gets collection of contextual tab groups

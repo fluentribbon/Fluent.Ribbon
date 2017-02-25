@@ -8,7 +8,7 @@
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Height"
-                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=27}" />
+                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="HorizontalAlignment"
