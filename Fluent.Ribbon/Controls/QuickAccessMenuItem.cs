@@ -70,7 +70,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets shortcut to the target control
         /// </summary>
-        public Control Target
+        public UIElement Target
         {
             get { return (Control)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
@@ -81,7 +81,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register(nameof(Target), typeof(Control), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
+            DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
