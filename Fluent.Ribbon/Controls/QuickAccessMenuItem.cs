@@ -176,10 +176,10 @@ namespace Fluent
         private void OnFirstLoaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= this.OnFirstLoaded;
-            if (this.IsChecked 
-                && this.Ribbon != null)
+
+            if (this.IsChecked)
             {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
+                this.Ribbon?.AddToQuickAccessToolBar(this.Target);
             }
         }
 
