@@ -64,5 +64,7 @@
            TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
            BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
     <Style BasedOn="{StaticResource RibbonTitleBarStyle}"
-           TargetType="{x:Type Fluent:RibbonTitleBar}" />    
+           TargetType="{x:Type Fluent:RibbonTitleBar}" />
+    <Style BasedOn="{StaticResource QuickAccessToolbarStyle}"
+           TargetType="{x:Type Fluent:QuickAccessToolBar}" />
 </ResourceDictionary>
