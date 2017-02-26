@@ -6,9 +6,9 @@ namespace Fluent.Tests.Helper
 
     public static class ReflectionHelper
     {
-        public static object GetPrivateFieldValue(this object obj, string fieldName)
+        public static T GetFieldValue<T>(this object obj, string fieldName)
         {
-            return GetPrivateFieldInfo(obj.GetType(), fieldName).GetValue(obj);
+            return (T)GetPrivateFieldInfo(obj.GetType(), fieldName).GetValue(obj);
         }
 
         private static FieldInfo GetPrivateFieldInfo(Type type, string fieldName)
