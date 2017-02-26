@@ -147,28 +147,22 @@ namespace Fluent
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.AddToQuickAccessToolBar(this.Target);
         }
 
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
 
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.RemoveFromQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
         }
 
         private void OnItemLoaded(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
