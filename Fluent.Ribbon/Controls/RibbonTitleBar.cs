@@ -42,9 +42,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets quick access toolbar
         /// </summary>
-        public UIElement QuickAccessToolBar
+        public FrameworkElement QuickAccessToolBar
         {
-            get { return (UIElement)this.GetValue(QuickAccessToolBarProperty); }
+            get { return (FrameworkElement)this.GetValue(QuickAccessToolBarProperty); }
             set { this.SetValue(QuickAccessToolBarProperty, value); }
         }
 
@@ -327,17 +327,27 @@ namespace Fluent
                 startX = Math.Max(0, startX);
                 endX = Math.Max(0, endX);
 
-                // Set quick launch toolbar position and size
-                this.quickAccessToolbarHolder.Measure(infinity);
-                var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
-                this.quickAccessToolbarRect = new Rect(0, 0, quickAccessToolbarWidth, this.quickAccessToolbarHolder.DesiredSize.Height);
+                // Ensure that startX respect min width of QuickAccessToolBar
+                startX = Math.Max(startX, this.QuickAccessToolBar.MinWidth);
 
-                // Set contextual groups position and size
+                // Set contextual groups position and size 
+                var minimumContextualTabsStart = startX;
                 this.itemsContainer.Measure(infinity);
-                var minimumContextualTabsStart = Math.Max(startX, this.TranslatePoint(new Point(quickAccessToolbarWidth, 0), this).X);
-                var maximumContextualTabsEnd = Math.Min(endX, this.TranslatePoint(new Point(this.ActualWidth, 0), this).X);                
-                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, maximumContextualTabsEnd - minimumContextualTabsStart));
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, endX - minimumContextualTabsStart));
                 this.itemsRect = new Rect(minimumContextualTabsStart, 0, itemsRectWidth, constraint.Height);
+
+                // Set quick launch toolbar position and size 
+                this.quickAccessToolbarHolder.Measure(infinity);
+
+                var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
+                this.quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), this.quickAccessToolbarHolder.DesiredSize.Height);
+
+                if (quickAccessToolbarWidth > startX)
+                {
+                    this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
+                    this.quickAccessToolbarRect = new Rect(0, 0, this.quickAccessToolbarHolder.DesiredSize.Width, this.quickAccessToolbarHolder.DesiredSize.Height);
+                    quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
+                }
 
                 // Set header
                 this.headerHolder.Measure(infinity);
