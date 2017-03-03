@@ -4,17 +4,27 @@
 
     internal static class UIElementExtensions
     {
-        public static void ForceMeasure(this UIElement element)
+        public static void ForceMeasure(this FrameworkElement element)
         {
             element.InvalidateMeasure();
-            element.UpdateLayout();
+
+            // Calling UpdateLayout on not already loaded elements causes weird side effects
+            if (element.IsLoaded)
+            {
+                element.UpdateLayout();
+            }
         }
 
-        public static void ForceMeasureAndArrange(this UIElement element)
+        public static void ForceMeasureAndArrange(this FrameworkElement element)
         {
             element.InvalidateMeasure();
             element.InvalidateArrange();
-            element.UpdateLayout();
+
+            // Calling UpdateLayout on not already loaded elements causes weird side effects
+            if (element.IsLoaded)
+            {
+                element.UpdateLayout();
+            }
         }
     }
 }
