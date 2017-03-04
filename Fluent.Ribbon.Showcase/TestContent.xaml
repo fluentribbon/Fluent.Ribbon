@@ -2813,21 +2813,26 @@
             </TabItem>
             <TabItem Header="Tests">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Header="Tabs and Window">
+                    <GroupBox Header="Tabs">
                         <WrapPanel>
                             <Button x:Name="AddRibbonTab"
                                     Click="AddRibbonTab_OnClick">Add tab</Button>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Windows">
+                        <WrapPanel>                    
                             <Button x:Name="OpenRegularWindow"
                                     Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
+                            <Button x:Name="OpenMinimalRibbonWindowSample"
+                                    Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Button>                            
                             <Button x:Name="OpenMahMetroWindow"
                                     Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                             <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                     Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
                             <Button x:Name="OpenRibbonWindowWithoutRibbon"
-                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>                            
+                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>
                             <Button x:Name="OpenModalRibbonWindow"
                                     Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
-
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Issue repros">

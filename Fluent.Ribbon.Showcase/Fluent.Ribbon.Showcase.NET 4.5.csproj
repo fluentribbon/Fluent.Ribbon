@@ -99,6 +99,9 @@
     <Compile Include="TestContent.xaml.cs">
       <DependentUpon>TestContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MinimalWindowSample.xaml.cs">
+      <DependentUpon>MinimalWindowSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ColorViewModel.cs" />
     <Compile Include="ViewModels\FontsViewModel.cs" />
     <Compile Include="ViewModels\GalleryItemViewModel.cs" />
@@ -129,6 +132,10 @@
     <Page Include="TestContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MinimalWindowSample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

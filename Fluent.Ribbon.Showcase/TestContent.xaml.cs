@@ -273,6 +273,11 @@
             new RegularWindow().Show();
         }
 
+        private void OpenMinimalRibbonWindowSample_OnClick(object sender, RoutedEventArgs e)
+        {
+            new MinimalWindowSample().Show();
+        }
+
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
             new MahMetroWindow().Show();
