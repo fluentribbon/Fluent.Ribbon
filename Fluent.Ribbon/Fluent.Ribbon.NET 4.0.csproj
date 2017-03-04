@@ -17,14 +17,12 @@
     <AssemblyOriginatorKeyFile>..\Shared\FluentStrongName.snk</AssemblyOriginatorKeyFile>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
-    <BaseIntermediateOutputPath>..\build\obj\NET 4.0</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\build\bin\NET 4.0\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NET40;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,7 +37,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\bin\NET 4.0\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
     <DefineConstants>TRACE;NET40;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
