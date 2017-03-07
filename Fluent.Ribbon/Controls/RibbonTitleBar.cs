@@ -119,6 +119,8 @@ namespace Fluent
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
+
+            HeaderProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
 
         #endregion
@@ -224,12 +226,45 @@ namespace Fluent
             this.headerHolder.Arrange(this.headerRect);
             this.quickAccessToolbarHolder.Arrange(this.quickAccessToolbarRect);
 
+            this.EnsureCorrectLayoutAfterArrange();
+
             return arrangeBounds;
         }
 
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Sometimes the relative position only changes after the arrange phase. 
+        /// To compensate such sitiations we issue a second layout pass by invalidating our measure.
+        /// This situation can occur if, for example, the icon of a ribbon window has it's visibility changed.
+        /// </summary>
+        private void EnsureCorrectLayoutAfterArrange()
+        {
+            var currentRelativePosition = this.GetCurrentRelativePosition();
+            this.RunInDispatcherAsync(() => this.CheckPosition(currentRelativePosition, this.GetCurrentRelativePosition()));
+        }
+
+        private void CheckPosition(Point previousRelativePosition, Point currentRelativePositon)
+        {
+            if (previousRelativePosition != currentRelativePositon)
+            {
+                this.InvalidateMeasure();
+            }
+        }
+
+        private Point GetCurrentRelativePosition()
+        {
+            var parentUIElement = this.Parent as UIElement;
+
+            if (parentUIElement == null)
+            {
+                return new Point();
+            }
+
+            return this.TranslatePoint(new Point(), parentUIElement);
+        }
 
         // Update items size and positions
         private void Update(Size constraint)

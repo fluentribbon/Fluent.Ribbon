@@ -158,7 +158,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether icon is visible
         /// </summary>
-        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
+        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
@@ -204,8 +204,6 @@ namespace Fluent
         static RibbonWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-
-            TitleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(OnTitleChanged));
         }
 
         /// <summary>
@@ -335,13 +333,6 @@ namespace Fluent
             where T : DependencyObject
         {
             return this.GetTemplateChild(name) as T;
-        }
-
-        private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbonWindow = (RibbonWindow)d;
-
-            ribbonWindow.RunInDispatcherAsync(() => ribbonWindow.TitleBar?.ForceMeasureAndArrange());
         }
     }
 }
