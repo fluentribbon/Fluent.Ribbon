@@ -155,24 +155,21 @@
                                            KeyTip="A"
                                            CanAddToQuickAccessToolBar="False"
                                            Click="HandleSaveAsClick" />
-                            <Fluent:BackstageTabItem Header="TEST"
-                                                     KeyTip="T"
-                                                     Content="Hello">
-                                <Fluent:BackstageTabItem.ContentTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBox Text="{Binding Mode=OneWay}"
-                                                     Width="6000" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </Fluent:BackstageTabItem.ContentTemplate>
+                            <Fluent:BackstageTabItem Header="Introduction"
+                                                     KeyTip="T">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
+                                    <Fluent:Button Header="Button with bound command"
+                                                   Style="{DynamicResource ButtonBackstageStyle}"
+                                                   Width="120"
+                                                   Command="{Binding TestCommand}" />
+                                </StackPanel>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
-                                                     KeyTip="I"
-                                                     IsEnabled="False">
+                                                     KeyTip="I">
                                 <ScrollViewer>
                                     <Grid Height="400"
                                           Background="Red">
@@ -260,11 +257,17 @@
                                 </Grid>
                             </Fluent:BackstageTabItem>
 
-                            <Fluent:BackstageTabItem Header="Print"
-                                                     KeyTip="P">
-                                <Grid Background="Yellow"
-                                      Opacity="0.3"
-                                      Margin="50" />
+                            <Fluent:BackstageTabItem Header="Extra wide content"
+                                                     KeyTip="W"
+                                                     Content="The template used to display this is extremely wide. Width = 6000">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox Text="{Binding Mode=OneWay}"
+                                                     Width="6000" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:Button Header="Exit"
