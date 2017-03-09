@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Windows;
+
 // ReSharper disable InconsistentNaming
 
 namespace Fluent.Metro.Native

@@ -24,6 +24,7 @@ namespace Fluent
         private System.Windows.Controls.Button maximizeButton;
         private System.Windows.Controls.Button restoreButton;
         private System.Windows.Controls.Button closeButton;
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2006:UseSafeHandleToEncapsulateNativeResources", Justification = "We release the handle during dispose.")]
         private IntPtr user32 = IntPtr.Zero;
         private bool disposed;
 
@@ -227,13 +228,14 @@ namespace Fluent
         private Window GetParentWindow()
         {
             var parent = VisualTreeHelper.GetParent(this);
+            Window parentWindow = null;
 
-            while (parent != null && !(parent is Window))
+            while (parent != null 
+                && (parentWindow = parent as Window) == null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }
 
-            var parentWindow = parent as Window;
             return parentWindow;
         }
     }

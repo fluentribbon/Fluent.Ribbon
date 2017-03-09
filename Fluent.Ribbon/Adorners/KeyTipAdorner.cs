@@ -872,8 +872,7 @@ namespace Fluent
                 name += $" ({headeredControl.Header})";
             }
 
-            var formatted = string.Format(format, args);
-            Debug.WriteLine($"[{name}] {formatted}", "KeyTipAdorner");
+            Debug.WriteLine($"[{name}] {string.Format(format, args)}", "KeyTipAdorner");
         }
 
         #endregion

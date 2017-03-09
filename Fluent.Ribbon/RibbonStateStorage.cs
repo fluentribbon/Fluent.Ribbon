@@ -10,8 +10,6 @@
     using System.Linq;
     using System.Text;
     using System.Windows;
-    using System.Windows.Threading;
-    using Fluent.Extensions;
 
     /// <summary>
     /// Handles loading and saving the state of a <see cref="Ribbon"/> from/to a <see cref="MemoryStream"/>, for temporary storage, and from/to <see cref="IsolatedStorage"/>, for persistent storage.
@@ -191,11 +189,12 @@
                 else
                 {
                     // Item is not found in logical tree, output to debug console
+#if DEBUG
                     var controlName = control != null && string.IsNullOrEmpty(control.Name) == false
-                                          ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
-                                          : string.Empty;
-
-                    Debug.WriteLine("Control " + element.Key.GetType().Name + " is not found in logical tree during QAT saving" + controlName);
+                      ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
+                      : string.Empty;
+                    Debug.WriteLine($"Control {element.Key.GetType().Name} is not found in logical tree during QAT saving{controlName}");
+#endif
                 }
             }
             return builder;

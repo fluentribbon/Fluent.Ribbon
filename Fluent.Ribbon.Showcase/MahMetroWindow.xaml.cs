@@ -1,7 +1,6 @@
 ﻿namespace FluentTest
 {
     using System;
-    using System.Windows;
     using Fluent;
     using MahApps.Metro.Controls;
 

@@ -9,7 +9,7 @@ namespace Fluent
     /// <summary>
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
-    public class RibbonProperties
+    public static class RibbonProperties
     {
         #region Size Property
 
@@ -92,14 +92,7 @@ namespace Fluent
             var groupBox = FindParentRibbonGroupBox(d);
             var element = (UIElement)d;
 
-            if (groupBox != null)
-            {
-                SetAppropriateSize(element, groupBox.State);
-            }
-            else
-            {
-                SetAppropriateSize(element, RibbonGroupBoxState.Large);
-            }
+            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
         }
 
         // Finds parent group box

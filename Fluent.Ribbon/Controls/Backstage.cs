@@ -666,12 +666,12 @@ namespace Fluent
 
         private void OnBackstageLoaded(object sender, RoutedEventArgs e)
         {
-            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.AddHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
         }
 
         private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
         {
-            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
 
             this.DestroyAdorner();
         }
