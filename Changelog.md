@@ -47,6 +47,7 @@
   - [#392](../../issues/392) - Change Window Title doesn't update Title length
   - [#397](../../issues/397) - Backstage Opening Animation
   - [#398](../../issues/398) - ColorGallery: SelectedColorChanged event raised before SelectedColor changed
+  - [#403](../../issues/403) - Tabs can "detach" from ribbon area
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground

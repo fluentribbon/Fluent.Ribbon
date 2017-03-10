@@ -9,7 +9,6 @@
         <Grid x:Name="grid"
               Background="#00000000"
               Height="Auto"
-              VerticalAlignment="Top"
               Margin="0,7,0,0">
             <Border x:Name="border3"
                     Margin="0,0,0,1"
@@ -313,7 +312,7 @@
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="VerticalAlignment"
-                Value="Top" />
+                Value="Stretch" />
         <Setter Property="Height"
                 Value="Auto" />
         <Setter Property="Margin"
