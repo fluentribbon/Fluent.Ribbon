@@ -155,24 +155,21 @@
                                            KeyTip="A"
                                            CanAddToQuickAccessToolBar="False"
                                            Click="HandleSaveAsClick" />
-                            <Fluent:BackstageTabItem Header="TEST"
-                                                     KeyTip="T"
-                                                     Content="Hello">
-                                <Fluent:BackstageTabItem.ContentTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBox Text="{Binding Mode=OneWay}"
-                                                     Width="6000" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </Fluent:BackstageTabItem.ContentTemplate>
+                            <Fluent:BackstageTabItem Header="Introduction"
+                                                     KeyTip="T">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
+                                    <Fluent:Button Header="Button with bound command"
+                                                   Style="{DynamicResource ButtonBackstageStyle}"
+                                                   Width="120"
+                                                   Command="{Binding TestCommand}" />
+                                </StackPanel>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Info"
-                                                     KeyTip="I"
-                                                     IsEnabled="False">
+                                                     KeyTip="I">
                                 <ScrollViewer>
                                     <Grid Height="400"
                                           Background="Red">
@@ -260,11 +257,17 @@
                                 </Grid>
                             </Fluent:BackstageTabItem>
 
-                            <Fluent:BackstageTabItem Header="Print"
-                                                     KeyTip="P">
-                                <Grid Background="Yellow"
-                                      Opacity="0.3"
-                                      Margin="50" />
+                            <Fluent:BackstageTabItem Header="Extra wide content"
+                                                     KeyTip="W"
+                                                     Content="The template used to display this is extremely wide. Width = 6000">
+                                <Fluent:BackstageTabItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox Text="{Binding Mode=OneWay}"
+                                                     Width="6000" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:Button Header="Exit"
@@ -2813,21 +2816,26 @@
             </TabItem>
             <TabItem Header="Tests">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Header="Tabs and Window">
+                    <GroupBox Header="Tabs">
                         <WrapPanel>
                             <Button x:Name="AddRibbonTab"
                                     Click="AddRibbonTab_OnClick">Add tab</Button>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Windows">
+                        <WrapPanel>                    
                             <Button x:Name="OpenRegularWindow"
                                     Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
+                            <Button x:Name="OpenMinimalRibbonWindowSample"
+                                    Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Button>                            
                             <Button x:Name="OpenMahMetroWindow"
                                     Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
                             <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                     Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
                             <Button x:Name="OpenRibbonWindowWithoutRibbon"
-                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>                            
+                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>
                             <Button x:Name="OpenModalRibbonWindow"
                                     Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
-
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Issue repros">

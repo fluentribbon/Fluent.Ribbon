@@ -6,7 +6,7 @@ namespace Fluent.Metro.Behaviours
     /// <summary>
     /// Enables the use of behaviors in styles
     /// </summary>
-    public class StylizedBehaviors
+    public static class StylizedBehaviors
     {
         private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached("OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new PropertyMetadata());
 

@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Fluent.Internal;
 
 // ReSharper disable once CheckNamespace
 namespace Fluent
@@ -15,7 +14,7 @@ namespace Fluent
     /// <summary>
     /// Represents title bar
     /// </summary>
-    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonContextualTabGroup))]
+    [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonContextualTabGroup))]
     [TemplatePart(Name = "PART_QuickAccessToolbarHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_HeaderHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ItemsContainer", Type = typeof(Panel))]
@@ -43,9 +42,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets quick access toolbar
         /// </summary>
-        public UIElement QuickAccessToolBar
+        public FrameworkElement QuickAccessToolBar
         {
-            get { return (UIElement)this.GetValue(QuickAccessToolBarProperty); }
+            get { return (FrameworkElement)this.GetValue(QuickAccessToolBarProperty); }
             set { this.SetValue(QuickAccessToolBarProperty, value); }
         }
 
@@ -120,6 +119,8 @@ namespace Fluent
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
+
+            HeaderProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
 
         #endregion
@@ -179,11 +180,6 @@ namespace Fluent
                 return base.MeasureOverride(constraint);
             }
 
-            if (this.IsCollapsed)
-            {
-                return base.MeasureOverride(constraint);
-            }
-
             var resultSize = constraint;
 
             if (double.IsPositiveInfinity(resultSize.Width)
@@ -216,20 +212,49 @@ namespace Fluent
                 return base.ArrangeOverride(arrangeBounds);
             }
 
-            if (this.IsCollapsed)
-            {
-                return base.ArrangeOverride(arrangeBounds);
-            }
-
             this.itemsContainer.Arrange(this.itemsRect);
             this.headerHolder.Arrange(this.headerRect);
             this.quickAccessToolbarHolder.Arrange(this.quickAccessToolbarRect);
+
+            this.EnsureCorrectLayoutAfterArrange();
+
             return arrangeBounds;
         }
 
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Sometimes the relative position only changes after the arrange phase. 
+        /// To compensate such sitiations we issue a second layout pass by invalidating our measure.
+        /// This situation can occur if, for example, the icon of a ribbon window has it's visibility changed.
+        /// </summary>
+        private void EnsureCorrectLayoutAfterArrange()
+        {
+            var currentRelativePosition = this.GetCurrentRelativePosition();
+            this.RunInDispatcherAsync(() => this.CheckPosition(currentRelativePosition, this.GetCurrentRelativePosition()));
+        }
+
+        private void CheckPosition(Point previousRelativePosition, Point currentRelativePositon)
+        {
+            if (previousRelativePosition != currentRelativePositon)
+            {
+                this.InvalidateMeasure();
+            }
+        }
+
+        private Point GetCurrentRelativePosition()
+        {
+            var parentUIElement = this.Parent as UIElement;
+
+            if (parentUIElement == null)
+            {
+                return new Point();
+            }
+
+            return this.TranslatePoint(new Point(), parentUIElement);
+        }
 
         // Update items size and positions
         private void Update(Size constraint)
@@ -253,11 +278,23 @@ namespace Fluent
                 }
             }
 
-            if (visibleGroups.Count == 0
+            if (this.IsCollapsed)
+            {
+                // Collapse QuickAccessToolbar
+                this.quickAccessToolbarRect = new Rect(0, 0, 0, 0);
+
+                // Collapse itemRect
+                this.itemsRect = new Rect(0, 0, 0, 0);
+
+                this.headerHolder.Measure(new Size(constraint.Width, constraint.Height));
+                this.headerRect = new Rect(0, 0, this.headerHolder.DesiredSize.Width, constraint.Height);
+            }
+            else if (visibleGroups.Count == 0
                 || canRibbonTabControlScroll)
             {
                 // Collapse itemRect
                 this.itemsRect = new Rect(0, 0, 0, 0);
+
                 // Set quick launch toolbar and header position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
 
@@ -297,34 +334,28 @@ namespace Fluent
             }
             else
             {
-                // Set items container size and position
-                var firstItem = visibleGroups.First().FirstVisibleItem;
-                var lastItem = visibleGroups.Last().LastVisibleItem;
+                var pointZero = new Point();
 
-                var startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                var endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                // get initial StartX value
+                var startX = visibleGroups.First().FirstVisibleItem.TranslatePoint(pointZero, this).X;
+                var endX = 0D;
 
                 //Get minimum x point (workaround)
                 foreach (var group in visibleGroups)
                 {
-                    firstItem = group.FirstVisibleItem;
+                    var currentStartX = group.FirstVisibleItem.TranslatePoint(pointZero, this).X;
 
-                    if (firstItem != null)
+                    if (currentStartX < startX)
                     {
-                        if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
-                        {
-                            startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                        }
+                        startX = currentStartX;
                     }
 
-                    lastItem = group.LastVisibleItem;
+                    var lastItem = group.LastVisibleItem;
+                    var currentEndX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
 
-                    if (lastItem != null)
+                    if (currentEndX > endX)
                     {
-                        if (lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
-                        {
-                            endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
-                        }
+                        endX = currentEndX;
                     }
                 }
 
@@ -332,13 +363,15 @@ namespace Fluent
                 startX = Math.Max(0, startX);
                 endX = Math.Max(0, endX);
 
-                //Looks like thr titlebar things are ordered in an other way
-                if (DoubleUtil.AreClose(startX, endX) == false)
-                {
-                    this.itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
-                }
+                // Ensure that startX respect min width of QuickAccessToolBar
+                startX = Math.Max(startX, this.QuickAccessToolBar.MinWidth);
 
-                // Set quick launch toolbar position and size
+                // Set contextual groups position and size 
+                this.itemsContainer.Measure(infinity);
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));                
+                this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
+
+                // Set quick launch toolbar position and size 
                 this.quickAccessToolbarHolder.Measure(infinity);
 
                 var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;

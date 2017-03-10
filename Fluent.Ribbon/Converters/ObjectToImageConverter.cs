@@ -87,7 +87,7 @@
         private static Image CreateImage(string imagePath, double desiredSize)
         {
             if (double.IsNaN(desiredSize) == false
-                && imagePath.EndsWith(".ico"))
+                && imagePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
             {
                 return new Image
                 {
@@ -103,7 +103,7 @@
         private static Image CreateImage(Uri imageUri, double desiredSize)
         {
             if (double.IsNaN(desiredSize) == false
-                && imageUri.AbsolutePath.EndsWith(".ico"))
+                && imageUri.AbsolutePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
             {
                 return new Image
                 {

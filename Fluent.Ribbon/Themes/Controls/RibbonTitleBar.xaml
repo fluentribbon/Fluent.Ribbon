@@ -7,8 +7,22 @@
                 Value="{DynamicResource RibbonTitleBarControlTemplate}" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="Height"
-                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=27}" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Margin="-2,0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Text="{Binding}"
+                               TextWrapping="NoWrap"
+                               TextTrimming="CharacterEllipsis" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
@@ -21,7 +35,7 @@
                               ContentSource="Header"
                               IsHitTestVisible="False" />
             
-            <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"
+            <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"                                                    
                                                     IsItemsHost="True" />
         </Grid>
         <ControlTemplate.Triggers>

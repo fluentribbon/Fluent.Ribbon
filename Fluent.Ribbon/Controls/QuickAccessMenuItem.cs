@@ -70,7 +70,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets shortcut to the target control
         /// </summary>
-        public Control Target
+        public UIElement Target
         {
             get { return (Control)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
@@ -81,7 +81,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register(nameof(Target), typeof(Control), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
+            DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -147,28 +147,22 @@ namespace Fluent
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.AddToQuickAccessToolBar(this.Target);
         }
 
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
 
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.RemoveFromQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
         }
 
         private void OnItemLoaded(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
@@ -182,10 +176,10 @@ namespace Fluent
         private void OnFirstLoaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= this.OnFirstLoaded;
-            if (this.IsChecked 
-                && this.Ribbon != null)
+
+            if (this.IsChecked)
             {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
+                this.Ribbon?.AddToQuickAccessToolBar(this.Target);
             }
         }
 

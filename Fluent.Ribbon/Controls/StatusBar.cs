@@ -349,9 +349,9 @@ namespace Fluent
                     isPrevSeparator = true;
                     isFirstVsible = false;
                 }
-                else if (containerFromItem is StatusBarItem)
+                else
                 {
-                    if ((containerFromItem as StatusBarItem).Visibility == Visibility.Visible)
+                    if ((containerFromItem as StatusBarItem)?.Visibility == Visibility.Visible)
                     {
                         isPrevSeparator = false;
                         isFirstVsible = false;

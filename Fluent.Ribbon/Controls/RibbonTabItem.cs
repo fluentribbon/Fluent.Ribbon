@@ -16,6 +16,7 @@ namespace Fluent
 {
     using System.Linq;
     using System.Windows.Data;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -397,7 +398,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new PropertyMetadata(OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, OnHeaderChanged));
 
         // Header changed handler
         private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -591,11 +592,26 @@ namespace Fluent
                 && this.Group != null)
             {
                 this.cachedWidth = baseConstraint.Width;
-                var parent = VisualTreeHelper.GetParent(this.Group) as FrameworkElement;
-                parent?.InvalidateMeasure();
+
+                var contextualTabGroupContainer = UIHelper.GetParent<RibbonContextualGroupsContainer>(this.Group);
+                contextualTabGroupContainer?.InvalidateMeasure();
+
+                var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+                ribbonTitleBar?.ForceMeasureAndArrange();
             }
 
             return baseConstraint;
+        }
+
+        /// <inheritdoc />
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            var result = base.ArrangeOverride(arrangeBounds);
+
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+            ribbonTitleBar?.ForceMeasureAndArrange();
+
+            return result;
         }
 
         /// <summary>

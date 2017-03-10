@@ -52,6 +52,13 @@ namespace Fluent
             this.sizes.Clear();
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
+            var availableSizeHeight = availableSize.Height;
+
+            if (double.IsPositiveInfinity(availableSizeHeight))
+            {
+                availableSizeHeight = 0;
+            }
+
             foreach (RibbonContextualTabGroup contextualGroup in this.InternalChildren)
             {
                 // Calculate width of tab items of the group
@@ -125,17 +132,11 @@ namespace Fluent
                     x = availableSize.Width;
                 }
 
-                contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
-                this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
+                contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSizeHeight));
+                this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSizeHeight));
             }
 
-            var height = availableSize.Height;
-            if (double.IsPositiveInfinity(height))
-            {
-                height = 0;
-            }
-
-            return new Size(x, height);
+            return new Size(x, availableSizeHeight);
         }
     }
 }

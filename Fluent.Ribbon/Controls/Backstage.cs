@@ -418,13 +418,18 @@ namespace Fluent
             }
             else
             {
-                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this) 
-                    ?? UIHelper.GetParent<AdornerDecorator>(LogicalTreeHelper.GetParent(this));
+                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this);                
             }
 
             if (elementToAdorn == null)
             {
                 return;
+            }
+
+            AdornerDecorator currentAdornerDecorator;
+            while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+            {
+                elementToAdorn = currentAdornerDecorator;
             }
 
             var layer = UIHelper.GetAdornerLayer(elementToAdorn);
@@ -661,12 +666,12 @@ namespace Fluent
 
         private void OnBackstageLoaded(object sender, RoutedEventArgs e)
         {
-            this.AddHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.AddHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
         }
 
         private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
         {
-            this.RemoveHandler(PopupService.DismissPopupEvent, (DismissPopupEventHandler)this.OnPopupDismiss);
+            this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
 
             this.DestroyAdorner();
         }

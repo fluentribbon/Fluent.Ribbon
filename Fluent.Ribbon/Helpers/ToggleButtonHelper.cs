@@ -10,7 +10,7 @@ namespace Fluent
     /// <summary>
     /// Helper-Class for switching states in ToggleButton-Groups
     /// </summary>
-    public class ToggleButtonHelper
+    public static class ToggleButtonHelper
     {
         // Grouped buttons
         [ThreadStatic]
@@ -113,6 +113,7 @@ namespace Fluent
             {
                 var weakReference = buttons[i];
                 var currentButton = weakReference.Target as IToggleButton;
+
                 if (currentButton == null)
                 {
                     // Remove dead instances
@@ -120,12 +121,13 @@ namespace Fluent
                 }
                 else
                 {
+                    var buttonAsVisual = (Visual)currentButton;
                     // Uncheck all checked RadioButtons different from the current one
-                    if (currentButton != button
+                    if (ReferenceEquals(currentButton, button) == false
                         && currentButton.IsChecked == true
                         && rootScope != null
-                        && PresentationSource.FromVisual((Visual)currentButton) != null
-                        && rootScope == PresentationSource.FromVisual((Visual)currentButton))
+                        && PresentationSource.FromVisual(buttonAsVisual) != null
+                        && rootScope == PresentationSource.FromVisual(buttonAsVisual))
                     {
                         currentButton.IsChecked = false;
                     }

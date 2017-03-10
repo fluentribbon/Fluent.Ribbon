@@ -37,7 +37,6 @@
                 <ContentControl x:Name="contentControl"
                                 HorizontalAlignment="Left">
                     <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
-                                               Style="{DynamicResource QuickAccessToolbarStyle}"
                                                ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                                IsMenuDropDownVisible="{TemplateBinding IsQuickAccessToolBarMenuDropDownVisible}"
                                                HorizontalAlignment="Left"
@@ -94,8 +93,8 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="TitleBar"
-                Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue={x:Null}}" />
+                Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue={x:Null}}" />
         <Setter Property="QuickAccessToolBarHeight"
-                Value="{Binding TitleBarHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=27}" />
+                Value="{Binding TitleBar.ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
     </Style>
 </ResourceDictionary>
