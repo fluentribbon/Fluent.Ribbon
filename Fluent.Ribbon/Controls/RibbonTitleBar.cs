@@ -180,11 +180,6 @@ namespace Fluent
                 return base.MeasureOverride(constraint);
             }
 
-            if (this.IsCollapsed)
-            {
-                return base.MeasureOverride(constraint);
-            }
-
             var resultSize = constraint;
 
             if (double.IsPositiveInfinity(resultSize.Width)
@@ -213,11 +208,6 @@ namespace Fluent
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             if (this.isAtLeastOneRequiredControlPresent == false)
-            {
-                return base.ArrangeOverride(arrangeBounds);
-            }
-
-            if (this.IsCollapsed)
             {
                 return base.ArrangeOverride(arrangeBounds);
             }
@@ -288,7 +278,18 @@ namespace Fluent
                 }
             }
 
-            if (visibleGroups.Count == 0
+            if (this.IsCollapsed)
+            {
+                // Collapse QuickAccessToolbar
+                this.quickAccessToolbarRect = new Rect(0, 0, 0, 0);
+
+                // Collapse itemRect
+                this.itemsRect = new Rect(0, 0, 0, 0);
+
+                this.headerHolder.Measure(new Size(constraint.Width, constraint.Height));
+                this.headerRect = new Rect(0, 0, this.headerHolder.DesiredSize.Width, constraint.Height);
+            }
+            else if (visibleGroups.Count == 0
                 || canRibbonTabControlScroll)
             {
                 // Collapse itemRect

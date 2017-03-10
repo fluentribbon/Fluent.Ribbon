@@ -15,12 +15,12 @@
         {
             private static readonly Size zeroSize = new Size();
             private const double ReferenceWidth = 1024;
-            private const double ReferenceHeight = 30;
-            private static readonly Size referenceSize = new Size(ReferenceWidth, ReferenceHeight);
+            private static readonly double ReferenceHeight = SystemParameters.WindowCaptionHeight;
+            private static readonly Size referenceSize = new Size(ReferenceWidth, SystemParameters.WindowCaptionHeight);
             private const string QuickaccessToolbarRect = "quickAccessToolbarRect";
             private const string HeaderRect = "headerRect";
             private const string ItemsRect = "itemsRect";
-            private const double DefaultTitleBarHeight = 23D;
+            private static readonly double DefaultTitleBarHeight = SystemParameters.WindowCaptionHeight;
 
             [Test]
             public void Without_Parts()
@@ -57,7 +57,7 @@
                 {
                     titlebar.Measure(referenceSize);
 
-                    Assert.That(titlebar.DesiredSize, Is.EqualTo(new Size(0, DefaultTitleBarHeight)));
+                    Assert.That(titlebar.DesiredSize, Is.EqualTo(new Size(2, DefaultTitleBarHeight)));
                 }
             }
 
