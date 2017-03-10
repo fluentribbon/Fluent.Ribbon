@@ -15,9 +15,9 @@ This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
 Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
-![Showcase](https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/develop/Images/Showcase.gif)
+![Showcase](./Images/Showcase.gif)
 
-*   [More Screenshots](https://github.com/fluentribbon/Fluent.Ribbon/wiki/Screenshots)
+*   [More Screenshots](../../wiki/Screenshots)
 
 # Contact
 If you wish to contact me (batzen) directly please use [twitter](https://twitter.com/batzendev) or [gitter](https://gitter.im/batzen).
@@ -29,7 +29,7 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 # Contributing
 ## What you can do to help us
 *   We are accepting pull requests, so you are very welcome to create one
-*   [Fix some bugs](https://github.com/fluentribbon/Fluent.Ribbon/issues)
+*   [Fix some bugs](../../issues)
 *   Help us translating
 *   Help us updating the documentation and walkthrough
 
@@ -47,8 +47,10 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
       * Position first attribute on same line as start tag
 
 # Documentation
-Visit the [documentation](http://fluentribbon.github.io/documentation/).
-Almost all features are shown in the showcase application. If you think there is something missing in the showcase application feel free to create an issue for that.
+Visit the [documentation](http://fluentribbon.github.io/documentation/).  
+Almost all features are shown in the showcase application.  
+The showcase application is included with every release, so you can just grab it from [releases](../../releases)  
+If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
 
@@ -160,3 +162,11 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Turkish
 *   Ukrainian
 *   Vietnamese
+
+## Awesome tools which MahApps can use
+
+[![Resharper](./Images/icon_ReSharper.png)](https://www.jetbrains.com/resharper/)
+
+## Licence
+
+[MIT License (MIT)](./License.txt)
