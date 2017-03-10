@@ -287,7 +287,7 @@
                 <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                     <Binding Source="0" />
                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}"
-                             Path="TitleBarHeight"
+                             Path="TitleBar.ActualHeight"
                              FallbackValue="0" />
                         <Binding Source="0" />
                     <Binding Source="0" />

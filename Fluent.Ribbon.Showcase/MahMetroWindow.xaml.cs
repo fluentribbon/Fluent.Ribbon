@@ -1,6 +1,7 @@
 ﻿namespace FluentTest
 {
     using System;
+    using System.Windows;
     using Fluent;
     using MahApps.Metro.Controls;
 
@@ -10,27 +11,38 @@
     [CLSCompliant(false)] // Because MetroWindow is not CLSCompliant
     public partial class MahMetroWindow : IRibbonWindow
     {
-        private RibbonTitleBar titleBar;
-
         public MahMetroWindow()
         {
             this.InitializeComponent();
 
-            //this.TitleBar = this.RibbonTitleBar;
-
-            this.Loaded += MahMetroWindow_Loaded;
+            this.Loaded += this.MahMetroWindow_Loaded;
         }
 
-        private void MahMetroWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void MahMetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-
+            this.TitleBar = this.FindChild<RibbonTitleBar>("RibbonTitleBar");
+            this.TitleBar.InvalidateArrange();
+            this.TitleBar.UpdateLayout();
         }
 
-        public double TitleBarHeight { get; } = 28d;
+        #region TitelBar
 
+        /// <summary>
+        /// Gets ribbon titlebar
+        /// </summary>
         public RibbonTitleBar TitleBar
         {
-            get { return this.titleBar ?? (this.titleBar = this.FindChild<RibbonTitleBar>("RibbonTitleBar")); }
+            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            private set { this.SetValue(titleBarPropertyKey, value); }
         }
+
+        private static readonly DependencyPropertyKey titleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(MahMetroWindow), new PropertyMetadata());
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty = titleBarPropertyKey.DependencyProperty;
+
+        #endregion
     }
 }
