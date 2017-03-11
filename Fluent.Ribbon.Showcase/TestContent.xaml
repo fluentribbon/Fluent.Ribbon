@@ -985,11 +985,11 @@
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
                                         LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
                                         ItemsSource="{Binding StringItems}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>                        
                     </Fluent:SplitButton>
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click) g"
