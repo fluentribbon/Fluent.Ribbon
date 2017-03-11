@@ -16,6 +16,7 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.ComponentModel;
     using ControlzEx.Microsoft.Windows.Shell;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
@@ -28,6 +29,7 @@ namespace Fluent
     /// menus, enhanced screen tips, and keyboard shortcuts.
     /// </summary>
     [ContentProperty(nameof(Tabs))]
+    [DefaultProperty(nameof(Tabs))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control
@@ -694,6 +696,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of contextual tab groups
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
         {
             get
@@ -750,6 +753,7 @@ namespace Fluent
         /// <summary>
         /// gets collection of ribbon tabs
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonTabItem> Tabs
         {
             get
@@ -813,6 +817,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of toolbar items
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<UIElement> ToolBarItems
         {
             get
@@ -906,6 +911,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of quick access menu items
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
         {
             get

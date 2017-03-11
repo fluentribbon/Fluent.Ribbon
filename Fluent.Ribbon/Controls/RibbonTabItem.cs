@@ -323,6 +323,7 @@ namespace Fluent
         /// <summary>
         /// get collection of ribbon groups
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonGroupBox> Groups
         {
             get

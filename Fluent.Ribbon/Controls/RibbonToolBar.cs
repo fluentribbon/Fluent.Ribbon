@@ -74,6 +74,7 @@ namespace Fluent
         /// <summary>
         /// Gets particular rules  for layout in this group box panel
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions { get; } = new ObservableCollection<RibbonToolBarLayoutDefinition>();
 
         #endregion

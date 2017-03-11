@@ -209,6 +209,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of ribbon toolbar items
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<UIElement> ToolBarItems
         {
             get
