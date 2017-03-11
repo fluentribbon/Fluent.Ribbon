@@ -313,7 +313,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets a converter which is used to convert from text to double and from double to text.
-        /// </summary>
+        /// </summary>        
         public IValueConverter TextToValueConverter
         {
             get { return (IValueConverter)this.GetValue(TextToValueConverterProperty); }

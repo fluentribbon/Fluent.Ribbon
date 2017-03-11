@@ -94,9 +94,9 @@ namespace Fluent
 
         private static void OnInnerVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var group = (RibbonContextualTabGroup)d;
+            var contextGroup = (RibbonContextualTabGroup)d;
 
-            ForceRedraw(@group);
+            ForceRedraw(contextGroup);
         }
 
         /// <summary>
@@ -347,11 +347,11 @@ namespace Fluent
             this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
         }
 
-        private static void ForceRedraw(RibbonContextualTabGroup @group)
+        private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
         {
-            group.ForceMeasure();
+            contextGroup.ForceMeasure();
 
-            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(group);
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
             ribbonTitleBar?.ForceMeasureAndArrange();
         }
     }

@@ -260,7 +260,7 @@ namespace Fluent
         /// <summary>
         /// GetWindowLong values, GWL_*
         /// </summary>
-        internal enum GWL : int
+        internal enum GWL
         {
             WNDPROC = -4,
             HINSTANCE = -6,

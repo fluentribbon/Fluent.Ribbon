@@ -126,8 +126,8 @@
                                               Margin="1"
                                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               SnapsToDevicePixels="True"
-                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Hidden">
                                     <StackPanel Orientation="Vertical"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Local" />

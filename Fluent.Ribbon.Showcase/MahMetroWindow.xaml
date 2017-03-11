@@ -13,7 +13,7 @@
                    Height="768"
                    Width="1024"
                    x:Name="window"
-                   TitleCaps="False"
+                   TitleCharacterCasing="Normal"
                    WindowState="Normal">
     <Metro:MetroWindow.Resources>
         <ResourceDictionary>

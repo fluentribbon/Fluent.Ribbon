@@ -205,7 +205,6 @@ namespace Fluent
                     Debug.WriteLine($"Setting mouse capture to: {sender}");
                     Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                     e.Handled = true;
-                    return;
                 }
             }
         }

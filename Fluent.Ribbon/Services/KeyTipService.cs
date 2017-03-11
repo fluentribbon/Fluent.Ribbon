@@ -205,7 +205,6 @@ namespace Fluent
                 else
                 {
                     this.activeAdornerChain?.Terminate();
-                    return;
                 }
             }
             else if (e.Key == Key.Escape
@@ -214,7 +213,6 @@ namespace Fluent
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 this.ClearUserInput();
                 e.Handled = true;
-                return;
             }
             else
             {
@@ -241,6 +239,7 @@ namespace Fluent
                         this.backUpFocusedControl = null;
                         this.activeAdornerChain?.Terminate();
                     }
+
                     return;
                 }
 
@@ -278,18 +277,16 @@ namespace Fluent
                     e.Handled = true;
                     return;
                 }
-                else if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
+
+                if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
                     e.Handled = true;
                     return;
                 }
-                else
-                {
-                    this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
-                    e.Handled = true;
-                    return;
-                }
+
+                this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
+                e.Handled = true;
             }
         }
 

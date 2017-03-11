@@ -81,11 +81,6 @@
                                                           Offset="1" />
                                         </RadialGradientBrush>
                                     </Ellipse.Fill>
-                                    <Ellipse.BitmapEffect>
-                                        <OuterGlowBitmapEffect GlowColor="#BFFFFFFF"
-                                                               GlowSize="1"
-                                                               Opacity="1" />
-                                    </Ellipse.BitmapEffect>
                                 </Ellipse>
                             </Grid>
                         </BulletDecorator.Bullet>
