@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
@@ -33,9 +34,9 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        Thumb resizeBothThumb;
+        private Thumb resizeBothThumb;
         // Thumb to resize vertical
-        Thumb resizeVerticalThumb;
+        private Thumb resizeVerticalThumb;
 
         #endregion
 
@@ -55,9 +56,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
-            typeof(ContextMenu), new UIPropertyMetadata(ContextMenuResizeMode.None));
-        
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
+            typeof(ContextMenu), new PropertyMetadata(ContextMenuResizeMode.None));
+
         #endregion
 
         #region Constructor
@@ -69,14 +70,7 @@ namespace Fluent
         static ContextMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(typeof(ContextMenu)));
-            FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata(null));
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ContextMenu()
-        {
+            FocusVisualStyleProperty.OverrideMetadata(typeof(ContextMenu), new FrameworkPropertyMetadata());
         }
 
         #endregion
@@ -125,13 +119,13 @@ namespace Fluent
         /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
-            return (item is FrameworkElement);
+            return item is FrameworkElement;
         }
-        
+
         #endregion
 
         #region Private methods
-        
+
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {

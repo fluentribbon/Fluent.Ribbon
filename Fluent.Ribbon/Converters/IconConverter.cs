@@ -8,10 +8,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using Fluent.Metro.Native;
-
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
@@ -24,11 +23,13 @@ namespace Fluent
             if (value == null)
             {
                 if (Application.Current != null
-                    && Application.Current.MainWindow != null)
+                    && Application.Current.CheckAccess()
+                    && Application.Current.MainWindow != null
+                    && Application.Current.MainWindow.CheckAccess())
                 {
                     try
                     {
-                        return GetDefaultIcon((new WindowInteropHelper(Application.Current.MainWindow)).Handle) as BitmapFrame;
+                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle) as BitmapFrame;
                     }
                     catch (InvalidOperationException)
                     {
@@ -69,7 +70,7 @@ namespace Fluent
         /// </summary>
         /// <param name="frame"></param>
         /// <returns></returns>
-        static BitmapSource GetThumbnail(BitmapSource frame)
+        private static BitmapSource GetThumbnail(BitmapSource frame)
         {
             try
             {
@@ -90,7 +91,7 @@ namespace Fluent
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031")]
-        static ImageSource GetDefaultIcon(IntPtr hwnd)
+        private static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {

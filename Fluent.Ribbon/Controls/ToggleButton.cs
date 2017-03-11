@@ -1,16 +1,18 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents toggle button
     /// </summary>
-    [ContentProperty("Header")]
-    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider
+    [ContentProperty(nameof(Header))]
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 
@@ -92,8 +94,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(ToggleButton),
-            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
+            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(ToggleButton),
+            new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -130,21 +132,19 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as ToggleButton;
+            var element = (ToggleButton)d;
 
             var oldElement = e.OldValue as FrameworkElement;
-
             if (oldElement != null)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
             var newElement = e.NewValue as FrameworkElement;
-
             if (newElement != null
                 && LogicalTreeHelper.GetParent(newElement) == null)
             {
@@ -170,8 +170,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object),
-            typeof(ToggleButton), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(LargeIcon), typeof(object),
+            typeof(ToggleButton), new PropertyMetadata());
 
         #endregion
 
@@ -190,7 +190,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(ToggleButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(ToggleButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -204,23 +204,11 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ToggleButton()
         {
-            Type type = typeof(ToggleButton);
+            var type = typeof(ToggleButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ToggleButton));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -269,10 +257,10 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            ToggleButton button = new ToggleButton();
+            var button = new ToggleButton();
 
-            RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            RibbonControl.Bind(this, button, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonControl.BindQuickAccessItem(this, button);
 
             return button;
@@ -290,7 +278,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

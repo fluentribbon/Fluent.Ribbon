@@ -1,17 +1,18 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
-using System.Windows.Media;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents Fluent UI specific RadioButton
     /// </summary>
-    [ContentProperty("Header")]
-    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider
+    [ContentProperty(nameof(Header))]
+    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 
@@ -105,7 +106,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RadioButton), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -141,7 +142,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register("LargeIcon", typeof(object), typeof(RadioButton), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register(nameof(LargeIcon), typeof(object), typeof(RadioButton), new PropertyMetadata());
 
         #endregion
 
@@ -183,8 +184,8 @@ namespace Fluent
         {
             var button = new RadioButton();
 
-            RibbonControl.Bind(this, button, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            RibbonControl.Bind(this, button, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonControl.BindQuickAccessItem(this, button);
 
             return button;
@@ -202,7 +203,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

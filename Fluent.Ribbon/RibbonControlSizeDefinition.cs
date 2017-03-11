@@ -9,7 +9,7 @@
     /// Class to map from <see cref="RibbonGroupBoxState"/> to <see cref="RibbonControlSize"/>
     /// </summary>
     [TypeConverter(typeof(SizeDefinitionConverter))]
-    public struct RibbonControlSizeDefinition
+    public struct RibbonControlSizeDefinition : IEquatable<RibbonControlSizeDefinition>
     {
         private const int MaxSizeDefinitionParts = 3;
 
@@ -127,6 +127,61 @@
             }
         }
 
+        #region Overrides of ValueType
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            return obj is RibbonControlSizeDefinition && this.Equals((RibbonControlSizeDefinition)obj);
+        }
+
+        #region Equality members
+
+        /// <inheritdoc />
+        public bool Equals(RibbonControlSizeDefinition other)
+        {
+            return this.Large == other.Large && this.Middle == other.Middle && this.Small == other.Small;
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (int)this.Large;
+                hashCode = (hashCode * 397) ^ (int)this.Middle;
+                hashCode = (hashCode * 397) ^ (int)this.Small;
+                return hashCode;
+            }
+        }
+
+        /// <summary>Determines whether the specified object instances are considered equal.</summary>
+        /// <param name="left">The first object to compare. </param>
+        /// <param name="right">The second object to compare. </param>
+        /// <returns>true if the objects are considered equal; otherwise, false. If both <paramref name="left" /> and <paramref name="right" /> are null, the method returns true.</returns>
+        public static bool operator ==(RibbonControlSizeDefinition left, RibbonControlSizeDefinition right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>Determines whether the specified object instances are not considered equal.</summary>
+        /// <param name="left">The first object to compare.</param>
+        /// <param name="right">The second object to compare.</param>
+        /// <returns>true if the objects are not considered equal; otherwise, false. If both <paramref name="left" /> and <paramref name="right" /> are null, the method returns false.</returns>
+        public static bool operator !=(RibbonControlSizeDefinition left, RibbonControlSizeDefinition right)
+        {
+            return !left.Equals(right);
+        }
+
+        #endregion
+
+        #endregion
+
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
@@ -135,7 +190,7 @@
         /// </returns>
         public override string ToString()
         {
-            return string.Format("{0} {1} {2}", this.Large, this.Middle, this.Small);
+            return $"{this.Large} {this.Middle} {this.Small}";
         }
     }
 }

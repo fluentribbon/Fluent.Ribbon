@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -6,6 +7,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents contextual groups container
@@ -50,6 +52,13 @@ namespace Fluent
             this.sizes.Clear();
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
+            var availableSizeHeight = availableSize.Height;
+
+            if (double.IsPositiveInfinity(availableSizeHeight))
+            {
+                availableSizeHeight = 0;
+            }
+
             foreach (RibbonContextualTabGroup contextualGroup in this.InternalChildren)
             {
                 // Calculate width of tab items of the group
@@ -74,7 +83,7 @@ namespace Fluent
 
                     foreach (var item in visibleItems)
                     {
-                        if (item.DesiredWidth == 0)
+                        if (DoubleUtil.AreClose(item.DesiredWidth, 0))
                         {
                             item.DesiredWidth = item.DesiredSize.Width + delta;
                             item.Measure(new Size(item.DesiredWidth, item.DesiredSize.Height));
@@ -123,17 +132,11 @@ namespace Fluent
                     x = availableSize.Width;
                 }
 
-                contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSize.Height));
-                this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSize.Height));
+                contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSizeHeight));
+                this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSizeHeight));
             }
 
-            var height = availableSize.Height;
-            if (double.IsPositiveInfinity(height))
-            {
-                height = 0;
-            }
-
-            return new Size(x, height);
+            return new Size(x, availableSizeHeight);
         }
     }
 }

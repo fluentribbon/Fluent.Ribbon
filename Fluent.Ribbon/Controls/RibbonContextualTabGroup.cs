@@ -6,9 +6,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents contextual tab group
@@ -18,7 +22,6 @@ namespace Fluent
         #region Fields
 
         // Collection of ribbon tab items
-        private readonly List<RibbonTabItem> items = new List<RibbonTabItem>();
 
         private Window parentWidow;
 
@@ -40,8 +43,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(string), typeof(RibbonContextualTabGroup),
-            new UIPropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonContextualTabGroup),
+            new PropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
 
         /// <summary>
         /// Handles header chages
@@ -55,10 +58,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of tab items
         /// </summary>
-        public List<RibbonTabItem> Items
-        {
-            get { return this.items; }
-        }
+        public List<RibbonTabItem> Items { get; } = new List<RibbonTabItem>();
 
         /// <summary>
         /// Gets or sets a value indicating whether parent window is maximized
@@ -73,7 +73,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(RibbonContextualTabGroup), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)
@@ -85,12 +85,19 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
-            DependencyProperty.RegisterReadOnly("InnerVisibility", typeof(Visibility), typeof(RibbonContextualTabGroup), new UIPropertyMetadata(Visibility.Visible));
+            DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Visible, OnInnerVisibilityChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InnerVisibilityProperty = InnerVisibilityPropertyKey.DependencyProperty;
+
+        private static void OnInnerVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var contextGroup = (RibbonContextualTabGroup)d;
+
+            ForceRedraw(contextGroup);
+        }
 
         /// <summary>
         /// Gets the first visible TabItem in this group
@@ -125,19 +132,7 @@ namespace Fluent
         static RibbonContextualTabGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(typeof(RibbonContextualTabGroup)));
-            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(Visibility.Collapsed, OnVisibilityChanged));
-            StyleProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement)d).TryFindResource(typeof(RibbonContextualTabGroup));
-            }
-
-            return basevalue;
+            VisibilityProperty.OverrideMetadata(typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Collapsed, OnVisibilityChanged));
         }
 
         /// <summary>
@@ -156,12 +151,7 @@ namespace Fluent
 
             group.UpdateInnerVisiblityAndGroupBorders();
 
-            var titleBar = group.Parent as RibbonTitleBar;
-
-            if (titleBar != null)
-            {
-                titleBar.InvalidateMeasure();
-            }
+            ForceRedraw(group);
         }
 
         /// <summary>
@@ -238,12 +228,12 @@ namespace Fluent
 
         private RibbonTabItem GetFirstVisibleItem()
         {
-            return this.items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
+            return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
         private RibbonTabItem GetLastVisibleItem()
         {
-            return this.items.LastOrDefault(item => item.Visibility == Visibility.Visible);
+            return this.Items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
         /// <summary>
@@ -256,7 +246,7 @@ namespace Fluent
             var leftset = false;
             var rightset = false;
 
-            for (var i = 0; i < this.items.Count; i++)
+            for (var i = 0; i < this.Items.Count; i++)
             {
                 //if (i == 0) items[i].HasLeftGroupBorder = true;
                 //else items[i].HasLeftGroupBorder = false;
@@ -264,26 +254,26 @@ namespace Fluent
                 //else items[i].HasRightGroupBorder = false;
 
                 //Workaround so you can have inivisible Tabs on a Group
-                if (this.items[i].Visibility == Visibility.Visible
+                if (this.Items[i].Visibility == Visibility.Visible
                     && leftset == false)
                 {
-                    this.items[i].HasLeftGroupBorder = true;
+                    this.Items[i].HasLeftGroupBorder = true;
                     leftset = true;
                 }
                 else
                 {
-                    this.items[i].HasLeftGroupBorder = false;
+                    this.Items[i].HasLeftGroupBorder = false;
                 }
 
-                if (this.items[this.items.Count - 1 - i].Visibility == Visibility.Visible
+                if (this.Items[this.Items.Count - 1 - i].Visibility == Visibility.Visible
                     && rightset == false)
                 {
-                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = true;
+                    this.Items[this.Items.Count - 1 - i].HasRightGroupBorder = true;
                     rightset = true;
                 }
                 else
                 {
-                    this.items[this.items.Count - 1 - i].HasRightGroupBorder = false;
+                    this.Items[this.Items.Count - 1 - i].HasRightGroupBorder = false;
                 }
             }
         }
@@ -347,12 +337,22 @@ namespace Fluent
         /// </summary>
         private void UpdateInnerVisibility()
         {
-            this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
+            this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) 
+                ? Visibility.Visible 
+                : Visibility.Collapsed;
         }
 
         private void OnParentWindowStateChanged(object sender, EventArgs e)
         {
             this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
+        }
+
+        private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
+        {
+            contextGroup.ForceMeasure();
+
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
+            ribbonTitleBar?.ForceMeasureAndArrange();
         }
     }
 }

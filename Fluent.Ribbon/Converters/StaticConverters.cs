@@ -24,5 +24,10 @@
         /// Get a static instance of <see cref="ColorToSolidColorBrushValueConverter"/>
         /// </summary>
         public static readonly ColorToSolidColorBrushValueConverter ColorToSolidColorBrushValueConverter = new ColorToSolidColorBrushValueConverter();
+
+        /// <summary>
+        /// Get a static instance of <see cref="EqualsToVisibilityConverter"/>
+        /// </summary>
+        public static readonly EqualsToVisibilityConverter EqualsToVisibilityConverter = new EqualsToVisibilityConverter();
     }
 }

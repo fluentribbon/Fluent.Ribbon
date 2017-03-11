@@ -1,6 +1,8 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System.Windows;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents the container for the <see cref="StartScreenTabControl"/>.
@@ -22,7 +24,7 @@
         /// <see cref="DependencyProperty"/> for <see cref="Shown"/>.  
         /// </summary>
         public static readonly DependencyProperty ShownProperty =
-            DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
+            DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
 
         static StartScreen()
         {
@@ -34,12 +36,12 @@
         /// </summary>
         protected override bool Show()
         {
-            var ribbon = this.GetParentRibbon();
-            
-            if (ribbon?.TitleBar != null)
+            var parentRibbon = GetParentRibbon(this);
+
+            if (parentRibbon?.TitleBar != null)
             {
-                this.previousTitleBarIsCollapsed = ribbon.TitleBar.IsCollapsed;
-                ribbon.TitleBar.IsCollapsed = true;
+                this.previousTitleBarIsCollapsed = parentRibbon.TitleBar.IsCollapsed;
+                parentRibbon.TitleBar.IsCollapsed = true;
             }
 
             if (this.Shown)
@@ -57,10 +59,10 @@
         {
             base.Hide();
 
-            var ribbon = this.GetParentRibbon();
-            if (ribbon?.TitleBar != null)
+            var parentRibbon = GetParentRibbon(this);
+            if (parentRibbon?.TitleBar != null)
             {
-                ribbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
+                parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
             }
         }
     }

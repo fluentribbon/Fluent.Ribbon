@@ -7,12 +7,12 @@
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
                      Title="{Binding DataContext.Title, ElementName=TestContent}"
-                     DontUseDwm="False"
+                     FlowDirection="LeftToRight"
                      Height="768"
                      Width="1024"
                      MinWidth="80"
                      MinHeight="60"
                      mc:Ignorable="d"
-                     WindowState="Normal">   
+                     WindowState="Normal">
     <FluentTest:TestContent x:Name="TestContent" />
 </Fluent:RibbonWindow>

@@ -10,14 +10,17 @@
         /// Gets or sets icon
         /// </summary>
         public ImageSource Icon { get; set; }
+
         /// <summary>
         /// Gets or sets large icon
         /// </summary>
         public ImageSource IconLarge { get; set; }
+
         /// <summary>
         /// Gets or sets text
         /// </summary>
         public string Text { get; set; }
+
         /// <summary>
         /// Gets or sets group name
         /// </summary>

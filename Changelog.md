@@ -1,5 +1,73 @@
 # Changelog for Fluent.Ribbon
 
+## 5.0.0 (preview)
+
+- ### Breaking changes
+  - Office 2010 and Windows 8 themes got removed. 
+    Office 2013 theme was moved from "Themes/Office2013/Generic.xaml" to "Themes/Generic.xaml".
+    This was a [community voted decision](../../issues/282).
+  - `ComboBox` now uses the default `ItemsPanelTemplate` instead of `VirtualizingStackPanel` again.  
+    If you prefer to use `VirtualizingStackPanel` you can change this on a per instance level or add it to your default `Style`.
+  - [#301](../../issues/301) - Remove Office 2010 and Windows 8 themes
+  - [#302](../../issues/302) - Rename Office 2013 theme to Generic
+  - [#309](../../issues/309) - Remove grouping from ComboBox and make GalleryPanel inherit from StackPanel
+  - [#310](../../issues/310) - Refactoring of localization
+  - [#349](../../issues/349) - Move `RibbonTitleBar` from `Ribbon` to `RibbonWindow`
+    - `RibbonWindow` exposes `TitleBar` which is of type `RibbonTitleBar`.  
+      `Ribbon` uses the `TitleBar` provided by the `RibbonWindow` by default, through it's `Style`.  
+      This allows changing the `TitleBar` being used by the `Ribbon`.
+  - Removed `RibbonProperties.TitleBarHeight` to simplify usage of the `Ribbon` in non `RibbonWindow`.  
+    To support this the following things were added: 
+    - `SelectedContentMargin` was added to `BackstageTabControl`
+    - `QuickAccessToolBarHeight` on `Ribbon`
+    - `TitleBarHeight` on `RibbonWindow`
+  - [#400](../../issues/400) - Default menu / menuitem appearance overridden by FluentRibbon
+    - Styles for the following types are no longer overwritten globally `ContextMenu`, `MenuItem`, `MenuItem.SeparatorStyleKey`, `StatusBar`, `StatusBarItem`, `StatusBar.SeparatorStyleKey`
+    - `MenuItemStyle` is renamed to `FluentDefaultSystemMenuItemStyle`
+
+- ### Bug fixes
+  - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed
+  - [#300](../../issues/300) - Startscreen not working in 4.0.3
+  - [#305](../../issues/305) - Combobox items will be drawn above each other on scroll down
+  - [#311](../../issues/311) - State loading too verbose
+  - [#315](../../issues/315) - Menu button gets blurry
+  - [#325](../../issues/325) - Running RibbonWindow not on the main thread.
+  - [#329](../../issues/329) - ArgumentOutOfRangeException when adding StatusBarItem
+  - [#333](../../issues/333) - NullReference Exception app.Run
+  - [#339](../../issues/339) - SelectedTabChanged fired when selection of contained Selector changes
+  - [#341](../../issues/341) - Fix text going under custom window commands (thanks @chrfin)
+  - [#342](../../issues/342) - Fixed dependency property name of property Groups in GalleryGroupFilter. (thanks @polepage)
+  - [#346](../../issues/346) - RibbonWindow icon is blurry (thanks @chdft)
+  - [#365](../../issues/365) - BackstageAdorner is not removed
+  - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled 
+  - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
+  - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
+  - [#388](../../issues/388) - QuickAccess item not visible when added from backstage
+  - [#391](../../issues/391) - QAT items not displayed properly if tab is made visible after initialization
+  - [#392](../../issues/392) - Change Window Title doesn't update Title length
+  - [#397](../../issues/397) - Backstage Opening Animation
+  - [#398](../../issues/398) - ColorGallery: SelectedColorChanged event raised before SelectedColor changed
+  - [#403](../../issues/403) - Tabs can "detach" from ribbon area
+
+- ### Enhancements
+  - [#250](../../issues/250) - Enable change/hide of window title foreground
+    - `Foreground` of window titel can now be changed by setting `TitleForeground` on `RibbonWindow`.  
+    This is bound to `Foreground` of `RibbonWindow`.
+  - [#276](../../issues/276) - Custom method for saving and restoring QAT items
+  - [#279](../../issues/279) - Localization of ColorGallery
+  - [#299](../../issues/299) - Quick access items should show item text as tool tip if no tooltip is set
+  - [#324](../../issues/324) - Add "IsSeparatorVisible" to RibbonGroupBox (thanks to @maurosampietro)
+  - [#326](../../issues/326) - Add interface for controls which provide LargeIcon
+  - [#334](../../issues/334) - Select all text in Spinner on focus
+  - [#340](../../issues/340) - Expose GroupByAdvanced from GalleryPanel on Gallery and InRibbonGallery
+  - [#360](../../issues/360) - Toggling of KeyTips should not happen when Shift is pressed (thanks to @stylefish)
+  - [#387](../../issues/387) - Disable/Hide the Menu-DropDown in QuickAccessToolbar
+    - `Ribbon` now has `IsQuickAccessToolBarMenuDropDownVisible` and `QuickAccessToolbar` now has `IsMenuDropDownVisible`.
+  - Added `CanChangeIsOpen` to `Backstage`
+  - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
+  - Improved interop with windows which are not of type `RibbonWindow`.  
+    The showcase contains a sample showcasing working context-tabs in a MahApps.Metro `MetroWindow`.
+
 ## 4.0.3
 
 - ### Bug fixes
@@ -33,7 +101,7 @@
   - We switched to Visual Studio 2015 so we can use nameof etc. [#219](../../issues/219)
 
 - ### Bug fixes
-  - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly 
+  - [#10](../../issues/10) - Maximising a ribbon window with DWM enabled results in it not maximising properly
   - [#90](../../issues/90) - Window chrome turning black during window resize.
   - [#116](../../issues/116) - MenuItem: When the description is long the MenuItem does not expands in Width or Height, does not wrap text
   - [#129](../../issues/129) - DontUseDwm="True" case the window corner unpainted
@@ -201,7 +269,7 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
   - [#46](../../issues/46) Little Bug in Office2010 style
   - [#49](../../issues/49) Fluent:RibbonProperties.TitleBarHeight="0" no longer works!
   - [#50](../../issues/50) Blurred Window Icon in Office 2013 Style
-  - [#55](../../issues/55) Changing menu font size in Windows mess ups ribbon 
+  - [#55](../../issues/55) Changing menu font size in Windows mess ups ribbon
   - [#57](../../issues/57) Slimmer arrow on combo box
   - [#58](../../issues/58) ColorGallery SelectedColor
   - [#59](../../issues/59) Little style bug in Windows 8 theme

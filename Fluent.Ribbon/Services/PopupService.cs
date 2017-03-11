@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Diagnostics;
@@ -22,13 +23,6 @@
         /// </summary>
         MouseNotOver
     }
-
-    /// <summary>
-    /// Dismiss popup handler
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    public delegate void DismissPopupEventHandler(object sender, DismissPopupEventArgs e);
 
     /// <summary>
     /// Dismiss popup arguments
@@ -67,7 +61,7 @@
         /// <param name="genericHandler">The generic handler / delegate implementation to be invoked.</param><param name="genericTarget">The target on which the provided handler should be invoked.</param>
         protected override void InvokeEventHandler(Delegate genericHandler, object genericTarget)
         {
-            var handler = (DismissPopupEventHandler)genericHandler;
+            var handler = (EventHandler<DismissPopupEventArgs>)genericHandler;
             handler(genericTarget, this);
         }
     }
@@ -82,7 +76,7 @@
         /// <summary>
         /// Occurs then popup is dismissed
         /// </summary>
-        public static readonly RoutedEvent DismissPopupEvent = EventManager.RegisterRoutedEvent("DismissPopup", RoutingStrategy.Bubble, typeof(DismissPopupEventHandler), typeof(PopupService));
+        public static readonly RoutedEvent DismissPopupEvent = EventManager.RegisterRoutedEvent("DismissPopup", RoutingStrategy.Bubble, typeof(EventHandler<DismissPopupEventArgs>), typeof(PopupService));
 
         /// <summary>
         /// Raises DismissPopup event (Async)
@@ -127,7 +121,7 @@
         public static void Attach(Type classType)
         {
             EventManager.RegisterClassHandler(classType, Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
-            EventManager.RegisterClassHandler(classType, DismissPopupEvent, new DismissPopupEventHandler(OnDismissPopup));
+            EventManager.RegisterClassHandler(classType, DismissPopupEvent, new EventHandler<DismissPopupEventArgs>(OnDismissPopup));
             EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuOpeningEvent, new ContextMenuEventHandler(OnContextMenuOpened), true);
             EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(OnContextMenuClosed), true);
             EventManager.RegisterClassHandler(classType, UIElement.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
@@ -147,9 +141,8 @@
             {
                 if (Mouse.Captured == sender
                     // Special handling for unknown Popups (for example datepickers used in the ribbon)
-                    || (sender is IDropDownControl
-                        && IsPopupRoot(Mouse.Captured)
-                        )
+                    || sender is IDropDownControl
+                    && IsPopupRoot(Mouse.Captured)
                     )
                 {
                     RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
@@ -164,9 +157,9 @@
         /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(string.Format("Sender         - {0}", sender));
-            Debug.WriteLine(string.Format("OriginalSource - {0}", e.OriginalSource));
-            Debug.WriteLine(string.Format("Mouse.Captured - {0}", Mouse.Captured));
+            Debug.WriteLine($"Sender         - {sender}");
+            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
+            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
 
             var control = sender as IDropDownControl;
 
@@ -181,8 +174,7 @@
             {
                 var popup = control.DropDownPopup;
 
-                if (popup == null
-                    || popup.Child == null)
+                if (popup?.Child == null)
                 {
                     RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                     return;
@@ -210,10 +202,9 @@
                     && Mouse.Captured == null
                     && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
                 {
-                    Debug.WriteLine(string.Format("Setting mouse capture to: {0}", sender));
+                    Debug.WriteLine($"Setting mouse capture to: {sender}");
                     Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                     e.Handled = true;
-                    return;
                 }
             }
         }
@@ -297,8 +288,7 @@
         /// <returns>Returns true whether mouse is physically over the popup</returns>
         public static bool IsMousePhysicallyOver(Popup popup)
         {
-            if (popup == null
-                || popup.Child == null)
+            if (popup?.Child == null)
             {
                 return false;
             }
@@ -319,8 +309,10 @@
             }
 
             var position = Mouse.GetPosition(element);
-            return ((position.X >= 0.0) && (position.Y >= 0.0))
-                && ((position.X <= element.RenderSize.Width) && (position.Y <= element.RenderSize.Height));
+            return position.X >= 0.0 
+                && position.Y >= 0.0 
+                && position.X <= element.RenderSize.Width 
+                && position.Y <= element.RenderSize.Height;
         }
 
         /// <summary>

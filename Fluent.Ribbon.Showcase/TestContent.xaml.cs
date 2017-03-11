@@ -10,21 +10,19 @@
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using System.Windows.Threading;
     using Fluent;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
     public partial class TestContent
     {
-        private Theme? currentTheme;
         private readonly MainViewModel viewModel;
 
         public TestContent()
         {
             this.InitializeComponent();
 
-            //Ribbon.Localization.Culture = new CultureInfo("ru-RU");
+            //RibbonLocalization.Current.Localization.Culture = new CultureInfo("ru-RU");
 
             this.HookEvents();
 
@@ -58,7 +56,7 @@
 
             var wnd = new Window
             {
-                Content = string.Format("Launcher-Window for: {0}", groupBox.Header),
+                Content = $"Launcher-Window for: {groupBox.Header}",
                 Owner = Window.GetWindow(this)
             };
 
@@ -72,12 +70,18 @@
 
         private void OnEnlargeClick(object sender, RoutedEventArgs e)
         {
-            this.InRibbonGallery.Enlarge();
+            if (this.InRibbonGallery.IsLoaded)
+            {
+                this.InRibbonGallery.Enlarge();
+            }
         }
 
         private void OnReduceClick(object sender, RoutedEventArgs e)
         {
-            this.InRibbonGallery.Reduce();
+            if (this.InRibbonGallery.IsLoaded)
+            {
+                this.InRibbonGallery.Reduce();
+            }
         }
 
         public Button CreateRibbonButton()
@@ -88,127 +92,13 @@
             {
                 Command = fooCommand1.ItemCommand,
                 Header = "Foo",
-                Icon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
-                LargeIcon = new BitmapImage(new Uri(@"pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
+                LargeIcon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
             };
 
             this.CommandBindings.Add(fooCommand1.ItemCommandBinding);
             return button;
         }
-
-        #region Theming
-
-        private enum Theme
-        {
-            Office2010,
-            Office2013,
-            Windows8
-        }
-
-        private void OnOffice2013Click(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2013, "pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml");
-        }
-
-        private void OnOffice2010SilverClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Silver.xaml");
-        }
-
-        private void OnOffice2010BlackClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Black.xaml");
-        }
-
-        private void OnOffice2010BlueClick(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Office2010, "pack://application:,,,/Fluent;component/Themes/Office2010/Blue.xaml");
-        }
-
-        private void OnWindows8Click(object sender, RoutedEventArgs e)
-        {
-            this.ChangeTheme(Theme.Windows8, "pack://application:,,,/Fluent;component/Themes/Windows8/Silver.xaml");
-        }
-
-
-        private void ChangeTheme(Theme theme, string color)
-        {
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-            {
-                var owner = Window.GetWindow(this);
-                if (owner != null)
-                {
-                    owner.Resources.BeginInit();
-
-                    if (owner.Resources.MergedDictionaries.Count > 0)
-                    {
-                        owner.Resources.MergedDictionaries.RemoveAt(0);
-                    }
-
-                    if (string.IsNullOrEmpty(color) == false)
-                    {
-                        owner.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(color) });
-                    }
-
-                    owner.Resources.EndInit();
-                }
-
-                if (this.currentTheme != theme)
-                {
-                    Application.Current.Resources.BeginInit();
-                    switch (theme)
-                    {
-                        case Theme.Office2010:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                        case Theme.Office2013:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Office2013/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                        case Theme.Windows8:
-                            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Fluent;component/Themes/Windows8/Generic.xaml") });
-                            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
-                            break;
-                    }
-
-                    this.currentTheme = theme;
-                    Application.Current.Resources.EndInit();
-
-                    if (owner is RibbonWindow)
-                    {
-                        owner.Style = null;
-                        owner.Style = owner.FindResource("RibbonWindowStyle") as Style;
-                        owner.Style = null;
-
-                        // Resize Window to work around alignment issues caused by theme change
-                        ++owner.Width;
-                        --owner.Width;
-                    }
-                }
-            }));
-        }
-
-        private void HandleDontUseDwmClick(object sender, RoutedEventArgs e)
-        {
-            var control = sender as UIElement;
-
-            if (control == null)
-            {
-                return;
-            }
-
-            var window = Window.GetWindow(control) as RibbonWindow;
-
-            if (window == null)
-            {
-                return;
-            }
-
-            window.DontUseDwm = this.DontUseDwm.IsChecked.GetValueOrDefault();
-        }
-
-        #endregion Theming
 
         #region Logical tree
 
@@ -237,7 +127,7 @@
                            ? frameworkElement.Name
                            : string.Empty;
 
-            return string.Format("[{0}] (Header: {1} || Name: {2})", element, header, name);
+            return $"[{element}] (Header: {header} || Name: {name})";
         }
 
         private void CheckLogicalTree(DependencyObject root)
@@ -245,11 +135,11 @@
             var children = LogicalTreeHelper.GetChildren(root);
             foreach (var child in children.OfType<DependencyObject>())
             {
-                if (LogicalTreeHelper.GetParent(child) != root)
+                if (ReferenceEquals(LogicalTreeHelper.GetParent(child), root) == false)
                 {
-                    Debug.WriteLine(string.Format("Incorrect logical parent for {0}", GetDebugInfo(child)));
-                    Debug.WriteLine(string.Format("\tExpected: {0}", GetDebugInfo(root)));
-                    Debug.WriteLine(string.Format("\tFound: {0}", GetDebugInfo(LogicalTreeHelper.GetParent(child))));
+                    Debug.WriteLine($"Incorrect logical parent for {GetDebugInfo(child)}");
+                    Debug.WriteLine($"\tExpected: {GetDebugInfo(root)}");
+                    Debug.WriteLine($"\tFound: {GetDebugInfo(LogicalTreeHelper.GetParent(child))}");
                 }
 
                 this.CheckLogicalTree(child);
@@ -291,13 +181,13 @@
             var stringBuilder = new StringBuilder();
             this.BuildBackLogicalTree(item.Tag as DependencyObject, stringBuilder);
 
-            MessageBox.Show(string.Format("From buttom to top:\n{0}", stringBuilder));
+            MessageBox.Show($"From buttom to top:\n{stringBuilder}");
         }
 
         private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)
         {
             if (current == null
-                || current == this.ribbon)
+                || ReferenceEquals(current, this.ribbon))
             {
                 return;
             }
@@ -383,12 +273,22 @@
             new RegularWindow().Show();
         }
 
+        private void OpenMinimalRibbonWindowSample_OnClick(object sender, RoutedEventArgs e)
+        {
+            new MinimalWindowSample().Show();
+        }
+
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
             new MahMetroWindow().Show();
         }
 
         private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowWithoutVisibleRibbon().Show();
+        }
+
+        private void OpenRibbonWindowWithoutRibbon_OnClick(object sender, RoutedEventArgs e)
         {
             new RibbonWindowWithoutRibbon().Show();
         }

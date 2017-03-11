@@ -3,18 +3,18 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
     /// Represents size definition for group box
     /// </summary>
-    [ContentProperty("Rows")]
+    [ContentProperty(nameof(Rows))]
     public class RibbonToolBarLayoutDefinition : DependencyObject
     {
         #region Fields
 
         // User defined rows
-        ObservableCollection<RibbonToolBarRow> rows = new ObservableCollection<RibbonToolBarRow>();
 
         #endregion
 
@@ -74,20 +74,15 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RowCountProperty =
-            DependencyProperty.Register("RowCount", typeof(int), typeof(RibbonToolBar), new UIPropertyMetadata(3));
-
+            DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(RibbonToolBar), new PropertyMetadata(3));
 
         #endregion
-
 
         /// <summary>
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarRow> Rows
-        {
-            get { return this.rows; }
-        }
+        public ObservableCollection<RibbonToolBarRow> Rows { get; } = new ObservableCollection<RibbonToolBarRow>();
 
         #endregion
     }

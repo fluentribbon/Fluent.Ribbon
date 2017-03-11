@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.ComponentModel;
@@ -7,6 +8,7 @@
     using System.Windows.Controls;
     using System.Windows.Documents;
     using System.Windows.Markup;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents specific label to use in particular ribbon controls
@@ -45,7 +47,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasTwoLinesProperty =
-            DependencyProperty.Register("HasTwoLines", typeof(bool), typeof(TwoLineLabel), new UIPropertyMetadata(true, OnHasTwoLinesChanged));
+            DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.TrueBox, OnHasTwoLinesChanged));
 
         /// <summary>
         /// Handles HasTwoLines property changes
@@ -70,7 +72,7 @@
         /// Using a DependencyProperty as the backing store for HasGlyph.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasGlyphProperty =
-            DependencyProperty.Register("HasGlyph", typeof(bool), typeof(TwoLineLabel), new UIPropertyMetadata(false, OnHasGlyphChanged));
+            DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.FalseBox, OnHasGlyphChanged));
 
         /// <summary>
         /// Handles HasGlyph property changes
@@ -95,7 +97,7 @@
         /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(TwoLineLabel), new UIPropertyMetadata(string.Empty, OnTextChanged));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));
 
         #endregion
 
@@ -108,18 +110,6 @@
         static TwoLineLabel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
-            StyleProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(TwoLineLabel));
-            }
-
-            return basevalue;
         }
 
         /// <summary>

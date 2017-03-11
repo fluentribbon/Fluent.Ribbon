@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System.Windows;
 
@@ -12,7 +13,7 @@
         /// </summary>
         public object LeftContent
         {
-            get { return (object)this.GetValue(LeftContentProperty); }
+            get { return this.GetValue(LeftContentProperty); }
             set { this.SetValue(LeftContentProperty, value); }
         }
 
@@ -27,7 +28,7 @@
         /// </summary>
         public object RightContent
         {
-            get { return (object)this.GetValue(RightContentProperty); }
+            get { return this.GetValue(RightContentProperty); }
             set { this.SetValue(RightContentProperty, value); }
         }
 
@@ -51,21 +52,6 @@
         /// </summary>
         public static readonly DependencyProperty LeftContentMarginProperty =
             DependencyProperty.Register(nameof(LeftContentMargin), typeof(Thickness), typeof(StartScreenTabControl), new PropertyMetadata(default(Thickness)));
-
-        /// <summary>
-        /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
-        /// </summary>
-        public bool IsWindowSteeringHelperEnabled
-        {
-            get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
-            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, value); }
-        }
-
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsWindowSteeringHelperEnabled"/>.
-        /// </summary>
-        public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
-            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(StartScreenTabControl), new PropertyMetadata(true));
 
         /// <summary>
         /// Static constructor.

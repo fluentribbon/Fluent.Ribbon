@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent.Ribbon.Showcase.NET 4.5", "Fluent.Ribbon.Showcase\Fluent.Ribbon.Showcase.NET 4.5.csproj", "{2C2A076B-E626-4A07-9D6E-4AEE3FEC41B6}"
 EndProject
@@ -30,11 +30,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6ADD536-3DB2-4418-AED6-98AB991D1B77}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.md = Changelog.md
+		Fluent.Ribbon.ruleset = Fluent.Ribbon.ruleset
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 		License.txt = License.txt
 		README.md = README.md
 		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluent.Ribbon.Tests", "Fluent.Ribbon.Tests\Fluent.Ribbon.Tests.csproj", "{11E74323-57EB-4F25-AB3B-0759B1F978ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +61,10 @@ Global
 		{2A893D50-BBC4-4482-ADAA-D52B517E8632}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A893D50-BBC4-4482-ADAA-D52B517E8632}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A893D50-BBC4-4482-ADAA-D52B517E8632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11E74323-57EB-4F25-AB3B-0759B1F978ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11E74323-57EB-4F25-AB3B-0759B1F978ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11E74323-57EB-4F25-AB3B-0759B1F978ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11E74323-57EB-4F25-AB3B-0759B1F978ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

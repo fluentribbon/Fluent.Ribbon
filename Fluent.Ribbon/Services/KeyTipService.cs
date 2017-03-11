@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -204,7 +205,6 @@ namespace Fluent
                 else
                 {
                     this.activeAdornerChain?.Terminate();
-                    return;
                 }
             }
             else if (e.Key == Key.Escape
@@ -213,7 +213,6 @@ namespace Fluent
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 this.ClearUserInput();
                 e.Handled = true;
-                return;
             }
             else
             {
@@ -240,6 +239,7 @@ namespace Fluent
                         this.backUpFocusedControl = null;
                         this.activeAdornerChain?.Terminate();
                     }
+
                     return;
                 }
 
@@ -277,18 +277,16 @@ namespace Fluent
                     e.Handled = true;
                     return;
                 }
-                else if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
+
+                if (this.activeAdornerChain.ActiveKeyTipAdorner.Forward(this.currentUserInput, true))
                 {
                     this.ClearUserInput();
                     e.Handled = true;
                     return;
                 }
-                else
-                {
-                    this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
-                    e.Handled = true;
-                    return;
-                }
+
+                this.activeAdornerChain.ActiveKeyTipAdorner.FilterKeyTips(this.currentUserInput);
+                e.Handled = true;
             }
         }
 
@@ -321,11 +319,11 @@ namespace Fluent
 
         private static bool IsShowOrHideKey(KeyEventArgs e)
         {
-            return e.Key == Key.System
-                && (e.SystemKey == Key.LeftAlt
-                   || e.SystemKey == Key.RightAlt
-                   || e.SystemKey == Key.F10
-                   || e.SystemKey == Key.Space);
+            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
+                   && (e.SystemKey == Key.LeftAlt
+                       || e.SystemKey == Key.RightAlt
+                       || e.SystemKey == Key.F10
+                       || e.SystemKey == Key.Space);
         }
 
         private void ClearUserInput()

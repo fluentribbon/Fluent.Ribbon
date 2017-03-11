@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Markup;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
     /// Represent logical container for toolbar items
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Children))]
     public class RibbonToolBarControlGroupDefinition : DependencyObject
     {
         #region Events
@@ -25,7 +25,6 @@ namespace Fluent
         #region Fields
 
         // User defined rows
-        readonly ObservableCollection<RibbonToolBarControlDefinition> children = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
 
@@ -35,10 +34,7 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarControlDefinition> Children
-        {
-            get { return this.children; }
-        }
+        public ObservableCollection<RibbonToolBarControlDefinition> Children { get; } = new ObservableCollection<RibbonToolBarControlDefinition>();
 
         #endregion
 
@@ -49,13 +45,12 @@ namespace Fluent
         /// </summary>
         public RibbonToolBarControlGroupDefinition()
         {
-            this.children.CollectionChanged += this.OnChildrenCollectionChanged;
+            this.Children.CollectionChanged += this.OnChildrenCollectionChanged;
         }
 
-        void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.ChildrenChanged != null)
-                this.ChildrenChanged(sender, e);
+            this.ChildrenChanged?.Invoke(sender, e);
         }
 
         #endregion

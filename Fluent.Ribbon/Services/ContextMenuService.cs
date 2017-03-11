@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents additional context menu service
     /// </summary>
@@ -14,8 +17,8 @@ namespace Fluent
         /// <param name="type"></param>
         public static void Attach(Type type)
         {
-            System.Windows.Controls.ContextMenuService.ShowOnDisabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(true));
-            FrameworkElement.ContextMenuProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, OnContextMenuChanged, CoerceContextMenu));
+            System.Windows.Controls.ContextMenuService.ShowOnDisabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
+            FrameworkElement.ContextMenuProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnContextMenuChanged, CoerceContextMenu));
         }
 
         private static void OnContextMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

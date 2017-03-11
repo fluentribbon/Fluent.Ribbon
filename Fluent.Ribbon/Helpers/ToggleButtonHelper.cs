@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +10,7 @@
     /// <summary>
     /// Helper-Class for switching states in ToggleButton-Groups
     /// </summary>
-    public class ToggleButtonHelper
+    public static class ToggleButtonHelper
     {
         // Grouped buttons
         [ThreadStatic]
@@ -91,8 +92,8 @@
             var button = (IToggleButton)d;
 
             // Uncheck other toggle buttons
-            if (newValue.HasValue == false 
-                || newValue.Value == false 
+            if (newValue.HasValue == false
+                || newValue.Value == false
                 || button.GroupName == null)
             {
                 return;
@@ -112,6 +113,7 @@
             {
                 var weakReference = buttons[i];
                 var currentButton = weakReference.Target as IToggleButton;
+
                 if (currentButton == null)
                 {
                     // Remove dead instances
@@ -119,14 +121,17 @@
                 }
                 else
                 {
+                    var buttonAsVisual = (Visual)currentButton;
                     // Uncheck all checked RadioButtons different from the current one
-                    if (currentButton != button 
-                        && currentButton.IsChecked == true 
-                        && rootScope == PresentationSource.FromVisual((Visual)currentButton))
+                    if (ReferenceEquals(currentButton, button) == false
+                        && currentButton.IsChecked == true
+                        && rootScope != null
+                        && PresentationSource.FromVisual(buttonAsVisual) != null
+                        && rootScope == PresentationSource.FromVisual(buttonAsVisual))
                     {
                         currentButton.IsChecked = false;
                     }
-                    
+
                     i++;
                 }
             }
@@ -200,7 +205,7 @@
                 var weakReference = elements[i];
                 var element = weakReference.Target;
 
-                if (element == null 
+                if (element == null
                     || element == elementToRemove)
                 {
                     elements.RemoveAt(i);

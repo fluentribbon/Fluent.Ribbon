@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections;
@@ -13,18 +14,18 @@
     using System.Windows.Markup;
     using System.Windows.Threading;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents drop down button
     /// </summary>
-    [ContentProperty("Items")]
+    [ContentProperty(nameof(Items))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider
     {
         #region Fields
 
@@ -33,8 +34,6 @@
 
         // Thumb to resize vertical
         private Thumb resizeVerticalThumb;
-
-        private Panel menuPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -111,14 +110,6 @@
         /// </summary>
         public bool IsContextMenuOpened { get; set; }
 
-        private bool HasCapture
-        {
-            get
-            {
-                return ReferenceEquals(Mouse.Captured, this);
-            }
-        }
-
         #region Header
 
         /// <summary>
@@ -152,23 +143,20 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var element = (DropDownButton)d;
 
             var oldElement = e.OldValue as FrameworkElement;
-
             if (oldElement != null)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
             var newElement = e.NewValue as FrameworkElement;
-
-            if (newElement != null
-                && LogicalTreeHelper.GetParent(newElement) == null)
+            if (newElement != null)
             {
                 element.AddLogicalChild(newElement);
             }
@@ -192,8 +180,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object),
-            typeof(DropDownButton), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(LargeIcon), typeof(object),
+            typeof(DropDownButton), new PropertyMetadata());
 
         #endregion
 
@@ -214,7 +202,7 @@
         /// </summary>
         public static readonly DependencyProperty HasTriangleProperty =
             DependencyProperty.Register(
-                "HasTriangle", typeof(bool), typeof(DropDownButton), new UIPropertyMetadata(true));
+                "HasTriangle", typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -234,8 +222,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DropDownButton),
-            new UIPropertyMetadata(false, OnIsDropDownOpenChanged));
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(DropDownButton),
+            new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged));
 
         #endregion
 
@@ -255,8 +243,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode),
-            typeof(DropDownButton), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
+            typeof(DropDownButton), new PropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -275,7 +263,7 @@
         /// Using a DependencyProperty as the backing store for MaxDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxDropDownHeightProperty =
-            DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+            DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
         #endregion
 
@@ -294,7 +282,7 @@
         /// Using a DependencyProperty as the backing store for InitialDropDownHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register("DropDownHeight", typeof(double), typeof(DropDownButton), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -313,7 +301,7 @@
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDown.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownProperty =
-            DependencyProperty.Register("ClosePopupOnMouseDown", typeof(bool), typeof(DropDownButton), new PropertyMetadata(false));
+            DependencyProperty.Register(nameof(ClosePopupOnMouseDown), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -332,7 +320,7 @@
         /// Using a DependencyProperty as the backing store for ClosePopupOnMouseDownDelay.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ClosePopupOnMouseDownDelayProperty =
-            DependencyProperty.Register("ClosePopupOnMouseDownDelay", typeof(int), typeof(DropDownButton), new PropertyMetadata(150));
+            DependencyProperty.Register(nameof(ClosePopupOnMouseDownDelay), typeof(int), typeof(DropDownButton), new PropertyMetadata(150));
 
         #endregion
 
@@ -463,8 +451,6 @@
             this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
 
             this.resizeBothThumb = this.Template.FindName("PART_ResizeBothThumb", this) as Thumb;
-
-            this.menuPanel = this.Template.FindName("PART_MenuPanel", this) as Panel;
 
             this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
 
@@ -656,8 +642,7 @@
         {
             this.IsDropDownOpen = true;
 
-            if (this.DropDownPopup != null
-                && this.DropDownPopup.Child != null)
+            if (this.DropDownPopup?.Child != null)
             {
                 Keyboard.Focus(this.DropDownPopup.Child);
                 this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -722,7 +707,7 @@
 
             control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
 
-            Debug.WriteLine(string.Format("{0} IsDropDownOpen: {1}", control.Header, newValue));
+            Debug.WriteLine($"{control.Header} IsDropDownOpen: {newValue}");
 
             if (newValue)
             {
@@ -732,7 +717,7 @@
 
                 control.Dispatcher.BeginInvoke(
                     DispatcherPriority.Normal,
-                    (DispatcherOperationCallback)delegate(object arg)
+                    (DispatcherOperationCallback)delegate (object arg)
                     {
                         var ctrl = (DropDownButton)arg;
 
@@ -770,19 +755,13 @@
         // Handles drop down closed
         private void OnDropDownClosed()
         {
-            if (this.DropDownClosed != null)
-            {
-                this.DropDownClosed(this, EventArgs.Empty);
-            }
+            this.DropDownClosed?.Invoke(this, EventArgs.Empty);
         }
 
         // Handles drop down opened
         private void OnDropDownOpened()
         {
-            if (this.DropDownOpened != null)
-            {
-                this.DropDownOpened(this, EventArgs.Empty);
-            }
+            this.DropDownOpened?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -798,19 +777,19 @@
         public virtual FrameworkElement CreateQuickAccessItem()
         {
             var button = new DropDownButton
-                {
-                    Size = RibbonControlSize.Small
-                };
+            {
+                Size = RibbonControlSize.Small
+            };
 
             this.BindQuickAccessItem(button);
-            RibbonControl.Bind(this, button, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, button, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
 
-            RibbonControl.Bind(this, button, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
 
             this.BindQuickAccessItemDropDownEvents(button);
 
@@ -825,7 +804,7 @@
         /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;            
+            var buttonInQuickAccess = (DropDownButton)sender;
 
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
@@ -856,9 +835,9 @@
         protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
             RibbonControl.BindQuickAccessItem(this, element);
-            RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "HasTriangle", HasTriangleProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
         }
 
         /// <summary>
@@ -883,7 +862,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 
@@ -900,6 +879,11 @@
                 if (this.Icon != null)
                 {
                     yield return this.Icon;
+                }
+
+                if (this.LargeIcon != null)
+                {
+                    yield return this.LargeIcon;
                 }
 
                 foreach (var item in this.Items)

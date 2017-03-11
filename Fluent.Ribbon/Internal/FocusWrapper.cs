@@ -30,7 +30,6 @@
             if (this.handle != IntPtr.Zero)
             {
                 NativeMethods.SetFocus(this.handle);
-                return;
             }
         }
 

@@ -1,18 +1,18 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics;
     using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using System.Windows.Threading;
+    using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents color gallery modes
@@ -118,7 +118,7 @@
     /// <summary>
     /// Represents color gallery
     /// </summary>
-    [ContentProperty("ThemeColors")]
+    [ContentProperty(nameof(ThemeColors))]
     public class ColorGallery : Control
     {
         #region Constants
@@ -126,8 +126,8 @@
         /// <summary>
         /// Hightlight colors array
         /// </summary>
-        public static readonly Color[] HighlightColors = new Color[] 
-        { 
+        public static readonly Color[] HighlightColors = new Color[]
+        {
             Color.FromRgb(0xFF ,0xFF ,0x00),
             Color.FromRgb(0x00 ,0xFF ,0x00),
             Color.FromRgb(0x00 ,0xFF ,0xFF),
@@ -219,11 +219,7 @@
         /// </summary>
         public static ObservableCollection<Color> RecentColors
         {
-            get
-            {
-                if (recentColors == null) recentColors = new ObservableCollection<Color>();
-                return recentColors;
-            }
+            get { return recentColors ?? (recentColors = new ObservableCollection<Color>()); }
         }
 
         #endregion
@@ -267,11 +263,11 @@
         /// Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(ColorGalleryMode), typeof(ColorGallery), new UIPropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
+            DependencyProperty.Register(nameof(Mode), typeof(ColorGalleryMode), typeof(ColorGallery), new PropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
 
         private static void OnModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -291,11 +287,11 @@
         /// Using a DependencyProperty as the backing store for ChipWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ChipWidthProperty =
-            DependencyProperty.Register("ChipWidth", typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0, null, CoerceChipSize));
+            DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
         private static object CoerceChipSize(DependencyObject d, object basevalue)
         {
-            double value = (double)basevalue;
+            var value = (double)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
@@ -313,7 +309,7 @@
         /// Using a DependencyProperty as the backing store for ChipHeight.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ChipHeightProperty =
-            DependencyProperty.Register("ChipHeight", typeof(double), typeof(ColorGallery), new UIPropertyMetadata(13.0, null, CoerceChipSize));
+            DependencyProperty.Register(nameof(ChipHeight), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
         #endregion
 
@@ -332,7 +328,7 @@
         /// Using a DependencyProperty as the backing store for IsAutomaticColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticColorButtonVisibleProperty =
-            DependencyProperty.Register("IsAutomaticColorButtonVisible", typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -351,7 +347,7 @@
         /// Using a DependencyProperty as the backing store for IsNoColorButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsNoColorButtonVisibleProperty =
-            DependencyProperty.Register("IsNoColorButtonVisible", typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -370,7 +366,7 @@
         /// Using a DependencyProperty as the backing store for IsMoreColorsButtonVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMoreColorsButtonVisibleProperty =
-            DependencyProperty.Register("IsMoreColorsButtonVisible", typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -389,7 +385,7 @@
         /// Using a DependencyProperty as the backing store for IsRecentColorsVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsRecentColorsVisibleProperty =
-            DependencyProperty.Register("IsRecentColorsVisible", typeof(bool), typeof(ColorGallery), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
 
@@ -410,18 +406,18 @@
         /// Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ColumnsProperty =
-            DependencyProperty.Register("Columns", typeof(int), typeof(ColorGallery), new UIPropertyMetadata(10, OnColumnsChanged, CoerceColumns));
+            DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new PropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
         private static object CoerceColumns(DependencyObject d, object basevalue)
         {
-            int value = (int)basevalue;
+            var value = (int)basevalue;
             if (value < 1) return 1;
             return basevalue;
         }
 
         private static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -441,18 +437,18 @@
         /// Using a DependencyProperty as the backing store for StandardColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StandardColorGridRowsProperty =
-            DependencyProperty.Register("StandardColorGridRows", typeof(int), typeof(ColorGallery), new UIPropertyMetadata(0, OnStandardColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnStandardColorGridRowsChanged, CoeceGridRows));
 
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
-            int value = (int)basevalue;
+            var value = (int)basevalue;
             if (value < 0) return 0;
             return basevalue;
         }
 
         private static void OnStandardColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -472,11 +468,11 @@
         /// Using a DependencyProperty as the backing store for ThemeColorGridRows.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorGridRowsProperty =
-            DependencyProperty.Register("ThemeColorGridRows", typeof(int), typeof(ColorGallery), new UIPropertyMetadata(0, OnThemeColorGridRowsChanged, CoeceGridRows));
+            DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnThemeColorGridRowsChanged, CoeceGridRows));
 
         private static void OnThemeColorGridRowsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as ColorGallery).UpdateGradients();
+            ((ColorGallery)d).UpdateGradients();
         }
 
         #endregion
@@ -496,7 +492,7 @@
         /// Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register("SelectedColor", typeof(Color?), typeof(ColorGallery), new UIPropertyMetadata(null, OnSelectedColorChanged));
+            DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(OnSelectedColorChanged));
 
         // Handles selected color changed
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -508,12 +504,12 @@
                 return;
             }
 
-            // Raise event
-            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
-
             // Set color in gallery
             var color = (Color?)e.NewValue;
             gallery.UpdateSelectedColor(color);
+
+            // Raise event
+            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
         }
 
         private void UpdateSelectedColor(Color? color)
@@ -547,20 +543,20 @@
             }
 
             // Remove selection from others
-            for (var i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
                 if (isSetted == false
-                    && this.listBoxes[i].Visibility == Visibility.Visible)
+                    && listBox.Visibility == Visibility.Visible)
                 {
-                    if (this.listBoxes[i].Items.Contains(color.Value))
+                    if (listBox.Items.Contains(color.Value))
                     {
-                        this.listBoxes[i].SelectedItem = color.Value;
+                        listBox.SelectedItem = color.Value;
                         isSetted = true;
                     }
                 }
                 else
                 {
-                    this.listBoxes[i].SelectedItem = null;
+                    listBox.SelectedItem = null;
                 }
             }
 
@@ -607,15 +603,18 @@
         /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ThemeColorsSourceProperty =
-            DependencyProperty.Register("ThemeColorsSource", typeof(IEnumerable<Color>), typeof(ColorGallery), new UIPropertyMetadata(null, OnThemeColorsSourceChanged));
+            DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(OnThemeColorsSourceChanged));
 
         private static void OnThemeColorsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ColorGallery gal = d as ColorGallery;
+            var gal = (ColorGallery)d;
             gal.ThemeColors.Clear();
-            if (e.NewValue != null)
+
+            var colors = e.NewValue as IEnumerable<Color>;
+
+            if (colors != null)
             {
-                foreach (Color color in (e.NewValue as IEnumerable<Color>))
+                foreach (var color in colors)
                 {
                     gal.ThemeColors.Add(color);
                 }
@@ -637,7 +636,7 @@
 
         // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly("ThemeGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -659,7 +658,7 @@
 
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
-            DependencyProperty.RegisterReadOnly("StandardGradients", typeof(Color[]), typeof(ColorGallery), new UIPropertyMetadata(null));
+            DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
@@ -689,7 +688,7 @@
         /// <summary>
         /// Identifies the SelectedColorChanged routed event.
         /// </summary>
-        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent("SelectedColorChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
+        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
 
         /// <summary>
         /// Raises SelectedColorChanged event
@@ -713,28 +712,9 @@
         /// </summary>
         static ColorGallery()
         {
-            Type type = typeof(ColorGallery);
+            var type = typeof(ColorGallery);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(ColorGallery));
-            }
-
-            return basevalue;
-        }
-
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public ColorGallery()
-        {
         }
 
         #endregion
@@ -803,7 +783,7 @@
             this.listBoxes.Add(this.recentColorsListBox);
             if (this.recentColorsListBox != null)
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
-            
+
             this.isTemplateApplied = true;
 
             this.UpdateSelectedColor(this.SelectedColor);
@@ -820,11 +800,11 @@
         {
             if (this.MoreColorsExecuting != null)
             {
-                MoreColorsExecutingEventArgs args = new MoreColorsExecutingEventArgs();
+                var args = new MoreColorsExecutingEventArgs();
                 this.MoreColorsExecuting(this, args);
                 if (!args.Canceled)
                 {
-                    Color color = args.Color;
+                    var color = args.Color;
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
@@ -832,21 +812,21 @@
             }
             else
             {
-                NativeMethods.CHOOSECOLOR chooseColor = new NativeMethods.CHOOSECOLOR();
-                Window wnd = Window.GetWindow(this);
+                var chooseColor = new NativeMethods.CHOOSECOLOR();
+                var wnd = Window.GetWindow(this);
                 if (wnd != null) chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
                 chooseColor.Flags = NativeMethods.CC_ANYCOLOR;
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
-                    for (int i = 0; i < this.colorsArray.Length; i++)
+                    for (var i = 0; i < this.colorsArray.Length; i++)
                         this.colorsArray[i] = 0x00FFFFFF;
                     customColors = GCHandle.Alloc(this.colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
                 }
                 chooseColor.lpCustColors = customColors;
                 if (NativeMethods.ChooseColor(chooseColor))
                 {
-                    Color color = ConvertFromWin32Color(chooseColor.rgbResult);
+                    var color = ConvertFromWin32Color(chooseColor.rgbResult);
                     if (RecentColors.Contains(color)) RecentColors.Remove(color);
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
@@ -856,9 +836,9 @@
 
         private static Color ConvertFromWin32Color(int color)
         {
-            int r = color & 0x000000FF;
-            int g = (color & 0x0000FF00) >> 8;
-            int b = (color & 0x00FF0000) >> 16;
+            var r = color & 0x000000FF;
+            var g = (color & 0x0000FF00) >> 8;
+            var b = (color & 0x00FF0000) >> 16;
             return Color.FromArgb(255, (byte)r, (byte)g, (byte)b);
         }
 
@@ -868,9 +848,9 @@
             this.noColorButton.IsChecked = false;
             this.automaticButton.IsChecked = true;
             // Remove selection from listboxes
-            for (int i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
-                this.listBoxes[i].SelectedItem = null;
+                listBox.SelectedItem = null;
             }
 
             this.SelectedColor = null;
@@ -883,9 +863,9 @@
             this.noColorButton.IsChecked = true;
             this.automaticButton.IsChecked = false;
             // Remove selection from listboxes
-            for (int i = 0; i < this.listBoxes.Count; i++)
+            foreach (var listBox in this.listBoxes)
             {
-                this.listBoxes[i].SelectedItem = null;
+                listBox.SelectedItem = null;
             }
 
             this.SelectedColor = Colors.Transparent;
@@ -894,21 +874,32 @@
 
         private void OnListBoxSelectedChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.isSelectionChanging) return;
+            if (this.isSelectionChanging)
+            {
+                return;
+            }
+
             this.isSelectionChanging = true;
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
+
+            if (e.AddedItems != null 
+                && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
                 this.noColorButton.IsChecked = false;
                 this.automaticButton.IsChecked = false;
-                for (int i = 0; i < this.listBoxes.Count; i++)
+
+                foreach (var listBox in this.listBoxes)
                 {
-                    if (this.listBoxes[i] != sender)
-                        this.listBoxes[i].SelectedItem = null;
+                    if (ReferenceEquals(listBox, sender) == false)
+                    {
+                        listBox.SelectedItem = null;
+                    }
                 }
+
                 this.SelectedColor = (Color)e.AddedItems[0];
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
+
             this.isSelectionChanging = false;
         }
 
@@ -921,7 +912,9 @@
                     this.ThemeGradients = this.GenerateThemeGradients();
                 }
                 else
+                {
                     this.ThemeGradients = null;
+                }
 
                 if (this.StandardColorGridRows > 0)
                 {
@@ -939,14 +932,14 @@
 
         private Color[] GenerateStandardGradients()
         {
-            int count = Math.Min(this.Columns, StandardThemeColors.Length);
-            Color[] result = new Color[this.Columns *this.StandardColorGridRows];
-            for (int i = 0; i < count; i++)
+            var count = Math.Min(this.Columns, StandardThemeColors.Length);
+            var result = new Color[this.Columns * this.StandardColorGridRows];
+            for (var i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
-                for (int j = 0; j < this.StandardColorGridRows; j++)
+                var colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
+                for (var j = 0; j < this.StandardColorGridRows; j++)
                 {
-                    result[i + j *this.Columns] = colors[j];
+                    result[i + j * this.Columns] = colors[j];
                 }
             }
             return result;
@@ -954,14 +947,14 @@
 
         private Color[] GenerateThemeGradients()
         {
-            int count = Math.Min(this.Columns, this.ThemeColors.Count);
-            Color[] result = new Color[this.Columns *this.ThemeColorGridRows];
-            for (int i = 0; i < count; i++)
+            var count = Math.Min(this.Columns, this.ThemeColors.Count);
+            var result = new Color[this.Columns * this.ThemeColorGridRows];
+            for (var i = 0; i < count; i++)
             {
-                Color[] colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
-                for (int j = 0; j < this.ThemeColorGridRows; j++)
+                var colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
+                for (var j = 0; j < this.ThemeColorGridRows; j++)
                 {
-                    result[i + j *this.Columns] = colors[j];
+                    result[i + j * this.Columns] = colors[j];
                 }
             }
             return result;
@@ -976,16 +969,16 @@
         /// </summary>
         /// <param name="color">Color</param>
         /// <returns>Brightness of the given color from 0..1</returns>
-        static double GetBrightness(Color color)
+        private static double GetBrightness(Color color)
         {
-            double summ = ((double)color.R) + ((double)color.G) + ((double)color.B);
+            var summ = (double)color.R + color.G + color.B;
             return summ / (255.0 * 3.0);
         }
 
         // Makes the given color lighter 
-        static Color Lighter(Color color, double power)
+        private static Color Lighter(Color color, double power)
         {
-            double totalAvailability = 255.0 * 3.0 - (double)color.R + (double)color.G + (double)color.B;
+            var totalAvailability = 255.0 * 3.0 - color.R + color.G + color.B;
             double redAvailability;
             double greenAvailability;
             double blueAvailability;
@@ -1000,51 +993,57 @@
             }
             else
             {
-                redAvailability = (255.0 - (double)color.R) / totalAvailability;
-                greenAvailability = (255.0 - (double)color.G) / totalAvailability;
-                blueAvailability = (255.0 - (double)color.B) / totalAvailability;
-                needToBeAdded = ((double)color.R + (double)color.G + (double)color.B) * (power - 1);
+                redAvailability = (255.0 - color.R) / totalAvailability;
+                greenAvailability = (255.0 - color.G) / totalAvailability;
+                blueAvailability = (255.0 - color.B) / totalAvailability;
+                needToBeAdded = ((double)color.R + color.G + color.B) * (power - 1);
             }
 
 
-            Color result = Color.FromRgb(
-                (byte)(color.R + ((byte)(redAvailability * needToBeAdded))),
-                (byte)(color.G + ((byte)(greenAvailability * needToBeAdded))),
-                (byte)(color.B + ((byte)(blueAvailability * needToBeAdded))));
+            var result = Color.FromRgb(
+                (byte)(color.R + (byte)(redAvailability * needToBeAdded)),
+                (byte)(color.G + (byte)(greenAvailability * needToBeAdded)),
+                (byte)(color.B + (byte)(blueAvailability * needToBeAdded)));
 
             return result;
         }
 
         // Makes the given color darker 
-        static Color Darker(Color color, double power)
+        private static Color Darker(Color color, double power)
         {
-            double totalAvailability = (double)color.R + (double)color.G + (double)color.B;
-            double redAvailability = ((double)color.R) / totalAvailability;
-            double greenAvailability = ((double)color.G) / totalAvailability;
-            double blueAvailability = ((double)color.B) / totalAvailability;
+            var totalAvailability = (double)color.R + color.G + color.B;
+            var redAvailability = color.R / totalAvailability;
+            var greenAvailability = color.G / totalAvailability;
+            var blueAvailability = color.B / totalAvailability;
 
-            double needToBeAdded = ((double)color.R + (double)color.G + (double)color.B);
+            var needToBeAdded = (double)color.R + color.G + color.B;
             needToBeAdded = needToBeAdded - needToBeAdded * power;
 
-            Color result = Color.FromRgb(
-                (byte)(color.R - ((byte)(redAvailability * needToBeAdded))),
-                (byte)(color.G - ((byte)(greenAvailability * needToBeAdded))),
-                (byte)(color.B - ((byte)(blueAvailability * needToBeAdded))));
+            var result = Color.FromRgb(
+                (byte)(color.R - (byte)(redAvailability * needToBeAdded)),
+                (byte)(color.G - (byte)(greenAvailability * needToBeAdded)),
+                (byte)(color.B - (byte)(blueAvailability * needToBeAdded)));
 
             return result;
         }
 
         // Makes a new color from the given with new brightness
-        static Color Rebright(Color color, double newBrightness)
+        private static Color Rebright(Color color, double newBrightness)
         {
-            double currentBrightness = GetBrightness(color);
-            double power = currentBrightness != 0.0 ? newBrightness / currentBrightness : (1.0 + newBrightness);
+            var currentBrightness = GetBrightness(color);
+            var power = DoubleUtil.AreClose(currentBrightness, 0.0) == false 
+                ? newBrightness / currentBrightness 
+                : 1.0 + newBrightness;
 
             // TODO: round power to make nice numbers
             // ...
 
-            if (power > 1.0) return Lighter(color, power);
-            else return Darker(color, power);
+            if (power > 1.0)
+            {
+                return Lighter(color, power);
+            }
+
+            return Darker(color, power);
         }
 
         /// <summary>
@@ -1053,15 +1052,15 @@
         /// <param name="color">Base color</param>
         /// <param name="count">Count of items in the gradient</param>
         /// <returns>Colors from lighter to darker</returns>
-        static Color[] GetGradient(Color color, int count)
+        private static Color[] GetGradient(Color color, int count)
         {
             const double lowBrightness = 0.15;
             const double highBrightness = 0.85;
-            Color[] result = new Color[count];
+            var result = new Color[count];
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                double brightness = lowBrightness + ((double)i) * (highBrightness - lowBrightness) / (double)count;
+                var brightness = lowBrightness + i * (highBrightness - lowBrightness) / count;
                 result[count - i - 1] = Rebright(color, brightness);
             }
 

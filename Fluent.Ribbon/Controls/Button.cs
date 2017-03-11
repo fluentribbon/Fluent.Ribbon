@@ -1,15 +1,17 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Markup;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents button
     /// </summary>
-    [ContentProperty("Header")]
-    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider
+    [ContentProperty(nameof(Header))]
+    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
     {
         #region Properties
 
@@ -77,7 +79,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (object)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
@@ -85,7 +87,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(Button), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(Button), new PropertyMetadata());
 
         #endregion
 
@@ -103,16 +105,25 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(Button), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(Button), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Button element = d as Button;
-            FrameworkElement oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
-            FrameworkElement newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            var element = (Button)d;
+
+            var oldElement = e.OldValue as FrameworkElement;
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            var newElement = e.NewValue as FrameworkElement;
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
+
         #endregion
 
         #region LargeIcon
@@ -130,9 +141,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon. 
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register("LargeIcon", typeof(object),
-            typeof(Button), new FrameworkPropertyMetadata(null, null));
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register(nameof(LargeIcon), typeof(object), typeof(Button), new PropertyMetadata());
 
         #endregion
 
@@ -151,7 +160,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(Button), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(Button), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -170,7 +179,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(Button), new PropertyMetadata(default(CornerRadius)));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(Button), new PropertyMetadata(default(CornerRadius)));
 
         #endregion CornerRadius
 
@@ -184,22 +193,10 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Button()
         {
-            Type type = typeof(Button);
+            var type = typeof(Button);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
-            StyleProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(Button));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -240,8 +237,8 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public virtual FrameworkElement CreateQuickAccessItem()
         {
-            Button button = new Button();
-            button.Click += ((sender, e) => this.RaiseEvent(e));
+            var button = new Button();
+            button.Click += (sender, e) => this.RaiseEvent(e);
             RibbonControl.BindQuickAccessItem(this, button);
             return button;
         }
@@ -258,7 +255,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(Button), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(Button), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 

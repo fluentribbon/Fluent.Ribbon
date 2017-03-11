@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections;
@@ -10,7 +11,9 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Markup;
+    using Fluent.Extensions;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents quick access toolbar
@@ -19,7 +22,7 @@
     [TemplatePart(Name = "PART_ShowBelow", Type = typeof(MenuItem))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
-    [ContentProperty("QuickAccessItems")]
+    [ContentProperty(nameof(QuickAccessItems))]
     public class QuickAccessToolBar : Control
     {
         #region Events
@@ -92,11 +95,11 @@
         private void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.DesiredSize.Width);
+
             this.UpdateHasOverflowItems();
             this.itemsHadChanged = true;
-            this.InvalidateMeasure();
 
-            this.InvalidateMeasureOfParentRibbon();
+            this.Refresh();
 
             this.UpdateKeyTips();
 
@@ -130,7 +133,7 @@
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this.InvalidateMeasureOfParentRibbon();
+            this.InvalidateMeasureOfTitleBar();
         }
 
         #endregion
@@ -147,7 +150,7 @@
         }
 
         private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
-            DependencyProperty.RegisterReadOnly("HasOverflowItems", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
@@ -261,8 +264,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
-            DependencyProperty.Register("ShowAboveRibbon", typeof(bool),
-            typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(ShowAboveRibbon), typeof(bool),
+            typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -296,9 +299,28 @@
         /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
-            DependencyProperty.Register("CanQuickAccessLocationChanging", typeof(bool), typeof(QuickAccessToolBar), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
+
+        #region DropDownVisibility
+
+        /// <summary>
+        /// Gets or sets whether the Menu-DropDown is visible or not.
+        /// </summary>
+        public bool IsMenuDropDownVisible
+        {
+            get { return (bool)this.GetValue(IsMenuDropDownVisibleProperty); }
+            set { this.SetValue(IsMenuDropDownVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsMenuDropDownVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsMenuDropDownVisibleProperty =
+            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        #endregion DropDownVisibility
 
         #endregion
 
@@ -311,18 +333,6 @@
         static QuickAccessToolBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
-            StyleProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(QuickAccessToolBar));
-            }
-
-            return basevalue;
         }
 
         #endregion
@@ -546,22 +556,21 @@
         #region Methods
 
         /// <summary>
-        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfParentRibbon"/>
+        /// First calls <see cref="UIElement.InvalidateMeasure"/> and then <see cref="InvalidateMeasureOfTitleBar"/>
         /// </summary>
         public void Refresh()
         {
             this.InvalidateMeasure();
-            this.InvalidateMeasureOfParentRibbon();
+
+            this.InvalidateMeasureOfTitleBar();
         }
 
-        private void InvalidateMeasureOfParentRibbon()
+        private void InvalidateMeasureOfTitleBar()
         {
-            var parentRibbon = this.Parent as Ribbon;
+            var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
+                ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
-            if (parentRibbon != null)
-            {
-                parentRibbon.TitleBar.InvalidateMeasure();
-            }
+            titleBar?.ForceMeasureAndArrange();
         }
 
         // Updates keys for keytip access

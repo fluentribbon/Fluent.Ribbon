@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -8,6 +9,7 @@
     using System.Windows.Documents;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// ScreenTips display the name of the control, 
@@ -28,21 +30,6 @@
         static ScreenTip()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(typeof(ScreenTip)));
-            StyleProperty.OverrideMetadata(typeof(ScreenTip), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                var frameworkElement = d as FrameworkElement;
-                if (frameworkElement != null)
-                {
-                    basevalue = frameworkElement.TryFindResource(typeof(ScreenTip));
-                }
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -62,7 +49,7 @@
         #region Popup Custom Placement
 
         // Calculate two variants: below and upper ribbon
-        CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
+        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
         {
             if (this.PlacementTarget == null)
             {
@@ -107,7 +94,7 @@
                 return new[] { below, above };
             }
 
-            return new[] { 
+            return new[] {
                 new CustomPopupPlacement(new Point(rightToLeftOffset, this.PlacementTarget.RenderSize.Height + 1), PopupPrimaryAxis.Horizontal),
                 new CustomPopupPlacement(new Point(rightToLeftOffset, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)};
         }
@@ -211,7 +198,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -234,7 +221,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -257,7 +244,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DisableReasonProperty =
-            DependencyProperty.Register("DisableReason", typeof(string), typeof(ScreenTip), new UIPropertyMetadata(""));
+            DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 
         #endregion
 
@@ -271,7 +258,7 @@
         System.ComponentModel.Description("Help topic (it will be used to execute help)")]
         public object HelpTopic
         {
-            get { return (object)this.GetValue(HelpTopicProperty); }
+            get { return this.GetValue(HelpTopicProperty); }
             set { this.SetValue(HelpTopicProperty, value); }
         }
 
@@ -280,7 +267,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HelpTopicProperty =
-            DependencyProperty.Register("HelpTopic", typeof(object), typeof(ScreenTip), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(HelpTopic), typeof(object), typeof(ScreenTip), new PropertyMetadata());
 
         #endregion
 
@@ -303,7 +290,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ImageProperty =
-            DependencyProperty.Register("Image", typeof(ImageSource), typeof(ScreenTip), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new PropertyMetadata());
 
         #endregion
 
@@ -325,7 +312,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HelpLabelVisibilityProperty =
-            DependencyProperty.Register("HelpLabelVisibility", typeof(Visibility), typeof(ScreenTip), new UIPropertyMetadata(Visibility.Visible));
+            DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new PropertyMetadata(VisibilityBoxes.Visible));
         #endregion
 
         #region Help Invocation
@@ -353,9 +340,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary> 
         public static readonly DependencyProperty IsRibbonAlignedProperty =
-            DependencyProperty.Register("BelowRibbon", typeof(bool), typeof(ScreenTip),
-            new UIPropertyMetadata(true));
-
+            DependencyProperty.Register(nameof(IsRibbonAligned), typeof(bool), typeof(ScreenTip),
+            new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -389,7 +375,7 @@
             }
         }
 
-        void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.F1)
             {
@@ -398,10 +384,7 @@
 
             e.Handled = true;
 
-            if (HelpPressed != null)
-            {
-                HelpPressed(null, new ScreenTipHelpEventArgs(this.HelpTopic));
-            }
+            HelpPressed?.Invoke(null, new ScreenTipHelpEventArgs(this.HelpTopic));
         }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿ // ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections.Generic;
@@ -40,7 +41,7 @@
 
         // Parent adorner
         private readonly KeyTipAdorner parentAdorner;
-        KeyTipAdorner childAdorner;
+        private KeyTipAdorner childAdorner;
 
         private readonly Visibility[] backupedVisibilities;
         private readonly UIElement keyTipElementContainer;
@@ -137,6 +138,8 @@
                     this.AddVisualChild(keyTip);
                     this.associatedElements.Add(child);
 
+                    this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", child, keys);
+
                     if (groupBox != null)
                     {
                         if (groupBox.State == RibbonGroupBoxState.Collapsed)
@@ -175,9 +178,9 @@
             }
         }
 
-        private static UIElement[] GetVisibleChildren(UIElement element)
+        private static IList<UIElement> GetVisibleChildren(UIElement element)
         {
-            var logicalChildren = LogicalTreeHelper.GetChildren(element)
+            var logicalChildren = LogicalTreeHelper.GetChildren(element)                
                 .OfType<UIElement>();
 
             var children = logicalChildren;
@@ -195,7 +198,7 @@
             return children
                 .Where(x => x.Visibility == Visibility.Visible)
                 .Distinct()
-                .ToArray();
+                .ToList();
         }
 
         #endregion
@@ -254,10 +257,7 @@
         /// </summary> 
         public void Detach()
         {
-            if (this.childAdorner != null)
-            {
-                this.childAdorner.Detach();
-            }
+            this.childAdorner?.Detach();
 
             if (!this.attached)
             {
@@ -330,11 +330,9 @@
 
         private static UIElement GetTopLevelElement(UIElement element)
         {
-            var current = element;
-
             while (true)
             {
-                current = (VisualTreeHelper.GetParent(element)) as UIElement;
+                var current = VisualTreeHelper.GetParent(element) as UIElement;
 
                 if (current == null)
                 {
@@ -398,15 +396,12 @@
             {
                 //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
                 var control = element as IKeyTipedControl;
-                if (control != null)
-                {
-                    control.OnKeyTipPressed();
-                }
+                control?.OnKeyTipPressed();
             }
 
             var children = GetVisibleChildren(element);
 
-            if (children.Length == 0)
+            if (children.Count == 0)
             {
                 this.Terminate();
                 return;
@@ -600,20 +595,18 @@
 
             double[] rows = null;
             var groupBox = GetGroupBox(this.oneOfAssociatedElements);
-            if (groupBox != null)
+            var panel = groupBox?.GetPanel();
+
+            if (panel != null)
             {
-                var panel = groupBox.GetPanel();
-                if (panel != null)
-                {
-                    var height = groupBox.GetLayoutRoot().DesiredSize.Height;
-                    rows = new[]
-                        {
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
-                            groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
-                        };
-                }
+                var height = groupBox.GetLayoutRoot().DesiredSize.Height;
+                rows = new[]
+                       {
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
+                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
+                       };
             }
 
             for (var i = 0; i < this.keyTips.Count; i++)
@@ -629,7 +622,7 @@
                 var associatedElementInVisualTree = VisualTreeHelper.GetParent(this.associatedElements[i]) != null;
                 this.keyTips[i].Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
-                if (!KeyTip.GetAutoPlacement(this.associatedElements[i]))
+                if (KeyTip.GetAutoPlacement(this.associatedElements[i]) == false)
                 {
                     #region Custom Placement
 
@@ -686,7 +679,7 @@
                         0), this.AdornedElement);
                     this.keyTipPositions[i].Y = rows[3];
                 }
-                else if ((this.associatedElements[i] is InRibbonGallery && !((InRibbonGallery)this.associatedElements[i]).IsCollapsed))
+                else if (this.associatedElements[i] is InRibbonGallery && !((InRibbonGallery)this.associatedElements[i]).IsCollapsed)
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
@@ -701,7 +694,7 @@
                         0), this.AdornedElement);
                     this.keyTipPositions[i].Y = rows[2] - keyTipSize.Height / 2;
                 }
-                else if ((this.associatedElements[i] is RibbonTabItem) || (this.associatedElements[i] is Backstage))
+                else if (this.associatedElements[i] is RibbonTabItem || this.associatedElements[i] is Backstage)
                 {
                     // Ribbon Tab Item Exclusive Placement
                     var keyTipSize = this.keyTips[i].DesiredSize;
@@ -726,8 +719,7 @@
                 }
                 else if (this.associatedElements[i] is MenuItem)
                 {
-                    // MenuItem Exclusive Placement
-                    var keyTipSize = this.keyTips[i].DesiredSize;
+                    // MenuItem Exclusive Placement                    
                     var elementSize = this.associatedElements[i].DesiredSize;
                     this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
@@ -749,10 +741,10 @@
                 else
                 {
                     if ((RibbonProperties.GetSize(this.associatedElements[i]) != RibbonControlSize.Large)
-                        || (this.associatedElements[i] is Spinner)
-                        || (this.associatedElements[i] is ComboBox)
-                        || (this.associatedElements[i] is TextBox)
-                        || (this.associatedElements[i] is CheckBox))
+                        || this.associatedElements[i] is Spinner
+                        || this.associatedElements[i] is ComboBox
+                        || this.associatedElements[i] is TextBox
+                        || this.associatedElements[i] is CheckBox)
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(this.associatedElements[i]);
                         var translatedPoint = this.associatedElements[i].TranslatePoint(new Point(this.keyTips[i].DesiredSize.Width / 2.0, this.keyTips[i].DesiredSize.Height / 2.0), this.AdornedElement);
@@ -880,8 +872,7 @@
                 name += $" ({headeredControl.Header})";
             }
 
-            var formatted = string.Format(format, args);
-            Debug.WriteLine($"{$"[{name}] "}{formatted}", "KeyTipAdorner");
+            Debug.WriteLine($"[{name}] {string.Format(format, args)}", "KeyTipAdorner");
         }
 
         #endregion

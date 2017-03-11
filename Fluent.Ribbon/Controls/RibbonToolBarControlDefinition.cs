@@ -1,10 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using Fluent.Extensibility;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represent logical definition for a control in toolbar
@@ -58,7 +59,7 @@ namespace Fluent
         #endregion
 
         #region Target Property
-        
+
         /// <summary>
         /// Gets or sets name of the target control
         /// </summary>
@@ -73,19 +74,19 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register("Target", typeof(string),
-            typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(null, OnTargetPropertyChanged));
+            DependencyProperty.Register(nameof(Target), typeof(string),
+            typeof(RibbonToolBarControlDefinition), new PropertyMetadata(OnTargetPropertyChanged));
 
-        static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonToolBarControlDefinition definition = (RibbonToolBarControlDefinition) d;
-            definition.Invalidate("Target");
+            var definition = (RibbonToolBarControlDefinition)d;
+            definition.Invalidate(nameof(Target));
         }
 
         #endregion
 
         #region Width Property
-        
+
         /// <summary>
         /// Gets or sets width of the target control
         /// </summary>
@@ -100,12 +101,12 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register("Width", typeof(double), typeof(RibbonToolBarControlDefinition), new UIPropertyMetadata(double.NaN, OnWidthPropertyChanged));
+            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(DoubleBoxes.NaN, OnWidthPropertyChanged));
 
-        static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonToolBarControlDefinition definition = (RibbonToolBarControlDefinition) d;
-            definition.Invalidate("Width");
+            var definition = (RibbonToolBarControlDefinition)d;
+            definition.Invalidate(nameof(Width));
         }
 
         #endregion
@@ -119,8 +120,7 @@ namespace Fluent
 
         private void Invalidate(string propertyName)
         {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

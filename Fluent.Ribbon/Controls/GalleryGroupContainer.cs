@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents container of grouped gallery items in GalleryPanel or Gallery
     /// </summary>
@@ -41,8 +43,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
-            DependencyProperty.Register("IsHeadered", typeof(bool),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsHeadered), typeof(bool),
+            typeof(GalleryGroupContainer), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -62,8 +64,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(Orientation.Horizontal));
+            DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
+            typeof(GalleryGroupContainer), new PropertyMetadata(Orientation.Horizontal));
 
         #endregion
 
@@ -84,8 +86,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register("ItemWidth", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemWidth), typeof(double),
+            typeof(GalleryGroupContainer), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -106,8 +108,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(ItemHeight), typeof(double),
+            typeof(GalleryGroupContainer), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -127,8 +129,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
-            DependencyProperty.Register("MinItemsInRow", typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(0, OnMaxMinItemsInRowChanged));
+            DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
+            typeof(GalleryGroupContainer), new PropertyMetadata(IntBoxes.Zero, OnMaxMinItemsInRowChanged));
 
         #endregion
 
@@ -148,8 +150,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register("MaxItemsInRow", typeof(int),
-            typeof(GalleryGroupContainer), new UIPropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
+            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
+            typeof(GalleryGroupContainer), new PropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
 
         #endregion
 

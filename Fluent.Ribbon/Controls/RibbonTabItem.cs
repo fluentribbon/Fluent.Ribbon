@@ -11,18 +11,21 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.Linq;
     using System.Windows.Data;
+    using Fluent.Extensions;
+    using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents ribbon tab item
     /// </summary>
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
-    [ContentProperty("Groups")]
-    [DefaultProperty("Groups")]
-    [DefaultEvent("IsSelectedChanged")]
+    [ContentProperty(nameof(Groups))]
+    [DefaultProperty(nameof(Groups))]
     public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl
     {
         #region Fields
@@ -38,7 +41,6 @@ namespace Fluent
 
         // Ribbon groups container
         private readonly RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
-        private readonly ScrollViewer groupsContainer = new ScrollViewer();
 
         // Cached width
         private double cachedWidth;
@@ -46,6 +48,40 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        #region Colors/Brushes
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the background if this <see cref="RibbonTabItem"/> is the currently active/selected one.
+        /// </summary>
+        public Brush ActiveTabBackground
+        {
+            get { return (Brush)this.GetValue(ActiveTabBackgroundProperty); }
+            set { this.SetValue(ActiveTabBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBackground"/>.
+        /// </summary>
+        public static readonly DependencyProperty ActiveTabBackgroundProperty =
+            DependencyProperty.Register(nameof(ActiveTabBackground), typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the border if this <see cref="RibbonTabItem"/> is the currently active/selected one.
+        /// </summary>
+        public Brush ActiveTabBorderBrush
+        {
+            get { return (Brush)this.GetValue(ActiveTabBorderBrushProperty); }
+            set { this.SetValue(ActiveTabBorderBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ActiveTabBorderBrush"/>.
+        /// </summary>
+        public static readonly DependencyProperty ActiveTabBorderBrushProperty =
+            DependencyProperty.Register(nameof(ActiveTabBorderBrush), typeof(Brush), typeof(RibbonTabItem), new PropertyMetadata());
+
+        #endregion
 
         #region KeyTip
 
@@ -69,10 +105,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon groups container
         /// </summary>
-        public ScrollViewer GroupsContainer
-        {
-            get { return this.groupsContainer; }
-        }
+        public ScrollViewer GroupsContainer { get; } = new ScrollViewer();
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
@@ -87,7 +120,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsMinimized.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether ribbon is opened
@@ -102,7 +135,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsOpen.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register("IsOpen", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets reduce order
@@ -125,7 +158,7 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsContextualPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsContextual", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(IsContextual), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsContextual.  
@@ -140,7 +173,7 @@ namespace Fluent
         {
             get
             {
-                yield return this.groupsContainer;
+                yield return this.GroupsContainer;
             }
         }
 
@@ -166,7 +199,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSelected.  
         /// This enables animation, styling, binding, etc...
         /// </summary>  
-        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, new PropertyChangedCallback(OnIsSelectedChanged)));
+        public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
 
         /// <summary>
         /// Gets ribbon tab control parent
@@ -175,7 +208,7 @@ namespace Fluent
         {
             get
             {
-                return (ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl);
+                return ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl;
             }
         }
 
@@ -193,7 +226,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register("Indent", typeof(double), typeof(RibbonTabItem), new UIPropertyMetadata((double)12.0));
+            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(12.0));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -208,7 +241,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsSeparatorVisible.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
-            DependencyProperty.Register("IsSeparatorVisible", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets ribbon contextual tab group
@@ -223,17 +256,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Group.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register("Group", typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnGroupChanged));
+            DependencyProperty.Register(nameof(Group), typeof(RibbonContextualTabGroup), typeof(RibbonTabItem), new PropertyMetadata(OnGroupChanged));
 
         // handles Group property chanhged
         private static void OnGroupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tab = (RibbonTabItem)d;
 
-            if (e.OldValue != null)
-            {
-                ((RibbonContextualTabGroup)e.OldValue).RemoveTabItem(tab);
-            }
+            ((RibbonContextualTabGroup)e.OldValue)?.RemoveTabItem(tab);
 
             if (e.NewValue != null)
             {
@@ -273,7 +303,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasLeftGroupBorderProperty =
-            DependencyProperty.Register("HasLeftGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasLeftGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Gets or sets whether tab item has right group border
@@ -288,11 +318,12 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HaseLeftGroupBorder.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasRightGroupBorderProperty =
-            DependencyProperty.Register("HasRightGroupBorder", typeof(bool), typeof(RibbonTabItem), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(HasRightGroupBorder), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// get collection of ribbon groups
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonGroupBox> Groups
         {
             get
@@ -317,7 +348,7 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
@@ -360,7 +391,7 @@ namespace Fluent
         /// </summary>
         public object Header
         {
-            get { return (object)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
@@ -368,12 +399,12 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RibbonTabItem), new UIPropertyMetadata(null, OnHeaderChanged));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, OnHeaderChanged));
 
         // Header changed handler
-        static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem tabItem = (RibbonTabItem)d;
+            var tabItem = (RibbonTabItem)d;
             tabItem.CoerceValue(ToolTipProperty);
         }
 
@@ -399,14 +430,12 @@ namespace Fluent
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
             var control = d as RibbonTabItem;
-            if (control != null)
+            var ribbon = control?.FindParentRibbon();
+
+            if (ribbon != null)
             {
-                var ribbon = control.FindParentRibbon();
-                if (ribbon != null)
-                {
-                    return ((bool)basevalue)
-                        && ribbon.Focusable;
-                }
+                return (bool)basevalue
+                       && ribbon.Focusable;
             }
 
             return basevalue;
@@ -446,18 +475,6 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
-            StyleProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonTabItem));
-            }
-
-            return basevalue;
         }
 
         // Handles visibility changes
@@ -470,10 +487,7 @@ namespace Fluent
                 return;
             }
 
-            if (item.Group != null)
-            {
-                item.Group.UpdateInnerVisiblityAndGroupBorders();
-            }
+            item.Group?.UpdateInnerVisiblityAndGroupBorders();
 
             if (item.IsSelected
                 && (Visibility)e.NewValue == Visibility.Collapsed)
@@ -510,8 +524,8 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem()
         {
-            this.AddLogicalChild(this.groupsContainer);
-            this.groupsContainer.Content = this.groupsInnerContainer;
+            this.AddLogicalChild(this.GroupsContainer);
+            this.GroupsContainer.Content = this.groupsInnerContainer;
 
             // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
             this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding("DataContext")
@@ -547,34 +561,58 @@ namespace Fluent
             }
 
             this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
-            Size baseConstraint = base.MeasureOverride(constraint);
-            double totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
-            (this.contentContainer.Child).Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            double headerWidth = this.contentContainer.Child.DesiredSize.Width;
+            var baseConstraint = base.MeasureOverride(constraint);
+            var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
+            this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var headerWidth = this.contentContainer.Child.DesiredSize.Width;
+
             if (totalWidth < headerWidth + this.Indent * 2)
             {
-                double newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
+                var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
                 this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
             }
             else
             {
-                if (this.desiredWidth != 0)
+                if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
                 {
                     // If header width is larger then tab increase tab width
-                    if ((constraint.Width > this.desiredWidth) && (this.desiredWidth > totalWidth)) baseConstraint.Width = this.desiredWidth;
+                    if (constraint.Width > this.desiredWidth
+                        && this.desiredWidth > totalWidth)
+                    {
+                        baseConstraint.Width = this.desiredWidth;
+                    }
                     else
+                    {
                         baseConstraint.Width = headerWidth + this.Indent * 2 + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
+                    }
                 }
             }
 
-            if ((this.cachedWidth != baseConstraint.Width) && (this.IsContextual) && (this.Group != null))
+            if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false 
+                && this.IsContextual 
+                && this.Group != null)
             {
                 this.cachedWidth = baseConstraint.Width;
-                FrameworkElement parent = (VisualTreeHelper.GetParent(this.Group) as FrameworkElement);
-                if (parent != null) parent.InvalidateMeasure();
+
+                var contextualTabGroupContainer = UIHelper.GetParent<RibbonContextualGroupsContainer>(this.Group);
+                contextualTabGroupContainer?.InvalidateMeasure();
+
+                var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+                ribbonTitleBar?.ForceMeasureAndArrange();
             }
 
             return baseConstraint;
+        }
+
+        /// <inheritdoc />
+        protected override Size ArrangeOverride(Size arrangeBounds)
+        {
+            var result = base.ArrangeOverride(arrangeBounds);
+
+            var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
+            ribbonTitleBar?.ForceMeasureAndArrange();
+
+            return result;
         }
 
         /// <summary>
@@ -593,7 +631,7 @@ namespace Fluent
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            if (e.Source == this
+            if (ReferenceEquals(e.Source, this)
                 && e.ClickCount == 2)
             {
                 e.Handled = true;
@@ -607,8 +645,8 @@ namespace Fluent
                     }
                 }
             }
-            else if (e.Source == this
-                || !this.IsSelected)
+            else if (ReferenceEquals(e.Source, this)
+                || this.IsSelected == false)
             {
                 if (this.Visibility == Visibility.Visible)
                 {
@@ -616,7 +654,7 @@ namespace Fluent
                     {
                         var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
 
-                        if (this.TabControlParent.SelectedTabItem == newItem)
+                        if (ReferenceEquals(this.TabControlParent.SelectedTabItem, newItem))
                         {
                             this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
                         }
@@ -644,20 +682,24 @@ namespace Fluent
         // Handles IsSelected property changes
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonTabItem container = d as RibbonTabItem;
-            bool newValue = (bool)e.NewValue;
+            var container = (RibbonTabItem)d;
+            var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if ((container.TabControlParent != null) && (container.TabControlParent.SelectedItem is RibbonTabItem) && (container.TabControlParent.SelectedItem != container))
-                    (container.TabControlParent.SelectedItem as RibbonTabItem).IsSelected = false;
+                if (container.TabControlParent?.SelectedItem is RibbonTabItem
+                    && ReferenceEquals(container.TabControlParent.SelectedItem, container) == false)
+                {
+                    ((RibbonTabItem)container.TabControlParent.SelectedItem).IsSelected = false;
+                }
+
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
             }
             else
             {
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
             }
-
         }
+
         /// <summary>
         /// Handles selected
         /// </summary>
@@ -721,20 +763,17 @@ namespace Fluent
         /// </summary>
         public void OnKeyTipPressed()
         {
-            if (this.TabControlParent != null)
-            {
-                var currentSelectedItem = this.TabControlParent.SelectedItem as RibbonTabItem;
+            var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
 
-                if (currentSelectedItem != null)
-                {
-                    currentSelectedItem.IsSelected = false;
-                }
+            if (currentSelectedItem != null)
+            {
+                currentSelectedItem.IsSelected = false;
             }
 
             this.IsSelected = true;
 
             // This way keytips for delay loaded elements work correctly. Partially fixes #244.
-            Application.Current.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
         }
 
         /// <summary>

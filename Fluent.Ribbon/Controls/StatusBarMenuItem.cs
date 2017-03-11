@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using Fluent;
+﻿using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
@@ -27,9 +23,9 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for StatusBarItem.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StatusBarItemProperty =
-            DependencyProperty.Register("StatusBarItem", typeof(StatusBarItem), typeof(StatusBarMenuItem), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(StatusBarItem), typeof(StatusBarItem), typeof(StatusBarMenuItem), new PropertyMetadata());
 
-        
+
         #endregion
 
         #region Constructors

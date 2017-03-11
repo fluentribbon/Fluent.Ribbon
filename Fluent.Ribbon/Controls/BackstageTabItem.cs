@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.ComponentModel;
@@ -6,6 +7,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents backstage tab item
@@ -48,7 +50,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsSelectedProperty =
             Selector.IsSelectedProperty.AddOwner(typeof(BackstageTabItem),
-            new FrameworkPropertyMetadata(false,
+            new FrameworkPropertyMetadata(BooleanBoxes.FalseBox,
                 FrameworkPropertyMetadataOptions.Journal |
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault |
                 FrameworkPropertyMetadataOptions.AffectsParentMeasure,
@@ -78,7 +80,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata(null));
+        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata());
 
         /// <summary>
         /// Static constructor

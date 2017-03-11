@@ -31,6 +31,9 @@ _ReSharper*/
 # Publishing directory
 publish/
 
+# Tools directory
+tools/
+
 # NuGet Packages
 *.nupkg
 
@@ -39,6 +42,8 @@ Fluent.Ribbon/Themes/**/Generic.xaml
 packages/
 .tmp
 
+# Result files
+TestResult.xml
+
 # Allowed files
-!Fluent.Ribbon/Themes/Generic.xaml
 !Fluent.Ribbon/Themes/XamlCombine.exe

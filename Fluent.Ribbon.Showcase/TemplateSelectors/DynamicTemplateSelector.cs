@@ -60,8 +60,9 @@ namespace FluentTest.TemplateSelectors
                     {
                         //In this case, we are checking whether the type of the item
                         //is the same as the type supported by our DataTemplate
-                        if (template.DataType is Type
-                            && ((Type)template.DataType).IsInstanceOfType(item))
+                        var dataType = template.DataType as Type;
+                        if (dataType != null
+                            && dataType.IsInstanceOfType(item))
                         {
                             //And if it is, then we return that DataTemplate
                             return template;

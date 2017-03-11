@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Diagnostics;
@@ -13,6 +14,7 @@
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
 	///     Represents custom Fluent UI ComboBox
@@ -43,7 +45,7 @@
         // Is visual currently snapped
         private bool isSnapped;
 
-        private GalleryPanel galleryPanel;
+        //private GalleryPanel galleryPanel;
 
         private ScrollViewer scrollViewer;
 
@@ -153,15 +155,23 @@
         /// <summary>
         ///     Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ComboBox), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = d as ComboBox;
+            var element = (ComboBox)d;
+
             var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null) element.RemoveLogicalChild(oldElement);
+            if (oldElement != null)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
             var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null) element.AddLogicalChild(newElement);
+            if (newElement != null)
+            {
+                element.AddLogicalChild(newElement);
+            }
         }
 
         #endregion
@@ -181,7 +191,7 @@
         ///     Using a DependencyProperty as the backing store for Menu.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(RibbonMenu), typeof(ComboBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Menu), typeof(RibbonMenu), typeof(ComboBox), new PropertyMetadata());
 
         #endregion
 
@@ -200,48 +210,7 @@
         ///     Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
-        #endregion
-
-        #region ItemHeight
-
-        /// <summary>
-        ///     Gets or sets items height
-        /// </summary>
-        public double ItemHeight
-        {
-            get { return (double)this.GetValue(ItemHeightProperty); }
-            set { this.SetValue(ItemHeightProperty, value); }
-        }
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register("ItemHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
-        #endregion
-
-        #region GroupBy
-
-        /// <summary>
-        ///     Gets or sets name of property which
-        ///     will use to group items in the ComboBox.
-        /// </summary>
-        public string GroupBy
-        {
-            get { return (string)this.GetValue(GroupByProperty); }
-            set { this.SetValue(GroupByProperty, value); }
-        }
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for GroupBy.
-        ///     This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupByProperty =
-            DependencyProperty.Register("GroupBy", typeof(string),
-                typeof(ComboBox), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -260,7 +229,7 @@
         ///     Using a DependencyProperty as the backing store for ResizeMode.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
-            DependencyProperty.Register("ResizeMode", typeof(ContextMenuResizeMode), typeof(ComboBox), new UIPropertyMetadata(ContextMenuResizeMode.None));
+            DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode), typeof(ComboBox), new PropertyMetadata(ContextMenuResizeMode.None));
 
         #endregion
 
@@ -277,7 +246,7 @@
             {
                 if (value == this.isSnapped) return;
                 if (this.snappedImage == null) return;
-                if ((value) && (((int)this.contentSite.ActualWidth > 0) && ((int)this.contentSite.ActualHeight > 0)))
+                if (value && ((int)this.contentSite.ActualWidth > 0) && ((int)this.contentSite.ActualHeight > 0))
                 {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
@@ -322,29 +291,7 @@
         ///     etc...
         /// </summary>
         public static readonly DependencyProperty DropDownHeightProperty =
-            DependencyProperty.Register("InitialDropDownHeight", typeof(double), typeof(ComboBox), new UIPropertyMetadata(double.NaN));
-
-        #endregion
-
-        #region ShowPopupOnTop
-
-        /// <summary>
-        ///     Gets a value indicating whether popup is shown on top;
-        /// </summary>
-        public bool ShowPopupOnTop
-        {
-            get { return (bool)this.GetValue(ShowPopupOnTopProperty); }
-            private set { this.SetValue(ShowPopupOnTopPropertyKey, value); }
-        }
-
-        // 
-        private static readonly DependencyPropertyKey ShowPopupOnTopPropertyKey = DependencyProperty.RegisterReadOnly("ShowPopupOnTop", typeof(bool), typeof(ComboBox), new UIPropertyMetadata(false));
-
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for ShowPopupOnTop.  This enables animation, styling, binding,
-        ///     etc...
-        /// </summary>
-        public static readonly DependencyProperty ShowPopupOnTopProperty = ShowPopupOnTopPropertyKey.DependencyProperty;
+            DependencyProperty.Register(nameof(DropDownHeight), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -368,14 +315,24 @@
 
         private static void OnSelectionItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var combo = d as ComboBox;
-            if (!combo.isQuickAccessOpened && !combo.isQuickAccessFocused && (combo.quickAccessCombo != null)) combo.UpdateQuickAccessCombo();
+            var combo = (ComboBox)d;
+            if (combo.isQuickAccessOpened == false
+                && combo.isQuickAccessFocused == false
+                && combo.quickAccessCombo != null)
+            {
+                combo.UpdateQuickAccessCombo();
+            }
         }
 
         private static object CoerceSelectedItem(DependencyObject d, object basevalue)
         {
-            var combo = d as ComboBox;
-            if (combo.isQuickAccessOpened || combo.isQuickAccessFocused) return combo.selectedItem;
+            var combo = (ComboBox)d;
+            if (combo.isQuickAccessOpened
+                || combo.isQuickAccessFocused)
+            {
+                return combo.selectedItem;
+            }
+
             return basevalue;
         }
 
@@ -401,23 +358,21 @@
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
-            RibbonControl.Bind(this, combo, "GroupBy", GroupByProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ActualWidth", WidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "InputWidth", InputWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemHeight", ItemHeightProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "IsEditable", IsEditableProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "IsReadOnly", IsReadOnlyProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ResizeMode", ResizeModeProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "Text", TextProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, combo, nameof(this.ActualWidth), WidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.InputWidth), InputWidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.IsEditable), IsEditableProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.Text), TextProperty, BindingMode.TwoWay);
 
-            RibbonControl.Bind(this, combo, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "SelectedValuePath", SelectedValuePathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += this.OnQuickAccessOpened;
             if (this.IsEditable) combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;
             this.quickAccessCombo = combo;
@@ -449,14 +404,28 @@
             this.isQuickAccessOpened = true;
             this.quickAccessCombo.DropDownClosed += this.OnQuickAccessMenuClosed;
             this.quickAccessCombo.UpdateLayout();
-            if (!this.isQuickAccessFocused)
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, ((ThreadStart)(() =>
-                {
-                    this.Freeze();
-                    this.Dispatcher.BeginInvoke(DispatcherPriority.Input, ((ThreadStart)(() => { if (this.quickAccessCombo.SelectedItem != null) (this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as ComboBoxItem).BringIntoView(); }
-                        )));
-                }
-                    )));
+
+            if (this.isQuickAccessFocused == false)
+            {
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)this.FreezeAnBringSelectedItemIntoView);
+            }
+        }
+
+        private void FreezeAnBringSelectedItemIntoView()
+        {
+            this.Freeze();
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Input, (ThreadStart)this.BringSelectedItemIntoView);
+        }
+
+        private void BringSelectedItemIntoView()
+        {
+            if (this.quickAccessCombo.SelectedItem == null)
+            {
+                return;
+            }
+
+            var containerFromItem = this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as FrameworkElement;
+            containerFromItem?.BringIntoView();
         }
 
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
@@ -544,7 +513,7 @@
         ///     Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling,
         ///     binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
 
@@ -587,7 +556,6 @@
             this.contentBorder = this.GetTemplateChild("PART_ContentBorder") as Border;
             if (this.contentBorder != null) this.contentBorder.PreviewMouseDown += this.OnContentBorderPreviewMouseDown;
 
-            this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
             this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
@@ -619,11 +587,10 @@
 
             this.canSizeY = true;
 
-            this.galleryPanel.Width = double.NaN;
+            this.scrollViewer.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
 
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
-            var heightDelta = popupChild.DesiredSize.Height - this.scrollViewer.DesiredSize.Height;
 
             var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
@@ -636,48 +603,8 @@
             {
                 this.scrollViewer.Height = initialHeight;
             }
-            else
-            {
-                initialHeight = this.scrollViewer.DesiredSize.Height;
-            }
 
-            var monitor = RibbonControl.GetControlMonitor(this);
-            var delta = monitor.Bottom - this.PointToScreen(new Point()).Y - this.ActualHeight - initialHeight - heightDelta;
-
-            if (delta >= 0)
-            {
-                this.ShowPopupOnTop = false;
-            }
-            else
-            {
-                var deltaTop = this.PointToScreen(new Point()).Y - initialHeight - heightDelta - monitor.Top;
-
-                if (deltaTop > delta)
-                {
-                    this.ShowPopupOnTop = true;
-                }
-                else
-                {
-                    this.ShowPopupOnTop = false;
-                }
-
-                if (deltaTop < 0)
-                {
-                    delta = Math.Max(Math.Abs(delta), Math.Abs(deltaTop));
-
-                    if (delta > this.galleryPanel.GetItemSize().Height)
-                    {
-                        this.scrollViewer.Height = delta;
-                    }
-                    else
-                    {
-                        this.canSizeY = false;
-                        this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
-                    }
-                }
-            }
-
-            popupChild.UpdateLayout();
+            popupChild?.UpdateLayout();
         }
 
         /// <summary>
@@ -687,25 +614,39 @@
         protected override void OnDropDownClosed(EventArgs e)
         {
             base.OnDropDownClosed(e);
-            if (Mouse.Captured == this) Mouse.Capture(null);
-            if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+
+            if (ReferenceEquals(Mouse.Captured, this))
+            {
+                Mouse.Capture(null);
+            }
+
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            }
+
             this.focusedElement = null;
-            this.ShowPopupOnTop = false;
-            this.galleryPanel.Width = double.NaN;
+            this.scrollViewer.Width = double.NaN;
             this.scrollViewer.Height = double.NaN;
         }
 
         private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
-            if (this.focusedElement != null) this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            if (this.focusedElement != null)
+            {
+                this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
+            }            
+
             this.focusedElement = Keyboard.FocusedElement;
+
             if (this.focusedElement != null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
-                if ((this.IsEditable) &&
-                    (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject))))
+
+                if (this.IsEditable &&
+                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement);
                 }
             }
         }
@@ -716,7 +657,7 @@
         /// <param name="e">Event data.</param>
         protected override void OnPreviewKeyDown(KeyEventArgs e)
         {
-            if ((this.IsEditable) && ((e.Key == Key.Down) || (e.Key == Key.Up)) && (!this.IsDropDownOpen))
+            if (this.IsEditable && ((e.Key == Key.Down) || (e.Key == Key.Up)) && !this.IsDropDownOpen)
             {
                 this.IsDropDownOpen = true;
                 e.Handled = true;
@@ -735,39 +676,51 @@
             if (e.Key == Key.Down)
             {
                 Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                if (this.Menu != null 
+                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfMSelectedItem != this.Menu.Items.Count - 1)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem + 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Items.Count > 0) && (!this.IsEditable))
+                        if ((this.Items.Count > 0) && !this.IsEditable)
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         }
                         else Keyboard.Focus(this.Menu.Items[0] as IInputElement);
                     }
                 }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfSelectedItem != this.Items.Count - 1)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem + 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && (!this.IsEditable)) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        if (this.Menu != null
+                            && this.Menu.Items.Count > 0
+                            && this.IsEditable == false)
+                        {
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        }
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         }
                     }
                 }
-                else if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                else if (this.SelectedItem != null)
+                {
+                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                }
+
                 e.Handled = true;
                 Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
                 return;
@@ -775,44 +728,60 @@
             else if (e.Key == Key.Up)
             {
                 Debug.WriteLine("Up pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if ((this.Menu != null) && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+
+                if (this.Menu != null 
+                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
                     if (indexOfMSelectedItem != 0)
                     {
                         Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem - 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Items.Count > 0) && (!this.IsEditable))
+                        if (this.Items.Count > 0
+                            && this.IsEditable == false)
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
                         }
-                        else Keyboard.Focus(this.Menu.Items[this.Menu.Items.Count - 1] as IInputElement);
+                        else
+                        {
+                            Keyboard.Focus(this.Menu.Items[this.Menu.Items.Count - 1] as IInputElement);
+                        }
                     }
                 }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer(Keyboard.FocusedElement as DependencyObject)))
+                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer(Keyboard.FocusedElement as DependencyObject);
+                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
                     if (indexOfSelectedItem != 0)
                     {
                         Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem - 1) as IInputElement);
                     }
                     else
                     {
-                        if ((this.Menu != null) && (this.Menu.Items.Count > 0) && (!this.IsEditable)) Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                        if (this.Menu != null
+                            && this.Menu.Items.Count > 0
+                            && this.IsEditable == false)
+                        {
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                        }
                         else
                         {
                             Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
                         }
                     }
                 }
-                else if (this.SelectedItem != null) Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                else if (this.SelectedItem != null)
+                {
+                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                }
+
                 Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
                 e.Handled = true;
                 return;
             }
-            else if ((e.Key == Key.Return) && (!this.IsEditable) && this.IsDropDownOpen)
+            else if ((e.Key == Key.Return) && !this.IsEditable && this.IsDropDownOpen)
             {
                 var element = Keyboard.FocusedElement as DependencyObject;
 
@@ -828,6 +797,7 @@
                     }
                 }
             }
+
             base.OnKeyDown(e);
         }
 
@@ -855,7 +825,7 @@
                 },
                 this);
 
-            if (!this.IsEditable)
+            if (this.IsEditable == false)
             {
                 this.IsDropDownOpen = true;
             }
@@ -890,24 +860,30 @@
 
             // Set width
             this.menuPanel.Width = double.NaN;
-            if (double.IsNaN(this.galleryPanel.Width))
+            if (double.IsNaN(this.scrollViewer.Width))
             {
-                this.galleryPanel.Width = this.galleryPanel.ActualWidth;
+                this.scrollViewer.Width = this.scrollViewer.ActualWidth;
             }
 
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
+
+            if (popupChild == null)
+            {
+                return;
+            }
+
             var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
-            var deltaX = popupChild.ActualWidth - this.galleryPanel.ActualWidth;
-            var deltaBorders = this.dropDownBorder.ActualWidth - this.galleryPanel.ActualWidth;
+            var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
+            var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
 
             if (delta > 0)
             {
-                this.galleryPanel.Width = Math.Max(0, Math.Max(this.galleryPanel.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(this.scrollViewer.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
             }
             else
             {
-                this.galleryPanel.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, this.ActualWidth - deltaBorders));
             }
         }
 
@@ -919,7 +895,7 @@
 
         private void SetDragHeight(DragDeltaEventArgs e)
         {
-            if (!this.canSizeY)
+            if (this.canSizeY == false)
             {
                 return;
             }
@@ -929,41 +905,7 @@
                 this.scrollViewer.Height = this.scrollViewer.ActualHeight;
             }
 
-            if (this.ShowPopupOnTop)
-            {
-                var monitorTop = RibbonControl.GetControlMonitor(this).Top;
-
-                // Calc shadow height
-                var delta = this.PointToScreen(new Point()).Y - this.dropDownBorder.ActualHeight - e.VerticalChange - monitorTop;
-                if (delta > 0)
-                {
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
-                }
-                else
-                {
-                    delta = this.PointToScreen(new Point()).Y - this.dropDownBorder.ActualHeight - monitorTop;
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + delta), this.MaxDropDownHeight));
-                }
-            }
-            else
-            {
-                var monitorBottom = RibbonControl.GetControlMonitor(this).Bottom;
-                var popupChild = this.DropDownPopup.Child as FrameworkElement;
-                var delta = monitorBottom - this.PointToScreen(new Point()).Y - this.ActualHeight - popupChild.ActualHeight - e.VerticalChange;
-                if (delta > 0)
-                {
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
-                }
-                else
-                {
-                    delta = monitorBottom - this.PointToScreen(new Point()).Y - this.ActualHeight - popupChild.ActualHeight;
-                    this.scrollViewer.Height = Math.Max(0,
-                        Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + delta), this.MaxDropDownHeight));
-                }
-            }
+            this.scrollViewer.Height = Math.Max(0, this.scrollViewer.Height + e.VerticalChange);
         }
 
         #endregion

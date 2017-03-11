@@ -5,25 +5,25 @@
         <version>$Version$</version>
         <title>Fluent.Ribbon</title>
         <summary>Fluent.Ribbon is a library that implements an Office-like Ribbon for WPF.</summary>
-        <description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on. It is bundled with Office 2010, Office 2013 and Windows 8 themes.</description>
+        <description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</description>
         <releaseNotes>You can read the changelog at: https://github.com/fluentribbon/Fluent.Ribbon/blob/master/Changelog.md</releaseNotes>
         <authors>batzen</authors>
         <licenseUrl>https://github.com/fluentribbon/Fluent.Ribbon/blob/master/License.txt</licenseUrl>
         <projectUrl>https://github.com/fluentribbon/Fluent.Ribbon</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <tags>ribbon fluent ribbon ribbonwindow office2010 office2013 windows8 backstage</tags>
+        <tags>fluent office ribbon ribbonwindow backstage</tags>
         <dependencies>
-            <dependency id="ControlzEx" version="2.0.1.61" />
+            <dependency id="ControlzEx" version="(2.1,3.0)" />
         </dependencies>
     </metadata>
     <files>
-        <file src="build\bin\NET 4.0\$Configuration$\Fluent.dll" target="lib\net40" />
-        <file src="build\bin\NET 4.0\$Configuration$\Fluent.pdb" target="lib\net40" />
-        <file src="build\bin\NET 4.0\$Configuration$\Fluent.XML" target="lib\net40" />
+        <file src="bin\Fluent\$Configuration$v4.0\Fluent.dll" target="lib\net40" />
+        <file src="bin\Fluent\$Configuration$v4.0\Fluent.pdb" target="lib\net40" />
+        <file src="bin\Fluent\$Configuration$v4.0\Fluent.XML" target="lib\net40" />
 
-        <file src="build\bin\NET 4.5\$Configuration$\Fluent.dll" target="lib\net45" />
-        <file src="build\bin\NET 4.5\$Configuration$\Fluent.pdb" target="lib\net45" />
-        <file src="build\bin\NET 4.5\$Configuration$\Fluent.XML" target="lib\net45" />
+        <file src="bin\Fluent\$Configuration$v4.5\Fluent.dll" target="lib\net45" />
+        <file src="bin\Fluent\$Configuration$v4.5\Fluent.pdb" target="lib\net45" />
+        <file src="bin\Fluent\$Configuration$v4.5\Fluent.XML" target="lib\net45" />
     </files>
 </package>

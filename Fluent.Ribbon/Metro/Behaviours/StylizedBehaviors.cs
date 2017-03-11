@@ -6,19 +6,19 @@ namespace Fluent.Metro.Behaviours
     /// <summary>
     /// Enables the use of behaviors in styles
     /// </summary>
-    public class StylizedBehaviors
+    public static class StylizedBehaviors
     {
-        private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached(@"OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new UIPropertyMetadata(null));
+        private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached("OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Behaviors.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.RegisterAttached(
-            @"Behaviors",
+            "Behaviors",
             typeof(StylizedBehaviorCollection),
             typeof(StylizedBehaviors),
-            new FrameworkPropertyMetadata(null, OnPropertyChanged));
+            new PropertyMetadata(OnPropertyChanged));
 
         /// <summary>
         /// Gets Behaviors for element
@@ -43,25 +43,25 @@ namespace Fluent.Metro.Behaviours
 
         private static int GetIndexOf(BehaviorCollection itemBehaviors, Behavior behavior)
         {
-            int index = -1;
+            var index = -1;
 
-            Behavior orignalBehavior = GetOriginalBehavior(behavior);
+            var orignalBehavior = GetOriginalBehavior(behavior);
 
-            for (int i = 0; i < itemBehaviors.Count; i++)
+            for (var i = 0; i < itemBehaviors.Count; i++)
             {
-                Behavior currentBehavior = itemBehaviors[i];
+                var currentBehavior = itemBehaviors[i];
 
-                if (currentBehavior == behavior
-                    || currentBehavior == orignalBehavior)
+                if (ReferenceEquals(currentBehavior, behavior)
+                    || ReferenceEquals(currentBehavior, orignalBehavior))
                 {
                     index = i;
                     break;
                 }
 
-                Behavior currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
+                var currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
 
-                if (currentOrignalBehavior == behavior
-                    || currentOrignalBehavior == orignalBehavior)
+                if (ReferenceEquals(currentOrignalBehavior, behavior)
+                    || ReferenceEquals(currentOrignalBehavior, orignalBehavior))
                 {
                     index = i;
                     break;
@@ -80,12 +80,12 @@ namespace Fluent.Metro.Behaviours
                 return;
             }
 
-            BehaviorCollection itemBehaviors = Interaction.GetBehaviors(uie);
+            var itemBehaviors = Interaction.GetBehaviors(uie);
 
             var newBehaviors = e.NewValue as StylizedBehaviorCollection;
             var oldBehaviors = e.OldValue as StylizedBehaviorCollection;
 
-            if (newBehaviors == oldBehaviors)
+            if (ReferenceEquals(newBehaviors, oldBehaviors))
             {
                 return;
             }
@@ -94,7 +94,7 @@ namespace Fluent.Metro.Behaviours
             {
                 foreach (var behavior in oldBehaviors)
                 {
-                    int index = GetIndexOf(itemBehaviors, behavior);
+                    var index = GetIndexOf(itemBehaviors, behavior);
 
                     if (index >= 0)
                     {
@@ -107,7 +107,7 @@ namespace Fluent.Metro.Behaviours
             {
                 foreach (var behavior in newBehaviors)
                 {
-                    int index = GetIndexOf(itemBehaviors, behavior);
+                    var index = GetIndexOf(itemBehaviors, behavior);
 
                     if (index < 0)
                     {

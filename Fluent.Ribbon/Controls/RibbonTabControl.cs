@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +14,7 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Fluent.Internal.KnownBoxes;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -30,7 +32,6 @@
         private ObservableCollection<UIElement> toolBarItems;
 
         // ToolBar panel
-        private Panel toolbarPanel;
 
         #endregion
 
@@ -61,8 +62,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register("Menu", typeof(UIElement),
-            typeof(RibbonTabControl), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Menu), typeof(UIElement),
+            typeof(RibbonTabControl), new PropertyMetadata());
 
         #endregion
 
@@ -93,7 +94,7 @@
         }
 
         // DependencyProperty key for SelectedContent
-        static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly("SelectedContent", typeof(object), typeof(RibbonTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
@@ -112,7 +113,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="IsMinimized"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register("IsMinimized", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnMinimizedChanged));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnMinimizedChanged));
 
         /// <summary>
         /// Gets or sets whether ribbon can be minimized
@@ -126,7 +127,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register("CanMinimize", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(true));
+        public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
 
         /// <summary>
@@ -141,7 +142,7 @@
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="IsDropDownOpen"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(RibbonTabControl), new UIPropertyMetadata(false, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -173,7 +174,7 @@
         /// Using a DependencyProperty as the backing store for <see cref="HighlightSelectedItem"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HighlightSelectedItemProperty =
-            DependencyProperty.RegisterAttached("HighlightSelectedItem", typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
+            DependencyProperty.RegisterAttached("HighlightSelectedItem", typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.Inherits));
 
         /// <summary>
         /// Gets whether ribbon tabs can scroll
@@ -203,11 +204,12 @@
 
         // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
         internal static readonly DependencyProperty SelectedTabItemProperty =
-            DependencyProperty.Register("SelectedTabItem", typeof(RibbonTabItem), typeof(RibbonTabControl), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(RibbonTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Gets collection of ribbon toolbar items
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<UIElement> ToolBarItems
         {
             get
@@ -222,10 +224,7 @@
             }
         }
 
-        internal Panel ToolbarPanel
-        {
-            get { return this.toolbarPanel; }
-        }
+        internal Panel ToolbarPanel { get; private set; }
 
         // Handle toolbar iitems changes
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -263,7 +262,7 @@
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    this.toolbarPanel.Children.Clear();
+                    this.ToolbarPanel.Children.Clear();
                     foreach (var toolBarItem in this.ToolBarItems)
                     {
                         this.ToolbarPanel.Children.Add(toolBarItem);
@@ -286,7 +285,7 @@
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register("ContentGapHeight", typeof(double), typeof(RibbonTabControl), new UIPropertyMetadata(5D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(RibbonTabControl), new PropertyMetadata(5D));
 
         #endregion
 
@@ -302,18 +301,6 @@
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
             ContextMenuService.Attach(type);
             PopupService.Attach(type);
-            StyleProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, OnCoerceStyle));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = ((FrameworkElement)d).TryFindResource(typeof(RibbonTabControl));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -383,7 +370,7 @@
                 }
             }
 
-            this.toolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
+            this.ToolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
 
             if (this.ToolbarPanel != null
                 && this.toolBarItems != null)
@@ -620,7 +607,7 @@
                     }
 
                     var nextItem = this.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
-                    if (((nextItem != null) && nextItem.IsEnabled) && (nextItem.Visibility == Visibility.Visible))
+                    if ((nextItem != null) && nextItem.IsEnabled && (nextItem.Visibility == Visibility.Visible))
                     {
                         return nextItem;
                     }
@@ -702,7 +689,7 @@
                 ribbonTabItem.IsHitTestVisible = true;
             }
 
-            if (Mouse.Captured == this)
+            if (ReferenceEquals(Mouse.Captured, this))
             {
                 Mouse.Capture(null);
             }
@@ -746,9 +733,7 @@
                 bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
             };
 
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor == IntPtr.Zero)
             {
                 return null;
@@ -804,12 +789,7 @@
         /// </summary>
         public void RaiseRequestBackstageClose()
         {
-            var handler = this.RequestBackstageClose;
-
-            if (handler != null)
-            {
-                handler(this, null);
-            }
+            this.RequestBackstageClose?.Invoke(this, null);
         }
 
         #endregion

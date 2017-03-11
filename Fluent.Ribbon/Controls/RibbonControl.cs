@@ -10,9 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Extensions;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -55,7 +58,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register("Header", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata());
 
         #endregion
 
@@ -73,7 +76,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(object), typeof(RibbonControl), new UIPropertyMetadata(null, OnIconChanged));
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -149,16 +152,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnCommandChanged)));
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata(OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
 
         /// <summary>
         /// Handles Command changed
@@ -195,6 +198,7 @@ namespace Fluent
 
             control.UpdateCanExecute();
         }
+
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
@@ -217,23 +221,6 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Execute command
-        /// </summary>
-        protected void ExecuteCommand()
-        {
-            CommandHelper.Execute(this.Command, this.CommandParameter, this.CommandTarget);
-        }
-
-        /// <summary>
-        /// Determines whether the Command can be executed
-        /// </summary>
-        /// <returns>Returns Command CanExecute</returns>
-        protected bool CanExecuteCommand()
-        {
-            return CommandHelper.CanExecute(this.Command, this.CommandParameter, this.CommandTarget);
-        }
-
         #endregion
 
         #region IsEnabled
@@ -249,7 +236,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
+                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
             }
         }
 
@@ -301,7 +288,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
-            Type type = typeof(RibbonControl);
+            var type = typeof(RibbonControl);
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
         }
@@ -333,62 +320,71 @@ namespace Fluent
         /// <param name="source">Source item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
-            Bind(source, element, "DataContext", DataContextProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(source.DataContext), DataContextProperty, BindingMode.OneWay);
 
             if (source is ICommandSource)
             {
                 if (source is MenuItem)
                 {
-                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                    Bind(source, element, "CommandTarget", System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
-                    Bind(source, element, "Command", System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandParameter), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandTarget), System.Windows.Controls.MenuItem.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.Command), System.Windows.Controls.MenuItem.CommandProperty, BindingMode.OneWay);
                 }
                 else
                 {
-                    Bind(source, element, "CommandParameter", ButtonBase.CommandParameterProperty, BindingMode.OneWay);
-                    Bind(source, element, "CommandTarget", ButtonBase.CommandTargetProperty, BindingMode.OneWay);
-                    Bind(source, element, "Command", ButtonBase.CommandProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandParameter), ButtonBase.CommandParameterProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.CommandTarget), ButtonBase.CommandTargetProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ICommandSource.Command), ButtonBase.CommandProperty, BindingMode.OneWay);
                 }
             }
 
-            Bind(source, element, "ToolTip", ToolTipProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontFamily), FontFamilyProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontSize), FontSizeProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontStretch), FontStretchProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontStyle), FontStyleProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(FontWeight), FontWeightProperty, BindingMode.OneWay);
 
-            Bind(source, element, "FontFamily", FontFamilyProperty, BindingMode.OneWay);
-            Bind(source, element, "FontSize", FontSizeProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStretch", FontStretchProperty, BindingMode.OneWay);
-            Bind(source, element, "FontStyle", FontStyleProperty, BindingMode.OneWay);
-            Bind(source, element, "FontWeight", FontWeightProperty, BindingMode.OneWay);
-
-            Bind(source, element, "Foreground", ForegroundProperty, BindingMode.OneWay);
-            Bind(source, element, "IsEnabled", IsEnabledProperty, BindingMode.OneWay);
-            Bind(source, element, "Opacity", OpacityProperty, BindingMode.OneWay);
-            Bind(source, element, "SnapsToDevicePixels", SnapsToDevicePixelsProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(Foreground), ForegroundProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(IsEnabled), IsEnabledProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(Opacity), OpacityProperty, BindingMode.OneWay);
+            Bind(source, element, nameof(SnapsToDevicePixels), SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
             Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
 
-            var sourceControl = source as IRibbonControl;
-            if (sourceControl != null)
-            {
-                if (sourceControl.Icon != null)
-                {
-                    var iconVisual = sourceControl.Icon as Visual;
-                    if (iconVisual != null)
-                    {
-                        var rect = new Rectangle();
-                        rect.Width = 16;
-                        rect.Height = 16;
-                        rect.Fill = new VisualBrush(iconVisual);
-                        ((IRibbonControl)element).Icon = rect;
-                    }
-                    else
-                    {
-                        Bind(source, element, "Icon", IconProperty, BindingMode.OneWay);
-                    }
-                }
+            var headeredControl = source as IHeaderedControl;
 
-                if (sourceControl.Header != null)
+            if (headeredControl != null)
+            {
+                Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+
+                if (source.ToolTip != null
+                    || BindingOperations.IsDataBound(source, ToolTipProperty))
                 {
-                    Bind(source, element, "Header", HeaderProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
+                }
+                else
+                {
+                    Bind(source, element, nameof(IHeaderedControl.Header), ToolTipProperty, BindingMode.OneWay);
+                }
+            }
+
+            var ribbonControl = source as IRibbonControl;
+            if (ribbonControl?.Icon != null)
+            {
+                var iconVisual = ribbonControl.Icon as Visual;
+                if (iconVisual != null)
+                {
+                    var rect = new Rectangle
+                    {
+                        Width = 16,
+                        Height = 16,
+                        Fill = new VisualBrush(iconVisual)
+                    };
+                    ((IRibbonControl)element).Icon = rect;
+                }
+                else
+                {
+                    Bind(source, element, nameof(IRibbonControl.Icon), IconProperty, BindingMode.OneWay);
                 }
             }
 
@@ -408,7 +404,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register("CanAddToQuickAccessToolBar", typeof(bool), typeof(RibbonControl), new UIPropertyMetadata(true, OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonControl), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanAddToQuickAccessToolbarChanged));
 
         /// <summary>
         /// Occurs then CanAddToQuickAccessToolBar property changed
@@ -429,13 +425,24 @@ namespace Fluent
             Bind(source, target, new PropertyPath(path), property, mode);
         }
 
+        internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
+        {
+            Bind(source, target, new PropertyPath(path), property, mode, updateSourceTrigger);
+        }
+
         internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode)
+        {
+            Bind(source, target, path, property, mode, UpdateSourceTrigger.Default);
+        }
+
+        internal static void Bind(object source, FrameworkElement target, PropertyPath path, DependencyProperty property, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
         {
             var binding = new Binding
             {
                 Path = path,
                 Source = source,
-                Mode = mode
+                Mode = mode,
+                UpdateSourceTrigger = updateSourceTrigger
             };
             target.SetBinding(property, binding);
         }
@@ -475,8 +482,7 @@ namespace Fluent
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
@@ -500,8 +506,8 @@ namespace Fluent
             tabItemRect.top = (int)tabItemPos.Y;
             tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
             tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            const uint MONITOR_DEFAULTTONEAREST = 0x00000002;
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITOR_DEFAULTTONEAREST);
+
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = new MONITORINFO();
@@ -510,6 +516,15 @@ namespace Fluent
                 return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
             }
             return new Rect();
+        }
+
+        /// <summary>
+        /// Get the parent <see cref="Ribbon"/>.
+        /// </summary>
+        /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
+        public static Ribbon GetParentRibbon(DependencyObject obj)
+        {
+            return UIHelper.GetParent<Ribbon>(obj);
         }
 
         #endregion

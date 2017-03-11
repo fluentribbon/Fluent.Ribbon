@@ -5,6 +5,7 @@
     internal static class DoubleUtil
     {
         // Const values come from sdk\inc\crt\float.h
+        // ReSharper disable once InconsistentNaming
         internal const double DBL_EPSILON = 2.2204460492503131e-016; /* smallest such that 1.0+DBL_EPSILON != 1.0 */
 
         /// <summary>
@@ -25,6 +26,7 @@
         public static bool AreClose(double value1, double value2)
         {
             // in case they are Infinities (then epsilon check does not work)
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (value1 == value2)
             {
                 return true;

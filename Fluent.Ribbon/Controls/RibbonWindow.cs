@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -6,10 +7,13 @@
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Interactivity;
+    using System.Windows.Media;
+    using System.Windows.Threading;
     using ControlzEx.Behaviors;
 
     using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     //using WindowChrome = System.Windows.Shell.WindowChrome;
     using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
@@ -21,20 +25,72 @@
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
-    public class RibbonWindow : Window
+    public class RibbonWindow : Window, IRibbonWindow
     {
-        private const string PART_Icon = "PART_Icon";
+        // ReSharper disable InconsistentNaming
+        private const string PART_Icon = "PART_Icon";        
         private const string PART_ContentPresenter = "PART_ContentPresenter";
         private const string PART_WindowCommands = "PART_WindowCommands";
+        // ReSharper restore InconsistentNaming
 
         private FrameworkElement iconImage;
 
         #region Properties
 
+        #region TitelBar
+
+        /// <summary>
+        /// Gets ribbon titlebar
+        /// </summary>
+        public RibbonTitleBar TitleBar
+        {
+            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            private set { this.SetValue(titleBarPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey titleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(RibbonWindow), new PropertyMetadata());
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarProperty = titleBarPropertyKey.DependencyProperty;
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the height which is used to render the window title.
+        /// </summary>
+        public double TitleBarHeight
+        {
+            get { return (double)this.GetValue(TitleBarHeightProperty); }
+            set { this.SetValue(TitleBarHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBarHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBarHeightProperty =
+            DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(RibbonWindow), new PropertyMetadata(DoubleBoxes.Zero));
+
+        /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the window title.
+        /// </summary>
+        public Brush TitleForeground
+        {
+            get { return (Brush)this.GetValue(TitleForegroundProperty); }
+            set { this.SetValue(TitleForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleForeground"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleForegroundProperty =
+            DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register("WindowCommands", typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register(nameof(WindowCommands), typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets the window commands
@@ -58,7 +114,7 @@
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register("ResizeBorderThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(8D)));
+            DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(8D)));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -73,7 +129,7 @@
         /// Using a DependencyProperty as the backing store for GlassFrameThickness.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register("GlassFrameThickness", typeof(Thickness), typeof(RibbonWindow), new UIPropertyMetadata(new Thickness(0D)));
+            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness()));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -88,53 +144,7 @@
         /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RibbonWindow), new UIPropertyMetadata(new CornerRadius(0D)));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for DontUseDwm.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty DontUseDwmProperty =
-            DependencyProperty.Register("DontUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(false, OnDontUseDwmChanged));
-
-        /// <summary>
-        ///  Gets or sets whether DWM should be used.
-        /// </summary>
-        public bool DontUseDwm
-        {
-            get { return (bool)this.GetValue(DontUseDwmProperty); }
-            set { this.SetValue(DontUseDwmProperty, value); }
-        }
-
-        /// <summary>
-        /// Gets wheter DWM can be used (<see cref="NativeMethods.IsDwmEnabled"/> is true and <see cref="DontUseDwm"/> is false).
-        /// </summary>
-        public bool CanUseDwm
-        {
-            get { return (bool)this.GetValue(CanUseDwmProperty); }
-            private set { this.SetValue(CanUseDwmPropertyKey, value); }
-        }
-
-        private static readonly DependencyPropertyKey CanUseDwmPropertyKey = DependencyProperty.RegisterReadOnly("CanUseDwm", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanUseDwm.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CanUseDwmProperty = CanUseDwmPropertyKey.DependencyProperty;
-
-        /// <summary>
-        /// Defines if the default window buttons should be used
-        /// </summary>
-        public bool UseAeroCaptionButtons
-        {
-            get { return (bool)this.GetValue(UseAeroCaptionButtonsProperty); }
-            set { this.SetValue(UseAeroCaptionButtonsProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for UseAeroCaptionButtons.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty UseAeroCaptionButtonsProperty =
-            DependencyProperty.Register("UseAeroCaptionButtons", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RibbonWindow), new PropertyMetadata(new CornerRadius()));
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -148,7 +158,7 @@
         /// <summary>
         /// Gets or sets whether icon is visible
         /// </summary>
-        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register("IsIconVisible", typeof(bool), typeof(RibbonWindow), new UIPropertyMetadata(true));
+        public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>
@@ -165,8 +175,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register("IsCollapsed", typeof(bool),
-            typeof(RibbonWindow), new FrameworkPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
+            typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="Ribbon.MinimalVisibleWidth"/> or <see cref="Ribbon.MinimalVisibleHeight"/>
@@ -182,7 +192,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-            DependencyProperty.Register("IsAutomaticCollapseEnabled", typeof(bool), typeof(RibbonWindow), new PropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -193,25 +203,7 @@
         /// </summary>
         static RibbonWindow()
         {
-            StyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(null, OnCoerceStyle));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-        }
-
-        // Coerce object style
-        private static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue != null)
-            {
-                return basevalue;
-            }
-
-            var frameworkElement = d as FrameworkElement;
-            if (frameworkElement != null)
-            {
-                basevalue = frameworkElement.TryFindResource(typeof(RibbonWindow));
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -230,38 +222,20 @@
         #region Overrides
 
         /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.SourceInitialized"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
-        protected override void OnSourceInitialized(EventArgs e)
-        {
-            base.OnSourceInitialized(e);
-
-            this.UpdateCanUseDwm();
-        }
-
-        /// <summary>
         /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome
         /// </summary>
         private void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(RibbonProperties.TitleBarHeightProperty), Source = this });
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(TitleBarHeightProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.UseAeroCaptionButtonsProperty, new Binding { Path = new PropertyPath(UseAeroCaptionButtonsProperty), Source = this });
+            behavior.UseAeroCaptionButtons = false;
             Interaction.GetBehaviors(this).Add(behavior);
         }
 
         #endregion
-
-        private static void OnDontUseDwmChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var window = d as RibbonWindow;
-
-            window?.UpdateCanUseDwm();
-        }
 
         // Size change to collapse ribbon
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -287,20 +261,12 @@
             }
         }
 
-        private void UpdateCanUseDwm()
-        {
-            this.CanUseDwm = NativeMethods.IsDwmEnabled()
-                          && this.DontUseDwm == false;
-        }
-
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            this.UpdateCanUseDwm();
+            this.TitleBar = this.GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
 
             if (this.iconImage != null)
             {
@@ -323,15 +289,12 @@
             this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Window.StateChanged"/> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+        /// <inheritdoc />
         protected override void OnStateChanged(EventArgs e)
         {
-            this.WindowCommands?.RefreshMaximizeIconState();
-
             base.OnStateChanged(e);
+
+            this.RunInDispatcherAsync(() => this.TitleBar?.ForceMeasureAndArrange(), DispatcherPriority.Background);
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
@@ -343,7 +306,7 @@
                     {
                         e.Handled = true;
 
-                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, RibbonProperties.GetTitleBarHeight(this))));
+                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, this.TitleBarHeight)));
                     }
                     else if (e.ClickCount == 2)
                     {
@@ -356,10 +319,7 @@
                 case MouseButton.Right:
                     e.Handled = true;
 
-                    this.RunInDispatcherAsync(() =>
-                                              {
-                                                  WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
-                                              });
+                    this.RunInDispatcherAsync(() => WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e));
                     break;
             }
         }

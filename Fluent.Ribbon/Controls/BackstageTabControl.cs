@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections.Specialized;
@@ -9,6 +10,7 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents Backstage tab control.
@@ -17,8 +19,23 @@
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the margin which is used to render selected content.
+        /// </summary>
+        public Thickness SelectedContentMargin
+        {
+            get { return (Thickness)this.GetValue(SelectedContentMarginProperty); }
+            set { this.SetValue(SelectedContentMarginProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="SelectedContentMargin"/>.
+        /// </summary>
+        public static readonly DependencyProperty SelectedContentMarginProperty =
+            DependencyProperty.Register(nameof(SelectedContentMargin), typeof(Thickness), typeof(BackstageTabControl), new PropertyMetadata(default(Thickness)));
+
         // Dependency property key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="SelectedContent"/>
@@ -44,33 +61,33 @@
         /// <summary>
         /// Dependency property for <see cref="ContentStringFormat"/>
         /// </summary>
-        public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register(nameof(ContentStringFormat), typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentStringFormatProperty = DependencyProperty.Register(nameof(ContentStringFormat), typeof(string), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="ContentTemplate"/>
         /// </summary>
-        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register(nameof(ContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="ContentTemplateSelector"/>
         /// </summary>
-        public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ContentTemplateSelectorProperty = DependencyProperty.Register(nameof(ContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new PropertyMetadata());
 
-        private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentStringFormat), typeof(string), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentStringFormatPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentStringFormat), typeof(string), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="SelectedContentStringFormat"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentStringFormatProperty = SelectedContentStringFormatPropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentTemplatePropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplate), typeof(DataTemplate), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="SelectedContentTemplate"/>
         /// </summary>
         public static readonly DependencyProperty SelectedContentTemplateProperty = SelectedContentTemplatePropertyKey.DependencyProperty;
 
-        private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new FrameworkPropertyMetadata(null));
+        private static readonly DependencyPropertyKey SelectedContentTemplateSelectorPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContentTemplateSelector), typeof(DataTemplateSelector), typeof(BackstageTabControl), new PropertyMetadata());
 
         /// <summary>
         /// Dependency property for <see cref="SelectedContentTemplateSelector"/>
@@ -203,7 +220,22 @@
         /// <see cref="DependencyProperty"/> for <see cref="ParentBackstage"/>
         /// </summary>
         public static readonly DependencyProperty ParentBackstageProperty =
-            DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata());
+
+        /// <summary>
+        /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
+        /// </summary>
+        public bool IsWindowSteeringHelperEnabled
+        {
+            get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
+            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsWindowSteeringHelperEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
+            DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(BackstageTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 

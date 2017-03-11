@@ -1,34 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Windows;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     /// <summary>
     /// Represents internal class to use it in 
     /// GalleryPanel as placeholder for GalleryItems
     /// </summary>
-    class GalleryItemPlaceholder : UIElement
+    internal class GalleryItemPlaceholder : UIElement
     {
-        #region Fields
-
-        UIElement target;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets the target of the placeholder
         /// </summary>
-        public UIElement Target
-        {
-            get { return this.target; }
-        }
+        public UIElement Target { get; }
 
         public Size ArrangedSize { get; private set; }
 
@@ -42,7 +28,7 @@ namespace Fluent
         /// <param name="target">Target</param>
         public GalleryItemPlaceholder(UIElement target)
         {
-            this.target = target;
+            this.Target = target;
         }
 
         #endregion
@@ -62,8 +48,8 @@ namespace Fluent
         /// indicate that the element will size to whatever content is available.</param>
         protected override Size MeasureCore(Size availableSize)
         {
-            this.target.Measure(availableSize);           
-            return this.target.DesiredSize;
+            this.Target.Measure(availableSize);
+            return this.Target.DesiredSize;
         }
 
         /// <summary>
@@ -80,16 +66,16 @@ namespace Fluent
             // targets in GalleryPanel lately
             this.ArrangedSize = finalRect.Size;
         }
-        
+
         #endregion
 
         #region Debug
 
-        /* FOR DEGUG
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
-        }*/
+        /* FOR DEGUG */
+        //protected override void OnRender(DrawingContext drawingContext)
+        //{
+        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
+        //}
 
         #endregion
     }

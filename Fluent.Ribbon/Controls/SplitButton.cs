@@ -6,8 +6,11 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represents button control that allows 
     /// you to add menu and handle clicks
@@ -18,7 +21,9 @@ namespace Fluent
         #region Fields
 
         // Inner button
-        ToggleButton button;
+        private ToggleButton button;
+
+        private SplitButton quickAccessButton;
 
         #endregion
 
@@ -97,16 +102,16 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
 
         #endregion
 
@@ -131,8 +136,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register("GroupName", typeof(string), typeof(SplitButton),
-            new UIPropertyMetadata(null, ToggleButtonHelper.OnGroupNameChanged));
+            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton),
+            new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -151,15 +156,21 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
+            DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SplitButton button = d as SplitButton;
+            var button = (SplitButton)d;
             if (button.IsCheckable)
             {
-                if ((bool)e.NewValue) button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
-                else button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
+                if ((bool)e.NewValue)
+                {
+                    button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
+                }
+                else
+                {
+                    button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
+                }
 
                 ToggleButtonHelper.OnIsCheckedChanged(d, e);
             }
@@ -167,9 +178,12 @@ namespace Fluent
 
         private static object CoerceIsChecked(DependencyObject d, object basevalue)
         {
-            SplitButton button = d as SplitButton;
+            var button = (SplitButton)d;
 
-            if (!button.IsCheckable) return false;
+            if (button.IsCheckable == false)
+            {
+                return false;
+            }
 
             return ToggleButtonHelper.CoerceIsChecked(d, basevalue);
         }
@@ -191,7 +205,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCheckableProperty =
-            DependencyProperty.Register("IsCheckable", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -210,7 +224,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for DropDownToolTip.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DropDownToolTipProperty =
-            DependencyProperty.Register("DropDownToolTip", typeof(object), typeof(SplitButton), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(DropDownToolTip), typeof(object), typeof(SplitButton), new PropertyMetadata());
 
         #endregion
 
@@ -229,7 +243,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
-            DependencyProperty.Register("IsButtonEnabled", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -248,7 +262,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
-            DependencyProperty.Register("IsDefinitive", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
 
@@ -327,19 +341,7 @@ namespace Fluent
         static SplitButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(typeof(SplitButton)));
-            FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null));
-            StyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
-        }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(SplitButton));
-            }
-
-            return basevalue;
+            FocusVisualStyleProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata());
         }
 
         /// <summary>
@@ -349,8 +351,6 @@ namespace Fluent
         {
             ContextMenuService.Coerce(this);
             this.Click += this.OnClick;
-            //            AddHandler(ClickEvent, OnClick);
-
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
         }
@@ -386,7 +386,8 @@ namespace Fluent
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource != this && e.OriginalSource != this._quickAccessButton)
+            if (ReferenceEquals(e.OriginalSource, this) == false
+                && ReferenceEquals(e.OriginalSource, this.quickAccessButton) == false)
             {
                 e.Handled = true;
             }
@@ -465,15 +466,15 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            SplitButton button = new SplitButton();
-            button.Click += ((sender, e) => this.RaiseEvent(e));
-            RibbonProperties.SetSize(button, RibbonControlSize.Small);
-            button.CanAddButtonToQuickAccessToolBar = false;
-            this.BindQuickAccessItem(button);
-            this.BindQuickAccessItemDropDownEvents(button);
-            button.DropDownOpened += this.OnQuickAccessOpened;
-            this._quickAccessButton = button;
-            return button;
+            var buttonForQAT = new SplitButton();
+            buttonForQAT.Click += (sender, e) => this.RaiseEvent(e);
+            RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
+            buttonForQAT.CanAddButtonToQuickAccessToolBar = false;
+            this.BindQuickAccessItem(buttonForQAT);
+            this.BindQuickAccessItemDropDownEvents(buttonForQAT);
+            buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
+            this.quickAccessButton = buttonForQAT;
+            return buttonForQAT;
         }
 
         /// <summary>
@@ -482,22 +483,24 @@ namespace Fluent
         /// <param name="element">Toolbar item</param>
         protected override void BindQuickAccessItem(FrameworkElement element)
         {
-            RibbonControl.Bind(this, element, "DisplayMemberPath", DisplayMemberPathProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "GroupStyleSelector", GroupStyleSelectorProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "ItemContainerStyle", ItemContainerStyleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "ItemsPanel", ItemsPanelProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "ItemStringFormat", ItemStringFormatProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "ItemTemplate", ItemTemplateProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, element, "IsChecked", IsCheckedProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(this, element, "DropDownToolTip", DropDownToolTipProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(this, element, "IsCheckable", IsCheckableProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "IsButtonEnabled", IsButtonEnabledProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "ContextMenu", ContextMenuProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.ItemsPanel), ItemsPanelProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.ItemStringFormat), ItemStringFormatProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.ItemTemplate), ItemTemplateProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.IsChecked), IsCheckedProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.DropDownToolTip), DropDownToolTipProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.IsCheckable), IsCheckableProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.IsButtonEnabled), IsButtonEnabledProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.ContextMenu), ContextMenuProperty, BindingMode.Default);
+
+            RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+            RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
+
             RibbonControl.BindQuickAccessItem(this, element);
-            RibbonControl.Bind(this, element, "ResizeMode", ResizeModeProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "MaxDropDownHeight", MaxDropDownHeightProperty, BindingMode.Default);
-            RibbonControl.Bind(this, element, "HasTriangle", HasTriangleProperty, BindingMode.Default);
         }
 
         /// <summary>
@@ -512,9 +515,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register("CanAddButtonToQuickAccessToolBar", typeof(bool), typeof(SplitButton), new UIPropertyMetadata(true, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
-
-        private SplitButton _quickAccessButton;
+        public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
 
         #endregion
     }

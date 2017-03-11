@@ -1,10 +1,12 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Helper control which enables easy embedding of window steering functions.
@@ -17,7 +19,7 @@
         static WindowSteeringHelperControl()
         {
             BackgroundProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(Brushes.Transparent));
-            IsHitTestVisibleProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new UIPropertyMetadata(true));
+            IsHitTestVisibleProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
             HorizontalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(HorizontalAlignment.Stretch));
             VerticalAlignmentProperty.OverrideMetadata(typeof(WindowSteeringHelperControl), new FrameworkPropertyMetadata(VerticalAlignment.Stretch));
         }

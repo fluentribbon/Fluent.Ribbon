@@ -23,12 +23,12 @@
         /// <summary>
         /// Gets the <see cref="ItemContainerGenerator"/> to be used.
         /// </summary>
-        public ItemContainerGenerator Generator { get; private set; }
+        public ItemContainerGenerator Generator { get; }
 
         /// <summary>
         /// Gets the <see cref="System.Action"/> that should be invoked.
         /// </summary>
-        public Action Action { get; private set; }
+        public Action Action { get; }
 
         /// <summary>
         /// Gets the current wait state. <c>true</c> in case <see cref="QueueAction"/> was called and we are waiting for the <see cref="Generator"/> to finish.

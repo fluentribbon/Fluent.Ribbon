@@ -7,8 +7,11 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Controls;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// This interface must be implemented for controls
     /// which are intended to insert to quick access toolbar
@@ -32,7 +35,7 @@ namespace Fluent
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
-    [ContentProperty("Target")]
+    [ContentProperty(nameof(Target))]
     public class QuickAccessMenuItem : MenuItem
     {
         #region Fields
@@ -46,7 +49,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(true));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));            
         }
 
         /// <summary>
@@ -67,7 +70,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets shortcut to the target control
         /// </summary>
-        public Control Target
+        public UIElement Target
         {
             get { return (Control)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
@@ -78,7 +81,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register("Target", typeof(Control), typeof(QuickAccessMenuItem), new UIPropertyMetadata(null,OnTargetChanged));
+            DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -89,7 +92,7 @@ namespace Fluent
                 && ribbonControl != null)
             {
                 // Set Default Text Value
-                RibbonControl.Bind(ribbonControl, quickAccessMenuItem, "Header", HeaderProperty, BindingMode.OneWay);
+                RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
             }
 
             if (ribbonControl != null)
@@ -106,7 +109,7 @@ namespace Fluent
             if (oldRibbonControl!=null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
-                if (parent == quickAccessMenuItem)
+                if (ReferenceEquals(parent, quickAccessMenuItem))
                 {
                     quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
                 }
@@ -144,28 +147,22 @@ namespace Fluent
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.AddToQuickAccessToolBar(this.Target);
         }
 
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
 
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.RemoveFromQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
         }
 
         private void OnItemLoaded(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
@@ -179,10 +176,10 @@ namespace Fluent
         private void OnFirstLoaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= this.OnFirstLoaded;
-            if (this.IsChecked 
-                && this.Ribbon != null)
+
+            if (this.IsChecked)
             {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
+                this.Ribbon?.AddToQuickAccessToolBar(this.Target);
             }
         }
 
@@ -240,12 +237,12 @@ namespace Fluent
 
             if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
             {
-                RibbonControl.Bind(element, result, "Visibility", UIElement.VisibilityProperty, BindingMode.OneWay);
+                RibbonControl.Bind(element, result, nameof(UIElement.Visibility), UIElement.VisibilityProperty, BindingMode.OneWay);
             }
 
             if (BindingOperations.IsDataBound(result, UIElement.IsEnabledProperty) == false)
             {
-                RibbonControl.Bind(element, result, "IsEnabled", UIElement.IsEnabledProperty, BindingMode.OneWay);
+                RibbonControl.Bind(element, result, nameof(UIElement.IsEnabled), UIElement.IsEnabledProperty, BindingMode.OneWay);
             }
 
             return result;

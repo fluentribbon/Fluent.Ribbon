@@ -2,7 +2,6 @@
 {
     using System;
     using System.Globalization;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Data;
 
@@ -11,8 +10,6 @@
     /// </summary>
     public class ThicknessConverter : IMultiValueConverter
     {
-        private static readonly System.Windows.ThicknessConverter systemThicknessConverter = new System.Windows.ThicknessConverter();
-
         #region Implementation of IMultiValueConverter
 
         /// <summary>
@@ -24,17 +21,12 @@
         /// <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding"/> produces. The value <see cref="F:System.Windows.DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Any(x => x == DependencyProperty.UnsetValue))
-            {
-                if (parameter != null)
-                {
-                    return (Thickness)systemThicknessConverter.ConvertFromString((string)parameter);
-                }
+            var left = TryConvertSingleValue(values[0]);
+            var top = TryConvertSingleValue(values[1]);
+            var right = TryConvertSingleValue(values[2]);
+            var bottom = TryConvertSingleValue(values[3]);
 
-                return new Thickness();
-            }
-
-            return new Thickness(System.Convert.ToDouble(values[0]), System.Convert.ToDouble(values[1]), System.Convert.ToDouble(values[2]), System.Convert.ToDouble(values[3]));
+            return new Thickness(left, top, right, bottom);
         }
 
         /// <summary>
@@ -50,5 +42,17 @@
         }
 
         #endregion
+
+        private static double TryConvertSingleValue(object value)
+        {
+            try
+            {             
+                return (value as IConvertible)?.ToDouble(null) ?? 0;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

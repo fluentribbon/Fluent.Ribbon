@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+
     /// <summary>
     /// Represent logical container for toolbar items
     /// </summary>
-    [ContentProperty("Children")]
+    [ContentProperty(nameof(Items))]
     public class RibbonToolBarControlGroup : ItemsControl
     {
         #region Properties
@@ -31,7 +30,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsFirstInRowProperty =
-            DependencyProperty.Register("IsFirstInRow", typeof(bool), typeof(RibbonToolBarControlGroup), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsFirstInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Gets whether the group is the last control in the row
@@ -47,30 +46,14 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsLastInRowProperty =
-            DependencyProperty.Register("IsLastInRow", typeof(bool), typeof(RibbonToolBarControlGroup), new UIPropertyMetadata(true));
+            DependencyProperty.Register(nameof(IsLastInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #endregion
-
-        #region Initialization
 
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonToolBarControlGroup()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(typeof(RibbonToolBarControlGroup)));
-            StyleProperty.OverrideMetadata(typeof(RibbonToolBarControlGroup), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
         }
-
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(RibbonToolBarControlGroup));
-            }
-
-            return basevalue;
-        }
-
-        #endregion
     }
 }

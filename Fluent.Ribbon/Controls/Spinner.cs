@@ -1,10 +1,10 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Text;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -14,11 +14,12 @@
     using System.Windows.Threading;
     using Fluent.Converters;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents spinner control
     /// </summary>
-    [ContentProperty("Value")]
+    [ContentProperty(nameof(Value))]
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
@@ -74,20 +75,19 @@
             var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
 
-            if (spinner.ValueChanged != null)
-            {
-                spinner.ValueChanged(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
-            }
+            spinner.ValueChanged?.Invoke(spinner, new RoutedPropertyChangedEventArgs<double>((double)e.OldValue, (double)e.NewValue));
         }
 
         private void ValueToTextBoxText()
         {
-            if (this.IsTemplateValid())
+            if (this.textBox == null)
             {
-                var newText = (string)this.TextToValueConverter.ConvertBack(this.Value, typeof(string), this.Format, CultureInfo.CurrentCulture);
-                this.textBox.Text = newText;
-                this.Text = newText;
+                return;
             }
+
+            var newText = (string)this.TextToValueConverter.ConvertBack(this.Value, typeof(string), this.Format, CultureInfo.CurrentCulture);
+            this.textBox.Text = newText;
+            this.Text = newText;
         }
 
         #endregion
@@ -103,7 +103,7 @@
             private set { this.SetValue(textPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly("Text", typeof(string), typeof(Spinner), new UIPropertyMetadata(null));
+        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.  
@@ -129,7 +129,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register("Increment", typeof(double), typeof(Spinner), new UIPropertyMetadata(1.0d));
+            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(1.0d));
 
         #endregion
 
@@ -150,7 +150,7 @@
         /// </summary>
         public static readonly DependencyProperty MinimumProperty;
 
-        static object CoerceMinimum(DependencyObject d, object basevalue)
+        private static object CoerceMinimum(DependencyObject d, object basevalue)
         {
             var spinner = (Spinner)d;
             var value = (double)basevalue;
@@ -163,7 +163,7 @@
             return value;
         }
 
-        static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMinimumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             var value = (double)CoerceValue(d, spinner.Value);
@@ -193,7 +193,7 @@
         /// </summary>
         public static readonly DependencyProperty MaximumProperty;
 
-        static object CoerceMaximum(DependencyObject d, object basevalue)
+        private static object CoerceMaximum(DependencyObject d, object basevalue)
         {
             var spinner = (Spinner)d;
             var value = (double)basevalue;
@@ -206,7 +206,7 @@
             return value;
         }
 
-        static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             var value = (double)CoerceValue(d, spinner.Value);
@@ -235,9 +235,9 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty FormatProperty =
-            DependencyProperty.Register("Format", typeof(string), typeof(Spinner), new UIPropertyMetadata("F1", OnFormatChanged));
+            DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new PropertyMetadata("F1", OnFormatChanged));
 
-        static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var spinner = (Spinner)d;
             spinner.ValueToTextBoxText();
@@ -263,8 +263,8 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
-            DependencyProperty.Register("Delay", typeof(int), typeof(Spinner),
-            new UIPropertyMetadata(400));
+            DependencyProperty.Register(nameof(Delay), typeof(int), typeof(Spinner),
+            new PropertyMetadata(400));
 
         #endregion
 
@@ -286,7 +286,7 @@
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IntervalProperty =
-            DependencyProperty.Register("Interval", typeof(int), typeof(Spinner), new UIPropertyMetadata(80));
+            DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new PropertyMetadata(80));
 
         #endregion
 
@@ -305,7 +305,7 @@
         /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register("InputWidth", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.NaN));
+            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -313,7 +313,7 @@
 
         /// <summary>
         /// Gets or sets a converter which is used to convert from text to double and from double to text.
-        /// </summary>
+        /// </summary>        
         public IValueConverter TextToValueConverter
         {
             get { return (IValueConverter)this.GetValue(TextToValueConverterProperty); }
@@ -328,6 +328,21 @@
 
         #endregion TextToValueConverter
 
+        /// <summary>
+        /// Defines wether all text should be select as soon as this control gets focus.
+        /// </summary>
+        public bool SelectAllTextOnFocus
+        {
+            get { return (bool)this.GetValue(SelectAllTextOnFocusProperty); }
+            set { this.SetValue(SelectAllTextOnFocusProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
+        /// </summary>
+        public static readonly DependencyProperty SelectAllTextOnFocusProperty =
+            DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
+
         #endregion
 
         #region Constructors
@@ -340,9 +355,9 @@
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
 
-            MaximumProperty = DependencyProperty.Register("Maximum", typeof(double), typeof(Spinner), new UIPropertyMetadata(double.MaxValue, OnMaximumChanged, CoerceMaximum));
-            MinimumProperty = DependencyProperty.Register("Minimum", typeof(double), typeof(Spinner), new UIPropertyMetadata(0.0d, OnMinimumChanged, CoerceMinimum));
-            ValueProperty = DependencyProperty.Register("Value", typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(0.0d, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
+            MaximumProperty = DependencyProperty.Register(nameof(Maximum), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.MaxValue, OnMaximumChanged, CoerceMaximum));
+            MinimumProperty = DependencyProperty.Register(nameof(Minimum), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.Zero, OnMinimumChanged, CoerceMinimum));
+            ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(DoubleBoxes.Zero, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
         }
@@ -356,12 +371,22 @@
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (this.IsTemplateValid())
+            if (this.buttonUp != null)
             {
                 this.buttonUp.Click -= this.OnButtonUpClick;
+                BindingOperations.ClearAllBindings(this.buttonUp);
+            }
+
+            if (this.buttonDown != null)
+            {
                 this.buttonDown.Click -= this.OnButtonDownClick;
                 BindingOperations.ClearAllBindings(this.buttonDown);
-                BindingOperations.ClearAllBindings(this.buttonUp);
+            }
+
+            if (this.textBox != null)
+            {
+                this.textBox.LostKeyboardFocus -= this.OnTextBoxLostKeyboardFocus;
+                this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
             }
 
             // Get template childs
@@ -377,22 +402,22 @@
             }
 
             // Bindings
-            Bind(this, this.buttonUp, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, this.buttonDown, "Delay", RepeatButton.DelayProperty, BindingMode.OneWay);
-            Bind(this, this.buttonUp, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
-            Bind(this, this.buttonDown, "Interval", RepeatButton.IntervalProperty, BindingMode.OneWay);
-
+            Bind(this, this.buttonUp, nameof(this.Delay), RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, nameof(this.Delay), RepeatButton.DelayProperty, BindingMode.OneWay);
+            Bind(this, this.buttonUp, nameof(this.Interval), RepeatButton.IntervalProperty, BindingMode.OneWay);
+            Bind(this, this.buttonDown, nameof(this.Interval), RepeatButton.IntervalProperty, BindingMode.OneWay);
 
             // Events subscribing
             this.buttonUp.Click += this.OnButtonUpClick;
             this.buttonDown.Click += this.OnButtonDownClick;
+            this.textBox.GotFocus += this.HandleTextBoxGotFocus;
             this.textBox.LostKeyboardFocus += this.OnTextBoxLostKeyboardFocus;
             this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
 
             this.ValueToTextBoxText();
         }
 
-        bool IsTemplateValid()
+        private bool IsTemplateValid()
         {
             return this.textBox != null
                 && this.buttonUp != null
@@ -408,24 +433,36 @@
         /// </summary>
         public override void OnKeyTipPressed()
         {
-            if (this.IsTemplateValid() == false)
+            if (this.textBox == null)
             {
                 return;
             }
 
             // Use dispatcher to avoid focus moving to backup'ed element 
             // (focused element before keytips processing)
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
                 (ThreadStart)(() =>
                 {
                     this.textBox.SelectAll();
                     this.textBox.Focus();
                 }));
-            base.OnKeyTipPressed();
+        }
+
+        private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            if (this.SelectAllTextOnFocus)
+            {
+                // Async because setting the carret happens after focus.
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                    (ThreadStart)(() =>
+                    {
+                        this.textBox.SelectAll();
+                    }));
+            }
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
@@ -529,13 +566,13 @@
             spinner.Width = this.Width;
             spinner.InputWidth = this.InputWidth;
 
-            Bind(this, spinner, "Value", ValueProperty, BindingMode.TwoWay);
-            Bind(this, spinner, "Increment", IncrementProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Minimum", MinimumProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Maximum", MaximumProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Format", FormatProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Delay", DelayProperty, BindingMode.OneWay);
-            Bind(this, spinner, "Interval", IntervalProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Value), ValueProperty, BindingMode.TwoWay);
+            Bind(this, spinner, nameof(this.Increment), IncrementProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Minimum), MinimumProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Maximum), MaximumProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Format), FormatProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Delay), DelayProperty, BindingMode.OneWay);
+            Bind(this, spinner, nameof(this.Interval), IntervalProperty, BindingMode.OneWay);
 
             BindQuickAccessItem(this, element);
         }

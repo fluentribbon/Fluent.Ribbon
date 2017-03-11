@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
@@ -8,39 +9,8 @@
     /// <summary>
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
-    public class RibbonProperties
+    public static class RibbonProperties
     {
-        #region TitleBarHeight Property
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for TitleBarHeight.  
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.RegisterAttached("TitleBarHeight", typeof(double), typeof(RibbonProperties),
-                new FrameworkPropertyMetadata(27D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.Inherits));
-
-        /// <summary>
-        /// Sets TitleBarHeight for element
-        /// </summary>
-        public static void SetTitleBarHeight(UIElement element, double value)
-        {
-            element.SetValue(TitleBarHeightProperty, value);
-        }
-
-        /// <summary>
-        /// Gets TitleBarHeight for element
-        /// </summary>
-        [AttachedPropertyBrowsableForType(typeof(Ribbon))]
-        [AttachedPropertyBrowsableForType(typeof(RibbonTitleBar))]
-        [AttachedPropertyBrowsableForType(typeof(RibbonWindow))]
-        public static double GetTitleBarHeight(UIElement element)
-        {
-            return (double)element.GetValue(TitleBarHeightProperty);
-        }
-
-        #endregion
-
         #region Size Property
 
         /// <summary>
@@ -62,12 +32,7 @@
         {
             var sink = d as IRibbonSizeChangedSink;
 
-            if (sink == null)
-            {
-                return;
-            }
-
-            sink.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
+            sink?.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
         }
 
         /// <summary>
@@ -127,14 +92,7 @@
             var groupBox = FindParentRibbonGroupBox(d);
             var element = (UIElement)d;
 
-            if (groupBox != null)
-            {
-                SetAppropriateSize(element, groupBox.State);
-            }
-            else
-            {
-                SetAppropriateSize(element, RibbonGroupBoxState.Large);
-            }
+            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
         }
 
         // Finds parent group box

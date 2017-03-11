@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using Fluent.Internal;
@@ -34,13 +35,13 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ReduceOrderProperty =
-            DependencyProperty.Register("ReduceOrder", typeof(string), typeof(RibbonGroupsContainer), new UIPropertyMetadata(ReduceOrderPropertyChanged));
+            DependencyProperty.Register(nameof(ReduceOrder), typeof(string), typeof(RibbonGroupsContainer), new PropertyMetadata(ReduceOrderPropertyChanged));
 
         // handles ReduseOrder property changed
-        static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupsContainer ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var ribbonPanel = (RibbonGroupsContainer)d;
+            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new [] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
             ribbonPanel.InvalidateMeasure();
@@ -62,7 +63,6 @@ namespace Fluent
         /// Default constructor
         /// </summary>
         public RibbonGroupsContainer()
-            : base()
         {
             this.Focusable = false;
         }
@@ -90,7 +90,7 @@ namespace Fluent
         /// layout, based on its calculations of child element sizes.
         /// </returns>
         protected override Size MeasureOverride(Size availableSize)
-        {          
+        {
             var desiredSize = this.GetChildrenDesiredSizeIntermediate();
 
             if (this.reduceOrder.Length == 0)
@@ -103,7 +103,7 @@ namespace Fluent
             while (desiredSize.Width <= availableSize.Width)
             {
                 var hasMoreVariants = this.reduceOrderIndex < this.reduceOrder.Length - 1;
-                if (!hasMoreVariants)
+                if (hasMoreVariants == false)
                 {
                     break;
                 }
@@ -119,7 +119,7 @@ namespace Fluent
             while (desiredSize.Width > availableSize.Width)
             {
                 var hasMoreVariants = this.reduceOrderIndex >= 0;
-                if (!hasMoreVariants)
+                if (hasMoreVariants == false)
                 {
                     break;
                 }
@@ -140,8 +140,8 @@ namespace Fluent
                     continue;
                 }
 
-                if ((groupBox.State != groupBox.StateIntermediate) ||
-                    (groupBox.Scale != groupBox.ScaleIntermediate))
+                if (groupBox.State != groupBox.StateIntermediate 
+                    || groupBox.Scale != groupBox.ScaleIntermediate)
                 {
                     groupBox.SuppressCacheReseting = true;
                     groupBox.State = groupBox.StateIntermediate;
@@ -168,7 +168,7 @@ namespace Fluent
         {
             double width = 0;
             double height = 0;
-            
+
             foreach (UIElement child in this.InternalChildren)
             {
                 var groupBox = child as RibbonGroupBox;
@@ -190,6 +190,7 @@ namespace Fluent
         {
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+
             if (groupBox == null)
             {
                 return;
@@ -202,7 +203,7 @@ namespace Fluent
             else
             {
                 groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Large
-                    ? groupBox.StateIntermediate - 1 
+                    ? groupBox.StateIntermediate - 1
                     : RibbonGroupBoxState.Large;
             }
         }
@@ -212,6 +213,7 @@ namespace Fluent
         {
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+
             if (groupBox == null)
             {
                 return;
@@ -223,8 +225,8 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed 
-                    ? groupBox.StateIntermediate + 1 
+                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed
+                    ? groupBox.StateIntermediate + 1
                     : groupBox.StateIntermediate;
             }
         }
@@ -243,6 +245,7 @@ namespace Fluent
                     return child as RibbonGroupBox;
                 }
             }
+
             return null;
         }
 
@@ -254,10 +257,11 @@ namespace Fluent
         /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var finalRect = new Rect(finalSize) 
-                {
-                    X = -this.HorizontalOffset
-                };
+            var finalRect = new Rect(finalSize)
+            {
+                X = -this.HorizontalOffset
+            };
+
             foreach (UIElement item in this.InternalChildren)
             {
                 finalRect.Width = item.DesiredSize.Width;
@@ -265,6 +269,7 @@ namespace Fluent
                 item.Arrange(finalRect);
                 finalRect.X += item.DesiredSize.Width;
             }
+
             return finalSize;
         }
 
@@ -288,6 +293,7 @@ namespace Fluent
         public void SetHorizontalOffset(double offset)
         {
             var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
                 this.scrollData.OffsetX = newValue;
@@ -354,16 +360,16 @@ namespace Fluent
             }
 
             // Compute the child's rect relative to (0,0) in our coordinate space.
-            GeneralTransform childTransform = visual.TransformToAncestor(this);
+            var childTransform = visual.TransformToAncestor(this);
 
             rectangle = childTransform.TransformBounds(rectangle);
 
             // Initialize the viewport
-            Rect viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
+            var viewport = new Rect(this.HorizontalOffset, rectangle.Top, this.ViewportWidth, rectangle.Height);
             rectangle.X += viewport.X;
 
             // Compute the offsets required to minimally scroll the child maximally into view.
-            double minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
+            var minX = ComputeScrollOffsetWithMinimalScroll(viewport.Left, viewport.Right, rectangle.Left, rectangle.Right);
 
             // We have computed the scrolling offsets; scroll to them.
             this.SetHorizontalOffset(minX);
@@ -378,7 +384,7 @@ namespace Fluent
             return rectangle;
         }
 
-        static double ComputeScrollOffsetWithMinimalScroll(
+        private static double ComputeScrollOffsetWithMinimalScroll(
             double topView,
             double bottomView,
             double topChild,
@@ -397,9 +403,9 @@ namespace Fluent
             // These child thus may overlap with the viewport, but will scroll the same direction
             /*bool fAbove = DoubleUtil.LessThan(topChild, topView) && DoubleUtil.LessThan(bottomChild, bottomView);
             bool fBelow = DoubleUtil.GreaterThan(bottomChild, bottomView) && DoubleUtil.GreaterThan(topChild, topView);*/
-            bool fAbove = (topChild < topView) && (bottomChild < bottomView);
-            bool fBelow = (bottomChild > bottomView) && (topChild > topView);
-            bool fLarger = (bottomChild - topChild) > (bottomView - topView);
+            var fAbove = (topChild < topView) && (bottomChild < bottomView);
+            var fBelow = (bottomChild > bottomView) && (topChild > topView);
+            var fLarger = bottomChild - topChild > bottomView - topView;
 
             // Handle Cases:  1 & 4 above
             if ((fAbove && !fLarger)
@@ -424,60 +430,70 @@ namespace Fluent
         public void MouseWheelDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelLeft()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelRight()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void MouseWheelUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void LineDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void LineUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageDown()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageLeft()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageRight()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public void PageUp()
         {
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
@@ -485,6 +501,7 @@ namespace Fluent
         public void SetVerticalOffset(double offset)
         {
         }
+
         /// <summary>
         /// Gets or sets a value that indicates whether scrolling on the vertical axis is possible.
         /// </summary>
@@ -493,6 +510,7 @@ namespace Fluent
             get { return false; }
             set { }
         }
+
         /// <summary>
         /// Gets or sets a value that indicates whether scrolling on the horizontal axis is possible.
         /// </summary>
@@ -501,20 +519,23 @@ namespace Fluent
             get { return true; }
             set { }
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
         public double ExtentHeight
         {
             get { return 0.0; }
-        }/// <summary>
+        }
+
+        /// <summary>
         /// Not implemented
         /// </summary>
-
         public double VerticalOffset
         {
             get { return 0.0; }
         }
+
         /// <summary>
         /// Not implemented
         /// </summary>
@@ -536,7 +557,7 @@ namespace Fluent
         private ScrollData scrollData;
 
         // Validates input offset
-        static double ValidateInputOffset(double offset, string parameterName)
+        private static double ValidateInputOffset(double offset, string parameterName)
         {
             if (double.IsNaN(offset))
             {
@@ -552,14 +573,14 @@ namespace Fluent
         //   cachces are updated and InvalidateScrollInfo() is called.
         private void VerifyScrollData(double viewportWidth, double extentWidth)
         {
-            bool isValid = true;
+            var isValid = true;
 
             if (double.IsInfinity(viewportWidth))
             {
                 viewportWidth = extentWidth;
             }
 
-            double offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
+            var offsetX = CoerceOffset(this.ScrollData.OffsetX, extentWidth, viewportWidth);
 
             isValid &= DoubleUtil.AreClose(viewportWidth, this.ScrollData.ViewportWidth);
             isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
@@ -569,17 +590,14 @@ namespace Fluent
             this.ScrollData.ExtentWidth = extentWidth;
             this.ScrollData.OffsetX = offsetX;
 
-            if (!isValid)
+            if (isValid == false)
             {
-                if (this.ScrollOwner != null)
-                {
-                    this.ScrollOwner.InvalidateScrollInfo();
-                }
+                this.ScrollOwner?.InvalidateScrollInfo();
             }
         }
 
         // Returns an offset coerced into the [0, Extent - Viewport] range.
-        static double CoerceOffset(double offset, double extent, double viewport)
+        private static double CoerceOffset(double offset, double extent, double viewport)
         {
             if (offset > extent - viewport)
             {

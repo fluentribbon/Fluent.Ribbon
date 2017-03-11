@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+// ReSharper disable InconsistentNaming
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.ComponentModel;
@@ -30,7 +32,7 @@ namespace Fluent
         /// If the rectangle does not intersect a display monitor, the return value depends on the value of dwFlags.
         /// </returns>
         [DllImport("user32.dll")]
-        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, uint dwFlags);
+        public static extern IntPtr MonitorFromRect([In] ref RECT lprc, MONITORINFO.MonitorOptions dwFlags);
 
         /// <summary>
         /// Loads an icon, cursor, animated cursor, or bitmap.
@@ -258,15 +260,15 @@ namespace Fluent
         /// <summary>
         /// GetWindowLong values, GWL_*
         /// </summary>
-        internal enum GWL : int
+        internal enum GWL
         {
-            WNDPROC = (-4),
-            HINSTANCE = (-6),
-            HWNDPARENT = (-8),
-            STYLE = (-16),
-            EXSTYLE = (-20),
-            USERDATA = (-21),
-            ID = (-12)
+            WNDPROC = -4,
+            HINSTANCE = -6,
+            HWNDPARENT = -8,
+            STYLE = -16,
+            EXSTYLE = -20,
+            USERDATA = -21,
+            ID = -12
         }
 
         /// <summary>

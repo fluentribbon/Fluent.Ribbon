@@ -6,8 +6,12 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Threading;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Internal.KnownBoxes;
+    using Fluent.Localization;
+
     /// <summary>
     /// Represents ribbon status bar
     /// </summary>
@@ -19,6 +23,8 @@ namespace Fluent
         private readonly ContextMenu contextMenu = new ContextMenu();
 
         private Window ownerWindow;
+
+        private bool waitingForItemContainerGenerator;
 
         #endregion
 
@@ -37,7 +43,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register("IsWindowMaximized", typeof(bool), typeof(StatusBar), new UIPropertyMetadata(false));
+            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(StatusBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
 #if NET45
         private object currentItem;
@@ -135,7 +141,7 @@ namespace Fluent
                     if (dataTemplateContent is StatusBarItem
                         || dataTemplateContent is Separator)
                     {
-                        return dataTemplateContent as DependencyObject;
+                        return (DependencyObject)dataTemplateContent;
                     }
 
                     throw new InvalidOperationException("Invalid ItemContainer");
@@ -171,7 +177,7 @@ namespace Fluent
                 return;
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Delegate)new Action(this.RecreateMenu));
+            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.RecreateMenu));
         }
 
         /// <summary>
@@ -182,33 +188,36 @@ namespace Fluent
         {
             base.OnItemsChanged(e);
 
-            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
+            if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated
+                || this.waitingForItemContainerGenerator)
             {
+                this.waitingForItemContainerGenerator = true;
                 return;
             }
 
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
+                {
+                    foreach (var newItem in e.NewItems)
                     {
-                        for (var i = 0; i < e.NewItems.Count; i++)
-                        {
-                            var container = this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]);
-                            var item = container as StatusBarItem;
+                        var container = this.ItemContainerGenerator.ContainerFromItem(newItem);
+                        var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
+                        var item = container as StatusBarItem;
 
-                            if (item != null)
-                            {
-                                item.Checked += this.OnItemChecked;
-                                item.Unchecked += this.OnItemUnchecked;
-                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new StatusBarMenuItem(item));
-                            }
-                            else
-                            {
-                                this.contextMenu.Items.Insert(this.ItemContainerGenerator.IndexFromContainer(container), new Separator());
-                            }
+                        if (item != null)
+                        {
+                            item.Checked += this.OnItemChecked;
+                            item.Unchecked += this.OnItemUnchecked;
+                            this.contextMenu.Items.Insert(containerIndex, new StatusBarMenuItem(item));
                         }
-                        break;
+                        else
+                        {
+                            this.contextMenu.Items.Insert(containerIndex, new Separator());
+                        }
                     }
+                    break;
+                }
 
                 case NotifyCollectionChangedAction.Move:
                     {
@@ -293,7 +302,7 @@ namespace Fluent
 
             // Adding header separator
             this.contextMenu.Items.Add(new GroupSeparatorMenuItem());
-            RibbonControl.Bind(Ribbon.Localization, this.contextMenu.Items[0] as FrameworkElement, "CustomizeStatusBar", HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonLocalization.Current.Localization, this.contextMenu.Items[0] as FrameworkElement, nameof(RibbonLocalizationBase.CustomizeStatusBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
 
             for (var i = 0; i < this.Items.Count; i++)
             {
@@ -311,6 +320,8 @@ namespace Fluent
             }
 
             this.UpdateSeparartorsVisibility();
+
+            this.waitingForItemContainerGenerator = false;
         }
 
         // Updates separators visibility, to not duplicate
@@ -319,10 +330,10 @@ namespace Fluent
             var isPrevSeparator = false;
             var isFirstVsible = true;
 
-            for (var i = 0; i < this.Items.Count; i++)
+            foreach (var item in this.Items)
             {
-                var item = this.ItemContainerGenerator.ContainerFromItem(this.Items[i]);
-                var separator = item as Separator;
+                var containerFromItem = this.ItemContainerGenerator.ContainerFromItem(item);
+                var separator = containerFromItem as Separator;
 
                 if (separator != null)
                 {
@@ -338,9 +349,9 @@ namespace Fluent
                     isPrevSeparator = true;
                     isFirstVsible = false;
                 }
-                else if (item is StatusBarItem)
+                else
                 {
-                    if ((item as StatusBarItem).Visibility == Visibility.Visible)
+                    if ((containerFromItem as StatusBarItem)?.Visibility == Visibility.Visible)
                     {
                         isPrevSeparator = false;
                         isFirstVsible = false;

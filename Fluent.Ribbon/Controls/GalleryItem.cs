@@ -6,14 +6,17 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Extensions;
     using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents gallery item
     /// </summary>
-    public class GalleryItem : ListBoxItem, IKeyTipedControl
+    public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     {
         #region Properties
 
@@ -47,8 +50,8 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
-            DependencyProperty.RegisterReadOnly("IsPressed", typeof(bool),
-            typeof(GalleryItem), new UIPropertyMetadata(false));
+            DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
+            typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsPressed.  
@@ -70,8 +73,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
-            DependencyProperty.Register("Group", typeof(string),
-            typeof(GalleryItem), new UIPropertyMetadata(null));
+            DependencyProperty.Register(nameof(Group), typeof(string),
+            typeof(GalleryItem), new PropertyMetadata());
 
 
         #region Command
@@ -129,17 +132,17 @@ namespace Fluent
         /// <summary>
         /// Identifies the CommandParameter dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register("CommandParameter", typeof(object), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(GalleryItem), new FrameworkPropertyMetadata(null, OnCommandChanged));
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(GalleryItem), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
@@ -156,7 +159,7 @@ namespace Fluent
         /// Identifies the PreviewCommand dependency property.
         /// </summary>
         public static readonly DependencyProperty PreviewCommandProperty =
-            DependencyProperty.Register("PreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(PreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
@@ -173,7 +176,7 @@ namespace Fluent
         /// Identifies the PreviewCommand dependency property.
         /// </summary>
         public static readonly DependencyProperty CancelPreviewCommandProperty =
-            DependencyProperty.Register("CancelPreviewCommand", typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(CancelPreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
         /// Handles Command changed
@@ -187,7 +190,7 @@ namespace Fluent
             {
                 return;
             }
-            
+
             var oldCommand = e.OldValue as ICommand;
             if (oldCommand != null)
             {
@@ -214,30 +217,13 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null 
+            var canExecute = this.Command != null
                 && this.CanExecuteCommand();
             if (this.currentCanExecute != canExecute)
             {
                 this.currentCanExecute = canExecute;
                 this.CoerceValue(IsEnabledProperty);
             }
-        }
-
-        /// <summary>
-        /// Execute command
-        /// </summary>
-        protected void ExecuteCommand()
-        {
-            CommandHelper.Execute(this.Command, this.CommandParameter, this.CommandTarget);
-        }
-
-        /// <summary>
-        /// Determines whether the Command can be executed
-        /// </summary>
-        /// <returns>Returns Command CanExecute</returns>
-        protected bool CanExecuteCommand()
-        {
-            return CommandHelper.CanExecute(this.Command, this.CommandParameter, this.CommandTarget);
         }
 
         #endregion
@@ -255,7 +241,7 @@ namespace Fluent
         {
             get
             {
-                return (base.IsEnabledCore && (this.currentCanExecute || this.Command == null));
+                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
             }
         }
 
@@ -286,7 +272,7 @@ namespace Fluent
         /// <summary>
         /// Identifies the RibbonControl.Click routed event.
         /// </summary>
-        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GalleryItem));
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(nameof(Click), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(GalleryItem));
 
         /// <summary>
         /// Raises click event
@@ -310,22 +296,10 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
-            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
-            StyleProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(null, new CoerceValueCallback(OnCoerceStyle)));
+            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
         }
 
-        // Coerce object style
-        static object OnCoerceStyle(DependencyObject d, object basevalue)
-        {
-            if (basevalue == null)
-            {
-                basevalue = (d as FrameworkElement).TryFindResource(typeof(GalleryItem));
-            }
-
-            return basevalue;
-        }
-
-        static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
             {
@@ -388,16 +362,14 @@ namespace Fluent
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             this.IsPressed = false;
-            if (Mouse.Captured == this)
+            if (ReferenceEquals(Mouse.Captured, this))
             {
                 Mouse.Capture(null);
             }
 
             var position = Mouse.PrimaryDevice.GetPosition(this);
 
-            if ((position.X >= 0.0 && position.X <= this.ActualWidth)
-                && (position.Y >= 0.0 && position.Y <= this.ActualHeight)
-                && e.ClickCount == 1)
+            if (position.X >= 0.0 && position.X <= this.ActualWidth && position.Y >= 0.0 && position.Y <= this.ActualHeight && e.ClickCount == 1)
             {
                 this.RaiseClick();
                 e.Handled = true;
@@ -442,7 +414,7 @@ namespace Fluent
             PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
 
             this.ExecuteCommand();
-            this.IsSelected = true;            
+            this.IsSelected = true;
             e.Handled = true;
         }
 
