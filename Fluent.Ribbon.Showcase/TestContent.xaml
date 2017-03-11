@@ -980,35 +980,16 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">
-                    <Fluent:SplitButton Header="Too many items gggg"
+                    <Fluent:SplitButton Header="Bound items gggg"
                                         ResizeMode="Both"
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
-                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png">
-                        <MenuItem Header="1" />
-                        <MenuItem Header="2" />
-                        <MenuItem Header="3" />
-                        <MenuItem Header="4" />
-                        <MenuItem Header="5" />
-                        <MenuItem Header="6" />
-                        <MenuItem Header="7" />
-                        <MenuItem Header="8" />
-                        <MenuItem Header="9" />
-                        <MenuItem Header="10" />
-                        <MenuItem Header="11" />
-                        <MenuItem Header="12" />
-                        <MenuItem Header="13" />
-                        <MenuItem Header="14" />
-                        <MenuItem Header="15" />
-                        <MenuItem Header="16" />
-                        <MenuItem Header="17" />
-                        <MenuItem Header="18" />
-                        <MenuItem Header="19" />
-                        <MenuItem Header="20" />
-                        <MenuItem Header="21" />
-                        <MenuItem Header="22" />
-                        <MenuItem Header="23" />
-                        <MenuItem Header="24" />
-                        <MenuItem Header="25" />
+                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
+                                        ItemsSource="{Binding StringItems}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>                        
                     </Fluent:SplitButton>
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click) g"

@@ -23,10 +23,13 @@
         private RelayCommand exitCommand;
         private double zoom;
         private ICommand testCommand;
+
         private IList<string> manyItems;
+        private IList<string> stringItems;
+
         private bool? isCheckedToggleButton3;
 
-        private readonly Timer memoryTimer;
+        private readonly Timer memoryTimer;        
 
         public MainViewModel()
         {
@@ -127,7 +130,12 @@
 
         public IList<string> ManyItems
         {
-            get { return this.manyItems ?? (this.manyItems = this.GenerateStrings(5000)); }
+            get { return this.manyItems ?? (this.manyItems = GenerateStrings(5000)); }
+        }
+
+        public IList<string> StringItems
+        {
+            get { return this.stringItems ?? (this.stringItems = GenerateStrings(25)); }
         }
 
         public bool? IsCheckedToggleButton3
@@ -215,9 +223,11 @@
             Trace.WriteLine($"CancelPreview: {galleryItem}");
         }
 
-        private IList<string> GenerateStrings(int count)
+        private static IList<string> GenerateStrings(int count)
         {
-            return Enumerable.Repeat("Test", count).ToList();
+            return Enumerable.Range(0, count)
+                .Select(x => "Item " + (x + 1).ToString())
+                .ToList();
         }
 
         private void HandleMemoryTimer_Elapsed(object sender, ElapsedEventArgs e)
