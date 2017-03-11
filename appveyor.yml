@@ -52,9 +52,6 @@
   version: 5.0.0.{build}
   configuration: Release
 
-  init:
-    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version.Replace("-dev$env:appveyor_build_number", "-dev"))$($env:appveyor_build_number.PadLeft(4, '0'))"
-
   # Install scripts. (runs after repo cloning)
   install:
     - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
