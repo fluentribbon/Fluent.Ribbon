@@ -152,6 +152,8 @@
         /// Change notifications are not implemented. 
         /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
         /// </summary>
+#pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 67
     }
 }
