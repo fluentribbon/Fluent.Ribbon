@@ -28,7 +28,7 @@
     </PropertyGroup>
 
       <Message Text="Version: $(Version)"
-               Importance="high" />
+               Importance="High" />
   </Target>
 
   <Target Name="EnsurePublishDir">
@@ -60,4 +60,5 @@
   <Target Name="Test" DependsOnTargets="Build; RunTests" />
   <Target Name="Pack" DependsOnTargets="Build; RunPack" />
   <Target Name="RunPack" DependsOnTargets="RunGitLink; CreateNuGetPackage; CreateZipPackages" />
+    <Target Name="CI" DependsOnTargets="Build; RunTests; RunPack" />
 </Project>
