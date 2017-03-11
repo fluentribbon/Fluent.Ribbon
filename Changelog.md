@@ -65,7 +65,7 @@
     - `Ribbon` now has `IsQuickAccessToolBarMenuDropDownVisible` and `QuickAccessToolbar` now has `IsMenuDropDownVisible`.
   - Added `CanChangeIsOpen` to `Backstage`
   - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
-  - Improved interop with windows which are not of type `RibbonWindow`. 
+  - Improved interop with windows which are not of type `RibbonWindow`.  
     The showcase contains a sample showcasing working context-tabs in a MahApps.Metro `MetroWindow`.
 
 ## 4.0.3
