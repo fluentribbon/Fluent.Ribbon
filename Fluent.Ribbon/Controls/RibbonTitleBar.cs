@@ -364,7 +364,7 @@ namespace Fluent
                 endX = Math.Max(0, endX);
 
                 // Ensure that startX respect min width of QuickAccessToolBar
-                startX = Math.Max(startX, this.QuickAccessToolBar.MinWidth);
+                startX = Math.Max(startX, this.QuickAccessToolBar?.MinWidth ?? 0);
 
                 // Set contextual groups position and size 
                 this.itemsContainer.Measure(infinity);
