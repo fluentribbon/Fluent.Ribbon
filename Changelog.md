@@ -1,6 +1,11 @@
 # Changelog for Fluent.Ribbon
 
-## 5.0.0 (preview)
+## 6.0.0 (preview)
+
+- ### Breaking changes
+  - The following `Color` and `Brush` resources got removed:
+
+## 5.0.0
 
 - ### Breaking changes
   - Office 2010 and Windows 8 themes got removed. 
