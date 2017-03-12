@@ -418,7 +418,8 @@ namespace Fluent
             }
             else
             {
-                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this);                
+                elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
+                    ?? UIHelper.GetParent<AdornerDecorator>(this.Parent);                
             }
 
             if (elementToAdorn == null)
