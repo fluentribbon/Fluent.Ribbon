@@ -11,6 +11,7 @@
 ## 5.0.1
 - ### Bug fixes
   - [#412](../../issues/412) - Specific version for nuget references causes issues
+  - [#413](../../issues/413) - ColorGallery SelectedColorChanged issue
 
 ## 5.0.0
 

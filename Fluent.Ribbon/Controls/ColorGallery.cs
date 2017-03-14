@@ -11,6 +11,7 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -509,7 +510,7 @@ namespace Fluent
             gallery.UpdateSelectedColor(color);
 
             // Raise event
-            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
+            gallery.RunInDispatcherAsync(() => gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent)));
         }
 
         private void UpdateSelectedColor(Color? color)
@@ -689,14 +690,6 @@ namespace Fluent
         /// Identifies the SelectedColorChanged routed event.
         /// </summary>
         public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
-
-        /// <summary>
-        /// Raises SelectedColorChanged event
-        /// </summary>
-        public void RaiseSelectedColorChanged()
-        {
-            this.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent, this));
-        }
 
         /// <summary>
         /// Occurs whether more colors menu item is clicked
