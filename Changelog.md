@@ -5,6 +5,9 @@
 - ### Breaking changes
   - The following `Color` and `Brush` resources got removed:
 
+- ### Bug fixes
+  - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
+
 ## 5.0.1
 - ### Bug fixes
   - [#412](../../issues/412) - Specific version for nuget references causes issues

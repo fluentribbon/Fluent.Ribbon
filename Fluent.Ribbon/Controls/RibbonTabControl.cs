@@ -550,22 +550,33 @@ namespace Fluent
                 }
             }
 
-            if (e.Delta > 0)
+            // Try to ensure that we have a selection
+            if (selectedIndex < 0)
             {
-                if (selectedIndex > 0)
+                if (visualItems.Count > 0)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
-                    selectedIndex--;
-                    visualItems[selectedIndex].IsSelected = true;
+                    visualItems[0].IsSelected = true;
                 }
             }
-            else if (e.Delta < 0)
+            else
             {
-                if (selectedIndex < visualItems.Count - 1)
+                if (e.Delta > 0)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
-                    selectedIndex++;
-                    visualItems[selectedIndex].IsSelected = true;
+                    if (selectedIndex > 0)
+                    {
+                        visualItems[selectedIndex].IsSelected = false;
+                        selectedIndex--;
+                        visualItems[selectedIndex].IsSelected = true;
+                    }
+                }
+                else if (e.Delta < 0)
+                {
+                    if (selectedIndex < visualItems.Count - 1)
+                    {
+                        visualItems[selectedIndex].IsSelected = false;
+                        selectedIndex++;
+                        visualItems[selectedIndex].IsSelected = true;
+                    }
                 }
             }
 
