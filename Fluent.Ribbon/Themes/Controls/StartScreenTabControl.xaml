@@ -45,7 +45,7 @@
 
             <Grid Height="Auto"
                   Grid.Column="1"
-                  Background="{DynamicResource BackstageBackgroundBrush}"
+                  Background="{DynamicResource WhiteBrush}"
                   Margin="{TemplateBinding SelectedContentMargin}">
                 <Border Padding="33,16"
                         Background="White">

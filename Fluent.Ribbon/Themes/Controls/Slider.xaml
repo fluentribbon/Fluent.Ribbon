@@ -141,20 +141,20 @@
             </Grid.ColumnDefinitions>
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,-1,0,0"
-                       Stroke="{DynamicResource SliderShadowBrush}"
+                       Stroke="{DynamicResource WhiteBrush}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <!--<Rectangle Grid.ColumnSpan="1" Margin="-1,0,0,0" Stroke="{DynamicResource SliderShadowBrush}" VerticalAlignment="Center" Height="7" Grid.Column="1" Width="1" HorizontalAlignment="Center"/>-->
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,0"
-                       Stroke="{DynamicResource SliderLightenBrush}"
+                       Stroke="{DynamicResource WhiteBrush}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,1"
-                       Stroke="{DynamicResource SliderLightenBrush}"
+                       Stroke="{DynamicResource WhiteBrush}"
                        VerticalAlignment="Center"
                        Height="7"
                        Grid.Column="1"

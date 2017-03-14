@@ -3,7 +3,65 @@
 ## 6.0.0 (preview)
 
 - ### Breaking changes
-  - The following `Color` and `Brush` resources got removed:
+  - The following `Color` and `Brush` resources got replaced/renamed/removed:
+
+|Old|New|
+|---|---|
+| ButtonDisabledBackgroundBrush | --- |
+| ButtonDisabledBorderBrush | --- |
+| SliderShadowBrush | WhiteBrush |
+| SliderLightenBrush | WhiteBrush |
+| BackstageBackgroundBrush | WhiteBrush |
+| BackstageControlHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| BackstageControlActiveBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| ButtonHoverOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| ButtonHoverOuterBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| ButtonPressedOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ButtonPressedOuterBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonCheckedBrush | Fluent.Ribbon.Brushes.AccentColorBrush20 |
+| CheckBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| CheckBoxHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| CheckBoxPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| CheckBoxPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| CheckBoxOutterBorderBrush | --- |
+| CheckBoxOutterBackgroundBrush | --- |
+| CheckBoxInnerBorderBrush | --- |
+| CheckBoxInnerBackgroundBrush | --- |
+| CheckBoxHoverOutterBorderBrush | --- |
+| CheckBoxHoverOutterBackgroundBrush | --- |
+| CheckBoxHoverInnerBorderBrush | --- |
+| CheckBoxHoverInnerBackgroundBrush | --- |
+| CheckBoxPressedOutterBorderBrush | --- |
+| CheckBoxPressedOutterBackgroundBrush | --- |
+| CheckBoxPressedInnerBorderBrush | --- |
+| CheckBoxPressedInnerBackgroundBrush | --- |
+| GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+|  |  |
+
+  - The following default values changed:
+
+|Name/Location|Old|New|
+|---|---|---|
+|Button.BorderThickness | 0 | 1 |
+
+  - The following styles got removed/renamed:
+|Old|New|
+|---|---|
+|NonEditableComboBoxItemStyle|is now the default style|
+|EditableComboBoxItemStyle|---|
 
 ## 5.0.0
 

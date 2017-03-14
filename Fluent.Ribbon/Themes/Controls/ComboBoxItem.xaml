@@ -2,133 +2,42 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <ControlTemplate TargetType="{x:Type ComboBoxItem}"
-                     x:Key="noneditComboboxItemControlTemplate">
+                     x:Key="ComboBoxItemTemplate">
         <Grid Background="{DynamicResource TransparentBrush}">
-            <Border x:Name="hoverBorder"
-                    BorderThickness="1"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                     Opacity="0.12" />
-                </Border.Background>
-                <Border Height="Auto"
-                        BorderThickness="1">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.12" />
-                    </Border.Background>
-                </Border>
-            </Border>
-            <Border x:Name="selectedBorder"
-                    BorderThickness="1"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                     Opacity="0.2" />
-                </Border.Background>
-                <Border Height="Auto"
-                        BorderThickness="1">
-                    <Border.Background>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.2" />
-                    </Border.Background>
-                </Border>
-            </Border>
-            <ContentPresenter x:Name="contentPresenter"
-                              Margin="3"
-                              Opacity="1" />
+            <Grid Margin="0 0.5"
+                  Background="{TemplateBinding Background}">
+                <Border x:Name="ItemBackground"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        IsHitTestVisible="False"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <ContentPresenter x:Name="contentPresenter"
+                                  Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
+            </Grid>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="hoverBorder"
-                        Value="Visible" />
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentSelectedColorBrush}" />
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
             </Trigger>
-            <Trigger Property="IsSelected"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="contentPresenter"
-                        Value="0.5" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="EditableComboBoxItemStyle"
+    <Style x:Key="ComboBoxItemStyle"
            TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Padding"
+                Value="3" />
         <Setter Property="Template"
-                Value="{DynamicResource noneditComboboxItemControlTemplate}" />
-    </Style>
-
-    <Style x:Key="NonEditableComboBoxItemStyle"
-           TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBoxItem}"
-                                 x:Name="noneditComboboxItem">
-                    <Grid Background="{DynamicResource TransparentBrush}">
-                        <Border x:Name="hoverBorder"
-                                BorderThickness="1"
-                                Visibility="Collapsed">
-                            <Border.Background>
-                                <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                                 Opacity="0.12" />
-                            </Border.Background>
-                            <Border Height="Auto"
-                                    BorderThickness="1">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                                     Opacity="0.12" />
-                                </Border.Background>
-                            </Border>
-                        </Border>
-                        <Border x:Name="selectedBorder"
-                                BorderThickness="1"
-                                Visibility="Collapsed">
-                            <Border.Background>
-                                <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                                 Opacity="0.2" />
-                            </Border.Background>
-                            <Border Height="Auto"
-                                    BorderThickness="1">
-                                <Border.Background>
-                                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                                     Opacity="0.2" />
-                                </Border.Background>
-                            </Border>
-                        </Border>
-                        <ContentPresenter x:Name="contentPresenter"
-                                          Margin="3"
-                                          Opacity="1" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled"
-                                 Value="False">
-                            <Setter Property="Opacity"
-                                    TargetName="contentPresenter"
-                                    Value="0.5" />
-                        </Trigger>
-                        <Trigger Property="IsSelected"
-                                 Value="True">
-                            <Setter Property="Visibility"
-                                    TargetName="selectedBorder"
-                                    Value="Visible" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Visibility"
-                                    TargetName="hoverBorder"
-                                    Value="Visible" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+                Value="{DynamicResource ComboBoxItemTemplate}" />
     </Style>
 </ResourceDictionary>

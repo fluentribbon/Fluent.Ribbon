@@ -5,6 +5,12 @@
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="ToolTipService.ShowDuration"
                 Value="30000" />
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -35,111 +41,43 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"
                                   Margin="4,4,0,0">
-                                <Ellipse x:Name="rectangle"
-                                         Fill="{DynamicResource CheckBoxOutterBackgroundBrush}"
-                                         Stroke="{DynamicResource CheckBoxOutterBorderBrush}" />
-                                <Ellipse x:Name="rectangle1"
-                                         Margin="1,1,1,1"
-                                         Fill="{x:Null}"
-                                         Stroke="{DynamicResource CheckBoxOutterBackgroundBrush}"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch" />
-                                <Ellipse Margin="2,2,2,2"
+                                <Rectangle Margin="-6,0"
+                                           Fill="{DynamicResource TransparentWhiteBrush}" />
+                                <Ellipse x:Name="normal"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch"
-                                         x:Name="defaultRect"
-                                         Opacity="1"
-                                         Stroke="{DynamicResource CheckBoxInnerBorderBrush}"
-                                         Fill="{DynamicResource CheckBoxInnerBackgroundBrush}" />
-                                <Ellipse x:Name="rectangle2"
-                                         StrokeThickness="0"
-                                         Margin="2"
-                                         Opacity="0">
-                                    <Ellipse.Fill>
-                                        <RadialGradientBrush Center="0.496,1.004"
-                                                             GradientOrigin="0.496,1.004">
-                                            <GradientStop Color="White" />
-                                            <GradientStop Offset="1" />
-                                        </RadialGradientBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-                                <Ellipse Margin="3"
+                                         Fill="{TemplateBinding Background}"
+                                         Stroke="{TemplateBinding BorderBrush}"
+                                         StrokeThickness="{TemplateBinding BorderThickness}" />
+                                <Ellipse x:Name="Checked1"
+                                         Margin="3"
+                                         HorizontalAlignment="Stretch"
                                          VerticalAlignment="Stretch"
-                                         Stretch="Fill"
-                                         Stroke="#FF6E7071"
-                                         StrokeEndLineCap="Triangle"
-                                         StrokeDashCap="Square"
-                                         StrokeThickness="1"
-                                         StrokeStartLineCap="Triangle"
-                                         x:Name="path">
-                                    <Ellipse.Fill>
-                                        <RadialGradientBrush Center="0.367,0.339"
-                                                             GradientOrigin="0.367,0.339">
-                                            <GradientStop Color="White"
-                                                          Offset="0" />
-                                            <GradientStop Color="#FF7E8183"
-                                                          Offset="1" />
-                                        </RadialGradientBrush>
-                                    </Ellipse.Fill>
-                                </Ellipse>
+                                         Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                                         Opacity="0" />
                             </Grid>
                         </BulletDecorator.Bullet>
                         <TextBlock Text="{TemplateBinding Header}"
                                    Margin="8,3,4,0" />
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver"
-                                           Value="True" />
-                                <Condition Property="IsPressed"
-                                           Value="False" />
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Stroke"
-                                    TargetName="rectangle"
-                                    Value="{DynamicResource CheckBoxHoverOutterBorderBrush}" />
-                            <Setter Property="Stroke"
-                                    TargetName="rectangle1"
-                                    Value="{DynamicResource CheckBoxHoverOutterBackgroundBrush}" />
-                            <Setter Property="Stroke"
-                                    TargetName="defaultRect"
-                                    Value="{DynamicResource CheckBoxHoverInnerBorderBrush}" />
-                            <Setter Property="Fill"
-                                    TargetName="defaultRect"
-                                    Value="{DynamicResource CheckBoxHoverInnerBackgroundBrush}" />
-                            <Setter Property="Opacity"
-                                    TargetName="rectangle2"
-                                    Value="0.25" />
-                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter TargetName="normal"
+                                    Property="Stroke"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                        </Trigger>
                         <Trigger Property="IsPressed"
                                  Value="True">
-                            <Setter Property="Stroke"
-                                    TargetName="rectangle"
-                                    Value="{DynamicResource CheckBoxPressedOutterBorderBrush}" />
-                            <Setter Property="Fill"
-                                    TargetName="rectangle"
-                                    Value="{DynamicResource CheckBoxPressedOutterBackgroundBrush}" />
-                            <Setter Property="Stroke"
-                                    TargetName="rectangle1"
-                                    Value="{DynamicResource CheckBoxPressedOutterBackgroundBrush}" />
-                            <Setter Property="Stroke"
-                                    TargetName="defaultRect"
-                                    Value="{DynamicResource CheckBoxPressedInnerBorderBrush}" />
-                            <Setter Property="Fill"
-                                    TargetName="defaultRect"
-                                    Value="{DynamicResource CheckBoxPressedInnerBackgroundBrush}" />
-                            <Setter Property="Stroke"
-                                    TargetName="path"
-                                    Value="Black" />
-                            <Setter Property="Opacity"
-                                    TargetName="rectangle2"
-                                    Value="0.5" />
+                            <Setter TargetName="normal"
+                                    Property="Stroke"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
                         </Trigger>
                         <Trigger Property="IsChecked"
-                                 Value="False">
-                            <Setter Property="Visibility"
-                                    TargetName="path"
-                                    Value="Hidden" />
+                                 Value="True">
+                            <Setter Property="Opacity"
+                                    TargetName="Checked1"
+                                    Value="1" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="false">
@@ -151,7 +89,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground"
-                Value="#FF464646" />
     </Style>
 </ResourceDictionary>

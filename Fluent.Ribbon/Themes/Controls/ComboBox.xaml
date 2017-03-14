@@ -26,7 +26,7 @@
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="0"
                 Background="White"
-                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
@@ -54,16 +54,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
@@ -85,10 +85,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Fill"
                         TargetName="rectangle"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -369,7 +369,7 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <ScrollViewer Focusable="False"
-                                                      BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                       x:Name="PART_ScrollViewer"
                                                       Background="White"
                                                       Margin="1"
@@ -577,26 +577,11 @@
         <Setter Property="ScrollViewer.CanContentScroll"
                 Value="true" />
         <Style.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="ItemContainerStyleSelector"
-                               Value="{x:Null}" />
-                    <Condition Property="IsEditable"
-                               Value="True" />
-                </MultiTrigger.Conditions>
+            <Trigger Property="ItemContainerStyleSelector"
+                     Value="{x:Null}">
                 <Setter Property="ItemContainerStyle"
-                        Value="{DynamicResource EditableComboBoxItemStyle}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="ItemContainerStyleSelector"
-                               Value="{x:Null}" />
-                    <Condition Property="IsEditable"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="ItemContainerStyle"
-                        Value="{DynamicResource NonEditableComboBoxItemStyle}" />
-            </MultiTrigger>
+                        Value="{DynamicResource ComboBoxItemStyle}" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

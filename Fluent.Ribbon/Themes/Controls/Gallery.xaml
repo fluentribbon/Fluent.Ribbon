@@ -110,7 +110,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border BorderThickness="{TemplateBinding BorderThickness}"
-                BorderBrush="{DynamicResource GalleryBorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 x:Name="layoutRoot">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>
