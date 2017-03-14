@@ -5,6 +5,10 @@
 - ### Breaking changes
   - The following `Color` and `Brush` resources got removed:
 
+## 5.0.1
+- ### Bug fixes
+  - [#412](../../issues/412) - Specific version for nuget references causes issues
+
 ## 5.0.0
 
 - ### Breaking changes
