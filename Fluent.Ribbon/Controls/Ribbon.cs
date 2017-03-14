@@ -610,6 +610,9 @@ namespace Fluent
 
             if (oldValue != null)
             {
+                // Remove-Forward DataContext
+                oldValue.DataContext = null;
+
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
                     ribbon.TitleBar.Items.Remove(ribbonContextualTabGroup);
@@ -623,6 +626,9 @@ namespace Fluent
 
             if (newValue != null)
             {
+                // Forward DataContext
+                newValue.DataContext = ribbon.DataContext;
+
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
                     ribbon.TitleBar.Items.Add(contextualTabGroup);
@@ -1420,6 +1426,15 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+            this.DataContextChanged += this.Handle_DataContextChanged;
+        }
+
+        private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.TitleBar != null)
+            {
+                this.TitleBar.DataContext = e.NewValue;
+            }
         }
 
         #endregion

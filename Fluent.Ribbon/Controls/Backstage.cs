@@ -253,6 +253,15 @@ namespace Fluent
         {
             this.Loaded += this.OnBackstageLoaded;
             this.Unloaded += this.OnBackstageUnloaded;
+            this.DataContextChanged += this.Handle_DataContextChanged;
+        }
+
+        private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.adorner != null)
+            {
+                this.adorner.DataContext = e.NewValue;
+            }
         }
 
         private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
@@ -440,7 +449,10 @@ namespace Fluent
                 throw new Exception($"AdornerLayer could not be found for {this}.");
             }
 
-            this.adorner = new BackstageAdorner(elementToAdorn, this);
+            this.adorner = new BackstageAdorner(elementToAdorn, this)
+                           {
+                               DataContext = this.DataContext
+                           };
             layer.Add(this.adorner);
 
             layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted, HandleOpenBackstageCommandCanExecute));
@@ -468,6 +480,8 @@ namespace Fluent
             var layer = AdornerLayer.GetAdornerLayer(this.adorner);
             layer?.CommandBindings.Clear();
             layer?.Remove(this.adorner);
+
+            this.adorner.DataContext = null;
 
             this.adorner.Clear();
             this.adorner = null;
