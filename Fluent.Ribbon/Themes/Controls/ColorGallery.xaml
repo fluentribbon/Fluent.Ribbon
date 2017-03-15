@@ -5,7 +5,7 @@
     <Style x:Key="ColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -79,7 +79,7 @@
     <Style x:Key="HightlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -172,7 +172,7 @@
     <Style x:Key="ColorGalleryGradientListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplateSelector"
                 Value="{DynamicResource ColorGradientItemTemplateSelect}" />
         <Setter Property="Template">

@@ -82,8 +82,7 @@
                                         Grid.Column="1"
                                         BorderThickness="1,0,0,0"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                        Width="{TemplateBinding RightPaneWidth}"
-                                        Background="{DynamicResource GalleryBackgroundBrush}">
+                                        Width="{TemplateBinding RightPaneWidth}">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                   Style="{DynamicResource MenuScrollViewer}"
                                                   IsTabStop="False"

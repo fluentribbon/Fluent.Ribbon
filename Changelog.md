@@ -49,12 +49,13 @@
 | ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
 | KeyTipBackgroundBrush | Fluent.Ribbon.Brushes.KeyTip.Background |
 | KeyTipBorderBrush | Fluent.Ribbon.Brushes.KeyTip.BorderBrush |
+| GalleryHeaderBackgroundBrush | Fluent.Ribbon.Brushes.Gallery.Header.Background |
 | TextBoxBorderBrush | Fluent.Ribbon.Brushes.TextBox.BorderBrush |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
-|  |  |
+| TextBoxBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Background |
+| TextBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.Background |
+| TextBoxHoverBorderBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush |
+| TextBoxDisabledBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.Background |
+| TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
 |  |  |
 |  |  |
 |  |  |

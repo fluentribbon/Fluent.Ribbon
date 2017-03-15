@@ -38,7 +38,7 @@
                                     BorderThickness="1,1,1,1"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                                     x:Name="PART_ContentBorder"
-                                    Background="{DynamicResource TextBoxBackgroundBrush}"
+                                    Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                     Grid.Column="1"
                                     Grid.ColumnSpan="1"
                                     Width="{TemplateBinding InputWidth}"
@@ -77,13 +77,13 @@
                                  Value="False">
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxDisabledBorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentHost"
-                                    Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                             <Setter Property="Opacity"
                                     TargetName="iconImage"
                                     Value="0.5" />
@@ -101,25 +101,25 @@
                                  Value="True">
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentHost"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocusWithin"
                                  Value="True">
                             <Setter Property="BorderBrush"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxHoverBorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentHost"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_ContentBorder"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

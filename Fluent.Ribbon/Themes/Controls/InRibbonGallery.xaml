@@ -466,7 +466,7 @@
                                                             BorderBrush="{x:Null}"
                                                             BorderThickness="0"
                                                             Height="13"
-                                                            Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                                                            Background="{DynamicResource Fluent.Ribbon.Brushes.Gallery.Header.Background}">
                                                         <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
                                                                                Style="{DynamicResource GalleryDropDownButtonStyle}"
                                                                                Height="Auto"

@@ -609,7 +609,7 @@
                              TextWrapping="NoWrap"
                              BorderThickness="0,0,0,0"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
-                             Background="{DynamicResource TextBoxBackgroundBrush}"
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                              Visibility="Collapsed" />
                     <Path x:Name="path"
                           HorizontalAlignment="Center"
@@ -933,7 +933,7 @@
                         <Border x:Name="border"
                                 Height="22"
                                 BorderThickness="1"
-                                Background="{DynamicResource TextBoxBackgroundBrush}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                 Grid.Column="1"
                                 Width="{TemplateBinding InputWidth}"
                                 CornerRadius="2">
@@ -960,7 +960,7 @@
                                          BorderThickness="0"
                                          Grid.RowSpan="2"
                                          Grid.Column="0"
-                                         Background="{DynamicResource TextBoxBackgroundBrush}"
+                                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                          Margin="1,0,0,0"
                                          Padding="1" />
                                 <Border x:Name="border1"
@@ -1056,13 +1056,13 @@
                                     Value="False" />
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource TextBoxDisabledBorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
-                                    Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                         </Trigger>
                         <Trigger Property="Size"
                                  Value="Middle">
@@ -1080,10 +1080,10 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border">
                                 <Setter.Value>
@@ -1114,10 +1114,10 @@
                                  SourceName="PART_TextBox">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
-                                    Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border">
                                 <Setter.Value>

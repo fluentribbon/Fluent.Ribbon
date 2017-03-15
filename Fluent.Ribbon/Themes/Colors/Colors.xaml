@@ -128,12 +128,9 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.BorderBrush" Color="{StaticResource Gray3}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
 
-    <!-- Gallery -->   
-    <SolidColorBrush x:Key="GalleryHeaderBackgroundBrush"
-                     Color="{DynamicResource Gray3}" />
-
-    <SolidColorBrush x:Key="GalleryBackgroundBrush"
-                     Color="{StaticResource WhiteColor}" />
+    <!-- Gallery -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gallery.Header.Background" Color="{StaticResource Gray3}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
     <!-- KeyTip -->
     <SolidColorBrush x:Key="Fluent.Brushes.KeyTip.Background" Color="{StaticResource Gray1}" options:Freeze="True" />
@@ -249,19 +246,10 @@
     <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush"
                      Color="#FFEDEDED" />
 
-    <!-- TextBox -->   
-    <SolidColorBrush x:Key="TextBoxBackgroundBrush"
-                     Color="White" />
-    
-    <SolidColorBrush x:Key="TextBoxHoverBackgroundBrush"
-                     Color="White" />
-       
-    <SolidColorBrush x:Key="TextBoxHoverBorderBrush"
-                     Color="#FFBBBFC4" />
-    
-    <SolidColorBrush x:Key="TextBoxDisabledBackgroundBrush"
-                     Color="#FFFAFAFA" />
-
-    <SolidColorBrush x:Key="TextBoxDisabledBorderBrush"
-                     Color="#FFE4E7EB" />
+    <!-- TextBox -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush" Color="{StaticResource Gray5}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
 </ResourceDictionary>
