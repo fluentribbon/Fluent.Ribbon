@@ -10,9 +10,9 @@
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="Background"
-                Value="{DynamicResource KeyTipBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Brushes.KeyTip.Background}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource KeyTipBorderBrush}" />
+                Value="{DynamicResource Fluent.Brushes.KeyTip.BorderBrush}" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Template">

@@ -19,7 +19,7 @@
 | ButtonHoverOuterBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
 | ButtonPressedOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
 | ButtonPressedOuterBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ButtonCheckedBrush | Fluent.Ribbon.Brushes.AccentColorBrush20 |
+| ButtonCheckedBrush | Fluent.Ribbon.Brushes.HighlightBrush & Fluent.Ribbon.Brushes.Button.MouseOver.Background |
 | CheckBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
 | CheckBoxHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
 | CheckBoxPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
@@ -38,6 +38,18 @@
 | CheckBoxPressedInnerBackgroundBrush | --- |
 | GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
 | InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| BackstageGalleryItemSelectedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| BackstageToggleButtonCheckedBorderBrush | Fluent.Ribbon.Brushes.HighlightBrush |
+| BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| QuickAccessToolbarPopupBackgrondBrush | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}} |
+| WindowContentBorderBrush | Fluent.Ribbon.Separator.BorderBrush |
+| GroupBoxSeparatorBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| GroupBoxSeparatorBackgroundBrush | Fluent.Ribbon.Brushes.Separator.Background |
+| ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| KeyTipBackgroundBrush | Fluent.Ribbon.Brushes.KeyTip.Background |
+| KeyTipBorderBrush | Fluent.Ribbon.Brushes.KeyTip.BorderBrush |
+| TextBoxBorderBrush | Fluent.Ribbon.Brushes.TextBox.BorderBrush |
 |  |  |
 |  |  |
 |  |  |
@@ -58,6 +70,7 @@
 |Button.BorderThickness | 0 | 1 |
 
   - The following styles got removed/renamed:
+
 |Old|New|
 |---|---|
 |NonEditableComboBoxItemStyle|is now the default style|

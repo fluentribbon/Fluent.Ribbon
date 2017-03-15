@@ -9,7 +9,6 @@
     <!-- Theme base colors -->
     <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#FF2B579A</Color>
     
-    <Color x:Key="Fluent.Ribbon.Colors.HighlightColor">#FF086F9E</Color>
     <Color x:Key="Fluent.Ribbon.Colors.AccentBaseColor">#FF2B579A</Color>
     <!--80%-->
     <Color x:Key="Fluent.Ribbon.Colors.AccentColor80">#CC2B579A</Color>
@@ -20,6 +19,8 @@
     <!--20%-->
     <Color x:Key="Fluent.Ribbon.Colors.AccentColor20">#332B579A</Color>
 
+    <Color x:Key="Fluent.Ribbon.Colors.HighlightColor">#FF086F9E</Color>
+    
     <!-- Base colors -->
     <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="WhiteColor">#FFFFFFFF</Color>
@@ -76,7 +77,6 @@
     <SolidColorBrush x:Key="GrayBrush9" Color="{StaticResource Gray9}" options:Freeze="True" />
     <SolidColorBrush x:Key="GrayBrush10" Color="{StaticResource Gray10}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Control.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
     <SolidColorBrush x:Key="TextBoxMouseOverInnerBorderBrush" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="{StaticResource BlackColor}" options:Freeze="True" />
@@ -91,23 +91,16 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ComboBox.MouseOver.BorderBrush" Color="{StaticResource Fluent.Ribbon.Colors.BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ComboBox.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.BlackColor}" options:Freeze="True" />
 
-    <!--Backstage-->   
-    <SolidColorBrush x:Key="BackstageGalleryItemHoverBackgroundBrush"
-                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.3" />
-    
-    <SolidColorBrush x:Key="BackstageGalleryItemSelectedBackgroundBrush"
-                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.5" />
-    
-    <SolidColorBrush x:Key="BackstageToggleButtonCheckedBackgroundBrush"
-                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.2" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="BackstageToggleButtonCheckedBorderBrush"
-                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.3" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
 
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.MouseOver" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Selected" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Pressed" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor60}" options:Freeze="True" />
+    
     <!-- Button -->   
     <SolidColorBrush x:Key="ButtonHoverInnerBackgroundBrush"
                      Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
@@ -133,7 +126,7 @@
 
     <!-- CheckBox -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.BorderBrush" Color="{StaticResource Gray3}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Background" Color="{StaticResource Gray10}" options:Freeze="True" />       
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
 
     <!-- Gallery -->   
     <SolidColorBrush x:Key="GalleryHeaderBackgroundBrush"
@@ -143,11 +136,8 @@
                      Color="{StaticResource WhiteColor}" />
 
     <!-- KeyTip -->
-    <SolidColorBrush x:Key="KeyTipBackgroundBrush"
-                     Color="#FF525252" />
-    
-    <SolidColorBrush x:Key="KeyTipBorderBrush"
-                     Color="#FF767676" />
+    <SolidColorBrush x:Key="Fluent.Brushes.KeyTip.Background" Color="{StaticResource Gray1}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Brushes.KeyTip.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
 
     <!-- MenuItem -->
     <SolidColorBrush x:Key="MenuItemBackground"
@@ -168,9 +158,6 @@
     
     <SolidColorBrush x:Key="ContextMenuLineBrush"
                      Color="#FFE2E4E7" />
-
-    <SolidColorBrush x:Key="ContextMenuSeparatorBrush"
-                     Color="#FFE0E3E6" />
 
     <SolidColorBrush x:Key="ContextMenuBarResizeBorderBrush"
                      Color="#FFDDE7EE" />
@@ -237,12 +224,6 @@
     <!-- GroupBox -->
     <SolidColorBrush x:Key="GroupBoxFontBrush"
                      Color="#FF666D7C" />
-    
-    <SolidColorBrush x:Key="GroupBoxSeparatorBorderBrush"
-                     Color="White" />
-    
-    <SolidColorBrush x:Key="GroupBoxSeparatorBackgroundBrush"
-                     Color="#FFE1E1E1" />
 
     <!-- Scroll-Buttons -->
     <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush"
@@ -280,15 +261,7 @@
     
     <SolidColorBrush x:Key="TextBoxDisabledBackgroundBrush"
                      Color="#FFFAFAFA" />
-    
+
     <SolidColorBrush x:Key="TextBoxDisabledBorderBrush"
                      Color="#FFE4E7EB" />
-
-    <!-- Window -->
-    <SolidColorBrush x:Key="WindowContentBorderBrush"
-                     Color="#FF878C92" />
-
-    <!-- QuickAccessToolBar -->
-    <SolidColorBrush x:Key="QuickAccessToolbarPopupBackgrondBrush"
-                     Color="#FFE9EDF1" />
 </ResourceDictionary>

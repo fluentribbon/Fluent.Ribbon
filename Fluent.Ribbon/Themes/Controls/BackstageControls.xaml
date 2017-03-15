@@ -243,10 +243,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource BackstageToggleButtonCheckedBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource BackstageToggleButtonCheckedBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -511,13 +511,13 @@
                      Value="True">
                 <Setter Property="Background"
                         TargetName="hoverBorder"
-                        Value="{DynamicResource BackstageGalleryItemSelectedBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
                         TargetName="hoverBorder"
-                        Value="{DynamicResource BackstageGalleryItemHoverBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

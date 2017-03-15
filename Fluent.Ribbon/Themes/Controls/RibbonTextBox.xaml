@@ -36,7 +36,7 @@
                             </StackPanel>
                             <Border Height="Auto"
                                     BorderThickness="1,1,1,1"
-                                    BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                                     x:Name="PART_ContentBorder"
                                     Background="{DynamicResource TextBoxBackgroundBrush}"
                                     Grid.Column="1"

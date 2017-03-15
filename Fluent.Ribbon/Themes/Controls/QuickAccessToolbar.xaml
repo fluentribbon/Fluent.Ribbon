@@ -288,6 +288,8 @@
 
     <Style x:Key="QuickAccessToolbarStyle"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
+        <Setter Property="Background"
+                Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
         <Setter Property="Template"
                 Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
     </Style>
@@ -344,7 +346,7 @@
                 </Fluent:DropDownButton.ContextMenu>
 
                 <StackPanel Orientation="Horizontal"
-                            Background="{DynamicResource QuickAccessToolbarPopupBackgrondBrush}"
+                            Background="{TemplateBinding Background}"
                             Width="Auto"
                             Height="26"
                             Margin="-1">

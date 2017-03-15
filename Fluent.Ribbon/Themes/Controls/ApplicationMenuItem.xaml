@@ -528,7 +528,7 @@
             <Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
-                       Stroke="{DynamicResource WindowContentBorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
 
             <Grid  HorizontalAlignment="Stretch"
@@ -1327,7 +1327,7 @@
             <Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
-                       Stroke="{DynamicResource WindowContentBorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
 
             <Grid  HorizontalAlignment="Stretch"

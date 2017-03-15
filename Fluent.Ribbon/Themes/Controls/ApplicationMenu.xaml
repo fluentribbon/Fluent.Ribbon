@@ -81,7 +81,7 @@
                                 <Border Grid.Row="0"
                                         Grid.Column="1"
                                         BorderThickness="1,0,0,0"
-                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                         Width="{TemplateBinding RightPaneWidth}"
                                         Background="{DynamicResource GalleryBackgroundBrush}">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
@@ -99,7 +99,7 @@
                                 <Border Grid.Row="1"
                                         Grid.ColumnSpan="2"
                                         BorderThickness="0,1,0,0"
-                                        BorderBrush="{DynamicResource ContextMenuSeparatorBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                         Background="{DynamicResource RibbonBackgoundBrush}"
                                         Margin="0">
                                     <ContentPresenter ContentSource="FooterPaneContent" />

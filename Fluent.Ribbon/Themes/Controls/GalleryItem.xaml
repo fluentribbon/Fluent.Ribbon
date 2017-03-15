@@ -9,31 +9,22 @@
         <Grid Background="{DynamicResource TransparentBrush}">
             <Border x:Name="hoverBorder"
                     d:LayoutOverrides="Width, Height"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                     Opacity="0.12" />
-                </Border.Background>
-            </Border>
+                    Visibility="Collapsed"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}" />
+
             <Border x:Name="selectedBorder"
                     d:LayoutOverrides="Width, Height"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                     Opacity="0.2" />
-                </Border.Background>
-            </Border>
+                    Visibility="Collapsed"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}" />
+            
             <ContentPresenter x:Name="contentPresenter"
                               Margin="1"
                               Opacity="1" />
+            
             <Border x:Name="pressedBorder"
                     d:LayoutOverrides="Width, Height"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                     Opacity="0.3" />
-                </Border.Background>
-            </Border>
+                    Visibility="Collapsed"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"

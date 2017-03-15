@@ -51,7 +51,7 @@
         <Setter Property="Background"
                 Value="{DynamicResource TextBoxBackgroundBrush}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TextBoxBorderBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource TextBoxControlTemplate}" />
         <Setter Property="Foreground"

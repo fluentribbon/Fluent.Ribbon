@@ -103,7 +103,7 @@
                         <Border x:Name="border"
                                 Height="22"
                                 BorderThickness="1"
-                                BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                                 Background="{DynamicResource TextBoxBackgroundBrush}"
                                 Grid.ColumnSpan="1"
                                 Grid.Column="1"

@@ -16,9 +16,8 @@
                             VerticalAlignment="Center"
                             Margin="2,5,2,10"
                             BorderThickness="1,0"
-                            BorderBrush="{DynamicResource GroupBoxSeparatorBorderBrush}"
-                            Background="{DynamicResource GroupBoxSeparatorBackgroundBrush}" />
-
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
