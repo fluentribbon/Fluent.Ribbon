@@ -756,6 +756,8 @@ namespace Fluent
                         this.IsSelected = true;
                     }
 
+                    this.SetFocus();
+
                     e.Handled = true;
                 }
             }
