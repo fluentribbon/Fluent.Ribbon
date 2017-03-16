@@ -24,6 +24,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
     {
         #region Fields
@@ -71,6 +72,11 @@ namespace Fluent
         /// Gets drop down popup
         /// </summary>
         public Popup DropDownPopup { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
+        /// </summary>
+        public ContentPresenter SelectedContentPresenter { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether context menu is opened
@@ -299,6 +305,8 @@ namespace Fluent
         {
             var type = typeof(RibbonTabControl);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
+            IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             ContextMenuService.Attach(type);
             PopupService.Attach(type);
         }
@@ -355,7 +363,10 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
+            this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
+
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
+
             if (this.DropDownPopup != null)
             {
                 this.DropDownPopup.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
@@ -380,7 +391,7 @@ namespace Fluent
                     this.ToolbarPanel.Children.Add(this.toolBarItems[i]);
                 }
             }
-        }
+        }        
 
         /// <summary>
         /// Updates the current selection when an item in the System.Windows.Controls.Primitives.Selector has changed
@@ -424,6 +435,14 @@ namespace Fluent
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             this.UpdateSelectedContent();
+
+            if (this.IsKeyboardFocusWithin
+                && this.IsMinimized == false)
+            {
+                // If keyboard focus is within the control, make sure it is going to the correct place
+                var item = this.GetSelectedTabItem();
+                item?.SetFocus();
+            }
 
             if (e.AddedItems.Count > 0)
             {
@@ -475,6 +494,12 @@ namespace Fluent
                 return;
             }
 
+            // Handle [Ctrl][Shift]Tab, Home and End cases
+            // We have special handling here because if focus is inside the TabItem content we cannot
+            // cycle through TabItem because the content is not part of the TabItem visual tree
+            var direction = 0;
+            var startIndex = -1;
+
             switch (e.Key)
             {
                 case Key.Escape:
@@ -483,6 +508,42 @@ namespace Fluent
                         this.IsDropDownOpen = false;
                     }
                     break;
+
+                case Key.Tab:
+                    if ((e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                    {
+                        startIndex = this.ItemContainerGenerator.IndexFromContainer(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem));
+                        if ((e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift)
+                        {
+                            direction = -1;
+                        }
+                        else
+                        {
+                            direction = 1;
+                        }
+                    }
+                    break;
+                case Key.Home:
+                    direction = 1;
+                    startIndex = -1;
+                    break;
+                case Key.End:
+                    direction = -1;
+                    startIndex = this.Items.Count;
+                    break;
+            }
+            
+            var nextTabItem = this.FindNextTabItem(startIndex, direction);
+
+            if (nextTabItem != null 
+                && ReferenceEquals(nextTabItem, this.SelectedItem) == false)
+            {
+                e.Handled = nextTabItem.SetFocus();
+            }
+
+            if (e.Handled == false)
+            {
+                base.OnKeyDown(e);
             }
         }
 

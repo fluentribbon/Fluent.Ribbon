@@ -123,10 +123,10 @@
                     VerticalAlignment="Stretch"
                     Padding="15,0,0,0"
                     Grid.ColumnSpan="1">
-                <ContentControl x:Name="contentPresenter"
+                <ContentPresenter x:Name="contentPresenter"
                                 AutomationProperties.Name="{TemplateBinding Header}"
                                 AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                Content="{TemplateBinding Header}"
+                                ContentSource="Header"
                                 Margin="5,1,5,4"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
@@ -220,8 +220,7 @@
                         TargetName="selectedGrid"
                         Value="Visible" />
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -236,7 +235,6 @@
                         TargetName="selectedGrid"
                         Value="Visible" />
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
                         Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
@@ -245,8 +243,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -256,7 +253,6 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
                         Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
@@ -271,7 +267,6 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
                         Value="{DynamicResource RibbonThemeColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
@@ -290,8 +285,7 @@
                         TargetName="grid"
                         Value="#00000000" />
                 <Setter Property="Foreground"
-                        TargetName="contentPresenter"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">
@@ -317,8 +311,6 @@
                 Value="Auto" />
         <Setter Property="Margin"
                 Value="0" />
-        <Setter Property="IsTabStop"
-                Value="False" />
         <Setter Property="IsMinimized"
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
         <Setter Property="IsOpen"

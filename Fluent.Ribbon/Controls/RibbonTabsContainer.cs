@@ -9,6 +9,7 @@ using System.Windows.Media;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows.Input;
     using Fluent.Internal;
 
     /// <summary>
@@ -23,6 +24,12 @@ namespace Fluent
         public RibbonTabsContainer()
         {
             this.Focusable = false;
+        }
+
+        static RibbonTabsContainer()
+        {
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(RibbonTabsContainer), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(RibbonTabsContainer), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         #region Layout Overridings

@@ -241,6 +241,7 @@
             </Style>
         </ControlTemplate.Resources>
         <Grid x:Name="ContentGrid"
+              KeyboardNavigation.TabNavigation="Local"
               Height="Auto"
               VerticalAlignment="Top">
             <Grid.RowDefinitions>
@@ -261,7 +262,10 @@
             <Border HorizontalAlignment="Stretch"
                     Margin="1,0,1,1"
                     Grid.Row="1"
-                    Grid.RowSpan="1">
+                    Grid.RowSpan="1"
+                    KeyboardNavigation.TabNavigation="Local"
+                    KeyboardNavigation.DirectionalNavigation="Contained"
+                    KeyboardNavigation.TabIndex="2">
                 <ContentControl x:Name="mainContentControl"
                                 Margin="0,1,0,0"
                                 Focusable="False">
@@ -292,8 +296,9 @@
             <Grid x:Name="TabsGrid"
                   HorizontalAlignment="Stretch"
                   Margin="0"
-                  Width="Auto"
-                  Grid.RowSpan="1">
+                  Width="Auto"                  
+                  Grid.RowSpan="1"
+                  KeyboardNavigation.TabIndex="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -314,12 +319,14 @@
                                            Style="{DynamicResource RibbonTabScrollViewer}"
                                            HorizontalScrollBarVisibility="Auto"
                                            VerticalScrollBarVisibility="Disabled"
-                                           IsHitTestVisible="True">
+                                           IsHitTestVisible="True"
+                                           IsTabStop="False">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                 IsItemsHost="True"
                                                 Height="Auto"
                                                 HorizontalAlignment="Stretch"
-                                                Margin="0" />
+                                                Margin="0"
+                                                KeyboardNavigation.TabIndex="1" />
                 </Fluent:RibbonScrollViewer>
 
                 <StackPanel x:Name="toolbarPlaceholder"

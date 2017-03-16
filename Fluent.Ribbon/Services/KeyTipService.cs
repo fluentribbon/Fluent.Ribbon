@@ -226,7 +226,8 @@ namespace Fluent
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
                 // we need to get the real string input for the key because of keys like ä,ö,ü #258
                 var key = KeyEventUtility.GetStringFromKey(actualKey);
-                var isKeyRealInput = string.IsNullOrEmpty(key) == false;
+                var isKeyRealInput = string.IsNullOrEmpty(key) == false
+                    && key != "\t";
 
                 // Don't do anything and let WPF handle the rest
                 if (isKeyRealInput == false)
@@ -384,7 +385,7 @@ namespace Fluent
             this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
 
             // Focus ribbon
-            this.ribbon.Focus();
+            this.ribbon.SelectedTabItem.Focus();
 
             this.ClearUserInput();
 
