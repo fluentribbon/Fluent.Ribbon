@@ -294,7 +294,8 @@
 
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate"
                      TargetType="{x:Type Fluent:QuickAccessToolBar}">
-        <DockPanel x:Name="PART_RootPanel">
+        <DockPanel x:Name="PART_RootPanel"
+                   KeyboardNavigation.TabNavigation="Local">
             <ContentControl x:Name="menuContentControl"
                             DockPanel.Dock="Right"
                             HorizontalAlignment="Right"
@@ -311,7 +312,8 @@
                                        Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
-                                       ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
+                                       ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
+                                       KeyboardNavigation.TabIndex="3">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"
                                                    Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuHeader, Mode=OneWay}" />
                     <StackPanel x:Name="PART_MenuPanel" />
@@ -326,6 +328,7 @@
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
+            
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
                                    HorizontalAlignment="Right"
                                    Width="13"
@@ -338,7 +341,9 @@
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarExtender.png"
-                                   ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
+                                   ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}"
+                                   KeyboardNavigation.TabIndex="2"
+                                   KeyboardNavigation.TabNavigation="Local">
                 <Fluent:DropDownButton.ContextMenu>
                     <ContextMenu />
                 </Fluent:DropDownButton.ContextMenu>
@@ -365,13 +370,15 @@
                            Padding="0"
                            Margin="1,0" />
                 </StackPanel>
-
             </Fluent:DropDownButton>
+            
             <StackPanel Orientation="Horizontal"
                         x:Name="PART_ToolBarPanel"
                         Width="Auto"
                         Height="Auto"
-                        VerticalAlignment="Stretch" />
+                        VerticalAlignment="Stretch"
+                        KeyboardNavigation.TabNavigation="Local"
+                        KeyboardNavigation.TabIndex="1" />
         </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="CanQuickAccessLocationChanging"
