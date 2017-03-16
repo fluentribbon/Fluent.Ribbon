@@ -128,6 +128,8 @@
                 Value="10" />
         <Setter Property="Value"
                 Value="100" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+                Value="None" />
     </Style>
 
     <ControlTemplate TargetType="{x:Type Slider}"
