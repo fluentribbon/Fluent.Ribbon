@@ -112,8 +112,6 @@ namespace Fluent
         // Find key tips on the given element
         private void FindKeyTips(UIElement element, bool hide)
         {
-            this.Log("FindKeyTips");
-
             var children = GetVisibleChildren(element);
 
             foreach (var child in children)
@@ -407,8 +405,10 @@ namespace Fluent
                 return;
             }
 
-            this.childAdorner = ReferenceEquals(GetTopLevelElement(children[0]), GetTopLevelElement(element)) == false
-                ? new KeyTipAdorner(children[0], element, this)
+            // Panels aren't good elements to adorn. For example, trying to display KeyTips on MenuItems in SplitButton fails if using a panel.
+            var validChild = children.FirstOrDefault(x => x is Panel == false) ?? children[0];
+            this.childAdorner = ReferenceEquals(GetTopLevelElement(validChild), GetTopLevelElement(element)) == false
+                ? new KeyTipAdorner(validChild, element, this)
                 : new KeyTipAdorner(element, element, this);
 
             // Stop if no further KeyTips can be displayed.
