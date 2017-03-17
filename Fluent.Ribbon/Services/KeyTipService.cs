@@ -162,7 +162,7 @@ namespace Fluent
                 if (this.activeAdornerChain != null
                     && this.activeAdornerChain.IsAdornerChainAlive)
                 {
-                    this.activeAdornerChain.Terminate();
+                    this.Terminate();
                 }
             }
 
@@ -190,7 +190,7 @@ namespace Fluent
                 && e.SystemKey >= Key.NumPad0
                 && e.SystemKey <= Key.NumPad9)
             {
-                this.activeAdornerChain?.Terminate();
+                this.Terminate();
                 return;
             }
 
@@ -204,7 +204,7 @@ namespace Fluent
                 }
                 else
                 {
-                    this.activeAdornerChain?.Terminate();
+                    this.Terminate();
                 }
             }
             else if (e.Key == Key.Escape
@@ -238,7 +238,7 @@ namespace Fluent
                     // Implementing navigation the way office does would require complex focus/state tracking etc. so i decided to just terminate keytips and not restore focus.
                     {
                         this.backUpFocusedControl = null;
-                        this.activeAdornerChain?.Terminate();
+                        this.Terminate();
                     }
 
                     return;
@@ -268,7 +268,7 @@ namespace Fluent
                     // Handles access-keys #258
                     if (shownImmediately)
                     {
-                        this.activeAdornerChain?.Terminate();
+                        this.Terminate();
                         return;
                     }
 
@@ -297,7 +297,7 @@ namespace Fluent
                 || this.ribbon.IsEnabled == false
                 || this.window.IsActive == false)
             {
-                this.activeAdornerChain?.Terminate();
+                this.Terminate();
                 return;
             }
 
@@ -332,6 +332,11 @@ namespace Fluent
             this.currentUserInput = string.Empty;
         }
 
+        private void ClosePopups()
+        {
+            PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always);
+        }
+
         private void RestoreFocus()
         {
             this.backUpFocusedControl?.Focus();
@@ -343,6 +348,7 @@ namespace Fluent
             this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
             this.ClearUserInput();
+            this.ClosePopups();
             this.RestoreFocus();
         }
 
@@ -363,9 +369,14 @@ namespace Fluent
 
         private void ShowDelayed()
         {
-            this.activeAdornerChain?.Terminate();
+            this.Terminate();
 
             this.timer.Start();
+        }
+
+        private void Terminate()
+        {
+            this.activeAdornerChain?.Terminate();
         }
 
         private void Show()
@@ -382,8 +393,10 @@ namespace Fluent
                 return;
             }
 
-            this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
+            this.ClosePopups();
 
+            this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
+            
             // Focus ribbon
             this.ribbon.SelectedTabItem.Focus();
 
