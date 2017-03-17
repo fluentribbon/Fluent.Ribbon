@@ -723,8 +723,8 @@ namespace Fluent
                     var elementSize = this.associatedElements[i].DesiredSize;
                     this.keyTipPositions[i] = this.associatedElements[i].TranslatePoint(
                         new Point(
-                            elementSize.Height / 2.0 + 2,
-                            elementSize.Height / 2.0 + 2), this.AdornedElement);
+                            elementSize.Height / 3.0 + 2,
+                            elementSize.Height / 4.0 + 2), this.AdornedElement);
                 }
                 else if (((FrameworkElement)this.associatedElements[i]).Parent is BackstageTabControl)
                 {
