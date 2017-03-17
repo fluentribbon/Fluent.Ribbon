@@ -999,31 +999,43 @@
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            ClosePopupOnMouseDown="True"
                                            ClosePopupOnMouseDownDelay="250">
-                        <MenuItem Header="1" />
-                        <MenuItem Header="2" />
-                        <MenuItem Header="3" />
-                        <MenuItem Header="4" />
-                        <MenuItem Header="5" />
-                        <MenuItem Header="6" />
-                        <MenuItem Header="7" />
-                        <MenuItem Header="8" />
-                        <MenuItem Header="9" />
-                        <MenuItem Header="10" />
-                        <MenuItem Header="11" />
-                        <MenuItem Header="12" />
-                        <MenuItem Header="13" />
-                        <MenuItem Header="14" />
-                        <MenuItem Header="15" />
-                        <MenuItem Header="16" />
-                        <MenuItem Header="17" />
-                        <MenuItem Header="18" />
-                        <MenuItem Header="19" />
-                        <MenuItem Header="20" />
-                        <MenuItem Header="21" />
-                        <MenuItem Header="22" />
-                        <MenuItem Header="23" />
-                        <MenuItem Header="24" />
-                        <MenuItem Header="25" />
+                        <Fluent:MenuItem Header="1" />
+                        <Fluent:MenuItem Header="2" />
+                        <Fluent:MenuItem Header="3">
+                            <Fluent:MenuItem Header="1" />
+                            <Fluent:MenuItem Header="2">
+                                <Fluent:MenuItem Header="1" />
+                                <Fluent:MenuItem Header="2">
+                                    <Fluent:MenuItem Header="1" />
+                                    <Fluent:MenuItem Header="2" />
+                                    <Fluent:MenuItem Header="3" />
+                                </Fluent:MenuItem>
+                                <MenuItem Header="3" />
+                            </Fluent:MenuItem>
+                            <MenuItem Header="3" />
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="4" />
+                        <Fluent:MenuItem Header="5" />
+                        <Fluent:MenuItem Header="6" />
+                        <Fluent:MenuItem Header="7" />
+                        <Fluent:MenuItem Header="8" />
+                        <Fluent:MenuItem Header="9" />
+                        <Fluent:MenuItem Header="10" />
+                        <Fluent:MenuItem Header="11" />
+                        <Fluent:MenuItem Header="12" />
+                        <Fluent:MenuItem Header="13" />
+                        <Fluent:MenuItem Header="14" />
+                        <Fluent:MenuItem Header="15" />
+                        <Fluent:MenuItem Header="16" />
+                        <Fluent:MenuItem Header="17" />
+                        <Fluent:MenuItem Header="18" />
+                        <Fluent:MenuItem Header="19" />
+                        <Fluent:MenuItem Header="20" />
+                        <Fluent:MenuItem Header="21" />
+                        <Fluent:MenuItem Header="22" />
+                        <Fluent:MenuItem Header="23" />
+                        <Fluent:MenuItem Header="24" />
+                        <Fluent:MenuItem Header="25" />
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
@@ -1068,7 +1080,9 @@
                             </Grid>
                         </Fluent:ToggleButton.Icon>
                     </Fluent:ToggleButton>
+                    
                     <Fluent:SplitButton Header="blah blah"
+                                        KeyTip="blah"
                                         SizeDefinition="Small">
                         <Fluent:SplitButton.Icon>
                             <Grid>
@@ -1076,6 +1090,12 @@
                                 <TextBlock Text="1" />
                             </Grid>
                         </Fluent:SplitButton.Icon>
+                        <Fluent:MenuItem Header="first"
+                                         KeyTip="A" />
+                        <Fluent:MenuItem Header="second"
+                                         KeyTip="B" />
+                        <Fluent:MenuItem Header="third"
+                                         KeyTip="C" />
                     </Fluent:SplitButton>
                 </Fluent:RibbonGroupBox>
 
