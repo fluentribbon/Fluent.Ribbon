@@ -58,6 +58,13 @@
 | TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
 | RibbonSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
 | GroupSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| CloseButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background |
+| CloseButtonPressedBackgroundBrush| Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background |
+| MenuItemBackground | Fluent.Ribbon.Brushes.MenuItem.Background |
+| MenuItemCheckBoxBackgroundBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background |
+| MenuItemCheckBoxBorderBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush |
+|  |  |
+|  |  |
 |  |  |
 |  |  |
 |  |  |

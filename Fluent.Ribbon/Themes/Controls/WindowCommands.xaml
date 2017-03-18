@@ -118,13 +118,13 @@
                                  Value="True">
                             <Setter TargetName="PART_Close"
                                     Property="Background"
-                                    Value="{DynamicResource CloseButtonHoverBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}"
                                      Value="True">
                             <Setter TargetName="PART_Close"
                                     Property="Background"
-                                    Value="{DynamicResource CloseButtonPressedBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

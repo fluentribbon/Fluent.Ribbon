@@ -153,7 +153,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -290,7 +290,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -542,7 +542,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
