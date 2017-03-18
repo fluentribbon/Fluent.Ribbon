@@ -9,7 +9,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                    <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
@@ -83,7 +83,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                    <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
@@ -152,19 +152,19 @@
     <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
 
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorTopDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,1,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,1"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
@@ -261,7 +261,7 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                            Fill="Black"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
@@ -305,7 +305,7 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                            Fill="Transparent"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>

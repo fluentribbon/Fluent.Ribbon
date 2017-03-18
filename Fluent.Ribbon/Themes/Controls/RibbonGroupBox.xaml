@@ -113,7 +113,7 @@
                     <Border x:Name="border"
                             Height="Auto"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                            BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
                             d:LayoutOverrides="Width">
@@ -385,7 +385,7 @@
                             <Border x:Name="border"
                                     Height="Auto"
                                     Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                    BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
                                     d:LayoutOverrides="Width">

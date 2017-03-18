@@ -139,8 +139,8 @@
                   Width="1"
                   Grid.Column="1">
                 <Rectangle x:Name="separatorRectangle1"
-                           Fill="{DynamicResource RibbonTopBorderBrush}"
-                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                           Fill="{TemplateBinding BorderBrush}"
+                           Stroke="{TemplateBinding BorderBrush}"
                            Margin="0"
                            Width="1">
                 </Rectangle>
@@ -330,16 +330,16 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonTopBorderBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Setter Property="ActiveTabBackground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
         <Setter Property="ActiveTabBorderBrush"
-                Value="{DynamicResource RibbonTopBorderBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Style.Triggers>
             <Trigger Property="Group"
                      Value="{x:Null}">
                 <Setter Property="BorderBrush"
-                        Value="{DynamicResource RibbonTopBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected"
                      Value="False">

@@ -74,7 +74,7 @@
 | ActiveTabBackgroundBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background |
 | TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
 | RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
-|  |  |
+| RibbonTopBorderBrush | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
 |  |  |
 
   - The following default values changed:
