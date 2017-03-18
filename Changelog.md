@@ -56,8 +56,8 @@
 | TextBoxHoverBorderBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush |
 | TextBoxDisabledBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.Background |
 | TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
-|  |  |
-|  |  |
+| RibbonSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| GroupSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
 |  |  |
 |  |  |
 |  |  |

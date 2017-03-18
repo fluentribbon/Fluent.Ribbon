@@ -95,7 +95,7 @@
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Gray8}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.MouseOver" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Selected" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
@@ -201,17 +201,11 @@
     
     <SolidColorBrush x:Key="TabItemSelectedFontBrush"
                      Color="#FF212121" />
-    
+
     <SolidColorBrush x:Key="TabItemFontBrush"
                      Color="#FF212121" />
-    
-    <SolidColorBrush x:Key="RibbonSeparatorBrush"
-                     Color="#FFE1E1E1" />
 
-    <!-- Groups -->
-    <SolidColorBrush x:Key="GroupSeparatorBrush"
-                     Color="#FFE1E1E1" />
-    
+    <!-- Groups -->   
     <SolidColorBrush x:Key="GroupHoverBrush"
                      Color="#FFF7F7F7" />
     
