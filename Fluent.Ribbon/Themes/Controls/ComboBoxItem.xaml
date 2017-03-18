@@ -21,7 +21,7 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentSelectedColorBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
                 <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
