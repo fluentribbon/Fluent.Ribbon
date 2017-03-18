@@ -445,9 +445,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets file menu control (can be application menu button, backstage button and so on)
         /// </summary>
-        public UIElement Menu
+        public FrameworkElement Menu
         {
-            get { return (UIElement)this.GetValue(MenuProperty); }
+            get { return (FrameworkElement)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -455,7 +455,19 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new PropertyMetadata(AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new PropertyMetadata(OnMenuChanged));
+
+        private static void OnMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            var oldValue = e.OldValue as FrameworkElement;
+            var newValue = e.NewValue as FrameworkElement;
+
+            ForwardDataContext(ribbon, oldValue, newValue);
+
+            AddOrRemoveLogicalChildOnPropertyChanged(d, e);
+        }
 
         #endregion
 
@@ -546,6 +558,23 @@ namespace Fluent
             }
         }
 
+        private static void ForwardDataContext(FrameworkElement dataContextSource, FrameworkElement oldTargetElement, FrameworkElement newTargetElement)
+        {
+            if (oldTargetElement != null
+                && BindingOperations.IsDataBound(oldTargetElement, DataContextProperty) == false)
+            {
+                // Remove-Forward DataContext
+                oldTargetElement.DataContext = null;
+            }
+
+            if (newTargetElement != null
+                && BindingOperations.IsDataBound(newTargetElement, DataContextProperty) == false)
+            {
+                // Forward DataContext
+                newTargetElement.DataContext = dataContextSource.DataContext;
+            }
+        }
+
         private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
@@ -608,11 +637,10 @@ namespace Fluent
             var oldValue = e.OldValue as RibbonTitleBar;
             var newValue = e.NewValue as RibbonTitleBar;
 
+            ForwardDataContext(ribbon, oldValue, newValue);
+
             if (oldValue != null)
             {
-                // Remove-Forward DataContext
-                oldValue.DataContext = null;
-
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
                     ribbon.TitleBar.Items.Remove(ribbonContextualTabGroup);
@@ -626,9 +654,6 @@ namespace Fluent
 
             if (newValue != null)
             {
-                // Forward DataContext
-                newValue.DataContext = ribbon.DataContext;
-
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
                     ribbon.TitleBar.Items.Add(contextualTabGroup);
@@ -1431,10 +1456,8 @@ namespace Fluent
 
         private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.TitleBar != null)
-            {
-                this.TitleBar.DataContext = e.NewValue;
-            }
+            ForwardDataContext(this, null, this.TitleBar);
+            ForwardDataContext(this, null, this.Menu);
         }
 
         #endregion
