@@ -15,18 +15,9 @@
                     Grid.ColumnSpan="2">
                 <Border x:Name="border5"
                         Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                        BorderThickness="0,0,0,0"
-                        Margin="0">
-                    <Border.OpacityMask>
-                        <LinearGradientBrush EndPoint="0.5,1"
-                                             StartPoint="0.5,0">
-                            <GradientStop Color="#16000000"
-                                          Offset="0" />
-                            <GradientStop Color="#16000000"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.OpacityMask>
-                </Border>
+                        BorderThickness="0"
+                        Margin="0"
+                        OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
             </Border>
             <Grid x:Name="selectedGrid"
                   Visibility="Collapsed"
@@ -91,16 +82,8 @@
             <Grid x:Name="focusedGrid"
                   Margin="0"
                   Visibility="Collapsed"
-                  Grid.ColumnSpan="1">
-                <Grid.OpacityMask>
-                    <LinearGradientBrush EndPoint="0.5,1"
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="White"
-                                      Offset="0" />
-                        <GradientStop Offset="1"
-                                      Color="#19FFFFFF" />
-                    </LinearGradientBrush>
-                </Grid.OpacityMask>
+                  Grid.ColumnSpan="1"
+                  OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Focused.Background.OpacityMask}">
                 <Border x:Name="border_Copy5"
                         Margin="1,0,1,1"
                         BorderThickness="1,1,1,0"

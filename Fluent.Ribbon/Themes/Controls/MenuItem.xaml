@@ -351,16 +351,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -636,16 +628,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"

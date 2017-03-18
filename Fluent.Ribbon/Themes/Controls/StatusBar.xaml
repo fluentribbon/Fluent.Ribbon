@@ -169,16 +169,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="6"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="Black"
-                                      Offset="1" />
-                        <GradientStop Color="#FF828282" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
         </Grid>
         <ControlTemplate.Triggers>
             <MultiTrigger>

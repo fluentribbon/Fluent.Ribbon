@@ -114,6 +114,11 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.MenuItem.Background" Color="Transparent" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background" Color="#FFFCF1C2" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush" Color="#FFF29536" options:Freeze="True" />
+    
+    <LinearGradientBrush x:Key="Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill" EndPoint="0.945,0.872" StartPoint="0.055,0.128">
+        <GradientStop Color="#FF7C7C7C" Offset="1" />
+        <GradientStop Color="#FF9E9E9E" />
+    </LinearGradientBrush>
 
     <!-- Ribbon -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Ribbon.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
@@ -129,10 +134,23 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground" Color="{StaticResource Gray1}" options:Freeze="True" />    
     
+    <LinearGradientBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#16000000" Offset="0" />
+        <GradientStop Color="#16000000" Offset="1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Focused.Background.OpacityMask" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="White" Offset="0" />
+        <GradientStop Offset="1" Color="#19FFFFFF" />
+    </LinearGradientBrush>
+
     <!-- Separator -->        
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Gray8}" options:Freeze="True" />
+    
+    <!-- ScreenTip -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScreenTip.BorderBrush" Color="{StaticResource Gray7}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScreenTip.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     
     <!-- Scroll-Buttons -->
     <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush" Color="{StaticResource Gray4}" options:Freeze="True" />
