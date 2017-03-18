@@ -25,7 +25,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    public class DropDownButton : MenuBase, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider
+    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider
     {
         #region Fields
 
@@ -598,6 +598,8 @@ namespace Fluent
             {
                 e.Handled = true;
             }
+
+            base.OnKeyDown(e);
         }
 
         private static void NavigateToContainer(DependencyObject container)

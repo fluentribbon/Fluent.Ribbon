@@ -53,7 +53,8 @@
                     Background="{DynamicResource TransparentBrush}"
                     VerticalAlignment="Stretch">
                 <StackPanel Orientation="Vertical"
-                            Name="stackPanel">
+                            Name="stackPanel"
+                            KeyboardNavigation.TabNavigation="Local">
                     <Fluent:ToggleButton x:Name="PART_Button"
                                          Command="{TemplateBinding Command}"
                                          CommandParameter="{TemplateBinding CommandParameter}"

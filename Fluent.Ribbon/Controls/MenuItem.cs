@@ -14,6 +14,7 @@ using System.Windows.Markup;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows.Media;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -547,6 +548,13 @@ namespace Fluent
             return item is FrameworkElement;
         }
 
+        protected override void OnIsKeyboardFocusedChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnIsKeyboardFocusedChanged(e);
+
+            this.IsHighlighted = this.IsKeyboardFocused;
+        }
+
         /// <summary>
         /// Called when the left mouse button is released. 
         /// </summary>
@@ -678,6 +686,42 @@ namespace Fluent
             }
             else
             {
+                var itemsControl = ItemsControlFromItemContainer(this) 
+                    ?? VisualTreeHelper.GetParent(this) as ItemsControl;
+                if (itemsControl == null || (itemsControl is MenuItem || itemsControl is MenuBase) == false)
+                {
+                    var key = e.Key;
+
+                    if (this.FlowDirection == FlowDirection.RightToLeft)
+                    {
+                        if (key == Key.Right)
+                        {
+                            key = Key.Left;
+                        }
+                        else if (key == Key.Left)
+                        {
+                            key = Key.Right;
+                        }
+                    }
+
+                    if (key == Key.Right)
+                    {
+                        this.IsSubmenuOpen = true;
+                        this.menuPanel.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                        e.Handled = true;
+                    }
+                    else if (key == Key.Left)
+                    {
+                        this.IsSubmenuOpen = false;
+                        e.Handled = true;
+                    }
+
+                    if (e.Handled)
+                    {
+                        return;
+                    }
+                }
+
                 base.OnKeyDown(e);
             }
         }
