@@ -140,6 +140,8 @@
                 Value="Top" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabControlControlTemplate}" />
     </Style>
@@ -256,8 +258,7 @@
                     Width="Auto"
                     BorderThickness="0,1"
                     Grid.Row="1"
-                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                    Background="{DynamicResource RibbonBackgoundBrush}" />
+                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             <Border HorizontalAlignment="Stretch"
                     Margin="1,0,1,1"
                     Grid.Row="1"
@@ -349,7 +350,7 @@
             </Grid>
 
             <Popup x:Name="PART_Popup"
-                   PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                   PlacementTarget="{Binding Path=SelectedTabItem, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                    Placement="Custom"
                    StaysOpen="True"
                    AllowsTransparency="True"
@@ -363,9 +364,7 @@
                         <RowDefinition Height="1" />
                     </Grid.RowDefinitions>
                     <Border Height="Auto"
-                            BorderBrush="Transparent"
-                            Background="{DynamicResource RibbonBackgoundBrush}"
-                            BorderThickness="0">
+                            Background="{TemplateBinding Background}">
                         <ContentControl x:Name="popupContentControl"
                                         Margin="0" />
                     </Border>

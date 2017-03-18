@@ -36,5 +36,6 @@
     <Style TargetType="{x:Type Fluent:StatusBarItem}" BasedOn="{StaticResource RibbonStatusBarItemStyle}" />
     <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
     <Style TargetType="{x:Type Fluent:RibbonTitleBar}" BasedOn="{StaticResource RibbonTitleBarStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonTabControl}" BasedOn="{StaticResource RibbonTabControlStyle}" />
     <Style TargetType="{x:Type Fluent:QuickAccessToolBar}" BasedOn="{StaticResource QuickAccessToolbarStyle}" />
 </ResourceDictionary>

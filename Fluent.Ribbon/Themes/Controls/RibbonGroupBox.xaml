@@ -50,8 +50,6 @@
                         Value="22" />
                 <Setter Property="Focusable"
                         Value="False" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
                 <Setter Property="SnapsToDevicePixels"
                         Value="False" />
             </Trigger>
@@ -114,7 +112,7 @@
                       Margin="0,20">
                     <Border x:Name="border"
                             Height="Auto"
-                            Background="{DynamicResource RibbonBackgoundBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
                             BorderBrush="{DynamicResource RibbonTopBorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
@@ -142,7 +140,7 @@
                                            Text="{TemplateBinding Header}"
                                            TextWrapping="NoWrap"
                                            Grid.Row="1"
-                                           Foreground="{DynamicResource GroupBoxFontBrush}"
+                                           Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                            Margin="2,0"
                                            TextTrimming="CharacterEllipsis"
                                            TextAlignment="Center" />
@@ -312,7 +310,7 @@
                                        Text="{TemplateBinding Header}"
                                        TextWrapping="NoWrap"
                                        Grid.Row="1"
-                                       Foreground="{DynamicResource GroupBoxFontBrush}"
+                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                        Margin="2,0"
                                        TextTrimming="CharacterEllipsis"
                                        TextAlignment="Center" />
@@ -385,7 +383,7 @@
                               Margin="0,20">
                             <Border x:Name="border"
                                     Height="Auto"
-                                    Background="{DynamicResource RibbonBackgoundBrush}"
+                                    Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
                                     BorderBrush="{DynamicResource RibbonTopBorderBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1"
@@ -436,12 +434,12 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
-                        Value="{DynamicResource GroupHoverBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background}" />
             </MultiTrigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource GroupHighlightBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background}" />
             </Trigger>
             <Trigger Property="IsLauncherVisible"
                      Value="False">

@@ -328,11 +328,11 @@
         <Setter Property="Indent"
                 Value="12" />
         <Setter Property="Foreground"
-                Value="{DynamicResource TabItemSelectedFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
         <Setter Property="BorderBrush"
                 Value="{DynamicResource RibbonTopBorderBrush}" />
         <Setter Property="ActiveTabBackground"
-                Value="{DynamicResource ActiveTabBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
         <Setter Property="ActiveTabBorderBrush"
                 Value="{DynamicResource RibbonTopBorderBrush}" />
         <Style.Triggers>

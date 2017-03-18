@@ -99,7 +99,7 @@
                                         Grid.ColumnSpan="2"
                                         BorderThickness="0,1,0,0"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                        Background="{DynamicResource RibbonBackgoundBrush}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
                                         Margin="0">
                                     <ContentPresenter ContentSource="FooterPaneContent" />
                                 </Border>

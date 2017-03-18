@@ -43,7 +43,7 @@
 | BackstageToggleButtonCheckedBorderBrush | Fluent.Ribbon.Brushes.HighlightBrush |
 | BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
 | QuickAccessToolbarPopupBackgrondBrush | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}} |
-| WindowContentBorderBrush | Fluent.Ribbon.Separator.BorderBrush |
+| WindowContentBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
 | GroupBoxSeparatorBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
 | GroupBoxSeparatorBackgroundBrush | Fluent.Ribbon.Brushes.Separator.Background |
 | ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
@@ -68,6 +68,12 @@
 | BackstageFontBrush | Fluent.Ribbon.Brushes.IdealForegroundColorBrush |
 | TabItemFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
 | Fluent.Ribbon.Brushes.LabelTextBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| GroupHoverBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background GroupHoverBrush |
+| GroupHighlightBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background |
+| GroupBoxFontBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground |
+| ActiveTabBackgroundBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background |
+| TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
+| RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
 |  |  |
 |  |  |
 
