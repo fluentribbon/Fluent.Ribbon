@@ -28,7 +28,7 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Fill"
                         TargetName="rectangle"
-                        Value="#17FFFFFF" />
+                        Value="{DynamicResource HighTransparentWhiteBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled"
                      Value="False">

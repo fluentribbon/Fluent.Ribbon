@@ -315,7 +315,7 @@
                                 <ControlTemplate>
                                     <Rectangle Width="Auto"
                                                Height="1"
-                                               Fill="#FFE2E4E7" />
+                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                                 </ControlTemplate>
                             </Separator.Template>
                         </Separator>

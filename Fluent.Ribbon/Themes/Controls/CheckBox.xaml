@@ -69,10 +69,10 @@
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter TargetName="CheckIcon"
                         Property="Stroke"
-                        Value="#FF333333" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
                 <Setter TargetName="IndeterminateIcon"
                         Property="Fill"
-                        Value="#FF333333" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
@@ -84,10 +84,10 @@
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                 <Setter TargetName="CheckIcon"
                         Property="Stroke"
-                        Value="#FF000000" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
                 <Setter TargetName="IndeterminateIcon"
                         Property="Fill"
-                        Value="#FF000000" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">

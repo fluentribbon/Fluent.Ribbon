@@ -33,12 +33,9 @@
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
                                Width="Auto"
-                               Height="Auto">
-                        <Rectangle.OpacityMask>
-                            <SolidColorBrush Color="#14000000" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Rectangle Fill="{TemplateBinding BorderBrush}"
+                               Height="Auto"
+                               OpacityMask="#14000000" />
+                        <Rectangle Fill="{TemplateBinding BorderBrush}"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                Width="Auto"
