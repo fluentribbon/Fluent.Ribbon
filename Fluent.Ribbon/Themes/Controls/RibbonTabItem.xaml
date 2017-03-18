@@ -344,7 +344,7 @@
             <Trigger Property="Selector.IsSelected"
                      Value="False">
                 <Setter Property="Foreground"
-                        Value="{DynamicResource TabItemFontBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

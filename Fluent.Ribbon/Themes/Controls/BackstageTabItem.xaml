@@ -25,7 +25,7 @@
                 </Grid>
             </Border>
             <ContentControl x:Name="PART_Header"
-                            Foreground="{DynamicResource BackstageFontBrush}"
+                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
                             Margin="25,0,15,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"

@@ -68,7 +68,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="Foreground"
-                Value="{DynamicResource BackstageFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:StatusBarItem}">

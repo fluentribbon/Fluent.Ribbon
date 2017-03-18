@@ -113,7 +113,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Content="Fluent.Ribbon"
                                        FontSize="48"
-                                       Foreground="{DynamicResource BackstageFontBrush}" />
+                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
                             </StackPanel>
                         </Fluent:StartScreenTabControl.LeftContent>
 
