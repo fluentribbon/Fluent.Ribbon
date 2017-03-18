@@ -7,7 +7,7 @@
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
-        <Grid Background="#00000000">
+        <Grid Background="Transparent">
             <Rectangle Fill="White"
                        StrokeThickness="0"
                        Width="2"
@@ -55,7 +55,7 @@
     
     <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
-        <Grid Background="#00000000">
+        <Grid Background="Transparent">
             <StackPanel Margin="0,1,0,0"
                         Orientation="Horizontal"
                         d:LayoutOverrides="Height"
@@ -581,7 +581,7 @@
                         BorderThickness="1"
                         CornerRadius="2"
                         Grid.Column="1"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Border x:Name="border1_Copy"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"

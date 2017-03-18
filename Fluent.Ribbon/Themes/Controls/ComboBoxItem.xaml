@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <ControlTemplate TargetType="{x:Type ComboBoxItem}"
                      x:Key="ComboBoxItemTemplate">
-        <Grid Background="{DynamicResource TransparentBrush}">
+        <Grid Background="Transparent">
             <Grid Margin="0 0.5"
                   Background="{TemplateBinding Background}">
                 <Border x:Name="ItemBackground"

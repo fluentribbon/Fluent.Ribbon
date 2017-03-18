@@ -14,10 +14,10 @@
                     Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
                 <Border x:Name="InnerBorder"
                         Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderBrush="Transparent"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Grid Height="Auto">
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center" />

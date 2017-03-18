@@ -36,9 +36,9 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource DefaultFontBrush}" />
         <Setter Property="Background"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Style.Triggers>
             <Trigger Property="State"
                      Value="QuickAccess">
@@ -155,8 +155,8 @@
                                                Focusable="False"
                                                IsTabStop="False"
                                                Template="{DynamicResource DialogLauncherButtonControlTemplate}"
-                                               Background="{DynamicResource TransparentBrush}"
-                                               BorderBrush="{DynamicResource TransparentBrush}"
+                                               Background="Transparent"
+                                               BorderBrush="Transparent"
                                                VerticalAlignment="Bottom"
                                                Icon="{TemplateBinding LauncherIcon}"
                                                Header="{TemplateBinding LauncherText}"
@@ -325,8 +325,8 @@
                                            Focusable="False"
                                            IsTabStop="False"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
-                                           Background="{DynamicResource TransparentBrush}"
-                                           BorderBrush="{DynamicResource TransparentBrush}"
+                                           Background="Transparent"
+                                           BorderBrush="Transparent"
                                            VerticalAlignment="Bottom"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            Header="{TemplateBinding LauncherText}"

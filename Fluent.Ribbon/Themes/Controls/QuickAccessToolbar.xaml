@@ -19,20 +19,20 @@
         <Grid>
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
                     Height="22"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Width="13">
                 <Border x:Name="border1"
                         Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderBrush="Transparent"
                         BorderThickness="1"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Grid x:Name="grid"
                           Margin="0"
-                          Background="#00000000">
+                          Background="Transparent">
                         <Rectangle x:Name="rectangle"
                                    StrokeThickness="0"
                                    Visibility="Collapsed"
@@ -52,7 +52,7 @@
                                     Orientation="Horizontal"
                                     VerticalAlignment="Top"
                                     Margin="-1,4,0,0"
-                                    Background="#00000000">
+                                    Background="Transparent">
                             <Image x:Name="iconImage"
                                    HorizontalAlignment="Left"
                                    Height="8"

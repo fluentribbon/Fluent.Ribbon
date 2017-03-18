@@ -154,7 +154,7 @@
                        Stroke="{x:Null}"
                        Grid.Column="1"
                        StrokeThickness="0"
-                       Fill="#00000000" />
+                       Fill="Transparent" />
             <Track Grid.Row="0"
                    x:Name="PART_Track"
                    Height="16"

@@ -49,8 +49,8 @@
         <Grid>
             <Border BorderThickness="1"
                     Name="PART_ButtonBorder"
-                    BorderBrush="{DynamicResource TransparentBrush}"
-                    Background="{DynamicResource TransparentBrush}"
+                    BorderBrush="Transparent"
+                    Background="Transparent"
                     VerticalAlignment="Stretch">
                 <StackPanel Orientation="Vertical"
                             Name="stackPanel">
@@ -72,8 +72,8 @@
                                          CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />
                     <Border BorderThickness="0,0,0,0"
                             Name="downBorder"
-                            BorderBrush="{DynamicResource TransparentBrush}"
-                            Background="{DynamicResource TransparentBrush}"
+                            BorderBrush="Transparent"
+                            Background="Transparent"
                             Margin="0,0,0,0">
                         <Grid>
                             <Fluent:TwoLineLabel x:Name="controlLabel"
@@ -324,8 +324,8 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="0"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"

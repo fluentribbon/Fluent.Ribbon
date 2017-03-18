@@ -102,7 +102,7 @@
                      TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Grid Width="Auto"
               Height="Auto"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />

@@ -14,9 +14,9 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Background"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Foreground"

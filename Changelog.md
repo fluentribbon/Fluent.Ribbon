@@ -64,7 +64,7 @@
 | MenuItemCheckBoxBackgroundBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background |
 | MenuItemCheckBoxBorderBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush |
 | RibbonThemeColorBrush | Fluent.Ribbon.Brushes.AccentBaseColorBrush |
-|  |  |
+| TransparentBrush | --- |
 |  |  |
 |  |  |
 |  |  |

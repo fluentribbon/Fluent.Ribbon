@@ -108,11 +108,11 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border Width="Auto"
-                Background="#00000000"
+                Background="Transparent"
                 Height="22">
             <Grid Width="Auto"
                   Height="Auto"
-                  Background="#00000000">
+                  Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
@@ -234,7 +234,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -254,7 +254,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -274,7 +274,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -293,7 +293,7 @@
                                                      MappingMode="RelativeToBoundingBox">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
@@ -312,7 +312,7 @@
                                                      MappingMode="RelativeToBoundingBox">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>

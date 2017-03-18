@@ -6,7 +6,7 @@
                     mc:Ignorable="d">
     <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}"
                      x:Key="GalleryItemControlTemplate">
-        <Grid Background="{DynamicResource TransparentBrush}">
+        <Grid Background="Transparent">
             <Border x:Name="hoverBorder"
                     d:LayoutOverrides="Width, Height"
                     Visibility="Collapsed"

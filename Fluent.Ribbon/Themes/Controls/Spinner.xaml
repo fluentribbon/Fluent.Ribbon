@@ -11,8 +11,8 @@
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
@@ -77,7 +77,7 @@
 
                     <Grid Width="Auto"
                           Height="22"
-                          Background="#00000000">
+                          Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />

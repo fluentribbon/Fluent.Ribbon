@@ -56,10 +56,10 @@
                                     Value="0.5" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -194,10 +194,10 @@
                                     Value="0.5" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

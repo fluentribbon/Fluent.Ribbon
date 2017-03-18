@@ -8,11 +8,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:TextBox}">
                     <Border Width="Auto"
-                            Background="#00000000"
+                            Background="Transparent"
                             Height="22">
                         <Grid Width="Auto"
                               Height="Auto"
-                              Background="#00000000">
+                              Background="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />

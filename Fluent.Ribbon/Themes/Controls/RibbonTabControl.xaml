@@ -9,8 +9,8 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
@@ -22,9 +22,9 @@
             </Border.ToolTip>
             <Border x:Name="border1"
                     Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    BorderBrush="Transparent"
                     BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}">
+                    Background="Transparent">
                 <Grid>
                     <Image x:Name="iconImage"
                            HorizontalAlignment="Center"

@@ -450,7 +450,7 @@
 
     <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}"
                      x:Key="GalleryItemBackstageControlTemplate">
-        <Grid Background="{DynamicResource TransparentBrush}">
+        <Grid Background="Transparent">
             <Border x:Name="hoverBorder"
                     BorderThickness="1"
                     Background="Transparent">
@@ -491,7 +491,7 @@
     </Style>
     <ControlTemplate TargetType="{x:Type ComboBoxItem}"
                      x:Key="ComboBoxItemBackstageControlTemplate">
-        <Grid Background="{DynamicResource TransparentBrush}"
+        <Grid Background="Transparent"
               HorizontalAlignment="Stretch">
             <Border x:Name="hoverBorder"
                     Background="Transparent">
@@ -792,17 +792,17 @@
         <Border x:Name="border"
                 BorderThickness="1"
                 CornerRadius="2"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
             <Border x:Name="border1"
                     Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    BorderBrush="Transparent"
                     BorderThickness="1"
                     CornerRadius="2"
-                    Background="{DynamicResource TransparentBrush}">
+                    Background="Transparent">
                 <Grid Height="Auto">
                     <Rectangle x:Name="rectangle"
                                StrokeThickness="0"
@@ -910,7 +910,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
                     <Grid Width="Auto"
                           Height="22"
-                          Background="#00000000">
+                          Background="Transparent">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -1174,13 +1174,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Grid Background="#00000000"
+                    <Grid Background="Transparent"
                           Margin="0,3">
                         <Border x:Name="border"
-                                BorderBrush="{DynamicResource TransparentBrush}"
+                                BorderBrush="Transparent"
                                 BorderThickness="1"
                                 Margin="0"
-                                Background="{DynamicResource TransparentBrush}">
+                                Background="Transparent">
                             <ContentPresenter Margin="5,5,50,5"
                                               ContentSource="Header" />
                         </Border>

@@ -7,7 +7,7 @@
     <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}"
                      x:Key="RibbonTabItemControlTemplate">
         <Grid x:Name="grid"
-              Background="#00000000"
+              Background="Transparent"
               Height="Auto"
               Margin="0,7,0,0">
             <Border x:Name="border3"
@@ -288,7 +288,7 @@
                         Value="Visible" />
                 <Setter Property="Background"
                         TargetName="grid"
-                        Value="#00000000" />
+                        Value="Transparent" />
                 <Setter Property="Foreground"
                         TargetName="contentPresenter"
                         Value="{Binding Group.Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
