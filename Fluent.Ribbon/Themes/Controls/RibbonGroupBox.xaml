@@ -34,7 +34,7 @@
         <Setter Property="HorizontalContentAlignment"
                 Value="Left" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Background"
                 Value="Transparent" />
         <Setter Property="BorderBrush"
@@ -51,7 +51,7 @@
                 <Setter Property="Focusable"
                         Value="False" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource DefaultFontBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
                 <Setter Property="SnapsToDevicePixels"
                         Value="False" />
             </Trigger>

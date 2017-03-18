@@ -14,7 +14,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
         <Setter Property="HorizontalAlignment"

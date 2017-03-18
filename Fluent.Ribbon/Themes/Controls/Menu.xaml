@@ -8,7 +8,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource FluentPopupMenuControlTemplate}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="MinWidth"
                 Value="0" />
         <Setter Property="MinHeight"
@@ -26,7 +26,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource PopupMenuControlTemplate}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="MinWidth"
                 Value="0" />
         <Setter Property="MinHeight"

@@ -131,7 +131,7 @@
         <Setter Property="Background"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="BorderThickness"
                 Value="1" />
         <Setter Property="BorderBrush"

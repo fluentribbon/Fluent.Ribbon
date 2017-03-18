@@ -90,7 +90,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="IsCheckable"
                 Value="True" />
         <Setter Property="IsChecked"

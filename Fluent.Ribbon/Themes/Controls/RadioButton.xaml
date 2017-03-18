@@ -10,7 +10,7 @@
         <Setter Property="BorderBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>

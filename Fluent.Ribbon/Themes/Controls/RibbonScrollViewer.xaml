@@ -70,7 +70,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource ScrollButtonControlTemplate}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>

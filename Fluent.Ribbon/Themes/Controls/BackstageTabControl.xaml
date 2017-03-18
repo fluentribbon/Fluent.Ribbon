@@ -273,7 +273,7 @@
     <Style x:Key="BackstageStyle"
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource BackstageControlTemplate}" />
         <Setter Property="FocusVisualStyle"

@@ -7,7 +7,7 @@
     <Style x:Key="ToolTipStyle"
            TargetType="{x:Type ToolTip}">
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToolTip}">
@@ -229,7 +229,7 @@
     <Style x:Key="ScreenTipStyle"
            TargetType="{x:Type Fluent:ScreenTip}">
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Width"
                 Value="205" />
         <Setter Property="Template"

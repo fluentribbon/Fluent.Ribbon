@@ -129,7 +129,7 @@
         <Setter Property="Width"
                 Value="22" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="CanAddToQuickAccessToolBar"
                 Value="False" />
     </Style>
@@ -139,7 +139,7 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabControlControlTemplate}" />
     </Style>

@@ -81,7 +81,7 @@
     <Style x:Key="RibbonStyle"
            TargetType="{x:Type Fluent:Ribbon}">
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonControlTemplate}" />
         <Setter Property="FocusVisualStyle"

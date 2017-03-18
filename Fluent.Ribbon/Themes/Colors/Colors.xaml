@@ -71,11 +71,7 @@
     <SolidColorBrush x:Key="GrayBrush10" Color="{StaticResource Gray10}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Control.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
-
-    <!-- Font-Brushes -->
-    <SolidColorBrush x:Key="DefaultFontBrush" Color="{StaticResource Gray1}" />
-    <SolidColorBrush x:Key="TabItemFontBrush" Color="{StaticResource Gray1}" />       
-    
+   
     <!-- Button -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Button.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />

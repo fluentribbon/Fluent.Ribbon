@@ -14,7 +14,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
@@ -40,7 +40,7 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource DefaultFontBrush}"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}"
                       Margin="3,0,3,0"
                       Stretch="Fill"
                       Width="5"

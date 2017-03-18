@@ -797,7 +797,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ResizeMode"
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"
@@ -1686,7 +1686,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ResizeMode"
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"

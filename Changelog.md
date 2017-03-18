@@ -67,7 +67,7 @@
 | TransparentBrush | --- |
 | BackstageFontBrush | Fluent.Ribbon.Brushes.IdealForegroundColorBrush |
 | TabItemFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
-| DefaultFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| Fluent.Ribbon.Brushes.LabelTextBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
 |  |  |
 |  |  |
 
