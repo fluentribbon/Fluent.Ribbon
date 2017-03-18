@@ -1152,6 +1152,8 @@
     <!--Inner Backstage TabControl Style-->
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
            x:Key="InnerBackstageSeparatorTabItemStyle">
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
@@ -1159,7 +1161,6 @@
                         <TextBlock Margin="0,5"
                                    TextWrapping="Wrap"
                                    Text="{TemplateBinding Header}"
-                                   Foreground="{DynamicResource RibbonThemeColorBrush}"
                                    VerticalAlignment="Center"
                                    FontSize="17"
                                    FontFamily="Segoe UI Light, Lucida Sans Unicode, Verdana" />
@@ -1213,6 +1214,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="InnerBackstageTabControlStyle"
            TargetType="{x:Type TabControl}">
         <Setter Property="Template">

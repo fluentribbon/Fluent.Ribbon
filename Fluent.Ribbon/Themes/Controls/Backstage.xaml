@@ -68,7 +68,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
         <Setter Property="Background"
-                Value="{DynamicResource RibbonThemeColorBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="SnapsToDevicePixels"

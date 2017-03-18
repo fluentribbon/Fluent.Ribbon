@@ -112,7 +112,7 @@
         <Setter Property="BorderThickness"
                 Value="1" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonThemeColorBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
         <Setter Property="GlassFrameThickness"
                 Value="1" />

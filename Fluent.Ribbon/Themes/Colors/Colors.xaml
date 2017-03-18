@@ -45,9 +45,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.LabelTextBrush" Color="{StaticResource BlackColor}" options:Freeze="True" />    
     
     <SolidColorBrush x:Key="TransparentWhiteBrush" Color="{StaticResource TransparentWhiteColor}" />
-    
-    <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}" />
-    
+       
     <Color x:Key="Fluent.Ribbon.Brushes.IdealForegroundColor">White</Color>
     <SolidColorBrush x:Key="IdealForegroundColorBrush" Color="{StaticResource Fluent.Ribbon.Brushes.IdealForegroundColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{StaticResource Fluent.Ribbon.Brushes.IdealForegroundColor}" Opacity="0.4" options:Freeze="True" />
@@ -152,7 +150,7 @@
 
     <!-- ScrollViewer -->
     <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush"
-                     Color="#FF79848C" />
+                     Color="{StaticResource Gray2}" />
 
     <LinearGradientBrush x:Key="ScrollViewerButtonBackgroundBrush"
                          EndPoint="0.5,1"
@@ -162,64 +160,64 @@
         <GradientStop Color="#FFE8EBEF"
                       Offset="1" />
     </LinearGradientBrush>
-
+   
     <!-- Ribbon -->
     <SolidColorBrush x:Key="RibbonTopBorderBrush"
-                     Color="#FFE1E1E1" />
+                     Color="{StaticResource Gray8}" />
     
     <SolidColorBrush x:Key="RibbonBackgoundBrush"
-                     Color="White" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="ActiveTabBackgroundBrush"
-                     Color="White" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="DefaultFontBrush"
-                     Color="#FF444444" />
+                     Color="{StaticResource Gray1}" />
     
     <SolidColorBrush x:Key="BackstageFontBrush"
-                     Color="White" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="TabItemSelectedFontBrush"
-                     Color="#FF212121" />
+                     Color="{StaticResource Gray1}" />
 
     <SolidColorBrush x:Key="TabItemFontBrush"
-                     Color="#FF212121" />
+                     Color="{StaticResource Gray1}" />
 
     <!-- Groups -->   
     <SolidColorBrush x:Key="GroupHoverBrush"
-                     Color="#FFF7F7F7" />
+                     Color="{StaticResource Gray10}" />
     
     <SolidColorBrush x:Key="GroupHighlightBrush"
-                     Color="#FFF0F0F0" />
+                     Color="{StaticResource Gray8}" />
 
     <!-- GroupBox -->
     <SolidColorBrush x:Key="GroupBoxFontBrush"
-                     Color="#FF666D7C" />
+                     Color="{StaticResource Gray2}" />
 
     <!-- Scroll-Buttons -->
     <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush"
-                     Color="#FFABABAB" />
+                     Color="{StaticResource Gray4}" />
     
     <SolidColorBrush x:Key="ScrollButtonDefaultBackgroundBrush"
-                     Color="White" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="ScrollButtonHoverBorderBrush"
-                     Color="#FF777777" />
+                     Color="{StaticResource Gray2}" />
     
     <SolidColorBrush x:Key="ScrollButtonHoverBackgroundBrush"
-                     Color="White" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="ScrollButtonPressedBorderBrush"
-                     Color="#FF777777" />
+                     Color="{StaticResource Gray2}" />
 
     <SolidColorBrush x:Key="ScrollButtonPressedBackgroundBrush"
-                     Color="#FFF0F0F0" />
+                     Color="{StaticResource Gray10}" />
 
     <SolidColorBrush x:Key="ScrollBackgroundBrush"
-                     Color="#FFEDEDED" />
+                     Color="{StaticResource WhiteColor}" />
     
     <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush"
-                     Color="#FFEDEDED" />
+                     Color="{StaticResource WhiteColor}" />
 
     <!-- TextBox -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />

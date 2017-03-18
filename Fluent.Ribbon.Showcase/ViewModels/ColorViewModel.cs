@@ -38,10 +38,10 @@
 
         public Color ThemeColor
         {
-            get { return ((SolidColorBrush)Application.Current.Resources["RibbonThemeColorBrush"])?.Color ?? Colors.Pink; }
+            get { return ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink; }
             set
             {
-                Application.Current.Resources["RibbonThemeColorBrush"] = new SolidColorBrush(value);
+                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = new SolidColorBrush(value);
                 this.OnPropertyChanged(nameof(this.ThemeColor));
             }
         }
