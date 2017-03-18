@@ -48,31 +48,18 @@
             </Border>
         </Grid>
         <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="hoverborder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
             <Trigger Property="IsDragging"
                      Value="True">
                 <Setter Property="Background"
-                        TargetName="hoverborder">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.5" />
-                    </Setter.Value>
-                </Setter>
+                        TargetName="hoverborder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsDragging"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        TargetName="hoverborder">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.5" />
-                    </Setter.Value>
-                </Setter>
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -87,6 +74,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource SliderRepeatButtonControlTemplate}" />
     </Style>
+    
     <ControlTemplate x:Key="SliderRepeatButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
         <Grid>
