@@ -7,17 +7,17 @@
                     mc:Ignorable="d">
     <Style TargetType="Separator"
            x:Key="GroupBoxSeparator">
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Separator">
-                    <Border Width="3"
+                    <Border Width="1"
                             Height="55"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="2,5,2,10"
-                            BorderThickness="1,0"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
+                            Background="{TemplateBinding Background}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -270,7 +270,6 @@
             <ResourceDictionary>
                 <Style TargetType="Separator"
                        BasedOn="{StaticResource GroupBoxSeparator}" />
-
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
                        BasedOn="{StaticResource ScrollBarWhite}" />
@@ -295,6 +294,16 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="17" />
                         </Grid.RowDefinitions>
+
+                        <WrapPanel x:Name="PART_UpPanel"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="Stretch"
+                                   Width="Auto"
+                                   Height="Auto"
+                                   IsItemsHost="True"
+                                   Margin="4,0,4,0"
+                                   Orientation="Vertical" />
+                        
                         <Grid x:Name="PART_DownGrid"
                               MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
                               Margin="0,-2,2,2"
@@ -334,14 +343,6 @@
                                            ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Grid>
-                        <WrapPanel x:Name="PART_UpPanel"
-                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                   VerticalAlignment="Stretch"
-                                   Width="Auto"
-                                   Height="Auto"
-                                   IsItemsHost="True"
-                                   Margin="4,0,4,0"
-                                   Orientation="Vertical" />
                     </Grid>
                 </ContentControl>
                 <Grid x:Name="grid1"
@@ -393,6 +394,7 @@
                         </Grid>
                     </Popup>
                 </Grid>
+                
                 <Rectangle x:Name="separator"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
                            HorizontalAlignment="Right"
