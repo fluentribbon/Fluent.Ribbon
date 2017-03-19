@@ -479,6 +479,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="GalleryItemBackstageStyle"
            TargetType="{x:Type Fluent:GalleryItem}">
         <Setter Property="HorizontalAlignment"
@@ -488,6 +489,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
+    
     <ControlTemplate TargetType="{x:Type ComboBoxItem}"
                      x:Key="ComboBoxItemBackstageControlTemplate">
         <Grid Background="Transparent"
@@ -520,6 +522,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="MetroComboBoxItemBackstageStyle"
            TargetType="{x:Type ComboBoxItem}">
         <Setter Property="HorizontalAlignment"
@@ -545,6 +548,7 @@
         <Setter Property="IsEditable"
                 Value="False" />
     </Style>
+    
     <ControlTemplate x:Key="ComboBoxBackstageControlTemplate"
                      TargetType="{x:Type Fluent:ComboBox}">
         <ControlTemplate.Resources>
@@ -784,313 +788,6 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
-    <!--Button in Spinner Control Style-->
-    <ControlTemplate x:Key="SpinnerButtonBackstageControlTemplate"
-                     TargetType="{x:Type RepeatButton}">
-        <Border x:Name="border"
-                BorderThickness="1"
-                CornerRadius="2"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Height="Auto"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="Transparent"
-                    BorderThickness="1"
-                    CornerRadius="2"
-                    Background="Transparent">
-                <Grid Height="Auto">
-                    <Rectangle x:Name="rectangle"
-                               StrokeThickness="0"
-                               Visibility="Collapsed">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.503,1"
-                                                 GradientOrigin="0.503,1"
-                                                 RadiusY="0.202">
-                                <GradientStop Color="#7FFFFFFF"
-                                              Offset="0" />
-                                <GradientStop Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <ContentPresenter x:Name="contentPresenter"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center" />
-                </Grid>
-            </Border>
-        </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,1,0,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,2,0,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,1,0,0" />
-            </Trigger>
-            <Trigger Property="Border.BorderThickness"
-                     Value="0,0,1,0">
-                <Setter Property="CornerRadius"
-                        TargetName="border"
-                        Value="0,0,3,0" />
-                <Setter Property="CornerRadius"
-                        TargetName="border1"
-                        Value="0,0,2,0" />
-            </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="False" />
-            <Trigger Property="IsPressed"
-                     Value="True">
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-            </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="contentPresenter"
-                        Value="0.5" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsPressed"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-            </MultiTrigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    <Style x:Key="SpinnerButtonBackstageStyle"
-           TargetType="{x:Type RepeatButton}">
-        <Setter Property="Template"
-                Value="{DynamicResource SpinnerButtonBackstageControlTemplate}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-    </Style>
-
-    <!--Spinner Style-->
-    <Style x:Key="SpinnerBackstageStyle"
-           TargetType="{x:Type Fluent:Spinner}">
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
-                    <Grid Width="Auto"
-                          Height="22"
-                          Background="Transparent">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal"
-                                    x:Name="stackPanel"
-                                    HorizontalAlignment="Left"
-                                    Margin="0">
-                            <ContentPresenter x:Name="iconImage"
-                                              Width="16"
-                                              Height="16"
-                                              VerticalAlignment="Center"
-                                              Margin="4,0,0,0"
-                                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
-                            <TextBlock Text="{TemplateBinding Header}"
-                                       TextWrapping="Wrap"
-                                       VerticalAlignment="Center"
-                                       Margin="2,0,4,0"
-                                       x:Name="textBlock" />
-                        </StackPanel>
-
-                        <Border x:Name="border"
-                                Height="22"
-                                BorderThickness="1"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                Grid.Column="1"
-                                Width="{TemplateBinding InputWidth}">
-                            <Grid Grid.Column="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="17" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <TextBox x:Name="PART_TextBox"
-                                         BorderThickness="0"
-                                         Grid.RowSpan="2"
-                                         Grid.Column="0"
-                                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                         Margin="1,0,0,0"
-                                         Padding="1" />
-
-                                <Path Visibility="Collapsed"
-                                      HorizontalAlignment="Left"
-                                      Margin="0,-1,0,-1"
-                                      x:Name="path"
-                                      Width="1"
-                                      Fill="{DynamicResource BlackBrush}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
-                                      StrokeThickness="1"
-                                      Grid.Column="1"
-                                      Grid.RowSpan="2"
-                                      Data="M0,0L0,1" />
-                                
-                                <Path HorizontalAlignment="Left"
-                                      Margin="0,0,-1,0"
-                                      Width="Auto"
-                                      Fill="{DynamicResource BlackBrush}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
-                                      StrokeThickness="1"
-                                      Data="M0,0L1,0"
-                                      Visibility="Collapsed"
-                                      x:Name="path1"
-                                      VerticalAlignment="Bottom"
-                                      Height="1"
-                                      Grid.Column="1"
-                                      Grid.RowSpan="1" />
-                                
-                                <RepeatButton x:Name="PART_ButtonUp"
-                                              Grid.Column="1"
-                                              Grid.Row="0"
-                                              Style="{DynamicResource SpinnerButtonStyle}"
-                                              RenderTransformOrigin="0,0.5"
-                                              HorizontalAlignment="Stretch">
-                                    <Path Width="5"
-                                          Height="3"
-                                          Fill="{DynamicResource BlackBrush}"
-                                          Stretch="Fill"
-                                          Stroke="{DynamicResource BlackBrush}"
-                                          Data="M0,0L1,-1 2,0"
-                                          HorizontalAlignment="Center"
-                                          StrokeThickness="0"
-                                          VerticalAlignment="Center"
-                                          Margin="1,2,0,1"
-                                          RenderOptions.EdgeMode="Aliased" />
-                                </RepeatButton>
-                                <RepeatButton x:Name="PART_ButtonDown"
-                                              Grid.Column="1"
-                                              Grid.Row="1"
-                                              Style="{DynamicResource SpinnerButtonStyle}">
-                                    <Path Width="5"
-                                          Height="3"
-                                          Fill="{DynamicResource BlackBrush}"
-                                          Stretch="Fill"
-                                          Stroke="{DynamicResource BlackBrush}"
-                                          Data="M0,0L1,1 2,0"
-                                          StrokeThickness="0"
-                                          HorizontalAlignment="Center"
-                                          Margin="1,-1,0,0"
-                                          VerticalAlignment="Center"
-                                          RenderOptions.EdgeMode="Aliased" />
-                                </RepeatButton>
-                            </Grid>
-                        </Border>
-                    </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="Icon"
-                                 Value="{x:Null}">
-                            <Setter Property="Visibility"
-                                    TargetName="iconImage"
-                                    Value="Collapsed" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="False">
-                            <Setter Property="IsEnabled"
-                                    TargetName="PART_TextBox"
-                                    Value="False" />
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="PART_TextBox"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                            <Setter Property="Opacity"
-                                    TargetName="iconImage"
-                                    Value="0.5" />
-                            <Setter Property="Opacity"
-                                    TargetName="textBlock"
-                                    Value="0.5" />
-                            <Setter Property="Effect"
-                                    TargetName="iconImage">
-                                <Setter.Value>
-                                    <Fluent:GrayscaleEffect />
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="Size"
-                                 Value="Middle">
-                            <Setter Property="Visibility"
-                                    TargetName="textBlock"
-                                    Value="Collapsed" />
-                        </Trigger>
-                        <Trigger Property="Size"
-                                 Value="Small">
-                            <Setter Property="Visibility"
-                                    TargetName="stackPanel"
-                                    Value="Collapsed" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Visibility"
-                                    TargetName="path"
-                                    Value="Visible" />
-                            <Setter Property="Visibility"
-                                    TargetName="path1"
-                                    Value="Visible" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                            <Setter Property="Background"
-                                    TargetName="PART_TextBox"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
     <!--Inner Backstage TabControl Style-->
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
