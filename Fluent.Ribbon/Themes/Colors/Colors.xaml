@@ -5,6 +5,8 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="options d">
+    <!-- COLORS -->
+    
     <!-- Accent colors -->
     <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#FF2B579A</Color>
     
@@ -38,6 +40,10 @@
 
     <!-- Foreground -->
     <Color x:Key="Fluent.Ribbon.Colors.IdealForegroundColor">White</Color>
+    
+    <!-- END COLORS -->
+    
+    <!-- BRUSHES -->
     
     <!-- Accent brushes -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.AccentBaseColorBrush" Color="{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}" options:Freeze="True" />
@@ -173,18 +179,12 @@
     <SolidColorBrush x:Key="ScrollBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="ScrollThumbDefaultBorderBrush"
-                     Color="#FFABABAB" />
-    <SolidColorBrush x:Key="ScrollThumbDefaultBackgroundBrush"
-                     Color="White" />
-    <SolidColorBrush x:Key="ScrollThumbHoverBorderBrush"
-                     Color="#FFABABAB" />
-    <SolidColorBrush x:Key="ScrollThumbHoverBackgroundBrush"
-                     Color="#FFF0F0F0" />
-    <SolidColorBrush x:Key="ScrollThumbPressedBorderBrush"
-                     Color="#FF777777" />
-    <SolidColorBrush x:Key="ScrollThumbPressedBackgroundBrush"
-                     Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="ScrollThumbDefaultBorderBrush" Color="#FFABABAB" options:Freeze="True"  />
+    <SolidColorBrush x:Key="ScrollThumbDefaultBackgroundBrush" Color="White" options:Freeze="True"  />
+    <SolidColorBrush x:Key="ScrollThumbHoverBorderBrush" Color="#FFABABAB" options:Freeze="True"  />
+    <SolidColorBrush x:Key="ScrollThumbHoverBackgroundBrush" Color="#FFF0F0F0" options:Freeze="True"  />
+    <SolidColorBrush x:Key="ScrollThumbPressedBorderBrush" Color="#FF777777" options:Freeze="True"  />
+    <SolidColorBrush x:Key="ScrollThumbPressedBackgroundBrush" Color="#FFF0F0F0" options:Freeze="True"  />
     
     <!-- ScrollViewer -->
     <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
@@ -201,4 +201,6 @@
     <!-- WindowCommands -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="#E81123" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="#F1707A" options:Freeze="True" />
+    
+    <!-- END BRUSHES -->
 </ResourceDictionary>
