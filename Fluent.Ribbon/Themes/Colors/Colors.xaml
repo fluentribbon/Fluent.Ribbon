@@ -89,6 +89,10 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke" Color="{StaticResource Gray1}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke" Color="{StaticResource BlackColor}" options:Freeze="True" />
 
+    <!-- ColorGallery -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />    
+    
     <!-- ContextMenu -->
     <SolidColorBrush x:Key="ContextMenuBarBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="ContextMenuBarBorderBrush" Color="{StaticResource Gray5}" options:Freeze="True" />
@@ -98,8 +102,9 @@
     
     <!-- Gallery -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gallery.Header.Background" Color="{StaticResource Gray3}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
+
+    <!-- GalleryGroupContainer -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryGroupContainer.Header.Background" Color="{StaticResource Gray8}" options:Freeze="True" />
 
     <!-- GalleryItem -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.MouseOver" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
@@ -122,7 +127,10 @@
 
     <!-- Ribbon -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Ribbon.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-       
+    
+    <!-- RibbonContextualTabGroup -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
+    
     <!-- RibbonGroupBox -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background" Color="{StaticResource Gray10}" options:Freeze="True" />

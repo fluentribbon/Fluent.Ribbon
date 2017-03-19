@@ -350,7 +350,7 @@
                                     </Grid.RowDefinitions>
                                     <Rectangle Fill="{x:Null}"
                                                Stretch="Fill"
-                                               Stroke="#FFE2E4E7"
+                                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                HorizontalAlignment="Left"
                                                Margin="24,0,0,0"
                                                Width="1"

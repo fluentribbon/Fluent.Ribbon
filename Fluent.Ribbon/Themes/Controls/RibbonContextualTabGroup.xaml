@@ -34,7 +34,7 @@
                                VerticalAlignment="Stretch"
                                Width="Auto"
                                Height="Auto"
-                               OpacityMask="#14000000" />
+                               OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
                         <Rectangle Fill="{TemplateBinding BorderBrush}"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
