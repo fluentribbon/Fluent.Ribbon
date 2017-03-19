@@ -128,7 +128,7 @@
                         <Line MinWidth="75"
                               Height="1"
                               X2="1"
-                              Stroke="#17FFFFFF"
+                              Stroke="{DynamicResource HighTransparentWhiteBrush}"
                               Stretch="Uniform" />
                     </StackPanel>
                     <ControlTemplate.Triggers>

@@ -43,6 +43,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>

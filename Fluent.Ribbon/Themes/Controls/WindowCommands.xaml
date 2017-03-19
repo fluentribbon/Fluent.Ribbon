@@ -174,7 +174,7 @@
             <Trigger Property="IsEnabled"
                      Value="false">
                 <Setter Property="Foreground"
-                        Value="#ADADAD" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
             </Trigger>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
                          Value="{x:Null}">

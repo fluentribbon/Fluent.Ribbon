@@ -65,17 +65,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#FF747576"
-                                  Offset="0" />
-                    <GradientStop Color="#FF454647"
-                                  Offset="1" />
-                </LinearGradientBrush>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="ScrollBarPageButton"
@@ -161,7 +150,7 @@
                               Height="Auto"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
-                              Fill="#FF777777" />
+                              Fill="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -386,6 +375,8 @@
     <Style TargetType="ScrollBar">
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
+        <Setter Property="Foreground" 
+                Value="{DynamicResource GrayBrush2}" />
         <Style.Triggers>
             <Trigger Property="Orientation"
                      Value="Horizontal">

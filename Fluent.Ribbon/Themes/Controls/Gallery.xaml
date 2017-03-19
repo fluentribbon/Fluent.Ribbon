@@ -16,7 +16,7 @@
                                                  Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                                  HasTwoLines="False"
                                                  HasGlyph="True"
-                                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
+                                                 Foreground="{DynamicResource WhiteBrush}"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
                                                  Margin="6,-2,0,0" />
@@ -89,7 +89,7 @@
                                  Value="True">
                             <Setter Property="Foreground"
                                     TargetName="twoLineLabel"
-                                    Value="#FFFFD232" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -109,7 +109,7 @@
                      Value="False">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="#FFC8C8C9" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -180,7 +180,6 @@
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
                 </Setter>
-                <!--<Setter Property="BorderBrush" TargetName="border" Value="#FFC8C8C9"/>-->
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -267,7 +266,7 @@
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
                     Margin="0"
-                    BorderBrush="LightGray">
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}">
                 <StackPanel x:Name="stackPanel"
                             Margin="0">
                     <ContentPresenter x:Name="iconImage"
@@ -425,7 +424,7 @@
                 </Setter>
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="#FFC8C8C9" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -779,9 +778,9 @@
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
-                <Setter Property="BorderBrush"
-                        TargetName="PART_ContentBorder"
-                        Value="#FFC8C8C9" />
+                <Setter Property="Opacity"
+                        TargetName="path"
+                        Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

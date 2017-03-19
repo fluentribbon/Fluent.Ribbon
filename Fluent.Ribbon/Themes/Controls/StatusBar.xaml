@@ -65,10 +65,8 @@
 
     <Style x:Key="RibbonStatusBarItemStyle"
            TargetType="{x:Type Fluent:StatusBarItem}">
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:StatusBarItem}">
@@ -79,8 +77,7 @@
         <Style.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
-                <Setter Property="Foreground"
-                        Value="#FF888888" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
