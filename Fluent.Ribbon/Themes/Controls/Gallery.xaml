@@ -16,7 +16,7 @@
                                                  Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                                  HasTwoLines="False"
                                                  HasGlyph="True"
-                                                 Foreground="White"
+                                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
                                                  Margin="6,-2,0,0" />
@@ -134,7 +134,7 @@
                               Grid.Row="1"
                               Margin="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="White"
+                    <Fluent:GalleryPanel Background="{DynamicResource WhiteBrush}"
                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"

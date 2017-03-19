@@ -200,7 +200,7 @@
                     <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1,1,1,1"
                             x:Name="border"
-                            Background="White">
+                            Background="{DynamicResource WhiteBrush}">
                         <Grid x:Name="grid">
                             <Path Margin="0,6,0,0"
                                   VerticalAlignment="Top"
@@ -260,7 +260,7 @@
                     <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1"
                             x:Name="border"
-                            Background="White">
+                            Background="{DynamicResource WhiteBrush}">
                         <ContentPresenter x:Name="contentPresenter" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -329,7 +329,7 @@
                                                               Style="{DynamicResource InRibbonGalleryRepeatButton}">
                                                     <Path RenderOptions.EdgeMode="Aliased"
                                                           Data="M0,0 L1,-1 2,0z"
-                                                          Fill="Black"
+                                                          Fill="{DynamicResource BlackBrush}"
                                                           Width="5"
                                                           Height="3"
                                                           Stretch="Fill" />
@@ -342,7 +342,7 @@
                                                               Style="{DynamicResource InRibbonGalleryRepeatButton}">
                                                     <Path RenderOptions.EdgeMode="Aliased"
                                                           Data="M0,0 L1,1 2,0z"
-                                                          Fill="Black"
+                                                          Fill="{DynamicResource BlackBrush}"
                                                           Width="5"
                                                           Height="3"
                                                           Stretch="Fill" />
@@ -360,7 +360,7 @@
                                             Focusable="False">
                                 <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
                                                      ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
-                                                     Background="White"
+                                                     Background="{DynamicResource WhiteBrush}"
                                                      IsItemsHost="True"
                                                      ItemHeight="{TemplateBinding ItemHeight}"
                                                      ItemWidth="{TemplateBinding ItemWidth}"

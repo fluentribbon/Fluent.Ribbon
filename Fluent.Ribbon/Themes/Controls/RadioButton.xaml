@@ -19,7 +19,7 @@
                             <ControlTemplate>
                                 <Rectangle Margin="1"
                                            SnapsToDevicePixels="true"
-                                           Stroke="Black"
+                                           Stroke="{DynamicResource BlackBrush}"
                                            StrokeDashArray="1 2"
                                            StrokeThickness="1" />
                             </ControlTemplate>

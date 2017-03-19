@@ -191,7 +191,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{DynamicResource WhiteBrush}" />
                 </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy"
@@ -209,7 +209,7 @@
                           VerticalAlignment="Center"
                           Height="10"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{DynamicResource WhiteBrush}" />
                     <Path Data="M0,0L1,0"
                           HorizontalAlignment="Center"
                           Margin="0"
@@ -218,7 +218,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{DynamicResource WhiteBrush}" />
                 </Grid>
             </RepeatButton>
         </Grid>

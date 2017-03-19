@@ -65,26 +65,16 @@
 
     <Style x:Key="RibbonBackstageStyle"
            TargetType="{x:Type Fluent:Backstage}">
-        <Setter Property="Template"
-                Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />
-        <Setter Property="Header"
-                Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
-        <Setter Property="Fluent:KeyTip.Keys"
-                Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
-        <Setter Property="HideAnimationDuration"
-                Value="0:0:0.3" />
-        <Setter Property="HideContextTabsOnOpen"
-                Value="True" />
-        <Setter Property="IsOpenAnimationEnabled"
-                Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
+        <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
+        <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
+        <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
+        <Setter Property="HideAnimationDuration" Value="0:0:0.3" />
+        <Setter Property="HideContextTabsOnOpen" Value="True" />
+        <Setter Property="IsOpenAnimationEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
         <Style.Triggers>
             <Trigger Property="IsOpenAnimationEnabled"
                      Value="False">

@@ -695,7 +695,7 @@
                                                   Focusable="False"
                                                   BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                   x:Name="PART_ScrollViewer"
-                                                  Background="White"
+                                                  Background="{DynamicResource WhiteBrush}"
                                                   Margin="1"
                                                   SnapsToDevicePixels="True"
                                                   KeyboardNavigation.DirectionalNavigation="None"
@@ -919,33 +919,26 @@
                                     x:Name="stackPanel"
                                     HorizontalAlignment="Left"
                                     Margin="0">
-                            <Image Width="16"
-                                   Height="16"
-                                   VerticalAlignment="Center"
-                                   Margin="4,0,3,0"
-                                   Source="{TemplateBinding Icon}" />
+                            <ContentPresenter x:Name="iconImage"
+                                              Width="16"
+                                              Height="16"
+                                              VerticalAlignment="Center"
+                                              Margin="4,0,0,0"
+                                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
                             <TextBlock Text="{TemplateBinding Header}"
                                        TextWrapping="Wrap"
                                        VerticalAlignment="Center"
                                        Margin="2,0,4,0"
                                        x:Name="textBlock" />
                         </StackPanel>
+
                         <Border x:Name="border"
                                 Height="22"
                                 BorderThickness="1"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                 Grid.Column="1"
-                                Width="{TemplateBinding InputWidth}"
-                                CornerRadius="2">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                                     StartPoint="0.5,0">
-                                    <GradientStop Color="#FFABAFB2"
-                                                  Offset="0" />
-                                    <GradientStop Color="#FFE1E6EC"
-                                                  Offset="1" />
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                                Width="{TemplateBinding InputWidth}">
                             <Grid Grid.Column="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -963,83 +956,66 @@
                                          Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                          Margin="1,0,0,0"
                                          Padding="1" />
-                                <Border x:Name="border1"
-                                        BorderBrush="#FFBEC1C4"
-                                        BorderThickness="1"
-                                        Margin="0,-1,-1,0"
-                                        Grid.RowSpan="1"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        CornerRadius="0,2,0,0"
-                                        Grid.Column="1"
-                                        Visibility="Collapsed">
-                                    <Border.Background>
-                                        <LinearGradientBrush EndPoint="0.5,1"
-                                                             StartPoint="0.5,0">
-                                            <GradientStop Color="White"
-                                                          Offset="0" />
-                                            <GradientStop Color="#FFF1F2F2"
-                                                          Offset="1" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
-                                <Border x:Name="border2"
-                                        BorderBrush="#FFBEC1C4"
-                                        BorderThickness="1"
-                                        Margin="0,-1,-1,-1"
-                                        Grid.RowSpan="1"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Width="18"
-                                        CornerRadius="0,0,2,0"
-                                        Grid.Column="1"
-                                        Grid.Row="1"
-                                        Visibility="Collapsed">
-                                    <Border.Background>
-                                        <LinearGradientBrush EndPoint="0.5,1"
-                                                             StartPoint="0.5,0">
-                                            <GradientStop Color="White"
-                                                          Offset="0" />
-                                            <GradientStop Color="#FFF1F2F2"
-                                                          Offset="1" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
-                                </Border>
+
+                                <Path Visibility="Collapsed"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,-1,0,-1"
+                                      x:Name="path"
+                                      Width="1"
+                                      Fill="{DynamicResource BlackBrush}"
+                                      Stretch="Fill"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                                      StrokeThickness="1"
+                                      Grid.Column="1"
+                                      Grid.RowSpan="2"
+                                      Data="M0,0L0,1" />
+                                
+                                <Path HorizontalAlignment="Left"
+                                      Margin="0,0,-1,0"
+                                      Width="Auto"
+                                      Fill="{DynamicResource BlackBrush}"
+                                      Stretch="Fill"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                                      StrokeThickness="1"
+                                      Data="M0,0L1,0"
+                                      Visibility="Collapsed"
+                                      x:Name="path1"
+                                      VerticalAlignment="Bottom"
+                                      Height="1"
+                                      Grid.Column="1"
+                                      Grid.RowSpan="1" />
+                                
                                 <RepeatButton x:Name="PART_ButtonUp"
                                               Grid.Column="1"
                                               Grid.Row="0"
-                                              Style="{DynamicResource SpinnerButtonBackstageStyle}"
+                                              Style="{DynamicResource SpinnerButtonStyle}"
                                               RenderTransformOrigin="0,0.5"
-                                              HorizontalAlignment="Stretch"
-                                              BorderThickness="0,1,0,0"
-                                              Margin="0,-1,-1,0">
-                                    <Path Width="7"
-                                          Height="4"
-                                          Fill="#FF757778"
+                                              HorizontalAlignment="Stretch">
+                                    <Path Width="5"
+                                          Height="3"
+                                          Fill="{DynamicResource BlackBrush}"
                                           Stretch="Fill"
                                           Stroke="{DynamicResource BlackBrush}"
                                           Data="M0,0L1,-1 2,0"
                                           HorizontalAlignment="Center"
                                           StrokeThickness="0"
                                           VerticalAlignment="Center"
-                                          Margin="1,1,0,1"
+                                          Margin="1,2,0,1"
                                           RenderOptions.EdgeMode="Aliased" />
                                 </RepeatButton>
                                 <RepeatButton x:Name="PART_ButtonDown"
                                               Grid.Column="1"
                                               Grid.Row="1"
-                                              Style="{DynamicResource SpinnerButtonBackstageStyle}"
-                                              BorderThickness="0,0,1,0"
-                                              Margin="0,0,-1,-1">
-                                    <Path Width="7"
-                                          Height="4"
-                                          Fill="#FF757778"
+                                              Style="{DynamicResource SpinnerButtonStyle}">
+                                    <Path Width="5"
+                                          Height="3"
+                                          Fill="{DynamicResource BlackBrush}"
                                           Stretch="Fill"
                                           Stroke="{DynamicResource BlackBrush}"
                                           Data="M0,0L1,1 2,0"
                                           StrokeThickness="0"
                                           HorizontalAlignment="Center"
-                                          Margin="1,0,0,0"
+                                          Margin="1,-1,0,0"
                                           VerticalAlignment="Center"
                                           RenderOptions.EdgeMode="Aliased" />
                                 </RepeatButton>
@@ -1048,7 +1024,12 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-
+                        <Trigger Property="Icon"
+                                 Value="{x:Null}">
+                            <Setter Property="Visibility"
+                                    TargetName="iconImage"
+                                    Value="Collapsed" />
+                        </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False">
                             <Setter Property="IsEnabled"
@@ -1063,6 +1044,18 @@
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
+                            <Setter Property="Opacity"
+                                    TargetName="iconImage"
+                                    Value="0.5" />
+                            <Setter Property="Opacity"
+                                    TargetName="textBlock"
+                                    Value="0.5" />
+                            <Setter Property="Effect"
+                                    TargetName="iconImage">
+                                <Setter.Value>
+                                    <Fluent:GrayscaleEffect />
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                         <Trigger Property="Size"
                                  Value="Middle">
@@ -1078,70 +1071,21 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
+                            <Setter Property="Visibility"
+                                    TargetName="path"
+                                    Value="Visible" />
+                            <Setter Property="Visibility"
+                                    TargetName="path1"
+                                    Value="Visible" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="border"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="border"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Visibility"
-                                    TargetName="border1"
-                                    Value="Visible" />
-                            <Setter Property="Visibility"
-                                    TargetName="border2"
-                                    Value="Visible" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="#E5BEC1C4" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border2"
-                                    Value="#E5BEC1C4" />
-                        </Trigger>
-                        <Trigger Property="IsFocused"
-                                 Value="True"
-                                 SourceName="PART_TextBox">
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                            <Setter Property="Background"
-                                    TargetName="PART_TextBox"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border">
-                                <Setter.Value>
-                                    <LinearGradientBrush EndPoint="0.5,1"
-                                                         StartPoint="0.5,0">
-                                        <GradientStop Color="#FFCFAF5A"
-                                                      Offset="0" />
-                                        <GradientStop Color="#FFEFDA71"
-                                                      Offset="1" />
-                                    </LinearGradientBrush>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Visibility"
-                                    TargetName="border1"
-                                    Value="Visible" />
-                            <Setter Property="Visibility"
-                                    TargetName="border2"
-                                    Value="Visible" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border1"
-                                    Value="#E5BEC1C4" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border2"
-                                    Value="#E5BEC1C4" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

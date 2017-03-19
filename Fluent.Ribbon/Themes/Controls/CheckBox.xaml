@@ -38,7 +38,7 @@
                                    Opacity="0"
                                    Fill="{DynamicResource GrayBrush2}" />
                         <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="White"
+                                   Fill="{DynamicResource WhiteBrush}"
                                    Opacity="0"
                                    RadiusX="1"
                                    RadiusY="1" />

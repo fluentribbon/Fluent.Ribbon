@@ -170,6 +170,19 @@
     <SolidColorBrush x:Key="ScrollBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
+    <SolidColorBrush x:Key="ScrollThumbDefaultBorderBrush"
+                     Color="#FFABABAB" />
+    <SolidColorBrush x:Key="ScrollThumbDefaultBackgroundBrush"
+                     Color="White" />
+    <SolidColorBrush x:Key="ScrollThumbHoverBorderBrush"
+                     Color="#FFABABAB" />
+    <SolidColorBrush x:Key="ScrollThumbHoverBackgroundBrush"
+                     Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="ScrollThumbPressedBorderBrush"
+                     Color="#FF777777" />
+    <SolidColorBrush x:Key="ScrollThumbPressedBackgroundBrush"
+                     Color="#FFF0F0F0" />
+    
     <!-- ScrollViewer -->
     <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
     <SolidColorBrush x:Key="ScrollViewerButtonBackgroundBrush" Color="{StaticResource Gray8}" options:Freeze="True" />    

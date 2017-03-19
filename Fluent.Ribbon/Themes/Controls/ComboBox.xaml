@@ -24,7 +24,7 @@
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="0"
-                Background="White"
+                Background="{DynamicResource WhiteBrush}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
@@ -34,7 +34,7 @@
                 <Rectangle x:Name="rectangle"
                            StrokeThickness="0"
                            Visibility="Collapsed"
-                           Fill="White">
+                           Fill="{DynamicResource WhiteBrush}">
                 </Rectangle>
                 <Path x:Name="path"
                       HorizontalAlignment="Center"
@@ -370,7 +370,7 @@
                                         <ScrollViewer Focusable="False"
                                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                       x:Name="PART_ScrollViewer"
-                                                      Background="White"
+                                                      Background="{DynamicResource WhiteBrush}"
                                                       Margin="1"
                                                       SnapsToDevicePixels="True"
                                                       KeyboardNavigation.DirectionalNavigation="None"

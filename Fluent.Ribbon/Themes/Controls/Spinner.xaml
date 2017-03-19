@@ -129,6 +129,7 @@
                                          Padding="2,0,2,0"
                                          Margin="0"
                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                
                                 <Path Visibility="Collapsed"
                                       HorizontalAlignment="Left"
                                       Margin="0,-1,0,-1"
@@ -141,6 +142,7 @@
                                       Grid.Column="1"
                                       Grid.RowSpan="2"
                                       Data="M0,0L0,1" />
+                                
                                 <Path HorizontalAlignment="Left"
                                       Margin="0,0,-1,0"
                                       Width="Auto"
@@ -155,6 +157,7 @@
                                       Height="1"
                                       Grid.Column="1"
                                       Grid.RowSpan="1" />
+                                
                                 <RepeatButton x:Name="PART_ButtonUp"
                                               Grid.Column="1"
                                               Grid.Row="0"
@@ -220,7 +223,6 @@
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-
                             <Setter Property="Opacity"
                                     TargetName="iconImage"
                                     Value="0.5" />

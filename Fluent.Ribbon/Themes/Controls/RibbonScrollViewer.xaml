@@ -113,7 +113,7 @@
                                              Path="ViewportWidth" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="Black"
+                            <Path Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0"
@@ -146,7 +146,7 @@
                                              Path="ViewportWidth" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="Black"
+                            <Path Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0"
@@ -210,7 +210,7 @@
                                              Path="ViewportWidth" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="Black"
+                            <Path Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0"
@@ -244,7 +244,7 @@
                                              Path="ViewportWidth" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="Black"
+                            <Path Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0"

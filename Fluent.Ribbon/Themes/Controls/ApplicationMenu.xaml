@@ -139,11 +139,8 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Setter Property="Template"
-                Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="Foreground"
-                Value="White" />
+        <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
     </Style>
 </ResourceDictionary>

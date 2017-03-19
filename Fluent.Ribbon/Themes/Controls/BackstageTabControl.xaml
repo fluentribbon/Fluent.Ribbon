@@ -9,7 +9,7 @@
                     Visibility="Collapsed">
                 <Border.Background>
                     <SolidColorBrush Opacity="0.2"
-                                     Color="Black" />
+                                     Color="{DynamicResource BlackColor}" />
                 </Border.Background>
             </Border>
             <StackPanel Orientation="Horizontal"
@@ -69,11 +69,11 @@
                   Width="16"
                   Height="12"
                   Stretch="Uniform"
-                  Fill="White"
+                  Fill="{DynamicResource WhiteBrush}"
                   Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z " />
 
             <Ellipse x:Name="backellipse"
-                     Stroke="White"
+                     Stroke="{DynamicResource WhiteBrush}"
                      Height="35"
                      Width="35"
                      StrokeThickness="2" />
@@ -159,10 +159,7 @@
                        BasedOn="{StaticResource DropDownButtonBackstageStyle}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
                        TargetType="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource ComboBoxBackstageStyle}" />
-                <Style x:Key="{x:Type Fluent:Spinner}"
-                       TargetType="{x:Type Fluent:Spinner}"
-                       BasedOn="{StaticResource SpinnerBackstageStyle}" />
+                       BasedOn="{StaticResource ComboBoxBackstageStyle}" />                
                 <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
                        BasedOn="{StaticResource BackstageSeparatorTabItemStyle}" />
                 <Storyboard x:Key="OnIsOpenTrueStoryboard">

@@ -8,7 +8,7 @@
                     Margin="0,0,0,0"
                     Visibility="Collapsed">
                 <Border.Background>
-                    <SolidColorBrush Color="Black"
+                    <SolidColorBrush Color="{DynamicResource BlackColor}"
                                      Opacity="0.2" />
                 </Border.Background>
             </Border>
@@ -16,7 +16,7 @@
                     Margin="0"
                     Visibility="Collapsed">
                 <Border.Background>
-                    <SolidColorBrush Color="White"
+                    <SolidColorBrush Color="{DynamicResource WhiteColor}"
                                      Opacity="0.2" />
                 </Border.Background>
                 <Grid Width="Auto"

@@ -15,9 +15,6 @@
                 <Style x:Key="{x:Type Fluent:ComboBox}"
                        TargetType="{x:Type Fluent:ComboBox}"
                        BasedOn="{StaticResource ComboBoxBackstageStyle}" />
-                <Style x:Key="{x:Type Fluent:Spinner}"
-                       TargetType="{x:Type Fluent:Spinner}"
-                       BasedOn="{StaticResource SpinnerBackstageStyle}" />
                 <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
                        BasedOn="{StaticResource BackstageSeparatorTabItemStyle}" />
             </ResourceDictionary>
@@ -48,7 +45,7 @@
                   Background="{DynamicResource WhiteBrush}"
                   Margin="{TemplateBinding SelectedContentMargin}">
                 <Border Padding="33,16"
-                        Background="White">
+                        Background="{DynamicResource WhiteBrush}">
                     <ContentPresenter x:Name="PART_SelectedContentHost"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"

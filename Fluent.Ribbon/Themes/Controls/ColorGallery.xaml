@@ -262,7 +262,7 @@
                                 <Rectangle Width="16"
                                            Height="16"
                                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                                           Fill="Black"
+                                           Fill="{DynamicResource BlackBrush}"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
