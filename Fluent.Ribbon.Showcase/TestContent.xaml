@@ -2890,7 +2890,7 @@
                         Maximum="2.0"
                         IsDirectionReversed="False"
                         Style="{DynamicResource ZoomSliderStyle}"
-                        Value="{Binding Zoom, Delay=500}"
+                        Value="{Binding Zoom}"
                         IsSnapToTickEnabled="True"
                         TickFrequency="0.1"
                         SmallChange="0.1"
