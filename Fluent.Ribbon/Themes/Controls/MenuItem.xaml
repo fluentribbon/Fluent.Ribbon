@@ -151,9 +151,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -277,9 +275,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -510,9 +506,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -790,12 +784,10 @@
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />
         <Setter Property="Template"
                 Value="{DynamicResource MenuItemTemplate}" />
         <Style.Triggers>

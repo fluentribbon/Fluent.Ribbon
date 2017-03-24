@@ -752,8 +752,6 @@
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
         <Setter Property="Template"
@@ -1591,8 +1589,6 @@
         <Setter Property="ResizeMode"
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
