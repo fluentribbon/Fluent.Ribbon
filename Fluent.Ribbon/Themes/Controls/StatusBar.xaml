@@ -119,16 +119,6 @@
                         BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
                         BorderThickness="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,30,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"

@@ -45,17 +45,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -198,17 +187,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -567,18 +545,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -851,16 +817,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -1000,17 +956,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -1350,18 +1295,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"

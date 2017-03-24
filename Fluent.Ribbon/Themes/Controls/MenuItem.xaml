@@ -170,17 +170,6 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -307,17 +296,6 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -584,17 +562,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
