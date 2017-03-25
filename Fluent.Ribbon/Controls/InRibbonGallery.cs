@@ -27,6 +27,19 @@ namespace Fluent
     /// are displayed when a drop-down menu button is clicked
     /// </summary>
     [ContentProperty(nameof(Items))]
+    [TemplatePart(Name = "PART_LayoutRoot", Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = "PART_ExpandButton", Type = typeof(ToggleButton))]
+    [TemplatePart(Name = "PART_DropDownButton", Type = typeof(ToggleButton))]
+    [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_FilterDropDownButton", Type = typeof(DropDownButton))]
+    [TemplatePart(Name = "PART_GalleryPanel", Type = typeof(GalleryPanel))]
+    [TemplatePart(Name = "PART_FakeImage", Type = typeof(Image))]
+    [TemplatePart(Name = "PART_ContentPresenter", Type = typeof(ContentControl))]
+    [TemplatePart(Name = "PART_PopupContentPresenter", Type = typeof(ContentControl))]
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
     {
