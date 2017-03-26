@@ -575,13 +575,6 @@
                         TargetName="PART_LayoutRoot"
                         Value="Left" />
             </Trigger>
-            <Trigger Property="IsDropDownOpen"
-                     Value="True">
-                <!--<Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
-              <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
-              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              -->
-                <!--<Setter Property="IsHitTestVisible" TargetName="PART_DropDownButton" Value="False"/>-->
-            </Trigger>
             <Trigger Property="ResizeMode"
                      Value="None">
                 <Setter Property="Visibility"
