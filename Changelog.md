@@ -4,6 +4,9 @@
 
 - ### Breaking changes
   - The following `Color` and `Brush` resources got removed:
+  - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
+    This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
+    This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
 
 - ### Bug fixes
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
