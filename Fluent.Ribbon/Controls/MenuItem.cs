@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Markup;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
     using System.Windows.Media;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -38,6 +37,8 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        private bool IsItemsControlMenuBase => (ItemsControlFromItemContainer(this) ?? VisualTreeHelper.GetParent(this)) is MenuBase;
 
         #region Size
 
@@ -548,12 +549,32 @@ namespace Fluent
             return item is FrameworkElement;
         }
 
+        #region Non MenuBase ItemsControl workarounds
+
         protected override void OnIsKeyboardFocusedChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnIsKeyboardFocusedChanged(e);
 
-            this.IsHighlighted = this.IsKeyboardFocused;
+            if (this.IsItemsControlMenuBase == false)
+            {
+                this.IsHighlighted = this.IsKeyboardFocused;
+            }
         }
+
+        protected override void OnMouseEnter(MouseEventArgs e)
+        {
+            base.OnMouseEnter(e);
+
+            if (this.IsItemsControlMenuBase == false)
+            {
+                if (this.HasItems)
+                {
+                    this.IsSubmenuOpen = true;
+                }
+            }
+        }
+
+        #endregion Non MenuBase ItemsControl workarounds
 
         /// <summary>
         /// Called when the left mouse button is released. 
@@ -566,18 +587,14 @@ namespace Fluent
                 if (this.IsSplited)
                 {
                     var buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
-                    if ((buttonBorder != null) && PopupService.IsMousePhysicallyOver(buttonBorder))
+                    if (buttonBorder != null 
+                        && PopupService.IsMousePhysicallyOver(buttonBorder))
                     {
-                        /*if (Command != null)
-                        {
-                            RoutedCommand command = Command as RoutedCommand;
-                            if (command != null) command.Execute(CommandParameter, CommandTarget);
-                            else Command.Execute(CommandParameter);
-                        }*/
                         this.OnClick();
                     }
                 }
             }
+
             base.OnMouseLeftButtonUp(e);
         }
 
@@ -686,9 +703,9 @@ namespace Fluent
             }
             else
             {
-                var itemsControl = ItemsControlFromItemContainer(this) 
-                    ?? VisualTreeHelper.GetParent(this) as ItemsControl;
-                if (itemsControl == null || (itemsControl is MenuItem || itemsControl is MenuBase) == false)
+                #region Non MenuBase ItemsControl workarounds
+
+                if (this.IsItemsControlMenuBase == false)
                 {
                     var key = e.Key;
 
@@ -721,6 +738,8 @@ namespace Fluent
                         return;
                     }
                 }
+
+                #endregion Non MenuBase ItemsControl workarounds
 
                 base.OnKeyDown(e);
             }

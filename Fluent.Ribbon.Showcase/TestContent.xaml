@@ -999,43 +999,43 @@
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            ClosePopupOnMouseDown="True"
                                            ClosePopupOnMouseDownDelay="250">
-                        <Fluent:MenuItem Header="1" />
-                        <Fluent:MenuItem Header="2" />
-                        <Fluent:MenuItem Header="3">
-                            <Fluent:MenuItem Header="1" />
-                            <Fluent:MenuItem Header="2">
-                                <Fluent:MenuItem Header="1" />
-                                <Fluent:MenuItem Header="2">
-                                    <Fluent:MenuItem Header="1" />
-                                    <Fluent:MenuItem Header="2" />
-                                    <Fluent:MenuItem Header="3" />
+                        <Fluent:MenuItem Header="Item 1" />
+                        <Fluent:MenuItem Header="Item 2" />
+                        <Fluent:MenuItem Header="Item 3">
+                            <Fluent:MenuItem Header="Item 1" />
+                            <Fluent:MenuItem Header="Item 2">
+                                <Fluent:MenuItem Header="Item 1" />
+                                <Fluent:MenuItem Header="Item 2">
+                                    <Fluent:MenuItem Header="Item 1" />
+                                    <Fluent:MenuItem Header="Item 2" />
+                                    <Fluent:MenuItem Header="Item 3" />
                                 </Fluent:MenuItem>
-                                <MenuItem Header="3" />
+                                <MenuItem Header="Item 3" />
                             </Fluent:MenuItem>
-                            <MenuItem Header="3" />
+                            <MenuItem Header="Item 3" />
                         </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="4" />
-                        <Fluent:MenuItem Header="5" />
-                        <Fluent:MenuItem Header="6" />
-                        <Fluent:MenuItem Header="7" />
-                        <Fluent:MenuItem Header="8" />
-                        <Fluent:MenuItem Header="9" />
-                        <Fluent:MenuItem Header="10" />
-                        <Fluent:MenuItem Header="11" />
-                        <Fluent:MenuItem Header="12" />
-                        <Fluent:MenuItem Header="13" />
-                        <Fluent:MenuItem Header="14" />
-                        <Fluent:MenuItem Header="15" />
-                        <Fluent:MenuItem Header="16" />
-                        <Fluent:MenuItem Header="17" />
-                        <Fluent:MenuItem Header="18" />
-                        <Fluent:MenuItem Header="19" />
-                        <Fluent:MenuItem Header="20" />
-                        <Fluent:MenuItem Header="21" />
-                        <Fluent:MenuItem Header="22" />
-                        <Fluent:MenuItem Header="23" />
-                        <Fluent:MenuItem Header="24" />
-                        <Fluent:MenuItem Header="25" />
+                        <Fluent:MenuItem Header="Item 4" />
+                        <Fluent:MenuItem Header="Item 5" />
+                        <Fluent:MenuItem Header="Item 6" />
+                        <Fluent:MenuItem Header="Item 7" />
+                        <Fluent:MenuItem Header="Item 8" />
+                        <Fluent:MenuItem Header="Item 9" />
+                        <Fluent:MenuItem Header="Item 10" />
+                        <Fluent:MenuItem Header="Item 11" />
+                        <Fluent:MenuItem Header="Item 12" />
+                        <Fluent:MenuItem Header="Item 13" />
+                        <Fluent:MenuItem Header="Item 14" />
+                        <Fluent:MenuItem Header="Item 15" />
+                        <Fluent:MenuItem Header="Item 16" />
+                        <Fluent:MenuItem Header="Item 17" />
+                        <Fluent:MenuItem Header="Item 18" />
+                        <Fluent:MenuItem Header="Item 19" />
+                        <Fluent:MenuItem Header="Item 20" />
+                        <Fluent:MenuItem Header="Item 21" />
+                        <Fluent:MenuItem Header="Item 22" />
+                        <Fluent:MenuItem Header="Item 23" />
+                        <Fluent:MenuItem Header="Item 24" />
+                        <Fluent:MenuItem Header="Item 25" />
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
