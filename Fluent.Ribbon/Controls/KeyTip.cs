@@ -27,7 +27,6 @@ namespace Fluent
 
         private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         /// <summary>
