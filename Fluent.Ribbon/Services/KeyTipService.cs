@@ -395,8 +395,12 @@ namespace Fluent
 
             this.ClosePopups();
 
-            this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
-            
+            // If focus is inside the Ribbon already we don't want to jump around after finishing with KeyTips
+            if (UIHelper.GetParent<Ribbon>(Keyboard.FocusedElement as DependencyObject) == null)
+            {
+                this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
+            }
+
             // Focus ribbon
             this.ribbon.SelectedTabItem.Focus();
 
