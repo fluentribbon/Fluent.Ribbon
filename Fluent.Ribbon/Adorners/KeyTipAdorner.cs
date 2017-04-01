@@ -260,7 +260,7 @@ namespace Fluent
                 this.Log("No adorner layer found");
                 return;
             }
-
+           
             this.FilterKeyTips(string.Empty);
 
             // Show this adorner
@@ -482,7 +482,16 @@ namespace Fluent
         // Hide / unhide keytips relative matching to entered keys
         internal void FilterKeyTips(string keys)
         {
-            this.Log("FilterKeyTips with {0}", keys);
+            this.Log("FilterKeyTips with \"{0}\"", keys);
+
+            // Reset visibility if filter is empty
+            if (string.IsNullOrEmpty(keys))
+            {
+                foreach (var keyTipInformation in this.keyTipInformations)
+                {
+                    keyTipInformation.KeyTip.Visibility = Visibility.Visible;
+                }
+            }
 
             // Backup current visibility of key tips
             foreach (var keyTipInformation in this.keyTipInformations)
