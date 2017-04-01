@@ -75,6 +75,14 @@ namespace Fluent
                     Content = keys,
                     Visibility = hide ? Visibility.Collapsed : Visibility.Visible
                 };
+
+                // Bind IsEnabled property
+                var binding = new Binding(nameof(this.AssociatedElement.IsEnabled))
+                {
+                    Source = this.AssociatedElement,
+                    Mode = BindingMode.OneWay
+                };
+                this.KeyTip.SetBinding(IsEnabledProperty, binding);
             }
 
             public string Keys { get; }
@@ -162,47 +170,31 @@ namespace Fluent
                     var keyTipInformation = new KeyTipInformation(keys, child, hide);
 
                     // Add to list & visual children collections                    
-                    this.keyTipInformations.Add(keyTipInformation);
-                    this.AddVisualChild(keyTipInformation.KeyTip);
+                    this.AddKeyTipInformationElement(keyTipInformation);
 
                     this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
 
                     if (groupBox != null)
                     {
-                        if (groupBox.State == RibbonGroupBoxState.Collapsed)
-                        {
-                            keyTipInformation.KeyTip.Visibility = Visibility.Visible;
-                            this.FindKeyTips(keyTipInformation.AssociatedElement, true);
-                            continue;
-                        }
-                        else
-                        {
-                            keyTipInformation.KeyTip.Visibility = Visibility.Collapsed;
-                        }
+                        keyTipInformation.KeyTip.Visibility = groupBox.State == RibbonGroupBoxState.Collapsed
+                                                                  ? Visibility.Visible
+                                                                  : Visibility.Collapsed;
                     }
                     else
                     {
-                        // Bind IsEnabled property
-                        var binding = new Binding("IsEnabled")
-                        {
-                            Source = keyTipInformation.AssociatedElement,
-                            Mode = BindingMode.OneWay
-                        };
-                        keyTipInformation.KeyTip.SetBinding(IsEnabledProperty, binding);
                         continue;
                     }
                 }
 
-                if (groupBox != null 
-                    && groupBox.State == RibbonGroupBoxState.Collapsed)
-                {
-                    this.FindKeyTips(child, true);
-                }
-                else
-                {
-                    this.FindKeyTips(child, hide);
-                }
+                var innerHide = hide || groupBox?.State == RibbonGroupBoxState.Collapsed;
+                this.FindKeyTips(child, innerHide);
             }
+        }
+
+        private void AddKeyTipInformationElement(KeyTipInformation keyTipInformation)
+        {
+            this.keyTipInformations.Add(keyTipInformation);
+            this.AddVisualChild(keyTipInformation.KeyTip);
         }
 
         private static IList<FrameworkElement> GetVisibleChildren(FrameworkElement element)
