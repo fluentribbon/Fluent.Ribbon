@@ -10,6 +10,7 @@
 
 - ### Bug fixes
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
+  - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
 
 ## 5.0.1
 - ### Bug fixes

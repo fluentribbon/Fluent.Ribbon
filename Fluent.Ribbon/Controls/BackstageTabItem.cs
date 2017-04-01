@@ -134,16 +134,14 @@ namespace Fluent
             var container = (BackstageTabItem)d;
             var newValue = (bool)e.NewValue;
 
-            var backstageTabControl = container.Parent as BackstageTabControl;
-
             if (newValue)
             {
-                if (backstageTabControl != null
-                    && ReferenceEquals(backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem), container) == false)
+                if (container.TabControlParent != null
+                    && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerFromItem(container.TabControlParent.SelectedItem), container) == false)
                 {
-                    UnselectSelectedItem(backstageTabControl);
+                    UnselectSelectedItem(container.TabControlParent);
 
-                    backstageTabControl.SelectedItem = backstageTabControl.ItemContainerGenerator.ItemFromContainer(container);
+                    container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainer(container);
                 }
 
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
