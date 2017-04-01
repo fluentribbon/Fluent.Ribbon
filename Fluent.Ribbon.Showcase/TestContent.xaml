@@ -1139,10 +1139,13 @@
 
                 <Fluent:RibbonGroupBox Header="ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
+                                         KeyTip="T1"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Toggle 2"
+                                         KeyTip="T2"
                                          GroupName="Group1" />
                     <Fluent:ToggleButton Header="Toggle 3"
+                                         KeyTip="T3"
                                          GroupName="Group1"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}" />
 
