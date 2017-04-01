@@ -42,7 +42,7 @@ namespace Fluent
         private readonly KeyTipAdorner parentAdorner;
         private KeyTipAdorner childAdorner;
 
-        private readonly UIElement keyTipElementContainer;
+        private readonly FrameworkElement keyTipElementContainer;
 
         // Is this adorner attached to the adorned element?
         private bool attached;
@@ -54,18 +54,33 @@ namespace Fluent
 
         private class KeyTipInformation
         {
-            public KeyTipInformation(string keys, KeyTip keyTip, UIElement associatedElement)
+            public KeyTipInformation(string keys, FrameworkElement associatedElement, bool hide)
             {
+                if (string.IsNullOrEmpty(keys))
+                {
+                    throw new ArgumentNullException(nameof(keys));
+                }
+
+                if (associatedElement == null)
+                {
+                    throw new ArgumentNullException(nameof(associatedElement));
+                }
+
                 this.Keys = keys;
-                this.KeyTip = keyTip;
                 this.AssociatedElement = associatedElement;
+
+                this.KeyTip = new KeyTip
+                {
+                    Content = keys,
+                    Visibility = hide ? Visibility.Collapsed : Visibility.Visible
+                };
             }
 
             public string Keys { get; }
 
-            public KeyTip KeyTip { get; }
+            public FrameworkElement AssociatedElement { get; }
 
-            public UIElement AssociatedElement { get; }
+            public KeyTip KeyTip { get; }
 
             public Point Position { get; set; }            
 
@@ -115,7 +130,7 @@ namespace Fluent
         /// <param name="adornedElement"></param>
         /// <param name="parentAdorner">Parent adorner or null</param>
         /// <param name="keyTipElementContainer">The element which is container for elements</param>
-        public KeyTipAdorner(UIElement adornedElement, UIElement keyTipElementContainer, KeyTipAdorner parentAdorner)
+        public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner parentAdorner)
             : base(adornedElement)
         {
             this.parentAdorner = parentAdorner;
@@ -124,14 +139,14 @@ namespace Fluent
 
             // Try to find supported elements
             this.FindKeyTips(this.keyTipElementContainer, false);
-            this.oneOfAssociatedElements = (FrameworkElement)(this.keyTipInformations.Count != 0
+            this.oneOfAssociatedElements = this.keyTipInformations.Count != 0
                     ? this.keyTipInformations[0].AssociatedElement
                     : adornedElement // Maybe here is bug, coz we need keytipped item here...
-                );
+                ;
         }
 
         // Find key tips on the given element
-        private void FindKeyTips(UIElement element, bool hide)
+        private void FindKeyTips(FrameworkElement element, bool hide)
         {
             var children = GetVisibleChildren(element);
 
@@ -143,32 +158,25 @@ namespace Fluent
                 if (keys != null)
                 {
                     // Gotcha!
-                    var keyTip = new KeyTip
-                    {
-                        Content = keys,
-                        Visibility = hide
-                            ? Visibility.Collapsed
-                            : Visibility.Visible
-                    };
+                    var keyTipInformation = new KeyTipInformation(keys, child, hide);
 
-                    // Add to list & visual 
-                    // children collections
-                    this.keyTipInformations.Add(new KeyTipInformation(keys, keyTip, child));
-                    this.AddVisualChild(keyTip);
+                    // Add to list & visual children collections                    
+                    this.keyTipInformations.Add(keyTipInformation);
+                    this.AddVisualChild(keyTipInformation.KeyTip);
 
-                    this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", child, keys);
+                    this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
 
                     if (groupBox != null)
                     {
                         if (groupBox.State == RibbonGroupBoxState.Collapsed)
                         {
-                            keyTip.Visibility = Visibility.Visible;
-                            this.FindKeyTips(child, true);
+                            keyTipInformation.KeyTip.Visibility = Visibility.Visible;
+                            this.FindKeyTips(keyTipInformation.AssociatedElement, true);
                             continue;
                         }
                         else
                         {
-                            keyTip.Visibility = Visibility.Collapsed;
+                            keyTipInformation.KeyTip.Visibility = Visibility.Collapsed;
                         }
                     }
                     else
@@ -176,16 +184,16 @@ namespace Fluent
                         // Bind IsEnabled property
                         var binding = new Binding("IsEnabled")
                         {
-                            Source = child,
+                            Source = keyTipInformation.AssociatedElement,
                             Mode = BindingMode.OneWay
                         };
-                        keyTip.SetBinding(IsEnabledProperty, binding);
+                        keyTipInformation.KeyTip.SetBinding(IsEnabledProperty, binding);
                         continue;
                     }
                 }
 
-                if (groupBox != null &&
-                    groupBox.State == RibbonGroupBoxState.Collapsed)
+                if (groupBox != null 
+                    && groupBox.State == RibbonGroupBoxState.Collapsed)
                 {
                     this.FindKeyTips(child, true);
                 }
@@ -196,10 +204,10 @@ namespace Fluent
             }
         }
 
-        private static IList<UIElement> GetVisibleChildren(UIElement element)
+        private static IList<FrameworkElement> GetVisibleChildren(FrameworkElement element)
         {
             var logicalChildren = LogicalTreeHelper.GetChildren(element)                
-                .OfType<UIElement>();
+                .OfType<FrameworkElement>();
 
             var children = logicalChildren;
 
@@ -210,7 +218,7 @@ namespace Fluent
             {
                 children = children
                     .Concat(UIHelper.GetVisualChildren(element))
-                    .OfType<UIElement>();
+                    .OfType<FrameworkElement>();
             }
 
             return children
@@ -404,7 +412,7 @@ namespace Fluent
         }
 
         // Forward to the next element
-        private void Forward(UIElement element, bool click)
+        private void Forward(FrameworkElement element, bool click)
         {
             this.Log("Forwarding to {0}", element);
 
@@ -446,7 +454,7 @@ namespace Fluent
         /// </summary>
         /// <param name="keys"></param>
         /// <returns>Element</returns>
-        private UIElement TryGetElement(string keys)
+        private FrameworkElement TryGetElement(string keys)
         {
             return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.CurrentCultureIgnoreCase))
                 ?.AssociatedElement;
@@ -565,28 +573,6 @@ namespace Fluent
             return result;
         }
 
-        /// <summary>
-        /// Gets parent RibbonGroupBox or null
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns></returns>
-        private static RibbonGroupBox GetGroupBox(DependencyObject element)
-        {
-            if (element == null)
-            {
-                return null;
-            }
-
-            var groupBox = element as RibbonGroupBox;
-            if (groupBox != null)
-            {
-                return groupBox;
-            }
-
-            var parent = VisualTreeHelper.GetParent(element);
-            return GetGroupBox(parent);
-        }
-
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         private void UpdateKeyTipPositions()
         {
@@ -598,7 +584,7 @@ namespace Fluent
             }
 
             double[] rows = null;
-            var groupBox = GetGroupBox(this.oneOfAssociatedElements);
+            var groupBox = UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
             var panel = groupBox?.GetPanel();
 
             if (panel != null)
@@ -668,7 +654,7 @@ namespace Fluent
 
                     #endregion
                 }
-                else if (((FrameworkElement)keyTipInformation.AssociatedElement).Name == "PART_DialogLauncherButton")
+                else if (keyTipInformation.AssociatedElement.Name == "PART_DialogLauncherButton")
                 {
                     // Dialog Launcher Button Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
@@ -730,12 +716,12 @@ namespace Fluent
                                                                               elementSize.Height / 3.0 + 2,
                                                                               elementSize.Height / 4.0 + 2), this.AdornedElement);
                 }
-                else if (((FrameworkElement)keyTipInformation.AssociatedElement).Parent is BackstageTabControl)
+                else if (keyTipInformation.AssociatedElement.Parent is BackstageTabControl)
                 {
                     // Backstage Items Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.AssociatedElement.DesiredSize;
-                    var parent = (UIElement)((FrameworkElement)keyTipInformation.AssociatedElement).Parent;
+                    var parent = (UIElement)keyTipInformation.AssociatedElement.Parent;
                     var positionInParent = keyTipInformation.AssociatedElement.TranslatePoint(default(Point), parent);
                     keyTipInformation.Position = parent.TranslatePoint(
                                                        new Point(
