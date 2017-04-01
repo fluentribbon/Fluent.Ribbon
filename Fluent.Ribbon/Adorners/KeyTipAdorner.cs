@@ -46,6 +46,7 @@ namespace Fluent
 
         // Is this adorner attached to the adorned element?
         private bool attached;
+        private bool isAttaching;
 
         // Designate that this adorner is terminated
         private bool terminated;
@@ -102,7 +103,7 @@ namespace Fluent
         /// </summary>
         public bool IsAdornerChainAlive
         {
-            get { return this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
+            get { return this.isAttaching || this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
         }
 
         public bool AreAnyKeyTipsVisible
@@ -241,6 +242,8 @@ namespace Fluent
                 return;
             }
 
+            this.isAttaching = true;
+
             this.oneOfAssociatedElements.UpdateLayout();
 
             this.Log("Attach begin {0}", this.Visibility);
@@ -258,6 +261,7 @@ namespace Fluent
             if (this.adornerLayer == null)
             {
                 this.Log("No adorner layer found");
+                this.isAttaching = false;
                 return;
             }
            
@@ -266,6 +270,7 @@ namespace Fluent
             // Show this adorner
             this.adornerLayer.Add(this);
 
+            this.isAttaching = false;
             this.attached = true;
 
             this.Log("Attach end");
