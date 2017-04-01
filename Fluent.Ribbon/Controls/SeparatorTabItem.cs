@@ -4,6 +4,7 @@ namespace Fluent
     using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -35,7 +36,7 @@ namespace Fluent
             }
 
             var separatorTabItem = (SeparatorTabItem)d;
-            var tabControl = separatorTabItem.Parent as TabControl;
+            var tabControl = UIHelper.GetParent<TabControl>(separatorTabItem);
 
             if (tabControl == null
                 || tabControl.Items.Count <= 1)
