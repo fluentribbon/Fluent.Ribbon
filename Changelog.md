@@ -12,6 +12,9 @@
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
 
+- ### Enhancements
+  - [#417](../../issues/417) - Keytips for Splitbuttons
+
 ## 5.0.1
 - ### Bug fixes
   - [#412](../../issues/412) - Specific version for nuget references causes issues

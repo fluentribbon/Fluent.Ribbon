@@ -9,6 +9,8 @@ using System.Windows.Input;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Collections.Generic;
+    using Fluent.Extensibility;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -16,7 +18,7 @@ namespace Fluent
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
-    public class SplitButton : DropDownButton, IToggleButton, ICommandSource
+    public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTipInformationProvider
     {
         #region Fields
 
@@ -516,6 +518,17 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+
+        #region Implementation of IKeyTipInformationProvider
+
+        /// <inheritdoc />
+        public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
+        {
+            yield return new KeyTipInformation(this.KeyTip + "1", this.button, hide);
+            yield return new KeyTipInformation(this.KeyTip + "2", this, hide);
+        }
+
+        #endregion
 
         #endregion
     }

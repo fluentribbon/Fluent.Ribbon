@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
@@ -11,6 +12,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Media;
+    using Fluent.Extensibility;
     using Fluent.Internal;
 
     /// <summary>
@@ -52,55 +54,6 @@ namespace Fluent
         private bool terminated;
 
         private AdornerLayer adornerLayer;
-
-        private class KeyTipInformation
-        {
-            public KeyTipInformation(string keys, FrameworkElement associatedElement, bool hide)
-            {
-                if (string.IsNullOrEmpty(keys))
-                {
-                    throw new ArgumentNullException(nameof(keys));
-                }
-
-                if (associatedElement == null)
-                {
-                    throw new ArgumentNullException(nameof(associatedElement));
-                }
-
-                this.Keys = keys;
-                this.AssociatedElement = associatedElement;
-
-                this.KeyTip = new KeyTip
-                {
-                    Content = keys,
-                    Visibility = hide ? Visibility.Collapsed : Visibility.Visible
-                };
-
-                // Bind IsEnabled property
-                var binding = new Binding(nameof(this.AssociatedElement.IsEnabled))
-                {
-                    Source = this.AssociatedElement,
-                    Mode = BindingMode.OneWay
-                };
-                this.KeyTip.SetBinding(IsEnabledProperty, binding);
-            }
-
-            public string Keys { get; }
-
-            public FrameworkElement AssociatedElement { get; }
-
-            public KeyTip KeyTip { get; }
-
-            public Point Position { get; set; }            
-
-            public Visibility BackupVisibility { get; set; }
-
-            public bool IsVisible => this.KeyTip.IsVisible;
-
-            public Visibility Visibility => this.KeyTip.Visibility;
-
-            public bool IsEnabled => this.KeyTip.IsEnabled;
-        }
 
         #endregion
 
@@ -168,7 +121,7 @@ namespace Fluent
                 {
                     if (groupBox != null)
                     {
-                        this.GenerateAndAddGroupBoxKeyTipInformations(hide, keys, child, groupBox);
+                        this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
                     }
                     else
                     {
@@ -184,7 +137,7 @@ namespace Fluent
             }
         }
 
-        private void GenerateAndAddGroupBoxKeyTipInformations(bool hide, string keys, FrameworkElement child, RibbonGroupBox groupBox)
+        private void GenerateAndAddGroupBoxKeyTipInformation(bool hide, string keys, FrameworkElement child, RibbonGroupBox groupBox)
         {
             var keyTipInformation = new KeyTipInformation(keys, child, hide);
 
@@ -200,12 +153,25 @@ namespace Fluent
 
         private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
         {
-            var keyTipInformation = new KeyTipInformation(keys, child, hide);
+            IEnumerable<KeyTipInformation> informations;
+            var keyTipInformationProvider = child as IKeyTipInformationProvider;
 
-            // Add to list & visual children collections                    
-            this.AddKeyTipInformationElement(keyTipInformation);
+            if (keyTipInformationProvider != null)
+            {
+                informations = keyTipInformationProvider.GetKeyTipInformations(hide);
+            }
+            else
+            {
+                informations = new []{ new KeyTipInformation(keys, child, hide) };
+            }
 
-            this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+            foreach (var keyTipInformation in informations)
+            {
+                // Add to list & visual children collections
+                this.AddKeyTipInformationElement(keyTipInformation);
+
+                this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+            }
         }
 
         private void AddKeyTipInformationElement(KeyTipInformation keyTipInformation)
@@ -640,36 +606,36 @@ namespace Fluent
                     #region Custom Placement
 
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
+                    
                     var elementSize = keyTipInformation.AssociatedElement.RenderSize;
 
                     double x = 0, y = 0;
-                    var margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
+
+                    keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
 
                     switch (KeyTip.GetHorizontalAlignment(keyTipInformation.AssociatedElement))
                     {
                         case HorizontalAlignment.Left:
-                            x = margin.Left;
                             break;
                         case HorizontalAlignment.Right:
-                            x = elementSize.Width - keyTipSize.Width - margin.Right;
+                            x = elementSize.Width - keyTipSize.Width;
                             break;
                         case HorizontalAlignment.Center:
                         case HorizontalAlignment.Stretch:
-                            x = elementSize.Width / 2.0 - keyTipSize.Width / 2.0 + margin.Left;
+                            x = elementSize.Width / 2.0 - keyTipSize.Width / 2.0;
                             break;
                     }
 
                     switch (KeyTip.GetVerticalAlignment(keyTipInformation.AssociatedElement))
                     {
                         case VerticalAlignment.Top:
-                            y = margin.Top;
                             break;
                         case VerticalAlignment.Bottom:
-                            y = elementSize.Height - keyTipSize.Height - margin.Bottom;
+                            y = elementSize.Height - keyTipSize.Height;
                             break;
                         case VerticalAlignment.Center:
                         case VerticalAlignment.Stretch:
-                            y = elementSize.Height / 2.0 - keyTipSize.Height / 2.0 + margin.Top;
+                            y = elementSize.Height / 2.0 - keyTipSize.Height / 2.0;
                             break;
                     }
 

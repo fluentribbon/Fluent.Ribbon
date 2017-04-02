@@ -19,16 +19,28 @@
                 Value="False" />
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
+        <Setter Property="Fluent:KeyTip.AutoPlacement"
+                Value="False" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
                 <Setter Property="Height"
                         Value="68" />
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Bottom" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Height"
                         Value="22" />
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.Margin"
+                        Value="0,0,-10,0" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -36,6 +48,12 @@
                         Value="22" />
                 <Setter Property="Width"
                         Value="32" />
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.Margin"
+                        Value="0,0,-10,0" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -319,6 +337,35 @@
                 Value="Stretch" />
         <Setter Property="HorizontalAlignment"
                 Value="Stretch" />
+        <Setter Property="Fluent:KeyTip.AutoPlacement"
+                Value="False" />
+        <Style.Triggers>
+            <Trigger Property="Size"
+                     Value="Large">
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Top" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.Margin"
+                        Value="-10,0,0,0" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Fluent:KeyTip.HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Fluent:KeyTip.VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Fluent:KeyTip.Margin"
+                        Value="-10,0,0,0" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <ControlTemplate x:Key="InnerButtonControlTemplate"

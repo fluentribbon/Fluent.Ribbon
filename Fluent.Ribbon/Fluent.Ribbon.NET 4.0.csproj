@@ -90,6 +90,7 @@
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
     <Compile Include="Extensions\UIElementExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="IRibbonWindow.cs" />
+    <Compile Include="KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />

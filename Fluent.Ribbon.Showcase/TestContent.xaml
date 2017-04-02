@@ -1042,14 +1042,17 @@
                 <Fluent:RibbonGroupBox Header="Vector images">
                     <Fluent:SplitButton Header="Large"
                                         SizeDefinition="Large"
+                                        KeyTip="L"
                                         LargeIcon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Middle"
                                         SizeDefinition="Middle"
+                                        KeyTip="M"
                                         Icon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Small"
                                         SizeDefinition="Small"
+                                        KeyTip="S"
                                         Icon="{StaticResource VectorImageSample}" />
 
                     <Fluent:SplitButton Header="Large"
@@ -1082,7 +1085,7 @@
                     </Fluent:ToggleButton>
                     
                     <Fluent:SplitButton Header="blah blah"
-                                        KeyTip="blah"
+                                        KeyTip="BL"
                                         SizeDefinition="Small">
                         <Fluent:SplitButton.Icon>
                             <Grid>
