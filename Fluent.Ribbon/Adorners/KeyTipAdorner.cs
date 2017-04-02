@@ -769,57 +769,28 @@ namespace Fluent
 
         // Determines whether the element is children to RibbonToolBar
         private static bool IsWithinRibbonToolbarInTwoLine(DependencyObject element)
-        {
-            while (true)
+        {            
+            var ribbonToolBar = UIHelper.GetParent<RibbonToolBar>(element);
+
+            var definition = ribbonToolBar?.GetCurrentLayoutDefinition();
+            if (definition == null)
             {
-                var parent = LogicalTreeHelper.GetParent(element) as UIElement;
-                var ribbonToolBar = parent as RibbonToolBar;
-
-                if (ribbonToolBar != null)
-                {
-                    var definition = ribbonToolBar.GetCurrentLayoutDefinition();
-                    if (definition == null)
-                    {
-                        return false;
-                    }
-
-                    if (definition.RowCount == 2
-                        || definition.Rows.Count == 2)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-
-                if (parent == null)
-                {
-                    return false;
-                }
-
-                element = parent;
+                return false;
             }
+
+            if (definition.RowCount == 2
+                || definition.Rows.Count == 2)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // Determines whether the element is children to quick access toolbar
         private static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
-            while (true)
-            {
-                var parent = LogicalTreeHelper.GetParent(element) as UIElement;
-
-                if (parent is QuickAccessToolBar)
-                {
-                    return true;
-                }
-
-                if (parent == null)
-                {
-                    return false;
-                }
-
-                element = parent;
-            }
+            return UIHelper.GetParent<QuickAccessToolBar>(element) != null;
         }
 
         /// <summary>
