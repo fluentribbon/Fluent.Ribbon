@@ -208,7 +208,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1810")]
         static KeyTip()
         {
-            // Override metadata to allow slyling
+            // Override metadata to allow styling
             DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
         }
     }
