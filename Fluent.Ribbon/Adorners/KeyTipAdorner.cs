@@ -166,22 +166,15 @@ namespace Fluent
                 var keys = KeyTip.GetKeys(child);
                 if (keys != null)
                 {
-                    // Gotcha!
-                    var keyTipInformation = new KeyTipInformation(keys, child, hide);
-
-                    // Add to list & visual children collections                    
-                    this.AddKeyTipInformationElement(keyTipInformation);
-
-                    this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
-
                     if (groupBox != null)
                     {
-                        keyTipInformation.KeyTip.Visibility = groupBox.State == RibbonGroupBoxState.Collapsed
-                                                                  ? Visibility.Visible
-                                                                  : Visibility.Collapsed;
+                        this.GenerateAndAddGroupBoxKeyTipInformations(hide, keys, child, groupBox);
                     }
                     else
                     {
+                        this.GenerateAndAddRegularKeyTipInformations(keys, child, hide);
+
+                        // Do no search deeper in the tree
                         continue;
                     }
                 }
@@ -189,6 +182,30 @@ namespace Fluent
                 var innerHide = hide || groupBox?.State == RibbonGroupBoxState.Collapsed;
                 this.FindKeyTips(child, innerHide);
             }
+        }
+
+        private void GenerateAndAddGroupBoxKeyTipInformations(bool hide, string keys, FrameworkElement child, RibbonGroupBox groupBox)
+        {
+            var keyTipInformation = new KeyTipInformation(keys, child, hide);
+
+            // Add to list & visual children collections                    
+            this.AddKeyTipInformationElement(keyTipInformation);
+
+            this.Log("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+
+            keyTipInformation.KeyTip.Visibility = groupBox.State == RibbonGroupBoxState.Collapsed
+                                                      ? Visibility.Visible
+                                                      : Visibility.Collapsed;
+        }
+
+        private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
+        {
+            var keyTipInformation = new KeyTipInformation(keys, child, hide);
+
+            // Add to list & visual children collections                    
+            this.AddKeyTipInformationElement(keyTipInformation);
+
+            this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
         }
 
         private void AddKeyTipInformationElement(KeyTipInformation keyTipInformation)
