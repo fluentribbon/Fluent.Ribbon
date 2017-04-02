@@ -551,6 +551,7 @@ namespace Fluent
 
         #region Non MenuBase ItemsControl workarounds
 
+        /// <inheritdoc />
         protected override void OnIsKeyboardFocusedChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnIsKeyboardFocusedChanged(e);
@@ -561,6 +562,7 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
         protected override void OnMouseEnter(MouseEventArgs e)
         {
             base.OnMouseEnter(e);
