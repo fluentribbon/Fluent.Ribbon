@@ -658,6 +658,11 @@ namespace Fluent
                                                                               0), this.AdornedElement);
                     keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[3]);
                 }
+                else if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
+                {
+                    var translatedPoint = keyTipInformation.AssociatedElement.TranslatePoint(new Point(keyTipInformation.AssociatedElement.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.AssociatedElement.DesiredSize.Height - keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
+                    keyTipInformation.Position = translatedPoint;
+                }
                 else if (keyTipInformation.AssociatedElement is InRibbonGallery && !((InRibbonGallery)keyTipInformation.AssociatedElement).IsCollapsed)
                 {
                     // InRibbonGallery Exclusive Placement
@@ -690,11 +695,6 @@ namespace Fluent
                     keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(
                                                                               elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                                                                               elementSize.Height + 1), this.AdornedElement);
-                }
-                else if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
-                {
-                    var translatedPoint = keyTipInformation.AssociatedElement.TranslatePoint(new Point(keyTipInformation.AssociatedElement.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.AssociatedElement.DesiredSize.Height - keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
-                    keyTipInformation.Position = translatedPoint;
                 }
                 else if (keyTipInformation.AssociatedElement is MenuItem)
                 {
