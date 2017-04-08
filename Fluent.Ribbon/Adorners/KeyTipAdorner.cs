@@ -570,7 +570,7 @@ namespace Fluent
             }
 
             double[] rows = null;
-            var groupBox = UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
+            var groupBox = this.oneOfAssociatedElements as RibbonGroupBox ?? UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
             var panel = groupBox?.GetPanel();
 
             if (panel != null)
