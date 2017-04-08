@@ -596,17 +596,39 @@ namespace Fluent
                 }
 
                 // Update KeyTip Visibility
-                var associatedElementIsVisible = keyTipInformation.AssociatedElement.IsVisible;
-                var associatedElementInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.AssociatedElement) != null;
-                keyTipInformation.KeyTip.Visibility = associatedElementIsVisible && associatedElementInVisualTree ? Visibility.Visible : Visibility.Collapsed;
+                var visualTargetIsVisible = keyTipInformation.VisualTarget.IsVisible;
+                var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) != null;
+                keyTipInformation.KeyTip.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
-                if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
+                if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
+                {
+                    var x = keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
+                    var y = keyTipInformation.VisualTarget.DesiredSize.Height - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
+
+                    if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
+                    {
+                        switch (KeyTip.GetHorizontalAlignment(keyTipInformation.AssociatedElement))
+                        {
+                            case HorizontalAlignment.Left:
+                                x = 0;
+                                break;
+                            case HorizontalAlignment.Right:
+                                x = keyTipInformation.VisualTarget.DesiredSize.Width - keyTipInformation.KeyTip.DesiredSize.Width;
+                                break;
+                        }
+
+                        keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
+                    }
+
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
+                }
+                else if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
                 {
                     #region Custom Placement
 
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     
-                    var elementSize = keyTipInformation.AssociatedElement.RenderSize;
+                    var elementSize = keyTipInformation.VisualTarget.RenderSize;
 
                     double x = 0, y = 0;
 
@@ -638,7 +660,7 @@ namespace Fluent
                             break;
                     }
 
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(x, y), this.AdornedElement);
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
 
                     #endregion
                 }
@@ -646,33 +668,28 @@ namespace Fluent
                 {
                     // Dialog Launcher Button Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.AssociatedElement.RenderSize;
+                    var elementSize = keyTipInformation.VisualTarget.RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
                                                                               elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                                                                               0), this.AdornedElement);
                     keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[3]);
-                }
-                else if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
-                {
-                    var translatedPoint = keyTipInformation.AssociatedElement.TranslatePoint(new Point(keyTipInformation.AssociatedElement.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.AssociatedElement.DesiredSize.Height - keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
-                    keyTipInformation.Position = translatedPoint;
                 }
                 else if (keyTipInformation.AssociatedElement is InRibbonGallery && !((InRibbonGallery)keyTipInformation.AssociatedElement).IsCollapsed)
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.AssociatedElement.RenderSize;
+                    var elementSize = keyTipInformation.VisualTarget.RenderSize;
                     if (rows == null)
                     {
                         continue;
                     }
 
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
                                                                               elementSize.Width - keyTipSize.Width / 2.0,
                                                                               0), this.AdornedElement);
                     keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[2] - keyTipSize.Height / 2);
@@ -681,8 +698,8 @@ namespace Fluent
                 {
                     // Ribbon Tab Item Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.AssociatedElement.RenderSize;
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(
+                    var elementSize = keyTipInformation.VisualTarget.RenderSize;
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
                                                                               elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                                                                               elementSize.Height - keyTipSize.Height / 2.0), this.AdornedElement);
                 }
@@ -690,16 +707,16 @@ namespace Fluent
                 {
                     // Ribbon Group Box Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.AssociatedElement.DesiredSize;
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(new Point(
+                    var elementSize = keyTipInformation.VisualTarget.DesiredSize;
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
                                                                               elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                                                                               elementSize.Height + 1), this.AdornedElement);
                 }
                 else if (keyTipInformation.AssociatedElement is MenuItem)
                 {
                     // MenuItem Exclusive Placement                    
-                    var elementSize = keyTipInformation.AssociatedElement.DesiredSize;
-                    keyTipInformation.Position = keyTipInformation.AssociatedElement.TranslatePoint(
+                    var elementSize = keyTipInformation.VisualTarget.DesiredSize;
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(
                                                                     new Point(
                                                                               elementSize.Height / 3.0 + 2,
                                                                               elementSize.Height / 4.0 + 2), this.AdornedElement);
@@ -708,9 +725,9 @@ namespace Fluent
                 {
                     // Backstage Items Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.AssociatedElement.DesiredSize;
-                    var parent = (UIElement)keyTipInformation.AssociatedElement.Parent;
-                    var positionInParent = keyTipInformation.AssociatedElement.TranslatePoint(default(Point), parent);
+                    var elementSize = keyTipInformation.VisualTarget.DesiredSize;
+                    var parent = (UIElement)keyTipInformation.VisualTarget.Parent;
+                    var positionInParent = keyTipInformation.VisualTarget.TranslatePoint(default(Point), parent);
                     keyTipInformation.Position = parent.TranslatePoint(
                                                        new Point(
                                                                  5,
@@ -724,8 +741,8 @@ namespace Fluent
                         || keyTipInformation.AssociatedElement is TextBox
                         || keyTipInformation.AssociatedElement is CheckBox)
                     {
-                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.AssociatedElement);
-                        var translatedPoint = keyTipInformation.AssociatedElement.TranslatePoint(new Point(keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
+                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
+                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(new Point(keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
 
                         // Snapping to rows if it present
                         if (rows != null)
@@ -754,7 +771,7 @@ namespace Fluent
                     }
                     else
                     {
-                        var translatedPoint = keyTipInformation.AssociatedElement.TranslatePoint(new Point(keyTipInformation.AssociatedElement.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.AssociatedElement.DesiredSize.Height - 8), this.AdornedElement);
+                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(new Point(keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.VisualTarget.DesiredSize.Height - 8), this.AdornedElement);
                         if (rows != null)
                         {
                             translatedPoint.Y = rows[2] - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;

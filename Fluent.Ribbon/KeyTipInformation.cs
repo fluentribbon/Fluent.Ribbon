@@ -29,6 +29,7 @@
 
             this.Keys = keys;
             this.AssociatedElement = associatedElement;
+            this.VisualTarget = this.AssociatedElement;
 
             this.KeyTip = new KeyTip
                           {
@@ -56,6 +57,11 @@
         /// Gets the element this instance belongs to.
         /// </summary>
         public FrameworkElement AssociatedElement { get; }
+
+        /// <summary>
+        /// Gets or sets the element which acts as the visual target.
+        /// </summary>
+        public FrameworkElement VisualTarget { get; set; }
 
         /// <summary>
         /// Gets the <see cref="Fluent.KeyTip"/> for <see cref="AssociatedElement"/>.
