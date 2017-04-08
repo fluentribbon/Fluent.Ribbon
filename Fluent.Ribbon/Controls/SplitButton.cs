@@ -468,13 +468,17 @@ namespace Fluent
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            var buttonForQAT = new SplitButton();
+            var buttonForQAT = new SplitButton
+                               {
+                                   CanAddButtonToQuickAccessToolBar = false
+                               };
+
             buttonForQAT.Click += (sender, e) => this.RaiseEvent(e);
-            RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
-            buttonForQAT.CanAddButtonToQuickAccessToolBar = false;
-            this.BindQuickAccessItem(buttonForQAT);
-            this.BindQuickAccessItemDropDownEvents(buttonForQAT);
             buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
+
+            RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);            
+            this.BindQuickAccessItem(buttonForQAT);
+            this.BindQuickAccessItemDropDownEvents(buttonForQAT);            
             this.quickAccessButton = buttonForQAT;
             return buttonForQAT;
         }

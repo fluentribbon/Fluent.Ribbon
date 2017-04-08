@@ -2,14 +2,12 @@
 namespace Fluent
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Media;
     using Fluent.Extensibility;
@@ -127,7 +125,7 @@ namespace Fluent
                     {
                         this.GenerateAndAddRegularKeyTipInformations(keys, child, hide);
 
-                        // Do no search deeper in the tree
+                        // Do not search deeper in the tree
                         continue;
                     }
                 }
@@ -624,8 +622,6 @@ namespace Fluent
                 }
                 else if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
                 {
-                    #region Custom Placement
-
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
@@ -661,8 +657,6 @@ namespace Fluent
                     }
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
-
-                    #endregion
                 }
                 else if (keyTipInformation.AssociatedElement.Name == "PART_DialogLauncherButton")
                 {
