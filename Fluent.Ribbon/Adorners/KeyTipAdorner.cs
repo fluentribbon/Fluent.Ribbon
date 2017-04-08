@@ -381,13 +381,13 @@ namespace Fluent
         {
             this.Log("Trying to forward {0}", keys);
 
-            var element = this.TryGetElement(keys);
+            var element = this.TryGetKeyTipInformation(keys);
             if (element == null)
             {
                 return false;
             }
 
-            this.Forward(element, click);
+            this.Forward(element.AssociatedElement, click);
             return true;
         }
 
@@ -430,14 +430,13 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets element keytipped by keys
+        /// Gets <see cref="KeyTipInformation"/> by keys.
         /// </summary>
-        /// <param name="keys"></param>
-        /// <returns>Element</returns>
-        private FrameworkElement TryGetElement(string keys)
+        /// <param name="keys">The keys to look for.</param>
+        /// <returns>The <see cref="KeyTipInformation"/> associated with <paramref name="keys"/>.</returns>
+        private KeyTipInformation TryGetKeyTipInformation(string keys)
         {
-            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.CurrentCultureIgnoreCase))
-                ?.AssociatedElement;
+            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.CurrentCultureIgnoreCase));
         }
 
         /// <summary>
