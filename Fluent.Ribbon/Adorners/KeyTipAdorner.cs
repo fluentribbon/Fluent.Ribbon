@@ -598,6 +598,8 @@ namespace Fluent
                 var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) != null;
                 keyTipInformation.KeyTip.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
+                keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
+
                 if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
                 {
                     var x = keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
@@ -614,8 +616,6 @@ namespace Fluent
                                 x = keyTipInformation.VisualTarget.DesiredSize.Width - keyTipInformation.KeyTip.DesiredSize.Width;
                                 break;
                         }
-
-                        keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
                     }
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
@@ -626,9 +626,7 @@ namespace Fluent
                     
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
 
-                    double x = 0, y = 0;
-
-                    keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
+                    double x = 0, y = 0;                    
 
                     switch (KeyTip.GetHorizontalAlignment(keyTipInformation.AssociatedElement))
                     {
@@ -681,15 +679,6 @@ namespace Fluent
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
                                                                               elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
                                                                               elementSize.Height - keyTipSize.Height / 2.0), this.AdornedElement);
-                }
-                else if (keyTipInformation.AssociatedElement is RibbonGroupBox)
-                {
-                    // Ribbon Group Box Exclusive Placement
-                    var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    var elementSize = keyTipInformation.VisualTarget.DesiredSize;
-                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
-                                                                              elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                                                                              elementSize.Height + 1), this.AdornedElement);
                 }
                 else if (keyTipInformation.AssociatedElement is MenuItem)
                 {
