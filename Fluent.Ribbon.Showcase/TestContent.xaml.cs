@@ -57,10 +57,13 @@
             var wnd = new Window
             {
                 Content = $"Launcher-Window for: {groupBox.Header}",
-                Owner = Window.GetWindow(this)
+                Width = 300,
+                Height = 100,
+                Owner = Window.GetWindow(this),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            wnd.Show();
+            wnd.ShowDialog();
         }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
