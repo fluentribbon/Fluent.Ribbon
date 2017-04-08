@@ -710,7 +710,10 @@ namespace Fluent
                         || keyTipInformation.AssociatedElement is CheckBox)
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
-                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(new Point(keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.KeyTip.DesiredSize.Height / 2.0), this.AdornedElement);
+                        var x = keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
+                        var y = keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
+                        var point = new Point(x, y);
+                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
                         // Snapping to rows if it present
                         if (rows != null)
@@ -739,7 +742,11 @@ namespace Fluent
                     }
                     else
                     {
-                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(new Point(keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0, keyTipInformation.VisualTarget.DesiredSize.Height - 8), this.AdornedElement);
+                        var x = keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
+                        var y = keyTipInformation.VisualTarget.DesiredSize.Height - 8;
+                        var point = new Point(x, y);
+                        var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
+
                         if (rows != null)
                         {
                             translatedPoint.Y = rows[2] - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
