@@ -31,12 +31,14 @@
             this.AssociatedElement = associatedElement;
             this.VisualTarget = this.AssociatedElement;
 
+            this.DefaultVisibility = hide
+                                         ? Visibility.Collapsed
+                                         : Visibility.Visible;
+
             this.KeyTip = new KeyTip
                           {
                               Content = keys,
-                              Visibility = hide
-                                               ? Visibility.Collapsed
-                                               : Visibility.Visible
+                              Visibility = this.DefaultVisibility
                           };
 
             // Bind IsEnabled property
@@ -46,7 +48,7 @@
                               Mode = BindingMode.OneWay
                           };
             this.KeyTip.SetBinding(UIElement.IsEnabledProperty, binding);
-        }
+        }        
 
         /// <summary>
         /// <see cref="Fluent.KeyTip.KeysProperty"/>
@@ -62,6 +64,8 @@
         /// Gets or sets the element which acts as the visual target.
         /// </summary>
         public FrameworkElement VisualTarget { get; set; }
+
+        public Visibility DefaultVisibility { get; }
 
         /// <summary>
         /// Gets the <see cref="Fluent.KeyTip"/> for <see cref="AssociatedElement"/>.

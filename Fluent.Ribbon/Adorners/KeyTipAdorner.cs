@@ -137,16 +137,12 @@ namespace Fluent
 
         private void GenerateAndAddGroupBoxKeyTipInformation(bool hide, string keys, FrameworkElement child, RibbonGroupBox groupBox)
         {
-            var keyTipInformation = new KeyTipInformation(keys, child, hide);
+            var keyTipInformation = new KeyTipInformation(keys, child, hide || groupBox.State != RibbonGroupBoxState.Collapsed);
 
             // Add to list & visual children collections                    
             this.AddKeyTipInformationElement(keyTipInformation);
 
             this.Log("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
-
-            keyTipInformation.KeyTip.Visibility = groupBox.State == RibbonGroupBoxState.Collapsed
-                                                      ? Visibility.Visible
-                                                      : Visibility.Collapsed;
         }
 
         private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
@@ -466,7 +462,7 @@ namespace Fluent
             {
                 foreach (var keyTipInformation in this.keyTipInformations)
                 {
-                    keyTipInformation.KeyTip.Visibility = Visibility.Visible;
+                    keyTipInformation.KeyTip.Visibility = keyTipInformation.DefaultVisibility;
                 }
             }
 
