@@ -41,7 +41,7 @@
         <Setter Property="BorderBrush"
                 Value="{DynamicResource TransparentBrush}" />
         <Setter Property="Fluent:KeyTip.Margin"
-                Value="0,5,0,0" />
+                Value="0,15,0,0" />
         <Style.Triggers>
             <Trigger Property="State"
                      Value="QuickAccess">
