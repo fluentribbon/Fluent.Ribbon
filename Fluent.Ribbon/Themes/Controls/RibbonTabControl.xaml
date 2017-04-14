@@ -368,6 +368,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="94" />
                         <RowDefinition Height="1" />
+                        <RowDefinition Height="20" /> <!-- Leave enough space for bottom placed KeyTips -->
                     </Grid.RowDefinitions>
                     <Border Height="Auto"
                             BorderBrush="Transparent"

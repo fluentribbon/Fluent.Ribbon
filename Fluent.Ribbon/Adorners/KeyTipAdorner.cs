@@ -616,6 +616,21 @@ namespace Fluent
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
                 }
+                else if (keyTipInformation.AssociatedElement.Name == "PART_DialogLauncherButton")
+                {
+                    // Dialog Launcher Button Exclusive Placement 
+                    var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
+                    var elementSize = keyTipInformation.VisualTarget.RenderSize;
+                    if (rows == null)
+                    {
+                        continue;
+                    }
+
+                    keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
+                                                                                                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                                                                                                         0), this.AdornedElement);
+                    keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[3]);
+                }
                 else if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
                 {
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
