@@ -699,11 +699,8 @@ namespace Fluent
                 }
                 else
                 {
-                    if ((RibbonProperties.GetSize(keyTipInformation.AssociatedElement) != RibbonControlSize.Large)
-                        || keyTipInformation.AssociatedElement is Spinner
-                        || keyTipInformation.AssociatedElement is ComboBox
-                        || keyTipInformation.AssociatedElement is TextBox
-                        || keyTipInformation.AssociatedElement is CheckBox)
+                    if (RibbonProperties.GetSize(keyTipInformation.AssociatedElement) != RibbonControlSize.Large
+                        || IsTextBoxShapedControl(keyTipInformation.AssociatedElement))
                     {
                         var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
                         var x = keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
@@ -718,7 +715,8 @@ namespace Fluent
                             var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
                             for (var j = 1; j < rows.Length; j++)
                             {
-                                if (withinRibbonToolbar && j == 1)
+                                if (withinRibbonToolbar 
+                                    && j == 1)
                                 {
                                     continue;
                                 }
@@ -752,6 +750,11 @@ namespace Fluent
                     }
                 }
             }
+        }
+
+        private static bool IsTextBoxShapedControl(FrameworkElement element)
+        {
+            return element is Spinner || element is System.Windows.Controls.ComboBox || element is System.Windows.Controls.TextBox || element is System.Windows.Controls.CheckBox;
         }
 
         // Determines whether the element is children to RibbonToolBar
