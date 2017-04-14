@@ -402,7 +402,7 @@ namespace Fluent
             }
 
             // Focus ribbon
-            this.ribbon.SelectedTabItem.Focus();
+            this.ribbon.SelectedTabItem?.Focus();
 
             this.ClearUserInput();
 
