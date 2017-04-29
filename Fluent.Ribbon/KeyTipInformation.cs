@@ -92,8 +92,8 @@
         /// </summary>
         public Visibility Visibility
         {
-            get => this.KeyTip.Visibility;
-            set => this.KeyTip.Visibility = value;
+            get { return this.KeyTip.Visibility; }
+            set { this.KeyTip.Visibility = value; }
         }
 
         /// <summary>
