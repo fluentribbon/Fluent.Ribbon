@@ -3,10 +3,95 @@
 ## 6.0.0 (preview)
 
 - ### Breaking changes
-  - The following `Color` and `Brush` resources got removed:
   - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
     This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
     This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
+  - The following `Color` and `Brush` resources got replaced/renamed/removed:
+
+|Old|New|
+|---|---|
+| ButtonDisabledBackgroundBrush | --- |
+| ButtonDisabledBorderBrush | --- |
+| SliderShadowBrush | WhiteBrush |
+| SliderLightenBrush | WhiteBrush |
+| BackstageBackgroundBrush | WhiteBrush |
+| BackstageControlHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| BackstageControlActiveBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| ButtonHoverOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| ButtonHoverOuterBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| ButtonPressedOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ButtonPressedOuterBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonCheckedBrush | Fluent.Ribbon.Brushes.HighlightBrush & Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| CheckBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| CheckBoxHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| CheckBoxPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| CheckBoxPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| CheckBoxOutterBorderBrush | --- |
+| CheckBoxOutterBackgroundBrush | --- |
+| CheckBoxInnerBorderBrush | --- |
+| CheckBoxInnerBackgroundBrush | --- |
+| CheckBoxHoverOutterBorderBrush | --- |
+| CheckBoxHoverOutterBackgroundBrush | --- |
+| CheckBoxHoverInnerBorderBrush | --- |
+| CheckBoxHoverInnerBackgroundBrush | --- |
+| CheckBoxPressedOutterBorderBrush | --- |
+| CheckBoxPressedOutterBackgroundBrush | --- |
+| CheckBoxPressedInnerBorderBrush | --- |
+| CheckBoxPressedInnerBackgroundBrush | --- |
+| GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| BackstageGalleryItemSelectedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| BackstageToggleButtonCheckedBorderBrush | Fluent.Ribbon.Brushes.HighlightBrush |
+| BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| QuickAccessToolbarPopupBackgrondBrush | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}} |
+| WindowContentBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| GroupBoxSeparatorBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| GroupBoxSeparatorBackgroundBrush | Fluent.Ribbon.Brushes.Separator.Background |
+| ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| KeyTipBackgroundBrush | Fluent.Ribbon.Brushes.KeyTip.Background |
+| KeyTipBorderBrush | Fluent.Ribbon.Brushes.KeyTip.BorderBrush |
+| GalleryHeaderBackgroundBrush | Fluent.Ribbon.Brushes.Gallery.Header.Background |
+| TextBoxBorderBrush | Fluent.Ribbon.Brushes.TextBox.BorderBrush |
+| TextBoxBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Background |
+| TextBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.Background |
+| TextBoxHoverBorderBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush |
+| TextBoxDisabledBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.Background |
+| TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
+| RibbonSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| GroupSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| CloseButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background |
+| CloseButtonPressedBackgroundBrush| Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background |
+| MenuItemBackground | Fluent.Ribbon.Brushes.MenuItem.Background |
+| MenuItemCheckBoxBackgroundBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background |
+| MenuItemCheckBoxBorderBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush |
+| RibbonThemeColorBrush | Fluent.Ribbon.Brushes.AccentBaseColorBrush |
+| TransparentBrush | --- |
+| BackstageFontBrush | Fluent.Ribbon.Brushes.IdealForegroundColorBrush |
+| TabItemFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| Fluent.Ribbon.Brushes.LabelTextBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| GroupHoverBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background GroupHoverBrush |
+| GroupHighlightBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background |
+| GroupBoxFontBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground |
+| ActiveTabBackgroundBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background |
+| TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
+| RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
+| RibbonTopBorderBrush | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
+|  |  |
+
+  - The following default values changed:
+
+|Name/Location|Old|New|
+|---|---|---|
+|Button.BorderThickness | 0 | 1 |
+
+  - The following styles got removed/renamed:
+
+|Old|New|
+|---|---|
+|NonEditableComboBoxItemStyle|is now the default style|
+|EditableComboBoxItemStyle|---|
 
 - ### Bug fixes
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
