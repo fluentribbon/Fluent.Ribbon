@@ -352,13 +352,19 @@
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    HorizontalOffset="0">
-                <Border BorderThickness="0,0,0,1"
-                        Margin="1,0"
-                        BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                        Background="{TemplateBinding Background}">
-                    <ContentControl x:Name="popupContentControl"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="95" />
+                        <RowDefinition Height="20" />
+                    </Grid.RowDefinitions>
+                    <Border BorderThickness="0,0,0,1"
+                            Margin="1,0"
+                            BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            Background="{TemplateBinding Background}">
+                        <ContentControl x:Name="popupContentControl"
                                         Margin="0" />
-                </Border>
+                    </Border>
+                </Grid>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
