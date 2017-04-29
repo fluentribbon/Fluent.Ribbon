@@ -90,7 +90,11 @@
         /// <summary>
         /// Shortcut to KeyTip.Visibility.
         /// </summary>
-        public Visibility Visibility => this.KeyTip.Visibility;
+        public Visibility Visibility
+        {
+            get => this.KeyTip.Visibility;
+            set => this.KeyTip.Visibility = value;
+        }
 
         /// <summary>
         /// Shortcut to KeyTip.IsEnabled.

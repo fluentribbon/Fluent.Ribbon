@@ -462,14 +462,14 @@ namespace Fluent
             {
                 foreach (var keyTipInformation in this.keyTipInformations)
                 {
-                    keyTipInformation.KeyTip.Visibility = keyTipInformation.DefaultVisibility;
+                    keyTipInformation.Visibility = keyTipInformation.DefaultVisibility;
                 }
             }
 
             // Backup current visibility of key tips
             foreach (var keyTipInformation in this.keyTipInformations)
             {
-                keyTipInformation.BackupVisibility = keyTipInformation.KeyTip.Visibility;
+                keyTipInformation.BackupVisibility = keyTipInformation.Visibility;
             }
 
             // Hide / unhide keytips relative matching to entered keys
@@ -479,11 +479,11 @@ namespace Fluent
 
                 if (string.IsNullOrEmpty(keys))
                 {
-                    keyTipInformation.KeyTip.Visibility = keyTipInformation.BackupVisibility;
+                    keyTipInformation.Visibility = keyTipInformation.BackupVisibility;
                 }
                 else
                 {
-                    keyTipInformation.KeyTip.Visibility = content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase)
+                    keyTipInformation.Visibility = content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase)
                                               ? keyTipInformation.BackupVisibility
                                               : Visibility.Collapsed;
                 }
@@ -592,7 +592,7 @@ namespace Fluent
                 // Update KeyTip Visibility
                 var visualTargetIsVisible = keyTipInformation.VisualTarget.IsVisible;
                 var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) != null;
-                keyTipInformation.KeyTip.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
+                keyTipInformation.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
                 keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
 
