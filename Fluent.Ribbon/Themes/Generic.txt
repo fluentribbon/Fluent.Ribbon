@@ -41,7 +41,6 @@ Controls\RibbonToolBarControlGroup.xaml
 Controls\StatusBar.xaml
 Controls\ScrollBar.xaml
 Controls\RibbonTextBox.xaml
-Controls\TextBox.xaml
 Controls\Spinner.xaml
 Controls\ComboBox.xaml
 Controls\Ribbon.xaml

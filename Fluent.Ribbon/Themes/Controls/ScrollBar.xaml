@@ -56,24 +56,13 @@
                                     Value="0.5" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Foreground">
-            <Setter.Value>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#FF747576"
-                                  Offset="0" />
-                    <GradientStop Color="#FF454647"
-                                  Offset="1" />
-                </LinearGradientBrush>
             </Setter.Value>
         </Setter>
     </Style>
@@ -161,7 +150,7 @@
                               Height="Auto"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
-                              Fill="#FF777777" />
+                              Fill="{TemplateBinding Foreground}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -194,10 +183,10 @@
                                     Value="0.5" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource TransparentBrush}" />
+                                    Value="Transparent" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -266,7 +255,7 @@
                           Content="M 0 4 L 8 4 L 4 0 Z"
                           VerticalAlignment="Top"
                           Margin="1,1,1,0"
-                          Background="White" />
+                          Background="{DynamicResource WhiteBrush}" />
             <Track Name="PART_Track"
                    Grid.Row="1"
                    IsDirectionReversed="true"
@@ -300,7 +289,7 @@
                           Command="ScrollBar.LineDownCommand"
                           Content="M 0 0 L 4 4 L 8 0 Z"
                           Margin="1,0,1,1"
-                          Background="White" />
+                          Background="{DynamicResource WhiteBrush}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -334,7 +323,7 @@
                           Command="ScrollBar.LineLeftCommand"
                           Content="M 4 0 L 4 8 L 0 4 Z"
                           Margin="1,1,0,1"
-                          Background="White" />
+                          Background="{DynamicResource WhiteBrush}" />
             <Track Name="PART_Track"
                    Grid.Column="1"
                    IsDirectionReversed="False"
@@ -368,7 +357,7 @@
                           Command="ScrollBar.LineRightCommand"
                           Content="M 0 0 L 4 4 L 0 8 Z"
                           Margin="0,1,1,1"
-                          Background="White" />
+                          Background="{DynamicResource WhiteBrush}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -386,6 +375,8 @@
     <Style TargetType="ScrollBar">
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
+        <Setter Property="Foreground" 
+                Value="{DynamicResource GrayBrush2}" />
         <Style.Triggers>
             <Trigger Property="Orientation"
                      Value="Horizontal">
@@ -433,30 +424,4 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush"
-                     Color="#FFABABAB" />
-    <SolidColorBrush x:Key="ScrollButtonDefaultBackgroundBrush"
-                     Color="White" />
-    <SolidColorBrush x:Key="ScrollButtonHoverBorderBrush"
-                     Color="#FF777777" />
-    <SolidColorBrush x:Key="ScrollButtonHoverBackgroundBrush"
-                     Color="White" />
-    <SolidColorBrush x:Key="ScrollButtonPressedBorderBrush"
-                     Color="#FF777777" />
-    <SolidColorBrush x:Key="ScrollButtonPressedBackgroundBrush"
-                     Color="#FFF0F0F0" />
-
-    <SolidColorBrush x:Key="ScrollThumbDefaultBorderBrush"
-                     Color="#FFABABAB" />
-    <SolidColorBrush x:Key="ScrollThumbDefaultBackgroundBrush"
-                     Color="White" />
-    <SolidColorBrush x:Key="ScrollThumbHoverBorderBrush"
-                     Color="#FFABABAB" />
-    <SolidColorBrush x:Key="ScrollThumbHoverBackgroundBrush"
-                     Color="#FFF0F0F0" />
-    <SolidColorBrush x:Key="ScrollThumbPressedBorderBrush"
-                     Color="#FF777777" />
-    <SolidColorBrush x:Key="ScrollThumbPressedBackgroundBrush"
-                     Color="#FFF0F0F0" />
 </ResourceDictionary>

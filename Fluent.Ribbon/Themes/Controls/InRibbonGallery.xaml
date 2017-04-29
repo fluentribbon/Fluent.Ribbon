@@ -12,7 +12,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
@@ -38,8 +38,8 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
@@ -149,10 +149,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -181,41 +181,42 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="InRibbonGalleryButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:ToggleButton}">
-                    <Border BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1,1,1,1"
                             x:Name="border"
-                            Background="White">
+                            Background="{DynamicResource WhiteBrush}">
                         <Grid x:Name="grid">
                             <Path Margin="0,6,0,0"
                                   VerticalAlignment="Top"
                                   Height="1"
-                                  Fill="#FFFFFFFF"
+                                  Fill="{DynamicResource WhiteBrush}"
                                   Stretch="Fill"
-                                  Stroke="#FF000000"
+                                  Stroke="{DynamicResource BlackBrush}"
                                   Data="M0,0L1,0"
                                   HorizontalAlignment="Center"
                                   Width="7" />
                             <Path Margin="0,8,0,0"
                                   VerticalAlignment="Top"
                                   Height="3"
-                                  Fill="#FF000000"
+                                  Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
-                                  Stroke="#FF000000"
+                                  Stroke="{DynamicResource BlackBrush}"
                                   Data="M0,0L1,1 2,0z"
                                   Width="5"
                                   HorizontalAlignment="Center"
@@ -228,12 +229,6 @@
                             <Setter Property="Opacity"
                                     TargetName="grid"
                                     Value="0.5" />
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonDisabledBackgroundBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonDisabledBorderBrush}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -244,13 +239,13 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -262,10 +257,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border BorderBrush="{DynamicResource ButtonBorderBrush}"
+                    <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1"
                             x:Name="border"
-                            Background="White">
+                            Background="{DynamicResource WhiteBrush}">
                         <ContentPresenter x:Name="contentPresenter" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -274,12 +269,6 @@
                             <Setter Property="Opacity"
                                     TargetName="contentPresenter"
                                     Value="0.5" />
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonDisabledBackgroundBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonDisabledBorderBrush}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -290,19 +279,13 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                            <!--<Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonHoverOuterBorderBrush}" />-->
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                            <!--<Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource ButtonPressedOuterBorderBrush}" />-->
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -320,7 +303,7 @@
             <Border Width="Auto"
                     BorderThickness="1,1,1,1"
                     CornerRadius="0,1,1,0"
-                    BorderBrush="{DynamicResource InRibbonGalleryBorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                     ClipToBounds="True"
                     Margin="0,0,0,0"
                     x:Name="border"
@@ -346,7 +329,7 @@
                                                               Style="{DynamicResource InRibbonGalleryRepeatButton}">
                                                     <Path RenderOptions.EdgeMode="Aliased"
                                                           Data="M0,0 L1,-1 2,0z"
-                                                          Fill="Black"
+                                                          Fill="{DynamicResource BlackBrush}"
                                                           Width="5"
                                                           Height="3"
                                                           Stretch="Fill" />
@@ -359,7 +342,7 @@
                                                               Style="{DynamicResource InRibbonGalleryRepeatButton}">
                                                     <Path RenderOptions.EdgeMode="Aliased"
                                                           Data="M0,0 L1,1 2,0z"
-                                                          Fill="Black"
+                                                          Fill="{DynamicResource BlackBrush}"
                                                           Width="5"
                                                           Height="3"
                                                           Stretch="Fill" />
@@ -377,7 +360,7 @@
                                             Focusable="False">
                                 <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
                                                      ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
-                                                     Background="White"
+                                                     Background="{DynamicResource WhiteBrush}"
                                                      IsItemsHost="True"
                                                      ItemHeight="{TemplateBinding ItemHeight}"
                                                      ItemWidth="{TemplateBinding ItemWidth}"
@@ -454,7 +437,7 @@
                                         </Grid.RowDefinitions>
                                         <Rectangle Fill="{x:Null}"
                                                    Stretch="Fill"
-                                                   Stroke="#FFE2E4E7"
+                                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                    HorizontalAlignment="Left"
                                                    Margin="24,0,0,0"
                                                    Width="1"
@@ -471,7 +454,7 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <Border BorderThickness="{TemplateBinding BorderThickness}"
-                                                    BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                     x:Name="layoutRoot">
                                                 <Grid Width="Auto">
                                                     <Grid.RowDefinitions>
@@ -483,7 +466,7 @@
                                                             BorderBrush="{x:Null}"
                                                             BorderThickness="0"
                                                             Height="13"
-                                                            Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                                                            Background="{DynamicResource Fluent.Ribbon.Brushes.Gallery.Header.Background}">
                                                         <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
                                                                                Style="{DynamicResource GalleryDropDownButtonStyle}"
                                                                                Height="Auto"
@@ -494,7 +477,7 @@
                                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                                   Grid.Row="1"
                                                                   MinHeight="{Binding ActualHeight, ElementName=PART_LayoutRoot}"
-                                                                  BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                                   BorderThickness="0,0,0,1"
                                                                   Margin="1">
                                                         <ContentControl x:Name="PART_PopupContentPresenter"
@@ -591,13 +574,6 @@
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_LayoutRoot"
                         Value="Left" />
-            </Trigger>
-            <Trigger Property="IsDropDownOpen"
-                     Value="True">
-                <!--<Setter Property="Content" TargetName="contentPresenter" Value="{x:Null}"/>
-              <Setter Property="Content" TargetName="popupContentPresenter" Value="{Binding ElementName=PART_GalleryPanel}"/>                            
-              <Setter Property="IsGrouped" TargetName="PART_GalleryPanel" Value="True"/>              -->
-                <!--<Setter Property="IsHitTestVisible" TargetName="PART_DropDownButton" Value="False"/>-->
             </Trigger>
             <Trigger Property="ResizeMode"
                      Value="None">

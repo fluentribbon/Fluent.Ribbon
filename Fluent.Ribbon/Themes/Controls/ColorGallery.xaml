@@ -5,11 +5,11 @@
     <Style x:Key="ColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                    <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
@@ -38,7 +38,7 @@
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
                                             Margin="2">
@@ -46,7 +46,7 @@
                                                 BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
                                     </Border>
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
                                             Margin="2">
@@ -79,11 +79,11 @@
     <Style x:Key="HightlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
+                    <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
                 </DataTemplate>
             </Setter.Value>
@@ -111,7 +111,7 @@
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
                                             Margin="2">
@@ -119,7 +119,7 @@
                                                 BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
                                     </Border>
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
                                             Margin="2">
@@ -152,19 +152,19 @@
     <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
 
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorTopDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,1,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,1"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
@@ -172,7 +172,7 @@
     <Style x:Key="ColorGalleryGradientListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplateSelector"
                 Value="{DynamicResource ColorGradientItemTemplateSelect}" />
         <Setter Property="Template">
@@ -198,7 +198,7 @@
                                                       Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
                                                       Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                                             x:Name="hoverBorder"
                                             Visibility="Collapsed"
                                             Margin="2,0,2,0">
@@ -206,7 +206,7 @@
                                                 BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
                                     </Border>
                                     <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}"
                                             x:Name="selectedBorder"
                                             Visibility="Collapsed"
                                             Margin="2,0,2,0">
@@ -261,8 +261,8 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
-                                           Fill="Black"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                                           Fill="{DynamicResource BlackBrush}"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
@@ -305,7 +305,7 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                            Fill="Transparent"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
@@ -315,7 +315,7 @@
                                 <ControlTemplate>
                                     <Rectangle Width="Auto"
                                                Height="1"
-                                               Fill="#FFE2E4E7" />
+                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                                 </ControlTemplate>
                             </Separator.Template>
                         </Separator>

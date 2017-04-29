@@ -11,7 +11,7 @@
         <Setter Property="Width"
                 Value="13" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
     </Style>
 
     <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate"
@@ -19,41 +19,24 @@
         <Grid>
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
                     Height="22"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Width="13">
                 <Border x:Name="border1"
                         Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
+                        BorderBrush="Transparent"
                         BorderThickness="1"
-                        Background="{DynamicResource TransparentBrush}">
-                    <Grid x:Name="grid"
-                          Margin="0"
-                          Background="#00000000">
-                        <Rectangle x:Name="rectangle"
-                                   StrokeThickness="0"
-                                   Visibility="Collapsed"
-                                   Margin="0">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.503,1"
-                                                     GradientOrigin="0.503,1"
-                                                     RadiusY="0.202">
-                                    <GradientStop Color="#7FFFFFFF"
-                                                  Offset="0" />
-                                    <GradientStop Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <StackPanel x:Name="stackPanel"
+                        Background="Transparent">
+                    <StackPanel x:Name="stackPanel"
                                     Width="Auto"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Top"
                                     Margin="-1,4,0,0"
-                                    Background="#00000000">
-                            <Image x:Name="iconImage"
+                                    Background="Transparent">
+                        <Image x:Name="iconImage"
                                    HorizontalAlignment="Left"
                                    Height="8"
                                    Stretch="None"
@@ -61,8 +44,7 @@
                                    Source="{TemplateBinding LargeIcon}"
                                    Width="8"
                                    Margin="-3,0,2,0" />
-                        </StackPanel>
-                    </Grid>
+                    </StackPanel>
                 </Border>
             </Border>
             <Popup x:Name="PART_Popup"
@@ -101,16 +83,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <!--<Rectangle Fill="{x:Null}"
-                                           Stretch="Fill"
-                                           Stroke="#FFE2E4E7"
-                                           HorizontalAlignment="Left"
-                                           Margin="24,0,0,0"
-                                           Width="1"
-                                           Height="Auto"
-                                           Grid.RowSpan="2"
-                                           Visibility="Visible"
-                                           VerticalAlignment="Stretch" />-->
                                 <ScrollViewer Margin="1"
                                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               SnapsToDevicePixels="True"
@@ -208,9 +180,6 @@
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="2" />
-                <Setter Property="Margin"
-                        TargetName="grid"
-                        Value="0" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -243,10 +212,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                 <Setter Property="Background"
                         TargetName="border1"
                         Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
@@ -269,25 +238,18 @@
                         Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-                <Setter Property="Margin"
-                        TargetName="rectangle"
-                        Value="0" />
-                <Setter Property="Margin"
-                        TargetName="grid"
-                        Value="0" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="QuickAccessToolbarStyle"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
+        <Setter Property="Background"
+                Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
         <Setter Property="Template"
                 Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
     </Style>
@@ -349,7 +311,7 @@
                 </Fluent:DropDownButton.ContextMenu>
 
                 <StackPanel Orientation="Horizontal"
-                            Background="{DynamicResource QuickAccessToolbarPopupBackgrondBrush}"
+                            Background="{TemplateBinding Background}"
                             Width="Auto"
                             Height="26"
                             Margin="-1">

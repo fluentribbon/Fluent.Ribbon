@@ -15,7 +15,7 @@
         <Grid Height="Auto">
             <Path Fill="{x:Null}"
                   Stretch="Fill"
-                  Stroke="{DynamicResource ContextMenuSeparatorBrush}"
+                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                   StrokeDashArray="2 2"
                   Margin="32,1,3,2"
                   VerticalAlignment="Center"
@@ -32,8 +32,8 @@
     
     <ControlTemplate x:Key="MenuGroupSeparatorControlTemplate"
                      TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
-        <Grid Height="Auto"
-              Background="#FFF0F2F5">
+        <Grid Height="Auto"              
+              Background="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}">
             <TextBlock Margin="7,0"
                        Text="{TemplateBinding Header}"
                        TextWrapping="Wrap"

@@ -9,8 +9,8 @@
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
@@ -22,9 +22,9 @@
             </Border.ToolTip>
             <Border x:Name="border1"
                     Height="Auto"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    BorderBrush="Transparent"
                     BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}">
+                    Background="Transparent">
                 <Grid>
                     <Image x:Name="iconImage"
                            HorizontalAlignment="Center"
@@ -66,10 +66,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                 <Setter Property="Background"
                         TargetName="border1"
                         Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
@@ -92,10 +92,10 @@
                         Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -112,10 +112,10 @@
                         Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -129,7 +129,7 @@
         <Setter Property="Width"
                 Value="22" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="CanAddToQuickAccessToolBar"
                 Value="False" />
     </Style>
@@ -139,7 +139,9 @@
         <Setter Property="VerticalAlignment"
                 Value="Top" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabControlControlTemplate}" />
     </Style>
@@ -182,7 +184,7 @@
                                                      Path="ViewportWidth" />
                                         </MultiBinding>
                                     </RepeatButton.Visibility>
-                                    <Path Fill="Black"
+                                    <Path Fill="{DynamicResource BlackBrush}"
                                           Stretch="Fill"
                                           Stroke="{x:Null}"
                                           StrokeThickness="0"
@@ -215,7 +217,7 @@
                                                      Path="ViewportWidth" />
                                         </MultiBinding>
                                     </RepeatButton.Visibility>
-                                    <Path Fill="Black"
+                                    <Path Fill="{DynamicResource BlackBrush}"
                                           Stretch="Fill"
                                           Stroke="{x:Null}"
                                           StrokeThickness="0"
@@ -257,8 +259,7 @@
                     Width="Auto"
                     BorderThickness="0,1"
                     Grid.Row="1"
-                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                    Background="{DynamicResource RibbonBackgoundBrush}" />
+                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             <Border HorizontalAlignment="Stretch"
                     Margin="1,0,1,1"
                     Grid.Row="1"
@@ -275,24 +276,12 @@
                                       Margin="0" />
                 </ContentControl>
             </Border>
-            <Border x:Name="shadowBorder"
-                    Margin="0,-1,0,0"
-                    VerticalAlignment="Stretch"
-                    Width="Auto"
+            
+            <Border Margin="0,-1,0,0"
+                    VerticalAlignment="Stretch"                    
                     Grid.Row="2"
-                    Grid.RowSpan="1"
-                    BorderThickness="0,1,0,0"
-                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
                     Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
-            <Border x:Name="shadowBorder_Copy"
-                    Margin="0,-1,0,0"
-                    VerticalAlignment="Stretch"
-                    Width="Auto"
-                    Grid.Row="2"
-                    Grid.RowSpan="1"
-                    BorderThickness="0,1,0,0"
-                    Background="#FFD5D5D5"
-                    BorderBrush="#FFD5D5D5" />
+            
             <Grid x:Name="TabsGrid"
                   HorizontalAlignment="Stretch"
                   Margin="0"
@@ -356,37 +345,20 @@
             </Grid>
 
             <Popup x:Name="PART_Popup"
-                   PlacementTarget="{Binding Path=SelectedTabItem,RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                   PlacementTarget="{Binding Path=SelectedTabItem, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                    Placement="Custom"
                    StaysOpen="True"
                    AllowsTransparency="True"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    HorizontalOffset="0">
-                <Grid Width="Auto"
-                      Height="Auto">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="94" />
-                        <RowDefinition Height="1" />
-                        <RowDefinition Height="20" /> <!-- Leave enough space for bottom placed KeyTips -->
-                    </Grid.RowDefinitions>
-                    <Border Height="Auto"
-                            BorderBrush="Transparent"
-                            Background="{DynamicResource RibbonBackgoundBrush}"
-                            BorderThickness="0">
-                        <ContentControl x:Name="popupContentControl"
+                <Border BorderThickness="0,0,0,1"
+                        Margin="1,0"
+                        BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                        Background="{TemplateBinding Background}">
+                    <ContentControl x:Name="popupContentControl"
                                         Margin="0" />
-                    </Border>
-                    <Border Margin="0"
-                            VerticalAlignment="Bottom"
-                            Width="Auto"
-                            Grid.Row="1"
-                            Grid.RowSpan="1"
-                            BorderThickness="0,1,0,0"
-                            Height="1"
-                            BorderBrush="#FFD5D5D5"
-                            Background="#FFD5D5D5" />
-                </Grid>
+                </Border>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>

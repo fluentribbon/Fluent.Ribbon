@@ -7,43 +7,43 @@
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
-        <Grid Background="#00000000">
-            <Rectangle Fill="White"
+        <Grid Background="Transparent">
+            <Rectangle Fill="{DynamicResource WhiteBrush}"
                        StrokeThickness="0"
                        Width="2"
                        Height="2"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
                        Margin="0,0,2,1" />
-            <Rectangle Fill="White"
+            <Rectangle Fill="{DynamicResource WhiteBrush}"
                        StrokeThickness="0"
                        HorizontalAlignment="Right"
                        Margin="0,0,2,5"
                        VerticalAlignment="Bottom"
                        Width="2"
                        Height="2" />
-            <Rectangle Fill="White"
+            <Rectangle Fill="{DynamicResource WhiteBrush}"
                        StrokeThickness="0"
                        HorizontalAlignment="Right"
                        Margin="0,0,6,1"
                        VerticalAlignment="Bottom"
                        Width="2"
                        Height="2" />
-            <Rectangle Fill="#FFB5BEC7"
+            <Rectangle Fill="{DynamicResource BlackBrush}"
                        StrokeThickness="0"
                        HorizontalAlignment="Right"
                        Margin="0,0,3,2"
                        VerticalAlignment="Bottom"
                        Width="2"
                        Height="2" />
-            <Rectangle Fill="#FFB5BEC7"
+            <Rectangle Fill="{DynamicResource BlackBrush}"
                        StrokeThickness="0"
                        HorizontalAlignment="Right"
                        Margin="0,0,3,6"
                        VerticalAlignment="Bottom"
                        Width="2"
                        Height="2" />
-            <Rectangle Fill="#FFB5BEC7"
+            <Rectangle Fill="{DynamicResource BlackBrush}"
                        StrokeThickness="0"
                        HorizontalAlignment="Right"
                        Margin="0,0,7,2"
@@ -55,7 +55,7 @@
     
     <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
-        <Grid Background="#00000000">
+        <Grid Background="Transparent">
             <StackPanel Margin="0,1,0,0"
                         Orientation="Horizontal"
                         d:LayoutOverrides="Height"
@@ -65,14 +65,14 @@
                       Margin="1,0,0,0"
                       Width="Auto"
                       Height="Auto">
-                    <Rectangle Fill="White"
+                    <Rectangle Fill="{DynamicResource WhiteBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                Width="2"
                                Height="2" />
-                    <Rectangle Fill="#FFB5BEC7"
+                    <Rectangle Fill="{DynamicResource BlackBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0,0,1,1"
@@ -84,14 +84,14 @@
                       Margin="1,0,0,0"
                       Width="Auto"
                       Height="Auto">
-                    <Rectangle Fill="White"
+                    <Rectangle Fill="{DynamicResource WhiteBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                Width="2"
                                Height="2" />
-                    <Rectangle Fill="#FFB5BEC7"
+                    <Rectangle Fill="{DynamicResource BlackBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0,0,1,1"
@@ -103,14 +103,14 @@
                       Margin="1,0,0,0"
                       Width="Auto"
                       Height="Auto">
-                    <Rectangle Fill="White"
+                    <Rectangle Fill="{DynamicResource WhiteBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                Width="2"
                                Height="2" />
-                    <Rectangle Fill="#FFB5BEC7"
+                    <Rectangle Fill="{DynamicResource BlackBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0,0,1,1"
@@ -122,14 +122,14 @@
                       Margin="1,0,0,0"
                       Width="Auto"
                       Height="Auto">
-                    <Rectangle Fill="White"
+                    <Rectangle Fill="{DynamicResource WhiteBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0"
                                VerticalAlignment="Center"
                                Width="2"
                                Height="2" />
-                    <Rectangle Fill="#FFB5BEC7"
+                    <Rectangle Fill="{DynamicResource BlackBrush}"
                                StrokeThickness="0"
                                HorizontalAlignment="Center"
                                Margin="0,0,1,1"
@@ -151,9 +151,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -164,23 +162,12 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -288,9 +275,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -301,23 +286,12 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -351,16 +325,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -400,7 +366,7 @@
                                 </Grid.RowDefinitions>
                                 <Path Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                       HorizontalAlignment="Left"
                                       Margin="24,0,0,0"
                                       Width="1"
@@ -540,9 +506,7 @@
                        BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="{DynamicResource MenuItemBackground}">
+        <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -552,8 +516,9 @@
             <Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
-                       Stroke="{DynamicResource WindowContentBorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
+            
             <Grid  HorizontalAlignment="Stretch"
                    Margin="0"
                    Width="Auto"
@@ -566,8 +531,8 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         Margin="0,0,-1,0">
                 </Border>
@@ -576,11 +541,11 @@
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Grid.Column="1"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Border x:Name="border1_Copy"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
@@ -591,17 +556,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
                               Width="Auto"
@@ -635,16 +589,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -685,7 +631,7 @@
                                 </Grid.RowDefinitions>
                                 <Path Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                       HorizontalAlignment="Left"
                                       Margin="24,0,0,0"
                                       Width="1"
@@ -838,12 +784,10 @@
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource MenuItemTemplate}" />
         <Style.Triggers>

@@ -14,13 +14,13 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Background"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource TransparentBrush}" />
+                Value="Transparent" />
         <Setter Property="BorderThickness"
                 Value="0" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
         <Style.Triggers>
@@ -43,6 +43,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
@@ -270,10 +271,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -299,10 +300,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

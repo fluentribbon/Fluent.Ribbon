@@ -3,7 +3,6 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:Converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonComboButtonStyle"
@@ -15,7 +14,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
@@ -25,8 +24,8 @@
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 CornerRadius="0"
-                Background="White"
-                BorderBrush="{DynamicResource ButtonBorderBrush}"
+                Background="{DynamicResource WhiteBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
@@ -35,13 +34,13 @@
                 <Rectangle x:Name="rectangle"
                            StrokeThickness="0"
                            Visibility="Collapsed"
-                           Fill="White">
+                           Fill="{DynamicResource WhiteBrush}">
                 </Rectangle>
                 <Path x:Name="path"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource DefaultFontBrush}"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}"
                       Margin="3,0,3,0"
                       Stretch="Fill"
                       Width="5"
@@ -54,16 +53,16 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
@@ -85,10 +84,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Fill"
                         TargetName="rectangle"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                 <Setter Property="Visibility"
                         TargetName="rectangle"
                         Value="Visible" />
@@ -109,11 +108,11 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border Width="Auto"
-                Background="#00000000"
+                Background="Transparent"
                 Height="22">
             <Grid Width="Auto"
                   Height="Auto"
-                  Background="#00000000">
+                  Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
@@ -138,9 +137,9 @@
 
                 <Border Height="Auto"
                         BorderThickness="1,1,1,1"
-                        BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                         x:Name="PART_ContentBorder"
-                        Background="{DynamicResource TextBoxBackgroundBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                         Grid.Column="1"
                         Grid.ColumnSpan="1"
                         Width="{TemplateBinding InputWidth}"
@@ -187,7 +186,7 @@
                                  TextWrapping="NoWrap"
                                  BorderThickness="0,0,0,0"
                                  IsReadOnly="{TemplateBinding IsReadOnly}"
-                                 Background="{DynamicResource TextBoxBackgroundBrush}"
+                                 Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                  Visibility="Hidden" />
                     </Grid>
                 </Border>
@@ -235,7 +234,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -255,7 +254,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -275,7 +274,7 @@
                                                      RadiusY="1">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </RadialGradientBrush>
                             </Rectangle.Fill>
@@ -294,7 +293,7 @@
                                                      MappingMode="RelativeToBoundingBox">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
@@ -313,7 +312,7 @@
                                                      MappingMode="RelativeToBoundingBox">
                                     <GradientStop Color="#3F000000"
                                                   Offset="0" />
-                                    <GradientStop Color="#00000000"
+                                    <GradientStop Color="Transparent"
                                                   Offset="1" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
@@ -351,7 +350,7 @@
                                     </Grid.RowDefinitions>
                                     <Rectangle Fill="{x:Null}"
                                                Stretch="Fill"
-                                               Stroke="#FFE2E4E7"
+                                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                HorizontalAlignment="Left"
                                                Margin="24,0,0,0"
                                                Width="1"
@@ -369,9 +368,9 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <ScrollViewer Focusable="False"
-                                                      BorderBrush="{DynamicResource GalleryBorderBrush}"
+                                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                                                       x:Name="PART_ScrollViewer"
-                                                      Background="White"
+                                                      Background="{DynamicResource WhiteBrush}"
                                                       Margin="1"
                                                       SnapsToDevicePixels="True"
                                                       KeyboardNavigation.DirectionalNavigation="None"
@@ -493,13 +492,13 @@
                         Value="False" />
                 <Setter Property="Background"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxDisabledBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_EditableTextBox"
-                        Value="{DynamicResource TextBoxDisabledBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter Property="Opacity"
                         TargetName="iconImage"
                         Value="0.5" />
@@ -517,26 +516,26 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxHoverBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_EditableTextBox"
-                        Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                 <Setter Property="Background"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
 
             <Trigger Property="IsKeyboardFocusWithin"
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxHoverBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_EditableTextBox"
-                        Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                 <Setter Property="Background"
                         TargetName="PART_ContentBorder"
-                        Value="{DynamicResource TextBoxHoverBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
             <Trigger Property="HasItems"
                      Value="false">
@@ -577,26 +576,11 @@
         <Setter Property="ScrollViewer.CanContentScroll"
                 Value="true" />
         <Style.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="ItemContainerStyleSelector"
-                               Value="{x:Null}" />
-                    <Condition Property="IsEditable"
-                               Value="True" />
-                </MultiTrigger.Conditions>
+            <Trigger Property="ItemContainerStyleSelector"
+                     Value="{x:Null}">
                 <Setter Property="ItemContainerStyle"
-                        Value="{DynamicResource EditableComboBoxItemStyle}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="ItemContainerStyleSelector"
-                               Value="{x:Null}" />
-                    <Condition Property="IsEditable"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="ItemContainerStyle"
-                        Value="{DynamicResource NonEditableComboBoxItemStyle}" />
-            </MultiTrigger>
+                        Value="{DynamicResource ComboBoxItemStyle}" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

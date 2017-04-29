@@ -7,7 +7,7 @@
     <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}"
                      x:Key="RibbonTabItemControlTemplate">
         <Grid x:Name="grid"
-              Background="#00000000"
+              Background="Transparent"
               Height="Auto"
               Margin="0,7,0,0">
             <Border x:Name="border3"
@@ -15,18 +15,9 @@
                     Grid.ColumnSpan="2">
                 <Border x:Name="border5"
                         Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                        BorderThickness="0,0,0,0"
-                        Margin="0">
-                    <Border.OpacityMask>
-                        <LinearGradientBrush EndPoint="0.5,1"
-                                             StartPoint="0.5,0">
-                            <GradientStop Color="#16000000"
-                                          Offset="0" />
-                            <GradientStop Color="#16000000"
-                                          Offset="1" />
-                        </LinearGradientBrush>
-                    </Border.OpacityMask>
-                </Border>
+                        BorderThickness="0"
+                        Margin="0"
+                        OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
             </Border>
             <Grid x:Name="selectedGrid"
                   Visibility="Collapsed"
@@ -91,16 +82,8 @@
             <Grid x:Name="focusedGrid"
                   Margin="0"
                   Visibility="Collapsed"
-                  Grid.ColumnSpan="1">
-                <Grid.OpacityMask>
-                    <LinearGradientBrush EndPoint="0.5,1"
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="White"
-                                      Offset="0" />
-                        <GradientStop Offset="1"
-                                      Color="#19FFFFFF" />
-                    </LinearGradientBrush>
-                </Grid.OpacityMask>
+                  Grid.ColumnSpan="1"
+                  OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Focused.Background.OpacityMask}">
                 <Border x:Name="border_Copy5"
                         Margin="1,0,1,1"
                         BorderThickness="1,1,1,0"
@@ -139,8 +122,8 @@
                   Width="1"
                   Grid.Column="1">
                 <Rectangle x:Name="separatorRectangle1"
-                           Fill="{DynamicResource RibbonTopBorderBrush}"
-                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                           Fill="{TemplateBinding BorderBrush}"
+                           Stroke="{TemplateBinding BorderBrush}"
                            Margin="0"
                            Width="1">
                 </Rectangle>
@@ -235,7 +218,7 @@
                         TargetName="selectedGrid"
                         Value="Visible" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource RibbonThemeColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -253,7 +236,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource RibbonThemeColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -267,7 +250,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource RibbonThemeColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -283,7 +266,7 @@
                         Value="Visible" />
                 <Setter Property="Background"
                         TargetName="grid"
-                        Value="#00000000" />
+                        Value="Transparent" />
                 <Setter Property="Foreground"
                         Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
@@ -320,23 +303,23 @@
         <Setter Property="Indent"
                 Value="12" />
         <Setter Property="Foreground"
-                Value="{DynamicResource TabItemSelectedFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonTopBorderBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Setter Property="ActiveTabBackground"
-                Value="{DynamicResource ActiveTabBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
         <Setter Property="ActiveTabBorderBrush"
-                Value="{DynamicResource RibbonTopBorderBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Style.Triggers>
             <Trigger Property="Group"
                      Value="{x:Null}">
                 <Setter Property="BorderBrush"
-                        Value="{DynamicResource RibbonTopBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected"
                      Value="False">
                 <Setter Property="Foreground"
-                        Value="{DynamicResource TabItemFontBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

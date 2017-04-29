@@ -113,7 +113,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Content="Fluent.Ribbon"
                                        FontSize="48"
-                                       Foreground="{DynamicResource BackstageFontBrush}" />
+                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
                             </StackPanel>
                         </Fluent:StartScreenTabControl.LeftContent>
 
@@ -217,45 +217,45 @@
 
                             <Fluent:BackstageTabItem Header="New"
                                                      KeyTip="N">
-                                <Grid Margin="50"
-                                      MinWidth="0"
-                                      Width="Auto"
-                                      HorizontalAlignment="Stretch">
+                                <WrapPanel Margin="50"
+                                           MinWidth="0"
+                                           Width="Auto"
+                                           HorizontalAlignment="Stretch">
                                     <TextBlock HorizontalAlignment="Left"
                                                MinWidth="0"
                                                TextWrapping="Wrap">
-                                        This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text
+                                        This is a long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text
                                     </TextBlock>
+                                    
                                     <Fluent:Button IsDefinitive="True"
                                                    IsEnabled="True"
                                                    Style="{DynamicResource ButtonBackstageStyle}"
-                                                   HorizontalAlignment="Left"
                                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png">123</Fluent:Button>
+                                    
                                     <Fluent:ToggleButton   Header="Toggle"
-                                                           HorizontalAlignment="Center"
                                                            Style="{DynamicResource ToggleButtonBackstageStyle}"
                                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                    
                                     <Fluent:DropDownButton Header="123"
-                                                           HorizontalAlignment="Right"
                                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
-                                    <Fluent:ComboBox VerticalAlignment="Bottom">
+                                    
+                                    <Fluent:ComboBox>
                                         <TextBlock Text="1" />
                                         <TextBlock Text="2" />
                                         <TextBlock Text="3" />
                                         <TextBlock Text="4" />
                                         <TextBlock Text="5" />
                                     </Fluent:ComboBox>
+                                    
                                     <Fluent:Spinner Value="1"
                                                     Format="0"
                                                     InputWidth="50"
-                                                    Header="Lala"
-                                                    HorizontalAlignment="Right"
-                                                    VerticalAlignment="Bottom"
+                                                    Header="Spinner"
                                                     ValueChanged="OnSpinnerValueChanged" />
-                                </Grid>
+                                </WrapPanel>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:BackstageTabItem Header="Extra wide content"

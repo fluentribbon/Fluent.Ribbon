@@ -23,7 +23,7 @@
         <Grid Width="Auto"
               MinHeight="53"
               Height="Auto"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -34,8 +34,8 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
@@ -45,17 +45,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -77,8 +66,8 @@
                        d:LayoutOverrides="Width"
                        TextWrapping="Wrap" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -176,7 +165,7 @@
         <Grid Width="Auto"
               MinHeight="53"
               Height="Auto"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -187,8 +176,8 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
@@ -198,17 +187,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -230,8 +208,8 @@
                        d:LayoutOverrides="Width"
                        TextWrapping="Wrap" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -264,16 +242,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -310,7 +280,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -330,7 +300,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -350,7 +320,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -369,7 +339,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -388,7 +358,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -422,7 +392,7 @@
                                 </Grid.RowDefinitions>
                                 <Path Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                       HorizontalAlignment="Left"
                                       Margin="24,0,0,0"
                                       Width="1"
@@ -518,7 +488,7 @@
         <Grid Width="Auto"
               MinHeight="53"
               Height="Auto"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -528,7 +498,7 @@
             <Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
-                       Stroke="{DynamicResource WindowContentBorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
 
             <Grid  HorizontalAlignment="Stretch"
@@ -543,8 +513,8 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Margin="0,0,-1,0">
@@ -560,11 +530,11 @@
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Grid.Column="1"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Border x:Name="border1_Copy"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
@@ -575,18 +545,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-
-            <TextBlock x:Name="textBlock_Copy"
-                       FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,5,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -608,8 +566,8 @@
                        d:LayoutOverrides="Width"
                        TextWrapping="Wrap" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -642,16 +600,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Right"
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
@@ -693,7 +643,7 @@
                                 </Grid.RowDefinitions>
                                 <Path Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="#FFE2E4E7"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                       HorizontalAlignment="Left"
                                       Margin="24,0,0,0"
                                       Width="1"
@@ -797,12 +747,10 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ResizeMode"
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
@@ -845,7 +793,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="44"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -856,8 +804,8 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
@@ -867,16 +815,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -897,8 +835,8 @@
                        d:LayoutOverrides="Width"
                        TextWrapping="NoWrap" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -994,7 +932,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="44"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -1005,8 +943,8 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
@@ -1016,17 +954,6 @@
                         BorderThickness="1"
                         CornerRadius="1" />
             </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -1037,8 +964,8 @@
                        d:LayoutOverrides="Width"
                        TextTrimming="CharacterEllipsis" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -1070,16 +997,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Custom"
                    CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
@@ -1120,7 +1039,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1140,7 +1059,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1160,7 +1079,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1179,7 +1098,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -1198,7 +1117,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -1317,7 +1236,7 @@
         </ControlTemplate.Resources>
         <Grid Width="Auto"
               Height="44"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="44" />
                 <ColumnDefinition Width="*" />
@@ -1327,7 +1246,7 @@
             <Rectangle Grid.Column="2"
                        HorizontalAlignment="Right"
                        Margin="0,4,23,4"
-                       Stroke="{DynamicResource WindowContentBorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
 
             <Grid  HorizontalAlignment="Stretch"
@@ -1342,8 +1261,8 @@
                 </Grid.ColumnDefinitions>
                 <Border x:Name="PART_ButtonBorder"
                         Visibility="Collapsed"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Margin="0,0,-1,0">
@@ -1359,11 +1278,11 @@
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Grid.Column="1"
-                        Background="{DynamicResource TransparentBrush}">
+                        Background="Transparent">
                     <Border x:Name="border1_Copy"
                             Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
@@ -1374,18 +1293,6 @@
                             Visibility="Collapsed" />
                 </Border>
             </Grid>
-
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{TemplateBinding Header}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,13,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       d:LayoutOverrides="Width"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -1396,8 +1303,8 @@
                        d:LayoutOverrides="Width"
                        TextTrimming="CharacterEllipsis" />
             <Rectangle x:Name="rectangle"
-                       Fill="{DynamicResource MenuItemCheckBoxBackgroundBrush}"
-                       Stroke="{DynamicResource MenuItemCheckBoxBorderBrush}"
+                       Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
                        Grid.ColumnSpan="1"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -1429,16 +1336,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="7"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="#FF7C7C7C"
-                                      Offset="1" />
-                        <GradientStop Color="#FF9E9E9E" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
             <Popup x:Name="PART_Popup"
                    Placement="Custom"
                    CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
@@ -1479,7 +1378,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1499,7 +1398,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1519,7 +1418,7 @@
                                                  RadiusY="1">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </RadialGradientBrush>
                         </Rectangle.Fill>
@@ -1538,7 +1437,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -1557,7 +1456,7 @@
                                                  MappingMode="RelativeToBoundingBox">
                                 <GradientStop Color="#3F000000"
                                               Offset="0" />
-                                <GradientStop Color="#00000000"
+                                <GradientStop Color="Transparent"
                                               Offset="1" />
                             </LinearGradientBrush>
                         </Rectangle.Fill>
@@ -1686,12 +1585,10 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
                 Value="Hidden" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ResizeMode"
                 Value="None" />
         <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
                 Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />

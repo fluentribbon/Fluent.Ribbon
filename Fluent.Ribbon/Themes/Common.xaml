@@ -2,69 +2,40 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <!-- Set default controls -->
-    <Style TargetType="{x:Type Fluent:Spinner}"
-           BasedOn="{StaticResource SpinnerStyle}" />
-    <Style TargetType="{x:Type Fluent:TwoLineLabel}"
-           BasedOn="{StaticResource TwoLineLabelStyle}" />
-    <Style TargetType="{x:Type Fluent:KeyTip}"
-           BasedOn="{StaticResource KeyTipStyle}" />
-    <Style TargetType="{x:Type Fluent:ScreenTip}"
-           BasedOn="{StaticResource ScreenTipStyle}" />
-    <Style TargetType="{x:Type ToolTip}"
-           BasedOn="{StaticResource ToolTipStyle}" />
-    <Style TargetType="{x:Type Fluent:GalleryGroupContainer}"
-           BasedOn="{StaticResource GalleryGroupContainerStyle}" />
-    <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
-           BasedOn="{StaticResource SeparatorTabItemStyle}" />
+    <Style TargetType="{x:Type Fluent:Spinner}" BasedOn="{StaticResource SpinnerStyle}" />
+    <Style TargetType="{x:Type Fluent:TwoLineLabel}" BasedOn="{StaticResource TwoLineLabelStyle}" />
+    <Style TargetType="{x:Type Fluent:KeyTip}" BasedOn="{StaticResource KeyTipStyle}" />
+    <Style TargetType="{x:Type Fluent:ScreenTip}" BasedOn="{StaticResource ScreenTipStyle}" />
+    <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource ToolTipStyle}" />
+    <Style TargetType="{x:Type Fluent:GalleryGroupContainer}" BasedOn="{StaticResource GalleryGroupContainerStyle}" />
+    <Style TargetType="{x:Type Fluent:SeparatorTabItem}" BasedOn="{StaticResource SeparatorTabItemStyle}" />
 
-    <Style TargetType="{x:Type Fluent:Backstage}"
-           BasedOn="{StaticResource RibbonBackstageStyle}" />
-    <Style TargetType="{x:Type Fluent:BackstageTabControl}"
-           BasedOn="{StaticResource BackstageStyle}" />
-    <Style TargetType="{x:Type Fluent:BackstageTabItem}"
-           BasedOn="{StaticResource BackstageTabItemStyle}" />
+    <Style TargetType="{x:Type Fluent:Backstage}" BasedOn="{StaticResource RibbonBackstageStyle}" />
+    <Style TargetType="{x:Type Fluent:BackstageTabControl}" BasedOn="{StaticResource BackstageStyle}" />
+    <Style TargetType="{x:Type Fluent:BackstageTabItem}" BasedOn="{StaticResource BackstageTabItemStyle}" />
 
-    <Style TargetType="{x:Type Fluent:StartScreen}"
-           BasedOn="{StaticResource RibbonStartScreenStyle}" />
-    <Style TargetType="{x:Type Fluent:StartScreenTabControl}"
-           BasedOn="{StaticResource StartScreenTabControlStyle}" />
+    <Style TargetType="{x:Type Fluent:StartScreen}" BasedOn="{StaticResource RibbonStartScreenStyle}" />
+    <Style TargetType="{x:Type Fluent:StartScreenTabControl}" BasedOn="{StaticResource StartScreenTabControlStyle}" />
 
-    <Style TargetType="{x:Type Fluent:Button}"
-           BasedOn="{StaticResource RibbonButtonStyle}" />
-    <Style TargetType="{x:Type Fluent:DropDownButton}"
-           BasedOn="{StaticResource RibbonDropDownButtonStyle}" />
-    <Style TargetType="{x:Type Fluent:SplitButton}"
-           BasedOn="{StaticResource RibbonSplitButtonStyle}" />
-    <Style TargetType="{x:Type Fluent:ToggleButton}"
-           BasedOn="{StaticResource RibbonToggleButtonStyle}" />
-    <Style TargetType="{x:Type Fluent:Gallery}"
-           BasedOn="{StaticResource GalleryStyle}" />
-    <Style TargetType="{x:Type Fluent:GalleryItem}"
-           BasedOn="{StaticResource GalleryItemStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonContextualTabGroup}"
-           BasedOn="{StaticResource RibbonContextualTabGroupStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonTabItem}"
-           BasedOn="{StaticResource RibbonTabItemStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonGroupBox}"
-           BasedOn="{StaticResource RibbonGroupBoxStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonToolBar}"
-           BasedOn="{StaticResource RibbonToolBarStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonToolBarControlGroup}"
-           BasedOn="{StaticResource RibbonToolBarControlGroupStyle}" />
-    <Style TargetType="{x:Type Fluent:Ribbon}"
-           BasedOn="{StaticResource RibbonStyle}" />
-    <Style TargetType="{x:Type Fluent:RibbonWindow}"
-           BasedOn="{StaticResource RibbonWindowStyle}" />
+    <Style TargetType="{x:Type Fluent:Button}" BasedOn="{StaticResource RibbonButtonStyle}" />
+    <Style TargetType="{x:Type Fluent:CheckBox}" BasedOn="{StaticResource RibbonCheckBoxStyle}" />
+    <Style TargetType="{x:Type Fluent:DropDownButton}" BasedOn="{StaticResource RibbonDropDownButtonStyle}" />
+    <Style TargetType="{x:Type Fluent:SplitButton}" BasedOn="{StaticResource RibbonSplitButtonStyle}" />
+    <Style TargetType="{x:Type Fluent:ToggleButton}" BasedOn="{StaticResource RibbonToggleButtonStyle}" />
+    <Style TargetType="{x:Type Fluent:Gallery}" BasedOn="{StaticResource GalleryStyle}" />
+    <Style TargetType="{x:Type Fluent:GalleryItem}" BasedOn="{StaticResource GalleryItemStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonContextualTabGroup}" BasedOn="{StaticResource RibbonContextualTabGroupStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonTabItem}" BasedOn="{StaticResource RibbonTabItemStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonGroupBox}" BasedOn="{StaticResource RibbonGroupBoxStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonToolBar}" BasedOn="{StaticResource RibbonToolBarStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonToolBarControlGroup}" BasedOn="{StaticResource RibbonToolBarControlGroupStyle}" />
+    <Style TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}" />
 
-    <Style TargetType="{x:Type Fluent:MenuItem}"
-           BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
-    <Style BasedOn="{StaticResource RibbonStatusBarItemStyle}"
-           TargetType="{x:Type Fluent:StatusBarItem}" />
-    <Style x:Key="{x:Type Fluent:GroupSeparatorMenuItem}"
-           TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
-           BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
-    <Style BasedOn="{StaticResource RibbonTitleBarStyle}"
-           TargetType="{x:Type Fluent:RibbonTitleBar}" />
-    <Style BasedOn="{StaticResource QuickAccessToolbarStyle}"
-           TargetType="{x:Type Fluent:QuickAccessToolBar}" />
+    <Style TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
+    <Style TargetType="{x:Type Fluent:StatusBarItem}" BasedOn="{StaticResource RibbonStatusBarItemStyle}" />
+    <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonTitleBar}" BasedOn="{StaticResource RibbonTitleBarStyle}" />
+    <Style TargetType="{x:Type Fluent:RibbonTabControl}" BasedOn="{StaticResource RibbonTabControlStyle}" />
+    <Style TargetType="{x:Type Fluent:QuickAccessToolBar}" BasedOn="{StaticResource QuickAccessToolbarStyle}" />
 </ResourceDictionary>
