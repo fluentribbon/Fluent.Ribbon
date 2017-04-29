@@ -158,7 +158,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));        
 
-        private string GetCaption(int id)
+        private string GetCaption(uint id)
         {
             if (this.user32 == IntPtr.Zero)
             {
@@ -166,7 +166,7 @@ namespace Fluent
             }
 
             var sb = new StringBuilder(256);
-            NativeMethods.LoadString(this.user32, (uint)id, sb, sb.Capacity);
+            NativeMethods.LoadString(this.user32, id, sb, sb.Capacity);
             return sb.ToString().Replace("&", "");
         }
 
