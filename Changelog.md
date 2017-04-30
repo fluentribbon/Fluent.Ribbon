@@ -6,6 +6,7 @@
   - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
     This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
     This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
+  - `SplitButton` now generates two `KeyTip` elements for itself. If you previously used "S" as `KeyTip` there will now be "S1" for the button action and "S2" will open the dropdown.
   - Changes made to `Ribbon`
     - Internal properties for `QuickAccessToolBar` and `TabControl` got converted to `DependencyProperty`
     - Changed order of Children returned from `LogicalChildren`
