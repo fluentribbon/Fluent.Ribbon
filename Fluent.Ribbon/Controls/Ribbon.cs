@@ -455,21 +455,11 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new PropertyMetadata(OnMenuChanged));
-
-        private static void OnMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-
-            var oldValue = e.OldValue as FrameworkElement;
-            var newValue = e.NewValue as FrameworkElement;
-
-            ForwardDataContext(ribbon, oldValue, newValue);
-
-            AddOrRemoveLogicalChildOnPropertyChanged(d, e);
-        }
+            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new FrameworkPropertyMetadata(default(FrameworkElement), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
 
         #endregion
+
+        #region StartScreen
 
         /// <summary>
         /// Property for defining the start screen.
@@ -484,7 +474,51 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new PropertyMetadata(AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new FrameworkPropertyMetadata(default(StartScreen), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+
+        #endregion
+
+        #region QuickAccessToolBar
+
+        /// <summary>
+        /// Property for defining the QuickAccessToolBar.
+        /// </summary>
+        internal QuickAccessToolBar QuickAccessToolBar
+        {
+            get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
+            private set { this.SetValue(quickAccessToolBarPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey quickAccessToolBarPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(QuickAccessToolBar), typeof(QuickAccessToolBar), typeof(Ribbon), new FrameworkPropertyMetadata(default(QuickAccessToolBar), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBar"/>
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessToolBarProperty = quickAccessToolBarPropertyKey.DependencyProperty;
+
+        #endregion
+
+        #region TabControl
+
+        /// <summary>
+        /// Property for defining the TabControl.
+        /// </summary>
+        internal RibbonTabControl TabControl
+        {
+            get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
+            private set { this.SetValue(tabControlPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey tabControlPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabControl"/>
+        /// </summary>
+        public static readonly DependencyProperty TabControlProperty = tabControlPropertyKey.DependencyProperty;
+
+        #endregion
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -558,23 +592,6 @@ namespace Fluent
             }
         }
 
-        private static void ForwardDataContext(FrameworkElement dataContextSource, FrameworkElement oldTargetElement, FrameworkElement newTargetElement)
-        {
-            if (oldTargetElement != null
-                && BindingOperations.IsDataBound(oldTargetElement, DataContextProperty) == false)
-            {
-                // Remove-Forward DataContext
-                oldTargetElement.DataContext = null;
-            }
-
-            if (newTargetElement != null
-                && BindingOperations.IsDataBound(newTargetElement, DataContextProperty) == false)
-            {
-                // Forward DataContext
-                newTargetElement.DataContext = dataContextSource.DataContext;
-            }
-        }
-
         private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
@@ -609,11 +626,6 @@ namespace Fluent
         /// </summary>
         public IDictionary<UIElement, UIElement> GetQuickAccessElements() => this.QuickAccessElements.ToDictionary(x => x.Key, y => y.Value);
 
-        /// <summary>
-        /// Gets the Ribbon tab control
-        /// </summary>
-        internal RibbonTabControl TabControl { get; private set; }
-
         #region TitelBar
 
         /// <summary>
@@ -636,8 +648,6 @@ namespace Fluent
 
             var oldValue = e.OldValue as RibbonTitleBar;
             var newValue = e.NewValue as RibbonTitleBar;
-
-            ForwardDataContext(ribbon, oldValue, newValue);
 
             if (oldValue != null)
             {
@@ -897,13 +907,7 @@ namespace Fluent
                     }
                     break;
             }
-
         }
-
-        /// <summary>
-        /// Gets quick access toolbar associated with the ribbon
-        /// </summary>
-        internal QuickAccessToolBar QuickAccessToolBar { get; private set; }
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
@@ -912,11 +916,6 @@ namespace Fluent
         {
             get
             {
-                if (this.layoutRoot != null)
-                {
-                    yield return this.layoutRoot;
-                }
-
                 if (this.Menu != null)
                 {
                     yield return this.Menu;
@@ -935,6 +934,11 @@ namespace Fluent
                 if (this.TabControl?.ToolbarPanel != null)
                 {
                     yield return this.TabControl.ToolbarPanel;
+                }
+
+                if (this.layoutRoot != null)
+                {
+                    yield return this.layoutRoot;
                 }
             }
         }
@@ -1451,13 +1455,6 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
-            this.DataContextChanged += this.Handle_DataContextChanged;
-        }
-
-        private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            ForwardDataContext(this, null, this.TitleBar);
-            ForwardDataContext(this, null, this.Menu);
         }
 
         #endregion

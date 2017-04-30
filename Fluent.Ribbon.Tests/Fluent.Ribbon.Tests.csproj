@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="AssemblySetup.cs" />
     <Compile Include="Controls\BackstageTests.cs" />
+    <Compile Include="Controls\RibbonTests.cs" />
     <Compile Include="Controls\RibbonTitleBarTests.cs" />
     <Compile Include="Helper\ReflectionHelper.cs" />
     <Compile Include="Helper\UIHelper.cs" />

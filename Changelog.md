@@ -6,6 +6,10 @@
   - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
     This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
     This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
+  - Changes made to `Ribbon`
+    - Internal properties for `QuickAccessToolBar` and `TabControl` got converted to `DependencyProperty`
+    - Changed order of Children returned from `LogicalChildren`
+    - Type of metadata for `Menu` and `StartScreen` changed from `PropertyMetadata` to `FrameworkPropertyMetadata`
   - The following `Color` and `Brush` resources got replaced/renamed/removed:
 
 |Old|New|
@@ -96,6 +100,8 @@
 - ### Bug fixes
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
+  - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  
+    This also overrules the fix made for [#415](../../issues/415).
 
 - ### Enhancements
   - [#417](../../issues/417) - Keytips for Splitbuttons
