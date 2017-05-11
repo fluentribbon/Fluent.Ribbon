@@ -106,8 +106,6 @@ namespace Fluent
                 return;
             }
 
-            var rootScope = PresentationSource.FromVisual((Visual)button);
-
             // Get all elements bound to this key and remove this element
             for (var i = 0; i < buttons.Count;)
             {
@@ -121,13 +119,9 @@ namespace Fluent
                 }
                 else
                 {
-                    var buttonAsVisual = (Visual)currentButton;
                     // Uncheck all checked RadioButtons different from the current one
                     if (ReferenceEquals(currentButton, button) == false
-                        && currentButton.IsChecked == true
-                        && rootScope != null
-                        && PresentationSource.FromVisual(buttonAsVisual) != null
-                        && rootScope == PresentationSource.FromVisual(buttonAsVisual))
+                        && currentButton.IsChecked == true)
                     {
                         currentButton.IsChecked = false;
                     }
@@ -191,10 +185,7 @@ namespace Fluent
 
             PurgeDead(buttons, null);
 
-            var rootScope = PresentationSource.FromVisual((Visual)button);
-
             return buttons
-                .Where(x => rootScope == PresentationSource.FromVisual((Visual)x.Target))
                 .Select(x => (IToggleButton)x.Target).ToList();
         }
 

@@ -3,6 +3,9 @@
 ## 6.0.0 (preview)
 
 - ### Breaking changes
+  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox  
+    `ToggleButton` grouping was done like it's done for a regular `RadioButton`, except that it was bound to visual root scope.  
+    The dependency on a visual root scope has been remove, so please adjust the `GroupName` for groups if you have groups with the same name in different visual root scopes.
   - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
     This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
     This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
