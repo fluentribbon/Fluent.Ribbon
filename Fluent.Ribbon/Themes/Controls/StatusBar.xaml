@@ -110,8 +110,8 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3">

@@ -89,8 +89,8 @@
                         BorderThickness="1,1,1,0"
                         VerticalAlignment="Stretch"
                         CornerRadius="2,2,0,0"
-                        Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}">
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}">
                     <Border x:Name="border_Copy6"
                             Margin="0"
                             BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
