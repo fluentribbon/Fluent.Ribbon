@@ -992,7 +992,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             var groupBox = new RibbonGroupBox();
 

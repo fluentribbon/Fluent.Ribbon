@@ -557,7 +557,7 @@ namespace Fluent
         /// This method must be overriden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected void BindQuickAccessItem(FrameworkElement element)
+        protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
             var spinner = (Spinner)element;
 

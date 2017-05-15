@@ -97,7 +97,7 @@ namespace Fluent
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             var textBoxForQAT = new TextBox();
 
@@ -124,7 +124,7 @@ namespace Fluent
         /// This method must be overridden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected void BindQuickAccessItem(FrameworkElement element)
+        protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
             RibbonControl.BindQuickAccessItem(this, element);
 
