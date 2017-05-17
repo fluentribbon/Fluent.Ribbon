@@ -106,6 +106,7 @@
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
   - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  
     This also overrules the fix made for [#415](../../issues/415).
+  - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
 
 - ### Enhancements
   - [#417](../../issues/417) - Keytips for Splitbuttons
