@@ -10,13 +10,12 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Threading;
     using ControlzEx.Behaviors;
-
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
-    //using WindowChrome = System.Windows.Shell.WindowChrome;
     using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents basic window for ribbon

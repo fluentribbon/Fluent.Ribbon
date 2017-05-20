@@ -7,9 +7,11 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using ControlzEx.Microsoft.Windows.Shell;
     using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
+
+    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents title bar

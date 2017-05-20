@@ -17,9 +17,11 @@ using System.Windows.Markup;
 namespace Fluent
 {
     using System.ComponentModel;
-    using ControlzEx.Microsoft.Windows.Shell;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
+
+    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     // TODO: improve style parts naming & using
 
