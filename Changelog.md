@@ -102,6 +102,7 @@
 |EditableComboBoxItemStyle|---|
 
 - ### Bug fixes
+  - [#395](../../issues/395) - issues with contextual tab group
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
   - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  

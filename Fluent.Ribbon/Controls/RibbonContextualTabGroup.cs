@@ -144,11 +144,6 @@ namespace Fluent
         {
             var group = (RibbonContextualTabGroup)d;
 
-            foreach (var tab in group.Items)
-            {
-                tab.Visibility = group.Visibility;
-            }
-
             group.UpdateInnerVisiblityAndGroupBorders();
 
             ForceRedraw(group);

@@ -316,6 +316,16 @@
                 <Setter Property="BorderBrush"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
             </Trigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsContextual, RelativeSource={RelativeSource Self}}"
+                               Value="True" />
+                    <Condition Binding="{Binding Group.Visibility, RelativeSource={RelativeSource Self}}"
+                               Value="Collapsed" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility"
+                            Value="Collapsed" />
+            </MultiDataTrigger>
             <Trigger Property="Selector.IsSelected"
                      Value="False">
                 <Setter Property="Foreground"
