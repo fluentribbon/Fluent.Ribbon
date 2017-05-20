@@ -5,7 +5,9 @@ namespace Fluent
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using System.Windows.Media;
+    using Fluent.Helpers;
 
     /// <summary>
     /// Contains commands for <see cref="RibbonWindow"/>
@@ -192,6 +194,14 @@ namespace Fluent
             this.closeButton = this.GetTemplateChild("PART_Close") as System.Windows.Controls.Button;
             if (this.closeButton != null)
                 this.closeButton.Click += this.CloseClick;
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseRightButtonDown(e);
+
+            WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
         }
 
         private void MinimizeClick(object sender, RoutedEventArgs e)
