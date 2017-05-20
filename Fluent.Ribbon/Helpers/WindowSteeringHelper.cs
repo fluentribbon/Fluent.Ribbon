@@ -45,14 +45,15 @@
                 return;
             }
 
-            if (handleDragMove && e.ClickCount == 1)
+            if (handleDragMove 
+                && e.ClickCount == 1)
             {
                 e.Handled = true;
                 window.DragMove();
             }
-            else if (handleStateChange &&
-                     e.ClickCount == 2 &&
-                     window.ResizeMode != ResizeMode.NoResize)
+            else if (handleStateChange 
+                && e.ClickCount == 2 
+                && window.ResizeMode != ResizeMode.NoResize)
             {
                 e.Handled = true;
                 window.WindowState = window.WindowState == WindowState.Maximized
