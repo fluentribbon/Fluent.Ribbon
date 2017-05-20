@@ -142,7 +142,7 @@ namespace Fluent
         /// <param name="lParam">Second message parameter </param>
         /// <returns></returns>
         [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, WM Msg, IntPtr wParam, IntPtr lParam);
 
         /// <devdoc>http://msdn.microsoft.com/en-us/library/dd144901%28v=VS.85%29.aspx</devdoc>
         [DllImport("user32", EntryPoint = "GetMonitorInfoW", ExactSpelling = true, CharSet = CharSet.Unicode)]
@@ -170,7 +170,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Interoperability", "CA1400:PInvokeEntryPointsShouldExist")]
         private static extern IntPtr GetClassLong64(IntPtr hWnd, int nIndex);
 
-        internal static void PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam)
+        internal static void PostMessage(IntPtr hWnd, WM Msg, IntPtr wParam, IntPtr lParam)
         {
             if (!_PostMessage(hWnd, Msg, wParam, lParam))
             {
@@ -180,7 +180,7 @@ namespace Fluent
 
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms644944(v=vs.85).aspx</devdoc>
         [DllImport("user32", EntryPoint = "PostMessage", SetLastError = true)]
-        private static extern bool _PostMessage([In] [Optional] IntPtr hWnd, [In] uint Msg, [In] IntPtr wParam, [In] IntPtr lParam);
+        private static extern bool _PostMessage([In] [Optional] IntPtr hWnd, [In] WM Msg, [In] IntPtr wParam, [In] IntPtr lParam);
 
         /// <devdoc>http://msdn.microsoft.com/en-us/library/windows/desktop/ms647985(v=vs.85).aspx</devdoc>
         [DllImport("user32")]

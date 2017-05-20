@@ -106,6 +106,7 @@
     <Compile Include="Internal\KnownBoxes\StringBoxes.cs" />
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
+    <Compile Include="Internal\UnsafeNativeMethods.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="IRibbonWindow.cs" />
     <Compile Include="KeyTipInformation.cs" />

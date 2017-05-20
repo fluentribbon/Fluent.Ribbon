@@ -1,9 +1,11 @@
 ﻿namespace Fluent.Helpers
 {
     using System;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using Fluent.Internal;
     using Fluent.Metro.Native;
 
     /// <summary>
@@ -11,6 +13,9 @@
     /// </summary>
     public static class WindowSteeringHelper
     {
+        private static readonly PropertyInfo criticalHandlePropertyInfo = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly object[] emptyObjectArray = new object[0];
+
         /// <summary>
         /// Shows the system menu at the current mouse position.
         /// </summary>
@@ -49,7 +54,17 @@
                 && e.ClickCount == 1)
             {
                 e.Handled = true;
-                window.DragMove();
+
+                // tage from DragMove internal code
+                window.VerifyAccess();
+
+                // for the touch usage
+                UnsafeNativeMethods.ReleaseCapture();
+
+                var criticalHandle = (IntPtr)criticalHandlePropertyInfo.GetValue(window, emptyObjectArray);
+                // DragMove works too, but not on maximized windows
+                NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
+                NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
             }
             else if (handleStateChange 
                 && e.ClickCount == 2 
@@ -113,7 +128,7 @@
             var cmd = NativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
             if (0 != cmd)
             {                
-                NativeMethods.PostMessage(hwnd, Constants.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);                
+                NativeMethods.PostMessage(hwnd, WM.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);                
             }            
         }
     }
