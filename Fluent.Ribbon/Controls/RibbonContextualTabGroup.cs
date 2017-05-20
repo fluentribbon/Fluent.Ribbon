@@ -322,7 +322,7 @@ namespace Fluent
         {
             base.OnMouseLeftButtonDown(e);
 
-            WindowSteeringHelper.HandleMouseLeftButtonDown(e, false, true);
+            WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
         }
 
         #endregion
