@@ -11,6 +11,8 @@ using System.Windows.Media.Imaging;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using Fluent.Metro.Native;
+
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
@@ -97,7 +99,7 @@ namespace Fluent
             {
                 try
                 {
-                    var zero = NativeMethods.SendMessage(hwnd, 0x7f, new IntPtr(2), IntPtr.Zero);
+                    var zero = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(2), IntPtr.Zero);
 
                     if (zero == IntPtr.Zero)
                     {

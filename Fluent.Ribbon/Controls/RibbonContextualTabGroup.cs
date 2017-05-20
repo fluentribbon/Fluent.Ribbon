@@ -277,13 +277,7 @@ namespace Fluent
 
         #region Override
 
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonUp�routed event 
-        /// reaches an element in its route that is derived from this class. Implement this method to 
-        /// add class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
-        /// The event data reports that the left mouse button was released.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             var firstVisibleItem = this.FirstVisibleItem;
@@ -312,17 +306,6 @@ namespace Fluent
             }
 
             base.OnMouseLeftButtonUp(e);
-        }
-
-        /// <summary>
-        /// Raises the MouseDoubleClick routed event
-        /// </summary>
-        /// <param name="e">The event data</param>
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
-        {
-            base.OnMouseLeftButtonDown(e);
-
-            WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
         }
 
         #endregion
