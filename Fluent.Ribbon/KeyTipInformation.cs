@@ -65,6 +65,9 @@
         /// </summary>
         public FrameworkElement VisualTarget { get; set; }
 
+        /// <summary>
+        /// Initial visibility.
+        /// </summary>
         public Visibility DefaultVisibility { get; }
 
         /// <summary>
