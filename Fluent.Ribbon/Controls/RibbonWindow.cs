@@ -212,7 +212,7 @@ namespace Fluent
         {
             this.SizeChanged += this.OnSizeChanged;
 
-            // WindowChrome initialization has to occur in constructor. Otherwise the load event is fired early.
+            // WindowChromeBehavior initialization has to occur in constructor. Otherwise the load event is fired early and performance of the window is degraded.
             this.InitializeWindowChromeBehavior();
         }
 
@@ -221,7 +221,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome
+        /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome.
         /// </summary>
         private void InitializeWindowChromeBehavior()
         {
