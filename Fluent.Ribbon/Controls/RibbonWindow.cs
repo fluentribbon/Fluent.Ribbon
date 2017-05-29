@@ -125,10 +125,11 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GlassFrameThickness.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for GlassFrameThickness.
+        /// GlassFrameThickness != 0 enables the default window drop shadow.
         /// </summary>
         public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness()));
+            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(1)));
 
         /// <summary>
         /// Gets or sets corner radius 
@@ -203,6 +204,9 @@ namespace Fluent
         static RibbonWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
+
+            BorderThicknessProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(new Thickness(1)));
+            WindowStyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(WindowStyle.None));
         }
 
         /// <summary>
