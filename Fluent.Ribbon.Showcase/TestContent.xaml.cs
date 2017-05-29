@@ -267,8 +267,7 @@
 
         private void HandleSaveAsClick(object sender, RoutedEventArgs e)
         {
-            var w = new Window();
-            w.ShowDialog();
+            MessageBox.Show("You clicked \"Save as\".");
         }
 
         private void OpenRegularWindow_OnClick(object sender, RoutedEventArgs e)
