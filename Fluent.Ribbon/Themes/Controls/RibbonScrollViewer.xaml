@@ -7,11 +7,11 @@
             <Border x:Name="OuterBorder"
                     BorderThickness="1"
                     CornerRadius="2"
-                    BorderBrush="{DynamicResource ScrollViewerButtonBorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush}"
                     Height="Auto"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
                 <Border x:Name="InnerBorder"
                         Height="Auto"
                         BorderBrush="Transparent"

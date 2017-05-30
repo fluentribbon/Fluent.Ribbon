@@ -173,25 +173,26 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScreenTip.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     
     <!-- Scroll-Buttons -->
-    <SolidColorBrush x:Key="ScrollButtonDefaultBorderBrush" Color="{StaticResource Gray4}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollButtonDefaultBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollButtonHoverBorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollButtonHoverBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollButtonPressedBorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollButtonPressedBackgroundBrush" Color="{StaticResource Gray10}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollVerticalBackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush" Color="{StaticResource Gray4}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Default.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Hover.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Hover.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Pressed.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Pressed.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
+    
+    <!-- ScrollBar -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollBar.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="ScrollThumbDefaultBorderBrush" Color="#FFABABAB" options:Freeze="True"  />
-    <SolidColorBrush x:Key="ScrollThumbDefaultBackgroundBrush" Color="White" options:Freeze="True"  />
-    <SolidColorBrush x:Key="ScrollThumbHoverBorderBrush" Color="#FFABABAB" options:Freeze="True"  />
-    <SolidColorBrush x:Key="ScrollThumbHoverBackgroundBrush" Color="#FFF0F0F0" options:Freeze="True"  />
-    <SolidColorBrush x:Key="ScrollThumbPressedBorderBrush" Color="#FF777777" options:Freeze="True"  />
-    <SolidColorBrush x:Key="ScrollThumbPressedBackgroundBrush" Color="#FFF0F0F0" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush" Color="#FFABABAB" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.Background" Color="{StaticResource WhiteColor}" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Hover.BorderBrush" Color="#FFABABAB" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Hover.Background" Color="#FFF0F0F0" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Pressed.BorderBrush" Color="#FF777777" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Pressed.Background" Color="#FFF0F0F0" options:Freeze="True"  />
     
     <!-- ScrollViewer -->
-    <SolidColorBrush x:Key="ScrollViewerButtonBorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="ScrollViewerButtonBackgroundBrush" Color="{StaticResource Gray8}" options:Freeze="True" />    
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Button.Background" Color="{StaticResource Gray8}" options:Freeze="True" />    
     
     <!-- TextBox -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />

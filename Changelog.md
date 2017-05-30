@@ -86,6 +86,22 @@
 | TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
 | RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
 | RibbonTopBorderBrush | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
+| ScrollButtonDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush |
+| ScrollButtonDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.Background |
+| ScrollButtonHoverBorderBrush | Fluent.Ribbon.Brushes.ScrollButton.Hover.BorderBrush |
+| ScrollButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.ScrollButton.Hover.Background |
+| ScrollButtonPressedBorderBrush | Fluent.Ribbon.Brushes.ScrollButton.Pressed.BorderBrush |
+| ScrollButtonPressedBackgroundBrush | Fluent.Ribbon.Brushes.ScrollButton.Pressed.Background |
+| ScrollBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
+| ScrollVerticalBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
+| ScrollThumbDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush |
+| ScrollThumbDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.Background |
+| ScrollThumbHoverBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Hover.BorderBrush |
+| ScrollThumbHoverBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Hover.Background |
+| ScrollThumbPressedBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Pressed.BorderBrush |
+| ScrollThumbPressedBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Pressed.Background |
+| ScrollViewerButtonBorderBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush |
+| ScrollViewerButtonBackgroundBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BackgroundBrush |
 |  |  |
 
   - The following default values changed:
