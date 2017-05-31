@@ -194,6 +194,15 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Button.Background" Color="{StaticResource Gray8}" options:Freeze="True" />    
     
+    <LinearGradientBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill" EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush.GradientStops>
+            <GradientStop Color="#FF1A52AD"
+                          Offset="0" />
+            <GradientStop Color="#FF0F3168"
+                          Offset="1" />
+        </LinearGradientBrush.GradientStops>
+    </LinearGradientBrush>
+    
     <!-- TextBox -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.BorderBrush" Color="{StaticResource Gray6}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />

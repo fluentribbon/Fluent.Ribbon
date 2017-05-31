@@ -328,19 +328,9 @@
                       VerticalAlignment="Center"
                       Width="5"
                       Height="3"
-                      Data="M0,0L1,-1 2,0z">
-                    <Path.Fill>
-                        <LinearGradientBrush  EndPoint="0.5,1"
-                                              StartPoint="0.5,0">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="#FF1A52AD"
-                                              Offset="0" />
-                                <GradientStop Color="#FF0F3168"
-                                              Offset="1" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
+                      Data="M0,0L1,-1 2,0z"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill}" />
+
             </RepeatButton>
             <RepeatButton ClickMode="Hover"
                           Command="{x:Static ScrollBar.LineDownCommand}"
@@ -373,19 +363,8 @@
                       VerticalAlignment="Center"
                       Width="5"
                       Height="3"
-                      Data="M0,0L1,1 2,0z">
-                    <Path.Fill>
-                        <LinearGradientBrush  EndPoint="0.5,1"
-                                              StartPoint="0.5,0">
-                            <LinearGradientBrush.GradientStops>
-                                <GradientStop Color="#FF1A52AD"
-                                              Offset="0" />
-                                <GradientStop Color="#FF0F3168"
-                                              Offset="1" />
-                            </LinearGradientBrush.GradientStops>
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
+                      Data="M0,0L1,1 2,0z"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill}" />
             </RepeatButton>
         </Grid>
     </ControlTemplate>
