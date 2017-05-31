@@ -18,7 +18,7 @@
         <Setter Property="BorderBrush"
                 Value="Transparent" />
         <Setter Property="BorderThickness"
-                Value="0" />
+                Value="1" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SnapsToDevicePixels"
