@@ -322,7 +322,7 @@ namespace Fluent
                 case MouseButton.Right:
                     e.Handled = true;
 
-                    this.RunInDispatcherAsync(() => WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e));
+                    WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
                     break;
             }
         }

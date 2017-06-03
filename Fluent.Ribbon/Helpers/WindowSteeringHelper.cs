@@ -5,6 +5,8 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
+    using System.Windows.Threading;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Metro.Native;
 
@@ -123,13 +125,18 @@
 
             e.Handled = true;
 
+            window.RunInDispatcherAsync(() => ShowSystemMenuPhysicalCoordinates(hwnd, physicalScreenLocation), DispatcherPriority.Background);
+        }
+
+        private static void ShowSystemMenuPhysicalCoordinates(IntPtr hwnd, Point physicalScreenLocation)
+        {
             var hmenu = NativeMethods.GetSystemMenu(hwnd, false);
 
             var cmd = NativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTBUTTON | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
             if (0 != cmd)
-            {                
-                NativeMethods.PostMessage(hwnd, WM.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);                
-            }            
+            {
+                NativeMethods.PostMessage(hwnd, WM.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
+            }
         }
     }
 }
