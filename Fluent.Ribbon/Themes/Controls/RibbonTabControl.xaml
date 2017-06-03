@@ -251,7 +251,8 @@
                 <RowDefinition x:Name="rowDefinition"
                                Height="94" />
                 <RowDefinition x:Name="rowDefinition1"
-                               Height="{TemplateBinding ContentGapHeight}" />
+                               MinHeight="{TemplateBinding ContentGapHeight}"
+                               MaxHeight="{TemplateBinding ContentGapHeight}" />
             </Grid.RowDefinitions>
             <Border x:Name="border"
                     HorizontalAlignment="Stretch"
@@ -373,7 +374,7 @@
                 <Setter Property="Height"
                         TargetName="rowDefinition"
                         Value="0" />
-                <Setter Property="Height"
+                <Setter Property="MinHeight"
                         TargetName="rowDefinition1"
                         Value="0" />
                 <!-- Switch content to popup -->

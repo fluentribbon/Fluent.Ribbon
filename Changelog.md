@@ -109,14 +109,15 @@
 
 |Name/Location|Old|New|
 |---|---|---|
-|Button.BorderThickness | 0 | 1 |
+| Button.BorderThickness | 0 | 1 |
+| ContentGapHeight | 5 | 1 |
 
   - The following styles got removed/renamed:
 
 |Old|New|
 |---|---|
-|NonEditableComboBoxItemStyle|is now the default style|
-|EditableComboBoxItemStyle|---|
+| NonEditableComboBoxItemStyle | is now the default style |
+| EditableComboBoxItemStyle | --- |
 
 - ### Bug fixes
   - [#395](../../issues/395) - issues with contextual tab group
