@@ -128,6 +128,7 @@
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
 
 - ### Enhancements
+  - [#313](../../issues/313) - Window state buttons not updating to Windows 10 look / feel
   - [#417](../../issues/417) - Keytips for Splitbuttons
 
 ## 5.0.1

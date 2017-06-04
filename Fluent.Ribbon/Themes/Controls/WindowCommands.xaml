@@ -27,8 +27,7 @@
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
 
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
                         <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                       ItemTemplate="{TemplateBinding ItemTemplate}"
                                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
@@ -49,9 +48,15 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Path Data="F1M0,6L0,9 9,9 9,6 0,6z"
+                            <Path Width="10"
+                                  Height="10"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M0,40 L96,40 96,48 0,48 0,40z"
+                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                  RenderOptions.EdgeMode="Aliased"
                                   SnapsToDevicePixels="True"
-                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                                  Stretch="Uniform" />
                         </Button>
 
                         <Button x:Name="PART_Max"
@@ -62,9 +67,16 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Path SnapsToDevicePixels="True"
-                                  Data="F1M0,0L0,9 9,9 9,0 0,0 0,3 8,3 8,8 1,8 1,3z"
-                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Canvas Width="12"
+                                    Height="12"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <Path Data="M2,2 2,10 10,10 10,2 2,2Z M1,11 1,1 11,1 11,11 1,11Z"
+                                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                      RenderOptions.EdgeMode="Aliased"
+                                      SnapsToDevicePixels="True"
+                                      Stretch="Uniform" />
+                            </Canvas>
                         </Button>
 
                         <Button x:Name="PART_Restore"
@@ -75,9 +87,16 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Path SnapsToDevicePixels="True"
-                                  Data="F1M0,10L0,3 3,3 3,0 10,0 10,2 4,2 4,3 7,3 7,6 6,6 6,5 1,5 1,10z M1,10L7,10 7,7 10,7 10,2 9,2 9,6 6,6 6,9 1,9z"
-                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Canvas Width="12"
+                                    Height="12"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <Path Data="M10,9 9,9 9,3 3,3 3,2 10,2 10,9Z M8,11 1,11 1,4 8,4 8,11Z M2,1 2,3 0,3 0,12 9,12 9,10 11,10 11,1 2,1Z"
+                                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                      RenderOptions.EdgeMode="Aliased"
+                                      SnapsToDevicePixels="True"
+                                      Stretch="Uniform" />
+                            </Canvas>
                         </Button>
 
                         <Button x:Name="PART_Close"
@@ -87,9 +106,24 @@
                                 Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Path Data="F1M0,0L2,0 5,3 8,0 10,0 6,4 10,8 8,8 5,5 2,8 0,8 4,4 0,0z"
-                                  SnapsToDevicePixels="True"
-                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
+                            <Grid>
+                                <Line HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      SnapsToDevicePixels="True"
+                                      Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                      X1="0"
+                                      X2="10"
+                                      Y1="0"
+                                      Y2="10" />
+                                <Line HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      SnapsToDevicePixels="True"
+                                      Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                      X1="0"
+                                      X2="10"
+                                      Y1="10"
+                                      Y2="0" />
+                            </Grid>
                         </Button>
                     </StackPanel>
                     <ControlTemplate.Triggers>
