@@ -573,26 +573,53 @@ namespace Fluent
             titleBar?.ForceMeasureAndArrange();
         }
 
-        // Updates keys for keytip access
+        public Action<QuickAccessToolBar> UpdateKeyTipsAction
+        {
+            get { return (Action<QuickAccessToolBar>)this.GetValue(UpdateKeyTipsActionProperty); }
+            set { this.SetValue(UpdateKeyTipsActionProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for KeyTipMethod.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty UpdateKeyTipsActionProperty =
+            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsChanged));
+
+        private static void OnUpdateKeyTipsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var quickAccessToolBar = (QuickAccessToolBar)d;
+            quickAccessToolBar.UpdateKeyTips();
+        }
+
         private void UpdateKeyTips()
         {
-            for (var i = 0; i < Math.Min(9, this.Items.Count); i++)
+            if (this.UpdateKeyTipsAction == null)
             {
-                // 1, 2, 3, ... , 9
-                KeyTip.SetKeys(this.Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+                DefaultUpdateKeyTips(this);
+                return;
             }
 
-            for (var i = 9; i < Math.Min(18, this.Items.Count); i++)
+            this.UpdateKeyTipsAction(this);
+        }
+
+        // Updates keys for keytip access
+        private static void DefaultUpdateKeyTips(QuickAccessToolBar quickAccessToolBar)
+        {
+            for (var i = 0; i < Math.Min(9, quickAccessToolBar.Items.Count); i++)
+            {
+                // 1, 2, 3, ... , 9
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+            }
+
+            for (var i = 9; i < Math.Min(18, quickAccessToolBar.Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
-                KeyTip.SetKeys(this.Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
 
             var startChar = 'A';
-            for (var i = 18; i < Math.Min(9 + 9 + 26, this.Items.Count); i++)
+            for (var i = 18; i < Math.Min(9 + 9 + 26, quickAccessToolBar.Items.Count); i++)
             {
                 // 0A, 0B, 0C, ... , 0Z
-                KeyTip.SetKeys(this.Items[i], "0" + startChar++);
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], "0" + startChar++);
             }
         }
 
