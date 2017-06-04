@@ -528,11 +528,11 @@ namespace Fluent
         /// <inheritdoc />
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
-            yield return new KeyTipInformation(this.KeyTip + "1", this.button, hide)
+            yield return new KeyTipInformation(this.KeyTip + "A", this.button, hide)
                 {
                     VisualTarget = this
                 };
-            yield return new KeyTipInformation(this.KeyTip + "2", this, hide);
+            yield return new KeyTipInformation(this.KeyTip + "B", this, hide);
         }
 
         #endregion
