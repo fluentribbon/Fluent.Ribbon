@@ -158,7 +158,8 @@ namespace Fluent
         {
             base.OnMouseRightButtonDown(e);
 
-            if (e.Handled)
+            if (e.Handled
+                || this.IsMouseDirectlyOver == false)
             {
                 return;
             }
