@@ -20,8 +20,8 @@ namespace Fluent
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
 
-    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
-    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     // TODO: improve style parts naming & using
 

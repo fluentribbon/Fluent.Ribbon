@@ -14,8 +14,8 @@ namespace Fluent
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
-    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
-    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents basic window for ribbon
@@ -112,8 +112,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ResizeBorderThicknessProperty =
-            DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(8D)));
+        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(8D))); //WindowChromeBehavior.GetDefaultResizeBorderThickness()));
 
         /// <summary>
         /// Gets or sets glass border thickness
@@ -130,21 +129,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty GlassFrameThicknessProperty =
             DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(1)));
-
-        /// <summary>
-        /// Gets or sets corner radius 
-        /// </summary>
-        public CornerRadius CornerRadius
-        {
-            get { return (CornerRadius)this.GetValue(CornerRadiusProperty); }
-            set { this.SetValue(CornerRadiusProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RibbonWindow), new PropertyMetadata(new CornerRadius()));
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -230,11 +214,9 @@ namespace Fluent
         private void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CaptionHeightProperty, new Binding { Path = new PropertyPath(TitleBarHeightProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.CornerRadiusProperty, new Binding { Path = new PropertyPath(CornerRadiusProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
-            behavior.UseAeroCaptionButtons = false;
+            
             Interaction.GetBehaviors(this).Add(behavior);
         }
 

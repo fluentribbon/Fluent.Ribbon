@@ -7,11 +7,14 @@ using System.Windows.Controls;
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows.Input;
+    using System.Windows.Media;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
-    using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
-    //using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
+    //using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
+    using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents title bar
@@ -125,9 +128,63 @@ namespace Fluent
             HeaderProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public RibbonTitleBar()
+        {
+            WindowChrome.SetIsHitTestVisibleInChrome(this, true);
+        }
+
         #endregion
 
         #region Overrides
+
+        /// <inheritdoc />
+        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
+        {
+            var baseResult = base.HitTestCore(hitTestParameters);
+
+            if (baseResult == null)
+            {
+                return new PointHitTestResult(this, hitTestParameters.HitPoint);
+            }
+
+            return baseResult;
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseRightButtonDown(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            // Contextual groups shall handle mouse events
+            if (e.Source is RibbonContextualGroupsContainer
+                || e.Source is RibbonContextualTabGroup)
+            {
+                return;
+            }
+
+            WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
+        }
 
         /// <summary>
         /// Creates or identifies the element that is used to display the given item.
