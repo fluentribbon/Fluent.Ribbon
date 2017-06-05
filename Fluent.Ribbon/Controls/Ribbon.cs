@@ -1134,7 +1134,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(1D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentGapHeight));
 
         /// <summary>
         /// Gets or sets the height of the ribbon content area

@@ -27,6 +27,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
     {
+        public const double DefaultContentGapHeight = 1;
         public const double DefaultContentHeight = 94;
 
         #region Fields
@@ -303,7 +304,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(RibbonTabControl), new PropertyMetadata(1D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(RibbonTabControl), new PropertyMetadata(DefaultContentGapHeight));
 
         #endregion
 
