@@ -39,7 +39,6 @@
                                           Content="{TemplateBinding WindowCommands}"                                          
                                           Grid.Row="0"
                                           Panel.ZIndex="1"
-                                          VerticalAlignment="Top"
                                           HorizontalAlignment="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
