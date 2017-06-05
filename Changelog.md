@@ -5,6 +5,8 @@
 
 ## 5.0.1
   - [#412](../../issues/412) - Specific version for nuget references causes issues
+  - [#413](../../issues/413) - ColorGallery SelectedColorChanged issue
+  - [#415](../../issues/415) - DataContext not forwarded from Ribbon to Backstage (in adorner) and TitleBar
 
 ## 5.0.0
 
