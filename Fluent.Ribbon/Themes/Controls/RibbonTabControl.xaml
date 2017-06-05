@@ -278,7 +278,7 @@
                 </ContentControl>
             </Border>
             
-            <Border Margin="0,-1,0,0"
+            <Border Margin="0"
                     VerticalAlignment="Stretch"                    
                     Grid.Row="2"
                     Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
