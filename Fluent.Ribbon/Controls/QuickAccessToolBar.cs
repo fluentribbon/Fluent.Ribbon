@@ -573,13 +573,18 @@ namespace Fluent
             titleBar?.ForceMeasureAndArrange();
         }
 
+        /// <summary>
+        /// Gets or sets a custom action to generate KeyTips for items in this control.
+        /// </summary>
         public Action<QuickAccessToolBar> UpdateKeyTipsAction
         {
             get { return (Action<QuickAccessToolBar>)this.GetValue(UpdateKeyTipsActionProperty); }
             set { this.SetValue(UpdateKeyTipsActionProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for KeyTipMethod.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="UpdateKeyTipsAction"/>.
+        /// </summary>
         public static readonly DependencyProperty UpdateKeyTipsActionProperty =
             DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsChanged));
 

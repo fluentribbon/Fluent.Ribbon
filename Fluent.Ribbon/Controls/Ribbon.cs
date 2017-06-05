@@ -1146,7 +1146,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// DependencyProperty for <see cref="ContentHeight"/>
+        /// <see cref="DependencyProperty"/> for <see cref="ContentHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentHeightProperty =
             DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentHeight));
