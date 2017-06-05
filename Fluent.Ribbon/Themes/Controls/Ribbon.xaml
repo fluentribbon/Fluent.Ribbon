@@ -26,7 +26,8 @@
                 </Grid.RowDefinitions>
                 <Fluent:RibbonTabControl x:Name="PART_RibbonTabControl"
                                          Background="{TemplateBinding Background}"
-                                         Menu="{TemplateBinding Menu}"                                                  
+                                         Menu="{TemplateBinding Menu}"                                      
+                                         ContentHeight="{TemplateBinding ContentHeight}"
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />
                 
                 <ContentControl x:Name="quickAccessToolBarHolder"

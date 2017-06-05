@@ -27,6 +27,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
     {
+        public const double DefaultContentHeight = 94;
+
         #region Fields
 
         // Collection of toolbar items
@@ -277,6 +279,16 @@ namespace Fluent
             }
 
         }
+
+        public double ContentHeight
+        {
+            get { return (double)this.GetValue(ContentHeightProperty); }
+            set { this.SetValue(ContentHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ContentHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentHeightProperty =
+            DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(RibbonTabControl), new FrameworkPropertyMetadata(DefaultContentHeight, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// Gets or sets the height of the gap between the ribbon and the content

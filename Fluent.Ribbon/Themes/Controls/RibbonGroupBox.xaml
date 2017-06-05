@@ -30,7 +30,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Height"
-                Value="85" />
+                Value="Auto" />
         <Setter Property="HorizontalContentAlignment"
                 Value="Left" />
         <Setter Property="Foreground"
@@ -291,7 +291,7 @@
                     <Grid x:Name="PART_ParentPanel"
                           Margin="0,1,0,2"
                           Grid.RowSpan="2"
-                          Height="85">
+                          Height="Auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="17" />

@@ -249,7 +249,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition x:Name="rowDefinition"
-                               Height="94" />
+                               MinHeight="{TemplateBinding ContentHeight}"
+                               MaxHeight="{TemplateBinding ContentHeight}" />
                 <RowDefinition x:Name="rowDefinition1"
                                MinHeight="{TemplateBinding ContentGapHeight}"
                                MaxHeight="{TemplateBinding ContentGapHeight}" />
@@ -261,6 +262,7 @@
                     BorderThickness="0,1"
                     Grid.Row="1"
                     BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+            
             <Border HorizontalAlignment="Stretch"
                     Margin="1,0,1,1"
                     Grid.Row="1"
@@ -371,7 +373,7 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsMinimized"
                      Value="True">
-                <Setter Property="Height"
+                <Setter Property="MinHeight"
                         TargetName="rowDefinition"
                         Value="0" />
                 <Setter Property="MinHeight"

@@ -1122,7 +1122,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets or sets the height of the gap between the ribbon and the content
+        /// Gets or sets the height of the gap between the ribbon and the regular window content
         /// </summary>
         public double ContentGapHeight
         {
@@ -1135,6 +1135,21 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(1D));
+
+        /// <summary>
+        /// Gets or sets the height of the ribbon content area
+        /// </summary>
+        public double ContentHeight
+        {
+            get { return (double)this.GetValue(ContentHeightProperty); }
+            set { this.SetValue(ContentHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for <see cref="ContentHeight"/>
+        /// </summary>
+        public static readonly DependencyProperty ContentHeightProperty =
+            DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentHeight));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
         /// <summary>

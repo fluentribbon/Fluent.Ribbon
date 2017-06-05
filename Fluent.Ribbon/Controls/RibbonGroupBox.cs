@@ -771,6 +771,8 @@ namespace Fluent
 
                 if (this.cachedMeasures.TryGetValue(stateScale, out result) == false)
                 {
+                    var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
+
                     this.SuppressCacheReseting = true;
                     this.UpdateScalableControlSubscribing();
 
@@ -780,7 +782,8 @@ namespace Fluent
                     this.State = this.StateIntermediate;
                     this.Scale = this.ScaleIntermediate;
                     this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
+                    this.cachedMeasures.Remove(stateScale);
                     this.cachedMeasures.Add(stateScale, this.DesiredSize);
                     result = this.DesiredSize;
 
@@ -788,7 +791,7 @@ namespace Fluent
                     this.State = backupState;
                     this.Scale = backupScale;
                     this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
 
                     this.SuppressCacheReseting = false;
                 }
