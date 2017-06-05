@@ -50,18 +50,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx, Version=2.1.4.13, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net40\ControlzEx.dll</HintPath>
+    <Reference Include="ControlzEx, Version=2.2.0.4, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net40\ControlzEx.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net40\System.Windows.Interactivity.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ControlzEx.2.2.0.4\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -237,9 +235,9 @@
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
     <None Include="Documents\Fluent Ribbon Control Suite Walkthrough.docx" />
-    <None Include="packages.config" />
     <None Include="..\Shared\FluentStrongName.snk" />
     <Resource Include="Themes\Effects\Grayscale.ps" />
+    <None Include="packages.config" />
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>

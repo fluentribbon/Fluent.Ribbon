@@ -1,6 +1,12 @@
 # Changelog for Fluent.Ribbon
 
-## 5.0.0 (preview)
+## 5.0.2
+  - [#437](../../issues/437) - "Could not load ControlzEx"
+
+## 5.0.1
+  - [#412](../../issues/412) - Specific version for nuget references causes issues
+
+## 5.0.0
 
 - ### Breaking changes
   - Office 2010 and Windows 8 themes got removed. 

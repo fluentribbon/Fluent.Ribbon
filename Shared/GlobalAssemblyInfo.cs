@@ -15,8 +15,8 @@ using System.Windows;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("5.0.1.0")]
-[assembly: AssemblyFileVersion("5.0.1.0")]
+[assembly: AssemblyVersion("5.0.2.0")]
+[assembly: AssemblyFileVersion("5.0.2.0")]
 [assembly: AssemblyInformationalVersion("SRC")]
 
 [assembly: ComVisible(false)]
