@@ -106,7 +106,6 @@
     <Compile Include="Internal\KnownBoxes\StringBoxes.cs" />
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
-    <Compile Include="Internal\UnsafeNativeMethods.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="IRibbonWindow.cs" />
     <Compile Include="KeyTipInformation.cs" />
@@ -177,9 +176,6 @@
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
-    <Compile Include="Metro\Native\Constants.cs" />
-    <Compile Include="Metro\Native\MONITORINFO.cs" />
-    <Compile Include="Metro\Native\RECT.cs" />
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
@@ -202,7 +198,6 @@
     <Compile Include="Controls\RibbonToolBarControlDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarRow.cs" />
-    <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Controls\RibbonToolBar.cs" />
     <Compile Include="Controls\RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="Controls\RibbonWindow.cs" />
@@ -240,9 +235,9 @@
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
     <None Include="Documents\Fluent Ribbon Control Suite Walkthrough.docx" />
-    <None Include="packages.config" />
     <None Include="..\Shared\FluentStrongName.snk" />
     <Resource Include="Themes\Effects\Grayscale.ps" />
+    <None Include="packages.config" />
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
