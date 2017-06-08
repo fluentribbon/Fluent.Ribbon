@@ -7,6 +7,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
+    using ControlzEx.Native;
     using Fluent.Helpers;
 
     /// <summary>
@@ -26,8 +27,9 @@ namespace Fluent
         private System.Windows.Controls.Button maximizeButton;
         private System.Windows.Controls.Button restoreButton;
         private System.Windows.Controls.Button closeButton;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2006:UseSafeHandleToEncapsulateNativeResources", Justification = "We release the handle during dispose.")]
-        private IntPtr user32 = IntPtr.Zero;
+#pragma warning disable 618
+        private SafeLibraryHandle user32;
+#pragma warning restore 618
         private bool disposed;
 
         static WindowCommands()
@@ -81,10 +83,10 @@ namespace Fluent
             // unmanaged resources here.
             // If disposing is false,
             // only the following code is executed.
-            if (this.user32 != IntPtr.Zero)
+            if (this.user32 != null)
             {
-                NativeMethods.FreeLibrary(this.user32);
-                this.user32 = IntPtr.Zero;
+                this.user32.Close();
+                this.user32 = null;
             }
 
             // Note disposing has been done.
@@ -162,13 +164,15 @@ namespace Fluent
 
         private string GetCaption(uint id)
         {
-            if (this.user32 == IntPtr.Zero)
+#pragma warning disable 618
+            if (this.user32 == null)
             {
-                this.user32 = NativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
+                this.user32 = UnsafeNativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
             }
 
             var sb = new StringBuilder(256);
-            NativeMethods.LoadString(this.user32, id, sb, sb.Capacity);
+            UnsafeNativeMethods.LoadString(this.user32, id, sb, sb.Capacity);
+#pragma warning restore 618
             return sb.ToString().Replace("&", "");
         }
 

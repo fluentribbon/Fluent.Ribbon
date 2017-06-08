@@ -1,12 +1,14 @@
 ﻿namespace Fluent.Internal
 {
     using System.Windows.Input;
+    using Standard;
 
     internal static class KeyEventUtility
     {
         public static string GetStringFromKey(Key key)
         {
             var keyboardState = new byte[256];
+#pragma warning disable 618
             if (NativeMethods.GetKeyboardState(keyboardState) == false)
             {
                 return null;
@@ -29,6 +31,7 @@
                 default:
                     return null;
             }
+#pragma warning restore 618
         }
     }
 }

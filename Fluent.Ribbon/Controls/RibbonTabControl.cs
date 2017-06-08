@@ -15,7 +15,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Internal.KnownBoxes;
-    using Fluent.Metro.Native;
+    using Standard;
 
     /// <summary>
     /// Represents ribbon tab control
@@ -822,37 +822,38 @@ namespace Fluent
 
             // Get current workarea                
             var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
+#pragma warning disable 618
             var tabItemRect = new RECT
             {
-                left = (int)tabItemPos.X,
-                top = (int)tabItemPos.Y,
-                right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
-                bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
+                Left = (int)tabItemPos.X,
+                Top = (int)tabItemPos.Y,
+                Right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
+                Bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
             };
+#pragma warning restore 618
 
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
+#pragma warning disable 618
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor == IntPtr.Zero)
             {
                 return null;
             }
 
-            var monitorInfo = new MONITORINFO();
-            monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-            NativeMethods.GetMonitorInfo(monitor, monitorInfo);
-
+            var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
+#pragma warning restore 618
             var startPoint = this.PointToScreen(new Point(0, 0));
             if (this.FlowDirection == FlowDirection.RightToLeft)
             {
                 startPoint.X -= this.ActualWidth;
             }
 
-            var inWindowRibbonWidth = monitorInfo.rcWork.right - Math.Max(monitorInfo.rcWork.left, startPoint.X);
+            var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, startPoint.X);
 
             var actualWidth = this.ActualWidth;
-            if (startPoint.X < monitorInfo.rcWork.left)
+            if (startPoint.X < monitorInfo.rcWork.Left)
             {
-                actualWidth -= monitorInfo.rcWork.left - startPoint.X;
-                startPoint.X = monitorInfo.rcWork.left;
+                actualWidth -= monitorInfo.rcWork.Left - startPoint.X;
+                startPoint.X = monitorInfo.rcWork.Left;
             }
 
             // Set width and prevent negative values

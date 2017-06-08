@@ -51,7 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.1.0, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.1-dev0021\lib\net45\ControlzEx.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.3.0.1-dev0023\lib\net45\ControlzEx.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
@@ -60,7 +60,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.3.0.1-dev0021\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.3.0.1-dev0023\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
@@ -106,7 +106,6 @@
     <Compile Include="Internal\KnownBoxes\StringBoxes.cs" />
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
-    <Compile Include="Internal\UnsafeNativeMethods.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="IRibbonWindow.cs" />
     <Compile Include="KeyTipInformation.cs" />
@@ -177,9 +176,6 @@
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
-    <Compile Include="Metro\Native\Constants.cs" />
-    <Compile Include="Metro\Native\MONITORINFO.cs" />
-    <Compile Include="Metro\Native\RECT.cs" />
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
@@ -202,7 +198,6 @@
     <Compile Include="Controls\RibbonToolBarControlDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarRow.cs" />
-    <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Controls\RibbonToolBar.cs" />
     <Compile Include="Controls\RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="Controls\RibbonWindow.cs" />

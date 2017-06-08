@@ -7,8 +7,9 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
+    using ControlzEx.Native;
     using Fluent.Internal;
-    using Fluent.Metro.Native;
+    using Standard;
 
     /// <summary>
     /// Handles Alt, F10 and so on
@@ -151,9 +152,10 @@ namespace Fluent
         // Window's messages hook up
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+#pragma warning disable 618
             // We must terminate the keytip's adorner chain if:                        
-            if (msg == Constants.WM_NCACTIVATE // mouse clicks in non client area
-                || (msg == Constants.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+            if (msg == (int)WM.NCACTIVATE // mouse clicks in non client area
+                || (msg == (int)WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
                                                                            // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
                 || (msg >= 161 && msg <= 173) // mouse click (non client area)
                 || (msg >= 513 && msg <= 521) // mouse click
@@ -165,6 +167,7 @@ namespace Fluent
                     this.Terminate();
                 }
             }
+#pragma warning restore 618
 
             return IntPtr.Zero;
         }

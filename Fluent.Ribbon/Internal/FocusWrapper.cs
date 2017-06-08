@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Input;
+    using Standard;
 
     internal class FocusWrapper
     {
@@ -29,7 +30,9 @@
 
             if (this.handle != IntPtr.Zero)
             {
+#pragma warning disable 618
                 NativeMethods.SetFocus(this.handle);
+#pragma warning restore 618
             }
         }
 
@@ -40,7 +43,9 @@
                 return new FocusWrapper(Keyboard.FocusedElement);
             }
 
+#pragma warning disable 618
             var handle = NativeMethods.GetFocus();
+#pragma warning restore 618
 
             if (handle != IntPtr.Zero)
             {

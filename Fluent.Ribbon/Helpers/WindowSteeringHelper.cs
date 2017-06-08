@@ -6,9 +6,9 @@
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
+    using ControlzEx.Native;
     using Fluent.Extensions;
-    using Fluent.Internal;
-    using Fluent.Metro.Native;
+    using Standard;
 
     /// <summary>
     /// Class which offers helper methods for steering the window
@@ -60,6 +60,7 @@
                 // tage from DragMove internal code
                 window.VerifyAccess();
 
+#pragma warning disable 618
                 // for the touch usage
                 UnsafeNativeMethods.ReleaseCapture();
 
@@ -67,6 +68,7 @@
                 // DragMove works too, but not on maximized windows
                 NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
                 NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
+#pragma warning restore 618
             }
             else if (handleStateChange 
                 && e.ClickCount == 2 
@@ -118,7 +120,9 @@
         {
             var hwnd = new WindowInteropHelper(window).Handle;
             if (hwnd == IntPtr.Zero
+#pragma warning disable 618
                 || NativeMethods.IsWindow(hwnd) == false)
+#pragma warning restore 618
             {
                 return;
             }
@@ -130,6 +134,7 @@
 
         private static void ShowSystemMenuPhysicalCoordinates(IntPtr hwnd, Point physicalScreenLocation)
         {
+#pragma warning disable 618
             var hmenu = NativeMethods.GetSystemMenu(hwnd, false);
 
             var cmd = NativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
@@ -137,6 +142,7 @@
             {
                 NativeMethods.PostMessage(hwnd, WM.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
             }
+#pragma warning restore 618
         }
     }
 }

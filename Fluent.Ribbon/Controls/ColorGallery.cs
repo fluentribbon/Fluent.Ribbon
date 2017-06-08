@@ -11,9 +11,11 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using ControlzEx.Native;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
+    using Standard;
 
     /// <summary>
     /// Represents color gallery modes
@@ -805,10 +807,11 @@ namespace Fluent
             }
             else
             {
+#pragma warning disable 618
                 var chooseColor = new NativeMethods.CHOOSECOLOR();
                 var wnd = Window.GetWindow(this);
                 if (wnd != null) chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
-                chooseColor.Flags = NativeMethods.CC_ANYCOLOR;
+                chooseColor.Flags = Constants.CC_ANYCOLOR;
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
@@ -824,6 +827,7 @@ namespace Fluent
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
                 }
+#pragma warning restore 618
             }
         }
 

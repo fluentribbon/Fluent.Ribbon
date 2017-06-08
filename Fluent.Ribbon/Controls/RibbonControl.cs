@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -16,7 +15,7 @@ namespace Fluent
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
-    using Fluent.Metro.Native;
+    using Standard;
 
     /// <summary>
     /// Represent base class for Fluent controls
@@ -477,19 +476,19 @@ namespace Fluent
         public static Rect GetControlWorkArea(FrameworkElement control)
         {
             var tabItemPos = control.PointToScreen(new Point(0, 0));
+#pragma warning disable 618
             var tabItemRect = new RECT();
-            tabItemRect.left = (int)tabItemPos.X;
-            tabItemRect.top = (int)tabItemPos.Y;
-            tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            tabItemRect.Left = (int)tabItemPos.X;
+            tabItemRect.Top = (int)tabItemPos.Y;
+            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
-                var monitorInfo = new MONITORINFO();
-                monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                return new Rect(monitorInfo.rcWork.left, monitorInfo.rcWork.top, monitorInfo.rcWork.right - monitorInfo.rcWork.left, monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
+                var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
+                return new Rect(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top, monitorInfo.rcWork.Right - monitorInfo.rcWork.Left, monitorInfo.rcWork.Bottom - monitorInfo.rcWork.Top);
             }
+#pragma warning restore 618
             return new Rect();
         }
 
@@ -501,20 +500,20 @@ namespace Fluent
         public static Rect GetControlMonitor(FrameworkElement control)
         {
             var tabItemPos = control.PointToScreen(new Point(0, 0));
+#pragma warning disable 618
             var tabItemRect = new RECT();
-            tabItemRect.left = (int)tabItemPos.X;
-            tabItemRect.top = (int)tabItemPos.Y;
-            tabItemRect.right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            tabItemRect.Left = (int)tabItemPos.X;
+            tabItemRect.Top = (int)tabItemPos.Y;
+            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
+            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
 
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MONITORINFO.MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
-                var monitorInfo = new MONITORINFO();
-                monitorInfo.cbSize = Marshal.SizeOf(monitorInfo);
-                NativeMethods.GetMonitorInfo(monitor, monitorInfo);
-                return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
+                var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
+                return new Rect(monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Top, monitorInfo.rcMonitor.Right - monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Bottom - monitorInfo.rcMonitor.Top);
             }
+#pragma warning restore 618
             return new Rect();
         }
 
