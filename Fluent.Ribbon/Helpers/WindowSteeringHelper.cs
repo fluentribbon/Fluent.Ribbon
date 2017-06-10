@@ -86,7 +86,7 @@
         /// </summary>
         /// <param name="dependencyObject">The object which was the source of the mouse event.</param>
         /// <param name="e">The mouse event args.</param>
-        public static void ShowSystemMenuPhysicalCoordinates(DependencyObject dependencyObject, MouseButtonEventArgs e)
+        public static void ShowSystemMenu(DependencyObject dependencyObject, MouseButtonEventArgs e)
         {
             var window = Window.GetWindow(dependencyObject);
 
@@ -95,7 +95,7 @@
                 return;
             }
 
-            ShowSystemMenuPhysicalCoordinates(window, e);
+            ShowSystemMenu(window, e);
         }
 
         /// <summary>
@@ -103,46 +103,24 @@
         /// </summary>
         /// <param name="window">The window for which the system menu should be shown.</param>
         /// <param name="e">The mouse event args.</param>
-        public static void ShowSystemMenuPhysicalCoordinates(Window window, MouseButtonEventArgs e)
+        public static void ShowSystemMenu(Window window, MouseButtonEventArgs e)
         {
             var mousePosition = e.GetPosition(window);
             var physicalScreenLocation = window.PointToScreen(mousePosition);
-            ShowSystemMenuPhysicalCoordinates(window, e, physicalScreenLocation);
-        }
-
-        /// <summary>
-        /// Shows the system menu at <paramref name="physicalScreenLocation"/>.
-        /// </summary>
-        /// <param name="window">The window for which the system menu should be shown.</param>
-        /// <param name="e">The mouse event args.</param>
-        /// <param name="physicalScreenLocation">The location at which the system menu should be shown.</param>
-        public static void ShowSystemMenuPhysicalCoordinates(Window window, MouseButtonEventArgs e, Point physicalScreenLocation)
-        {
-            var hwnd = new WindowInteropHelper(window).Handle;
-            if (hwnd == IntPtr.Zero
-#pragma warning disable 618
-                || NativeMethods.IsWindow(hwnd) == false)
-#pragma warning restore 618
-            {
-                return;
-            }
 
             e.Handled = true;
 
-            window.RunInDispatcherAsync(() => ShowSystemMenuPhysicalCoordinates(hwnd, physicalScreenLocation), DispatcherPriority.Background);
+            ShowSystemMenu(window, physicalScreenLocation);
         }
 
-        private static void ShowSystemMenuPhysicalCoordinates(IntPtr hwnd, Point physicalScreenLocation)
+        /// <summary>
+        /// Shows the system menu at <paramref name="screenLocation"/>.
+        /// </summary>
+        /// <param name="window">The window for which the system menu should be shown.</param>
+        /// <param name="screenLocation">The location at which the system menu should be shown.</param>
+        public static void ShowSystemMenu(Window window, Point screenLocation)
         {
-#pragma warning disable 618
-            var hmenu = NativeMethods.GetSystemMenu(hwnd, false);
-
-            var cmd = NativeMethods.TrackPopupMenuEx(hmenu, Constants.TPM_LEFTALIGN | Constants.TPM_RETURNCMD, (int)physicalScreenLocation.X, (int)physicalScreenLocation.Y, hwnd, IntPtr.Zero);
-            if (0 != cmd)
-            {
-                NativeMethods.PostMessage(hwnd, WM.SYSCOMMAND, new IntPtr(cmd), IntPtr.Zero);
-            }
-#pragma warning restore 618
+            SystemCommands.ShowSystemMenu(window, screenLocation);
         }
     }
 }

@@ -154,9 +154,9 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
         {
-            base.OnMouseRightButtonDown(e);
+            base.OnMouseRightButtonUp(e);
 
             if (e.Handled
                 || this.IsMouseDirectlyOver == false)
@@ -164,7 +164,7 @@ namespace Fluent
                 return;
             }
 
-            WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+            WindowSteeringHelper.ShowSystemMenu(this, e);
         }
 
         /// <inheritdoc />

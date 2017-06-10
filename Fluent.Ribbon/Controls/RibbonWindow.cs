@@ -291,7 +291,7 @@ namespace Fluent
                     {
                         e.Handled = true;
 
-                        WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e, this.PointToScreen(new Point(0, this.TitleBarHeight)));
+                        WindowSteeringHelper.ShowSystemMenu(this, this.PointToScreen(new Point(0, this.TitleBarHeight)));
                     }
                     else if (e.ClickCount == 2)
                     {
@@ -304,7 +304,7 @@ namespace Fluent
                 case MouseButton.Right:
                     e.Handled = true;
 
-                    WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+                    WindowSteeringHelper.ShowSystemMenu(this, e);
                     break;
             }
         }

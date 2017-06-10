@@ -205,7 +205,7 @@ namespace Fluent
         {
             base.OnMouseRightButtonDown(e);
 
-            WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+            WindowSteeringHelper.ShowSystemMenu(this, e);
         }
 
         private void MinimizeClick(object sender, RoutedEventArgs e)

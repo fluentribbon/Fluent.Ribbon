@@ -48,7 +48,7 @@ namespace Fluent
 
             if (this.IsEnabled)
             {
-                WindowSteeringHelper.ShowSystemMenuPhysicalCoordinates(this, e);
+                WindowSteeringHelper.ShowSystemMenu(this, e);
             }
         }
     }
