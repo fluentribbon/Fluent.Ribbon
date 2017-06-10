@@ -1,0 +1,21 @@
+NUGET
+  remote: https://www.nuget.org/api/v2
+    7-Zip.CommandLine (9.20)
+    ControlzEx (3.0.1-dev0023)
+    gitlink (2.3)
+    MahApps.Metro (1.5)
+    NuGet.CommandLine (4.1)
+    NUnit (3.7.1) - framework: net40, net45
+    NUnit.Console (3.6.1) - framework: net40, net45
+      NUnit.ConsoleRunner (>= 3.6.1)
+      NUnit.Extension.NUnitProjectLoader (>= 3.5)
+      NUnit.Extension.NUnitV2Driver (>= 3.6)
+      NUnit.Extension.NUnitV2ResultWriter (>= 3.5)
+      NUnit.Extension.TeamCityEventListener (>= 1.0.2)
+      NUnit.Extension.VSProjectLoader (>= 3.5)
+    NUnit.ConsoleRunner (3.6.1) - framework: net40, net45
+    NUnit.Extension.NUnitProjectLoader (3.5) - framework: net40, net45
+    NUnit.Extension.NUnitV2Driver (3.6) - framework: net40, net45
+    NUnit.Extension.NUnitV2ResultWriter (3.5) - framework: net40, net45
+    NUnit.Extension.TeamCityEventListener (1.0.2) - framework: net40, net45
+    NUnit.Extension.VSProjectLoader (3.5) - framework: net40, net45

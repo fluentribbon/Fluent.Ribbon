@@ -1,0 +1,10 @@
+source https://www.nuget.org/api/v2/
+
+nuget 7-Zip.Commandline 9.20.0
+nuget gitlink 2.3.0
+nuget NuGet.CommandLine
+
+nuget ControlzEx @>= 3.0.1 prerelease
+nuget MahApps.Metro 1.5.0
+nuget NUnit 3.7.1 framework: net45, net40
+nuget NUnit.Console 3.6.1 framework: net45, net40
