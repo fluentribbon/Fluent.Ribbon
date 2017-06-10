@@ -193,7 +193,7 @@
                     var controlName = control != null && string.IsNullOrEmpty(control.Name) == false
                       ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
                       : string.Empty;
-                    Debug.WriteLine($"Control {element.Key.GetType().Name} is not found in logical tree during QAT saving{controlName}");
+                    Debug.WriteLine($"Control \"{controlName}\" of type \"{element.Key.GetType().Name}\" is not found in logical tree during QAT saving");
 #endif
                 }
             }
