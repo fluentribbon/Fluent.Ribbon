@@ -118,7 +118,9 @@
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
 #if NET40
+#pragma warning disable 618
             Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
+#pragma warning restore 618
 #else
             SystemCommands.ShowSystemMenu(window, screenLocation);
 #endif
