@@ -40,7 +40,9 @@
   </Target>
 
   <Target Name="RunTests">    
+    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.0/Fluent.Tests.dll&quot;" />
     <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.5/Fluent.Tests.dll&quot;" />
+    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.6.2/Fluent.Tests.dll&quot;" />
   </Target>
 
   <Target Name="RunGitLink">
