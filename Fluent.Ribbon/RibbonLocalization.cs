@@ -82,7 +82,7 @@
         {
             var localizationClasses = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Fluent.Localization.Languages");
 
-#if NET45
+#if NET45 || NET462
             this.localizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>().CultureName, x => x);
 #else
             this.localizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttributes(typeof(RibbonLocalizationAttribute), false).OfType<RibbonLocalizationAttribute>().First().CultureName, x => x);

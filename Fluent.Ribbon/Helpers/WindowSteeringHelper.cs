@@ -4,10 +4,7 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Interop;
-    using System.Windows.Threading;
     using ControlzEx.Native;
-    using Fluent.Extensions;
     using Standard;
 
     /// <summary>
@@ -120,7 +117,11 @@
         /// <param name="screenLocation">The location at which the system menu should be shown.</param>
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
+#if NET40
+            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
+#else
             SystemCommands.ShowSystemMenu(window, screenLocation);
+#endif
         }
     }
 }

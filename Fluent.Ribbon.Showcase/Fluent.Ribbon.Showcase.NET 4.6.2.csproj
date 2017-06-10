@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2A893D50-BBC4-4482-ADAA-D52B517E8632}</ProjectGuid>
+    <ProjectGuid>{0C2A086B-4333-46C1-85B6-A5933CB1BC60}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -24,7 +24,7 @@
     <Optimize>false</Optimize>
     <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
     <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
-    <DefineConstants>DEBUG;TRACE;NET40</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NET462</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -36,7 +36,7 @@
     <Optimize>true</Optimize>
     <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
     <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
-    <DefineConstants>TRACE;NET40</DefineConstants>
+    <DefineConstants>TRACE;NET462</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
@@ -169,9 +169,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.0.csproj">
-      <Project>{281095D8-D8B3-4A7F-8896-646483FB685C}</Project>
-      <Name>Fluent.Ribbon.NET 4.0</Name>
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.5.csproj">
+      <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
+      <Name>Fluent.Ribbon.NET 4.5</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -25,5 +25,9 @@
         <file src="bin\Fluent\$Configuration$v4.5\Fluent.dll" target="lib\net45" />
         <file src="bin\Fluent\$Configuration$v4.5\Fluent.pdb" target="lib\net45" />
         <file src="bin\Fluent\$Configuration$v4.5\Fluent.XML" target="lib\net45" />
+
+        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.dll" target="lib\net462" />
+        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.pdb" target="lib\net462" />
+        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.XML" target="lib\net462" />
     </files>
 </package>
