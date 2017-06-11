@@ -20,4 +20,4 @@ NUGET
     NUnit.Extension.TeamCityEventListener (1.0.2) - framework: net40, net45, net462
     NUnit.Extension.VSProjectLoader (3.5) - framework: net40, net45, net462
   remote: https://ci.appveyor.com/nuget/controlzex
-    ControlzEx (3.0.1-dev0024) - framework: net40, net45, net462
+    ControlzEx (3.0.1-dev0028) - framework: net40, net45, net462
