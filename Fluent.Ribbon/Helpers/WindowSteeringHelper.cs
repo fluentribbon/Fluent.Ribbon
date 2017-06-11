@@ -102,12 +102,11 @@
         /// <param name="e">The mouse event args.</param>
         public static void ShowSystemMenu(Window window, MouseButtonEventArgs e)
         {
-            var mousePosition = e.GetPosition(window);
-            var physicalScreenLocation = window.PointToScreen(mousePosition);
-
             e.Handled = true;
 
-            ShowSystemMenu(window, physicalScreenLocation);
+#pragma warning disable 618
+            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
+#pragma warning restore 618
         }
 
         /// <summary>
@@ -117,13 +116,9 @@
         /// <param name="screenLocation">The location at which the system menu should be shown.</param>
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
-#if NET40
 #pragma warning disable 618
             Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
 #pragma warning restore 618
-#else
-            SystemCommands.ShowSystemMenu(window, screenLocation);
-#endif
         }
     }
 }
