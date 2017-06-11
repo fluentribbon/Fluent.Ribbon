@@ -105,7 +105,7 @@
             e.Handled = true;
 
 #pragma warning disable 618
-            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
+            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);            
 #pragma warning restore 618
         }
 
