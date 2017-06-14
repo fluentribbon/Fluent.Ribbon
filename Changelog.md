@@ -137,6 +137,7 @@
   - [#440](../../issues/440) - Enable changing the height of content area of RibbonTabControl  
   `ContentHeight` is available on `Ribbon` and tranferred to `RibbonTabControl` from there
   - [#443](../../issues/443) - Release .NET 4.6.2 version
+  - [#444](../../issues/444) - Add `IgnoreTaskbarOnMaximize` to `RibbonWindow`
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
