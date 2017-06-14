@@ -16,6 +16,8 @@
     - Type of metadata for `Menu` and `StartScreen` changed from `PropertyMetadata` to `FrameworkPropertyMetadata`
   - The following `Color` and `Brush` resources got replaced/renamed/removed:
 
+<details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
+
 |Old|New|
 |---|---|
 | ButtonDisabledBackgroundBrush | --- |
@@ -118,6 +120,7 @@
 |---|---|
 | NonEditableComboBoxItemStyle | is now the default style |
 | EditableComboBoxItemStyle | --- |
+</p></details>
 
 - ### Bug fixes
   - [#395](../../issues/395) - issues with contextual tab group
