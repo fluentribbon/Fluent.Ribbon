@@ -403,78 +403,695 @@
                                             Target="{Binding Source={x:Reference UndoButton}}" />
             </Fluent:Ribbon.QuickAccessItems>
 
-            <Fluent:RibbonTabItem Header="Options"
-                                  KeyTip="O"
-                                  ToolTip="Regular Tool Tip">
-                <Fluent:RibbonGroupBox Header="Menu">
-                    <Fluent:ToggleButton GroupName="Menu"
-                                         Name="UseBackstage"
-                                         Size="Middle"
-                                         IsChecked="True">
-                        Use backstage
-                    </Fluent:ToggleButton>
-                    <Fluent:ToggleButton GroupName="Menu"
-                                         Name="UseApplicationMenu"
-                                         Size="Middle">
-                        Use application menu
-                    </Fluent:ToggleButton>
-                    <Fluent:Button Name="ShowStartScreen"
-                                   Size="Middle"
-                                   Click="ShowStartScreen_OnClick">
-                        Show start screen
+            <Fluent:RibbonTabItem Header="Toolbars"
+                                  KeyTip="TO"
+                                  ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                                       KeyTip="C"
+                                       x:Name="Clipboard"
+                                       Header="Clipboard"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick"
+                                       LauncherKeys="ZB">
+                    <Fluent:SplitButton x:Name="pasteButton"
+                                        KeyTip="V"
+                                        Header="Paste"
+                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
+                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
+                                        SizeDefinition="Large"
+                                        Command="ApplicationCommands.Paste"
+                                        FocusManager.IsFocusScope="True">
+                        <Fluent:SplitButton.ToolTip>
+                            <Fluent:ScreenTip Title="Paste (Ctrl+V)"
+                                              Text="Paste the contents of the Clipboard."
+                                              DisableReason="Enable it do use this function"
+                                              Width="190" />
+                        </Fluent:SplitButton.ToolTip>
+                        <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                        Orientation="Horizontal"
+                                        GroupBy="Tag"
+                                        Selectable="False"
+                                        ItemWidth="32"
+                                        ItemHeight="32">
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteImage.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="K"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteText.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="M"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteTextOnly.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="T"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="L"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                            <Fluent:GalleryItem Command="Paste">
+                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteSourceFormating.png"
+                                       Width="24"
+                                       Height="24"
+                                       Fluent:KeyTip.Keys="E"
+                                       Tag="Paste Options:" />
+                            </Fluent:GalleryItem>
+                        </Fluent:Gallery>
+                        <Fluent:MenuItem Header="Paste Special..."
+                                         KeyTip="S">
+                            <Fluent:MenuItem.ToolTip>
+                                <Fluent:ScreenTip Title="Paste Special"
+                                                  Text="This ScreenTip is attached to menu item" />
+                            </Fluent:MenuItem.ToolTip>
+                        </Fluent:MenuItem>
+                        <Separator />
+                        <Fluent:MenuItem Header="Set Default Paste..."
+                                         KeyTip="A"
+                                         IsSplited="True"
+                                         Command="Paste">
+                            <Fluent:MenuItem Header="1"
+                                             Click="OnMenuItemClick" />
+                            <Fluent:MenuItem Header="2"
+                                             Command="Paste" />
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="Paste now"
+                                         Command="Paste" />
+                    </Fluent:SplitButton>
+                    <Fluent:Button x:Name="cutButton"
+                                   KeyTip="X"
+                                   Header="Cut"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Cut.png"
+                                   SizeDefinition="Middle,Small"
+                                   Command="Cut"
+                                   FocusManager.IsFocusScope="True">
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Cut (Ctrl+X)"
+                                              Text="Cut the contents to the Clipboard."
+                                              DisableReason="Cut is currently not available."
+                                              Width="190" />
+                        </Fluent:Button.ToolTip>
                     </Fluent:Button>
+                    <Fluent:Button x:Name="copyButton"
+                                   KeyTip="C"
+                                   Header="Copy"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Copy.png"
+                                   Command="Copy"
+                                   FocusManager.IsFocusScope="True">
+                        <Fluent:Button.SizeDefinition>
+                            <Fluent:RibbonControlSizeDefinition Large="Middle"
+                                                                Middle="Small" />
+                        </Fluent:Button.SizeDefinition>
+                        <Fluent:Button.ToolTip>
+                            <Fluent:ScreenTip Title="Insert Chart"
+                                              DisableReason="Disable reason reason." />
+                        </Fluent:Button.ToolTip>
+                    </Fluent:Button>
+                    <Fluent:Button KeyTip="FP"
+                                   Header="Format Painter"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FormatPainter.png"
+                                   SizeDefinition="Middle,Small"
+                                   Click="OnFormatPainterClick" />
+                    <Fluent:DropDownButton Name="buttonWatermark"
+                                           KeyTip="W"
+                                           Header="Watermark"
+                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
+                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           IsEnabled="True"
+                                           VerticalAlignment="Top">
+                        <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
+                                        GroupBy="Tag"
+                                        x:Name="WatermarkGallery"
+                                        MinItemsInRow="1"
+                                        MaxItemsInRow="3"
+                                        Orientation="Horizontal"
+                                        ItemWidth="100"
+                                        ItemHeight="100">
+                            <Fluent:Gallery.Filters>
+                                <Fluent:GalleryGroupFilter Title="All"
+                                                           Groups="Confidential,Disclaimers,Urgent"
+                                                           x:Name="galleryFilterAll3" />
+                                <Fluent:GalleryGroupFilter Title="Confidential"
+                                                           Groups="Confidential" />
+                                <Fluent:GalleryGroupFilter Title="Disclaimers"
+                                                           Groups="Disclaimers" />
+                                <Fluent:GalleryGroupFilter Title="Urgent"
+                                                           Groups="Urgent" />
+                            </Fluent:Gallery.Filters>
+
+                            <!-- Confidential group items -->
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="CONFIDENTIAL 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="CONFIDENTIAL 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PinkLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DO NOT COPY 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Confidential"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DO NOT COPY 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Disclaimers group items -->
+                            <Border Tag="Disclaimers"
+                                    x:Name="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DRAFT 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="DRAFT 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="SAMPLE 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Disclaimers"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="SAMPLE 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Disclaimers group items -->
+                            <Border Tag="Urgent"
+                                    x:Name="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="ASAP 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="ASAP 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="URGENT 1"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                            <Border Tag="Urgent"
+                                    BorderThickness="4"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <Image VerticalAlignment="Top"
+                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           Stretch="None" />
+                                    <TextBlock Text="URGENT 2"
+                                               VerticalAlignment="Bottom"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </Fluent:Gallery>
+
+                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
+                        <Fluent:MenuItem Header="Remove Watermark"
+                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                         Size="Middle"
+                                         IsEnabled="True" />
+                    </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="Window options">
-                    <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
-                        IsIconVisible
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
-                                     IsChecked="True">
-                        IsStatusBarVisible
-                    </Fluent:CheckBox>
+                <Fluent:RibbonGroupBox KeyTip="F"
+                                       x:Name="Font"
+                                       Header="Font"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
+                                       LauncherIcon="/Images/FontColor.png"
+                                       LauncherKeys="NF">
+                    <Fluent:RibbonToolBar>
+                        <!--ToolBar Layout Definitions-->
+                        <Fluent:RibbonToolBar.LayoutDefinitions>
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
+                                                                           Width="75" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
+                                                                           Width="45" />
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
+                                                                           Width="125" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
+                                                                           Width="50" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                    <Fluent:RibbonToolBarControlGroupDefinition>
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
+                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
+                                    </Fluent:RibbonToolBarControlGroupDefinition>
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+                        </Fluent:RibbonToolBar.LayoutDefinitions>
+
+                        <!--ToolBar Controls-->
+
+                        <Fluent:ComboBox x:Name="comboBoxFontName"
+                                         MinWidth="40"
+                                         Height="22"
+                                         BorderBrush="Gainsboro"
+                                         Foreground="#FF222222"
+                                         DisplayMemberPath="Text"
+                                         IsTextSearchEnabled="True"
+                                         ResizeMode="Vertical"
+                                         KeyTip="FF"
+                                         SizeDefinition="Small"
+                                         ScrollViewer.CanContentScroll="False"
+                                         SelectedIndex="0">
+                            <Fluent:ComboBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Fluent:GalleryPanel GroupBy="Tag"
+                                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
+                                </ItemsPanelTemplate>
+                            </Fluent:ComboBox.ItemsPanel>
+                            <TextBlock Text="Arial"
+                                       HorizontalAlignment="Stretch"
+                                       Tag="Theme Fonts" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="Theme Fonts" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="Recent Used Fonts" />
+                            <TextBlock Text="Arial"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Segoe UI"
+                                       Tag="AllFonts"
+                                       x:Name="segoeFont" />
+                            <TextBlock Text="Tahoma"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Webdings"
+                                       Tag="AllFonts" />
+                            <TextBlock Text="Winding"
+                                       Tag="AllFonts" />
+                        </Fluent:ComboBox>
+                        <Fluent:ComboBox x:Name="comboBoxFontSize"
+                                         Width="49"
+                                         HorizontalAlignment="Left"
+                                         Height="22"
+                                         SelectedIndex="1"
+                                         BorderBrush="Gainsboro"
+                                         Foreground="#FF222222"
+                                         Text="12"
+                                         DisplayMemberPath="Text"
+                                         IsEditable="False"
+                                         SizeDefinition="Small"
+                                         ResizeMode="Vertical"
+                                         KeyTip="FS">
+                            <TextBlock Text="7" />
+                            <TextBlock Text="8" />
+                            <TextBlock Text="9" />
+                            <TextBlock Text="10" />
+                            <TextBlock Text="11" />
+                            <TextBlock Text="12" />
+                            <TextBlock Text="14" />
+                            <TextBlock Text="16" />
+                            <TextBlock Text="18" />
+                            <TextBlock Text="20" />
+                            <TextBlock Text="22" />
+                            <TextBlock Text="24" />
+                            <TextBlock Text="28" />
+                            <TextBlock Text="32" />
+                            <TextBlock Text="36" />
+                            <TextBlock Text="48" />
+                            <TextBlock Text="72" />
+                        </Fluent:ComboBox>
+                        <Fluent:Button KeyTip="GF"
+                                       x:Name="buttonGrowFont"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonShrinkFont"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:DropDownButton x:Name="buttonChangeCase"
+                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ChangeCase.png"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonClearFormatting"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ClearFormatting.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:ToggleButton KeyTip="B"
+                                             x:Name="buttonBold"
+                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Bold.png"
+                                             HorizontalAlignment="Left"
+                                             SizeDefinition="Small" />
+                        <Fluent:ToggleButton x:Name="buttonItalic"
+                                             KeyTip="I"
+                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Italic.png"
+                                             HorizontalAlignment="Left"
+                                             SizeDefinition="Small" />
+                        <Fluent:DropDownButton x:Name="buttonUnderline"
+                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Underline.png"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonStrikethrough"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Strikethrough.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonSubscript"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Subscript.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+                        <Fluent:Button x:Name="buttonSuperscript"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Superscript.png"
+                                       HorizontalAlignment="Left"
+                                       SizeDefinition="Small" />
+
+                        <!-- It's possible to create custom icon to present selected color -->
+                        <Fluent:DropDownButton x:Name="buttonTextEffects"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small">
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/TextEffects.png"
+                                           Width="16"
+                                           Height="16" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="2"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.StandardColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery Mode="StandardColors"
+                                                 SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
+                            <Fluent:MenuItem Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png"
+                                             Header="Custom MenuItem" />
+                        </Fluent:DropDownButton>
+
+                        <!-- The following code shows highlight colors mode for color gallery -->
+                        <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small">
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/TextHighlightColor.png"
+                                           Width="16"
+                                           Height="16" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="4"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.HighlightColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery Mode="HighlightColors"
+                                                 SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
+                                                 IsAutomaticColorButtonVisible="False" />
+                        </Fluent:DropDownButton>
+
+                        <!-- The following code shows theme colors mode for color gallery -->
+                        <Fluent:DropDownButton x:Name="buttonFontColor"
+                                               HorizontalAlignment="Left"
+                                               SizeDefinition="Small"
+                                               MaxDropDownHeight="500">
+                            <Fluent:DropDownButton.ToolTip>
+                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
+                            </Fluent:DropDownButton.ToolTip>
+                            <Fluent:DropDownButton.Icon>
+                                <Grid>
+                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
+                                           Width="16"
+                                           Height="16"
+                                           SnapsToDevicePixels="True" />
+                                    <Rectangle VerticalAlignment="Bottom"
+                                               Height="4"
+                                               Width="16"
+                                               HorizontalAlignment="Center">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ColorViewModel.ThemeColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Grid>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
+                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=TwoWay}"
+                                                 Mode="ThemeColors"
+                                                 StandardColorGridRows="3"
+                                                 Columns="10"
+                                                 ThemeColorGridRows="5"
+                                                 IsNoColorButtonVisible="True" />
+                        </Fluent:DropDownButton>
+                    </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="Ribbon options">
-                    <Fluent:CheckBox IsChecked="{Binding ShowQuickAccessToolBarAboveRibbon, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        ShowQuickAccessToolBarAboveRibbon
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBar, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        CanCustomizeQuickAccessToolBar
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBarItems, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        CanCustomizeQuickAccessToolBarItems
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeRibbon, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        CanCustomizeRibbon
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        IsMinimized
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding CanMinimize, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        CanMinimize
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        IsCollapsed
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        IsAutomaticCollapseEnabled
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        IsQuickAccessToolBarVisible
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarMenuDropDownVisible , RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        IsQuickAccessToolBarMenuDropDownVisible
-                    </Fluent:CheckBox>                    
-                    <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        CanQuickAccessLocationChanging
-                    </Fluent:CheckBox>
-                    <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, RelativeSource={RelativeSource AncestorType={x:Type Fluent:Ribbon}}}">
-                        AutomaticStateManagement
-                    </Fluent:CheckBox>
+                <Fluent:RibbonGroupBox Header="Group"
+                                       Name="Group">
+                    <Fluent:RibbonToolBar>
+                        <!--ToolBar Layout Definitions-->
+                        <Fluent:RibbonToolBar.LayoutDefinitions>
+
+                            <!--Large Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="127" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown"
+                                                                           Size="Middle" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                            <!--Large Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="90" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                            <!--Middle Size of the RibbonToolBar-->
+                            <Fluent:RibbonToolBarLayoutDefinition Size="Small">
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
+                                                                           Width="45" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
+                                </Fluent:RibbonToolBarRow>
+                                <Fluent:RibbonToolBarRow>
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
+                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
+                                </Fluent:RibbonToolBarRow>
+                            </Fluent:RibbonToolBarLayoutDefinition>
+
+                        </Fluent:RibbonToolBar.LayoutDefinitions>
+
+                        <!--ToolBar Controls-->
+                        <Fluent:Spinner x:Name="spinner" />
+                        <Fluent:Button x:Name="buttonGreen"
+                                       Header="Green"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
+                        <Fluent:Button x:Name="buttonGray"
+                                       Header="Gray"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
+                        <Fluent:Button x:Name="buttonYellow"
+                                       Header="Yellow"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
+                        <Fluent:Button x:Name="buttonBrown"
+                                       Header="Brown"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
+                    </Fluent:RibbonToolBar>
+
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                                       KeyTip="ZXB"
+                                       x:Name="B"
+                                       Header="Spinners"
+                                       IsLauncherVisible="True"
+                                       LauncherClick="OnLauncherButtonClick">
+                    <Fluent:Spinner KeyTip="KA"
+                                    Value="{Binding BoundSpinnerValue}"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Left:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                    IsEnabled="False" />
+                    <Fluent:Spinner KeyTip="KB"
+                                    Value="{Binding BoundSpinnerValue}"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Right:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                    SelectAllTextOnFocus="True" />
+                    <Fluent:Spinner KeyTip="KC"
+                                    InputWidth="75"
+                                    Format="0 px"
+                                    Header="Top:"
+                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-
+            
             <Fluent:RibbonTabItem Header="Insert"
                                   KeyTip="I"
                                   IsSeparatorVisible="true"
@@ -1583,695 +2200,6 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="Toolbars"
-                                  KeyTip="TO"
-                                  ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
-                                       KeyTip="C"
-                                       x:Name="Clipboard"
-                                       Header="Clipboard"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick"
-                                       LauncherKeys="ZB">
-                    <Fluent:SplitButton x:Name="pasteButton"
-                                        KeyTip="V"
-                                        Header="Paste"
-                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
-                                        SizeDefinition="Large"
-                                        Command="ApplicationCommands.Paste"
-                                        FocusManager.IsFocusScope="True">
-                        <Fluent:SplitButton.ToolTip>
-                            <Fluent:ScreenTip Title="Paste (Ctrl+V)"
-                                              Text="Paste the contents of the Clipboard."
-                                              DisableReason="Enable it do use this function"
-                                              Width="190" />
-                        </Fluent:SplitButton.ToolTip>
-                        <Fluent:Gallery ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                        Orientation="Horizontal"
-                                        GroupBy="Tag"
-                                        Selectable="False"
-                                        ItemWidth="32"
-                                        ItemHeight="32">
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteImage.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="K"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteText.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="M"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteTextOnly.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="T"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteFormating.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="L"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                            <Fluent:GalleryItem Command="Paste">
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteSourceFormating.png"
-                                       Width="24"
-                                       Height="24"
-                                       Fluent:KeyTip.Keys="E"
-                                       Tag="Paste Options:" />
-                            </Fluent:GalleryItem>
-                        </Fluent:Gallery>
-                        <Fluent:MenuItem Header="Paste Special..."
-                                         KeyTip="S">
-                            <Fluent:MenuItem.ToolTip>
-                                <Fluent:ScreenTip Title="Paste Special"
-                                                  Text="This ScreenTip is attached to menu item" />
-                            </Fluent:MenuItem.ToolTip>
-                        </Fluent:MenuItem>
-                        <Separator />
-                        <Fluent:MenuItem Header="Set Default Paste..."
-                                         KeyTip="A"
-                                         IsSplited="True"
-                                         Command="Paste">
-                            <Fluent:MenuItem Header="1"
-                                             Click="OnMenuItemClick" />
-                            <Fluent:MenuItem Header="2"
-                                             Command="Paste" />
-                        </Fluent:MenuItem>
-                        <Fluent:MenuItem Header="Paste now"
-                                         Command="Paste" />
-                    </Fluent:SplitButton>
-                    <Fluent:Button x:Name="cutButton"
-                                   KeyTip="X"
-                                   Header="Cut"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Cut.png"
-                                   SizeDefinition="Middle,Small"
-                                   Command="Cut"
-                                   FocusManager.IsFocusScope="True">
-                        <Fluent:Button.ToolTip>
-                            <Fluent:ScreenTip Title="Cut (Ctrl+X)"
-                                              Text="Cut the contents to the Clipboard."
-                                              DisableReason="Cut is currently not available."
-                                              Width="190" />
-                        </Fluent:Button.ToolTip>
-                    </Fluent:Button>
-                    <Fluent:Button x:Name="copyButton"
-                                   KeyTip="C"
-                                   Header="Copy"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Copy.png"
-                                   Command="Copy"
-                                   FocusManager.IsFocusScope="True">
-                        <Fluent:Button.SizeDefinition>
-                            <Fluent:RibbonControlSizeDefinition Large="Middle"
-                                                                Middle="Small" />
-                        </Fluent:Button.SizeDefinition>
-                        <Fluent:Button.ToolTip>
-                            <Fluent:ScreenTip Title="Insert Chart"
-                                              DisableReason="Disable reason reason." />
-                        </Fluent:Button.ToolTip>
-                    </Fluent:Button>
-                    <Fluent:Button KeyTip="FP"
-                                   Header="Format Painter"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FormatPainter.png"
-                                   SizeDefinition="Middle,Small"
-                                   Click="OnFormatPainterClick" />
-                    <Fluent:DropDownButton Name="buttonWatermark"
-                                           KeyTip="W"
-                                           Header="Watermark"
-                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
-                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           IsEnabled="True"
-                                           VerticalAlignment="Top">
-                        <Fluent:Gallery SelectedFilter="{Binding ElementName=galleryFilterAll3}"
-                                        GroupBy="Tag"
-                                        x:Name="WatermarkGallery"
-                                        MinItemsInRow="1"
-                                        MaxItemsInRow="3"
-                                        Orientation="Horizontal"
-                                        ItemWidth="100"
-                                        ItemHeight="100">
-                            <Fluent:Gallery.Filters>
-                                <Fluent:GalleryGroupFilter Title="All"
-                                                           Groups="Confidential,Disclaimers,Urgent"
-                                                           x:Name="galleryFilterAll3" />
-                                <Fluent:GalleryGroupFilter Title="Confidential"
-                                                           Groups="Confidential" />
-                                <Fluent:GalleryGroupFilter Title="Disclaimers"
-                                                           Groups="Disclaimers" />
-                                <Fluent:GalleryGroupFilter Title="Urgent"
-                                                           Groups="Urgent" />
-                            </Fluent:Gallery.Filters>
-
-                            <!-- Confidential group items -->
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="CONFIDENTIAL 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="CONFIDENTIAL 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PinkLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DO NOT COPY 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Confidential"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DO NOT COPY 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Disclaimers group items -->
-                            <Border Tag="Disclaimers"
-                                    x:Name="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DRAFT 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="DRAFT 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="SAMPLE 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Disclaimers"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="SAMPLE 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Disclaimers group items -->
-                            <Border Tag="Urgent"
-                                    x:Name="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="ASAP 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="ASAP 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="URGENT 1"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                            <Border Tag="Urgent"
-                                    BorderThickness="4"
-                                    BorderBrush="Transparent">
-                                <StackPanel>
-                                    <Image VerticalAlignment="Top"
-                                           Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                           Stretch="None" />
-                                    <TextBlock Text="URGENT 2"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center" />
-                                </StackPanel>
-                            </Border>
-                        </Fluent:Gallery>
-
-                        <!-- Menu Items **** NOTICE THIS IS OUTSIDE OF THE GALLERY **** -->
-                        <Fluent:MenuItem Header="Remove Watermark"
-                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
-                                         Size="Middle"
-                                         IsEnabled="True" />
-                    </Fluent:DropDownButton>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox KeyTip="F"
-                                       x:Name="Font"
-                                       Header="Font"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
-                                       LauncherIcon="/Images/FontColor.png"
-                                       LauncherKeys="NF">
-                    <Fluent:RibbonToolBar>
-                        <!--ToolBar Layout Definitions-->
-                        <Fluent:RibbonToolBar.LayoutDefinitions>
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
-                                                                           Width="75" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
-                                                                           Width="45" />
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontName"
-                                                                           Width="125" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="comboBoxFontSize"
-                                                                           Width="50" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonBold" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonItalic" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonUnderline" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonStrikethrough" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSubscript" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonSuperscript" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonClearFormatting" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextEffects" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonTextHighlightColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonFontColor" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonChangeCase" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                    <Fluent:RibbonToolBarControlGroupDefinition>
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonGrowFont" />
-                                        <Fluent:RibbonToolBarControlDefinition Target="buttonShrinkFont" />
-                                    </Fluent:RibbonToolBarControlGroupDefinition>
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-                        </Fluent:RibbonToolBar.LayoutDefinitions>
-
-                        <!--ToolBar Controls-->
-
-                        <Fluent:ComboBox x:Name="comboBoxFontName"
-                                         MinWidth="40"
-                                         Height="22"
-                                         BorderBrush="Gainsboro"
-                                         Foreground="#FF222222"
-                                         DisplayMemberPath="Text"
-                                         IsTextSearchEnabled="True"
-                                         ResizeMode="Vertical"
-                                         KeyTip="FF"
-                                         SizeDefinition="Small"
-                                         ScrollViewer.CanContentScroll="False"
-                                         SelectedIndex="0">
-                            <Fluent:ComboBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Fluent:GalleryPanel GroupBy="Tag"
-                                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
-                                </ItemsPanelTemplate>
-                            </Fluent:ComboBox.ItemsPanel>
-                            <TextBlock Text="Arial"
-                                       HorizontalAlignment="Stretch"
-                                       Tag="Theme Fonts" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="Theme Fonts" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="Recent Used Fonts" />
-                            <TextBlock Text="Arial"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Segoe UI"
-                                       Tag="AllFonts"
-                                       x:Name="segoeFont" />
-                            <TextBlock Text="Tahoma"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Webdings"
-                                       Tag="AllFonts" />
-                            <TextBlock Text="Winding"
-                                       Tag="AllFonts" />
-                        </Fluent:ComboBox>
-                        <Fluent:ComboBox x:Name="comboBoxFontSize"
-                                         Width="49"
-                                         HorizontalAlignment="Left"
-                                         Height="22"
-                                         SelectedIndex="1"
-                                         BorderBrush="Gainsboro"
-                                         Foreground="#FF222222"
-                                         Text="12"
-                                         DisplayMemberPath="Text"
-                                         IsEditable="False"
-                                         SizeDefinition="Small"
-                                         ResizeMode="Vertical"
-                                         KeyTip="FS">
-                            <TextBlock Text="7" />
-                            <TextBlock Text="8" />
-                            <TextBlock Text="9" />
-                            <TextBlock Text="10" />
-                            <TextBlock Text="11" />
-                            <TextBlock Text="12" />
-                            <TextBlock Text="14" />
-                            <TextBlock Text="16" />
-                            <TextBlock Text="18" />
-                            <TextBlock Text="20" />
-                            <TextBlock Text="22" />
-                            <TextBlock Text="24" />
-                            <TextBlock Text="28" />
-                            <TextBlock Text="32" />
-                            <TextBlock Text="36" />
-                            <TextBlock Text="48" />
-                            <TextBlock Text="72" />
-                        </Fluent:ComboBox>
-                        <Fluent:Button KeyTip="GF"
-                                       x:Name="buttonGrowFont"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonShrinkFont"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:DropDownButton x:Name="buttonChangeCase"
-                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ChangeCase.png"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonClearFormatting"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ClearFormatting.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:ToggleButton KeyTip="B"
-                                             x:Name="buttonBold"
-                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Bold.png"
-                                             HorizontalAlignment="Left"
-                                             SizeDefinition="Small" />
-                        <Fluent:ToggleButton x:Name="buttonItalic"
-                                             KeyTip="I"
-                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Italic.png"
-                                             HorizontalAlignment="Left"
-                                             SizeDefinition="Small" />
-                        <Fluent:DropDownButton x:Name="buttonUnderline"
-                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Underline.png"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonStrikethrough"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Strikethrough.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonSubscript"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Subscript.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-                        <Fluent:Button x:Name="buttonSuperscript"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Superscript.png"
-                                       HorizontalAlignment="Left"
-                                       SizeDefinition="Small" />
-
-                        <!-- It's possible to create custom icon to present selected color -->
-                        <Fluent:DropDownButton x:Name="buttonTextEffects"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small">
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/TextEffects.png"
-                                           Width="16"
-                                           Height="16" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="2"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding ColorViewModel.StandardColor}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery Mode="StandardColors"
-                                                 SelectedColor="{Binding ColorViewModel.StandardColor, Mode=TwoWay}" />
-                            <Fluent:MenuItem Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png"
-                                             Header="Custom MenuItem" />
-                        </Fluent:DropDownButton>
-
-                        <!-- The following code shows highlight colors mode for color gallery -->
-                        <Fluent:DropDownButton x:Name="buttonTextHighlightColor"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small">
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/TextHighlightColor.png"
-                                           Width="16"
-                                           Height="16" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="4"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding ColorViewModel.HighlightColor}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery Mode="HighlightColors"
-                                                 SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
-                                                 IsAutomaticColorButtonVisible="False" />
-                        </Fluent:DropDownButton>
-
-                        <!-- The following code shows theme colors mode for color gallery -->
-                        <Fluent:DropDownButton x:Name="buttonFontColor"
-                                               HorizontalAlignment="Left"
-                                               SizeDefinition="Small"
-                                               MaxDropDownHeight="500">
-                            <Fluent:DropDownButton.ToolTip>
-                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
-                            </Fluent:DropDownButton.ToolTip>
-                            <Fluent:DropDownButton.Icon>
-                                <Grid>
-                                    <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
-                                           Width="16"
-                                           Height="16"
-                                           SnapsToDevicePixels="True" />
-                                    <Rectangle VerticalAlignment="Bottom"
-                                               Height="4"
-                                               Width="16"
-                                               HorizontalAlignment="Center">
-                                        <Rectangle.Fill>
-                                            <SolidColorBrush Color="{Binding ColorViewModel.ThemeColor}" />
-                                        </Rectangle.Fill>
-                                    </Rectangle>
-                                </Grid>
-                            </Fluent:DropDownButton.Icon>
-                            <Fluent:ColorGallery ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
-                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=TwoWay}"
-                                                 Mode="ThemeColors"
-                                                 StandardColorGridRows="3"
-                                                 Columns="10"
-                                                 ThemeColorGridRows="5"
-                                                 IsNoColorButtonVisible="True" />
-                        </Fluent:DropDownButton>
-                    </Fluent:RibbonToolBar>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="Group"
-                                       Name="Group">
-                    <Fluent:RibbonToolBar>
-                        <!--ToolBar Layout Definitions-->
-                        <Fluent:RibbonToolBar.LayoutDefinitions>
-
-                            <!--Large Size of the RibbonToolBar-->
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Large">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
-                                                                           Width="127" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown"
-                                                                           Size="Middle" />
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-
-                            <!--Large Size of the RibbonToolBar-->
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Middle">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
-                                                                           Width="90" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-
-                            <!--Middle Size of the RibbonToolBar-->
-                            <Fluent:RibbonToolBarLayoutDefinition Size="Small">
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="spinner"
-                                                                           Width="45" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGreen" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonGray" />
-                                </Fluent:RibbonToolBarRow>
-                                <Fluent:RibbonToolBarRow>
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonYellow" />
-                                    <Fluent:RibbonToolBarControlDefinition Target="buttonBrown" />
-                                </Fluent:RibbonToolBarRow>
-                            </Fluent:RibbonToolBarLayoutDefinition>
-
-                        </Fluent:RibbonToolBar.LayoutDefinitions>
-
-                        <!--ToolBar Controls-->
-                        <Fluent:Spinner x:Name="spinner" />
-                        <Fluent:Button x:Name="buttonGreen"
-                                       Header="Green"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
-                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
-                        <Fluent:Button x:Name="buttonGray"
-                                       Header="Gray"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
-                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
-                        <Fluent:Button x:Name="buttonYellow"
-                                       Header="Yellow"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
-                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
-                        <Fluent:Button x:Name="buttonBrown"
-                                       Header="Brown"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
-                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
-                    </Fluent:RibbonToolBar>
-
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
-                                       KeyTip="ZXB"
-                                       x:Name="B"
-                                       Header="Spinners"
-                                       IsLauncherVisible="True"
-                                       LauncherClick="OnLauncherButtonClick">
-                    <Fluent:Spinner KeyTip="KA"
-                                    Value="{Binding BoundSpinnerValue}"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
-                                    IsEnabled="False" />
-                    <Fluent:Spinner KeyTip="KB"
-                                    Value="{Binding BoundSpinnerValue}"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
-                                    SelectAllTextOnFocus="True" />
-                    <Fluent:Spinner KeyTip="KC"
-                                    InputWidth="75"
-                                    Format="0 px"
-                                    Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
-                </Fluent:RibbonGroupBox>
-            </Fluent:RibbonTabItem>
-
             <Fluent:RibbonTabItem Header="Resizing &amp; Screentips"
                                   KeyTip="RS"
                                   ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other">
@@ -2646,9 +2574,96 @@
                         Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF).
                         <LineBreak />
                         It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
+                        <LineBreak />
+                        <LineBreak />
                     </TextBlock>
+
+                    <GroupBox Header="Options">
+                        <WrapPanel>
+                            <GroupBox Header="Menu">
+                                <WrapPanel>
+                                    <Fluent:ToggleButton GroupName="Menu"
+                                                         Name="UseBackstage"
+                                                         Size="Middle"
+                                                         IsChecked="True">
+                                        Use backstage
+                                    </Fluent:ToggleButton>
+                                    <Fluent:ToggleButton GroupName="Menu"
+                                                         Name="UseApplicationMenu"
+                                                         Size="Middle">
+                                        Use application menu
+                                    </Fluent:ToggleButton>
+                                    <Fluent:Button Name="ShowStartScreen"
+                                                   Size="Middle"
+                                                   Click="ShowStartScreen_OnClick">
+                                        Show start screen
+                                    </Fluent:Button>
+                                </WrapPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Window options">
+                                <WrapPanel>
+                                    <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                        IsIconVisible
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                        IsCollapsed
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                        IsAutomaticCollapseEnabled
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
+                                                     IsChecked="True">
+                                        IsStatusBarVisible
+                                    </Fluent:CheckBox>
+                                </WrapPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Ribbon options">
+                                <WrapPanel>
+                                    <Fluent:CheckBox IsChecked="{Binding ShowQuickAccessToolBarAboveRibbon, ElementName=ribbon}">
+                                        ShowQuickAccessToolBarAboveRibbon
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBar, ElementName=ribbon}">
+                                        CanCustomizeQuickAccessToolBar
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBarItems, ElementName=ribbon}">
+                                        CanCustomizeQuickAccessToolBarItems
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeRibbon, ElementName=ribbon}">
+                                        CanCustomizeRibbon
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsMinimized, ElementName=ribbon}">
+                                        IsMinimized
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding CanMinimize, ElementName=ribbon}">
+                                        CanMinimize
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, ElementName=ribbon}">
+                                        IsCollapsed
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, ElementName=ribbon}">
+                                        IsAutomaticCollapseEnabled
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, ElementName=ribbon}">
+                                        IsQuickAccessToolBarVisible
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarMenuDropDownVisible , ElementName=ribbon}">
+                                        IsQuickAccessToolBarMenuDropDownVisible
+                                    </Fluent:CheckBox>                    
+                                    <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, ElementName=ribbon}">
+                                        CanQuickAccessLocationChanging
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, ElementName=ribbon}">
+                                        AutomaticStateManagement
+                                    </Fluent:CheckBox>
+                                </WrapPanel>
+                            </GroupBox>
+                        </WrapPanel>
+                    </GroupBox>
                 </StackPanel>
             </TabItem>
+            
             <TabItem Header="Developer">
                 <Grid>
                     <Grid.RowDefinitions>
