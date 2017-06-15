@@ -21,7 +21,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Width="Auto"
-                BorderThickness="1,0">
+                BorderThickness="1,0,1,0">
             <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="0,0"
                     VerticalAlignment="Stretch"
