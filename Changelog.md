@@ -132,7 +132,7 @@
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
 
 - ### Enhancements
-  - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. This was added as the fix for [#430](../../issues/430).
+  - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
   - [#275](../../issues/275) - Option for customizing the quick access toolbar access keys  
   `QuickAccessToolBar` now has a property called `UpdateKeyTipsAction` which accepts an instance of `QuickAccessToolBar` through which you can create your own keytips for items in the toolbar.  
   Look at the UnitTest `QuickAccessToolBarTests.TestCustomKeyTips` for a sample.
