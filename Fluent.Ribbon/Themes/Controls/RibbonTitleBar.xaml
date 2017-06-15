@@ -14,8 +14,7 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Margin="-2,0"
-                               VerticalAlignment="Center"
+                    <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Text="{Binding}"
                                TextWrapping="NoWrap"
