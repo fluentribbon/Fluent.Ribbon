@@ -128,9 +128,11 @@
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
   - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  
     This also overrules the fix made for [#415](../../issues/415).
+  - [#430](../../issues/430) - No Rezising at Fluent:RibbonContextualTabGroup at Version 5.0
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
 
 - ### Enhancements
+  - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. This was added as the fix for [#430](../../issues/430).
   - [#275](../../issues/275) - Option for customizing the quick access toolbar access keys  
   `QuickAccessToolBar` now has a property called `UpdateKeyTipsAction` which accepts an instance of `QuickAccessToolBar` through which you can create your own keytips for items in the toolbar.  
   Look at the UnitTest `QuickAccessToolBarTests.TestCustomKeyTips` for a sample.

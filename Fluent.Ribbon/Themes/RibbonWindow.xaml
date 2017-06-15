@@ -11,7 +11,8 @@
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
-        <Grid>
+        <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+              RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">
                     <Grid.RowDefinitions>
