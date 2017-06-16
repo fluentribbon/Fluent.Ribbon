@@ -341,7 +341,6 @@ namespace Fluent
 
                 if (parentRibbon.TitleBar != null)
                 {
-                    parentRibbon.TitleBar.IsEnabled = false;
                     parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
             }
