@@ -49,6 +49,11 @@
 | CheckBoxPressedOutterBackgroundBrush | --- |
 | CheckBoxPressedInnerBorderBrush | --- |
 | CheckBoxPressedInnerBackgroundBrush | --- |
+| ContextMenuLineBrush | --- |
+| ContextMenuBarBackgroundBrush | Fluent.Ribbon.Brushes.DropDown.BackgroundBrush |
+| ContextMenuBarBorderBrush | Fluent.Ribbon.Brushes.DropDown.BorderBrush |
+| ContextMenuBarResizeBorderBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush |
+| ContextMenuBarResizeBackgoundBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush |
 | GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
 | InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
 | BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |

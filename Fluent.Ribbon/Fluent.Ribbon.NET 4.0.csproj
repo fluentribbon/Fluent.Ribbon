@@ -481,11 +481,13 @@ SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
         <Reference Include="ControlzEx">
           <HintPath>..\packages\ControlzEx\lib\net40\ControlzEx.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
         <Reference Include="System.Windows.Interactivity">
           <HintPath>..\packages\ControlzEx\lib\net40\System.Windows.Interactivity.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -495,11 +497,13 @@ SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
         <Reference Include="ControlzEx">
           <HintPath>..\packages\ControlzEx\lib\net45\ControlzEx.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
         <Reference Include="System.Windows.Interactivity">
           <HintPath>..\packages\ControlzEx\lib\net45\System.Windows.Interactivity.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -509,11 +513,13 @@ SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
         <Reference Include="ControlzEx">
           <HintPath>..\packages\ControlzEx\lib\net462\ControlzEx.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
         <Reference Include="System.Windows.Interactivity">
           <HintPath>..\packages\ControlzEx\lib\net462\System.Windows.Interactivity.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>

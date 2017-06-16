@@ -97,8 +97,8 @@
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
@@ -111,7 +111,7 @@
                             <Border VerticalAlignment="Top"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -137,11 +137,11 @@
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
                                         Height="11"
-                                        BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
                                         CornerRadius="0,0,1,1"
-                                        Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"

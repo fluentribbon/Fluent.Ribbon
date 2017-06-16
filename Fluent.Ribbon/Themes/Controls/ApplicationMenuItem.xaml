@@ -365,8 +365,8 @@
                     </Rectangle>
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
@@ -380,7 +380,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -617,8 +617,8 @@
                       VerticalAlignment="Stretch">
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
                             d:LayoutOverrides="Width, Height"
@@ -631,7 +631,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -1124,8 +1124,8 @@
                     </Rectangle>
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
@@ -1139,7 +1139,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -1463,8 +1463,8 @@
                     </Rectangle>
                     <Border x:Name="DropDownBorder"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
                             Grid.ColumnSpan="1"
@@ -1478,7 +1478,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
