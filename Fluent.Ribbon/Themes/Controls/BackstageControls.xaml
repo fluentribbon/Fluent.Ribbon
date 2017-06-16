@@ -809,6 +809,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <Style x:Key="InnerBackstageTabControlItem"
            TargetType="{x:Type TabItem}">
         <Setter Property="Template">
@@ -854,7 +855,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="InnerBackstageTabControlStyle"
            TargetType="{x:Type TabControl}">
         <Setter Property="Template">
@@ -874,21 +875,8 @@
                         <Border BorderThickness="0,0,1,0"
                                 HorizontalAlignment="Stretch"
                                 Margin="0"
-                                VerticalAlignment="Stretch">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush EndPoint="0.5,1"
-                                                     StartPoint="0.5,0">
-                                    <GradientStop Offset="1"
-                                                  Color="#00D2D3D4" />
-                                    <GradientStop Color="#7FD2D3D4" />
-                                    <GradientStop Color="#FFD2D3D4"
-                                                  Offset="0.246" />
-                                    <GradientStop Color="#FFD2D3D4"
-                                                  Offset="0.797" />
-                                </LinearGradientBrush>
-
-                            </Border.BorderBrush>
-                        </Border>
+                                VerticalAlignment="Stretch"
+                                BorderBrush="{DynamicResource GrayBrush7}" />
                         <StackPanel Grid.Column="0"
                                     HorizontalAlignment="Left"
                                     Margin="0"
@@ -900,10 +888,8 @@
                                           VerticalAlignment="Stretch"
                                           ContentSource="SelectedContent" />
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>
