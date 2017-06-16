@@ -20,7 +20,7 @@
                     BorderThickness="1"
                     Margin="0"
                     Background="Transparent"
-                    BorderBrush="LightGray">
+                    BorderBrush="{DynamicResource GrayBrush6}">
                 <StackPanel Margin="2"
                             x:Name="stackPanel">
                     <ContentPresenter x:Name="iconImage"
@@ -147,7 +147,7 @@
         <Border x:Name="border"
                 BorderThickness="1"
                 Margin="0"
-                BorderBrush="LightGray"
+                BorderBrush="{DynamicResource GrayBrush6}"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
             <StackPanel x:Name="stackPanel">

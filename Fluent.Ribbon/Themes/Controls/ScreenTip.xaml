@@ -80,7 +80,7 @@
                                 HorizontalAlignment="Stretch"
                                 Visibility="{Binding ElementName=disableReasonSection, Path=Visibility}"
                                 Margin="5"
-                                Background="LightGray"
+                                Background="{DynamicResource GrayBrush6}"
                                 BorderThickness="0,0,0,1"
                                 IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" />
                         <Grid x:Name="disableReasonSection">
@@ -125,7 +125,7 @@
                                 HorizontalAlignment="Stretch"
                                 Visibility="{TemplateBinding Property=HelpLabelVisibility}"
                                 Margin="5"
-                                Background="LightGray"
+                                Background="{DynamicResource GrayBrush6}"
                                 BorderThickness="0,0,0,1" />
                         <Grid x:Name="helpSection"
                               Visibility="{TemplateBinding Property=HelpLabelVisibility}">
