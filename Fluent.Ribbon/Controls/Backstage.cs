@@ -15,6 +15,7 @@ namespace Fluent
     using System.Windows.Threading;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Data;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -200,12 +201,26 @@ namespace Fluent
             var backstage = (Backstage)d;
             if (e.OldValue != null)
             {
+                var dependencyObject = e.NewValue as DependencyObject;
+
+                if (dependencyObject != null)
+                {
+                    BindingOperations.ClearBinding(dependencyObject, VisibilityProperty);
+                }
+
                 backstage.RemoveLogicalChild(e.OldValue);
             }
 
             if (e.NewValue != null)
             {
                 backstage.AddLogicalChild(e.NewValue);
+
+                var dependencyObject = e.NewValue as DependencyObject;
+
+                if (dependencyObject != null)
+                {
+                    BindingOperations.SetBinding(dependencyObject, VisibilityProperty, new Binding { Path = new PropertyPath(VisibilityProperty), Source = backstage });
+                }
             }
         }
 
@@ -452,6 +467,7 @@ namespace Fluent
                            {
                                DataContext = this.DataContext
                            };
+            
             layer.Add(this.adorner);
 
             layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted, HandleOpenBackstageCommandCanExecute));
