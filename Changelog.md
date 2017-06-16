@@ -143,6 +143,7 @@
   `ContentHeight` is available on `Ribbon` and tranferred to `RibbonTabControl` from there
   - [#443](../../issues/443) - Release .NET 4.6.2 version
   - [#444](../../issues/444) - Add `IgnoreTaskbarOnMaximize` to `RibbonWindow`
+  - [#445](../../issues/445) - Startsceen "shines" through backstage
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
