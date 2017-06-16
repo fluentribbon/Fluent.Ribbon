@@ -78,8 +78,8 @@
 
             private static IEnumerable<RibbonTitleBarSizeData> With_Header_TestData()
             {
-                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(85, DefaultTitleBarHeight), zeroSize, new Size(85, DefaultTitleBarHeight), zeroSize);
-                yield return new RibbonTitleBarSizeData(100, new Size(85, DefaultTitleBarHeight), zeroSize, new Size(85, DefaultTitleBarHeight), zeroSize);
+                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(89, DefaultTitleBarHeight), zeroSize, new Size(89, DefaultTitleBarHeight), zeroSize);
+                yield return new RibbonTitleBarSizeData(100, new Size(89, DefaultTitleBarHeight), zeroSize, new Size(89, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(52, new Size(52, DefaultTitleBarHeight), zeroSize, new Size(54, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(50, new Size(50, DefaultTitleBarHeight), zeroSize, new Size(52, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(10, new Size(10, DefaultTitleBarHeight), zeroSize, new Size(52, DefaultTitleBarHeight), zeroSize);
@@ -103,7 +103,7 @@
 
             private static IEnumerable<RibbonTitleBarSizeData> With_Parts_And_Wide_Header_TestData()
             {
-                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(305, DefaultTitleBarHeight), zeroSize, new Size(305, DefaultTitleBarHeight), zeroSize);
+                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(309, DefaultTitleBarHeight), zeroSize, new Size(309, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(100, new Size(100, DefaultTitleBarHeight), zeroSize, new Size(102, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(52, new Size(52, DefaultTitleBarHeight), zeroSize, new Size(54, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(50, new Size(50, DefaultTitleBarHeight), zeroSize, new Size(52, DefaultTitleBarHeight), zeroSize);
@@ -132,7 +132,7 @@
 
             private static IEnumerable<RibbonTitleBarSizeData> With_Header_And_QuickAccessItems_TestData()
             {
-                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(151, DefaultTitleBarHeight), new Size(66, 16), new Size(85, DefaultTitleBarHeight), zeroSize);
+                yield return new RibbonTitleBarSizeData(ReferenceWidth, new Size(155, DefaultTitleBarHeight), new Size(66, 16), new Size(89, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(100, new Size(100, DefaultTitleBarHeight), new Size(35, 16), new Size(67, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(52, new Size(52, DefaultTitleBarHeight), new Size(2, 16), new Size(52, DefaultTitleBarHeight), zeroSize);
                 yield return new RibbonTitleBarSizeData(50, new Size(50, DefaultTitleBarHeight), new Size(0, 16), new Size(52, DefaultTitleBarHeight), zeroSize);
