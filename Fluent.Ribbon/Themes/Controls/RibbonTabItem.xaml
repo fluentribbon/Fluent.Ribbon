@@ -8,8 +8,7 @@
                      x:Key="RibbonTabItemControlTemplate">
         <Grid x:Name="grid"
               Background="Transparent"
-              Height="Auto"
-              Margin="0,7,0,0">
+              Height="Auto">
             <Border x:Name="border3"
                     Margin="0,0,0,1"
                     Grid.ColumnSpan="2">

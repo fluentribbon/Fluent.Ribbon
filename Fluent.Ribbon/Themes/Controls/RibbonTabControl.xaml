@@ -306,7 +306,7 @@
 
                 <Fluent:RibbonScrollViewer Grid.Column="1"
                                            HorizontalAlignment="Left"
-                                           Margin="0,-7,1,0"
+                                           Margin="0,0,1,0"
                                            Width="Auto"
                                            Style="{DynamicResource RibbonTabScrollViewer}"
                                            HorizontalScrollBarVisibility="Auto"

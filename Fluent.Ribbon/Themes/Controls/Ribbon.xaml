@@ -69,9 +69,6 @@
                 <Setter Property="Visibility"
                         TargetName="quickAccessToolBarHolder"
                         Value="Collapsed" />
-                <Setter Property="Margin"
-                        TargetName="PART_QuickAccessToolBar"
-                        Value="0,2,0,0" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -41,12 +41,12 @@
                                         Height="Auto" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsWindowMaximized"
-                                 Value="False">
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                     Value="CanResizeWithGrip">
                             <Setter Property="Margin"
                                     TargetName="itemsPresenter"
                                     Value="0,0,16,0" />
-                        </Trigger>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

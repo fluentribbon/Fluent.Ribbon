@@ -35,7 +35,7 @@
                                Width="Auto"
                                Height="Auto"
                                OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
-                        <Rectangle Fill="{TemplateBinding BorderBrush}"
+                    <Rectangle Fill="{TemplateBinding BorderBrush}"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                Width="Auto"
@@ -51,13 +51,5 @@
                 </Grid>
             </Border>
         </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsWindowMaximized"
-                     Value="True">
-                <Setter Property="Margin"
-                        TargetName="rootBorder"
-                        Value="1,0,1,-0.1" />
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

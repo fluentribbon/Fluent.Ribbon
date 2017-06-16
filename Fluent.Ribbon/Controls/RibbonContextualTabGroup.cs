@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
     using Fluent.Extensions;
-    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -19,14 +17,6 @@ namespace Fluent
     /// </summary>
     public class RibbonContextualTabGroup : Control
     {
-        #region Fields
-
-        // Collection of ribbon tab items
-
-        private Window parentWidow;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -61,21 +51,6 @@ namespace Fluent
         public List<RibbonTabItem> Items { get; } = new List<RibbonTabItem>();
 
         /// <summary>
-        /// Gets or sets a value indicating whether parent window is maximized
-        /// </summary>
-        public bool IsWindowMaximized
-        {
-            get { return (bool)this.GetValue(IsWindowMaximizedProperty); }
-            set { this.SetValue(IsWindowMaximizedProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(RibbonContextualTabGroup), new PropertyMetadata(BooleanBoxes.FalseBox));
-
-        /// <summary>
         /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)
         /// </summary>
         public Visibility InnerVisibility
@@ -102,24 +77,12 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible TabItem in this group
         /// </summary>
-        public RibbonTabItem FirstVisibleItem
-        {
-            get
-            {
-                return this.GetFirstVisibleItem();
-            }
-        }
+        public RibbonTabItem FirstVisibleItem => this.GetFirstVisibleItem();
 
         /// <summary>
         /// Gets the last visible TabItem in this group
         /// </summary>
-        public RibbonTabItem LastVisibleItem
-        {
-            get
-            {
-                return this.GetLastVisibleItem();
-            }
-        }
+        public RibbonTabItem LastVisibleItem => this.GetLastVisibleItem();
 
         #endregion
 
@@ -160,41 +123,23 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            this.parentWidow = Window.GetWindow(this);
-
             this.SubscribeEvents();
             this.UpdateInnerVisibility();
-
-            if (this.parentWidow != null)
-            {
-                this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
-            }
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             this.UnSubscribeEvents();
-
-            this.parentWidow = null;
         }
 
         private void SubscribeEvents()
         {
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
-
-            if (this.parentWidow != null)
-            {
-                this.parentWidow.StateChanged += this.OnParentWindowStateChanged;
-            }
         }
 
         private void UnSubscribeEvents()
         {
-            if (this.parentWidow != null)
-            {
-                this.parentWidow.StateChanged -= this.OnParentWindowStateChanged;
-            }
         }
 
         #endregion
@@ -318,11 +263,6 @@ namespace Fluent
             this.InnerVisibility = this.Visibility == Visibility.Visible && this.Items.Any(item => item.Visibility == Visibility.Visible) 
                 ? Visibility.Visible 
                 : Visibility.Collapsed;
-        }
-
-        private void OnParentWindowStateChanged(object sender, EventArgs e)
-        {
-            this.IsWindowMaximized = this.parentWidow.WindowState == WindowState.Maximized;
         }
 
         private static void ForceRedraw(RibbonContextualTabGroup contextGroup)

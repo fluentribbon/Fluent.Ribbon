@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Threading;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using Fluent.Internal.KnownBoxes;
+    using System;
+    using System.Collections.Specialized;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Threading;
+
     using Fluent.Localization;
 
     /// <summary>
@@ -22,28 +21,11 @@ namespace Fluent
         // Context menu
         private readonly ContextMenu contextMenu = new ContextMenu();
 
-        private Window ownerWindow;
-
         private bool waitingForItemContainerGenerator;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Gets or sets whether window is maximized
-        /// </summary>
-        public bool IsWindowMaximized
-        {
-            get { return (bool)this.GetValue(IsWindowMaximizedProperty); }
-            set { this.SetValue(IsWindowMaximizedProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsWindowMaximized.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsWindowMaximizedProperty =
-            DependencyProperty.Register(nameof(IsWindowMaximized), typeof(bool), typeof(StatusBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
 #if NET45 || NET462
         private object currentItem;
@@ -77,44 +59,10 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (this.ownerWindow != null)
-            {
-                this.ownerWindow.StateChanged -= this.OnWindowStateChanged;
-                this.ownerWindow = null;
-            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (this.ownerWindow == null)
-            {
-                this.ownerWindow = Window.GetWindow(this);
-            }
-
-            if (this.ownerWindow != null)
-            {
-                this.ownerWindow.StateChanged += this.OnWindowStateChanged;
-                if ((this.ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (this.ownerWindow.WindowState == WindowState.Maximized))
-                {
-                    this.IsWindowMaximized = true;
-                }
-                else
-                {
-                    this.IsWindowMaximized = false;
-                }
-            }
-        }
-
-        private void OnWindowStateChanged(object sender, EventArgs e)
-        {
-            if ((this.ownerWindow.ResizeMode == ResizeMode.CanResizeWithGrip) && (this.ownerWindow.WindowState == WindowState.Maximized))
-            {
-                this.IsWindowMaximized = true;
-            }
-            else
-            {
-                this.IsWindowMaximized = false;
-            }
         }
 
         #endregion
