@@ -21,7 +21,7 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty(nameof(Items))]
-    public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl
+    public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields
 
@@ -498,6 +498,8 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(MenuItem));
 
+        private bool isContextMenuOpening;
+
         #endregion
 
         #region Public
@@ -573,6 +575,40 @@ namespace Fluent
                 {
                     this.IsSubmenuOpen = true;
                 }
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseLeave(MouseEventArgs e)
+        {
+            if (this.isContextMenuOpening)
+            {
+                return;
+            }
+
+            base.OnMouseLeave(e);            
+        }
+
+        /// <inheritdoc />
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            this.isContextMenuOpening = true;
+            this.IsContextMenuOpened = true;
+            
+            base.OnContextMenuOpening(e);
+        }
+
+        /// <inheritdoc />
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            this.isContextMenuOpening = false;
+            this.IsContextMenuOpened = false;
+
+            base.OnContextMenuClosing(e);
+
+            if (this.IsMouseOver == false)
+            {
+                this.OnMouseLeave(new MouseEventArgs(Mouse.PrimaryDevice, 0));
             }
         }
 
@@ -659,17 +695,6 @@ namespace Fluent
             }
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
             this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.PreviewKeyDown"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
-        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        {
-            Debug.WriteLine("MenuItem focus lost - " + this);
-            //base.OnPreviewLostKeyboardFocus(e);
-            //e.Handled = true;
         }
 
         /// <summary>
