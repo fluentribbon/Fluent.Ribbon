@@ -205,6 +205,7 @@
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
+                        Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
                         Margin="22,19,0,0"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left">
