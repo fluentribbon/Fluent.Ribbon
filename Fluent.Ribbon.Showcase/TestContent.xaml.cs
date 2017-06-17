@@ -28,6 +28,8 @@
 
             this.viewModel = new MainViewModel();
             this.DataContext = this.viewModel;
+
+            ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]).Color);
         }
 
         private void HookEvents()
