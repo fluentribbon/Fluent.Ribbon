@@ -446,50 +446,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
-    <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}"
-                     x:Key="GalleryItemBackstageControlTemplate">
-        <Grid Background="Transparent">
-            <Border x:Name="hoverBorder"
-                    BorderThickness="1"
-                    Background="Transparent">
-                <ContentPresenter x:Name="contentPresenter"
-                                  Margin="1"
-                                  Opacity="1" />
-            </Border>
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="contentPresenter"
-                        Value="0.5" />
-            </Trigger>
-            <Trigger Property="IsSelected"
-                     Value="True">
-                <Setter Property="Background"
-                        TargetName="hoverBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-            </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter Property="Background"
-                        TargetName="hoverBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
-    
-    <Style x:Key="GalleryItemBackstageStyle"
-           TargetType="{x:Type Fluent:GalleryItem}">
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="Template"
-                Value="{DynamicResource GalleryItemBackstageControlTemplate}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
-    </Style>
-    
+      
     <ControlTemplate TargetType="{x:Type ComboBoxItem}"
                      x:Key="ComboBoxItemBackstageControlTemplate">
         <Grid Background="Transparent"
