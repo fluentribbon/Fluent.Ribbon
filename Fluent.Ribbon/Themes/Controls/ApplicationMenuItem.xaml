@@ -39,12 +39,7 @@
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
-            </Border>
+                    Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -181,12 +176,7 @@
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
-            </Border>
+                    Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
                        Text="{TemplateBinding Header}"
@@ -517,33 +507,17 @@
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Margin="0,0,-1,0">
-                    <Border x:Name="border1"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="2" />
-                </Border>
-                <Border x:Name="border_Copy"
+                        Margin="0,0,-1,0" />
+                <Border x:Name="Submenu_Border"
                         HorizontalAlignment="Stretch"
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Grid.Column="1"
-                        Background="Transparent">
-                    <Border x:Name="border1_Copy"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="1"
-                            d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
-                            Visibility="Collapsed" />
-                </Border>
+                        Grid.Column="1" />
             </Grid>
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
@@ -668,13 +642,6 @@
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True"
-                     SourceName="border_Copy">
-                <Setter Property="Visibility"
-                        TargetName="border1_Copy"
-                        Value="Visible" />
-            </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="Visibility"
@@ -703,14 +670,14 @@
                         TargetName="PART_ButtonBorder"
                         Value="Visible" />
                 <Setter Property="Visibility"
-                        TargetName="border_Copy"
+                        TargetName="Submenu_Border"
                         Value="Visible" />
             </MultiTrigger>
             <Trigger Property="IsSubmenuOpen"
                      Value="True">
-                <Setter Property="Visibility"
-                        TargetName="border1_Copy"
-                        Value="Visible" />
+                <Setter Property="Background"
+                        TargetName="Submenu_Border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -809,12 +776,7 @@
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
-            </Border>
+                    Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -948,12 +910,7 @@
                     BorderThickness="1"
                     CornerRadius="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="1" />
-            </Border>
+                    Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
                        Width="Auto"
@@ -1265,33 +1222,17 @@
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Margin="0,0,-1,0">
-                    <Border x:Name="border1"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="2" />
-                </Border>
-                <Border x:Name="border_Copy"
+                        Margin="0,0,-1,0" />
+                <Border x:Name="Submenu_Border"
                         HorizontalAlignment="Stretch"
                         Margin="0"
                         Width="Auto"
                         Visibility="Collapsed"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
                         CornerRadius="2"
-                        Grid.Column="1"
-                        Background="Transparent">
-                    <Border x:Name="border1_Copy"
-                            Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                            BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1"
-                            Grid.ColumnSpan="1"
-                            d:CopyToken="09a4b798-0b8a-441e-b6c8-d7787f8d7e43"
-                            Visibility="Collapsed" />
-                </Border>
+                        Grid.Column="1" />
             </Grid>
             <TextBlock x:Name="textBlock"
                        Text="{TemplateBinding Header}"
@@ -1506,13 +1447,6 @@
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True"
-                     SourceName="border_Copy">
-                <Setter Property="Visibility"
-                        TargetName="border1_Copy"
-                        Value="Visible" />
-            </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="Visibility"
@@ -1541,14 +1475,14 @@
                         TargetName="PART_ButtonBorder"
                         Value="Visible" />
                 <Setter Property="Visibility"
-                        TargetName="border_Copy"
+                        TargetName="Submenu_Border"
                         Value="Visible" />
             </MultiTrigger>
             <Trigger Property="IsSubmenuOpen"
                      Value="True">
-                <Setter Property="Visibility"
-                        TargetName="border1_Copy"
-                        Value="Visible" />
+                <Setter Property="Background"
+                        TargetName="Submenu_Border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">

@@ -114,12 +114,8 @@
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1" />
-            </Border>
-            <TextBlock x:Name="textBlock"
+                    Grid.ColumnSpan="3" />
+                <TextBlock x:Name="textBlock"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
