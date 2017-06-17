@@ -2559,6 +2559,14 @@
                     BorderThickness="0"
                     Background="Transparent">
             <TabControl.Resources>
+                <Style x:Key="{x:Type Fluent:Button}"
+                       TargetType="{x:Type Fluent:Button}">
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
+                    <Setter Property="BorderThickness"
+                            Value="1" />
+                </Style>
+                
                 <Style x:Key="TabItemFocusVisual">
                     <Setter Property="Control.Template">
                         <Setter.Value>
@@ -2733,6 +2741,7 @@
                     </Setter>
                 </Style>
             </TabControl.Resources>
+            
             <TabItem Header="Home">
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap">
@@ -2846,21 +2855,12 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBox x:Name="textBoxTest"
-                             Visibility="Collapsed"
-                             Margin="20,150,0,0"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top"
-                             Width="100"
-                             Height="25" />
-                    <Button x:Name="showLogicalTree"
-                            Visibility="Visible"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Width="118"
-                            Height="20"
-                            Content="Show logical tree"
-                            Click="OnShowLogicalTreeClick">
+                    <Fluent:Button x:Name="showLogicalTree"
+                                   Size="Middle"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Header="Show logical tree"
+                                   Click="OnShowLogicalTreeClick">
                         <Button.ContextMenu>
                             <Fluent:ContextMenu ResizeMode="Both">
                                 <Fluent:MenuItem Header="_Lala"
@@ -2922,7 +2922,7 @@
                                 <Fluent:MenuItem Header="40" />
                             </Fluent:ContextMenu>
                         </Button.ContextMenu>
-                    </Button>
+                    </Fluent:Button>
 
                     <TreeView x:Name="logicalTreeView"
                               Grid.Row="1"
@@ -3013,31 +3013,39 @@
                 <StackPanel Orientation="Vertical">
                     <GroupBox Header="Tabs">
                         <WrapPanel>
-                            <Button x:Name="AddRibbonTab"
-                                    Click="AddRibbonTab_OnClick">Add tab</Button>
+                            <Fluent:Button x:Name="AddRibbonTab"
+                                           Size="Middle"
+                                           Click="AddRibbonTab_OnClick">Add tab</Fluent:Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Windows">
                         <WrapPanel>                    
-                            <Button x:Name="OpenRegularWindow"
-                                    Click="OpenRegularWindow_OnClick">Open Regular-Window</Button>
-                            <Button x:Name="OpenMinimalRibbonWindowSample"
-                                    Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Button>                            
-                            <Button x:Name="OpenMahMetroWindow"
-                                    Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Button>
-                            <Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
-                                    Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Button>
-                            <Button x:Name="OpenRibbonWindowWithoutRibbon"
-                                    Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Button>
-                            <Button x:Name="OpenModalRibbonWindow"
-                                    Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Button>
+                            <Fluent:Button x:Name="OpenRegularWindow"
+                                           Size="Middle"
+                                           Click="OpenRegularWindow_OnClick">Open Regular-Window</Fluent:Button>
+                            <Fluent:Button x:Name="OpenMinimalRibbonWindowSample"
+                                           Size="Middle"
+                                           Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>                            
+                            <Fluent:Button x:Name="OpenMahMetroWindow"
+                                           Size="Middle"
+                                           Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
+                            <Fluent:Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
+                                           Size="Middle"
+                                           Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Fluent:Button>
+                            <Fluent:Button x:Name="OpenRibbonWindowWithoutRibbon"
+                                           Size="Middle"
+                                           Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Fluent:Button>
+                            <Fluent:Button x:Name="OpenModalRibbonWindow"
+                                           Size="Middle"
+                                           Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Fluent:Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Issue repros">
                         <WrapPanel>
-                            <Button x:Name="SleepButton"
-                                    VerticalAlignment="Top"
-                                    Click="SleepButton_OnClick">Sleep for issues #80 and #159</Button>
+                            <Fluent:Button x:Name="SleepButton"
+                                           Size="Middle"
+                                           VerticalAlignment="Top"
+                                           Click="SleepButton_OnClick">Sleep for issues #80 and #159</Fluent:Button>
                             <GroupBox Header="KeyTip issues #254">
                                 <StackPanel Orientation="Vertical">
                                     <WindowsFormsHost>
