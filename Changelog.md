@@ -107,13 +107,12 @@
 | ScrollVerticalBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
 | ScrollThumbDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush |
 | ScrollThumbDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.Background |
-| ScrollThumbHoverBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Hover.BorderBrush |
-| ScrollThumbHoverBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Hover.Background |
-| ScrollThumbPressedBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Pressed.BorderBrush |
-| ScrollThumbPressedBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Pressed.Background |
+| ScrollThumbHoverBorderBrush | Fluent.Ribbon.Brushes.Button.Hover.BorderBrush |
+| ScrollThumbHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.Hover.Background |
+| ScrollThumbPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ScrollThumbPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
 | ScrollViewerButtonBorderBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush |
 | ScrollViewerButtonBackgroundBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BackgroundBrush |
-| local color | Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill |
 |  |  |
 
   - The following default values changed:

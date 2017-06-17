@@ -108,19 +108,19 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Pressed.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Pressed.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.BorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -216,19 +216,19 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Pressed.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Pressed.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.BorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -301,7 +301,7 @@
                       Width="5"
                       Height="3"
                       Data="M0,0L1,-1 2,0z"
-                      Fill="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill}" />
+                      Fill="{DynamicResource BlackBrush}" />
 
             </RepeatButton>
             <RepeatButton ClickMode="Hover"
@@ -336,7 +336,7 @@
                       Width="5"
                       Height="3"
                       Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Menu.RepeatButton.Fill}" />
+                      Fill="{DynamicResource BlackBrush}" />
             </RepeatButton>
         </Grid>
     </ControlTemplate>
