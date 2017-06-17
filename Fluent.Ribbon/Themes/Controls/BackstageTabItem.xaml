@@ -19,10 +19,6 @@
                     <SolidColorBrush Color="{DynamicResource WhiteColor}"
                                      Opacity="0.2" />
                 </Border.Background>
-                <Grid Width="Auto"
-                      Margin="0"
-                      HorizontalAlignment="Stretch">
-                </Grid>
             </Border>
             <ContentControl x:Name="PART_Header"
                             Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
