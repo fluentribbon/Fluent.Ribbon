@@ -373,27 +373,6 @@ namespace Fluent
 
         #endregion
 
-        #region IsRecentColorsVisible
-
-        /// <summary>
-        /// Gets or set a value indicating whether recent colors group displayed. Work only when Mode is ThemeColors
-        /// </summary>
-        public bool IsRecentColorsVisible
-        {
-            get { return (bool)this.GetValue(IsRecentColorsVisibleProperty); }
-            set { this.SetValue(IsRecentColorsVisibleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsRecentColorsVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsRecentColorsVisibleProperty =
-            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-
-
-        #endregion
-
         #region Columns
 
         /// <summary>
