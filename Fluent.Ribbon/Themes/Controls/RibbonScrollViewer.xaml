@@ -167,7 +167,7 @@
                                       Height="Auto"
                                       VerticalAlignment="Stretch"
                                       Style="{DynamicResource ScrollButtonStyle}"
-                                      Margin="0,7,0,1">
+                                      Margin="0">
                             <RepeatButton.Visibility>
                                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
@@ -201,7 +201,7 @@
                                       Height="Auto"
                                       VerticalAlignment="Stretch"
                                       Style="{DynamicResource ScrollButtonStyle}"
-                                      Margin="0,7,0,1">
+                                      Margin="0">
                             <RepeatButton.Visibility>
                                 <MultiBinding FallbackValue="Visibility.Collapsed"
                                               Converter="{StaticResource MenuScrollingVisibilityConverter}"
