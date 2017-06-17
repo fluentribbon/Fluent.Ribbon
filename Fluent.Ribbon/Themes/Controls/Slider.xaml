@@ -84,18 +84,6 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center" />
         </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsPressed"
-                     Value="True">
-                <!--<Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>-->
-            </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <!--<Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>-->
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="ZoomSliderStyle"

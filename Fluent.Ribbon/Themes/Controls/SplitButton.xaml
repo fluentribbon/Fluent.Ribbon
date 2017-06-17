@@ -229,7 +229,7 @@
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -288,12 +288,12 @@
             </Trigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
-                <Setter Property="Background"
-                        TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ButtonBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

@@ -70,35 +70,28 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
-                <Border x:Name="border1"
-                        Height="Auto"
-                        BorderBrush="{TemplateBinding Background}"
-                        BorderThickness="1"
-                        CornerRadius="2"
-                        Background="{TemplateBinding BorderBrush}">
-                    <Grid Height="Auto">
-                        <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Vertical"
-                                    d:LayoutOverrides="Width, Height">
-                            <ContentPresenter x:Name="iconImage"
-                                              HorizontalAlignment="Center"
-                                              Height="16"
-                                              VerticalAlignment="Center"
-                                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                              Width="16"
-                                              Margin="1,1,0,0"
-                                              SnapsToDevicePixels="True" />
-                            <Fluent:TwoLineLabel Visibility="Collapsed"
-                                                 x:Name="controlLabel"
-                                                 Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 Margin="2,-2,2,2" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <Grid Height="Auto">
+                    <StackPanel x:Name="stackPanel"
+                                Width="Auto"
+                                Orientation="Vertical"
+                                d:LayoutOverrides="Width, Height">
+                        <ContentPresenter x:Name="iconImage"
+                                            HorizontalAlignment="Center"
+                                            Height="16"
+                                            VerticalAlignment="Center"
+                                            Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                            Width="16"
+                                            Margin="1,1,0,0"
+                                            SnapsToDevicePixels="True" />
+                        <Fluent:TwoLineLabel Visibility="Collapsed"
+                                                x:Name="controlLabel"
+                                                Text="{TemplateBinding Header}"
+                                                Style="{DynamicResource TwoLineLabelStyle}"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Margin="2,-2,2,2" />
+                    </StackPanel>
+                </Grid>
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -221,12 +214,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -250,12 +237,6 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
@@ -461,31 +442,14 @@
                 CornerRadius="1,0,0,0"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}">
-            <Border x:Name="innerBorder"
-                    Width="Auto"
+            <Image x:Name="image"
                     Height="Auto"
-                    BorderThickness="1"
-                    CornerRadius="1,0,0,0"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}">
-                <Image x:Name="image"
-                       Height="Auto"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Source="pack://application:,,,/Fluent;Component\Themes\Images\DialogLauncher.png"
-                       SnapsToDevicePixels="True"
-                       Stretch="None"
-                       RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Image.RenderTransform>
-                </Image>
-            </Border>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="pack://application:,,,/Fluent;Component\Themes\Images\DialogLauncher.png"
+                    SnapsToDevicePixels="True"
+                    Stretch="None">
+            </Image>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="FlowDirection"
@@ -493,12 +457,7 @@
                 <Setter Property="RenderTransform"
                         TargetName="image">
                     <Setter.Value>
-                        <TransformGroup>
-                            <ScaleTransform ScaleX="-1" />
-                            <SkewTransform />
-                            <RotateTransform />
-                            <TranslateTransform />
-                        </TransformGroup>
+                        <ScaleTransform ScaleX="-1" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -510,12 +469,6 @@
                 <Setter Property="BorderBrush"
                         TargetName="outerBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="innerBorder"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="innerBorder"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -527,12 +480,6 @@
                 <Setter Property="Background"
                         TargetName="outerBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter Property="Background"
-                        TargetName="innerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="innerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
                 <Setter Property="BorderBrush"
                         TargetName="outerBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />

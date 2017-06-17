@@ -65,7 +65,7 @@
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">

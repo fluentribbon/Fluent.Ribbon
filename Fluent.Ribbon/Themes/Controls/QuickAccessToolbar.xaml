@@ -25,27 +25,14 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Width="13">
-                <Border x:Name="border1"
-                        Height="Auto"
-                        BorderBrush="Transparent"
-                        BorderThickness="1"
-                        Background="Transparent">
-                    <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    Margin="-1,4,0,0"
-                                    Background="Transparent">
-                        <Image x:Name="iconImage"
-                                   HorizontalAlignment="Left"
-                                   Height="8"
-                                   Stretch="None"
-                                   VerticalAlignment="Top"
-                                   Source="{TemplateBinding LargeIcon}"
-                                   Width="8"
-                                   Margin="-3,0,2,0" />
-                    </StackPanel>
-                </Border>
+                <Image x:Name="iconImage"
+                        HorizontalAlignment="Center"
+                        Height="8"
+                        Stretch="None"
+                        VerticalAlignment="Center"
+                        Source="{TemplateBinding LargeIcon}"
+                        Width="8"
+                        Margin="-3,0,2,0" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -165,9 +152,6 @@
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
                 <Setter Property="Source"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -183,15 +167,9 @@
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
                 <Setter Property="Source"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="Width"
-                        TargetName="stackPanel"
-                        Value="Auto" />
                 <Setter Property="VerticalAlignment"
                         TargetName="iconImage"
                         Value="Center" />
@@ -216,12 +194,6 @@
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -230,12 +202,6 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />

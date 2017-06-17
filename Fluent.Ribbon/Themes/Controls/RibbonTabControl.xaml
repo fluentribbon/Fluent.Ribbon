@@ -20,31 +20,25 @@
                                   Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle , Mode=OneWay}"
                                   Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText , Mode=OneWay}" />
             </Border.ToolTip>
-            <Border x:Name="border1"
-                    Height="Auto"
-                    BorderBrush="Transparent"
-                    BorderThickness="1"
-                    Background="Transparent">
-                <Grid>
-                    <Image x:Name="iconImage"
-                           HorizontalAlignment="Center"
-                           Height="Auto"
-                           Stretch="None"
-                           VerticalAlignment="Center"
-                           Source="/Fluent;Component/Themes/Images/RibbonCollapse.png"
-                           Width="Auto"
-                           Margin="2" />
-                    <Image x:Name="iconImageChecked"
-                           Visibility="Collapsed"
-                           HorizontalAlignment="Center"
-                           Height="Auto"
-                           Stretch="None"
-                           VerticalAlignment="Center"
-                           Source="/Fluent;Component/Themes/Images/RibbonExpand.png"
-                           Width="Auto"
-                           Margin="2" />
-                </Grid>
-            </Border>
+            <Grid>
+                <Image x:Name="iconImage"
+                        HorizontalAlignment="Center"
+                        Height="Auto"
+                        Stretch="None"
+                        VerticalAlignment="Center"
+                        Source="/Fluent;Component/Themes/Images/RibbonCollapse.png"
+                        Width="Auto"
+                        Margin="2" />
+                <Image x:Name="iconImageChecked"
+                        Visibility="Collapsed"
+                        HorizontalAlignment="Center"
+                        Height="Auto"
+                        Stretch="None"
+                        VerticalAlignment="Center"
+                        Source="/Fluent;Component/Themes/Images/RibbonExpand.png"
+                        Width="Auto"
+                        Margin="2" />
+            </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked"
@@ -70,12 +64,6 @@
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -84,32 +72,6 @@
                     <Condition Property="IsPressed"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsKeyboardFocusWithin"
-                               Value="True" />
-                    <Condition Property="IsPressed"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
