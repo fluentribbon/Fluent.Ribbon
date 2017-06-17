@@ -3,65 +3,37 @@
     <!--Button in Scroll Control Style-->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
-        <Border Background="{DynamicResource ScrollViewerButtonBackgroundBrush}">
+        <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
             <Border x:Name="OuterBorder"
                     BorderThickness="1"
-                    CornerRadius="2"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush}"
                     Height="Auto"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
-                <Border x:Name="InnerBorder"
-                        Height="Auto"
-                        BorderBrush="Transparent"
-                        BorderThickness="1"
-                        CornerRadius="2"
-                        Background="Transparent">
-                    <Grid Height="Auto">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center" />
-                    </Grid>
-                </Border>
+                <ContentPresenter HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
             </Border>
         </Border>
         <ControlTemplate.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="InnerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="InnerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+            <Trigger Property="IsMouseOver"
+                     Value="True">
                 <Setter Property="Background"
                         TargetName="OuterBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="OuterBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsKeyboardFocusWithin"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="InnerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="InnerBorder"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin"
+                     Value="True">
                 <Setter Property="Background"
                         TargetName="OuterBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="OuterBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-            </MultiTrigger>
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
