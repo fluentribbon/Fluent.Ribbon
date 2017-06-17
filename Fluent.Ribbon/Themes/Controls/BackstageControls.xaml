@@ -769,6 +769,8 @@
     
     <Style x:Key="InnerBackstageTabControlItem"
            TargetType="{x:Type TabItem}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">

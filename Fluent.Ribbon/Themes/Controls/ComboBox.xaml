@@ -185,8 +185,9 @@
                                  VerticalAlignment="Stretch"
                                  TextWrapping="NoWrap"
                                  BorderThickness="0,0,0,0"
-                                 IsReadOnly="{TemplateBinding IsReadOnly}"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"                                 
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
                                  Visibility="Hidden" />
                     </Grid>
                 </Border>
