@@ -2,11 +2,7 @@
 namespace Fluent
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -21,7 +17,7 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty(nameof(Items))]
-    public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
+    public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields
 
@@ -234,122 +230,18 @@ namespace Fluent
             set { this.SetValue(GroupNameProperty, value); }
         }
 
+        /// <inheritdoc />
+        bool? IToggleButton.IsChecked
+        {
+            get { return this.IsChecked; }
+            set { this.IsChecked = value == true; }
+        }
+
         /// <summary>
         /// Using a DependencyProperty as the backing store for GroupName.  
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(MenuItem),
-            new PropertyMetadata(OnGroupNameChanged));
-
-        // Group name changed
-        private static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var toggleButton = (MenuItem)d;
-            var currentGroupName = (string)e.NewValue;
-            var previousGroupName = (string)e.OldValue;
-
-            if (previousGroupName != null) RemoveFromGroup(previousGroupName, toggleButton);
-            if (currentGroupName != null) AddToGroup(currentGroupName, toggleButton);
-        }
-
-        #region Grouped Items Methods
-
-        // Grouped buttons (thread id / group name / weak ref to a control)
-        private static readonly Dictionary<int, Dictionary<string, List<WeakReference>>> groupedButtons =
-            new Dictionary<int, Dictionary<string, List<WeakReference>>>();
-
-        // Remove from group
-        private static void RemoveFromGroup(string groupName, MenuItem button)
-        {
-            List<WeakReference> buttons;
-            var threadId = Thread.CurrentThread.ManagedThreadId;
-            if (!groupedButtons.ContainsKey(threadId)) return;
-            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return;
-
-            buttons.RemoveAt(buttons.FindIndex(x => x.IsAlive && ReferenceEquals(x.Target, button)));
-        }
-
-        // Remove from group
-        private static void AddToGroup(string groupName, MenuItem button)
-        {
-            var threadId = Thread.CurrentThread.ManagedThreadId;
-            if (!groupedButtons.ContainsKey(threadId)) groupedButtons.Add(threadId, new Dictionary<string, List<WeakReference>>());
-
-            List<WeakReference> buttons;
-            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons))
-            {
-                buttons = new List<WeakReference>();
-                groupedButtons[threadId].Add(groupName, buttons);
-            }
-
-            buttons.Add(new WeakReference(button));
-        }
-
-        // Gets all buttons in the given group
-        private static IEnumerable<MenuItem> GetItemsInGroup(string groupName)
-        {
-            var threadId = Thread.CurrentThread.ManagedThreadId;
-            if (!groupedButtons.ContainsKey(threadId)) return new List<MenuItem>();
-
-            List<WeakReference> buttons;
-            if (!groupedButtons[threadId].TryGetValue(groupName, out buttons)) return new List<MenuItem>();
-            return buttons.Where(x => x.IsAlive).Select(x => (MenuItem)x.Target);
-        }
-
-        #endregion
-
-        #region IsChecked
-
-        // Coerce IsChecked
-        private static object CoerceIsChecked(DependencyObject d, object basevalue)
-        {
-            var toggleButton = (MenuItem)d;
-            if (toggleButton.GroupName == null)
-            {
-                return basevalue;
-            }
-
-            var baseIsChecked = (bool)basevalue;
-            if (!baseIsChecked)
-            {
-                // We can not allow that there are no one button checked
-                foreach (var item in GetItemsInGroup(toggleButton.GroupName))
-                {
-                    // It's Ok, atleast one checked button exists
-                    if (item.IsChecked)
-                    {
-                        return false;
-                    }
-                }
-
-                // This button can not be unchecked
-                return true;
-            }
-            return basevalue;
-        }
-
-        // Handles isChecked changed
-        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var newValue = (bool)e.NewValue;
-            var button = (MenuItem)d;
-
-            // Uncheck other toggle buttons
-            if (newValue
-                && button.GroupName != null)
-            {
-                foreach (var item in GetItemsInGroup(button.GroupName))
-                {
-                    if (ReferenceEquals(item, button) == false)
-                    {
-                        item.IsChecked = false;
-                    }
-                }
-            }
-        }
-
-        #endregion
+        public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(MenuItem), new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
 
         #endregion
 
@@ -382,7 +274,7 @@ namespace Fluent
             //PopupService.Attach(type);            
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, OnIsCheckedChanged, CoerceIsChecked));
+            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
         }
 
         /// <summary>
