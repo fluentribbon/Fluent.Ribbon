@@ -9,6 +9,7 @@
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:converters="clr-namespace:FluentTest.Converters"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -19,7 +20,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+            <converters:UniqueGroupNameConverter x:Key="UniqueGroupNameConverter" />
 
             <Canvas x:Key="AppbarUndoIcon"
                     Width="76"
@@ -1763,13 +1766,13 @@
                 <Fluent:RibbonGroupBox Header="ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
                                          KeyTip="T1"
-                                         GroupName="Group1" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
                     <Fluent:ToggleButton Header="Toggle 2"
                                          KeyTip="T2"
-                                         GroupName="Group1" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
                     <Fluent:ToggleButton Header="Toggle 3"
                                          KeyTip="T3"
-                                         GroupName="Group1"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}" />
 
                     <Fluent:DropDownButton Header="ToggleButton width test">
@@ -1777,7 +1780,7 @@
                             <Grid.Resources>
                                 <Style TargetType="{x:Type Fluent:ToggleButton}">
                                     <Setter Property="GroupName"
-                                            Value="MonthsGroup" />
+                                            Value="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MonthsGroup}" />
                                     <Setter Property="Width"
                                             Value="100" />
                                 </Style>
@@ -2172,15 +2175,15 @@
                                     <Fluent:MenuItem Header="Itemq"
                                                      KeyTip="A"
                                                      IsCheckable="True"
-                                                     GroupName="ABC" />
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}" />
                                     <Fluent:MenuItem Header="Itemw"
                                                      KeyTip="B"
                                                      IsCheckable="True"
-                                                     GroupName="ABC" />
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}" />
                                     <Fluent:MenuItem Header="Iteme"
                                                      KeyTip="C"
                                                      IsCheckable="True"
-                                                     GroupName="ABC"
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
                                                      IsChecked="True" />
                                 </Fluent:MenuItem>
                             </Fluent:MenuItem>
@@ -2320,10 +2323,10 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:RadioButton Header="Test-Radio 1"
-                                        GroupName="Test-Radio"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
                                         IsChecked="True" />
                     <Fluent:RadioButton Header="Test-Radio 2"
-                                        GroupName="Test-Radio"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
                                         IsChecked="False" />
                 </Fluent:RibbonGroupBox>
 
@@ -2530,29 +2533,17 @@
                     <Fluent:ToggleButton Header="Pause"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                          SizeDefinition="Middle"
-                                         GroupName="Group1" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test16.png"
                                          SizeDefinition="Middle"
-                                         GroupName="Group1" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
                     <Separator />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test16.png"
-                                         GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                    <Separator />
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox>
-                    <Fluent:ToggleButton Header="Button1"
-                                         GroupName="Group1" />
-                    <Fluent:ToggleButton Header="Button2"
-                                         GroupName="Group2" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2585,13 +2576,13 @@
                         <WrapPanel>
                             <GroupBox Header="Menu">
                                 <WrapPanel>
-                                    <Fluent:ToggleButton GroupName="Menu"
+                                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Menu}"
                                                          Name="UseBackstage"
                                                          Size="Middle"
                                                          IsChecked="True">
                                         Use backstage
                                     </Fluent:ToggleButton>
-                                    <Fluent:ToggleButton GroupName="Menu"
+                                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Menu}"
                                                          Name="UseApplicationMenu"
                                                          Size="Middle">
                                         Use application menu
