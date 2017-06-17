@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Fluent.Themes.Colors">
+    <Color x:Key="BlackColor">#FFFFFFFF</Color>
+    <Color x:Key="WhiteColor">#FF252525</Color>
+
+    <Color x:Key="Gray1">#FFF9F9F9</Color>
+    <Color x:Key="Gray2">#FF7F7F7F</Color>
+    <Color x:Key="Gray7">#FF7E7E7E</Color>
+    <Color x:Key="Gray8">#FF454545</Color>
+    <Color x:Key="Gray10">#FF2F2F2F</Color>
+</ResourceDictionary>
