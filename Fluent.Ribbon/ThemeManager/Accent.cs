@@ -6,7 +6,7 @@ namespace Fluent
     using System.Windows;
 
     /// <summary>
-    /// An object that represents the foreground color for a Metro <see cref="AppTheme"/>.
+    /// An object that represents the foreground color for a <see cref="AppTheme"/>.
     /// </summary>
     [DebuggerDisplay("accent={Name}, res={Resources.Source}")]
     public class Accent
@@ -22,7 +22,7 @@ namespace Fluent
         public string Name { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the MahApps.Metro.Accent class.
+        /// Initializes a new instance of the Accent class.
         /// </summary>
         public Accent()
         { }

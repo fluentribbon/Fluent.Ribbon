@@ -5,11 +5,6 @@ namespace Fluent
     using System.Diagnostics;
     using System.Windows;
 
-    internal class AppName
-    {
-        public const string MahApps = "MahApps.Metro";
-    }
-
     /// <summary>
     /// Represents the background theme of the application.
     /// </summary>

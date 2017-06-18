@@ -10,7 +10,7 @@ namespace Fluent
     using System.Windows;
 
     /// <summary>
-    /// A class that allows for the detection and alteration of a MetroWindow's theme and accent.
+    /// A class that allows for the detection and alteration of a theme and accent.
     /// </summary>
     public static class ThemeManager
     {
