@@ -196,7 +196,7 @@
                         TargetName="selectedGrid"
                         Value="Visible" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -214,7 +214,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -228,7 +228,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

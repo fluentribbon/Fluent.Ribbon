@@ -7,7 +7,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/ColorsDark.xaml" />-->
+                
+                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Accents/Green.xaml" />-->
+                
+                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/BaseDark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Accents/Green.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

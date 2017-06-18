@@ -1,7 +1,9 @@
 ﻿namespace FluentTest.ViewModels
 {
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Media;
+    using Fluent;
 
     public class ColorViewModel : ViewModel
     {
@@ -44,6 +46,28 @@
                 Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = new SolidColorBrush(value);
                 this.OnPropertyChanged(nameof(this.ThemeColor));
             }
+        }
+
+        public IEnumerable<AppTheme> AppThemes
+        {
+            get { return ThemeManager.AppThemes; }
+        }
+
+        public IEnumerable<Accent> Accents
+        {
+            get { return ThemeManager.Accents; }
+        }
+
+        public AppTheme CurrentAppTheme
+        {
+            get { return ThemeManager.DetectAppStyle().Item1; }
+            set { ThemeManager.ChangeAppStyle(Application.Current, this.CurrentAccent, value); }
+        }
+
+        public Accent CurrentAccent
+        {
+            get { return ThemeManager.DetectAppStyle().Item2; }
+            set { ThemeManager.ChangeAppStyle(Application.Current, value, this.CurrentAppTheme); }
         }
     }
 }

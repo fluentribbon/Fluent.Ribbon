@@ -2757,6 +2757,23 @@
 
                     <GroupBox Header="Options">
                         <WrapPanel>
+                            <GroupBox Header="Theme">
+                                <WrapPanel>
+                                    <Fluent:ComboBox Header="AppTheme"
+                                                     MinWidth="140"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding ColorViewModel.AppThemes}"
+                                                     SelectedItem="{Binding ColorViewModel.CurrentAppTheme, Mode=TwoWay}"
+                                                     DisplayMemberPath="Name" />
+                                    <Fluent:ComboBox Header="Accent"
+                                                     MinWidth="100"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding ColorViewModel.Accents}"
+                                                     SelectedItem="{Binding ColorViewModel.CurrentAccent, Mode=TwoWay}"
+                                                     DisplayMemberPath="Name" />
+                                </WrapPanel>
+                            </GroupBox>
+                            
                             <GroupBox Header="Menu">
                                 <WrapPanel>
                                     <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Menu}"
