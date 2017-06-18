@@ -38,7 +38,7 @@ tools/
 *.nupkg
 
 # Generated files
-Fluent.Ribbon/Themes/**/Generic.xaml
+Fluent.Ribbon/Themes/**/Styles.xaml
 packages/
 .tmp
 
