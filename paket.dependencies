@@ -1,7 +1,8 @@
 source https://www.nuget.org/api/v2/
-source https://ci.appveyor.com/nuget/controlzex
+//source https://ci.appveyor.com/nuget/controlzex
 
 framework net462, net45, net40
+specific_version: false
 
 nuget 7-Zip.Commandline 9.20.0
 nuget gitlink 2.4.1

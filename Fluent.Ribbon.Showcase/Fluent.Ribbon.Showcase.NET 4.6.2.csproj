@@ -270,11 +270,13 @@
         <Reference Include="MahApps.Metro">
           <HintPath>..\packages\MahApps.Metro\lib\net40\MahApps.Metro.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
         <Reference Include="System.Windows.Interactivity">
           <HintPath>..\packages\MahApps.Metro\lib\net40\System.Windows.Interactivity.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -284,11 +286,13 @@
         <Reference Include="MahApps.Metro">
           <HintPath>..\packages\MahApps.Metro\lib\net45\MahApps.Metro.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
         <Reference Include="System.Windows.Interactivity">
           <HintPath>..\packages\MahApps.Metro\lib\net45\System.Windows.Interactivity.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>

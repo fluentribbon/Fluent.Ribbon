@@ -84,6 +84,7 @@
         <Reference Include="nunit.framework">
           <HintPath>..\packages\NUnit\lib\net40\nunit.framework.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
@@ -93,6 +94,7 @@
         <Reference Include="nunit.framework">
           <HintPath>..\packages\NUnit\lib\net45\nunit.framework.dll</HintPath>
           <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
           <Paket>True</Paket>
         </Reference>
       </ItemGroup>
