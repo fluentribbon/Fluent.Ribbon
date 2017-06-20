@@ -673,132 +673,82 @@ namespace Fluent
         /// <param name="e">Event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Down)
+            var baseKeyDownCalled = false;
+
+            if (this.Menu.IsKeyboardFocusWithin == false
+                && e.Key != Key.Tab)
             {
-                Debug.WriteLine("Down pressed. FocusedElement - " + Keyboard.FocusedElement);
-                if (this.Menu != null 
-                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
-                {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+                base.OnKeyDown(e);
 
-                    if (indexOfMSelectedItem != this.Menu.Items.Count - 1)
-                    {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem + 1) as IInputElement);
-                    }
-                    else
-                    {
-                        if ((this.Items.Count > 0) && !this.IsEditable)
-                        {
-                            Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
-                        }
-                        else Keyboard.Focus(this.Menu.Items[0] as IInputElement);
-                    }
+                baseKeyDownCalled = true;
+
+                if (e.Handled)
+                {
+                    return;
                 }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
-                {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+            }
 
-                    if (indexOfSelectedItem != this.Items.Count - 1)
+            if (this.Menu != null
+                && this.Menu.Items.IsEmpty == false)
+            {
+                if (e.Key == Key.Tab)
+                {
+                    if (this.Menu.IsKeyboardFocusWithin)
                     {
-                        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem + 1) as IInputElement);
+                        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                     }
                     else
                     {
-                        if (this.Menu != null
-                            && this.Menu.Items.Count > 0
-                            && this.IsEditable == false)
+                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                    }
+
+                    e.Handled = true;
+                    return;
+                }
+
+                if (this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
+                {
+                    if (e.Key == Key.Down)
+                    {
+                        var indexOfMenuSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
+                        if (indexOfMenuSelectedItem != this.Menu.Items.Count - 1)
+                        {
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMenuSelectedItem + 1) as IInputElement);
+                        }
+                        else
                         {
                             Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
                         }
-                        else
-                        {
-                            Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
-                        }
+
+                        e.Handled = true;
+                        return;
                     }
-                }
-                else if (this.SelectedItem != null)
-                {
-                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
-                }
 
-                e.Handled = true;
-                Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
-                return;
-            }
-            else if (e.Key == Key.Up)
-            {
-                Debug.WriteLine("Up pressed. FocusedElement - " + Keyboard.FocusedElement);
-
-                if (this.Menu != null 
-                    && this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
-                {
-                    var indexOfMSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
-
-                    if (indexOfMSelectedItem != 0)
+                    if (e.Key == Key.Up)
                     {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMSelectedItem - 1) as IInputElement);
-                    }
-                    else
-                    {
-                        if (this.Items.Count > 0
-                            && this.IsEditable == false)
+                        var indexOfMenuSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
+
+                        if (indexOfMenuSelectedItem != 0)
                         {
-                            Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMenuSelectedItem - 1) as IInputElement);
                         }
                         else
-                        {
-                            Keyboard.Focus(this.Menu.Items[this.Menu.Items.Count - 1] as IInputElement);
-                        }
-                    }
-                }
-                else if (this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
-                {
-                    var indexOfSelectedItem = this.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
-                    if (indexOfSelectedItem != 0)
-                    {
-                        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(indexOfSelectedItem - 1) as IInputElement);
-                    }
-                    else
-                    {
-                        if (this.Menu != null
-                            && this.Menu.Items.Count > 0
-                            && this.IsEditable == false)
                         {
                             Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
                         }
-                        else
-                        {
-                            Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1) as IInputElement);
-                        }
+
+                        e.Handled = true;
+                        return;
                     }
                 }
-                else if (this.SelectedItem != null)
-                {
-                    Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
-                }
-
-                Debug.WriteLine("FocusedElement - " + Keyboard.FocusedElement);
-                e.Handled = true;
-                return;
             }
-            else if ((e.Key == Key.Return) && !this.IsEditable && this.IsDropDownOpen)
+
+            if (baseKeyDownCalled == false
+                && e.Handled == false)
             {
-                var element = Keyboard.FocusedElement as DependencyObject;
-
-                // only try to select if we got a focusedElement
-                if (element != null)
-                {
-                    var newSelectedIndex = this.ItemContainerGenerator.IndexFromContainer(element);
-
-                    // only set the selected index if the focused element was in a container in this combobox
-                    if (newSelectedIndex > -1)
-                    {
-                        this.SelectedIndex = newSelectedIndex;
-                    }
-                }
+                base.OnKeyDown(e);
             }
-
-            base.OnKeyDown(e);
         }
 
         #endregion

@@ -1,9 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
 
 // ReSharper disable once CheckNamespace
 namespace Fluent
@@ -43,37 +41,6 @@ namespace Fluent
         {
             return item is System.Windows.Controls.MenuItem
                 || item is Separator;
-        }
-
-        /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Keyboard.GotKeyboardFocus"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.Input.KeyboardFocusChangedEventArgs"/> that contains the event data.</param>
-        protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-        {
-            //base.OnGotKeyboardFocus(e);
-            var element = this.GetRootDropDownControl() as IInputElement;
-            if (element != null) Keyboard.Focus(element);
-        }
-
-        /*protected override void OnGotMouseCapture(MouseEventArgs e)
-        {
-            IInputElement element = GetRootDropDownControl() as IInputElement;
-            if ((element!=null)&&(Mouse.Captured!=element)) Mouse.Capture(element, CaptureMode.SubTree);
-        }*/
-
-        private IDropDownControl GetRootDropDownControl()
-        {
-            DependencyObject element = this;
-            while (element != null)
-            {
-                var popup = element as IDropDownControl;
-                if (popup != null) return popup;
-                var elementParent = VisualTreeHelper.GetParent(element);
-                if (elementParent == null) element = LogicalTreeHelper.GetParent(element);
-                else element = elementParent;
-            }
-            return null;
         }
 
         #endregion

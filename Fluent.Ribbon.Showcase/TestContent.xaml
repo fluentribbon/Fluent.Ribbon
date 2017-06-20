@@ -1105,7 +1105,7 @@
                                        IsLauncherVisible="False"
                                        x:Name="groupLL">
                     <Fluent:ComboBox IsEditable="False"
-                                     InputWidth="150"
+                                     InputWidth="120"
                                      Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
@@ -1118,7 +1118,7 @@
                     </Fluent:ComboBox>
 
                     <Fluent:ComboBox IsEditable="False"
-                                     InputWidth="150"
+                                     InputWidth="120"
                                      Header="Fonts"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemsPanel>
@@ -1137,9 +1137,9 @@
                     <Fluent:Button Header="Add item to fonts"
                                    Click="HandleAddItemToFontsClick" />
 
-                    <Fluent:ComboBox Name="FilterComboBox"
+                    <Fluent:ComboBox Header="KeyboardNavigation"
                                      IsReadOnly="True"
-                                     KeyTip="H"
+                                     KeyTip="KET"
                                      SelectedIndex="0">
                         <Fluent:ComboBox.Menu>
                             <Fluent:RibbonMenu>
@@ -1151,6 +1151,23 @@
                         <System:String>Show All</System:String>
                         <System:String>Read-only</System:String>
                         <System:String>Writeable</System:String>
+                    </Fluent:ComboBox>
+                    
+                    <Fluent:ComboBox Header="KeyboardNavigation" 
+                                     IsEditable="False"
+                                     IsReadOnly="True"
+                                     KeyTip="KEF"
+                                     SelectedIndex="0">
+                        <Fluent:ComboBox.Menu>
+                            <Fluent:RibbonMenu>
+                                <Fluent:MenuItem Header="Test" />
+                                <Separator />
+                                <Fluent:MenuItem Header="Test" />
+                            </Fluent:RibbonMenu>
+                        </Fluent:ComboBox.Menu>
+                        <System:String>One</System:String>
+                        <System:String>Two</System:String>
+                        <System:String>Three</System:String>
                     </Fluent:ComboBox>
                 </Fluent:RibbonGroupBox>
 
@@ -1549,14 +1566,13 @@
                     <Fluent:Button Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Header="Enlarge"
+                                   Size="Middle"
                                    Click="OnEnlargeClick" />
                     <Fluent:Button Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
                                    Header="Reduce"
+                                   Size="Middle"
                                    Click="OnReduceClick" />
-                    <Fluent:Button Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
-                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
-                                   Header="Cmd" />
 
                     <Fluent:Button Header="Button with rectangle as icon">
                         <Fluent:Button.Icon>
