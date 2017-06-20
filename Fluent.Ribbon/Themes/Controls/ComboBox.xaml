@@ -187,7 +187,7 @@
                                  BorderThickness="0,0,0,0"
                                  IsReadOnly="{TemplateBinding IsReadOnly}"                                 
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
+                                 Foreground="{TemplateBinding Foreground}"
                                  Visibility="Hidden" />
                     </Grid>
                 </Border>
