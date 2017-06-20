@@ -28,8 +28,9 @@ namespace Fluent
                     return _accents;
 
                 var colors = new[] {
-                                       "Blue", "Red", "Green"
-                                   };
+                                       "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt",
+                                       "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
+                                   }.OrderBy(x => x).ToArray();
 
                 _accents = new List<Accent>(colors.Length);
 
