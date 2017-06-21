@@ -1,6 +1,8 @@
 ﻿namespace FluentTest.ViewModels
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Media;
     using Fluent;
@@ -48,26 +50,38 @@
             }
         }
 
-        public IEnumerable<AppTheme> AppThemes
-        {
-            get { return ThemeManager.AppThemes; }
-        }
+        public IEnumerable<AppTheme> AppThemes { get; } = ThemeManager.AppThemes;
 
-        public IEnumerable<Accent> Accents
-        {
-            get { return ThemeManager.Accents; }
-        }
+        public IEnumerable<AccentItem> Accents { get; } = ThemeManager.Accents.Select(x => new AccentItem(x)).ToList();
 
         public AppTheme CurrentAppTheme
         {
             get { return ThemeManager.DetectAppStyle().Item1; }
-            set { ThemeManager.ChangeAppStyle(Application.Current, this.CurrentAccent, value); }
+            set { ThemeManager.ChangeAppStyle(Application.Current, this.CurrentAccent.Accent, value); }
         }
 
-        public Accent CurrentAccent
+        public AccentItem CurrentAccent
         {
-            get { return ThemeManager.DetectAppStyle().Item2; }
-            set { ThemeManager.ChangeAppStyle(Application.Current, value, this.CurrentAppTheme); }
+            get
+            {
+                var accent = ThemeManager.DetectAppStyle().Item2;
+                return this.Accents.First(x => x.Accent.Name == accent.Name);
+            }
+            set { ThemeManager.ChangeAppStyle(Application.Current, value.Accent, this.CurrentAppTheme); }
         }
+    }
+
+    [DebuggerDisplay("accent={Accent.Name}")]
+    public class AccentItem
+    {
+        public AccentItem(Accent accent)
+        {
+            this.Accent = accent;
+            this.AccentBaseColor = (Brush)accent.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"];
+        }
+
+        public Accent Accent { get; }
+
+        public Brush AccentBaseColor { get; }
     }
 }

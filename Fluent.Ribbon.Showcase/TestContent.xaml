@@ -2782,11 +2782,21 @@
                                                      SelectedItem="{Binding ColorViewModel.CurrentAppTheme, Mode=TwoWay}"
                                                      DisplayMemberPath="Name" />
                                     <Fluent:ComboBox Header="Accent"
-                                                     MinWidth="100"
+                                                     MinWidth="150"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding ColorViewModel.Accents}"
-                                                     SelectedItem="{Binding ColorViewModel.CurrentAccent, Mode=TwoWay}"
-                                                     DisplayMemberPath="Name" />
+                                                     SelectedItem="{Binding ColorViewModel.CurrentAccent, Mode=TwoWay}">
+                                        <Fluent:ComboBox.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type viewModels:AccentItem}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Ellipse Width="16"
+                                                             Height="16"
+                                                             Fill="{Binding AccentBaseColor, Mode=OneWay}" />
+                                                    <TextBlock Text="{Binding Accent.Name}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </Fluent:ComboBox.ItemTemplate>
+                                    </Fluent:ComboBox>
                                 </WrapPanel>
                             </GroupBox>
                             
