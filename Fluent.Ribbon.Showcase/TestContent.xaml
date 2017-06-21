@@ -3092,6 +3092,7 @@
                             
                             <Fluent:Button Size="Middle"
                                            VerticalAlignment="Top"
+                                           ToolTip="Theme should change every 2 seconds."
                                            Command="{Binding IssueReprosViewModel.ThemeManagerFromThread.StartStopCommand}">Change theme from thread</Fluent:Button>                            
                             
                             <GroupBox Header="KeyTip issues #254">
