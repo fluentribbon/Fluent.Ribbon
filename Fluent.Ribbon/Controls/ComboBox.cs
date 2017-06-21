@@ -675,7 +675,7 @@ namespace Fluent
         {
             var baseKeyDownCalled = false;
 
-            if (this.Menu.IsKeyboardFocusWithin == false
+            if ((this.Menu != null && this.Menu.IsKeyboardFocusWithin == false)
                 && e.Key != Key.Tab)
             {
                 base.OnKeyDown(e);
