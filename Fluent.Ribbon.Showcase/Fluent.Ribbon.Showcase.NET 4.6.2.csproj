@@ -64,6 +64,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.6.2.csproj">
+      <Project>{b31271b7-f412-44c0-ad21-2bd064e86707}</Project>
+      <Name>Fluent.Ribbon.NET 4.6.2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,6 +106,8 @@
     <Compile Include="ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="ViewModels\GallerySampleDataItemViewModel.cs" />
     <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\IssueReprosViewModel.cs" />
+    <Compile Include="ViewModels\IssueRepros\ThemeManagerFromThread.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="Images\VectorIcons.xaml">
@@ -248,12 +256,6 @@
     <Resource Include="Images\RedLarge.png" />
     <Resource Include="Images\Yellow.png" />
     <Resource Include="Images\YellowLarge.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.6.2.csproj">
-      <Project>{b31271b7-f412-44c0-ad21-2bd064e86707}</Project>
-      <Name>Fluent.Ribbon.NET 4.6.2</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

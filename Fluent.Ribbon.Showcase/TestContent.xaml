@@ -3089,6 +3089,11 @@
                                            Size="Middle"
                                            VerticalAlignment="Top"
                                            Click="SleepButton_OnClick">Sleep for issues #80 and #159</Fluent:Button>
+                            
+                            <Fluent:Button Size="Middle"
+                                           VerticalAlignment="Top"
+                                           Command="{Binding IssueReprosViewModel.ThemeManagerFromThread.StartStopCommand}">Change theme from thread</Fluent:Button>                            
+                            
                             <GroupBox Header="KeyTip issues #254">
                                 <StackPanel Orientation="Vertical">
                                     <WindowsFormsHost>

@@ -64,6 +64,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.5.csproj">
+      <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
+      <Name>Fluent.Ribbon.NET 4.5</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,6 +106,8 @@
     <Compile Include="ViewModels\GalleryItemViewModel.cs" />
     <Compile Include="ViewModels\GallerySampleDataItemViewModel.cs" />
     <Compile Include="ViewModels\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\IssueReprosViewModel.cs" />
+    <Compile Include="ViewModels\IssueRepros\ThemeManagerFromThread.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Page Include="Images\VectorIcons.xaml">
@@ -168,12 +176,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.NET 4.5.csproj">
-      <Project>{4C92FCF4-3561-499F-BC5B-F2F089863047}</Project>
-      <Name>Fluent.Ribbon.NET 4.5</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\SampleImageForScreenTip.png" />

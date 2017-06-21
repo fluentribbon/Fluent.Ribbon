@@ -42,6 +42,7 @@
             this.ColorViewModel = new ColorViewModel();
             this.FontsViewModel = new FontsViewModel();
             this.GalleryViewModel = new GalleryViewModel();
+            this.IssueReprosViewModel = new IssueReprosViewModel();
 
             this.PreviewCommand = new RelayCommand<GalleryItem>(Preview);
             this.CancelPreviewCommand = new RelayCommand<GalleryItem>(CancelPreview);
@@ -104,6 +105,8 @@
                 this.OnPropertyChanged(nameof(this.GalleryViewModel));
             }
         }
+
+        public IssueReprosViewModel IssueReprosViewModel { get; set; }
 
         /// <summary>
         /// Gets data items (uses as DataContext)
