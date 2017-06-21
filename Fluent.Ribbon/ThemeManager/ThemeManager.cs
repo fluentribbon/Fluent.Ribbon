@@ -30,7 +30,7 @@ namespace Fluent
                 var colors = new[] {
                                        "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt",
                                        "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
-                                   }.OrderBy(x => x).ToArray();
+                                   };
 
                 _accents = new List<Accent>(colors.Length);
 
@@ -303,7 +303,7 @@ namespace Fluent
             AppTheme matched;
             if ((matched = GetAppTheme(themeName)) != null)
             {
-                ChangeAppStyle(app.Resources, oldTheme, oldTheme?.Item2, matched);
+                ChangeAppStyle(app.Resources, oldTheme, oldTheme.Item2, matched);
             }
         }
 
@@ -322,7 +322,7 @@ namespace Fluent
             AppTheme matched;
             if ((matched = GetAppTheme(themeName)) != null)
             {
-                ChangeAppStyle(window.Resources, oldTheme, oldTheme?.Item2, matched);
+                ChangeAppStyle(window.Resources, oldTheme, oldTheme.Item2, matched);
             }
         }
 
