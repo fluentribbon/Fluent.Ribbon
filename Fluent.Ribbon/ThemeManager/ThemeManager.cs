@@ -599,12 +599,12 @@ namespace Fluent
         private static bool AreResourceDictionarySourcesEqual(Uri first, Uri second)
         {
             return Uri.Compare(first, second,
-                               UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
+                 UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.InvariantCultureIgnoreCase) == 0;
         }
     }
 
     /// <summary>
-    /// Class which is used in as arguments for an event to signal theme changes.
+    /// Class which is used as argument for an event to signal theme changes.
     /// </summary>
     public class OnThemeChangedEventArgs : EventArgs
     {
