@@ -38,7 +38,7 @@ namespace Fluent
                 {
                     foreach (var color in colors)
                     {
-                        var resourceAddress = new Uri(string.Format("pack://application:,,,/Fluent;component/Themes/Accents/{0}.xaml", color));
+                        var resourceAddress = new Uri($"pack://application:,,,/Fluent;component/Themes/Accents/{color}.xaml");
                         _accents.Add(new Accent(color, resourceAddress));
                     }
                 }
@@ -69,7 +69,7 @@ namespace Fluent
                 {
                     foreach (var color in themes)
                     {
-                        var resourceAddress = new Uri(string.Format("pack://application:,,,/Fluent;component/Themes/Colors/{0}.xaml", color));
+                        var resourceAddress = new Uri($"pack://application:,,,/Fluent;component/Themes/Colors/{color}.xaml");
                         _appThemes.Add(new AppTheme(color, resourceAddress));
                     }
                 }
@@ -203,10 +203,10 @@ namespace Fluent
                 if (IsAccentDictionary(resources))
                 {
                     return new Accent
-                           {
-                               Name = "Runtime accent",
-                               Resources = resources,
-                           };
+                    {
+                        Name = "Runtime accent",
+                        Resources = resources,
+                    };
                 }
             }
 
@@ -249,7 +249,7 @@ namespace Fluent
                 // Note: do not use contains, because that will look in all merged dictionaries as well. We need to check
                 // out the actual keys of the current resource dictionary
                 if (!(from object resourceKey in resources.Keys 
-                      select resourceKey as string).Any(keyAsString => string.Equals(keyAsString, styleKey)))
+                     select resourceKey as string).Any(keyAsString => string.Equals(keyAsString, styleKey)))
                 {
                     return false;
                 }
