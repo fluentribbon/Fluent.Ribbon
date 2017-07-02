@@ -5,7 +5,7 @@ framework net462, net45, net40
 specific_version: false
 
 nuget 7-Zip.Commandline 9.20.0
-nuget gitlink 2.4.1
+nuget gitlink 2.4.0
 nuget NuGet.CommandLine
 
 nuget ControlzEx @>= 3.0.1 prerelease
