@@ -4,7 +4,7 @@ NUGET
   remote: https://www.nuget.org/api/v2
     7-Zip.CommandLine (9.20)
     ControlzEx (3.0.1-dev0028)
-    gitlink (2.4.1)
+    gitlink (2.4)
     MahApps.Metro (1.5)
     NuGet.CommandLine (4.1)
     NUnit (3.7.1)
