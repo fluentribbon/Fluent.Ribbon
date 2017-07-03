@@ -7,9 +7,7 @@
                     mc:Ignorable="options d">
     <!-- COLORS -->
     
-    <!-- Accent colors -->
-    <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#FFF0A30A</Color>
-    
+    <!-- Accent colors -->   
     <Color x:Key="Fluent.Ribbon.Colors.AccentBaseColor">#FFF0A30A</Color>
     <!--80%-->
     <Color x:Key="Fluent.Ribbon.Colors.AccentColor80">#CCF0A30A</Color>

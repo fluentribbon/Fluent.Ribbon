@@ -8,8 +8,6 @@
     <!-- COLORS -->
     
     <!-- Accent colors -->
-    <Color x:Key="{x:Static Fluent:MetroColors.ThemeColorKey}">#FFA0522D</Color>
-    
     <Color x:Key="Fluent.Ribbon.Colors.AccentBaseColor">#FFA0522D</Color>
     <!--80%-->
     <Color x:Key="Fluent.Ribbon.Colors.AccentColor80">#CCA0522D</Color>

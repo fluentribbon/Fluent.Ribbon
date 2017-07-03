@@ -20,6 +20,7 @@
 
 |Old|New|
 |---|---|
+| Fluent:MetroColors.ThemeColorKey | Fluent.Ribbon.Colors.AccentBaseColor |
 | ButtonDisabledBackgroundBrush | --- |
 | ButtonDisabledBorderBrush | --- |
 | SliderShadowBrush | WhiteBrush |
