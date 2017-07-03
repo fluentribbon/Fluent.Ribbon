@@ -599,7 +599,7 @@ namespace Fluent
         private static bool AreResourceDictionarySourcesEqual(Uri first, Uri second)
         {
             return Uri.Compare(first, second,
-                 UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.InvariantCultureIgnoreCase) == 0;
+                 UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
         }
     }
 

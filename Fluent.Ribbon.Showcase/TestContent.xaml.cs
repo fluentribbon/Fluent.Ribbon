@@ -11,6 +11,7 @@
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent;
+    using FluentTest.Helpers;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
@@ -335,6 +336,11 @@
         private void HandleAddItemToFontsClick(object sender, RoutedEventArgs e)
         {
             this.viewModel.FontsViewModel.FontsData.Add($"Added item {this.viewModel.FontsViewModel.FontsData.Count}");
+        }
+
+        private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ChangeImmediatelyCheckBox.IsChecked ?? false);
         }
     }
 

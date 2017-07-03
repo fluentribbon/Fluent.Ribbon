@@ -2972,6 +2972,7 @@
                               MouseDoubleClick="OnTreeDoubleClick" />
                 </Grid>
             </TabItem>
+            
             <TabItem Header="ViewboxTest"
                      Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
@@ -3052,6 +3053,7 @@
                     </Viewbox>
                 </Grid>
             </TabItem>
+            
             <TabItem Header="Tests">
                 <StackPanel Orientation="Vertical">
                     <GroupBox Header="Tabs">
@@ -3112,6 +3114,50 @@
                     </GroupBox>
                 </StackPanel>
             </TabItem>
+
+            <TabItem Header="Styles">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Fluent:DropDownButton HorizontalAlignment="Left"
+                                               SizeDefinition="Small"
+                                               MaxDropDownHeight="500">
+                            <Fluent:DropDownButton.Icon>
+                                <Rectangle VerticalAlignment="Stretch"
+                                            HorizontalAlignment="Stretch">
+                                    <Rectangle.Fill>
+                                        <SolidColorBrush Color="{Binding ElementName=ThemeColorGallery, Path=SelectedColor}" />
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Fluent:DropDownButton.Icon>
+                            <Fluent:ColorGallery x:Name="ThemeColorGallery"
+                                                 ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
+                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=OneTime}"
+                                                 Mode="ThemeColors"
+                                                 StandardColorGridRows="3"
+                                                 Columns="10"
+                                                 ThemeColorGridRows="5"
+                                                 IsNoColorButtonVisible="False"
+                                                 IsAutomaticColorButtonVisible="False" />
+                        </Fluent:DropDownButton>
+
+                        <Label Target="{Binding ElementName=ChangeImmediatelyCheckBox}">Change immediately</Label>
+                        <CheckBox x:Name="ChangeImmediatelyCheckBox" 
+                                  VerticalAlignment="Center" />
+                        <Button x:Name="CreateThemeResourceDictionaryButton"
+                                Click="CreateThemeResourceDictionaryButton_OnClick">Create theme</Button>
+                    </StackPanel>
+                    
+                    <TextBox x:Name="ThemeResourceDictionaryTextBox" 
+                             Grid.Row="1"
+                             IsReadOnly="True" />
+                </Grid>
+            </TabItem>
+
             <TabItem Header="Airspace issue">
                 <DockPanel LastChildFill="True">
                     <WindowsFormsHost HorizontalAlignment="Stretch"
