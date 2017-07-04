@@ -36,6 +36,7 @@
                    PlacementTarget="{Binding ElementName=buttonContent}"
                    VerticalOffset="{Binding ElementName=buttonContent, Path=ActualHeight}"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
+                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                    AllowsTransparency="True"
                    Focusable="False"
                    Margin="0,0,-4,0"
@@ -71,13 +72,19 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Orientation="Vertical"
-                                            ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                            Grid.Row="0"
-                                            Grid.Column="0"
-                                            x:Name="PART_MenuPanel"
-                                            IsItemsHost="True"
-                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                <ScrollViewer Style="{DynamicResource MenuScrollViewer}"
+                                              Grid.Row="0"
+                                              Grid.Column="0"
+                                              IsTabStop="False"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                    <StackPanel Orientation="Vertical"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                x:Name="PART_MenuPanel"
+                                                IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                </ScrollViewer>
+
                                 <Border Grid.Row="0"
                                         Grid.Column="1"
                                         BorderThickness="1,0,0,0"
@@ -86,8 +93,7 @@
                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                   Style="{DynamicResource MenuScrollViewer}"
                                                   IsTabStop="False"
-                                                  Margin="1"
-                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                  Margin="1"                                                  
                                                   SnapsToDevicePixels="True"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                   ScrollViewer.HorizontalScrollBarVisibility="Hidden">

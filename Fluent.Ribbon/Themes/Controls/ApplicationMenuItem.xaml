@@ -968,7 +968,7 @@
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2"
                    Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
-                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}">
+                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}">
                 <Grid Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"
@@ -1291,7 +1291,7 @@
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2"
                    Width="{Binding RightPaneWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ApplicationMenu}}}"
-                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}}">
+                   Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}">
                 <Grid x:Name="DropDown"
                       SnapsToDevicePixels="True"
                       Margin="0"

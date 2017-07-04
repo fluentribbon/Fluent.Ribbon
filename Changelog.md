@@ -140,6 +140,7 @@
   - [#430](../../issues/430) - No Rezising at Fluent:RibbonContextualTabGroup at Version 5.0
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
   - [#439](../../issues/439) - Context menu and submenu disappears after a right click
+  - [#446](../../issues/446) - Wrong submenu Position in application menu
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
