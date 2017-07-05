@@ -3130,7 +3130,7 @@
                                 <Rectangle VerticalAlignment="Stretch"
                                             HorizontalAlignment="Stretch">
                                     <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding ElementName=ThemeColorGallery, Path=SelectedColor}" />
+                                        <SolidColorBrush Color="{Binding ElementName=ThemeColorGallery, Path=SelectedColor, FallbackValue=Red}" />
                                     </Rectangle.Fill>
                                 </Rectangle>
                             </Fluent:DropDownButton.Icon>
