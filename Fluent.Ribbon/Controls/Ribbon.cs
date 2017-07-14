@@ -655,25 +655,25 @@ namespace Fluent
             {
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
-                    ribbon.TitleBar.Items.Remove(ribbonContextualTabGroup);
+                    oldValue.Items.Remove(ribbonContextualTabGroup);
                 }
 
                 // Make sure everything is cleared
-                ribbon.TitleBar.Items.Clear();
+                oldValue.Items.Clear();
 
-                ribbon.RemoveQuickAccessToolBarFromTitleBar();
+                ribbon.RemoveQuickAccessToolBarFromTitleBar(oldValue);
             }
 
             if (newValue != null)
             {
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
-                    ribbon.TitleBar.Items.Add(contextualTabGroup);
+                    newValue.Items.Add(contextualTabGroup);
                 }
 
                 if (ribbon.ShowQuickAccessToolBarAboveRibbon)
                 {
-                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                    ribbon.MoveQuickAccessToolBarToTitleBar(newValue);
                 }
             }
         }
@@ -708,11 +708,11 @@ namespace Fluent
             {
                 if ((bool)e.NewValue)
                 {
-                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                    ribbon.MoveQuickAccessToolBarToTitleBar(ribbon.TitleBar);
                 }
                 else
                 {
-                    ribbon.RemoveQuickAccessToolBarFromTitleBar();
+                    ribbon.RemoveQuickAccessToolBarFromTitleBar(ribbon.TitleBar);
                 }
 
                 ribbon.TitleBar.InvalidateMeasure();
@@ -1614,15 +1614,15 @@ namespace Fluent
 
             if (this.ShowQuickAccessToolBarAboveRibbon)
             {
-                this.MoveQuickAccessToolBarToTitleBar();
+                this.MoveQuickAccessToolBarToTitleBar(this.TitleBar);
             }
         }
 
-        private void MoveQuickAccessToolBarToTitleBar()
+        private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar titleBar)
         {
-            if (this.TitleBar != null)
+            if (titleBar != null)
             {
-                this.TitleBar.QuickAccessToolBar = this.QuickAccessToolBar;
+                titleBar.QuickAccessToolBar = this.QuickAccessToolBar;
             }
 
             if (this.QuickAccessToolBar != null)
@@ -1636,11 +1636,11 @@ namespace Fluent
             }
         }
 
-        private void RemoveQuickAccessToolBarFromTitleBar()
+        private void RemoveQuickAccessToolBarFromTitleBar(RibbonTitleBar titleBar)
         {
-            if (this.TitleBar != null)
+            if (titleBar != null)
             {
-                this.TitleBar.QuickAccessToolBar = null;
+                titleBar.QuickAccessToolBar = null;
             }
 
             if (this.QuickAccessToolBar != null)

@@ -153,5 +153,39 @@
                 Assert.That(element.Key.GetValue(property), Is.EqualTo(expectedValue), $"{property.Name} on {element.Value} should match.");
             }            
         }
+
+        [Test]
+        public void TitleBar_properties_synchronised_with_ribbon()
+        {
+            var ribbon = new Ribbon { ContextualGroups = { new RibbonContextualTabGroup() } };
+            using (new TestRibbonWindow(ribbon))
+            {
+                ribbon.ApplyTemplate();
+                Assert.IsNotNull(ribbon.QuickAccessToolBar);
+                Assert.IsNotNull(ribbon.TitleBar);
+
+                var oldTitleBar = ribbon.TitleBar;
+                Assert.AreEqual(1, oldTitleBar.Items.Count);
+                Assert.AreSame(ribbon.QuickAccessToolBar, oldTitleBar.QuickAccessToolBar);
+
+                var newTitleBar = new RibbonTitleBar();
+                Assert.AreEqual(0, newTitleBar.Items.Count);
+                Assert.IsNull(newTitleBar.QuickAccessToolBar);
+
+                // assign a new title bar, the contextual groups and quick access are transferred across
+                ribbon.TitleBar = newTitleBar;
+                Assert.AreEqual(0, oldTitleBar.Items.Count);
+                Assert.IsNull(oldTitleBar.QuickAccessToolBar);
+                Assert.AreEqual(1, newTitleBar.Items.Count);
+                Assert.AreSame(ribbon.QuickAccessToolBar, newTitleBar.QuickAccessToolBar);
+
+                // remove the title bar
+                ribbon.TitleBar = null;
+                Assert.AreEqual(0, oldTitleBar.Items.Count);
+                Assert.IsNull(oldTitleBar.QuickAccessToolBar);
+                Assert.AreEqual(0, newTitleBar.Items.Count);
+                Assert.IsNull(newTitleBar.QuickAccessToolBar);
+            }
+        }
     }
 }
