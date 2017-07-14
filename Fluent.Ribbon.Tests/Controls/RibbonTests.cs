@@ -162,9 +162,8 @@
             {
                 ribbon.ApplyTemplate();
                 Assert.IsNotNull(ribbon.QuickAccessToolBar);
-                Assert.IsNotNull(ribbon.TitleBar);
 
-                var oldTitleBar = ribbon.TitleBar;
+                var oldTitleBar = ribbon.TitleBar = new RibbonTitleBar();
                 Assert.AreEqual(1, oldTitleBar.Items.Count);
                 Assert.AreSame(ribbon.QuickAccessToolBar, oldTitleBar.QuickAccessToolBar);
 
