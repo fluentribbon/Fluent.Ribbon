@@ -141,6 +141,7 @@
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
   - [#439](../../issues/439) - Context menu and submenu disappears after a right click
   - [#446](../../issues/446) - Wrong submenu Position in application menu
+  - [#450](../../issues/450) - Fix Ribbon.OnTitleBarChanged clearing the new title bar instead of the old one (thanks @Cubey2019)
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
