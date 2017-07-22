@@ -494,4 +494,14 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
 - Fixed: 22516 "Issues with backstage content localization using WPF Localization Extension"
 
 ## 3.0.0
-- Too much work to write down changes made in 4 years. Please have a look at [changes in version 3.0](https://fluent.codeplex.com/wikipage?title=Changes%20in%20version%203.0&referringTitle=Documentation).
+## Major changes
+* Office 2013 theme is now included
+* MVVM support got better (yet not complete, please file a bug for things you need to work)
+* Samples are not divided anymore (all features shown there are now present in the showcase application)
+* All resource reference are now of type "DynamicResource" see comments for changeset https://fluent.codeplex.com/SourceControl/changeset/3572af781b96
+* We now use the WindowChrome class provided by Microsoft instead of custom code to render in the non client area
+* Large amount of [fixed bugs](https://fluent.codeplex.com/workitem/list/advanced?keyword=&status=Resolved%7cClosed&type=All&priority=All&release=All&assignedTo=All&component=All&reasonClosed=Fixed&sortField=LastUpdatedDate&sortDirection=Descending&page=0)
+* Style resources have been improved. That means you now have to include "Themes/Generic.xaml" to get Office 2010 silver and you can just import "Themes/Office2010/Black.xaml" etc. afterwards to get the different colors. To use the Office 2013 theme you can omit "Themes/Generic.xaml" and include "Themes/Office2013/Generic.xaml" instead. You can use RibbonWindow for Office 2010 or Office 2013 themes and you can switch between those at runtime. The showcase application shows how you can do that.
+
+## Breaking changes
+* No control in this library sets IsFocusScope=True anymore. This means that ApplicationCommands (such as paste, cut or copy), when bound to a button, don't get enabled when you would expect them to be activated. The showcase application uses those buttons with IsFocusScope=True.

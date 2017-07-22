@@ -57,7 +57,7 @@ If you think there is something missing in the showcase application feel free to
 To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
 
 # History &amp; roadmap
-A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
+A history of changes is maintained in the [Changelog](Changelog.md).
 The roadmap is done by [milestones](../../milestones).
 
 # Feature List
