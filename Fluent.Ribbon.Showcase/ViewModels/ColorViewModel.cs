@@ -56,7 +56,7 @@
 
         public AppTheme CurrentAppTheme
         {
-            get { return ThemeManager.DetectAppStyle().Item1; }
+            get { return ThemeManager.DetectAppStyle(Application.Current).Item1; }
             set { ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.DetectAppStyle().Item2, value); }
         }
 
@@ -64,7 +64,7 @@
         {
             get
             {
-                var accent = ThemeManager.DetectAppStyle().Item2;
+                var accent = ThemeManager.DetectAppStyle(Application.Current).Item2;
                 return this.Accents.FirstOrDefault(x => x.Accent.Name == accent.Name);
             }
             set { ThemeManager.ChangeAppStyle(Application.Current, value.Accent, this.CurrentAppTheme); }

@@ -1,0 +1,71 @@
+﻿<fluent:RibbonWindow x:Class="FluentTest.RibbonWindowWithBackgroundImage"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:local="clr-namespace:FluentTest"
+                     xmlns:fluent="urn:fluent-ribbon"
+                     xmlns:converters="clr-namespace:FluentTest.Converters"
+                     mc:Ignorable="d"
+                     Title="RibbonWindowWithBackgroundImage"
+                     Height="600"
+                     Width="800"
+                     TitleForeground="Black"
+                     TitleBackground="Transparent">
+    <fluent:RibbonWindow.Resources>
+        <converters:BackgroundImageViewportConverter x:Key="BackgroundImageViewportConverter" />
+
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="Transparent" />
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="Black" />
+            
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{DynamicResource WhiteColor}" />
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="Black" />
+    </fluent:RibbonWindow.Resources>
+    
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/banner.png"
+                    Stretch="Fill"
+                    Viewport="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BackgroundImageViewportConverter}}"
+                    ViewportUnits="Absolute"
+                    TileMode="None"
+                    AlignmentX="Right"
+                    AlignmentY="Top" />
+    </Window.Background>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <fluent:Ribbon Background="Transparent">
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage />
+            </fluent:Ribbon.Menu>
+
+            <fluent:RibbonTabItem Header="First">
+                <fluent:RibbonGroupBox Header="First">
+                    <fluent:Button Header="First" />
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem Header="Second">
+                <fluent:RibbonGroupBox Header="Second">
+                    <fluent:Button Header="Second" />
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+        </fluent:Ribbon>
+
+        <Grid Background="{DynamicResource WhiteBrush}"
+              Grid.Row="1">
+            <TextBlock TextWrapping="Wrap"
+                       Margin="5">
+                This sample shows how to use custom colors for various parts of the RibbonWindow, Ribbon, RibbonTitleBar and caption buttons inside WindowCommands.
+                <LineBreak />
+                The colors are chosen to be extreme by purpose.
+                <LineBreak />
+                Have a look at ColorizedRibbonWindow.xaml for details.
+                </TextBlock>
+        </Grid>
+    </Grid>
+</fluent:RibbonWindow>

@@ -327,6 +327,31 @@
             new TestWindow().ShowDialog();
         }
 
+        private void OpenRibbonWindowOnNewThread_OnClick(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+                                    {
+                                        new TestWindow().Show();
+                                        System.Windows.Threading.Dispatcher.Run();
+                                    })
+                         {
+                             IsBackground = true
+                         };
+            thread.SetApartmentState(ApartmentState.STA);
+            
+            thread.Start();
+        }
+
+        private void OpenRibbonWindowColorized_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowColorized().Show();
+        }
+
+        private void OpenRibbonWindowWithBackgroundImage_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowWithBackgroundImage().Show();
+        }
+
         private void ShowStartScreen_OnClick(object sender, RoutedEventArgs e)
         {
             this.startScreen.Shown = false;

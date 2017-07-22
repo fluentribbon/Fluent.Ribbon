@@ -3083,6 +3083,15 @@
                             <Fluent:Button x:Name="OpenModalRibbonWindow"
                                            Size="Middle"
                                            Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Fluent:Button>
+                            <Fluent:Button x:Name="OpenRibbonWindowOnNewThread"
+                                           Size="Middle"
+                                           Click="OpenRibbonWindowOnNewThread_OnClick">Open Ribbon-Window (new Thread)</Fluent:Button>
+                            <Fluent:Button x:Name="OpenRibbonWindowColorized"
+                                           Size="Middle"
+                                           Click="OpenRibbonWindowColorized_OnClick">Open Ribbon-Window (colorized)</Fluent:Button>
+                            <Fluent:Button x:Name="OpenRibbonWindowWithBackgroundImage"
+                                           Size="Middle"
+                                           Click="OpenRibbonWindowWithBackgroundImage_OnClick">Open Ribbon-Window (with background image)</Fluent:Button>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Issue repros">

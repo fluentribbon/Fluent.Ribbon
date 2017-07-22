@@ -87,6 +87,21 @@ namespace Fluent
             DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
+        /// Gets or sets the <see cref="Brush"/> which is used to render the window title background.
+        /// </summary>
+        public Brush TitleBackground
+        {
+            get { return (Brush)this.GetValue(TitleBackgroundProperty); }
+            set { this.SetValue(TitleBackgroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TitleBackground"/>.
+        /// </summary>
+        public static readonly DependencyProperty TitleBackgroundProperty =
+            DependencyProperty.Register(nameof(TitleBackground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
+
+        /// <summary>
         /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register(nameof(WindowCommands), typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata());

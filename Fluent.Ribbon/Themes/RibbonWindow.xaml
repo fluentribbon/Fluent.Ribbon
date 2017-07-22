@@ -24,7 +24,7 @@
                                Height="{TemplateBinding TitleBarHeight}"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Stretch"
-                               Background="Transparent"
+                               Background="{TemplateBinding TitleBackground}"
                                LastChildFill="True">
                         <Image x:Name="PART_Icon"
                                DockPanel.Dock="Left"
@@ -111,12 +111,14 @@
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="BorderBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="TitleForeground"
-                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />        
         <Setter Property="Background"
                 Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+        <Setter Property="TitleBackground"
+                Value="{Binding Background, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="TitleForeground"
+                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
         <Setter Property="TitleBarHeight"

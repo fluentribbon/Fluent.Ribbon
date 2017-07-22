@@ -16,6 +16,7 @@
             <Style BasedOn="{StaticResource FluentRibbonDefaultContextMenuStyle}"
                    TargetType="{x:Type ContextMenu}" />                        
         </ControlTemplate.Resources>
+        
         <Border Background="{TemplateBinding Background}">
             <Grid x:Name="PART_LayoutRoot" 
                   Width="Auto"
@@ -24,8 +25,8 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                
                 <Fluent:RibbonTabControl x:Name="PART_RibbonTabControl"
-                                         Background="{TemplateBinding Background}"
                                          Menu="{TemplateBinding Menu}"                                      
                                          ContentHeight="{TemplateBinding ContentHeight}"
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />

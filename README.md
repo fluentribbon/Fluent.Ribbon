@@ -13,6 +13,8 @@ Fluent.Ribbon
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
+![Banner](./Images/banner.png)
+
 Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
 ![Showcase](./Images/Showcase.gif)
@@ -163,7 +165,7 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Ukrainian
 *   Vietnamese
 
-## Awesome tools which MahApps can use
+## Awesome tools which Fluent.Ribbon can use
 
 [![Resharper](./Images/icon_ReSharper.png)](https://www.jetbrains.com/resharper/)
 

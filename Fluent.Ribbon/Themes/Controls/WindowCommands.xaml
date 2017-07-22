@@ -45,7 +45,6 @@
                                 Focusable="False"
                                 Style="{DynamicResource CaptionButtonStyle}"
                                 Padding="0"
-                                Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Path Width="10"
@@ -64,7 +63,6 @@
                                 Style="{DynamicResource CaptionButtonStyle}"
                                 Padding="0"
                                 Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static Converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
-                                Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Canvas Width="12"
@@ -84,7 +82,6 @@
                                 Style="{DynamicResource CaptionButtonStyle}"
                                 Padding="0"
                                 Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static Converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
-                                Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Canvas Width="12"
@@ -103,7 +100,6 @@
                                 Focusable="False"
                                 Style="{DynamicResource CaptionButtonStyle}"
                                 Padding="0"
-                                Foreground="{TemplateBinding Foreground}"
                                 ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                             <Grid>
@@ -202,11 +198,11 @@
                         Value=".5" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused"
-                     Value="true" />
+                     Value="True" />
             <Trigger Property="ToggleButton.IsChecked"
-                     Value="true" />
+                     Value="True" />
             <Trigger Property="IsEnabled"
-                     Value="false">
+                     Value="False">
                 <Setter Property="Foreground"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
             </Trigger>

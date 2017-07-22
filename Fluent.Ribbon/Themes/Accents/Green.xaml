@@ -65,5 +65,9 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background" Color="#FFFCF1C2" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush" Color="#FFF29536" options:Freeze="True" />
 
+    <!-- WindowCommands -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
+    
     <!-- END BRUSHES -->
 </ResourceDictionary>

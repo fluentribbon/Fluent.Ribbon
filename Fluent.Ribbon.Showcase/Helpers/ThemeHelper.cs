@@ -43,7 +43,11 @@
             // GalleryItem
             resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.MouseOver", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
             resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Selected", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));                                                                                    
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
+
+            // WindowCommands
+            resourceDictionary.Add("FFluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
 
             // Create theme
             var resDictName = $"ApplicationAccent_{color.ToString().Replace("#", string.Empty)}.xaml";

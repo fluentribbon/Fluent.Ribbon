@@ -146,6 +146,14 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground" Color="{StaticResource Gray2}" options:Freeze="True" />
     
+    <!-- RibbonTabControl -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="Transparent" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="Transparent" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background" Color="Transparent" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
+    
     <!-- RibbonTabItem -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
@@ -192,6 +200,11 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     
     <!-- WindowCommands -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background" Color="{StaticResource TransparentWhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
+    
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="#E81123" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="#F1707A" options:Freeze="True" />
     

@@ -77,6 +77,13 @@
     <Compile Include="..\Shared\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Converters\BackgroundImageViewportConverter.cs" />
+    <Compile Include="RibbonWindowWithBackgroundImage.xaml.cs">
+      <DependentUpon>RibbonWindowWithBackgroundImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RibbonWindowColorized.xaml.cs">
+      <DependentUpon>RibbonWindowColorized.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Commanding\IRelayCommand.cs" />
     <Compile Include="Commanding\RelayCommand.cs" />
     <Compile Include="Converters\UniqueGroupNameConverter.cs" />
@@ -111,6 +118,14 @@
     <Compile Include="ViewModels\IssueRepros\ThemeManagerFromThread.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
+    <Page Include="RibbonWindowWithBackgroundImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RibbonWindowColorized.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Images\VectorIcons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -236,11 +251,6 @@
     <Resource Include="Images\GalleryLarge.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\BlackTheme.png" />
-    <Resource Include="Images\BlueTheme.png" />
-    <Resource Include="Images\SilverTheme.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Blue.png" />
     <Resource Include="Images\BlueLarge.png" />
     <Resource Include="Images\Brown.png" />
@@ -257,6 +267,11 @@
     <Resource Include="Images\RedLarge.png" />
     <Resource Include="Images\Yellow.png" />
     <Resource Include="Images\YellowLarge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\Images\banner.png">
+      <Link>Images\banner.png</Link>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -100,8 +100,10 @@
            TargetType="{x:Type Fluent:RibbonTabControl}">
         <Setter Property="VerticalAlignment"
                 Value="Top" />
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Background}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Foreground}" />
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Template"
@@ -205,6 +207,7 @@
             </Style>
         </ControlTemplate.Resources>
         <Grid x:Name="ContentGrid"
+              Background="{TemplateBinding Background}"
               KeyboardNavigation.TabNavigation="Local"
               Height="Auto"
               VerticalAlignment="Top">
@@ -229,6 +232,8 @@
                     Margin="1,0,1,0"
                     Grid.Row="1"
                     Grid.RowSpan="1"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
                     KeyboardNavigation.TabNavigation="Local"
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2">
@@ -248,6 +253,8 @@
                     Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             
             <Grid x:Name="TabsGrid"
+                  Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background}"
+                  TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground}"
                   HorizontalAlignment="Stretch"
                   Width="Auto"
                   Margin="0"               

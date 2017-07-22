@@ -7,7 +7,7 @@
                     mc:Ignorable="options d">
     <!-- COLORS -->
     
-    <!-- Accent colors -->   
+    <!-- Accent colors -->
     <Color x:Key="Fluent.Ribbon.Colors.AccentBaseColor">#FF0050EF</Color>
     <!--80%-->
     <Color x:Key="Fluent.Ribbon.Colors.AccentColor80">#CC0050EF</Color>
@@ -40,7 +40,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.AccentColorBrush20" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
     
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.HighlightBrush" Color="{StaticResource Fluent.Ribbon.Colors.HighlightColor}" options:Freeze="True" />
-    
+
     <!-- Misc brushes -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ExtremeHighlightBrush" Color="{StaticResource Fluent.Ribbon.Colors.ExtremeHighlightColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush" Color="{StaticResource Fluent.Ribbon.Colors.DarkExtremeHighlightColor}" options:Freeze="True" />
@@ -65,5 +65,9 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background" Color="#FFFCF1C2" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush" Color="#FFF29536" options:Freeze="True" />
 
+    <!-- WindowCommands -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
+    
     <!-- END BRUSHES -->
 </ResourceDictionary>

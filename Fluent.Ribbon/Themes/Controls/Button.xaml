@@ -9,9 +9,9 @@
     <Style x:Key="CaptionButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Background"
-                Value="{DynamicResource TransparentWhiteBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground}" />
         <Setter Property="VerticalAlignment"
                 Value="Stretch" />
         <Setter Property="HorizontalContentAlignment"
@@ -25,15 +25,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid x:Name="grid"
-                          Background="{TemplateBinding Background}">
+                    <Grid Background="{TemplateBinding Background}">
                         <ContentPresenter x:Name="contentPresenter"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           Margin="{TemplateBinding Padding}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          RecognizesAccessKey="True"
-                                          Opacity="0.75" />
+                                          RecognizesAccessKey="True" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver"
@@ -46,10 +44,10 @@
                                  Value="False">
                             <Setter TargetName="contentPresenter"
                                     Property="Opacity"
-                                    Value=".5" />
+                                    Value="0.5" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
-                                 Value="false">
+                                 Value="False">
                             <Setter Property="Foreground"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.WhiteBrush}" />
                         </Trigger>
@@ -61,12 +59,12 @@
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
             </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="Background"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
             </Trigger>
         </Style.Triggers>
     </Style>
