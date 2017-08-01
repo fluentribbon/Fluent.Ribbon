@@ -47,15 +47,20 @@
                                 Padding="0"
                                 ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                                 Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                            <Path Width="10"
-                                  Height="10"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Data="M0,40 L96,40 96,48 0,48 0,40z"
-                                  Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                                  RenderOptions.EdgeMode="Aliased"
-                                  SnapsToDevicePixels="True"
-                                  Stretch="Uniform" />
+                            <Canvas Width="12"
+                                    Height="12"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <Path Data="M0,40 L96,40 96,48 0,48 0,40z"
+                                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                                      RenderOptions.EdgeMode="Aliased"
+                                      SnapsToDevicePixels="True"
+                                      Stretch="Uniform"
+                                      Width="10"
+                                      Height="10"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center" />
+                            </Canvas>
                         </Button>
 
                         <Button x:Name="PART_Max"
