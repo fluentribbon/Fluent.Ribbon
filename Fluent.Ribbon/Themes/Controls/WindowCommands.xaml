@@ -51,7 +51,6 @@
                                   VerticalAlignment="Center"
                                   SnapsToDevicePixels="True"
                                   Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                                  StrokeThickness="0.25"
                                   X1="0"
                                   X2="10"
                                   Y1="0"
