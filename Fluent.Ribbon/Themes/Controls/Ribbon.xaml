@@ -29,7 +29,7 @@
                 <Fluent:RibbonTabControl x:Name="PART_RibbonTabControl"
                                          Menu="{TemplateBinding Menu}"                                      
                                          ContentHeight="{TemplateBinding ContentHeight}"
-                                         ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"/>
+                                         ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}" />
                 
                 <ContentControl x:Name="quickAccessToolBarHolder"
                             Grid.Row="1"
