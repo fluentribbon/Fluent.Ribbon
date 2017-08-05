@@ -14,6 +14,8 @@
     - Internal properties for `QuickAccessToolBar` and `TabControl` got converted to `DependencyProperty`
     - Changed order of Children returned from `LogicalChildren`
     - Type of metadata for `Menu` and `StartScreen` changed from `PropertyMetadata` to `FrameworkPropertyMetadata`
+  - There are a lot new resources to control the colorization. Please have a look at Colors.xaml for a list of all available resources.  
+    This also means that, for example, simply changing the foreground/background of one outer control won't change the foreground/background of all inner controls.
   - The following `Color` and `Brush` resources got replaced/renamed/removed:
 
 <details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
