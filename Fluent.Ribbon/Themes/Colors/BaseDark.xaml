@@ -109,6 +109,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
     
     <!-- RibbonTabItem -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground" Color="{StaticResource Gray1}" options:Freeze="True" />

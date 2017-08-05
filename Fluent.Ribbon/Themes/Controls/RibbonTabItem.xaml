@@ -117,7 +117,7 @@
             <Trigger Property="Selector.IsSelected"
                      Value="False">
                 <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
