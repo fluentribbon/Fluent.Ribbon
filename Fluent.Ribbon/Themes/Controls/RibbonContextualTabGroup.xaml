@@ -12,7 +12,10 @@
                 Value="Stretch" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
     </Style>
+    
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"

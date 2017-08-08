@@ -253,6 +253,26 @@
                 <Setter Property="Foreground"
                         Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected"
+                               Value="True" />
+                    <Condition Property="IsMinimized"
+                               Value="True" />
+                    <Condition Property="IsOpen"
+                               Value="True" />
+                    <Condition Property="Group"
+                               Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="selectedGrid"
+                        Value="Visible" />
+                <Setter Property="Background"
+                        TargetName="grid"
+                        Value="Transparent" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+            </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">
                 <Setter Property="Visibility"
