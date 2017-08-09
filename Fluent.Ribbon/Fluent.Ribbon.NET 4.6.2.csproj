@@ -232,6 +232,7 @@
     <None Include="..\Shared\FluentStrongName.snk" />
     <Resource Include="Themes\Effects\Grayscale.ps" />
     <None Include="paket.references" />
+    <None Include="Themes\Accents\GeneratorParameters.json" />
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +243,10 @@
     <None Include="Themes\Controls\WindowCommands.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Themes\Accents\Accent.Template.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </None>
     <Page Include="Themes\Accents\Olive.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -577,6 +582,8 @@
   <PropertyGroup>
     <PreBuildEvent>SET tmpError=0
 "$(ProjectDir)Themes\XamlCombine.exe" Styles.txt Styles.xaml
+SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+"$(ProjectDir)..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe" "$(ProjectDir)\Themes\Accents\GeneratorParameters.json"
 SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
 SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
   </PropertyGroup>
