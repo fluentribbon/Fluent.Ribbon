@@ -8,7 +8,7 @@
         <description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</description>
         <releaseNotes>You can read the changelog at: https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md</releaseNotes>
         <authors>batzen</authors>
-        <licenseUrl>https://github.com/fluentribbon/Fluent.Ribbon/blob/master/License.txt</licenseUrl>
+        <licenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</licenseUrl>
         <projectUrl>https://github.com/fluentribbon/Fluent.Ribbon</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
