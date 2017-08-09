@@ -12,6 +12,8 @@
                      TitleForeground="White"
                      TitleBackground="Transparent">
     <fluent:RibbonWindow.Resources>
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="Red" />
+        
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="LightBlue" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="Black" />
         
