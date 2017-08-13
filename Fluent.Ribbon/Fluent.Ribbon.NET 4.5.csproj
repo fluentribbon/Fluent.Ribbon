@@ -581,9 +581,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>SET tmpError=0
-"$(ProjectDir)Themes\XamlCombine.exe" Styles.txt Styles.xaml
+"$(ProjectDir)\Themes\XamlCombine.exe" Styles.txt Styles.xaml
 SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
-"$(ProjectDir)..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe" "$(ProjectDir)\Themes\Accents\GeneratorParameters.json"
+"$(ProjectDir)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe" "$(ProjectDir)\Themes\Accents\GeneratorParameters.json"
 SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
 SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
   </PropertyGroup>
