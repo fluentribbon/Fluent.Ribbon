@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.ComponentModel;
@@ -98,8 +99,8 @@
             RibbonControlSize result;
 
             return Enum.TryParse(ribbonControlSize, true, out result) 
-                ? result 
-                : RibbonControlSize.Large;
+                       ? result 
+                       : RibbonControlSize.Large;
         }
 
         /// <summary>

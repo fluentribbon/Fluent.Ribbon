@@ -453,8 +453,9 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public virtual void OnKeyTipPressed()
+        public virtual KeyTipPressedResult OnKeyTipPressed()
         {
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

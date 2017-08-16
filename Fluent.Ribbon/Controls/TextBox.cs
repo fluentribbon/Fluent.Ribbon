@@ -160,16 +160,12 @@ namespace Fluent
         #region Implementation of Ribbon interfaces
 
         /// <inheritdoc />
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
-            // Use dispatcher to avoid focus moving to backup'ed element 
-            // (focused element before keytips processing)
-            this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
-                (ThreadStart)(() =>
-                {
-                    this.SelectAll();
-                    this.Focus();
-                }));
+            this.SelectAll();
+            this.Focus();
+
+            return new KeyTipPressedResult(true, false);
         }
 
         /// <inheritdoc />

@@ -1104,13 +1104,25 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.State == RibbonGroupBoxState.Collapsed
                 || this.State == RibbonGroupBoxState.QuickAccess)
             {
                 this.IsDropDownOpen = true;
+
+                if (this.DropDownPopup?.Child != null)
+                {
+                    Keyboard.Focus(this.DropDownPopup.Child);
+                    this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+
+                    return new KeyTipPressedResult(true, true);
+                }
+
+                return new KeyTipPressedResult(false, true);
             }
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

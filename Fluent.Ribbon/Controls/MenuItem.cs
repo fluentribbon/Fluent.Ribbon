@@ -399,16 +399,20 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public virtual void OnKeyTipPressed()
+        public virtual KeyTipPressedResult OnKeyTipPressed()
         {
-            if (!this.HasItems)
+            if (this.HasItems == false)
             {
                 this.OnClick();
+
+                return KeyTipPressedResult.Empty;
             }
             else
             {
                 Keyboard.Focus(this);
                 this.IsDropDownOpen = true;
+
+                return new KeyTipPressedResult(true, true);
             }
         }
 

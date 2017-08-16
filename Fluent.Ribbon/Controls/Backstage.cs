@@ -733,10 +733,12 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public override void OnKeyTipPressed()
+        public override KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsOpen = true;
             base.OnKeyTipPressed();
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

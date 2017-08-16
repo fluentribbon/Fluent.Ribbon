@@ -431,21 +431,17 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public override void OnKeyTipPressed()
+        public override KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.textBox == null)
             {
-                return;
+                return KeyTipPressedResult.Empty;
             }
 
-            // Use dispatcher to avoid focus moving to backup'ed element 
-            // (focused element before keytips processing)
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                (ThreadStart)(() =>
-                {
-                    this.textBox.SelectAll();
-                    this.textBox.Focus();
-                }));
+            this.textBox.SelectAll();
+            this.textBox.Focus();
+
+            return new KeyTipPressedResult(true, false);
         }
 
         private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)

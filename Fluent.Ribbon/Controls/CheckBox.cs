@@ -212,9 +212,11 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             this.OnClick();
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

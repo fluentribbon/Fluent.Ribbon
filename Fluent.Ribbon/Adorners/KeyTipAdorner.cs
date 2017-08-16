@@ -26,7 +26,7 @@ namespace Fluent
         /// This event is occured when adorner is 
         /// detached and is not able to be attached again
         /// </summary>
-        public event EventHandler Terminated;
+        public event EventHandler<KeyTipPressedResult> Terminated;
 
         #endregion
 
@@ -142,7 +142,7 @@ namespace Fluent
             // Add to list & visual children collections                    
             this.AddKeyTipInformationElement(keyTipInformation);
 
-            this.Log("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+            this.LogDebug("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
         }
 
         private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
@@ -164,7 +164,7 @@ namespace Fluent
                 // Add to list & visual children collections
                 this.AddKeyTipInformationElement(keyTipInformation);
 
-                this.Log("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+                this.LogDebug("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
             }
         }
 
@@ -215,12 +215,12 @@ namespace Fluent
 
             this.oneOfAssociatedElements.UpdateLayout();
 
-            this.Log("Attach begin {0}", this.Visibility);
+            this.LogDebug("Attach begin {0}", this.Visibility);
 
             if (this.oneOfAssociatedElements.IsLoaded == false)
             {
                 // Delay attaching
-                this.Log("Delaying attach");
+                this.LogDebug("Delaying attach");
                 this.oneOfAssociatedElements.Loaded += this.OnDelayAttach;
                 return;
             }
@@ -229,7 +229,7 @@ namespace Fluent
 
             if (this.adornerLayer == null)
             {
-                this.Log("No adorner layer found");
+                this.LogDebug("No adorner layer found");
                 this.isAttaching = false;
                 return;
             }
@@ -242,12 +242,12 @@ namespace Fluent
             this.isAttaching = false;
             this.attached = true;
 
-            this.Log("Attach end");
+            this.LogDebug("Attach end");
         }
 
         private void OnDelayAttach(object sender, EventArgs args)
         {
-            this.Log("Delay attach (control loaded)");
+            this.LogDebug("Delay attach (control loaded)");
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
             this.Attach();
         }
@@ -264,7 +264,7 @@ namespace Fluent
                 return;
             }
 
-            this.Log("Detach Begin");
+            this.LogDebug("Detach Begin");
 
             // Maybe adorner awaiting attaching, cancel it
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
@@ -274,7 +274,7 @@ namespace Fluent
 
             this.attached = false;
 
-            this.Log("Detach End");
+            this.LogDebug("Detach End");
         }
 
         #endregion
@@ -284,7 +284,8 @@ namespace Fluent
         /// <summary>
         /// Terminate whole key tip's adorner chain
         /// </summary>
-        public void Terminate()
+        /// <param name="keyTipPressedResult"></param>
+        public void Terminate(KeyTipPressedResult keyTipPressedResult)
         {
             if (this.terminated)
             {
@@ -295,13 +296,13 @@ namespace Fluent
 
             this.Detach();
 
-            this.parentAdorner?.Terminate();
+            this.parentAdorner?.Terminate(keyTipPressedResult);
 
-            this.childAdorner?.Terminate();
+            this.childAdorner?.Terminate(keyTipPressedResult);
 
-            this.Terminated?.Invoke(this, EventArgs.Empty);
+            this.Terminated?.Invoke(this, keyTipPressedResult);
 
-            this.Log("Termination");
+            this.LogDebug("Termination");
         }
 
         #endregion
@@ -350,18 +351,20 @@ namespace Fluent
         // Back to the previous adorner
         public void Back()
         {
+            this.LogTrace("Invoking back.");
+
             var control = this.keyTipElementContainer as IKeyTipedControl;
             control?.OnKeyTipBack();
 
             if (this.parentAdorner != null)
             {
-                this.Log("Back");
+                this.LogDebug("Back");
                 this.Detach();
                 this.parentAdorner.Attach();
             }
             else
             {
-                this.Terminate();
+                this.Terminate(KeyTipPressedResult.Empty);
             }
         }
 
@@ -373,37 +376,40 @@ namespace Fluent
         /// <returns>If the element will be found the function will return true</returns>
         public bool Forward(string keys, bool click)
         {
-            this.Log("Trying to forward {0}", keys);
+            this.LogTrace("Trying to forward keys \"{0}\"...", keys);
 
-            var element = this.TryGetKeyTipInformation(keys);
-            if (element == null)
+            var keyTipInformation = this.TryGetKeyTipInformation(keys);
+            if (keyTipInformation == null)
             {
+                this.LogTrace("Found no element for keys \"{0}\".", keys);
                 return false;
             }
 
-            this.Forward(element.AssociatedElement, click);
+            this.Forward(keys, keyTipInformation.AssociatedElement, click);
             return true;
         }
 
         // Forward to the next element
-        private void Forward(FrameworkElement element, bool click)
+        private void Forward(string keys, FrameworkElement element, bool click)
         {
-            this.Log("Forwarding to {0}", element);
+            this.LogTrace("Forwarding keys \"{0}\" to element \"{1}\".", keys, GetControlLogText(element));
 
             this.Detach();
+            KeyTipPressedResult keyTipPressedResult = KeyTipPressedResult.Empty;
 
             if (click)
             {
-                //element.RaiseEvent(new RoutedEventArgs(Button.ClickEvent, null));
+                this.LogTrace("Invoking click.");
+
                 var control = element as IKeyTipedControl;
-                control?.OnKeyTipPressed();
+                keyTipPressedResult = control?.OnKeyTipPressed() ?? KeyTipPressedResult.Empty;
             }
 
             var children = GetVisibleChildren(element);
 
             if (children.Count == 0)
             {
-                this.Terminate();
+                this.Terminate(keyTipPressedResult);
                 return;
             }
 
@@ -416,7 +422,7 @@ namespace Fluent
             // Stop if no further KeyTips can be displayed.
             if (this.childAdorner.keyTipInformations.Any() == false)
             {
-                this.Terminate();
+                this.Terminate(keyTipPressedResult);
                 return;
             }
 
@@ -455,7 +461,7 @@ namespace Fluent
         // Hide / unhide keytips relative matching to entered keys
         internal void FilterKeyTips(string keys)
         {
-            this.Log("FilterKeyTips with \"{0}\"", keys);
+            this.LogDebug("FilterKeyTips with \"{0}\"", keys);
 
             // Reset visibility if filter is empty
             if (string.IsNullOrEmpty(keys))
@@ -489,7 +495,7 @@ namespace Fluent
                 }
             }
 
-            this.Log("Filtered key tips: {0}", this.keyTipInformations.Count(x => x.Visibility == Visibility.Visible));
+            this.LogDebug("Filtered key tips: {0}", this.keyTipInformations.Count(x => x.Visibility == Visibility.Visible));
         }
 
         #endregion
@@ -506,7 +512,7 @@ namespace Fluent
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.Log("ArrangeOverride");
+            this.LogDebug("ArrangeOverride");
 
             foreach (var keyTipInformation in this.keyTipInformations)
             {
@@ -525,7 +531,7 @@ namespace Fluent
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            this.Log("MeasureOverride");
+            this.LogDebug("MeasureOverride");
 
             var infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (var keyTipInformation in this.keyTipInformations)
@@ -558,7 +564,7 @@ namespace Fluent
         [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         private void UpdateKeyTipPositions()
         {
-            this.Log("UpdateKeyTipPositions");
+            this.LogDebug("UpdateKeyTipPositions");
 
             if (this.keyTipInformations.Count == 0)
             {
@@ -820,17 +826,41 @@ namespace Fluent
         [SuppressMessage("Microsoft.Performance", "CA1822")]
         [SuppressMessage("Microsoft.Performance", "CA1801")]
         [Conditional("DEBUG")]
-        private void Log(string format, params object[] args)
+        private void LogDebug(string format, params object[] args)
         {
-            var name = this.AdornedElement.GetType().Name;
+            var message = this.GetMessageLog(format, args);
 
-            var headeredControl = this.AdornedElement as IHeaderedControl;
+            Debug.WriteLine(message, "KeyTipAdorner");
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1822")]
+        [SuppressMessage("Microsoft.Performance", "CA1801")]
+        [Conditional("TRACE")]
+        private void LogTrace(string format, params object[] args)
+        {
+            var message = this.GetMessageLog(format, args);
+
+            Trace.WriteLine(message, "KeyTipAdorner");
+        }
+
+        private string GetMessageLog(string format, object[] args)
+        {
+            var name = GetControlLogText(this.AdornedElement);
+
+            var message = $"[{name}] {string.Format(format, args)}";
+            return message;
+        }
+
+        private static string GetControlLogText(UIElement control)
+        {
+            var name = control.GetType().Name;
+
+            var headeredControl = control as IHeaderedControl;
             if (headeredControl != null)
             {
                 name += $" ({headeredControl.Header})";
             }
-
-            Debug.WriteLine($"[{name}] {string.Format(format, args)}", "KeyTipAdorner");
+            return name;
         }
 
         #endregion

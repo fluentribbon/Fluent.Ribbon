@@ -640,7 +640,7 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public virtual void OnKeyTipPressed()
+        public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsDropDownOpen = true;
 
@@ -649,6 +649,8 @@ namespace Fluent
                 Keyboard.Focus(this.DropDownPopup.Child);
                 this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
             }
+
+            return new KeyTipPressedResult(true, true);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿namespace Fluent
+﻿// ReSharper disable once CheckNamespace
+namespace Fluent
 {
     using System;
     using System.Collections.Generic;
@@ -191,8 +192,8 @@
                     // Item is not found in logical tree, output to debug console
 #if DEBUG
                     var controlName = control != null && string.IsNullOrEmpty(control.Name) == false
-                      ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
-                      : string.Empty;
+                                          ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
+                                          : string.Empty;
                     Debug.WriteLine($"Control \"{controlName}\" of type \"{element.Key.GetType().Name}\" is not found in logical tree during QAT saving");
 #endif
                 }
@@ -347,7 +348,7 @@
         protected virtual UIElement CreateQuickAccessItem(string data)
         {
             var indices = data.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToList();
+                              .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToList();
 
             DependencyObject current = this.ribbon;
 

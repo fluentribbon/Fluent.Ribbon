@@ -203,11 +203,13 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             UnselectSelectedItem(this.TabControlParent);
 
             this.IsSelected = true;
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

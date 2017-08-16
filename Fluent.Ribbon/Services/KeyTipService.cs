@@ -346,13 +346,21 @@ namespace Fluent
             this.backUpFocusedControl = null;
         }
 
-        private void OnAdornerChainTerminated(object sender, EventArgs e)
+        private void OnAdornerChainTerminated(object sender, KeyTipPressedResult e)
         {
             this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
             this.ClearUserInput();
-            this.ClosePopups();
-            this.RestoreFocus();
+            
+            if (e.PressedElementOpenedPopup == false)
+            {
+                this.ClosePopups();
+            }
+            
+            if (e.PressedElementAquiredFocus == false)
+            {
+                this.RestoreFocus();
+            }
         }
 
         private void OnDelayedShow(object sender, EventArgs e)
@@ -379,7 +387,7 @@ namespace Fluent
 
         private void Terminate()
         {
-            this.activeAdornerChain?.Terminate();
+            this.activeAdornerChain?.Terminate(KeyTipPressedResult.Empty);
         }
 
         private void Show()

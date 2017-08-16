@@ -82,6 +82,7 @@
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Data\KeyTipPressedResult.cs" />
     <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
     <Compile Include="Extensions\UIElementExtensions.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
     <Compile Include="IRibbonWindow.cs" />
-    <Compile Include="KeyTipInformation.cs" />
+    <Compile Include="Data\KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
@@ -139,8 +140,8 @@
     <Compile Include="Localization\Languages\Vietnamese.cs" />
     <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
     <Compile Include="Localization\RibbonLocalizationBase.cs" />
-    <Compile Include="RibbonLocalization.cs" />
-    <Compile Include="RibbonStateStorage.cs" />
+    <Compile Include="Localization\RibbonLocalization.cs" />
+    <Compile Include="Data\RibbonStateStorage.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
@@ -170,7 +171,7 @@
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
-    <Compile Include="RibbonControlSizeDefinition.cs" />
+    <Compile Include="Data\RibbonControlSizeDefinition.cs" />
     <Compile Include="Controls\StatusBar.cs" />
     <Compile Include="Controls\StatusBarItem.cs" />
     <Compile Include="Controls\StatusBarMenuItem.cs" />

@@ -758,27 +758,22 @@ namespace Fluent
         /// <summary>
         ///     Handles key tip pressed
         /// </summary>
-        public virtual void OnKeyTipPressed()
+        public virtual KeyTipPressedResult OnKeyTipPressed()
         {
-            this.Dispatcher.BeginInvoke(
-                DispatcherPriority.Normal,
-                (DispatcherOperationCallback)delegate (object arg)
-                {
-                    var ctrl = (ComboBox)arg;
-
-                    // Edge case: Whole dropdown content is disabled
-                    if (ctrl.IsKeyboardFocusWithin == false)
-                    {
-                        Keyboard.Focus(ctrl);
-                    }
-                    return null;
-                },
-                this);
+            // Edge case: Whole dropdown content is disabled
+            if (this.IsKeyboardFocusWithin == false)
+            {
+                Keyboard.Focus(this);
+            }
 
             if (this.IsEditable == false)
             {
                 this.IsDropDownOpen = true;
+
+                return new KeyTipPressedResult(true, true);
             }
+
+            return new KeyTipPressedResult(true, false);
         }
 
         /// <summary>

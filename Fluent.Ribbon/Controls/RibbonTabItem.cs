@@ -849,7 +849,7 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
 
@@ -862,6 +862,8 @@ namespace Fluent
 
             // This way keytips for delay loaded elements work correctly. Partially fixes #244.
             this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

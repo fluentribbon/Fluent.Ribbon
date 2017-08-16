@@ -3,7 +3,7 @@
 ## 6.0.0 (preview)
 
 - ### Breaking changes
-  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox  
+  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
     `ToggleButton` grouping was done like it's done for a regular `RadioButton`, except that it was bound to visual root scope.  
     The dependency on a visual root scope has been remove, so please adjust the `GroupName` for groups if you have groups with the same name in different visual root scopes.
   - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
@@ -16,6 +16,7 @@
     - Type of metadata for `Menu` and `StartScreen` changed from `PropertyMetadata` to `FrameworkPropertyMetadata`
   - There are a lot new resources to control the colorization. Please have a look at Colors.xaml for a list of all available resources.  
     This also means that, for example, simply changing the foreground/background of one outer control won't change the foreground/background of all inner controls.
+  - [#457](../../issues/457) - Return type of `IKeyTipedControl.OnKeyTipPressed` was changed from `void` to `KeyTipPressedResult`.
   - The following `Color` and `Brush` resources got replaced/renamed/removed:
 
 <details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
@@ -140,10 +141,12 @@
   - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  
     This also overrules the fix made for [#415](../../issues/415).
   - [#430](../../issues/430) - No Rezising at Fluent:RibbonContextualTabGroup at Version 5.0
+  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
   - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
   - [#439](../../issues/439) - Context menu and submenu disappears after a right click
   - [#446](../../issues/446) - Wrong submenu Position in application menu
   - [#450](../../issues/450) - Fix Ribbon.OnTitleBarChanged clearing the new title bar instead of the old one (thanks @Cubey2019)
+  - [#457](../../issues/457) - Using the keytip shortcut to open a backstage briefly opens it, then closes it immediately
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
