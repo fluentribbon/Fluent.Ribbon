@@ -846,9 +846,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
@@ -866,9 +864,7 @@ namespace Fluent
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
             if (this.TabControlParent != null

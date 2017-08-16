@@ -420,9 +420,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             this.RaiseClick();
@@ -430,9 +428,7 @@ namespace Fluent
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
         }

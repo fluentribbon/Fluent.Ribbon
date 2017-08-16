@@ -450,17 +450,13 @@ namespace Fluent
 
         #region Methods
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public virtual void OnKeyTipBack()
         {
         }

@@ -396,9 +396,7 @@ namespace Fluent
 
         #region Public
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.HasItems == false)
@@ -416,9 +414,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
             this.IsDropDownOpen = false;

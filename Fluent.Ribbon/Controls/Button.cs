@@ -261,9 +261,7 @@ namespace Fluent
 
         #region Implementation of IKeyTipedControl
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             this.OnClick();
@@ -271,9 +269,7 @@ namespace Fluent
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
         }

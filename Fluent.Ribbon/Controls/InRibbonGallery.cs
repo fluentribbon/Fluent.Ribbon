@@ -979,9 +979,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsDropDownOpen = true;
@@ -997,9 +995,7 @@ namespace Fluent
             return new KeyTipPressedResult(false, true);
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
             this.IsDropDownOpen = false;

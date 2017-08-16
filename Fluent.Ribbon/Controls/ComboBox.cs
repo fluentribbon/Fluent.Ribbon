@@ -755,9 +755,7 @@ namespace Fluent
 
         #region Methods
 
-        /// <summary>
-        ///     Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             // Edge case: Whole dropdown content is disabled
@@ -776,9 +774,7 @@ namespace Fluent
             return new KeyTipPressedResult(true, false);
         }
 
-        /// <summary>
-        ///     Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
         }

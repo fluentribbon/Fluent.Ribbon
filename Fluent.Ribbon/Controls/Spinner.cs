@@ -428,9 +428,7 @@ namespace Fluent
 
         #region Event Handling
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public override KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.textBox == null)

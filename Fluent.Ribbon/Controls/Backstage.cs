@@ -730,9 +730,7 @@ namespace Fluent
             this.Click();
         }
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public override KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsOpen = true;
@@ -741,9 +739,7 @@ namespace Fluent
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public override void OnKeyTipBack()
         {
             this.IsOpen = false;

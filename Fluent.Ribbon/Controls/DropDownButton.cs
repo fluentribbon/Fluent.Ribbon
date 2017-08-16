@@ -637,9 +637,7 @@ namespace Fluent
 
         #region Methods
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsDropDownOpen = true;
@@ -653,9 +651,7 @@ namespace Fluent
             return new KeyTipPressedResult(true, true);
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
             this.IsDropDownOpen = false;
