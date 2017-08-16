@@ -18,6 +18,7 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Extensibility;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -1193,14 +1194,14 @@ namespace Fluent
             this.galleryPanel.Width = double.NaN;
             this.galleryPanel.UpdateMinAndMaxWidth();
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
-            {
-                if (this.quickAccessGallery == null
-                    || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false))
-                {
-                    this.IsSnapped = false;
-                }
-            }));
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          if (this.quickAccessGallery == null
+                                              || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false))
+                                          {
+                                              this.IsSnapped = false;
+                                          }
+                                      }, DispatcherPriority.SystemIdle);
 
             this.DropDownClosed?.Invoke(this, e);
 
@@ -1209,11 +1210,11 @@ namespace Fluent
                 Mouse.Capture(null);
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
-                                                                               {
-                                                                                   var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
-                                                                                   selectedContainer?.BringIntoView();
-                                                                               }));
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                          selectedContainer?.BringIntoView();
+                                      }, DispatcherPriority.SystemIdle);
             this.dropDownButton.IsChecked = false;
             this.canOpenDropDown = true;
         }
@@ -1466,7 +1467,7 @@ namespace Fluent
             this.quickAccessGallery.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
             this.UpdateLayout();
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Render, (Action)this.Freeze);
+            this.RunInDispatcherAsync(this.Freeze, DispatcherPriority.Render);
         }
 
         private void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
@@ -1532,16 +1533,16 @@ namespace Fluent
                 }
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.SystemIdle, (ThreadStart)(() =>
-                                                                                     {
-                                                                                         if (this.IsDropDownOpen == false)
-                                                                                         {
-                                                                                             this.IsSnapped = false;
-                                                                                         }
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          if (this.IsDropDownOpen == false)
+                                          {
+                                              this.IsSnapped = false;
+                                          }
 
-                                                                                         var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
-                                                                                         selectedContainer?.BringIntoView();
-                                                                                     }));
+                                          var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                          selectedContainer?.BringIntoView();
+                                      }, DispatcherPriority.SystemIdle);
         }
 
         /// <summary>

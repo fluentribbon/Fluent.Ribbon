@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -523,7 +524,7 @@ namespace Fluent
                 {
                     Thread.Sleep(closePopupOnMouseDownDelay);
 
-                    this.Dispatcher.BeginInvoke(new Action(() => this.IsDropDownOpen = false));
+                    this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
                 });
             }
         }
@@ -715,25 +716,19 @@ namespace Fluent
 
                 Keyboard.Focus(control.DropDownPopup);
 
-                control.Dispatcher.BeginInvoke(
-                    DispatcherPriority.Normal,
-                    (DispatcherOperationCallback)delegate (object arg)
+                control.RunInDispatcherAsync(
+                    () =>
                     {
-                        var ctrl = (DropDownButton)arg;
-
-                        var container = ctrl.ItemContainerGenerator.ContainerFromIndex(0);
+                        var container = control.ItemContainerGenerator.ContainerFromIndex(0);
 
                         NavigateToContainer(container);
 
                         // Edge case: Whole dropdown content is disabled
-                        if (ctrl.IsKeyboardFocusWithin == false)
+                        if (control.IsKeyboardFocusWithin == false)
                         {
-                            Keyboard.Focus(ctrl.DropDownPopup);
+                            Keyboard.Focus(control.DropDownPopup);
                         }
-
-                        return null;
-                    },
-                    control);
+                    });
 
                 control.OnDropDownOpened();
             }
@@ -822,10 +817,10 @@ namespace Fluent
             var buttonInQuickAccess = (DropDownButton)sender;
             buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, (Action)(() =>
-                                                                               {
-                                                                                   ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
-                                                                               }));
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+                                      }, DispatcherPriority.Loaded);
         }
 
         /// <summary>

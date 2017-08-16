@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Threading;
     using Fluent.Converters;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -447,11 +448,10 @@ namespace Fluent
             if (this.SelectAllTextOnFocus)
             {
                 // Async because setting the carret happens after focus.
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                    (ThreadStart)(() =>
+                this.RunInDispatcherAsync(() =>
                     {
                         this.textBox.SelectAll();
-                    }));
+                    }, DispatcherPriority.Background);
             }
         }
 

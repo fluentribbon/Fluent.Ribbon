@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -407,14 +408,14 @@ namespace Fluent
 
             if (this.isQuickAccessFocused == false)
             {
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)this.FreezeAnBringSelectedItemIntoView);
+                this.RunInDispatcherAsync(this.FreezeAnBringSelectedItemIntoView);
             }
         }
 
         private void FreezeAnBringSelectedItemIntoView()
         {
             this.Freeze();
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Input, (ThreadStart)this.BringSelectedItemIntoView);
+            this.RunInDispatcherAsync(this.BringSelectedItemIntoView, DispatcherPriority.Input);
         }
 
         private void BringSelectedItemIntoView()
@@ -475,22 +476,22 @@ namespace Fluent
 
             if (this.IsEditable == false)
             {
-                this.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (ThreadStart)(() =>
-                                                                                              {
-                                                                                                  this.quickAccessCombo.IsSnapped = true;
-                                                                                                  this.IsSnapped = true;
-                                                                                                  if (this.snappedImage != null &&
-                                                                                                      this.quickAccessCombo.snappedImage != null)
-                                                                                                  {
-                                                                                                      this.quickAccessCombo.snappedImage.Source = this.snappedImage.Source;
-                                                                                                      this.quickAccessCombo.snappedImage.Visibility = Visibility.Visible;
-                                                                                                      if (this.quickAccessCombo.IsSnapped == false)
-                                                                                                      {
-                                                                                                          this.quickAccessCombo.isSnapped = true;
-                                                                                                      }
-                                                                                                  }
-                                                                                                  this.IsSnapped = false;
-                                                                                              }));
+                this.RunInDispatcherAsync(() =>
+                                          {
+                                              this.quickAccessCombo.IsSnapped = true;
+                                              this.IsSnapped = true;
+                                              if (this.snappedImage != null &&
+                                                  this.quickAccessCombo.snappedImage != null)
+                                              {
+                                                  this.quickAccessCombo.snappedImage.Source = this.snappedImage.Source;
+                                                  this.quickAccessCombo.snappedImage.Visibility = Visibility.Visible;
+                                                  if (this.quickAccessCombo.IsSnapped == false)
+                                                  {
+                                                      this.quickAccessCombo.isSnapped = true;
+                                                  }
+                                              }
+                                              this.IsSnapped = false;
+                                          }, DispatcherPriority.ApplicationIdle);
             }
         }
 

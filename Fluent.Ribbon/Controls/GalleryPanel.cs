@@ -11,6 +11,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -400,7 +401,7 @@ namespace Fluent
             }
 
             this.needsRefresh = true;
-            this.Dispatcher.BeginInvoke((Action)this.RefreshDispatchered, DispatcherPriority.Send);
+            this.RunInDispatcherAsync(this.RefreshDispatchered, DispatcherPriority.Send);
         }
 
         private void RefreshDispatchered()

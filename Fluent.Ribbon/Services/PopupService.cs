@@ -8,6 +8,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Fluent.Extensions;
 
     /// <summary>
     /// Dismiss popup mode
@@ -92,7 +93,7 @@ namespace Fluent
 
             Debug.WriteLine("Dismissing Popup (async)");
 
-            element.Dispatcher.BeginInvoke((Action)(() => RaiseDismissPopupEvent(sender, mode)));
+            element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode));
         }
 
         /// <summary>

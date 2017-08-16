@@ -8,7 +8,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Threading;
-
+    using Fluent.Extensions;
     using Fluent.Localization;
 
     /// <summary>
@@ -125,7 +125,7 @@ namespace Fluent
                 return;
             }
 
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(this.RecreateMenu));
+            this.RunInDispatcherAsync(this.RecreateMenu, DispatcherPriority.Loaded);
         }
 
         /// <summary>
