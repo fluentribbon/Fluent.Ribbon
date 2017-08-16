@@ -162,6 +162,7 @@
   - [#443](../../issues/443) - Release .NET 4.6.2 version
   - [#444](../../issues/444) - Add `IgnoreTaskbarOnMaximize` to `RibbonWindow`
   - [#445](../../issues/445) - Startsceen "shines" through backstage
+  - [#455](../../issues/455) - Add brushes for checked toggle buttons (thanks @Cubey2019)
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
