@@ -39,6 +39,7 @@ tools/
 
 # Generated files
 Fluent.Ribbon/Themes/**/Styles.xaml
+Fluent.Ribbon/Themes/Accents/*.xaml
 packages/
 .tmp
 
