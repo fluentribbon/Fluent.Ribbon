@@ -326,13 +326,13 @@
                    HorizontalOffset="0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="95" />
-                        <RowDefinition Height="20" />
+                        <RowDefinition MinHeight="{TemplateBinding ContentHeight}"
+                                       MaxHeight="{TemplateBinding ContentHeight}" />
                     </Grid.RowDefinitions>
                     <Border BorderThickness="0,0,0,1"
                             Margin="1,0"
                             BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                            Background="{TemplateBinding Background}">
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}">
                         <ContentControl x:Name="popupContentControl"
                                         Margin="0" />
                     </Border>
