@@ -467,12 +467,6 @@
                         TargetName="iconImage"
                         Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth"
-                     Value="NaN">
-                <Setter Property="HorizontalAlignment"
-                        TargetName="PART_ContentBorder"
-                        Value="Stretch" />
-            </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Visibility"
@@ -490,6 +484,12 @@
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
                         Value="Left" />
+            </Trigger>
+            <Trigger Property="InputWidth"
+                     Value="NaN">
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
             </Trigger>
 
             <Trigger Property="IsEnabled"
