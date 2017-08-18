@@ -359,7 +359,7 @@ namespace Fluent
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
-            RibbonControl.Bind(this, combo, nameof(this.ActualWidth), WidthProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, combo, nameof(this.ActualWidth), MaxWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.InputWidth), InputWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsEditable), IsEditableProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);

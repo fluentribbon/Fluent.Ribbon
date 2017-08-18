@@ -135,6 +135,7 @@
 </p></details>
 
 - ### Bug fixes
+  - [#344](../../issues/344) - Invisible header of combobox on QuickAccessToolBar.
   - [#395](../../issues/395) - issues with contextual tab group
   - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
   - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
