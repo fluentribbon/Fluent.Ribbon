@@ -858,6 +858,7 @@ namespace Fluent
 
             // Set width and prevent negative values
             this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+
             return new[]
             {
                 new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X + offset.X, targetsize.Height + offset.Y), PopupPrimaryAxis.Vertical),

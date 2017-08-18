@@ -323,17 +323,29 @@
                    AllowsTransparency="True"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
                    IsOpen="{TemplateBinding IsDropDownOpen}"
-                   HorizontalOffset="0">
+                   HorizontalOffset="0"
+                   VerticalOffset="-10">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="95" />
-                        <RowDefinition Height="20" />
+                        <RowDefinition MinHeight="20"
+                                       MaxHeight="20" /> <!-- Needed for overlapping Keytips -->
+                        <RowDefinition MinHeight="{TemplateBinding ContentHeight}"
+                                       MaxHeight="{TemplateBinding ContentHeight}" />
+                        <RowDefinition MinHeight="{TemplateBinding ContentGapHeight}"
+                                       MaxHeight="{TemplateBinding ContentGapHeight}" />
+                        <RowDefinition Height="20" /> <!-- Needed for overlapping Keytips -->
                     </Grid.RowDefinitions>
-                    <Border BorderThickness="0,0,0,1"
+                    <Border Grid.Row="1" 
+                            Grid.RowSpan="2"
+                            BorderThickness="0,0,0,1"
                             Margin="1,0"
                             BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
-                            Background="{TemplateBinding Background}">
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                            TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
+                            KeyboardNavigation.TabNavigation="Local"
+                            KeyboardNavigation.DirectionalNavigation="Contained">
                         <ContentControl x:Name="popupContentControl"
+                                        Focusable="False"
                                         Margin="0" />
                     </Border>
                 </Grid>
