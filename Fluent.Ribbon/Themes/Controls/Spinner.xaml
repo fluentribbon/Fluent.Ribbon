@@ -242,12 +242,18 @@
                             <Setter Property="Visibility"
                                     TargetName="textBlock"
                                     Value="Collapsed" />
+                            <Setter Property="HorizontalAlignment"
+                                    TargetName="border"
+                                    Value="Left" />
                         </Trigger>
                         <Trigger Property="Size"
                                  Value="Small">
                             <Setter Property="Visibility"
                                     TargetName="stackPanel"
                                     Value="Collapsed" />
+                            <Setter Property="HorizontalAlignment"
+                                    TargetName="border"
+                                    Value="Left" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True">
