@@ -146,6 +146,7 @@
   - [#439](../../issues/439) - Context menu and submenu disappears after a right click
   - [#446](../../issues/446) - Wrong submenu Position in application menu
   - [#450](../../issues/450) - Fix Ribbon.OnTitleBarChanged clearing the new title bar instead of the old one (thanks @Cubey2019)
+  - [#454](../../issues/454) - RibbonWindow title not shown in correct position when using SizeToContent
   - [#457](../../issues/457) - Using the keytip shortcut to open a backstage briefly opens it, then closes it immediately
   - [#459](../../issues/459) - Label of the Spinner disappears, if there isn't enough place
 

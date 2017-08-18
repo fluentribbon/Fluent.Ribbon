@@ -228,9 +228,10 @@ namespace Fluent
         public RibbonWindow()
         {
             this.SizeChanged += this.OnSizeChanged;
+            this.Loaded += this.OnLoaded;
 
             // WindowChromeBehavior initialization has to occur in constructor. Otherwise the load event is fired early and performance of the window is degraded.
-            this.InitializeWindowChromeBehavior();
+            this.InitializeWindowChromeBehavior();            
         }
 
         #endregion
@@ -256,6 +257,21 @@ namespace Fluent
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.MaintainIsCollapsed();
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (this.SizeToContent == SizeToContent.Manual)
+            {
+                return;
+            }
+
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          var availableSize = new Size(this.ActualWidth, this.ActualHeight);
+                                          this.Measure(availableSize);
+                                          this.Arrange(new Rect(default(Point), availableSize));
+                                      }, DispatcherPriority.ApplicationIdle);
         }
 
         private void MaintainIsCollapsed()
