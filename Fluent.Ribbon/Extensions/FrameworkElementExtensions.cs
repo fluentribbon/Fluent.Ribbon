@@ -2,7 +2,10 @@
 {
     using System.Windows;
 
-    internal static class UIElementExtensions
+    /// <summary>
+    /// Class with extension methods for <see cref="FrameworkElement"/>.
+    /// </summary>
+    internal static class FrameworkElementExtensions
     {
         public static void ForceMeasure(this FrameworkElement element)
         {

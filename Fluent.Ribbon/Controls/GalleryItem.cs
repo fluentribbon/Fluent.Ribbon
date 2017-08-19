@@ -188,8 +188,6 @@ namespace Fluent
         /// <summary>
         /// Handles Command changed
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as GalleryItem;
@@ -216,8 +214,6 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnCommandCanExecuteChanged(object sender, EventArgs e)
         {
             this.UpdateCanExecute();
@@ -227,6 +223,7 @@ namespace Fluent
         {
             var canExecute = this.Command != null
                 && this.CanExecuteCommand();
+
             if (this.currentCanExecute != canExecute)
             {
                 this.currentCanExecute = canExecute;

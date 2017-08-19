@@ -418,20 +418,15 @@ namespace Fluent
         #region Focusable
 
         /// <summary>
-        /// Handles IsEnabled changes
+        /// Handles Focusable changes
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e">The event data.</param>
         private static void OnFocusableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }
 
         /// <summary>
-        /// Coerces IsEnabled
+        /// Coerces Focusable
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="basevalue"></param>
-        /// <returns></returns>
         private static object CoerceFocusable(DependencyObject d, object basevalue)
         {
             var control = d as RibbonTabItem;
@@ -585,7 +580,6 @@ namespace Fluent
         /// <summary>
         /// Focus event handler
         /// </summary>
-        /// <param name="e"></param>
         protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             base.OnPreviewGotKeyboardFocus(e);

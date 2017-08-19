@@ -647,7 +647,6 @@ namespace Fluent
         /// <summary>
         /// Not implemented
         /// </summary>
-        /// <param name="offset"></param>
         public void SetVerticalOffset(double offset)
         {
         }

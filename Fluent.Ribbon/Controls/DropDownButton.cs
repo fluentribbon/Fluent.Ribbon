@@ -796,8 +796,6 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu opened
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void OnQuickAccessOpened(object sender, EventArgs e)
         {
             var buttonInQuickAccess = (DropDownButton)sender;
@@ -811,8 +809,6 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu closed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
         {
             var buttonInQuickAccess = (DropDownButton)sender;

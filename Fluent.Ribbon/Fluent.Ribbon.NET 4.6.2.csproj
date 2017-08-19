@@ -84,7 +84,7 @@
     <Compile Include="Data\KeyTipPressedResult.cs" />
     <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
-    <Compile Include="Extensions\UIElementExtensions.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="ILargeIconProvider.cs" />

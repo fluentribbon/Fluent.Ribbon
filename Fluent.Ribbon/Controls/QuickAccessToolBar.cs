@@ -180,8 +180,6 @@ namespace Fluent
         /// <summary>
         /// Handles quick access menu items chages
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)

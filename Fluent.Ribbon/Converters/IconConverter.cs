@@ -68,8 +68,6 @@ namespace Fluent
         /// <summary>
         /// ThumbnailExceptionWorkArround when image cause a format exception by accessing the Thumbnail
         /// </summary>
-        /// <param name="frame"></param>
-        /// <returns></returns>
         private static BitmapSource GetThumbnail(BitmapSource frame)
         {
             try

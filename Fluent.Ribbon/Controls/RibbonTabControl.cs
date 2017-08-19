@@ -811,10 +811,6 @@ namespace Fluent
         /// <summary>
         /// Implements custom placement for ribbon popup
         /// </summary>
-        /// <param name="popupsize"></param>
-        /// <param name="targetsize"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
         private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
             if (this.DropDownPopup == null

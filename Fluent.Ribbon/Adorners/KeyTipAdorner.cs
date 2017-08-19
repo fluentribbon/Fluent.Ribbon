@@ -86,9 +86,9 @@ namespace Fluent
         /// <summary>
         /// Construcotor
         /// </summary>
-        /// <param name="adornedElement"></param>
-        /// <param name="parentAdorner">Parent adorner or null</param>
-        /// <param name="keyTipElementContainer">The element which is container for elements</param>
+        /// <param name="adornedElement">Element to adorn.</param>
+        /// <param name="parentAdorner">Parent adorner or null.</param>
+        /// <param name="keyTipElementContainer">The element which is container for elements.</param>
         public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner parentAdorner)
             : base(adornedElement)
         {
@@ -283,7 +283,6 @@ namespace Fluent
         /// <summary>
         /// Terminate whole key tip's adorner chain
         /// </summary>
-        /// <param name="keyTipPressedResult"></param>
         public void Terminate(KeyTipPressedResult keyTipPressedResult)
         {
             if (this.terminated)

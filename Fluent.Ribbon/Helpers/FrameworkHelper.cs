@@ -20,7 +20,6 @@ namespace Fluent
         /// <summary>
         /// Gets UseLayoutRounding attached property value
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
         public static bool GetUseLayoutRounding(DependencyObject obj)
         {
@@ -30,8 +29,6 @@ namespace Fluent
         /// <summary>
         /// Gets UseLayoutRounding attached property value
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="value"></param>
         public static void SetUseLayoutRounding(DependencyObject obj, bool value)
         {
             obj.SetValue(UseLayoutRoundingProperty, value);
