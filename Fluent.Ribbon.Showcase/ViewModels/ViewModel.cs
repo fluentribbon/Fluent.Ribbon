@@ -5,7 +5,7 @@
 
     public class ViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected void OnPropertyChanged(string propertyName)

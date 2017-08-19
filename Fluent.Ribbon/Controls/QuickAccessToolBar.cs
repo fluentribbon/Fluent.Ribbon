@@ -30,7 +30,7 @@ namespace Fluent
         /// <summary>
         /// Occured when items are added or removed from Quick Access toolbar
         /// </summary>
-        public event NotifyCollectionChangedEventHandler ItemsChanged = delegate { };
+        public event NotifyCollectionChangedEventHandler ItemsChanged;
 
         #endregion
 
@@ -128,7 +128,7 @@ namespace Fluent
             }
 
             // Raise items changed event
-            this.ItemsChanged(this, e);
+            this.ItemsChanged?.Invoke(this, e);
         }
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
@@ -146,16 +146,16 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
+            private set { this.SetValue(hasOverflowItemsPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
+        private static readonly DependencyPropertyKey hasOverflowItemsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasOverflowItemsProperty = hasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
 
