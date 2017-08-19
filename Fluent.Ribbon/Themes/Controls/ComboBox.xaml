@@ -474,7 +474,7 @@
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
-                        Value="Left" />
+                        Value="Stretch" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -483,7 +483,7 @@
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
-                        Value="Left" />
+                        Value="Stretch" />
             </Trigger>
             <Trigger Property="InputWidth"
                      Value="NaN">
