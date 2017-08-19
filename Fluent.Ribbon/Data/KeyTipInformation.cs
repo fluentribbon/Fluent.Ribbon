@@ -49,10 +49,10 @@ namespace Fluent
                               Mode = BindingMode.OneWay
                           };
             this.KeyTip.SetBinding(UIElement.IsEnabledProperty, binding);
-        }        
+        }
 
         /// <summary>
-        /// <see cref="Fluent.KeyTip.KeysProperty"/>
+        /// Gets <see cref="Fluent.KeyTip.KeysProperty"/>
         /// </summary>
         public string Keys { get; }
 
@@ -67,7 +67,7 @@ namespace Fluent
         public FrameworkElement VisualTarget { get; set; }
 
         /// <summary>
-        /// Initial visibility.
+        /// Gets the initial visibility.
         /// </summary>
         public Visibility DefaultVisibility { get; }
 
@@ -82,17 +82,17 @@ namespace Fluent
         public Point Position { get; set; }
 
         /// <summary>
-        /// Backup store for <see cref="System.Windows.Visibility"/> of <see cref="KeyTip"/>
+        /// Gets or sets the backed up value of <see cref="System.Windows.Visibility"/> of <see cref="KeyTip"/>
         /// </summary>
         public Visibility BackupVisibility { get; set; }
 
         /// <summary>
-        /// Shortcut to KeyTip.IsVisible.
+        /// Gets <see cref="UIElement.IsVisible" /> from <see cref="KeyTip"/>.
         /// </summary>
         public bool IsVisible => this.KeyTip.IsVisible;
 
         /// <summary>
-        /// Shortcut to KeyTip.Visibility.
+        /// Gets or sets <see cref="UIElement.Visibility" /> from <see cref="KeyTip"/>.
         /// </summary>
         public Visibility Visibility
         {
@@ -101,7 +101,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Shortcut to KeyTip.IsEnabled.
+        /// Gets <see cref="UIElement.IsEnabled" /> from <see cref="KeyTip"/>
         /// </summary>
         public bool IsEnabled => this.KeyTip.IsEnabled;
     }

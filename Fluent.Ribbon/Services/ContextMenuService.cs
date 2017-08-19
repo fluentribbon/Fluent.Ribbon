@@ -1,9 +1,8 @@
-﻿using System;
-using System.Windows;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Windows;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>

@@ -1,7 +1,6 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
@@ -25,7 +24,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets width of the value input part of textbox
-        /// </summary>               
+        /// </summary>
         public double InputWidth
         {
             get { return (double)this.GetValue(InputWidthProperty); }
@@ -33,7 +32,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for InputWidth.  
+        /// Using a DependencyProperty as the backing store for InputWidth.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty InputWidthProperty =
@@ -48,7 +47,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static TextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBox), new FrameworkPropertyMetadata(typeof(TextBox)));
@@ -69,7 +67,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp�attached event reaches
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
@@ -91,7 +89,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -183,7 +181,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(TextBox));
@@ -202,7 +200,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(TextBox));
@@ -221,7 +219,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(TextBox));
@@ -240,7 +238,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  
+        /// Using a DependencyProperty as the backing store for Header.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(TextBox), new PropertyMetadata());

@@ -19,9 +19,14 @@
         public ObservableCollection<GalleryItemViewModel> Items
         {
             get { return this.items; }
+
             private set
             {
-                if (Equals(value, this.items)) return;
+                if (Equals(value, this.items))
+                {
+                    return;
+                }
+
                 this.items = value;
                 this.OnPropertyChanged(nameof(this.Items));
             }

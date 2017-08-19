@@ -5,7 +5,6 @@ namespace Fluent
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -199,6 +198,7 @@ namespace Fluent
                             this.AddLogicalChild(e.NewItems[i]);
                         }
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -213,6 +213,7 @@ namespace Fluent
                             this.RemoveLogicalChild(item);
                         }
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -242,6 +243,7 @@ namespace Fluent
 
                         ii++;
                     }
+
                     break;
             }
         }
@@ -260,7 +262,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  
+        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
@@ -329,7 +331,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
@@ -340,7 +341,7 @@ namespace Fluent
         #region Override
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or 
+        /// When overridden in a derived class, is invoked whenever application code or
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
@@ -429,7 +430,7 @@ namespace Fluent
             // Clears cache
             this.cachedDeltaWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
-            this.cachedConstraint = new Size();
+            this.cachedConstraint = default(Size);
         }
 
         private void OnToolBarDownClosed(object sender, EventArgs e)
@@ -471,7 +472,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Called to remeasure a control. 
+        /// Called to remeasure a control.
         /// </summary>
         /// <returns>The size of the control, up to the maximum specified by constraint</returns>
         /// <param name="constraint">The maximum size that the method can return</param>

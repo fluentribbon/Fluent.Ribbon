@@ -34,7 +34,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Destructor for this instance.
+        /// Finalizes an instance of the <see cref="RibbonStateStorage"/> class.
         /// </summary>
         ~RibbonStateStorage()
         {
@@ -68,7 +68,7 @@ namespace Fluent
                     return this.isolatedStorageFileName;
                 }
 
-                var stringForHash = "";
+                var stringForHash = string.Empty;
                 var window = Window.GetWindow(this.ribbon);
 
                 if (window != null)
@@ -173,7 +173,7 @@ namespace Fluent
 
             // Save QAT items
             var paths = new Dictionary<FrameworkElement, string>();
-            this.ribbon.TraverseLogicalTree(this.ribbon, "", paths);
+            this.ribbon.TraverseLogicalTree(this.ribbon, string.Empty, paths);
 
             // Foreach items and see whether path is found for the item
             foreach (var element in this.ribbon.GetQuickAccessElements())
@@ -198,6 +198,7 @@ namespace Fluent
 #endif
                 }
             }
+
             return builder;
         }
 
@@ -319,7 +320,7 @@ namespace Fluent
         protected virtual void LoadQuickAccessItems(string quickAccessItemsData)
         {
             // Load items
-            var items = quickAccessItemsData.Split(new [] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            var items = quickAccessItemsData.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             this.ribbon.ClearQuickAccessToolBar();
 

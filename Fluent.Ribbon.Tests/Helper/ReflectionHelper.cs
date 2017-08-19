@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Fluent.Tests.Helper
+﻿namespace Fluent.Tests.Helper
 {
+    using System;
     using System.Reflection;
 
     public static class ReflectionHelper

@@ -14,7 +14,7 @@ namespace Fluent
         /// <summary>
         /// The ResourceDictionary that represents this application theme.
         /// </summary>
-        public ResourceDictionary Resources {get; }
+        public ResourceDictionary Resources { get; }
 
         /// <summary>
         /// Gets the name of the application theme.
@@ -28,11 +28,18 @@ namespace Fluent
         /// <param name="resourceAddress">The URI of the accent ResourceDictionary.</param>
         public AppTheme(string name, Uri resourceAddress)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (resourceAddress == null) throw new ArgumentNullException(nameof(resourceAddress));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceAddress == null)
+            {
+                throw new ArgumentNullException(nameof(resourceAddress));
+            }
 
             this.Name = name;
-            this.Resources = new ResourceDictionary {Source = resourceAddress};
+            this.Resources = new ResourceDictionary { Source = resourceAddress };
         }
     }
 }

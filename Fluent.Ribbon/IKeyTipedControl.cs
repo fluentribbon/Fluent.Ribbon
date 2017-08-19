@@ -6,7 +6,7 @@
     public interface IKeyTipedControl
     {
         /// <summary>
-        /// Get and sets KeyTip for element.
+        /// Gets and sets KeyTip for element.
         /// </summary>
         string KeyTip { get; set; }
 

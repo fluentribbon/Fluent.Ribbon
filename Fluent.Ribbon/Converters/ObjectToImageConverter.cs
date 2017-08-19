@@ -19,7 +19,7 @@
         #region Implementation of IValueConverter
 
         /// <summary>
-        /// Converts a value. 
+        /// Converts a value.
         /// </summary>
         /// <returns>
         /// A converted value. If the method returns null, the valid null value is used.
@@ -71,7 +71,7 @@
         }
 
         /// <summary>
-        /// Converts a value. 
+        /// Converts a value.
         /// </summary>
         /// <returns>
         /// A converted value. If the method returns null, the valid null value is used.
@@ -100,6 +100,7 @@
                 Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
             };
         }
+
         private static Image CreateImage(Uri imageUri, double desiredSize)
         {
             if (double.IsNaN(desiredSize) == false
@@ -121,8 +122,7 @@
         {
             return ExtractImageFromIcoFile(
                 new Uri("pack://application:,,," + imagePath, UriKind.RelativeOrAbsolute),
-                desiredSize
-                );
+                desiredSize);
         }
 
         private static ImageSource ExtractImageFromIcoFile(Uri imageUri, double desiredSize)
@@ -130,8 +130,7 @@
             var decoder = BitmapDecoder.Create(
                 imageUri,
                 BitmapCreateOptions.DelayCreation | BitmapCreateOptions.IgnoreImageCache,
-                BitmapCacheOption.None
-                );
+                BitmapCacheOption.None);
 
             return ExtractImage(decoder, desiredSize);
         }

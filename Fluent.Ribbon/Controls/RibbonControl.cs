@@ -1,17 +1,15 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Shapes;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -34,7 +32,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(RibbonControl));
@@ -53,7 +51,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  
+        /// Using a DependencyProperty as the backing store for Header.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
@@ -103,13 +101,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
-        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        [Category("Action")]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Bindable(true)]
         public ICommand Command
         {
             get
             {
                 return (ICommand)this.GetValue(CommandProperty);
             }
+
             set
             {
                 this.SetValue(CommandProperty, value);
@@ -119,13 +120,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
         /// </summary>
-        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        [Bindable(true)]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Category("Action")]
         public object CommandParameter
         {
             get
             {
                 return this.GetValue(CommandParameterProperty);
             }
+
             set
             {
                 this.SetValue(CommandParameterProperty, value);
@@ -135,13 +139,15 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the element on which to raise the specified command. This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public IInputElement CommandTarget
         {
             get
             {
                 return (IInputElement)this.GetValue(CommandTargetProperty);
             }
+
             set
             {
                 this.SetValue(CommandTargetProperty, value);
@@ -152,6 +158,7 @@ namespace Fluent
         /// Identifies the CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
+
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
@@ -165,8 +172,6 @@ namespace Fluent
         /// <summary>
         /// Handles Command changed
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as RibbonControl;
@@ -201,8 +206,6 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnCommandCanExecuteChanged(object sender, EventArgs e)
         {
             this.UpdateCanExecute();
@@ -225,8 +228,8 @@ namespace Fluent
         #region IsEnabled
 
         /// <summary>
-        /// Gets a value that becomes the return 
-        /// value of IsEnabled in derived classes. 
+        /// Gets a value that becomes the return
+        /// value of IsEnabled in derived classes.
         /// </summary>
         /// <returns>
         /// true if the element is enabled; otherwise, false.
@@ -253,7 +256,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonControl));
@@ -272,7 +275,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonControl));
@@ -284,7 +287,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonControl()
         {
             var type = typeof(RibbonControl);
@@ -306,7 +308,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -315,8 +317,8 @@ namespace Fluent
         /// <summary>
         /// Binds default properties of control to quick access element
         /// </summary>
-        /// <param name="element">Toolbar item</param>
         /// <param name="source">Source item</param>
+        /// <param name="element">Toolbar item</param>
         public static void BindQuickAccessItem(FrameworkElement source, FrameworkElement element)
         {
             Bind(source, element, nameof(source.DataContext), DataContextProperty, BindingMode.OneWay);
@@ -408,8 +410,6 @@ namespace Fluent
         /// <summary>
         /// Occurs then CanAddToQuickAccessToolBar property changed
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
         public static void OnCanAddToQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             d.CoerceValue(ContextMenuProperty);
@@ -474,11 +474,13 @@ namespace Fluent
         {
             var tabItemPos = control.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
-            var tabItemRect = new RECT();
-            tabItemRect.Left = (int)tabItemPos.X;
-            tabItemRect.Top = (int)tabItemPos.Y;
-            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            var tabItemRect = new RECT
+                              {
+                                  Left = (int)tabItemPos.X,
+                                  Top = (int)tabItemPos.Y,
+                                  Right = (int)tabItemPos.X + (int)control.ActualWidth,
+                                  Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
+                              };
             var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
@@ -486,7 +488,7 @@ namespace Fluent
                 return new Rect(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top, monitorInfo.rcWork.Right - monitorInfo.rcWork.Left, monitorInfo.rcWork.Bottom - monitorInfo.rcWork.Top);
             }
 #pragma warning restore 618
-            return new Rect();
+            return default(Rect);
         }
 
         /// <summary>
@@ -498,11 +500,13 @@ namespace Fluent
         {
             var tabItemPos = control.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
-            var tabItemRect = new RECT();
-            tabItemRect.Left = (int)tabItemPos.X;
-            tabItemRect.Top = (int)tabItemPos.Y;
-            tabItemRect.Right = (int)tabItemPos.X + (int)control.ActualWidth;
-            tabItemRect.Bottom = (int)tabItemPos.Y + (int)control.ActualHeight;
+            var tabItemRect = new RECT
+            {
+                Left = (int)tabItemPos.X,
+                Top = (int)tabItemPos.Y,
+                Right = (int)tabItemPos.X + (int)control.ActualWidth,
+                Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
+            };
 
             var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
@@ -511,7 +515,7 @@ namespace Fluent
                 return new Rect(monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Top, monitorInfo.rcMonitor.Right - monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Bottom - monitorInfo.rcMonitor.Top);
             }
 #pragma warning restore 618
-            return new Rect();
+            return default(Rect);
         }
 
         /// <summary>

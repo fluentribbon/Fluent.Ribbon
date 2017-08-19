@@ -1,12 +1,11 @@
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Media;
     using Fluent.Internal;
 
     /// <summary>
@@ -19,9 +18,9 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets reduce order of group in the ribbon panel.
-        /// It must be enumerated with comma from the first to reduce to 
-        /// the last to reduce (use Control.Name as group name in the enum). 
-        /// Enclose in parentheses as (Control.Name) to reduce/enlarge 
+        /// It must be enumerated with comma from the first to reduce to
+        /// the last to reduce (use Control.Name as group name in the enum).
+        /// Enclose in parentheses as (Control.Name) to reduce/enlarge
         /// scalable elements in the given group
         /// </summary>
         public string ReduceOrder
@@ -31,7 +30,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ReduceOrder.  
+        /// Using a DependencyProperty as the backing store for ReduceOrder.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ReduceOrderProperty =
@@ -41,7 +40,7 @@ namespace Fluent
         private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new [] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
             ribbonPanel.InvalidateMeasure();
@@ -86,7 +85,7 @@ namespace Fluent
         /// to fit within the available room
         /// </summary>
         /// <param name="availableSize">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during 
+        /// <returns>The size that the groups container determines it needs during
         /// layout, based on its calculations of child element sizes.
         /// </returns>
         protected override Size MeasureOverride(Size availableSize)
@@ -140,7 +139,7 @@ namespace Fluent
                     continue;
                 }
 
-                if (groupBox.State != groupBox.StateIntermediate 
+                if (groupBox.State != groupBox.StateIntermediate
                     || groupBox.Scale != groupBox.ScaleIntermediate)
                 {
                     groupBox.SuppressCacheReseting = true;
@@ -250,7 +249,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, positions child elements and determines 
+        /// When overridden in a derived class, positions child elements and determines
         /// a size for a System.Windows.FrameworkElement derived class.
         /// </summary>
         /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
@@ -300,6 +299,7 @@ namespace Fluent
                 this.InvalidateArrange();
             }
         }
+
         /// <summary>
         /// Gets the horizontal size of the extent.
         /// </summary>

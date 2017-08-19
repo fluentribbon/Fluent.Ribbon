@@ -5,7 +5,6 @@ namespace Fluent
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -22,8 +21,8 @@ namespace Fluent
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
-    /// Represents the In-Ribbon Gallery, a gallery-based control that exposes 
-    /// a default subset of items directly in the Ribbon. Any remaining items 
+    /// Represents the In-Ribbon Gallery, a gallery-based control that exposes
+    /// a default subset of items directly in the Ribbon. Any remaining items
     /// are displayed when a drop-down menu button is clicked
     /// </summary>
     [ContentProperty(nameof(Items))]
@@ -40,7 +39,6 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_PopupContentPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
-    [SuppressMessage("Microsoft.Maintainability", "CA1506")]
     public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
     {
         #region Fields
@@ -73,7 +71,7 @@ namespace Fluent
 
         private ScrollViewer scrollViewer;
 
-        // Needed to prevent drop down reopen 
+        // Needed to prevent drop down reopen
         private bool canOpenDropDown = true;
 
         private IInputElement focusedElement;
@@ -98,7 +96,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(InRibbonGallery));
@@ -117,7 +115,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(InRibbonGallery));
@@ -136,7 +134,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(InRibbonGallery));
@@ -155,7 +153,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  
+        /// Using a DependencyProperty as the backing store for Header.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(InRibbonGallery));
@@ -200,7 +198,7 @@ namespace Fluent
         #region MinItemsInDropDownRow
 
         /// <summary>
-        /// Min width of the Gallery 
+        /// Min width of the Gallery
         /// </summary>
         public int MinItemsInDropDownRow
         {
@@ -219,7 +217,7 @@ namespace Fluent
         #region MaxItemsInDropDownRow
 
         /// <summary>
-        /// Max width of the Gallery 
+        /// Max width of the Gallery
         /// </summary>
         public int MaxItemsInDropDownRow
         {
@@ -282,7 +280,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.  
+        /// Using a DependencyProperty as the backing store for GroupBy.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(InRibbonGallery), new PropertyMetadata());
@@ -302,7 +300,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.  
+        /// Using a DependencyProperty as the backing store for GroupBy.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(InRibbonGallery), new PropertyMetadata());
@@ -377,12 +375,14 @@ namespace Fluent
                             this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
+
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<GalleryGroupFilter>())
                     {
                         this.groupsMenuButton?.Items.Remove(this.GetFilterMenuItem(item));
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -412,6 +412,7 @@ namespace Fluent
                             this.groupsMenuButton.Items.Add(menuItem);
                         }
                     }
+
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     this.groupsMenuButton?.Items.Clear();
@@ -421,7 +422,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets selected filter
-        /// </summary>               
+        /// </summary>
         public GalleryGroupFilter SelectedFilter
         {
             get { return (GalleryGroupFilter)this.GetValue(SelectedFilterProperty); }
@@ -429,7 +430,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilter. 
+        /// Using a DependencyProperty as the backing store for SelectedFilter.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
@@ -479,7 +480,7 @@ namespace Fluent
             }
             else
             {
-                gallery.SelectedFilterTitle = "";
+                gallery.SelectedFilterTitle = string.Empty;
                 gallery.SelectedFilterGroups = null;
             }
 
@@ -499,7 +500,7 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string), typeof(InRibbonGallery), new PropertyMetadata());
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterTitle. 
+        /// Using a DependencyProperty as the backing store for SelectedFilterTitle.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterTitleProperty = SelectedFilterTitlePropertyKey.DependencyProperty;
@@ -517,14 +518,14 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string), typeof(InRibbonGallery), new PropertyMetadata());
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterGroups. 
+        /// Using a DependencyProperty as the backing store for SelectedFilterGroups.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterGroupsProperty = SelectedFilterGroupsPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets whether gallery has selected filter
-        /// </summary>       
+        /// </summary>
         public bool HasFilter
         {
             get { return (bool)this.GetValue(HasFilterProperty); }
@@ -534,7 +535,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HasFilter.  
+        /// Using a DependencyProperty as the backing store for HasFilter.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasFilterProperty = HasFilterPropertyKey.DependencyProperty;
@@ -575,7 +576,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Selectable.  
+        /// Using a DependencyProperty as the backing store for Selectable.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectableProperty =
@@ -611,7 +612,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// Using a DependencyProperty as the backing store for IsOpen.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
@@ -698,7 +699,7 @@ namespace Fluent
         #region Snapping
 
         /// <summary>
-        /// Snaps / Unsnaps the Visual 
+        /// Snaps / Unsnaps the Visual
         /// (remove visuals and substitute with freezed image)
         /// </summary>
         public bool IsSnapped
@@ -707,6 +708,7 @@ namespace Fluent
             {
                 return this.isSnapped;
             }
+
             set
             {
                 if (value == this.isSnapped)
@@ -784,7 +786,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
+        /// Using a DependencyProperty as the backing store for MaxItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
@@ -813,7 +815,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxItemsInRow.  
+        /// Using a DependencyProperty as the backing store for MaxItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
@@ -934,9 +936,8 @@ namespace Fluent
         #region Constructors
 
         /// <summary>
-        /// Static constructor
+        /// Initializes static members of the <see cref="InRibbonGallery"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static InRibbonGallery()
         {
             var type = typeof(InRibbonGallery);
@@ -1029,7 +1030,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application 
+        /// When overridden in a derived class, is invoked whenever application
         /// code or internal processes call ApplyTemplate
         /// </summary>
         public override void OnApplyTemplate()
@@ -1406,7 +1407,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -1606,6 +1607,7 @@ namespace Fluent
             {
                 return;
             }
+
             this.InvalidateMeasure();
 
             this.Scaled?.Invoke(this, EventArgs.Empty);

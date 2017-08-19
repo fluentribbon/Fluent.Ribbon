@@ -1,16 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Windows.Interop;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
     using Standard;
 
     /// <summary>
@@ -92,7 +90,6 @@ namespace Fluent
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031")]
         private static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)

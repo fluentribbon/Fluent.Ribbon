@@ -5,11 +5,11 @@
 
     internal static class VisibilityBoxes
     {
-        internal static object Visible = Visibility.Visible;
+        internal static readonly object Visible = Visibility.Visible;
 
-        internal static object Hidden = Visibility.Hidden;
+        internal static readonly object Hidden = Visibility.Hidden;
 
-        internal static object Collapsed = Visibility.Collapsed;
+        internal static readonly object Collapsed = Visibility.Collapsed;
 
         internal static object Box(Visibility value)
         {

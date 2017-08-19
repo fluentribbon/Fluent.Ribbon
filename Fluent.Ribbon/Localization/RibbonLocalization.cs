@@ -11,8 +11,8 @@ namespace Fluent
     using Fluent.Localization;
 
     /// <summary>
-    /// Contains localizable Ribbon's properties. 
-    /// Set Culture property to change current Ribbon localization or 
+    /// Contains localizable Ribbon's properties.
+    /// Set Culture property to change current Ribbon localization or
     /// set properties independently to use your localization
     /// </summary>
     public class RibbonLocalization : INotifyPropertyChanged
@@ -49,6 +49,7 @@ namespace Fluent
         public CultureInfo Culture
         {
             get { return this.culture; }
+
             set
             {
                 if (!Equals(this.culture, value))
@@ -66,6 +67,7 @@ namespace Fluent
         public RibbonLocalizationBase Localization
         {
             get { return this.localization; }
+
             set
             {
                 if (!Equals(this.localization, value))

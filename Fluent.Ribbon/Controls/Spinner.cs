@@ -3,7 +3,6 @@ namespace Fluent
 {
     using System;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -42,7 +41,6 @@ namespace Fluent
         /// <summary>
         /// Gets or sets current value
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1721")]
         public double Value
         {
             get { return (double)this.GetValue(ValueProperty); }
@@ -50,7 +48,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Value.  
+        /// Using a DependencyProperty as the backing store for Value.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ValueProperty;
@@ -106,7 +104,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  
+        /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty = textPropertyKey.DependencyProperty;
@@ -248,8 +246,8 @@ namespace Fluent
         #region Delay
 
         /// <summary>
-        /// Gets or sets the amount of time, in milliseconds, 
-        /// the Spinner waits while it is pressed before it starts repeating. 
+        /// Gets or sets the amount of time, in milliseconds,
+        /// the Spinner waits while it is pressed before it starts repeating.
         /// The value must be non-negative. This is a dependency property.
         /// </summary>
         public int Delay
@@ -259,7 +257,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Delay.  
+        /// Using a DependencyProperty as the backing store for Delay.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
@@ -271,8 +269,8 @@ namespace Fluent
         #region Interval
 
         /// <summary>
-        /// Gets or sets the amount of time, in milliseconds, 
-        /// between repeats once repeating starts. The value must be non-negative. 
+        /// Gets or sets the amount of time, in milliseconds,
+        /// between repeats once repeating starts. The value must be non-negative.
         /// This is a dependency property.
         /// </summary>
         public int Interval
@@ -282,7 +280,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Interval.  
+        /// Using a DependencyProperty as the backing store for Interval.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IntervalProperty =
@@ -294,7 +292,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets width of the value input part of spinner
-        /// </summary>               
+        /// </summary>
         public double InputWidth
         {
             get { return (double)this.GetValue(InputWidthProperty); }
@@ -313,7 +311,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets a converter which is used to convert from text to double and from double to text.
-        /// </summary>        
+        /// </summary>
         public IValueConverter TextToValueConverter
         {
             get { return (IValueConverter)this.GetValue(TextToValueConverterProperty); }
@@ -350,7 +348,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Spinner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
@@ -455,7 +452,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
@@ -535,7 +532,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>

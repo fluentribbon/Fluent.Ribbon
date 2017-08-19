@@ -6,7 +6,6 @@ namespace Fluent
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -68,7 +67,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Button. 
+        /// Using a DependencyProperty as the backing store for Button.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
@@ -102,6 +101,7 @@ namespace Fluent
             {
                 return this.GetValue(SelectedContentProperty);
             }
+
             internal set
             {
                 this.SetValue(SelectedContentPropertyKey, value);
@@ -143,7 +143,6 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
-
 
         /// <summary>
         /// Gets or sets whether ribbon popup is opened
@@ -256,6 +255,7 @@ namespace Fluent
                     {
                         this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -263,6 +263,7 @@ namespace Fluent
                     {
                         this.ToolbarPanel.Children.Remove(obj3);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -270,10 +271,12 @@ namespace Fluent
                     {
                         this.ToolbarPanel.Children.Remove(obj4);
                     }
+
                     foreach (var obj5 in e.NewItems.OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Add(obj5);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
@@ -282,9 +285,9 @@ namespace Fluent
                     {
                         this.ToolbarPanel.Children.Add(toolBarItem);
                     }
+
                     break;
             }
-
         }
 
         /// <summary>
@@ -322,9 +325,8 @@ namespace Fluent
         #region Initializion
 
         /// <summary>
-        /// Static constructor
+        /// Initializes static members of the <see cref="RibbonTabControl"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabControl()
         {
             var type = typeof(RibbonTabControl);
@@ -336,7 +338,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Default constructor
+        /// Initializes a new instance of the <see cref="RibbonTabControl"/> class.
         /// </summary>
         public RibbonTabControl()
         {
@@ -351,7 +353,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Raises the System.Windows.FrameworkElement.Initialized event. 
+        /// Raises the System.Windows.FrameworkElement.Initialized event.
         /// This method is invoked whenever System.Windows.
         /// FrameworkElement.IsInitialized is set to true internally.
         /// </summary>
@@ -382,7 +384,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or 
+        /// When overridden in a derived class, is invoked whenever application code or
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
@@ -415,7 +417,7 @@ namespace Fluent
                     this.ToolbarPanel.Children.Add(this.toolBarItems[i]);
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// Updates the current selection when an item in the System.Windows.Controls.Primitives.Selector has changed
@@ -494,8 +496,8 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Mouse.PreviewMouseWheel 
-        /// attached event reaches an element in its route that is derived from this class. 
+        /// Invoked when an unhandled System.Windows.Input.Mouse.PreviewMouseWheel
+        /// attached event reaches an element in its route that is derived from this class.
         /// Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.MouseWheelEventArgs that contains the event data.</param>
@@ -531,6 +533,7 @@ namespace Fluent
                     {
                         this.IsDropDownOpen = false;
                     }
+
                     break;
 
                 case Key.Tab:
@@ -546,6 +549,7 @@ namespace Fluent
                             direction = 1;
                         }
                     }
+
                     break;
                 case Key.Home:
                     direction = 1;
@@ -556,10 +560,10 @@ namespace Fluent
                     startIndex = this.Items.Count;
                     break;
             }
-            
+
             var nextTabItem = this.FindNextTabItem(startIndex, direction);
 
-            if (nextTabItem != null 
+            if (nextTabItem != null
                 && ReferenceEquals(nextTabItem, this.SelectedItem) == false)
             {
                 e.Handled = nextTabItem.SetFocus();
@@ -819,7 +823,7 @@ namespace Fluent
                 return null;
             }
 
-            // Get current workarea                
+            // Get current workarea
             var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
             var tabItemRect = new RECT

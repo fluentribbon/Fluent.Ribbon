@@ -1,7 +1,6 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Media;
     using Fluent.Extensibility;
@@ -14,7 +13,7 @@ namespace Fluent
         #region Size Property
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty =
@@ -25,8 +24,7 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsRender |
                                               FrameworkPropertyMetadataOptions.AffectsParentArrange |
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                              OnSizePropertyChanged)
-        );
+                                              OnSizePropertyChanged));
 
         private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -56,7 +54,7 @@ namespace Fluent
         #region SizeDefinition Property
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty =
@@ -96,23 +94,27 @@ namespace Fluent
         }
 
         // Finds parent group box
-        [SuppressMessage("Microsoft.Performance", "CA1800")]
-        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject o)
+        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject element)
         {
-            while (!(o is RibbonGroupBox))
+            var currentElement = element;
+            RibbonGroupBox groupBox;
+
+            while ((groupBox = currentElement as RibbonGroupBox) == null)
             {
-                o = VisualTreeHelper.GetParent(o) ?? LogicalTreeHelper.GetParent(o);
-                if (o == null)
+                currentElement = VisualTreeHelper.GetParent(currentElement)
+                    ?? LogicalTreeHelper.GetParent(currentElement);
+
+                if (currentElement == null)
                 {
                     break;
                 }
             }
 
-            return (RibbonGroupBox)o;
+            return groupBox;
         }
 
         /// <summary>
-        /// Sets appropriate size of the control according to the 
+        /// Sets appropriate size of the control according to the
         /// given group box state and control's size definition
         /// </summary>
         /// <param name="element">UI Element</param>

@@ -98,8 +98,8 @@ namespace Fluent
         {
             RibbonControlSize result;
 
-            return Enum.TryParse(ribbonControlSize, true, out result) 
-                       ? result 
+            return Enum.TryParse(ribbonControlSize, true, out result)
+                       ? result
                        : RibbonControlSize.Large;
         }
 

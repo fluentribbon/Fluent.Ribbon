@@ -29,7 +29,7 @@
 
         private bool? isCheckedToggleButton3;
 
-        private readonly Timer memoryTimer;        
+        private readonly Timer memoryTimer;
 
         public MainViewModel()
         {
@@ -65,9 +65,14 @@
         public double Zoom
         {
             get { return this.zoom; }
+
             set
             {
-                if (value.Equals(this.zoom)) return;
+                if (value.Equals(this.zoom))
+                {
+                    return;
+                }
+
                 this.zoom = value;
                 this.OnPropertyChanged(nameof(this.Zoom));
             }
@@ -76,9 +81,14 @@
         public ColorViewModel ColorViewModel
         {
             get { return this.colorViewModel; }
+
             private set
             {
-                if (Equals(value, this.colorViewModel)) return;
+                if (Equals(value, this.colorViewModel))
+                {
+                    return;
+                }
+
                 this.colorViewModel = value;
                 this.OnPropertyChanged(nameof(this.ColorViewModel));
             }
@@ -87,9 +97,14 @@
         public FontsViewModel FontsViewModel
         {
             get { return this.fontsViewModel; }
+
             private set
             {
-                if (Equals(value, this.fontsViewModel)) return;
+                if (Equals(value, this.fontsViewModel))
+                {
+                    return;
+                }
+
                 this.fontsViewModel = value;
                 this.OnPropertyChanged(nameof(this.FontsViewModel));
             }
@@ -98,9 +113,14 @@
         public GalleryViewModel GalleryViewModel
         {
             get { return this.galleryViewModel; }
+
             private set
             {
-                if (Equals(value, this.galleryViewModel)) return;
+                if (Equals(value, this.galleryViewModel))
+                {
+                    return;
+                }
+
                 this.galleryViewModel = value;
                 this.OnPropertyChanged(nameof(this.GalleryViewModel));
             }
@@ -144,6 +164,7 @@
         public bool? IsCheckedToggleButton3
         {
             get { return this.isCheckedToggleButton3; }
+
             set
             {
                 if (this.isCheckedToggleButton3 != value)
@@ -161,6 +182,7 @@
         public int BoundSpinnerValue
         {
             get { return this.boundSpinnerValue; }
+
             set
             {
                 this.boundSpinnerValue = value;

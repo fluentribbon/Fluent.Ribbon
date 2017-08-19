@@ -46,7 +46,7 @@
         private static double TryConvertSingleValue(object value)
         {
             try
-            {             
+            {
                 return (value as IConvertible)?.ToDouble(null) ?? 0;
             }
             catch

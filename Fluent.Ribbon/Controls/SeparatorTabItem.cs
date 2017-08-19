@@ -1,7 +1,6 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using Fluent.Internal;
@@ -17,7 +16,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static SeparatorTabItem()
         {
             var type = typeof(SeparatorTabItem);

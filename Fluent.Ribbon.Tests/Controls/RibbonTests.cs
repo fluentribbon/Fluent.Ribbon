@@ -150,7 +150,7 @@
             foreach (var element in elements)
             {
                 Assert.That(element.Key.GetValue(property), Is.EqualTo(expectedValue), $"{property.Name} on {element.Value} should match.");
-            }            
+            }
         }
 
         [Test]

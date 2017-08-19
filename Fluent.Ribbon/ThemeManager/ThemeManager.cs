@@ -14,8 +14,10 @@ namespace Fluent
     /// </summary>
     public static class ThemeManager
     {
+#pragma warning disable SA1309 // Field names must not begin with underscore
         private static IList<Accent> _accents;
         private static IList<AppTheme> _appThemes;
+#pragma warning restore SA1309 // Field names must not begin with underscore
 
         /// <summary>
         /// Gets a list of all of default accents.
@@ -25,9 +27,12 @@ namespace Fluent
             get
             {
                 if (_accents != null)
+                {
                     return _accents;
+                }
 
-                var colors = new[] {
+                var colors = new[]
+                {
                                        "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt",
                                        "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
                                    };
@@ -59,7 +64,9 @@ namespace Fluent
             get
             {
                 if (_appThemes != null)
+                {
                     return _appThemes;
+                }
 
                 var themes = new[] { "BaseLight", "BaseDark" };
 
@@ -88,8 +95,15 @@ namespace Fluent
         /// <returns>true if the accent does not exists and can be added.</returns>
         public static bool AddAccent(string name, Uri resourceAddress)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (resourceAddress == null) throw new ArgumentNullException(nameof(resourceAddress));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceAddress == null)
+            {
+                throw new ArgumentNullException(nameof(resourceAddress));
+            }
 
             var accentExists = GetAccent(name) != null;
             if (accentExists)
@@ -107,8 +121,15 @@ namespace Fluent
         /// <returns>true if the app theme does not exists and can be added.</returns>
         public static bool AddAppTheme(string name, Uri resourceAddress)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (resourceAddress == null) throw new ArgumentNullException(nameof(resourceAddress));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceAddress == null)
+            {
+                throw new ArgumentNullException(nameof(resourceAddress));
+            }
 
             var appThemeExists = GetAppTheme(name) != null;
             if (appThemeExists)
@@ -127,7 +148,10 @@ namespace Fluent
         /// <returns>AppTheme</returns>
         public static AppTheme GetAppTheme(ResourceDictionary resources)
         {
-            if (resources == null) throw new ArgumentNullException(nameof(resources));
+            if (resources == null)
+            {
+                throw new ArgumentNullException(nameof(resources));
+            }
 
             return AppThemes.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources.Source, resources.Source));
         }
@@ -138,7 +162,10 @@ namespace Fluent
         /// <returns>AppTheme</returns>
         public static AppTheme GetAppTheme(string appThemeName)
         {
-            if (appThemeName == null) throw new ArgumentNullException(nameof(appThemeName));
+            if (appThemeName == null)
+            {
+                throw new ArgumentNullException(nameof(appThemeName));
+            }
 
             return AppThemes.FirstOrDefault(x => x.Name.Equals(appThemeName, StringComparison.OrdinalIgnoreCase));
         }
@@ -156,16 +183,18 @@ namespace Fluent
         public static AppTheme GetInverseAppTheme(AppTheme appTheme)
         {
             if (appTheme == null)
+            {
                 throw new ArgumentNullException(nameof(appTheme));
+            }
 
             if (appTheme.Name.EndsWith("dark", StringComparison.OrdinalIgnoreCase))
             {
-                return GetAppTheme(appTheme.Name.ToLower().Replace("dark", String.Empty) + "light");
+                return GetAppTheme(appTheme.Name.ToLower().Replace("dark", string.Empty) + "light");
             }
 
             if (appTheme.Name.EndsWith("light", StringComparison.OrdinalIgnoreCase))
             {
-                return GetAppTheme(appTheme.Name.ToLower().Replace("light", String.Empty) + "dark");
+                return GetAppTheme(appTheme.Name.ToLower().Replace("light", string.Empty) + "dark");
             }
 
             return null;
@@ -177,7 +206,10 @@ namespace Fluent
         /// <returns>The <see cref="Accent"/> or <c>null</c>, if the app theme wasn't found</returns>
         public static Accent GetAccent(string accentName)
         {
-            if (accentName == null) throw new ArgumentNullException(nameof(accentName));
+            if (accentName == null)
+            {
+                throw new ArgumentNullException(nameof(accentName));
+            }
 
             return Accents.FirstOrDefault(x => x.Name.Equals(accentName, StringComparison.OrdinalIgnoreCase));
         }
@@ -189,7 +221,10 @@ namespace Fluent
         /// <returns>The <see cref="Accent"/> or <c>null</c>, if the accent wasn't found.</returns>
         public static Accent GetAccent(ResourceDictionary resources)
         {
-            if (resources == null) throw new ArgumentNullException(nameof(resources));
+            if (resources == null)
+            {
+                throw new ArgumentNullException(nameof(resources));
+            }
 
             var builtInAccent = Accents.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources.Source, resources.Source));
             if (builtInAccent != null)
@@ -223,7 +258,10 @@ namespace Fluent
         /// <exception cref="System.ArgumentNullException">resources</exception>
         public static bool IsAccentDictionary(ResourceDictionary resources)
         {
-            if (resources == null) throw new ArgumentNullException(nameof(resources));
+            if (resources == null)
+            {
+                throw new ArgumentNullException(nameof(resources));
+            }
 
             // Note: add more checks if these keys aren't sufficient
             var styleKeys = new List<string>(new[]
@@ -248,7 +286,7 @@ namespace Fluent
             {
                 // Note: do not use contains, because that will look in all merged dictionaries as well. We need to check
                 // out the actual keys of the current resource dictionary
-                if (!(from object resourceKey in resources.Keys 
+                if (!(from object resourceKey in resources.Keys
                      select resourceKey as string).Any(keyAsString => string.Equals(keyAsString, styleKey)))
                 {
                     return false;
@@ -283,7 +321,9 @@ namespace Fluent
             //next check the accent
             var accentResource = appStyle.Item2.Resources[key];
             if (accentResource != null)
+            {
                 return accentResource;
+            }
 
             return resource;
         }
@@ -291,13 +331,18 @@ namespace Fluent
         /// <summary>
         /// Change the theme for the whole application.
         /// </summary>
-        /// <param name="app"></param>
-        /// <param name="themeName"></param>
         [SecurityCritical]
         public static void ChangeAppTheme(Application app, string themeName)
         {
-            if (app == null) throw new ArgumentNullException(nameof(app));
-            if (themeName == null) throw new ArgumentNullException(nameof(themeName));
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+
+            if (themeName == null)
+            {
+                throw new ArgumentNullException(nameof(themeName));
+            }
 
             var oldTheme = DetectAppStyle(app);
             AppTheme matched;
@@ -310,13 +355,18 @@ namespace Fluent
         /// <summary>
         /// Change theme for the given window.
         /// </summary>
-        /// <param name="window"></param>
-        /// <param name="themeName"></param>
         [SecurityCritical]
         public static void ChangeAppTheme(Window window, string themeName)
         {
-            if (window == null) throw new ArgumentNullException(nameof(window));
-            if (themeName == null) throw new ArgumentNullException(nameof(themeName));
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
+
+            if (themeName == null)
+            {
+                throw new ArgumentNullException(nameof(themeName));
+            }
 
             var oldTheme = DetectAppStyle(window);
             AppTheme matched;
@@ -335,7 +385,10 @@ namespace Fluent
         [SecurityCritical]
         public static void ChangeAppStyle(Application app, Accent newAccent, AppTheme newTheme)
         {
-            if (app == null) throw new ArgumentNullException(nameof(app));
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
 
             var oldTheme = DetectAppStyle(app);
             ChangeAppStyle(app.Resources, oldTheme, newAccent, newTheme);
@@ -350,7 +403,10 @@ namespace Fluent
         [SecurityCritical]
         public static void ChangeAppStyle(Window window, Accent newAccent, AppTheme newTheme)
         {
-            if (window == null) throw new ArgumentNullException(nameof(window));
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
 
             var oldTheme = DetectAppStyle(window);
             ChangeAppStyle(window.Resources, oldTheme, newAccent, newTheme);
@@ -414,13 +470,25 @@ namespace Fluent
         [SecurityCritical]
         public static void ChangeAppStyle(ResourceDictionary resources, Accent newAccent, AppTheme newTheme)
         {
-            if (resources == null) throw new ArgumentNullException(nameof(resources));
-            if (newAccent == null) throw new ArgumentNullException(nameof(newAccent));
-            if (newTheme == null) throw new ArgumentNullException(nameof(newTheme));
+            if (resources == null)
+            {
+                throw new ArgumentNullException(nameof(resources));
+            }
+
+            if (newAccent == null)
+            {
+                throw new ArgumentNullException(nameof(newAccent));
+            }
+
+            if (newTheme == null)
+            {
+                throw new ArgumentNullException(nameof(newTheme));
+            }
 
             ApplyResourceDictionary(newAccent.Resources, resources);
             ApplyResourceDictionary(newTheme.Resources, resources);
         }
+
         [SecurityCritical]
 
         private static void ApplyResourceDictionary(ResourceDictionary newRd, ResourceDictionary oldRd)
@@ -430,7 +498,9 @@ namespace Fluent
             foreach (DictionaryEntry r in newRd)
             {
                 if (oldRd.Contains(r.Key))
+                {
                     oldRd.Remove(r.Key);
+                }
 
                 oldRd.Add(r.Key, r.Value);
             }
@@ -450,8 +520,15 @@ namespace Fluent
         /// </exception>
         internal static void CopyResource(ResourceDictionary fromRD, ResourceDictionary toRD)
         {
-            if (fromRD == null) throw new ArgumentNullException(nameof(fromRD));
-            if (toRD == null) throw new ArgumentNullException(nameof(toRD));
+            if (fromRD == null)
+            {
+                throw new ArgumentNullException(nameof(fromRD));
+            }
+
+            if (toRD == null)
+            {
+                throw new ArgumentNullException(nameof(toRD));
+            }
 
             ApplyResourceDictionary(fromRD, toRD);
             foreach (var rd in fromRD.MergedDictionaries)
@@ -475,7 +552,7 @@ namespace Fluent
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 Trace.WriteLine($"Failed to detect app style on main window.{Environment.NewLine}{ex}");
             }
 
@@ -488,11 +565,16 @@ namespace Fluent
         /// <param name="window">The Window to scan.</param>
         public static Tuple<AppTheme, Accent> DetectAppStyle(Window window)
         {
-            if (window == null) throw new ArgumentNullException(nameof(window));
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
 
             var detectedStyle = DetectAppStyle(window.Resources);
             if (detectedStyle == null)
+            {
                 detectedStyle = DetectAppStyle(Application.Current.Resources);
+            }
 
             return detectedStyle;
         }
@@ -503,7 +585,10 @@ namespace Fluent
         /// <param name="app">The Application instance to scan.</param>
         public static Tuple<AppTheme, Accent> DetectAppStyle(Application app)
         {
-            if (app == null) throw new ArgumentNullException(nameof(app));
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
 
             return DetectAppStyle(app.Resources);
         }
@@ -514,7 +599,10 @@ namespace Fluent
         /// <param name="resources">The ResourceDictionary to check.</param>
         private static Tuple<AppTheme, Accent> DetectAppStyle(ResourceDictionary resources)
         {
-            if (resources == null) throw new ArgumentNullException(nameof(resources));
+            if (resources == null)
+            {
+                throw new ArgumentNullException(nameof(resources));
+            }
 
             AppTheme currentTheme = null;
             Tuple<AppTheme, Accent> detectedAccentTheme = null;
@@ -522,7 +610,9 @@ namespace Fluent
             if (DetectThemeFromResources(ref currentTheme, resources))
             {
                 if (GetThemeFromResources(currentTheme, resources, ref detectedAccentTheme))
+                {
                     return new Tuple<AppTheme, Accent>(detectedAccentTheme.Item1, detectedAccentTheme.Item2);
+                }
             }
 
             return null;
@@ -574,7 +664,9 @@ namespace Fluent
             foreach (ResourceDictionary rd in dict.MergedDictionaries.Reverse())
             {
                 if (GetThemeFromResources(presetTheme, rd, ref detectedAccentTheme))
+                {
                     return true;
+                }
             }
 
             return false;

@@ -1,21 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
+    using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -95,7 +93,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(RibbonTabItem));
@@ -117,9 +115,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMinimized.  
+        /// Using a DependencyProperty as the backing store for IsMinimized.
         /// This enables animation, styling, binding, etc...
-        /// </summary>  
+        /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
@@ -132,9 +130,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  
+        /// Using a DependencyProperty as the backing store for IsOpen.
         /// This enables animation, styling, binding, etc...
-        /// </summary>  
+        /// </summary>
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
@@ -161,9 +159,9 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(IsContextual), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsContextual.  
+        /// Using a DependencyProperty as the backing store for IsContextual.
         /// This enables animation, styling, binding, etc...
-        /// </summary>  
+        /// </summary>
         public static readonly DependencyProperty IsContextualProperty = IsContextualPropertyKey.DependencyProperty;
 
         /// <summary>
@@ -182,13 +180,15 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether tab item is selected
         /// </summary>
-        [Bindable(true), Category("Appearance")]
+        [Bindable(true)]
+        [Category("Appearance")]
         public bool IsSelected
         {
             get
             {
                 return (bool)this.GetValue(IsSelectedProperty);
             }
+
             set
             {
                 this.SetValue(IsSelectedProperty, value);
@@ -196,9 +196,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsSelected.  
+        /// Using a DependencyProperty as the backing store for IsSelected.
         /// This enables animation, styling, binding, etc...
-        /// </summary>  
+        /// </summary>
         public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
 
         /// <summary>
@@ -211,7 +211,6 @@ namespace Fluent
                 return ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl;
             }
         }
-
 
         /// <summary>
         /// Gets or sets indent
@@ -283,6 +282,7 @@ namespace Fluent
         internal double DesiredWidth
         {
             get { return this.desiredWidth; }
+
             set
             {
                 this.desiredWidth = value;
@@ -333,6 +333,7 @@ namespace Fluent
                     this.groups = new ObservableCollection<RibbonGroupBox>();
                     this.groups.CollectionChanged += this.OnGroupsCollectionChanged;
                 }
+
                 return this.groups;
             }
         }
@@ -352,6 +353,7 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -359,6 +361,7 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Remove(item);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -366,10 +369,12 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Remove(item);
                     }
+
                     foreach (var item in e.NewItems.OfType<UIElement>())
                     {
                         this.groupsInnerContainer.Children.Add(item);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
@@ -379,9 +384,9 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Add(group);
                     }
+
                     break;
             }
-
         }
 
         #region Header Property
@@ -422,7 +427,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Coerces IsEnabled 
+        /// Coerces IsEnabled
         /// </summary>
         /// <param name="d"></param>
         /// <param name="basevalue"></param>
@@ -468,7 +473,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
@@ -552,18 +556,19 @@ namespace Fluent
             {
                 return false;
             }
+
                 var currentFocus = Keyboard.FocusedElement as RibbonTabItem;
 
                 // If current focus was another TabItem in the same TabControl - dont set focus on content
-                bool setFocusOnContent = ReferenceEquals(currentFocus, this) 
-                                         || currentFocus == null 
+                bool setFocusOnContent = ReferenceEquals(currentFocus, this)
+                                         || currentFocus == null
                                          || ReferenceEquals(currentFocus.TabControlParent, this.TabControlParent) == false;
                 this.SettingFocus = true;
                 this.SetFocusOnContent = setFocusOnContent;
 
                 try
                 {
-                    return this.Focus() 
+                    return this.Focus()
                     || setFocusOnContent;
                 }
                 finally
@@ -585,18 +590,18 @@ namespace Fluent
         {
             base.OnPreviewGotKeyboardFocus(e);
 
-            if (e.Handled 
+            if (e.Handled
                 || ReferenceEquals(e.NewFocus, this) == false)
             {
                 return;
             }
 
-            if (this.IsSelected 
+            if (this.IsSelected
                 || this.TabControlParent == null)
             {
                 return;
             }
-            
+
             this.IsSelected = true;
 
             // If focus moved in result of selection - handle the event to prevent setting focus back on the new item
@@ -652,7 +657,7 @@ namespace Fluent
             this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
 
-            if (totalWidth < headerWidth + this.Indent * 2)
+            if (totalWidth < headerWidth + (this.Indent * 2))
             {
                 var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
                 this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
@@ -669,13 +674,13 @@ namespace Fluent
                     }
                     else
                     {
-                        baseConstraint.Width = headerWidth + this.Indent * 2 + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
+                        baseConstraint.Width = headerWidth + (this.Indent * 2) + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
                     }
                 }
             }
 
-            if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false 
-                && this.IsContextual 
+            if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false
+                && this.IsContextual
                 && this.Group != null)
             {
                 this.cachedWidth = baseConstraint.Width;
@@ -710,10 +715,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised 
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised
         /// on this element. Implement this method to add class handling for this event.
         /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -796,6 +801,7 @@ namespace Fluent
         {
             this.HandleIsSelectedChanged(e);
         }
+
         /// <summary>
         /// handles unselected
         /// </summary>
@@ -859,7 +865,7 @@ namespace Fluent
             this.IsSelected = true;
 
             // This way keytips for delay loaded elements work correctly. Partially fixes #244.
-            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(delegate { }));
+            this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(() => { }));
 
             return KeyTipPressedResult.Empty;
         }

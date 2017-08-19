@@ -1,4 +1,5 @@
-﻿namespace FluentTest
+﻿#pragma warning disable SA1402 // File may only contain a single class
+namespace FluentTest
 {
     using System;
     using System.Diagnostics;
@@ -173,12 +174,7 @@
         {
             var treeView = sender as TreeView;
 
-            if (treeView == null)
-            {
-                return;
-            }
-
-            var item = treeView.SelectedItem as TreeViewItem;
+            var item = treeView?.SelectedItem as TreeViewItem;
             if (item == null)
             {
                 return;
@@ -338,7 +334,7 @@
                              IsBackground = true
                          };
             thread.SetApartmentState(ApartmentState.STA);
-            
+
             thread.Start();
         }
 
@@ -371,24 +367,18 @@
 
     public class TestRoutedCommand
     {
-        public static RoutedCommand TestPresenterCommand = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
+        public static RoutedCommand TestPresenterCommand { get; } = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
 
-        public ICommand ItemCommand
-        {
-            get { return TestPresenterCommand; }
-        }
+        public ICommand ItemCommand => TestPresenterCommand;
 
-        public CommandBinding ItemCommandBinding
-        {
-            get { return new CommandBinding(TestPresenterCommand, this.OnTestCommandExecuted, this.CanExecuteTestCommand); }
-        }
+        public CommandBinding ItemCommandBinding => new CommandBinding(TestPresenterCommand, OnTestCommandExecuted, CanExecuteTestCommand);
 
-        private void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
+        private static void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
-        private void OnTestCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private static void OnTestCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("TestPresenterCommand");
         }

@@ -1,4 +1,6 @@
-﻿namespace FluentTest.ViewModels
+﻿#pragma warning disable SA1402 // File may only contain a single class
+
+namespace FluentTest.ViewModels
 {
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -21,6 +23,7 @@
         public Color StandardColor
         {
             get { return this.standardColor; }
+
             set
             {
                 this.standardColor = value;
@@ -31,6 +34,7 @@
         public Color HighlightColor
         {
             get { return this.highlightColor; }
+
             set
             {
                 this.highlightColor = value;
@@ -43,6 +47,7 @@
         public Color ThemeColor
         {
             get { return ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink; }
+
             set
             {
                 Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = new SolidColorBrush(value);
@@ -67,6 +72,7 @@
                 var accent = ThemeManager.DetectAppStyle(Application.Current).Item2;
                 return this.Accents.FirstOrDefault(x => x.Accent.Name == accent.Name);
             }
+
             set { ThemeManager.ChangeAppStyle(Application.Current, value.Accent, this.CurrentAppTheme); }
         }
     }

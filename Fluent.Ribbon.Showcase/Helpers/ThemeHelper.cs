@@ -102,7 +102,7 @@
         private static Color IdealTextColor(Color color)
         {
             const int nThreshold = 105;
-            var bgDelta = Convert.ToInt32(color.R * 0.299 + color.G * 0.587 + color.B * 0.114);
+            var bgDelta = Convert.ToInt32((color.R * 0.299) + (color.G * 0.587) + (color.B * 0.114));
             var foreColor = 255 - bgDelta < nThreshold
                                 ? Colors.Black
                                 : Colors.White;

@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.IO;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
@@ -23,7 +24,7 @@ namespace Fluent
         private static string maximize;
         private static string closeText;
         private static string restore;
-        private System.Windows.Controls.Button minimizeButton;        
+        private System.Windows.Controls.Button minimizeButton;
         private System.Windows.Controls.Button maximizeButton;
         private System.Windows.Controls.Button restoreButton;
         private System.Windows.Controls.Button closeButton;
@@ -38,7 +39,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Finalizer
+        /// Finalizes an instance of the <see cref="WindowCommands"/> class.
         /// </summary>
         ~WindowCommands()
         {
@@ -101,7 +102,10 @@ namespace Fluent
             get
             {
                 if (string.IsNullOrEmpty(minimize))
+                {
                     minimize = this.GetCaption(900);
+                }
+
                 return minimize;
             }
         }
@@ -114,7 +118,10 @@ namespace Fluent
             get
             {
                 if (string.IsNullOrEmpty(maximize))
+                {
                     maximize = this.GetCaption(901);
+                }
+
                 return maximize;
             }
         }
@@ -143,7 +150,10 @@ namespace Fluent
             get
             {
                 if (string.IsNullOrEmpty(closeText))
+                {
                     closeText = this.GetCaption(905);
+                }
+
                 return closeText;
             }
         }
@@ -160,20 +170,20 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));        
+        public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
         private string GetCaption(uint id)
         {
 #pragma warning disable 618
             if (this.user32 == null)
             {
-                this.user32 = UnsafeNativeMethods.LoadLibrary(Environment.SystemDirectory + "\\User32.dll");
+                this.user32 = UnsafeNativeMethods.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
             }
 
             var sb = new StringBuilder(256);
             UnsafeNativeMethods.LoadString(this.user32, id, sb, sb.Capacity);
 #pragma warning restore 618
-            return sb.ToString().Replace("&", "");
+            return sb.ToString().Replace("&", string.Empty);
         }
 
         /// <summary>
@@ -185,19 +195,27 @@ namespace Fluent
 
             this.minimizeButton = this.Template.FindName("PART_Min", this) as System.Windows.Controls.Button;
             if (this.minimizeButton != null)
+            {
                 this.minimizeButton.Click += this.MinimizeClick;
+            }
 
             this.maximizeButton = this.Template.FindName("PART_Max", this) as System.Windows.Controls.Button;
             if (this.maximizeButton != null)
+            {
                 this.maximizeButton.Click += this.MaximiseClick;
+            }
 
             this.restoreButton = this.Template.FindName("PART_Restore", this) as System.Windows.Controls.Button;
             if (this.restoreButton != null)
+            {
                 this.restoreButton.Click += this.RestoreClick;
+            }
 
             this.closeButton = this.GetTemplateChild("PART_Close") as System.Windows.Controls.Button;
             if (this.closeButton != null)
+            {
                 this.closeButton.Click += this.CloseClick;
+            }
         }
 
         /// <inheritdoc />
@@ -212,14 +230,18 @@ namespace Fluent
         {
             var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
+            {
                 parentWindow.WindowState = WindowState.Minimized;
+            }
         }
 
         private void MaximiseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
             if (parentWindow == null)
+            {
                 return;
+            }
 
             parentWindow.WindowState = WindowState.Maximized;
         }
@@ -228,7 +250,9 @@ namespace Fluent
         {
             var parentWindow = this.GetParentWindow();
             if (parentWindow == null)
+            {
                 return;
+            }
 
             parentWindow.WindowState = WindowState.Normal;
         }
@@ -244,7 +268,7 @@ namespace Fluent
             var parent = VisualTreeHelper.GetParent(this);
             Window parentWindow = null;
 
-            while (parent != null 
+            while (parent != null
                 && (parentWindow = parent as Window) == null)
             {
                 parent = VisualTreeHelper.GetParent(parent);

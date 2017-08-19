@@ -4,7 +4,6 @@ namespace Fluent
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -14,8 +13,8 @@ namespace Fluent
     using Fluent.Internal;
 
     /// <summary>
-    /// Represents adorner for KeyTips. 
-    /// KeyTipAdorners is chained to produce one from another. 
+    /// Represents adorner for KeyTips.
+    /// KeyTipAdorners is chained to produce one from another.
     /// Detaching root adorner couses detaching all adorners in the chain
     /// </summary>
     internal class KeyTipAdorner : Adorner
@@ -23,7 +22,7 @@ namespace Fluent
         #region Events
 
         /// <summary>
-        /// This event is occured when adorner is 
+        /// This event is occured when adorner is
         /// detached and is not able to be attached again
         /// </summary>
         public event EventHandler<KeyTipPressedResult> Terminated;
@@ -139,7 +138,7 @@ namespace Fluent
         {
             var keyTipInformation = new KeyTipInformation(keys, child, hide || groupBox.State != RibbonGroupBoxState.Collapsed);
 
-            // Add to list & visual children collections                    
+            // Add to list & visual children collections
             this.AddKeyTipInformationElement(keyTipInformation);
 
             this.LogDebug("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
@@ -156,7 +155,7 @@ namespace Fluent
             }
             else
             {
-                informations = new []{ new KeyTipInformation(keys, child, hide) };
+                informations = new[] { new KeyTipInformation(keys, child, hide) };
             }
 
             foreach (var keyTipInformation in informations)
@@ -176,7 +175,7 @@ namespace Fluent
 
         private static IList<FrameworkElement> GetVisibleChildren(FrameworkElement element)
         {
-            var logicalChildren = LogicalTreeHelper.GetChildren(element)                
+            var logicalChildren = LogicalTreeHelper.GetChildren(element)
                 .OfType<FrameworkElement>();
 
             var children = logicalChildren;
@@ -233,7 +232,7 @@ namespace Fluent
                 this.isAttaching = false;
                 return;
             }
-           
+
             this.FilterKeyTips(string.Empty);
 
             // Show this adorner
@@ -254,7 +253,7 @@ namespace Fluent
 
         /// <summary>
         /// Detaches this adorner from the adorned element
-        /// </summary> 
+        /// </summary>
         public void Detach()
         {
             this.childAdorner?.Detach();
@@ -315,7 +314,10 @@ namespace Fluent
 
             while (true)
             {
-                if (current == null) return null;
+                if (current == null)
+                {
+                    return null;
+                }
 
                 var parent = (UIElement)VisualTreeHelper.GetParent(current)
                     ?? (UIElement)LogicalTreeHelper.GetParent(current);
@@ -506,8 +508,8 @@ namespace Fluent
         /// Positions child elements and determines
         /// a size for the control
         /// </summary>
-        /// <param name="finalSize">The final area within the parent 
-        /// that this element should use to arrange 
+        /// <param name="finalSize">The final area within the parent
+        /// that this element should use to arrange
         /// itself and its children</param>
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
@@ -526,7 +528,7 @@ namespace Fluent
         /// Measures KeyTips
         /// </summary>
         /// <param name="constraint">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during 
+        /// <returns>The size that the groups container determines it needs during
         /// layout, based on its calculations of child element sizes.
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
@@ -561,7 +563,6 @@ namespace Fluent
             return result;
         }
 
-        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         private void UpdateKeyTipPositions()
         {
             this.LogDebug("UpdateKeyTipPositions");
@@ -604,8 +605,8 @@ namespace Fluent
 
                 if (IsWithinQuickAccessToolbar(keyTipInformation.AssociatedElement))
                 {
-                    var x = keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
-                    var y = keyTipInformation.VisualTarget.DesiredSize.Height - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
+                    var x = (keyTipInformation.VisualTarget.DesiredSize.Width / 2.0) - (keyTipInformation.KeyTip.DesiredSize.Width / 2.0);
+                    var y = keyTipInformation.VisualTarget.DesiredSize.Height - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
 
                     if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
                     {
@@ -624,7 +625,7 @@ namespace Fluent
                 }
                 else if (keyTipInformation.AssociatedElement.Name == "PART_DialogLauncherButton")
                 {
-                    // Dialog Launcher Button Exclusive Placement 
+                    // Dialog Launcher Button Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
                     if (rows == null)
@@ -633,17 +634,17 @@ namespace Fluent
                     }
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
-                                                                                                         elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
+                                                                                                         (elementSize.Width / 2.0) - (keyTipSize.Width / 2.0),
                                                                                                          0), this.AdornedElement);
                     keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[3]);
                 }
                 else if (KeyTip.GetAutoPlacement(keyTipInformation.AssociatedElement) == false)
                 {
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
-                    
+
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
 
-                    double x = 0, y = 0;                    
+                    double x = 0, y = 0;
 
                     switch (KeyTip.GetHorizontalAlignment(keyTipInformation.AssociatedElement))
                     {
@@ -654,7 +655,7 @@ namespace Fluent
                             break;
                         case HorizontalAlignment.Center:
                         case HorizontalAlignment.Stretch:
-                            x = elementSize.Width / 2.0 - keyTipSize.Width / 2.0;
+                            x = (elementSize.Width / 2.0) - (keyTipSize.Width / 2.0);
                             break;
                     }
 
@@ -667,7 +668,7 @@ namespace Fluent
                             break;
                         case VerticalAlignment.Center:
                         case VerticalAlignment.Stretch:
-                            y = elementSize.Height / 2.0 - keyTipSize.Height / 2.0;
+                            y = (elementSize.Height / 2.0) - (keyTipSize.Height / 2.0);
                             break;
                     }
 
@@ -684,9 +685,9 @@ namespace Fluent
                     }
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
-                                                                              elementSize.Width - keyTipSize.Width / 2.0,
+                                                                              elementSize.Width - (keyTipSize.Width / 2.0),
                                                                               0), this.AdornedElement);
-                    keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[2] - keyTipSize.Height / 2);
+                    keyTipInformation.Position = new Point(keyTipInformation.Position.X, rows[2] - (keyTipSize.Height / 2));
                 }
                 else if (keyTipInformation.AssociatedElement is RibbonTabItem || keyTipInformation.AssociatedElement is Backstage)
                 {
@@ -694,17 +695,17 @@ namespace Fluent
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(
-                                                                              elementSize.Width / 2.0 - keyTipSize.Width / 2.0,
-                                                                              elementSize.Height - keyTipSize.Height / 2.0), this.AdornedElement);
+                                                                              (elementSize.Width / 2.0) - (keyTipSize.Width / 2.0),
+                                                                              elementSize.Height - (keyTipSize.Height / 2.0)), this.AdornedElement);
                 }
                 else if (keyTipInformation.AssociatedElement is MenuItem)
                 {
-                    // MenuItem Exclusive Placement                    
+                    // MenuItem Exclusive Placement
                     var elementSize = keyTipInformation.VisualTarget.DesiredSize;
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(
                                                                     new Point(
-                                                                              elementSize.Height / 3.0 + 2,
-                                                                              elementSize.Height / 4.0 + 2), this.AdornedElement);
+                                                                              (elementSize.Height / 3.0) + 2,
+                                                                              (elementSize.Height / 4.0) + 2), this.AdornedElement);
                 }
                 else if (keyTipInformation.AssociatedElement.Parent is BackstageTabControl)
                 {
@@ -716,7 +717,7 @@ namespace Fluent
                     keyTipInformation.Position = parent.TranslatePoint(
                                                        new Point(
                                                                  5,
-                                                                 positionInParent.Y + (elementSize.Height / 2.0 - keyTipSize.Height)), this.AdornedElement);
+                                                                 positionInParent.Y + ((elementSize.Height / 2.0) - keyTipSize.Height)), this.AdornedElement);
                 }
                 else
                 {
@@ -736,7 +737,7 @@ namespace Fluent
                             var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
                             for (var j = 1; j < rows.Length; j++)
                             {
-                                if (withinRibbonToolbar 
+                                if (withinRibbonToolbar
                                     && j == 1)
                                 {
                                     continue;
@@ -750,21 +751,21 @@ namespace Fluent
                                 }
                             }
 
-                            translatedPoint.Y = rows[index] - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
+                            translatedPoint.Y = rows[index] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
                         }
 
                         keyTipInformation.Position = translatedPoint;
                     }
                     else
                     {
-                        var x = keyTipInformation.VisualTarget.DesiredSize.Width / 2.0 - keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
+                        var x = (keyTipInformation.VisualTarget.DesiredSize.Width / 2.0) - (keyTipInformation.KeyTip.DesiredSize.Width / 2.0);
                         var y = keyTipInformation.VisualTarget.DesiredSize.Height - 8;
                         var point = new Point(x, y);
                         var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
                         if (rows != null)
                         {
-                            translatedPoint.Y = rows[2] - keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
+                            translatedPoint.Y = rows[2] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
                         }
 
                         keyTipInformation.Position = translatedPoint;
@@ -780,7 +781,7 @@ namespace Fluent
 
         // Determines whether the element is children to RibbonToolBar
         private static bool IsWithinRibbonToolbarInTwoLine(DependencyObject element)
-        {            
+        {
             var ribbonToolBar = UIHelper.GetParent<RibbonToolBar>(element);
 
             var definition = ribbonToolBar?.GetCurrentLayoutDefinition();
@@ -823,8 +824,6 @@ namespace Fluent
 
         #region Logging
 
-        [SuppressMessage("Microsoft.Performance", "CA1822")]
-        [SuppressMessage("Microsoft.Performance", "CA1801")]
         [Conditional("DEBUG")]
         private void LogDebug(string format, params object[] args)
         {
@@ -833,8 +832,6 @@ namespace Fluent
             Debug.WriteLine(message, "KeyTipAdorner");
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1822")]
-        [SuppressMessage("Microsoft.Performance", "CA1801")]
         [Conditional("TRACE")]
         private void LogTrace(string format, params object[] args)
         {
@@ -860,6 +857,7 @@ namespace Fluent
             {
                 name += $" ({headeredControl.Header})";
             }
+
             return name;
         }
 

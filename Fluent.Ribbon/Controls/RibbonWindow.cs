@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
@@ -20,16 +19,17 @@ namespace Fluent
     /// <summary>
     /// Represents basic window for ribbon
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1049")]
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
     public class RibbonWindow : Window, IRibbonWindow
     {
         // ReSharper disable InconsistentNaming
-        private const string PART_Icon = "PART_Icon";        
+#pragma warning disable SA1310 // Field names must not contain underscore
+        private const string PART_Icon = "PART_Icon";
         private const string PART_ContentPresenter = "PART_ContentPresenter";
         private const string PART_WindowCommands = "PART_WindowCommands";
+#pragma warning restore SA1310 // Field names must not contain underscore
         // ReSharper restore InconsistentNaming
 
         private FrameworkElement iconImage;
@@ -160,9 +160,10 @@ namespace Fluent
         public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
+
         /// <summary>
         /// Gets whether window is collapsed
-        /// </summary>              
+        /// </summary>
         public bool IsCollapsed
         {
             get { return (bool)this.GetValue(IsCollapsedProperty); }
@@ -170,7 +171,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// Using a DependencyProperty as the backing store for IsCollapsed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsCollapsedProperty =
@@ -187,7 +188,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// Using a DependencyProperty as the backing store for IsCollapsed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
@@ -231,7 +232,7 @@ namespace Fluent
             this.Loaded += this.OnLoaded;
 
             // WindowChromeBehavior initialization has to occur in constructor. Otherwise the load event is fired early and performance of the window is degraded.
-            this.InitializeWindowChromeBehavior();            
+            this.InitializeWindowChromeBehavior();
         }
 
         #endregion
@@ -345,6 +346,7 @@ namespace Fluent
 
                         this.Close();
                     }
+
                     break;
 
                 case MouseButton.Right:

@@ -2,9 +2,9 @@
 {
     internal static class BooleanBoxes
     {
-        internal static object TrueBox = true;
+        internal static readonly object TrueBox = true;
 
-        internal static object FalseBox = false;
+        internal static readonly object FalseBox = false;
 
         internal static object Box(bool value)
         {

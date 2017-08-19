@@ -152,13 +152,12 @@ namespace Fluent
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
 #pragma warning disable 618
-            // We must terminate the keytip's adorner chain if:                        
+            // We must terminate the keytip's adorner chain if:
             if (msg == (int)WM.NCACTIVATE // mouse clicks in non client area
                 || (msg == (int)WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
                                                                            // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
                 || (msg >= 161 && msg <= 173) // mouse click (non client area)
-                || (msg >= 513 && msg <= 521) // mouse click
-                )
+                || (msg >= 513 && msg <= 521)) // mouse click
             {
                 if (this.activeAdornerChain != null
                     && this.activeAdornerChain.IsAdornerChainAlive)
@@ -350,12 +349,12 @@ namespace Fluent
             this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             this.activeAdornerChain = null;
             this.ClearUserInput();
-            
+
             if (e.PressedElementOpenedPopup == false)
             {
                 this.ClosePopups();
             }
-            
+
             if (e.PressedElementAquiredFocus == false)
             {
                 this.RestoreFocus();
@@ -393,7 +392,7 @@ namespace Fluent
         {
             this.timer.Stop();
 
-            // Check whether the window is 
+            // Check whether the window is
             // - still present (prevents exceptions when window is closed by system commands)
             // - still active (prevents keytips showing during Alt-Tab'ing)
             if (this.window == null

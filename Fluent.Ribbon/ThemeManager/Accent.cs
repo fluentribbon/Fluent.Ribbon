@@ -22,23 +22,31 @@ namespace Fluent
         public string Name { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the Accent class.
+        /// Initializes a new instance of the <see cref="Accent"/> class.
         /// </summary>
         public Accent()
-        { }
+        {
+        }
 
         /// <summary>
-        /// Initializes a new instance of the Accent class.
+        /// Initializes a new instance of the <see cref="Accent"/> class.
         /// </summary>
         /// <param name="name">The name of the new Accent.</param>
         /// <param name="resourceAddress">The URI of the accent ResourceDictionary.</param>
         public Accent(string name, Uri resourceAddress)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (resourceAddress == null) throw new ArgumentNullException(nameof(resourceAddress));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceAddress == null)
+            {
+                throw new ArgumentNullException(nameof(resourceAddress));
+            }
 
             this.Name = name;
-            this.Resources = new ResourceDictionary {Source = resourceAddress};
+            this.Resources = new ResourceDictionary { Source = resourceAddress };
         }
     }
 }

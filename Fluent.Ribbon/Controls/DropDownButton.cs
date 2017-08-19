@@ -4,7 +4,6 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -56,7 +55,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(DropDownButton));
@@ -75,7 +74,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(DropDownButton));
@@ -94,7 +93,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(DropDownButton));
@@ -123,7 +122,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  
+        /// Using a DependencyProperty as the backing store for Header.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(DropDownButton));
@@ -177,7 +176,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SmallIcon. 
+        /// Using a DependencyProperty as the backing store for SmallIcon.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LargeIconProperty =
@@ -198,7 +197,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HasTriangle. 
+        /// Using a DependencyProperty as the backing store for HasTriangle.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasTriangleProperty =
@@ -219,7 +218,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen. 
+        /// Using a DependencyProperty as the backing store for IsOpen.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
@@ -240,7 +239,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeMode.  
+        /// Using a DependencyProperty as the backing store for ResizeMode.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
@@ -346,7 +345,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static DropDownButton()
         {
             var type = typeof(DropDownButton);
@@ -564,6 +562,7 @@ namespace Fluent
 
                         handled = true;
                     }
+
                     break;
 
                 case Key.Up:
@@ -578,6 +577,7 @@ namespace Fluent
 
                         handled = true;
                     }
+
                     break;
 
                 case Key.Escape:
@@ -586,6 +586,7 @@ namespace Fluent
                         this.IsDropDownOpen = false;
                         handled = true;
                     }
+
                     break;
 
                 case Key.Enter:
@@ -734,10 +735,10 @@ namespace Fluent
             }
             else
             {
-                // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd 
+                // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd
                 if (control.IsKeyboardFocusWithin)
                 {
-                    // make sure the control has focus 
+                    // make sure the control has focus
                     control.Focus();
                 }
 
@@ -765,7 +766,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be synchronized with the original 
+        /// This item MUST be synchronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -841,8 +842,15 @@ namespace Fluent
         /// <param name="button">Toolbar item</param>
         protected void BindQuickAccessItemDropDownEvents(DropDownButton button)
         {
-            if (this.DropDownClosed != null) button.DropDownClosed += this.DropDownClosed;
-            if (this.DropDownOpened != null) button.DropDownOpened += this.DropDownOpened;
+            if (this.DropDownClosed != null)
+            {
+                button.DropDownClosed += this.DropDownClosed;
+            }
+
+            if (this.DropDownOpened != null)
+            {
+                button.DropDownOpened += this.DropDownOpened;
+            }
         }
 
         /// <summary>

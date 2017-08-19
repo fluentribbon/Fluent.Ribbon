@@ -49,7 +49,7 @@
                 return;
             }
 
-            if (handleDragMove 
+            if (handleDragMove
                 && e.ClickCount == 1)
             {
                 e.Handled = true;
@@ -67,8 +67,8 @@
                 NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
 #pragma warning restore 618
             }
-            else if (handleStateChange 
-                && e.ClickCount == 2 
+            else if (handleStateChange
+                && e.ClickCount == 2
                 && window.ResizeMode != ResizeMode.NoResize)
             {
                 e.Handled = true;
@@ -105,7 +105,7 @@
             e.Handled = true;
 
 #pragma warning disable 618
-            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);            
+            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
 #pragma warning restore 618
         }
 

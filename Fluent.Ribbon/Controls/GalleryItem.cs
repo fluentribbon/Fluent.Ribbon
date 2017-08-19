@@ -1,14 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -32,7 +30,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(GalleryItem));
@@ -40,7 +38,7 @@ namespace Fluent
         #endregion
 
         /// <summary>
-        /// Gets a value that indicates whether a Button is currently activated. 
+        /// Gets a value that indicates whether a Button is currently activated.
         /// This is a dependency property.
         /// </summary>
         public bool IsPressed
@@ -54,7 +52,7 @@ namespace Fluent
             typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsPressed.  
+        /// Using a DependencyProperty as the backing store for IsPressed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsPressedProperty = IsPressedPropertyKey.DependencyProperty;
@@ -69,13 +67,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Group.  
+        /// Using a DependencyProperty as the backing store for Group.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupProperty =
             DependencyProperty.Register(nameof(Group), typeof(string),
             typeof(GalleryItem), new PropertyMetadata());
-
 
         #region Command
 
@@ -84,13 +81,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
-        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        [Category("Action")]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Bindable(true)]
         public ICommand Command
         {
             get
             {
                 return (ICommand)this.GetValue(CommandProperty);
             }
+
             set
             {
                 this.SetValue(CommandProperty, value);
@@ -100,13 +100,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
         /// </summary>
-        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        [Bindable(true)]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Category("Action")]
         public object CommandParameter
         {
             get
             {
                 return this.GetValue(CommandParameterProperty);
             }
+
             set
             {
                 this.SetValue(CommandParameterProperty, value);
@@ -116,13 +119,15 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the element on which to raise the specified command. This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public IInputElement CommandTarget
         {
             get
             {
                 return (IInputElement)this.GetValue(CommandTargetProperty);
             }
+
             set
             {
                 this.SetValue(CommandTargetProperty, value);
@@ -148,7 +153,8 @@ namespace Fluent
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
         /// This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public ICommand PreviewCommand
         {
             get { return (ICommand)this.GetValue(PreviewCommandProperty); }
@@ -165,7 +171,8 @@ namespace Fluent
         /// Gets or sets the command to invoke when mouse enters or leaves this button. The commandparameter will be the <see cref="GalleryItem"/> instance.
         /// This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public ICommand CancelPreviewCommand
         {
             get { return (ICommand)this.GetValue(CancelPreviewCommandProperty); }
@@ -205,6 +212,7 @@ namespace Fluent
 
             control.UpdateCanExecute();
         }
+
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
@@ -231,8 +239,8 @@ namespace Fluent
         #region IsEnabled
 
         /// <summary>
-        /// Gets a value that becomes the return 
-        /// value of IsEnabled in derived classes. 
+        /// Gets a value that becomes the return
+        /// value of IsEnabled in derived classes.
         /// </summary>
         /// <returns>
         /// true if the element is enabled; otherwise, false.
@@ -263,6 +271,7 @@ namespace Fluent
             {
                 this.AddHandler(ClickEvent, value);
             }
+
             remove
             {
                 this.RemoveHandler(ClickEvent, value);
@@ -277,7 +286,6 @@ namespace Fluent
         /// <summary>
         /// Raises click event
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1030")]
         public void RaiseClick()
         {
             this.RaiseEvent(new RoutedEventArgs(ClickEvent, this));
@@ -292,7 +300,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
@@ -332,7 +339,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs 
+        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs
         /// when the left mouse button is pressed while the mouse pointer is over this control.
         /// </summary>
         /// <param name="e">The event data.</param>
@@ -344,7 +351,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.LostMouseCapture"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event. 
+        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.LostMouseCapture"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains event data.</param>
         protected override void OnLostMouseCapture(MouseEventArgs e)
@@ -355,7 +362,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs 
+        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs
         /// when the left mouse button is released while the mouse pointer is over this control.
         /// </summary>
         /// <param name="e">The event data.</param>
@@ -379,7 +386,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Called when the mouse enters a <see cref="T:System.Windows.Controls.ListBoxItem"/>. 
+        /// Called when the mouse enters a <see cref="T:System.Windows.Controls.ListBoxItem"/>.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnMouseEnter(MouseEventArgs e)
@@ -390,7 +397,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Called when the mouse leaves a <see cref="T:System.Windows.Controls.ListBoxItem"/>. 
+        /// Called when the mouse leaves a <see cref="T:System.Windows.Controls.ListBoxItem"/>.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnMouseLeave(MouseEventArgs e)

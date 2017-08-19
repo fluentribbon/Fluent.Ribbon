@@ -17,7 +17,7 @@
         /// Tries to find immediate visual child of type <typeparamref name="T"/> which matches <paramref name="predicate"/>
         /// </summary>
         /// <returns>
-        /// The visual child of type <typeparamref name="T"/> that matches <paramref name="predicate"/>. 
+        /// The visual child of type <typeparamref name="T"/> that matches <paramref name="predicate"/>.
         /// Returns <c>null</c> if no child matches.
         /// </returns>
         public static T FindImmediateVisualChild<T>(DependencyObject parent, Predicate<T> predicate)
@@ -43,7 +43,8 @@
         /// <typeparam name="TChildItem">The type of visual child to find.</typeparam>
         /// <param name="parent">The parent element whose visual tree shall be walked down.</param>
         /// <returns>The first element of type TChildItem found in the visual tree is returned. If none is found, null is returned.</returns>
-        public static TChildItem FindVisualChild<TChildItem>(DependencyObject parent) where TChildItem : DependencyObject
+        public static TChildItem FindVisualChild<TChildItem>(DependencyObject parent)
+            where TChildItem : DependencyObject
         {
             foreach (var child in GetVisualChildren(parent))
             {
@@ -60,6 +61,7 @@
                     return childOfChild;
                 }
             }
+
             return null;
         }
 

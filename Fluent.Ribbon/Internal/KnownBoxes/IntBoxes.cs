@@ -2,8 +2,8 @@
 {
     internal static class IntBoxes
     {
-        internal static object Zero = 0;
+        internal static readonly object Zero = 0;
 
-        internal static object MaxValue = int.MaxValue;
+        internal static readonly object MaxValue = int.MaxValue;
     }
 }

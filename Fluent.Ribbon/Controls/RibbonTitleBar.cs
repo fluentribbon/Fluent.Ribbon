@@ -1,18 +1,15 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
-
     //using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
     using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
 
@@ -77,7 +74,7 @@ namespace Fluent
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
-        /// </summary> 
+        /// </summary>
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
 
@@ -120,7 +117,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
@@ -207,7 +203,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes 
+        /// When overridden in a derived class, is invoked whenever application code or internal processes
         /// call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
@@ -286,7 +282,7 @@ namespace Fluent
         #region Private methods
 
         /// <summary>
-        /// Sometimes the relative position only changes after the arrange phase. 
+        /// Sometimes the relative position only changes after the arrange phase.
         /// To compensate such sitiations we issue a second layout pass by invalidating our measure.
         /// This situation can occur if, for example, the icon of a ribbon window has it's visibility changed.
         /// </summary>
@@ -310,10 +306,10 @@ namespace Fluent
 
             if (parentUIElement == null)
             {
-                return new Point();
+                return default(Point);
             }
 
-            return this.TranslatePoint(new Point(), parentUIElement);
+            return this.TranslatePoint(default(Point), parentUIElement);
         }
 
         // Update items size and positions
@@ -376,7 +372,7 @@ namespace Fluent
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Center)
                     {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
+                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, (allTextWidth / 2) - (this.headerHolder.DesiredSize.Width / 2)), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Right)
                     {
@@ -394,7 +390,7 @@ namespace Fluent
             }
             else
             {
-                var pointZero = new Point();
+                var pointZero = default(Point);
 
                 // get initial StartX value
                 var startX = visibleGroups.First().FirstVisibleItem.TranslatePoint(pointZero, this).X;
@@ -426,12 +422,12 @@ namespace Fluent
                 // Ensure that startX respect min width of QuickAccessToolBar
                 startX = Math.Max(startX, this.QuickAccessToolBar?.MinWidth ?? 0);
 
-                // Set contextual groups position and size 
+                // Set contextual groups position and size
                 this.itemsContainer.Measure(infinity);
-                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));                
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));
                 this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
 
-                // Set quick launch toolbar position and size 
+                // Set quick launch toolbar position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
 
                 var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
@@ -462,6 +458,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(endX, constraint.Width), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Center:
@@ -472,13 +469,14 @@ namespace Fluent
 
                             if (((startX - quickAccessToolbarWidth < 150 || fitsRightButNotLeft) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                             {
-                                this.headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - this.headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidthRight, this.headerHolder.DesiredSize.Width), constraint.Height);
+                                this.headerRect = new Rect(Math.Min(Math.Max(endX, (constraint.Width / 2) - (this.headerHolder.DesiredSize.Width / 2)), constraint.Width), 0, Math.Min(allTextWidthRight, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                             else
                             {
-                                this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidthLeft / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidthLeft, this.headerHolder.DesiredSize.Width), constraint.Height);
+                                this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, (allTextWidthLeft / 2) - (this.headerHolder.DesiredSize.Width / 2)), 0, Math.Min(allTextWidthLeft, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Right:
@@ -494,6 +492,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width - this.headerHolder.DesiredSize.Width), constraint.Width), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Stretch:
@@ -509,6 +508,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                             }
                         }
+
                         break;
                 }
             }

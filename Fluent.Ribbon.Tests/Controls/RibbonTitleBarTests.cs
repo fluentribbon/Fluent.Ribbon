@@ -9,11 +9,11 @@
 
     [TestFixture]
     public class RibbonTitleBarTests
-    {         
+    {
         [TestFixture]
         public class MeasureTests
         {
-            private static readonly Size zeroSize = new Size();
+            private static readonly Size zeroSize = default(Size);
             private const double ReferenceWidth = 1024;
             private static readonly double ReferenceHeight = SystemParameters.WindowCaptionHeight;
             private static readonly Size referenceSize = new Size(ReferenceWidth, SystemParameters.WindowCaptionHeight);
@@ -152,8 +152,8 @@
 
                 public RibbonTitleBarSizeData(double constraintWidth, RibbonTitleBar ribbonTitleBar)
                     : this(
-                          constraintWidth, 
-                          ribbonTitleBar.DesiredSize, 
+                          constraintWidth,
+                          ribbonTitleBar.DesiredSize,
                           ribbonTitleBar.GetFieldValue<Rect>(QuickaccessToolbarRect).Size,
                           ribbonTitleBar.GetFieldValue<Rect>(HeaderRect).Size,
                           ribbonTitleBar.GetFieldValue<Rect>(ItemsRect).Size)
@@ -161,9 +161,13 @@
                 }
 
                 public double ConstraintWidth { get; }
+
                 public Size DesiredSize { get; }
+
                 public Size QuickAccessRectSize { get; }
+
                 public Size HeaderRectSize { get; }
+
                 public Size ItemsRectSize { get; }
 
                 public override string ToString()

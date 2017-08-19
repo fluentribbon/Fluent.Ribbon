@@ -49,6 +49,5 @@ namespace Fluent
             RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
             d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
         }
-
     }
 }

@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -16,9 +15,9 @@ namespace Fluent
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
-	///     Represents custom Fluent UI ComboBox
-	/// </summary>
-	[TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    ///     Represents custom Fluent UI ComboBox
+    /// </summary>
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
@@ -241,10 +240,19 @@ namespace Fluent
         private bool IsSnapped
         {
             get { return this.isSnapped; }
+
             set
             {
-                if (value == this.isSnapped) return;
-                if (this.snappedImage == null) return;
+                if (value == this.isSnapped)
+                {
+                    return;
+                }
+
+                if (this.snappedImage == null)
+                {
+                    return;
+                }
+
                 if (value && ((int)this.contentSite.ActualWidth > 0) && ((int)this.contentSite.ActualHeight > 0))
                 {
                     // Render the freezed image
@@ -301,7 +309,6 @@ namespace Fluent
         /// <summary>
         ///     Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static ComboBox()
         {
             var type = typeof(ComboBox);
@@ -373,7 +380,11 @@ namespace Fluent
             RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += this.OnQuickAccessOpened;
-            if (this.IsEditable) combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;
+            if (this.IsEditable)
+            {
+                combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;
+            }
+
             this.quickAccessCombo = combo;
             this.UpdateQuickAccessCombo();
             return combo;
@@ -382,14 +393,22 @@ namespace Fluent
         private void OnQuickAccessTextBoxGetFocus(object sender, RoutedEventArgs e)
         {
             this.isQuickAccessFocused = true;
-            if (!this.isQuickAccessOpened) this.Freeze();
+            if (!this.isQuickAccessOpened)
+            {
+                this.Freeze();
+            }
+
             this.quickAccessCombo.LostFocus += this.OnQuickAccessTextBoxLostFocus;
         }
 
         private void OnQuickAccessTextBoxLostFocus(object sender, RoutedEventArgs e)
         {
             this.quickAccessCombo.LostFocus -= this.OnQuickAccessTextBoxLostFocus;
-            if (!this.isQuickAccessOpened) this.Unfreeze();
+            if (!this.isQuickAccessOpened)
+            {
+                this.Unfreeze();
+            }
+
             this.isQuickAccessFocused = false;
         }
 
@@ -430,7 +449,11 @@ namespace Fluent
         private void OnQuickAccessMenuClosed(object sender, EventArgs e)
         {
             this.quickAccessCombo.DropDownClosed -= this.OnQuickAccessMenuClosed;
-            if (!this.isQuickAccessFocused) this.Unfreeze();
+            if (!this.isQuickAccessFocused)
+            {
+                this.Unfreeze();
+            }
+
             this.isQuickAccessOpened = false;
         }
 
@@ -530,6 +553,7 @@ namespace Fluent
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
+
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
             if (this.resizeVerticalThumb != null)
             {
@@ -540,6 +564,7 @@ namespace Fluent
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
+
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
             if (this.resizeBothThumb != null)
             {
@@ -551,9 +576,16 @@ namespace Fluent
             this.snappedImage = this.GetTemplateChild("PART_SelectedImage") as Image;
             this.contentSite = this.GetTemplateChild("PART_ContentSite") as ContentPresenter;
 
-            if (this.contentBorder != null) this.contentBorder.PreviewMouseDown -= this.OnContentBorderPreviewMouseDown;
+            if (this.contentBorder != null)
+            {
+                this.contentBorder.PreviewMouseDown -= this.OnContentBorderPreviewMouseDown;
+            }
+
             this.contentBorder = this.GetTemplateChild("PART_ContentBorder") as Border;
-            if (this.contentBorder != null) this.contentBorder.PreviewMouseDown += this.OnContentBorderPreviewMouseDown;
+            if (this.contentBorder != null)
+            {
+                this.contentBorder.PreviewMouseDown += this.OnContentBorderPreviewMouseDown;
+            }
 
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
@@ -634,7 +666,7 @@ namespace Fluent
             if (this.focusedElement != null)
             {
                 this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
-            }            
+            }
 
             this.focusedElement = Keyboard.FocusedElement;
 
@@ -813,7 +845,7 @@ namespace Fluent
                 return;
             }
 
-            var delta = monitorRight - this.PointToScreen(new Point()).X - popupChild.ActualWidth - e.HorizontalChange;
+            var delta = monitorRight - this.PointToScreen(default(Point)).X - popupChild.ActualWidth - e.HorizontalChange;
             var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
             var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
 
@@ -823,7 +855,7 @@ namespace Fluent
             }
             else
             {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(new Point()).X - deltaX, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(default(Point)).X - deltaX, this.ActualWidth - deltaBorders));
             }
         }
 

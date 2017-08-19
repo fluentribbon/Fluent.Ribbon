@@ -20,7 +20,7 @@ namespace Fluent
         /// When overridden in a derived class, positions child elements and determines a size for
         /// a System.Windows.FrameworkElement derived class.
         /// </summary>
-        /// <param name="finalSize">The final area within the parent that this element should 
+        /// <param name="finalSize">The final area within the parent that this element should
         /// use to arrange itself and its children.</param>
         /// <returns>The actual size used.</returns>
         protected override Size ArrangeOverride(Size finalSize)
@@ -30,20 +30,21 @@ namespace Fluent
 
             foreach (UIElement item in this.InternalChildren)
             {
-                finalRect.Width = this.sizes[index].Width;//item.DesiredSize.Width;
-                finalRect.Height = Math.Max(finalSize.Height, this.sizes[index].Height);//Math.Max(finalSize.Height, item.DesiredSize.Height);
+                finalRect.Width = this.sizes[index].Width; //item.DesiredSize.Width;
+                finalRect.Height = Math.Max(finalSize.Height, this.sizes[index].Height); //Math.Max(finalSize.Height, item.DesiredSize.Height);
                 item.Arrange(finalRect);
-                finalRect.X += this.sizes[index].Width;// item.DesiredSize.Width;
+                finalRect.X += this.sizes[index].Width; // item.DesiredSize.Width;
                 index++;
             }
+
             return finalSize;
         }
 
         /// <summary>
-        /// When overridden in a derived class, measures the size in layout required for 
+        /// When overridden in a derived class, measures the size in layout required for
         /// child elements and determines a size for the System.Windows.FrameworkElement-derived class.
         /// </summary>
-        /// <param name="availableSize">The available size that this element can give to child elements. 
+        /// <param name="availableSize">The available size that this element can give to child elements.
         /// Infinity can be specified as a value to indicate that the element will size to whatever content is available.</param>
         /// <returns>The size that this element determines it needs during layout, based on its calculations of child element sizes.</returns>
         protected override Size MeasureOverride(Size availableSize)
@@ -94,8 +95,8 @@ namespace Fluent
 
                 if (tabWasChanged)
                 {
-                    // If we have changed tabs layout we have 
-                    // to invalidate down to RibbonTabsContainer 
+                    // If we have changed tabs layout we have
+                    // to invalidate down to RibbonTabsContainer
                     var visual = visibleItems[0] as Visual;
                     while (visual != null)
                     {
@@ -122,7 +123,7 @@ namespace Fluent
                     }
                 }
 
-                // Calc final width and measure the group using it 
+                // Calc final width and measure the group using it
                 var finalWidth = tabsWidth;
                 x += finalWidth;
 

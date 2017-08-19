@@ -164,6 +164,7 @@ namespace Fluent
                             this.contextMenu.Items.Insert(containerIndex, new Separator());
                         }
                     }
+
                     break;
                 }
 
@@ -175,8 +176,10 @@ namespace Fluent
                             this.contextMenu.Items.Remove(e.OldStartingIndex + 1);
                             this.contextMenu.Items.Insert(e.NewStartingIndex + i + 1, menuItem);
                         }
+
                         break;
                     }
+
                 case NotifyCollectionChangedAction.Remove:
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
@@ -187,10 +190,13 @@ namespace Fluent
                                 menuItem.StatusBarItem.Checked += this.OnItemChecked;
                                 menuItem.StatusBarItem.Unchecked += this.OnItemUnchecked;
                             }
+
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
                         }
+
                         break;
                     }
+
                 case NotifyCollectionChangedAction.Replace:
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
@@ -219,8 +225,10 @@ namespace Fluent
                                 this.contextMenu.Items.Insert(e.NewStartingIndex + i + 1, new Separator());
                             }
                         }
+
                         break;
                     }
+
                 case NotifyCollectionChangedAction.Reset:
                     {
                         this.RecreateMenu();

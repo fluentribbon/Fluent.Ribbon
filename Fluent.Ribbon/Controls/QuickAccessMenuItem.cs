@@ -1,15 +1,14 @@
-using System;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Controls;
-
+#pragma warning disable SA1402 // File may only contain a single class
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Markup;
+    using System.Windows.Media;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -20,18 +19,18 @@ namespace Fluent
     {
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
-        /// Gets or sets whether control can be added to quick access toolbar
+        /// Gets or sets a value indicating whether control can be added to quick access toolbar
         /// </summary>
         bool CanAddToQuickAccessToolBar { get; set; }
     }
-    
+
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
@@ -40,16 +39,15 @@ namespace Fluent
     {
         #region Fields
 
-        internal Ribbon Ribbon;
+        internal Ribbon Ribbon { get; set; }
 
         #endregion
 
         #region Initialization
 
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
         }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace Fluent
             this.Checked += this.OnChecked;
             this.Unchecked += this.OnUnchecked;
             this.Loaded += this.OnFirstLoaded;
-            this.Loaded += this.OnItemLoaded;            
+            this.Loaded += this.OnItemLoaded;
         }
 
         #endregion
@@ -77,7 +75,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for shortcut. 
+        /// Using a DependencyProperty as the backing store for shortcut.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
@@ -88,7 +86,7 @@ namespace Fluent
             var quickAccessMenuItem = (QuickAccessMenuItem)d;
             var ribbonControl = e.NewValue as IRibbonControl;
 
-            if (quickAccessMenuItem.Header == null 
+            if (quickAccessMenuItem.Header == null
                 && ribbonControl != null)
             {
                 // Set Default Text Value
@@ -106,7 +104,7 @@ namespace Fluent
 
             var oldRibbonControl = e.OldValue as IRibbonControl;
 
-            if (oldRibbonControl!=null)
+            if (oldRibbonControl != null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
                 if (ReferenceEquals(parent, quickAccessMenuItem))
@@ -202,7 +200,8 @@ namespace Fluent
         public static bool IsSupported(UIElement element)
         {
             var provider = element as IQuickAccessItemProvider;
-            if (provider != null 
+
+            if (provider != null
                 && provider.CanAddToQuickAccessToolBar)
             {
                 return true;
@@ -216,17 +215,17 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        [SuppressMessage("Microsoft.Performance", "CA1800")]
         public static FrameworkElement GetQuickAccessItem(UIElement element)
         {
             FrameworkElement result = null;
 
-            // If control supports the interface just return what it provides 
+            // If control supports the interface just return what it provides
             var provider = element as IQuickAccessItemProvider;
-            if (provider != null 
+
+            if (provider != null
                 && provider.CanAddToQuickAccessToolBar)
             {
-                result = ((IQuickAccessItemProvider)element).CreateQuickAccessItem();
+                result = provider.CreateQuickAccessItem();
             }
 
             // The control isn't supported
@@ -251,9 +250,6 @@ namespace Fluent
         /// <summary>
         /// Finds the top supported control
         /// </summary>
-        /// <param name="visual">Visual</param>
-        /// <param name="point">Point</param>
-        /// <returns>Point</returns>
         public static FrameworkElement FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);

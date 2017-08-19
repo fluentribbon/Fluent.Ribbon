@@ -2,6 +2,6 @@
 {
     internal static class StringBoxes
     {
-        internal static object Empty = string.Empty;
+        internal static readonly object Empty = string.Empty;
     }
 }

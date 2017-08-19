@@ -21,7 +21,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="Shown"/>.  
+        /// <see cref="DependencyProperty"/> for <see cref="Shown"/>.
         /// </summary>
         public static readonly DependencyProperty ShownProperty =
             DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
@@ -61,7 +61,7 @@ namespace Fluent
             if (parentRibbon?.TitleBar != null)
             {
                 this.previousTitleBarIsCollapsed = parentRibbon.TitleBar.IsCollapsed;
-                
+
                 this.UpdateIsTitleBarCollapsed();
             }
 

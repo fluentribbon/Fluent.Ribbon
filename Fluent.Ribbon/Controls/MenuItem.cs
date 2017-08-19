@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -48,7 +47,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.  
+        /// Using a DependencyProperty as the backing store for Size.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(MenuItem));
@@ -67,7 +66,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.  
+        /// Using a DependencyProperty as the backing store for SizeDefinition.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(MenuItem));
@@ -86,7 +85,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(MenuItem));
@@ -166,13 +165,12 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeMode.  
+        /// Using a DependencyProperty as the backing store for ResizeMode.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
             typeof(MenuItem), new PropertyMetadata(ContextMenuResizeMode.None));
-
 
         #endregion
 
@@ -217,10 +215,10 @@ namespace Fluent
         #region GroupName
 
         /// <summary>
-        /// Gets or sets the name of the group that the toggle button belongs to. 
-        /// Use the GroupName property to specify a grouping of toggle buttons to 
-        /// create a mutually exclusive set of controls. You can use the GroupName 
-        /// property when only one selection is possible from a list of available 
+        /// Gets or sets the name of the group that the toggle button belongs to.
+        /// Use the GroupName property to specify a grouping of toggle buttons to
+        /// create a mutually exclusive set of controls. You can use the GroupName
+        /// property when only one selection is possible from a list of available
         /// options. When this property is set, only one ToggleButton in the specified
         /// group can be selected at a time.
         /// </summary>
@@ -238,7 +236,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// Using a DependencyProperty as the backing store for GroupName.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(MenuItem), new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
@@ -264,21 +262,20 @@ namespace Fluent
         #region Constructors
 
         /// <summary>
-        /// Static constructor
+        /// Initializes static members of the <see cref="MenuItem"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static MenuItem()
         {
             var type = typeof(MenuItem);
             ToolTipService.Attach(type);
-            //PopupService.Attach(type);            
+            //PopupService.Attach(type);
             ContextMenuService.Attach(type);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
         }
 
         /// <summary>
-        /// Default Constructor
+        /// Initializes a new instance of the <see cref="MenuItem"/> class.
         /// </summary>
         public MenuItem()
         {
@@ -299,7 +296,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be synchronized with the original 
+        /// This item MUST be synchronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -478,7 +475,7 @@ namespace Fluent
                 return;
             }
 
-            base.OnMouseLeave(e);            
+            base.OnMouseLeave(e);
         }
 
         /// <inheritdoc />
@@ -486,7 +483,7 @@ namespace Fluent
         {
             this.isContextMenuOpening = true;
             this.IsContextMenuOpened = true;
-            
+
             base.OnContextMenuOpening(e);
         }
 
@@ -507,7 +504,7 @@ namespace Fluent
         #endregion Non MenuBase ItemsControl workarounds
 
         /// <summary>
-        /// Called when the left mouse button is released. 
+        /// Called when the left mouse button is released.
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.MouseLeftButtonUp"/> event.</param>
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -517,7 +514,7 @@ namespace Fluent
                 if (this.IsSplited)
                 {
                     var buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
-                    if (buttonBorder != null 
+                    if (buttonBorder != null
                         && PopupService.IsMousePhysicallyOver(buttonBorder))
                     {
                         this.OnClick();
@@ -529,7 +526,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked. 
+        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked.
         /// </summary>
         protected override void OnClick()
         {
@@ -570,6 +567,7 @@ namespace Fluent
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
+
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
             if (this.resizeVerticalThumb != null)
             {
@@ -580,17 +578,19 @@ namespace Fluent
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
+
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
             if (this.resizeBothThumb != null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
+
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
             this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
         }
 
         /// <summary>
-        /// Responds to the <see cref="E:System.Windows.UIElement.KeyDown"/> event. 
+        /// Responds to the <see cref="E:System.Windows.UIElement.KeyDown"/> event.
         /// </summary>
         /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
         protected override void OnKeyDown(KeyEventArgs e)

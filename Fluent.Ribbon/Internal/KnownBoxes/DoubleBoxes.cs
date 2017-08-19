@@ -2,10 +2,10 @@
 {
     internal static class DoubleBoxes
     {
-        internal static object Zero = 0.0D;
+        internal static readonly object Zero = 0.0D;
 
-        internal static object NaN = double.NaN;
+        internal static readonly object NaN = double.NaN;
 
-        internal static object MaxValue = double.MaxValue;
+        internal static readonly object MaxValue = double.MaxValue;
     }
 }
