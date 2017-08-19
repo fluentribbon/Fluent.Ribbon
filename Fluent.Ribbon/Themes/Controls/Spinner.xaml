@@ -54,6 +54,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="SpinnerButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
@@ -74,7 +75,6 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:Spinner}">
-
                     <Grid Width="Auto"
                           Height="22"
                           Background="Transparent">
@@ -100,7 +100,7 @@
                                        x:Name="textBlock" />
                         </StackPanel>
 
-                        <Border x:Name="border"
+                        <Border x:Name="PART_ContentBorder"
                                 Height="22"
                                 BorderThickness="1"
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
@@ -206,7 +206,7 @@
                         <Trigger Property="InputWidth"
                                  Value="NaN">
                             <Setter Property="HorizontalAlignment"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="Stretch" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
@@ -215,10 +215,10 @@
                                     TargetName="PART_TextBox"
                                     Value="False" />
                             <Setter Property="Background"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                             <Setter Property="BorderBrush"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
@@ -236,14 +236,13 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
-
                         <Trigger Property="Size"
                                  Value="Middle">
                             <Setter Property="Visibility"
                                     TargetName="textBlock"
                                     Value="Collapsed" />
                             <Setter Property="HorizontalAlignment"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="Stretch" />
                         </Trigger>
                         <Trigger Property="Size"
@@ -252,7 +251,7 @@
                                     TargetName="stackPanel"
                                     Value="Collapsed" />
                             <Setter Property="HorizontalAlignment"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="Stretch" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
@@ -264,10 +263,10 @@
                                     TargetName="path1"
                                     Value="Visible" />
                             <Setter Property="BorderBrush"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
                             <Setter Property="Background"
-                                    TargetName="border"
+                                    TargetName="PART_ContentBorder"
                                     Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                             <Setter Property="Background"
                                     TargetName="PART_TextBox"
