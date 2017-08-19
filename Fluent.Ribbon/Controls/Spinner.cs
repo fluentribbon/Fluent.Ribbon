@@ -5,7 +5,6 @@ namespace Fluent
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Threading;
     using System.Windows;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;

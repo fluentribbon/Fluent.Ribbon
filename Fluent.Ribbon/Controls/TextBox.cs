@@ -2,11 +2,9 @@
 namespace Fluent
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Threading;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
-    using System.Windows.Threading;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>

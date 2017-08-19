@@ -7,7 +7,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
-    using ControlzEx.Native;
     using Fluent.Internal;
     using Standard;
 

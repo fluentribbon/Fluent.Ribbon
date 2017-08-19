@@ -5,7 +5,6 @@ namespace Fluent
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
-    using System.Windows.Media;
 
     /// <summary>
     /// Helper-Class for switching states in ToggleButton-Groups
