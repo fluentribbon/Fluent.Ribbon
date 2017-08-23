@@ -40,9 +40,16 @@ namespace Fluent
         private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonPanel = (RibbonGroupsContainer)d;
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            ribbonPanel.reduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
 
+            for (var i = ribbonPanel.reduceOrderIndex; i < ribbonPanel.reduceOrder.Length - 1; i++)
+            {
+                ribbonPanel.IncreaseGroupBoxSize(ribbonPanel.reduceOrder[i]);
+            }
+
+            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
+            ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
+            
             ribbonPanel.InvalidateMeasure();
             ribbonPanel.InvalidateArrange();
         }
