@@ -49,7 +49,7 @@ namespace Fluent
             ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
             ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
-            
+
             ribbonPanel.InvalidateMeasure();
             ribbonPanel.InvalidateArrange();
         }
