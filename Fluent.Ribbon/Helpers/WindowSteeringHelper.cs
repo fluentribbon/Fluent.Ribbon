@@ -54,7 +54,7 @@
             {
                 e.Handled = true;
 
-                // tage from DragMove internal code
+                // taken from DragMove internal code
                 window.VerifyAccess();
 
 #pragma warning disable 618
