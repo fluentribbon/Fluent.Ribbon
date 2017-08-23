@@ -3,7 +3,6 @@ RESTRICTION: || (== net40) (== net45) (== net462)
 NUGET
   remote: https://www.nuget.org/api/v2
     7-Zip.CommandLine (9.20)
-    ControlzEx (3.0.1-dev0030)
     gitlink (2.4)
     MahApps.Metro (1.5)
     NuGet.CommandLine (4.1)
@@ -23,3 +22,5 @@ NUGET
     NUnit.Extension.VSProjectLoader (3.6)
     StyleCop.Analyzers (1.0.2)
     XamlColorSchemeGenerator (1.0)
+  remote: https://ci.appveyor.com/nuget/controlzex
+    ControlzEx (3.0.1-dev0042)
