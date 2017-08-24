@@ -62,6 +62,15 @@
                         TargetName="quickAccessToolBarHolder"
                         Value="Collapsed" />
             </Trigger>
+            <Trigger Property="QuickAccessToolBar"
+                     Value="{x:Null}">
+                <Setter Property="Content"
+                        TargetName="quickAccessToolBarHolder"
+                        Value="{x:Null}" />
+                <Setter Property="Visibility"
+                        TargetName="quickAccessToolBarHolder"
+                        Value="Collapsed" />
+            </Trigger>
             <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
                      Value="True">
                 <Setter Property="Content"
