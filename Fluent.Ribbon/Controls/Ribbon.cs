@@ -1589,8 +1589,8 @@ namespace Fluent
                 this.TabControl.IsMinimized = this.IsMinimized;
                 this.TabControl.ContentGapHeight = this.ContentGapHeight;
 
-                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
-                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding("ContentGapHeight") { Source = this, Mode = BindingMode.OneWay });
+                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding(nameof(this.IsMinimized)) { Source = this, Mode = BindingMode.TwoWay });
+                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding(nameof(this.ContentGapHeight)) { Source = this, Mode = BindingMode.OneWay });
 
                 foreach (var ribbonTabItem in this.Tabs)
                 {
