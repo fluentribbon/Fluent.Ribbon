@@ -89,6 +89,7 @@
         /// First looks at the visual tree and then at the logical tree to find the parent.
         /// </summary>
         /// <returns>The found visual/logical parent or null.</returns>
+        /// <remarks>This method searches further up the parent chain instead of just using the immediate parent.</remarks>
         public static T GetParent<T>(DependencyObject element)
             where T : DependencyObject
         {
@@ -97,12 +98,12 @@
                 return null;
             }
 
-            var item = VisualTreeHelper.GetParent(element);
+            var item = GetVisualParent(element);
 
             while (item != null
                 && item is T == false)
             {
-                item = VisualTreeHelper.GetParent(item);
+                item = GetVisualParent(item);
             }
 
             if (item == null)
@@ -117,6 +118,43 @@
             }
 
             return (T)item;
+        }
+
+        /// <summary>
+        /// Returns either the visual or logical parent of <paramref name="element"/>.
+        /// This also works for <see cref="ContentElement"/> and <see cref="FrameworkContentElement"/>.
+        /// </summary>
+        public static DependencyObject GetVisualOrLogicalParent(DependencyObject element)
+        {
+            return GetVisualParent(element) ?? LogicalTreeHelper.GetParent(element);
+        }
+
+        /// <summary>
+        /// Returns the visual parent of <paramref name="element"/>.
+        /// This also works for <see cref="ContentElement"/> and <see cref="FrameworkContentElement"/>.
+        /// </summary>
+        public static DependencyObject GetVisualParent(DependencyObject element)
+        {
+            if (element == null)
+            {
+                return null;
+            }
+
+            var contentElement = element as ContentElement;
+            if (contentElement != null)
+            {
+                var parent = ContentOperations.GetParent(contentElement);
+
+                if (parent != null)
+                {
+                    return parent;
+                }
+
+                var frameworkContentElement = contentElement as FrameworkContentElement;
+                return frameworkContentElement?.Parent;
+            }
+
+            return VisualTreeHelper.GetParent(element);
         }
 
         /// <summary>

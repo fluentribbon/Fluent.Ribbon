@@ -151,6 +151,7 @@
   - [#457](../../issues/457) - Using the keytip shortcut to open a backstage briefly opens it, then closes it immediately
   - [#459](../../issues/459) - Label of the Spinner disappears, if there isn't enough place
   - [#463](../../issues/463) - ShowQuickAccessToolBarAboveRibbon="False" causes crash
+  - [#464](../../issues/464) - Clicking on hyperlink inside of ApplicationMenu causes crash
   - [#465](../../issues/465) - Clicking on ContextualGroup background or scrolling through ribbon will open disabled tab  
     During this fix `RibbonTabControl.GetFirstVisibleItem` was renamed to `RibbonTabControl.GetFirstVisibleAndEnabledItem`.
 

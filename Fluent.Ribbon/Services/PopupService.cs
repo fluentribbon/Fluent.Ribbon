@@ -7,8 +7,8 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using System.Windows.Media;
     using Fluent.Extensions;
+    using Fluent.Internal;
 
     /// <summary>
     /// Dismiss popup mode
@@ -221,7 +221,7 @@ namespace Fluent
                     return true;
                 }
 
-                element = VisualTreeHelper.GetParent(element) ?? LogicalTreeHelper.GetParent(element);
+                element = UIHelper.GetVisualOrLogicalParent(element);
             }
 
             return false;
