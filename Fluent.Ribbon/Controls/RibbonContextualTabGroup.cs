@@ -79,6 +79,11 @@ namespace Fluent
         public RibbonTabItem FirstVisibleItem => this.GetFirstVisibleItem();
 
         /// <summary>
+        /// Gets the first visible TabItem in this group
+        /// </summary>
+        public RibbonTabItem FirstVisibleAndEnabledItem => this.GetFirstVisibleAndEnabledItem();
+
+        /// <summary>
         /// Gets the last visible TabItem in this group
         /// </summary>
         public RibbonTabItem LastVisibleItem => this.GetLastVisibleItem();
@@ -174,6 +179,11 @@ namespace Fluent
             return this.Items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
+        private RibbonTabItem GetFirstVisibleAndEnabledItem()
+        {
+            return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible && item.IsEnabled);
+        }
+
         /// <summary>
         /// Updates the group border
         /// </summary>
@@ -223,7 +233,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            var firstVisibleItem = this.FirstVisibleItem;
+            var firstVisibleItem = this.FirstVisibleAndEnabledItem;
 
             if (e.ClickCount == 1
                 && firstVisibleItem != null)

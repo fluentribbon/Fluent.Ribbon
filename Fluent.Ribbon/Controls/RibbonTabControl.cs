@@ -618,12 +618,12 @@ namespace Fluent
 
 #if NET45 || NET462
             var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
-                .Where(x => x.Visibility == Visibility.Visible && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
                 .OrderBy(x => x.IsContextual)
                 .ToList();
 #else
             var tabs = this.Items.OfType<object>().Select(x => this.ItemContainerGenerator.ContainerFromItem(x)).OfType<RibbonTabItem>()
-                .Where(x => x.Visibility == Visibility.Visible && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
                 .OrderBy(x => x.IsContextual)
                 .ToList();
 #endif
@@ -895,14 +895,15 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible item
         /// </summary>
-        public object GetFirstVisibleItem()
+        public object GetFirstVisibleAndEnabledItem()
         {
             foreach (var item in this.Items)
             {
                 var ribbonTab = this.ItemContainerGenerator.ContainerFromItem(item) as RibbonTabItem;
 
                 if (ribbonTab != null
-                    && ribbonTab.Visibility == Visibility.Visible)
+                    && ribbonTab.Visibility == Visibility.Visible
+                    && ribbonTab.IsEnabled)
                 {
                     return ribbonTab;
                 }

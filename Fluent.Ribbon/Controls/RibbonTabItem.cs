@@ -502,7 +502,7 @@ namespace Fluent
                     }
                     else
                     {
-                        item.TabControlParent.SelectedItem = item.TabControlParent.GetFirstVisibleItem();
+                        item.TabControlParent.SelectedItem = item.TabControlParent.GetFirstVisibleAndEnabledItem();
                     }
                 }
             }
