@@ -3,6 +3,8 @@
 ## 6.0.0 (preview)
 
 - ### Breaking changes
+  - **[#466](../../issues/466) - StrongName signed assembly? Hey, it's 2017...**  
+  Fluent.Ribbon is no longer a strong-named assembly.
   - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
     `ToggleButton` grouping was done like it's done for a regular `RadioButton`, except that it was bound to visual root scope.  
     The dependency on a visual root scope has been remove, so please adjust the `GroupName` for groups if you have groups with the same name in different visual root scopes.
