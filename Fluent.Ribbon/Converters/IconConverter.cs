@@ -9,7 +9,7 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Standard;
+    using ControlzEx.Standard;
 
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present

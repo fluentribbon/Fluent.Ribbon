@@ -10,8 +10,7 @@ namespace Fluent
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
-    //using WindowChrome = ControlzEx.Microsoft.Windows.Shell.WindowChrome;
-    using WindowChrome = Microsoft.Windows.Shell.WindowChrome;
+    using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents title bar

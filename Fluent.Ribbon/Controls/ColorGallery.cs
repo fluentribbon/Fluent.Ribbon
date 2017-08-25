@@ -12,10 +12,10 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Media;
     using ControlzEx.Native;
+    using ControlzEx.Standard;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
-    using Standard;
 
     /// <summary>
     /// Represents color gallery modes

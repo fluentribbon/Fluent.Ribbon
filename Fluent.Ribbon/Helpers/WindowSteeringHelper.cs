@@ -5,7 +5,7 @@
     using System.Windows;
     using System.Windows.Input;
     using ControlzEx.Native;
-    using Standard;
+    using ControlzEx.Standard;
 
     /// <summary>
     /// Class which offers helper methods for steering the window
@@ -105,7 +105,7 @@
             e.Handled = true;
 
 #pragma warning disable 618
-            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
+            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
 #pragma warning restore 618
         }
 
@@ -117,7 +117,7 @@
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
 #pragma warning disable 618
-            Microsoft.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
+            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
 #pragma warning restore 618
         }
     }

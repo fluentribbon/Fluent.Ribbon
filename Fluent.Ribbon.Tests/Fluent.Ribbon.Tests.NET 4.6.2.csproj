@@ -35,12 +35,6 @@
     <CodeAnalysisRuleSet>..\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <NoWarn>SA1652</NoWarn>
   </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Shared\FluentStrongName.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -70,7 +64,6 @@
     <Compile Include="TestClasses\TestRibbonWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shared\FluentStrongName.snk" />
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>

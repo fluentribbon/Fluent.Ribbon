@@ -1,7 +1,7 @@
 ﻿namespace Fluent.Internal
 {
     using System.Windows.Input;
-    using Standard;
+    using ControlzEx.Standard;
 
     internal static class KeyEventUtility
     {

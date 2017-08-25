@@ -3,7 +3,7 @@
     using System;
     using System.Windows;
     using System.Windows.Input;
-    using Standard;
+    using ControlzEx.Standard;
 
     internal class FocusWrapper
     {

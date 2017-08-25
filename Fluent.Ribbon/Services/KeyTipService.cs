@@ -7,8 +7,8 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
+    using ControlzEx.Standard;
     using Fluent.Internal;
-    using Standard;
 
     /// <summary>
     /// Handles Alt, F10 and so on

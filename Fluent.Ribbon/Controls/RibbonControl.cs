@@ -10,10 +10,10 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
+    using ControlzEx.Standard;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
-    using Standard;
 
     /// <summary>
     /// Represent base class for Fluent controls
