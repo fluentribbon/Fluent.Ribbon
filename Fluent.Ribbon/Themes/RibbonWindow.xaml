@@ -123,14 +123,5 @@
                 Value="{StaticResource RibbonWindowControlTemplate}" />
         <Setter Property="TitleBarHeight"
                 Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
-        <Style.Triggers>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="BorderThickness"
-                        Value="0" />
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>
