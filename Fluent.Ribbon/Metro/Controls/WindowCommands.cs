@@ -231,40 +231,47 @@ namespace Fluent
             var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
             {
-                parentWindow.WindowState = WindowState.Minimized;
+                SystemCommands.MinimizeWindow(parentWindow);
             }
         }
 
         private void MaximiseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow == null)
+            if (parentWindow != null)
             {
-                return;
+                SystemCommands.MaximizeWindow(parentWindow);
             }
-
-            parentWindow.WindowState = WindowState.Maximized;
         }
 
         private void RestoreClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow == null)
+            if (parentWindow != null)
             {
-                return;
+                SystemCommands.RestoreWindow(parentWindow);
             }
-
-            parentWindow.WindowState = WindowState.Normal;
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            parentWindow?.Close();
+
+            if (parentWindow != null)
+            {
+                SystemCommands.CloseWindow(parentWindow);
+            }
         }
 
         private Window GetParentWindow()
         {
+            var window = Window.GetWindow(this);
+
+            if (window != null)
+            {
+                return window;
+            }
+
             var parent = VisualTreeHelper.GetParent(this);
             Window parentWindow = null;
 

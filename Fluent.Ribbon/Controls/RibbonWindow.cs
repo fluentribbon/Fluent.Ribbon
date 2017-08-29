@@ -343,7 +343,7 @@ namespace Fluent
                     {
                         e.Handled = true;
 
-                        this.Close();
+                        SystemCommands.CloseWindow(this);
                     }
 
                     break;

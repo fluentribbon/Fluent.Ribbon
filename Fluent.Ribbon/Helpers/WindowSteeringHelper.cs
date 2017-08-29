@@ -50,8 +50,6 @@
                 return;
             }
 
-            var canResize = window.ResizeMode == ResizeMode.CanResizeWithGrip || window.ResizeMode == ResizeMode.CanResize;
-
             if (handleDragMove
                 && e.ClickCount == 1)
             {
@@ -67,11 +65,10 @@
                 // DragMove works too, but not on maximized windows
                 NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
                 NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
-
             }
             else if (handleStateChange
                 && e.ClickCount == 2
-                && canResize)
+                && (window.ResizeMode == ResizeMode.CanResize || window.ResizeMode == ResizeMode.CanResizeWithGrip))
             {
                 e.Handled = true;
 
@@ -85,6 +82,7 @@
                 }
             }
         }
+
 #pragma warning restore 618
 
         /// <summary>
