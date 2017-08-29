@@ -33,6 +33,7 @@
             HandleMouseLeftButtonDown(dependencyObject, e, handleDragMove, handleStateChange);
         }
 
+#pragma warning disable 618
         /// <summary>
         /// Shows the system menu at the current mouse position.
         /// </summary>
@@ -49,6 +50,8 @@
                 return;
             }
 
+            var canResize = window.ResizeMode == ResizeMode.CanResizeWithGrip || window.ResizeMode == ResizeMode.CanResize;
+
             if (handleDragMove
                 && e.ClickCount == 1)
             {
@@ -57,7 +60,6 @@
                 // taken from DragMove internal code
                 window.VerifyAccess();
 
-#pragma warning disable 618
                 // for the touch usage
                 UnsafeNativeMethods.ReleaseCapture();
 
@@ -65,18 +67,25 @@
                 // DragMove works too, but not on maximized windows
                 NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
                 NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
-#pragma warning restore 618
+
             }
             else if (handleStateChange
                 && e.ClickCount == 2
-                && window.ResizeMode != ResizeMode.NoResize)
+                && canResize)
             {
                 e.Handled = true;
-                window.WindowState = window.WindowState == WindowState.Maximized
-                                         ? WindowState.Normal
-                                         : WindowState.Maximized;
+
+                if (window.WindowState == WindowState.Normal)
+                {
+                    SystemCommands.MaximizeWindow(window);
+                }
+                else
+                {
+                    SystemCommands.RestoreWindow(window);
+                }
             }
         }
+#pragma warning restore 618
 
         /// <summary>
         /// Shows the system menu at the current mouse position.
