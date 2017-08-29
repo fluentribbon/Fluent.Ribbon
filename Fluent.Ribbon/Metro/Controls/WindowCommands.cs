@@ -231,7 +231,9 @@ namespace Fluent
             var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
             {
-                SystemCommands.MinimizeWindow(parentWindow);
+#pragma warning disable 618
+                ControlzEx.Windows.Shell.SystemCommands.MinimizeWindow(parentWindow);
+#pragma warning restore 618
             }
         }
 
@@ -240,7 +242,9 @@ namespace Fluent
             var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
             {
-                SystemCommands.MaximizeWindow(parentWindow);
+#pragma warning disable 618
+                ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(parentWindow);
+#pragma warning restore 618
             }
         }
 
@@ -249,7 +253,9 @@ namespace Fluent
             var parentWindow = this.GetParentWindow();
             if (parentWindow != null)
             {
-                SystemCommands.RestoreWindow(parentWindow);
+#pragma warning disable 618
+                ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(parentWindow);
+#pragma warning restore 618
             }
         }
 
@@ -259,7 +265,9 @@ namespace Fluent
 
             if (parentWindow != null)
             {
-                SystemCommands.CloseWindow(parentWindow);
+#pragma warning disable 618
+                ControlzEx.Windows.Shell.SystemCommands.CloseWindow(parentWindow);
+#pragma warning restore 618
             }
         }
 

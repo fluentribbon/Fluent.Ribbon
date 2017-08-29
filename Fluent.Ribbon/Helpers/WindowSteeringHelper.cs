@@ -74,11 +74,11 @@
 
                 if (window.WindowState == WindowState.Normal)
                 {
-                    SystemCommands.MaximizeWindow(window);
+                    ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(window);
                 }
                 else
                 {
-                    SystemCommands.RestoreWindow(window);
+                    ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(window);
                 }
             }
         }

@@ -343,7 +343,9 @@ namespace Fluent
                     {
                         e.Handled = true;
 
-                        SystemCommands.CloseWindow(this);
+#pragma warning disable 618
+                        ControlzEx.Windows.Shell.SystemCommands.CloseWindow(this);
+#pragma warning restore 618
                     }
 
                     break;
