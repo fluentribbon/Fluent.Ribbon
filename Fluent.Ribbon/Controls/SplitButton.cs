@@ -1,6 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -9,6 +10,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using Fluent.Extensibility;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -50,6 +52,8 @@ namespace Fluent
         }
 
         #region Command
+
+        private bool currentCanExecute = true;
 
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
@@ -115,12 +119,85 @@ namespace Fluent
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
-        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
+        public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(SplitButton), new PropertyMetadata(OnCommandChanged));
 
         /// <summary>
         /// Identifies the CommandTarget dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
+
+        /// <summary>
+        /// Handles Command changed
+        /// </summary>
+        private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as SplitButton;
+
+            if (control == null)
+            {
+                return;
+            }
+
+            var oldCommand = e.OldValue as ICommand;
+            if (oldCommand != null)
+            {
+                oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
+            }
+
+            var newCommand = e.NewValue as ICommand;
+            if (newCommand != null)
+            {
+                newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
+
+                var routedUiCommand = e.NewValue as RoutedUICommand;
+                if (routedUiCommand != null
+                    && control.Header == null)
+                {
+                    control.Header = routedUiCommand.Text;
+                }
+            }
+
+            control.UpdateCanExecute();
+        }
+
+        /// <summary>
+        /// Handles Command CanExecute changed
+        /// </summary>
+        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        {
+            this.UpdateCanExecute();
+        }
+
+        private void UpdateCanExecute()
+        {
+            var canExecute = this.Command != null
+                             && this.CanExecuteCommand();
+
+            if (this.currentCanExecute != canExecute)
+            {
+                this.currentCanExecute = canExecute;
+                this.CoerceValue(IsEnabledProperty);
+            }
+        }
+
+        #endregion
+
+        #region IsEnabled
+
+        /// <summary>
+        /// Gets a value that becomes the return
+        /// value of IsEnabled in derived classes.
+        /// </summary>
+        /// <returns>
+        /// true if the element is enabled; otherwise, false.
+        /// </returns>
+        protected override bool IsEnabledCore
+        {
+            get
+            {
+                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
+            }
+        }
 
         #endregion
 
