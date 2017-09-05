@@ -6,6 +6,8 @@
     <RestorePackages Condition=" '$(RestorePackages)' == '' ">true</RestorePackages>
     <PaketToolsPath>$(MSBuildThisFileDirectory)</PaketToolsPath>
     <PaketRootPath>$(MSBuildThisFileDirectory)..\</PaketRootPath>
+    <PaketLockFilePath>$(PaketRootPath)paket.lock</PaketLockFilePath>
+    <PaketRestoreCacheFile>$(PaketRootPath)paket-files\paket.restore.cached</PaketRestoreCacheFile>
     <MonoPath Condition="'$(MonoPath)' == '' And Exists('/Library/Frameworks/Mono.framework/Commands/mono')">/Library/Frameworks/Mono.framework/Commands/mono</MonoPath>
     <MonoPath Condition="'$(MonoPath)' == ''">mono</MonoPath>
   </PropertyGroup>
@@ -43,20 +45,28 @@
 
   <PropertyGroup>
   <!-- Commands -->
-    <PaketReferences Condition="!Exists('$(MSBuildProjectFullPath).paket.references')">$(MSBuildProjectDirectory)\$(MSBuildProjectName).paket.references</PaketReferences>
-    <PaketReferences Condition="!Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).paket.references')">$(MSBuildProjectDirectory)\paket.references</PaketReferences>
-    <PaketReferences Condition="!Exists('$(PaketReferences)')">$(MSBuildStartupDirectory)\paket.references</PaketReferences>
-    <PaketReferences Condition="Exists('$(MSBuildProjectFullPath).paket.references')">$(MSBuildProjectFullPath).paket.references</PaketReferences>
-    <RestoreCommand>$(PaketCommand) restore --references-file "$(PaketReferences)"</RestoreCommand>
+    <RestoreCommand>$(PaketCommand) restore --references-files "$(PaketReferences)"</RestoreCommand>
     <!-- We need to ensure packages are restored prior to assembly resolve -->
     <BuildDependsOn Condition="$(RestorePackages) == 'true'">RestorePackages; $(BuildDependsOn);</BuildDependsOn>
   </PropertyGroup>
   <Target Name="RestorePackages">
+    <PropertyGroup>
+      <PaketRestoreRequired>true</PaketRestoreRequired>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="Exists('$(PaketRestoreCacheFile)') ">
+      <PaketRestoreCachedHash>$([System.IO.File]::ReadAllText('$(PaketRestoreCacheFile)'))</PaketRestoreCachedHash>
+      <PaketRestoreLockFileHash>$([System.IO.File]::ReadAllText('$(PaketLockFilePath)'))</PaketRestoreLockFileHash>
+      <PaketRestoreRequired>true</PaketRestoreRequired>
+      <PaketRestoreRequired Condition=" '$(PaketRestoreLockFileHash)' == '$(PaketRestoreCachedHash)' ">false</PaketRestoreRequired>
+      <PaketRestoreRequired Condition=" '$(PaketRestoreLockFileHash)' == '' ">true</PaketRestoreRequired>
+    </PropertyGroup>
+
     <Exec Command="$(RestoreCommand)" 
           IgnoreStandardErrorWarningFormat="true" 
           WorkingDirectory="$(PaketRootPath)" 
-          ContinueOnError="true" 
-          Condition=" Exists('$(PaketReferences)') AND '$(PaketReferences)' != '' " 
+          ContinueOnError="false" 
+          Condition=" '$(PaketRestoreRequired)' == 'true' AND Exists('$(PaketReferences)') AND '$(PaketReferences)' != '' " 
     />
   </Target>
 </Project>
