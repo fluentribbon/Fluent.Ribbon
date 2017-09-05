@@ -325,6 +325,13 @@ namespace Fluent
         {
             base.OnStateChanged(e);
 
+            // todo: remove fix if we update to ControlzEx 4.0
+            if (this.WindowState == WindowState.Maximized
+                && this.SizeToContent != SizeToContent.Manual)
+            {
+                this.SizeToContent = SizeToContent.Manual;
+            }
+
             this.RunInDispatcherAsync(() => this.TitleBar?.ForceMeasureAndArrange(), DispatcherPriority.Background);
         }
 
