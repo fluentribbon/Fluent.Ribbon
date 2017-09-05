@@ -151,6 +151,7 @@
   - [#450](../../issues/450) - Fix Ribbon.OnTitleBarChanged clearing the new title bar instead of the old one (thanks @Cubey2019)
   - [#451](../../issues/451) - combobox and dateformat
   - [#454](../../issues/454) - RibbonWindow title not shown in correct position when using SizeToContent
+  - [#456](../../issues/456) - Maximising a RibbonWindow with MaxWidth or MaxHeight causes an extra border above the title bar
   - [#457](../../issues/457) - Using the keytip shortcut to open a backstage briefly opens it, then closes it immediately
   - [#459](../../issues/459) - Label of the Spinner disappears, if there isn't enough place
   - [#463](../../issues/463) - ShowQuickAccessToolBarAboveRibbon="False" causes crash
