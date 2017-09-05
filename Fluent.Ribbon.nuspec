@@ -14,7 +14,7 @@
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <tags>fluent office ribbon ribbonwindow backstage</tags>
         <dependencies>
-            <dependency id="ControlzEx" version="(3.0.1,4.0)" />
+            <dependency id="ControlzEx" version="(3.0.1.66,4.0)" />
         </dependencies>
     </metadata>
     <files>
