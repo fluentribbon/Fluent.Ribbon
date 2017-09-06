@@ -116,6 +116,7 @@
                    VerticalAlignment="Top"
                    Grid.ColumnSpan="2">
                 <Grid Name="DropDown"
+                      IsEnabled="{TemplateBinding IsEnabled}"
                       SnapsToDevicePixels="True"
                       Margin="0"
                       VerticalAlignment="Top">

@@ -32,5 +32,39 @@
                 Assert.That(partButton.IsEnabled, Is.True);
             }
         }
+
+        [Test]
+        public void Disabling_Control_Should_Disable_Popup()
+        {
+            var splitButton = new SplitButton
+            {
+                Command = new RelayCommand(null, () => false)
+            };
+
+            using (new TestRibbonWindow(splitButton))
+            {
+                splitButton.ApplyTemplate();
+
+                Assert.That(splitButton.IsEnabled, Is.True);
+
+                var dummyButton = new Button();
+
+                splitButton.Items.Add(dummyButton);
+
+                Assert.That(dummyButton.IsEnabled, Is.True);
+
+                splitButton.IsDropDownOpen = true;
+
+                splitButton.IsEnabled = false;
+
+                Assert.That(splitButton.IsEnabled, Is.False);
+                Assert.That(dummyButton.IsEnabled, Is.False);
+
+                splitButton.IsDropDownOpen = false;
+
+                Assert.That(splitButton.IsEnabled, Is.False);
+                Assert.That(dummyButton.IsEnabled, Is.False);
+            }
+        }
     }
 }
