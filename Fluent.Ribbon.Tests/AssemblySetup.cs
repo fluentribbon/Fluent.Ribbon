@@ -10,8 +10,15 @@
         [OneTimeSetUp]
         public void Setup()
         {
-            var app = new Application();
+            var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+
             app.Resources.MergedDictionaries.Add((ResourceDictionary)Application.LoadComponent(new Uri("/Fluent;Component/Themes/Generic.xaml", UriKind.Relative)));
+        }
+
+        [OneTimeTearDown]
+        public void TearDown()
+        {
+            ////Application.Current.Shutdown();
         }
     }
 }
