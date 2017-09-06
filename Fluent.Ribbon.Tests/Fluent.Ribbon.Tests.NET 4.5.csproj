@@ -50,6 +50,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
+      <Link>Commanding\IRelayCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\RelayCommand.cs">
+      <Link>Commanding\RelayCommand.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
@@ -58,6 +64,7 @@
     <Compile Include="Controls\QuickAccessToolBarTests.cs" />
     <Compile Include="Controls\RibbonTests.cs" />
     <Compile Include="Controls\RibbonTitleBarTests.cs" />
+    <Compile Include="Controls\SplitButtonTests.cs" />
     <Compile Include="Helper\ReflectionHelper.cs" />
     <Compile Include="Helper\UIHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
