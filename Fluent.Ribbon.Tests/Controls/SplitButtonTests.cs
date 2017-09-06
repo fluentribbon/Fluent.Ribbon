@@ -17,6 +17,8 @@
 
             using (new TestRibbonWindow(splitButton))
             {
+                splitButton.ApplyTemplate();
+
                 Assert.That(splitButton.IsEnabled, Is.True);
 
                 var partButton = splitButton.Template.FindName("PART_Button", splitButton) as ToggleButton;
