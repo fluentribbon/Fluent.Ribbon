@@ -48,3 +48,6 @@ TestResult.xml
 
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe
+paket-files/paket\.restore\.cached
+
+paket\.local
