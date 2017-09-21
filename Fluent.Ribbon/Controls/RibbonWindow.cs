@@ -270,6 +270,7 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
+                                          // Fix for #454 while also keeping #473
                                           var availableSize = new Size(this.TitleBar.ActualWidth, this.TitleBar.ActualHeight);
                                           this.TitleBar.Measure(availableSize);
                                           this.TitleBar.ForceMeasureAndArrange();
