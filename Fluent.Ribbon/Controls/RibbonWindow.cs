@@ -20,6 +20,7 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = PART_Icon, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
+    [TemplatePart(Name = PART_RibbonTitleBar, Type = typeof(RibbonTitleBar))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
     public class RibbonWindow : Window, IRibbonWindow
     {
@@ -27,6 +28,7 @@ namespace Fluent
 #pragma warning disable SA1310 // Field names must not contain underscore
         private const string PART_Icon = "PART_Icon";
         private const string PART_ContentPresenter = "PART_ContentPresenter";
+        private const string PART_RibbonTitleBar = "PART_RibbonTitleBar";
         private const string PART_WindowCommands = "PART_WindowCommands";
 #pragma warning restore SA1310 // Field names must not contain underscore
         // ReSharper restore InconsistentNaming
@@ -297,7 +299,7 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            this.TitleBar = this.GetTemplateChild("PART_RibbonTitleBar") as RibbonTitleBar;
+            this.TitleBar = this.GetTemplateChild(PART_RibbonTitleBar) as RibbonTitleBar;
 
             if (this.iconImage != null)
             {
