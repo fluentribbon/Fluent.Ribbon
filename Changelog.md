@@ -158,6 +158,7 @@
   - [#464](../../issues/464) - Clicking on hyperlink inside of ApplicationMenu causes crash
   - [#465](../../issues/465) - Clicking on ContextualGroup background or scrolling through ribbon will open disabled tab  
     During this fix `RibbonTabControl.GetFirstVisibleItem` was renamed to `RibbonTabControl.GetFirstVisibleAndEnabledItem`.
+  - [#473](../../issues/473) - RibbonWindow does not resize when Children resize and SizeToContent is used
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).

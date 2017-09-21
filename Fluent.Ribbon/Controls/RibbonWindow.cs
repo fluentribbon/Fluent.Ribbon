@@ -270,9 +270,9 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
-                                          var availableSize = new Size(this.ActualWidth, this.ActualHeight);
-                                          this.Measure(availableSize);
-                                          this.Arrange(new Rect(default(Point), availableSize));
+                                          var availableSize = new Size(this.TitleBar.ActualWidth, this.TitleBar.ActualHeight);
+                                          this.TitleBar.Measure(availableSize);
+                                          this.TitleBar.ForceMeasureAndArrange();
                                       }, DispatcherPriority.ApplicationIdle);
         }
 
