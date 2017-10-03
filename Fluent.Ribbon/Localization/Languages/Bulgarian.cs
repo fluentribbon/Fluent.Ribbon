@@ -5,32 +5,32 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Bulgarian", "bg")]
     public class Bulgarian : RibbonLocalizationBase
     {
-        public override string Automatic { get; } = "Автоматично";
-        public override string BackstageButtonKeyTip { get; } = "Ф";
-        public override string BackstageButtonText { get; } = "Файл";
-        public override string CustomizeStatusBar { get; } = "Персонализиране на статус линията";
-        public override string ExpandButtonScreenTipText { get; } = "Искате да виждате лентата? Оставете я отворена по време на работа.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Отворяне на лентата (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Нуждаете се от повече място? Свийте лентата така, че само разделите да се показват.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Свиване на лентата (Ctrl+F1)";
-        public override string MoreColors { get; } = "Повече цветове...";
-        public override string NoColor { get; } = "Без цвят";
-        public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Персонализиране Бързия достъп";
-        public override string QuickAccessToolBarMenuHeader { get; } = "Персонализиране на Бързия достъп";
-        public override string QuickAccessToolBarMenuShowAbove { get; } = "Показване над лентата";
-        public override string QuickAccessToolBarMenuShowBelow { get; } = "Показване под лентата";
-        public override string QuickAccessToolBarMoreControlsButtonTooltip { get; } = "Повече контроли";
-        public override string RibbonContextMenuAddGallery { get; } = "Добвяне на галерия в Бърз достъп";
-        public override string RibbonContextMenuAddGroup { get; } = "Добавяне на група до Бързия достъп";
-        public override string RibbonContextMenuAddItem { get; } = "Добавяне в Бързия достъп";
-        public override string RibbonContextMenuAddMenu { get; } = "Добавяне на меню до Бързия достъп";
-        public override string RibbonContextMenuCustomizeQuickAccessToolBar { get; } = "Персонализиране на панела за Бърз достъп...";
-        public override string RibbonContextMenuCustomizeRibbon { get; } = "Персонализиране на лентата...";
-        public override string RibbonContextMenuMinimizeRibbon { get; } = "Свиване на лентата";
-        public override string RibbonContextMenuRemoveItem { get; } = "Премахване от панела за Бърз достъп";
-        public override string RibbonContextMenuShowAbove { get; } = "Показване на Бързия достъп над лентата";
-        public override string RibbonContextMenuShowBelow { get; } = "Показване на Бързия достъп под лентата";
-        public override string ScreenTipDisableReasonHeader { get; } = "Тази команда е забранена.";
-        public override string ScreenTipF1LabelHeader { get; } = "Натиснете F1 за помощ";
+        public override string Automatic { get; } = "РђРІС‚РѕРјР°С‚РёС‡РЅРѕ";
+        public override string BackstageButtonKeyTip { get; } = "Р¤";
+        public override string BackstageButtonText { get; } = "Р¤Р°Р№Р»";
+        public override string CustomizeStatusBar { get; } = "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂР°РЅРµ РЅР° СЃС‚Р°С‚СѓСЃ Р»РёРЅРёСЏС‚Р°";
+        public override string ExpandButtonScreenTipText { get; } = "РСЃРєР°С‚Рµ РґР° РІРёР¶РґР°С‚Рµ Р»РµРЅС‚Р°С‚Р°? РћСЃС‚Р°РІРµС‚Рµ СЏ РѕС‚РІРѕСЂРµРЅР° РїРѕ РІСЂРµРјРµ РЅР° СЂР°Р±РѕС‚Р°.";
+        public override string ExpandButtonScreenTipTitle { get; } = "РћС‚РІРѕСЂСЏРЅРµ РЅР° Р»РµРЅС‚Р°С‚Р° (Ctrl+F1)";
+        public override string MinimizeButtonScreenTipText { get; } = "РќСѓР¶РґР°РµС‚Рµ СЃРµ РѕС‚ РїРѕРІРµС‡Рµ РјСЏСЃС‚Рѕ? РЎРІРёР№С‚Рµ Р»РµРЅС‚Р°С‚Р° С‚Р°РєР°, С‡Рµ СЃР°РјРѕ СЂР°Р·РґРµР»РёС‚Рµ РґР° СЃРµ РїРѕРєР°Р·РІР°С‚.";
+        public override string MinimizeButtonScreenTipTitle { get; } = "РЎРІРёРІР°РЅРµ РЅР° Р»РµРЅС‚Р°С‚Р° (Ctrl+F1)";
+        public override string MoreColors { get; } = "РџРѕРІРµС‡Рµ С†РІРµС‚РѕРІРµ...";
+        public override string NoColor { get; } = "Р‘РµР· С†РІСЏС‚";
+        public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂР°РЅРµ Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї";
+        public override string QuickAccessToolBarMenuHeader { get; } = "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂР°РЅРµ РЅР° Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї";
+        public override string QuickAccessToolBarMenuShowAbove { get; } = "РџРѕРєР°Р·РІР°РЅРµ РЅР°Рґ Р»РµРЅС‚Р°С‚Р°";
+        public override string QuickAccessToolBarMenuShowBelow { get; } = "РџРѕРєР°Р·РІР°РЅРµ РїРѕРґ Р»РµРЅС‚Р°С‚Р°";
+        public override string QuickAccessToolBarMoreControlsButtonTooltip { get; } = "РџРѕРІРµС‡Рµ РєРѕРЅС‚СЂРѕР»Рё";
+        public override string RibbonContextMenuAddGallery { get; } = "Р”РѕР±РІСЏРЅРµ РЅР° РіР°Р»РµСЂРёСЏ РІ Р‘СЉСЂР· РґРѕСЃС‚СЉРї";
+        public override string RibbonContextMenuAddGroup { get; } = "Р”РѕР±Р°РІСЏРЅРµ РЅР° РіСЂСѓРїР° РґРѕ Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї";
+        public override string RibbonContextMenuAddItem { get; } = "Р”РѕР±Р°РІСЏРЅРµ РІ Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї";
+        public override string RibbonContextMenuAddMenu { get; } = "Р”РѕР±Р°РІСЏРЅРµ РЅР° РјРµРЅСЋ РґРѕ Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї";
+        public override string RibbonContextMenuCustomizeQuickAccessToolBar { get; } = "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂР°РЅРµ РЅР° РїР°РЅРµР»Р° Р·Р° Р‘СЉСЂР· РґРѕСЃС‚СЉРї...";
+        public override string RibbonContextMenuCustomizeRibbon { get; } = "РџРµСЂСЃРѕРЅР°Р»РёР·РёСЂР°РЅРµ РЅР° Р»РµРЅС‚Р°С‚Р°...";
+        public override string RibbonContextMenuMinimizeRibbon { get; } = "РЎРІРёРІР°РЅРµ РЅР° Р»РµРЅС‚Р°С‚Р°";
+        public override string RibbonContextMenuRemoveItem { get; } = "РџСЂРµРјР°С…РІР°РЅРµ РѕС‚ РїР°РЅРµР»Р° Р·Р° Р‘СЉСЂР· РґРѕСЃС‚СЉРї";
+        public override string RibbonContextMenuShowAbove { get; } = "РџРѕРєР°Р·РІР°РЅРµ РЅР° Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї РЅР°Рґ Р»РµРЅС‚Р°С‚Р°";
+        public override string RibbonContextMenuShowBelow { get; } = "РџРѕРєР°Р·РІР°РЅРµ РЅР° Р‘СЉСЂР·РёСЏ РґРѕСЃС‚СЉРї РїРѕРґ Р»РµРЅС‚Р°С‚Р°";
+        public override string ScreenTipDisableReasonHeader { get; } = "РўР°Р·Рё РєРѕРјР°РЅРґР° Рµ Р·Р°Р±СЂР°РЅРµРЅР°.";
+        public override string ScreenTipF1LabelHeader { get; } = "РќР°С‚РёСЃРЅРµС‚Рµ F1 Р·Р° РїРѕРјРѕС‰";
     }
 }
