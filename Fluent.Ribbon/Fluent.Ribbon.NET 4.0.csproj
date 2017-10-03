@@ -106,6 +106,7 @@
     <Compile Include="Localization\Languages\Czech.cs" />
     <Compile Include="Localization\Languages\Danish.cs" />
     <Compile Include="Localization\Languages\Dutch.cs" />
+    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\English.cs" />
     <Compile Include="Localization\Languages\Estonian.cs" />
     <Compile Include="Localization\Languages\Finnish.cs" />
