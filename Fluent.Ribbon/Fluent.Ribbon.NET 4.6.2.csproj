@@ -101,6 +101,7 @@
     <Compile Include="Data\KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
+    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
     <Compile Include="Localization\Languages\Chinese.cs" />
     <Compile Include="Localization\Languages\Czech.cs" />
