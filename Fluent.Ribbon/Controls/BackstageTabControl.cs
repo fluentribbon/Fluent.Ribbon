@@ -192,6 +192,24 @@ namespace Fluent
             }
         }
 
+        #region ItemsPanelMinWidth
+
+        /// <summary>
+        /// Dependency property for <see cref="ItemsPanelMinWidth"/>.
+        /// </summary>
+        public static readonly DependencyProperty ItemsPanelMinWidthProperty = DependencyProperty.Register(nameof(ItemsPanelMinWidth), typeof(double), typeof(BackstageTabControl), new PropertyMetadata(125d));
+
+        /// <summary>
+        /// Gets or sets the MinWidth for the ItemsPanel.
+        /// </summary>
+        public double ItemsPanelMinWidth
+        {
+            get { return (double)this.GetValue(ItemsPanelMinWidthProperty); }
+            set { this.SetValue(ItemsPanelMinWidthProperty, value); }
+        }
+
+        #endregion
+
         #region ItemsPanelBackground
 
         /// <summary>
@@ -206,8 +224,7 @@ namespace Fluent
         /// <summary>
         /// Dependency property for <see cref="ItemsPanelBackground"/>
         /// </summary>
-        public static readonly DependencyProperty ItemsPanelBackgroundProperty =
-            DependencyProperty.Register(nameof(ItemsPanelBackground), typeof(Brush), typeof(BackstageTabControl));
+        public static readonly DependencyProperty ItemsPanelBackgroundProperty = DependencyProperty.Register(nameof(ItemsPanelBackground), typeof(Brush), typeof(BackstageTabControl));
 
         #endregion
 

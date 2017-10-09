@@ -192,11 +192,13 @@
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="125"
+                <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch"
+            
+            <Grid x:Name="PART_ItemsPanelGrid"
+                  VerticalAlignment="Stretch"
                   Background="{TemplateBinding ItemsPanelBackground}">
                 <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
                                                     VerticalAlignment="Top"
@@ -215,7 +217,8 @@
                                 Height="Auto" />
             </Grid>
 
-            <Grid Height="Auto"
+            <Grid x:Name="PART_SelectedContentGrid"
+                  Height="Auto"
                   Grid.Column="1"
                   Background="{TemplateBinding Background}"
                   Margin="{TemplateBinding SelectedContentMargin}">
@@ -226,6 +229,7 @@
                                BasedOn="{StaticResource BackstageButtonStyle}" />
                     </ResourceDictionary>
                 </Grid.Resources>
+                
                 <ContentPresenter x:Name="PART_SelectedContentHost"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"

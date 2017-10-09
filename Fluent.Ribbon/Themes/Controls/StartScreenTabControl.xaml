@@ -21,11 +21,13 @@
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="342"
+                <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch"
+            
+            <Grid x:Name="PART_LeftContentGrid"
+                  VerticalAlignment="Stretch"                  
                   Background="{TemplateBinding ItemsPanelBackground}"
                   Margin="{TemplateBinding LeftContentMargin}">
                 <Border Padding="15,25">
@@ -40,7 +42,8 @@
                                                     IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
             </Grid>
 
-            <Grid Height="Auto"
+            <Grid x:Name="PART_SelectedContentGrid"
+                  Height="Auto"
                   Grid.Column="1"
                   Background="{DynamicResource WhiteBrush}"
                   Margin="{TemplateBinding SelectedContentMargin}">

@@ -177,6 +177,7 @@
   - [#444](../../issues/444) - Add `IgnoreTaskbarOnMaximize` to `RibbonWindow`
   - [#445](../../issues/445) - Startsceen "shines" through backstage
   - [#455](../../issues/455) - Add brushes for checked toggle buttons (thanks @Cubey2019)
+  - [#478](../../issues/478) - Custom MinWidth of Start Screen (LeftContent)
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
