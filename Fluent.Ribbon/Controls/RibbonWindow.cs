@@ -69,8 +69,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TitleBarHeight"/>.
         /// </summary>
-        public static readonly DependencyProperty TitleBarHeightProperty =
-            DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(RibbonWindow), new PropertyMetadata(DoubleBoxes.Zero));
+        public static readonly DependencyProperty TitleBarHeightProperty = DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(RibbonWindow), new PropertyMetadata(DoubleBoxes.Zero));
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title.
@@ -84,8 +83,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TitleForeground"/>.
         /// </summary>
-        public static readonly DependencyProperty TitleForegroundProperty =
-            DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
+        public static readonly DependencyProperty TitleForegroundProperty = DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title background.
@@ -99,8 +97,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TitleBackground"/>.
         /// </summary>
-        public static readonly DependencyProperty TitleBackgroundProperty =
-            DependencyProperty.Register(nameof(TitleBackground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
+        public static readonly DependencyProperty TitleBackgroundProperty = DependencyProperty.Register(nameof(TitleBackground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
