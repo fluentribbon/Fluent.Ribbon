@@ -175,9 +175,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsCollapsed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCollapsedProperty =
-            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
-            typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
+        public static readonly DependencyProperty IsCollapsedProperty = DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Defines if the Ribbon should automatically set <see cref="IsCollapsed"/> when the width or height of the owner window drop under <see cref="Ribbon.MinimalVisibleWidth"/> or <see cref="Ribbon.MinimalVisibleHeight"/>
@@ -192,8 +190,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for IsCollapsed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-            DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
+        public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
         /// Defines if the taskbar should be ignored and hidden while the window is maximized.
