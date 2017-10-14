@@ -27,7 +27,7 @@
         private IList<string> manyItems;
         private IList<string> stringItems;
 
-        private bool? isCheckedToggleButton3;
+        private bool? isCheckedToggleButton3 = true;
 
         private readonly Timer memoryTimer;
 

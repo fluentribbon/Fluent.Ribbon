@@ -1709,84 +1709,40 @@
 
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="LongLongGroup"
-                                       IsLauncherVisible="False">
-                    <Fluent:ToggleButton Header="blah blah"
-                                         SizeDefinition="Small">
-                        <Fluent:ToggleButton.Icon>
-                            <Grid>
-                                <Image />
-                                <TextBlock Text="1" />
-                            </Grid>
-                        </Fluent:ToggleButton.Icon>
-                    </Fluent:ToggleButton>
-                    
-                    <Fluent:SplitButton Header="blah blah"
-                                        KeyTip="BL"
-                                        SizeDefinition="Small">
-                        <Fluent:SplitButton.Icon>
-                            <Grid>
-                                <Image />
-                                <TextBlock Text="1" />
-                            </Grid>
-                        </Fluent:SplitButton.Icon>
-                        <Fluent:MenuItem Header="first"
-                                         KeyTip="A" />
-                        <Fluent:MenuItem Header="second"
-                                         KeyTip="B" />
-                        <Fluent:MenuItem Header="third"
-                                         KeyTip="C" />
+                <Fluent:RibbonGroupBox Header="Grouped SplitButton">
+                    <Fluent:SplitButton Header="Split 1"
+                                        IsCheckable="True"
+                                        IsChecked="True"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}">
+                        <Fluent:MenuItem Header="First" 
+                                         IsChecked="True"
+                                         IsCheckable="True"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}" />
+                        <Fluent:MenuItem Header="Second" 
+                                         IsCheckable="True"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}" />
+                        <Fluent:MenuItem Header="Third" 
+                                         IsCheckable="True"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}" />
                     </Fluent:SplitButton>
+                    <Fluent:SplitButton Header="Split 2"
+                                        IsCheckable="True"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter},ConverterParameter=Group2}" />
+                    <Fluent:SplitButton Header="Split 3"
+                                        IsCheckable="True"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter},ConverterParameter=Group2}" />
                 </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="LongLongGroup"
-                                       IsLauncherVisible="False">
-                    <Fluent:TextBox x:Name="textBox"
-                                    InputWidth="70"
-                                    MaxLength="5"
-                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
-                                    Header="Text"
-                                    Text="CurrentText" />
-
-                    <Fluent:Button Header="PrintVisual"
-                                   CanAddToQuickAccessToolBar="False"
-                                   Click="OnPrintVisualClick" />
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox>
-                    <Fluent:DropDownButton HorizontalAlignment="Left"
-                                           SizeDefinition="Small">
-                        <Fluent:DropDownButton.Icon>
-                            <Grid>
-                                <Image Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/TextHighlightColor.png"
-                                       Width="16"
-                                       Height="16" />
-                                <Rectangle VerticalAlignment="Bottom"
-                                           Height="4"
-                                           Width="16"
-                                           HorizontalAlignment="Center">
-                                    <Rectangle.Fill>
-                                        <SolidColorBrush Color="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}" />
-                                    </Rectangle.Fill>
-                                </Rectangle>
-                            </Grid>
-                        </Fluent:DropDownButton.Icon>
-                        <Fluent:ColorGallery Mode="HighlightColors"
-                                             SelectedColor="{Binding ColorViewModel.HighlightColor, Mode=TwoWay}"
-                                             IsAutomaticColorButtonVisible="False" />
-                    </Fluent:DropDownButton>
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="ToggleButton">
+               
+                <Fluent:RibbonGroupBox Header="Grouped ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
                                          KeyTip="T1"
-                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}" />
                     <Fluent:ToggleButton Header="Toggle 2"
                                          KeyTip="T2"
-                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}" />
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter},ConverterParameter=Group3}" />
                     <Fluent:ToggleButton Header="Toggle 3"
                                          KeyTip="T3"
-                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter},ConverterParameter=Group3}"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}" />
 
                     <Fluent:DropDownButton Header="ToggleButton width test">

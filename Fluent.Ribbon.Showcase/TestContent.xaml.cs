@@ -236,16 +236,6 @@ namespace FluentTest
             wnd.Show();
         }
 
-        private void OnPrintVisualClick(object sender, RoutedEventArgs e)
-        {
-            var printDlg = new PrintDialog();
-
-            if (printDlg.ShowDialog() == true)
-            {
-                printDlg.PrintVisual(this, "Main Window");
-            }
-        }
-
         private void AddRibbonTab_OnClick(object sender, RoutedEventArgs e)
         {
             var tab = new RibbonTabItem
