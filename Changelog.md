@@ -179,6 +179,7 @@
   - [#445](../../issues/445) - Startsceen "shines" through backstage
   - [#455](../../issues/455) - Add brushes for checked toggle buttons (thanks @Cubey2019)
   - [#478](../../issues/478) - Custom MinWidth of Start Screen (LeftContent)
+  - [#479](../../issues/479) - Bulgarian language (thanks @kalatchev)
   - [#480](../../issues/480) - Disable Scroll Wheel for tab selection  
   You can control this behavior by using `IsMouseWheelScrollingEnabled` on `Ribbon`
 
