@@ -298,7 +298,7 @@ namespace Fluent
         /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
         public void SetHorizontalOffset(double offset)
         {
-            var newValue = CoerceOffset(ValidateInputOffset(offset, "HorizontalOffset"), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
 
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
