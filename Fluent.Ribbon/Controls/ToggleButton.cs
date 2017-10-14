@@ -202,7 +202,6 @@ namespace Fluent
         {
             var type = typeof(ToggleButton);
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            IsCheckedProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(ToggleButtonHelper.OnIsCheckedChanged, ToggleButtonHelper.CoerceIsChecked));
             ContextMenuService.Attach(type);
             ToolTipService.Attach(type);
         }
@@ -219,9 +218,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked.
-        /// </summary>
+        /// <inheritdoc />
         protected override void OnClick()
         {
             // Close popup on click
@@ -230,7 +227,27 @@ namespace Fluent
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
 
-            base.OnClick();
+            // fix for #481
+            // We can't overwrite OnToggle because it's "internal protected"...
+            if (string.IsNullOrEmpty(this.GroupName) == false)
+            {
+                // Only forward click if button is not checked to prevent wrong bound values
+                if (this.IsChecked == false)
+                {
+                    base.OnClick();
+                }
+            }
+            else
+            {
+                base.OnClick();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnChecked(RoutedEventArgs e)
+        {
+            ToggleButtonHelper.UpdateButtonGroup(this);
+            base.OnChecked(e);
         }
 
         #endregion

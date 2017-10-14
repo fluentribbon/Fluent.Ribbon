@@ -1,5 +1,7 @@
 ﻿namespace Fluent
 {
+    using System.Windows;
+
     /// <summary>
     /// Interface for controls that support <see cref="ToggleButton"/>-Behavior
     /// </summary>
@@ -24,5 +26,9 @@
         /// Gets a value indicating whether the ToggleButton is fully loaded
         /// </summary>
         bool IsLoaded { get; }
+
+        /// <summary>Gets the logical parent  element of this element. </summary>
+        /// <returns>This element's logical parent.</returns>
+        DependencyObject Parent { get; }
     }
 }

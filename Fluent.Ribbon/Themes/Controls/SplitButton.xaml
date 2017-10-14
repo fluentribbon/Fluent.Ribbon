@@ -86,6 +86,7 @@
                                          IsEnabled="{TemplateBinding IsButtonEnabled}"
                                          Header="{TemplateBinding Header}"
                                          ToolTip="{TemplateBinding ToolTip}"
+                                         GroupName="{Binding GroupName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsDefinitive="{TemplateBinding IsDefinitive}"
                                          CanAddToQuickAccessToolBar="{TemplateBinding CanAddButtonToQuickAccessToolBar}" />

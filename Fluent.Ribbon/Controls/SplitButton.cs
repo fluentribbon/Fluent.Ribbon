@@ -144,9 +144,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for GroupName.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton),
-            new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
+        public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton));
 
         #endregion
 
@@ -164,8 +162,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
+        public static readonly DependencyProperty IsCheckedProperty = System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -180,8 +177,6 @@ namespace Fluent
                 {
                     button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
                 }
-
-                ToggleButtonHelper.OnIsCheckedChanged(d, e);
             }
         }
 
@@ -194,7 +189,7 @@ namespace Fluent
                 return false;
             }
 
-            return ToggleButtonHelper.CoerceIsChecked(d, basevalue);
+            return basevalue;
         }
 
         #endregion
