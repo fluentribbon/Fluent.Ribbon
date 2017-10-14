@@ -1258,6 +1258,20 @@ namespace Fluent
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
+        /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
+        /// </summary>
+        public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// </summary>
+        public bool IsMouseWheelScrollingEnabled
+        {
+            get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+        }
+
+        /// <summary>
         /// Checks if any keytips are visible.
         /// </summary>
         public bool AreAnyKeyTipsVisible
@@ -1272,6 +1286,7 @@ namespace Fluent
                 return false;
             }
         }
+
         #endregion
 
         #region Commands

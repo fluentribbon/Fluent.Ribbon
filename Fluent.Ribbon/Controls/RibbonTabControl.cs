@@ -320,6 +320,20 @@ namespace Fluent
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(RibbonTabControl), new PropertyMetadata(DefaultContentGapHeight));
 
+        /// <summary>
+        /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
+        /// </summary>
+        public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// </summary>
+        public bool IsMouseWheelScrollingEnabled
+        {
+            get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+        }
+
         #endregion
 
         #region Initializion
@@ -504,7 +518,11 @@ namespace Fluent
         protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
         {
             //base.OnPreviewMouseWheel(e);
-            this.ProcessMouseWheel(e);
+
+            if (this.IsMouseWheelScrollingEnabled)
+            {
+                this.ProcessMouseWheel(e);
+            }
         }
 
         /// <summary>
