@@ -85,13 +85,13 @@
                     Padding="15,0,0,0"
                     Grid.ColumnSpan="1">
                 <ContentPresenter x:Name="contentPresenter"
-                                AutomationProperties.Name="{TemplateBinding Header}"
-                                AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                ContentSource="Header"
-                                Margin="5,1,5,4"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Height="Auto" />
+                                  AutomationProperties.Name="{TemplateBinding Header}"
+                                  AutomationProperties.AutomationId="{TemplateBinding Name}"
+                                  ContentSource="Header"
+                                  Margin="5,1,5,4"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Height="Auto" />
             </Border>
             <Grid x:Name="separatorGrid"
                   Margin="0"
