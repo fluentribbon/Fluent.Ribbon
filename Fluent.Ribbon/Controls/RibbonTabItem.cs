@@ -277,8 +277,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets or sets desired width of the tab item
+        /// Gets or sets desired width of the tab item.
         /// </summary>
+        /// <remarks>This is needed in case the width of <see cref="Group"/> is larger than it's tabs.</remarks>
         internal double DesiredWidth
         {
             get { return this.desiredWidth; }

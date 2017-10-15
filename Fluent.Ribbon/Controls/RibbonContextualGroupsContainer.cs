@@ -49,7 +49,7 @@ namespace Fluent
         /// <returns>The size that this element determines it needs during layout, based on its calculations of child element sizes.</returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            var x = 0D;
+            var allGroupsWidth = 0D;
             this.sizes.Clear();
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
@@ -65,7 +65,8 @@ namespace Fluent
                 // Calculate width of tab items of the group
                 var tabsWidth = 0D;
 
-                var visibleItems = contextualGroup.Items.Where(group => group.Visibility == Visibility.Visible).ToList();
+                // We have to look at visible and items which already got measured only
+                var visibleItems = contextualGroup.Items.Where(item => item.Visibility == Visibility.Visible && DoubleUtil.AreClose(item.DesiredSize.Width, 0) == false).ToList();
 
                 foreach (var item in visibleItems)
                 {
@@ -84,9 +85,12 @@ namespace Fluent
 
                     foreach (var item in visibleItems)
                     {
-                        if (DoubleUtil.AreClose(item.DesiredWidth, 0))
+                        var newDesiredWidth = item.DesiredSize.Width + delta;
+
+                        // Update cached DesiredWidth
+                        if (DoubleUtil.AreClose(newDesiredWidth, item.DesiredWidth) == false)
                         {
-                            item.DesiredWidth = item.DesiredSize.Width + delta;
+                            item.DesiredWidth = newDesiredWidth;
                             item.Measure(new Size(item.DesiredWidth, item.DesiredSize.Height));
                             tabWasChanged = true;
                         }
@@ -98,6 +102,7 @@ namespace Fluent
                     // If we have changed tabs layout we have
                     // to invalidate down to RibbonTabsContainer
                     var visual = visibleItems[0] as Visual;
+
                     while (visual != null)
                     {
                         var uiElement = visual as UIElement;
@@ -125,19 +130,19 @@ namespace Fluent
 
                 // Calc final width and measure the group using it
                 var finalWidth = tabsWidth;
-                x += finalWidth;
+                allGroupsWidth += finalWidth;
 
-                if (x > availableSize.Width)
+                if (allGroupsWidth > availableSize.Width)
                 {
-                    finalWidth -= x - availableSize.Width;
-                    x = availableSize.Width;
+                    finalWidth -= allGroupsWidth - availableSize.Width;
+                    allGroupsWidth = availableSize.Width;
                 }
 
                 contextualGroup.Measure(new Size(Math.Max(0, finalWidth), availableSizeHeight));
                 this.sizes.Add(new Size(Math.Max(0, finalWidth), availableSizeHeight));
             }
 
-            return new Size(x, availableSizeHeight);
+            return new Size(allGroupsWidth, availableSizeHeight);
         }
     }
 }
