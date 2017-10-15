@@ -473,8 +473,10 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(typeof(RibbonTabItem)));
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
-            ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
             VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
+
+            ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
+            System.Windows.Controls.ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(2000));
 
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
@@ -531,7 +533,7 @@ namespace Fluent
             this.GroupsContainer.Content = this.groupsInnerContainer;
 
             // Force redirection of DataContext. This is needed, because we detach the container from the visual tree and attach it to a diffrent one (the popup/dropdown) when the ribbon is minimized.
-            this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding("DataContext")
+            this.groupsInnerContainer.SetBinding(DataContextProperty, new Binding(nameof(this.DataContext))
             {
                 Source = this
             });
@@ -709,12 +711,7 @@ namespace Fluent
             this.contentContainer = this.GetTemplateChild("PART_ContentContainer") as Border;
         }
 
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised
-        /// on this element. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
-        /// The event data reports that the left mouse button was pressed.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this)
