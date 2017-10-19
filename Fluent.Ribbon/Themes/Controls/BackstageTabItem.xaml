@@ -4,24 +4,17 @@
     <ControlTemplate x:Key="BackstageTabItemControlTemplate"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
         <Grid Background="Transparent">
-            <Border x:Name="hoverBorder"
-                    Margin="0,0,0,0"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource BlackColor}"
-                                     Opacity="0.2" />
-                </Border.Background>
-            </Border>
             <Border x:Name="selectedBorder"
                     Margin="0"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Color="{DynamicResource WhiteColor}"
-                                     Opacity="0.2" />
-                </Border.Background>
-            </Border>
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}" />
+            <Border x:Name="hoverBorder"
+                    Margin="0,0,0,0"
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}" />
+
             <ContentControl x:Name="PART_Header"
-                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
+                            Foreground="{TemplateBinding Foreground}"
                             Margin="25,0,15,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -37,20 +30,6 @@
             </ContentControl>
         </Grid>
         <ControlTemplate.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="Selector.IsSelected"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="hoverBorder"
-                        Property="Visibility"
-                        Value="Visible" />
-                <Setter TargetName="selectedBorder"
-                        Property="Visibility"
-                        Value="Collapsed" />
-            </MultiTrigger>
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter TargetName="hoverBorder"
@@ -63,6 +42,12 @@
             <Trigger Property="Selector.IsSelected"
                      Value="True">
                 <Setter TargetName="selectedBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="hoverBorder"
                         Property="Visibility"
                         Value="Visible" />
             </Trigger>
@@ -81,5 +66,35 @@
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
         <Setter Property="Margin"
                 Value="0" />
+        <Setter Property="Fluent:RibbonProperties.AppTheme"
+                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
+        <Style.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="Fluent:RibbonProperties.MouseOverBackground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource BlackColor}"
+                                         Opacity="0.2" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Fluent:RibbonProperties.IsSelectedBackground">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource WhiteColor}"
+                                         Opacity="0.2" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="Fluent:RibbonProperties.MouseOverBackground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+                <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource BlackBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

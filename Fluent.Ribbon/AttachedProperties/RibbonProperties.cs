@@ -26,15 +26,8 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
                                               OnSizePropertyChanged));
 
-        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var sink = d as IRibbonSizeChangedSink;
-
-            sink?.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
-        }
-
         /// <summary>
-        /// Sets SizeDefinition for element
+        /// Sets <see cref="SizeProperty"/> for <paramref name="element"/>.
         /// </summary>
         public static void SetSize(DependencyObject element, RibbonControlSize value)
         {
@@ -42,11 +35,18 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets SizeDefinition for element
+        /// Gets <see cref="SizeProperty"/> for <paramref name="element"/>.
         /// </summary>
         public static RibbonControlSize GetSize(DependencyObject element)
         {
             return (RibbonControlSize)element.GetValue(SizeProperty);
+        }
+
+        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sink = d as IRibbonSizeChangedSink;
+
+            sink?.OnSizePropertyChanged((RibbonControlSize)e.OldValue, (RibbonControlSize)e.NewValue);
         }
 
         #endregion
@@ -68,19 +68,19 @@ namespace Fluent
                                               OnSizeDefinitionPropertyChanged));
 
         /// <summary>
-        /// Gets SizeDefinition for element
-        /// </summary>
-        public static RibbonControlSizeDefinition GetSizeDefinition(DependencyObject element)
-        {
-            return (RibbonControlSizeDefinition)element.GetValue(SizeDefinitionProperty);
-        }
-
-        /// <summary>
-        /// Sets SizeDefinition for element
+        /// Sets <see cref="SizeDefinitionProperty"/> for <paramref name="element"/>.
         /// </summary>
         public static void SetSizeDefinition(DependencyObject element, RibbonControlSizeDefinition value)
         {
             element.SetValue(SizeDefinitionProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="SizeDefinitionProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static RibbonControlSizeDefinition GetSizeDefinition(DependencyObject element)
+        {
+            return (RibbonControlSizeDefinition)element.GetValue(SizeDefinitionProperty);
         }
 
         // Handles RibbonSizeDefinitionProperty changes
@@ -122,6 +122,106 @@ namespace Fluent
         public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
         {
             SetSize(element, GetSizeDefinition(element).GetSize(state));
+        }
+
+        #endregion
+
+        #region AppTheme
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for specifying AppTheme.
+        /// </summary>
+        public static readonly DependencyProperty AppThemeProperty = DependencyProperty.RegisterAttached("AppTheme", typeof(string), typeof(RibbonProperties), new PropertyMetadata(default(string)));
+
+        /// <summary>
+        /// Sets <see cref="AppThemeProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetAppTheme(DependencyObject element, string value)
+        {
+            element.SetValue(AppThemeProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="AppThemeProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static string GetAppTheme(DependencyObject element)
+        {
+            return (string)element.GetValue(AppThemeProperty);
+        }
+
+        #endregion
+
+        #region MouseOverBackgroundProperty
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for specifying MouseOverBackground.
+        /// </summary>
+        public static readonly DependencyProperty MouseOverBackgroundProperty = DependencyProperty.RegisterAttached("MouseOverBackground", typeof(Brush), typeof(RibbonProperties), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Sets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetMouseOverBackground(DependencyObject element, Brush value)
+        {
+            element.SetValue(MouseOverBackgroundProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static Brush GetMouseOverBackground(DependencyObject element)
+        {
+            return (Brush)element.GetValue(MouseOverBackgroundProperty);
+        }
+
+        #endregion
+
+        #region MouseOverForegroundProperty
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for specifying MouseOverForeground.
+        /// </summary>
+        public static readonly DependencyProperty MouseOverForegroundProperty = DependencyProperty.RegisterAttached("MouseOverForeground", typeof(Brush), typeof(RibbonProperties), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Sets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetMouseOverForeground(DependencyObject element, Brush value)
+        {
+            element.SetValue(MouseOverForegroundProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static Brush GetMouseOverForeground(DependencyObject element)
+        {
+            return (Brush)element.GetValue(MouseOverForegroundProperty);
+        }
+
+        #endregion
+
+        #region IsSelectedBackgroundProperty
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for specifying IsSelectedBackground.
+        /// </summary>
+        public static readonly DependencyProperty IsSelectedBackgroundProperty = DependencyProperty.RegisterAttached("IsSelectedBackground", typeof(Brush), typeof(RibbonProperties), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Sets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetIsSelectedBackground(DependencyObject element, Brush value)
+        {
+            element.SetValue(IsSelectedBackgroundProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static Brush GetIsSelectedBackground(DependencyObject element)
+        {
+            return (Brush)element.GetValue(IsSelectedBackgroundProperty);
         }
 
         #endregion
