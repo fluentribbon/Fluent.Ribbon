@@ -28,7 +28,6 @@
                      TargetType="{x:Type Fluent:RibbonTitleBar}">
         <Grid>
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
-                              Margin="4 0 0 0"
                               ContentSource="QuickAccessToolBar" />
             
             <ContentPresenter x:Name="PART_HeaderHolder"
