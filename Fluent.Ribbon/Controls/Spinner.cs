@@ -361,6 +361,18 @@ namespace Fluent
 
         #endregion
 
+        #region Public Methods
+
+        /// <summary>
+        /// Select all text in the Spinner.
+        /// </summary>
+        public void SelectAll()
+        {
+            this.textBox.SelectAll();
+        }
+
+        #endregion
+
         #region Overrides
 
         /// <summary>
