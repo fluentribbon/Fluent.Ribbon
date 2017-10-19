@@ -84,14 +84,14 @@
                     VerticalAlignment="Stretch"
                     Padding="15,0,0,0"
                     Grid.ColumnSpan="1">
-                <ContentPresenter x:Name="contentPresenter"
-                                  AutomationProperties.Name="{TemplateBinding Header}"
-                                  AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                  ContentSource="Header"
-                                  Margin="5,1,5,4"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Height="Auto" />
+                <ContentControl AutomationProperties.Name="{TemplateBinding Header}"
+                                AutomationProperties.AutomationId="{TemplateBinding Name}"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                Margin="5,1,5,4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Height="Auto" />
             </Border>
             <Grid x:Name="separatorGrid"
                   Margin="0"
@@ -111,7 +111,7 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="contentPresenter"
+                        TargetName="PART_ContentContainer"
                         Value="0.5" />
             </Trigger>
             <Trigger Property="Selector.IsSelected"
@@ -313,6 +313,17 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
         <Setter Property="ActiveTabBorderBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Text="{Binding}"
+                               TextWrapping="NoWrap"
+                               TextTrimming="None" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="Group"
                      Value="{x:Null}">

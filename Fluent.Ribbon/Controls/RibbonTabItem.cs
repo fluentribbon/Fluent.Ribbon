@@ -402,7 +402,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
+        /// DependencyProperty for <see cref="Header"/>.
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, OnHeaderChanged));
@@ -413,6 +413,25 @@ namespace Fluent
             var tabItem = (RibbonTabItem)d;
             tabItem.CoerceValue(ToolTipProperty);
         }
+
+        #endregion
+
+        #region HeaderTemplate Property
+
+        /// <summary>
+        /// Gets or sets header template of tab item.
+        /// </summary>
+        public DataTemplate HeaderTemplate
+        {
+            get { return (DataTemplate)this.GetValue(HeaderTemplateProperty); }
+            set { this.SetValue(HeaderTemplateProperty, value); }
+        }
+
+        /// <summary>
+        /// DependencyProperty for <see cref="HeaderTemplate"/>.
+        /// </summary>
+        public static readonly DependencyProperty HeaderTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
