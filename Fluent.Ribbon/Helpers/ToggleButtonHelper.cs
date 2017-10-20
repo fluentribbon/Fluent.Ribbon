@@ -175,13 +175,20 @@ namespace Fluent
 
         private static void UncheckToggleButton(IToggleButton toggleButton)
         {
+            var dependencyObject = toggleButton as DependencyObject;
+
+            if (dependencyObject == null)
+            {
+                return;
+            }
+
             if (toggleButton is System.Windows.Controls.MenuItem)
             {
-                ((DependencyObject)toggleButton).SetCurrentValue(System.Windows.Controls.MenuItem.IsCheckedProperty, BooleanBoxes.FalseBox);
+                dependencyObject.SetCurrentValue(System.Windows.Controls.MenuItem.IsCheckedProperty, BooleanBoxes.FalseBox);
             }
             else
             {
-                ((DependencyObject)toggleButton).SetCurrentValue(System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BooleanBoxes.FalseBox);
+                dependencyObject.SetCurrentValue(System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BooleanBoxes.FalseBox);
             }
         }
 
