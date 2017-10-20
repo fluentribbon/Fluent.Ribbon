@@ -49,7 +49,7 @@ function Get-MSBuildVersion()
     [CmdletBinding()]
     Param(
        [Parameter(Mandatory=$False)]
-       $Version = $null,
+       [Version]$Version = $null,
        [Parameter(Mandatory=$False)]
        [switch]$All = $false
     )
@@ -87,18 +87,17 @@ function Get-MSBuildVersion()
     return $null
 }
 
-function Get-MSBuildPath()
+function Get-MSBuildPathLegacy()
 {
     [CmdletBinding()]
     Param(
        [Parameter(Mandatory=$True)]
        [MSBuildPath]$Path,
        [Parameter(Mandatory=$False)]
-       $Version = $null, 
+       [Version]$Version = $null, 
        [Parameter(Mandatory=$False)]
        [Platform]$Platform = [Platform]::Current
     )
-
     $foundVersion = Get-MSBuildVersion $Version -ErrorAction SilentlyContinue
 
     if ($null -eq $foundVersion)
@@ -131,25 +130,75 @@ function Get-MSBuildPath()
     }    
 }
 
+function Get-MSBuildPath()
+{
+    [CmdletBinding()]
+    Param(
+       [Parameter(Mandatory=$True)]
+       [MSBuildPath]$Path,
+       [Parameter(Mandatory=$False)]
+       [Version]$Version = $null, 
+       [Parameter(Mandatory=$False)]
+       [Platform]$Platform = [Platform]::Current
+    )
+
+	if ((Get-Command vswhere) -or $Version -ge [Version]"15.0") {
+        if ($Version -eq $null) {
+		    $installationPath = vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+        }
+        else {
+            $installationPath = vswhere -version "[$($Version.Major).$($Version.Minor), $($Version.Major + 1).$($Version.Minor))" -products * -requires Microsoft.Component.MSBuild -property installationPath
+        }
+
+		if ($installationPath) {
+            $need64Bit = $false
+            switch ($Platform)
+            {
+                Current { $need64Bit = [System.Environment]::Is64BitProcess }
+                x64 { $need64Bit = $true }
+                x86 { $need64Bit = $false }
+            }
+            
+            if ($need64Bit) {
+			    $installationPath = join-path $installationPath 'MSBuild\15.0\Bin\amd64'
+            }
+            else {
+                $installationPath = join-path $installationPath 'MSBuild\15.0\Bin\'
+            }
+
+			if (test-path $installationPath) {
+			    return $installationPath
+			}
+		}
+	}
+	
+    # If none of the upper branches returned a version we try the legacy path
+	return Get-MSBuildPathLegacy $Path -Version $Version -Platform $Platform
+}
+
 function Get-MSBuild()
 {
     [CmdletBinding()]
     Param(
        [Parameter(Mandatory=$False)]
-       $Version = $null, 
+       [Version]$Version = $null, 
        [Parameter(Mandatory=$False)]
        [Platform]$Platform = [Platform]::Current
     )
 
-    $toolsPath = Get-MSBuildPath MSBuildToolsPath -Version $Version -Platform $Platform
+    $msbuildPath = Get-MSBuildPath MSBuildToolsPath -Version $Version -Platform $Platform
 
-    if ($null -eq $toolsPath)
+    if ($null -eq $msbuildPath)
     {
         Write-Error "MSBuild could not be found"
         return
     }
 
-    return Join-Path $toolsPath "msbuild.exe"
+	$msbuild = Join-Path $msbuildPath "msbuild.exe"
+
+	Write-Host "Using msbuild from '$msbuild'"
+
+    return $msbuild
 }
 
 #Get-MSBuildVersion -All
@@ -164,3 +213,4 @@ function Get-MSBuild()
 #Get-MSBuild 3.5
 #Get-MSBuild 12
 #Get-MSBuild 14 -Platform x86 -Verbose
+#Get-MSBuild -Version 15.0
