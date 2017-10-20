@@ -625,6 +625,7 @@ namespace Fluent
         /// <summary>
         /// Gets theme gradients collection
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[] ThemeGradients
         {
             get { return (Color[])this.GetValue(ThemeGradientsProperty); }
@@ -646,6 +647,7 @@ namespace Fluent
         /// <summary>
         /// Gets standart gradients collection
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[] StandardGradients
         {
             get { return (Color[])this.GetValue(StandardGradientsProperty); }

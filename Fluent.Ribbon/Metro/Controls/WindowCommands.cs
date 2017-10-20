@@ -181,7 +181,11 @@ namespace Fluent
             }
 
             var sb = new StringBuilder(256);
-            UnsafeNativeMethods.LoadString(this.user32, id, sb, sb.Capacity);
+            if (UnsafeNativeMethods.LoadString(this.user32, id, sb, sb.Capacity) == 0)
+            {
+                sb.Clear();
+                sb.AppendFormat("String with id '{0}' could not be found.", id);
+            }
 #pragma warning restore 618
             return sb.ToString().Replace("&", string.Empty);
         }
