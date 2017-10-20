@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{2CB1F351-173A-40D4-A1C5-852448A96C2B}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905
 		Build.ps1 = Build.ps1
 		Fluent.Ribbon.msbuild = Fluent.Ribbon.msbuild
 		Fluent.Ribbon.nuspec = Fluent.Ribbon.nuspec
+		MSBuildHelper.ps1 = MSBuildHelper.ps1
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6ADD536-3DB2-4418-AED6-98AB991D1B77}"
@@ -102,5 +103,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10F6867B-74CF-4D00-B071-A5549F52E18F}
 	EndGlobalSection
 EndGlobal
