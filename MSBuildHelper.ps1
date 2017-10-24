@@ -207,6 +207,6 @@ function Get-MSBuild()
 #Get-MSBuild 3
 #Get-MSBuild 3.5
 #Get-MSBuild 12
-Get-MSBuild 14
-Get-MSBuild 14.0 -Platform x86 -Verbose
+#Get-MSBuild 14
+#Get-MSBuild 14.0 -Platform x86 -Verbose
 #Get-MSBuild -Version 15.0
