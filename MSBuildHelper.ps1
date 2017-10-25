@@ -196,11 +196,11 @@ function Get-MSBuild()
 }
 
 #Get-MSBuildVersion -All
-#Get-MSBuildPath MSBuildToolsPath -Verbose
-#Get-MSBuildPath MSBuildToolsRoot -Verbose
+#Get-MSBuildPath -Verbose
+#Get-MSBuildPath -Verbose
 
-#Get-MSBuildPath MSBuildToolsPath -Platform x86 -Verbose
-#Get-MSBuildPath MSBuildToolsPath -Platform x64 -Verbose
+#Get-MSBuildPath -Platform x86 -Verbose
+#Get-MSBuildPath -Platform x64 -Verbose
 #Get-MSBuild
 #Get-MSBuild 1 -ErrorAction Continue
 #Get-MSBuild 2
