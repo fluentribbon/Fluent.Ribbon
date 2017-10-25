@@ -35,19 +35,19 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Background}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="true">
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Pressed.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Pressed.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="false">
@@ -117,10 +117,10 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -162,19 +162,19 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed"
                                  Value="true">
                             <Setter Property="BorderBrush"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Pressed.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                             <Setter Property="Background"
                                     TargetName="Border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Pressed.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="false">
@@ -225,10 +225,10 @@
                                  Value="True">
                             <Setter Property="Background"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.Background}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                             <Setter Property="BorderBrush"
                                     TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Hover.BorderBrush}" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -376,7 +376,7 @@
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
         <Setter Property="Foreground" 
-                Value="{DynamicResource GrayBrush2}" />
+                Value="{DynamicResource BlackBrush}" />
         <Style.Triggers>
             <Trigger Property="Orientation"
                      Value="Horizontal">
@@ -403,6 +403,8 @@
            x:Key="ScrollBarWhite">
         <Setter Property="SnapsToDevicePixels"
                 Value="True" />
+        <Setter Property="Foreground" 
+                Value="{DynamicResource BlackBrush}" />
         <Style.Triggers>
             <Trigger Property="Orientation"
                      Value="Horizontal">

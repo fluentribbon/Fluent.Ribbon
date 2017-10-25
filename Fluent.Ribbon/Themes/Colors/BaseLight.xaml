@@ -135,10 +135,6 @@
     <!-- Scroll-Buttons -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush" Color="{StaticResource Gray4}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Default.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Hover.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Hover.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Pressed.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollButton.Pressed.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
 
     <!-- ScrollBar -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollBar.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />

@@ -382,6 +382,7 @@
                                         Margin="{TemplateBinding Padding}"
                                         Grid.Row="0" />
                 <ScrollBar x:Name="PART_VerticalScrollBar"
+                           Style="{DynamicResource ScrollBarWhite}"
                            AutomationProperties.AutomationId="VerticalScrollBar"
                            Cursor="Arrow"
                            Grid.Column="1"
@@ -392,6 +393,7 @@
                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                            ViewportSize="{TemplateBinding ViewportHeight}" />
                 <ScrollBar x:Name="PART_HorizontalScrollBar"
+                           Style="{DynamicResource ScrollBarWhite}"
                            AutomationProperties.AutomationId="HorizontalScrollBar"
                            Cursor="Arrow"
                            Grid.Column="0"
