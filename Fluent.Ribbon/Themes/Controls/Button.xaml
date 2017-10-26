@@ -89,7 +89,7 @@
                                   VerticalAlignment="Center"
                                   Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
                                   Width="32"
-                                  Margin="3,2,3,1"
+                                  Margin="0 2 0 0"
                                   SnapsToDevicePixels="True" />
                 <Fluent:TwoLineLabel x:Name="controlLabel"
                                      Text="{TemplateBinding Header}"
