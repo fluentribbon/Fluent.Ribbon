@@ -728,14 +728,22 @@ namespace Fluent
 
                 if (value
                     && (int)this.ActualWidth > 0
-                    && (int)this.ActualHeight > 0)
+                    && (int)this.ActualHeight > 0
+                    && (int)this.galleryPanel.ActualWidth > 0
+                    && (int)this.galleryPanel.ActualHeight > 0)
                 {
                     // Render the freezed image
                     RenderOptions.SetBitmapScalingMode(this.snappedImage, BitmapScalingMode.NearestNeighbor);
-                    var renderTargetBitmap = new RenderTargetBitmap((int)this.galleryPanel.ActualWidth,
-                                                                                   (int)this.galleryPanel.ActualHeight, 96, 96,
-                                                                                   PixelFormats.Pbgra32);
+
+                    var renderTargetBitmap = new RenderTargetBitmap(
+                        (int)this.galleryPanel.ActualWidth,
+                        (int)this.galleryPanel.ActualHeight,
+                        96,
+                        96,
+                        PixelFormats.Pbgra32);
+
                     renderTargetBitmap.Render(this.galleryPanel);
+
                     this.snappedImage.Source = renderTargetBitmap;
                     this.snappedImage.FlowDirection = this.FlowDirection;
                     this.snappedImage.Width = this.galleryPanel.ActualWidth;
