@@ -161,6 +161,7 @@
   - [#473](../../issues/473) - RibbonWindow does not resize when Children resize and SizeToContent is used
   - [#481](../../issues/481) - ToggleButton behaviour is wrong when GroupName is set
   - [#485](../../issues/485) - InRibbonGallery broken when ItemsSource is empty
+  - [#486](../../issues/486) - Stretching of DropDownButton differs from Button
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
