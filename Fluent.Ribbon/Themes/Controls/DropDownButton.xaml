@@ -33,6 +33,8 @@
                      Value="Middle">
                 <Setter Property="Height"
                         Value="22" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
@@ -40,6 +42,8 @@
                         Value="22" />
                 <Setter Property="Width"
                         Value="32" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -56,7 +60,7 @@
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     Height="Auto"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="Stretch"
                     d:LayoutOverrides="Width, Height">
                 <StackPanel x:Name="stackPanel"
@@ -74,7 +78,7 @@
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                             Text="{TemplateBinding Header}"
                                             Style="{DynamicResource TwoLineLabelStyle}"
-                                            HorizontalAlignment="Center"
+                                            HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
                                             Margin="2 0 2 2"
                                             HasGlyph="{TemplateBinding HasTriangle}" />

@@ -96,7 +96,7 @@
                                      Style="{DynamicResource TwoLineLabelStyle}"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
-                                     Margin="2,0,2,0" />
+                                     Margin="2 0 2 0" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
