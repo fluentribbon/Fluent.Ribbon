@@ -177,7 +177,7 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Image x:Name="image"
+            <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Source="{DynamicResource MenuCheckedImage}"
@@ -221,7 +221,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
@@ -241,7 +241,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
@@ -256,7 +256,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Effect"
-                        TargetName="image">
+                        TargetName="checkedImage">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
@@ -301,7 +301,7 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Image x:Name="image"
+            <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Source="{DynamicResource MenuCheckedImage}"
@@ -455,7 +455,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
@@ -475,7 +475,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
@@ -487,7 +487,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Effect"
-                        TargetName="image">
+                        TargetName="checkedImage">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
@@ -556,7 +556,7 @@
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
                               RecognizesAccessKey="True" />
-            <Image x:Name="image"
+            <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Source="{DynamicResource MenuCheckedImage}"
@@ -711,7 +711,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
@@ -740,7 +740,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="image"
+                        TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
@@ -752,7 +752,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Effect"
-                        TargetName="image">
+                        TargetName="checkedImage">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
@@ -761,6 +761,143 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!--Menu Item with Description Template-->
+    <ControlTemplate x:Key="MenuItemWithDescriptionTemplate"
+                     TargetType="{x:Type Fluent:MenuItem}">
+        <ControlTemplate.Resources>
+            <ResourceDictionary>
+                <Style x:Key="{x:Type ScrollViewer}"
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
+            </ResourceDictionary>
+        </ControlTemplate.Resources>
+        <Grid Background="{TemplateBinding Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="45" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border x:Name="border"
+                    Grid.Column="0"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Stretch"
+                    Margin="0"
+                    Width="Auto"
+                    Visibility="Collapsed"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                    BorderThickness="1">
+            </Border>
+            <ContentControl x:Name="textBlock"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            Width="Auto"
+                            Height="Auto"
+                            Margin="0,3,3,3"
+                            VerticalAlignment="Center"
+                            Grid.Column="1"
+                            d:LayoutOverrides="Width" />
+            <ContentPresenter x:Name="descriptionPresenter"
+                              Grid.Row="1"
+                              ContentSource="Description"
+                              Width="Auto"
+                              Height="Auto"
+                              Margin="0,3,3,3"
+                              VerticalAlignment="Center"
+                              Grid.Column="1"
+                              d:LayoutOverrides="Width"
+                              RecognizesAccessKey="True" />
+            <Image x:Name="checkedImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Source="{DynamicResource MenuCheckedImage}"
+                   Stretch="None"
+                   Visibility="Collapsed"
+                   SnapsToDevicePixels="True" />
+            <ContentPresenter x:Name="iconImage"
+                              Grid.RowSpan="2"
+                              HorizontalAlignment="Center"
+                              Height="32"
+                              VerticalAlignment="Top"
+                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Width="32"
+                              Margin="3,2,2,2"
+                              SnapsToDevicePixels="True" />
+            <TextBlock x:Name="gestureTextBlock"
+                       Text="{TemplateBinding InputGestureText}"
+                       Width="Auto"
+                       Height="Auto"
+                       Margin="3,3,15,3"
+                       VerticalAlignment="Center"
+                       Grid.Column="2" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="InputGestureText"
+                     Value="{x:Null}">
+                <Setter Property="Visibility"
+                        TargetName="gestureTextBlock"
+                        Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="InputGestureText"
+                     Value="">
+                <Setter Property="Visibility"
+                        TargetName="gestureTextBlock"
+                        Value="Collapsed" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Icon"
+                               Value="{x:Null}" />
+                    <Condition Property="IsChecked"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="checkedImage"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsHighlighted"
+                               Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Visible" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="checkedImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="textBlock"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect"
+                        TargetName="checkedImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
     <!--Menu Item Style-->
     <Style x:Key="FluentDefaultSystemMenuItemStyle"
            TargetType="{x:Type MenuItem}">
@@ -774,6 +911,13 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource MenuItemTemplate}" />
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -795,6 +939,19 @@
                 <Setter Property="Template"
                         Value="{DynamicResource HeaderMenuItemTemplate}" />
             </MultiTrigger>
+            <DataTrigger Binding="{Binding Description, RelativeSource={RelativeSource Self}, Converter={x:Static Converters:IsNullConverter.Instance}}"
+                         Value="False">
+                <Setter Property="Template"
+                        Value="{DynamicResource MenuItemWithDescriptionTemplate}" />
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                       FontWeight="Bold" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

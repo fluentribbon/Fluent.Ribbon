@@ -184,6 +184,7 @@
   - [#479](../../issues/479) - Bulgarian language (thanks @kalatchev)
   - [#480](../../issues/480) - Disable Scroll Wheel for tab selection  
   You can control this behavior by using `IsMouseWheelScrollingEnabled` on `Ribbon`
+  - [#484](../../issues/484) - Add special style/template for MenuItem with set description
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"

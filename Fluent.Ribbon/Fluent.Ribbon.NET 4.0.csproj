@@ -78,6 +78,7 @@
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
+    <Compile Include="Converters\IsNullConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
     <Compile Include="Data\KeyTipPressedResult.cs" />
     <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
@@ -101,12 +102,12 @@
     <Compile Include="Data\KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
+    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
     <Compile Include="Localization\Languages\Chinese.cs" />
     <Compile Include="Localization\Languages\Czech.cs" />
     <Compile Include="Localization\Languages\Danish.cs" />
     <Compile Include="Localization\Languages\Dutch.cs" />
-    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\English.cs" />
     <Compile Include="Localization\Languages\Estonian.cs" />
     <Compile Include="Localization\Languages\Finnish.cs" />

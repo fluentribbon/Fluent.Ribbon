@@ -1599,8 +1599,20 @@
                                             FocusManager.IsFocusScope="True"
                                             CanAddButtonToQuickAccessToolBar="True"
                                             ClosePopupOnMouseDown="True">
-                            <Fluent:MenuItem Header="Begin" />
-                            <Fluent:MenuItem Header="Undo something" />
+                            <Fluent:MenuItem Description="Test" Header="My header">
+                                <Fluent:MenuItem.Icon>
+                                    <Rectangle Fill="Green"
+                                               Height="24"
+                                               Width="24" />
+                                </Fluent:MenuItem.Icon>
+                            </Fluent:MenuItem>
+                            <Fluent:MenuItem Header="Undo something">
+                                <Fluent:MenuItem.Icon>
+                                    <Rectangle Fill="Green"
+                                               Height="16"
+                                               Width="16" />
+                                </Fluent:MenuItem.Icon>
+                            </Fluent:MenuItem>
                             <Fluent:MenuItem Header="Undo another thing" />
                         </Fluent:SplitButton>
                     </StackPanel>
