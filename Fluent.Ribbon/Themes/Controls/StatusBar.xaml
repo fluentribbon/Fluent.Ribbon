@@ -7,8 +7,6 @@
                 Value="True" />
         <Setter Property="Height"
                 Value="Auto" />
-        <Setter Property="Margin"
-                Value="0,0,0,-1" />
         <Setter Property="MinHeight" 
                 Value="23"/>
         <Setter Property="Background"
