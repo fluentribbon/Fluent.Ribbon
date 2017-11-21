@@ -133,11 +133,13 @@ function Get-MSBuildPath()
        [Platform]$Platform = [Platform]::Current
     )
 
-    if (($VersionString -like "*.*") -eq $False) {
-        $VersionString += ".0"
-    }
+    if ($VersionString) {
+        if (($VersionString -like "*.*") -eq $False) {
+            $VersionString += ".0"
+        }
 
-    $version = [Version]$VersionString
+        $version = [Version]$VersionString
+    }
 
 	if ((Get-Command vswhere) -or $version -ge [Version]"15.0") {
         if ($version -eq $null) {
@@ -174,13 +176,13 @@ function Get-MSBuild()
 {
     [CmdletBinding()]
     Param(
-       [Parameter(Mandatory=$False)]
+       [Parameter(Mandatory=$False,Position=1)]
        [String]$VersionString = $null, 
        [Parameter(Mandatory=$False)]
        [Platform]$Platform = [Platform]::Current
     )
 
-    $msbuildPath = Get-MSBuildPath -Version $VersionString -Platform $Platform
+    $msbuildPath = Get-MSBuildPath -VersionString $VersionString -Platform $Platform
 
     if ($null -eq $msbuildPath)
     {
@@ -196,11 +198,11 @@ function Get-MSBuild()
 }
 
 #Get-MSBuildVersion -All
-#Get-MSBuildPath -Verbose
-#Get-MSBuildPath -Verbose
+#Get-MSBuildPath MSBuildToolsPath -Verbose
+#Get-MSBuildPath MSBuildToolsRoot -Verbose
 
-#Get-MSBuildPath -Platform x86 -Verbose
-#Get-MSBuildPath -Platform x64 -Verbose
+#Get-MSBuildPath MSBuildToolsPath -Platform x86 -Verbose
+#Get-MSBuildPath MSBuildToolsPath -Platform x64 -Verbose
 #Get-MSBuild
 #Get-MSBuild 1 -ErrorAction Continue
 #Get-MSBuild 2
@@ -208,5 +210,5 @@ function Get-MSBuild()
 #Get-MSBuild 3.5
 #Get-MSBuild 12
 #Get-MSBuild 14
-#Get-MSBuild 14.0 -Platform x86 -Verbose
+#Get-MSBuild "14.0" -Platform x86 -Verbose
 #Get-MSBuild -Version 15.0
