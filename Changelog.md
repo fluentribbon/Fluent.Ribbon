@@ -185,6 +185,8 @@
   - [#480](../../issues/480) - Disable Scroll Wheel for tab selection  
   You can control this behavior by using `IsMouseWheelScrollingEnabled` on `Ribbon`
   - [#484](../../issues/484) - Add special style/template for MenuItem with set description
+  - [#488](../../issues/488) - Display border around content area of RibbonTabControl  
+  You can now use `Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness` to control the thickness of the border around the content area of `RibbonTabControl`
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"

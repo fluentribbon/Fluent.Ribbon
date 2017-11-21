@@ -233,6 +233,8 @@
                     Grid.Row="1"
                     Grid.RowSpan="1"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.BorderBrush}"
+                    BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                     TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
                     KeyboardNavigation.TabNavigation="Local"
                     KeyboardNavigation.DirectionalNavigation="Contained"

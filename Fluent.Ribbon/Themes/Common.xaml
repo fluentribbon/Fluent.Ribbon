@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <!-- Set default controls -->
+    <!-- Set default values -->
+    <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
+
+    <!-- Set default styles -->
     <Style TargetType="{x:Type Fluent:Spinner}" BasedOn="{StaticResource SpinnerStyle}" />
     <Style TargetType="{x:Type Fluent:TwoLineLabel}" BasedOn="{StaticResource TwoLineLabelStyle}" />
     <Style TargetType="{x:Type Fluent:KeyTip}" BasedOn="{StaticResource KeyTipStyle}" />

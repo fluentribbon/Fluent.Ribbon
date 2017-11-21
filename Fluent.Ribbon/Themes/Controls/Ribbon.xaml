@@ -17,7 +17,9 @@
                    TargetType="{x:Type ContextMenu}" />                        
         </ControlTemplate.Resources>
         
-        <Border Background="{TemplateBinding Background}">
+        <Border Background="{TemplateBinding Background}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}">
             <Grid x:Name="PART_LayoutRoot" 
                   Width="Auto"
                   Height="Auto">
