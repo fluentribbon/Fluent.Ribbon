@@ -22,4 +22,4 @@ NUGET
     NUnit.Extension.TeamCityEventListener (1.0.2)
     NUnit.Extension.VSProjectLoader (3.6)
     StyleCop.Analyzers (1.0.2)
-    XamlColorSchemeGenerator (1.0)
+    XamlColorSchemeGenerator (1.0.1)
