@@ -514,6 +514,13 @@ namespace Fluent
         /// </summary>
         protected virtual void Hide()
         {
+            // potentially fixes https://github.com/fluentribbon/Fluent.Ribbon/issues/489
+            if (this.Dispatcher.HasShutdownStarted
+                || this.Dispatcher.HasShutdownFinished)
+            {
+                return;
+            }
+
             this.Loaded -= this.OnDelayedShow;
 
             if (this.Content == null)
