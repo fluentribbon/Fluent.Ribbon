@@ -162,6 +162,7 @@
   - [#481](../../issues/481) - ToggleButton behaviour is wrong when GroupName is set
   - [#485](../../issues/485) - InRibbonGallery broken when ItemsSource is empty
   - [#486](../../issues/486) - Stretching of DropDownButton differs from Button
+  - [#489](../../issues/489) - Fluent Ribbon crashes program on shutdown
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
@@ -187,6 +188,8 @@
   - [#484](../../issues/484) - Add special style/template for MenuItem with set description
   - [#488](../../issues/488) - Display border around content area of RibbonTabControl  
   You can now use `Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness` to control the thickness of the border around the content area of `RibbonTabControl`
+  - [#495](../../issues/495) - Add option disable handling of KeyTips  
+  You can now disable handling of all KeyTips by setting `IsKeyTipHandlingEnabled` on `Ribbon` to `False`
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
