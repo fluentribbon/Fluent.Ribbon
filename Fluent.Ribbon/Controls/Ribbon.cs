@@ -1274,16 +1274,33 @@ namespace Fluent
         /// <summary>
         /// Checks if any keytips are visible.
         /// </summary>
-        public bool AreAnyKeyTipsVisible
-        {
-            get
-            {
-                if (this.keyTipService != null)
-                {
-                    return this.keyTipService.AreAnyKeyTipsVisible;
-                }
+        public bool AreAnyKeyTipsVisible => this.keyTipService?.AreAnyKeyTipsVisible == true;
 
-                return false;
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsKeyTipHandlingEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
+
+        /// <summary>
+        /// Defines wether handling of key tips is enabled or not.
+        /// </summary>
+        public bool IsKeyTipHandlingEnabled
+        {
+            get { return (bool)this.GetValue(IsKeyTipHandlingEnabledProperty); }
+            set { this.SetValue(IsKeyTipHandlingEnabledProperty, value); }
+        }
+
+        private static void OnIsKeyTipHandlingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            if ((bool)e.NewValue)
+            {
+                ribbon.keyTipService?.Attach();
+            }
+            else
+            {
+                ribbon.keyTipService?.Detach();
             }
         }
 

@@ -65,26 +65,16 @@ namespace Fluent
         /// <param name="ribbon">Host element</param>
         public KeyTipService(Ribbon ribbon)
         {
-            this.ribbon = ribbon;
+            if (ribbon == null)
+            {
+                throw new ArgumentNullException(nameof(ribbon));
+            }
 
-            if (this.ribbon.IsLoaded == false)
-            {
-                this.ribbon.Loaded += this.OnDelayedInitialization;
-            }
-            else
-            {
-                this.Attach();
-            }
+            this.ribbon = ribbon;
 
             // Initialize timer
             this.timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, this.OnDelayedShow, Dispatcher.CurrentDispatcher);
             this.timer.Stop();
-        }
-
-        private void OnDelayedInitialization(object sender, EventArgs args)
-        {
-            this.ribbon.Loaded -= this.OnDelayedInitialization;
-            this.Attach();
         }
 
         #endregion
@@ -94,7 +84,8 @@ namespace Fluent
         /// </summary>
         public void Attach()
         {
-            if (this.attached)
+            if (this.attached
+                || this.ribbon.IsKeyTipHandlingEnabled == false)
             {
                 return;
             }
