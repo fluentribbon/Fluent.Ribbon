@@ -31,23 +31,24 @@
                 desiredSize = System.Convert.ToDouble(parameter);
             }
 
-            if (value is ImageSource)
+            var imageSource = value as ImageSource;
+
+            if (imageSource == null)
             {
-                return value;
+                var imagePath = value as string;
+                if (imagePath != null)
+                {
+                    imageSource = CreateImageSource(imagePath, desiredSize);
+                }
             }
 
-            ImageSource imageSource = null;
-
-            var imagePath = value as string;
-            if (imagePath != null)
+            if (imageSource == null)
             {
-                imageSource = CreateImageSource(imagePath, desiredSize);
-            }
-
-            var imageUri = value as Uri;
-            if (imageUri != null)
-            {
-                imageSource = CreateImageSource(imageUri, desiredSize);
+                var imageUri = value as Uri;
+                if (imageUri != null)
+                {
+                    imageSource = CreateImageSource(imageUri, desiredSize);
+                }
             }
 
             if (imageSource == null)
