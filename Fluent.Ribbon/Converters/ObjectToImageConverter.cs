@@ -1,8 +1,8 @@
 ﻿namespace Fluent.Converters
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net.Cache;
     using System.Windows;
@@ -12,48 +12,43 @@
     using System.Windows.Media.Imaging;
 
     /// <summary>
-    /// Converts string or ImageSource to Image control
+    /// Converts string, URI or ImageSource to Image control
     /// </summary>
+    [ValueConversion(sourceType: typeof(string), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(Uri), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(Image))]
     public class ObjectToImageConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
-        /// <summary>
-        /// Converts a value.
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var desiredSize = double.NaN;
 
             if (parameter != null)
             {
-                try
-                {
-                    desiredSize = System.Convert.ToDouble(parameter);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
+                desiredSize = System.Convert.ToDouble(parameter);
             }
+
+            if (value is ImageSource)
+            {
+                return value;
+            }
+
+            ImageSource imageSource = null;
 
             var imagePath = value as string;
             if (imagePath != null)
             {
-                return CreateImage(imagePath, desiredSize);
+                imageSource = CreateImageSource(imagePath, desiredSize);
             }
 
             var imageUri = value as Uri;
             if (imageUri != null)
             {
-                return CreateImage(imageUri, desiredSize);
+                imageSource = CreateImageSource(imageUri, desiredSize);
             }
-
-            var imageSource = value as ImageSource;
 
             if (imageSource == null)
             {
@@ -61,22 +56,16 @@
             }
 
             var image = new Image
-            {
-                // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
-                // In case of BitmapImage it even gets worse when using the same Uri...
-                Source = (ImageSource)ExtractImage(imageSource, desiredSize).GetAsFrozen()
-            };
+                        {
+                            // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
+                            // In case of BitmapImage it even gets worse when using the same Uri...
+                            Source = (ImageSource)ExtractImage(imageSource, desiredSize).GetAsFrozen()
+                        };
 
             return image;
         }
 
-        /// <summary>
-        /// Converts a value.
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return Binding.DoNothing;
@@ -84,45 +73,32 @@
 
         #endregion
 
-        private static Image CreateImage(string imagePath, double desiredSize)
+        private static ImageSource CreateImageSource(string imagePath, double desiredSize)
         {
-            if (double.IsNaN(desiredSize) == false
-                && imagePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
+            // Allow things like "Images\Green.png"
+            if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
             {
-                return new Image
+                // If that file does not exist, try to find it using resource notation
+                if (File.Exists(imagePath) == false)
                 {
-                    Source = ExtractImageFromIcoFile(imagePath, desiredSize)
-                };
+                    imagePath = "pack://application:,,,/" + imagePath;
+                }
             }
 
-            return new Image
-            {
-                Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
-            };
+            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+
+            return CreateImageSource(imageUri, desiredSize);
         }
 
-        private static Image CreateImage(Uri imageUri, double desiredSize)
+        private static ImageSource CreateImageSource(Uri imageUri, double desiredSize)
         {
             if (double.IsNaN(desiredSize) == false
                 && imageUri.AbsolutePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
             {
-                return new Image
-                {
-                    Source = ExtractImageFromIcoFile(imageUri, desiredSize)
-                };
+                return ExtractImageFromIcoFile(imageUri, desiredSize);
             }
 
-            return new Image
-            {
-                Source = new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
-            };
-        }
-
-        private static ImageSource ExtractImageFromIcoFile(string imagePath, double desiredSize)
-        {
-            return ExtractImageFromIcoFile(
-                new Uri("pack://application:,,," + imagePath, UriKind.RelativeOrAbsolute),
-                desiredSize);
+            return new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
         }
 
         private static ImageSource ExtractImageFromIcoFile(Uri imageUri, double desiredSize)
@@ -146,8 +122,7 @@
 
             // We may have some other type of ImageSource
             // that doesn't have a notion of frames or decoder
-            if (bitmapFrame == null
-                || bitmapFrame.Decoder == null)
+            if (bitmapFrame?.Decoder == null)
             {
                 return imageSource;
             }
@@ -159,35 +134,26 @@
         {
             var dpiFactor = 1.0;
 
-            if (Application.Current != null
-                && Application.Current.CheckAccess()
-                && Application.Current.MainWindow != null
-                && Application.Current.MainWindow.CheckAccess())
+            if (Application.Current?.CheckAccess() == true
+                && Application.Current.MainWindow?.CheckAccess() == true)
             {
                 // dpi.M11 = dpiX, dpi.M22 = dpiY
                 var presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
 
-                if (presentationSource != null)
+                if (presentationSource?.CompositionTarget != null)
                 {
-                    if (presentationSource.CompositionTarget != null)
-                    {
-                        var dpi = presentationSource.CompositionTarget.TransformToDevice;
-                        dpiFactor = dpi.M11;
-                    }
+                    dpiFactor = presentationSource.CompositionTarget.TransformToDevice.M11;
                 }
             }
 
-            var result = decoder.Frames
-                .OrderBy(f => f.Width)
-                .FirstOrDefault(f => f.Width >= desiredSize * dpiFactor);
+            var framesOrderedByWidth = decoder.Frames
+                                        .OrderBy(f => f.Width)
+                                        .ToList();
 
             // if there is no matching frame, get the largest frame
-            if (ReferenceEquals(result, default(BitmapFrame)))
-            {
-                result = decoder.Frames.OrderBy(f => f.Width).Last();
-            }
-
-            return result;
+            return framesOrderedByWidth
+                    .FirstOrDefault(f => f.Width >= desiredSize * dpiFactor)
+                   ?? framesOrderedByWidth.Last();
         }
     }
 }
