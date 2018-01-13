@@ -130,7 +130,7 @@ And associate a tab to this group:
 
 ```xaml
 <!--Contextual Tabs-->
-<Fluent:RibbonTabItem Header="CT" Group="{Binding ElementName=toolsGroup}"/>
+<Fluent:RibbonTabItem Header="CT" Group="Group="{Binding Source={x:Reference toolsGroup}}"/>
 ```
 
 `RibbonContextualTabGroup` is not visible by default. To show or hide a contextual tab you must set the `RibbonContextualTabGroup.Visibility` property to `Visible` or `Collapsed`.
