@@ -82,7 +82,14 @@
                 // If that file does not exist, try to find it using resource notation
                 if (File.Exists(imagePath) == false)
                 {
-                    imagePath = "pack://application:,,,/" + imagePath;
+                    var slash = string.Empty;
+
+                    if (imagePath.StartsWith("/") == false)
+                    {
+                        slash = "/";
+                    }
+
+                    imagePath = "pack://application:,,," + slash + imagePath;
                 }
             }
 
