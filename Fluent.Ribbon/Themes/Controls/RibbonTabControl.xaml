@@ -17,8 +17,8 @@
                 Width="22">
             <Border.ToolTip>
                 <Fluent:ScreenTip x:Name="screenTip"
-                                  Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle , Mode=OneWay}"
-                                  Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText , Mode=OneWay}" />
+                                  Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
+                                  Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
             </Border.ToolTip>
             <Grid>
                 <Image x:Name="iconImage"
