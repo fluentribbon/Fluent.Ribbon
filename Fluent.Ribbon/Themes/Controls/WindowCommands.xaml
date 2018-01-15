@@ -33,7 +33,8 @@
                                       ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                                       ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
-                                      Focusable="False">
+                                      Focusable="False"
+                                      Margin="0 0 2 0">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
