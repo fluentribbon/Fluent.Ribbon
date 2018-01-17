@@ -1953,6 +1953,12 @@ namespace Fluent
                 && this.TabControl.IsMinimized == false)
             {
                 this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleAndEnabledItem();
+
+                if (this.TabControl.SelectedItem == null
+                    && this.IsEnabled == false)
+                {
+                    this.TabControl.SelectedItem = this.GetFirstVisibleItem();
+                }
             }
         }
 
