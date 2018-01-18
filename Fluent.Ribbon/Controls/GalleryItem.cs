@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -73,6 +73,23 @@ namespace Fluent
         public static readonly DependencyProperty GroupProperty =
             DependencyProperty.Register(nameof(Group), typeof(string),
             typeof(GalleryItem), new PropertyMetadata());
+
+        /// <summary>
+        /// Get or set whether to dismiss the popup when the item is clicked. Default is TRUE.
+        /// </summary>
+        public bool DismissPopupOnClick
+        {
+            get { return (bool)this.GetValue(DismissPopupOnClickProperty); }
+            set { this.SetValue(DismissPopupOnClickProperty, value); }
+        }
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for DismissPopupOnClick.
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty DismissPopupOnClickProperty =
+            DependencyProperty.Register(nameof(DismissPopupOnClick), typeof(bool),
+            typeof(GalleryItem), new PropertyMetadata(true));
 
         #region Command
 
@@ -415,7 +432,10 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected virtual void OnClick(object sender, RoutedEventArgs e)
         {
-            PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+            if (this.DismissPopupOnClick)
+            {
+                PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+            }
 
             this.ExecuteCommand();
             this.IsSelected = true;
