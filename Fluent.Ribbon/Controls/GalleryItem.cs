@@ -75,21 +75,19 @@ namespace Fluent
             typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
-        /// Get or set whether to dismiss the popup when the item is clicked. Default is TRUE.
+        /// Gets or sets whether ribbon control click must close backstage or popup.
         /// </summary>
-        public bool DismissPopupOnClick
+        public bool IsDefinitive
         {
-            get { return (bool)this.GetValue(DismissPopupOnClickProperty); }
-            set { this.SetValue(DismissPopupOnClickProperty, value); }
+            get { return (bool)this.GetValue(IsDefinitiveProperty); }
+            set { this.SetValue(IsDefinitiveProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for DismissPopupOnClick.
-        /// This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty DismissPopupOnClickProperty =
-            DependencyProperty.Register(nameof(DismissPopupOnClick), typeof(bool),
-            typeof(GalleryItem), new PropertyMetadata(true));
+        public static readonly DependencyProperty IsDefinitiveProperty =
+            DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         #region Command
 
@@ -432,7 +430,8 @@ namespace Fluent
         /// <param name="e">The event data</param>
         protected virtual void OnClick(object sender, RoutedEventArgs e)
         {
-            if (this.DismissPopupOnClick)
+            // Close popup on click
+            if (this.IsDefinitive)
             {
                 PopupService.RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
             }
