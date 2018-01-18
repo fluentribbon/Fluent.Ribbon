@@ -192,6 +192,7 @@
   You can now use `Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness` to control the thickness of the border around the content area of `RibbonTabControl`
   - [#495](../../issues/495) - Add option disable handling of KeyTips  
   You can now disable handling of all KeyTips by setting `IsKeyTipHandlingEnabled` on `Ribbon` to `False`
+  - [#503](../../issues/503) - Add IsDefinitive property to GalleryItem (thanks @noctis0430)
 
 ## 5.0.2
   - [#437](../../issues/437) - "Could not load ControlzEx"
