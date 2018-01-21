@@ -201,7 +201,7 @@
                         TargetName="selectedGrid"
                         Value="Visible" />
                 <Setter Property="Foreground"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -209,7 +209,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground"
                         Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
@@ -221,9 +221,9 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -237,9 +237,9 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -277,7 +277,7 @@
                         TargetName="grid"
                         Value="Transparent" />
                 <Setter Property="Foreground"
-                        Value="{Binding (Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">

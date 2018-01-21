@@ -164,7 +164,8 @@
   - [#486](../../issues/486) - Stretching of DropDownButton differs from Button
   - [#489](../../issues/489) - Fluent Ribbon crashes program on shutdown
   - [#493](../../issues/493) - Sometimes icons are not drawn when using ObjectToImageConverter
-  - [#501](../../issues/501) - Ribbon controls disappear when ribbon is initially disabled 
+  - [#500](../../issues/500) - Binding error for RibbonProperties.MouseOverBackground
+  - [#501](../../issues/501) - Ribbon controls disappear when ribbon is initially disabled
 
 - ### Enhancements
   - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
