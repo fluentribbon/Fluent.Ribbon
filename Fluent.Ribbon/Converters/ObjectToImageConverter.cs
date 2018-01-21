@@ -84,7 +84,7 @@
                 {
                     var slash = string.Empty;
 
-                    if (imagePath.StartsWith("/") == false)
+                    if (imagePath.StartsWith("/", StringComparison.OrdinalIgnoreCase) == false)
                     {
                         slash = "/";
                     }
