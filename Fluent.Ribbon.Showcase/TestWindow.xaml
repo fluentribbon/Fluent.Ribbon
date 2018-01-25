@@ -15,7 +15,7 @@
                      mc:Ignorable="d"
                      WindowState="Normal">
     <Fluent:RibbonWindow.LayoutTransform>
-        <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent} }"
+        <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent}}"
                         ScaleY="{Binding DataContext.Zoom, Source={x:Reference TestContent}}" />
     </Fluent:RibbonWindow.LayoutTransform>
     <FluentTest:TestContent x:Name="TestContent" />
