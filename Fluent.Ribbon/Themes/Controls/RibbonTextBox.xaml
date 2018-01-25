@@ -51,6 +51,7 @@
                                     Width="{TemplateBinding InputWidth}"
                                     HorizontalAlignment="Right">
                                 <ScrollViewer Margin="0"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                               x:Name="PART_ContentHost" />
                             </Border>
                         </Grid>
