@@ -64,7 +64,7 @@
     </Style>
 
     <!--Spinner Style-->
-        <ControlTemplate TargetType="{x:Type Fluent:Spinner}"
+    <ControlTemplate TargetType="{x:Type Fluent:Spinner}"
                      x:Key="Fluent.Ribbon.ControlTemplates.Spinner">
         <Grid Width="Auto"
               Height="22"
