@@ -193,7 +193,8 @@
   You can now use `Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness` to control the thickness of the border around the content area of `RibbonTabControl`
   - [#494](../../issues/494) - How to align controls such as ToggleButton, Spinner with text  
   You can now opt in to align the headers of controls like `ComboBox` or `Spinner` which are placed in the same column of a `RibbonGroupBox` by adding `Grid.IsSharedSizeScope="True"` to a `RibbonGroupBox`.
-  You can opt out of this behavior for single controls in that column by adding `Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True"` to that control.
+  You can opt out of this behavior for single controls in that column by adding `Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True"` to that control.  
+  Documentation can be found at http://fluentribbon.github.io/documentation/concepts/sizing#aligningControls
   - [#495](../../issues/495) - Add option disable handling of KeyTips  
   You can now disable handling of all KeyTips by setting `IsKeyTipHandlingEnabled` on `Ribbon` to `False`.
   - [#503](../../issues/503) - Add IsDefinitive property to GalleryItem (thanks @noctis0430)  
