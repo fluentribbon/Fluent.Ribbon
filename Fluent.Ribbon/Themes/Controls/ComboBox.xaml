@@ -128,11 +128,17 @@
                                       VerticalAlignment="Center"
                                       Margin="3,0,0,0"
                                       Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
-                    <TextBlock Text="{TemplateBinding Header}"
-                               TextWrapping="Wrap"
-                               VerticalAlignment="Center"
-                               Margin="5,0,0,0"
-                               x:Name="textBlock" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{TemplateBinding Header}"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   Margin="5,0,0,0"
+                                   x:Name="textBlock" />
+                    </Grid>
                 </StackPanel>
 
                 <Border Height="Auto"

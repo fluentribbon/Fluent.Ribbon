@@ -63,6 +63,7 @@
     <Compile Include="Controls\BackstageTests.cs" />
     <Compile Include="Controls\InRibbonGalleryTests.cs" />
     <Compile Include="Controls\QuickAccessToolBarTests.cs" />
+    <Compile Include="Controls\RibbonGroupBoxWrapPanelTests.cs" />
     <Compile Include="Controls\RibbonTests.cs" />
     <Compile Include="Controls\RibbonTitleBarTests.cs" />
     <Compile Include="Controls\SplitButtonTests.cs" />

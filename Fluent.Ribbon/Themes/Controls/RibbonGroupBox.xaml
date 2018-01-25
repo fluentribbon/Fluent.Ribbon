@@ -159,14 +159,14 @@
                                                ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                                IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}" />
                             </Grid>
-                            <WrapPanel x:Name="PART_UpPanel"
+
+                            <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_UpPanel"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="Stretch"
                                        Width="Auto"
                                        Height="Auto"
                                        IsItemsHost="True"
-                                       Margin="2,0,4,0"
-                                       Orientation="Vertical" />
+                                       Margin="2,0,4,0" />
                         </Grid>
                     </Border>
                 </Grid>
@@ -261,6 +261,7 @@
                        BasedOn="{StaticResource ScrollViewerStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
+
         <Grid x:Name="grid2"
               HorizontalAlignment="Stretch">
             <Border Background="{TemplateBinding Background}"
@@ -278,14 +279,13 @@
                             <RowDefinition Height="17" />
                         </Grid.RowDefinitions>
 
-                        <WrapPanel x:Name="PART_UpPanel"
-                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                   VerticalAlignment="Stretch"
-                                   Width="Auto"
-                                   Height="Auto"
-                                   IsItemsHost="True"
-                                   Margin="4,0,4,0"
-                                   Orientation="Vertical" />
+                        <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_UpPanel"
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="Stretch"
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        IsItemsHost="True"
+                                                        Margin="4,0,4,0" />
                         
                         <Grid x:Name="PART_DownGrid"
                               MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
