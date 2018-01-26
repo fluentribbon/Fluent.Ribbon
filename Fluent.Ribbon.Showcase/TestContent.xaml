@@ -1804,7 +1804,8 @@
                                          Header="More" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="TestOne">
+                <Fluent:RibbonGroupBox Header="SharedSizeScope"
+                                       Grid.IsSharedSizeScope="True">
                     <Fluent:ComboBox Header="Many items"
                                      InputWidth="120"
                                      ResizeMode="Both"
@@ -1816,7 +1817,14 @@
                         </Fluent:ComboBox.ItemsPanel>
                     </Fluent:ComboBox>
 
-                    <Separator />
+                    <Fluent:TextBox Header="My short header" />
+                    <Fluent:Spinner Header="My long long header" />
+
+                    <Fluent:ComboBox Header="Excluded from size sharing" Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True" />
+                    <Fluent:Spinner Header="My short header" />
+                    <Fluent:ComboBox Header="My long long header" />
+
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      InputWidth="120"
@@ -1843,7 +1851,8 @@
                 <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
                                      InputWidth="120" />
-                    <Separator />
+
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      InputWidth="120"
@@ -2423,7 +2432,6 @@
                         <Fluent:MenuItem Header="Menu 2" />
 
                     </Fluent:SplitButton>
-
                 </Fluent:RibbonGroupBox>
 
                 <!--Additionally you have properties to arrange key tips as you wish.
