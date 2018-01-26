@@ -11,8 +11,20 @@ $ErrorActionPreference = "Stop"
 
 . $PSScriptRoot\MSBuildHelper.ps1
 
-Write-Output Building
+if ($PSBoundParameters['Verbose']) {
+    $verbosity = "d"
+} else {
+    $verbosity = "m"
+}
+
+Write-Output "Building with verbosity '$verbosity'"
+
 $msbuild = Get-MSBuild
-&$msbuild Fluent.Ribbon.msbuild /target:$Target /property:Configuration=$Configuration /property:Prerelease=$PreRelease /v:m /nologo
+
+$measure = Measure-Command {
+	&$msbuild Fluent.Ribbon.msbuild /target:$Target /property:Configuration=$Configuration /property:Prerelease=$PreRelease /v:$verbosity /nologo | Out-Default
+}
+
+Write-Output "Time elapsed $($measure.ToString())"
 
 if ($LASTEXITCODE -ne 0) { exit 1 }
