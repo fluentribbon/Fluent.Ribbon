@@ -11,7 +11,7 @@ using System.Windows;
 #endif
 [assembly: AssemblyCompany("https://github.com/fluentribbon/Fluent.Ribbon")]
 [assembly: AssemblyProduct("Fluent.Ribbon")]
-[assembly: AssemblyCopyright("Copyright © 2012 - 2017 Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
+[assembly: AssemblyCopyright("Copyright © 2012 - 2018 Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
