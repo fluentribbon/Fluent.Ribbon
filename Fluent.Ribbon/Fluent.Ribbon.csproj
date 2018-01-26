@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
+    <RootNamespace>Fluent</RootNamespace>
+    <AssemblyName>Fluent</AssemblyName>
+    <TargetFrameworks>net462;net45;net40</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CodeAnalysisRuleSet>..\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)\</OutputPath>
+    <!--<IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)\</IntermediateOutputPath>-->
+    <!--<BaseIntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\</BaseIntermediateOutputPath>-->
+    <RestoreSources>C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
+    <!-- DisableFastUpToDateCheck to ensure that XamlCombine is run before build -->
+    <!--<DisableFastUpToDateCheck>True</DisableFastUpToDateCheck>-->
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <DefineConstants>NET40</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <DefineConstants>NET45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <DefineConstants>NET462</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="paket.references" />
+    <Compile Include="..\Shared\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+
+    <None Include="*.xlsx;*.docx" />
+    <None Include="**\*.fx" />
+    <Resource Include="**\*.png;**\*.ico;**\*.ps" />
+    <None Include="Themes\Accents\GeneratorParameters.json" />
+
+    <!-- App.xaml -->
+    <!--<ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </ApplicationDefinition>-->
+    <!-- XAML elements -->
+    <Page Include="Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>      
+    </Page>
+
+    <Page Include="Themes\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
+    <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />
+    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />    
+    <UpToDateCheckInput Include="**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+
+  <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">
+      <Message Importance="high" Text="Running XamlCombine... ($(TargetFramework))" />
+      <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
+      <Message Importance="high" Text="Finished XamlCombine. ($(TargetFramework))" />
+      
+      <Message Importance="high" Text="Running XamlColorSchemeGenerator... ($(TargetFramework))" />
+      <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Accents\GeneratorParameters.json&quot;" />
+      <Message Importance="high" Text="Finished XamlColorSchemeGenerator. ($(TargetFramework))" />
+  </Target>
+
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>
