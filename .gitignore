@@ -46,8 +46,9 @@ packages/
 # Result files
 TestResult.xml
 
+# cache and local files
+*.cached
+*.local
+
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe
-paket-files/paket\.restore\.cached
-
-paket\.local
