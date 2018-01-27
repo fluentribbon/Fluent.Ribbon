@@ -141,7 +141,7 @@ function Get-MSBuildPath()
         $version = [Version]$VersionString
     }
 
-	if ((Get-Command vswhere) -or $version -ge [Version]"15.0") {
+	if ((Get-Command vswhere -ErrorAction SilentlyContinue) -or $version -ge [Version]"15.0") {
         if ($version -eq $null) {
 		    $installationPath = vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
         }
