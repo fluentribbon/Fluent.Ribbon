@@ -4,7 +4,7 @@ source https://www.nuget.org/api/v2/
 framework net462, net45, net40
 specific_version: false
 
-nuget 7-Zip.Commandline 9.20.0
+nuget 7-Zip.Commandline
 nuget gitlink 2.4.0
 nuget NuGet.CommandLine
 nuget StyleCop.Analyzers
