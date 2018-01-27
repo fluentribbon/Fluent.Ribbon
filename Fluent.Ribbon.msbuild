@@ -44,11 +44,7 @@
     <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.5/Fluent.Tests.dll&quot;" />
     <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.6.2/Fluent.Tests.dll&quot;" />
   </Target>
-
-  <Target Name="RunGitLink">
-    <Exec Command="$(Root)/packages/GitLink/lib/net45/GitLink.exe &quot;$(Root)&quot; -u https://github.com/fluentribbon/Fluent.Ribbon" />
-  </Target>
-  
+ 
   <Target Name="CreateNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Build NuGet package -->
     <Exec Command="$(Root)/packages/NuGet.CommandLine/tools/NuGet.exe pack $(Root)/Fluent.Ribbon.nuspec -Version $(Version) -OutputDirectory &quot;$(PublishDirectory)&quot; -Properties Configuration=$(Configuration)" />
@@ -65,6 +61,6 @@
 
   <Target Name="Test" DependsOnTargets="Build; RunTests" />
   <Target Name="Pack" DependsOnTargets="Build; RunPack" />
-  <Target Name="RunPack" DependsOnTargets="RunGitLink; CreateNuGetPackage; CreateZipPackages" />
+  <Target Name="RunPack" DependsOnTargets="CreateNuGetPackage; CreateZipPackages" />
   <Target Name="CI" DependsOnTargets="Build; RunTests; RunPack" />
 </Project>
