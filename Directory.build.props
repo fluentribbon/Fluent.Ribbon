@@ -6,7 +6,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
         <OutputPath>$(MSBuildThisFileDirectory)\bin\$(AssemblyName)\$(Configuration)\</OutputPath>
-        <!-- <RestoreSources>C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources> -->
+        <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
