@@ -1,25 +1,23 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Markup;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
     using System.ComponentModel;
-    using ControlzEx.Microsoft.Windows.Shell;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
+    using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     // TODO: improve style parts naming & using
 
@@ -30,8 +28,6 @@ namespace Fluent
     /// </summary>
     [ContentProperty(nameof(Tabs))]
     [DefaultProperty(nameof(Tabs))]
-    [SuppressMessage("Microsoft.Maintainability", "CA1506")]
-    [SuppressMessage("Microsoft.Design", "CA1001")]
     public class Ribbon : Control
     {
         private IRibbonStateStorage ribbonStateStorage;
@@ -56,6 +52,7 @@ namespace Fluent
         /// Minimal width of ribbon parent window
         /// </summary>
         public const double MinimalVisibleWidth = 300;
+
         /// <summary>
         /// Minimal height of ribbon parent window
         /// </summary>
@@ -74,7 +71,11 @@ namespace Fluent
         {
             get
             {
-                if (!contextMenus.ContainsKey(Thread.CurrentThread.ManagedThreadId)) InitRibbonContextMenu();
+                if (!contextMenus.ContainsKey(Thread.CurrentThread.ManagedThreadId))
+                {
+                    InitRibbonContextMenu();
+                }
+
                 return contextMenus[Thread.CurrentThread.ManagedThreadId];
             }
         }
@@ -84,61 +85,84 @@ namespace Fluent
 
         // Context menu items
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem AddToQuickAccessMenuItem
         {
             get { return addToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem AddGroupToQuickAccessMenuItem
         {
             get { return addGroupToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem AddMenuToQuickAccessMenuItem
         {
             get { return addMenuToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem AddGalleryToQuickAccessMenuItem
         {
             get { return addGalleryToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem RemoveFromQuickAccessMenuItem
         {
             get { return removeFromQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarBelowTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarBelowTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarAboveTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarAboveTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem MinimizeTheRibbonMenuItem
         {
             get { return minimizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem CustomizeQuickAccessToolbarMenuItem
         {
             get { return customizeQuickAccessToolbarMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+
         private static System.Windows.Controls.MenuItem CustomizeTheRibbonMenuItem
         {
             get { return customizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, Separator> firstSeparatorDictionary = new Dictionary<int, Separator>();
+
         private static Separator FirstSeparator
         {
             get { return firstSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
+
         private static readonly Dictionary<int, Separator> secondSeparatorDictionary = new Dictionary<int, Separator>();
+
         private static Separator SecondSeparator
         {
             get { return secondSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
@@ -220,7 +244,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
@@ -230,7 +254,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event. 
+        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">Provides data about the event.</param>
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
@@ -300,7 +324,7 @@ namespace Fluent
             ShowQuickAccessToolbarBelowTheRibbonMenuItem.Visibility = Visibility.Collapsed;
             ShowQuickAccessToolbarAboveTheRibbonMenuItem.Visibility = Visibility.Collapsed;
 
-            // If quick access toolbar is visible show 
+            // If quick access toolbar is visible show
             if (ribbon.IsQuickAccessToolBarVisible)
             {
                 // Set quick access position menu items visibility
@@ -445,9 +469,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets file menu control (can be application menu button, backstage button and so on)
         /// </summary>
-        public UIElement Menu
+        public FrameworkElement Menu
         {
-            get { return (UIElement)this.GetValue(MenuProperty); }
+            get { return (FrameworkElement)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -455,9 +479,11 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(UIElement), typeof(Ribbon), new PropertyMetadata(AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new FrameworkPropertyMetadata(default(FrameworkElement), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
 
         #endregion
+
+        #region StartScreen
 
         /// <summary>
         /// Property for defining the start screen.
@@ -472,7 +498,51 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new PropertyMetadata(AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new FrameworkPropertyMetadata(default(StartScreen), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+
+        #endregion
+
+        #region QuickAccessToolBar
+
+        /// <summary>
+        /// Property for defining the QuickAccessToolBar.
+        /// </summary>
+        internal QuickAccessToolBar QuickAccessToolBar
+        {
+            get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
+            private set { this.SetValue(quickAccessToolBarPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey quickAccessToolBarPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(QuickAccessToolBar), typeof(QuickAccessToolBar), typeof(Ribbon), new FrameworkPropertyMetadata(default(QuickAccessToolBar), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBar"/>
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessToolBarProperty = quickAccessToolBarPropertyKey.DependencyProperty;
+
+        #endregion
+
+        #region TabControl
+
+        /// <summary>
+        /// Property for defining the TabControl.
+        /// </summary>
+        internal RibbonTabControl TabControl
+        {
+            get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
+            private set { this.SetValue(tabControlPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey tabControlPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabControl"/>
+        /// </summary>
+        public static readonly DependencyProperty TabControlProperty = tabControlPropertyKey.DependencyProperty;
+
+        #endregion
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -580,11 +650,6 @@ namespace Fluent
         /// </summary>
         public IDictionary<UIElement, UIElement> GetQuickAccessElements() => this.QuickAccessElements.ToDictionary(x => x.Key, y => y.Value);
 
-        /// <summary>
-        /// Gets the Ribbon tab control
-        /// </summary>
-        internal RibbonTabControl TabControl { get; private set; }
-
         #region TitelBar
 
         /// <summary>
@@ -612,25 +677,25 @@ namespace Fluent
             {
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
-                    ribbon.TitleBar.Items.Remove(ribbonContextualTabGroup);
+                    oldValue.Items.Remove(ribbonContextualTabGroup);
                 }
 
                 // Make sure everything is cleared
-                ribbon.TitleBar.Items.Clear();
+                oldValue.Items.Clear();
 
-                ribbon.RemoveQuickAccessToolBarFromTitleBar();
+                ribbon.RemoveQuickAccessToolBarFromTitleBar(oldValue);
             }
 
             if (newValue != null)
             {
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
-                    ribbon.TitleBar.Items.Add(contextualTabGroup);
+                    newValue.Items.Add(contextualTabGroup);
                 }
 
                 if (ribbon.ShowQuickAccessToolBarAboveRibbon)
                 {
-                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                    ribbon.MoveQuickAccessToolBarToTitleBar(newValue);
                 }
             }
         }
@@ -665,15 +730,15 @@ namespace Fluent
             {
                 if ((bool)e.NewValue)
                 {
-                    ribbon.MoveQuickAccessToolBarToTitleBar();
+                    ribbon.MoveQuickAccessToolBarToTitleBar(ribbon.TitleBar);
                 }
                 else
                 {
-                    ribbon.RemoveQuickAccessToolBarFromTitleBar();
+                    ribbon.RemoveQuickAccessToolBarFromTitleBar(ribbon.TitleBar);
                 }
 
                 ribbon.TitleBar.InvalidateMeasure();
-            }            
+            }
 
             ribbon.RibbonStateStorage.SaveTemporary();
         }
@@ -725,6 +790,7 @@ namespace Fluent
                     {
                         this.TitleBar?.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -732,6 +798,7 @@ namespace Fluent
                     {
                         this.TitleBar?.Items.Remove(item);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -739,10 +806,12 @@ namespace Fluent
                     {
                         this.TitleBar?.Items.Remove(item);
                     }
+
                     foreach (var item in e.NewItems)
                     {
                         this.TitleBar?.Items.Add(item);
                     }
+
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     this.TitleBar?.Items.Clear();
@@ -787,6 +856,7 @@ namespace Fluent
                     {
                         this.TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -794,6 +864,7 @@ namespace Fluent
                     {
                         this.TabControl.Items.Remove(item);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -806,6 +877,7 @@ namespace Fluent
                     {
                         this.TabControl.Items.Add(item);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
@@ -846,6 +918,7 @@ namespace Fluent
                     {
                         this.TabControl?.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -853,6 +926,7 @@ namespace Fluent
                     {
                         this.TabControl?.ToolBarItems.Remove(item as UIElement);
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -860,19 +934,15 @@ namespace Fluent
                     {
                         this.TabControl?.ToolBarItems.Remove(item as UIElement);
                     }
+
                     foreach (var item in e.NewItems)
                     {
                         this.TabControl?.ToolBarItems.Add(item as UIElement);
                     }
+
                     break;
             }
-
         }
-
-        /// <summary>
-        /// Gets quick access toolbar associated with the ribbon
-        /// </summary>
-        internal QuickAccessToolBar QuickAccessToolBar { get; private set; }
 
         /// <summary>
         /// Gets an enumerator for logical child elements of this element.
@@ -881,11 +951,6 @@ namespace Fluent
         {
             get
             {
-                if (this.layoutRoot != null)
-                {
-                    yield return this.layoutRoot;
-                }
-
                 if (this.Menu != null)
                 {
                     yield return this.Menu;
@@ -904,6 +969,11 @@ namespace Fluent
                 if (this.TabControl?.ToolbarPanel != null)
                 {
                     yield return this.TabControl.ToolbarPanel;
+                }
+
+                if (this.layoutRoot != null)
+                {
+                    yield return this.layoutRoot;
                 }
             }
         }
@@ -942,6 +1012,7 @@ namespace Fluent
                         this.QuickAccessToolBar?.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
                         menuItem.Ribbon = this;
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -951,6 +1022,7 @@ namespace Fluent
                         this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -960,12 +1032,14 @@ namespace Fluent
                         this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
                         menuItem.Ribbon = null;
                     }
+
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
                         var menuItem = item;
                         this.QuickAccessToolBar?.QuickAccessItems.Add(menuItem);
                         menuItem.Ribbon = this;
                     }
+
                     break;
             }
         }
@@ -980,7 +1054,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBar.  
+        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBar.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
@@ -997,7 +1071,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBarItems.  
+        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBarItems.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarItemsProperty =
@@ -1028,7 +1102,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon. 
+        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
@@ -1054,7 +1128,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMinimized. 
+        /// Using a DependencyProperty as the backing store for IsMinimized.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsMinimizedProperty =
@@ -1066,7 +1140,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
             DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanMinimizeChanged));
-
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -1085,7 +1158,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets or sets the height of the gap between the ribbon and the content
+        /// Gets or sets the height of the gap between the ribbon and the regular window content
         /// </summary>
         public double ContentGapHeight
         {
@@ -1097,9 +1170,25 @@ namespace Fluent
         /// DependencyProperty for <see cref="ContentGapHeight"/>
         /// </summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
-            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(5D));
+            DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentGapHeight));
+
+        /// <summary>
+        /// Gets or sets the height of the ribbon content area
+        /// </summary>
+        public double ContentHeight
+        {
+            get { return (double)this.GetValue(ContentHeightProperty); }
+            set { this.SetValue(ContentHeightProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="ContentHeight"/>
+        /// </summary>
+        public static readonly DependencyProperty ContentHeightProperty =
+            DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentHeight));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
+
         /// <summary>
         /// Gets whether ribbon is collapsed
         /// </summary>
@@ -1132,7 +1221,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.  
+        /// Using a DependencyProperty as the backing store for IsCollapsed.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
@@ -1153,7 +1242,6 @@ namespace Fluent
         public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
             DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-
         /// <summary>
         /// Gets or sets whether user can change location of QAT
         /// </summary>
@@ -1169,22 +1257,53 @@ namespace Fluent
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
+        /// <summary>
+        /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
+        /// </summary>
+        public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// </summary>
+        public bool IsMouseWheelScrollingEnabled
+        {
+            get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+        }
 
         /// <summary>
         /// Checks if any keytips are visible.
         /// </summary>
-        public bool AreAnyKeyTipsVisible
-        {
-            get
-            {
-                if (this.keyTipService != null)
-                {
-                    return this.keyTipService.AreAnyKeyTipsVisible;
-                }
+        public bool AreAnyKeyTipsVisible => this.keyTipService?.AreAnyKeyTipsVisible == true;
 
-                return false;
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsKeyTipHandlingEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
+
+        /// <summary>
+        /// Defines wether handling of key tips is enabled or not.
+        /// </summary>
+        public bool IsKeyTipHandlingEnabled
+        {
+            get { return (bool)this.GetValue(IsKeyTipHandlingEnabledProperty); }
+            set { this.SetValue(IsKeyTipHandlingEnabledProperty, value); }
+        }
+
+        private static void OnIsKeyTipHandlingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            if ((bool)e.NewValue)
+            {
+                ribbon.keyTipService?.Attach();
+            }
+            else
+            {
+                ribbon.keyTipService?.Detach();
             }
         }
+
         #endregion
 
         #region Commands
@@ -1192,37 +1311,37 @@ namespace Fluent
         /// <summary>
         /// Gets add to quick access toolbar command
         /// </summary>
-        public static RoutedCommand AddToQuickAccessCommand = new RoutedCommand("AddToQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand("AddToQuickAccessCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets remove from quick access command
         /// </summary>
-        public static RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand("RemoveFromQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand("RemoveFromQuickAccessCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access above command
         /// </summary>
-        public static RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand("ShowQuickAccessAboveCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand("ShowQuickAccessAboveCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access below command
         /// </summary>
-        public static RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand("ShowQuickAccessBelowCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand("ShowQuickAccessBelowCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets toggle ribbon minimize command
         /// </summary>
-        public static RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand("ToggleMinimizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand("ToggleMinimizeTheRibbonCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets customize quick access toolbar command
         /// </summary>
-        public static RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand("CustomizeQuickAccessToolbarCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand("CustomizeQuickAccessToolbarCommand", typeof(Ribbon));
 
         /// <summary>
         /// Gets customize the ribbon command
         /// </summary>
-        public static RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand("CustomizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand("CustomizeTheRibbonCommand", typeof(Ribbon));
 
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -1387,9 +1506,8 @@ namespace Fluent
         #region Constructors
 
         /// <summary>
-        /// Static constructor
+        /// Initializes static members of the <see cref="Ribbon"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Ribbon()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Ribbon), new FrameworkPropertyMetadata(typeof(Ribbon)));
@@ -1451,7 +1569,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus 
+        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus
         /// event reaches this element in its route.
         /// </summary>
         /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
@@ -1462,10 +1580,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or 
+        /// When overridden in a derived class, is invoked whenever application code or
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
-        [SuppressMessage("Microsoft.Maintainability", "CA1502")]
         public override void OnApplyTemplate()
         {
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;
@@ -1503,8 +1620,8 @@ namespace Fluent
                 this.TabControl.IsMinimized = this.IsMinimized;
                 this.TabControl.ContentGapHeight = this.ContentGapHeight;
 
-                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding("IsMinimized") { Source = this, Mode = BindingMode.TwoWay });
-                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding("ContentGapHeight") { Source = this, Mode = BindingMode.OneWay });
+                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding(nameof(this.IsMinimized)) { Source = this, Mode = BindingMode.TwoWay });
+                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding(nameof(this.ContentGapHeight)) { Source = this, Mode = BindingMode.OneWay });
 
                 foreach (var ribbonTabItem in this.Tabs)
                 {
@@ -1562,15 +1679,15 @@ namespace Fluent
 
             if (this.ShowQuickAccessToolBarAboveRibbon)
             {
-                this.MoveQuickAccessToolBarToTitleBar();
+                this.MoveQuickAccessToolBarToTitleBar(this.TitleBar);
             }
         }
 
-        private void MoveQuickAccessToolBarToTitleBar()
+        private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar titleBar)
         {
-            if (this.TitleBar != null)
+            if (titleBar != null)
             {
-                this.TitleBar.QuickAccessToolBar = this.QuickAccessToolBar;
+                titleBar.QuickAccessToolBar = this.QuickAccessToolBar;
             }
 
             if (this.QuickAccessToolBar != null)
@@ -1584,11 +1701,11 @@ namespace Fluent
             }
         }
 
-        private void RemoveQuickAccessToolBarFromTitleBar()
+        private void RemoveQuickAccessToolBarFromTitleBar(RibbonTitleBar titleBar)
         {
-            if (this.TitleBar != null)
+            if (titleBar != null)
             {
-                this.TitleBar.QuickAccessToolBar = null;
+                titleBar.QuickAccessToolBar = null;
             }
 
             if (this.QuickAccessToolBar != null)
@@ -1835,7 +1952,13 @@ namespace Fluent
                 && this.TabControl.SelectedIndex == -1
                 && this.TabControl.IsMinimized == false)
             {
-                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleItem();
+                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleAndEnabledItem();
+
+                if (this.TabControl.SelectedItem == null
+                    && this.IsEnabled == false)
+                {
+                    this.TabControl.SelectedItem = this.GetFirstVisibleItem();
+                }
             }
         }
 
@@ -1879,7 +2002,7 @@ namespace Fluent
         #region AutomaticStateManagement Property
 
         /// <summary>
-        /// Gets or sets whether Quick Access ToolBar can 
+        /// Gets or sets whether Quick Access ToolBar can
         /// save and load its state automatically
         /// </summary>
         public bool AutomaticStateManagement
@@ -1889,7 +2012,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for AutomaticStateManagement. 
+        /// Using a DependencyProperty as the backing store for AutomaticStateManagement.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =

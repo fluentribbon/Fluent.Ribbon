@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fluent
+﻿namespace Fluent
 {
+    using System;
+
     /// <summary>
     /// Repesents scalable ribbon contol
     /// </summary>
@@ -11,6 +11,7 @@ namespace Fluent
         /// Enlarge control size
         /// </summary>
         void Enlarge();
+
         /// <summary>
         /// Reduce control size
         /// </summary>

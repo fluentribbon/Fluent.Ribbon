@@ -2,7 +2,7 @@
 namespace Fluent
 {
     /// <summary>
-    /// Represents states of ribbon group 
+    /// Represents states of ribbon group
     /// </summary>
     public enum RibbonGroupBoxState
     {

@@ -15,6 +15,11 @@
                    x:Name="window"
                    TitleCharacterCasing="Normal"
                    WindowState="Normal">
+    <Metro:MetroWindow.LayoutTransform>
+        <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent} }"
+                        ScaleY="{Binding DataContext.Zoom, Source={x:Reference TestContent}}" />
+    </Metro:MetroWindow.LayoutTransform>
+    
     <Metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

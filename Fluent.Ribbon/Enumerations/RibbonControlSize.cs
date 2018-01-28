@@ -2,7 +2,7 @@
 namespace Fluent
 {
     /// <summary>
-    /// Represents logical sizes of a ribbon control 
+    /// Represents logical sizes of a ribbon control
     /// </summary>
     public enum RibbonControlSize
     {

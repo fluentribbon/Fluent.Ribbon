@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
-
-namespace FluentTest.ViewModels
+﻿namespace FluentTest.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.Linq;
 
     public class FontsViewModel : ViewModel

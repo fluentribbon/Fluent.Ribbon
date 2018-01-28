@@ -1,8 +1,8 @@
-﻿using System.Windows;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows;
+
     /// <summary>
     /// Represents menu item in ribbon status bar menu
     /// </summary>
@@ -24,7 +24,6 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty StatusBarItemProperty =
             DependencyProperty.Register(nameof(StatusBarItem), typeof(StatusBarItem), typeof(StatusBarMenuItem), new PropertyMetadata());
-
 
         #endregion
 

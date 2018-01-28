@@ -2,169 +2,123 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:Converters="clr-namespace:Fluent.Converters">
-    <Style x:Key="ColorGalleryListBox"
-           TargetType="{x:Type ListBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
-        <Setter Property="ItemTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
-                               Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Padding"
+                Value="{Binding Padding, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, FallbackValue='2,0,2,0'}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border Background="{TemplateBinding Background}"
-                            HorizontalAlignment="Stretch">
-                        <UniformGrid Rows="1"
-                                     HorizontalAlignment="Left"
-                                     IsItemsHost="True"
-                                     Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
-                    </Border>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid Background="Transparent">
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
+                                          Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
+                        <Border x:Name="outerBorder"
+                                BorderThickness="1"
+                                Margin="{TemplateBinding Padding}">
+                            <Border x:Name="innerBorder"
+                                    BorderThickness="1" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    TargetName="outerBorder"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="innerBorder"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="BorderBrush"
+                                    TargetName="outerBorder"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                            <Setter Property="BorderBrush"
+                                    TargetName="innerBorder"
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Grid Background="Transparent">
-                                    <ContentPresenter Margin="2"
-                                                      Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
-                                                      Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
-                                            x:Name="hoverBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
-                                            x:Name="selectedBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="hoverBorder" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="selectedBorder" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Content">
+                <Trigger.Value>
+                    <Color />
+                </Trigger.Value>
+                <Setter Property="Opacity"
+                        Value="0" />
+                <Setter Property="IsHitTestVisible"
+                        Value="False" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <DataTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate">
+        <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                   Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+    </DataTemplate>
+    
+    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row0" TargetType="{x:Type ListBox}">
+        <Border Background="{TemplateBinding Background}"
+                HorizontalAlignment="Stretch">
+            <UniformGrid HorizontalAlignment="Left"
+                         IsItemsHost="True"
+                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
+        </Border>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row1" TargetType="{x:Type ListBox}">
+        <Border Background="{TemplateBinding Background}"
+                HorizontalAlignment="Stretch">
+            <UniformGrid Rows="1"
+                         HorizontalAlignment="Left"
+                         IsItemsHost="True"
+                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
+        </Border>
+    </ControlTemplate>
+    
+    <Style x:Key="ColorGalleryListBox"
+           TargetType="{x:Type ListBox}">
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
+        <Setter Property="ItemTemplate"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
+        <Setter Property="Template"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row1}" />
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
     </Style>
 
     <Style x:Key="HightlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
-        <Setter Property="ItemTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <Rectangle Stroke="{DynamicResource RibbonTopBorderBrush}"
-                               Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border Background="{TemplateBinding Background}"
-                            HorizontalAlignment="Stretch">
-                        <UniformGrid HorizontalAlignment="Left"
-                                     IsItemsHost="True"
-                                     Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Grid Background="Transparent">
-                                    <ContentPresenter Margin="2"
-                                                      Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
-                                                      Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
-                                            x:Name="hoverBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
-                                            x:Name="selectedBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="hoverBorder" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="selectedBorder" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
+        <Setter Property="ItemTemplate"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
+        <Setter Property="Template"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
     </Style>
 
     <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
 
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorTopDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,1,1,0"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
-        <Border BorderBrush="{DynamicResource RibbonTopBorderBrush}"
+        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,1"
                 Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
@@ -172,79 +126,13 @@
     <Style x:Key="ColorGalleryGradientListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background"
-                Value="{DynamicResource GalleryBackgroundBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemTemplateSelector"
                 Value="{DynamicResource ColorGradientItemTemplateSelect}" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ListBox}">
-                    <Border Background="{TemplateBinding Background}"
-                            HorizontalAlignment="Stretch">
-                        <UniformGrid HorizontalAlignment="Left"
-                                     IsItemsHost="True"
-                                     Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Grid Background="Transparent">
-                                    <ContentPresenter Margin="2,0,2,0"
-                                                      Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
-                                                      Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
-                                            x:Name="hoverBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2,0,2,0">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                                    </Border>
-                                    <Border BorderThickness="1"
-                                            BorderBrush="{DynamicResource ButtonPressedOuterBorderBrush}"
-                                            x:Name="selectedBorder"
-                                            Visibility="Collapsed"
-                                            Margin="2,0,2,0">
-                                        <Border BorderThickness="1"
-                                                BorderBrush="{DynamicResource ButtonPressedInnerBorderBrush}" />
-                                    </Border>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="hoverBorder" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected"
-                                             Value="True">
-                                        <Setter Property="Visibility"
-                                                Value="Visible"
-                                                TargetName="selectedBorder" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Style.Triggers>
-                        <Trigger Property="Content">
-                            <Trigger.Value>
-                                <Color />
-                            </Trigger.Value>
-                            <Setter Property="Opacity"
-                                    Value="0" />
-                            <Setter Property="IsHitTestVisible"
-                                    Value="False" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
+        <Setter Property="ItemContainerStyle"
+                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
     </Style>
 
     <Style TargetType="{x:Type Fluent:ColorGallery}">
@@ -261,8 +149,8 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
-                                           Fill="Black"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                                           Fill="{DynamicResource BlackBrush}"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
@@ -277,27 +165,32 @@
                                 <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
                                          x:Name="PART_ThemeColorsListBox"
                                          ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource ColorGalleryListBox}"
+                                         Padding="2" />
                                 <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
                                          x:Name="PART_ThemeGradientColorsListBox"
                                          ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                         Style="{DynamicResource ColorGalleryGradientListBox}"
+                                         Padding="2,0,2,0" />
                                 <Fluent:GroupSeparatorMenuItem Header="Standard Colors"
                                                                x:Name="standardColorsSeparator" />
                                 <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
                                          x:Name="PART_StandardColorsListBox"
                                          ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource ColorGalleryListBox}"
+                                         Padding="2" />
                                 <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
                                          x:Name="PART_StandardGradientColorsListBox"
                                          ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                         Style="{DynamicResource ColorGalleryGradientListBox}"
+                                         Padding="2,0,2,0" />
                                 <Fluent:GroupSeparatorMenuItem Header="Recent Colors"
                                                                x:Name="recentColorsSeparator" />
                                 <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
                                          x:Name="PART_RecentColorsListBox"
                                          ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource ColorGalleryListBox}"
+                                         Padding="2" />
                             </StackPanel>
                         </ScrollViewer>
                         <Fluent:MenuItem x:Name="PART_NoColor"
@@ -305,7 +198,7 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource RibbonTopBorderBrush}"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                                            Fill="Transparent"
                                            Margin="-2,0,0,0" />
                             </Fluent:MenuItem.Icon>
@@ -315,7 +208,7 @@
                                 <ControlTemplate>
                                     <Rectangle Width="Auto"
                                                Height="1"
-                                               Fill="#FFE2E4E7" />
+                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                                 </ControlTemplate>
                             </Separator.Template>
                         </Separator>

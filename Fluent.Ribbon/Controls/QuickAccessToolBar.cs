@@ -5,7 +5,6 @@ namespace Fluent
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -30,7 +29,7 @@ namespace Fluent
         /// <summary>
         /// Occured when items are added or removed from Quick Access toolbar
         /// </summary>
-        public event NotifyCollectionChangedEventHandler ItemsChanged = delegate { };
+        public event NotifyCollectionChangedEventHandler ItemsChanged;
 
         #endregion
 
@@ -128,7 +127,7 @@ namespace Fluent
             }
 
             // Raise items changed event
-            this.ItemsChanged(this, e);
+            this.ItemsChanged?.Invoke(this, e);
         }
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
@@ -146,16 +145,16 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
+            private set { this.SetValue(hasOverflowItemsPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
+        private static readonly DependencyPropertyKey hasOverflowItemsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasOverflowItemsProperty = hasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -181,8 +180,6 @@ namespace Fluent
         /// <summary>
         /// Handles quick access menu items chages
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
@@ -199,6 +196,7 @@ namespace Fluent
                             this.AddLogicalChild(e.NewItems[i]);
                         }
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
@@ -213,6 +211,7 @@ namespace Fluent
                             this.RemoveLogicalChild(item);
                         }
                     }
+
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
@@ -242,6 +241,7 @@ namespace Fluent
 
                         ii++;
                     }
+
                     break;
             }
         }
@@ -260,7 +260,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  
+        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
@@ -329,7 +329,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessToolBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
@@ -340,7 +339,7 @@ namespace Fluent
         #region Override
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or 
+        /// When overridden in a derived class, is invoked whenever application code or
         /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
@@ -429,7 +428,7 @@ namespace Fluent
             // Clears cache
             this.cachedDeltaWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
-            this.cachedConstraint = new Size();
+            this.cachedConstraint = default(Size);
         }
 
         private void OnToolBarDownClosed(object sender, EventArgs e)
@@ -471,7 +470,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Called to remeasure a control. 
+        /// Called to remeasure a control.
         /// </summary>
         /// <returns>The size of the control, up to the maximum specified by constraint</returns>
         /// <param name="constraint">The maximum size that the method can return</param>
@@ -573,26 +572,58 @@ namespace Fluent
             titleBar?.ForceMeasureAndArrange();
         }
 
-        // Updates keys for keytip access
+        /// <summary>
+        /// Gets or sets a custom action to generate KeyTips for items in this control.
+        /// </summary>
+        public Action<QuickAccessToolBar> UpdateKeyTipsAction
+        {
+            get { return (Action<QuickAccessToolBar>)this.GetValue(UpdateKeyTipsActionProperty); }
+            set { this.SetValue(UpdateKeyTipsActionProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="UpdateKeyTipsAction"/>.
+        /// </summary>
+        public static readonly DependencyProperty UpdateKeyTipsActionProperty =
+            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsChanged));
+
+        private static void OnUpdateKeyTipsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var quickAccessToolBar = (QuickAccessToolBar)d;
+            quickAccessToolBar.UpdateKeyTips();
+        }
+
         private void UpdateKeyTips()
         {
-            for (var i = 0; i < Math.Min(9, this.Items.Count); i++)
+            if (this.UpdateKeyTipsAction == null)
             {
-                // 1, 2, 3, ... , 9
-                KeyTip.SetKeys(this.Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+                DefaultUpdateKeyTips(this);
+                return;
             }
 
-            for (var i = 9; i < Math.Min(18, this.Items.Count); i++)
+            this.UpdateKeyTipsAction(this);
+        }
+
+        // Updates keys for keytip access
+        private static void DefaultUpdateKeyTips(QuickAccessToolBar quickAccessToolBar)
+        {
+            for (var i = 0; i < Math.Min(9, quickAccessToolBar.Items.Count); i++)
+            {
+                // 1, 2, 3, ... , 9
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], (i + 1).ToString(CultureInfo.InvariantCulture));
+            }
+
+            for (var i = 9; i < Math.Min(18, quickAccessToolBar.Items.Count); i++)
             {
                 // 09, 08, 07, ... , 01
-                KeyTip.SetKeys(this.Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], "0" + (18 - i).ToString(CultureInfo.InvariantCulture));
             }
 
             var startChar = 'A';
-            for (var i = 18; i < Math.Min(9 + 9 + 26, this.Items.Count); i++)
+            for (var i = 18; i < Math.Min(9 + 9 + 26, quickAccessToolBar.Items.Count); i++)
             {
                 // 0A, 0B, 0C, ... , 0Z
-                KeyTip.SetKeys(this.Items[i], "0" + startChar++);
+                KeyTip.SetKeys(quickAccessToolBar.Items[i], "0" + startChar++);
             }
         }
 

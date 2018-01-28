@@ -1,22 +1,22 @@
-﻿using System.Collections;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using Fluent.Extensibility;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
-    /// Represents button control that allows 
+    /// Represents button control that allows
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
-    public class SplitButton : DropDownButton, IToggleButton, ICommandSource
+    public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTipInformationProvider
     {
         #region Fields
 
@@ -54,13 +54,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
-        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        [Category("Action")]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Bindable(true)]
         public ICommand Command
         {
             get
             {
                 return (ICommand)this.GetValue(CommandProperty);
             }
+
             set
             {
                 this.SetValue(CommandProperty, value);
@@ -70,13 +73,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
         /// </summary>
-        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        [Bindable(true)]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Category("Action")]
         public object CommandParameter
         {
             get
             {
                 return this.GetValue(CommandParameterProperty);
             }
+
             set
             {
                 this.SetValue(CommandParameterProperty, value);
@@ -86,13 +92,15 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the element on which to raise the specified command. This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public IInputElement CommandTarget
         {
             get
             {
                 return (IInputElement)this.GetValue(CommandTargetProperty);
             }
+
             set
             {
                 this.SetValue(CommandTargetProperty, value);
@@ -103,6 +111,7 @@ namespace Fluent
         /// Identifies the CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata());
+
         /// <summary>
         /// Identifies the routed Command dependency property.
         /// </summary>
@@ -118,10 +127,10 @@ namespace Fluent
         #region GroupName
 
         /// <summary>
-        /// Gets or sets the name of the group that the toggle button belongs to. 
-        /// Use the GroupName property to specify a grouping of toggle buttons to 
-        /// create a mutually exclusive set of controls. You can use the GroupName 
-        /// property when only one selection is possible from a list of available 
+        /// Gets or sets the name of the group that the toggle button belongs to.
+        /// Use the GroupName property to specify a grouping of toggle buttons to
+        /// create a mutually exclusive set of controls. You can use the GroupName
+        /// property when only one selection is possible from a list of available
         /// options. When this property is set, only one ToggleButton in the specified
         /// group can be selected at a time.
         /// </summary>
@@ -132,12 +141,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupName.  
+        /// Using a DependencyProperty as the backing store for GroupName.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty GroupNameProperty =
-            DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton),
-            new PropertyMetadata(ToggleButtonHelper.OnGroupNameChanged));
+        public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register(nameof(GroupName), typeof(string), typeof(SplitButton));
 
         #endregion
 
@@ -155,8 +162,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(SplitButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsCheckedChanged, CoerceIsChecked));
+        public static readonly DependencyProperty IsCheckedProperty = System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -171,8 +177,6 @@ namespace Fluent
                 {
                     button.RaiseEvent(new RoutedEventArgs(UncheckedEvent, button));
                 }
-
-                ToggleButtonHelper.OnIsCheckedChanged(d, e);
             }
         }
 
@@ -185,7 +189,7 @@ namespace Fluent
                 return false;
             }
 
-            return ToggleButtonHelper.CoerceIsChecked(d, basevalue);
+            return basevalue;
         }
 
         #endregion
@@ -337,7 +341,6 @@ namespace Fluent
 
         #region Constructors
 
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static SplitButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(SplitButton), new FrameworkPropertyMetadata(typeof(SplitButton)));
@@ -398,7 +401,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// When overridden in a derived class, is invoked 
+        /// When overridden in a derived class, is invoked
         /// whenever application code or internal processes call ApplyTemplate
         /// </summary>
         public override void OnApplyTemplate()
@@ -411,12 +414,13 @@ namespace Fluent
 
             this.SubscribeEvents();
         }
+
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event 
-        /// reaches an element in its route that is derived from this class. Implement this method to add 
+        /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown routed event
+        /// reaches an element in its route that is derived from this class. Implement this method to add
         /// class handling for this event.
         /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -460,19 +464,23 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be synchronized with the original 
+        /// This item MUST be synchronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         public override FrameworkElement CreateQuickAccessItem()
         {
-            var buttonForQAT = new SplitButton();
+            var buttonForQAT = new SplitButton
+                               {
+                                   CanAddButtonToQuickAccessToolBar = false
+                               };
+
             buttonForQAT.Click += (sender, e) => this.RaiseEvent(e);
+            buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
+
             RibbonProperties.SetSize(buttonForQAT, RibbonControlSize.Small);
-            buttonForQAT.CanAddButtonToQuickAccessToolBar = false;
             this.BindQuickAccessItem(buttonForQAT);
             this.BindQuickAccessItemDropDownEvents(buttonForQAT);
-            buttonForQAT.DropDownOpened += this.OnQuickAccessOpened;
             this.quickAccessButton = buttonForQAT;
             return buttonForQAT;
         }
@@ -516,6 +524,20 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddButtonToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddButtonToQuickAccessToolBarProperty = DependencyProperty.Register(nameof(CanAddButtonToQuickAccessToolBar), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+
+        #region Implementation of IKeyTipInformationProvider
+
+        /// <inheritdoc />
+        public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
+        {
+            yield return new KeyTipInformation(this.KeyTip + "A", this.button, hide)
+                {
+                    VisualTarget = this
+                };
+            yield return new KeyTipInformation(this.KeyTip + "B", this, hide);
+        }
+
+        #endregion
 
         #endregion
     }

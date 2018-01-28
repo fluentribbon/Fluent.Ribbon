@@ -7,7 +7,8 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using System.Windows.Media;
+    using Fluent.Extensions;
+    using Fluent.Internal;
 
     /// <summary>
     /// Dismiss popup mode
@@ -18,6 +19,7 @@ namespace Fluent
         /// Always dismiss popup
         /// </summary>
         Always,
+
         /// <summary>
         /// Dismiss only if mouse is not over popup
         /// </summary>
@@ -30,6 +32,7 @@ namespace Fluent
     public class DismissPopupEventArgs : RoutedEventArgs
     {
         #region Properties
+
         /// <summary>
         /// Popup dismiss mode
         /// </summary>
@@ -92,7 +95,7 @@ namespace Fluent
 
             Debug.WriteLine("Dismissing Popup (async)");
 
-            element.Dispatcher.BeginInvoke((Action)(() => RaiseDismissPopupEvent(sender, mode)));
+            element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode));
         }
 
         /// <summary>
@@ -130,8 +133,6 @@ namespace Fluent
         /// <summary>
         /// Handles PreviewMouseDownOutsideCapturedElementEvent event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
             ////Debug.WriteLine(string.Format("OnClickThroughThunk: sender = {0}; originalSource = {1}; mouse capture = {2}", sender, e.OriginalSource, Mouse.Captured));
@@ -141,9 +142,7 @@ namespace Fluent
             {
                 if (Mouse.Captured == sender
                     // Special handling for unknown Popups (for example datepickers used in the ribbon)
-                    || sender is IDropDownControl
-                    && IsPopupRoot(Mouse.Captured)
-                    )
+                    || (sender is IDropDownControl && IsPopupRoot(Mouse.Captured)))
                 {
                     RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                 }
@@ -153,8 +152,6 @@ namespace Fluent
         /// <summary>
         /// Handles lost mouse capture event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
             Debug.WriteLine($"Sender         - {sender}");
@@ -224,7 +221,7 @@ namespace Fluent
                     return true;
                 }
 
-                element = VisualTreeHelper.GetParent(element) ?? LogicalTreeHelper.GetParent(element);
+                element = UIHelper.GetVisualOrLogicalParent(element);
             }
 
             return false;
@@ -233,8 +230,6 @@ namespace Fluent
         /// <summary>
         /// Handles dismiss popup event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public static void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
             var control = sender as IDropDownControl;
@@ -282,7 +277,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Returns true whether mouse is physically over the popup 
+        /// Returns true whether mouse is physically over the popup
         /// </summary>
         /// <param name="popup">Element</param>
         /// <returns>Returns true whether mouse is physically over the popup</returns>
@@ -297,7 +292,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Returns true whether mouse is physically over the element 
+        /// Returns true whether mouse is physically over the element
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether mouse is physically over the element</returns>
@@ -309,17 +304,15 @@ namespace Fluent
             }
 
             var position = Mouse.GetPosition(element);
-            return position.X >= 0.0 
-                && position.Y >= 0.0 
-                && position.X <= element.RenderSize.Width 
+            return position.X >= 0.0
+                && position.Y >= 0.0
+                && position.X <= element.RenderSize.Width
                 && position.Y <= element.RenderSize.Height;
         }
 
         /// <summary>
         /// Handles context menu opened event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public static void OnContextMenuOpened(object sender, ContextMenuEventArgs e)
         {
             var control = sender as IDropDownControl;
@@ -334,8 +327,6 @@ namespace Fluent
         /// <summary>
         /// Handles context menu closed event
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public static void OnContextMenuClosed(object sender, ContextMenuEventArgs e)
         {
             var control = sender as IDropDownControl;

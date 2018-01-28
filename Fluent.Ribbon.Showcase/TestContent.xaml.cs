@@ -1,4 +1,5 @@
-﻿namespace FluentTest
+﻿#pragma warning disable SA1402 // File may only contain a single class
+namespace FluentTest
 {
     using System;
     using System.Diagnostics;
@@ -11,6 +12,7 @@
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent;
+    using FluentTest.Helpers;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
 
@@ -28,6 +30,8 @@
 
             this.viewModel = new MainViewModel();
             this.DataContext = this.viewModel;
+
+            ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]).Color);
         }
 
         private void HookEvents()
@@ -57,10 +61,13 @@
             var wnd = new Window
             {
                 Content = $"Launcher-Window for: {groupBox.Header}",
-                Owner = Window.GetWindow(this)
+                Width = 300,
+                Height = 100,
+                Owner = Window.GetWindow(this),
+                WindowStartupLocation = WindowStartupLocation.CenterOwner
             };
 
-            wnd.Show();
+            wnd.ShowDialog();
         }
 
         private void OnSplitClick(object sender, RoutedEventArgs e)
@@ -167,12 +174,7 @@
         {
             var treeView = sender as TreeView;
 
-            if (treeView == null)
-            {
-                return;
-            }
-
-            var item = treeView.SelectedItem as TreeViewItem;
+            var item = treeView?.SelectedItem as TreeViewItem;
             if (item == null)
             {
                 return;
@@ -234,16 +236,6 @@
             wnd.Show();
         }
 
-        private void OnPrintVisualClick(object sender, RoutedEventArgs e)
-        {
-            var printDlg = new PrintDialog();
-
-            if (printDlg.ShowDialog() == true)
-            {
-                printDlg.PrintVisual(this, "Main Window");
-            }
-        }
-
         private void AddRibbonTab_OnClick(object sender, RoutedEventArgs e)
         {
             var tab = new RibbonTabItem
@@ -264,8 +256,7 @@
 
         private void HandleSaveAsClick(object sender, RoutedEventArgs e)
         {
-            var w = new Window();
-            w.ShowDialog();
+            MessageBox.Show("You clicked \"Save as\".");
         }
 
         private void OpenRegularWindow_OnClick(object sender, RoutedEventArgs e)
@@ -307,7 +298,9 @@
                 return;
             }
 
-            this.zoomSlider.Value += e.Delta > 0 ? 0.1 : -0.1;
+            var newZoomValue = this.zoomSlider.Value + (e.Delta > 0 ? 0.1 : -0.1);
+
+            this.zoomSlider.Value = Math.Max(Math.Min(newZoomValue, this.zoomSlider.Maximum), this.zoomSlider.Minimum);
 
             e.Handled = true;
         }
@@ -322,6 +315,31 @@
             new TestWindow().ShowDialog();
         }
 
+        private void OpenRibbonWindowOnNewThread_OnClick(object sender, RoutedEventArgs e)
+        {
+            var thread = new Thread(() =>
+                                    {
+                                        new TestWindow().Show();
+                                        System.Windows.Threading.Dispatcher.Run();
+                                    })
+                         {
+                             IsBackground = true
+                         };
+            thread.SetApartmentState(ApartmentState.STA);
+
+            thread.Start();
+        }
+
+        private void OpenRibbonWindowColorized_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowColorized().Show();
+        }
+
+        private void OpenRibbonWindowWithBackgroundImage_OnClick(object sender, RoutedEventArgs e)
+        {
+            new RibbonWindowWithBackgroundImage().Show();
+        }
+
         private void ShowStartScreen_OnClick(object sender, RoutedEventArgs e)
         {
             this.startScreen.Shown = false;
@@ -332,28 +350,27 @@
         {
             this.viewModel.FontsViewModel.FontsData.Add($"Added item {this.viewModel.FontsViewModel.FontsData.Count}");
         }
+
+        private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ChangeImmediatelyCheckBox.IsChecked ?? false);
+        }
     }
 
     public class TestRoutedCommand
     {
-        public static RoutedCommand TestPresenterCommand = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
+        public static RoutedCommand TestPresenterCommand { get; } = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
 
-        public ICommand ItemCommand
-        {
-            get { return TestPresenterCommand; }
-        }
+        public ICommand ItemCommand => TestPresenterCommand;
 
-        public CommandBinding ItemCommandBinding
-        {
-            get { return new CommandBinding(TestPresenterCommand, this.OnTestCommandExecuted, this.CanExecuteTestCommand); }
-        }
+        public CommandBinding ItemCommandBinding => new CommandBinding(TestPresenterCommand, OnTestCommandExecuted, CanExecuteTestCommand);
 
-        private void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
+        private static void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
-        private void OnTestCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        private static void OnTestCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show("TestPresenterCommand");
         }

@@ -13,6 +13,8 @@ Fluent.Ribbon
 
 This project was previously hosted on [CodePlex](https://fluent.codeplex.com/).
 
+![Banner](./Images/banner.png)
+
 Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
 
 ![Showcase](./Images/Showcase.gif)
@@ -34,9 +36,9 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 *   Help us updating the documentation and walkthrough
 
 ## Development requirements
-* Visual Studio 2015
+* Visual Studio 2015 or later
 * Optional (but recommended)
-  * Editorconfig extension for Visual Studio 2015
+  * Editorconfig extension for Visual Studio
 
 ## Settings that should be used
 *   Visual Studio settings which should be used
@@ -55,7 +57,7 @@ If you think there is something missing in the showcase application feel free to
 To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
 
 # History &amp; roadmap
-A history of changes is maintained in the [Changelog](Changelog.md) and the [ReleaseNotes](ReleaseNotes.md).
+A history of changes is maintained in the [Changelog](Changelog.md).
 The roadmap is done by [milestones](../../milestones).
 
 # Feature List
@@ -163,7 +165,7 @@ If you feel lack of some important features feel free to use [issues](https://gi
 *   Ukrainian
 *   Vietnamese
 
-## Awesome tools which MahApps can use
+## Awesome tools which Fluent.Ribbon can use
 
 [![Resharper](./Images/icon_ReSharper.png)](https://www.jetbrains.com/resharper/)
 

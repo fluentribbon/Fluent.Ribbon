@@ -7,10 +7,10 @@
                 Value="True" />
         <Setter Property="Height"
                 Value="Auto" />
-        <Setter Property="Margin"
-                Value="0,0,0,-1" />
         <Setter Property="MinHeight" 
                 Value="23"/>
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:StatusBar}">
@@ -33,18 +33,18 @@
                         </Style>
                     </ControlTemplate.Resources>                    
                     <Border Height="Auto"
-                            BorderThickness="0,0"
-                            Background="{DynamicResource RibbonThemeColorBrush}">
+                            BorderThickness="0"
+                            Background="{TemplateBinding Background}">
                         <ItemsPresenter x:Name="itemsPresenter"
                                         Height="Auto" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsWindowMaximized"
-                                 Value="False">
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                     Value="CanResizeWithGrip">
                             <Setter Property="Margin"
                                     TargetName="itemsPresenter"
                                     Value="0,0,16,0" />
-                        </Trigger>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -63,10 +63,8 @@
 
     <Style x:Key="RibbonStatusBarItemStyle"
            TargetType="{x:Type Fluent:StatusBarItem}">
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BackstageFontBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:StatusBarItem}">
@@ -77,8 +75,7 @@
         <Style.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
-                <Setter Property="Foreground"
-                        Value="#FF888888" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -88,7 +85,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="IsCheckable"
                 Value="True" />
         <Setter Property="IsChecked"
@@ -100,7 +97,7 @@
                      TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Grid Width="Auto"
               Height="Auto"
-              Background="#00000000">
+              Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
                 <ColumnDefinition Width="*" />
@@ -111,26 +108,12 @@
                     Margin="0"
                     Width="Auto"
                     Visibility="Collapsed"
-                    Background="{DynamicResource ButtonHoverOuterBackgroundBrush}"
-                    BorderBrush="{DynamicResource ButtonHoverOuterBorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3">
-                <Border Background="{DynamicResource ButtonHoverInnerBackgroundBrush}"
-                        BorderBrush="{DynamicResource ButtonHoverInnerBorderBrush}"
-                        BorderThickness="1" />
-            </Border>
-            <TextBlock x:Name="textBlock_Copy"
-                       Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
-                       Width="Auto"
-                       Height="Auto"
-                       Margin="9,3,30,3"
-                       VerticalAlignment="Center"
-                       Grid.Column="1"
-                       TextTrimming="None"
-                       Visibility="Hidden"
-                       HorizontalAlignment="Left" />
-            <TextBlock x:Name="textBlock"
+                    Grid.ColumnSpan="3" />
+                <TextBlock x:Name="textBlock"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
@@ -167,16 +150,8 @@
                   Width="4"
                   Data="M0,0L1,1 0,2z"
                   Height="6"
-                  Grid.Column="3">
-                <Path.Fill>
-                    <LinearGradientBrush EndPoint="0.945,0.872"
-                                         StartPoint="0.055,0.128">
-                        <GradientStop Color="Black"
-                                      Offset="1" />
-                        <GradientStop Color="#FF828282" />
-                    </LinearGradientBrush>
-                </Path.Fill>
-            </Path>
+                  Grid.Column="3"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
         </Grid>
         <ControlTemplate.Triggers>
             <MultiTrigger>

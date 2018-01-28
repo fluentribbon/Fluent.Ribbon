@@ -14,8 +14,7 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Margin="-2,0"
-                               VerticalAlignment="Center"
+                    <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Text="{Binding}"
                                TextWrapping="NoWrap"
@@ -33,6 +32,9 @@
             
             <ContentPresenter x:Name="PART_HeaderHolder"
                               ContentSource="Header"
+                              ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"                              
                               IsHitTestVisible="False" />
             
             <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"                                                    

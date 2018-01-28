@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Interactivity;
-
-namespace Fluent.Metro.Behaviours
+﻿namespace Fluent.Metro.Behaviours
 {
+    using System.Windows;
+    using System.Windows.Interactivity;
+
     /// <summary>
     /// Enables the use of behaviors in styles
     /// </summary>
@@ -11,7 +11,7 @@ namespace Fluent.Metro.Behaviours
         private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached("OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new PropertyMetadata());
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Behaviors.  
+        /// Using a DependencyProperty as the backing store for Behaviors.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty BehaviorsProperty = DependencyProperty.RegisterAttached(

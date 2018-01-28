@@ -11,7 +11,7 @@
         <Setter Property="Width"
                 Value="13" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
     </Style>
 
     <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate"
@@ -19,51 +19,20 @@
         <Grid>
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="1"
-                    Background="{DynamicResource TransparentBrush}"
-                    BorderBrush="{DynamicResource TransparentBrush}"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
                     Height="22"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Width="13">
-                <Border x:Name="border1"
-                        Height="Auto"
-                        BorderBrush="{DynamicResource TransparentBrush}"
-                        BorderThickness="1"
-                        Background="{DynamicResource TransparentBrush}">
-                    <Grid x:Name="grid"
-                          Margin="0"
-                          Background="#00000000">
-                        <Rectangle x:Name="rectangle"
-                                   StrokeThickness="0"
-                                   Visibility="Collapsed"
-                                   Margin="0">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.503,1"
-                                                     GradientOrigin="0.503,1"
-                                                     RadiusY="0.202">
-                                    <GradientStop Color="#7FFFFFFF"
-                                                  Offset="0" />
-                                    <GradientStop Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <StackPanel x:Name="stackPanel"
-                                    Width="Auto"
-                                    Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    Margin="-1,4,0,0"
-                                    Background="#00000000">
-                            <Image x:Name="iconImage"
-                                   HorizontalAlignment="Left"
-                                   Height="8"
-                                   Stretch="None"
-                                   VerticalAlignment="Top"
-                                   Source="{TemplateBinding LargeIcon}"
-                                   Width="8"
-                                   Margin="-3,0,2,0" />
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <Image x:Name="iconImage"
+                        HorizontalAlignment="Center"
+                        Height="8"
+                        Stretch="None"
+                        VerticalAlignment="Center"
+                        Source="{TemplateBinding LargeIcon}"
+                        Width="8"
+                        Margin="-3,0,2,0" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -81,8 +50,8 @@
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
                             SnapsToDevicePixels="True"
-                            Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
@@ -93,7 +62,7 @@
                             <Border VerticalAlignment="Top"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderThickness="1" />
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -101,16 +70,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <!--<Rectangle Fill="{x:Null}"
-                                           Stretch="Fill"
-                                           Stroke="#FFE2E4E7"
-                                           HorizontalAlignment="Left"
-                                           Margin="24,0,0,0"
-                                           Width="1"
-                                           Height="Auto"
-                                           Grid.RowSpan="2"
-                                           Visibility="Visible"
-                                           VerticalAlignment="Stretch" />-->
                                 <ScrollViewer Margin="1"
                                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               SnapsToDevicePixels="True"
@@ -125,10 +84,10 @@
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
                                         Height="11"
-                                        BorderBrush="{DynamicResource ContextMenuBarResizeBorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        Background="{DynamicResource ContextMenuBarResizeBackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -193,9 +152,6 @@
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
                 <Setter Property="Source"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -208,21 +164,12 @@
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="2" />
-                <Setter Property="Margin"
-                        TargetName="grid"
-                        Value="0" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
                 <Setter Property="Source"
                         TargetName="iconImage"
                         Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="Width"
-                        TargetName="stackPanel"
-                        Value="Auto" />
                 <Setter Property="VerticalAlignment"
                         TargetName="iconImage"
                         Value="Center" />
@@ -243,16 +190,10 @@
                      Value="True">
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBackgroundBrush}" />
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonPressedInnerBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -261,40 +202,28 @@
                     <Condition Property="IsDropDownOpen"
                                Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter Property="BorderBrush"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border1"
-                        Value="{DynamicResource ButtonHoverInnerBackgroundBrush}" />
                 <Setter Property="Background"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="PART_ButtonBorder"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Visible" />
-                <Setter Property="Margin"
-                        TargetName="rectangle"
-                        Value="0" />
-                <Setter Property="Margin"
-                        TargetName="grid"
-                        Value="0" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="QuickAccessToolbarStyle"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
+        <Setter Property="Background"
+                Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
         <Setter Property="Template"
                 Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
     </Style>
 
     <ControlTemplate x:Key="QuickAccessToolbarControlTemplate"
                      TargetType="{x:Type Fluent:QuickAccessToolBar}">
-        <DockPanel x:Name="PART_RootPanel">
+        <DockPanel x:Name="PART_RootPanel"
+                   KeyboardNavigation.TabNavigation="Local">
             <ContentControl x:Name="menuContentControl"
                             DockPanel.Dock="Right"
                             HorizontalAlignment="Right"
@@ -311,7 +240,8 @@
                                        Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
-                                       ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}">
+                                       ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
+                                       KeyboardNavigation.TabIndex="3">
                     <Fluent:GroupSeparatorMenuItem Style="{DynamicResource MenuGroupSeparatorStyle}"
                                                    Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuHeader, Mode=OneWay}" />
                     <StackPanel x:Name="PART_MenuPanel" />
@@ -326,6 +256,7 @@
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
+            
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
                                    HorizontalAlignment="Right"
                                    Width="13"
@@ -338,13 +269,15 @@
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarExtender.png"
-                                   ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}">
+                                   ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}"
+                                   KeyboardNavigation.TabIndex="2"
+                                   KeyboardNavigation.TabNavigation="Local">
                 <Fluent:DropDownButton.ContextMenu>
                     <ContextMenu />
                 </Fluent:DropDownButton.ContextMenu>
 
                 <StackPanel Orientation="Horizontal"
-                            Background="{DynamicResource QuickAccessToolbarPopupBackgrondBrush}"
+                            Background="{TemplateBinding Background}"
                             Width="Auto"
                             Height="26"
                             Margin="-1">
@@ -365,13 +298,15 @@
                            Padding="0"
                            Margin="1,0" />
                 </StackPanel>
-
             </Fluent:DropDownButton>
+            
             <StackPanel Orientation="Horizontal"
                         x:Name="PART_ToolBarPanel"
                         Width="Auto"
                         Height="Auto"
-                        VerticalAlignment="Stretch" />
+                        VerticalAlignment="Stretch"
+                        KeyboardNavigation.TabNavigation="Local"
+                        KeyboardNavigation.TabIndex="1" />
         </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="CanQuickAccessLocationChanging"

@@ -1,16 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Windows.Interop;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using ControlzEx.Standard;
+
     /// <summary>
     /// Icon converter provides default icon if user-defined is not present
     /// </summary>
@@ -68,8 +68,6 @@ namespace Fluent
         /// <summary>
         /// ThumbnailExceptionWorkArround when image cause a format exception by accessing the Thumbnail
         /// </summary>
-        /// <param name="frame"></param>
-        /// <returns></returns>
         private static BitmapSource GetThumbnail(BitmapSource frame)
         {
             try
@@ -90,14 +88,14 @@ namespace Fluent
             }
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1031")]
         private static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
             if (hwnd != IntPtr.Zero)
             {
                 try
                 {
-                    var zero = NativeMethods.SendMessage(hwnd, 0x7f, new IntPtr(2), IntPtr.Zero);
+#pragma warning disable 618
+                    var zero = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(2), IntPtr.Zero);
 
                     if (zero == IntPtr.Zero)
                     {
@@ -113,6 +111,7 @@ namespace Fluent
                     {
                         return BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(zero, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)SystemParameters.SmallIconWidth, (int)SystemParameters.SmallIconHeight)));
                     }
+#pragma warning restore 618
                 }
                 catch
                 {
