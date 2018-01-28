@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
+    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>    
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
+    <TargetFrameworks>net462;net45;net40</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>    
-    <!--<IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)\</IntermediateOutputPath>-->
-    <!--<BaseIntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\</BaseIntermediateOutputPath>-->
-    <RestoreSources>C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
     <!-- DisableFastUpToDateCheck to ensure that XamlCombine is run before build -->
     <!--<DisableFastUpToDateCheck>True</DisableFastUpToDateCheck>-->
   </PropertyGroup>
