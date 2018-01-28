@@ -9,25 +9,17 @@
     <AssemblyName>Fluent</AssemblyName>
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!-- DisableFastUpToDateCheck to ensure that XamlCombine is run before build -->
-    <!--<DisableFastUpToDateCheck>True</DisableFastUpToDateCheck>-->
   </PropertyGroup>
   <Import Project="$(CustomProjectExtensionsPath)CustomProject.props" />
   <ItemGroup>
     <None Include="paket.references" />
-    <None Include="*.xlsx;*.docx" />
-    <None Include="**\*.fx" />
-    <Resource Include="**\*.png;**\*.ico;**\*.ps" />
-    <None Include="Themes\Accents\GeneratorParameters.json" />
+    <None Include="**\*.fx;**\*.json" />
+    <Resource Include="**\*.png;**\*.ico;**\*.ps" />    
   </ItemGroup>
   <!-- XAML elements -->
   <!-- We only include certain xaml files in release to decrease binary size -->
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <Page Include="Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml;Themes\Styles.xaml">
+    <Page Include="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
