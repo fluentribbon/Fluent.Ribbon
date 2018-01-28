@@ -19,20 +19,27 @@
     <None Include="**\*.fx" />
     <Resource Include="**\*.png;**\*.ico;**\*.ps" />
     <None Include="Themes\Accents\GeneratorParameters.json" />
-    <!-- XAML elements -->
+  </ItemGroup>
+  <!-- XAML elements -->
+  <!-- We only include certain xaml files in release to decrease binary size -->
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
     <Page Include="Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Styles.xaml">
+    <Page Include="Themes\Generic.xaml;Themes\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />
+  </ItemGroup>
+  <!-- XAML elements -->
+  <!-- We include all xaml files in debug to get intellisense everywhere -->
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <Page Include="**\*.xaml" Exclude="**\*.Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />
