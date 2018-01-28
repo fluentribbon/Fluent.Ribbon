@@ -11,10 +11,8 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <Import Project="$(CustomProjectExtensionsPath)CustomProject.props" />
-  <ItemGroup>
-    <None Include="paket.references" />
-    <None Include="**\*.fx;**\*.json" />
-    <Resource Include="**\*.png;**\*.ico;**\*.ps" />    
+  <ItemGroup>    
+    <None Include="**\*.fx;**\*.json" />  
   </ItemGroup>
   <!-- XAML elements -->
   <!-- We only include certain xaml files in release to decrease binary size -->
@@ -37,12 +35,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">
-    <Message Importance="high" Text="Running XamlCombine... ($(TargetFramework))" />
     <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
-    <Message Importance="high" Text="Finished XamlCombine. ($(TargetFramework))" />
-    <Message Importance="high" Text="Running XamlColorSchemeGenerator... ($(TargetFramework))" />
     <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Accents\GeneratorParameters.json&quot;" />
-    <Message Importance="high" Text="Finished XamlColorSchemeGenerator. ($(TargetFramework))" />
   </Target>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

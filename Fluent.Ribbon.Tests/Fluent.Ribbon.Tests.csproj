@@ -6,16 +6,15 @@
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
-    <AssemblyName>Fluent.Tests</AssemblyName>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AssemblyName>Fluent.Tests</AssemblyName>    
     <TargetFrameworks>net462;net45</TargetFrameworks>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <Import Project="$(CustomProjectExtensionsPath)CustomProject.props" />
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="paket.references" />
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
       <Link>Commanding\IRelayCommand.cs</Link>
     </Compile>
