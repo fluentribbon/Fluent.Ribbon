@@ -33,7 +33,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />
-    <!--<Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" /><UpToDateCheckInput Include="**\*.xaml" />-->
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />

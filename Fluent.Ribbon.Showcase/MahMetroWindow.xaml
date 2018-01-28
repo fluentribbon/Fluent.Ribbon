@@ -34,7 +34,7 @@
        
     <Metro:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar" 
+            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"                                   
                                    Header="{Binding ElementName=window, Path=Title}"/>
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>

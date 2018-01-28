@@ -5,10 +5,6 @@
     <ProjectGuid>05ed957f-2479-4cec-a13a-868deeb0c56a</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <_SdkLanguageName>CSharp</_SdkLanguageName>
-  </PropertyGroup>
-  <Import Project="obj\*.props" Condition=" '$(MSBuildProjectExtension)' == '.tmp_proj'" />
-  <PropertyGroup>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     <TargetFrameworks>net462;net45</TargetFrameworks>
@@ -39,7 +35,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <!--<Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" /><UpToDateCheckInput Include="**\*.xaml" />-->
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
@@ -48,6 +43,4 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="obj\*.targets" Condition=" '$(MSBuildProjectExtension)' == '.tmp_proj'" />
 </Project>
