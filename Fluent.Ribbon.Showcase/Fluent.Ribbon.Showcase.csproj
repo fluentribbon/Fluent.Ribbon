@@ -22,9 +22,7 @@
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="paket.references" />
     <None Include="app.manifest" />
-    <Resource Include="**\*.png;**\*.ico" />
     <!-- App.xaml -->
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>

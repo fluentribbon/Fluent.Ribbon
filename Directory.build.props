@@ -22,6 +22,9 @@
         <DebugType>pdbonly</DebugType>
     </PropertyGroup>
     <ItemGroup>
+        <None Include="paket.references" />
+        <Resource Include="**\*.png;**\*.ico;**\*.ps" />
+
         <Compile Include="$(MSBuildThisFileDirectory)\Shared\GlobalAssemblyInfo.cs">
             <Link>Properties\GlobalAssemblyInfo.cs</Link>
         </Compile>
