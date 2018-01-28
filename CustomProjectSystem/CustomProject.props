@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"	encoding="utf-8"?>
+
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />    
+
+	<PropertyGroup>		        
+        <!-- you can disable (set false) these two properties if you don't want to use default VS behavior for adding your files -->
+		<EnableDefaultItems>true</EnableDefaultItems>
+		<EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+	</PropertyGroup>
+		
+	<Import Project="$(MSBuildThisFileDirectory)\CustomProject.targets" />
+    
+    <!-- workaround for issue #4 from https://github.com/dotnet/sdk/issues/810#issuecomment-295642279 -->      
+	<PropertyGroup>
+		<LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+	</PropertyGroup>
+    
+    <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />      
+	
+</Project>

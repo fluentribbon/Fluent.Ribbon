@@ -1,16 +1,13 @@
 <Project>
     <PropertyGroup>
-        <LanguageTargets Condition="Exists('$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets')">$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
-        <TargetFrameworks>net462;net45;net40</TargetFrameworks>
+        <!-- <LanguageTargets Condition="Exists('$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets')">$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets> -->
+        <!-- <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets> -->
+        <TargetFrameworks>net462;net45</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
         <OutputPath>$(MSBuildThisFileDirectory)\bin\$(AssemblyName)\$(Configuration)\</OutputPath>
         <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
-        <DefineConstants>NET40</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
         <DefineConstants>NET45</DefineConstants>
@@ -18,14 +15,12 @@
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
         <DefineConstants>NET462</DefineConstants>
     </PropertyGroup>
-
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
         <DebugType>full</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugType>pdbonly</DebugType>
     </PropertyGroup>
-
     <ItemGroup>
         <Compile Include="$(MSBuildThisFileDirectory)\Shared\GlobalAssemblyInfo.cs">
             <Link>Properties\GlobalAssemblyInfo.cs</Link>
