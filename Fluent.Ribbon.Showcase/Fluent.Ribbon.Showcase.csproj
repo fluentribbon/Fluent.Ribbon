@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     <TargetFrameworks>net462;net45;net40</TargetFrameworks>

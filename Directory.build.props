@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
+        <LanguageTargets Condition="Exists('$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets')">$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
         <TargetFrameworks>net462;net45;net40</TargetFrameworks>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -16,6 +17,13 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
         <DefineConstants>NET462</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>pdbonly</DebugType>
     </PropertyGroup>
 
     <ItemGroup>

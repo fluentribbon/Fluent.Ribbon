@@ -22,6 +22,7 @@ Write-Output "Building with verbosity '$verbosity'"
 $msbuild = Get-MSBuild
 
 $measure = Measure-Command {
+    &dotnet restore
 	&$msbuild Fluent.Ribbon.msbuild /target:$Target /property:Configuration=$Configuration /property:Prerelease=$PreRelease /v:$verbosity /nologo | Out-Default
 }
 
