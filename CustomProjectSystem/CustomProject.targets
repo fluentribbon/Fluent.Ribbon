@@ -36,8 +36,7 @@
   </ItemGroup>
   
   <!-- Items include -->
-  <ItemGroup>     
-  
+  <ItemGroup>
     <Compile Remove="$(BaseIntermediateOutputPath)\**" />
     
     <!-- <Page Include="**\*.xaml">
@@ -45,6 +44,7 @@
       <SubType>Designer</SubType>
     </Page>     -->
   
+    <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>  
   
   <!--
