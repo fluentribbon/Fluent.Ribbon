@@ -39,10 +39,10 @@
   <ItemGroup>
     <Compile Remove="$(BaseIntermediateOutputPath)\**" />
     
-    <!-- <Page Include="**\*.xaml">
+    <Page Include="**\*.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>     -->
+    </Page>
   
     <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>  
