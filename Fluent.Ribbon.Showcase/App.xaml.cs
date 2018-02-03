@@ -1,5 +1,8 @@
 namespace FluentTest
 {
+    using System.Windows;
+    using Fluent;
+
     public partial class App
     {
         public App()
@@ -29,6 +32,15 @@ namespace FluentTest
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("az");
 
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+        }
+
+        /// <inheritdoc />
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ThemeManager.IsWindowsAppModeSettingDetectionEnabled = true;
+            ThemeManager.AlignAppThemeWithWindowsAppModeSetting();
+
+            base.OnStartup(e);
         }
     }
 }

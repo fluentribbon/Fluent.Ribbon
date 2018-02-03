@@ -8,12 +8,16 @@ namespace Fluent
     using System.Linq;
     using System.Security;
     using System.Windows;
+    using Microsoft.Win32;
 
     /// <summary>
     /// A class that allows for the detection and alteration of a theme and accent.
     /// </summary>
     public static class ThemeManager
     {
+        public const string AppTheme_Light = "BaseLight";
+        public const string AppTheme_Dark = "BaseDark";
+
 #pragma warning disable SA1309 // Field names must not begin with underscore
         private static IList<Accent> _accents;
         private static IList<AppTheme> _appThemes;
@@ -68,7 +72,7 @@ namespace Fluent
                     return _appThemes;
                 }
 
-                var themes = new[] { "BaseLight", "BaseDark" };
+                var themes = new[] { AppTheme_Light, AppTheme_Dark };
 
                 _appThemes = new List<AppTheme>(themes.Length);
 
@@ -693,6 +697,73 @@ namespace Fluent
             return Uri.Compare(first, second,
                  UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
         }
+
+        #region WindowsAppModeSetting
+
+        /// <summary>
+        /// Aligns the current <see cref="AppTheme"/> with the "app mode" setting from windows.
+        /// </summary>
+        public static void AlignAppThemeWithWindowsAppModeSetting()
+        {
+            var appTheme = AppsUseLightTheme()
+                               ? AppTheme_Light
+                               : AppTheme_Dark;
+
+            ChangeAppTheme(Application.Current, appTheme);
+        }
+
+        private static bool isWindowsAppModeSettingDetectionEnabled;
+
+        /// <summary>
+        /// Gets or sets wether changes to the "app mode" setting from windows should be detected at runtime and the current <see cref="AppTheme"/> be changed accordingly.
+        /// </summary>
+        public static bool IsWindowsAppModeSettingDetectionEnabled
+        {
+            get { return isWindowsAppModeSettingDetectionEnabled; }
+
+            set
+            {
+                if (value == isWindowsAppModeSettingDetectionEnabled)
+                {
+                    return;
+                }
+
+                isWindowsAppModeSettingDetectionEnabled = value;
+
+                if (isWindowsAppModeSettingDetectionEnabled)
+                {
+                    SystemEvents.UserPreferenceChanged += HandleUserPreferenceChanged;
+                }
+                else
+                {
+                    SystemEvents.UserPreferenceChanged -= HandleUserPreferenceChanged;
+                }
+            }
+        }
+
+        private static void HandleUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.General)
+            {
+                AlignAppThemeWithWindowsAppModeSetting();
+            }
+        }
+
+        private static bool AppsUseLightTheme()
+        {
+            try
+            {
+                return Convert.ToBoolean(Registry.GetValue("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", "AppsUseLightTheme", true));
+            }
+            catch (Exception exception)
+            {
+                Trace.WriteLine(exception);
+            }
+
+            return false;
+        }
+
+        #endregion WindowsAppModeSetting
     }
 
     /// <summary>
