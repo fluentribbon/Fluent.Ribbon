@@ -597,11 +597,11 @@ namespace Fluent
 
         #region Private methods
 
-        private static bool IsRibbonAncestorOf(DependencyObject element)
+        private static bool IsRibbonGroupBoxAncestorOf(DependencyObject element)
         {
             while (element != null)
             {
-                if (element is Ribbon)
+                if (element is RibbonGroupBox)
                 {
                     return true;
                 }
@@ -625,8 +625,9 @@ namespace Fluent
 
             var focusedElement = Keyboard.FocusedElement as DependencyObject;
 
+            // Prevent scrolling if any control inside a RibbonGroupBox has focus
             if (focusedElement != null
-                && IsRibbonAncestorOf(focusedElement))
+                && IsRibbonGroupBoxAncestorOf(focusedElement))
             {
                 return;
             }
