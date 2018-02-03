@@ -3,6 +3,7 @@ namespace Fluent
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
     using System.Windows;
@@ -38,6 +39,8 @@ namespace Fluent
         private ScrollViewer scrollViewer;
 
         private UIElement buttonBorder;
+
+        private readonly Stack<WeakReference<MenuItem>> openMenuItems = new Stack<WeakReference<MenuItem>>();
 
         #endregion
 
@@ -358,6 +361,9 @@ namespace Fluent
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
+
+            //EventManager.RegisterClassHandler(type, System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(OnSubmenuOpened));
+            //EventManager.RegisterClassHandler(type, System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(OnSubmenuClosed));
         }
 
         /// <summary>
@@ -369,6 +375,9 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+
+            this.AddHandler(System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(this.OnSubmenuOpened));
+            this.AddHandler(System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(this.OnSubmenuClosed));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -558,7 +567,7 @@ namespace Fluent
 
                         var container = this.ItemContainerGenerator.ContainerFromIndex(0);
 
-                        NavigateToContainer(container);
+                        NavigateToContainer(container, FocusNavigationDirection.Down);
 
                         handled = true;
                     }
@@ -573,7 +582,7 @@ namespace Fluent
 
                         var container = this.ItemContainerGenerator.ContainerFromIndex(this.Items.Count - 1);
 
-                        NavigateToContainer(container);
+                        NavigateToContainer(container, FocusNavigationDirection.Up);
 
                         handled = true;
                     }
@@ -604,7 +613,7 @@ namespace Fluent
             base.OnKeyDown(e);
         }
 
-        private static void NavigateToContainer(DependencyObject container)
+        private static void NavigateToContainer(DependencyObject container, FocusNavigationDirection focusNavigationDirection = FocusNavigationDirection.Down)
         {
             var element = container as FrameworkElement;
 
@@ -619,12 +628,7 @@ namespace Fluent
             }
             else
             {
-                var predicted = element.PredictFocus(FocusNavigationDirection.Down);
-
-                if (predicted is MenuBase == false)
-                {
-                    element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
-                }
+                element.MoveFocus(new TraversalRequest(focusNavigationDirection));
             }
         }
 
@@ -643,12 +647,6 @@ namespace Fluent
         public virtual KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsDropDownOpen = true;
-
-            if (this.DropDownPopup?.Child != null)
-            {
-                Keyboard.Focus(this.DropDownPopup.Child);
-                this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-            }
 
             return new KeyTipPressedResult(true, true);
         }
@@ -748,16 +746,31 @@ namespace Fluent
             }
         }
 
-        // Handles drop down closed
-        private void OnDropDownClosed()
-        {
-            this.DropDownClosed?.Invoke(this, EventArgs.Empty);
-        }
-
-        // Handles drop down opened
-        private void OnDropDownOpened()
+        /// <summary>
+        /// Called when drop down opened.
+        /// </summary>
+        protected virtual void OnDropDownOpened()
         {
             this.DropDownOpened?.Invoke(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Called when drop down closed.
+        /// </summary>
+        protected virtual void OnDropDownClosed()
+        {
+            foreach (var openMenuItem in this.openMenuItems.ToArray())
+            {
+                MenuItem menuItem;
+                if (openMenuItem.TryGetTarget(out menuItem))
+                {
+                    menuItem.IsSubmenuOpen = false;
+                }
+            }
+
+            this.openMenuItems.Clear();
+
+            this.DropDownClosed?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -891,5 +904,45 @@ namespace Fluent
                 }
             }
         }
+
+        #region MenuItem workarounds
+
+        //private static void OnSubmenuOpened(object sender, RoutedEventArgs e)
+        //{
+        //    var menuItem = e.OriginalSource as MenuItem;
+        //    if (menuItem != null)
+        //    {
+        //        ((ApplicationMenu)sender).openMenuItems.Push(new WeakReference<MenuItem>(menuItem));
+        //    }
+        //}
+
+        //private static void OnSubmenuClosed(object sender, RoutedEventArgs e)
+        //{
+        //    var applicationMenu = (ApplicationMenu)sender;
+
+        //    if (applicationMenu.openMenuItems.Count > 0)
+        //    {
+        //        applicationMenu.openMenuItems.Pop();
+        //    }
+        //}
+
+        private void OnSubmenuOpened(object sender, RoutedEventArgs e)
+        {
+            var menuItem = e.OriginalSource as MenuItem;
+            if (menuItem != null)
+            {
+                this.openMenuItems.Push(new WeakReference<MenuItem>(menuItem));
+            }
+        }
+
+        private void OnSubmenuClosed(object sender, RoutedEventArgs e)
+        {
+            if (this.openMenuItems.Count > 0)
+            {
+                this.openMenuItems.Pop();
+            }
+        }
+
+        #endregion MenuItem workarounds
     }
 }
