@@ -1,12 +1,15 @@
 # Changelog for Fluent.Ribbon
 
-## 6.0.1 (preview)
+## 6.1.0 (preview)
 
 - ### Bug fixes
   - [#510](../../issues/510) - Submenus in DropDownButton are not opened each time
   - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
   - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
+
+- ### Enhancements
+  - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
 
 ## 6.0.0
 

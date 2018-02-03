@@ -1726,12 +1726,14 @@
                                         IsCheckable="True"
                                         IsChecked="True"
                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}">
-                        <Fluent:MenuItem Header="First" 
-                                         IsChecked="True"
+                        <Fluent:MenuItem Header="First (with icon)" 
                                          IsCheckable="True"
+                                         IsChecked="True"
+                                         Icon="Images/Pink.png"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}" />
                         <Fluent:MenuItem Header="Second" 
                                          IsCheckable="True"
+                                         IsChecked="True"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}" />
                         <Fluent:MenuItem Header="Third" 
                                          IsCheckable="True"
