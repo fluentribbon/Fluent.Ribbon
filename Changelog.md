@@ -4,6 +4,7 @@
 
 - ### Bug fixes
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
+  - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
 
 ## 6.0.0
 
