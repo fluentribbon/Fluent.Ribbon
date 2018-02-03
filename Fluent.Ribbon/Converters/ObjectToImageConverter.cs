@@ -24,13 +24,49 @@
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = double.NaN;
+            var desiredSize = default(Size);
 
-            if (parameter != null)
+            if (parameter is double)
             {
-                desiredSize = System.Convert.ToDouble(parameter);
+                var doubleValue = System.Convert.ToDouble(parameter);
+                desiredSize = new Size(doubleValue, doubleValue);
+            }
+            else if (parameter is Size)
+            {
+                desiredSize = (Size)parameter;
             }
 
+            var imageSource = CreateImageSource(value, desiredSize);
+
+            if (imageSource == null)
+            {
+                return value;
+            }
+
+            var image = new Image
+                        {
+                            Source = imageSource
+                        };
+
+            return image;
+        }
+
+        /// <inheritdoc />
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Extracts an <see cref="ImageSource"/> from <paramref name="value"/> which closest matches the <paramref name="desiredSize"/>.
+        /// </summary>
+        /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
+        /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
+        /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
+        public static ImageSource CreateImageSource(object value, Size desiredSize)
+        {
             var imageSource = value as ImageSource;
 
             if (imageSource == null)
@@ -53,28 +89,15 @@
 
             if (imageSource == null)
             {
-                return value;
+                return null;
             }
 
-            var image = new Image
-                        {
-                            // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
-                            // In case of BitmapImage it even gets worse when using the same Uri...
-                            Source = (ImageSource)ExtractImage(imageSource, desiredSize).GetAsFrozen()
-                        };
-
-            return image;
+            // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
+            // In case of BitmapImage it even gets worse when using the same Uri...
+            return (ImageSource)ExtractImageSource(imageSource, desiredSize).GetAsFrozen();
         }
 
-        /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-
-        #endregion
-
-        private static ImageSource CreateImageSource(string imagePath, double desiredSize)
+        private static ImageSource CreateImageSource(string imagePath, Size desiredSize)
         {
             // Allow things like "Images\Green.png"
             if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
@@ -98,30 +121,30 @@
             return CreateImageSource(imageUri, desiredSize);
         }
 
-        private static ImageSource CreateImageSource(Uri imageUri, double desiredSize)
+        private static ImageSource CreateImageSource(Uri imageUri, Size desiredSize)
         {
-            if (double.IsNaN(desiredSize) == false
+            if (desiredSize.IsEmpty == false
                 && imageUri.AbsolutePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
             {
-                return ExtractImageFromIcoFile(imageUri, desiredSize);
+                return ExtractImageSourceFromIcoFile(imageUri, desiredSize);
             }
 
             return new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
         }
 
-        private static ImageSource ExtractImageFromIcoFile(Uri imageUri, double desiredSize)
+        private static ImageSource ExtractImageSourceFromIcoFile(Uri imageUri, Size desiredSize)
         {
             var decoder = BitmapDecoder.Create(
                 imageUri,
                 BitmapCreateOptions.DelayCreation | BitmapCreateOptions.IgnoreImageCache,
                 BitmapCacheOption.None);
 
-            return ExtractImage(decoder, desiredSize);
+            return ExtractImageSource(decoder, desiredSize);
         }
 
-        private static ImageSource ExtractImage(ImageSource imageSource, double desiredSize)
+        private static ImageSource ExtractImageSource(ImageSource imageSource, Size desiredSize)
         {
-            if (double.IsNaN(desiredSize))
+            if (desiredSize.IsEmpty)
             {
                 return imageSource;
             }
@@ -135,10 +158,10 @@
                 return imageSource;
             }
 
-            return ExtractImage(bitmapFrame.Decoder, desiredSize);
+            return ExtractImageSource(bitmapFrame.Decoder, desiredSize);
         }
 
-        private static ImageSource ExtractImage(BitmapDecoder decoder, double desiredSize)
+        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Size desiredSize)
         {
             var dpiFactor = 1.0;
 
@@ -155,12 +178,14 @@
             }
 
             var framesOrderedByWidth = decoder.Frames
-                                        .OrderBy(f => f.Width)
-                                        .ToList();
+                                              .OrderBy(f => f.Width)
+                                              .ThenBy(f => f.Height)
+                                              .ToList();
 
             // if there is no matching frame, get the largest frame
             return framesOrderedByWidth
-                    .FirstOrDefault(f => f.Width >= desiredSize * dpiFactor)
+                    .FirstOrDefault(f => f.Width >= desiredSize.Width * dpiFactor
+                                         && f.Height >= desiredSize.Height * dpiFactor)
                    ?? framesOrderedByWidth.Last();
         }
     }
