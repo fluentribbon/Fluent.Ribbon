@@ -137,7 +137,7 @@
                 <Setter Property="Background"
                         Value="Transparent" />
                 <Setter Property="Foreground"
-                        Value="{DynamicResource WhiteBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
             </Trigger>
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseDark">

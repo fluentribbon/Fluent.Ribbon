@@ -1,5 +1,10 @@
 # Changelog for Fluent.Ribbon
 
+## 6.0.1 (preview)
+
+- ### Bug fixes
+  - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
+
 ## 6.0.0
 
 - ### Breaking changes
