@@ -15,8 +15,8 @@ namespace Fluent
     /// </summary>
     public static class ThemeManager
     {
-        public const string AppTheme_Light = "BaseLight";
-        public const string AppTheme_Dark = "BaseDark";
+        private const string AppThemeLight = "BaseLight";
+        private const string AppThemeDark = "BaseDark";
 
 #pragma warning disable SA1309 // Field names must not begin with underscore
         private static IList<Accent> _accents;
@@ -72,7 +72,7 @@ namespace Fluent
                     return _appThemes;
                 }
 
-                var themes = new[] { AppTheme_Light, AppTheme_Dark };
+                var themes = new[] { AppThemeLight, AppThemeDark };
 
                 _appThemes = new List<AppTheme>(themes.Length);
 
@@ -706,8 +706,8 @@ namespace Fluent
         public static void AlignAppThemeWithWindowsAppModeSetting()
         {
             var appTheme = AppsUseLightTheme()
-                               ? AppTheme_Light
-                               : AppTheme_Dark;
+                               ? AppThemeLight
+                               : AppThemeDark;
 
             ChangeAppTheme(Application.Current, appTheme);
         }

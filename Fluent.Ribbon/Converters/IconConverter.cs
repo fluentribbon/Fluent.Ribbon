@@ -62,6 +62,8 @@ namespace Fluent
 
         private static ImageSource GetDefaultIcon(IntPtr hwnd)
         {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
+
             // Retrieve the small icon for the window.
             const int ICON_SMALL = 0;
             // Retrieve the large icon for the window.
@@ -76,6 +78,8 @@ namespace Fluent
 
             // Shares the image handle if the image is loaded multiple times. If LR_SHARED is not set, a second call to LoadImage for the same resource will load the image again and return a different handle.
             const int LR_SHARED = 0x00008000;
+
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
 
             if (hwnd == IntPtr.Zero)
             {
