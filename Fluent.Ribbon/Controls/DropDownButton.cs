@@ -40,7 +40,7 @@ namespace Fluent
 
         private UIElement buttonBorder;
 
-        private readonly Stack<WeakReference<MenuItem>> openMenuItems = new Stack<WeakReference<MenuItem>>();
+        private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
 
         #endregion
 
@@ -361,9 +361,6 @@ namespace Fluent
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
-
-            //EventManager.RegisterClassHandler(type, System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(OnSubmenuOpened));
-            //EventManager.RegisterClassHandler(type, System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(OnSubmenuClosed));
         }
 
         /// <summary>
@@ -761,10 +758,9 @@ namespace Fluent
         {
             foreach (var openMenuItem in this.openMenuItems.ToArray())
             {
-                MenuItem menuItem;
-                if (openMenuItem.TryGetTarget(out menuItem))
+                if (openMenuItem.IsAlive)
                 {
-                    menuItem.IsSubmenuOpen = false;
+                    ((System.Windows.Controls.MenuItem)openMenuItem.Target).IsSubmenuOpen = false;
                 }
             }
 
@@ -878,12 +874,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Gets an enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object.
-        /// </summary>
-        /// <returns>
-        /// An enumerator for the logical child objects of the <see cref="T:System.Windows.Controls.ItemsControl"/> object. The default is null.
-        /// </returns>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -907,31 +898,12 @@ namespace Fluent
 
         #region MenuItem workarounds
 
-        //private static void OnSubmenuOpened(object sender, RoutedEventArgs e)
-        //{
-        //    var menuItem = e.OriginalSource as MenuItem;
-        //    if (menuItem != null)
-        //    {
-        //        ((ApplicationMenu)sender).openMenuItems.Push(new WeakReference<MenuItem>(menuItem));
-        //    }
-        //}
-
-        //private static void OnSubmenuClosed(object sender, RoutedEventArgs e)
-        //{
-        //    var applicationMenu = (ApplicationMenu)sender;
-
-        //    if (applicationMenu.openMenuItems.Count > 0)
-        //    {
-        //        applicationMenu.openMenuItems.Pop();
-        //    }
-        //}
-
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
             var menuItem = e.OriginalSource as MenuItem;
             if (menuItem != null)
             {
-                this.openMenuItems.Push(new WeakReference<MenuItem>(menuItem));
+                this.openMenuItems.Push(new WeakReference(menuItem));
             }
         }
 
