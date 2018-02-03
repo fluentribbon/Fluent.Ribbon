@@ -41,7 +41,7 @@
                      x:Key="SliderThumbControlTemplate">
         <Grid Margin="2.5,0.5">
             <Border Name="path"
-                    Background="{DynamicResource WhiteBrush}"
+                    Background="{TemplateBinding Foreground}"
                     Width="3"
                     Height="11">
                 <Border Name="hoverborder" />
@@ -119,20 +119,20 @@
             </Grid.ColumnDefinitions>
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,-1,0,0"
-                       Stroke="{DynamicResource WhiteBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <!--<Rectangle Grid.ColumnSpan="1" Margin="-1,0,0,0" Stroke="{DynamicResource SliderShadowBrush}" VerticalAlignment="Center" Height="7" Grid.Column="1" Width="1" HorizontalAlignment="Center"/>-->
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,0"
-                       Stroke="{DynamicResource WhiteBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,1"
-                       Stroke="{DynamicResource WhiteBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="7"
                        Grid.Column="1"
@@ -181,7 +181,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="{DynamicResource WhiteBrush}" />
+                          Stroke="{TemplateBinding Foreground}" />
                 </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy"
@@ -199,7 +199,7 @@
                           VerticalAlignment="Center"
                           Height="10"
                           StrokeThickness="2"
-                          Stroke="{DynamicResource WhiteBrush}" />
+                          Stroke="{TemplateBinding Foreground}" />
                     <Path Data="M0,0L1,0"
                           HorizontalAlignment="Center"
                           Margin="0"
@@ -208,7 +208,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="{DynamicResource WhiteBrush}" />
+                          Stroke="{TemplateBinding Foreground}" />
                 </Grid>
             </RepeatButton>
         </Grid>
