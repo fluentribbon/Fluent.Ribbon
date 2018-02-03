@@ -3,6 +3,7 @@
 ## 6.0.1 (preview)
 
 - ### Bug fixes
+  - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
   - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
 
