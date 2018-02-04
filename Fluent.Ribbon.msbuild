@@ -10,8 +10,6 @@
   <Target Name="Restore">
       <Message Text="Restoring packages..." Importance="High" />
       <Exec Command="$(Root)/.paket/paket.exe restore" />
-      <!--<Exec Command="$(Root)/packages/NuGet.Commandline/tools/NuGet.exe restore &quot;$(Root)/Fluent.Ribbon.sln&quot;" />
-      <Exec Command="$(Root)/packages/NuGet.Commandline/tools/NuGet.exe restore &quot;$(Root)/Tools/packages.config&quot; -OutputDirectory &quot;$(Root)/Tools&quot;" />-->
       <Message Text="Restored packages." Importance="High" />
   </Target>
     
