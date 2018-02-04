@@ -1,19 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0">
-  <PropertyGroup Label="Globals">
-    <CustomProjectExtensionsPath>$(SolutionDir)\CustomProjectSystem\</CustomProjectExtensionsPath>
-    <ProjectGuid>adb1beb3-1331-4977-812c-5961da757666</ProjectGuid>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
+    <OriginalProjectName>Fluent.Ribbon.Tests</OriginalProjectName>
   </PropertyGroup>
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
+
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
-    <AssemblyName>Fluent.Tests</AssemblyName>    
-    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <AssemblyName>Fluent.Tests</AssemblyName>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
-  <Import Project="$(CustomProjectExtensionsPath)CustomProject.props" />
-  <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
       <Link>Commanding\IRelayCommand.cs</Link>
@@ -23,10 +20,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
+  </ItemGroup>  
   <Import Project="..\.paket\Paket.Restore.targets" />
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
 </Project>
