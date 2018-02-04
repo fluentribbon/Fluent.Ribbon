@@ -1,14 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
     <OriginalProjectName>Fluent.Ribbon.Showcase</OriginalProjectName>
   </PropertyGroup>
   <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
-
   <PropertyGroup>
+    <TargetFrameworks>net462;net45</TargetFrameworks>
     <RootNamespace>FluentTest</RootNamespace>
-    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>    
+    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
@@ -30,7 +29,7 @@
     <Reference Include="System.Data" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

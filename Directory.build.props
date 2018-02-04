@@ -1,31 +1,31 @@
 <Project>
-    <PropertyGroup>
-        <TargetFrameworks>net462;net45</TargetFrameworks>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
-        <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
-        <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
-        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-        <DefineConstants>NET45</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
-        <DefineConstants>NET462</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-        <DebugType>full</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <DebugType>pdbonly</DebugType>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Include="paket.references" />
-        <Resource Include="**\*.png;**\*.ico;**\*.ps" />
+  <PropertyGroup>
+    <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+    <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>        
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <DefineConstants>NET45</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <DefineConstants>NET462</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="paket.references" />
+    <Resource Include="**\*.png;**\*.ico;**\*.ps" />
 
-        <Compile Include="$(MSBuildThisFileDirectory)\Shared\GlobalAssemblyInfo.cs">
-            <Link>Properties\GlobalAssemblyInfo.cs</Link>
-        </Compile>
-    </ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)\Shared\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
 </Project>

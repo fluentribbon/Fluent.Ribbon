@@ -28,4 +28,7 @@ $measure = Measure-Command {
 
 Write-Output "Time elapsed $($measure.ToString())"
 
-if ($LASTEXITCODE -ne 0) { exit 1 }
+if ($LASTEXITCODE -ne 0) { 
+    Write-Error "Build failed" -ErrorAction Continue
+    exit 1 
+}
