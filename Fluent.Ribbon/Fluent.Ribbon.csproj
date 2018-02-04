@@ -10,9 +10,11 @@
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**\*.Template.xaml</DefaultWpfPageExcludes>
+    <EnableDefaultNoneItems>False</EnableDefaultNoneItems>
   </PropertyGroup>
   <ItemGroup>
     <None Include="**\*.fx;**\*.json" Exclude="$(BaseIntermediateOutputPath)\**\*" />
+    <None Include="**\*.Template.xaml" />
   </ItemGroup>
   <!-- We only include certain xaml files in release to decrease binary size -->
   <!-- We include all xaml files in debug to get intellisense everywhere -->
