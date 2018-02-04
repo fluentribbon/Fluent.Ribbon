@@ -1,5 +1,7 @@
 ControlzEx
-StyleCop.Analyzers
 
 XamlColorSchemeGenerator
 GitLink
+
+MSBuild.Sdk.Extras
+StyleCop.Analyzers

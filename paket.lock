@@ -6,6 +6,7 @@ NUGET
     ControlzEx (3.0.1.66)
     gitlink (3.1)
     MahApps.Metro (1.5)
+    MSBuild.Sdk.Extras (1.2.1)
     NuGet.CommandLine (4.1)
     NUnit (3.7.1)
     NUnit.Console (3.7)

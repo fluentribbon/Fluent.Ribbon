@@ -23,7 +23,7 @@
 
   <Target Name="ReadVersion">
     <!-- Read assembly version from the DLL -->
-    <GetAssemblyIdentity AssemblyFiles="$(Root)/bin/Fluent/$(Configuration)v4.5/Fluent.dll">
+    <GetAssemblyIdentity AssemblyFiles="$(Root)/bin/Fluent.Ribbon/$(Configuration)/net462/Fluent.dll">
         <Output TaskParameter="Assemblies" ItemName="FluentAssembly"/>
     </GetAssemblyIdentity>
     <PropertyGroup>
@@ -40,9 +40,8 @@
   </Target>
 
   <Target Name="RunTests">    
-    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.0/Fluent.Tests.dll&quot;" />
-    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.5/Fluent.Tests.dll&quot;" />
-    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Tests/$(Configuration)v4.6.2/Fluent.Tests.dll&quot;" />
+    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Ribbon.Tests/$(Configuration)/net45/Fluent.Tests.dll&quot;" />
+    <Exec Command="$(Root)/packages/NUnit.ConsoleRunner/tools/nunit3-console.exe --noheader &quot;$(Root)/bin/Fluent.Ribbon.Tests/$(Configuration)/net462/Fluent.Tests.dll&quot;" />
   </Target>
  
   <Target Name="CreateNuGetPackage" DependsOnTargets="ReadVersion; EnsurePublishDir">
@@ -53,7 +52,7 @@
   <Target Name="CreateZipPackages" DependsOnTargets="ReadVersion; EnsurePublishDir">
     <!-- Create dll zip package -->
     <Exec Command="$(Root)/packages/7-Zip.CommandLine/tools/7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
-          WorkingDirectory="$(Root)/bin/Fluent" />
+          WorkingDirectory="$(Root)/bin/Fluent.Ribbon" />
     <!-- Create showcase zip package -->
     <Exec Command="$(Root)/packages/7-Zip.CommandLine/tools/7za.exe a -tzip -mx9 -r &quot;$(PublishDirectory)/Fluent.Ribbon.Showcase.$(Version).zip&quot; *.dll *.pdb *.exe *.xml"
           WorkingDirectory="$(Root)/bin/Fluent.Ribbon.Showcase" />

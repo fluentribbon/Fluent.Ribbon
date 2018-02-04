@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0">
-  <PropertyGroup Label="Globals">
-    <CustomProjectExtensionsPath>$(SolutionDir)\CustomProjectSystem\</CustomProjectExtensionsPath>
-    <ProjectGuid>05ed957f-2479-4cec-a13a-868deeb0c56a</ProjectGuid>
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+  <PropertyGroup>
+    <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
+    <OriginalProjectName>Fluent.Ribbon.Showcase</OriginalProjectName>
   </PropertyGroup>
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
+
   <PropertyGroup>
     <RootNamespace>FluentTest</RootNamespace>
-    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
-    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>    
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
@@ -17,18 +18,11 @@
     <ApplicationIcon>Icons\App.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-  <Import Project="$(CustomProjectExtensionsPath)CustomProject.props" />
-  <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
-    <!-- App.xaml -->
-    <Page Remove="App.xaml" />
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
@@ -37,4 +31,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
 </Project>

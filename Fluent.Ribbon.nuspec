@@ -18,16 +18,12 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="bin\Fluent\$Configuration$v4.0\Fluent.dll" target="lib\net40" />
-        <file src="bin\Fluent\$Configuration$v4.0\Fluent.pdb" target="lib\net40" />
-        <file src="bin\Fluent\$Configuration$v4.0\Fluent.XML" target="lib\net40" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net45\Fluent.dll" target="lib\net45" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net45\Fluent.pdb" target="lib\net45" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net45\Fluent.xml" target="lib\net45" />
 
-        <file src="bin\Fluent\$Configuration$v4.5\Fluent.dll" target="lib\net45" />
-        <file src="bin\Fluent\$Configuration$v4.5\Fluent.pdb" target="lib\net45" />
-        <file src="bin\Fluent\$Configuration$v4.5\Fluent.XML" target="lib\net45" />
-
-        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.dll" target="lib\net462" />
-        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.pdb" target="lib\net462" />
-        <file src="bin\Fluent\$Configuration$v4.6.2\Fluent.XML" target="lib\net462" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net462\Fluent.dll" target="lib\net462" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net462\Fluent.pdb" target="lib\net462" />
+        <file src="bin\Fluent.Ribbon\$Configuration$\net462\Fluent.xml" target="lib\net462" />
     </files>
 </package>
