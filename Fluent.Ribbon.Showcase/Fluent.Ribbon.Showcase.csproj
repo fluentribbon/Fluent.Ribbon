@@ -29,19 +29,6 @@
     <Reference Include="System.Data" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
   <Import Project="..\.paket\Paket.Restore.targets" />
