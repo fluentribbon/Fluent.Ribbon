@@ -11,8 +11,8 @@
 - ### Enhancements
   - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
   - [#514](../../issues/514) - Detect Windows 10 app mode setting and adjust current AppTheme automatically  
-  You can use `ThemeManager.AlignAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
-  You can use `ThemeManager.IsWindowsAppModeSettingDetectionEnabled` to align the `AppTheme` automatically when the Windows setting is changed during runtime.
+  You can use `ThemeManager.SyncAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
+  You can use `ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled` to align the `AppTheme` automatically when the Windows setting is changed during runtime.
 
 ## 6.0.0
 
