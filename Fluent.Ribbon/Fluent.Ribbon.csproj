@@ -1,18 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
     <OriginalProjectName>Fluent.Ribbon</OriginalProjectName>
   </PropertyGroup>
   <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
-
   <PropertyGroup>
+    <TargetFrameworks>net462;net45</TargetFrameworks>
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**\*.Template.xaml</DefaultWpfPageExcludes>
   </PropertyGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <None Include="**\*.fx;**\*.json" />
   </ItemGroup>
   <!-- We only include certain xaml files in release to decrease binary size -->
@@ -35,7 +34,7 @@
     <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
     <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Accents\GeneratorParameters.json&quot;" />
   </Target>
-  <Import Project="..\.paket\Paket.Restore.targets" />
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />
+  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />  
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
