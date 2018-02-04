@@ -12,12 +12,12 @@
     <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**\*.Template.xaml</DefaultWpfPageExcludes>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="**\*.fx;**\*.json" />
+    <None Include="**\*.fx;**\*.json" Exclude="$(BaseIntermediateOutputPath)\**\*" />
   </ItemGroup>
   <!-- We only include certain xaml files in release to decrease binary size -->
   <!-- We include all xaml files in debug to get intellisense everywhere -->
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**\*.Template.xaml;**\*.xaml</DefaultWpfPageExcludes>
+    <EnableDefaultWpfItems>False</EnableDefaultWpfItems>
   </PropertyGroup>
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <Page Include="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
