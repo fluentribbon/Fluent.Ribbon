@@ -701,9 +701,9 @@ namespace Fluent
         #region WindowsAppModeSetting
 
         /// <summary>
-        /// Aligns the current <see cref="AppTheme"/> with the "app mode" setting from windows.
+        /// Synchronizes the current <see cref="AppTheme"/> with the "app mode" setting from windows.
         /// </summary>
-        public static void AlignAppThemeWithWindowsAppModeSetting()
+        public static void SyncAppThemeWithWindowsAppModeSetting()
         {
             var appTheme = AppsUseLightTheme()
                                ? AppThemeLight
@@ -712,25 +712,25 @@ namespace Fluent
             ChangeAppTheme(Application.Current, appTheme);
         }
 
-        private static bool isWindowsAppModeSettingDetectionEnabled;
+        private static bool isAutomaticWindowsAppModeSettingSyncEnabled;
 
         /// <summary>
         /// Gets or sets wether changes to the "app mode" setting from windows should be detected at runtime and the current <see cref="AppTheme"/> be changed accordingly.
         /// </summary>
-        public static bool IsWindowsAppModeSettingDetectionEnabled
+        public static bool IsAutomaticWindowsAppModeSettingSyncEnabled
         {
-            get { return isWindowsAppModeSettingDetectionEnabled; }
+            get { return isAutomaticWindowsAppModeSettingSyncEnabled; }
 
             set
             {
-                if (value == isWindowsAppModeSettingDetectionEnabled)
+                if (value == isAutomaticWindowsAppModeSettingSyncEnabled)
                 {
                     return;
                 }
 
-                isWindowsAppModeSettingDetectionEnabled = value;
+                isAutomaticWindowsAppModeSettingSyncEnabled = value;
 
-                if (isWindowsAppModeSettingDetectionEnabled)
+                if (isAutomaticWindowsAppModeSettingSyncEnabled)
                 {
                     SystemEvents.UserPreferenceChanged += HandleUserPreferenceChanged;
                 }
@@ -745,7 +745,7 @@ namespace Fluent
         {
             if (e.Category == UserPreferenceCategory.General)
             {
-                AlignAppThemeWithWindowsAppModeSetting();
+                SyncAppThemeWithWindowsAppModeSetting();
             }
         }
 
