@@ -13,7 +13,7 @@
   - [#514](../../issues/514) - Detect Windows 10 app mode setting and adjust current AppTheme automatically  
   You can use `ThemeManager.SyncAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
   You can use `ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled` to align the `AppTheme` automatically when the Windows setting is changed during runtime.
-  - [#518](../../issues/518) - Replace Thread.Sleep with Task.Delay for non-.NET 4.0 platforms
+  - [#518](../../issues/518) - Replace Thread.Sleep with Task.Delay for non-.NET 4.0 platforms (thanks @GeertvanHorrik)
 
 ## 6.0.0
 
