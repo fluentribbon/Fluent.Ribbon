@@ -159,9 +159,15 @@ namespace Fluent
                     {
                         var timespan = backstage.HideAnimationDuration.TimeSpan;
 
+#if NET40
                         Task.Factory.StartNew(() =>
                         {
                             Thread.Sleep(timespan);
+#else
+                        Task.Factory.StartNew(async () =>
+                        {
+                            await Task.Delay(timespan);
+#endif
 
                             backstage.Dispatcher.RunInDispatcher(backstage.Hide);
                         });

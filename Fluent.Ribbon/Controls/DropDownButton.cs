@@ -6,6 +6,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -521,12 +522,18 @@ namespace Fluent
                 e.Handled = false;
 
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
-                var closePopupOnMouseDownDelay = this.ClosePopupOnMouseDownDelay;
+                var timespan = this.ClosePopupOnMouseDownDelay;
 
                 // Ugly workaround, but use a timer to allow routed event to continue
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
+#if NET40
+                Task.Factory.StartNew(() =>
                 {
-                    Thread.Sleep(closePopupOnMouseDownDelay);
+                    Thread.Sleep(timespan);
+#else
+                Task.Factory.StartNew(async () =>
+                {
+                    await Task.Delay(timespan);
+#endif
 
                     this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
                 });
