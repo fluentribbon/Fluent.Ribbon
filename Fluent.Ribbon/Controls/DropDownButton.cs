@@ -519,8 +519,6 @@ namespace Fluent
                 && this.resizeBothThumb.IsMouseOver == false
                 && this.resizeVerticalThumb.IsMouseOver == false)
             {
-                e.Handled = false;
-
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
                 var timespan = this.ClosePopupOnMouseDownDelay;
 
