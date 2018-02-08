@@ -7,6 +7,7 @@
   - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
   - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
+  - [#517](../../issues/517) - Fluent 6.0: buttons inside drop downs don't seem to work when using ClosePopupOnMouseDown
 
 - ### Enhancements
   - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
