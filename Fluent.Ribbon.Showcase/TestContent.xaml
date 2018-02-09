@@ -1642,6 +1642,17 @@
                         </ItemsControl.ItemTemplate>
                     </Fluent:SplitButton>
 
+                    <Fluent:SplitButton Header="Split button (auto close on click)"
+                                        ResizeMode="Both"
+                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
+                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
+                                        ClosePopupOnMouseDown="True"
+                                        ClosePopupOnMouseDownDelay="250">
+                        <Grid>
+                            <Button Content="Test button" Click="OnSplitButtonTestButtonClick" />
+                        </Grid>
+                    </Fluent:SplitButton>
+
                     <Fluent:DropDownButton Header="Dropdown (auto close on click) g"
                                            ResizeMode="Both"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"

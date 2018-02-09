@@ -284,6 +284,11 @@ namespace FluentTest
             new RibbonWindowWithoutRibbon().Show();
         }
 
+        private void OnSplitButtonTestButtonClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("It's working!");
+        }
+
         private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             var textFormattingMode = e.NewValue > 1.0 || Math.Abs(e.NewValue - 1.0) < double.Epsilon ? TextFormattingMode.Ideal : TextFormattingMode.Display;
