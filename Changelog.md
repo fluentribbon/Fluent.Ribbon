@@ -8,6 +8,7 @@
   - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
   - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
   - [#517](../../issues/517) - Fluent 6.0: buttons inside drop downs don't seem to work when using ClosePopupOnMouseDown
+  - [#524](../../issues/524) - Fixes Korean translation error. (thanks @softinus)
 
 - ### Enhancements
   - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
