@@ -25,6 +25,8 @@ namespace Fluent
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            var desiredSize = new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight);
+
             if (value == null)
             {
                 if (Application.Current != null
@@ -34,7 +36,7 @@ namespace Fluent
                 {
                     try
                     {
-                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle);
+                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle, desiredSize);
                     }
                     catch (InvalidOperationException)
                     {
@@ -45,11 +47,11 @@ namespace Fluent
                 var p = Process.GetCurrentProcess();
                 if (p.MainWindowHandle != IntPtr.Zero)
                 {
-                    return GetDefaultIcon(p.MainWindowHandle);
+                    return GetDefaultIcon(p.MainWindowHandle, desiredSize);
                 }
             }
 
-            return ObjectToImageConverter.CreateImageSource(value, new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight));
+            return ObjectToImageConverter.CreateImageSource(value, desiredSize);
         }
 
         /// <inheritdoc />
@@ -60,7 +62,7 @@ namespace Fluent
 
         #endregion
 
-        private static ImageSource GetDefaultIcon(IntPtr hwnd)
+        private static ImageSource GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
 
@@ -98,12 +100,12 @@ namespace Fluent
 
                 if (iconPtr == IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(0x7f00) /*IDI_APPLICATION*/, 1, (int)SystemParameters.SmallIconWidth, (int)SystemParameters.SmallIconHeight, LR_SHARED);
+                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(0x7f00) /*IDI_APPLICATION*/, 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
                 }
 
                 if (iconPtr != IntPtr.Zero)
                 {
-                    var bitmapFrame = BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)SystemParameters.SmallIconWidth, (int)SystemParameters.SmallIconHeight)));
+                    var bitmapFrame = BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)desiredSize.Width, (int)desiredSize.Height)));
                     return (ImageSource)bitmapFrame.GetAsFrozen();
                 }
 #pragma warning restore 618
