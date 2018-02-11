@@ -26,10 +26,12 @@
         {
             var desiredSize = Size.Empty;
 
-            if (parameter is double)
+            if (parameter is double
+                || parameter is int
+                || parameter is string)
             {
-                var doubleValue = System.Convert.ToDouble(parameter);
-                desiredSize = new Size(doubleValue, doubleValue);
+                var size = System.Convert.ToDouble(parameter);
+                desiredSize = new Size(size, size);
             }
             else if (parameter is Size)
             {
