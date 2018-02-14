@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 6.1.0 (preview)
+## 6.1.0
 
 - ### Bug fixes
   - [#510](../../issues/510) - Submenus in DropDownButton are not opened each time
