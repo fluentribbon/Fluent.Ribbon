@@ -1,5 +1,22 @@
 # Changelog for Fluent.Ribbon
 
+## 6.1.0
+
+- ### Bug fixes
+  - [#510](../../issues/510) - Submenus in DropDownButton are not opened each time
+  - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
+  - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
+  - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
+  - [#517](../../issues/517) - Fluent 6.0: buttons inside drop downs don't seem to work when using ClosePopupOnMouseDown
+  - [#524](../../issues/524) - Fixes Korean translation error. (thanks @softinus)
+
+- ### Enhancements
+  - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
+  - [#514](../../issues/514) - Detect Windows 10 app mode setting and adjust current AppTheme automatically  
+  You can use `ThemeManager.SyncAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
+  You can use `ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled` to align the `AppTheme` automatically when the Windows setting is changed during runtime.
+  - [#518](../../issues/518) - Replace Thread.Sleep with Task.Delay for non-.NET 4.0 platforms (thanks @GeertvanHorrik)
+
 ## 6.0.0
 
 - ### Breaking changes

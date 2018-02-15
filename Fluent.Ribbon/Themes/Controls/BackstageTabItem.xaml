@@ -3,7 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <ControlTemplate x:Key="BackstageTabItemControlTemplate"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
-        <Grid Background="Transparent">
+        <Grid x:Name="rootGrid" 
+              Background="Transparent">
             <Border x:Name="selectedBorder"
                     Margin="0"
                     Visibility="Collapsed"
@@ -46,6 +47,7 @@
                         Value="Visible" />
             </Trigger>
             <Trigger Property="IsMouseOver"
+                     SourceName="rootGrid"
                      Value="True">
                 <Setter TargetName="hoverBorder"
                         Property="Visibility"

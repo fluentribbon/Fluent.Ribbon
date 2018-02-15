@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using ControlzEx.Standard;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -597,23 +598,6 @@ namespace Fluent
 
         #region Private methods
 
-        private static bool IsRibbonAncestorOf(DependencyObject element)
-        {
-            while (element != null)
-            {
-                if (element is Ribbon)
-                {
-                    return true;
-                }
-
-                var parent = LogicalTreeHelper.GetParent(element) ?? VisualTreeHelper.GetParent(element);
-
-                element = parent;
-            }
-
-            return false;
-        }
-
         // Process mouse wheel event
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
@@ -624,9 +608,16 @@ namespace Fluent
             }
 
             var focusedElement = Keyboard.FocusedElement as DependencyObject;
+            var originalSource = e.OriginalSource as DependencyObject;
 
-            if (focusedElement != null
-                && IsRibbonAncestorOf(focusedElement))
+            // Prevent scrolling if
+            // - any control inside a RibbonGroupBox has focus
+            // - any control outside this RibbonTabControl caused the mouse wheel event
+            if ((focusedElement != null
+                && UIHelper.GetParent<RibbonGroupBox>(focusedElement) != null)
+                ||
+                (originalSource != null
+                && UIHelper.GetParent<RibbonTabControl>(originalSource) == null))
             {
                 return;
             }

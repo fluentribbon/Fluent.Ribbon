@@ -184,14 +184,17 @@
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="16"
-                              VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                              Width="16"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True" />
+            <Border x:Name="iconImageBorder"
+                    BorderThickness="1">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="16"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="16"
+                                  Margin="3,2,2,2"
+                                  SnapsToDevicePixels="True" />
+            </Border>
             <TextBlock x:Name="gestureTextBlock"
                        Text="{TemplateBinding InputGestureText}"
                        Width="Auto"
@@ -212,6 +215,15 @@
                 <Setter Property="Visibility"
                         TargetName="gestureTextBlock"
                         Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -308,15 +320,17 @@
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="16"
-                              VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                              Width="16"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True"
-                              RecognizesAccessKey="True" />
+            <Border x:Name="iconImageBorder"
+                    BorderThickness="1">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="16"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="16"
+                                  Margin="3,2,2,2"
+                                  SnapsToDevicePixels="True" />
+            </Border>
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -447,6 +461,15 @@
                         TargetName="resizeBorder"
                         Value="Visible" />
             </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
+            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Icon"
@@ -563,15 +586,17 @@
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="16"
-                              VerticalAlignment="Center"
-                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
-                              Width="16"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True"
-                              RecognizesAccessKey="True" />
+            <Border x:Name="iconImageBorder"
+                    BorderThickness="1">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="16"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="16"
+                                  Margin="3,2,2,2"
+                                  SnapsToDevicePixels="True" />
+            </Border>
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -703,6 +728,15 @@
                         TargetName="resizeBorder"
                         Value="Visible" />
             </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
+            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Icon"
@@ -819,15 +853,17 @@
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              Grid.RowSpan="2"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Top"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                              Width="32"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True" />
+            <Border x:Name="iconImageBorder"
+                    BorderThickness="1">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="16"
+                                  VerticalAlignment="Center"
+                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Width="16"
+                                  Margin="3,2,2,2"
+                                  SnapsToDevicePixels="True" />
+            </Border>
             <TextBlock x:Name="gestureTextBlock"
                        Text="{TemplateBinding InputGestureText}"
                        Width="Auto"
@@ -848,6 +884,15 @@
                 <Setter Property="Visibility"
                         TargetName="gestureTextBlock"
                         Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
