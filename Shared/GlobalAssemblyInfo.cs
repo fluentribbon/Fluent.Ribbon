@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
@@ -11,12 +11,12 @@ using System.Windows;
 #endif
 [assembly: AssemblyCompany("https://github.com/fluentribbon/Fluent.Ribbon")]
 [assembly: AssemblyProduct("Fluent.Ribbon")]
-[assembly: AssemblyCopyright("Copyright © 2012 - 2018 Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
+[assembly: AssemblyCopyright("Copyright Â© 2012 - 2018 Bastian Schmidt; Copyright Â© 2009 - 2012 Degtyarev Daniel, Rikker Serg")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("6.1.0.0")]
-[assembly: AssemblyFileVersion("6.1.0.0")]
+[assembly: AssemblyVersion("7.0.0.0")]
+[assembly: AssemblyFileVersion("7.0.0.0")]
 [assembly: AssemblyInformationalVersion("SRC")]
 
 [assembly: ComVisible(false)]
