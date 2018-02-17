@@ -2,12 +2,10 @@ SPECIFIC-VERSION: FALSE
 RESTRICTION: || (== net40) (== net45) (== net462)
 NUGET
   remote: https://www.nuget.org/api/v2
-    7-Zip.CommandLine (16.4)
     ControlzEx (3.0.1.66)
     gitlink (3.1)
     MahApps.Metro (1.5)
     MSBuild.Sdk.Extras (1.2.1)
-    NuGet.CommandLine (4.1)
     NUnit (3.7.1)
     StyleCop.Analyzers (1.0.2)
     XamlColorSchemeGenerator (1.0.3.17)
