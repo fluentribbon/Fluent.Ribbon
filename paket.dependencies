@@ -14,4 +14,15 @@ nuget XamlColorSchemeGenerator
 nuget ControlzEx @>= 3.0.1
 nuget MahApps.Metro
 nuget NUnit
-nuget NUnit.Console
+
+group cake
+	source https://nuget.org/api/v2
+	framework: net45
+	
+	nuget Cake
+	nuget Cake.Figlet
+	nuget Cake.Paket
+	nuget Cake.Paket.Module
+	nuget GitVersion.CommandLine
+	nuget gitreleasemanager
+	nuget NUnit.Console
