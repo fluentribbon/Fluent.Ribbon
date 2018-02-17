@@ -90,7 +90,8 @@ Task("Build")
         settings
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
-            .SetVerbosity(verbosity)
+            // .SetVerbosity(verbosity)
+            .SetVerbosity(Verbosity.Normal)
             );
     }
 });
