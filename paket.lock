@@ -2,11 +2,12 @@ SPECIFIC-VERSION: FALSE
 RESTRICTION: || (== net40) (== net45) (== net462)
 NUGET
   remote: https://www.nuget.org/api/v2
-    ControlzEx (3.0.1.66)
+    ControlzEx (3.0.2.4)
     gitlink (3.1)
-    MahApps.Metro (1.5)
+    MahApps.Metro (1.6)
+      ControlzEx (> 3.0.2 < 4.0)
     MSBuild.Sdk.Extras (1.2.1)
-    NUnit (3.7.1)
+    NUnit (3.9)
     StyleCop.Analyzers (1.0.2)
     XamlColorSchemeGenerator (1.0.3.17)
 
