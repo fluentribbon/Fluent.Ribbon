@@ -39,6 +39,8 @@ GitVersion gitVersion;
 
 // Define directories.
 var buildDir = Directory("./bin");
+var publishDir = Directory("./Publish");
+var solutionFile = File("./Fluent.Ribbon.sln");
 
 var username = "";
 var password = "";
@@ -66,10 +68,11 @@ Task("Restore")
     //.IsDependentOn("Clean")
     .Does(() =>
 {
-    // Is temporarily needed for sdk-csproj. Otherwise some files are missing.
-    DotNetCoreRestore();
-
-    PaketRestore();
+    MSBuild(solutionFile, settings => 
+        settings
+            .SetConfiguration(configuration)
+            .WithTarget("restore")
+            );
 });
 
 Task("Update-SolutionInfo")
@@ -86,7 +89,7 @@ Task("Build")
     if(IsRunningOnWindows())
     {
       // Use MSBuild
-      MSBuild("./Fluent.Ribbon.sln", settings => 
+      MSBuild(solutionFile, settings => 
         settings
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
@@ -99,29 +102,29 @@ Task("Build")
 Task("EnsurePublishDirectory")
     .Does(() =>
 {
-    EnsureDirectoryExists("./Publish");
+    EnsureDirectoryExists(publishDir);
 });
 
 Task("Pack")    
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {	
-	PaketPack("./Publish", new PaketPackSettings { Version = gitVersion.NuGetVersion, BuildConfig = configuration });
+	PaketPack(publishDir, new PaketPackSettings { Version = gitVersion.NuGetVersion, BuildConfig = configuration });
 });
 
 Task("Zip")    
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {
-    Zip("./bin/Fluent.Ribbon/" + configuration, "./Publish/Fluent.Ribbon-v" + gitVersion.NuGetVersion + ".zip");
-    Zip("./bin/Fluent.Ribbon.Showcase/" + configuration, "./Publish/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
+    Zip(buildDir.ToString() + "/Fluent.Ribbon/" + configuration, publishDir.ToString() + "/Fluent.Ribbon-v" + gitVersion.NuGetVersion + ".zip");
+    Zip(buildDir.ToString() + "/Fluent.Ribbon.Showcase/" + configuration, publishDir.ToString() + "/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
 });
 
 Task("Tests")    
     .Does(() =>
 {
     NUnit3(
-        "./bin/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll",
+        buildDir.ToString() + "/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll",
         new NUnit3Settings { ToolPath = "./packages/cake/NUnit.ConsoleRunner/tools/nunit3-console.exe" }
     );
 });
