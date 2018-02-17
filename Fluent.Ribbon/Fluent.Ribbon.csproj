@@ -15,26 +15,33 @@
   <ItemGroup>
     <None Include="**\*.fx;**\*.json" Exclude="$(BaseIntermediateOutputPath)\**\*" />
     <None Include="**\*.Template.xaml" />
+    <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>
-  <!-- We only include certain xaml files in release to decrease binary size -->
-  <!-- We include all xaml files in debug to get intellisense everywhere -->
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <EnableDefaultWpfItems>False</EnableDefaultWpfItems>
   </PropertyGroup>
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <Page Include="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />
-    <UpToDateCheckInput Include="**\*.xaml" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">
     <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
     <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Accents\GeneratorParameters.json&quot;" />
+
+    <!-- ItemGroups have to be here. Otherwise the generated color schemes won't get picked up by msbuild -->
+    <ItemGroup>
+      <!-- Remove items first to prevent duplicate item issues -->
+      <Page Remove="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" />
+      <Page Include="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
+        <SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
+      </Page>      
+    </ItemGroup>
+    
+    <!-- We only include certain xaml files in release to decrease binary size -->
+    <!-- We include all xaml files in debug to get intellisense everywhere -->
+    <ItemGroup Condition="'$(Configuration)'=='Release'">
+      <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />      
+    </ItemGroup>
   </Target>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />  
