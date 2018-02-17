@@ -1,8 +1,8 @@
-
 //////////////////////////////////////////////////////////////////////
 // TOOLS / ADDINS
 //////////////////////////////////////////////////////////////////////
 
+#tool paket:?package=GitVersion.CommandLine
 #tool paket:?package=NUnit.ConsoleRunner
 #addin paket:?package=Cake.Figlet
 #addin paket:?package=Cake.Paket
@@ -21,6 +21,12 @@ var configuration = Argument("configuration", "Release");
 if (string.IsNullOrWhiteSpace(configuration))
 {
     configuration = "Release";
+}
+
+var verbosity = Argument("verbosity", Verbosity.Normal);
+if (string.IsNullOrWhiteSpace(configuration))
+{
+    verbosity = Verbosity.Normal;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -56,10 +62,13 @@ Task("Clean")
     CleanDirectory(buildDir);
 });
 
-Task("Paket-Restore")
-    .IsDependentOn("Clean")
+Task("Restore")
+    //.IsDependentOn("Clean")
     .Does(() =>
 {
+    // Is temporarily needed for sdk-csproj. Otherwise some files are missing.
+    DotNetCoreRestore();
+
     PaketRestore();
 });
 
@@ -71,65 +80,74 @@ Task("Update-SolutionInfo")
 });
 
 Task("Build")
-    .IsDependentOn("Paket-Restore")
+    .IsDependentOn("Restore")
     .Does(() =>
-{
+{    
     if(IsRunningOnWindows())
     {
       // Use MSBuild
-      MSBuild("./Fluent.Ribbon.sln", settings => settings.SetMaxCpuCount(0).SetConfiguration(configuration));
+      MSBuild("./Fluent.Ribbon.sln", settings => 
+        settings
+            .SetMaxCpuCount(0)
+            .SetConfiguration(configuration)
+            .SetVerbosity(verbosity)
+            );
     }
 });
 
-Task("Paket-Pack")
-    //.WithCriteria(ShouldRunRelease())
+Task("EnsurePublishDirectory")
     .Does(() =>
 {
-	EnsureDirectoryExists("./Publish");
+    EnsureDirectoryExists("./Publish");
+});
+
+Task("Pack")    
+    .IsDependentOn("EnsurePublishDirectory")
+    .Does(() =>
+{	
 	PaketPack("./Publish", new PaketPackSettings { Version = gitVersion.NuGetVersion });
 });
 
-Task("Zip-Demos")
-    //.WithCriteria(ShouldRunRelease())
+Task("Zip")    
+    .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {
-	EnsureDirectoryExists("./Publish");
-    Zip("./bin/Fluent.Ribbon.Showcase/", "./Publish/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
+    Zip("./bin/Fluent.Ribbon.Showcase/" + configuration, "./Publish/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
 });
 
-Task("Unit-Tests")
-    //.WithCriteria(ShouldRunRelease())
+Task("Tests")    
     .Does(() =>
 {
     NUnit3(
-        "./bin/Fluent.Ribbon.Tests/**/" + configuration + "/*.Tests.dll",
-        new NUnit3Settings { ToolPath = "./packages/cake/NUnit.ConsoleRunner/tools/nunit.console.exe" }
+        "./bin/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll",
+        new NUnit3Settings { ToolPath = "./packages/cake/NUnit.ConsoleRunner/tools/nunit3-console.exe" }
     );
 });
 
 Task("GetCredentials")
     .Does(() =>
 {
-    username = EnvironmentVariable("GITHUB_USERNAME_MAHAPPS");
-    password = EnvironmentVariable("GITHUB_PASSWORD_MAHAPPS");
+    username = EnvironmentVariable("GITHUB_USERNAME_FLUENT_RIBBON");
+    password = EnvironmentVariable("GITHUB_PASSWORD_FLUENT_RIBBON");
 });
 
-Task("CreateReleaseNotes")
+Task("CreateReleaseNotes")    
+    .IsDependentOn("EnsurePublishDirectory")
+    //.IsDependentOn("GetCredentials")
     .Does(() =>
 {
-    EnsureDirectoryExists("./Publish");
-    // GitReleaseManagerExport(username, password, "MahApps", "MahApps.Metro", "./Publish/releasenotes.md", new GitReleaseManagerExportSettings {
-    //     TagName         = "1.5.0",
+    // GitReleaseManagerExport(username, password, "fluentribbon", "Fluent.Ribbon", "./Publish/releasenotes.md", new GitReleaseManagerExportSettings {
+    //     TagName         = "v6.0.0",
     //     TargetDirectory = "./Publish",
     //     LogFilePath     = "./Publish/grm.log"
     // });
-    GitReleaseManagerCreate(username, password, "fluentribbon", "Fluent.Ribbon", new GitReleaseManagerCreateSettings {
-        Milestone         = gitVersion.MajorMinorPatch,
-        Name              = gitVersion.SemVer,
-        Prerelease        = false,
-        TargetCommitish   = "master",
-        WorkingDirectory  = "./"
-    });
+    // GitReleaseManagerCreate(username, password, "fluentribbon", "Fluent.Ribbon", new GitReleaseManagerCreateSettings {
+    //     Milestone         = gitVersion.MajorMinorPatch,
+    //     Name              = gitVersion.SemVer,
+    //     Prerelease        = false,
+    //     TargetCommitish   = "master",
+    //     WorkingDirectory  = "./"
+    // });
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -142,9 +160,9 @@ Task("Default")
 Task("appveyor")
     .IsDependentOn("Update-SolutionInfo")
     .IsDependentOn("Build")
-    .IsDependentOn("Unit-Tests")
-    .IsDependentOn("Paket-Pack")
-    .IsDependentOn("Zip-Demos");
+    .IsDependentOn("Tests")
+    .IsDependentOn("Pack")
+    .IsDependentOn("Zip");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
