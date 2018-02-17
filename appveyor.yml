@@ -16,7 +16,7 @@
     do_not_increment_build_number: false
 
   build_script:
-    - ps: .\build.ps1 -Target appveyor
+    - ps: .\build.ps1 -Target appveyor -Verbosity Verbose
 
   cache:
     - packages -> **\paket.lock
