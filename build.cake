@@ -106,13 +106,14 @@ Task("Pack")
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {	
-	PaketPack("./Publish", new PaketPackSettings { Version = gitVersion.NuGetVersion });
+	PaketPack("./Publish", new PaketPackSettings { Version = gitVersion.NuGetVersion, BuildConfig = configuration });
 });
 
 Task("Zip")    
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {
+    Zip("./bin/Fluent.Ribbon/" + configuration, "./Publish/Fluent.Ribbon-v" + gitVersion.NuGetVersion + ".zip");
     Zip("./bin/Fluent.Ribbon.Showcase/" + configuration, "./Publish/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
 });
 
