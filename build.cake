@@ -37,13 +37,19 @@ if (string.IsNullOrWhiteSpace(configuration))
 GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
 GitVersion gitVersion;
 
+var local = BuildSystem.IsLocalBuild;
+var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
+var isDevelopBranch = StringComparer.OrdinalIgnoreCase.Equals("develop", AppVeyor.Environment.Repository.Branch);
+var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
+var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
+
 // Define directories.
 var buildDir = Directory("./bin");
 var publishDir = Directory("./Publish");
 var solutionFile = File("./Fluent.Ribbon.sln");
 
 var username = "";
-var password = "";
+var token = "";
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -52,8 +58,12 @@ var password = "";
 Setup(context =>
 {
     gitVersion = GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.Json });
-    Information("Informational Version: {0}", gitVersion.InformationalVersion);
-    Information("SemVer Version: {0}", gitVersion.SemVer);
+    Information("Informational Version  : {0}", gitVersion.InformationalVersion);
+    Information("SemVer Version         : {0}", gitVersion.SemVer);
+    Information("AssemblySemVer Version : {0}", gitVersion.AssemblySemVer);
+    Information("MajorMinorPatch Version: {0}", gitVersion.MajorMinorPatch);
+    Information("NuGet Version          : {0}", gitVersion.NuGetVersion);
+    Information("IsLocalBuild           : {0}", local);
 
     Information(Figlet("Fluent.Ribbon"));
 });
@@ -109,7 +119,7 @@ Task("Pack")
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
 {	
-	PaketPack(publishDir, new PaketPackSettings { Version = gitVersion.NuGetVersion, BuildConfig = configuration });
+	PaketPack(publishDir, new PaketPackSettings { Version = isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion, BuildConfig = configuration });
 });
 
 Task("Zip")    
@@ -130,29 +140,47 @@ Task("Tests")
 });
 
 Task("GetCredentials")
-    .Does(() =>
+    .Does(() => 
 {
     username = EnvironmentVariable("GITHUB_USERNAME_FLUENT_RIBBON");
-    password = EnvironmentVariable("GITHUB_PASSWORD_FLUENT_RIBBON");
+    if (string.IsNullOrEmpty(username))
+    {
+        throw new Exception("The GITHUB_USERNAME_FLUENT_RIBBON environment variable is not defined.");
+    }
+
+    token = EnvironmentVariable("GITHUB_TOKEN_FLUENT_RIBBON");
+    if (string.IsNullOrEmpty(token))
+    {
+        throw new Exception("The GITHUB_TOKEN_FLUENT_RIBBON environment variable is not defined.");
+    }
 });
 
-Task("CreateReleaseNotes")    
+Task("CreateReleaseNotes")
+    .WithCriteria(() => !isTagged)
     .IsDependentOn("EnsurePublishDirectory")
-    //.IsDependentOn("GetCredentials")
+    .IsDependentOn("GetCredentials")
     .Does(() =>
 {
-    // GitReleaseManagerExport(username, password, "fluentribbon", "Fluent.Ribbon", "./Publish/releasenotes.md", new GitReleaseManagerExportSettings {
-    //     TagName         = "v6.0.0",
-    //     TargetDirectory = "./Publish",
-    //     LogFilePath     = "./Publish/grm.log"
-    // });
-    // GitReleaseManagerCreate(username, password, "fluentribbon", "Fluent.Ribbon", new GitReleaseManagerCreateSettings {
+    // GitReleaseManagerCreate(username, token, "fluentribbon", "Fluent.Ribbon", new GitReleaseManagerCreateSettings {
     //     Milestone         = gitVersion.MajorMinorPatch,
-    //     Name              = gitVersion.SemVer,
+    //     Name              = "Fluent.Ribbon" + gitVersion.SemVer,
     //     Prerelease        = false,
     //     TargetCommitish   = "master",
     //     WorkingDirectory  = "./"
     // });
+});
+
+Task("ExportReleaseNotes")
+    .IsDependentOn("EnsurePublishDirectory")
+    .IsDependentOn("GetCredentials")
+    .Does(() =>
+{
+    GitReleaseManagerExport(username, token, "fluentribbon", "Fluent.Ribbon", publishDir.ToString() + "/releasenotes.md", new GitReleaseManagerExportSettings {
+        // TagName         = gitVersion.SemVer,
+        TagName         = "v6.1.0",
+        TargetDirectory = publishDir,
+        LogFilePath     = publishDir.ToString() + "/grm.log"
+    });
 });
 
 //////////////////////////////////////////////////////////////////////
