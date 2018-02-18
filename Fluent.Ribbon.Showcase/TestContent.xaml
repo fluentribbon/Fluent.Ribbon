@@ -45,6 +45,11 @@
                     <x:Type TypeName="ResizeMode" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
+            
+            <Style TargetType="Label">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource BlackBrush}" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
