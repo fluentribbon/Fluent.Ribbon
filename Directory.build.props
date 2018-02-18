@@ -4,6 +4,7 @@
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
     <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>        
