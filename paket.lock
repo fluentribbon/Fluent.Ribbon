@@ -19,7 +19,6 @@ NUGET
     Cake.Figlet (1.0)
     Cake.Paket (2.0)
     Cake.Paket.Module (2.0)
-    gitreleasemanager (0.6)
     GitVersion.CommandLine (3.6.5)
     NUnit.Console (3.8)
       NUnit.ConsoleRunner (>= 3.8)

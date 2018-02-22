@@ -142,17 +142,17 @@ Task("Tests")
 Task("GetCredentials")
     .Does(() => 
 {
-    username = EnvironmentVariable("GITHUB_USERNAME_FLUENT_RIBBON");
-    if (string.IsNullOrEmpty(username))
-    {
-        throw new Exception("The GITHUB_USERNAME_FLUENT_RIBBON environment variable is not defined.");
-    }
+    // username = EnvironmentVariable("GITHUB_USERNAME_FLUENT_RIBBON");
+    // if (string.IsNullOrEmpty(username))
+    // {
+    //     throw new Exception("The GITHUB_USERNAME_FLUENT_RIBBON environment variable is not defined.");
+    // }
 
-    token = EnvironmentVariable("GITHUB_TOKEN_FLUENT_RIBBON");
-    if (string.IsNullOrEmpty(token))
-    {
-        throw new Exception("The GITHUB_TOKEN_FLUENT_RIBBON environment variable is not defined.");
-    }
+    // token = EnvironmentVariable("GITHUB_TOKEN_FLUENT_RIBBON");
+    // if (string.IsNullOrEmpty(token))
+    // {
+    //     throw new Exception("The GITHUB_TOKEN_FLUENT_RIBBON environment variable is not defined.");
+    // }
 });
 
 Task("CreateReleaseNotes")
@@ -175,12 +175,12 @@ Task("ExportReleaseNotes")
     .IsDependentOn("GetCredentials")
     .Does(() =>
 {
-    GitReleaseManagerExport(username, token, "fluentribbon", "Fluent.Ribbon", publishDir.ToString() + "/releasenotes.md", new GitReleaseManagerExportSettings {
-        // TagName         = gitVersion.SemVer,
-        TagName         = "v6.1.0",
-        TargetDirectory = publishDir,
-        LogFilePath     = publishDir.ToString() + "/grm.log"
-    });
+    // GitReleaseManagerExport(username, token, "fluentribbon", "Fluent.Ribbon", publishDir.ToString() + "/releasenotes.md", new GitReleaseManagerExportSettings {
+    //     // TagName         = gitVersion.SemVer,
+    //     TagName         = "v6.1.0",
+    //     TargetDirectory = publishDir,
+    //     LogFilePath     = publishDir.ToString() + "/grm.log"
+    // });
 });
 
 //////////////////////////////////////////////////////////////////////
