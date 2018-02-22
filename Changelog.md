@@ -1,5 +1,10 @@
 # Changelog for Fluent.Ribbon
 
+## 7.0.0 (preview)
+- ### Breaking changes
+  - [#471](../../issues/471) - Drop support for .Net 4.0
+  - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
+
 ## 6.1.0
 
 - ### Bug fixes
