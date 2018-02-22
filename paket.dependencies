@@ -22,5 +22,5 @@ group cake
 	nuget Cake.Paket
 	nuget Cake.Paket.Module
 	nuget GitVersion.CommandLine
-	nuget gitreleasemanager
+	#nuget gitreleasemanager
 	nuget NUnit.Console
