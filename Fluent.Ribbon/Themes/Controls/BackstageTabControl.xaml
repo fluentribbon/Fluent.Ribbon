@@ -60,12 +60,8 @@
         <Style.Triggers>
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseLight">
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <SolidColorBrush Opacity="0.2"
-                                         Color="{DynamicResource BlackColor}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Background"
+                        Value="{DynamicResource BlackBrush20}" />
             </Trigger>
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseDark">
