@@ -1,7 +1,7 @@
 SPECIFIC-VERSION: FALSE
 RESTRICTION: || (== net40) (== net45) (== net462)
 NUGET
-  remote: https://www.nuget.org/api/v2
+  remote: https://api.nuget.org/v3/index.json
     ControlzEx (3.0.2.4)
     gitlink (3.1)
     MahApps.Metro (1.6)
@@ -14,7 +14,7 @@ NUGET
 GROUP cake
 RESTRICTION: == net45
 NUGET
-  remote: https://www.nuget.org/api/v2
+  remote: https://api.nuget.org/v3/index.json
     Cake (0.25)
     Cake.Figlet (1.0)
     Cake.Paket (2.0)

@@ -1,5 +1,5 @@
 #source https://ci.appveyor.com/nuget/controlzex
-source https://www.nuget.org/api/v2/
+source https://api.nuget.org/v3/index.json
 
 framework net462, net45, net40
 specific_version: false
@@ -14,7 +14,7 @@ nuget MahApps.Metro
 nuget NUnit
 
 group cake
-	source https://nuget.org/api/v2
+	source https://api.nuget.org/v3/index.json
 	framework: net45
 	
 	nuget Cake
