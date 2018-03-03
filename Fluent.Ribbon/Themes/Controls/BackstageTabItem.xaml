@@ -15,7 +15,6 @@
                     Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}" />
 
             <ContentControl x:Name="PART_Header"
-                            Foreground="{TemplateBinding Foreground}"
                             Margin="25,0,15,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -31,6 +30,18 @@
             </ContentControl>
         </Grid>
         <ControlTemplate.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="Foreground"
+                        TargetName="PART_Header"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" /> 
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="Foreground"
+                        TargetName="PART_Header"
+                        Value="{DynamicResource BlackBrush}" />
+            </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter TargetName="hoverBorder"
@@ -66,6 +77,8 @@
                 Value="38" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
         <Setter Property="Margin"
                 Value="0" />
         <Setter Property="Fluent:RibbonProperties.AppTheme"
@@ -77,8 +90,6 @@
                         Value="{DynamicResource BlackBrush20}" />
                 <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
                         Value="{DynamicResource WhiteBrush20}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
             </Trigger>
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseDark">
@@ -86,8 +97,6 @@
                         Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
                 <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource BlackBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
