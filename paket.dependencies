@@ -1,7 +1,7 @@
 #source https://ci.appveyor.com/nuget/controlzex
 source https://api.nuget.org/v3/index.json
 
-framework net462, net45, net40
+framework net462, net45
 specific_version: false
 
 nuget gitlink
