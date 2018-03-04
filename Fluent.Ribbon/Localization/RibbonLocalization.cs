@@ -85,19 +85,14 @@ namespace Fluent
         {
             var localizationClasses = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Fluent.Localization.Languages");
 
-#if NET45 || NET462
             this.localizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>().CultureName, x => x);
-#else
-            this.localizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttributes(typeof(RibbonLocalizationAttribute), false).OfType<RibbonLocalizationAttribute>().First().CultureName, x => x);
-#endif
 
             this.Culture = CultureInfo.CurrentUICulture;
         }
 
         private void LoadCulture(CultureInfo requestedCulture)
         {
-            Type localizationClass;
-            if (this.localizationMap.TryGetValue(requestedCulture.Name, out localizationClass))
+            if (this.localizationMap.TryGetValue(requestedCulture.Name, out var localizationClass))
             {
                 this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
                 return;

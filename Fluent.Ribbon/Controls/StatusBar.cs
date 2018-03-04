@@ -27,9 +27,7 @@ namespace Fluent
 
         #region Properties
 
-#if NET45 || NET462
         private object currentItem;
-#endif
 
         #endregion
 
@@ -75,7 +73,6 @@ namespace Fluent
         /// <returns>The element that is used to display the given item.</returns>
         protected override DependencyObject GetContainerForItemOverride()
         {
-#if NET45 || NET462
             var item = this.currentItem;
             this.currentItem = null;
 
@@ -95,7 +92,7 @@ namespace Fluent
                     throw new InvalidOperationException("Invalid ItemContainer");
                 }
             }
-#endif
+
             return new StatusBarItem();
         }
 
@@ -108,12 +105,10 @@ namespace Fluent
         {
             var isItemItsOwnContainerOverride = item is StatusBarItem || item is Separator;
 
-#if NET45 || NET462
             if (isItemItsOwnContainerOverride == false)
             {
                 this.currentItem = item;
             }
-#endif
 
             return isItemItsOwnContainerOverride;
         }

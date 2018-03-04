@@ -625,17 +625,10 @@ namespace Fluent
             var visualItems = new List<RibbonTabItem>();
             var selectedIndex = -1;
 
-#if NET45 || NET462
             var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
                 .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
                 .OrderBy(x => x.IsContextual)
                 .ToList();
-#else
-            var tabs = this.Items.OfType<object>().Select(x => this.ItemContainerGenerator.ContainerFromItem(x)).OfType<RibbonTabItem>()
-                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
-                .OrderBy(x => x.IsContextual)
-                .ToList();
-#endif
 
             for (var i = 0; i < tabs.Count; i++)
             {

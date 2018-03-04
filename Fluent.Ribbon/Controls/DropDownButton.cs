@@ -523,15 +523,9 @@ namespace Fluent
                 var timespan = this.ClosePopupOnMouseDownDelay;
 
                 // Ugly workaround, but use a timer to allow routed event to continue
-#if NET40
-                Task.Factory.StartNew(() =>
-                {
-                    Thread.Sleep(timespan);
-#else
                 Task.Factory.StartNew(async () =>
                 {
                     await Task.Delay(timespan);
-#endif
 
                     this.RunInDispatcherAsync(() => this.IsDropDownOpen = false);
                 });
