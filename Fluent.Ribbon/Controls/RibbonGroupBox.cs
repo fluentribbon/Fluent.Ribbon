@@ -118,7 +118,19 @@ namespace Fluent
                     continue;
                 }
 
-                RibbonProperties.SetAppropriateSize(element, groupBoxState);
+                var targetElement = element;
+
+                if (targetElement is ContentPresenter presenter)
+                {
+                    var childrenCount = VisualTreeHelper.GetChildrenCount(presenter);
+
+                    if (childrenCount != 0)
+                    {
+                        targetElement = VisualTreeHelper.GetChild(presenter, 0);
+                    }
+                }
+
+                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState);
             }
         }
 

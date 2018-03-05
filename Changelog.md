@@ -5,6 +5,9 @@
   - [#471](../../issues/471) - Drop support for .Net 4.0
   - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
 
+- ### Enhancements
+  - [#533](../../issues/533) - Issue when using templated ribbon items
+
 ## 6.1.0
 
 - ### Bug fixes
