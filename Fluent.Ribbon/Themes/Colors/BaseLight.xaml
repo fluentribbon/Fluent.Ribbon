@@ -121,10 +121,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background" Color="Transparent" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground" Color="{StaticResource Gray1}" options:Freeze="True" />
 
-    <LinearGradientBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" EndPoint="0.5,1" StartPoint="0.5,0">
-        <GradientStop Color="#16000000" Offset="0" />
-        <GradientStop Color="#16000000" Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
 
     <!-- Separator -->        
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
