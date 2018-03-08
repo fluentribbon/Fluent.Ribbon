@@ -6,84 +6,28 @@
                     mc:Ignorable="d">
     <ControlTemplate TargetType="{x:Type Fluent:RibbonTabItem}"
                      x:Key="RibbonTabItemControlTemplate">
-        <Grid x:Name="grid"
-              Background="{TemplateBinding Background}"
+        <Grid x:Name="grid"              
               Height="Auto">
-            <Border x:Name="border3"
+            <Border x:Name="mouseOverBorder"
+                    Margin="1,0,1,0"
+                    Background="{TemplateBinding Background}" />
+            <Border x:Name="groupBorder"
                     Margin="0,0,0,1"
-                    Grid.ColumnSpan="2">
-                <Border x:Name="border5"
-                        Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                        BorderThickness="0"
-                        Margin="0"
-                        OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
-            </Border>
-            <Grid x:Name="selectedGrid"
-                  Visibility="Collapsed"
-                  Margin="0"
-                  Grid.ColumnSpan="1">
-                <Rectangle x:Name="rectangle"
-                           Fill="{TemplateBinding ActiveTabBackground}"
-                           StrokeThickness="0"
-                           Margin="0"
-                           VerticalAlignment="Bottom"
-                           Height="1" />
-                <Rectangle x:Name="rectangle1"
-                           Fill="{TemplateBinding ActiveTabBackground}"
-                           StrokeThickness="0"
-                           Margin="1.8,0"
-                           VerticalAlignment="Bottom"
-                           Height="1.2" />
-                <Rectangle x:Name="rectangle2"
-                           Fill="{TemplateBinding ActiveTabBackground}"
-                           StrokeThickness="0"
-                           Margin="2,0"
-                           VerticalAlignment="Bottom"
-                           Height="2" />
-                <Border x:Name="border"
-                        Margin="1,0,1,2"
-                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
-                        BorderThickness="1,1,1,0"
-                        VerticalAlignment="Stretch"
-                        Background="{TemplateBinding ActiveTabBackground}">
-                    <Border x:Name="border_Copy3"
-                            Margin="0"
-                            BorderThickness="1,1,1,0"
-                            VerticalAlignment="Stretch"
-                            CornerRadius="2,2,0,0"
-                            BorderBrush="{TemplateBinding ActiveTabBackground}">
-                    </Border>
-                </Border>
-                <Border x:Name="border1"
-                        HorizontalAlignment="Left"
-                        Margin="0"
-                        VerticalAlignment="Bottom"
-                        Width="2"
-                        Height="2"
-                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
-                        BorderThickness="0,0,1,1" />
-                <Border x:Name="border2"
-                        HorizontalAlignment="Right"
-                        Margin="0"
-                        VerticalAlignment="Bottom"
-                        Width="2"
-                        Height="2"
-                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
-                        BorderThickness="1,0,0,1" />
-                <Border x:Name="bottomBorder"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,0,0,-1"
-                        VerticalAlignment="Bottom"
-                        Height="1"
-                        BorderBrush="{TemplateBinding ActiveTabBackground}"
-                        BorderThickness="0,1" />
-            </Grid>
+                    BorderThickness="0"
+                    Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"                        
+                    OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
+            <Border x:Name="selectedBorder"                        
+                    Visibility="Collapsed"
+                    Margin="1,0,1,0"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
+                    BorderThickness="1,1,1,0"                        
+                    Background="{TemplateBinding ActiveTabBackground}" />
             <Border x:Name="PART_ContentContainer"
                     HorizontalAlignment="Stretch"
                     Margin="6,2,4,0"
                     VerticalAlignment="Stretch"
-                    Padding="15,0,0,0"
-                    Grid.ColumnSpan="1">
+                    Padding="15,0,0,0">
                 <ContentControl AutomationProperties.Name="{TemplateBinding Header}"
                                 AutomationProperties.AutomationId="{TemplateBinding Name}"
                                 Content="{TemplateBinding Header}"
@@ -97,8 +41,7 @@
                   Margin="0"
                   Visibility="Collapsed"
                   HorizontalAlignment="Right"
-                  Width="1"
-                  Grid.Column="1">
+                  Width="1">
                 <Rectangle x:Name="separatorRectangle1"
                            Fill="{TemplateBinding BorderBrush}"
                            Stroke="{TemplateBinding BorderBrush}"
@@ -127,7 +70,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
-                        TargetName="border5"
+                        TargetName="groupBorder"
                         Value="2,0,0,0" />
             </MultiTrigger>
             <MultiTrigger>
@@ -138,7 +81,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
-                        TargetName="border5"
+                        TargetName="groupBorder"
                         Value="0,0,2,0" />
             </MultiTrigger>
             <MultiTrigger>
@@ -149,7 +92,7 @@
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
-                        TargetName="border5"
+                        TargetName="groupBorder"
                         Value="0,0,0,0" />
             </MultiTrigger>
             <MultiTrigger>
@@ -160,20 +103,17 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
-                        TargetName="border5"
+                        TargetName="groupBorder"
                         Value="2,0,2,0" />
             </MultiTrigger>
             <Trigger Property="Group"
                      Value="{x:Null}">
                 <Setter Property="Visibility"
-                        TargetName="border3"
+                        TargetName="groupBorder"
                         Value="Collapsed" />
                 <Setter Property="Margin"
                         TargetName="separatorGrid"
                         Value="-1,0,0,1" />
-                <Setter Property="Visibility"
-                        TargetName="border_Copy3"
-                        Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -183,7 +123,7 @@
                                Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="selectedGrid"
+                        TargetName="selectedBorder"
                         Value="Visible" />
                 <Setter Property="Foreground"
                         Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
@@ -198,7 +138,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="selectedGrid"
+                        TargetName="selectedBorder"
                         Value="Visible" />
                 <Setter Property="Foreground"
                         Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
@@ -251,7 +191,7 @@
                                Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="selectedGrid"
+                        TargetName="selectedBorder"
                         Value="Visible" />
                 <Setter Property="Background"
                         TargetName="grid"
@@ -271,7 +211,7 @@
                                Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="selectedGrid"
+                        TargetName="selectedBorder"
                         Value="Visible" />
                 <Setter Property="Background"
                         TargetName="grid"
