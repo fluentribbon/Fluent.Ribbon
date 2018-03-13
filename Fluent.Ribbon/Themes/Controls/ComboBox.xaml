@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonComboButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
@@ -125,7 +125,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="3,0,0,0"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>

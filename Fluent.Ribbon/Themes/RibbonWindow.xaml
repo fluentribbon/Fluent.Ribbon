@@ -3,11 +3,10 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"                    
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <Fluent:IconConverter x:Key="IconConvert" />
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
@@ -32,7 +31,7 @@
                                Width="16"
                                Margin="4,1,0,0"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                               Source="{TemplateBinding Icon, Converter={StaticResource IconConvert}}"
+                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}}"
                                SnapsToDevicePixels="True" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"

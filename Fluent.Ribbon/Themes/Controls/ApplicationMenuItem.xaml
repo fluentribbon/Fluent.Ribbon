@@ -4,9 +4,9 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
-    <Converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
+    <converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
 
     <!-- Second level-->
 
@@ -84,7 +84,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               SnapsToDevicePixels="True" />
         </Grid>
@@ -221,7 +221,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -563,7 +563,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -818,7 +818,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -942,7 +942,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -1265,7 +1265,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />

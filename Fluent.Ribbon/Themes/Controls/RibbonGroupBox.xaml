@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style TargetType="Separator"
            x:Key="GroupBoxSeparator">
@@ -79,7 +79,7 @@
                                             HorizontalAlignment="Center"
                                             Height="16"
                                             VerticalAlignment="Center"
-                                            Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                            Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
                                             Width="16"
                                             Margin="1,1,0,0"
                                             SnapsToDevicePixels="True" />
@@ -180,7 +180,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
@@ -351,7 +351,7 @@
                             CornerRadius="3">
                         <ContentPresenter x:Name="iconImage"
                                           Height="16"
-                                          Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                          Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
                                           Width="16"
                                           SnapsToDevicePixels="True" />
                     </Border>

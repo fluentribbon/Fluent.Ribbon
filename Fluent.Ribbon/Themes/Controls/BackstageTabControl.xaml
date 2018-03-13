@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Grid Background="Transparent">
@@ -323,7 +323,7 @@
                 Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
         <Setter Property="SelectedContentMargin">
             <Setter.Value>
-                <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
+                <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
                     <Binding Source="0" />
                     <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}"
                              Path="TitleBar.ActualHeight"

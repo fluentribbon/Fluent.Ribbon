@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
@@ -81,8 +81,8 @@
                                          Height="Auto"
                                          Width="Auto"
                                          Style="{DynamicResource InnerButtonStyle}"
-                                         LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                         Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                         LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsEnabled="{TemplateBinding IsButtonEnabled}"
                                          Header="{TemplateBinding Header}"
                                          ToolTip="{TemplateBinding ToolTip}"
@@ -396,7 +396,7 @@
                                       HorizontalAlignment="Center"
                                       Height="32"
                                       VerticalAlignment="Center"
-                                      Content="{TemplateBinding LargeIcon}"
+                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
                                       Width="32"
                                       SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
@@ -472,7 +472,7 @@
                         Value="1,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,0,2,1" />
@@ -508,7 +508,7 @@
                         Value="1,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Visibility"
                         TargetName="controlLabel"
                         Value="Visible" />

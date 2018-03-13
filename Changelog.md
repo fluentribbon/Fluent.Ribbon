@@ -7,9 +7,12 @@
 
 - ### Bug fixes
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
+  - [#543](../../issues/543) - Using images that can't be found during design time crashes designer  
+  A generic "error" image is rendered during design time and an exception is thrown during runtime.
 
 - ### Enhancements
   - [#533](../../issues/533) - Issue when using templated ribbon items
+  - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2  
 
 ## 6.1.0
 

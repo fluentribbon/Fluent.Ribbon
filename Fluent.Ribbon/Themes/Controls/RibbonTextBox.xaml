@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
 
     <ControlTemplate TargetType="{x:Type Fluent:TextBox}"
                      x:Key="Fluent.Ribbon.ControlTemplates.TextBox">
@@ -22,7 +22,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="3,0,0,0"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>

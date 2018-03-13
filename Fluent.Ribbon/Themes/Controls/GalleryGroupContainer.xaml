@@ -4,13 +4,8 @@
 
     <ControlTemplate x:Key="GalleryGroupContainerTemplate"
                      TargetType="{x:Type Fluent:GalleryGroupContainer}">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            
-            <Grid Grid.Row="0"
+        <DockPanel LastChildFill="True">
+            <Grid DockPanel.Dock="Top"
                   Height="21"
                   x:Name="headerGrid"
                   Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryGroupContainer.Header.Background}"
@@ -24,8 +19,8 @@
                            TextTrimming="CharacterEllipsis" />
             </Grid>
 
-            <ItemsPresenter Grid.Row="1" />
-        </Grid>
+            <ItemsPresenter />
+        </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="IsHeadered"
                      Value="False">

@@ -11,7 +11,6 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using System.Windows.Media;
     using ControlzEx.Standard;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;

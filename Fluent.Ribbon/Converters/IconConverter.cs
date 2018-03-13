@@ -3,64 +3,113 @@ namespace Fluent
 {
     using System;
     using System.Diagnostics;
-    using System.Globalization;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using ControlzEx.Standard;
     using Fluent.Converters;
+    using Fluent.Internal;
 
     /// <summary>
-    /// Icon converter provides application default icon if user-defined is not present.
+    /// Icon converter provides window or application default icon if user-defined is not present.
     /// </summary>
+    [ValueConversion(sourceType: typeof(string), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(Uri), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(System.Drawing.Icon), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(Image))]
     [ValueConversion(sourceType: typeof(string), targetType: typeof(ImageSource))]
     [ValueConversion(sourceType: typeof(Uri), targetType: typeof(ImageSource))]
+    [ValueConversion(sourceType: typeof(System.Drawing.Icon), targetType: typeof(ImageSource))]
     [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(ImageSource))]
-    public sealed class IconConverter : IValueConverter
+    public sealed class IconConverter : ObjectToImageConverter
     {
-        #region Implementation of IValueConverter
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        public IconConverter(Binding iconBinding)
+            : base(iconBinding, new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="desiredSize">The desired size for the image.</param>
+        public IconConverter(Size desiredSize)
+            : base(desiredSize)
+        {
+            if (desiredSize.IsEmpty
+                || DoubleUtil.AreClose(desiredSize.Width, 0)
+                || DoubleUtil.AreClose(desiredSize.Height, 0))
+            {
+                throw new ArgumentException("DesiredSize must not be empty and width/height must be greater than 0.", nameof(desiredSize));
+            }
+        }
 
         /// <inheritdoc />
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        protected override object GetValueToConvert(object value, Size desiredSize)
         {
-            var desiredSize = new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight);
-
             if (value == null)
             {
-                if (Application.Current != null
-                    && Application.Current.CheckAccess()
-                    && Application.Current.MainWindow != null
-                    && Application.Current.MainWindow.CheckAccess())
+                var defaultIcon = GetDefaultIcon(this.TargetVisual, desiredSize);
+
+                if (defaultIcon != null)
+                {
+                    return defaultIcon;
+                }
+            }
+
+            return base.GetValueToConvert(value, desiredSize);
+        }
+
+        private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
+        {
+            if (targetVisual != null)
+            {
+                var window = Window.GetWindow(targetVisual);
+
+                if (window != null)
                 {
                     try
                     {
-                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle, desiredSize);
+                        return GetDefaultIcon(new WindowInteropHelper(window).Handle, desiredSize);
                     }
-                    catch (InvalidOperationException)
+                    catch (InvalidOperationException exception)
                     {
-                        return null;
+                        Trace.WriteLine(exception);
                     }
                 }
+            }
 
-                var p = Process.GetCurrentProcess();
+            if (Application.Current != null
+                && Application.Current.CheckAccess()
+                && Application.Current.MainWindow != null
+                && Application.Current.MainWindow.CheckAccess())
+            {
+                try
+                {
+                    return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle, desiredSize);
+                }
+                catch (InvalidOperationException exception)
+                {
+                    Trace.WriteLine(exception);
+                }
+            }
+
+            using (var p = Process.GetCurrentProcess())
+            {
                 if (p.MainWindowHandle != IntPtr.Zero)
                 {
                     return GetDefaultIcon(p.MainWindowHandle, desiredSize);
                 }
             }
 
-            return ObjectToImageConverter.CreateImageSource(value, desiredSize);
+            return null;
         }
-
-        /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-
-        #endregion
 
         private static ImageSource GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
@@ -91,7 +140,7 @@ namespace Fluent
             try
             {
 #pragma warning disable 618
-                var iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL), IntPtr.Zero);
+                var iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL2), IntPtr.Zero);
 
                 if (iconPtr == IntPtr.Zero)
                 {
