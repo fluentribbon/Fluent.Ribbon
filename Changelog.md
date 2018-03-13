@@ -4,6 +4,7 @@
 - ### Breaking changes
   - [#471](../../issues/471) - Drop support for .Net 4.0
   - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
+  - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
 
 - ### Bug fixes
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
@@ -12,7 +13,7 @@
 
 - ### Enhancements
   - [#533](../../issues/533) - Issue when using templated ribbon items
-  - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2  
+  - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
 
 ## 6.1.0
 

@@ -162,7 +162,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsCheckedProperty = System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(OnIsCheckedChanged, CoerceIsChecked));
+        public static readonly DependencyProperty IsCheckedProperty = System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty.AddOwner(typeof(SplitButton), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal, OnIsCheckedChanged, CoerceIsChecked));
 
         private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
