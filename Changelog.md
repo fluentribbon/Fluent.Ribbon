@@ -2,7 +2,7 @@
 
 ## 7.0.0 (preview)
 - ### Breaking changes
-  - [#471](../../issues/471) - Drop support for .Net 4.0
+  - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
   - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
 
