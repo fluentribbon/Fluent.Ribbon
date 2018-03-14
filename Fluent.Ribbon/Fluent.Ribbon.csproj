@@ -1,9 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <!-- workaround for https://github.com/NuGet/Home/issues/5894 -->
-    <OriginalProjectName>Fluent.Ribbon</OriginalProjectName>
-  </PropertyGroup>
-  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.props" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' != 'false' and exists('$(BaseIntermediateOuputPath)')" />
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.2.2">
   <PropertyGroup>
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <RootNamespace>Fluent</RootNamespace>
@@ -43,7 +38,5 @@
       <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />      
     </ItemGroup>
   </Target>
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-  <Import Project="$(BaseIntermediateOuputPath)$(OriginalProjectName).*.targets" Condition=" '$(MSBuildProjectName)' != '$(OriginalProjectName)' and '$(ImportProjectExtensionProps)' == 'true' and exists('$(BaseIntermediateOuputPath)')" />  
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

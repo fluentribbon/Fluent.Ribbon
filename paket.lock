@@ -1,12 +1,12 @@
 SPECIFIC-VERSION: FALSE
-RESTRICTION: || (== net40) (== net45) (== net462)
+RESTRICTION: || (== net45) (== net462)
 NUGET
   remote: https://api.nuget.org/v3/index.json
     ControlzEx (3.0.2.4)
     gitlink (3.1)
     MahApps.Metro (1.6)
       ControlzEx (> 3.0.2 < 4.0)
-    MSBuild.Sdk.Extras (1.2.1)
+    MSBuild.Sdk.Extras (1.2.2)
     NUnit (3.9)
     StyleCop.Analyzers (1.0.2)
     XamlColorSchemeGenerator (1.0.3.17)
