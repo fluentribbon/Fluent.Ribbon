@@ -10,8 +10,18 @@ nuget StyleCop.Analyzers
 nuget XamlColorSchemeGenerator
 
 nuget ControlzEx @>= 3.0.1
-nuget MahApps.Metro
-nuget NUnit
+
+group showcase
+	source https://api.nuget.org/v3/index.json
+	framework: net462, net45
+
+	nuget MahApps.Metro
+
+group test
+	source https://api.nuget.org/v3/index.json
+	framework: net462, net45
+
+	nuget NUnit
 
 group cake
 	source https://api.nuget.org/v3/index.json

@@ -4,10 +4,7 @@ NUGET
   remote: https://api.nuget.org/v3/index.json
     ControlzEx (3.0.2.4)
     gitlink (3.1)
-    MahApps.Metro (1.6)
-      ControlzEx (> 3.0.2 < 4.0)
     MSBuild.Sdk.Extras (1.2.2)
-    NUnit (3.9)
     StyleCop.Analyzers (1.0.2)
     XamlColorSchemeGenerator (1.0.3.17)
 
@@ -33,3 +30,17 @@ NUGET
     NUnit.Extension.NUnitV2ResultWriter (3.6)
     NUnit.Extension.TeamCityEventListener (1.0.3)
     NUnit.Extension.VSProjectLoader (3.7)
+
+GROUP showcase
+RESTRICTION: || (== net45) (== net462)
+NUGET
+  remote: https://api.nuget.org/v3/index.json
+    ControlzEx (3.0.2.4)
+    MahApps.Metro (1.6.1)
+      ControlzEx (>= 3.0.2.4 < 4.0)
+
+GROUP test
+RESTRICTION: || (== net45) (== net462)
+NUGET
+  remote: https://api.nuget.org/v3/index.json
+    NUnit (3.10.1)
