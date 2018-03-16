@@ -760,7 +760,7 @@ namespace Fluent
                 Trace.WriteLine(exception);
             }
 
-            return false;
+            return true;
         }
 
         #endregion WindowsAppModeSetting
