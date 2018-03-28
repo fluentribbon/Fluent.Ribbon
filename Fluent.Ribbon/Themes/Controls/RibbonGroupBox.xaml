@@ -118,13 +118,13 @@
                               Height="85">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="17" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid x:Name="PART_DownGrid"
                                   Margin="0,-2,2,2"
                                   Grid.Row="1"
                                   VerticalAlignment="Bottom"
-                                  Height="17"
+                                  Height="Auto"
                                   MaxWidth="{Binding ActualWidth, ElementName=PART_UpPanel}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -276,7 +276,7 @@
                           Height="Auto">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="17" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Fluent:RibbonGroupBoxWrapPanel x:Name="PART_UpPanel"
@@ -292,7 +292,7 @@
                               Margin="0,-2,2,2"
                               Grid.Row="1"
                               VerticalAlignment="Bottom"
-                              Height="17">
+                              Height="Auto">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
