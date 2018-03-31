@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
@@ -309,10 +310,7 @@ namespace Fluent
             {
                 var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
 
-                if (firstVisibleItem?.Parent != null)
-                {
-                    canRibbonTabControlScroll = ((RibbonTabControl)firstVisibleItem.Parent).CanScroll;
-                }
+                canRibbonTabControlScroll = UIHelper.GetParent<RibbonTabControl>(firstVisibleItem)?.CanScroll == true;
             }
 
             if (this.IsCollapsed)

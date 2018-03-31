@@ -204,13 +204,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon tab control parent
         /// </summary>
-        internal RibbonTabControl TabControlParent
-        {
-            get
-            {
-                return ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl;
-            }
-        }
+        internal RibbonTabControl TabControlParent => UIHelper.GetParent<RibbonTabControl>(this);
 
         /// <summary>
         /// Gets or sets indent
@@ -756,7 +750,7 @@ namespace Fluent
                     {
                         var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
 
-                        if (ReferenceEquals(this.TabControlParent.SelectedTabItem, newItem))
+                        if (ReferenceEquals(this.TabControlParent.SelectedItem, newItem))
                         {
                             this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
                         }
@@ -790,8 +784,8 @@ namespace Fluent
             var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if (container.TabControlParent?.SelectedItem is RibbonTabItem
-                    && ReferenceEquals(container.TabControlParent.SelectedItem, container) == false)
+                if (container.TabControlParent != null
+                    && ReferenceEquals(container.TabControlParent.SelectedTabItem, container) == false)
                 {
                     ((RibbonTabItem)container.TabControlParent.SelectedItem).IsSelected = false;
                 }
