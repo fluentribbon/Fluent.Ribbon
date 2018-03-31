@@ -784,10 +784,10 @@ namespace Fluent
             var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if (container.TabControlParent != null
+                if (container.TabControlParent?.SelectedTabItem != null
                     && ReferenceEquals(container.TabControlParent.SelectedTabItem, container) == false)
                 {
-                    ((RibbonTabItem)container.TabControlParent.SelectedItem).IsSelected = false;
+                    container.TabControlParent.SelectedTabItem.IsSelected = false;
                 }
 
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
