@@ -16,7 +16,6 @@ namespace Fluent
     [ContentProperty(nameof(Text))]
     [TemplatePart(Name = "PART_TextRun", Type = typeof(TextBlock))]
     [TemplatePart(Name = "PART_TextRun2", Type = typeof(TextBlock))]
-    [TemplatePart(Name = "PART_Glyph", Type = typeof(InlineUIContainer))]
     public class TwoLineLabel : Control
     {
         #region Fields
