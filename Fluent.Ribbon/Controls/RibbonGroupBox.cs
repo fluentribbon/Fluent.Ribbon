@@ -183,14 +183,6 @@ namespace Fluent
             this.TryClearCache();
         }
 
-        private void TryClearCache()
-        {
-            if (!this.SuppressCacheReseting)
-            {
-                this.cachedMeasures.Clear();
-            }
-        }
-
         /// <summary>
         /// Gets or sets whether to reset cache when scalable control is scaled
         /// </summary>
@@ -617,17 +609,24 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(OnVisibilityChanged));
+            FontSizeProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyOrSizeChanged));
+            FontFamilyProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyOrSizeChanged));
 
             PopupService.Attach(typeof(RibbonGroupBox));
 
             ContextMenuService.Attach(typeof(RibbonGroupBox));
         }
 
-        // Handles visibility changed
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = d as RibbonGroupBox;
-            box?.ClearCache();
+            var box = (RibbonGroupBox)d;
+            box.ClearCache();
+        }
+
+        private static void OnFontFamilyOrSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (RibbonGroupBox)d;
+            box.ClearCache();
         }
 
         /// <summary>
@@ -826,6 +825,14 @@ namespace Fluent
             }
         }
 
+        private void TryClearCache()
+        {
+            if (this.SuppressCacheReseting == false)
+            {
+                this.ClearCache();
+            }
+        }
+
         /// <summary>
         /// Clears cache
         /// </summary>
@@ -877,7 +884,7 @@ namespace Fluent
             this.UnSubscribeEvents();
 
             // Clear cache
-            this.cachedMeasures.Clear();
+            this.ClearCache();
 
             this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 

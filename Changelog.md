@@ -12,6 +12,7 @@
   - [#543](../../issues/543) - Using images that can't be found during design time crashes designer  
   A generic "error" image is rendered during design time and an exception is thrown during runtime.
   - [#551](../../issues/551) - "Auto" size for ribbon group box header to support custom font sizes (thanks @chrfin)
+  - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
 
 - ### Enhancements
   - [#533](../../issues/533) - Issue when using templated ribbon items
