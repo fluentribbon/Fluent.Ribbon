@@ -114,6 +114,7 @@ namespace Fluent
                 var groupBox = child as RibbonGroupBox;
 
                 var keys = KeyTip.GetKeys(child);
+
                 if (keys != null)
                 {
                     if (groupBox != null)
@@ -147,9 +148,8 @@ namespace Fluent
         private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
         {
             IEnumerable<KeyTipInformation> informations;
-            var keyTipInformationProvider = child as IKeyTipInformationProvider;
 
-            if (keyTipInformationProvider != null)
+            if (child is IKeyTipInformationProvider keyTipInformationProvider)
             {
                 informations = keyTipInformationProvider.GetKeyTipInformations(hide);
             }
@@ -180,7 +180,7 @@ namespace Fluent
 
             var children = logicalChildren;
 
-            // Always using the visual tree is very expensive, so we only search through it when you got specific control types.
+            // Always using the visual tree is very expensive, so we only search through it when we got specific control types.
             // Using the visual tree here, in addition to the logical, partially fixes #244.
             if (element is ContentPresenter
                 || element is ContentControl)
@@ -396,7 +396,7 @@ namespace Fluent
             this.LogTrace("Forwarding keys \"{0}\" to element \"{1}\".", keys, GetControlLogText(element));
 
             this.Detach();
-            KeyTipPressedResult keyTipPressedResult = KeyTipPressedResult.Empty;
+            var keyTipPressedResult = KeyTipPressedResult.Empty;
 
             if (click)
             {

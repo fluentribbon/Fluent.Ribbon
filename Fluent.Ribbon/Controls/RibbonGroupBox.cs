@@ -120,14 +120,10 @@ namespace Fluent
 
                 var targetElement = element;
 
-                if (targetElement is ContentPresenter presenter)
+                if (targetElement is ContentPresenter
+                    || targetElement is ContentControl)
                 {
-                    var childrenCount = VisualTreeHelper.GetChildrenCount(presenter);
-
-                    if (childrenCount != 0)
-                    {
-                        targetElement = VisualTreeHelper.GetChild(presenter, 0);
-                    }
+                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
                 }
 
                 RibbonProperties.SetAppropriateSize(targetElement, groupBoxState);

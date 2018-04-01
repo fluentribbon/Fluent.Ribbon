@@ -14,6 +14,20 @@
     internal static class UIHelper
     {
         /// <summary>
+        /// Gets the first visual child of <paramref name="parent"/>.
+        /// If there are no visual children <c>null</c> is returned.
+        /// </summary>
+        /// <returns>The first visual child of <paramref name="parent"/> or <c>null</c> if there are no children.</returns>
+        public static DependencyObject GetFirstVisualChild(DependencyObject parent)
+        {
+            var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+
+            return childrenCount == 0
+                       ? null
+                       : VisualTreeHelper.GetChild(parent, 0);
+        }
+
+        /// <summary>
         /// Tries to find immediate visual child of type <typeparamref name="T"/> which matches <paramref name="predicate"/>
         /// </summary>
         /// <returns>
