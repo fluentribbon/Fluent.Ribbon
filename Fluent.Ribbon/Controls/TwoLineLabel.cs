@@ -108,14 +108,8 @@ namespace Fluent
         static TwoLineLabel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
-        }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public TwoLineLabel()
-        {
-            this.Focusable = false;
+            FocusableProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         #endregion
@@ -130,6 +124,7 @@ namespace Fluent
         {
             this.textRun = this.GetTemplateChild("PART_TextRun") as AccessText;
             this.textRun2 = this.GetTemplateChild("PART_TextRun2") as AccessText;
+
             this.UpdateTextRun();
         }
 
@@ -145,7 +140,7 @@ namespace Fluent
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var label = (TwoLineLabel)d;
-            label?.UpdateTextRun();
+            label.UpdateTextRun();
         }
 
         #endregion
@@ -163,15 +158,15 @@ namespace Fluent
                 return;
             }
 
+            var text = this.Text?.Trim();
+
             if (this.HasTwoLines == false
-                || string.IsNullOrEmpty(this.Text))
+                || string.IsNullOrEmpty(text))
             {
-                this.textRun.Text = this.Text;
+                this.textRun.Text = text;
                 this.textRun2.Text = string.Empty;
                 return;
             }
-
-            var text = this.Text.Trim();
 
             // Find soft hyphen, break at its position and display a normal hyphen.
             var hyphenIndex = text.IndexOf((char)173);
@@ -183,7 +178,8 @@ namespace Fluent
             }
             else
             {
-                var centerIndex = this.Text.Length / 2;
+                var centerIndex = text.Length / 2;
+
                 // Find spaces nearest to center from left and right
                 var leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex, StringComparison.CurrentCulture);
                 var rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
@@ -191,7 +187,7 @@ namespace Fluent
                 if (leftSpaceIndex == -1
                     && rightSpaceIndex == -1)
                 {
-                    this.textRun.Text = this.Text;
+                    this.textRun.Text = text;
                     this.textRun2.Text = string.Empty;
                 }
                 else if (leftSpaceIndex == -1)
