@@ -98,7 +98,6 @@
                         <Grid>
                             <Fluent:TwoLineLabel x:Name="controlLabel"
                                                  Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
                                                  Margin="2,1,2,2"
@@ -401,7 +400,6 @@
                                       SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                          Text="{TemplateBinding Header}"
-                                         Style="{DynamicResource TwoLineLabelStyle}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Margin="2,0,2,2"

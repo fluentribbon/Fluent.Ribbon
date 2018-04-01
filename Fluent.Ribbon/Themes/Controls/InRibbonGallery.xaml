@@ -57,7 +57,6 @@
                                       SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                          Text="{TemplateBinding Header}"
-                                         Style="{DynamicResource TwoLineLabelStyle}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Stretch"
                                          Margin="2,-2,2,2"
