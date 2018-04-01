@@ -129,7 +129,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new PropertyMetadata(IntBoxes.Zero, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(IntBoxes.Zero, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxMinItemsInRowChanged));
 
         #endregion
 
@@ -150,7 +150,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new PropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxMinItemsInRowChanged));
 
         #endregion
 
@@ -166,11 +166,20 @@ namespace Fluent
         {
             var galleryGroupContainer = (GalleryGroupContainer)d;
             galleryGroupContainer.minMaxWidthNeedsToBeUpdated = true;
+            galleryGroupContainer.UpdateMinAndMaxWidth();
         }
 
         #endregion
 
         #region Initialization
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GalleryGroupContainer"/>.
+        /// </summary>
+        public GalleryGroupContainer()
+        {
+            this.Unloaded += this.HandleUnloaded;
+        }
 
         /// <summary>
         /// Static constructor
@@ -227,8 +236,8 @@ namespace Fluent
             if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
-                this.RealItemsPanel.MinWidth = 0;
-                this.RealItemsPanel.MaxWidth = double.PositiveInfinity;
+                this.MinWidth = 0;
+                this.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -239,8 +248,8 @@ namespace Fluent
                 return;
             }
 
-            this.RealItemsPanel.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
-            this.RealItemsPanel.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
+            this.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
+            this.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -253,6 +262,13 @@ namespace Fluent
             }
 
             this.InvalidateMeasure();
+        }
+
+        private void HandleUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.itemsPanel = null;
+
+            this.minMaxWidthNeedsToBeUpdated = true;
         }
 
         /// <summary>

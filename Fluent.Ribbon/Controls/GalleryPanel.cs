@@ -251,7 +251,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1));
+            typeof(GalleryPanel), new PropertyMetadata(1, OnMinOrMaxItemsInRowChanged));
 
         #endregion
 
@@ -272,7 +272,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue));
+            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMinOrMaxItemsInRowChanged));
+
+        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryPanel = (GalleryPanel)d;
+            galleryPanel.UpdateMinAndMaxWidth();
+        }
 
         #endregion
 

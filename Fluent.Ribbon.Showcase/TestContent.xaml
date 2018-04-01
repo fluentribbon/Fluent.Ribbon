@@ -1883,7 +1883,7 @@
               it will reduce all InRibbonGalleries in this group by one item-->
             <Fluent:RibbonTabItem Header="Galleries"
                                   KeyTip="GA"
-                                  ReduceOrder="(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup)">
+                                  ReduceOrder="(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(FirstGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(SecondGalleryGroup),(A),(A),(A),(A),(A),(A),(A),(A),(A),(A)">
                 <Fluent:RibbonGroupBox Header="Without Grouping"
                                        Name="FirstGalleryGroup">
 

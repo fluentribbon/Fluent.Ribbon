@@ -1581,10 +1581,11 @@ namespace Fluent
             {
                 this.IsCollapsed = false;
             }
-            else if (this.galleryPanel.MinItemsInRow < this.MaxItemsInRow)
+            else if (this.galleryPanel.MinItemsInRow < this.MinItemsInRow
+                     || this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
             {
-                this.galleryPanel.MinItemsInRow++;
-                this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
+                this.galleryPanel.MinItemsInRow = Math.Min(this.galleryPanel.MinItemsInRow + 1, this.MinItemsInRow);
+                this.galleryPanel.MaxItemsInRow = Math.Min(this.galleryPanel.MaxItemsInRow + 1, this.MaxItemsInRow);
             }
             else
             {
@@ -1601,10 +1602,11 @@ namespace Fluent
         /// </summary>
         public void Reduce()
         {
-            if (this.galleryPanel.MinItemsInRow > this.MinItemsInRow)
+            if (this.galleryPanel.MinItemsInRow > 1
+                || this.galleryPanel.MaxItemsInRow > 1)
             {
-                this.galleryPanel.MinItemsInRow--;
-                this.galleryPanel.MaxItemsInRow = this.galleryPanel.MinItemsInRow;
+                this.galleryPanel.MinItemsInRow = Math.Max(this.galleryPanel.MinItemsInRow - 1, 0);
+                this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
             }
             else if (this.CanCollapseToButton
                      && this.IsCollapsed == false)
