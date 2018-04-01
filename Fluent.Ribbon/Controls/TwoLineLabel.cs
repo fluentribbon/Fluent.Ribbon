@@ -5,7 +5,6 @@ namespace Fluent
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Documents;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
 
@@ -41,8 +40,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HasTwoLines.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="HasTwoLines"/>.
         /// </summary>
         public static readonly DependencyProperty HasTwoLinesProperty =
             DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.TrueBox, OnHasTwoLinesChanged));
@@ -67,7 +65,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HasGlyph.  This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="HasGlyph"/>.
         /// </summary>
         public static readonly DependencyProperty HasGlyphProperty =
             DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.FalseBox, OnHasGlyphChanged));
@@ -83,7 +81,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets or sets labels text
+        /// Gets or sets the text
         /// </summary>
         public string Text
         {
@@ -92,7 +90,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="Text"/>.
         /// </summary>
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));
@@ -115,10 +113,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal
-        /// processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             this.textRun = this.GetTemplateChild("PART_TextRun") as AccessText;
@@ -147,7 +142,7 @@ namespace Fluent
         #region Private methods
 
         /// <summary>
-        /// Updates text run adds newline if HasTwoLines == true
+        /// Updates text runs and adds newline if HasTwoLines == true
         /// </summary>
         private void UpdateTextRun()
         {
