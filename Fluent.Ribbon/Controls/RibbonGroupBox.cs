@@ -145,8 +145,7 @@ namespace Fluent
 
                 var targetElement = element;
 
-                if (targetElement is ContentPresenter
-                    || targetElement is ContentControl)
+                if (targetElement is ContentPresenter)
                 {
                     targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
                 }
