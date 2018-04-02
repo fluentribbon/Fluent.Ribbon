@@ -199,5 +199,32 @@
 
             return AdornerLayer.GetAdornerLayer(visual);
         }
+
+        /// <summary>
+        /// Gets all containers from the <see cref="ItemContainerGenerator"/> of <paramref name="itemsControl"/>.
+        /// </summary>
+        /// <typeparam name="T">The desired container type.</typeparam>
+        public static IEnumerable<T> GetAllItemContainers<T>(ItemsControl itemsControl)
+            where T : class
+        {
+            return GetAllItemContainers<T>(itemsControl.ItemContainerGenerator);
+        }
+
+        /// <summary>
+        /// Gets all containers from <paramref name="itemContainerGenerator"/>.
+        /// </summary>
+        /// <typeparam name="T">The desired container type.</typeparam>
+        public static IEnumerable<T> GetAllItemContainers<T>(ItemContainerGenerator itemContainerGenerator)
+            where T : class
+        {
+            for (var i = 0; i < itemContainerGenerator.Items.Count; i++)
+            {
+                var container = itemContainerGenerator.ContainerFromIndex(i) as T;
+                if (container != null)
+                {
+                    yield return container;
+                }
+            }
+        }
     }
 }

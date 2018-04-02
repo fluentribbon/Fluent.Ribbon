@@ -17,6 +17,7 @@
 - ### Enhancements
   - [#533](../../issues/533) - Issue when using templated ribbon items
   - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
+  - [#554](../../issues/554) - No Keytips on templated ribbon items.
 
 ## 6.1.0
 

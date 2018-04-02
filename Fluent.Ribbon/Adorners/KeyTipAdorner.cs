@@ -189,6 +189,10 @@ namespace Fluent
                     .Concat(UIHelper.GetVisualChildren(element))
                     .OfType<FrameworkElement>();
             }
+            else if (element is ItemsControl itemsControl)
+            {
+                children = children.Concat(UIHelper.GetAllItemContainers<FrameworkElement>(itemsControl));
+            }
 
             return children
                 .Where(x => x.Visibility == Visibility.Visible)
