@@ -5,6 +5,8 @@
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
   - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
+  - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
+  Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
 
 - ### Bug fixes
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
@@ -17,6 +19,7 @@
 - ### Enhancements
   - [#533](../../issues/533) - Issue when using templated ribbon items
   - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
+  - [#549](../../issues/549) - Implement RibbonGroupBox header template
   - [#554](../../issues/554) - No Keytips on templated ribbon items.
 
 ## 6.1.0

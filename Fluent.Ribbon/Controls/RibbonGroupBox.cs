@@ -24,7 +24,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
-    public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl
+    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl
     {
         #region Fields
 
@@ -61,6 +61,31 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(RibbonGroupBox));
+
+        #endregion
+
+        #region Header-Options
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for IsCollapsedHeaderContentPresenter.
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedHeaderContentPresenterProperty = DependencyProperty.RegisterAttached("IsCollapsedHeaderContentPresenter", typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(default(bool)));
+
+        /// <summary>
+        /// Sets the value of <see cref="IsCollapsedHeaderContentPresenterProperty"/>.
+        /// </summary>
+        public static void SetIsCollapsedHeaderContentPresenter(DependencyObject element, bool value)
+        {
+            element.SetValue(IsCollapsedHeaderContentPresenterProperty, value);
+        }
+
+        /// <summary>
+        /// Gets the value of <see cref="IsCollapsedHeaderContentPresenterProperty"/>.
+        /// </summary>
+        public static bool GetIsCollapsedHeaderContentPresenter(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsCollapsedHeaderContentPresenterProperty);
+        }
 
         #endregion
 
@@ -212,32 +237,6 @@ namespace Fluent
                     scalableRibbonControl.Scaled += this.OnScalableControlScaled;
                 }
             }
-        }
-
-        #endregion
-
-        #region Header
-
-        /// <summary>
-        /// Gets or sets group box header
-        /// </summary>
-        public string Header
-        {
-            get { return (string)this.GetValue(HeaderProperty); }
-            set { this.SetValue(HeaderProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonGroupBox), new PropertyMetadata());
-
-        object IHeaderedControl.Header
-        {
-            get { return this.Header; }
-
-            set { this.Header = (string)value; }
         }
 
         #endregion

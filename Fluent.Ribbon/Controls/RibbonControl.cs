@@ -356,7 +356,17 @@ namespace Fluent
 
             if (headeredControl != null)
             {
-                Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+                if (headeredControl is HeaderedItemsControl)
+                {
+                    Bind(source, element, nameof(HeaderedItemsControl.Header), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(HeaderedItemsControl.HeaderStringFormat), HeaderedItemsControl.HeaderStringFormatProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(HeaderedItemsControl.HeaderTemplate), HeaderedItemsControl.HeaderTemplateProperty, BindingMode.OneWay);
+                    Bind(source, element, nameof(HeaderedItemsControl.HeaderTemplateSelector), HeaderedItemsControl.HeaderTemplateSelectorProperty, BindingMode.OneWay);
+                }
+                else
+                {
+                    Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
+                }
 
                 if (source.ToolTip != null
                     || BindingOperations.IsDataBound(source, ToolTipProperty))
