@@ -10,6 +10,7 @@
 
 - ### Bug fixes
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
+  - [#536](../../issues/536) - RibbonContextualTabGroup header text trimmed until hovered
   - [#542](../../issues/542) - InRibbonGallery not reducing properly
   - [#543](../../issues/543) - Using images that can't be found during design time crashes designer  
   A generic "error" image is rendered during design time and an exception is thrown during runtime.

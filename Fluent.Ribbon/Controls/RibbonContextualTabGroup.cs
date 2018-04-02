@@ -70,7 +70,8 @@ namespace Fluent
         {
             var contextGroup = (RibbonContextualTabGroup)d;
 
-            ForceRedraw(contextGroup);
+            // Delaying forced redraw fixes #536
+            contextGroup.RunInDispatcherAsync(() => ForceRedraw(contextGroup));
         }
 
         /// <summary>
