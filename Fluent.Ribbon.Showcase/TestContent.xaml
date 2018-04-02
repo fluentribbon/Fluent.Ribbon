@@ -2867,6 +2867,9 @@
                                     <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, ElementName=ribbon}">
                                         AutomaticStateManagement
                                     </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
+                                        IsMouseWheelScrollingEnabled
+                                    </Fluent:CheckBox>
                                 </WrapPanel>
                             </GroupBox>
                         </WrapPanel>
