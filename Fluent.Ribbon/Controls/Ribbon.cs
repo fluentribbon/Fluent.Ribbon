@@ -1258,6 +1258,34 @@ namespace Fluent
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="AreTabHeadersVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines wether tab headers are visible or not.
+        /// </summary>
+        public bool AreTabHeadersVisible
+        {
+            get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
+            set { this.SetValue(AreTabHeadersVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsToolBarVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines wether tab headers are visible or not.
+        /// </summary>
+        public bool IsToolBarVisible
+        {
+            get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
+            set { this.SetValue(IsToolBarVisibleProperty, value); }
+        }
+
+        /// <summary>
         /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
         /// </summary>
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));

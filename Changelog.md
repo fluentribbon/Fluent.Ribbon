@@ -18,6 +18,12 @@
   - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
 
 - ### Enhancements
+  - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
+    You can achieve this by:
+    - Setting `Ribbon.Menu` to `null` (or never assigning anything)
+    - Setting `Ribbon.CanMinimize` to `false`
+    - Setting `Ribbon.AreTabHeadersVisible` to `false`
+    - Setting `Ribbon.IsToolBarVisible` to `false`
   - [#533](../../issues/533) - Issue when using templated ribbon items
   - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
   - [#549](../../issues/549) - Implement RibbonGroupBox header template

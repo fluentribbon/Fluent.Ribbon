@@ -144,7 +144,8 @@
             <Fluent:Ribbon.Menu>
                 <Grid>
                     <!--Backstage items can be keytipped-->
-                    <Fluent:Backstage Visibility="{Binding IsChecked, ElementName=UseBackstage, Converter={StaticResource boolToVisibilityConverter}}">
+                    <Fluent:Backstage x:Name="Backstage"
+                                      Visibility="Collapsed">
                         
                         <!--<Fluent:Backstage.Style>
                             <Style TargetType="Fluent:Backstage">
@@ -289,8 +290,9 @@
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
 
-                    <Fluent:ApplicationMenu Header="File"
-                                            Visibility="{Binding IsChecked, ElementName=UseApplicationMenu, Converter={StaticResource boolToVisibilityConverter}}">
+                    <Fluent:ApplicationMenu x:Name="ApplicationMenu"
+                                            Header="File"
+                                            Visibility="Collapsed">
                         <Fluent:ApplicationMenu.RightPaneContent>
                             <StackPanel HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
@@ -2785,17 +2787,15 @@
                             
                             <GroupBox Header="Menu">
                                 <WrapPanel>
-                                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Menu}"
-                                                         Name="UseBackstage"
-                                                         Size="Middle"
-                                                         IsChecked="True">
-                                        Use backstage
-                                    </Fluent:ToggleButton>
-                                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Menu}"
-                                                         Name="UseApplicationMenu"
-                                                         Size="Middle">
-                                        Use application menu
-                                    </Fluent:ToggleButton>
+                                    <Fluent:ComboBox Header="Menu" 
+                                                     IsEditable="False"
+                                                     SizeDefinition="Middle" 
+                                                     SelectedItem="{Binding SelectedMenu, ElementName=TestContentControl}">
+                                        <System:String>ApplicationMenu</System:String>
+                                        <System:String>Backstage</System:String>
+                                        <System:String>Empty menu</System:String>
+                                    </Fluent:ComboBox>
+
                                     <Fluent:Button Name="ShowStartScreen"
                                                    Size="Middle"
                                                    Click="ShowStartScreen_OnClick">
@@ -2866,6 +2866,12 @@
                                     </Fluent:CheckBox>
                                     <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, ElementName=ribbon}">
                                         AutomaticStateManagement
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding AreTabHeadersVisible, ElementName=ribbon}">
+                                        AreTabHeadersVisible
+                                    </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsToolBarVisible, ElementName=ribbon}">
+                                        IsToolBarVisible
                                     </Fluent:CheckBox>
                                     <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
                                         IsMouseWheelScrollingEnabled

@@ -3,7 +3,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                    
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
@@ -29,9 +28,11 @@
                 </Grid.RowDefinitions>
                 
                 <Fluent:RibbonTabControl x:Name="PART_RibbonTabControl"
-                                         Menu="{TemplateBinding Menu}"                                      
+                                         Menu="{TemplateBinding Menu}"
                                          ContentHeight="{TemplateBinding ContentHeight}"
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
+                                         AreTabHeadersVisible="{TemplateBinding AreTabHeadersVisible}"
+                                         IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
                                          IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}" />
                 
                 <ContentControl x:Name="quickAccessToolBarHolder"

@@ -259,8 +259,8 @@
                   TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground}"
                   HorizontalAlignment="Stretch"
                   Width="Auto"
-                  Margin="0"               
-                  Grid.RowSpan="1"
+                  Margin="0"
+                  Grid.Row="0"
                   KeyboardNavigation.TabIndex="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -276,6 +276,7 @@
                                   ContentSource="Menu" />
 
                 <Fluent:RibbonScrollViewer Grid.Column="1"
+                                           Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
                                            HorizontalAlignment="Left"
                                            Margin="0"
                                            Width="Auto"
@@ -292,14 +293,14 @@
                                                 KeyboardNavigation.TabIndex="1" />
                 </Fluent:RibbonScrollViewer>
 
-                <StackPanel x:Name="toolbarPlaceholder"
-                            HorizontalAlignment="Right"
+                <StackPanel HorizontalAlignment="Right"
                             Grid.Column="3"
                             Orientation="Horizontal"
                             Margin="0,0,0,1">
-                    <Grid Width="22"
-                          Height="22">
+                    <Grid>
                         <Image x:Name="image"
+                               Width="22"
+                               Height="22"
                                Source="/Fluent;Component/Themes/Images/RibbonPin.png"
                                Stretch="None"
                                Visibility="Collapsed" />
@@ -314,6 +315,7 @@
                     </Grid>
 
                     <StackPanel x:Name="PART_ToolbarPanel"
+                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
                                 Orientation="Horizontal" />
                 </StackPanel>
             </Grid>
