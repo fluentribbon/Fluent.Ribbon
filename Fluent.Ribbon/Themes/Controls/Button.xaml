@@ -72,7 +72,6 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                CornerRadius="{TemplateBinding CornerRadius}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -81,8 +80,8 @@
                 Height="Auto">
             <StackPanel x:Name="stackPanel"
                         Width="Auto"
-                        Orientation="Vertical"
-                        d:LayoutOverrides="Width, Height">
+                        Margin="{TemplateBinding Padding}"
+                        Orientation="Vertical">
                 <ContentPresenter x:Name="iconImage"
                                   HorizontalAlignment="Center"
                                   Height="32"
@@ -223,8 +222,6 @@
                 Value="False" />
         <Setter Property="BorderThickness"
                 Value="1" />
-        <Setter Property="CornerRadius"
-                Value="0" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">

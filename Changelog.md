@@ -7,6 +7,26 @@
   - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
   - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
+  - Removed `CornerRadius` on `Button`.
+  - The following resources were renamed or removed ("---" indicates removed):
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+| BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
+| BackstageSeparatorTabItemStyle | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem |
+| ComboBoxBackstageStyle | Fluent.Ribbon.Styles.Backstage.ComboBox |
+| ComboBoxItemBackstageControlTemplate | --- |
+| MetroComboBoxItemBackstageStyle | --- |
+| ComboBoxBackstageControlTemplate | --- |
+| ButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.Button |
+| ButtonBackstageControlTemplate | --- |
+| ToggleButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.ToggleButton |
+| ToggleButtonBackstageControlTemplate | --- |
+| DropDownButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.DropDownButton |
+| DropDownButtonBackstageControlTemplate | --- |
+</p></details>
 
 - ### Bug fixes
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
@@ -65,7 +85,7 @@
   - There are a lot new resources to control the colorization. Please have a look at Colors.xaml for a list of all available resources.  
     This also means that, for example, simply changing the foreground/background of one outer control won't change the foreground/background of all inner controls.
   - [#457](../../issues/457) - Return type of `IKeyTipedControl.OnKeyTipPressed` was changed from `void` to `KeyTipPressedResult`.
-  - The following `Color` and `Brush` resources got replaced/renamed/removed:
+  - The following `Color` and `Brush` resources were replaced/renamed/removed ("---" indicates removed):
 
 <details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
 

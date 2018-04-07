@@ -469,6 +469,7 @@ namespace Fluent
                 }
 
                 this.SelectedContent = selectedTabItem.Content;
+
                 if (selectedTabItem.ContentTemplate != null
                     || selectedTabItem.ContentTemplateSelector != null
                     || selectedTabItem.ContentStringFormat != null)

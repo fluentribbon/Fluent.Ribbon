@@ -173,7 +173,6 @@
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
                                     
                                     <Fluent:Button Header="Button with bound command"
-                                                   Style="{DynamicResource ButtonBackstageStyle}"
                                                    Width="120"
                                                    Command="{Binding TestCommand}" />
                                 </StackPanel>
@@ -227,7 +226,7 @@
 
                             <Fluent:SeparatorTabItem />
 
-                            <Fluent:BackstageTabItem Header="New"
+                            <Fluent:BackstageTabItem Header="Control tests"
                                                      KeyTip="N">
                                 <WrapPanel Margin="50"
                                            MinWidth="0"
@@ -241,14 +240,12 @@
                                     
                                     <Fluent:Button IsDefinitive="True"
                                                    IsEnabled="True"
-                                                   Style="{DynamicResource ButtonBackstageStyle}"
                                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png">123</Fluent:Button>
                                     
-                                    <Fluent:ToggleButton   Header="Toggle"
-                                                           Style="{DynamicResource ToggleButtonBackstageStyle}"
-                                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                    <Fluent:ToggleButton Header="Toggle"
+                                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
+                                                         LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
                                     
                                     <Fluent:DropDownButton Header="123"
                                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
