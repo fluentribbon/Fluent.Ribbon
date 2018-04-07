@@ -8,6 +8,7 @@
   - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
   - Removed `CornerRadius` on `Button`.
+  - Default `Foreground` for `ComboBox` is now `Fluent.Ribbon.Brushes.LabelTextBrush`.
   - The following resources were renamed or removed ("---" indicates removed):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
