@@ -54,7 +54,7 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 *   Help us updating the documentation
 
 ## Development requirements
-* Visual Studio 2017.5.5 or later
+* Visual Studio 2017.6.4 or later
 * Optional (but recommended)
   * Editorconfig extension for Visual Studio
 
