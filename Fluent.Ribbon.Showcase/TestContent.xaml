@@ -171,45 +171,43 @@
                                                      KeyTip="T">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
+
+                                    <WrapPanel HorizontalAlignment="Stretch">
+                                        <Fluent:Button Header="Button with bound command"
+                                                       Width="120"
+                                                       Command="{Binding TestCommand}" />
                                     
-                                    <Fluent:Button Header="Button with bound command"
-                                                   Width="120"
-                                                   Command="{Binding TestCommand}" />
+                                        <Fluent:Button Header="Button"
+                                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
+                                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                    
+                                        <Fluent:ToggleButton Header="Toggle"
+                                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
+                                                             LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                    
+                                        <Fluent:DropDownButton Header="DropDownButton"
+                                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
+                                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+
+                                        <Fluent:ComboBox Header="ComboBox" 
+                                                         SelectedIndex="0">
+                                            <TextBlock Text="1" />
+                                            <TextBlock Text="2" />
+                                            <TextBlock Text="3" />
+                                            <TextBlock Text="4" />
+                                            <TextBlock Text="5" />
+                                        </Fluent:ComboBox>
+                                    
+                                        <Fluent:Spinner Value="1"
+                                                        Format="0"
+                                                        InputWidth="50"
+                                                        Header="Spinner"
+                                                        ValueChanged="OnSpinnerValueChanged" />
+                                    </WrapPanel>
                                 </StackPanel>
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem Header="Separator" />
-
-                            <Fluent:BackstageTabItem Header="Info"
-                                                     KeyTip="I">
-                                <ScrollViewer>
-                                    <Grid Height="400"
-                                          Background="Red">
-                                        <ListBox Width="100"
-                                                 Height="100"
-                                                 VerticalAlignment="Top"
-                                                 HorizontalAlignment="Left">
-                                            <ListBoxItem>1</ListBoxItem>
-                                            <ListBoxItem>2</ListBoxItem>
-                                            <ListBoxItem>3</ListBoxItem>
-                                            <ListBoxItem>4</ListBoxItem>
-                                            <ListBoxItem>5</ListBoxItem>
-                                            <ListBoxItem>6</ListBoxItem>
-                                            <ListBoxItem>7</ListBoxItem>
-                                            <ListBoxItem>8</ListBoxItem>
-                                            <ListBoxItem>9</ListBoxItem>
-                                            <ListBoxItem>10</ListBoxItem>
-                                        </ListBox>
-                                        <Fluent:ComboBox SelectedIndex="1">
-                                            <ComboBoxItem>1</ComboBoxItem>
-                                            <ComboBoxItem>2</ComboBoxItem>
-                                            <ComboBoxItem>3</ComboBoxItem>
-                                            <ComboBoxItem>4</ComboBoxItem>
-                                            <ComboBoxItem>5</ComboBoxItem>
-                                        </Fluent:ComboBox>
-                                    </Grid>
-                                </ScrollViewer>
-                            </Fluent:BackstageTabItem>
 
                             <Fluent:BackstageTabItem Header="Recent"
                                                      KeyTip="R">
@@ -225,47 +223,6 @@
                             </Fluent:BackstageTabItem>
 
                             <Fluent:SeparatorTabItem />
-
-                            <Fluent:BackstageTabItem Header="Control tests"
-                                                     KeyTip="N">
-                                <WrapPanel Margin="50"
-                                           MinWidth="0"
-                                           Width="Auto"
-                                           HorizontalAlignment="Stretch">
-                                    <TextBlock HorizontalAlignment="Left"
-                                               MinWidth="0"
-                                               TextWrapping="Wrap">
-                                        This is a long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long text
-                                    </TextBlock>
-                                    
-                                    <Fluent:Button IsDefinitive="True"
-                                                   IsEnabled="True"
-                                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png">123</Fluent:Button>
-                                    
-                                    <Fluent:ToggleButton Header="Toggle"
-                                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                         LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
-                                    
-                                    <Fluent:DropDownButton Header="123"
-                                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
-                                    
-                                    <Fluent:ComboBox>
-                                        <TextBlock Text="1" />
-                                        <TextBlock Text="2" />
-                                        <TextBlock Text="3" />
-                                        <TextBlock Text="4" />
-                                        <TextBlock Text="5" />
-                                    </Fluent:ComboBox>
-                                    
-                                    <Fluent:Spinner Value="1"
-                                                    Format="0"
-                                                    InputWidth="50"
-                                                    Header="Spinner"
-                                                    ValueChanged="OnSpinnerValueChanged" />
-                                </WrapPanel>
-                            </Fluent:BackstageTabItem>
 
                             <Fluent:BackstageTabItem Header="Extra wide content"
                                                      KeyTip="W"
