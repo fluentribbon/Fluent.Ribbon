@@ -15,6 +15,7 @@
 |Old|New|
 |---|---|
 | BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
+| BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |
 | BackstageSeparatorTabItemStyle | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem |
 | ComboBoxBackstageStyle | Fluent.Ribbon.Styles.Backstage.ComboBox |
 | ComboBoxItemBackstageControlTemplate | --- |
