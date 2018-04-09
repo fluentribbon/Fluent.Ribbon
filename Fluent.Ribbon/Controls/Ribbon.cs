@@ -15,6 +15,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
@@ -1291,7 +1292,7 @@ namespace Fluent
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// Defines whether scrolling by mouse wheel is enabled or not.
         /// </summary>
         public bool IsMouseWheelScrollingEnabled
         {
@@ -1310,7 +1311,7 @@ namespace Fluent
         public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
 
         /// <summary>
-        /// Defines wether handling of key tips is enabled or not.
+        /// Defines whether handling of key tips is enabled or not.
         /// </summary>
         public bool IsKeyTipHandlingEnabled
         {
@@ -1330,6 +1331,28 @@ namespace Fluent
             {
                 ribbon.keyTipService?.Detach();
             }
+        }
+
+        /// <summary>
+        /// DependencyProperty for <see cref="KeyTipKeys"/>.
+        /// </summary>
+        public static readonly DependencyProperty KeyTipKeysProperty = DependencyProperty.Register(nameof(KeyTipKeys), typeof(KeysCollection), typeof(Ribbon), new PropertyMetadata(new KeysCollection { Key.LeftAlt, Key.RightAlt, Key.F10, Key.Space }, OnKeyTipKeysChanged));
+
+        /// <summary>
+        /// Defines wether handling of key tips is enabled or not.
+        /// </summary>
+        public KeysCollection KeyTipKeys
+        {
+            get { return (KeysCollection)this.GetValue(KeyTipKeysProperty); }
+            set { this.SetValue(KeyTipKeysProperty, value); }
+        }
+
+        private static void OnKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (Ribbon)d;
+
+            var keys = (KeysCollection)e.NewValue;
+            ribbon.keyTipService?.SetKeys(keys);
         }
 
         #endregion
@@ -1695,10 +1718,10 @@ namespace Fluent
 
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
-                                  {
-                                      Source = this,
-                                      Mode = BindingMode.OneWay
-                                  };
+                    {
+                        Source = this,
+                        Mode = BindingMode.OneWay
+                    };
                     this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
                 }
 
