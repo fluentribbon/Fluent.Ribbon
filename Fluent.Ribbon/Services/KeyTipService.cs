@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Input;
@@ -38,6 +39,8 @@ namespace Fluent
         private HwndSource attachedHwndSource;
 
         private string currentUserInput;
+
+        private IList<Key> keys;
 
         /// <summary>
         /// Checks if any keytips are visible.
@@ -146,7 +149,7 @@ namespace Fluent
             // We must terminate the keytip's adorner chain if:
             if (msg == (int)WM.NCACTIVATE // mouse clicks in non client area
                 || (msg == (int)WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
-                                                                           // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
+                                                                      // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
                 || (msg >= 161 && msg <= 173) // mouse click (non client area)
                 || (msg >= 513 && msg <= 521)) // mouse click
             {
@@ -186,7 +189,7 @@ namespace Fluent
                 return;
             }
 
-            if (IsShowOrHideKey(e))
+            if (this.IsShowOrHideKey(e))
             {
                 if (this.activeAdornerChain == null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
@@ -293,7 +296,7 @@ namespace Fluent
                 return;
             }
 
-            if (IsShowOrHideKey(e))
+            if (this.IsShowOrHideKey(e))
             {
                 this.ClearUserInput();
 
@@ -310,13 +313,11 @@ namespace Fluent
             }
         }
 
-        private static bool IsShowOrHideKey(KeyEventArgs e)
+        private bool IsShowOrHideKey(KeyEventArgs e)
         {
-            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
-                   && (e.SystemKey == Key.LeftAlt
-                       || e.SystemKey == Key.RightAlt
-                       || e.SystemKey == Key.F10
-                       || e.SystemKey == Key.Space);
+            Key key = e.Key == Key.System ? e.SystemKey : e.Key;
+            return !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
+                && (this.keys?.Contains(key) ?? false);
         }
 
         private void ClearUserInput()
@@ -488,6 +489,16 @@ namespace Fluent
             {
                 this.activeAdornerChain.Attach();
             }
+        }
+
+        internal void SetKeys(IEnumerable<Key> keys)
+        {
+            if (keys == null)
+            {
+                throw new ArgumentNullException(nameof(keys));
+            }
+
+            this.keys = new List<Key>(keys);
         }
     }
 }
