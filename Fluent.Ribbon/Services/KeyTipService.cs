@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Input;
@@ -41,7 +40,7 @@ namespace Fluent
 
         private string currentUserInput;
 
-        private IList<Key> keys = KeyTipKeysCollection.Default;
+        private KeyTipKeysCollection keys = KeyTipKeysCollection.Default;
 
         /// <summary>
         /// Checks if any keytips are visible.
@@ -492,14 +491,9 @@ namespace Fluent
             }
         }
 
-        internal void SetKeys(IEnumerable<Key> keys)
+        internal void SetKeys(KeyTipKeysCollection keyCollection)
         {
-            if (keys == null)
-            {
-                throw new ArgumentNullException(nameof(keys));
-            }
-
-            this.keys = new List<Key>(keys);
+            this.keys = keyCollection ?? throw new ArgumentNullException(nameof(keyCollection));
         }
     }
 }
