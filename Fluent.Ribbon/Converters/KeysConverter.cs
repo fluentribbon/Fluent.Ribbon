@@ -44,7 +44,7 @@
 
                 foreach (string s in stringList)
                 {
-                    if (Enum.TryParse<Key>(s.Trim(), out Key key))
+                    if (Enum.TryParse<Key>(s.Trim(), true, out Key key))
                     {
                         keys.Add(key);
                     }
