@@ -1292,7 +1292,7 @@ namespace Fluent
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines whether scrolling by mouse wheel is enabled or not.
+        /// Defines wether scrolling by mouse wheel is enabled or not.
         /// </summary>
         public bool IsMouseWheelScrollingEnabled
         {
@@ -1311,7 +1311,7 @@ namespace Fluent
         public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
 
         /// <summary>
-        /// Defines whether handling of key tips is enabled or not.
+        /// Defines wether handling of key tips is enabled or not.
         /// </summary>
         public bool IsKeyTipHandlingEnabled
         {
@@ -1336,14 +1336,14 @@ namespace Fluent
         /// <summary>
         /// DependencyProperty for <see cref="KeyTipKeys"/>.
         /// </summary>
-        public static readonly DependencyProperty KeyTipKeysProperty = DependencyProperty.Register(nameof(KeyTipKeys), typeof(KeysCollection), typeof(Ribbon), new PropertyMetadata(new KeysCollection { Key.LeftAlt, Key.RightAlt, Key.F10, Key.Space }, OnKeyTipKeysChanged));
+        public static readonly DependencyProperty KeyTipKeysProperty = DependencyProperty.Register(nameof(KeyTipKeys), typeof(KeyTipKeysCollection), typeof(Ribbon), new PropertyMetadata(KeyTipKeysCollection.Default, OnKeyTipKeysChanged));
 
         /// <summary>
-        /// Defines wether handling of key tips is enabled or not.
+        /// Defines the keys that are used to activate the key tips.
         /// </summary>
-        public KeysCollection KeyTipKeys
+        public KeyTipKeysCollection KeyTipKeys
         {
-            get { return (KeysCollection)this.GetValue(KeyTipKeysProperty); }
+            get { return (KeyTipKeysCollection)this.GetValue(KeyTipKeysProperty); }
             set { this.SetValue(KeyTipKeysProperty, value); }
         }
 
@@ -1351,7 +1351,7 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            var keys = (KeysCollection)e.NewValue;
+            var keys = (KeyTipKeysCollection)e.NewValue;
             ribbon.keyTipService?.SetKeys(keys);
         }
 

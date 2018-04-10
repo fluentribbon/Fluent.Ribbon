@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Threading;
     using ControlzEx.Standard;
+    using Fluent.Helpers;
     using Fluent.Internal;
 
     /// <summary>
@@ -40,7 +41,7 @@ namespace Fluent
 
         private string currentUserInput;
 
-        private IList<Key> keys;
+        private IList<Key> keys = KeyTipKeysCollection.Default;
 
         /// <summary>
         /// Checks if any keytips are visible.
