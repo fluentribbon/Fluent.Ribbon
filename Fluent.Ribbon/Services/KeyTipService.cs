@@ -315,9 +315,8 @@ namespace Fluent
 
         private bool IsShowOrHideKey(KeyEventArgs e)
         {
-            Key key = e.Key == Key.System ? e.SystemKey : e.Key;
-            return !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
-                && (this.keys?.Contains(key) ?? false);
+            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
+                   && (this.keys?.Contains(e.SystemKey) ?? false);
         }
 
         private void ClearUserInput()
