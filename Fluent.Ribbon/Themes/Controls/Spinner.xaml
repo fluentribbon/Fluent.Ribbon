@@ -118,14 +118,16 @@
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="PART_TextBox"
-                                BorderThickness="0"
-                                Grid.RowSpan="2"
-                                Grid.Column="0"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Padding="2,0,2,0"
-                                Margin="0"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                             BorderThickness="0"
+                             Grid.RowSpan="2"
+                             Grid.Column="0"
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                             Padding="2,0,2,0"
+                             Margin="0"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
                                 
                     <Path Visibility="Collapsed"
                             HorizontalAlignment="Left"

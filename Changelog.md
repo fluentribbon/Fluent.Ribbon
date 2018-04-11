@@ -9,7 +9,7 @@
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
   - Removed `CornerRadius` on `Button`.
   - Default `Foreground` for `ComboBox` is now `Fluent.Ribbon.Brushes.LabelTextBrush`.
-  - The following resources were renamed or removed ("---" indicates removed):
+  - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
@@ -28,6 +28,8 @@
 | ToggleButtonBackstageControlTemplate | --- |
 | DropDownButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.DropDownButton |
 | DropDownButtonBackstageControlTemplate | --- |
+| --- | Fluent.Ribbon.Brushes.TextBox.CaretBrush |
+| --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
 </p></details>
 
 - ### Bug fixes
@@ -49,6 +51,7 @@
   - [#533](../../issues/533) - Issue when using templated ribbon items
   - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
   - [#549](../../issues/549) - Implement RibbonGroupBox header template
+  - [#553](../../issues/553) - Introduce resources for CaretBrush and SelectionBrush for TextBox
   - [#554](../../issues/554) - No Keytips on templated ribbon items.
 
 ## 6.1.0

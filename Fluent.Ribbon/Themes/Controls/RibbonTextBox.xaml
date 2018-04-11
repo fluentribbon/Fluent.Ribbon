@@ -127,10 +127,17 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Fluent:TextBox}">
+    <Style TargetType="{x:Type Fluent:TextBox}"
+           BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.ControlTemplates.TextBox}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="CaretBrush"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}" />
+        <Setter Property="SelectionBrush" 
+                Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
     </Style>
 </ResourceDictionary>

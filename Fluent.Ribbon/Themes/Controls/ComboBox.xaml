@@ -185,16 +185,18 @@
                             Width="Auto"
                             Height="Auto" />
                     <TextBox Focusable="True"
-                                x:Name="PART_EditableTextBox"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                TextWrapping="NoWrap"
-                                BorderThickness="0,0,0,0"
-                                IsReadOnly="{TemplateBinding IsReadOnly}"                                 
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Visibility="Hidden" />
+                             x:Name="PART_EditableTextBox"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                             TextWrapping="NoWrap"
+                             BorderThickness="0,0,0,0"
+                             IsReadOnly="{TemplateBinding IsReadOnly}"                                 
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                             Visibility="Hidden" />
                 </Grid>
             </Border>
             <Popup x:Name="PART_Popup"
