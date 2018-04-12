@@ -1,6 +1,7 @@
 ﻿namespace FluentTest
 {
     using System;
+    using System.Linq;
     using System.Windows;
     using Fluent;
     using MahApps.Metro.Controls;
@@ -23,6 +24,12 @@
             this.TitleBar = this.FindChild<RibbonTitleBar>("RibbonTitleBar");
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
+
+            // Sync Fluent and MahApps ThemeManager
+            var fluentAppStyle = ThemeManager.DetectAppStyle();
+            var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == fluentAppStyle.Item1.Name);
+            var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentAppStyle.Item2.Name);
+            MahApps.Metro.ThemeManager.ChangeAppStyle(this, accent, appTheme);
         }
 
         #region TitelBar
