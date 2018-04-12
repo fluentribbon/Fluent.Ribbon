@@ -1620,9 +1620,9 @@
                                     <Fluent:MenuItem Header="Item 2" />
                                     <Fluent:MenuItem Header="Item 3" />
                                 </Fluent:MenuItem>
-                                <MenuItem Header="Item 3" />
+                                <Fluent:MenuItem Header="Item 3" />
                             </Fluent:MenuItem>
-                            <MenuItem Header="Item 3" />
+                            <Fluent:MenuItem Header="Item 3" />
                         </Fluent:MenuItem>
                         <Fluent:MenuItem Header="Item 4" />
                         <Fluent:MenuItem Header="Item 5" />
