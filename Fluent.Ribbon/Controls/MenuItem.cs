@@ -641,7 +641,8 @@ namespace Fluent
             {
                 #region Non MenuBase ItemsControl workarounds
 
-                if (this.IsItemsControlMenuBase == false)
+                if (this.IsItemsControlMenuBase == false
+                    && this.menuPanel != null)
                 {
                     var key = e.Key;
 

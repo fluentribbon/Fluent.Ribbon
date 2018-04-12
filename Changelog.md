@@ -40,6 +40,7 @@
   A generic "error" image is rendered during design time and an exception is thrown during runtime.
   - [#551](../../issues/551) - "Auto" size for ribbon group box header to support custom font sizes (thanks @chrfin)
   - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
+  - [#562](../../issues/562) - Pressing "right" arrow key to open submenu on menuitem causes NullRef exception when there is no submenu
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
