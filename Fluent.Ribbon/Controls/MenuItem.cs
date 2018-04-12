@@ -620,19 +620,7 @@ namespace Fluent
                 }
                 else
                 {
-                    var parent = this.FindParentDropDownOrMenuItem();
-                    if (parent != null)
-                    {
-                        var dropDown = parent as IDropDownControl;
-                        if (dropDown != null)
-                        {
-                            dropDown.IsDropDownOpen = false;
-                        }
-                        else
-                        {
-                            ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
-                        }
-                    }
+                    this.CloseParentDropDownOrMenuItem();
                 }
 
                 e.Handled = true;
@@ -641,8 +629,7 @@ namespace Fluent
             {
                 #region Non MenuBase ItemsControl workarounds
 
-                if (this.IsItemsControlMenuBase == false
-                    && this.menuPanel != null)
+                if (this.IsItemsControlMenuBase == false)
                 {
                     var key = e.Key;
 
@@ -658,7 +645,8 @@ namespace Fluent
                         }
                     }
 
-                    if (key == Key.Right)
+                    if (key == Key.Right
+                        && this.menuPanel != null)
                     {
                         this.IsSubmenuOpen = true;
                         this.menuPanel.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -666,7 +654,19 @@ namespace Fluent
                     }
                     else if (key == Key.Left)
                     {
-                        this.IsSubmenuOpen = false;
+                        if (this.IsSubmenuOpen)
+                        {
+                            this.IsSubmenuOpen = false;
+                        }
+                        else
+                        {
+                            var parentMenuItem = UIHelper.GetParent<System.Windows.Controls.MenuItem>(this);
+                            if (parentMenuItem != null)
+                            {
+                                parentMenuItem.IsSubmenuOpen = false;
+                            }
+                        }
+
                         e.Handled = true;
                     }
 
@@ -682,19 +682,36 @@ namespace Fluent
             }
         }
 
+        private void CloseParentDropDownOrMenuItem()
+        {
+            var parent = this.FindParentDropDownOrMenuItem();
+
+            if (parent == null)
+            {
+                return;
+            }
+
+            if (parent is IDropDownControl dropDown)
+            {
+                dropDown.IsDropDownOpen = false;
+            }
+            else
+            {
+                ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
+            }
+        }
+
         private DependencyObject FindParentDropDownOrMenuItem()
         {
             var parent = this.Parent;
             while (parent != null)
             {
-                var dropDown = parent as IDropDownControl;
-                if (dropDown != null)
+                if (parent is IDropDownControl)
                 {
                     return parent;
                 }
 
-                var menuItem = parent as System.Windows.Controls.MenuItem;
-                if (menuItem != null)
+                if (parent is System.Windows.Controls.MenuItem)
                 {
                     return parent;
                 }
