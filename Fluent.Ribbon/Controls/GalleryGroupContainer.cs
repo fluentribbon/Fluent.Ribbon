@@ -6,6 +6,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -233,11 +234,19 @@ namespace Fluent
 
             this.minMaxWidthNeedsToBeUpdated = false;
 
+            var isInsideInRibbonGallery = UIHelper.GetParent<InRibbonGallery>(this) != null;
+            var targetForSizeConstraints = isInsideInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
+
+            var nonTargetForSizeConstraints = isInsideInRibbonGallery ? (FrameworkElement)this.RealItemsPanel : this;
+
+            nonTargetForSizeConstraints.MinWidth = 0;
+            nonTargetForSizeConstraints.MaxWidth = double.PositiveInfinity;
+
             if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
-                this.MinWidth = 0;
-                this.MaxWidth = double.PositiveInfinity;
+                targetForSizeConstraints.MinWidth = 0;
+                targetForSizeConstraints.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -248,8 +257,8 @@ namespace Fluent
                 return;
             }
 
-            this.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
-            this.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
+            targetForSizeConstraints.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
+            targetForSizeConstraints.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
