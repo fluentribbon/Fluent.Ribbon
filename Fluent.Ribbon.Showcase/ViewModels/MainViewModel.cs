@@ -52,8 +52,6 @@
             this.memoryTimer = new Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
             this.memoryTimer.Elapsed += this.HandleMemoryTimer_Elapsed;
             this.memoryTimer.Start();
-
-            ////string.Format("{0:##,000}", this.UsedMemory)
         }
 
         #region Properties
