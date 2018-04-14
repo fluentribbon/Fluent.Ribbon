@@ -243,7 +243,7 @@
                                 Margin="0"
                                 Focusable="False">
                     <ContentPresenter ContentSource="SelectedContent"
-                                      x:Name="contentPresenter"
+                                      x:Name="PART_SelectedContentPresenter"
                                       HorizontalAlignment="Stretch"
                                       Margin="0" />
                 </ContentControl>
@@ -370,7 +370,7 @@
                         Value="{x:Null}" />
                 <Setter Property="Content"
                         TargetName="popupContentControl"
-                        Value="{Binding ElementName=contentPresenter, Mode=OneWay}" />
+                        Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
                 <!-- Switch content to popup END -->
                 <Setter Property="Visibility"
                         TargetName="image"
