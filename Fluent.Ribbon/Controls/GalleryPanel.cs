@@ -595,7 +595,7 @@ namespace Fluent
                 // Now arrange our actual items using arranged size of placeholders
                 foreach (GalleryItemPlaceholder placeholder in item.Items)
                 {
-                    var leftTop = placeholder.TranslatePoint(default(Point), this);
+                    var leftTop = placeholder.TranslatePoint(default, this);
 
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.ArrangedSize.Width, placeholder.ArrangedSize.Height));
                 }
