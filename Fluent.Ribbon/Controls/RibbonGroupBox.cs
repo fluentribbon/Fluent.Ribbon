@@ -941,10 +941,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Supports layout behavior when a child element is resized.
-        /// </summary>
-        /// <param name="child">The child element that is being resized.</param>
+        /// <inheritdoc />
         protected override void OnChildDesiredSizeChanged(UIElement child)
         {
             base.OnChildDesiredSizeChanged(child);
