@@ -5,16 +5,17 @@
                    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:fluentTest="clr-namespace:FluentTest"
                    Style="{DynamicResource CleanWindowStyleKey}"
-                   GlowBrush="{DynamicResource AccentColorBrush}"
-                   ShowIconOnTitleBar="False"
-                   ShowTitleBar="True"
                    WindowStartupLocation="CenterScreen"
                    Title="{Binding DataContext.Title, ElementName=TestContent}"
                    Height="768"
                    Width="1024"
                    x:Name="window"
+                   WindowState="Normal"
                    TitleCharacterCasing="Normal"
-                   WindowState="Normal">
+                   WindowTransitionsEnabled="False"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   ShowIconOnTitleBar="False"
+                   ShowTitleBar="True">
     <Metro:MetroWindow.LayoutTransform>
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent} }"
                         ScaleY="{Binding DataContext.Zoom, Source={x:Reference TestContent}}" />
