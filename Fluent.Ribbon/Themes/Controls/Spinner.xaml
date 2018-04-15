@@ -118,6 +118,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="PART_TextBox"
+                             Style="{x:Null}"
                              BorderThickness="0"
                              Grid.RowSpan="2"
                              Grid.Column="0"

@@ -184,8 +184,9 @@
                             Visibility="Collapsed"
                             Width="Auto"
                             Height="Auto" />
-                    <TextBox Focusable="True"
-                             x:Name="PART_EditableTextBox"
+                    <TextBox x:Name="PART_EditableTextBox"
+                             Focusable="True"                             
+                             Style="{x:Null}"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
