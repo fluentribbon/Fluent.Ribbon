@@ -41,6 +41,7 @@
   - [#551](../../issues/551) - "Auto" size for ribbon group box header to support custom font sizes (thanks @chrfin)
   - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
   - [#562](../../issues/562) - Pressing "right" arrow key to open submenu on menuitem causes NullRef exception when there is no submenu
+  - [#564](../../issues/564) - Gallery overflow panel (with menu items) doesn't close when clicking once in the application
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
