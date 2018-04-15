@@ -14,6 +14,21 @@ namespace Fluent
     /// </summary>
     public class RibbonGroupsContainer : Panel, IScrollInfo
     {
+        private struct MeasureCache
+        {
+            public MeasureCache(Size availableSize, Size desiredSize)
+            {
+                this.AvailableSize = availableSize;
+                this.DesiredSize = desiredSize;
+            }
+
+            public Size AvailableSize { get; }
+
+            public Size DesiredSize { get; }
+        }
+
+        private MeasureCache measureCache;
+
         #region Reduce Order
 
         /// <summary>
@@ -99,7 +114,9 @@ namespace Fluent
         {
             var desiredSize = this.GetChildrenDesiredSizeIntermediate();
 
-            if (this.reduceOrder.Length == 0)
+            if (this.reduceOrder.Length == 0
+                // Check cached measure to prevent "flicker"
+                || (this.measureCache.AvailableSize == availableSize && this.measureCache.DesiredSize == desiredSize))
             {
                 this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
@@ -165,6 +182,8 @@ namespace Fluent
                     return this.MeasureOverride(availableSize);
                 }
             }
+
+            this.measureCache = new MeasureCache(availableSize, desiredSize);
 
             this.VerifyScrollData(availableSize.Width, desiredSize.Width);
             return desiredSize;

@@ -756,8 +756,6 @@ namespace Fluent
                 }
 
                 this.isSnapped = value;
-
-                this.InvalidateVisual();
             }
         }
 
@@ -1190,26 +1188,27 @@ namespace Fluent
             }
         }
 
-        // Handles drop down opened
+        // Handles drop down closed
         private void OnDropDownClosed(object sender, EventArgs e)
         {
             this.popupControlPresenter.Content = null;
             this.controlPresenter.Content = this.galleryPanel;
 
-            this.galleryPanel.IsGrouped = false;
             this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-            this.galleryPanel.Width = double.NaN;
             this.galleryPanel.UpdateMinAndMaxWidth();
+            this.galleryPanel.IsGrouped = false;
 
-            this.RunInDispatcherAsync(() =>
-                                      {
-                                          if (this.quickAccessGallery == null
-                                              || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false))
-                                          {
-                                              this.IsSnapped = false;
-                                          }
-                                      }, DispatcherPriority.SystemIdle);
+            if (this.IsSnapped
+                && (this.quickAccessGallery == null || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false)))
+            {
+                this.galleryPanel.Width = this.snappedImage.Width;
+                this.galleryPanel.Height = this.snappedImage.Height;
+
+                this.galleryPanel.UpdateLayout();
+
+                this.IsSnapped = false;
+            }
 
             this.DropDownClosed?.Invoke(this, e);
 
@@ -1218,16 +1217,22 @@ namespace Fluent
                 Mouse.Capture(null);
             }
 
+            this.dropDownButton.IsChecked = false;
+            this.canOpenDropDown = true;
+
             this.RunInDispatcherAsync(() =>
                                       {
+                                          // request measure async. call will be ignored because we set IgnoreNextMeasureCall earlier, but we need to "free" width and height to support future resizes
+                                          this.galleryPanel.IgnoreNextMeasureCall = true;
+                                          this.galleryPanel.Width = double.NaN;
+                                          this.galleryPanel.Height = double.NaN;
+
                                           var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
                                           selectedContainer?.BringIntoView();
                                       }, DispatcherPriority.SystemIdle);
-            this.dropDownButton.IsChecked = false;
-            this.canOpenDropDown = true;
         }
 
-        // Handles drop down closed
+        // Handles drop down opened
         private void OnDropDownOpened(object sender, EventArgs e)
         {
             this.IsSnapped = true;
@@ -1235,11 +1240,10 @@ namespace Fluent
             this.controlPresenter.Content = null;
             this.popupControlPresenter.Content = this.galleryPanel;
 
-            this.galleryPanel.IsGrouped = true;
             this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
             this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-            this.galleryPanel.Width = double.NaN;
             this.galleryPanel.UpdateMinAndMaxWidth();
+            this.galleryPanel.IsGrouped = true;
 
             this.DropDownOpened?.Invoke(this, e);
 

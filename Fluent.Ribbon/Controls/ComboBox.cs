@@ -43,8 +43,6 @@ namespace Fluent
         // Is visual currently snapped
         private bool isSnapped;
 
-        //private GalleryPanel galleryPanel;
-
         private ScrollViewer scrollViewer;
 
         private bool canSizeY;

@@ -15,8 +15,7 @@ namespace Fluent
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
-    /// Represents panel for Gallery, InRibbonGallery, ComboBox
-    /// with grouping and filtering capabilities
+    /// Represents panel for Gallery and InRibbonGallery with grouping and filtering capabilities
     /// </summary>
     public class GalleryPanel : StackPanel
     {
@@ -34,6 +33,12 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Used to prevent measures which cause the layout to flicker.
+        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
+        /// </summary>
+        public bool IgnoreNextMeasureCall { get; set; }
 
         #region IsGrouped
 
@@ -519,11 +524,7 @@ namespace Fluent
             this.InvalidateMeasure();
         }
 
-        /// <summary>
-        /// Invoked when the VisualCollection of a visual object is modified.
-        /// </summary>
-        /// <param name="visualAdded">The Visual that was added to the collection.</param>
-        /// <param name="visualRemoved">The Visual that was removed from the collection.</param>
+        /// <inheritdoc />
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
@@ -545,20 +546,15 @@ namespace Fluent
 
         #region Layout Overrides
 
-        /// <summary>
-        /// When overridden in a derived class, measures the size in
-        /// layout required for child elements and determines a size
-        /// for the derived class.
-        /// </summary>
-        /// <returns>
-        /// The size that this element determines it needs during layout,
-        /// based on its calculations of child element sizes.
-        /// </returns>
-        /// <param name="availableSize">The available size that this element can give
-        /// to child elements. Infinity can be specified as a value to indicate that
-        /// the element will size to whatever content is available.</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
+            if (this.IgnoreNextMeasureCall)
+            {
+                this.IgnoreNextMeasureCall = false;
+                return this.DesiredSize;
+            }
+
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -571,13 +567,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        /// <summary>
-        /// When overridden in a derived class, positions child elements
-        /// and determines a size for a derived class.
-        /// </summary>
-        /// <returns> The actual size used. </returns>
-        /// <param name="finalSize">The final area within the parent that this
-        /// element should use to arrange itself and its children.</param>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var finalRect = new Rect(finalSize);
@@ -629,12 +619,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Gets an enumerator that can iterate the logical child elements of this <see cref="T:System.Windows.Controls.Panel"/> element.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator"/>. This property has no default value.
-        /// </returns>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
