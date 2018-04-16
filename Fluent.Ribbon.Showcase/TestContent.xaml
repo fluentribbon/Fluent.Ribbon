@@ -166,6 +166,7 @@
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Save.png"
                                            KeyTip="A"
                                            CanAddToQuickAccessToolBar="False"
+                                           IsDefinitive="False"
                                            Click="HandleSaveAsClick" />
                             <Fluent:BackstageTabItem Header="Introduction"
                                                      KeyTip="T">

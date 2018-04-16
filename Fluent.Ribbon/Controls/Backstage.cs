@@ -31,10 +31,15 @@ namespace Fluent
         /// </summary>
         public event DependencyPropertyChangedEventHandler IsOpenChanged;
 
-        // Adorner for backstage
         private BackstageAdorner adorner;
 
         #region Properties
+
+        /// <summary>
+        /// Gets the <see cref="AdornerLayer"/> for the <see cref="Backstage"/>.
+        /// </summary>
+        /// <remarks>This is exposed to make it possible to show content on the same <see cref="AdornerLayer"/> as the backstage is shown on.</remarks>
+        public AdornerLayer AdornerLayer { get; private set; }
 
         /// <summary>
         /// Gets or sets whether backstage is shown
@@ -453,9 +458,9 @@ namespace Fluent
                 elementToAdorn = currentAdornerDecorator;
             }
 
-            var layer = UIHelper.GetAdornerLayer(elementToAdorn);
+            this.AdornerLayer = UIHelper.GetAdornerLayer(elementToAdorn);
 
-            if (layer == null)
+            if (this.AdornerLayer == null)
             {
                 throw new Exception($"AdornerLayer could not be found for {this}.");
             }
@@ -465,9 +470,9 @@ namespace Fluent
                                DataContext = this.DataContext
                            };
 
-            layer.Add(this.adorner);
+            this.AdornerLayer.Add(this.adorner);
 
-            layer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted, HandleOpenBackstageCommandCanExecute));
+            this.AdornerLayer.CommandBindings.Add(new CommandBinding(RibbonCommands.OpenBackstage, HandleOpenBackstageCommandExecuted, HandleOpenBackstageCommandCanExecute));
         }
 
         private static void HandleOpenBackstageCommandCanExecute(object sender, CanExecuteRoutedEventArgs args)
@@ -484,19 +489,18 @@ namespace Fluent
 
         private void DestroyAdorner()
         {
-            if (this.adorner == null)
+            this.AdornerLayer?.CommandBindings.Clear();
+            this.AdornerLayer?.Remove(this.adorner);
+
+            if (this.adorner != null)
             {
-                return;
+                this.adorner.DataContext = null;
             }
 
-            var layer = AdornerLayer.GetAdornerLayer(this.adorner);
-            layer?.CommandBindings.Clear();
-            layer?.Remove(this.adorner);
-
-            this.adorner.DataContext = null;
-
-            this.adorner.Clear();
+            this.adorner?.Clear();
             this.adorner = null;
+
+            this.AdornerLayer = null;
         }
 
         private void OnDelayedShow(object sender, EventArgs args)

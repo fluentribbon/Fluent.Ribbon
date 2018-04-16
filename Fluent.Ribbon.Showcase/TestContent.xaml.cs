@@ -6,12 +6,15 @@ namespace FluentTest
     using System.Linq;
     using System.Text;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent;
+    using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
     using Button = Fluent.Button;
@@ -283,9 +286,38 @@ namespace FluentTest
             this.ribbon.Tabs.Add(tab);
         }
 
-        private void HandleSaveAsClick(object sender, RoutedEventArgs e)
+        private async void HandleSaveAsClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You clicked \"Save as\".");
+            var progressAdornerChild = new Border
+                                      {
+                                          VerticalAlignment = VerticalAlignment.Stretch,
+                                          HorizontalAlignment = HorizontalAlignment.Stretch,
+                                          Background = new SolidColorBrush(Colors.Black) { Opacity = 0.25 },
+                                          IsHitTestVisible = true,
+                                          Child = new ProgressBar
+                                                  {
+                                                      IsIndeterminate = true,
+                                                      Width = 300,
+                                                      Height = 20,
+                                                      VerticalAlignment = VerticalAlignment.Center,
+                                                      HorizontalAlignment = HorizontalAlignment.Center
+                                                  }
+                                      };
+            BindingOperations.SetBinding(progressAdornerChild, WidthProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualWidth)) { Source = this.Backstage.AdornerLayer });
+            BindingOperations.SetBinding(progressAdornerChild, HeightProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualHeight)) { Source = this.Backstage.AdornerLayer });
+
+            var progressAdorner = new SimpleControlAdorner(this.Backstage.AdornerLayer)
+                                  {
+                                      Child = progressAdornerChild
+                                  };
+
+            this.Backstage.AdornerLayer.Add(progressAdorner);
+
+            await Task.Delay(TimeSpan.FromSeconds(3));
+
+            this.Backstage.AdornerLayer.Remove(progressAdorner);
+
+            BindingOperations.ClearAllBindings(progressAdornerChild);
         }
 
         private void OpenRegularWindow_OnClick(object sender, RoutedEventArgs e)
