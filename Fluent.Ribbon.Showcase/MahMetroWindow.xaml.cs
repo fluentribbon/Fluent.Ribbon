@@ -25,6 +25,13 @@
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
 
+            this.SyncThemeManagers();
+
+            ThemeManager.IsThemeChanged += (o, args) => this.SyncThemeManagers();
+        }
+
+        private void SyncThemeManagers()
+        {
             // Sync Fluent and MahApps ThemeManager
             var fluentAppStyle = ThemeManager.DetectAppStyle();
             var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == fluentAppStyle.Item1.Name);
