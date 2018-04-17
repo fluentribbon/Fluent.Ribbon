@@ -2,13 +2,14 @@
 namespace Fluent
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
     using ControlzEx.Standard;
-    using Fluent.Helpers;
     using Fluent.Internal;
 
     /// <summary>
@@ -40,7 +41,8 @@ namespace Fluent
 
         private string currentUserInput;
 
-        private KeyTipKeysCollection keys = KeyTipKeysCollection.Default;
+        // List of invalid key tip keys
+        private static KeyGesture[] invalidGestures = new KeyGesture[] { new KeyGesture(Key.F10, ModifierKeys.Shift) };
 
         /// <summary>
         /// Checks if any keytips are visible.
@@ -57,6 +59,9 @@ namespace Fluent
                 return false;
             }
         }
+
+        // List of key tip activation keys
+        public IList<KeyGesture> KeyTipKeys { get; } = new List<KeyGesture>();
 
         #endregion
 
@@ -315,9 +320,52 @@ namespace Fluent
 
         private bool IsShowOrHideKey(KeyEventArgs e)
         {
-            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
-                   && (this.keys?.Contains(e.SystemKey) ?? false);
+            var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
+
+            if (invalidGestures.Any(x => x.Key == actualKey && x.Modifiers == Keyboard.Modifiers))
+            {
+                return false;
+            }
+
+            // Use default keys if no keys are defined.
+            var keys = this.KeyTipKeys.Any() ? this.KeyTipKeys : DefaultKeys;
+
+            return keys.Any(x => KeyIsValid(x, actualKey, Keyboard.Modifiers));
         }
+
+        private static bool KeyIsValid(KeyGesture gesture, Key key, ModifierKeys modifiers)
+        {
+            // If the key is a modifier key, the modifier either needs to match or needs to be empty.
+            if (key == Key.LeftAlt || key == Key.RightAlt)
+            {
+                return gesture.Key == key && (modifiers == ModifierKeys.Alt || modifiers == ModifierKeys.None);
+            }
+            else if (key == Key.LeftCtrl || key == Key.RightCtrl)
+            {
+                return gesture.Key == key && (modifiers == ModifierKeys.Control || modifiers == ModifierKeys.None);
+            }
+            else if (key == Key.LeftShift || key == Key.RightShift)
+            {
+                return gesture.Key == key && (modifiers == ModifierKeys.Shift || modifiers == ModifierKeys.None);
+            }
+            else if (key == Key.LWin || key == Key.RWin)
+            {
+                return gesture.Key == key && (modifiers == ModifierKeys.Windows || modifiers == ModifierKeys.None);
+            }
+
+            // For all other keys we do a normal check
+            return gesture.Key == key && gesture.Modifiers == modifiers;
+        }
+
+        /// <summary>
+        /// The default keys used to activate key tips.
+        /// </summary>
+        public static IList<KeyGesture> DefaultKeys => new List<KeyGesture>
+        {
+            new KeyGesture(Key.LeftAlt),
+            new KeyGesture(Key.RightAlt),
+            new KeyGesture(Key.F10)
+        };
 
         private void ClearUserInput()
         {
@@ -488,11 +536,6 @@ namespace Fluent
             {
                 this.activeAdornerChain.Attach();
             }
-        }
-
-        internal void SetKeys(KeyTipKeysCollection keyCollection)
-        {
-            this.keys = keyCollection ?? throw new ArgumentNullException(nameof(keyCollection));
         }
     }
 }

@@ -95,6 +95,10 @@
 
         <Fluent:Ribbon x:Name="ribbon"
                        AutomaticStateManagement="True">
+            <Fluent:Ribbon.KeyTipKeys>
+                <KeyGesture>F6</KeyGesture>
+                <KeyGesture>F10</KeyGesture>
+            </Fluent:Ribbon.KeyTipKeys>
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  BorderBrush="Magenta"

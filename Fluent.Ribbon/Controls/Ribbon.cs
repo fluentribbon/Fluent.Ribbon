@@ -15,7 +15,6 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
-    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
@@ -1334,16 +1333,21 @@ namespace Fluent
         }
 
         /// <summary>
+        /// DependencyPropertyKey for <see cref="KeyTipKeys"/>.
+        /// </summary>
+        public static readonly DependencyPropertyKey KeyTipKeysPropertyKey = DependencyProperty.RegisterReadOnly(nameof(KeyTipKeys), typeof(ObservableCollection<KeyGesture>), typeof(Ribbon), new FrameworkPropertyMetadata(new ObservableCollection<KeyGesture>(), OnKeyTipKeysChanged));
+
+        /// <summary>
         /// DependencyProperty for <see cref="KeyTipKeys"/>.
         /// </summary>
-        public static readonly DependencyProperty KeyTipKeysProperty = DependencyProperty.Register(nameof(KeyTipKeys), typeof(KeyTipKeysCollection), typeof(Ribbon), new PropertyMetadata(KeyTipKeysCollection.Default, OnKeyTipKeysChanged));
+        public static readonly DependencyProperty KeyTipKeysProperty = KeyTipKeysPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Defines the keys that are used to activate the key tips.
         /// </summary>
-        public KeyTipKeysCollection KeyTipKeys
+        public ObservableCollection<KeyGesture> KeyTipKeys
         {
-            get { return (KeyTipKeysCollection)this.GetValue(KeyTipKeysProperty); }
+            get { return (ObservableCollection<KeyGesture>)this.GetValue(KeyTipKeysProperty); }
             set { this.SetValue(KeyTipKeysProperty, value); }
         }
 
@@ -1351,8 +1355,33 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            var keys = (KeyTipKeysCollection)e.NewValue;
-            ribbon.keyTipService?.SetKeys(keys);
+            if (e.OldValue is ObservableCollection<KeyGesture> oldCollection)
+            {
+                oldCollection.CollectionChanged -= ribbon.KeyCollection_CollectionChanged;
+            }
+
+            if (e.NewValue is ObservableCollection<KeyGesture> newCollection)
+            {
+                newCollection.CollectionChanged += ribbon.KeyCollection_CollectionChanged;
+                if (ribbon.keyTipService != null)
+                {
+                    ribbon.keyTipService.KeyTipKeys.Clear();
+                    newCollection.Cast<KeyGesture>().ToList().ForEach(x => ribbon.keyTipService.KeyTipKeys.Add(x));
+                }
+            }
+        }
+
+        private void KeyCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                e.NewItems.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
+            }
+
+            if (e.OldItems != null)
+            {
+                e.OldItems.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
+            }
         }
 
         #endregion
@@ -1586,6 +1615,7 @@ namespace Fluent
             WindowChrome.SetIsHitTestVisibleInChrome(this, true);
 
             this.keyTipService = new KeyTipService(this);
+            this.SetValue(KeyTipKeysPropertyKey, new ObservableCollection<KeyGesture>());
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
