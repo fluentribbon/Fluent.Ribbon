@@ -539,14 +539,12 @@ namespace Fluent
         {
             var element = (RibbonGroupBox)d;
 
-            var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null)
+            if (e.OldValue is FrameworkElement oldElement)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
-            var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null)
+            if (e.NewValue is FrameworkElement newElement)
             {
                 element.AddLogicalChild(newElement);
             }
@@ -785,10 +783,9 @@ namespace Fluent
         {
             get
             {
-                Size result;
                 var stateScale = this.GetCurrentIntermediateStateScale();
 
-                if (this.cachedMeasures.TryGetValue(stateScale, out result) == false)
+                if (this.cachedMeasures.TryGetValue(stateScale, out var result) == false)
                 {
                     var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
 
@@ -1046,8 +1043,7 @@ namespace Fluent
 
             if (this.Icon != null)
             {
-                var iconVisual = this.Icon as Visual;
-                if (iconVisual != null)
+                if (this.Icon is Visual iconVisual)
                 {
                     var rect = new Rectangle
                     {

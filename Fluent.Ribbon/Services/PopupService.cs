@@ -342,9 +342,7 @@ namespace Fluent
         /// </summary>
         public static void OnContextMenuOpened(object sender, ContextMenuEventArgs e)
         {
-            var control = sender as IDropDownControl;
-
-            if (control != null)
+            if (sender is IDropDownControl control)
             {
                 control.IsContextMenuOpened = true;
                 // Debug.WriteLine("Context menu opened");
@@ -356,9 +354,7 @@ namespace Fluent
         /// </summary>
         public static void OnContextMenuClosed(object sender, ContextMenuEventArgs e)
         {
-            var control = sender as IDropDownControl;
-
-            if (control != null)
+            if (sender is IDropDownControl control)
             {
                 //Debug.WriteLine("Context menu closed");
                 control.IsContextMenuOpened = false;
