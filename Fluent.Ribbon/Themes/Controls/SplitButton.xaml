@@ -387,7 +387,6 @@
                 <StackPanel x:Name="stackPanel"
                             Width="Auto"
                             Orientation="Vertical"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             SnapsToDevicePixels="True">
                     <ContentPresenter x:Name="iconImage"

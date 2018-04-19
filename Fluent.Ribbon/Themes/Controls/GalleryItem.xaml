@@ -8,12 +8,10 @@
                      x:Key="GalleryItemControlTemplate">
         <Grid Background="Transparent">
             <Border x:Name="hoverBorder"
-                    d:LayoutOverrides="Width, Height"
                     Visibility="Collapsed"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}" />
 
             <Border x:Name="selectedBorder"
-                    d:LayoutOverrides="Width, Height"
                     Visibility="Collapsed"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}" />
             
@@ -22,7 +20,6 @@
                               Opacity="1" />
             
             <Border x:Name="pressedBorder"
-                    d:LayoutOverrides="Width, Height"
                     Visibility="Collapsed"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}" />
         </Grid>

@@ -166,7 +166,6 @@
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton"
-                          d:LayoutOverrides="Width, Height"
                           Style="{DynamicResource SliderRepeatButtonStyle}"
                           Command="Slider.DecreaseLarge">
                 <Grid Margin="0"
