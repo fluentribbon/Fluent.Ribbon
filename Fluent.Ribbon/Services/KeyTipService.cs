@@ -42,7 +42,7 @@ namespace Fluent
         private string currentUserInput;
 
         // List of invalid key tip keys
-        private static KeyGesture[] invalidGestures = new KeyGesture[] { new KeyGesture(Key.F10, ModifierKeys.Shift) };
+        private static readonly KeyGesture[] invalidGestures = { new KeyGesture(Key.F10, ModifierKeys.Shift) };
 
         /// <summary>
         /// Checks if any keytips are visible.
