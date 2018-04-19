@@ -41,9 +41,6 @@ namespace Fluent
 
         private string currentUserInput;
 
-        // List of invalid key tip keys
-        private static readonly KeyGesture[] invalidGestures = { new KeyGesture(Key.F10, ModifierKeys.Shift) };
-
         /// <summary>
         /// Checks if any keytips are visible.
         /// </summary>
@@ -60,8 +57,18 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// The default keys used to activate key tips.
+        /// </summary>
+        public static IList<Key> DefaultKeyTipKeys => new List<Key>
+                                                      {
+                                                          Key.LeftAlt,
+                                                          Key.RightAlt,
+                                                          Key.F10
+                                                      };
+
         // List of key tip activation keys
-        public IList<KeyGesture> KeyTipKeys { get; } = new List<KeyGesture>();
+        public IList<Key> KeyTipKeys { get; } = new List<Key>();
 
         #endregion
 
@@ -73,12 +80,7 @@ namespace Fluent
         /// <param name="ribbon">Host element</param>
         public KeyTipService(Ribbon ribbon)
         {
-            if (ribbon == null)
-            {
-                throw new ArgumentNullException(nameof(ribbon));
-            }
-
-            this.ribbon = ribbon;
+            this.ribbon = ribbon ?? throw new ArgumentNullException(nameof(ribbon));
 
             // Initialize timer
             this.timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, this.OnDelayedShow, Dispatcher.CurrentDispatcher);
@@ -320,52 +322,20 @@ namespace Fluent
 
         private bool IsShowOrHideKey(KeyEventArgs e)
         {
-            var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
+            var realKey = e.Key == Key.System
+                          ? e.SystemKey
+                          : e.Key;
 
-            if (invalidGestures.Any(x => x.Key == actualKey && x.Modifiers == Keyboard.Modifiers))
+            // Shift + F10 is meant to open the context menu. So we just ignore it.
+            if (realKey == Key.F10
+                && (Keyboard.IsKeyDown(Key.LeftShift)
+                    || Keyboard.IsKeyDown(Key.RightShift)))
             {
                 return false;
             }
 
-            // Use default keys if no keys are defined.
-            var keys = this.KeyTipKeys.Any() ? this.KeyTipKeys : DefaultKeys;
-
-            return keys.Any(x => KeyIsValid(x, actualKey, Keyboard.Modifiers));
+            return this.KeyTipKeys.Any(x => x == realKey);
         }
-
-        private static bool KeyIsValid(KeyGesture gesture, Key key, ModifierKeys modifiers)
-        {
-            // If the key is a modifier key, the modifier either needs to match or needs to be empty.
-            if (key == Key.LeftAlt || key == Key.RightAlt)
-            {
-                return gesture.Key == key && (modifiers == ModifierKeys.Alt || modifiers == ModifierKeys.None);
-            }
-            else if (key == Key.LeftCtrl || key == Key.RightCtrl)
-            {
-                return gesture.Key == key && (modifiers == ModifierKeys.Control || modifiers == ModifierKeys.None);
-            }
-            else if (key == Key.LeftShift || key == Key.RightShift)
-            {
-                return gesture.Key == key && (modifiers == ModifierKeys.Shift || modifiers == ModifierKeys.None);
-            }
-            else if (key == Key.LWin || key == Key.RWin)
-            {
-                return gesture.Key == key && (modifiers == ModifierKeys.Windows || modifiers == ModifierKeys.None);
-            }
-
-            // For all other keys we do a normal check
-            return gesture.Key == key && gesture.Modifiers == modifiers;
-        }
-
-        /// <summary>
-        /// The default keys used to activate key tips.
-        /// </summary>
-        public static IList<KeyGesture> DefaultKeys => new List<KeyGesture>
-        {
-            new KeyGesture(Key.LeftAlt),
-            new KeyGesture(Key.RightAlt),
-            new KeyGesture(Key.F10)
-        };
 
         private void ClearUserInput()
         {
