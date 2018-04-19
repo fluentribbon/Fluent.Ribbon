@@ -39,9 +39,7 @@
         {
             foreach (var child in GetVisualChildren(parent))
             {
-                var obj = child as T;
-
-                if (obj != null
+                if (child is T obj
                     && predicate(obj))
                 {
                     return obj;
@@ -62,9 +60,7 @@
         {
             foreach (var child in GetVisualChildren(parent))
             {
-                var item = child as TChildItem;
-
-                if (item != null)
+                if (child is TChildItem item)
                 {
                     return item;
                 }
@@ -154,8 +150,7 @@
                 return null;
             }
 
-            var contentElement = element as ContentElement;
-            if (contentElement != null)
+            if (element is ContentElement contentElement)
             {
                 var parent = ContentOperations.GetParent(contentElement);
 
@@ -185,14 +180,12 @@
                 throw new ArgumentNullException(nameof(visual));
             }
 
-            var decorator = visual as AdornerDecorator;
-            if (decorator != null)
+            if (visual is AdornerDecorator decorator)
             {
                 return decorator.AdornerLayer;
             }
 
-            var scrollContentPresenter = visual as ScrollContentPresenter;
-            if (scrollContentPresenter != null)
+            if (visual is ScrollContentPresenter scrollContentPresenter)
             {
                 return scrollContentPresenter.AdornerLayer;
             }
@@ -219,8 +212,7 @@
         {
             for (var i = 0; i < itemContainerGenerator.Items.Count; i++)
             {
-                var container = itemContainerGenerator.ContainerFromIndex(i) as T;
-                if (container != null)
+                if (itemContainerGenerator.ContainerFromIndex(i) is T container)
                 {
                     yield return container;
                 }
