@@ -204,9 +204,7 @@ namespace Fluent
             var backstage = (Backstage)d;
             if (e.OldValue != null)
             {
-                var dependencyObject = e.NewValue as DependencyObject;
-
-                if (dependencyObject != null)
+                if (e.NewValue is DependencyObject dependencyObject)
                 {
                     BindingOperations.ClearBinding(dependencyObject, VisibilityProperty);
                 }
@@ -218,9 +216,7 @@ namespace Fluent
             {
                 backstage.AddLogicalChild(e.NewValue);
 
-                var dependencyObject = e.NewValue as DependencyObject;
-
-                if (dependencyObject != null)
+                if (e.NewValue is DependencyObject dependencyObject)
                 {
                     BindingOperations.SetBinding(dependencyObject, VisibilityProperty, new Binding { Path = new PropertyPath(VisibilityProperty), Source = backstage });
                 }

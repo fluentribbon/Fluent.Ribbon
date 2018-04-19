@@ -567,9 +567,7 @@ namespace Fluent
                 ribbon.TabControl.SelectedItem = e.NewValue;
             }
 
-            var selectedItem = e.NewValue as RibbonTabItem;
-
-            if (selectedItem != null
+            if (e.NewValue is RibbonTabItem selectedItem
                 && ribbon.Tabs.Contains(selectedItem))
             {
                 ribbon.SelectedTabIndex = ribbon.Tabs.IndexOf(selectedItem);
@@ -670,10 +668,7 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            var oldValue = e.OldValue as RibbonTitleBar;
-            var newValue = e.NewValue as RibbonTitleBar;
-
-            if (oldValue != null)
+            if (e.OldValue is RibbonTitleBar oldValue)
             {
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
@@ -686,7 +681,7 @@ namespace Fluent
                 ribbon.RemoveQuickAccessToolBarFromTitleBar(oldValue);
             }
 
-            if (newValue != null)
+            if (e.NewValue is RibbonTitleBar newValue)
             {
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
@@ -1529,15 +1524,12 @@ namespace Fluent
         // Occurs when add to quick access command can execute handles
         private static void OnAddToQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon != null
+            if (sender is Ribbon ribbon
                 && ribbon.IsQuickAccessToolBarVisible
                 && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement)
                 && ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false)
             {
-                var gallery = e.Parameter as Gallery;
-                if (gallery != null)
+                if (e.Parameter is Gallery gallery)
                 {
                     e.CanExecute = ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(gallery) as UIElement) == false;
                 }
@@ -1847,8 +1839,7 @@ namespace Fluent
             }
 
             // Do not add menu items without icon.
-            var menuItem = element as MenuItem;
-            if (menuItem != null && menuItem.Icon == null)
+            if (element is MenuItem menuItem && menuItem.Icon == null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }
@@ -1880,8 +1871,7 @@ namespace Fluent
 
             while (parent != null)
             {
-                var control = parent as IRibbonControl;
-                if (control != null)
+                if (parent is IRibbonControl control)
                 {
                     return control;
                 }
@@ -2025,13 +2015,12 @@ namespace Fluent
         public void TraverseLogicalTree(DependencyObject item, string path, IDictionary<FrameworkElement, string> paths)
         {
             // Is this item in QAT
-            var uielement = item as FrameworkElement;
-            if (uielement != null
-                && this.QuickAccessElements.ContainsKey(uielement))
+            if (item is FrameworkElement frameworkElement
+                && this.QuickAccessElements.ContainsKey(frameworkElement))
             {
-                if (paths.ContainsKey(uielement) == false)
+                if (paths.ContainsKey(frameworkElement) == false)
                 {
-                    paths.Add(uielement, path);
+                    paths.Add(frameworkElement, path);
                 }
             }
 

@@ -607,9 +607,7 @@ namespace Fluent
             var gal = (ColorGallery)d;
             gal.ThemeColors.Clear();
 
-            var colors = e.NewValue as IEnumerable<Color>;
-
-            if (colors != null)
+            if (e.NewValue is IEnumerable<Color> colors)
             {
                 foreach (var color in colors)
                 {

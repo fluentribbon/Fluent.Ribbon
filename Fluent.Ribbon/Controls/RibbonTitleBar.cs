@@ -288,10 +288,10 @@ namespace Fluent
 
             if (parentUIElement == null)
             {
-                return default(Point);
+                return default;
             }
 
-            return this.TranslatePoint(default(Point), parentUIElement);
+            return this.TranslatePoint(default, parentUIElement);
         }
 
         // Update items size and positions

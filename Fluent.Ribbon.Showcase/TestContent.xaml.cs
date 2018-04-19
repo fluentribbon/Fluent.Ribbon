@@ -155,14 +155,11 @@ namespace FluentTest
                 return "NULL";
             }
 
-            var ribbonControl = element as IHeaderedControl;
-
-            var header = ribbonControl != null
+            var header = element is IHeaderedControl ribbonControl
                            ? ribbonControl.Header
                            : string.Empty;
 
-            var frameworkElement = element as FrameworkElement;
-            var name = frameworkElement != null
+            var name = element is FrameworkElement frameworkElement
                            ? frameworkElement.Name
                            : string.Empty;
 

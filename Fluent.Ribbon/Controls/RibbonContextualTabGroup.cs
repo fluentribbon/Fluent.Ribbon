@@ -239,9 +239,7 @@ namespace Fluent
             if (e.ClickCount == 1
                 && firstVisibleItem != null)
             {
-                var currentSelectedItem = firstVisibleItem.TabControlParent?.SelectedItem as RibbonTabItem;
-
-                if (currentSelectedItem != null)
+                if (firstVisibleItem.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
                 {
                     currentSelectedItem.IsSelected = false;
                 }
