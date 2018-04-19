@@ -633,15 +633,13 @@ namespace Fluent
                 return;
             }
 
-            var frameworkElement = parent as FrameworkElement;
-
             // Do not hide contents in the backstage area
             if (parent is BackstageAdorner)
             {
                 return;
             }
 
-            if (frameworkElement != null)
+            if (parent is FrameworkElement frameworkElement)
             {
                 if (parent is HwndHost
                     && frameworkElement.Visibility != Visibility.Collapsed)
