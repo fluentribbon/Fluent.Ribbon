@@ -1335,7 +1335,7 @@ namespace Fluent
         /// <summary>
         /// DependencyPropertyKey for <see cref="KeyTipKeys"/>.
         /// </summary>
-        public static readonly DependencyPropertyKey KeyTipKeysPropertyKey = DependencyProperty.RegisterReadOnly(nameof(KeyTipKeys), typeof(ObservableCollection<KeyGesture>), typeof(Ribbon), new FrameworkPropertyMetadata(null, OnKeyTipKeysChanged));
+        private static readonly DependencyPropertyKey KeyTipKeysPropertyKey = DependencyProperty.RegisterReadOnly(nameof(KeyTipKeys), typeof(ObservableCollection<KeyGesture>), typeof(Ribbon), new FrameworkPropertyMetadata(null, OnKeyTipKeysChanged));
 
         /// <summary>
         /// DependencyProperty for <see cref="KeyTipKeys"/>.
@@ -1348,7 +1348,7 @@ namespace Fluent
         public ObservableCollection<KeyGesture> KeyTipKeys
         {
             get { return (ObservableCollection<KeyGesture>)this.GetValue(KeyTipKeysProperty); }
-            set { this.SetValue(KeyTipKeysProperty, value); }
+            private set { this.SetValue(KeyTipKeysProperty, value); }
         }
 
         private static void OnKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
