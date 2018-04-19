@@ -1357,12 +1357,12 @@ namespace Fluent
 
             if (e.OldValue is ObservableCollection<KeyGesture> oldCollection)
             {
-                oldCollection.CollectionChanged -= ribbon.KeyCollection_CollectionChanged;
+                oldCollection.CollectionChanged -= ribbon.HandleKeyTipKeys_CollectionChanged;
             }
 
             if (e.NewValue is ObservableCollection<KeyGesture> newCollection)
             {
-                newCollection.CollectionChanged += ribbon.KeyCollection_CollectionChanged;
+                newCollection.CollectionChanged += ribbon.HandleKeyTipKeys_CollectionChanged;
 
                 if (ribbon.keyTipService != null)
                 {
@@ -1372,7 +1372,7 @@ namespace Fluent
             }
         }
 
-        private void KeyCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void HandleKeyTipKeys_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             e.OldItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
             e.NewItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
