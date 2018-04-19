@@ -55,6 +55,8 @@
   - [#549](../../issues/549) - Implement RibbonGroupBox header template
   - [#553](../../issues/553) - Introduce resources for CaretBrush and SelectionBrush for TextBox
   - [#554](../../issues/554) - No Keytips on templated ribbon items.
+  - [#559](../../issues/559) - Key tip keys hardcoded. (thanks @pschimmel)  
+  You can now set your own keys for showing key tips. Have a look at `Ribbon.KeyTipKeys`.
 
 ## 6.1.0
 
