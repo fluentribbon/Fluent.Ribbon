@@ -1348,7 +1348,7 @@ namespace Fluent
         public ObservableCollection<KeyGesture> KeyTipKeys
         {
             get { return (ObservableCollection<KeyGesture>)this.GetValue(KeyTipKeysProperty); }
-            private set { this.SetValue(KeyTipKeysProperty, value); }
+            private set { this.SetValue(KeyTipKeysPropertyKey, value); }
         }
 
         private static void OnKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
