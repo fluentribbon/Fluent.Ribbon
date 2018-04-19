@@ -9,6 +9,7 @@
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
   - Removed `CornerRadius` on `Button`.
   - Default `Foreground` for `ComboBox` is now `Fluent.Ribbon.Brushes.LabelTextBrush`.
+  - Key tips can not be opened by pressing `Space`.
   - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
