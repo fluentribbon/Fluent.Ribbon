@@ -1333,49 +1333,26 @@ namespace Fluent
         }
 
         /// <summary>
-        /// DependencyPropertyKey for <see cref="KeyTipKeys"/>.
-        /// </summary>
-        private static readonly DependencyPropertyKey KeyTipKeysPropertyKey = DependencyProperty.RegisterReadOnly(nameof(KeyTipKeys), typeof(ObservableCollection<KeyGesture>), typeof(Ribbon), new FrameworkPropertyMetadata(null, OnKeyTipKeysChanged));
-
-        /// <summary>
-        /// DependencyProperty for <see cref="KeyTipKeys"/>.
-        /// </summary>
-        public static readonly DependencyProperty KeyTipKeysProperty = KeyTipKeysPropertyKey.DependencyProperty;
-
-        /// <summary>
         /// Defines the keys that are used to activate the key tips.
         /// </summary>
-        public ObservableCollection<KeyGesture> KeyTipKeys
+        public ObservableCollection<Key> KeyTipKeys
         {
-            get { return (ObservableCollection<KeyGesture>)this.GetValue(KeyTipKeysProperty); }
-            private set { this.SetValue(KeyTipKeysPropertyKey, value); }
-        }
-
-        private static void OnKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-
-            if (e.OldValue is ObservableCollection<KeyGesture> oldCollection)
+            get
             {
-                oldCollection.CollectionChanged -= ribbon.HandleKeyTipKeys_CollectionChanged;
-            }
-
-            if (e.NewValue is ObservableCollection<KeyGesture> newCollection)
-            {
-                newCollection.CollectionChanged += ribbon.HandleKeyTipKeys_CollectionChanged;
-
-                if (ribbon.keyTipService != null)
+                if (this.keyTipKeys == null)
                 {
-                    ribbon.keyTipService.KeyTipKeys.Clear();
-                    newCollection.ToList().ForEach(x => ribbon.keyTipService.KeyTipKeys.Add(x));
+                    this.keyTipKeys = new ObservableCollection<Key>(KeyTipService.DefaultKeyTipKeys);
+                    this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
                 }
+
+                return this.keyTipKeys;
             }
         }
 
         private void HandleKeyTipKeys_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            e.OldItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
-            e.NewItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
+            e.OldItems?.Cast<Key>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
+            e.NewItems?.Cast<Key>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
         }
 
         #endregion
@@ -1609,7 +1586,6 @@ namespace Fluent
             WindowChrome.SetIsHitTestVisibleInChrome(this, true);
 
             this.keyTipService = new KeyTipService(this);
-            this.SetValue(KeyTipKeysPropertyKey, new ObservableCollection<KeyGesture>());
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
@@ -2092,6 +2068,8 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
             DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutoStateManagement, CoerceAutoStateManagement));
+
+        private ObservableCollection<Key> keyTipKeys;
 
         private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
         {
