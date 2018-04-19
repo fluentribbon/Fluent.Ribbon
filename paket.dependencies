@@ -3,6 +3,7 @@ source https://api.nuget.org/v3/index.json
 
 framework net462, net45
 specific_version: false
+redirects: off
 
 nuget gitlink
 nuget MSBuild.Sdk.Extras
@@ -14,12 +15,16 @@ nuget ControlzEx @>= 3.0.1
 group showcase
 	source https://api.nuget.org/v3/index.json
 	framework: net462, net45
+	specific_version: false
+	redirects: off
 
 	nuget MahApps.Metro
 
 group test
 	source https://api.nuget.org/v3/index.json
 	framework: net462, net45
+	specific_version: false
+	redirects: off
 
 	nuget NUnit
 
