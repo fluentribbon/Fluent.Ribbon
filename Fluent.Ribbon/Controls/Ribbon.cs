@@ -1363,10 +1363,11 @@ namespace Fluent
             if (e.NewValue is ObservableCollection<KeyGesture> newCollection)
             {
                 newCollection.CollectionChanged += ribbon.KeyCollection_CollectionChanged;
+
                 if (ribbon.keyTipService != null)
                 {
                     ribbon.keyTipService.KeyTipKeys.Clear();
-                    newCollection.Cast<KeyGesture>().ToList().ForEach(x => ribbon.keyTipService.KeyTipKeys.Add(x));
+                    newCollection.ToList().ForEach(x => ribbon.keyTipService.KeyTipKeys.Add(x));
                 }
             }
         }
