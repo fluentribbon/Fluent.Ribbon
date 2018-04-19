@@ -1374,15 +1374,8 @@ namespace Fluent
 
         private void KeyCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.NewItems != null)
-            {
-                e.NewItems.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
-            }
-
-            if (e.OldItems != null)
-            {
-                e.OldItems.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
-            }
+            e.OldItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
+            e.NewItems?.Cast<KeyGesture>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
         }
 
         #endregion
