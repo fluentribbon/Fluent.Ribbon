@@ -8,6 +8,7 @@ redirects: off
 nuget gitlink
 nuget MSBuild.Sdk.Extras
 nuget StyleCop.Analyzers
+nuget WpfAnalyzers
 nuget XamlColorSchemeGenerator
 
 nuget ControlzEx @>= 3.0.1

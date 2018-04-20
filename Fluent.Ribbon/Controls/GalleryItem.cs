@@ -315,10 +315,10 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
-            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedChanged));
         }
 
-        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
             {

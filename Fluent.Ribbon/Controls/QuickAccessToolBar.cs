@@ -145,16 +145,17 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-            private set { this.SetValue(hasOverflowItemsPropertyKey, value); }
+            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey hasOverflowItemsPropertyKey =
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasOverflowItemsProperty = hasOverflowItemsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -585,9 +586,9 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="UpdateKeyTipsAction"/>.
         /// </summary>
         public static readonly DependencyProperty UpdateKeyTipsActionProperty =
-            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsChanged));
+            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsActionChanged));
 
-        private static void OnUpdateKeyTipsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnUpdateKeyTipsActionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var quickAccessToolBar = (QuickAccessToolBar)d;
             quickAccessToolBar.UpdateKeyTips();

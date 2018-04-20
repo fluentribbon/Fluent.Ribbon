@@ -40,7 +40,8 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty GroupsProperty =
-            DependencyProperty.Register(nameof(Groups), typeof(string),
-            typeof(GalleryGroupFilter), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning disable WPF0010 // Default value type must match registered type.
+            DependencyProperty.Register(nameof(Groups), typeof(string), typeof(GalleryGroupFilter), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
     }
 }

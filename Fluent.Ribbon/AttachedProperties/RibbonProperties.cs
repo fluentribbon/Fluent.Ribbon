@@ -24,7 +24,7 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsRender |
                                               FrameworkPropertyMetadataOptions.AffectsParentArrange |
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                              OnSizePropertyChanged));
+                                              OnSizeChanged));
 
         /// <summary>
         /// Sets <see cref="SizeProperty"/> for <paramref name="element"/>.
@@ -42,7 +42,7 @@ namespace Fluent
             return (RibbonControlSize)element.GetValue(SizeProperty);
         }
 
-        private static void OnSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var sink = d as IRibbonSizeChangedSink;
 
@@ -65,7 +65,7 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsRender |
                                               FrameworkPropertyMetadataOptions.AffectsParentArrange |
                                               FrameworkPropertyMetadataOptions.AffectsParentMeasure,
-                                              OnSizeDefinitionPropertyChanged));
+                                              OnSizeDefinitionChanged));
 
         /// <summary>
         /// Sets <see cref="SizeDefinitionProperty"/> for <paramref name="element"/>.
@@ -84,7 +84,7 @@ namespace Fluent
         }
 
         // Handles RibbonSizeDefinitionProperty changes
-        internal static void OnSizeDefinitionPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        internal static void OnSizeDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             // Find parent group box
             var groupBox = FindParentRibbonGroupBox(d);

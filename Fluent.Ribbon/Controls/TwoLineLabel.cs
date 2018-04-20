@@ -93,7 +93,9 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Text"/>.
         /// </summary>
         public static readonly DependencyProperty TextProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 

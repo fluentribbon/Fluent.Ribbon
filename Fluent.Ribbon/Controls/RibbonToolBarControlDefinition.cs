@@ -74,9 +74,9 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(string),
-            typeof(RibbonToolBarControlDefinition), new PropertyMetadata(OnTargetPropertyChanged));
+            typeof(RibbonToolBarControlDefinition), new PropertyMetadata(OnTargetChanged));
 
-        private static void OnTargetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
             definition.Invalidate(nameof(Target));
@@ -100,9 +100,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty WidthProperty =
-            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(DoubleBoxes.NaN, OnWidthPropertyChanged));
+            DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(DoubleBoxes.NaN, OnWidthChanged));
 
-        private static void OnWidthPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
             definition.Invalidate(nameof(Width));

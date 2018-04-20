@@ -164,4 +164,10 @@
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1649" Action="None" />
   </Rules>
+  <Rules AnalyzerId="WpfAnalyzers.Analyzers" RuleNamespace="WpfAnalyzers.Analyzers">
+    <Rule Id="WPF0041" Action="None" />
+    <Rule Id="WPF0003" Action="None" />
+    <Rule Id="WPF0001" Action="None" />
+    <Rule Id="WPF0006" Action="None" />
+  </Rules>
 </RuleSet>

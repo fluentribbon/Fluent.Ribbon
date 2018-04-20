@@ -115,14 +115,14 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty StateProperty =
-            DependencyProperty.Register(nameof(State), typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new PropertyMetadata(RibbonGroupBoxState.Large, StatePropertyChanged));
+            DependencyProperty.Register(nameof(State), typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new PropertyMetadata(RibbonGroupBoxState.Large, OnStateChanged));
 
         /// <summary>
         /// On state property changed
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        private static void StatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnStateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
             ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
@@ -269,19 +269,19 @@ namespace Fluent
         [Description("Key tip keys for dialog launcher button")]
         public string LauncherKeys
         {
-            get { return (string)this.GetValue(DialogLauncherButtonKeyTipKeysProperty); }
-            set { this.SetValue(DialogLauncherButtonKeyTipKeysProperty, value); }
+            get { return (string)this.GetValue(LauncherKeysProperty); }
+            set { this.SetValue(LauncherKeysProperty, value); }
         }
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for
         /// LauncherKeys.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty DialogLauncherButtonKeyTipKeysProperty =
+        public static readonly DependencyProperty LauncherKeysProperty =
             DependencyProperty.Register(nameof(LauncherKeys),
-            typeof(string), typeof(RibbonGroupBox), new PropertyMetadata(OnDialogLauncherButtonKeyTipKeysChanged));
+            typeof(string), typeof(RibbonGroupBox), new PropertyMetadata(OnLauncherKeysChanged));
 
-        private static void OnDialogLauncherButtonKeyTipKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnLauncherKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
             if (ribbonGroupBox.LauncherButton != null)
@@ -307,7 +307,12 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty LauncherIconProperty =
-            DependencyProperty.Register(nameof(LauncherIcon), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata(OnIconChanged));
+            DependencyProperty.Register(nameof(LauncherIcon), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata(OnLauncherIconChanged));
+
+        private static void OnLauncherIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AddOrRemoveLogicalChild(d, e);
+        }
 
         #endregion
 
@@ -451,16 +456,17 @@ namespace Fluent
         public Button LauncherButton
         {
             get { return (Button)this.GetValue(LauncherButtonProperty); }
-            private set { this.SetValue(launcherButtonPropertyKey, value); }
+            private set { this.SetValue(LauncherButtonPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey launcherButtonPropertyKey =
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(LauncherButton), typeof(Button), typeof(RibbonGroupBox), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LauncherButtonProperty = launcherButtonPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty LauncherButtonProperty = LauncherButtonPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -478,7 +484,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsDropDownOpen));
+        public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
         {
@@ -537,17 +543,7 @@ namespace Fluent
 
         private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = (RibbonGroupBox)d;
-
-            if (e.OldValue is FrameworkElement oldElement)
-            {
-                element.RemoveLogicalChild(oldElement);
-            }
-
-            if (e.NewValue is FrameworkElement newElement)
-            {
-                element.AddLogicalChild(newElement);
-            }
+            AddOrRemoveLogicalChild(d, e);
         }
 
         #endregion
@@ -601,8 +597,8 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
             VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(OnVisibilityChanged));
-            FontSizeProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyOrSizeChanged));
-            FontFamilyProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyOrSizeChanged));
+            FontSizeProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontSizeChanged));
+            FontFamilyProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyChanged));
 
             PopupService.Attach(typeof(RibbonGroupBox));
 
@@ -615,7 +611,13 @@ namespace Fluent
             box.ClearCache();
         }
 
-        private static void OnFontFamilyOrSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnFontSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (RibbonGroupBox)d;
+            box.ClearCache();
+        }
+
+        private static void OnFontFamilyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
             box.ClearCache();
@@ -685,6 +687,21 @@ namespace Fluent
         #endregion
 
         #region Methods
+
+        private static void AddOrRemoveLogicalChild(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var element = (RibbonGroupBox)d;
+
+            if (e.OldValue is FrameworkElement oldElement)
+            {
+                element.RemoveLogicalChild(oldElement);
+            }
+
+            if (e.NewValue is FrameworkElement newElement)
+            {
+                element.AddLogicalChild(newElement);
+            }
+        }
 
         /// <summary>
         /// Gets a panel with items
@@ -992,7 +1009,7 @@ namespace Fluent
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (RibbonGroupBox)d;
 
@@ -1038,7 +1055,7 @@ namespace Fluent
             RibbonControl.Bind(this, groupBox, nameof(this.LauncherToolTip), LauncherToolTipProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherEnabled), IsLauncherEnabledProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherVisible), IsLauncherVisibleProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, groupBox, nameof(this.LauncherKeys), DialogLauncherButtonKeyTipKeysProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, groupBox, nameof(this.LauncherKeys), LauncherKeysProperty, BindingMode.OneWay);
             groupBox.LauncherClick += this.LauncherClick;
 
             if (this.Icon != null)
@@ -1115,7 +1132,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
-            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolBarChanged));
 
         #endregion
 

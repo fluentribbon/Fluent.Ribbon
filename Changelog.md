@@ -31,6 +31,8 @@
 | DropDownButtonBackstageControlTemplate | --- |
 | --- | Fluent.Ribbon.Brushes.TextBox.CaretBrush |
 | --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
+| DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty |
+| OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
 </p></details>
 
 - ### Bug fixes

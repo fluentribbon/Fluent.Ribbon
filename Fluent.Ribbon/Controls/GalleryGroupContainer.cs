@@ -130,7 +130,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(IntBoxes.Zero, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(IntBoxes.Zero, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMinItemsInRowChanged));
+
+        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMaxOrMinItemsInRowChanged(d, e);
+        }
 
         #endregion
 
@@ -151,19 +156,18 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
+
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMaxOrMinItemsInRowChanged(d, e);
+        }
 
         #endregion
 
-        private Panel RealItemsPanel
-        {
-            get
-            {
-                return this.itemsPanel ?? (this.itemsPanel = FindItemsPanel(this));
-            }
-        }
+        private Panel RealItemsPanel => this.itemsPanel ?? (this.itemsPanel = FindItemsPanel(this));
 
-        private static void OnMaxMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaxOrMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryGroupContainer = (GalleryGroupContainer)d;
             galleryGroupContainer.minMaxWidthNeedsToBeUpdated = true;
