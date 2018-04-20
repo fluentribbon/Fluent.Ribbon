@@ -45,15 +45,16 @@ namespace Fluent
         public RibbonTitleBar TitleBar
         {
             get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
-            private set { this.SetValue(titleBarPropertyKey, value); }
+            private set { this.SetValue(TitleBarPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey titleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(RibbonWindow), new PropertyMetadata());
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
         /// </summary>
-        public static readonly DependencyProperty TitleBarProperty = titleBarPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
 
         #endregion
 

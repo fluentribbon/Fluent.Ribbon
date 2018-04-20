@@ -434,7 +434,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
-            DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter), typeof(InRibbonGallery), new PropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter), typeof(InRibbonGallery), new PropertyMetadata(null, OnSelectedFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
@@ -450,14 +450,13 @@ namespace Fluent
         }
 
         // Handles filter property changed
-        private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var gallery = (InRibbonGallery)d;
-            var oldFilter = e.OldValue as GalleryGroupFilter;
 
-            if (oldFilter != null)
+            if (e.OldValue is GalleryGroupFilter oldFilter)
             {
-                System.Windows.Controls.MenuItem menuItem = gallery.GetFilterMenuItem(oldFilter);
+                var menuItem = gallery.GetFilterMenuItem(oldFilter);
 
                 if (menuItem != null)
                 {
@@ -465,13 +464,11 @@ namespace Fluent
                 }
             }
 
-            var filter = e.NewValue as GalleryGroupFilter;
-
-            if (filter != null)
+            if (e.NewValue is GalleryGroupFilter newFilter)
             {
-                gallery.SelectedFilterTitle = filter.Title;
-                gallery.SelectedFilterGroups = filter.Groups;
-                System.Windows.Controls.MenuItem menuItem = gallery.GetFilterMenuItem(filter);
+                gallery.SelectedFilterTitle = newFilter.Title;
+                gallery.SelectedFilterGroups = newFilter.Groups;
+                var menuItem = gallery.GetFilterMenuItem(newFilter);
 
                 if (menuItem != null)
                 {
@@ -1569,7 +1566,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolbarChanged));
+        public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolBarChanged));
 
         #endregion
 

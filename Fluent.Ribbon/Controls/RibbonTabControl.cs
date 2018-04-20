@@ -128,7 +128,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="IsMinimized"/>.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnMinimizedChanged));
+        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsMinimizedChanged));
 
         /// <summary>
         /// Gets or sets whether ribbon can be minimized
@@ -787,7 +787,7 @@ namespace Fluent
         }
 
         // Handles IsMinimized changed
-        private static void OnMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tab = (RibbonTabControl)d;
 

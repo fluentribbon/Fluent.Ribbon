@@ -277,7 +277,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
             DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
-            typeof(Gallery), new PropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            typeof(Gallery), new PropertyMetadata(null, OnSelectedFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
@@ -293,7 +293,7 @@ namespace Fluent
         }
 
         // Handles filter property changed
-        private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var gallery = (Gallery)d;
             var filter = e.NewValue as GalleryGroupFilter;

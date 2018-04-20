@@ -55,7 +55,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsOpenProperty =
-            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, OnCoerceIsOpen));
+            DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
 
         /// <summary>
         /// Gets or sets whether backstage can be openend or closed.
@@ -135,7 +135,7 @@ namespace Fluent
         public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        private static object OnCoerceIsOpen(DependencyObject d, object baseValue)
+        private static object CoerceIsOpen(DependencyObject d, object baseValue)
         {
             var backstage = (Backstage)d;
 

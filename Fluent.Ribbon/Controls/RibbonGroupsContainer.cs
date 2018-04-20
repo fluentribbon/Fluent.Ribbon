@@ -49,10 +49,10 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ReduceOrderProperty =
-            DependencyProperty.Register(nameof(ReduceOrder), typeof(string), typeof(RibbonGroupsContainer), new PropertyMetadata(ReduceOrderPropertyChanged));
+            DependencyProperty.Register(nameof(ReduceOrder), typeof(string), typeof(RibbonGroupsContainer), new PropertyMetadata(OnReduceOrderChanged));
 
         // handles ReduseOrder property changed
-        private static void ReduceOrderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnReduceOrderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonPanel = (RibbonGroupsContainer)d;
 

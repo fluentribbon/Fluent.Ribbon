@@ -17,9 +17,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeysProperty =
-            DependencyProperty.RegisterAttached("Keys", typeof(string), typeof(KeyTip), new PropertyMetadata(KeysPropertyChanged));
+            DependencyProperty.RegisterAttached("Keys", typeof(string), typeof(KeyTip), new PropertyMetadata(OnKeysChanged));
 
-        private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
         }
 

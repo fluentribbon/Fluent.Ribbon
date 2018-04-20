@@ -199,7 +199,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 
@@ -222,7 +224,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 
@@ -245,7 +249,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DisableReasonProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 

@@ -256,7 +256,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1, OnMinOrMaxItemsInRowChanged));
+            typeof(GalleryPanel), new PropertyMetadata(1, OnMinItemsInRowChanged));
+
+        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMinOrMaxItemsInRowChanged(d, e);
+        }
 
         #endregion
 
@@ -277,12 +282,11 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMinOrMaxItemsInRowChanged));
+            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMaxItemsInRowChanged));
 
-        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var galleryPanel = (GalleryPanel)d;
-            galleryPanel.UpdateMinAndMaxWidth();
+            OnMinOrMaxItemsInRowChanged(d, e);
         }
 
         #endregion
@@ -597,6 +601,12 @@ namespace Fluent
         #endregion
 
         #region Private Methods
+
+        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryPanel = (GalleryPanel)d;
+            galleryPanel.UpdateMinAndMaxWidth();
+        }
 
         private string GetPropertyValueAsString(object item)
         {
