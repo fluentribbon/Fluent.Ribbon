@@ -63,7 +63,7 @@ namespace Fluent
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StartScreenTabControl), new FrameworkPropertyMetadata(typeof(StartScreenTabControl)));
 
-            ItemsPanelMinWidthProperty.OverrideMetadata(typeof(StartScreen), new PropertyMetadata(342d));
+            ItemsPanelMinWidthProperty.OverrideMetadata(typeof(StartScreenTabControl), new PropertyMetadata(342d));
         }
     }
 }
