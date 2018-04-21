@@ -72,6 +72,7 @@ Task("Clean")
     .Does(() =>
 {
     CleanDirectory(buildDir);
+    CleanDirectories("./**/obj");
 });
 
 Task("Restore")
