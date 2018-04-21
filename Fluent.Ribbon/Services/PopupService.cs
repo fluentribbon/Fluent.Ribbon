@@ -54,10 +54,7 @@ namespace Fluent
         /// </summary>
         public DismissPopupMode DismissMode { get; set; }
 
-        /// <summary>
-        /// When overridden in a derived class, provides a way to invoke event handlers in a type-specific way, which can increase efficiency over the base implementation.
-        /// </summary>
-        /// <param name="genericHandler">The generic handler / delegate implementation to be invoked.</param><param name="genericTarget">The target on which the provided handler should be invoked.</param>
+        /// <inheritdoc />
         protected override void InvokeEventHandler(Delegate genericHandler, object genericTarget)
         {
             var handler = (EventHandler<DismissPopupEventArgs>)genericHandler;

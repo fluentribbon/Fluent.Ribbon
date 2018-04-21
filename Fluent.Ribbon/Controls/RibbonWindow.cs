@@ -39,9 +39,7 @@ namespace Fluent
 
         #region TitelBar
 
-        /// <summary>
-        /// Gets ribbon titlebar
-        /// </summary>
+        /// <inheritdoc />
         public RibbonTitleBar TitleBar
         {
             get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }

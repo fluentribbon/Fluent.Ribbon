@@ -22,9 +22,7 @@ namespace Fluent
     {
         #region KeyTip
 
-        /// <summary>
-        /// Gets or sets KeyTip for element.
-        /// </summary>
+        /// <inheritdoc />
         public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
@@ -41,9 +39,7 @@ namespace Fluent
 
         #region Header
 
-        /// <summary>
-        /// Gets or sets element header
-        /// </summary>
+        /// <inheritdoc />
         public object Header
         {
             get { return (string)this.GetValue(HeaderProperty); }
@@ -61,9 +57,7 @@ namespace Fluent
 
         #region Icon
 
-        /// <summary>
-        /// Gets or sets Icon for the element
-        /// </summary>
+        /// <inheritdoc />
         public object Icon
         {
             get { return this.GetValue(IconProperty); }
@@ -98,9 +92,7 @@ namespace Fluent
 
         private bool currentCanExecute = true;
 
-        /// <summary>
-        /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Category("Action")]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Bindable(true)]
@@ -117,9 +109,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Bindable(true)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Category("Action")]
@@ -136,9 +126,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets or sets the element on which to raise the specified command. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Bindable(true)]
         [Category("Action")]
         public IInputElement CommandTarget
@@ -227,28 +215,14 @@ namespace Fluent
 
         #region IsEnabled
 
-        /// <summary>
-        /// Gets a value that becomes the return
-        /// value of IsEnabled in derived classes.
-        /// </summary>
-        /// <returns>
-        /// true if the element is enabled; otherwise, false.
-        /// </returns>
-        protected override bool IsEnabledCore
-        {
-            get
-            {
-                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
-            }
-        }
+        /// <inheritdoc />
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
 
         #endregion
 
         #region Size
 
-        /// <summary>
-        /// Gets or sets Size for the element.
-        /// </summary>
+        /// <inheritdoc />
         public RibbonControlSize Size
         {
             get { return (RibbonControlSize)this.GetValue(SizeProperty); }
@@ -265,9 +239,7 @@ namespace Fluent
 
         #region SizeDefinition
 
-        /// <summary>
-        /// Gets or sets SizeDefinition for element.
-        /// </summary>
+        /// <inheritdoc />
         public RibbonControlSizeDefinition SizeDefinition
         {
             get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
@@ -306,12 +278,7 @@ namespace Fluent
 
         #region QuickAccess
 
-        /// <summary>
-        /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original
-        /// and send command to original one control.
-        /// </summary>
-        /// <returns>Control which represents shortcut item</returns>
+        /// <inheritdoc />
         public abstract FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
@@ -402,9 +369,7 @@ namespace Fluent
             RibbonProperties.SetSize(element, RibbonControlSize.Small);
         }
 
-        /// <summary>
-        /// Gets or sets whether control can be added to quick access toolbar
-        /// </summary>
+        /// <inheritdoc />
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }

@@ -79,7 +79,7 @@ namespace Fluent
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
-            definition.Invalidate(nameof(Target));
+            definition.OnPropertyChanged(nameof(Target));
         }
 
         #endregion
@@ -105,19 +105,17 @@ namespace Fluent
         private static void OnWidthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var definition = (RibbonToolBarControlDefinition)d;
-            definition.Invalidate(nameof(Width));
+            definition.OnPropertyChanged(nameof(Width));
         }
 
         #endregion
 
         #region Invalidating
 
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
+        /// <inheritdoc />
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Invalidate(string propertyName)
+        private void OnPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -126,14 +124,11 @@ namespace Fluent
 
         #region Implementation of IRibbonSizeChangedSink
 
-        /// <summary>
-        /// Called when the size is changed
-        /// </summary>
-        /// <param name="previous">Size before change</param>
-        /// <param name="current">Size after change</param>
+        /// <inheritdoc />
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
-            this.Invalidate("Size");
+            // todo: do we really need this? Size is a DependencyProperty.
+            this.OnPropertyChanged(nameof(this.Size));
         }
 
         #endregion
