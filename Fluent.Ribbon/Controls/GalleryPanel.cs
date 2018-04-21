@@ -309,19 +309,10 @@ namespace Fluent
 
         private readonly VisualCollection visualCollection;
 
-        /// <summary>
-        /// Gets the number of visual child elements within this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override int VisualChildrenCount => base.VisualChildrenCount + this.visualCollection.Count;
 
-        /// <summary>
-        /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
-        /// and returns a child at the specified index from a collection of child elements.
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested
-        /// child element in the collection</param>
-        /// <returns>The requested child element. This should not return null;
-        /// if the provided index is out of range, an exception is thrown</returns>
+        /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
             if (index < base.VisualChildrenCount)

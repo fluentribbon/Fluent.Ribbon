@@ -243,20 +243,14 @@ namespace Fluent
             RibbonControl.Bind(RibbonContextMenu, MinimizeTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
+        /// <inheritdoc />
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
         {
             contextMenuOwner = this;
             base.OnContextMenuOpening(e);
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">Provides data about the event.</param>
+        /// <inheritdoc />
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
         {
             contextMenuOwner = null;
@@ -958,9 +952,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -1630,21 +1622,14 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus
-        /// event reaches this element in its route.
-        /// </summary>
-        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
+        /// <inheritdoc />
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             var ribbonTabItem = (RibbonTabItem)this.TabControl?.SelectedItem;
             ribbonTabItem?.Focus();
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or
-        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;

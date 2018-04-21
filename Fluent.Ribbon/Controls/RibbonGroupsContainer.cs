@@ -92,24 +92,13 @@ namespace Fluent
 
         #region Layout Overridings
 
-        /// <summary>
-        ///   Returns a collection of the panel's UIElements.
-        /// </summary>
-        /// <param name="logicalParent">The logical parent of the collection to be created.</param>
-        /// <returns>Returns an ordered collection of elements that have the specified logical parent.</returns>
+        /// <inheritdoc />
         protected override UIElementCollection CreateUIElementCollection(FrameworkElement logicalParent)
         {
             return new UIElementCollection(this, /*Parent as FrameworkElement*/this);
         }
 
-        /// <summary>
-        /// Measures all of the RibbonGroupBox, and resize them appropriately
-        /// to fit within the available room
-        /// </summary>
-        /// <param name="availableSize">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during
-        /// layout, based on its calculations of child element sizes.
-        /// </returns>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
             var desiredSize = this.GetChildrenDesiredSizeIntermediate();
@@ -274,12 +263,7 @@ namespace Fluent
             return null;
         }
 
-        /// <summary>
-        /// When overridden in a derived class, positions child elements and determines
-        /// a size for a System.Windows.FrameworkElement derived class.
-        /// </summary>
-        /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
-        /// <returns>The actual size used.</returns>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var finalRect = new Rect(finalSize)
@@ -302,19 +286,14 @@ namespace Fluent
 
         #region IScrollInfo Members
 
-        /// <summary>
-        /// Gets or sets a System.Windows.Controls.ScrollViewer element that controls scrolling behavior.
-        /// </summary>
+        /// <inheritdoc />
         public ScrollViewer ScrollOwner
         {
             get { return this.ScrollData.ScrollOwner; }
             set { this.ScrollData.ScrollOwner = value; }
         }
 
-        /// <summary>
-        /// Sets the amount of horizontal offset.
-        /// </summary>
-        /// <param name="offset">The degree to which content is horizontally offset from the containing viewport.</param>
+        /// <inheritdoc />
         public void SetHorizontalOffset(double offset)
         {
             var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
@@ -326,53 +305,37 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets the horizontal size of the extent.
-        /// </summary>
+        /// <inheritdoc />
         public double ExtentWidth
         {
             get { return this.ScrollData.ExtentWidth; }
         }
 
-        /// <summary>
-        /// Gets the horizontal offset of the scrolled content.
-        /// </summary>
+        /// <inheritdoc />
         public double HorizontalOffset
         {
             get { return this.ScrollData.OffsetX; }
         }
 
-        /// <summary>
-        /// Gets the horizontal size of the viewport for this content.
-        /// </summary>
+        /// <inheritdoc />
         public double ViewportWidth
         {
             get { return this.ScrollData.ViewportWidth; }
         }
 
-        /// <summary>
-        /// Scrolls left within content by one logical unit.
-        /// </summary>
+        /// <inheritdoc />
         public void LineLeft()
         {
             this.SetHorizontalOffset(this.HorizontalOffset - 16.0);
         }
 
-        /// <summary>
-        /// Scrolls right within content by one logical unit.
-        /// </summary>
+        /// <inheritdoc />
         public void LineRight()
         {
             this.SetHorizontalOffset(this.HorizontalOffset + 16.0);
         }
 
-        /// <summary>
-        /// Forces content to scroll until the coordinate space of a System.Windows.Media.Visual object is visible.
-        /// This is optimized for horizontal scrolling only
-        /// </summary>
-        /// <param name="visual">A System.Windows.Media.Visual that becomes visible.</param>
-        /// <param name="rectangle">A bounding rectangle that identifies the coordinate space to make visible.</param>
-        /// <returns>A System.Windows.Rect that is visible.</returns>
+        /// <inheritdoc />
         public Rect MakeVisible(Visual visual, Rect rectangle)
         {
             // We can only work on visuals that are us or children.
@@ -527,18 +490,14 @@ namespace Fluent
         {
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether scrolling on the vertical axis is possible.
-        /// </summary>
+        /// <inheritdoc />
         public bool CanVerticallyScroll
         {
             get { return false; }
             set { }
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates whether scrolling on the horizontal axis is possible.
-        /// </summary>
+        /// <inheritdoc />
         public bool CanHorizontallyScroll
         {
             get { return true; }

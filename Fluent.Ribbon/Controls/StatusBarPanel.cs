@@ -24,13 +24,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// When overridden in a derived class, measures the size in layout required for child elements and determines a size for the <see cref="T:System.Windows.FrameworkElement"/>-derived class.
-        /// </summary>
-        /// <returns>
-        /// The size that this element determines it needs during layout, based on its calculations of child element sizes.
-        /// </returns>
-        /// <param name="availableSize">The available size that this element can give to child elements. Infinity can be specified as a value to indicate that the element will size to whatever content is available.</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
             // Sort children
@@ -129,13 +123,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        /// <summary>
-        /// When overridden in a derived class, positions child elements and determines a size for a <see cref="T:System.Windows.FrameworkElement"/> derived class.
-        /// </summary>
-        /// <returns>
-        /// The actual size used.
-        /// </returns>
-        /// <param name="finalSize">The final area within the parent that this element should use to arrange itself and its children.</param>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var zero = new Rect(0, 0, 0, 0);

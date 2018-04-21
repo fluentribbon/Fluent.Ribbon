@@ -234,9 +234,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// <see cref="FrameworkElement.MeasureOverride"/>
-        /// </summary>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             var curLineSize = new UvSize(this.Orientation);
@@ -298,9 +296,7 @@ namespace Fluent
             return new Size(panelSize.Width, panelSize.Height);
         }
 
-        /// <summary>
-        /// <see cref="FrameworkElement.ArrangeOverride"/>
-        /// </summary>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var parentRibbonGroupBox = UIHelper.GetParent<RibbonGroupBox>(this);

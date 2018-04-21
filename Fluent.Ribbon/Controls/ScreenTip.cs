@@ -131,15 +131,13 @@ namespace Fluent
 
         private static UIElement GetDecoratorChild(UIElement popupRoot)
         {
-            if (popupRoot == null)
+            switch (popupRoot)
             {
-                return null;
-            }
+                case null:
+                    return null;
 
-            var decorator = popupRoot as AdornerDecorator;
-            if (decorator != null)
-            {
-                return decorator.Child;
+                case AdornerDecorator decorator:
+                    return decorator.Child;
             }
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
@@ -156,15 +154,14 @@ namespace Fluent
 
         private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
         {
-            if (obj == null)
+            switch (obj)
             {
-                return;
-            }
+                case null:
+                    return;
 
-            var objRibbon = obj as Ribbon;
-            if (objRibbon != null)
-            {
-                ribbon = objRibbon;
+                case Ribbon objRibbon:
+                    ribbon = objRibbon;
+                    break;
             }
 
             var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
@@ -404,11 +401,6 @@ namespace Fluent
     public class ScreenTipHelpEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets help topic associated with screen tip
-        /// </summary>
-        public object HelpTopic { get; private set; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="helpTopic">Help topic</param>
@@ -416,5 +408,10 @@ namespace Fluent
         {
             this.HelpTopic = helpTopic;
         }
+
+        /// <summary>
+        /// Gets help topic associated with screen tip
+        /// </summary>
+        public object HelpTopic { get; }
     }
 }

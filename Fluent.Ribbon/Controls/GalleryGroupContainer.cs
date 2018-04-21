@@ -39,8 +39,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsHeadered.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="IsHeadered"/>.
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
             DependencyProperty.Register(nameof(IsHeadered), typeof(bool),
@@ -60,8 +59,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="Orientation"/>.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
@@ -82,8 +80,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="ItemWidth"/>.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
@@ -104,8 +101,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="ItemHeight"/>.
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
@@ -116,7 +112,7 @@ namespace Fluent
         #region MinItemsInRow
 
         /// <summary>
-        /// Gets or sets minimum items quantity in row
+        /// Gets or sets minimum items in which should be placed in one row.
         /// </summary>
         public int MinItemsInRow
         {
@@ -125,8 +121,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="MinItemsInRow"/>.
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
@@ -142,7 +137,7 @@ namespace Fluent
         #region MaxItemsInRow
 
         /// <summary>
-        /// Gets or sets maximum items quantity in row
+        /// Gets or sets maximum items in which should be placed in one row.
         /// </summary>
         public int MaxItemsInRow
         {
@@ -151,8 +146,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="MaxItemsInRow"/>.
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
@@ -194,10 +188,7 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
         }
 
-        /// <summary>
-        /// Invoked when the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property changes.
-        /// </summary>
-        /// <param name="oldItemsPanel">Old value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param><param name="newItemsPanel">New value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param>
+        /// <inheritdoc />
         protected override void OnItemsPanelChanged(ItemsPanelTemplate oldItemsPanel, ItemsPanelTemplate newItemsPanel)
         {
             base.OnItemsPanelChanged(oldItemsPanel, newItemsPanel);
@@ -324,8 +315,7 @@ namespace Fluent
         {
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
-                var panel = obj as Panel;
-                if (panel != null &&
+                if (obj is Panel panel &&
                     panel.IsItemsHost)
                 {
                     return panel;
@@ -343,11 +333,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
-        /// <param name="constraint">The maximum size that the method can return.</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if (this.previousItemsCount != this.Items.Count

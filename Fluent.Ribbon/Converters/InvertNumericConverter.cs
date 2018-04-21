@@ -9,48 +9,32 @@
     /// </summary>
     public class InvertNumericConverter : IValueConverter
     {
-        #region Implementation of IValueConverter
-
-        /// <summary>
-        /// Converts a value.
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             {
-                var numericValue = value as float?;
-
-                if (numericValue != null)
+                if (value is float numericValue)
                 {
                     return numericValue * -1;
                 }
             }
 
             {
-                var numericValue = value as double?;
-
-                if (numericValue != null)
+                if (value is double numericValue)
                 {
                     return numericValue * -1;
                 }
             }
 
             {
-                var numericValue = value as int?;
-
-                if (numericValue != null)
+                if (value is int numericValue)
                 {
                     return numericValue * -1;
                 }
             }
 
             {
-                var numericValue = value as long?;
-
-                if (numericValue != null)
+                if (value is long numericValue)
                 {
                     return numericValue * -1;
                 }
@@ -59,18 +43,10 @@
             return value;
         }
 
-        /// <summary>
-        /// Converts a value.
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return this.Convert(value, targetType, parameter, culture);
         }
-
-        #endregion
     }
 }

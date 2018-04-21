@@ -272,9 +272,7 @@ namespace Fluent
 
         #region LogicalChildren
 
-        /// <summary>
-        /// Gets an enumerator to the logical child elements
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -339,10 +337,7 @@ namespace Fluent
 
         #region Override
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or
-        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             if (this.showAbove != null)
@@ -470,11 +465,7 @@ namespace Fluent
             this.ShowAboveRibbon = true;
         }
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <returns>The size of the control, up to the maximum specified by constraint</returns>
-        /// <param name="constraint">The maximum size that the method can return</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if ((this.cachedConstraint == constraint)
