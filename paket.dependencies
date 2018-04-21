@@ -1,7 +1,7 @@
 #source https://ci.appveyor.com/nuget/controlzex
 source https://api.nuget.org/v3/index.json
 
-framework net462, net45
+framework: auto-detect
 specific_version: false
 redirects: off
 
@@ -11,19 +11,22 @@ nuget StyleCop.Analyzers
 nuget WpfAnalyzers
 nuget XamlColorSchemeGenerator
 
-nuget ControlzEx @>= 3.0.1
+nuget Fody
+nuget Costura.Fody
+
+nuget ControlzEx < 4.0
 
 group showcase
 	source https://api.nuget.org/v3/index.json
-	framework: net462, net45
+	framework: auto-detect
 	specific_version: false
 	redirects: off
-
+	
 	nuget MahApps.Metro
 
 group test
 	source https://api.nuget.org/v3/index.json
-	framework: net462, net45
+	framework: auto-detect
 	specific_version: false
 	redirects: off
 
