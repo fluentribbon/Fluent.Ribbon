@@ -1,4 +1,6 @@
 StyleCop.Analyzers
 
+Costura.Fody content: once
+
 group showcase
     MahApps.Metro
