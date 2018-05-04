@@ -152,14 +152,16 @@ namespace Fluent.Tests.ThemeManager
         }
 
         [Test]
-        public void CompareGeneratedAppStyleWithShipped()
+        [TestCase("pack://application:,,,/Fluent;component/Themes/Accents/blue.xaml", "#FF2B579A")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/Accents/green.xaml", "#FF60A917")]
+        public void CompareGeneratedAppStyleWithShipped(string source, string color)
         {
             var dic = new ResourceDictionary
                       {
-                          Source = new Uri("pack://application:,,,/Fluent;component/Themes/Accents/blue.xaml")
+                          Source = new Uri(source)
                       };
 
-            var newDic = ThemeHelper.CreateAppStyleBy((Color)ColorConverter.ConvertFromString("#FF2B579A"), "CustomAccentBlue");
+            var newDic = ThemeHelper.CreateAppStyleBy((Color)ColorConverter.ConvertFromString(color));
 
             var ignoredKeyValues = new[]
                                    {
