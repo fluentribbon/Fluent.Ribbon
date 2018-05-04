@@ -12,7 +12,7 @@
         {
             var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
 
-            app.Resources.MergedDictionaries.Add((ResourceDictionary)Application.LoadComponent(new Uri("/Fluent;Component/Themes/Generic.xaml", UriKind.Relative)));
+            app.Resources.MergedDictionaries.Add((ResourceDictionary)Application.LoadComponent(new Uri("/Fluent;component/Themes/Generic.xaml", UriKind.Relative)));
         }
 
         [OneTimeTearDown]
