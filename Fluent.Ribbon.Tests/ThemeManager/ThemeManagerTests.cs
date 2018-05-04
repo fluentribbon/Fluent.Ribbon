@@ -163,9 +163,9 @@ namespace Fluent.Tests.ThemeManager
 
             var ignoredKeyValues = new[]
                                    {
-                                       "Fluent.Ribbon.Colors.HighlightColor",
-                                       "Fluent.Ribbon.Brushes.HighlightBrush",
-                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush"
+                                       "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
+                                       "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
+                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush" // Ignored because it's based on highlight color
                                    };
             CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
             CompareResourceDictionaries(newDic, dic, ignoredKeyValues);
