@@ -3,6 +3,7 @@ namespace FluentTest
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -411,7 +412,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false);
+            this.ThemeResourceDictionaryTextBox.Text = File.ReadAllText(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Source.ToString());
         }
     }
 

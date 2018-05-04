@@ -150,5 +150,41 @@ namespace Fluent.Tests.ThemeManager
 
             ThemeManager.ChangeAppStyle(Application.Current, applicationTheme.Item2, applicationTheme.Item1);
         }
+
+        [Test]
+        public void CompareGeneratedAppStyleWithShipped()
+        {
+            var dic = new ResourceDictionary
+                      {
+                          Source = new Uri("pack://application:,,,/Fluent;component/Themes/Accents/blue.xaml")
+                      };
+
+            var newDic = ThemeHelper.CreateAppStyleBy((Color)ColorConverter.ConvertFromString("#FF2B579A"), "CustomAccentBlue");
+
+            var ignoredKeyValues = new[]
+                                   {
+                                       "Fluent.Ribbon.Colors.HighlightColor",
+                                       "Fluent.Ribbon.Brushes.HighlightBrush",
+                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush"
+                                   };
+            CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
+            CompareResourceDictionaries(newDic, dic, ignoredKeyValues);
+        }
+
+        private static void CompareResourceDictionaries(ResourceDictionary first, ResourceDictionary second, params string[] ignoredKeyValues)
+        {
+            foreach (var key in first.Keys)
+            {
+                if (second.Contains(key) == false)
+                {
+                    throw new Exception($"Key \"{key}\" is missing from {second.Source}.");
+                }
+
+                if (ignoredKeyValues.Contains(key) == false)
+                {
+                    Assert.That(second[key].ToString(), Is.EqualTo(first[key].ToString()), $"Values for {key} should be equal.");
+                }
+            }
+        }
     }
 }
