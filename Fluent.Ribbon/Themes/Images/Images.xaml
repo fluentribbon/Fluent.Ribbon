@@ -27,9 +27,9 @@
 
     <BitmapImage x:Key="MenuCheckedImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;Component/Themes/Images/Checked.png" />
+                 UriSource="/Fluent;component/Themes/Images/Checked.png" />
 
     <BitmapImage x:Key="ScreenTipWarningImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;Component/Themes/Images/Warning.png" />
+                 UriSource="/Fluent;component/Themes/Images/Warning.png" />
 </ResourceDictionary>

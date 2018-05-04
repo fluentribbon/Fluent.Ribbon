@@ -239,7 +239,7 @@
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
+                                       Icon="pack://application:,,,/Fluent;component/Themes/Images/QuickAccessToolBarDropDown.png"
                                        Size="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
                                        KeyboardNavigation.TabIndex="3">
@@ -269,7 +269,7 @@
                                    Fluent:KeyTip.Keys="00"
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
-                                   Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarExtender.png"
+                                   Icon="pack://application:,,,/Fluent;component/Themes/Images/QuickAccessToolBarExtender.png"
                                    ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}"
                                    KeyboardNavigation.TabIndex="2"
                                    KeyboardNavigation.TabNavigation="Local">
