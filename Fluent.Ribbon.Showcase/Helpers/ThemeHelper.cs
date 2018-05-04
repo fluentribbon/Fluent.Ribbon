@@ -89,7 +89,6 @@
                                                            }))
             {
                 XamlWriter.Save(resourceDictionary, writer);
-                writer.Close();
             }
 
             resourceDictionary = new ResourceDictionary
