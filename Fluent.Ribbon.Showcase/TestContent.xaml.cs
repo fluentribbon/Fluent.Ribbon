@@ -412,7 +412,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ThemeResourceDictionaryTextBox.Text = File.ReadAllText(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Source.ToString());
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
         }
     }
 
