@@ -11,6 +11,7 @@
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\RelayCommand.cs">
       <Link>Commanding\RelayCommand.cs</Link>
     </Compile>
+    <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ThemeHelper.cs" Link="Helper\ThemeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />

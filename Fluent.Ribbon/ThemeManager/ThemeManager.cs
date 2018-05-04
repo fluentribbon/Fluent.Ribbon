@@ -157,7 +157,7 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(resources));
             }
 
-            return AppThemes.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources.Source, resources.Source));
+            return AppThemes.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources, resources));
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(resources));
             }
 
-            var builtInAccent = Accents.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources.Source, resources.Source));
+            var builtInAccent = Accents.FirstOrDefault(x => AreResourceDictionarySourcesEqual(x.Resources, resources));
             if (builtInAccent != null)
             {
                 return builtInAccent;
@@ -394,6 +394,16 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(app));
             }
 
+            if (newAccent == null)
+            {
+                throw new ArgumentNullException(nameof(newAccent));
+            }
+
+            if (newTheme == null)
+            {
+                throw new ArgumentNullException(nameof(newTheme));
+            }
+
             var oldTheme = DetectAppStyle(app);
             ChangeAppStyle(app.Resources, oldTheme, newAccent, newTheme);
         }
@@ -412,6 +422,16 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(window));
             }
 
+            if (newAccent == null)
+            {
+                throw new ArgumentNullException(nameof(newAccent));
+            }
+
+            if (newTheme == null)
+            {
+                throw new ArgumentNullException(nameof(newTheme));
+            }
+
             var oldTheme = DetectAppStyle(window);
             ChangeAppStyle(window.Resources, oldTheme, newAccent, newTheme);
         }
@@ -425,10 +445,10 @@ namespace Fluent
                 var oldAccent = oldThemeInfo.Item2;
                 if (oldAccent != null && oldAccent.Name != newAccent.Name)
                 {
+                    var oldAccentResource = resources.MergedDictionaries.FirstOrDefault(d => AreResourceDictionarySourcesEqual(d, oldAccent.Resources));
+
                     resources.MergedDictionaries.Add(newAccent.Resources);
 
-                    var key = oldAccent.Resources.Source.ToString().ToLower();
-                    var oldAccentResource = resources.MergedDictionaries.Where(x => x.Source != null).FirstOrDefault(d => d.Source.ToString().ToLower() == key);
                     if (oldAccentResource != null)
                     {
                         resources.MergedDictionaries.Remove(oldAccentResource);
@@ -440,10 +460,10 @@ namespace Fluent
                 var oldTheme = oldThemeInfo.Item1;
                 if (oldTheme != null && oldTheme != newTheme)
                 {
+                    var oldThemeResource = resources.MergedDictionaries.FirstOrDefault(d => AreResourceDictionarySourcesEqual(d, oldTheme.Resources));
+
                     resources.MergedDictionaries.Add(newTheme.Resources);
 
-                    var key = oldTheme.Resources.Source.ToString().ToLower();
-                    var oldThemeResource = resources.MergedDictionaries.Where(x => x.Source != null).FirstOrDefault(d => d.Source.ToString().ToLower() == key);
                     if (oldThemeResource != null)
                     {
                         resources.MergedDictionaries.Remove(oldThemeResource);
@@ -692,10 +712,39 @@ namespace Fluent
             IsThemeChanged?.Invoke(Application.Current, new OnThemeChangedEventArgs(newTheme, newAccent));
         }
 
-        private static bool AreResourceDictionarySourcesEqual(Uri first, Uri second)
+        private static bool AreResourceDictionarySourcesEqual(ResourceDictionary first, ResourceDictionary second)
         {
-            return Uri.Compare(first, second,
-                 UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
+            if (first == null
+                || second == null)
+            {
+                return false;
+            }
+
+            if (first.Source == null
+                || second.Source == null)
+            {
+                try
+                {
+                    foreach (var key in first.Keys)
+                    {
+                        var isTheSame = second.Contains(key)
+                                        && Equals(first[key], second[key]);
+                        if (!isTheSame)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Trace.TraceError($"Could not compare resource dictionaries: {exception} {Environment.NewLine} {exception.StackTrace}");
+                    return false;
+                }
+
+                return true;
+            }
+
+            return Uri.Compare(first.Source, second.Source, UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
         #region WindowsAppModeSetting
