@@ -74,34 +74,13 @@
 
             // Create theme
             accentName = accentName ?? $"ApplicationAccent_{accentBaseColor.ToString().Replace("#", string.Empty)}";
-            var resDictName = accentName;
-
-            if (resDictName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase) == false)
-            {
-                resDictName += ".xaml";
-            }
-
-            var fileName = Path.Combine(Path.GetTempPath(), resDictName);
-            using (var writer = XmlWriter.Create(fileName, new XmlWriterSettings
-                                                           {
-                                                               Indent = true,
-                                                               IndentChars = "    "
-                                                           }))
-            {
-                XamlWriter.Save(resourceDictionary, writer);
-            }
-
-            resourceDictionary = new ResourceDictionary
-                                 {
-                                     Source = new Uri(fileName, UriKind.Absolute)
-                                 };
 
             var newAccent = new Accent
                             {
                                 Name = accentName,
                                 Resources = resourceDictionary
                             };
-            ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
+            ThemeManager.AddAccent(newAccent.Name, newAccent.Resources);
 
             // Apply theme
             if (changeImmediately)
@@ -113,6 +92,23 @@
             }
 
             return resourceDictionary;
+        }
+
+        public static string GetResourceDictionaryContent(ResourceDictionary resourceDictionary)
+        {
+            using (var sw = new StringWriter())
+            {
+                using (var writer = XmlWriter.Create(sw, new XmlWriterSettings
+                                                               {
+                                                                   Indent = true,
+                                                                   IndentChars = "    "
+                                                               }))
+                {
+                    XamlWriter.Save(resourceDictionary, writer);
+
+                    return sw.ToString();
+                }
+            }
         }
 
         /// <summary>

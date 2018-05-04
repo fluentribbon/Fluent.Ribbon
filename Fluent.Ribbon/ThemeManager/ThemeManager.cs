@@ -120,6 +120,34 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Adds an accent with the given name and resource dictionary.
+        /// </summary>
+        /// <param name="name">The name of the new Accent.</param>
+        /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
+        /// <returns>true if the accent does not exists and can be added.</returns>
+        public static bool AddAccent(string name, ResourceDictionary resourceDictionary)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(resourceDictionary));
+            }
+
+            var accentExists = GetAccent(name) != null;
+            if (accentExists)
+            {
+                return false;
+            }
+
+            _accents.Add(new Accent(name, resourceDictionary));
+            return true;
+        }
+
+        /// <summary>
         /// Adds an app theme with the given name.
         /// </summary>
         /// <returns>true if the app theme does not exists and can be added.</returns>
@@ -142,6 +170,34 @@ namespace Fluent
             }
 
             _appThemes.Add(new AppTheme(name, resourceAddress));
+            return true;
+        }
+
+        /// <summary>
+        /// Adds an app theme with the given name.
+        /// </summary>
+        /// <param name="name">The name of the new AppTheme.</param>
+        /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
+        /// <returns>true if the app theme does not exists and can be added.</returns>
+        public static bool AddAppTheme(string name, ResourceDictionary resourceDictionary)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(resourceDictionary));
+            }
+
+            var appThemeExists = GetAppTheme(name) != null;
+            if (appThemeExists)
+            {
+                return false;
+            }
+
+            _appThemes.Add(new AppTheme(name, resourceDictionary));
             return true;
         }
 

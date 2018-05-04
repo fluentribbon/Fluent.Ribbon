@@ -41,5 +41,26 @@ namespace Fluent
             this.Name = name;
             this.Resources = new ResourceDictionary { Source = resourceAddress };
         }
+
+        /// <summary>
+        /// Initializes a new instance of the AppTheme class.
+        /// </summary>
+        /// <param name="name">The name of the new AppTheme.</param>
+        /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
+        public AppTheme(string name, ResourceDictionary resourceDictionary)
+        {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (resourceDictionary == null)
+            {
+                throw new ArgumentNullException(nameof(resourceDictionary));
+            }
+
+            this.Name = name;
+            this.Resources = resourceDictionary;
+        }
     }
 }
