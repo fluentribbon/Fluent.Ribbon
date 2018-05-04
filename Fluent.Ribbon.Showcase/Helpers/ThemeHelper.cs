@@ -10,7 +10,7 @@
 
     public class ThemeHelper
     {
-        public static string CreateAppStyleBy(Color color, bool changeImmediately = false)
+        public static string CreateAppStyleBy(Color color, string accentName = null, bool changeImmediately = false)
         {
             // create a runtime accent resource dictionary
             var resourceDictionary = new ResourceDictionary();
@@ -56,7 +56,14 @@
             resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
 
             // Create theme
-            var resDictName = $"ApplicationAccent_{color.ToString().Replace("#", string.Empty)}.xaml";
+            accentName = accentName ?? $"ApplicationAccent_{color.ToString().Replace("#", string.Empty)}";
+            var resDictName = accentName;
+
+            if (resDictName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase) == false)
+            {
+                resDictName += ".xaml";
+            }
+
             var fileName = Path.Combine(Path.GetTempPath(), resDictName);
             using (var writer = XmlWriter.Create(fileName, new XmlWriterSettings
                                                            {
@@ -75,7 +82,7 @@
 
             var newAccent = new Accent
                             {
-                                Name = resDictName,
+                                Name = accentName,
                                 Resources = resourceDictionary
                             };
             ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
@@ -84,7 +91,6 @@
             if (changeImmediately)
             {
                 var application = Application.Current;
-                //var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
                 // detect current application theme
                 var applicationTheme = ThemeManager.DetectAppStyle(application);
                 ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme.Item1);
