@@ -2,6 +2,7 @@ ControlzEx
 
 XamlColorSchemeGenerator
 GitLink
+JetBrains.Annotations
 
 StyleCop.Analyzers
 WpfAnalyzers

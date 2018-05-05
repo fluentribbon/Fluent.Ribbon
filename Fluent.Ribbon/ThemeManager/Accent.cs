@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Diagnostics;
     using System.Windows;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// An object that represents the foreground color for a <see cref="AppTheme"/>.
@@ -33,7 +34,7 @@ namespace Fluent
         /// </summary>
         /// <param name="name">The name of the new Accent.</param>
         /// <param name="resourceAddress">The URI of the accent ResourceDictionary.</param>
-        public Accent(string name, Uri resourceAddress)
+        public Accent([NotNull] string name, [NotNull] Uri resourceAddress)
         {
             if (name == null)
             {
@@ -54,7 +55,7 @@ namespace Fluent
         /// </summary>
         /// <param name="name">The name of the new Accent.</param>
         /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
-        public Accent(string name, ResourceDictionary resourceDictionary)
+        public Accent([NotNull] string name, [NotNull] ResourceDictionary resourceDictionary)
         {
             if (name == null)
             {
