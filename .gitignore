@@ -5,6 +5,7 @@
 *.sln.docstates
 *.ide
 *.vs
+*.idea
 
 # Build results
 [Dd]ebug/
