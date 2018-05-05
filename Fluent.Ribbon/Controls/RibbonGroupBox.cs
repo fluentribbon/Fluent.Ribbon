@@ -762,12 +762,14 @@ namespace Fluent
 
         #region Caching
 
+#pragma warning disable 414
         // Pair of chached states
         private struct StateScale
         {
             public RibbonGroupBoxState State;
             public int Scale;
         }
+#pragma warning restore 414
 
         // Cache
         private readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
