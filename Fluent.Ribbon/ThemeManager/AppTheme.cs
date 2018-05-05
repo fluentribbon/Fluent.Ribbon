@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Diagnostics;
     using System.Windows;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Represents the background theme of the application.
@@ -26,7 +27,7 @@ namespace Fluent
         /// </summary>
         /// <param name="name">The name of the new AppTheme.</param>
         /// <param name="resourceAddress">The URI of the accent ResourceDictionary.</param>
-        public AppTheme(string name, Uri resourceAddress)
+        public AppTheme([NotNull] string name, [NotNull] Uri resourceAddress)
         {
             if (name == null)
             {
@@ -47,7 +48,7 @@ namespace Fluent
         /// </summary>
         /// <param name="name">The name of the new AppTheme.</param>
         /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
-        public AppTheme(string name, ResourceDictionary resourceDictionary)
+        public AppTheme([NotNull] string name, [NotNull] ResourceDictionary resourceDictionary)
         {
             if (name == null)
             {

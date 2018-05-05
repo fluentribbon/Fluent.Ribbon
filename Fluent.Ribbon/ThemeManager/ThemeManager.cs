@@ -8,6 +8,7 @@ namespace Fluent
     using System.Linq;
     using System.Security;
     using System.Windows;
+    using JetBrains.Annotations;
     using Microsoft.Win32;
 
     /// <summary>
@@ -97,7 +98,7 @@ namespace Fluent
         /// Adds an accent with the given name.
         /// </summary>
         /// <returns>true if the accent does not exists and can be added.</returns>
-        public static bool AddAccent(string name, Uri resourceAddress)
+        public static bool AddAccent([NotNull] string name, [NotNull] Uri resourceAddress)
         {
             if (name == null)
             {
@@ -125,7 +126,7 @@ namespace Fluent
         /// <param name="name">The name of the new Accent.</param>
         /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
         /// <returns>true if the accent does not exists and can be added.</returns>
-        public static bool AddAccent(string name, ResourceDictionary resourceDictionary)
+        public static bool AddAccent([NotNull] string name, [NotNull] ResourceDictionary resourceDictionary)
         {
             if (name == null)
             {
@@ -151,7 +152,7 @@ namespace Fluent
         /// Adds an app theme with the given name.
         /// </summary>
         /// <returns>true if the app theme does not exists and can be added.</returns>
-        public static bool AddAppTheme(string name, Uri resourceAddress)
+        public static bool AddAppTheme([NotNull] string name, [NotNull] Uri resourceAddress)
         {
             if (name == null)
             {
@@ -179,7 +180,7 @@ namespace Fluent
         /// <param name="name">The name of the new AppTheme.</param>
         /// <param name="resourceDictionary">The ResourceDictionary of the accent.</param>
         /// <returns>true if the app theme does not exists and can be added.</returns>
-        public static bool AddAppTheme(string name, ResourceDictionary resourceDictionary)
+        public static bool AddAppTheme([NotNull] string name, [NotNull] ResourceDictionary resourceDictionary)
         {
             if (name == null)
             {
@@ -206,7 +207,7 @@ namespace Fluent
         /// </summary>
         /// <param name="resources"><see cref="ResourceDictionary"/> from which the theme should be retrieved.</param>
         /// <returns>AppTheme</returns>
-        public static AppTheme GetAppTheme(ResourceDictionary resources)
+        public static AppTheme GetAppTheme([NotNull] ResourceDictionary resources)
         {
             if (resources == null)
             {
@@ -220,7 +221,7 @@ namespace Fluent
         /// Gets app theme with the given name and theme type (light or dark).
         /// </summary>
         /// <returns>AppTheme</returns>
-        public static AppTheme GetAppTheme(string appThemeName)
+        public static AppTheme GetAppTheme([NotNull] string appThemeName)
         {
             if (appThemeName == null)
             {
@@ -240,7 +241,7 @@ namespace Fluent
         /// Returns BaseLight, if BaseDark is given or vice versa.
         /// Custom Themes must end with "Dark" or "Light" for this to work, for example "CustomDark" and "CustomLight".
         /// </remarks>
-        public static AppTheme GetInverseAppTheme(AppTheme appTheme)
+        public static AppTheme GetInverseAppTheme([NotNull] AppTheme appTheme)
         {
             if (appTheme == null)
             {
@@ -264,7 +265,7 @@ namespace Fluent
         /// Gets the <see cref="Accent"/> with the given name.
         /// </summary>
         /// <returns>The <see cref="Accent"/> or <c>null</c>, if the app theme wasn't found</returns>
-        public static Accent GetAccent(string accentName)
+        public static Accent GetAccent([NotNull] string accentName)
         {
             if (accentName == null)
             {
@@ -279,7 +280,7 @@ namespace Fluent
         /// </summary>
         /// <param name="resources"><see cref="ResourceDictionary"/> from which the accent should be retrieved.</param>
         /// <returns>The <see cref="Accent"/> or <c>null</c>, if the accent wasn't found.</returns>
-        public static Accent GetAccent(ResourceDictionary resources)
+        public static Accent GetAccent([NotNull] ResourceDictionary resources)
         {
             if (resources == null)
             {
@@ -316,7 +317,7 @@ namespace Fluent
         /// <param name="resources">The resources.</param>
         /// <returns><c>true</c> if the resource dictionary is an <see cref="Accent"/>; otherwise, <c>false</c>.</returns>
         /// <exception cref="System.ArgumentNullException">resources</exception>
-        public static bool IsAccentDictionary(ResourceDictionary resources)
+        public static bool IsAccentDictionary([NotNull] ResourceDictionary resources)
         {
             if (resources == null)
             {
@@ -392,7 +393,7 @@ namespace Fluent
         /// Change the theme for the whole application.
         /// </summary>
         [SecurityCritical]
-        public static void ChangeAppTheme(Application app, string themeName)
+        public static void ChangeAppTheme([NotNull] Application app, [NotNull] string themeName)
         {
             if (app == null)
             {
@@ -416,7 +417,7 @@ namespace Fluent
         /// Change theme for the given window.
         /// </summary>
         [SecurityCritical]
-        public static void ChangeAppTheme(Window window, string themeName)
+        public static void ChangeAppTheme([NotNull] Window window, [NotNull] string themeName)
         {
             if (window == null)
             {
@@ -443,7 +444,7 @@ namespace Fluent
         /// <param name="newAccent">The accent to apply.</param>
         /// <param name="newTheme">The theme to apply.</param>
         [SecurityCritical]
-        public static void ChangeAppStyle(Application app, Accent newAccent, AppTheme newTheme)
+        public static void ChangeAppStyle([NotNull] Application app, [NotNull] Accent newAccent, [NotNull] AppTheme newTheme)
         {
             if (app == null)
             {
@@ -471,7 +472,7 @@ namespace Fluent
         /// <param name="newAccent">The accent to apply.</param>
         /// <param name="newTheme">The theme to apply.</param>
         [SecurityCritical]
-        public static void ChangeAppStyle(Window window, Accent newAccent, AppTheme newTheme)
+        public static void ChangeAppStyle([NotNull] Window window, [NotNull] Accent newAccent, [NotNull] AppTheme newTheme)
         {
             if (window == null)
             {
@@ -548,7 +549,7 @@ namespace Fluent
         /// <param name="newAccent">The accent to apply to the ResourceDictionary.</param>
         /// <param name="newTheme">The theme to apply to the ResourceDictionary.</param>
         [SecurityCritical]
-        public static void ChangeAppStyle(ResourceDictionary resources, Accent newAccent, AppTheme newTheme)
+        public static void ChangeAppStyle([NotNull] ResourceDictionary resources, [NotNull] Accent newAccent, [NotNull] AppTheme newTheme)
         {
             if (resources == null)
             {
@@ -570,7 +571,6 @@ namespace Fluent
         }
 
         [SecurityCritical]
-
         private static void ApplyResourceDictionary(ResourceDictionary newRd, ResourceDictionary oldRd)
         {
             oldRd.BeginInit();
@@ -598,7 +598,7 @@ namespace Fluent
         /// or
         /// toRD
         /// </exception>
-        internal static void CopyResource(ResourceDictionary fromRD, ResourceDictionary toRD)
+        internal static void CopyResource([NotNull] ResourceDictionary fromRD, [NotNull] ResourceDictionary toRD)
         {
             if (fromRD == null)
             {
@@ -643,7 +643,7 @@ namespace Fluent
         /// Scans the window resources and returns it's accent and theme.
         /// </summary>
         /// <param name="window">The Window to scan.</param>
-        public static Tuple<AppTheme, Accent> DetectAppStyle(Window window)
+        public static Tuple<AppTheme, Accent> DetectAppStyle([NotNull] Window window)
         {
             if (window == null)
             {
@@ -663,7 +663,7 @@ namespace Fluent
         /// Scans the application resources and returns it's accent and theme.
         /// </summary>
         /// <param name="app">The Application instance to scan.</param>
-        public static Tuple<AppTheme, Accent> DetectAppStyle(Application app)
+        public static Tuple<AppTheme, Accent> DetectAppStyle([NotNull] Application app)
         {
             if (app == null)
             {
@@ -677,7 +677,7 @@ namespace Fluent
         /// Scans a resources and returns it's accent and theme.
         /// </summary>
         /// <param name="resources">The ResourceDictionary to check.</param>
-        private static Tuple<AppTheme, Accent> DetectAppStyle(ResourceDictionary resources)
+        private static Tuple<AppTheme, Accent> DetectAppStyle([NotNull] ResourceDictionary resources)
         {
             if (resources == null)
             {
