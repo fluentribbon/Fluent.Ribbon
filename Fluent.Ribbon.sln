@@ -19,9 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905
 		appveyor.yml = appveyor.yml
 		Build.ps1 = Build.ps1
 		Directory.build.props = Directory.build.props
-		Fluent.Ribbon.msbuild = Fluent.Ribbon.msbuild
-		Fluent.Ribbon.nuspec = Fluent.Ribbon.nuspec
-		MSBuildHelper.ps1 = MSBuildHelper.ps1
+		Directory.build.targets = Directory.build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6ADD536-3DB2-4418-AED6-98AB991D1B77}"
