@@ -44,7 +44,7 @@ RESTRICTION: || (== net45) (== net462)
 NUGET
   remote: https://api.nuget.org/v3/index.json
     ControlzEx (3.0.2.4)
-    MahApps.Metro (1.6.1)
+    MahApps.Metro (1.6.2)
       ControlzEx (>= 3.0.2.4 < 4.0)
 
 GROUP test
