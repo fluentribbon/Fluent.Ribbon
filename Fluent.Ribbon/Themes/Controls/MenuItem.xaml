@@ -566,7 +566,6 @@
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Grid.Column="1" />
             </Grid>
             <ContentPresenter x:Name="textBlock"
@@ -624,7 +623,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -634,8 +632,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    CornerRadius="1" />
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">

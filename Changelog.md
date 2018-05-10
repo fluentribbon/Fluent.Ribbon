@@ -7,9 +7,9 @@
   - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
   - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
-  - Removed `CornerRadius` on `Button`.
+  - Removed `CornerRadius` everywhere except in all controls related to `ApplicationMenu`.
   - Default `Foreground` for `ComboBox` is now `Fluent.Ribbon.Brushes.LabelTextBrush`.
-  - Key tips can not be opened by pressing `Space`.
+  - Key tips can not be opened by pressing `Space` anymore.
   - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
