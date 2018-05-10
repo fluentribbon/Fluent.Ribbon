@@ -245,7 +245,6 @@
                 <RowDefinition MaxHeight="18" />
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3"
-                    CornerRadius="0"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
             <RepeatButton x:Name="repeatButton"
                           Grid.Row="0"
@@ -313,7 +312,6 @@
                 <ColumnDefinition MaxWidth="18" />
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="3"
-                    CornerRadius="0"
                     Margin="0"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
             <RepeatButton x:Name="repeatButton"

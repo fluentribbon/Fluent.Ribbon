@@ -40,7 +40,6 @@
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                                         BorderThickness="1"
-                                        CornerRadius="1"
                                         Grid.ColumnSpan="1"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top">
@@ -52,8 +51,7 @@
                                                 Width="Auto"
                                                 Height="Auto"
                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="1" />
+                                                BorderThickness="1" />
                                         <Grid Margin="1"
                                               HorizontalAlignment="Stretch"
                                               VerticalAlignment="Top">

@@ -52,7 +52,6 @@
                     Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
                 <Grid Width="Auto"
@@ -86,7 +85,6 @@
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                 BorderThickness="0,1,0,0"
                                 Grid.Row="1"
-                                CornerRadius="0,0,1,1"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
                             <Grid>
                                 <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -166,7 +164,6 @@
                     Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
                 <Grid Width="Auto"
@@ -177,8 +174,7 @@
                             Width="Auto"
                             Height="Auto"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1" />
+                            BorderThickness="1" />
                     <Grid HorizontalAlignment="Left"
                           VerticalAlignment="Top">
                         <Grid.RowDefinitions>
