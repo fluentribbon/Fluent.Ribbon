@@ -283,6 +283,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
     </Style>
