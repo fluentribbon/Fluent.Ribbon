@@ -8,7 +8,8 @@
   - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
   Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
   - Removed `CornerRadius` everywhere except in all controls related to `ApplicationMenu`.
-  - Default `Foreground` for `ComboBox` is now `Fluent.Ribbon.Brushes.LabelTextBrush`.
+  - Default `Foreground` for `ComboBox` changed from `Inherited` to `Fluent.Ribbon.Brushes.LabelTextBrush`.
+  - Default `VerticalContentAlignment` for `ComboBox`, `Spinner` and `TextBox` changed from `Top` to `Center`.
   - Key tips can not be opened by pressing `Space` anymore.
   - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
 
