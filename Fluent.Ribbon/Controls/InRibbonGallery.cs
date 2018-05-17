@@ -897,6 +897,24 @@ namespace Fluent
 
         #endregion
 
+        #region GalleryPanelContainerHeight
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="GalleryPanelContainerHeight"/>.
+        /// </summary>
+        public static readonly DependencyProperty GalleryPanelContainerHeightProperty = DependencyProperty.Register(nameof(GalleryPanelContainerHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(60D));
+
+        /// <summary>
+        /// Gets or sets the height of the container which hosts the <see cref="GalleryPanel"/>.
+        /// </summary>
+        public double GalleryPanelContainerHeight
+        {
+            get { return (double)this.GetValue(GalleryPanelContainerHeightProperty); }
+            set { this.SetValue(GalleryPanelContainerHeightProperty, value); }
+        }
+
+        #endregion
+
         #endregion
 
         #region Events

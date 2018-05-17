@@ -61,6 +61,8 @@
   - [#554](../../issues/554) - No Keytips on templated ribbon items.
   - [#563](../../issues/563) - Add customizable keys for activating the key tips. (thanks @pschimmel)  
   You can now set your own keys for showing key tips. Have a look at `Ribbon.KeyTipKeys`.
+  - [#568](../../issues/568) - Allow setting the height of GalleryPanel inside InRibbonGallery  
+  You can now control the height of the `GalleryPanel` inside `InRibbonGallery` by setting `GalleryPanelContainerHeight`.
 
 ## 6.1.0
 
