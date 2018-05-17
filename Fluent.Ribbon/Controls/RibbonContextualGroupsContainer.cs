@@ -93,8 +93,7 @@ namespace Fluent
 
                     while (visual != null)
                     {
-                        var uiElement = visual as UIElement;
-                        if (uiElement != null)
+                        if (visual is UIElement uiElement)
                         {
                             if (uiElement is RibbonTabsContainer)
                             {

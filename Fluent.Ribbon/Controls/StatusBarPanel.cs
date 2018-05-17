@@ -34,9 +34,7 @@ namespace Fluent
 
             for (var i = 0; i < this.InternalChildren.Count; i++)
             {
-                var child = this.InternalChildren[i] as FrameworkElement;
-
-                if (child != null)
+                if (this.InternalChildren[i] is FrameworkElement child)
                 {
                     if (child.HorizontalAlignment == HorizontalAlignment.Left)
                     {

@@ -991,8 +991,7 @@ namespace Fluent
         {
             foreach (var item in e.RemovedItems)
             {
-                var itemContainer = this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem;
-                if (itemContainer != null)
+                if (this.ItemContainerGenerator.ContainerFromItem(item) is GalleryItem itemContainer)
                 {
                     itemContainer.IsSelected = false;
                 }
@@ -1000,8 +999,7 @@ namespace Fluent
 
             foreach (var item in e.AddedItems)
             {
-                var itemContainer = this.ItemContainerGenerator.ContainerFromItem(item) as GalleryItem;
-                if (itemContainer != null)
+                if (this.ItemContainerGenerator.ContainerFromItem(item) is GalleryItem itemContainer)
                 {
                     itemContainer.IsSelected = true;
                 }

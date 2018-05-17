@@ -191,8 +191,7 @@ namespace Fluent
         {
             get
             {
-                var scrollInfo = this.GetTemplateChild("PART_TabsContainer") as IScrollInfo;
-                if (scrollInfo != null)
+                if (this.GetTemplateChild("PART_TabsContainer") is IScrollInfo scrollInfo)
                 {
                     return scrollInfo.ExtentWidth > scrollInfo.ViewportWidth;
                 }
@@ -599,16 +598,13 @@ namespace Fluent
                 return;
             }
 
-            var focusedElement = Keyboard.FocusedElement as DependencyObject;
-            var originalSource = e.OriginalSource as DependencyObject;
-
             // Prevent scrolling if
             // - any control inside a RibbonGroupBox has focus
             // - any control outside this RibbonTabControl caused the mouse wheel event
-            if ((focusedElement != null
+            if ((Keyboard.FocusedElement is DependencyObject focusedElement
                 && UIHelper.GetParent<RibbonGroupBox>(focusedElement) != null)
                 ||
-                (originalSource != null
+                (e.OriginalSource is DependencyObject originalSource
                 && UIHelper.GetParent<RibbonTabControl>(originalSource) == null))
             {
                 return;
@@ -619,12 +615,10 @@ namespace Fluent
 
             var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
                 .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
-                .OrderBy(x => x.IsContextual)
-                .ToList();
+                .OrderBy(x => x.IsContextual);
 
-            for (var i = 0; i < tabs.Count; i++)
+            foreach (var ribbonTabItem in tabs)
             {
-                var ribbonTabItem = tabs[i];
                 visualItems.Add(ribbonTabItem);
 
                 if (ribbonTabItem.IsSelected)
@@ -700,8 +694,9 @@ namespace Fluent
                         index = this.Items.Count - 1;
                     }
 
-                    var nextItem = this.ItemContainerGenerator.ContainerFromIndex(index) as RibbonTabItem;
-                    if ((nextItem != null) && nextItem.IsEnabled && (nextItem.Visibility == Visibility.Visible))
+                    if (this.ItemContainerGenerator.ContainerFromIndex(index) is RibbonTabItem nextItem
+                        && nextItem.IsEnabled
+                        && nextItem.Visibility == Visibility.Visible)
                     {
                         return nextItem;
                     }
@@ -776,9 +771,7 @@ namespace Fluent
         // Handles ribbon popup closing
         private void OnRibbonTabPopupClosing()
         {
-            var ribbonTabItem = this.SelectedItem as RibbonTabItem;
-
-            if (ribbonTabItem != null)
+            if (this.SelectedItem is RibbonTabItem ribbonTabItem)
             {
                 ribbonTabItem.IsHitTestVisible = true;
             }
@@ -792,9 +785,7 @@ namespace Fluent
         // handles ribbon popup opening
         private void OnRibbonTabPopupOpening()
         {
-            var ribbonTabItem = this.SelectedItem as RibbonTabItem;
-
-            if (ribbonTabItem != null)
+            if (this.SelectedItem is RibbonTabItem ribbonTabItem)
             {
                 ribbonTabItem.IsHitTestVisible = false;
             }
@@ -893,9 +884,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                var ribbonTab = this.ItemContainerGenerator.ContainerFromItem(item) as RibbonTabItem;
-
-                if (ribbonTab != null
+                if (this.ItemContainerGenerator.ContainerFromItem(item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible
                     && ribbonTab.IsEnabled)
                 {

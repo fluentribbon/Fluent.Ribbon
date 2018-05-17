@@ -455,8 +455,7 @@ namespace Fluent
             var element = this.Parent;
             while (element != null)
             {
-                var ribbon = element as Ribbon;
-                if (ribbon != null)
+                if (element is Ribbon ribbon)
                 {
                     return ribbon;
                 }
@@ -846,9 +845,7 @@ namespace Fluent
         /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
-            var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
-
-            if (currentSelectedItem != null)
+            if (this.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
             {
                 currentSelectedItem.IsSelected = false;
             }

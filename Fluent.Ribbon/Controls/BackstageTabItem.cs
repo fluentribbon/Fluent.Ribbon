@@ -140,9 +140,7 @@ namespace Fluent
                 return;
             }
 
-            var backstageTabItem = backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) as BackstageTabItem;
-
-            if (backstageTabItem != null)
+            if (backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
             {
                 backstageTabItem.IsSelected = false;
             }

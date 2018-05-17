@@ -170,9 +170,7 @@ namespace Fluent
             // Foreach items and see whether path is found for the item
             foreach (var element in this.ribbon.GetQuickAccessElements())
             {
-                var control = element.Key as FrameworkElement;
-
-                if (control != null
+                if (element.Key is FrameworkElement control
                     && paths.TryGetValue(control, out var path))
                 {
                     builder.Append(path);

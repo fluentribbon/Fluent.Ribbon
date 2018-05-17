@@ -20,9 +20,7 @@
                 return false;
             }
 
-            var routedCommand = command as RoutedCommand;
-
-            if (routedCommand != null)
+            if (command is RoutedCommand routedCommand)
             {
                 return routedCommand.CanExecute(commandParameter, commandTarget);
             }
@@ -41,8 +39,7 @@
                 return;
             }
 
-            var routedCommand = command as RoutedCommand;
-            if (routedCommand != null)
+            if (command is RoutedCommand routedCommand)
             {
                 if (routedCommand.CanExecute(commandParameter, commandTarget))
                 {
