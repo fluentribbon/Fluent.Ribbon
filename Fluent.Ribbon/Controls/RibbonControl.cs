@@ -463,7 +463,7 @@ namespace Fluent
                 return new Rect(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top, monitorInfo.rcWork.Right - monitorInfo.rcWork.Left, monitorInfo.rcWork.Bottom - monitorInfo.rcWork.Top);
             }
 #pragma warning restore 618
-            return default(Rect);
+            return default;
         }
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace Fluent
                 return new Rect(monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Top, monitorInfo.rcMonitor.Right - monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Bottom - monitorInfo.rcMonitor.Top);
             }
 #pragma warning restore 618
-            return default(Rect);
+            return default;
         }
 
         /// <summary>

@@ -13,7 +13,7 @@
         [TestFixture]
         public class MeasureTests
         {
-            private static readonly Size zeroSize = default(Size);
+            private static readonly Size zeroSize = default;
             private const double ReferenceWidth = 1024;
             private static readonly double ReferenceHeight = SystemParameters.WindowCaptionHeight;
             private static readonly Size referenceSize = new Size(ReferenceWidth, SystemParameters.WindowCaptionHeight);
