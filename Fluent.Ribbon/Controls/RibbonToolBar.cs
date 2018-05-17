@@ -342,9 +342,7 @@ namespace Fluent
 
         private RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
         {
-            RibbonToolBarControlGroup controlGroup;
-
-            if (this.cachedControlGroups.TryGetValue(controlGroupDefinition, out controlGroup))
+            if (this.cachedControlGroups.TryGetValue(controlGroupDefinition, out var controlGroup))
             {
                 return controlGroup;
             }
@@ -417,8 +415,7 @@ namespace Fluent
                     {
                         #region Add separator
 
-                        Separator separator;
-                        if (!this.separatorCache.TryGetValue(rowIndex, out separator))
+                        if (!this.separatorCache.TryGetValue(rowIndex, out var separator))
                         {
                             separator = new Separator
                                         {

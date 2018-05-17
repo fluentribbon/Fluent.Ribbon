@@ -96,9 +96,7 @@ namespace Fluent
         /// </summary>
         public static RibbonControlSize ToRibbonControlSize(string ribbonControlSize)
         {
-            RibbonControlSize result;
-
-            return Enum.TryParse(ribbonControlSize, true, out result)
+            return Enum.TryParse(ribbonControlSize, true, out RibbonControlSize result)
                        ? result
                        : RibbonControlSize.Large;
         }
