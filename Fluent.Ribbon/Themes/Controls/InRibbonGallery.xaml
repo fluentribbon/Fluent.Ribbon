@@ -282,7 +282,7 @@
               VerticalAlignment="Stretch">
             <Border x:Name="border"
                     Width="Auto"
-                    Height="60"
+                    Height="{TemplateBinding GalleryPanelContainerHeight}"
                     BorderThickness="1,1,1,1"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                     ClipToBounds="True"
