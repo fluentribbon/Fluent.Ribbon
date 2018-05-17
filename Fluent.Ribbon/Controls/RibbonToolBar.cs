@@ -415,7 +415,7 @@ namespace Fluent
                     {
                         #region Add separator
 
-                        if (!this.separatorCache.TryGetValue(rowIndex, out var separator))
+                        if (this.separatorCache.TryGetValue(rowIndex, out var separator) == false)
                         {
                             separator = new Separator
                                         {
