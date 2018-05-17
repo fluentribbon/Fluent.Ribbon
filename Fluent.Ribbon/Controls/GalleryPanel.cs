@@ -365,8 +365,7 @@ namespace Fluent
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
             {
-                var element = VisualTreeHelper.GetChild(visual, i) as UIElement;
-                if (element != null)
+                if (VisualTreeHelper.GetChild(visual, i) is UIElement element)
                 {
                     InvalidateMeasureRecursive(element);
                 }

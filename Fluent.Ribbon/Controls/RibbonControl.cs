@@ -170,19 +170,16 @@ namespace Fluent
                 return;
             }
 
-            var oldCommand = e.OldValue as ICommand;
-            if (oldCommand != null)
+            if (e.OldValue is ICommand oldCommand)
             {
                 oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
             }
 
-            var newCommand = e.NewValue as ICommand;
-            if (newCommand != null)
+            if (e.NewValue is ICommand newCommand)
             {
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
 
-                var routedUiCommand = e.NewValue as RoutedUICommand;
-                if (routedUiCommand != null
+                if (e.NewValue is RoutedUICommand routedUiCommand
                     && control.Header == null)
                 {
                     control.Header = routedUiCommand.Text;
@@ -320,9 +317,7 @@ namespace Fluent
 
             Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
 
-            var headeredControl = source as IHeaderedControl;
-
-            if (headeredControl != null)
+            if (source is IHeaderedControl headeredControl)
             {
                 if (headeredControl is HeaderedItemsControl)
                 {
@@ -350,8 +345,7 @@ namespace Fluent
             var ribbonControl = source as IRibbonControl;
             if (ribbonControl?.Icon != null)
             {
-                var iconVisual = ribbonControl.Icon as Visual;
-                if (iconVisual != null)
+                if (ribbonControl.Icon is Visual iconVisual)
                 {
                     var rect = new Rectangle
                     {

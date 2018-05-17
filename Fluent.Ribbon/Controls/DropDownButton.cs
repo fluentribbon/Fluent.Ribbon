@@ -847,8 +847,7 @@ namespace Fluent
 
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
-            var menuItem = e.OriginalSource as MenuItem;
-            if (menuItem != null)
+            if (e.OriginalSource is MenuItem menuItem)
             {
                 this.openMenuItems.Push(new WeakReference(menuItem));
             }

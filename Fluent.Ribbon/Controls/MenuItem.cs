@@ -475,8 +475,7 @@ namespace Fluent
             {
                 if (this.IsSplited)
                 {
-                    var buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
-                    if (buttonBorder != null
+                    if (this.GetTemplateChild("PART_ButtonBorder") is Border buttonBorder
                         && PopupService.IsMousePhysicallyOver(buttonBorder))
                     {
                         this.OnClick();

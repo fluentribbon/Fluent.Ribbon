@@ -836,8 +836,7 @@ namespace Fluent
         {
             var name = control.GetType().Name;
 
-            var headeredControl = control as IHeaderedControl;
-            if (headeredControl != null)
+            if (control is IHeaderedControl headeredControl)
             {
                 name += $" ({headeredControl.Header})";
             }

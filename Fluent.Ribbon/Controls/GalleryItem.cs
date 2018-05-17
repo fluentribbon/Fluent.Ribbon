@@ -203,14 +203,12 @@ namespace Fluent
                 return;
             }
 
-            var oldCommand = e.OldValue as ICommand;
-            if (oldCommand != null)
+            if (e.OldValue is ICommand oldCommand)
             {
                 oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
             }
 
-            var newCommand = e.NewValue as ICommand;
-            if (newCommand != null)
+            if (e.NewValue is ICommand newCommand)
             {
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
             }
@@ -304,9 +302,7 @@ namespace Fluent
             {
                 ((GalleryItem)d).BringIntoView();
 
-                var parentSelector = ItemsControl.ItemsControlFromItemContainer(d) as Selector;
-
-                if (parentSelector != null)
+                if (ItemsControl.ItemsControlFromItemContainer(d) is Selector parentSelector)
                 {
                     var item = parentSelector.ItemContainerGenerator.ItemFromContainer(d);
 

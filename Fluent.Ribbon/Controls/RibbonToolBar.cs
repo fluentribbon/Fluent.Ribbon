@@ -458,8 +458,7 @@ namespace Fluent
                 for (var i = 0; i < row.Children.Count; i++)
                 {
                     // Control Definition Case
-                    var ribbonToolBarControlDefinition = row.Children[i] as RibbonToolBarControlDefinition;
-                    if (ribbonToolBarControlDefinition != null)
+                    if (row.Children[i] is RibbonToolBarControlDefinition ribbonToolBarControlDefinition)
                     {
                         var control = this.GetControl(ribbonToolBarControlDefinition);
 
@@ -493,8 +492,7 @@ namespace Fluent
                     }
 
                     // Control Group Definition Case
-                    var ribbonToolBarControlGroupDefinition = row.Children[i] as RibbonToolBarControlGroupDefinition;
-                    if (ribbonToolBarControlGroupDefinition != null)
+                    if (row.Children[i] is RibbonToolBarControlGroupDefinition ribbonToolBarControlGroupDefinition)
                     {
                         var control = this.GetControlGroup(ribbonToolBarControlGroupDefinition);
 

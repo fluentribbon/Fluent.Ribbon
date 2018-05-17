@@ -296,8 +296,7 @@ namespace Fluent
         private static void OnSelectedFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var gallery = (Gallery)d;
-            var filter = e.NewValue as GalleryGroupFilter;
-            if (filter != null)
+            if (e.NewValue is GalleryGroupFilter filter)
             {
                 gallery.SelectedFilterTitle = filter.Title;
                 gallery.SelectedFilterGroups = filter.Groups;
@@ -492,8 +491,7 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var parent = this.Parent as ItemsControl;
-            if (parent != null)
+            if (this.Parent is ItemsControl parent)
             {
                 if (parent.Items.IndexOf(this) == parent.Items.Count - 1)
                 {
