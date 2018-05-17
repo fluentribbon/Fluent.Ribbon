@@ -231,7 +231,7 @@
                 </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid x:Name="grid">
+        <Grid x:Name="grid" Background="{DynamicResource WhiteBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
