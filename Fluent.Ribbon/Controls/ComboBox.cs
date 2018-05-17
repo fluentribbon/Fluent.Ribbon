@@ -809,7 +809,7 @@ namespace Fluent
                 return;
             }
 
-            var delta = monitorRight - this.PointToScreen(default(Point)).X - popupChild.ActualWidth - e.HorizontalChange;
+            var delta = monitorRight - this.PointToScreen(default).X - popupChild.ActualWidth - e.HorizontalChange;
             var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
             var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
 
@@ -819,7 +819,7 @@ namespace Fluent
             }
             else
             {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(default(Point)).X - deltaX, this.ActualWidth - deltaBorders));
+                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(default).X - deltaX, this.ActualWidth - deltaBorders));
             }
         }
 

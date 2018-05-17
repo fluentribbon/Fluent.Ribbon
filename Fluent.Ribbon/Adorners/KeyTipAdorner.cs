@@ -703,7 +703,7 @@ namespace Fluent
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.DesiredSize;
                     var parent = (UIElement)keyTipInformation.VisualTarget.Parent;
-                    var positionInParent = keyTipInformation.VisualTarget.TranslatePoint(default(Point), parent);
+                    var positionInParent = keyTipInformation.VisualTarget.TranslatePoint(default, parent);
                     keyTipInformation.Position = parent.TranslatePoint(
                                                        new Point(
                                                                  5,

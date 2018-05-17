@@ -424,7 +424,7 @@ namespace Fluent
             // Clears cache
             this.cachedDeltaWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
-            this.cachedConstraint = default(Size);
+            this.cachedConstraint = default;
         }
 
         private void OnToolBarDownClosed(object sender, EventArgs e)

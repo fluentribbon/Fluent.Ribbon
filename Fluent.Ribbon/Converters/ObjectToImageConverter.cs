@@ -327,7 +327,7 @@
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
         public static ImageSource CreateImageSource(object value, Visual targetVisual, Size desiredSize)
         {
-            if (desiredSize == default(Size)
+            if (desiredSize == default
                 || DoubleUtil.AreClose(desiredSize.Width, 0)
                 || DoubleUtil.AreClose(desiredSize.Height, 0))
             {
