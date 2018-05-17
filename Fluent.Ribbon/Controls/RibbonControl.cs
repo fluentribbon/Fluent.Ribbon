@@ -69,18 +69,19 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
 
-        private static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// Called when <see cref="IconProperty"/> changes.
+        /// </summary>
+        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var element = (RibbonControl)d;
 
-            var oldElement = e.OldValue as FrameworkElement;
-            if (oldElement != null)
+            if (e.OldValue is FrameworkElement oldElement)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
-            var newElement = e.NewValue as FrameworkElement;
-            if (newElement != null)
+            if (e.NewValue is FrameworkElement newElement)
             {
                 element.AddLogicalChild(newElement);
             }
