@@ -152,9 +152,9 @@
                 var size = System.Convert.ToDouble(parameter);
                 desiredSize = new Size(size, size);
             }
-            else if (parameter is Size)
+            else if (parameter is Size size)
             {
-                desiredSize = (Size)parameter;
+                desiredSize = size;
             }
 
             return this.Convert(value, this.TargetVisual, desiredSize, targetType);
