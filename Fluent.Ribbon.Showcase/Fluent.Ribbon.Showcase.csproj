@@ -1,8 +1,10 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="MSBuild.Sdk.Extras">
   <PropertyGroup>
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <RootNamespace>FluentTest</RootNamespace>
-    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>    
+    <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
