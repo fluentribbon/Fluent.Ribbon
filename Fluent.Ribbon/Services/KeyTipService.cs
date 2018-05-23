@@ -60,7 +60,7 @@ namespace Fluent
         /// <summary>
         /// The default keys used to activate key tips.
         /// </summary>
-        public static IList<Key> DefaultKeyTipKeys => new List<Key>
+        public static IList<Key> GetDefaultKeyTipKeys() => new List<Key>
                                                       {
                                                           Key.LeftAlt,
                                                           Key.RightAlt,
@@ -68,7 +68,7 @@ namespace Fluent
                                                       };
 
         // List of key tip activation keys
-        public IList<Key> KeyTipKeys { get; } = new List<Key>();
+        public IList<Key> KeyTipKeys { get; } = GetDefaultKeyTipKeys();
 
         #endregion
 
