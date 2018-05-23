@@ -80,6 +80,7 @@ namespace Fluent
         /// <summary>
         /// Gets the value of <see cref="IsCollapsedHeaderContentPresenterProperty"/>.
         /// </summary>
+        [AttachedPropertyBrowsableForType(typeof(RibbonGroupBox))]
         public static bool GetIsCollapsedHeaderContentPresenter(DependencyObject element)
         {
             return (bool)element.GetValue(IsCollapsedHeaderContentPresenterProperty);

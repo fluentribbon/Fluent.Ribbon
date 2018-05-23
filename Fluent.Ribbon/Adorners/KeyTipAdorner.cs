@@ -664,7 +664,8 @@ namespace Fluent
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
                 }
-                else if (keyTipInformation.AssociatedElement is InRibbonGallery && !((InRibbonGallery)keyTipInformation.AssociatedElement).IsCollapsed)
+                else if (keyTipInformation.AssociatedElement is InRibbonGallery gallery
+                         && gallery.IsCollapsed == false)
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
