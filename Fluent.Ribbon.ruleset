@@ -127,6 +127,7 @@
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1004" Action="None" />
     <Rule Id="SA1005" Action="None" />
+    <Rule Id="SA1028" Action="Info" />
     <Rule Id="SA1108" Action="None" />
     <Rule Id="SA1116" Action="None" />
     <Rule Id="SA1117" Action="None" />
