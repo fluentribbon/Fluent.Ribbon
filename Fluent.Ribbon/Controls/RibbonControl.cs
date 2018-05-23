@@ -74,14 +74,15 @@ namespace Fluent
         /// </summary>
         public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = (RibbonControl)d;
+            var element = (ILogicalChildSupport)d;
 
             if (e.OldValue is FrameworkElement oldElement)
             {
                 element.RemoveLogicalChild(oldElement);
             }
 
-            if (e.NewValue is FrameworkElement newElement)
+            if (e.NewValue is FrameworkElement newElement
+                && LogicalTreeHelper.GetParent(newElement) == null)
             {
                 element.AddLogicalChild(newElement);
             }
@@ -498,5 +499,17 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
     }
 }
