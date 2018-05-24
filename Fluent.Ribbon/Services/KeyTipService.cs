@@ -60,15 +60,16 @@ namespace Fluent
         /// <summary>
         /// The default keys used to activate key tips.
         /// </summary>
-        public static IList<Key> GetDefaultKeyTipKeys() => new List<Key>
-                                                      {
-                                                          Key.LeftAlt,
-                                                          Key.RightAlt,
-                                                          Key.F10
-                                                      };
+        public static IList<Key> DefaultKeyTipKeys =>
+            new List<Key>
+            {
+                Key.LeftAlt,
+                Key.RightAlt,
+                Key.F10
+            };
 
         // List of key tip activation keys
-        public IList<Key> KeyTipKeys { get; } = GetDefaultKeyTipKeys();
+        public IList<Key> KeyTipKeys { get; } = DefaultKeyTipKeys;
 
         #endregion
 
