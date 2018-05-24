@@ -715,35 +715,13 @@ namespace Fluent
                     if (RibbonProperties.GetSize(keyTipInformation.AssociatedElement) != RibbonControlSize.Large
                         || IsTextBoxShapedControl(keyTipInformation.AssociatedElement))
                     {
-                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
                         var x = keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
                         var y = keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
                         var point = new Point(x, y);
                         var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
                         // Snapping to rows if it present
-                        if (rows != null)
-                        {
-                            var index = 0;
-                            var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
-                            for (var j = 1; j < rows.Length; j++)
-                            {
-                                if (withinRibbonToolbar
-                                    && j == 1)
-                                {
-                                    continue;
-                                }
-
-                                var distance = Math.Abs(rows[j] - translatedPoint.Y);
-                                if (distance < mindistance)
-                                {
-                                    mindistance = distance;
-                                    index = j;
-                                }
-                            }
-
-                            translatedPoint.Y = rows[index] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
-                        }
+                        SnapToRowsIfPresent(rows, keyTipInformation, translatedPoint);
 
                         keyTipInformation.Position = translatedPoint;
                     }
@@ -754,10 +732,8 @@ namespace Fluent
                         var point = new Point(x, y);
                         var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
-                        if (rows != null)
-                        {
-                            translatedPoint.Y = rows[2] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
-                        }
+                        // Snapping to rows if it present
+                        SnapToRowsIfPresent(rows, keyTipInformation, translatedPoint);
 
                         keyTipInformation.Position = translatedPoint;
                     }
@@ -794,6 +770,35 @@ namespace Fluent
         private static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
             return UIHelper.GetParent<QuickAccessToolBar>(element) != null;
+        }
+
+        private static void SnapToRowsIfPresent(double[] rows, KeyTipInformation keyTipInformation, Point translatedPoint)
+        {
+            if (rows == null)
+            {
+                return;
+            }
+
+            var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
+
+            var index = 0;
+            var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
+            for (var j = 1; j < rows.Length; j++)
+            {
+                if (withinRibbonToolbar && j == 1)
+                {
+                    continue;
+                }
+
+                var distance = Math.Abs(rows[j] - translatedPoint.Y);
+                if (distance < mindistance)
+                {
+                    mindistance = distance;
+                    index = j;
+                }
+            }
+
+            translatedPoint.Y = rows[index] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
         }
 
         /// <inheritdoc />
