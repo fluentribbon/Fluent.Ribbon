@@ -1347,7 +1347,7 @@ namespace Fluent
             {
                 if (this.keyTipKeys == null)
                 {
-                    this.keyTipKeys = new ObservableCollection<Key>(KeyTipService.GetDefaultKeyTipKeys());
+                    this.keyTipKeys = new ObservableCollection<Key>(KeyTipService.DefaultKeyTipKeys);
                     this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
                 }
 
