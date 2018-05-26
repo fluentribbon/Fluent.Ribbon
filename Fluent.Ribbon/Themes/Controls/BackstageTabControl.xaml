@@ -231,7 +231,7 @@
                 </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid x:Name="grid" Background="{DynamicResource WhiteBrush}">
+        <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
@@ -240,34 +240,38 @@
 
             <Grid x:Name="PART_ItemsPanelGrid"
                   VerticalAlignment="Stretch"
-                  Background="{TemplateBinding ItemsPanelBackground}">
-                <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    VerticalAlignment="Top"
-                                                    IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />                
-                
-                <Button x:Name="backbutton"
-                        Style="{DynamicResource BackstageBackButtonStyle}"
-                        Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
-                        Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
-                        Margin="0,16,0,0"
-                        Padding="22,7,0,7"
-                        VerticalAlignment="Top">
-                </Button>
+                  Background="{DynamicResource WhiteBrush}">
+                <Grid Background="{TemplateBinding ItemsPanelBackground}">
+                    <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                                                        VerticalAlignment="Top"
+                                                        IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
 
-                <ItemsPresenter Margin="0,77,0,0"
-                                Height="Auto" />
+                    <Button x:Name="backbutton"
+                            Style="{DynamicResource BackstageBackButtonStyle}"
+                            Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
+                            Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                            Margin="0,16,0,0"
+                            Padding="22,7,0,7"
+                            VerticalAlignment="Top">
+                    </Button>
+
+                    <ItemsPresenter Margin="0,77,0,0"
+                                    Height="Auto" />
+                </Grid>
             </Grid>
 
             <Grid x:Name="PART_SelectedContentGrid"
                   Height="Auto"
                   Grid.Column="1"
-                  Background="{TemplateBinding Background}"
-                  Margin="{TemplateBinding SelectedContentMargin}">
-                <ContentPresenter x:Name="PART_SelectedContentHost"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  Height="Auto"
-                                  ContentSource="SelectedContent" />
+                  Margin="{TemplateBinding SelectedContentMargin}"
+                  Background="{DynamicResource WhiteBrush}">
+                <Border Background="{TemplateBinding Background}">
+                    <ContentPresenter x:Name="PART_SelectedContentHost"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      Height="Auto"
+                                      ContentSource="SelectedContent" />
+                </Border>
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
