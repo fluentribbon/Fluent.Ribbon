@@ -1347,7 +1347,7 @@ namespace Fluent
             {
                 if (this.keyTipKeys == null)
                 {
-                    this.keyTipKeys = new ObservableCollection<Key>(KeyTipService.DefaultKeyTipKeys);
+                    this.keyTipKeys = new ObservableCollection<Key>();
                     this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
                 }
 
@@ -1357,8 +1357,12 @@ namespace Fluent
 
         private void HandleKeyTipKeys_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            e.OldItems?.Cast<Key>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Remove(x));
-            e.NewItems?.Cast<Key>().ToList().ForEach(x => this.keyTipService.KeyTipKeys.Add(x));
+            this.keyTipService.KeyTipKeys.Clear();
+
+            foreach (var keyTipKey in this.KeyTipKeys)
+            {
+                this.keyTipService.KeyTipKeys.Add(keyTipKey);
+            }
         }
 
         #endregion
