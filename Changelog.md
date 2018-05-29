@@ -47,6 +47,7 @@
   - [#562](../../issues/562) - Pressing "right" arrow key to open submenu on menuitem causes NullRef exception when there is no submenu
   - [#564](../../issues/564) - Gallery overflow panel (with menu items) doesn't close when clicking once in the application
   - [#572](../../issues/572) - KeyTip.Keys Position
+  - [#573](../../issues/573) - Empty context menu on controls and ribbon
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  

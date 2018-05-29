@@ -395,6 +395,12 @@ namespace Fluent
                     }
                 }
             }
+
+            // We have to close the context menu if no items are visible
+            if (RibbonContextMenu.Items.OfType<MenuItem>().All(x => x.Visibility == Visibility.Collapsed))
+            {
+                RibbonContextMenu.IsOpen = false;
+            }
         }
 
         #endregion
