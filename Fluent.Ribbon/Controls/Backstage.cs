@@ -430,6 +430,8 @@ namespace Fluent
                     this.ownerWindow.Width = this.savedWindowWidth;
                     this.ownerWindow.Height = this.savedWindowHeight;
                 }
+
+                this.ownerWindow = null;
             }
 
             // Uncollapse elements
