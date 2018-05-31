@@ -4,6 +4,32 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
+    <Storyboard x:Key="OnBackstageIsOpenTrueStoryboard">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
+            <EasingThicknessKeyFrame KeyTime="0"
+                                     Value="-125,0,0,0" />
+            <EasingThicknessKeyFrame KeyTime="0:0:0.5"
+                                     Value="0">
+                <EasingThicknessKeyFrame.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </EasingThicknessKeyFrame.EasingFunction>
+            </EasingThicknessKeyFrame>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="OnBackstageIsOpenFalseStoryboard">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
+            <EasingThicknessKeyFrame KeyTime="0"
+                                     Value="0" />
+            <EasingThicknessKeyFrame KeyTime="0:0:0.3"
+                                     Value="-125,0,0,0">
+                <EasingThicknessKeyFrame.EasingFunction>
+                    <CubicEase EasingMode="EaseOut" />
+                </EasingThicknessKeyFrame.EasingFunction>
+            </EasingThicknessKeyFrame>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
     <ControlTemplate x:Key="BackstageToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:Backstage}">
         <Border x:Name="border2"
@@ -70,9 +96,7 @@
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
         <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
         <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
-        <Setter Property="HideAnimationDuration" Value="0:0:0.3" />
-        <Setter Property="HideContextTabsOnOpen" Value="True" />
-        <Setter Property="IsOpenAnimationEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
+        <Setter Property="AreAnimationsEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
         <Setter Property="Fluent:RibbonProperties.AppTheme"
                 Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
         <Style.Triggers>
@@ -89,11 +113,6 @@
                         Value="{DynamicResource WhiteBrush}" />
                 <Setter Property="Foreground"
                         Value="{DynamicResource BlackBrush}" />
-            </Trigger>
-            <Trigger Property="IsOpenAnimationEnabled"
-                     Value="False">
-                <Setter Property="HideAnimationDuration"
-                        Value="0" />
             </Trigger>
         </Style.Triggers>
     </Style>

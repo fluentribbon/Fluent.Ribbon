@@ -202,36 +202,9 @@
                 <Style x:Key="{x:Type Fluent:ComboBox}"
                        TargetType="{x:Type Fluent:ComboBox}"
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}" />
-
-                <Storyboard x:Key="OnIsOpenTrueStoryboard">
-                    <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
-                                                      Storyboard.TargetName="grid">
-                        <EasingThicknessKeyFrame KeyTime="0"
-                                                 Value="-125,0,0,0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.5"
-                                                 Value="0">
-                            <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut" />
-                            </EasingThicknessKeyFrame.EasingFunction>
-                        </EasingThicknessKeyFrame>
-                    </ThicknessAnimationUsingKeyFrames>
-                </Storyboard>
-                <Storyboard x:Key="OnIsOpenFalseStoryboard">
-                    <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
-                                                      Storyboard.TargetName="grid">
-                        <EasingThicknessKeyFrame KeyTime="0"
-                                                 Value="0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.3"
-                                                 Value="-125,0,0,0">
-                            <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseOut" />
-                            </EasingThicknessKeyFrame.EasingFunction>
-                        </EasingThicknessKeyFrame>
-                    </ThicknessAnimationUsingKeyFrames>
-                </Storyboard>
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Grid x:Name="grid">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
@@ -274,38 +247,6 @@
                 </Border>
             </Grid>
         </Grid>
-        <ControlTemplate.Triggers>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ParentBackstage.IsOpen, RelativeSource={RelativeSource Self}}"
-                               Value="True" />
-                    <Condition Binding="{Binding ParentBackstage.IsOpenAnimationEnabled, RelativeSource={RelativeSource Self}}"
-                               Value="True" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="IsOpenBeginStoryboard"
-                                     Storyboard="{StaticResource OnIsOpenTrueStoryboard}" />
-                </MultiDataTrigger.EnterActions>
-                <MultiDataTrigger.ExitActions>
-                    <RemoveStoryboard BeginStoryboardName="IsOpenBeginStoryboard" />
-                </MultiDataTrigger.ExitActions>
-            </MultiDataTrigger>
-            <MultiDataTrigger>
-                <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ParentBackstage.IsOpen, RelativeSource={RelativeSource Self}}"
-                               Value="False" />
-                    <Condition Binding="{Binding ParentBackstage.IsOpenAnimationEnabled, RelativeSource={RelativeSource Self}}"
-                               Value="True" />
-                </MultiDataTrigger.Conditions>
-                <MultiDataTrigger.EnterActions>
-                    <BeginStoryboard x:Name="IsClosedBeginStoryboard"
-                                     Storyboard="{StaticResource OnIsOpenFalseStoryboard}" />
-                </MultiDataTrigger.EnterActions>
-                <MultiDataTrigger.ExitActions>
-                    <RemoveStoryboard BeginStoryboardName="IsClosedBeginStoryboard" />
-                </MultiDataTrigger.ExitActions>
-            </MultiDataTrigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="BackstageStyle"
