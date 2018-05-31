@@ -87,10 +87,7 @@
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
 
-                if (child != null)
-                {
-                    yield return child;
-                }
+                yield return child;
             }
         }
 
