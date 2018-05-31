@@ -279,6 +279,7 @@ namespace Fluent
         private double savedWindowWidth = double.NaN;
         private double savedWindowHeight = double.NaN;
         private Window ownerWindow;
+        private Ribbon parentRibbon;
 
         /// <summary>
         /// Shows the <see cref="Backstage"/>
@@ -306,24 +307,24 @@ namespace Fluent
 
             this.ShowAdorner();
 
-            var parentRibbon = GetParentRibbon(this);
-            if (parentRibbon != null)
+            this.parentRibbon = GetParentRibbon(this);
+            if (this.parentRibbon != null)
             {
-                if (parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl != null)
                 {
-                    parentRibbon.TabControl.IsDropDownOpen = false;
-                    parentRibbon.TabControl.HighlightSelectedItem = false;
-                    parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
+                    this.parentRibbon.TabControl.IsDropDownOpen = false;
+                    this.parentRibbon.TabControl.HighlightSelectedItem = false;
+                    this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar != null)
                 {
-                    parentRibbon.QuickAccessToolBar.IsEnabled = false;
+                    this.parentRibbon.QuickAccessToolBar.IsEnabled = false;
                 }
 
-                if (parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar != null)
                 {
-                    parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
+                    this.parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
             }
 
@@ -391,25 +392,26 @@ namespace Fluent
 
             this.HideAdorner();
 
-            var parentRibbon = GetParentRibbon(this);
-            if (parentRibbon != null)
+            if (this.parentRibbon != null)
             {
-                if (parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl != null)
                 {
-                    parentRibbon.TabControl.HighlightSelectedItem = true;
-                    parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
+                    this.parentRibbon.TabControl.HighlightSelectedItem = true;
+                    this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar != null)
                 {
-                    parentRibbon.QuickAccessToolBar.IsEnabled = true;
-                    parentRibbon.QuickAccessToolBar.Refresh();
+                    this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
+                    this.parentRibbon.QuickAccessToolBar.Refresh();
                 }
 
-                if (parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar != null)
                 {
-                    parentRibbon.TitleBar.HideContextTabs = false;
+                    this.parentRibbon.TitleBar.HideContextTabs = false;
                 }
+
+                this.parentRibbon = null;
             }
 
             if (this.ownerWindow != null)
