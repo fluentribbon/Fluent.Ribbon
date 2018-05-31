@@ -205,6 +205,18 @@
                                                         Header="Spinner"
                                                         ValueChanged="OnSpinnerValueChanged" />
                                     </WrapPanel>
+                                    
+                                    <TextBlock TextWrapping="Wrap">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mi elit, efficitur a sapien sit amet, euismod tempus quam. Aenean porta nisl id erat eleifend, vehicula convallis orci posuere. Maecenas id eleifend magna. Aenean quis nunc id odio tristique scelerisque et eu felis. Donec vestibulum augue sit amet dignissim feugiat. Pellentesque dignissim maximus lacinia. Maecenas dictum velit ut dui tempor imperdiet.
+
+Maecenas mi tortor, hendrerit consequat augue eget, rhoncus efficitur nunc. Cras in risus eu mi efficitur posuere et sit amet turpis. Sed sit amet auctor felis. Sed ultricies dui urna, in venenatis dui volutpat in. Curabitur congue congue scelerisque. Proin a tortor eu massa suscipit tristique vel ac sem. Praesent in laoreet quam. Pellentesque vel lacus mi.
+
+Quisque rhoncus augue sed nisl iaculis dapibus. Fusce in congue enim, ac hendrerit nunc. Sed cursus, massa eget dignissim commodo, neque leo convallis quam, vel pharetra eros felis in tortor. Aenean finibus lobortis auctor. Vestibulum nulla sem, venenatis non mollis ac, mattis vel neque. Etiam ultricies faucibus vulputate. Vivamus finibus tellus at tempor mattis. Vestibulum ligula odio, iaculis id dolor condimentum, pellentesque semper mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam non faucibus mauris, non congue ex.
+
+Curabitur mollis ex orci, sed auctor augue convallis sit amet. Sed in sodales quam, ac tincidunt eros. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque euismod velit urna, sed aliquam diam ultrices id. Nulla facilisi. Vestibulum consequat nec odio vel pellentesque. Vestibulum lacinia tellus vestibulum nibh pharetra auctor.
+
+Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetra ipsum, sed pretium dolor. Praesent rhoncus facilisis felis, non imperdiet nunc efficitur id. Proin dignissim rutrum nibh eget finibus. Etiam eu ullamcorper enim. Pellentesque consectetur sapien nec tristique aliquet. Proin interdum nibh ac urna consequat, id facilisis dui pulvinar. In hendrerit nisi id ex egestas molestie. Praesent nec malesuada nisl, non vestibulum sem. Mauris vitae erat sodales, sodales ligula sit amet, fermentum arcu. Suspendisse aliquet urna quis tellus tincidunt, non posuere metus commodo. Integer ac consectetur massa. Donec nibh ligula, fermentum et erat ac, pretium gravida massa.
+                                    </TextBlock>
                                 </StackPanel>
                             </Fluent:BackstageTabItem>
 

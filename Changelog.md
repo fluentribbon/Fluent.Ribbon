@@ -11,6 +11,11 @@
   - Default `Foreground` for `ComboBox` changed from `Inherited` to `Fluent.Ribbon.Brushes.LabelTextBrush`.
   - Default `VerticalContentAlignment` for `ComboBox`, `Spinner` and `TextBox` changed from `Top` to `Center`.
   - Key tips can not be opened by pressing `Space` anymore.
+  - [#574](../../issues/574) - Move backstage animations from BackstageTabControl to Backstage  .
+  - `Backstage.IsOpenAnimationEnabled` got renamed to `Backstage.AreAnimationsEnabled`. This also applies to `StartScreen`.
+  - `Backstage.HideAnimationDuration` got removed. This also applies to `StartScreen`.
+  - Default value of dependency property `Backstage.HideContextTabsOnOpen` is now `true`. The default value from style was already set to `true`. So this should only be a breaking change for you if you did not use the default style for `Backstage`.
+
   - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
@@ -34,6 +39,8 @@
 | --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
 | DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty |
 | OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
+| OnIsOpenTrueStoryboard | OnBackstageIsOpenTrueStoryboard |
+| OnIsOpenFalseStoryboard | OnBackstageIsOpenFalseStoryboard |
 </p></details>
 
 - ### Bug fixes
