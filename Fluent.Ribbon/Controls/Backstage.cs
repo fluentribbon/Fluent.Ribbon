@@ -572,6 +572,12 @@ namespace Fluent
                     this.ownerWindow.Height = this.savedWindowHeight;
                 }
 
+                this.savedWindowMinWidth = double.NaN;
+                this.savedWindowMinHeight = double.NaN;
+
+                this.savedWindowWidth = double.NaN;
+                this.savedWindowHeight = double.NaN;
+                
                 this.ownerWindow = null;
             }
 
