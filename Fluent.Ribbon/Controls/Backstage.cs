@@ -390,59 +390,7 @@ namespace Fluent
                 return;
             }
 
-            this.HideAdorner();
-
-            if (this.parentRibbon != null)
-            {
-                if (this.parentRibbon.TabControl != null)
-                {
-                    this.parentRibbon.TabControl.HighlightSelectedItem = true;
-                    this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
-                }
-
-                if (this.parentRibbon.QuickAccessToolBar != null)
-                {
-                    this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
-                    this.parentRibbon.QuickAccessToolBar.Refresh();
-                }
-
-                if (this.parentRibbon.TitleBar != null)
-                {
-                    this.parentRibbon.TitleBar.HideContextTabs = false;
-                }
-
-                this.parentRibbon = null;
-            }
-
-            if (this.ownerWindow != null)
-            {
-                this.ownerWindow.PreviewKeyDown -= this.HandleOwnerWindowKeyDown;
-                this.ownerWindow.SizeChanged -= this.HandleOwnerWindowSizeChanged;
-
-                if (double.IsNaN(this.savedWindowMinWidth) == false
-                    && double.IsNaN(this.savedWindowMinHeight) == false)
-                {
-                    this.ownerWindow.MinWidth = this.savedWindowMinWidth;
-                    this.ownerWindow.MinHeight = this.savedWindowMinHeight;
-                }
-
-                if (double.IsNaN(this.savedWindowWidth) == false
-                    && double.IsNaN(this.savedWindowHeight) == false)
-                {
-                    this.ownerWindow.Width = this.savedWindowWidth;
-                    this.ownerWindow.Height = this.savedWindowHeight;
-                }
-
-                this.ownerWindow = null;
-            }
-
-            // Uncollapse elements
-            foreach (var element in this.collapsedElements)
-            {
-                element.Key.Visibility = element.Value;
-            }
-
-            this.collapsedElements.Clear();
+            this.HideAdornerAndRestoreParentProperties();
         }
 
         private void ShowAdorner()
@@ -473,7 +421,7 @@ namespace Fluent
             }
         }
 
-        private void HideAdorner()
+        private void HideAdornerAndRestoreParentProperties()
         {
             if (this.adorner == null)
             {
@@ -492,11 +440,14 @@ namespace Fluent
             else
             {
                 this.adorner.Visibility = Visibility.Collapsed;
+                this.RestoreParentProperties();
             }
 
             void HandleStoryboardOnCompleted(object sender, EventArgs args)
             {
                 this.adorner.Visibility = Visibility.Collapsed;
+                this.RestoreParentProperties();
+
                 storyboard.Completed -= HandleStoryboardOnCompleted;
             }
         }
@@ -576,6 +527,61 @@ namespace Fluent
             this.adorner = null;
 
             this.AdornerLayer = null;
+        }
+
+        private void RestoreParentProperties()
+        {
+            if (this.parentRibbon != null)
+            {
+                if (this.parentRibbon.TabControl != null)
+                {
+                    this.parentRibbon.TabControl.HighlightSelectedItem = true;
+                    this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
+                }
+
+                if (this.parentRibbon.QuickAccessToolBar != null)
+                {
+                    this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
+                    this.parentRibbon.QuickAccessToolBar.Refresh();
+                }
+
+                if (this.parentRibbon.TitleBar != null)
+                {
+                    this.parentRibbon.TitleBar.HideContextTabs = false;
+                }
+
+                this.parentRibbon = null;
+            }
+
+            if (this.ownerWindow != null)
+            {
+                this.ownerWindow.PreviewKeyDown -= this.HandleOwnerWindowKeyDown;
+                this.ownerWindow.SizeChanged -= this.HandleOwnerWindowSizeChanged;
+
+                if (double.IsNaN(this.savedWindowMinWidth) == false
+                    && double.IsNaN(this.savedWindowMinHeight) == false)
+                {
+                    this.ownerWindow.MinWidth = this.savedWindowMinWidth;
+                    this.ownerWindow.MinHeight = this.savedWindowMinHeight;
+                }
+
+                if (double.IsNaN(this.savedWindowWidth) == false
+                    && double.IsNaN(this.savedWindowHeight) == false)
+                {
+                    this.ownerWindow.Width = this.savedWindowWidth;
+                    this.ownerWindow.Height = this.savedWindowHeight;
+                }
+
+                this.ownerWindow = null;
+            }
+
+            // Uncollapse elements
+            foreach (var element in this.collapsedElements)
+            {
+                element.Key.Visibility = element.Value;
+            }
+
+            this.collapsedElements.Clear();
         }
 
         private void OnDelayedShow(object sender, EventArgs args)
