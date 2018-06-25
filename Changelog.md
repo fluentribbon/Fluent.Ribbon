@@ -17,7 +17,7 @@
   - Default value of dependency property `Backstage.HideContextTabsOnOpen` is now `true`. The default value from style was already set to `true`. So this should only be a breaking change for you if you did not use the default style for `Backstage`.
   - Default value for `Foreground` of `RibbonTabItem` is now `Fluent.Ribbon.Brushes.RibbonTabItem.Foreground` instead of `Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground` because trigger order was fixed in [#578](../../issues/578).
 
-  - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "Old"):
+  - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
