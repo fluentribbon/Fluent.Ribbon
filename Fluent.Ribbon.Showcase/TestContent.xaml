@@ -100,6 +100,8 @@
                                                  BorderBrush="Magenta"
                                                  Background="Magenta"
                                                  Foreground="Purple"
+                                                 TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
+                                                 TabItemMouseOverForeground="Red"
                                                  Header="FIRST"
                                                  Visibility="Visible" />
 
@@ -505,7 +507,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                    Click="OnFormatPainterClick" />
                     <Fluent:DropDownButton Name="buttonWatermark"
                                            KeyTip="W"
-                                           Header="Watermark"
+                                           Header="DropDownButton"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
                                            IsEnabled="True"
@@ -2289,6 +2291,16 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
+                    <Fluent:DropDownButton Fluent:KeyTip.Keys="C"
+                                           Header="Test3"
+                                           Size="Middle">
+                        <Fluent:Button Header="Test4"
+                                       Size="Middle"
+                                       Fluent:KeyTip.Keys="A"/>
+                        <Fluent:Button Header="Test5"
+                                       Size="Middle"
+                                       Fluent:KeyTip.Keys="B"/>
+                    </Fluent:DropDownButton>
                     <Fluent:RadioButton Header="Test-Radio 1"
                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
                                         IsChecked="True" />

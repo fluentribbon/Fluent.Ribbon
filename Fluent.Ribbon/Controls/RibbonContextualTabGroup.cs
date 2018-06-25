@@ -6,7 +6,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-
+    using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -17,6 +17,34 @@ namespace Fluent
     public class RibbonContextualTabGroup : Control
     {
         #region Properties
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemSelectedForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used for a selected <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemSelectedForeground
+        {
+            get { return (Brush)this.GetValue(TabItemSelectedForegroundProperty); }
+            set { this.SetValue(TabItemSelectedForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemMouseOverForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used when the mouse is over a <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemMouseOverForeground
+        {
+            get { return (Brush)this.GetValue(TabItemMouseOverForegroundProperty); }
+            set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets group header

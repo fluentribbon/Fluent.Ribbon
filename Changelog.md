@@ -42,6 +42,7 @@
 | OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
 | OnIsOpenTrueStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard |
 | OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
+| | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
 </p></details>
 
 - ### Bug fixes
@@ -73,6 +74,8 @@
   You can now set your own keys for showing key tips. Have a look at `Ribbon.KeyTipKeys`.
   - [#568](../../issues/568) - Allow setting the height of GalleryPanel inside InRibbonGallery  
   You can now control the height of the `GalleryPanel` inside `InRibbonGallery` by setting `GalleryPanelContainerHeight`.
+  - [#578](../../issues/578) - Theming of selected context ribbon tab  
+  You can now use `Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground`, `RibbonContextualTabGroup.TabItemSelectedForeground` and `RibbonContextualTabGroup.TabItemMouseOverForeground` to further control colors.
 
 ## 6.1.0
 

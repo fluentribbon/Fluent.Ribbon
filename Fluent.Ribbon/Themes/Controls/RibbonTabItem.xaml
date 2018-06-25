@@ -130,7 +130,7 @@
             <Trigger Property="Selector.IsSelected"
                      Value="True">
                 <Setter Property="Foreground"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Group.TabItemSelectedForeground, RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <!-- Foreground for selected, no group -->
             <MultiTrigger>
@@ -152,7 +152,7 @@
                 <Setter Property="Background"
                         Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
+                        Value="{Binding Group.TabItemMouseOverForeground, RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
             <!-- Background and foreground for MouseOver, no group -->
             <MultiTrigger>
