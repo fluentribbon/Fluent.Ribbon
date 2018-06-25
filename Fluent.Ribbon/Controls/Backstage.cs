@@ -401,7 +401,7 @@ namespace Fluent
             }
 
             if (this.AreAnimationsEnabled
-                && this.TryFindResource("OnBackstageIsOpenTrueStoryboard") is Storyboard storyboard)
+                && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard") is Storyboard storyboard)
             {
                 storyboard = storyboard.Clone();
 
@@ -429,7 +429,7 @@ namespace Fluent
             }
 
             if (this.AreAnimationsEnabled
-                && this.TryFindResource("OnBackstageIsOpenFalseStoryboard") is Storyboard storyboard)
+                && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
             {
                 storyboard = storyboard.Clone();
 

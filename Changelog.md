@@ -40,8 +40,8 @@
 | --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
 | DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty |
 | OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
-| OnIsOpenTrueStoryboard | OnBackstageIsOpenTrueStoryboard |
-| OnIsOpenFalseStoryboard | OnBackstageIsOpenFalseStoryboard |
+| OnIsOpenTrueStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard |
+| OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
 </p></details>
 
 - ### Bug fixes
