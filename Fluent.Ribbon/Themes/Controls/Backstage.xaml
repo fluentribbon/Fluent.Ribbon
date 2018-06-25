@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Storyboard x:Key="OnBackstageIsOpenTrueStoryboard">
+    <Storyboard x:Key="Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard">
         <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
             <EasingThicknessKeyFrame KeyTime="0"
                                      Value="-125,0,0,0" />
@@ -17,7 +17,7 @@
         </ThicknessAnimationUsingKeyFrames>
     </Storyboard>
 
-    <Storyboard x:Key="OnBackstageIsOpenFalseStoryboard">
+    <Storyboard x:Key="Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard">
         <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)">
             <EasingThicknessKeyFrame KeyTime="0"
                                      Value="0" />
