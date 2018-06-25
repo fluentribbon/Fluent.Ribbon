@@ -123,6 +123,9 @@
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
 
+    <!-- RibbonWindow -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground" Color="Transparent" options:Freeze="True" />
+
     <!-- Separator -->        
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Gray8}" options:Freeze="True" />

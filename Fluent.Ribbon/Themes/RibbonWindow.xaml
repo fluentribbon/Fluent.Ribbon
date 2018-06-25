@@ -115,7 +115,7 @@
         <Setter Property="Foreground"
                 Value="{DynamicResource BlackBrush}" />
         <Setter Property="TitleBackground"
-                Value="{Binding Background, RelativeSource={RelativeSource Self}}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleForeground"
                 Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Template"

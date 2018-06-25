@@ -14,6 +14,22 @@
                 Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
+        <Setter Property="TabItemSelectedForeground"
+                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="Fluent:RibbonProperties.AppTheme"
+                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
+        <Style.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="TabItemMouseOverForeground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="TabItemMouseOverForeground"
+                        Value="{DynamicResource BlackBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
