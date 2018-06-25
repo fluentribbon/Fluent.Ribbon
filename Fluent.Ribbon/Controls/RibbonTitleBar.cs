@@ -218,7 +218,8 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            if (this.isAtLeastOneRequiredControlPresent == false)
+            if (this.isAtLeastOneRequiredControlPresent == false
+                || this.IsLoaded == false)
             {
                 return base.MeasureOverride(constraint);
             }
