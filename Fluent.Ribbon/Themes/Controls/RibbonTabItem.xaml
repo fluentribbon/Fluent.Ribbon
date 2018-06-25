@@ -50,17 +50,13 @@
                 </Rectangle>
             </Grid>
         </Grid>
+
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
                         TargetName="PART_ContentContainer"
                         Value="0.5" />
-            </Trigger>
-            <Trigger Property="Selector.IsSelected"
-                     Value="False">
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -106,119 +102,6 @@
                         TargetName="groupBorder"
                         Value="2,0,2,0" />
             </MultiTrigger>
-            <Trigger Property="Group"
-                     Value="{x:Null}">
-                <Setter Property="Visibility"
-                        TargetName="groupBorder"
-                        Value="Collapsed" />
-                <Setter Property="Margin"
-                        TargetName="separatorGrid"
-                        Value="-1,0,0,1" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected"
-                               Value="True" />
-                    <Condition Property="IsMinimized"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
-                <Setter Property="Foreground"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected"
-                               Value="True" />
-                    <Condition Property="IsMinimized"
-                               Value="False" />
-                    <Condition Property="Group"
-                               Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
-                <Setter Property="Foreground"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
-                <Setter Property="Foreground"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="Group"
-                               Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
-                <Setter Property="Foreground"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="Selector.IsSelected"
-                               Value="False" />
-                    <Condition Property="IsMinimized"
-                               Value="False" />
-                    <Condition Property="Group"
-                               Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
-                <Setter Property="Foreground"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected"
-                               Value="True" />
-                    <Condition Property="IsMinimized"
-                               Value="True" />
-                    <Condition Property="IsOpen"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
-                <Setter Property="Background"
-                        TargetName="grid"
-                        Value="Transparent" />
-                <Setter Property="Foreground"
-                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected"
-                               Value="True" />
-                    <Condition Property="IsMinimized"
-                               Value="True" />
-                    <Condition Property="IsOpen"
-                               Value="True" />
-                    <Condition Property="Group"
-                               Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
-                <Setter Property="Background"
-                        TargetName="grid"
-                        Value="Transparent" />
-                <Setter Property="Foreground"
-                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
-            </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">
                 <Setter Property="Visibility"
@@ -228,6 +111,92 @@
                         TargetName="PART_ContentContainer"
                         Value="6,2,6,0" />
             </Trigger>
+            <Trigger Property="Group"
+                     Value="{x:Null}">
+                <Setter Property="Visibility"
+                        TargetName="groupBorder"
+                        Value="Collapsed" />
+                <Setter Property="Margin"
+                        TargetName="separatorGrid"
+                        Value="-1,0,0,1" />
+            </Trigger>
+            <Trigger Property="Selector.IsSelected"
+                     Value="True">
+                <Setter Property="Visibility"
+                        TargetName="selectedBorder"
+                        Value="Visible" />
+            </Trigger>
+            <!-- Foreground for Selected, with group -->
+            <Trigger Property="Selector.IsSelected"
+                     Value="True">
+                <Setter Property="Foreground"
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
+            </Trigger>
+            <!-- Foreground for selected, no group -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected"
+                               Value="True" />
+                    <Condition Property="Group"
+                               Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
+            </MultiTrigger>
+            <!-- Background and foreground for MouseOver, with group -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+                <Setter Property="Foreground"
+                        Value="{Binding Group.Foreground, RelativeSource={RelativeSource Self}}" />
+            </MultiTrigger>
+            <!-- Background and foreground for MouseOver, no group -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="Group"
+                               Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
+                <Setter Property="Foreground"
+                        Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
+            </MultiTrigger>
+            <!-- Background for Selected, Minimized, IsOpen, with group -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected"
+                               Value="True" />
+                    <Condition Property="IsMinimized"
+                               Value="True" />
+                    <Condition Property="IsOpen"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="grid"
+                        Value="Transparent" />
+            </MultiTrigger>
+            <!-- Background for Selected, Minimized, IsOpen, no group -->
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Selector.IsSelected"
+                               Value="True" />
+                    <Condition Property="IsMinimized"
+                               Value="True" />
+                    <Condition Property="IsOpen"
+                               Value="True" />
+                    <Condition Property="Group"
+                               Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="grid"
+                        Value="Transparent" />
+            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -252,7 +221,7 @@
         <Setter Property="Indent"
                 Value="12" />
         <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="BorderBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Setter Property="ActiveTabBackground"
