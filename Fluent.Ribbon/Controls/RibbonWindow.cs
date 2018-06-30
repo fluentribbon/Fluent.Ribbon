@@ -126,23 +126,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(8D)));
-
-        /// <summary>
-        /// Gets or sets glass border thickness
-        /// </summary>
-        public Thickness GlassFrameThickness
-        {
-            get { return (Thickness)this.GetValue(GlassFrameThicknessProperty); }
-            set { this.SetValue(GlassFrameThicknessProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GlassFrameThickness.
-        /// GlassFrameThickness != 0 enables the default window drop shadow.
-        /// </summary>
-        public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(0)));
+        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(6D)));
 
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="GlowBrush"/>.
@@ -261,6 +245,8 @@ namespace Fluent
 
             BorderThicknessProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(new Thickness(1)));
             WindowStyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(WindowStyle.None));
+
+            AllowsTransparencyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         /// <summary>
@@ -287,8 +273,8 @@ namespace Fluent
             {
                 var behavior = new WindowChromeBehavior();
                 BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-                //BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
                 BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
+                BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
 
                 Interaction.GetBehaviors(this).Add(behavior);
             }
