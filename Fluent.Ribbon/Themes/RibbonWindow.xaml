@@ -130,7 +130,7 @@
         <Setter Property="GlowBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="NonActiveGlowBrush"
-                Value="Red" />
+                Value="#434346" />
         <Setter Property="Background"
                 Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Foreground"
