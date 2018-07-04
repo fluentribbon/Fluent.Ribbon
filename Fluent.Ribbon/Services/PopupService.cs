@@ -274,8 +274,14 @@ namespace Fluent
                     && ribbonTabControl.IsMinimized
                     && IsAncestorOf(control as DependencyObject, e.OriginalSource as DependencyObject))
                 {
-                    Mouse.Capture(control as IInputElement, CaptureMode.SubTree);
+                    // Don't prevent closing if the new target is an ApplicationMenu (#581)
+                    if (Mouse.Captured is ApplicationMenu)
+                    {
+                        control.IsDropDownOpen = false;
+                        return;
+                    }
 
+                    Mouse.Capture(control as IInputElement, CaptureMode.SubTree);
                     return;
                 }
 
