@@ -2,6 +2,7 @@
 namespace FluentTest
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -18,6 +19,7 @@ namespace FluentTest
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
+    using MahApps.Metro.Controls;
     using Button = Fluent.Button;
 
     public partial class TestContent
@@ -36,6 +38,70 @@ namespace FluentTest
             this.DataContext = this.viewModel;
 
             ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]).Color);
+
+            this.Loaded += this.TestContent_Loaded;
+        }
+
+        private void TestContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= this.TestContent_Loaded;
+            
+            var currentBrushes = new[]
+                                 {
+                                     new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
+                                     new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
+                                 };
+
+            this.Brushes = currentBrushes.Concat(GetBrushes())
+                                         .ToList();
+
+            Brush GetCurrentGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.GlowBrush;
+                    case MetroWindow x:
+                        return x.GlowBrush;
+                }
+
+                return null;
+            }
+
+            Brush GetCurrentNonActiveGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.NonActiveGlowBrush;
+                    case MetroWindow x:
+                        return x.NonActiveGlowBrush;
+                }
+
+                return null;
+            }
+        }
+
+        public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+
+        public List<KeyValuePair<string, Brush>> Brushes
+        {
+            get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
+            set { this.SetValue(BrushesProperty, value); }
+        }
+
+        public static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
+        {
+            var brushes = typeof(Brushes)
+                          .GetProperties()
+                          .Where(prop =>
+                                     typeof(Brush).IsAssignableFrom(prop.PropertyType))
+                          .Select(prop =>
+                                      new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
+            
+            return ThemeManager.Accents.Select(x => new KeyValuePair<string, Brush>(x.Name + "(Accent)", (Brush)x.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]))
+                               .Concat(brushes)
+                               .OrderBy(x => x.Key);
         }
 
         private string selectedMenu = "Backstage";

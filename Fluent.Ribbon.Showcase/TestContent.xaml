@@ -2763,7 +2763,63 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     </Fluent:ComboBox>
                                 </WrapPanel>
                             </GroupBox>
-                            
+
+                            <GroupBox Header="WindowGlow">
+                                <WrapPanel>
+                                    <Fluent:ComboBox Header="GlowBrush"
+                                                     MinWidth="140"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
+                                                     SelectedValuePath="Value"
+                                                     SelectedValue="{Binding Path=GlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <Fluent:ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0"
+                                                          Margin="4 0"
+                                                          Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                                          VerticalAlignment="Stretch"
+                                                          Background="{Binding Value}" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Margin="4 0"
+                                                               Text="{Binding}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Fluent:ComboBox.ItemTemplate>
+                                    </Fluent:ComboBox>
+
+                                    <Fluent:ComboBox Header="NonActiveGlowBrush"
+                                                     MinWidth="150"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
+                                                     SelectedValuePath="Value"
+                                                     SelectedValue="{Binding Path=NonActiveGlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <Fluent:ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0"
+                                                          Margin="4 0"
+                                                          Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
+                                                          VerticalAlignment="Stretch"
+                                                          Background="{Binding Value}" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Margin="4 0"
+                                                               Text="{Binding}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Fluent:ComboBox.ItemTemplate>
+                                    </Fluent:ComboBox>
+                                </WrapPanel>
+                            </GroupBox>
+
                             <GroupBox Header="Menu">
                                 <WrapPanel>
                                     <Fluent:ComboBox Header="Menu" 
