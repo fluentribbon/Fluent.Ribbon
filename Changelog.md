@@ -46,6 +46,8 @@
 </p></details>
 
 - ### Bug fixes
+  - [#307](../../issues/307) - Black flicker on complete window-area when resizing
+  - [#319](../../issues/319) - How to make window resizable with Win32 content?
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
   - [#536](../../issues/536) - RibbonContextualTabGroup header text trimmed until hovered
   - [#542](../../issues/542) - InRibbonGallery not reducing properly
@@ -53,6 +55,7 @@
   A generic "error" image is rendered during design time and an exception is thrown during runtime.
   - [#551](../../issues/551) - "Auto" size for ribbon group box header to support custom font sizes (thanks @chrfin)
   - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
+  - [#556](../../issues/556) - Wrong Window Resize-Border Sensitivity
   - [#562](../../issues/562) - Pressing "right" arrow key to open submenu on menuitem causes NullRef exception when there is no submenu
   - [#564](../../issues/564) - Gallery overflow panel (with menu items) doesn't close when clicking once in the application
   - [#572](../../issues/572) - KeyTip.Keys Position
