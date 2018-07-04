@@ -4,7 +4,6 @@ namespace FluentTest
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -42,46 +41,6 @@ namespace FluentTest
             this.Loaded += this.TestContent_Loaded;
         }
 
-        private void TestContent_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.Loaded -= this.TestContent_Loaded;
-            
-            var currentBrushes = new[]
-                                 {
-                                     new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
-                                     new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
-                                 };
-
-            this.Brushes = currentBrushes.Concat(GetBrushes())
-                                         .ToList();
-
-            Brush GetCurrentGlowBrush()
-            {
-                switch (Window.GetWindow(this))
-                {
-                    case RibbonWindow x:
-                        return x.GlowBrush;
-                    case MetroWindow x:
-                        return x.GlowBrush;
-                }
-
-                return null;
-            }
-
-            Brush GetCurrentNonActiveGlowBrush()
-            {
-                switch (Window.GetWindow(this))
-                {
-                    case RibbonWindow x:
-                        return x.NonActiveGlowBrush;
-                    case MetroWindow x:
-                        return x.NonActiveGlowBrush;
-                }
-
-                return null;
-            }
-        }
-
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
 
         public List<KeyValuePair<string, Brush>> Brushes
@@ -90,7 +49,7 @@ namespace FluentTest
             set { this.SetValue(BrushesProperty, value); }
         }
 
-        public static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
+        private static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
         {
             var brushes = typeof(Brushes)
                           .GetProperties()
@@ -141,6 +100,50 @@ namespace FluentTest
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
             this.PreviewMouseWheel += this.OnPreviewMouseWheel;
+        }
+
+        private void TestContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= this.TestContent_Loaded;
+
+            this.InitializeBrushes();
+        }
+
+        private void InitializeBrushes()
+        {
+            var currentBrushes = new[]
+                                 {
+                                     new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
+                                     new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
+                                 };
+
+            this.Brushes = currentBrushes.Concat(GetBrushes()).ToList();
+
+            Brush GetCurrentGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.GlowBrush;
+                    case MetroWindow x:
+                        return x.GlowBrush;
+                }
+
+                return null;
+            }
+
+            Brush GetCurrentNonActiveGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.NonActiveGlowBrush;
+                    case MetroWindow x:
+                        return x.NonActiveGlowBrush;
+                }
+
+                return null;
+            }
         }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
