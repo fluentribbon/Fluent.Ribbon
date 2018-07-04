@@ -98,6 +98,11 @@ namespace Fluent
         {
             var contextGroup = (RibbonContextualTabGroup)d;
 
+            if (contextGroup.IsLoaded == false)
+            {
+                return;
+            }
+
             // Delaying forced redraw fixes #536
             contextGroup.RunInDispatcherAsync(() => ForceRedraw(contextGroup));
         }
@@ -302,6 +307,11 @@ namespace Fluent
 
         private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
         {
+            if (contextGroup.IsVisible == false)
+            {
+                return;
+            }
+
             contextGroup.ForceMeasure();
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
