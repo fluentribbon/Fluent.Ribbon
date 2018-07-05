@@ -60,6 +60,7 @@
   - [#564](../../issues/564) - Gallery overflow panel (with menu items) doesn't close when clicking once in the application
   - [#572](../../issues/572) - KeyTip.Keys Position
   - [#573](../../issues/573) - Empty context menu on controls and ribbon
+  - [#576](../../issues/576) - Does RibbonGroupBox set Foreground invalid?
   - [#581](../../issues/581) - StackOverflow Exception when trying to access ApplicationMenu while RibbonMenu is minimized
 
 - ### Enhancements
