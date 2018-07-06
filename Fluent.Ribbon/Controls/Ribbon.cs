@@ -1151,22 +1151,13 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
 
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
-        }
-
-        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-            if (ribbon.TabControl != null)
-            {
-                ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
-            }
         }
 
         /// <summary>
@@ -1413,9 +1404,7 @@ namespace Fluent
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
                 e.CanExecute = ribbon.CanMinimize;
             }
@@ -1424,10 +1413,9 @@ namespace Fluent
         // Occurs when toggle minimize command executed
         private static void OnToggleMinimizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
-                ribbon.TabControl.IsMinimized = !ribbon.TabControl.IsMinimized;
+                ribbon.IsMinimized = !ribbon.IsMinimized;
             }
         }
 
@@ -1672,13 +1660,6 @@ namespace Fluent
             if (this.TabControl != null)
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
-
-                this.TabControl.CanMinimize = this.CanMinimize;
-                this.TabControl.IsMinimized = this.IsMinimized;
-                this.TabControl.ContentGapHeight = this.ContentGapHeight;
-
-                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding(nameof(this.IsMinimized)) { Source = this, Mode = BindingMode.TwoWay });
-                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding(nameof(this.ContentGapHeight)) { Source = this, Mode = BindingMode.OneWay });
 
                 foreach (var ribbonTabItem in this.Tabs)
                 {
