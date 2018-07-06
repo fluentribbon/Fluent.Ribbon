@@ -213,8 +213,8 @@ namespace Fluent
 
             if (this.ribbon.AutomaticStateManagement == false)
             {
-                this.IsLoaded = true;
                 Debug.WriteLine("State not loaded from isolated storage. Because automatic state management is disabled.");
+                this.IsLoaded = true;
                 return;
             }
 
