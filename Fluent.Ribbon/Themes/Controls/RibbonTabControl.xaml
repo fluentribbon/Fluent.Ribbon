@@ -108,11 +108,11 @@
                 Value="False" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabControlControlTemplate}" />
-        <Setter Property="IsMinimized"
+        <Setter Property="CanMinimize"
                 Value="{Binding CanMinimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
         <Setter Property="IsMinimized"
                 Value="{Binding IsMinimized, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
-        <Setter Property="IsMinimized"
+        <Setter Property="ContentGapHeight"
                 Value="{Binding ContentGapHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}}" />
     </Style>
 
