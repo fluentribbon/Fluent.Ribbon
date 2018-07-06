@@ -1984,18 +1984,7 @@ namespace Fluent
 
             this.RibbonStateStorage.Load();
 
-            if (this.TabControl != null
-                && this.TabControl.SelectedIndex == -1
-                && this.TabControl.IsMinimized == false)
-            {
-                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleAndEnabledItem();
-
-                if (this.TabControl.SelectedItem == null
-                    && this.IsEnabled == false)
-                {
-                    this.TabControl.SelectedItem = this.GetFirstVisibleItem();
-                }
-            }
+            this.TabControl.SelectFirstTab();
         }
 
         // Handles items changing in QAT
