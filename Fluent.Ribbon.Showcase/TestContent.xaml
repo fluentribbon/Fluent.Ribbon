@@ -2915,7 +2915,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             </GroupBox>
 
                             <GroupBox Header="Commands">
-                                <Button Content="Reset saved state & restart" 
+                                <Button Content="Reset saved state &amp; restart" 
                                         Click="HandleResetSavedState_OnClick" />
                             </GroupBox>
                         </WrapPanel>
