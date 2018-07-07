@@ -1513,14 +1513,8 @@ namespace Fluent
         // Occurs when remove from quick access command can execute handles
         private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.IsQuickAccessToolBarVisible)
+            if (sender is Ribbon ribbon
+                && ribbon.IsQuickAccessToolBarVisible)
             {
                 e.CanExecute = ribbon.QuickAccessElements.ContainsValue(e.Parameter as UIElement);
             }

@@ -46,6 +46,7 @@
 </p></details>
 
 - ### Bug fixes
+  - [#165](../../issues/165) - Save As menu is added to QAT but does not have child items
   - [#307](../../issues/307) - Black flicker on complete window-area when resizing
   - [#319](../../issues/319) - How to make window resizable with Win32 content?
   - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
