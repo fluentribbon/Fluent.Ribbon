@@ -112,8 +112,10 @@ namespace Fluent
             set { this.SetValue(WindowCommandsProperty, value); }
         }
 
+        #region Window-Border-Properties
+
         /// <summary>
-        /// Gets or sets resize border thickness
+        /// Gets or sets resize border thickness.
         /// </summary>
         public Thickness ResizeBorderThickness
         {
@@ -124,23 +126,51 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(8D))); //WindowChromeBehavior.GetDefaultResizeBorderThickness()));
+        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(6D)));
 
         /// <summary>
-        /// Gets or sets glass border thickness
+        /// <see cref="DependencyProperty"/> for <see cref="GlowBrush"/>.
         /// </summary>
-        public Thickness GlassFrameThickness
+        public static readonly DependencyProperty GlowBrushProperty = DependencyProperty.Register(nameof(GlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets a brush which is used as the glow when the window is active.
+        /// </summary>
+        public Brush GlowBrush
         {
-            get { return (Thickness)this.GetValue(GlassFrameThicknessProperty); }
-            set { this.SetValue(GlassFrameThicknessProperty, value); }
+            get { return (Brush)this.GetValue(GlowBrushProperty); }
+            set { this.SetValue(GlowBrushProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for GlassFrameThickness.
-        /// GlassFrameThickness != 0 enables the default window drop shadow.
+        /// <see cref="DependencyProperty"/> for <see cref="NonActiveGlowBrush"/>.
         /// </summary>
-        public static readonly DependencyProperty GlassFrameThicknessProperty =
-            DependencyProperty.Register(nameof(GlassFrameThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(1)));
+        public static readonly DependencyProperty NonActiveGlowBrushProperty = DependencyProperty.Register(nameof(NonActiveGlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets a brush which is used as the glow when the window is not active.
+        /// </summary>
+        public Brush NonActiveGlowBrush
+        {
+            get { return (Brush)this.GetValue(NonActiveGlowBrushProperty); }
+            set { this.SetValue(NonActiveGlowBrushProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="NonActiveBorderBrush"/>.
+        /// </summary>
+        public static readonly DependencyProperty NonActiveBorderBrushProperty = DependencyProperty.Register(nameof(NonActiveBorderBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets a brush which is used as the border brush when the window is not active.
+        /// </summary>
+        public Brush NonActiveBorderBrush
+        {
+            get { return (Brush)this.GetValue(NonActiveBorderBrushProperty); }
+            set { this.SetValue(NonActiveBorderBrushProperty, value); }
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets whether icon is visible
@@ -215,6 +245,8 @@ namespace Fluent
 
             BorderThicknessProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(new Thickness(1)));
             WindowStyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(WindowStyle.None));
+
+            AllowsTransparencyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         /// <summary>
@@ -238,12 +270,23 @@ namespace Fluent
         /// </summary>
         private void InitializeWindowChromeBehavior()
         {
-            var behavior = new WindowChromeBehavior();
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.GlassFrameThicknessProperty, new Binding { Path = new PropertyPath(GlassFrameThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
+            {
+                var behavior = new WindowChromeBehavior();
+                BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
+                BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
+                BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
 
-            Interaction.GetBehaviors(this).Add(behavior);
+                Interaction.GetBehaviors(this).Add(behavior);
+            }
+
+            {
+                var behavior = new GlowWindowBehavior();
+                BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
+                BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
+                BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding { Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this });
+
+                Interaction.GetBehaviors(this).Add(behavior);
+            }
         }
 
         #endregion

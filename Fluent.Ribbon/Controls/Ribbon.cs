@@ -35,7 +35,7 @@ namespace Fluent
         /// <summary>
         /// Gets the current instance for storing the state of this control.
         /// </summary>
-        protected IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
+        public IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
 
         /// <summary>
         /// Create a new instance for storing the state of this control.
@@ -397,7 +397,7 @@ namespace Fluent
             }
 
             // We have to close the context menu if no items are visible
-            if (RibbonContextMenu.Items.OfType<MenuItem>().All(x => x.Visibility == Visibility.Collapsed))
+            if (RibbonContextMenu.Items.OfType<System.Windows.Controls.MenuItem>().All(x => x.Visibility == Visibility.Collapsed))
             {
                 RibbonContextMenu.IsOpen = false;
             }
@@ -1151,22 +1151,13 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
 
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
-        }
-
-        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-            if (ribbon.TabControl != null)
-            {
-                ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
-            }
         }
 
         /// <summary>
@@ -1413,9 +1404,7 @@ namespace Fluent
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
                 e.CanExecute = ribbon.CanMinimize;
             }
@@ -1424,10 +1413,9 @@ namespace Fluent
         // Occurs when toggle minimize command executed
         private static void OnToggleMinimizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
-                ribbon.TabControl.IsMinimized = !ribbon.TabControl.IsMinimized;
+                ribbon.IsMinimized = !ribbon.IsMinimized;
             }
         }
 
@@ -1525,14 +1513,8 @@ namespace Fluent
         // Occurs when remove from quick access command can execute handles
         private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.IsQuickAccessToolBarVisible)
+            if (sender is Ribbon ribbon
+                && ribbon.IsQuickAccessToolBarVisible)
             {
                 e.CanExecute = ribbon.QuickAccessElements.ContainsValue(e.Parameter as UIElement);
             }
@@ -1672,13 +1654,6 @@ namespace Fluent
             if (this.TabControl != null)
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
-
-                this.TabControl.CanMinimize = this.CanMinimize;
-                this.TabControl.IsMinimized = this.IsMinimized;
-                this.TabControl.ContentGapHeight = this.ContentGapHeight;
-
-                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding(nameof(this.IsMinimized)) { Source = this, Mode = BindingMode.TwoWay });
-                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding(nameof(this.ContentGapHeight)) { Source = this, Mode = BindingMode.OneWay });
 
                 foreach (var ribbonTabItem in this.Tabs)
                 {
@@ -2003,18 +1978,7 @@ namespace Fluent
 
             this.RibbonStateStorage.Load();
 
-            if (this.TabControl != null
-                && this.TabControl.SelectedIndex == -1
-                && this.TabControl.IsMinimized == false)
-            {
-                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleAndEnabledItem();
-
-                if (this.TabControl.SelectedItem == null
-                    && this.IsEnabled == false)
-                {
-                    this.TabControl.SelectedItem = this.GetFirstVisibleItem();
-                }
-            }
+            this.TabControl.SelectFirstTab();
         }
 
         // Handles items changing in QAT

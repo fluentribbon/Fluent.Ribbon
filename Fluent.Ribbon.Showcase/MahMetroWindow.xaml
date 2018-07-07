@@ -15,7 +15,8 @@
                    WindowTransitionsEnabled="False"
                    GlowBrush="{DynamicResource AccentColorBrush}"
                    ShowIconOnTitleBar="False"
-                   ShowTitleBar="True">
+                   ShowTitleBar="True"
+                   ShowSystemMenuOnRightClick="False">
     <Metro:MetroWindow.LayoutTransform>
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent} }"
                         ScaleY="{Binding DataContext.Zoom, Source={x:Reference TestContent}}" />

@@ -2,8 +2,8 @@
 namespace FluentTest
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Threading;
@@ -18,6 +18,7 @@ namespace FluentTest
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
+    using MahApps.Metro.Controls;
     using Button = Fluent.Button;
 
     public partial class TestContent
@@ -36,6 +37,30 @@ namespace FluentTest
             this.DataContext = this.viewModel;
 
             ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]).Color);
+
+            this.Loaded += this.TestContent_Loaded;
+        }
+
+        public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+
+        public List<KeyValuePair<string, Brush>> Brushes
+        {
+            get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
+            set { this.SetValue(BrushesProperty, value); }
+        }
+
+        private static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
+        {
+            var brushes = typeof(Brushes)
+                          .GetProperties()
+                          .Where(prop =>
+                                     typeof(Brush).IsAssignableFrom(prop.PropertyType))
+                          .Select(prop =>
+                                      new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
+            
+            return ThemeManager.Accents.Select(x => new KeyValuePair<string, Brush>(x.Name + "(Accent)", (Brush)x.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]))
+                               .Concat(brushes)
+                               .OrderBy(x => x.Key);
         }
 
         private string selectedMenu = "Backstage";
@@ -75,6 +100,50 @@ namespace FluentTest
             this.buttonBold.Unchecked += (s, e) => Debug.WriteLine("Unchecked");
 
             this.PreviewMouseWheel += this.OnPreviewMouseWheel;
+        }
+
+        private void TestContent_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= this.TestContent_Loaded;
+
+            this.InitializeBrushes();
+        }
+
+        private void InitializeBrushes()
+        {
+            var currentBrushes = new[]
+                                 {
+                                     new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
+                                     new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
+                                 };
+
+            this.Brushes = currentBrushes.Concat(GetBrushes()).ToList();
+
+            Brush GetCurrentGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.GlowBrush;
+                    case MetroWindow x:
+                        return x.GlowBrush;
+                }
+
+                return null;
+            }
+
+            Brush GetCurrentNonActiveGlowBrush()
+            {
+                switch (Window.GetWindow(this))
+                {
+                    case RibbonWindow x:
+                        return x.NonActiveGlowBrush;
+                    case MetroWindow x:
+                        return x.NonActiveGlowBrush;
+                }
+
+                return null;
+            }
         }
 
         private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
@@ -413,6 +482,14 @@ namespace FluentTest
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
             this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
+        }
+
+        private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ribbon.RibbonStateStorage.Reset();
+
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
         }
     }
 

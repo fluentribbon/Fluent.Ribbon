@@ -9,25 +9,29 @@
     {
         public static void ForceMeasure(this FrameworkElement element)
         {
+            // Calling anything on not loaded elements makes no sense
+            if (element.IsLoaded == false)
+            {
+                return;
+            }
+
             element.InvalidateMeasure();
 
-            // Calling UpdateLayout on not already loaded elements causes weird side effects
-            if (element.IsLoaded)
-            {
-                element.UpdateLayout();
-            }
+            element.UpdateLayout();
         }
 
         public static void ForceMeasureAndArrange(this FrameworkElement element)
         {
+            // Calling anything on not loaded elements makes no sense
+            if (element.IsLoaded == false)
+            {
+                return;
+            }
+
             element.InvalidateMeasure();
             element.InvalidateArrange();
 
-            // Calling UpdateLayout on not already loaded elements causes weird side effects
-            if (element.IsLoaded)
-            {
-                element.UpdateLayout();
-            }
+            element.UpdateLayout();
         }
     }
 }

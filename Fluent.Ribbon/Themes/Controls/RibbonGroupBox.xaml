@@ -35,7 +35,6 @@
     
     <DataTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.TwoLineHeaderTemplate">
         <Fluent:TwoLineLabel Text="{Binding}"
-                             Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              HasGlyph="True" />
@@ -296,6 +295,7 @@
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
                                             Margin="2,0" />
@@ -337,6 +337,7 @@
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                     Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
                                     Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
                                     HorizontalAlignment="Center"

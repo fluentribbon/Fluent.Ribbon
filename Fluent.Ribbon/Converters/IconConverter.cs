@@ -122,13 +122,10 @@ namespace Fluent
             // Retrieves the small icon provided by the application. If the application does not provide one, the system uses the system-generated icon for that window.
             const int ICON_SMALL2 = 2;
 
-            // Retrieves a handle to the icon associated with the class.
-            const int GCL_HICON = -14;
-            // Retrieves a handle to the small icon associated with the class.
-            const int GCL_HICONSM = -34;
-
             // Shares the image handle if the image is loaded multiple times. If LR_SHARED is not set, a second call to LoadImage for the same resource will load the image again and return a different handle.
             const int LR_SHARED = 0x00008000;
+
+            const int IDI_APPLICATION = 0x7f00;
 
 #pragma warning restore CS0219 // Variable is assigned but its value is never used
 
@@ -144,12 +141,12 @@ namespace Fluent
 
                 if (iconPtr == IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.GetClassLong(hwnd, GCL_HICONSM);
+                    iconPtr = NativeMethods.GetClassLong(hwnd, GCLP.HICONSM);
                 }
 
                 if (iconPtr == IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(0x7f00) /*IDI_APPLICATION*/, 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
+                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(IDI_APPLICATION), 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
                 }
 
                 if (iconPtr != IntPtr.Zero)

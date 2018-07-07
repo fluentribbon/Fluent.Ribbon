@@ -746,6 +746,23 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Selects the first tab if <see cref="IsMinimized"/> is <c>false</c>.
+        /// </summary>
+        public void SelectFirstTab()
+        {
+            if (this.IsMinimized == false)
+            {
+                this.SelectedItem = this.GetFirstVisibleAndEnabledItem();
+
+                if (this.SelectedItem == null
+                    && this.IsEnabled == false)
+                {
+                    this.SelectedItem = this.GetFirstVisibleItem();
+                }
+            }
+        }
+
         // Handles IsMinimized changed
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -879,6 +896,23 @@ namespace Fluent
 
         /// <summary>
         /// Gets the first visible item
+        /// </summary>
+        public object GetFirstVisibleItem()
+        {
+            foreach (var item in this.Items)
+            {
+                if (this.ItemContainerGenerator.ContainerFromItem(item) is RibbonTabItem ribbonTab
+                    && ribbonTab.Visibility == Visibility.Visible)
+                {
+                    return ribbonTab;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the first visible and enabled item
         /// </summary>
         public object GetFirstVisibleAndEnabledItem()
         {

@@ -4,6 +4,7 @@
                      xmlns:FluentTest="clr-namespace:FluentTest"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     mc:Ignorable="d"
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
                      Title="{Binding DataContext.Title, ElementName=TestContent}"
@@ -11,8 +12,7 @@
                      Height="768"
                      Width="1024"
                      MinWidth="80"
-                     MinHeight="60"
-                     mc:Ignorable="d"
+                     MinHeight="60"                     
                      WindowState="Normal">
     <Fluent:RibbonWindow.LayoutTransform>
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent}}"

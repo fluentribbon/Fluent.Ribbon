@@ -284,7 +284,10 @@ namespace Fluent
             {
                 if (this.IsSplited)
                 {
-                    var button = new SplitButton();
+                    var button = new SplitButton
+                                 {
+                                     CanAddButtonToQuickAccessToolBar = false
+                                 };
                     RibbonControl.BindQuickAccessItem(this, button);
                     RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
                     RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
@@ -331,7 +334,7 @@ namespace Fluent
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+            ItemsControlHelper.MoveItemsToDifferentControl(this, buttonInQuickAccess);
         }
 
         /// <summary>
