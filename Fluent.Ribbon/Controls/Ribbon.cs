@@ -35,7 +35,7 @@ namespace Fluent
         /// <summary>
         /// Gets the current instance for storing the state of this control.
         /// </summary>
-        protected IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
+        public IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
 
         /// <summary>
         /// Create a new instance for storing the state of this control.

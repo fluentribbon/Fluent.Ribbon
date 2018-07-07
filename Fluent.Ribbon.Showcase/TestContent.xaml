@@ -2913,6 +2913,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     </Fluent:CheckBox>
                                 </WrapPanel>
                             </GroupBox>
+
+                            <GroupBox Header="Commands">
+                                <Button Content="Reset saved state & restart" 
+                                        Click="HandleResetSavedState_OnClick" />
+                            </GroupBox>
                         </WrapPanel>
                     </GroupBox>
                 </StackPanel>

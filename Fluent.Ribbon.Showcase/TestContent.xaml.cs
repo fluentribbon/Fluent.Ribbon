@@ -483,6 +483,14 @@ namespace FluentTest
         {
             this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
         }
+
+        private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.ribbon.RibbonStateStorage.Reset();
+
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
+        }
     }
 
     public class TestRoutedCommand
