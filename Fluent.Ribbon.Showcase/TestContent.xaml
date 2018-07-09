@@ -97,9 +97,9 @@
                        AutomaticStateManagement="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
-                                                 BorderBrush="Magenta"
-                                                 Background="Magenta"
-                                                 Foreground="Purple"
+                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
+                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
+                                                 Foreground="{DynamicResource BlackBrush}"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
                                                  TabItemMouseOverForeground="Red"
                                                  Header="FIRST"
