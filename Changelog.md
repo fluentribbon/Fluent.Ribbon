@@ -16,6 +16,8 @@
   - `Backstage.HideAnimationDuration` got removed. This also applies to `StartScreen`.
   - Default value of dependency property `Backstage.HideContextTabsOnOpen` is now `true`. The default value from style was already set to `true`. So this should only be a breaking change for you if you did not use the default style for `Backstage`.
   - Default value for `Foreground` of `RibbonTabItem` is now `Fluent.Ribbon.Brushes.RibbonTabItem.Foreground` instead of `Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground` because trigger order was fixed in [#578](../../issues/578).
+  - `GlassFrameThickness` was removed in favor of the new `GlowWindowBehavior`. Thus you can now use `GlowBrush` and `NonActiveGlowBrush` on `RibbonWindow`. The resize border now also works "outside" of the window.  
+    This fixes [#307](../../issues/307), [#319](../../issues/319) and [#556](../../issues/556).
 
   - The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):
 
