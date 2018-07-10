@@ -113,7 +113,6 @@ namespace Fluent
 
             if (string.IsNullOrEmpty(groupName) == false)
             {
-                var visualRoot = getVisualRootMethodInfo.Invoke(null, new object[] { (DependencyObject)toggleButton });
                 if (groupNameToElements == null)
                 {
                     groupNameToElements = new Hashtable(1);
@@ -134,8 +133,7 @@ namespace Fluent
                         {
                             var isCheckedValue = GetIsCheckedValue(target);
 
-                            if (isCheckedValue != 0
-                                && visualRoot == getVisualRootMethodInfo.Invoke(null, new object[] { (DependencyObject)target }))
+                            if (isCheckedValue != 0)
                             {
                                 UncheckToggleButton(target);
                             }
