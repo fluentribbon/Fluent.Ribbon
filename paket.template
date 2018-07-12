@@ -16,7 +16,7 @@ summary
 releaseNotes
   You can read the changelog at: https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md
 dependencies
-  ControlzEx > 3.0.2 < 4.0
+  ControlzEx > 4.0 < 5.0
 include-pdbs true
 files
   bin/Fluent.Ribbon/Release/net45/Fluent.* ==> lib/net45/
