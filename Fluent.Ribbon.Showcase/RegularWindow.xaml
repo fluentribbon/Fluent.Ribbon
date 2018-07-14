@@ -11,6 +11,7 @@
         MinWidth="80"
         MinHeight="60"
         mc:Ignorable="d"
-        WindowState="Normal">
+        WindowState="Normal"
+        Background="{DynamicResource WhiteBrush}">
     <fluentTest:TestContent x:Name="TestContent" />
 </Window>
