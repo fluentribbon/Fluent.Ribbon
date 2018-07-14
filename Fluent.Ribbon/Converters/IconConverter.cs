@@ -129,19 +129,19 @@ namespace Fluent
 
 #pragma warning restore CS0219 // Variable is assigned but its value is never used
 
-            if (hwnd == IntPtr.Zero)
-            {
-                return null;
-            }
-
             try
             {
 #pragma warning disable 618
-                var iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL2), IntPtr.Zero);
+                var iconPtr = IntPtr.Zero;
 
-                if (iconPtr == IntPtr.Zero)
+                if (hwnd != IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.GetClassLong(hwnd, GCLP.HICONSM);
+                    iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL2), IntPtr.Zero);
+
+                    if (iconPtr == IntPtr.Zero)
+                    {
+                        iconPtr = NativeMethods.GetClassLong(hwnd, GCLP.HICONSM);
+                    }
                 }
 
                 if (iconPtr == IntPtr.Zero)
