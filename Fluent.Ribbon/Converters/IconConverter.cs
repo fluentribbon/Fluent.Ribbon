@@ -152,7 +152,7 @@ namespace Fluent
                 if (iconPtr != IntPtr.Zero)
                 {
                     var bitmapFrame = BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)desiredSize.Width, (int)desiredSize.Height)));
-                    return (ImageSource)bitmapFrame.GetAsFrozen();
+                    return bitmapFrame;
                 }
 #pragma warning restore 618
             }
