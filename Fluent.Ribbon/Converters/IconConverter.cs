@@ -68,36 +68,26 @@ namespace Fluent
 
         private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
         {
+            IntPtr windowHandle;
+
             if (targetVisual != null)
             {
                 var window = Window.GetWindow(targetVisual);
 
-                if (window != null)
+                if (window != null
+                    && (windowHandle = new WindowInteropHelper(window).Handle) != IntPtr.Zero)
                 {
-                    try
-                    {
-                        return GetDefaultIcon(new WindowInteropHelper(window).Handle, desiredSize);
-                    }
-                    catch (InvalidOperationException exception)
-                    {
-                        Trace.WriteLine(exception);
-                    }
+                    return GetDefaultIcon(windowHandle, desiredSize);
                 }
             }
 
             if (Application.Current != null
                 && Application.Current.CheckAccess()
                 && Application.Current.MainWindow != null
-                && Application.Current.MainWindow.CheckAccess())
+                && Application.Current.MainWindow.CheckAccess()
+                && (windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle) != IntPtr.Zero)
             {
-                try
-                {
-                    return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle, desiredSize);
-                }
-                catch (InvalidOperationException exception)
-                {
-                    Trace.WriteLine(exception);
-                }
+                return GetDefaultIcon(windowHandle, desiredSize);
             }
 
             using (var p = Process.GetCurrentProcess())
