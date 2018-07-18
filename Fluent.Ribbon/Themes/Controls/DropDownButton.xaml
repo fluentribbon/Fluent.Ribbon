@@ -23,6 +23,13 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
@@ -126,9 +133,7 @@
                                               SnapsToDevicePixels="True"
                                               VerticalScrollBarVisibility="Auto"
                                               HorizontalScrollBarVisibility="Hidden">
-                                    <StackPanel Orientation="Vertical"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Local" />
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                                 </ScrollViewer>
                                 <Border x:Name="resizeBorder"
                                         HorizontalAlignment="Stretch"
