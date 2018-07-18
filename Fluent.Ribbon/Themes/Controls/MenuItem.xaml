@@ -170,6 +170,8 @@
             </Border>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -306,6 +308,8 @@
             </Border>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -570,6 +574,8 @@
             </Grid>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -825,6 +831,8 @@
             <ContentControl x:Name="textBlock"
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                            TextElement.FontWeight="Bold"
                             Width="Auto"
                             Height="Auto"
                             Margin="0,3,3,3"
@@ -951,13 +959,6 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource MenuItemTemplate}" />
-        <Setter Property="HeaderTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -983,14 +984,6 @@
                          Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource MenuItemWithDescriptionTemplate}" />
-                <Setter Property="HeaderTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"
-                                       FontWeight="Bold" />
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>

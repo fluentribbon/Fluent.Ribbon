@@ -190,7 +190,9 @@
                                     
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
+                                                               ItemsSource="{Binding ColorViewModel.AppThemes}"
+                                                               DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
                                                          SelectedIndex="0">
