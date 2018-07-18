@@ -15,3 +15,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Behaviours")]
 
 [assembly: InternalsVisibleTo("Fluent.Tests")]
+[assembly: InternalsVisibleTo("Fluent.Ribbon.Showcase")]
