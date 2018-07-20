@@ -11,7 +11,7 @@ nuget MSBuild.Sdk.Extras
 nuget StyleCop.Analyzers
 nuget WpfAnalyzers
 nuget XamlColorSchemeGenerator
-nuget JetBrains.Annotations
+nuget JetBrains.Annotations copy_local:false
 
 nuget Fody
 nuget Costura.Fody

@@ -9,7 +9,7 @@ NUGET
       Fody (>= 3.1.3) - restriction: || (&& (== net45) (>= net46)) (== net462)
     Fody (3.1.3)
     gitlink (3.1)
-    JetBrains.Annotations (11.1)
+    JetBrains.Annotations (11.1) - copy_local: false
     MSBuild.Sdk.Extras (1.5.4)
     StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (2.1.3.2)
