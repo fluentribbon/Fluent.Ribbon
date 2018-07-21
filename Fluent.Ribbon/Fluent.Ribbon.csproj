@@ -13,7 +13,7 @@
     <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <EnableDefaultWpfItems>False</EnableDefaultWpfItems>
+    <ExtrasEnableDefaultWpfItems>False</ExtrasEnableDefaultWpfItems>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />
