@@ -53,6 +53,14 @@
             resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
             resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
 
+            // RibbonContextualTabGroup -->
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark", (Color)ColorConverter.ConvertFromString("White"));
+
+            // RibbonTabItem
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
+            resourceDictionary.Add("Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark", (Color)ColorConverter.ConvertFromString("White"));
+
             // ToggleButton
             resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
             resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));

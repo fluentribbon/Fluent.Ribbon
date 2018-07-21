@@ -167,7 +167,9 @@ namespace Fluent.Tests.ThemeManager
                                    {
                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
-                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush" // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light", // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light", // Ignored because it's based on highlight color
                                    };
             CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
             CompareResourceDictionaries(newDic, dic, ignoredKeyValues);
