@@ -252,12 +252,12 @@
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseLight">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light}" />
             </Trigger>
             <Trigger Property="Fluent:RibbonProperties.AppTheme"
                      Value="BaseDark">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground"
-                        Value="{DynamicResource BlackBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark}" />
             </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>

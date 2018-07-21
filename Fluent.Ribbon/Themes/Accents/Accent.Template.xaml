@@ -71,6 +71,14 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background" Color="{{Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush" Color="{{Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}}" options:Freeze="True" />
 
+    <!-- RibbonContextualTabGroup -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark}}" options:Freeze="True" />
+
+    <!-- RibbonTabItem -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark}}" options:Freeze="True" />
+
     <!-- WindowCommands -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />

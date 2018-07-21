@@ -18,6 +18,9 @@
   - Default value for `Foreground` of `RibbonTabItem` is now `Fluent.Ribbon.Brushes.RibbonTabItem.Foreground` instead of `Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground` because trigger order was fixed in [#578](../../issues/578).
   - `GlassFrameThickness` was removed in favor of the new `GlowWindowBehavior`. Thus you can now use `GlowBrush` and `NonActiveGlowBrush` on `RibbonWindow`. The resize border now also works "outside" of the window.  
     This fixes [#307](../../issues/307), [#319](../../issues/319) and [#556](../../issues/556).
+  - The default value for `TabItemSelectedForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground`. Previously this was bound to `Foreground` of `RibbonContextualTabGroup`.
+  - The default value for `TabItemMouseOverForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light` or `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark` depending on the used app theme. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
+  - The default value for `Fluent:RibbonProperties.MouseOverForeground` on `RibbonTabItem` is now bound to `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light` or `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark` depending on the used app theme. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
@@ -44,7 +47,12 @@
 | OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
 | OnIsOpenTrueStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard |
 | OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
-| | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
+| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light |
 </p></details>
 
 - ### Bug fixes
