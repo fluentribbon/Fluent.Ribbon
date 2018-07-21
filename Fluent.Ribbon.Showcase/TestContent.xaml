@@ -170,6 +170,10 @@
                                            CanAddToQuickAccessToolBar="False"
                                            IsDefinitive="False"
                                            Click="HandleSaveAsClick" />
+                            <Fluent:BackstageTabItem Header="Invisible"
+                                                     Visibility="Collapsed" />
+                            <Fluent:BackstageTabItem Header="Disabled"
+                                                     IsEnabled="False" />
                             <Fluent:BackstageTabItem Header="Introduction"
                                                      KeyTip="T">
                                 <StackPanel Orientation="Vertical">

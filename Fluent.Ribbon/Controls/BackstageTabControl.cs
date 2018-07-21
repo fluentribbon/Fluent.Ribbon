@@ -47,15 +47,8 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedContent
         {
-            get
-            {
-                return this.GetValue(SelectedContentProperty);
-            }
-
-            internal set
-            {
-                this.SetValue(SelectedContentPropertyKey, value);
-            }
+            get { return this.GetValue(SelectedContentProperty); }
+            internal set { this.SetValue(SelectedContentPropertyKey, value); }
         }
 
         /// <summary>
@@ -387,7 +380,9 @@ namespace Fluent
         private BackstageTabItem GetSelectedTabItem()
         {
             var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
-            if (container == null)
+            if (container == null
+                || container?.IsEnabled == false
+                || container?.Visibility != Visibility.Visible)
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
 

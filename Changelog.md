@@ -65,6 +65,7 @@
   - [#573](../../issues/573) - Empty context menu on controls and ribbon
   - [#576](../../issues/576) - Does RibbonGroupBox set Foreground invalid?
   - [#581](../../issues/581) - StackOverflow Exception when trying to access ApplicationMenu while RibbonMenu is minimized
+  - [#586](../../issues/586) - BackstageTabItem IsEnabled=False still displays content
   - [#587](../../issues/587) - DisplayMemberPath no longer working on DropDownButton/MenuItem as of version 6.0
 
 - ### Enhancements
