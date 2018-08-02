@@ -33,7 +33,6 @@
         private void SyncThemeManagers()
         {
             // Sync Fluent and MahApps ThemeManager
-            // todo theme
             var fluentRibbonTheme = ThemeManager.DetectTheme();
             var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == "Base" + fluentRibbonTheme.BaseColorScheme);
             var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentRibbonTheme.ColorScheme);
