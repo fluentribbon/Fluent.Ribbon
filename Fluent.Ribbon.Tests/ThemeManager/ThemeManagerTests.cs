@@ -126,7 +126,7 @@ namespace Fluent.Tests.ThemeManager
         {
             var assembly = typeof(ThemeManager).Assembly;
             var resourceDictionaries = assembly.GetManifestResourceNames();
-            foreach (var resourceName in resourceDictionaries)
+            foreach (var resourceName in resourceDictionaries.Where(x => x.EndsWith(".g.resources")))
             {
                 var info = assembly.GetManifestResourceInfo(resourceName);
                 if (info.ResourceLocation != ResourceLocation.ContainedInAnotherAssembly)
