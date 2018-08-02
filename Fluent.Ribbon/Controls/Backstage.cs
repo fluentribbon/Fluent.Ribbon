@@ -445,7 +445,11 @@ namespace Fluent
 
             void HandleStoryboardOnCompleted(object sender, EventArgs args)
             {
-                this.adorner.Visibility = Visibility.Collapsed;
+                if (this.adorner != null)
+                {
+                    this.adorner.Visibility = Visibility.Collapsed;
+                }
+
                 this.RestoreParentProperties();
 
                 storyboard.Completed -= HandleStoryboardOnCompleted;
