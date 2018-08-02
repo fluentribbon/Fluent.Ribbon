@@ -417,7 +417,7 @@ namespace Fluent
             void HanldeStoryboardCurrentStateInvalidated(object sender, EventArgs e)
             {
                 this.adorner.Visibility = Visibility.Visible;
-                storyboard.Completed -= HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated -= HanldeStoryboardCurrentStateInvalidated;
             }
         }
 
