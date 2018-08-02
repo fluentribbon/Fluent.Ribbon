@@ -61,11 +61,11 @@ namespace FluentTest.ViewModels
         {
             get
             {
-                var theme = ThemeManager.DetectAppStyle(Application.Current);
+                var theme = ThemeManager.DetectTheme(Application.Current);
                 return this.Themes.FirstOrDefault(x => x.Name == theme.Name);
             }
 
-            set => ThemeManager.ChangeAppStyle(Application.Current, value);
+            set => ThemeManager.ChangeTheme(Application.Current, value);
         }
     }
 }

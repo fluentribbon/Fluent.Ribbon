@@ -79,6 +79,14 @@
                     </StackPanel>
                 </Border>
             </DataTemplate>
+            
+            <DataTemplate x:Key="GallerySampleDataItemCommandTemplate"
+                          DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
+                <Fluent:Button Header="{Binding Text}"
+                               LargeIcon="{Binding IconLarge}"
+                               Command="{Binding Command}"
+                               CommandParameter="{Binding}" />
+            </DataTemplate>
 
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
@@ -2471,13 +2479,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                   KeyTip="B"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
-                                       ItemsSource="{Binding FontsViewModel.FontsData}">
-                    <Fluent:RibbonGroupBox.ItemTemplate>
-                        <DataTemplate>
-                            <Fluent:Button Header="{Binding}" />
-                        </DataTemplate>
-                    </Fluent:RibbonGroupBox.ItemTemplate>
-                </Fluent:RibbonGroupBox>
+                                       ItemsSource="{Binding DataItems}"
+                                       ItemTemplate="{DynamicResource GallerySampleDataItemCommandTemplate}" />
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="LAYOUT"

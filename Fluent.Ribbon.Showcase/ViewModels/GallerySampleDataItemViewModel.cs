@@ -1,11 +1,37 @@
 ﻿namespace FluentTest.ViewModels
 {
     using System;
+    using System.Diagnostics;
+    using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using Fluent.Converters;
+    using FluentTest.Commanding;
 
     public class GallerySampleDataItemViewModel : ViewModel
     {
+        /// <summary>
+        /// Creates new item
+        /// </summary>
+        /// <param name="icon">Icon</param>
+        /// <param name="iconLarge">Large Icon</param>
+        /// <param name="text">Text</param>
+        /// <param name="group">Group</param>
+        /// <returns>Item</returns>
+        public static GallerySampleDataItemViewModel Create(string icon, string iconLarge, string text, string group)
+        {
+            var dataItem = new GallerySampleDataItemViewModel
+            {
+                Icon = (ImageSource)StaticConverters.ObjectToImageConverter.Convert(icon, typeof(BitmapImage), null, null),
+                IconLarge = (ImageSource)StaticConverters.ObjectToImageConverter.Convert(iconLarge, typeof(BitmapImage), null, null),
+                Text = text,
+                Group = group,
+                Command = new RelayCommand(() => Trace.WriteLine("Command executed"))
+            };
+
+            return dataItem;
+        }
+
         /// <summary>
         /// Gets or sets icon
         /// </summary>
@@ -26,25 +52,6 @@
         /// </summary>
         public string Group { get; set; }
 
-        /// <summary>
-        /// Creates new item
-        /// </summary>
-        /// <param name="icon">Icon</param>
-        /// <param name="iconLarge">Large Icon</param>
-        /// <param name="text">Text</param>
-        /// <param name="group">Group</param>
-        /// <returns>Item</returns>
-        public static GallerySampleDataItemViewModel Create(string icon, string iconLarge, string text, string group)
-        {
-            var dataItem = new GallerySampleDataItemViewModel
-            {
-                Icon = new BitmapImage(new Uri(icon, UriKind.Relative)),
-                IconLarge = new BitmapImage(new Uri(iconLarge, UriKind.Relative)),
-                Text = text,
-                Group = group
-            };
-
-            return dataItem;
-        }
+        public ICommand Command { get; set; }
     }
 }
