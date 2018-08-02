@@ -19,8 +19,8 @@
   - `GlassFrameThickness` was removed in favor of the new `GlowWindowBehavior`. Thus you can now use `GlowBrush` and `NonActiveGlowBrush` on `RibbonWindow`. The resize border now also works "outside" of the window.  
     This fixes [#307](../../issues/307), [#319](../../issues/319) and [#556](../../issues/556).
   - The default value for `TabItemSelectedForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground`. Previously this was bound to `Foreground` of `RibbonContextualTabGroup`.
-  - The default value for `TabItemMouseOverForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light` or `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark` depending on the used app theme. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
-  - The default value for `Fluent:RibbonProperties.MouseOverForeground` on `RibbonTabItem` is now bound to `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light` or `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark` depending on the used app theme. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
+  - The default value for `TabItemMouseOverForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground`. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
+  - The default value for `Fluent:RibbonProperties.MouseOverForeground` on `RibbonTabItem` is now bound to `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground`. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
@@ -49,10 +49,17 @@
 | OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
 | --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
 | --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground |
-| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light |
-| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Dark |
-| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Dark |
-| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground |
+| --- | Fluent.Ribbon.Brushes.Backstage.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.Background |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
 </p></details>
 
 - ### Bug fixes

@@ -12,10 +12,6 @@
     <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
     <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>        
   </PropertyGroup>
- <PropertyGroup>
-    <_SdkLanguageName>CSharp</_SdkLanguageName>
-    <_SdkLanguageExtension>.cs</_SdkLanguageExtension>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>NET45</DefineConstants>
   </PropertyGroup>

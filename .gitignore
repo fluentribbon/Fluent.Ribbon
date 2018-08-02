@@ -40,7 +40,7 @@ tools/
 
 # Generated files
 Fluent.Ribbon/Themes/**/Styles.xaml
-Fluent.Ribbon/Themes/Accents/*.xaml
+Fluent.Ribbon/Themes/Themes/*.xaml
 packages/
 .tmp
 
@@ -53,3 +53,4 @@ TestResult.xml
 
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe
+!Fluent.Ribbon/Themes/Theme.Template.exe

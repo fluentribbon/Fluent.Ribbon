@@ -55,39 +55,17 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public IEnumerable<AppTheme> AppThemes { get; } = ThemeManager.AppThemes;
+        public IEnumerable<Theme> Themes { get; } = ThemeManager.Themes.ToList();
 
-        public IEnumerable<AccentItem> Accents { get; } = ThemeManager.Accents.Select(x => new AccentItem(x)).ToList();
-
-        public AppTheme CurrentAppTheme
-        {
-            get { return ThemeManager.DetectAppStyle(Application.Current).Item1; }
-            set { ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.DetectAppStyle().Item2, value); }
-        }
-
-        public AccentItem CurrentAccent
+        public Theme CurrentTheme
         {
             get
             {
-                var accent = ThemeManager.DetectAppStyle(Application.Current).Item2;
-                return this.Accents.FirstOrDefault(x => x.Accent.Name == accent.Name);
+                var theme = ThemeManager.DetectAppStyle(Application.Current);
+                return this.Themes.FirstOrDefault(x => x.Name == theme.Name);
             }
 
-            set { ThemeManager.ChangeAppStyle(Application.Current, value.Accent, this.CurrentAppTheme); }
+            set => ThemeManager.ChangeAppStyle(Application.Current, value);
         }
-    }
-
-    [DebuggerDisplay("accent={Accent.Name}")]
-    public class AccentItem
-    {
-        public AccentItem(Accent accent)
-        {
-            this.Accent = accent;
-            this.AccentBaseColor = (Brush)accent.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"];
-        }
-
-        public Accent Accent { get; }
-
-        public Brush AccentBaseColor { get; }
     }
 }

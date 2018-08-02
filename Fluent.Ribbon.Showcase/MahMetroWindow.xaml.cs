@@ -33,9 +33,10 @@
         private void SyncThemeManagers()
         {
             // Sync Fluent and MahApps ThemeManager
-            var fluentAppStyle = ThemeManager.DetectAppStyle();
-            var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == fluentAppStyle.Item1.Name);
-            var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentAppStyle.Item2.Name);
+            // todo theme
+            var fluentRibbonTheme = ThemeManager.DetectTheme();
+            var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == "Base" + fluentRibbonTheme.BaseColorScheme);
+            var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentRibbonTheme.ColorScheme);
             MahApps.Metro.ThemeManager.ChangeAppStyle(this, accent, appTheme);
         }
 

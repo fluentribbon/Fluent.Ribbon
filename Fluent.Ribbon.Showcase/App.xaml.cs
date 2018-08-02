@@ -38,7 +38,7 @@ namespace FluentTest
         protected override void OnStartup(StartupEventArgs e)
         {
             ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
-            ThemeManager.SyncAppThemeWithWindowsAppModeSetting();
+            ThemeManager.SyncThemeWithWindowsAppModeSetting();
 
             base.OnStartup(e);
         }

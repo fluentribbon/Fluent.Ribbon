@@ -1,7 +1,10 @@
 namespace Fluent.Tests.ThemeManager
 {
     using System;
+    using System.Collections;
     using System.Linq;
+    using System.Reflection;
+    using System.Resources;
     using System.Windows;
     using System.Windows.Media;
     using Fluent;
@@ -15,9 +18,8 @@ namespace Fluent.Tests.ThemeManager
         [Test]
         public void ChangeAppStyleForAppShouldThrowArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle((Application)null, ThemeManager.GetAccent("Red"), ThemeManager.GetAppTheme("BaseLight")));
-            Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent("Red"), ThemeManager.GetAppTheme("UnknownTheme")));
-            Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent("UnknownAccentColor"), ThemeManager.GetAppTheme("BaseLight")));
+            Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme((Application)null, ThemeManager.GetTheme("Light.Red")));
+            Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme(Application.Current, ThemeManager.GetTheme("UnknownTheme")));
         }
 
         [Test]
@@ -25,22 +27,26 @@ namespace Fluent.Tests.ThemeManager
         {
             using (var window = new TestRibbonWindow())
             {
-                Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle((Window)null, ThemeManager.GetAccent("Red"), ThemeManager.GetAppTheme("BaseLight")));
-                Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle(Application.Current.MainWindow, ThemeManager.GetAccent("Red"), ThemeManager.GetAppTheme("UnknownTheme")));
-                Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeAppStyle(Application.Current.MainWindow, ThemeManager.GetAccent("UnknownAccentColor"), ThemeManager.GetAppTheme("BaseLight")));
+                Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme((Window)null, ThemeManager.GetTheme("Light.Red")));
+                Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme(Application.Current.MainWindow, ThemeManager.GetTheme("UnknownTheme")));
             }
         }
 
         [Test]
-        public void CanAddAccentBeforeGetterIsCalled()
+        public void CanAddThemeBeforeGetterIsCalled()
         {
-            Assert.True(ThemeManager.AddAccent("TestAccent", new Uri("pack://application:,,,/Fluent;component/Themes/Accents/Blue.xaml")));
-        }
+            Assert.False(ThemeManager.AddTheme(new Uri("pack://application:,,,/Fluent;component/Themes/Themes/Dark.Cobalt.xaml")));
 
-        [Test]
-        public void CanAddAppThemeBeforeGetterIsCalled()
-        {
-            Assert.True(ThemeManager.AddAppTheme("TestTheme", new Uri("pack://application:,,,/Fluent;component/Themes/Colors/BaseDark.xaml")));
+            var resource = new ResourceDictionary
+                           {
+                               {
+                                   "Theme.Name", "Runtime"
+                               },
+                               {
+                                   "Theme.DisplayName", "Runtime"
+                               }
+                           };
+            Assert.True(ThemeManager.AddTheme(resource));
         }
 
         [Test]
@@ -48,128 +54,141 @@ namespace Fluent.Tests.ThemeManager
         {
             using (var window = new TestRibbonWindow())
             {
-                Accent expectedAccent = ThemeManager.Accents.First(x => x.Name == "Teal");
-                AppTheme expectedTheme = ThemeManager.GetAppTheme("BaseDark");
-                ThemeManager.ChangeAppStyle(Application.Current, expectedAccent, expectedTheme);
+                var expectedTheme = ThemeManager.GetTheme("Dark.Teal");
+                ThemeManager.ChangeTheme(Application.Current, expectedTheme);
 
-                var theme = ThemeManager.DetectAppStyle(window);
+                var theme = ThemeManager.DetectTheme(window);
 
-                Assert.That(theme.Item1, Is.EqualTo(expectedTheme));
-                Assert.That(theme.Item2, Is.EqualTo(expectedAccent));
+                Assert.That(theme, Is.EqualTo(expectedTheme));
             }
         }
 
         [Test]
-        public void GetInverseAppThemeReturnsDarkTheme()
+        public void GetInverseThemeReturnsDarkTheme()
         {
-            AppTheme theme = ThemeManager.GetInverseAppTheme(ThemeManager.GetAppTheme("BaseLight"));
+            var theme = ThemeManager.GetInverseTheme(ThemeManager.GetTheme("Light.Blue"));
 
-            Assert.That(theme.Name, Is.EqualTo("BaseDark"));
+            Assert.That(theme.Name, Is.EqualTo("Dark.Blue"));
         }
 
         [Test]
-        public void GetInverseAppThemeReturnsLightTheme()
+        public void GetInverseThemeReturnsLightTheme()
         {
-            AppTheme theme = ThemeManager.GetInverseAppTheme(ThemeManager.GetAppTheme("BaseDark"));
+            var theme = ThemeManager.GetInverseTheme(ThemeManager.GetTheme("Dark.Blue"));
 
-            Assert.That(theme.Name, Is.EqualTo("BaseLight"));
+            Assert.That(theme.Name, Is.EqualTo("Light.Blue"));
         }
 
         [Test]
-        public void GetInverseAppThemeReturnsNullForMissingTheme()
+        public void GetInverseThemeReturnsNullForMissingTheme()
         {
-            var appTheme = new AppTheme("TestTheme", new Uri("pack://application:,,,/Fluent;component/Themes/Colors/BaseDark.xaml"));
+            var resource = new ResourceDictionary
+                           {
+                               {
+                                   "Theme.Name", "Runtime"
+                               },
+                               {
+                                   "Theme.DisplayName", "Runtime"
+                               }
+                           };
+            var theme = new Theme(resource);
 
-            AppTheme theme = ThemeManager.GetInverseAppTheme(appTheme);
+            var inverseTheme = ThemeManager.GetInverseTheme(theme);
 
-            Assert.Null(theme);
+            Assert.Null(inverseTheme);
         }
 
         [Test]
-        public void GetAppThemeIsCaseInsensitive()
+        public void GetThemeIsCaseInsensitive()
         {
-            AppTheme theme = ThemeManager.GetAppTheme("basedark");
+            var theme = ThemeManager.GetTheme("Dark.Blue");
 
             Assert.NotNull(theme);
-            Assert.That(theme.Resources.Source, Is.EqualTo(new Uri("pack://application:,,,/Fluent;component/Themes/Colors/BaseDark.xaml")));
+            Assert.That(theme.Resources.Source, Is.EqualTo(new Uri("pack://application:,,,/Fluent;component/Themes/Themes/Dark.Blue.xaml")));
         }
 
         [Test]
-        public void GetAppThemeWithUriIsCaseInsensitive()
+        public void GetThemeWithUriIsCaseInsensitive()
         {
             var dic = new ResourceDictionary
-                      {
-                          Source = new Uri("pack://application:,,,/Fluent;component/Themes/Colors/basedark.xaml")
-                      };
+            {
+                Source = new Uri("pack://application:,,,/Fluent;component/Themes/Themes/daRK.Blue.xaml")
+            };
 
-            AppTheme detected = ThemeManager.GetAppTheme(dic);
+            var detected = ThemeManager.GetTheme(dic);
 
             Assert.NotNull(detected);
-            Assert.That(detected.Name, Is.EqualTo("BaseDark"));
+            Assert.That(detected.Name, Is.EqualTo("Dark.Blue"));
         }
 
         [Test]
-        public void GetAccentIsCaseInsensitive()
+        public void GetThemes()
         {
-            Accent accent = ThemeManager.GetAccent("blue");
-
-            Assert.NotNull(accent);
-            Assert.That(accent.Resources.Source, Is.EqualTo(new Uri("pack://application:,,,/Fluent;component/Themes/Accents/Blue.xaml")));
+            var assembly = typeof(ThemeManager).Assembly;
+            var resourceDictionaries = assembly.GetManifestResourceNames();
+            foreach (var resourceName in resourceDictionaries)
+            {
+                var info = assembly.GetManifestResourceInfo(resourceName);
+                if (info.ResourceLocation != ResourceLocation.ContainedInAnotherAssembly)
+                {
+                    var resourceStream = assembly.GetManifestResourceStream(resourceName);
+                    using (var reader = new ResourceReader(resourceStream))
+                    {
+                        foreach (DictionaryEntry entry in reader)
+                        {
+                            System.Diagnostics.Trace.WriteLine(entry.Key);
+                            //Here you can see all your ResourceDictionaries
+                            //entry is your ResourceDictionary from assembly
+                        }
+                    }
+                }
+            }
         }
 
         [Test]
-        public void GetAccentWithUriIsCaseInsensitive()
+        public void CreateDynamicThemeWithColor()
+        {
+            var applicationTheme = ThemeManager.DetectTheme(Application.Current);
+
+            Assert.That(() => ThemeHelper.CreateAppStyleBy("Light", Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
+
+            var detected = ThemeManager.DetectTheme(Application.Current);
+            Assert.NotNull(detected);
+            Assert.That(detected.Name, Is.EqualTo("CustomAccentRed"));
+
+            Assert.That(() => ThemeHelper.CreateAppStyleBy("Dark", Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
+
+            detected = ThemeManager.DetectTheme(Application.Current);
+            Assert.NotNull(detected);
+            Assert.That(detected.Name, Is.EqualTo("CustomAccentGreen"));
+
+            ThemeManager.ChangeTheme(Application.Current, applicationTheme);
+        }
+
+        [Test]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.blue.xaml", "Dark", "#FF2B579A")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.green.xaml", "Dark", "#FF60A917")]
+
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.blue.xaml", "Light", "#FF2B579A")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.green.xaml", "Light", "#FF60A917")]
+        public void CompareGeneratedAppStyleWithShipped(string source, string baseColor, string color)
         {
             var dic = new ResourceDictionary
-                      {
-                          Source = new Uri("pack://application:,,,/Fluent;component/Themes/Accents/blue.xaml")
-                      };
+            {
+                Source = new Uri(source)
+            };
 
-            Accent detected = ThemeManager.GetAccent(dic);
-
-            Assert.NotNull(detected);
-            Assert.That(detected.Name, Is.EqualTo("Blue"));
-        }
-
-        [Test]
-        public void CreateDynamicAccentWithColor()
-        {
-            var applicationTheme = ThemeManager.DetectAppStyle(Application.Current);
-
-            Assert.That(() => ThemeHelper.CreateAppStyleBy(Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
-
-            var detected = ThemeManager.DetectAppStyle(Application.Current);
-            Assert.NotNull(detected);
-            Assert.That(detected.Item2.Name, Is.EqualTo("CustomAccentRed"));
-
-            Assert.That(() => ThemeHelper.CreateAppStyleBy(Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
-
-            detected = ThemeManager.DetectAppStyle(Application.Current);
-            Assert.NotNull(detected);
-            Assert.That(detected.Item2.Name, Is.EqualTo("CustomAccentGreen"));
-
-            ThemeManager.ChangeAppStyle(Application.Current, applicationTheme.Item2, applicationTheme.Item1);
-        }
-
-        [Test]
-        [TestCase("pack://application:,,,/Fluent;component/Themes/Accents/blue.xaml", "#FF2B579A")]
-        [TestCase("pack://application:,,,/Fluent;component/Themes/Accents/green.xaml", "#FF60A917")]
-        public void CompareGeneratedAppStyleWithShipped(string source, string color)
-        {
-            var dic = new ResourceDictionary
-                      {
-                          Source = new Uri(source)
-                      };
-
-            var newDic = ThemeHelper.CreateAppStyleBy((Color)ColorConverter.ConvertFromString(color));
+            var newDic = ThemeHelper.CreateAppStyleBy(baseColor, (Color)ColorConverter.ConvertFromString(color));
 
             var ignoredKeyValues = new[]
                                    {
+                                       "Theme.Name",
+                                       "Theme.DisplayName",
                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", // Ignored because it's based on highlight color
-                                       "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground.Light", // Ignored because it's based on highlight color
-                                       "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground.Light", // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground", // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground", // Ignored because it's based on highlight color
                                    };
             CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
             CompareResourceDictionaries(newDic, dic, ignoredKeyValues);

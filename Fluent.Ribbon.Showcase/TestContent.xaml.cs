@@ -58,7 +58,7 @@ namespace FluentTest
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
             
-            return ThemeManager.Accents.Select(x => new KeyValuePair<string, Brush>(x.Name + "(Accent)", (Brush)x.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]))
+            return ThemeManager.Themes.Select(x => new KeyValuePair<string, Brush>(x.DisplayName, (Brush)x.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
         }
@@ -481,7 +481,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy(this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
         }
 
         private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)

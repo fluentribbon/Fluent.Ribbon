@@ -20,6 +20,8 @@
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />

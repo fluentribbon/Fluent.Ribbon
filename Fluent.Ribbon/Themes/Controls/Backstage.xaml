@@ -97,23 +97,7 @@
         <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
         <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
         <Setter Property="AreAnimationsEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
-        <Setter Property="Fluent:RibbonProperties.AppTheme"
-                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
-        <Style.Triggers>
-            <Trigger Property="Fluent:RibbonProperties.AppTheme"
-                     Value="BaseLight">
-                <Setter Property="Background" 
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
-            </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.AppTheme"
-                     Value="BaseDark">
-                <Setter Property="Background" 
-                        Value="{DynamicResource WhiteBrush}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource BlackBrush}" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Foreground}" />
     </Style>
 </ResourceDictionary>

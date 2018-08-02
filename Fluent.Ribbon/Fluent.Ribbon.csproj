@@ -4,39 +4,28 @@
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DefaultWpfPageExcludes>$(DefaultWpfPageExcludes);**\*.Template.xaml</DefaultWpfPageExcludes>
+    <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);**\*.Template.xaml</ExtrasDefaultPageExcludes>
     <EnableDefaultNoneItems>False</EnableDefaultNoneItems>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <!-- We also have to exclude controls in release mode to reduce binary size -->
+    <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);**\Controls\*.xaml</ExtrasDefaultPageExcludes>
   </PropertyGroup>
   <ItemGroup>
     <None Include="**\*.fx;**\*.json" Exclude="$(BaseIntermediateOutputPath)\**\*" />
-    <None Include="**\*.Template.xaml" />
+    <None Include="**\Controls\*.xaml" />
+    <None Include="**\Styles.txt" />
+    <EmbeddedResource Include="**\*.Template.xaml" />
+    <EmbeddedResource Include="**\GeneratorParameters.json" />
     <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <ExtrasEnableDefaultWpfItems>False</ExtrasEnableDefaultWpfItems>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">
+  <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">    
+    <!-- <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" /> -->
+    <Exec Command="&quot;C:\DEV\OSS_Own\XamlColorSchemeGenerator\bin\Debug\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" />
     <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
-    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Accents\GeneratorParameters.json&quot;" />
-
-    <!-- ItemGroups have to be here. Otherwise the generated color schemes won't get picked up by msbuild -->
-    <ItemGroup>
-      <!-- Remove items first to prevent duplicate item issues -->
-      <Page Remove="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" />
-      <Page Include="Themes\Generic.xaml;Themes\Styles.xaml;Themes\Colors\*.xaml;Themes\Accents\*.xaml" Exclude="Themes\Accents\Accent.Template.xaml">
-        <SubType>Designer</SubType>
-        <Generator>MSBuild:Compile</Generator>
-      </Page>      
-    </ItemGroup>
-    
-    <!-- We only include certain xaml files in release to decrease binary size -->
-    <!-- We include all xaml files in debug to get intellisense everywhere -->
-    <ItemGroup Condition="'$(Configuration)'=='Release'">
-      <None Include="**\*.xaml" Exclude="Themes\Colors\*.xaml;Themes\Generic.xaml;Themes\Styles.xaml" />      
-    </ItemGroup>
   </Target>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

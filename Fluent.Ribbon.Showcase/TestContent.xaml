@@ -195,7 +195,7 @@
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
                                                                LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
-                                                               ItemsSource="{Binding ColorViewModel.AppThemes}"
+                                                               ItemsSource="{Binding ColorViewModel.Themes}"
                                                                DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
@@ -2745,24 +2745,24 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <WrapPanel>
                             <GroupBox Header="Theme">
                                 <WrapPanel>
-                                    <Fluent:ComboBox Header="AppTheme"
+                                    <!--<Fluent:ComboBox Header="AppTheme"
                                                      MinWidth="140"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding ColorViewModel.AppThemes}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentAppTheme, Mode=TwoWay}"
-                                                     DisplayMemberPath="Name" />
-                                    <Fluent:ComboBox Header="Accent"
+                                                     DisplayMemberPath="Name" />-->
+                                    <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding ColorViewModel.Accents}"
-                                                     SelectedItem="{Binding ColorViewModel.CurrentAccent, Mode=TwoWay}">
+                                                     ItemsSource="{Binding ColorViewModel.Themes}"
+                                                     SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
                                         <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type viewModels:AccentItem}">
+                                            <DataTemplate DataType="{x:Type Fluent:Theme}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Ellipse Width="16"
                                                              Height="16"
-                                                             Fill="{Binding AccentBaseColor, Mode=OneWay}" />
-                                                    <TextBlock Text="{Binding Accent.Name}" />
+                                                             Fill="{Binding ShowcaseBrush, Mode=OneWay}" />
+                                                    <TextBlock Text="{Binding DisplayName}" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </Fluent:ComboBox.ItemTemplate>
