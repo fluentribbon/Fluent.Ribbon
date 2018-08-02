@@ -23,8 +23,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Target Name="GenerateXamlFiles" BeforeTargets="BeforeBuild">    
-    <!-- <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" /> -->
-    <Exec Command="&quot;C:\DEV\OSS_Own\XamlColorSchemeGenerator\bin\Debug\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" />
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" /> 
+    <!--<Exec Command="&quot;C:\DEV\OSS_Own\XamlColorSchemeGenerator\bin\Debug\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" />-->
     <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
   </Target>
   <Import Project="..\.paket\Paket.Restore.targets" />

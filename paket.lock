@@ -13,16 +13,16 @@ NUGET
     MSBuild.Sdk.Extras (1.6.46)
     StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (2.1.4)
-    XamlColorSchemeGenerator (1.0.3.17)
+    XamlColorSchemeGenerator (2.0.0.22)
 
 GROUP cake
 RESTRICTION: == net45
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Cake (0.25)
-    Cake.Figlet (1.0)
-    Cake.Paket (2.0)
-    Cake.Paket.Module (2.0)
+    Cake (0.29)
+    Cake.Figlet (1.1)
+    Cake.Paket (4.0)
+    Cake.Paket.Module (4.0)
     GitVersion.CommandLine (3.6.5)
     NUnit.Console (3.8)
       NUnit.ConsoleRunner (>= 3.8)
