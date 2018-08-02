@@ -184,6 +184,7 @@ namespace Fluent.Tests.ThemeManager
                                    {
                                        "Theme.Name",
                                        "Theme.DisplayName",
+                                       "Theme.ColorScheme",
                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", // Ignored because it's based on highlight color
