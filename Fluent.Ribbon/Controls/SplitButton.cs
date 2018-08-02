@@ -152,7 +152,12 @@ namespace Fluent
             var button = (SplitButton)d;
             if (button.IsCheckable)
             {
-                if ((bool)e.NewValue)
+                var nullable = (bool?)e.NewValue;
+                if (nullable == null)
+                {
+                    button.RaiseEvent(new RoutedEventArgs(IndeterminateEvent, button));
+                }
+                else if (nullable.Value)
                 {
                     button.RaiseEvent(new RoutedEventArgs(CheckedEvent, button));
                 }
@@ -317,6 +322,27 @@ namespace Fluent
             remove
             {
                 this.RemoveHandler(UncheckedEvent, value);
+            }
+        }
+
+        /// <summary>
+        /// Occurs when button is unchecked
+        /// </summary>
+        public static readonly RoutedEvent IndeterminateEvent = System.Windows.Controls.Primitives.ToggleButton.IndeterminateEvent.AddOwner(typeof(SplitButton));
+
+        /// <summary>
+        /// Occurs when button is unchecked
+        /// </summary>
+        public event RoutedEventHandler Indeterminate
+        {
+            add
+            {
+                this.AddHandler(IndeterminateEvent, value);
+            }
+
+            remove
+            {
+                this.RemoveHandler(IndeterminateEvent, value);
             }
         }
 
