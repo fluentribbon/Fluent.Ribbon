@@ -74,7 +74,12 @@ namespace Fluent
         /// </summary>
         public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var element = (ILogicalChildSupport)d;
+            var element = d as ILogicalChildSupport;
+
+            if (element == null)
+            {
+                throw new ArgumentException("Argument musst be of type ILogicalChildSupport.", nameof(d));
+            }
 
             if (e.OldValue is FrameworkElement oldElement)
             {
