@@ -52,7 +52,9 @@ namespace FluentTest.ViewModels
 
             set
             {
-                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = new SolidColorBrush(value);
+                var solidColorBrush = new SolidColorBrush(value);
+                solidColorBrush.Freeze();
+                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = solidColorBrush;
                 this.OnPropertyChanged(nameof(this.ThemeColor));
             }
         }
