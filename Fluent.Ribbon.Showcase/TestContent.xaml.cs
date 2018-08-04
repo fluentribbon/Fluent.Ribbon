@@ -481,7 +481,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateAppStyleBy("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.GetResourceDictionaryContent(ThemeHelper.CreateTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false));
         }
 
         private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)

@@ -150,13 +150,13 @@ namespace Fluent.Tests.ThemeManager
         {
             var applicationTheme = ThemeManager.DetectTheme(Application.Current);
 
-            Assert.That(() => ThemeHelper.CreateAppStyleBy("Light", Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
+            Assert.That(() => ThemeHelper.CreateTheme("Light", Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
 
             var detected = ThemeManager.DetectTheme(Application.Current);
             Assert.NotNull(detected);
             Assert.That(detected.Name, Is.EqualTo("CustomAccentRed"));
 
-            Assert.That(() => ThemeHelper.CreateAppStyleBy("Dark", Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
+            Assert.That(() => ThemeHelper.CreateTheme("Dark", Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
 
             detected = ThemeManager.DetectTheme(Application.Current);
             Assert.NotNull(detected);
@@ -178,7 +178,7 @@ namespace Fluent.Tests.ThemeManager
                 Source = new Uri(source)
             };
 
-            var newDic = ThemeHelper.CreateAppStyleBy(baseColor, (Color)ColorConverter.ConvertFromString(color));
+            var newDic = ThemeHelper.CreateTheme(baseColor, (Color)ColorConverter.ConvertFromString(color));
 
             var ignoredKeyValues = new[]
                                    {

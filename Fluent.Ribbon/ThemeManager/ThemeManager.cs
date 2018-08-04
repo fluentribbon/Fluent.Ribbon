@@ -387,6 +387,32 @@ namespace Fluent
             ApplyResourceDictionary(newTheme.Resources, resources);
         }
 
+        /// <summary>
+        /// Changes the theme of a ResourceDictionary directly.
+        /// </summary>
+        /// <param name="resources">The ResourceDictionary to modify.</param>
+        /// <param name="baseColor">The basecolor to apply to the ResourceDictionary.</param>
+        [SecurityCritical]
+        public static void ChangeThemeBaseColor([NotNull] ResourceDictionary resources, string baseColor)
+        {
+            var currentTheme = DetectTheme(resources);
+
+            if (currentTheme == null)
+            {
+                return;
+            }
+
+            var newTheme = Themes.FirstOrDefault(x => x.BaseColorScheme == baseColor && x.ColorScheme == currentTheme.ColorScheme);
+
+            if (newTheme == null)
+            {
+                Trace.TraceError($"Could not find a theme with base color scheme '{baseColor}' and color scheme '{currentTheme.ColorScheme}'.");
+                return;
+            }
+
+            ChangeTheme(resources, currentTheme, newTheme);
+        }
+
         [SecurityCritical]
         private static void ApplyResourceDictionary(ResourceDictionary newRd, ResourceDictionary oldRd)
         {
@@ -618,22 +644,7 @@ namespace Fluent
                                ? BaseColorLight
                                : BaseColorDark;
 
-            var currentTheme = DetectTheme();
-
-            if (currentTheme == null)
-            {
-                return;
-            }
-
-            var newTheme = Themes.FirstOrDefault(x => x.BaseColorScheme == baseColor && x.ColorScheme == currentTheme.ColorScheme);
-
-            if (newTheme == null)
-            {
-                Trace.TraceError($"Could not find a theme with base color scheme '{baseColor}' and color scheme '{currentTheme.ColorScheme}'.");
-                return;
-            }
-
-            ChangeTheme(Application.Current.Resources, currentTheme, newTheme);
+            ChangeThemeBaseColor(Application.Current.Resources, baseColor);
         }
 
         private static bool isAutomaticWindowsAppModeSettingSyncEnabled;
