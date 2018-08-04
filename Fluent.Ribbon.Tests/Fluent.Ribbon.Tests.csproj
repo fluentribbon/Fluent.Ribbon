@@ -12,7 +12,6 @@
       <Link>Commanding\RelayCommand.cs</Link>
     </Compile>
     <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ThemeHelper.cs" Link="Helper\ThemeHelper.cs" />
-    <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ColorSchemeGenerator.cs" Link="Helper\ColorSchemeGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />

@@ -1,4 +1,5 @@
 #source C:\DEV\OSS_Own\ControlzEx\src\bin
+#source C:\DEV\OSS_Own\XamlColorSchemeGenerator\Publish
 source https://ci.appveyor.com/nuget/controlzex
 source https://api.nuget.org/v3/index.json
 
@@ -17,17 +18,7 @@ nuget Fody
 nuget Costura.Fody
 
 nuget ControlzEx >= 4.0.0-alpha prerelease
-
-group showcase
-	#source C:\DEV\OSS_Own\ControlzEx\src\bin
-	source https://ci.appveyor.com/nuget/controlzex	
-	source https://api.nuget.org/v3/index.json
-	framework: auto-detect
-	specific_version: false
-	redirects: off
-	
-	nuget MahApps.Metro
-	nuget ControlzEx >= 4.0.0-alpha prerelease
+nuget MahApps.Metro
 
 group test
 	source https://api.nuget.org/v3/index.json

@@ -1,10 +1,9 @@
 JetBrains.Annotations
+XamlColorSchemeGenerator
 
 StyleCop.Analyzers
 
 Costura.Fody content: once
 
 ControlzEx
-
-group showcase
-    MahApps.Metro
+MahApps.Metro

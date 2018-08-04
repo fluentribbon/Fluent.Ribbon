@@ -10,10 +10,12 @@ NUGET
     Fody (3.1.4)
     gitlink (3.1)
     JetBrains.Annotations (2018.2.1) - copy_local: false
+    MahApps.Metro (1.6.5)
+      ControlzEx (>= 3.0.2.4 < 4.0)
     MSBuild.Sdk.Extras (1.6.46)
     StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (2.1.4)
-    XamlColorSchemeGenerator (2.0.0.22)
+    XamlColorSchemeGenerator (2.0.0.25)
 
 GROUP cake
 RESTRICTION: == net45
@@ -37,17 +39,6 @@ NUGET
     NUnit.Extension.NUnitV2ResultWriter (3.6)
     NUnit.Extension.TeamCityEventListener (1.0.4)
     NUnit.Extension.VSProjectLoader (3.7)
-
-GROUP showcase
-REDIRECTS: OFF
-SPECIFIC-VERSION: FALSE
-RESTRICTION: || (== net45) (== net462)
-NUGET
-  remote: https://ci.appveyor.com/nuget/controlzex
-    ControlzEx (4.0.0-alpha0157)
-  remote: https://api.nuget.org/v3/index.json
-    MahApps.Metro (1.6.5)
-      ControlzEx (>= 3.0.2.4 < 4.0)
 
 GROUP test
 REDIRECTS: OFF
