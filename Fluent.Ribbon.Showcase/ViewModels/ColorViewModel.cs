@@ -3,9 +3,9 @@
 namespace FluentTest.ViewModels
 {
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Media;
     using Fluent;
 
@@ -18,6 +18,8 @@ namespace FluentTest.ViewModels
         {
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
+
+            CollectionViewSource.GetDefaultView(this.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
         }
 
         public Color StandardColor
@@ -55,7 +57,21 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public IEnumerable<Theme> Themes { get; } = ThemeManager.Themes.ToList();
+        public IEnumerable<string> BaseColors => ThemeManager.Themes.Select(x => x.BaseColorScheme).Distinct().ToList();
+
+        public string CurrentBaseColor
+        {
+            get => this.CurrentTheme.BaseColorScheme;
+
+            set
+            {
+                ThemeManager.ChangeThemeBaseColor(Application.Current.Resources, value);
+                this.OnPropertyChanged(nameof(this.CurrentBaseColor));
+                this.OnPropertyChanged(nameof(this.CurrentTheme));
+            }
+        }
+
+        public IEnumerable<Theme> Themes => ThemeManager.Themes.ToList();
 
         public Theme CurrentTheme
         {
@@ -65,7 +81,12 @@ namespace FluentTest.ViewModels
                 return this.Themes.FirstOrDefault(x => x.Name == theme.Name);
             }
 
-            set => ThemeManager.ChangeTheme(Application.Current, value);
+            set
+            {
+                ThemeManager.ChangeTheme(Application.Current, value);
+                this.OnPropertyChanged(nameof(this.CurrentTheme));
+                this.OnPropertyChanged(nameof(this.CurrentBaseColor));
+            }
         }
     }
 }

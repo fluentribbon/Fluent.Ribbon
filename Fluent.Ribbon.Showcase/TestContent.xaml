@@ -2748,12 +2748,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <WrapPanel>
                             <GroupBox Header="Theme">
                                 <WrapPanel>
-                                    <!--<Fluent:ComboBox Header="AppTheme"
+                                    <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding ColorViewModel.AppThemes}"
-                                                     SelectedItem="{Binding ColorViewModel.CurrentAppTheme, Mode=TwoWay}"
-                                                     DisplayMemberPath="Name" />-->
+                                                     ItemsSource="{Binding ColorViewModel.BaseColors}"
+                                                     SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
                                     <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
@@ -2769,6 +2768,19 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                 </StackPanel>
                                             </DataTemplate>
                                         </Fluent:ComboBox.ItemTemplate>
+                                        <Fluent:ComboBox.GroupStyle>
+                                            <GroupStyle>
+                                                <GroupStyle.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name, StringFormat='{}Base color: {0}'}"
+                                                                   FontSize="14"
+                                                                   FontWeight="DemiBold"
+                                                                   Background="{DynamicResource BlackBrush}"
+                                                                   Foreground="{DynamicResource WhiteBrush}" />
+                                                    </DataTemplate>
+                                                </GroupStyle.HeaderTemplate>
+                                            </GroupStyle>
+                                        </Fluent:ComboBox.GroupStyle>
                                     </Fluent:ComboBox>
                                 </WrapPanel>
                             </GroupBox>
