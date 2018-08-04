@@ -16,14 +16,14 @@ namespace Fluent.Tests.ThemeManager
     public class ThemeManagerTest
     {
         [Test]
-        public void ChangeAppStyleForAppShouldThrowArgumentNullException()
+        public void ChangeThemeForAppShouldThrowArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme((Application)null, ThemeManager.GetTheme("Light.Red")));
             Assert.Throws<ArgumentNullException>(() => ThemeManager.ChangeTheme(Application.Current, ThemeManager.GetTheme("UnknownTheme")));
         }
 
         [Test]
-        public void ChangeAppStyleForWindowShouldThrowArgumentNullException()
+        public void ChangeThemeForWindowShouldThrowArgumentNullException()
         {
             using (var window = new TestRibbonWindow())
             {
@@ -115,10 +115,10 @@ namespace Fluent.Tests.ThemeManager
                 Source = new Uri("pack://application:,,,/Fluent;component/Themes/Themes/daRK.Blue.xaml")
             };
 
-            var detected = ThemeManager.GetTheme(dic);
+            var theme = ThemeManager.GetTheme(dic);
 
-            Assert.NotNull(detected);
-            Assert.That(detected.Name, Is.EqualTo("Dark.Blue"));
+            Assert.NotNull(theme);
+            Assert.That(theme.Name, Is.EqualTo("Dark.Blue"));
         }
 
         [Test]
