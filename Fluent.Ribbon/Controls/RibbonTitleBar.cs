@@ -300,7 +300,7 @@ namespace Fluent
         private void Update(Size constraint)
         {
             var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
-                            .Where(group => group.InnerVisibility == Visibility.Collapsed && group.Items.Count > 0)
+                            .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
                             .ToList();
 
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
