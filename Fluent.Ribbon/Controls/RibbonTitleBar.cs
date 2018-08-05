@@ -299,10 +299,8 @@ namespace Fluent
         // Update items size and positions
         private void Update(Size constraint)
         {
-            var visibleGroups = this.HideContextTabs
-                ? new List<RibbonContextualTabGroup>(0)
-                : this.Items.OfType<RibbonContextualTabGroup>()
-                            .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
+            var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
+                            .Where(group => group.InnerVisibility == Visibility.Collapsed && group.Items.Count > 0)
                             .ToList();
 
             var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
