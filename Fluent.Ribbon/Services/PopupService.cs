@@ -7,6 +7,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using System.Windows.Threading;
     using Fluent.Extensions;
     using Fluent.Internal;
 
@@ -193,7 +194,7 @@ namespace Fluent
                     if (Mouse.Captured == null
                         || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
                     {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                        RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
                     }
 
                     return;
@@ -260,11 +261,6 @@ namespace Fluent
 
             if (e.DismissMode == DismissPopupMode.Always)
             {
-                if (Mouse.Captured == control)
-                {
-                    Mouse.Capture(null);
-                }
-
                 control.IsDropDownOpen = false;
             }
             else if (control.IsDropDownOpen)
@@ -287,11 +283,6 @@ namespace Fluent
 
                 if (IsMousePhysicallyOver(control.DropDownPopup.Child) == false)
                 {
-                    if (Mouse.Captured == control)
-                    {
-                        Mouse.Capture(null);
-                    }
-
                     control.IsDropDownOpen = false;
                 }
                 else
