@@ -27,18 +27,18 @@
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
 
-            this.SyncThemeManagers();
+            SyncThemeManagers();
 
-            ThemeManager.IsThemeChanged += (o, args) => this.SyncThemeManagers();
+            ThemeManager.IsThemeChanged += (o, args) => SyncThemeManagers(args);
         }
 
-        private void SyncThemeManagers()
+        private static void SyncThemeManagers(OnThemeChangedEventArgs args = null)
         {
             // Sync Fluent and MahApps ThemeManager
-            var fluentRibbonTheme = ThemeManager.DetectTheme();
+            var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
             var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == "Base" + fluentRibbonTheme.BaseColorScheme);
             var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentRibbonTheme.ColorScheme);
-            MahApps.Metro.ThemeManager.ChangeAppStyle(this, accent, appTheme);
+            MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, accent, appTheme);
         }
 
         #region TitelBar
