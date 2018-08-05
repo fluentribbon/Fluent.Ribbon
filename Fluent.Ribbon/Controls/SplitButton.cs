@@ -258,6 +258,38 @@ namespace Fluent
 
         #endregion
 
+        #region KeyTipPostfix
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="PrimaryActionKeyTipPostfix"/>.
+        /// </summary>
+        public static readonly DependencyProperty PrimaryActionKeyTipPostfixProperty = DependencyProperty.Register(nameof(PrimaryActionKeyTipPostfix), typeof(string), typeof(SplitButton), new PropertyMetadata("A"));
+
+        /// <summary>
+        /// Gets or sets the postfix for the primary keytip action.
+        /// </summary>
+        public string PrimaryActionKeyTipPostfix
+        {
+            get { return (string)this.GetValue(PrimaryActionKeyTipPostfixProperty); }
+            set { this.SetValue(PrimaryActionKeyTipPostfixProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="SecondaryActionKeyTipPostfix"/>.
+        /// </summary>
+        public static readonly DependencyProperty SecondaryActionKeyTipPostfixProperty = DependencyProperty.Register(nameof(SecondaryActionKeyTipPostfix), typeof(string), typeof(SplitButton), new PropertyMetadata("B"));
+
+        /// <summary>
+        /// Gets or sets the postfix for the secondary keytip action.
+        /// </summary>
+        public string SecondaryActionKeyTipPostfix
+        {
+            get { return (string)this.GetValue(SecondaryActionKeyTipPostfixProperty); }
+            set { this.SetValue(SecondaryActionKeyTipPostfixProperty, value); }
+        }
+
+        #endregion KeyTipPostfix
+
         #endregion
 
         #region Events
@@ -519,11 +551,11 @@ namespace Fluent
         /// <inheritdoc />
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
-            yield return new KeyTipInformation(this.KeyTip + "A", this.button, hide)
+            yield return new KeyTipInformation(this.KeyTip + this.PrimaryActionKeyTipPostfix, this.button, hide)
                 {
                     VisualTarget = this
                 };
-            yield return new KeyTipInformation(this.KeyTip + "B", this, hide);
+            yield return new KeyTipInformation(this.KeyTip + this.SecondaryActionKeyTipPostfix, this, hide);
         }
 
         #endregion

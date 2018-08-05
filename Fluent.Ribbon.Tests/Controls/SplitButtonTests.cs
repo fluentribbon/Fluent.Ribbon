@@ -1,5 +1,6 @@
 ﻿namespace Fluent.Tests.Controls
 {
+    using System.Linq;
     using Fluent.Tests.TestClasses;
     using FluentTest.Commanding;
     using NUnit.Framework;
@@ -64,6 +65,40 @@
 
                 Assert.That(splitButton.IsEnabled, Is.False);
                 Assert.That(dummyButton.IsEnabled, Is.False);
+            }
+        }
+
+        [Test]
+        public void KeyTips_Should_Have_Postfix()
+        {
+            {
+                var splitButton = new SplitButton
+                                  {
+                                      KeyTip = "Z"
+                                  };
+
+                using (new TestRibbonWindow(splitButton))
+                {
+                    var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations[0].Keys, Is.EqualTo("ZA"));
+                    Assert.That(keyTipInformations[1].Keys, Is.EqualTo("ZB"));
+                }
+            }
+
+            {
+                var splitButton = new SplitButton
+                                  {
+                                      KeyTip = "Z",
+                                      PrimaryActionKeyTipPostfix = "X",
+                                      SecondaryActionKeyTipPostfix = "Y"
+                                  };
+
+                using (new TestRibbonWindow(splitButton))
+                {
+                    var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations[0].Keys, Is.EqualTo("ZX"));
+                    Assert.That(keyTipInformations[1].Keys, Is.EqualTo("ZY"));
+                }
             }
         }
     }
