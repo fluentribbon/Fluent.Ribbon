@@ -31,6 +31,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="{x:Type Fluent:BackstageTabControl}"
+                   TargetType="{x:Type Fluent:BackstageTabControl}"
+                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
+                <Setter Property="SelectedContentMargin"
+                        Value="0" />
+            </Style>
         </ResourceDictionary>
     </Metro:MetroWindow.Resources>
        

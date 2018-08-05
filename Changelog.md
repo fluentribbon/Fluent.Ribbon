@@ -111,6 +111,8 @@
   You can now use `PrimaryActionKeyTipPostfix` and `SecondaryActionKeyTipPostfix` on `SplitButton` to control the postfix for key tips.
   - [#592](../../issues/592) - Disable context menu on Ribbon  
   You can now use `IsDefaultContextMenuEnabled` on `Ribbon` to disable the default context menu.
+  - [#599](../../issues/599) - MahApps.Metro dialog on backstage  
+  You can now use `UseHighestAvailableAdornerLayer` on `Backstage` to improve interop with MahApps.Metro regarding dialogs above the backstage.
 
 ## 6.1.0
 

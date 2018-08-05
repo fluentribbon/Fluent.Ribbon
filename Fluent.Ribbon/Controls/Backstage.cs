@@ -151,6 +151,21 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="UseHighestAvailableAdornerLayer"/>.
+        /// </summary>
+        public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Gets or sets wether the highest available adorner layer should be used for the <see cref="BackstageAdorner"/>.
+        /// This means that we will try to look up the visual tree till we find the highest <see cref="AdornerDecorator"/>.
+        /// </summary>
+        public bool UseHighestAvailableAdornerLayer
+        {
+            get { return (bool)this.GetValue(UseHighestAvailableAdornerLayerProperty); }
+            set { this.SetValue(UseHighestAvailableAdornerLayerProperty, value); }
+        }
+
         #region Content
 
         /// <summary>
@@ -491,10 +506,13 @@ namespace Fluent
                 return;
             }
 
-            AdornerDecorator currentAdornerDecorator;
-            while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+            if (this.UseHighestAvailableAdornerLayer)
             {
-                elementToAdorn = currentAdornerDecorator;
+                AdornerDecorator currentAdornerDecorator;
+                while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+                {
+                    elementToAdorn = currentAdornerDecorator;
+                }
             }
 
             this.AdornerLayer = UIHelper.GetAdornerLayer(elementToAdorn);

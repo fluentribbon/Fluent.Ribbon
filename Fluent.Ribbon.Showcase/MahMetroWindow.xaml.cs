@@ -16,6 +16,8 @@
         {
             this.InitializeComponent();
 
+            this.TestContent.Backstage.UseHighestAvailableAdornerLayer = false;
+
             this.Loaded += this.MahMetroWindow_Loaded;
         }
 

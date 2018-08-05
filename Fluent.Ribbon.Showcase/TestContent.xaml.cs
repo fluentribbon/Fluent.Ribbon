@@ -19,6 +19,7 @@ namespace FluentTest
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
     using MahApps.Metro.Controls;
+    using MahApps.Metro.Controls.Dialogs;
     using Button = Fluent.Button;
 
     public partial class TestContent
@@ -490,6 +491,18 @@ namespace FluentTest
 
             System.Windows.Forms.Application.Restart();
             Application.Current.Shutdown();
+        }
+
+        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var metroWindow = Window.GetWindow(this) as MetroWindow;
+
+            if (metroWindow == null)
+            {
+                return;
+            }
+
+            await metroWindow.ShowMessageAsync("Test", "Message");
         }
     }
 
