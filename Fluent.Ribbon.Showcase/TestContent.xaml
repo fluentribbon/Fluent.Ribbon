@@ -2932,6 +2932,9 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
                                         IsMouseWheelScrollingEnabled
                                     </Fluent:CheckBox>
+                                    <Fluent:CheckBox IsChecked="{Binding IsDefaultContextMenuEnabled, ElementName=ribbon}">
+                                        IsDefaultContextMenuEnabled
+                                    </Fluent:CheckBox>
                                 </WrapPanel>
                             </GroupBox>
 

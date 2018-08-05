@@ -62,6 +62,20 @@ namespace Fluent
 
         #region ContextMenu
 
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsDefaultContextMenuEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsDefaultContextMenuEnabledProperty = DependencyProperty.Register(nameof(IsDefaultContextMenuEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Gets or sets wether the default context menu should be enabled/used.
+        /// </summary>
+        public bool IsDefaultContextMenuEnabled
+        {
+            get { return (bool)this.GetValue(IsDefaultContextMenuEnabledProperty); }
+            set { this.SetValue(IsDefaultContextMenuEnabledProperty, value); }
+        }
+
         private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
 
         /// <summary>
@@ -275,6 +289,17 @@ namespace Fluent
             if (RibbonContextMenu == null
                 || ribbon == null)
             {
+                return;
+            }
+
+            if (ribbon.IsDefaultContextMenuEnabled == false)
+            {
+                foreach (UIElement item in RibbonContextMenu.Items)
+                {
+                    item.Visibility = Visibility.Collapsed;
+                }
+
+                RibbonContextMenu.IsOpen = false;
                 return;
             }
 

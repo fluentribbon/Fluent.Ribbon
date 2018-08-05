@@ -109,6 +109,8 @@
   You can now use `Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground`, `RibbonContextualTabGroup.TabItemSelectedForeground` and `RibbonContextualTabGroup.TabItemMouseOverForeground` to further control colors.
   - [#590](../../issues/590) - SplitButton custom KeyTip  
   You can now use `PrimaryActionKeyTipPostfix` and `SecondaryActionKeyTipPostfix` on `SplitButton` to control the postfix for key tips.
+  - [#592](../../issues/592) - Disable context menu on Ribbon  
+  You can now use `IsDefaultContextMenuEnabled` on `Ribbon` to disable the default context menu.
 
 ## 6.1.0
 
