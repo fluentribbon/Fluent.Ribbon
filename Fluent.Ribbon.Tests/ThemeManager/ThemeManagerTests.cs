@@ -12,6 +12,7 @@ namespace Fluent.Tests.ThemeManager
     using FluentTest.Helpers;
     using NUnit.Framework;
 
+    [CLSCompliant(false)]
     [TestFixture]
     public class ThemeManagerTest
     {
@@ -150,13 +151,13 @@ namespace Fluent.Tests.ThemeManager
         {
             var applicationTheme = ThemeManager.DetectTheme(Application.Current);
 
-            Assert.That(() => ThemeHelper.CreateTheme("Light", Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
+            Assert.That(() => ThemeHelper.CreateTheme("Light", Colors.Red, Colors.Red, "CustomAccentRed", changeImmediately: true), Throws.Nothing);
 
             var detected = ThemeManager.DetectTheme(Application.Current);
             Assert.NotNull(detected);
             Assert.That(detected.Name, Is.EqualTo("CustomAccentRed"));
 
-            Assert.That(() => ThemeHelper.CreateTheme("Dark", Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
+            Assert.That(() => ThemeHelper.CreateTheme("Dark", Colors.Green, Colors.Green, "CustomAccentGreen", changeImmediately: true), Throws.Nothing);
 
             detected = ThemeManager.DetectTheme(Application.Current);
             Assert.NotNull(detected);
@@ -166,19 +167,19 @@ namespace Fluent.Tests.ThemeManager
         }
 
         [Test]
-        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.blue.xaml", "Dark", "#FF2B579A")]
-        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.green.xaml", "Dark", "#FF60A917")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.blue.xaml", "Dark", "#FF2B579A", "#FF086F9E")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.green.xaml", "Dark", "#FF60A917", "#FF477D11")]
 
-        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.blue.xaml", "Light", "#FF2B579A")]
-        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.green.xaml", "Light", "#FF60A917")]
-        public void CompareGeneratedAppStyleWithShipped(string source, string baseColor, string color)
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.blue.xaml", "Light", "#FF2B579A", "#FF086F9E")]
+        [TestCase("pack://application:,,,/Fluent;component/Themes/themes/Light.green.xaml", "Light", "#FF60A917", "#FF477D11")]
+        public void CompareGeneratedAppStyleWithShipped(string source, string baseColor, string color, string highlightColor)
         {
             var dic = new ResourceDictionary
             {
                 Source = new Uri(source)
             };
 
-            var newDic = ThemeHelper.CreateTheme(baseColor, (Color)ColorConverter.ConvertFromString(color));
+            var newDic = ThemeHelper.CreateTheme(baseColor, (Color)ColorConverter.ConvertFromString(color), (Color)ColorConverter.ConvertFromString(highlightColor));
 
             var ignoredKeyValues = new[]
                                    {
@@ -187,10 +188,6 @@ namespace Fluent.Tests.ThemeManager
                                        "Theme.ColorScheme",
                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
-                                       "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", // Ignored because it's based on highlight color
-                                       "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground", // Ignored because it's based on highlight color
-                                       "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground", // Ignored because it's based on highlight color
-                                       "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground", // Ignored because it's based on highlight color
                                    };
             CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
             CompareResourceDictionaries(newDic, dic, ignoredKeyValues);

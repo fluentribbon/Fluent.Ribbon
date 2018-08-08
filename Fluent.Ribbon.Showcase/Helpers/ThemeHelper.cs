@@ -13,7 +13,7 @@
 
     public class ThemeHelper
     {
-        public static ResourceDictionary CreateTheme(string baseColorScheme, Color accentBaseColor, string name = null, bool changeImmediately = false)
+        public static ResourceDictionary CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
         {
             name = name ?? $"RuntimeTheme_{accentBaseColor.ToString().Replace("#", string.Empty)}";
 
@@ -30,7 +30,7 @@
             values.Add("Fluent.Ribbon.Colors.AccentColor40", Color.FromArgb(102, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
             values.Add("Fluent.Ribbon.Colors.AccentColor20", Color.FromArgb(51, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
 
-            values.Add("Fluent.Ribbon.Colors.HighlightColor", accentBaseColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.HighlightColor", highlightColor.ToString());
             values.Add("Fluent.Ribbon.Colors.IdealForegroundColor", IdealTextColor(accentBaseColor).ToString());
 
             var xamlContent = new ColorSchemeGenerator().GenerateColorSchemeFileContent(generatorParameters, variant, colorScheme, themeTemplateContent, name, name);
