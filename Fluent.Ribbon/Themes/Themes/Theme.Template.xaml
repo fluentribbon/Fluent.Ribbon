@@ -193,6 +193,7 @@
     <!-- RibbonContextualTabGroup -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}}" options:Freeze="True" />
 
     <!-- RibbonTabItem -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}}" options:Freeze="True" />

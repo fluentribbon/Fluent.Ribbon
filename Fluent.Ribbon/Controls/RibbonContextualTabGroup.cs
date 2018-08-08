@@ -47,6 +47,20 @@ namespace Fluent
         }
 
         /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedMouseOverForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemSelectedMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used when the mouse is over a selected <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemSelectedMouseOverForeground
+        {
+            get { return (Brush)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
+            set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets group header
         /// </summary>
         public string Header

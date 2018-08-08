@@ -110,6 +110,7 @@
                                                  Foreground="{DynamicResource BlackBrush}"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
                                                  TabItemMouseOverForeground="Red"
+                                                 TabItemSelectedMouseOverForeground="OrangeRed"
                                                  Header="FIRST"
                                                  Visibility="Visible" />
 

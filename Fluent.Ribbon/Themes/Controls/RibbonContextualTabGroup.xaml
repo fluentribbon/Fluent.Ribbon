@@ -18,6 +18,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
         <Setter Property="TabItemMouseOverForeground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
+        <Setter Property="TabItemSelectedMouseOverForeground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
     </Style>
     
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
