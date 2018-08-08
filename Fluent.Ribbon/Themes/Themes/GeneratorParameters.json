@@ -6,7 +6,8 @@
     "Fluent.Ribbon.Colors.ExtremeHighlightColor": "#FFFFD232",
     "Fluent.Ribbon.Colors.DarkExtremeHighlightColor": "#FFF29536",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background": "#FFFCF1C2",
-    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush": "#FFF29536"
+    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush": "#FFF29536",
+    "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource BlackColor}"
   },
   "BaseColorSchemes": [
     {
@@ -86,7 +87,7 @@
         "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "{StaticResource WhiteColor}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.HighlightColor}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.HighlightColor}"
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.HighlightColor}"        
       }
     }
   ],

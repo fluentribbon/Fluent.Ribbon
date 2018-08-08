@@ -138,7 +138,7 @@
         <Setter Property="TitleBackground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleForeground"
-                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
         <Setter Property="TitleBarHeight"
