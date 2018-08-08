@@ -249,6 +249,11 @@
                 <Setter Property="BorderBrush"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
             </Trigger>
+            <Trigger Property="IsSelected"
+                     Value="True">
+                <Setter Property="Fluent:RibbonProperties.MouseOverForeground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />
+            </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsContextual, RelativeSource={RelativeSource Self}}"

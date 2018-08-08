@@ -201,6 +201,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground}}" options:Freeze="True" />    
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground" Color="{StaticResource Gray1}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
     
