@@ -493,7 +493,7 @@ namespace FluentTest
             Application.Current.Shutdown();
         }
 
-        private async void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private async void HandleShowMetroMessage(object sender, RoutedEventArgs e)
         {
             var metroWindow = Window.GetWindow(this) as MetroWindow;
 
