@@ -190,6 +190,7 @@ namespace Fluent.Tests.ThemeManager
                                        "Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", // Ignored because it's based on highlight color
                                        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground", // Ignored because it's based on highlight color
                                        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground", // Ignored because it's based on highlight color
+                                       "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground", // Ignored because it's based on highlight color
                                    };
             CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
             CompareResourceDictionaries(newDic, dic, ignoredKeyValues);
