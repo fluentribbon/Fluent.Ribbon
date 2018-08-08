@@ -1001,7 +1001,7 @@ namespace Fluent
             {
                 if (this.ItemContainerGenerator.ContainerFromItem(item) is GalleryItem itemContainer)
                 {
-                    itemContainer.IsSelected = true;
+                    itemContainer.IsSelected = this.Selectable;
                 }
             }
 

@@ -86,6 +86,7 @@
   - [#581](../../issues/581) - StackOverflow Exception when trying to access ApplicationMenu while RibbonMenu is minimized
   - [#586](../../issues/586) - BackstageTabItem IsEnabled=False still displays content
   - [#587](../../issues/587) - DisplayMemberPath no longer working on DropDownButton/MenuItem as of version 6.0
+  - [#593](../../issues/593) - Disable state selected in InRibbonGallery after click
   - [#594](../../issues/594) - Keep title in the same location when opening the backstage
   - [#602](../../issues/602) - Pin button not clickable when Ribbon in collapsed state
 

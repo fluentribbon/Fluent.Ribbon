@@ -1915,7 +1915,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             ItemHeight="56"
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource largeDataItemTemplate}"
-                                            ResizeMode="Both">
+                                            ResizeMode="Both"
+                                            Selectable="False">
                         <!--You can also add items to context menu-->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
