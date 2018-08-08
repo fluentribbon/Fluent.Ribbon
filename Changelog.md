@@ -54,7 +54,9 @@
 | --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
 | --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground |
 | --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground |
 | --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground |
 | --- | Fluent.Ribbon.Brushes.Backstage.Background |
 | --- | Fluent.Ribbon.Brushes.Backstage.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.Background |
@@ -64,6 +66,7 @@
 | --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Background |
 | --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
+| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
 </p></details>
 
 - ### Bug fixes
