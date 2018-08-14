@@ -54,6 +54,12 @@ namespace Fluent
                             themes.Add(new Theme(resourceAddress));
                         }
                     }
+
+                    const string baseManualThemeResourcePath = "pack://application:,,,/Fluent;component/Themes/";
+                    var colorfulBlue = new Uri($"{baseManualThemeResourcePath}Colorful.Blue.xaml");
+                    var colorfulGray = new Uri($"{baseManualThemeResourcePath}Colorful.Gray.xaml");
+                    themes.Add(new Theme(colorfulBlue));
+                    themes.Add(new Theme(colorfulGray));
                 }
                 catch (Exception e)
                 {
@@ -214,7 +220,7 @@ namespace Fluent
                 // Note: do not use contains, because that will look in all merged dictionaries as well. We need to check
                 // out the actual keys of the current resource dictionary
                 if (!(from object resourceKey in resources.Keys
-                     select resourceKey as string).Any(keyAsString => string.Equals(keyAsString, styleKey)))
+                      select resourceKey as string).Any(keyAsString => string.Equals(keyAsString, styleKey)))
                 {
                     return false;
                 }
