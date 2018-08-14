@@ -20,10 +20,6 @@
     <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <UpToDateCheckInput Remove="Themes\Themes\Colorful.Blue.xaml" />
-    <UpToDateCheckInput Remove="Themes\Themes\Colorful.Gray.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Target Name="GenerateXamlFiles" AfterTargets="CollectPackageReferences">    
