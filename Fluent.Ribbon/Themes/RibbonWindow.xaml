@@ -78,7 +78,7 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsActive" Value="False" />
-                    <Condition Property="GlowBrush" Value="{x:Null}" />
+                    <Condition Property="NonActiveGlowBrush" Value="{x:Null}" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveBorderBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
             </MultiTrigger>
@@ -125,6 +125,8 @@
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="BorderBrush"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="NonActiveBorderBrush"
+                Value="#434346" />
         <Setter Property="BorderThickness"
                 Value="1" />
         <Setter Property="GlowBrush"
