@@ -13,9 +13,9 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    #if NET45 // for DpiScale
+#if NET45 // for DpiScale
     using ControlzEx.Standard;
-    #endif
+#endif
     using Fluent.Internal;
 
     /// <summary>
@@ -63,26 +63,6 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="targetVisual">The target visual which should be used to get the correct <see cref="DpiScale"/>.</param>
-        public ObjectToImageConverter(Visual targetVisual)
-            : this(targetVisual, Size.Empty)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="targetVisual">The target visual which should be used to get the correct <see cref="DpiScale"/>.</param>
-        /// <param name="desiredSize">The desired size for the image.</param>
-        public ObjectToImageConverter(Visual targetVisual, Size desiredSize)
-            : this(desiredSize)
-        {
-            this.TargetVisual = targetVisual;
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
         /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
         public ObjectToImageConverter(Binding iconBinding, Size desiredSize)
@@ -113,12 +93,6 @@
         {
             this.DesiredSize = desiredSize;
         }
-
-        /// <summary>
-        /// The target visual which should be used to get the correct <see cref="DpiScale"/>.
-        /// </summary>
-        [ConstructorArgument("targetVisual")]
-        public Visual TargetVisual { get; set; }
 
         /// <summary>
         /// asdf
@@ -157,7 +131,7 @@
                 desiredSize = size;
             }
 
-            return this.Convert(value, this.TargetVisual, desiredSize, targetType);
+            return this.Convert(value, null, desiredSize, targetType);
         }
 
         /// <inheritdoc />
@@ -169,7 +143,7 @@
         /// <summary>
         /// Returns the value to convert.
         /// </summary>
-        protected virtual object GetValueToConvert(object value, Size desiredSize)
+        protected virtual object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
         {
             return value;
         }
@@ -217,50 +191,42 @@
             // Get the target of the extension from the IServiceProvider interface
             var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
 
-            // Setter don't accept anything else than DynamicResourceExtension and everything inherited from BindingBase.
+            // Setters don't accept anything else than DynamicResourceExtension and everything inherited from BindingBase.
             // So we cheat and create a new MultiBinding.
             if (provideValueTarget.TargetObject is Setter)
             {
-                var multiBinding = new MultiBinding
-                                   {
-                                       Converter = this
-                                   };
-                multiBinding.Bindings.Add(this.IconBinding);
-                multiBinding.Bindings.Add(this.TargetVisualBinding);
-
-                return multiBinding.ProvideValue(serviceProvider);
+                return this.CreateMultiBinding(serviceProvider);
             }
-
-            // We can't modify the Binding after it's been used, so we do it now
-            if (this.IconBinding.Converter == null)
-            {
-                this.IconBinding.Converter = this;
-            }
-
-            var targetObject = provideValueTarget.TargetObject as DependencyObject;
 
             // If we are inside a ControlTemplate there is no suitable target object so we return ourself and so we are being called again when the real control is created
-            if (targetObject == null)
+            if (provideValueTarget.TargetObject is DependencyObject)
             {
                 return this;
             }
 
-            // Add the target to the converter we set earlier
-            var objectToImageConverter = (ObjectToImageConverter)this.IconBinding.Converter;
-            if (objectToImageConverter.TargetVisual == null)
-            {
-                objectToImageConverter.TargetVisual = targetObject as Visual;
-            }
-
-            // Let the binding provide the value
-            return this.IconBinding.ProvideValue(serviceProvider);
+            return this.CreateMultiBinding(serviceProvider);
         }
 
         #endregion Implementation of MarkupExtension
 
+        private object CreateMultiBinding(IServiceProvider serviceProvider)
+        {
+            var multiBinding = new MultiBinding
+            {
+                Converter = this
+            };
+            multiBinding.Bindings.Add(this.IconBinding);
+            if (this.TargetVisualBinding != null)
+            {
+                multiBinding.Bindings.Add(this.TargetVisualBinding);
+            }
+
+            return multiBinding.ProvideValue(serviceProvider);
+        }
+
         private object Convert(object value, Visual targetVisual, Size desiredSize, Type targetType)
         {
-            var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize), targetVisual, desiredSize);
+            var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
             if (imageSource == null)
             {
@@ -273,9 +239,9 @@
             }
 
             var image = new Image
-                        {
-                            Source = imageSource
-                        };
+            {
+                Source = imageSource
+            };
 
             return image;
         }
@@ -464,12 +430,12 @@
 
         private static DpiScale GetDpiScale(Visual targetVisual)
         {
-            #if !NET45 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
+#if !NET45 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
             if (targetVisual != null)
             {
                 return VisualTreeHelper.GetDpi(targetVisual);
             }
-            #endif
+#endif
 
             if (Application.Current?.CheckAccess() == true
                 && Application.Current.MainWindow?.CheckAccess() == true)
@@ -489,9 +455,9 @@
         private static ImageSource CreateImageNotFoundImageSource()
         {
             var drawingGroup = new DrawingGroup
-                               {
-                                   ClipGeometry = Geometry.Parse("M0,0 V426,667 H426,667 V0 H0 Z")
-                               };
+            {
+                ClipGeometry = Geometry.Parse("M0,0 V426,667 H426,667 V0 H0 Z")
+            };
             var geometryDrawing = new GeometryDrawing(Brushes.Red, new Pen(), Geometry.Parse("F1 M426.667,426.667z M0,0z M213.333,0C95.514,0 0,95.514 0,213.333 0,331.152 95.514,426.666 213.333,426.666 331.152,426.666 426.666,331.152 426.666,213.333 426.666,95.514 331.153,0 213.333,0z M330.995,276.689L276.693,330.995 213.333,267.639 149.973,330.999 95.671,276.689 159.027,213.333 95.671,149.973 149.973,95.671 213.333,159.027 276.693,95.671 330.995,149.973 267.639,213.333 330.995,276.689z"));
             using (drawingGroup.Append())
             {
@@ -499,9 +465,9 @@
             }
 
             var image = new DrawingImage
-                        {
-                            Drawing = drawingGroup
-                        };
+            {
+                Drawing = drawingGroup
+            };
 
             return image;
         }

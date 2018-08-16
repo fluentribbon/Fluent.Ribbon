@@ -51,11 +51,11 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override object GetValueToConvert(object value, Size desiredSize)
+        protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
         {
             if (value == null)
             {
-                var defaultIcon = GetDefaultIcon(this.TargetVisual, desiredSize);
+                var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 
                 if (defaultIcon != null)
                 {
@@ -63,7 +63,7 @@ namespace Fluent
                 }
             }
 
-            return base.GetValueToConvert(value, desiredSize);
+            return base.GetValueToConvert(value, desiredSize, targetVisual);
         }
 
         private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
