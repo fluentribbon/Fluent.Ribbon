@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -2003,7 +2003,7 @@ namespace Fluent
 
             this.RibbonStateStorage.Load();
 
-            this.TabControl.SelectFirstTab();
+            this.TabControl?.SelectFirstTab();
         }
 
         // Handles items changing in QAT
