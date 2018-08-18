@@ -5,12 +5,20 @@
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
     <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>        
+  </PropertyGroup>
+  <PropertyGroup>
+      <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
+      <Product>Fluent.Ribbon</Product>
+      <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
+      <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">7.0.0.0</AssemblyVersion>
+      <FileVersion Condition="'$(FileVersion)' == ''">7.0.0.0</FileVersion>
+      <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>NET45</DefineConstants>

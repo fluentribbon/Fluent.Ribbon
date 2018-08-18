@@ -34,8 +34,11 @@ if (string.IsNullOrWhiteSpace(configuration))
 //////////////////////////////////////////////////////////////////////
 
 // Set build version
-GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
-GitVersion gitVersion;
+if (BuildSystem.IsLocalBuild == false)
+{
+    GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
+}
+GitVersion gitVersion = GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.Json });
 
 var local = BuildSystem.IsLocalBuild;
 var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
@@ -57,15 +60,14 @@ var token = "";
 
 Setup(context =>
 {
-    gitVersion = GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.Json });
+    Information(Figlet("Fluent.Ribbon"));
+
     Information("Informational Version  : {0}", gitVersion.InformationalVersion);
     Information("SemVer Version         : {0}", gitVersion.SemVer);
     Information("AssemblySemVer Version : {0}", gitVersion.AssemblySemVer);
     Information("MajorMinorPatch Version: {0}", gitVersion.MajorMinorPatch);
     Information("NuGet Version          : {0}", gitVersion.NuGetVersion);
     Information("IsLocalBuild           : {0}", local);
-
-    Information(Figlet("Fluent.Ribbon"));
 });
 
 Task("Clean")
@@ -106,6 +108,9 @@ Task("Build")
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
             .SetVerbosity(Verbosity.Minimal)
+            .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
+            .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
+            .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
             );
     }
 });
