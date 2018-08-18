@@ -88,13 +88,6 @@ Task("Restore")
             );
 });
 
-Task("Update-SolutionInfo")
-    .Does(() =>
-{
-	var solutionInfo = "./Shared/GlobalAssemblyInfo.cs";
-	GitVersion(new GitVersionSettings { UpdateAssemblyInfo = true, UpdateAssemblyInfoFilePath = solutionInfo});
-});
-
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
@@ -197,7 +190,6 @@ Task("Default")
     .IsDependentOn("Build");
 
 Task("appveyor")
-    .IsDependentOn("Update-SolutionInfo")
     .IsDependentOn("Build")
     .IsDependentOn("Tests")
     .IsDependentOn("Pack")
