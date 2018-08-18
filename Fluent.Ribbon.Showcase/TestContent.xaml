@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FluentTest.TestContent"
+<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -1641,12 +1641,28 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            ClosePopupOnMouseDown="True"
                                            ClosePopupOnMouseDownDelay="250">
-                        <Fluent:MenuItem Header="Item 1" />
-                        <Fluent:MenuItem Header="Item 2" />
-                        <Fluent:MenuItem Header="Item 3">
+                        <Fluent:MenuItem Header="Item 1">
                             <Fluent:MenuItem Header="Item 1" />
-                            <Fluent:MenuItem Header="Item 2">
+                            <Fluent:MenuItem Header="Item 2" />
+                            <Fluent:MenuItem Header="Item 3" />
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="Item 2">
+                            <Fluent:MenuItem Header="Item 1" />
+                            <Fluent:MenuItem Header="Item 2" />
+                            <Fluent:MenuItem Header="Item 3" />
+                        </Fluent:MenuItem>
+                        <Fluent:MenuItem Header="Item 3">
+                            <Fluent:MenuItem Header="Item 1">
                                 <Fluent:MenuItem Header="Item 1" />
+                                <Fluent:MenuItem Header="Item 2" />
+                                <Fluent:MenuItem Header="Item 3" />
+                            </Fluent:MenuItem>
+                            <Fluent:MenuItem Header="Item 2">
+                                <Fluent:MenuItem Header="Item 1">
+                                    <Fluent:MenuItem Header="Item 1" />
+                                    <Fluent:MenuItem Header="Item 2" />
+                                    <Fluent:MenuItem Header="Item 3" />
+                                </Fluent:MenuItem>
                                 <Fluent:MenuItem Header="Item 2">
                                     <Fluent:MenuItem Header="Item 1" />
                                     <Fluent:MenuItem Header="Item 2" />

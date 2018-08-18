@@ -92,6 +92,7 @@
   - [#593](../../issues/593) - Disable state selected in InRibbonGallery after click
   - [#594](../../issues/594) - Keep title in the same location when opening the backstage
   - [#602](../../issues/602) - Pin button not clickable when Ribbon in collapsed state
+  - [#607](../../issues/607) - Submenu contained in DropDownButton closes too slow
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  

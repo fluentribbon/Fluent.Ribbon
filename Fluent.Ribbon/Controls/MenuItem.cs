@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -21,6 +22,10 @@ namespace Fluent
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields
+
+        //DependencyPropertyKey
+        private static readonly FieldInfo rolePropertyKeyFieldInfo = typeof(System.Windows.Controls.MenuItem).GetField("RolePropertyKey", BindingFlags.Static | BindingFlags.NonPublic);
+        private static readonly DependencyPropertyKey rolePropertyKey = (DependencyPropertyKey)rolePropertyKeyFieldInfo.GetValue(null);
 
         // Thumb to resize in both directions
         private Thumb resizeBothThumb;
@@ -428,7 +433,8 @@ namespace Fluent
 
             if (this.IsItemsControlMenuBase == false)
             {
-                if (this.HasItems)
+                if (this.HasItems
+                    && this.Parent is DropDownButton)
                 {
                     this.IsSubmenuOpen = true;
                 }
@@ -444,6 +450,15 @@ namespace Fluent
             }
 
             base.OnMouseLeave(e);
+
+            if (this.IsItemsControlMenuBase == false)
+            {
+                if (this.HasItems
+                    && this.Parent is DropDownButton)
+                {
+                    this.IsSubmenuOpen = false;
+                }
+            }
         }
 
         /// <inheritdoc />
