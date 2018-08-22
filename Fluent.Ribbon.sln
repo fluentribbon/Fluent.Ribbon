@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{2CB1F3
 	ProjectSection(SolutionItems) = preProject
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
+		paket.template = paket.template
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{1318E3D3-5156-45FE-9828-464A2D0235E0}"
@@ -17,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905-C104-421D-9502-C4DF042EC048}"
 	ProjectSection(SolutionItems) = preProject
 		appveyor.yml = appveyor.yml
+		build.cake = build.cake
 		Build.ps1 = Build.ps1
 		Directory.build.props = Directory.build.props
 		Directory.build.targets = Directory.build.targets
@@ -27,10 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		Changelog.md = Changelog.md
 		Fluent.Ribbon.ruleset = Fluent.Ribbon.ruleset
+		global.json = global.json
 		Shared\GlobalAssemblyInfo.cs = Shared\GlobalAssemblyInfo.cs
 		License.txt = License.txt
 		README.md = README.md
-		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F645176A-E1EC-4CD6-B2E6-DCECB24DC102}"
