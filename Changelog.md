@@ -25,6 +25,7 @@
     The theming got rewritten this means that there is no longer a separation between `AppTheme` and `Accent`. These got replaced by `Theme`.  
     Instead of something like `pack://application:,,,/Fluent;component/Themes/Colors/BaseLight.xaml` and `pack://application:,,,/Fluent;component/Themes/Accents/Cobalt.xaml` you now have to use `pack://application:,,,/Fluent;component/Themes/Themes/Light.Cobalt.xaml`.
     The words `AppTheme` and `Accent` are replaced by `Theme` everywhere.
+  - The target type for `Fluent.Ribbon.Styles.MenuItem` (previously named `FluentDefaultSystemMenuItemStyle`) now is `Fluent:MenuItem` instead of `MenuItem`
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
@@ -33,6 +34,7 @@
 |Old|New|
 |---|---|
 | BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
+| FluentDefaultSystemMenuItemStyle | Fluent.Ribbon.Styles.MenuItem |
 | BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |
 | BackstageSeparatorTabItemStyle | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem |
 | ComboBoxBackstageStyle | Fluent.Ribbon.Styles.Backstage.ComboBox |

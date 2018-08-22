@@ -947,8 +947,8 @@
     </ControlTemplate>
     
     <!--Menu Item Style-->
-    <Style x:Key="FluentDefaultSystemMenuItemStyle"
-           TargetType="{x:Type MenuItem}">
+    <Style x:Key="Fluent.Ribbon.Styles.MenuItem"
+           TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
