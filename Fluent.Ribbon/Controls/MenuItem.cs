@@ -454,7 +454,8 @@ namespace Fluent
             if (this.IsItemsControlMenuBase == false)
             {
                 if (this.HasItems
-                    && this.Parent is DropDownButton)
+                    && this.Parent is DropDownButton // prevent too slow close on regular DropDown
+                    && this.Parent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
                 {
                     this.IsSubmenuOpen = false;
                 }
