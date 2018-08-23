@@ -178,7 +178,7 @@ namespace Fluent
 
             if (Mouse.Captured != sender
                 && control.IsDropDownOpen
-                && !control.IsContextMenuOpened)
+                && control.IsContextMenuOpened == false)
             {
                 var popup = control.DropDownPopup;
 
