@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -87,7 +87,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine("Dismissing Popup (async)");
+            Debug.WriteLine($"Dismissing Popup ({mode}, async)");
 
             element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode));
         }
@@ -104,7 +104,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine("Dismissing Popup");
+            Debug.WriteLine($"Dismissing Popup ({mode})");
 
             element.RaiseEvent(new DismissPopupEventArgs(mode));
         }
