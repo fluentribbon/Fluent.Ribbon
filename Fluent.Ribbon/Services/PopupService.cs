@@ -119,8 +119,8 @@ namespace Fluent
         {
             EventManager.RegisterClassHandler(classType, Mouse.PreviewMouseDownOutsideCapturedElementEvent, new MouseButtonEventHandler(OnClickThroughThunk));
             EventManager.RegisterClassHandler(classType, DismissPopupEvent, new EventHandler<DismissPopupEventArgs>(OnDismissPopup));
-            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuOpeningEvent, new ContextMenuEventHandler(OnContextMenuOpened), true);
-            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(OnContextMenuClosed), true);
+            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuOpeningEvent, new ContextMenuEventHandler(OnContextMenuOpening), true);
+            EventManager.RegisterClassHandler(classType, FrameworkElement.ContextMenuClosingEvent, new ContextMenuEventHandler(OnContextMenuClosing), true);
             EventManager.RegisterClassHandler(classType, UIElement.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
         }
 
@@ -332,9 +332,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles context menu opened event
+        /// Handles context menu opening event
         /// </summary>
-        public static void OnContextMenuOpened(object sender, ContextMenuEventArgs e)
+        public static void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
@@ -344,9 +344,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles context menu closed event
+        /// Handles context menu closing event
         /// </summary>
-        public static void OnContextMenuClosed(object sender, ContextMenuEventArgs e)
+        public static void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
