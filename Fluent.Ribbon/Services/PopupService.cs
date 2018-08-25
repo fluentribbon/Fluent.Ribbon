@@ -386,7 +386,11 @@ namespace Fluent
             {
                 Debug.WriteLine("Context menu closing");
                 control.IsContextMenuOpened = false;
-                RaiseDismissPopupEvent(control, DismissPopupMode.MouseNotOver);
+
+                if (Mouse.Captured is System.Windows.Controls.ContextMenu == false)
+                {
+                    RaiseDismissPopupEvent(e.OriginalSource, DismissPopupMode.MouseNotOver);
+                }
             }
         }
 
