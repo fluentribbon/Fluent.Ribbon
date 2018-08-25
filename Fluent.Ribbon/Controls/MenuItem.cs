@@ -492,6 +492,10 @@ namespace Fluent
                         this.OnClick();
                     }
                 }
+                else if (this.HasItems)
+                {
+                    this.IsSubmenuOpen = !this.IsSubmenuOpen;
+                }
             }
 
             base.OnMouseLeftButtonUp(e);
