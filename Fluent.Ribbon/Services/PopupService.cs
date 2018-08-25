@@ -7,7 +7,6 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
-    using System.Windows.Threading;
     using Fluent.Extensions;
     using Fluent.Internal;
 
@@ -87,7 +86,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup ({mode}, async)");
+            Debug.WriteLine($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
 
             element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode));
         }
@@ -104,7 +103,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup ({mode})");
+            Debug.WriteLine($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
 
             element.RaiseEvent(new DismissPopupEventArgs(mode));
         }
@@ -129,7 +128,10 @@ namespace Fluent
         /// </summary>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            ////Debug.WriteLine(string.Format("OnClickThroughThunk: sender = {0}; originalSource = {1}; mouse capture = {2}", sender, e.OriginalSource, Mouse.Captured));
+            Debug.WriteLine(nameof(OnClickThroughThunk));
+            Debug.WriteLine($"Sender         - {sender}");
+            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
+            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
 
             if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
@@ -165,7 +167,7 @@ namespace Fluent
         /// </summary>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine($"OnLostMouseCapture");
+            Debug.WriteLine(nameof(OnLostMouseCapture));
             Debug.WriteLine($"Sender         - {sender}");
             Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
             Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
