@@ -1,8 +1,7 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
-    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -22,10 +21,6 @@ namespace Fluent
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields
-
-        //DependencyPropertyKey
-        private static readonly FieldInfo rolePropertyKeyFieldInfo = typeof(System.Windows.Controls.MenuItem).GetField("RolePropertyKey", BindingFlags.Static | BindingFlags.NonPublic);
-        private static readonly DependencyPropertyKey rolePropertyKey = (DependencyPropertyKey)rolePropertyKeyFieldInfo.GetValue(null);
 
         // Thumb to resize in both directions
         private Thumb resizeBothThumb;
@@ -431,7 +426,8 @@ namespace Fluent
         {
             base.OnMouseEnter(e);
 
-            if (this.IsItemsControlMenuBase == false)
+            if (this.IsItemsControlMenuBase == false
+                && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
                     && this.Parent is DropDownButton)
@@ -444,14 +440,10 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            if (this.isContextMenuOpening)
-            {
-                return;
-            }
-
             base.OnMouseLeave(e);
 
-            if (this.IsItemsControlMenuBase == false)
+            if (this.IsItemsControlMenuBase == false
+                && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
                     && this.Parent is DropDownButton // prevent too slow close on regular DropDown
@@ -466,7 +458,13 @@ namespace Fluent
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
         {
             this.isContextMenuOpening = true;
-            this.IsContextMenuOpened = true;
+
+            // We have to close the sub menu as soon as the context menu gets opened
+            // but only if it should be opened on ourself
+            if (ReferenceEquals(this, e.Source))
+            {
+                this.IsSubmenuOpen = false;
+            }
 
             base.OnContextMenuOpening(e);
         }
@@ -475,14 +473,8 @@ namespace Fluent
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
         {
             this.isContextMenuOpening = false;
-            this.IsContextMenuOpened = false;
 
             base.OnContextMenuClosing(e);
-
-            if (this.IsMouseOver == false)
-            {
-                this.OnMouseLeave(new MouseEventArgs(Mouse.PrimaryDevice, 0));
-            }
         }
 
         #endregion Non MenuBase ItemsControl workarounds
