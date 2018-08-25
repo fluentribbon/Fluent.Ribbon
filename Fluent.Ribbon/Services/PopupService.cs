@@ -165,6 +165,7 @@ namespace Fluent
         /// </summary>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
+            Debug.WriteLine($"OnLostMouseCapture");
             Debug.WriteLine($"Sender         - {sender}");
             Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
             Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
@@ -176,52 +177,55 @@ namespace Fluent
                 return;
             }
 
-            if (Mouse.Captured != sender
-                && control.IsDropDownOpen
-                && control.IsContextMenuOpened == false)
+            if (Mouse.Captured == sender
+                || control.IsDropDownOpen == false
+                || control.IsContextMenuOpened)
             {
-                var popup = control.DropDownPopup;
+                Debug.WriteLine($"OnLostMouseCapture => Taking no action");
+                return;
+            }
 
-                if (popup?.Child == null)
+            var popup = control.DropDownPopup;
+
+            if (popup?.Child == null)
+            {
+                RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                return;
+            }
+
+            if (e.OriginalSource == sender)
+            {
+                // If Ribbon loses capture because something outside popup is clicked - close the popup
+                if (Mouse.Captured == null
+                    || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
+                {
+                    RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+                }
+
+                return;
+            }
+
+            if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
+            {
+                RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
+                return;
+            }
+
+            // This code is needed to keep some popus open.
+            // One of these is the ribbon popup when it's minimized.
+            if (e.OriginalSource != null
+                && Mouse.Captured == null
+                && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
+            {
+                Debug.WriteLine($"Setting mouse capture to: {sender}");
+                Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
+                e.Handled = true;
+
+                // Only raise a popup dismiss event if the source is MenuBase.
+                // this is because MenuBase "steals" the mouse focus in a way we have to work around here.
+                if (e.OriginalSource is MenuBase)
                 {
                     RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
-                    return;
-                }
-
-                if (e.OriginalSource == sender)
-                {
-                    // If Ribbon loses capture because something outside popup is clicked - close the popup
-                    if (Mouse.Captured == null
-                        || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
-                    {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
-                    }
-
-                    return;
-                }
-
-                if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
-                {
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
-                    return;
-                }
-
-                // This code is needed to keep some popus open.
-                // One of these is the ribbon popup when it's minimized.
-                if (e.OriginalSource != null
-                    && Mouse.Captured == null
-                    && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
-                {
-                    Debug.WriteLine($"Setting mouse capture to: {sender}");
-                    Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                    e.Handled = true;
-
-                    // Only raise a popup dismiss event if the source is MenuBase.
-                    // this is because MenuBase "steals" the mouse focus in a way we have to work around here.
-                    if (e.OriginalSource is MenuBase)
-                    {
-                        RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
-                    }
                 }
             }
         }
