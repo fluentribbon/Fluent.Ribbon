@@ -263,41 +263,61 @@ namespace Fluent
                 return;
             }
 
-            if (e.DismissMode == DismissPopupMode.Always)
+            switch (e.DismissMode)
             {
-                control.IsDropDownOpen = false;
-            }
-            else if (control.IsDropDownOpen)
-            {
-                // Prevent eager closing of the Ribbon-Popup and forward mouse focus to the ribbon popup instead.
-                if (control is RibbonTabControl ribbonTabControl
-                    && ribbonTabControl.IsMinimized
-                    && IsAncestorOf(control as DependencyObject, e.OriginalSource as DependencyObject))
-                {
-                    // Don't prevent closing if the new target is an ApplicationMenu (#581)
-                    if (Mouse.Captured is ApplicationMenu)
-                    {
-                        control.IsDropDownOpen = false;
-                        return;
-                    }
+                case DismissPopupMode.Always:
+                    DismisPopupForAlways(control, e);
+                    break;
 
-                    Mouse.Capture(control as IInputElement, CaptureMode.SubTree);
+                case DismissPopupMode.MouseNotOver:
+                    DismisPopupForMouseNotOver(control, e);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(e.DismissMode), e.DismissMode, "Unknown DismissMode.");
+            }
+        }
+
+        private static void DismisPopupForAlways(IDropDownControl control, DismissPopupEventArgs e)
+        {
+            control.IsDropDownOpen = false;
+        }
+
+        private static void DismisPopupForMouseNotOver(IDropDownControl control, DismissPopupEventArgs e)
+        {
+            if (control.IsDropDownOpen == false)
+            {
+                return;
+            }
+
+            // Prevent eager closing of the Ribbon-Popup and forward mouse focus to the ribbon popup instead.
+            if (control is RibbonTabControl ribbonTabControl
+                && ribbonTabControl.IsMinimized
+                && IsAncestorOf(control as DependencyObject, e.OriginalSource as DependencyObject))
+            {
+                // Don't prevent closing if the new target is an ApplicationMenu (#581)
+                if (Mouse.Captured is ApplicationMenu)
+                {
+                    control.IsDropDownOpen = false;
                     return;
                 }
 
-                if (IsMousePhysicallyOver(control.DropDownPopup.Child) == false)
-                {
-                    control.IsDropDownOpen = false;
-                }
-                else
-                {
-                    if (Mouse.Captured != control)
-                    {
-                        Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
-                    }
+                Mouse.Capture(control as IInputElement, CaptureMode.SubTree);
+                return;
+            }
 
-                    e.Handled = true;
+            if (IsMousePhysicallyOver(control.DropDownPopup) == false)
+            {
+                control.IsDropDownOpen = false;
+            }
+            else
+            {
+                if (Mouse.Captured != control)
+                {
+                    Mouse.Capture(control as IInputElement, CaptureMode.SubTree);
                 }
+
+                e.Handled = true;
             }
         }
 
