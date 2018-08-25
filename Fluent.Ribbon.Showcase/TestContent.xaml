@@ -1623,30 +1623,109 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">
-                    <Fluent:SplitButton Header="Bound items gggg"
+                    <ToggleButton x:Name="ToggleButton">Open</ToggleButton>
+                    <Popup IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked}"
+                           PlacementTarget="{Binding ElementName=ToggleButton}">
+                        <Menu>
+                            <MenuItem Header="1">
+                                <MenuItem.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="1" />
+                                    </ContextMenu>
+                                </MenuItem.ContextMenu>
+                                <MenuItem Header="1">
+                                    <MenuItem.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="1" />
+                                        </ContextMenu>
+                                    </MenuItem.ContextMenu>
+                                    <MenuItem Header="1">
+                                        <MenuItem.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="1" />
+                                            </ContextMenu>
+                                        </MenuItem.ContextMenu>
+                                    </MenuItem>
+                                    <MenuItem Header="2">
+                                        <MenuItem.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="1" />
+                                            </ContextMenu>
+                                        </MenuItem.ContextMenu>
+                                    </MenuItem>
+                                </MenuItem>
+                                <MenuItem Header="2">
+                                    <MenuItem.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="1" />
+                                        </ContextMenu>
+                                    </MenuItem.ContextMenu>
+                                </MenuItem>
+                            </MenuItem>
+                            <MenuItem Header="2">
+                                <MenuItem.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="1" />
+                                    </ContextMenu>
+                                </MenuItem.ContextMenu>
+                            </MenuItem>
+                        </Menu>
+                    </Popup>
+
+                    <Fluent:DropDownButton Header="Bound items gggg"
                                         ResizeMode="Both"
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
                                         LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Box.png"
                                         ItemsSource="{Binding StringItems}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" />
+                                <TextBlock Text="{Binding}">
+                                    <TextBlock.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Delete" />
+                                        </ContextMenu>
+                                    </TextBlock.ContextMenu>
+                                </TextBlock>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                    </Fluent:SplitButton>
+                    </Fluent:DropDownButton>
 
                     <Fluent:DropDownButton Header="Dropdown (auto close on click) g"
                                            ResizeMode="Both"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
-                                           ClosePopupOnMouseDown="True"
                                            ClosePopupOnMouseDownDelay="250">
+                        <Fluent:MenuItem Header="ClosePopupOnMouseDown"
+                                         IsCheckable="True"
+                                         IsChecked="{Binding RelativeSource={RelativeSource AncestorType=Fluent:DropDownButton}, Path=ClosePopupOnMouseDown, Mode=TwoWay}"/>
                         <Fluent:MenuItem Header="Item 1">
-                            <Fluent:MenuItem Header="Item 1" />
-                            <Fluent:MenuItem Header="Item 2" />
+                            <Fluent:MenuItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Context for Item 1" />
+                                </ContextMenu>
+                            </Fluent:MenuItem.ContextMenu>
+                            <Fluent:MenuItem Header="Item 1">
+                                <Fluent:MenuItem.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Context for sub Item 1" />
+                                    </ContextMenu>
+                                </Fluent:MenuItem.ContextMenu>
+                            </Fluent:MenuItem>
+                            <Fluent:MenuItem Header="Item 2">
+                                <Fluent:MenuItem.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Context for sub Item 2" />
+                                    </ContextMenu>
+                                </Fluent:MenuItem.ContextMenu>
+                            </Fluent:MenuItem>
                             <Fluent:MenuItem Header="Item 3" />
                         </Fluent:MenuItem>
                         <Fluent:MenuItem Header="Item 2">
+                            <Fluent:MenuItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Context for Item 2" />
+                                </ContextMenu>
+                            </Fluent:MenuItem.ContextMenu>
                             <Fluent:MenuItem Header="Item 1" />
                             <Fluent:MenuItem Header="Item 2" />
                             <Fluent:MenuItem Header="Item 3" />
