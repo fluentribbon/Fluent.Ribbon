@@ -243,6 +243,11 @@ namespace Fluent
         /// <returns>Returns true whether parent is ancestor of element</returns>
         public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
         {
+            if (parent == null)
+            {
+                return false;
+            }
+
             while (element != null)
             {
                 if (ReferenceEquals(element, parent))
