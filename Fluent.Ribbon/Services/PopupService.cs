@@ -210,7 +210,9 @@ namespace Fluent
                 return;
             }
 
-            if (IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject) == false)
+            if (IsAncestorOf(popup, sender as DependencyObject) == false
+                && IsAncestorOf(sender as DependencyObject, popup) == false
+                && IsAncestorOf(popup, e.OriginalSource as DependencyObject) == false)
             {
                 RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                 return;
