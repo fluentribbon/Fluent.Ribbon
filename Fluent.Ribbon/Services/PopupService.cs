@@ -206,11 +206,6 @@ namespace Fluent
                         RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
                     }
                 }
-                if (Mouse.Captured == null
-                    || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
-                {
-                    RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
-                }
 
                 return;
             }
