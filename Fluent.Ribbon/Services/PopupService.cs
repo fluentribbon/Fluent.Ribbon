@@ -343,7 +343,7 @@ namespace Fluent
             if (sender is IDropDownControl control)
             {
                 control.IsContextMenuOpened = true;
-                // Debug.WriteLine("Context menu opened");
+                Debug.WriteLine("Context menu opening");
             }
         }
 
@@ -354,7 +354,7 @@ namespace Fluent
         {
             if (sender is IDropDownControl control)
             {
-                //Debug.WriteLine("Context menu closed");
+                Debug.WriteLine("Context menu closing");
                 control.IsContextMenuOpened = false;
                 RaiseDismissPopupEvent(control, DismissPopupMode.MouseNotOver);
             }
