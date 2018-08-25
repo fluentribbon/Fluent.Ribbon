@@ -198,6 +198,14 @@ namespace Fluent
             if (e.OriginalSource == sender)
             {
                 // If Ribbon loses capture because something outside popup is clicked - close the popup
+                if (popup.PlacementTarget is RibbonTabItem)
+                {
+                    if (Mouse.Captured == null
+                        || IsAncestorOf(popup, Mouse.Captured as DependencyObject) == false)
+                    {
+                        RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
+                    }
+                }
                 if (Mouse.Captured == null
                     || IsAncestorOf(popup.Child, Mouse.Captured as DependencyObject) == false)
                 {
