@@ -76,7 +76,7 @@
         /// </summary>
         /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
-        /// <param name="targetVisualBinding">asdf</param>
+        /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
         public ObjectToImageConverter(Binding iconBinding, Size desiredSize, Binding targetVisualBinding)
             : this(desiredSize)
         {
@@ -95,7 +95,7 @@
         }
 
         /// <summary>
-        /// asdf
+        /// The target visual on which the image/icon should be shown.
         /// </summary>
         [ConstructorArgument("targetVisualBinding")]
         public Binding TargetVisualBinding { get; set; }

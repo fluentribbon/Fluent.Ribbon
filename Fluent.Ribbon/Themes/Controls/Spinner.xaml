@@ -54,7 +54,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="SpinnerButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
@@ -83,7 +83,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="4,0,0,0"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -129,7 +129,7 @@
                              Padding="2,0,2,0"
                              Margin="0"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                
+
                     <Path Visibility="Collapsed"
                             HorizontalAlignment="Left"
                             Margin="0,-1,0,-1"
@@ -142,7 +142,7 @@
                             Grid.Column="1"
                             Grid.RowSpan="2"
                             Data="M0,0L0,1" />
-                                
+
                     <Path HorizontalAlignment="Left"
                             Margin="0,0,-1,0"
                             Width="Auto"
@@ -157,7 +157,7 @@
                             Height="1"
                             Grid.Column="1"
                             Grid.RowSpan="1" />
-                                
+
                     <RepeatButton x:Name="PART_ButtonUp"
                                     Grid.Column="1"
                                     Grid.Row="0"

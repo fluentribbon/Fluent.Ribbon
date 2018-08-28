@@ -60,7 +60,7 @@
                                   HorizontalAlignment="Center"
                                   Height="32"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                                  Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="32"
                                   Margin="0 2 0 0"
                                   SnapsToDevicePixels="True" />

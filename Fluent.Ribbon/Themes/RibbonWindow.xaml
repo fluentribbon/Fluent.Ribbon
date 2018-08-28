@@ -31,7 +31,7 @@
                                Width="16"
                                Margin="4,1,0,0"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}}"
+                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                SnapsToDevicePixels="True" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"

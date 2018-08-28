@@ -51,7 +51,7 @@
                                       HorizontalAlignment="Center"
                                       Height="32"
                                       VerticalAlignment="Center"
-                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                       Width="32"
                                       Margin="2"
                                       SnapsToDevicePixels="True" />
@@ -171,7 +171,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="InRibbonGalleryButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template">

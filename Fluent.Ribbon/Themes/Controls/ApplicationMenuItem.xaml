@@ -84,7 +84,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
         </Grid>
@@ -218,7 +218,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -556,7 +556,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -810,7 +810,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -934,7 +934,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -1256,7 +1256,7 @@
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32'}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />

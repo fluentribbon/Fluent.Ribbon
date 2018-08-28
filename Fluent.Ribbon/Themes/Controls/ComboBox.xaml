@@ -18,7 +18,7 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonComboButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
@@ -124,7 +124,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="3,0,0,0"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>

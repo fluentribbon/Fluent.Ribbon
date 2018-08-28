@@ -52,7 +52,7 @@
                        Height="2" />
         </Grid>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
         <Grid Background="Transparent">
@@ -192,7 +192,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -278,7 +278,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Header Menu Item Template-->
     <ControlTemplate x:Key="HeaderMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
@@ -330,7 +330,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -521,7 +521,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Splited Menu Item Template-->
     <ControlTemplate x:Key="SplitedMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
@@ -544,7 +544,7 @@
                        Margin="0,4,23,4"
                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
-            
+
             <Grid  HorizontalAlignment="Stretch"
                    Margin="0"
                    Width="Auto"
@@ -596,7 +596,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -862,7 +862,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16'}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -945,7 +945,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Menu Item Style-->
     <Style x:Key="Fluent.Ribbon.Styles.MenuItem"
            TargetType="{x:Type Fluent:MenuItem}">

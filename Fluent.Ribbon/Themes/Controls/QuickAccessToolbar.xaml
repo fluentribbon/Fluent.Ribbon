@@ -31,7 +31,7 @@
                         Height="8"
                         Stretch="None"
                         VerticalAlignment="Center"
-                        Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '8,8'}"
+                        Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '8,8', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                         Width="8"
                         Margin="-3,0,2,0" />
             </Border>
@@ -257,7 +257,7 @@
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
-            
+
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
                                    HorizontalAlignment="Right"
                                    Width="13"
@@ -300,7 +300,7 @@
                            Margin="1,0" />
                 </StackPanel>
             </Fluent:DropDownButton>
-            
+
             <StackPanel Orientation="Horizontal"
                         x:Name="PART_ToolBarPanel"
                         Width="Auto"

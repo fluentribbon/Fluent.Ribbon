@@ -38,6 +38,27 @@ namespace Fluent
         /// <summary>
         /// Creates a new instance.
         /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
+        public IconConverter(Binding iconBinding, Binding targetVisualBinding)
+            : base(iconBinding, new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight), targetVisualBinding)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="desiredSize">The desired size for the image.</param>
+        /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
+        public IconConverter(Binding iconBinding, Size desiredSize, Binding targetVisualBinding)
+            : base(iconBinding, desiredSize, targetVisualBinding)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         /// <param name="desiredSize">The desired size for the image.</param>
         public IconConverter(Size desiredSize)
             : base(desiredSize)
