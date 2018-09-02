@@ -487,6 +487,7 @@ namespace FluentTest
 
         private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)
         {
+            this.ribbon.AutomaticStateManagement = false;
             this.ribbon.RibbonStateStorage.Reset();
 
             System.Windows.Forms.Application.Restart();
