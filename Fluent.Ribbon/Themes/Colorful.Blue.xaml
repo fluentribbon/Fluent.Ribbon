@@ -28,7 +28,6 @@
     <Color x:Key="Fluent.Ribbon.Colors.HighlightColor">#FF086F9E</Color>
 
     <!-- Base colors -->
-    <Color x:Key="WhiteForeColor">#FFFFFFFF</Color>
     <Color x:Key="BlackColor">#FF000000</Color>
     <Color x:Key="BlackColor20">#51000000</Color>
     <Color x:Key="WhiteColor">#FFF0F0F0</Color>
@@ -193,11 +192,11 @@
 
     <!-- RibbonContextualTabGroup -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground" Color="{StaticResource Gray1}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground" Color="{StaticResource WhiteForeColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground" Color="{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground" Color="{StaticResource Gray1}" options:Freeze="True" />
 
     <!-- RibbonTabItem -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="{StaticResource WhiteForeColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background" Color="{StaticResource HoverTransparentWhiteColor}" options:Freeze="True" />
@@ -209,7 +208,7 @@
 
     <!-- RibbonWindow -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground" Color="{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground" Color="{StaticResource WhiteForeColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground" Color="{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}" options:Freeze="True" />
 
     <!-- Separator -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
