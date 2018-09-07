@@ -1,9 +1,10 @@
 #source C:\DEV\OSS_Own\ControlzEx\src\bin
 #source C:\DEV\OSS_Own\XamlColorSchemeGenerator\Publish
 source https://ci.appveyor.com/nuget/controlzex
+source https://ci.appveyor.com/nuget/xamlcolorschemegenerator
 source https://api.nuget.org/v3/index.json
 
-framework: auto-detect
+framework: net45, net462
 specific_version: false
 redirects: off
 
@@ -22,7 +23,7 @@ nuget MahApps.Metro
 
 group test
 	source https://api.nuget.org/v3/index.json
-	framework: auto-detect
+	framework: net45, net462
 	specific_version: false
 	redirects: off
 

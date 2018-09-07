@@ -2,19 +2,23 @@ REDIRECTS: OFF
 SPECIFIC-VERSION: FALSE
 RESTRICTION: || (== net45) (== net462)
 NUGET
+  remote: https://ci.appveyor.com/nuget/controlzex
+    ControlzEx (4.0.0-alpha0163)
   remote: https://api.nuget.org/v3/index.json
-    ControlzEx (4.0.0-alpha0161)
     Costura.Fody (3.1)
       Fody (>= 3.1.3) - restriction: || (&& (== net45) (>= net46)) (== net462)
-    Fody (3.1.4)
+    Fody (3.2.1)
     gitlink (3.1)
     JetBrains.Annotations (2018.2.1) - copy_local: false
     MahApps.Metro (1.6.5)
       ControlzEx (>= 3.0.2.4 < 4.0)
-    MSBuild.Sdk.Extras (1.6.46)
+    MSBuild.Sdk.Extras (1.6.52)
+    Newtonsoft.Json (11.0.2)
     StyleCop.Analyzers (1.0.2)
-    WpfAnalyzers (2.1.4)
-    XamlColorSchemeGenerator (2.0.0.25)
+    WpfAnalyzers (2.1.7.1)
+  remote: https://ci.appveyor.com/nuget/xamlcolorschemegenerator
+    XamlColorSchemeGenerator (2.1.0.28)
+      Newtonsoft.Json (>= 10.1)
 
 GROUP cake
 RESTRICTION: == net45
