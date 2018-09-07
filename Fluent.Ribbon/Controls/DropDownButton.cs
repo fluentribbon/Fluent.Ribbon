@@ -5,7 +5,6 @@ namespace Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
@@ -656,44 +655,49 @@ namespace Fluent
 
             var newValue = (bool)e.NewValue;
 
-            control.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
+            control.OnIsDropDownOpenChanged(newValue);
+        }
 
-            Debug.WriteLine($"{control.Header} IsDropDownOpen: {newValue}");
+        private void OnIsDropDownOpenChanged(bool newValue)
+        {
+            this.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
+
+            Debug.WriteLine($"{this.Header} IsDropDownOpen: {newValue}");
 
             if (newValue)
             {
-                Mouse.Capture(control, CaptureMode.SubTree);
+                Mouse.Capture(this, CaptureMode.SubTree);
 
-                Keyboard.Focus(control.DropDownPopup);
+                Keyboard.Focus(this.DropDownPopup);
 
-                control.RunInDispatcherAsync(
-                    () =>
-                    {
-                        var container = control.ItemContainerGenerator.ContainerFromIndex(0);
+                this.RunInDispatcherAsync(
+                                             () =>
+                                             {
+                                                 var container = this.ItemContainerGenerator.ContainerFromIndex(0);
 
-                        NavigateToContainer(container);
+                                                 NavigateToContainer(container);
 
-                        // Edge case: Whole dropdown content is disabled
-                        if (control.IsKeyboardFocusWithin == false)
-                        {
-                            Keyboard.Focus(control.DropDownPopup);
-                        }
-                    });
+                                                 // Edge case: Whole dropdown content is disabled
+                                                 if (this.IsKeyboardFocusWithin == false)
+                                                 {
+                                                     Keyboard.Focus(this.DropDownPopup);
+                                                 }
+                                             });
 
-                control.OnDropDownOpened();
+                this.OnDropDownOpened();
             }
             else
             {
                 // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd
-                if (control.IsKeyboardFocusWithin)
+                if (this.IsKeyboardFocusWithin)
                 {
                     // make sure the control has focus
-                    control.Focus();
+                    this.Focus();
                 }
 
                 Mouse.Capture(null);
 
-                control.OnDropDownClosed();
+                this.OnDropDownClosed();
             }
         }
 

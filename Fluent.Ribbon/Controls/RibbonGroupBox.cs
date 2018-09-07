@@ -967,6 +967,30 @@ namespace Fluent
             this.LauncherClick?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Handles IsOpen propertyu changes
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (RibbonGroupBox)d;
+
+            ribbon.OnIsDropDownOpenChanged();
+        }
+
+        private void OnIsDropDownOpenChanged()
+        {
+            if (this.IsDropDownOpen)
+            {
+                this.OnRibbonGroupBoxPopupOpening();
+            }
+            else
+            {
+                this.OnRibbonGroupBoxPopupClosing();
+            }
+        }
+
         // Handles popup closing
         private void OnRibbonGroupBoxPopupClosing()
         {
@@ -982,25 +1006,6 @@ namespace Fluent
         {
             //IsHitTestVisible = false;
             Mouse.Capture(this, CaptureMode.SubTree);
-        }
-
-        /// <summary>
-        /// Handles IsOpen propertyu changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (RibbonGroupBox)d;
-
-            if (ribbon.IsDropDownOpen)
-            {
-                ribbon.OnRibbonGroupBoxPopupOpening();
-            }
-            else
-            {
-                ribbon.OnRibbonGroupBoxPopupClosing();
-            }
         }
 
         #endregion

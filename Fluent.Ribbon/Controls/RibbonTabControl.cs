@@ -872,15 +872,20 @@ namespace Fluent
         {
             var ribbonTabControl = (RibbonTabControl)d;
 
-            ribbonTabControl.RaiseRequestBackstageClose();
+            ribbonTabControl.OnIsDropDownOpenChanged();
+        }
 
-            if (ribbonTabControl.IsDropDownOpen)
+        private void OnIsDropDownOpenChanged()
+        {
+            this.RaiseRequestBackstageClose();
+
+            if (this.IsDropDownOpen)
             {
-                ribbonTabControl.OnRibbonTabPopupOpening();
+                this.OnRibbonTabPopupOpening();
             }
             else
             {
-                ribbonTabControl.OnRibbonTabPopupClosing();
+                this.OnRibbonTabPopupClosing();
             }
         }
 
