@@ -125,10 +125,10 @@ namespace Fluent.Tests.ThemeManager
         [Test]
         public void GetThemes()
         {
-            Assert.That(ThemeManager.Themes, Has.Count.EqualTo(50));
+            Assert.That(ThemeManager.Themes, Has.Count.EqualTo(48));
 
-            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Dark").ToList(), Has.Count.EqualTo(24));
-            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Light").ToList(), Has.Count.EqualTo(24));
+            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Dark").ToList(), Has.Count.EqualTo(23));
+            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Light").ToList(), Has.Count.EqualTo(23));
             Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Colorful").ToList(), Has.Count.EqualTo(2));
         }
 
