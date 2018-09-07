@@ -105,7 +105,7 @@ namespace Fluent.Tests.ThemeManager
             var theme = ThemeManager.GetTheme("Dark.Blue");
 
             Assert.NotNull(theme);
-            Assert.That(theme.Resources.Source, Is.EqualTo(new Uri("pack://application:,,,/Fluent;component/Themes/Themes/Dark.Blue.xaml")));
+            Assert.That(theme.Resources.Source.ToString(), Is.EqualTo("pack://application:,,,/Fluent;component/Themes/Themes/Dark.Blue.xaml").IgnoreCase);
         }
 
         [Test]
@@ -125,25 +125,11 @@ namespace Fluent.Tests.ThemeManager
         [Test]
         public void GetThemes()
         {
-            var assembly = typeof(ThemeManager).Assembly;
-            var resourceDictionaries = assembly.GetManifestResourceNames();
-            foreach (var resourceName in resourceDictionaries.Where(x => x.EndsWith(".g.resources")))
-            {
-                var info = assembly.GetManifestResourceInfo(resourceName);
-                if (info.ResourceLocation != ResourceLocation.ContainedInAnotherAssembly)
-                {
-                    var resourceStream = assembly.GetManifestResourceStream(resourceName);
-                    using (var reader = new ResourceReader(resourceStream))
-                    {
-                        foreach (DictionaryEntry entry in reader)
-                        {
-                            System.Diagnostics.Trace.WriteLine(entry.Key);
-                            //Here you can see all your ResourceDictionaries
-                            //entry is your ResourceDictionary from assembly
-                        }
-                    }
-                }
-            }
+            Assert.That(ThemeManager.Themes, Has.Count.EqualTo(50));
+
+            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Dark").ToList(), Has.Count.EqualTo(24));
+            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Light").ToList(), Has.Count.EqualTo(24));
+            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Colorful").ToList(), Has.Count.EqualTo(2));
         }
 
         [Test]

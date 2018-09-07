@@ -5,9 +5,14 @@ namespace Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
+    using System.Reflection;
+    using System.Resources;
     using System.Security;
     using System.Windows;
+    using System.Windows.Baml2006;
+    using System.Windows.Markup;
     using JetBrains.Annotations;
     using Microsoft.Win32;
 
@@ -16,8 +21,6 @@ namespace Fluent
     /// </summary>
     public static class ThemeManager
     {
-        private const string BaseResourcePath = "pack://application:,,,/Fluent;component/Themes/Themes/";
-
         private const string BaseColorLight = "Light";
         private const string BaseColorDark = "Dark";
 
@@ -35,25 +38,58 @@ namespace Fluent
                     return themes;
                 }
 
-                var baseColors = new[] { BaseColorLight, BaseColorDark };
-                var colors = new[]
-                             {
-                                 "Red", "Green", "Blue", "Purple", "Orange", "Lime", "Emerald", "Teal", "Cyan", "Cobalt",
-                                 "Indigo", "Violet", "Pink", "Magenta", "Crimson", "Amber", "Yellow", "Brown", "Olive", "Steel", "Mauve", "Taupe", "Sienna"
-                             };
-
-                themes = new List<Theme>(baseColors.Length + colors.Length);
+                themes = new List<Theme>();
 
                 try
                 {
-                    foreach (var baseColor in baseColors)
+                    var assembly = typeof(ThemeManager).Assembly;
+                    var assemblyName = assembly.GetName().Name;
+                    var resourceDictionaries = assembly.GetManifestResourceNames();
+
+                    foreach (var resourceName in resourceDictionaries.Where(x => x.EndsWith(".g.resources")))
                     {
-                        foreach (var color in colors)
+                        var info = assembly.GetManifestResourceInfo(resourceName);
+                        if (info == null
+                            || info.ResourceLocation == ResourceLocation.ContainedInAnotherAssembly)
                         {
-                            var resourceAddress = new Uri($"{BaseResourcePath}{baseColor}.{color}.xaml");
-                            themes.Add(new Theme(resourceAddress));
+                            continue;
+                        }
+
+                        var resourceStream = assembly.GetManifestResourceStream(resourceName);
+
+                        if (resourceStream == null)
+                        {
+                            continue;
+                        }
+
+                        using (var reader = new ResourceReader(resourceStream))
+                        {
+                            foreach (DictionaryEntry entry in reader)
+                            {
+                                var stringKey = entry.Key as string;
+                                if (stringKey == null
+                                    || stringKey.EndsWith(".baml", StringComparison.OrdinalIgnoreCase) == false
+                                    || stringKey.EndsWith("generic.baml", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    continue;
+                                }
+
+                                using (var bamlReader = new Baml2006Reader((Stream)entry.Value))
+                                {
+                                    var resourceDictionary = (ResourceDictionary)XamlReader.Load(bamlReader);
+
+                                    if (resourceDictionary.MergedDictionaries.Count == 0
+                                        && resourceDictionary.Contains(Theme.ThemeNameKey))
+                                    {
+                                        resourceDictionary.Source = new Uri($"pack://application:,,,/{assemblyName};component/{stringKey.Replace(".baml", ".xaml")}");
+                                        themes.Add(new Theme(resourceDictionary));
+                                    }
+                                }
+                            }
                         }
                     }
+
+                    themes = themes.OrderBy(x => x.DisplayName).ToList();
                 }
                 catch (Exception e)
                 {
