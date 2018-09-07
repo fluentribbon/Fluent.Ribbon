@@ -181,7 +181,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}}" options:Freeze="True" />
 
     <!-- RibbonTabControl -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.BorderBrush" Color="Transparent" options:Freeze="True" />
@@ -207,7 +207,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
 
     <!-- RibbonWindow -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground" Color="Transparent" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}}" options:Freeze="True" />
 
     <!-- Separator -->
