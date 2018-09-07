@@ -19,6 +19,12 @@ namespace Fluent
     /// </summary>
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_SelectedImage", Type = typeof(Image))]
+    [TemplatePart(Name = "PART_ContentSite", Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = "PART_ContentBorder", Type = typeof(Border))]
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
+    [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
     public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl
     {
         #region Fields

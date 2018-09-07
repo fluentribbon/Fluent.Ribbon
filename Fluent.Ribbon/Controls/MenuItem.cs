@@ -18,6 +18,10 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty(nameof(Items))]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields

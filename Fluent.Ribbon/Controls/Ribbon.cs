@@ -28,6 +28,9 @@ namespace Fluent
     /// </summary>
     [ContentProperty(nameof(Tabs))]
     [DefaultProperty(nameof(Tabs))]
+    [TemplatePart(Name = "PART_LayoutRoot", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_RibbonTabControl", Type = typeof(RibbonTabControl))]
+    [TemplatePart(Name = "PART_QuickAccessToolBar", Type = typeof(QuickAccessToolBar))]
     public class Ribbon : Control
     {
         private IRibbonStateStorage ribbonStateStorage;

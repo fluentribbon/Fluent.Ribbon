@@ -22,6 +22,10 @@ namespace Fluent
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
     [ContentProperty(nameof(QuickAccessItems))]
+    [TemplatePart(Name = "PART_MenuDownButton", Type = typeof(DropDownButton))]
+    [TemplatePart(Name = "PART_ToolbarDownButton", Type = typeof(DropDownButton))]
+    [TemplatePart(Name = "PART_ToolBarPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_ToolBarOverflowPanel", Type = typeof(Panel))]
     public class QuickAccessToolBar : Control
     {
         #region Events

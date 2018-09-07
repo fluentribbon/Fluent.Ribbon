@@ -30,6 +30,8 @@ namespace Fluent
     /// Represents a pop-up menu that enables a control
     /// to expose functionality that is specific to the context of the control
     /// </summary>
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     public class ContextMenu : System.Windows.Controls.ContextMenu
     {
         #region Fields

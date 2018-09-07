@@ -107,6 +107,7 @@ namespace Fluent
         public event RoutedEventHandler Unchecked;
 
         // Raises checked event
+#pragma warning disable WPF0005 // Name of PropertyChangedCallback should match registered name.
         private void RaiseChecked()
         {
             this.Checked?.Invoke(this, new RoutedEventArgs());
@@ -117,6 +118,7 @@ namespace Fluent
         {
             this.Unchecked?.Invoke(this, new RoutedEventArgs());
         }
+#pragma warning restore WPF0005 // Name of PropertyChangedCallback should match registered name.
 
         #endregion
 

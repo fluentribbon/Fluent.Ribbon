@@ -13,8 +13,8 @@ namespace Fluent
     /// </summary>
     [DefaultProperty(nameof(Text))]
     [ContentProperty(nameof(Text))]
-    [TemplatePart(Name = "PART_TextRun", Type = typeof(TextBlock))]
-    [TemplatePart(Name = "PART_TextRun2", Type = typeof(TextBlock))]
+    [TemplatePart(Name = "PART_TextRun", Type = typeof(AccessText))]
+    [TemplatePart(Name = "PART_TextRun2", Type = typeof(AccessText))]
     public class TwoLineLabel : Control
     {
         #region Fields

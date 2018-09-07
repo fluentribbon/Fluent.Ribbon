@@ -125,6 +125,14 @@ namespace Fluent
     /// Represents color gallery
     /// </summary>
     [ContentProperty(nameof(ThemeColors))]
+    [TemplatePart(Name = "PART_MoreColors", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_NoColor", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_AutomaticColor", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_ThemeColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_ThemeGradientColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_StandardColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_StandardGradientColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_RecentColorsListBox", Type = typeof(ListBox))]
     public class ColorGallery : Control
     {
         #region Constants

@@ -11,13 +11,12 @@ namespace Fluent
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
 
-    // TODO: add TemplatePart's in Gallery (!)
-
     /// <summary>
     /// Represents gallery control.
     /// Usually a gallery is hosted in context menu
     /// </summary>
     [ContentProperty(nameof(Items))]
+    [TemplatePart(Name = "PART_DropDownButton", Type = typeof(DropDownButton))]
     public class Gallery : ListBox
     {
         #region Fields

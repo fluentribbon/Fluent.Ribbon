@@ -24,6 +24,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
     public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport
     {
         #region Fields
