@@ -19,6 +19,7 @@
             this.TestContent.Backstage.UseHighestAvailableAdornerLayer = false;
 
             this.Loaded += this.MahMetroWindow_Loaded;
+            this.Closed += this.MahMetroWindow_Closed;
         }
 
         private void MahMetroWindow_Loaded(object sender, RoutedEventArgs e)
@@ -27,18 +28,23 @@
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
 
-            SyncThemeManagers();
+            this.SyncThemeManagers(null, null);
 
-            ThemeManager.IsThemeChanged += (o, args) => SyncThemeManagers(args);
+            ThemeManager.IsThemeChanged += this.SyncThemeManagers;
         }
 
-        private static void SyncThemeManagers(OnThemeChangedEventArgs args = null)
+        private void MahMetroWindow_Closed(object sender, EventArgs e)
+        {
+            ThemeManager.IsThemeChanged -= this.SyncThemeManagers;
+        }
+
+        private void SyncThemeManagers(object sender, OnThemeChangedEventArgs args)
         {
             // Sync Fluent and MahApps ThemeManager
             var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
             var appTheme = MahApps.Metro.ThemeManager.AppThemes.First(x => x.Name == "Base" + fluentRibbonTheme.BaseColorScheme);
             var accent = MahApps.Metro.ThemeManager.Accents.First(x => x.Name == fluentRibbonTheme.ColorScheme);
-            MahApps.Metro.ThemeManager.ChangeAppStyle(Application.Current, accent, appTheme);
+            MahApps.Metro.ThemeManager.ChangeAppStyle(this, accent, appTheme);
         }
 
         #region TitelBar
