@@ -24,7 +24,12 @@ namespace Fluent
         private const string BaseColorLight = "Light";
         private const string BaseColorDark = "Dark";
 
-        private static IList<Theme> themes;
+        // ReSharper disable once InconsistentNaming
+#pragma warning disable SA1307 // Accessible fields must begin with upper-case letter
+#pragma warning disable SA1401 // Fields must be private
+        internal static IList<Theme> themes;
+#pragma warning restore SA1401 // Fields must be private
+#pragma warning restore SA1307 // Accessible fields must begin with upper-case letter
 
         /// <summary>
         /// Gets a list of all default themes.

@@ -1,10 +1,7 @@
 namespace Fluent.Tests.ThemeManager
 {
     using System;
-    using System.Collections;
     using System.Linq;
-    using System.Reflection;
-    using System.Resources;
     using System.Windows;
     using System.Windows.Media;
     using Fluent;
@@ -16,6 +13,18 @@ namespace Fluent.Tests.ThemeManager
     [TestFixture]
     public class ThemeManagerTest
     {
+        [SetUp]
+        public void SetUp()
+        {
+            ThemeManager.themes = null;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            ThemeManager.themes = null;
+        }
+
         [Test]
         public void ChangeThemeForAppShouldThrowArgumentNullException()
         {
