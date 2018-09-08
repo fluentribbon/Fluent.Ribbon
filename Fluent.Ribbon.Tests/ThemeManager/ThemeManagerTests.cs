@@ -125,11 +125,58 @@ namespace Fluent.Tests.ThemeManager
         [Test]
         public void GetThemes()
         {
-            Assert.That(ThemeManager.Themes, Has.Count.EqualTo(48));
-
-            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Dark").ToList(), Has.Count.EqualTo(23));
-            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Light").ToList(), Has.Count.EqualTo(23));
-            Assert.That(ThemeManager.Themes.Where(x => x.BaseColorScheme == "Colorful").ToList(), Has.Count.EqualTo(2));
+            var expectedThemes = new[]
+                                 {
+                                     "Amber (Dark)",
+                                     "Amber (Light)",
+                                     "Blue (Colorful)",
+                                     "Blue (Dark)",
+                                     "Blue (Light)",
+                                     "Brown (Dark)",
+                                     "Brown (Light)",
+                                     "Cobalt (Dark)",
+                                     "Cobalt (Light)",
+                                     "Crimson (Dark)",
+                                     "Gray (Colorful)",
+                                     "Green (Dark)",
+                                     "Green (Light)",
+                                     "Indigo (Dark)",
+                                     "Indigo (Light)",
+                                     "Lime (Dark)",
+                                     "Lime (Light)",
+                                     "Magenta (Dark)",
+                                     "Magenta (Light)",
+                                     "Mauve (Dark)",
+                                     "Crimson (Light)",
+                                     "Cyan (Dark)",
+                                     "Cyan (Light)",
+                                     "Emerald (Dark)",
+                                     "Emerald (Light)",
+                                     "Mauve (Light)",
+                                     "Olive (Dark)",
+                                     "Olive (Light)",
+                                     "Orange (Dark)",
+                                     "Orange (Light)",
+                                     "Pink (Dark)",
+                                     "Pink (Light)",
+                                     "Purple (Dark)",
+                                     "Purple (Light)",
+                                     "Red (Dark)",
+                                     "Red (Light)",
+                                     "Sienna (Dark)",
+                                     "Sienna (Light)",
+                                     "Steel (Dark)",
+                                     "Steel (Light)",
+                                     "Taupe (Dark)",
+                                     "Taupe (Light)",
+                                     "Teal (Dark)",
+                                     "Teal (Light)",
+                                     "Violet (Dark)",
+                                     "Violet (Light)",
+                                     "Yellow (Dark)",
+                                     "Yellow (Light)"
+                                 };
+            Assert.That(ThemeManager.Themes.OrderBy(x => x.DisplayName).Select(x => x.DisplayName).ToList(), Is.EquivalentTo(expectedThemes));
         }
 
         [Test]
