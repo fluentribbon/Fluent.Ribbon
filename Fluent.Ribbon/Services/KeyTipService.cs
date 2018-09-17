@@ -154,15 +154,15 @@ namespace Fluent
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
 #pragma warning disable 618
+            var message = (WM)msg;
+
             // We must terminate the keytip's adorner chain if:
-            if (msg == (int)WM.NCACTIVATE // mouse clicks in non client area
-                || (msg == (int)WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
-                                                                      // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
-                || (msg >= 161 && msg <= 173) // mouse click (non client area)
-                || (msg >= 513 && msg <= 521)) // mouse click
+            if (message == WM.NCACTIVATE // mouse clicks in non client area
+                || (message == WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+                || (message >= WM.NCLBUTTONDOWN && message <= WM.NCXBUTTONDBLCLK) // mouse click (non client area)
+                || (message >= WM.LBUTTONDOWN && message <= WM.MBUTTONDBLCLK)) // mouse click
             {
-                if (this.activeAdornerChain != null
-                    && this.activeAdornerChain.IsAdornerChainAlive)
+                if (this.activeAdornerChain?.IsAdornerChainAlive == true)
                 {
                     this.Terminate();
                 }
