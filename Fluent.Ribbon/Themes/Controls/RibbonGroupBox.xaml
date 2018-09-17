@@ -362,7 +362,6 @@
                            Height="Auto"
                            AllowsTransparency="True"
                            PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}"
-                           StaysOpen="True"
                            IsOpen="{TemplateBinding IsDropDownOpen}">
                         <Grid Width="Auto"
                               Height="Auto"
