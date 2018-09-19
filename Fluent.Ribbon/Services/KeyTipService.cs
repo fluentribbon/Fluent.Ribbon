@@ -167,6 +167,16 @@ namespace Fluent
                     this.Terminate();
                 }
             }
+
+            // Fix for #632.
+            // Yes this looks awkward, calling the PopupService here, but the alternative would be to let the PopupService know about windows.
+            if (message == WM.ACTIVATE
+                && wParam == IntPtr.Zero) // the window is deactivated
+            {
+                PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always);
+            }
 #pragma warning restore 618
 
             return IntPtr.Zero;

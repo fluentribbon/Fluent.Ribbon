@@ -96,6 +96,7 @@
   - [#602](../../issues/602) - Pin button not clickable when Ribbon in collapsed state
   - [#607](../../issues/607) - Submenu contained in DropDownButton closes too slow
   - [#616](../../issues/616) - ContextMenu auto hidden after right click (related to [#439](../../issues/439))
+  - [#632](../../issues/632) - Ribbon sometimes clips over other applications
   - [#637](../../issues/637) - Escape key doesn't close menu on data-bound DropDownButton
   - [#639](../../issues/639) - Group headers take focus when tabbing through with keyboard
 
