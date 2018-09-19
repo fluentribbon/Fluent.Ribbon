@@ -659,7 +659,7 @@ namespace Fluent
 
         private void CloseParentDropDownOrMenuItem()
         {
-            var parent = this.FindParentDropDownOrMenuItem();
+            var parent = UIHelper.GetParent<DependencyObject>(this, x => x is IDropDownControl || x is System.Windows.Controls.MenuItem);
 
             if (parent == null)
             {
@@ -674,27 +674,6 @@ namespace Fluent
             {
                 ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
             }
-        }
-
-        private DependencyObject FindParentDropDownOrMenuItem()
-        {
-            var parent = this.Parent;
-            while (parent != null)
-            {
-                if (parent is IDropDownControl)
-                {
-                    return parent;
-                }
-
-                if (parent is System.Windows.Controls.MenuItem)
-                {
-                    return parent;
-                }
-
-                parent = LogicalTreeHelper.GetParent(parent);
-            }
-
-            return null;
         }
 
         #endregion

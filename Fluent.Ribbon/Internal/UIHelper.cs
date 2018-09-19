@@ -97,7 +97,7 @@
         /// </summary>
         /// <returns>The found visual/logical parent or null.</returns>
         /// <remarks>This method searches further up the parent chain instead of just using the immediate parent.</remarks>
-        public static T GetParent<T>(DependencyObject element)
+        public static T GetParent<T>(DependencyObject element, Predicate<T> filter = null)
             where T : DependencyObject
         {
             if (element == null)
@@ -105,26 +105,37 @@
                 return null;
             }
 
-            var item = GetVisualParent(element);
-
-            while (item != null
-                && item is T == false)
             {
-                item = GetVisualParent(item);
+                var item = GetVisualParent(element);
+
+                while (item != null)
+                {
+                    if (item is T variable
+                        && (filter?.Invoke(variable) ?? true))
+                    {
+                        return variable;
+                    }
+
+                    item = GetVisualParent(item) ?? LogicalTreeHelper.GetParent(item);
+                }
             }
 
-            if (item == null)
             {
-                item = LogicalTreeHelper.GetParent(element);
+                var item = LogicalTreeHelper.GetParent(element);
 
-                while (item != null &&
-                       item is T == false)
+                while (item != null)
                 {
+                    if (item is T variable
+                        && (filter?.Invoke(variable) ?? true))
+                    {
+                        return variable;
+                    }
+
                     item = LogicalTreeHelper.GetParent(item);
                 }
             }
 
-            return (T)item;
+            return null;
         }
 
         /// <summary>
