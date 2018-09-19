@@ -152,22 +152,15 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <!--<TextBlock HorizontalAlignment="Stretch" 
-                                           VerticalAlignment="Center" 
-                                           Text="{TemplateBinding Header}" 
-                                           TextWrapping="NoWrap" 
-                                           Grid.Row="1" 
-                                           Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}" 
-                                           Margin="2,0" 
-                                           TextTrimming="CharacterEllipsis" 
-                                           TextAlignment="Center" />-->
+
                                 <ContentControl Content="{TemplateBinding Header}"
                                                 ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"                                                
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Center"
-                                                Margin="2,0" />
+                                                Margin="2,0"
+                                                KeyboardNavigation.IsTabStop="False" />
 
                                 <Fluent:Button Margin="0,0,1,1"
                                                x:Name="PART_DialogLauncherButton"
@@ -282,15 +275,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <!--<TextBlock HorizontalAlignment="Stretch" 
-                                       VerticalAlignment="Center" 
-                                       Text="{TemplateBinding Header}" 
-                                       TextWrapping="NoWrap" 
-                                       Grid.Row="1" 
-                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}" 
-                                       Margin="2,0" 
-                                       TextTrimming="CharacterEllipsis" 
-                                       TextAlignment="Center" />-->
+
                             <ContentControl Content="{TemplateBinding Header}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
@@ -298,7 +283,8 @@
                                             Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
-                                            Margin="2,0" />
+                                            Margin="2,0"
+                                            KeyboardNavigation.IsTabStop="False" />
 
                             <Fluent:Button Margin="0,0,1,1"
                                            x:Name="PART_DialogLauncherButton"
@@ -328,11 +314,7 @@
                       Height="Auto"
                       Visibility="Collapsed"
                       Grid.RowSpan="2">
-                    <!--<Fluent:TwoLineLabel HorizontalAlignment="Center"
-                                         VerticalAlignment="Top"
-                                         Text="{TemplateBinding Header}"
-                                         Margin="5,38,5,0"
-                                         HasGlyph="True" />-->
+
                     <ContentControl Content="{TemplateBinding Header}"
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
@@ -342,7 +324,8 @@
                                     Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Margin="5,38,5,0" />
+                                    Margin="5,38,5,0"
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Border HorizontalAlignment="Center"
                             VerticalAlignment="Top"
