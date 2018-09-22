@@ -5,14 +5,11 @@ namespace Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Resources;
     using System.Security;
     using System.Windows;
-    using System.Windows.Baml2006;
-    using System.Windows.Markup;
     using JetBrains.Annotations;
     using Microsoft.Win32;
 
@@ -51,8 +48,13 @@ namespace Fluent
                     var assemblyName = assembly.GetName().Name;
                     var resourceDictionaries = assembly.GetManifestResourceNames();
 
-                    foreach (var resourceName in resourceDictionaries.Where(x => x.EndsWith(".g.resources")))
+                    foreach (var resourceName in resourceDictionaries)
                     {
+                        if (resourceName.EndsWith(".g.resources", StringComparison.OrdinalIgnoreCase) == false)
+                        {
+                            continue;
+                        }
+
                         var info = assembly.GetManifestResourceInfo(resourceName);
                         if (info == null
                             || info.ResourceLocation == ResourceLocation.ContainedInAnotherAssembly)
@@ -73,22 +75,22 @@ namespace Fluent
                             {
                                 var stringKey = entry.Key as string;
                                 if (stringKey == null
+                                    || stringKey.IndexOf("/themes/", StringComparison.OrdinalIgnoreCase) == -1
                                     || stringKey.EndsWith(".baml", StringComparison.OrdinalIgnoreCase) == false
                                     || stringKey.EndsWith("generic.baml", StringComparison.OrdinalIgnoreCase))
                                 {
                                     continue;
                                 }
 
-                                using (var bamlReader = new Baml2006Reader((Stream)entry.Value))
-                                {
-                                    var resourceDictionary = (ResourceDictionary)XamlReader.Load(bamlReader);
+                                var resourceDictionary = new ResourceDictionary
+                                                         {
+                                                             Source = new Uri($"pack://application:,,,/{assemblyName};component/{stringKey.Replace(".baml", ".xaml")}")
+                                                         };
 
-                                    if (resourceDictionary.MergedDictionaries.Count == 0
-                                        && resourceDictionary.Contains(Theme.ThemeNameKey))
-                                    {
-                                        resourceDictionary.Source = new Uri($"pack://application:,,,/{assemblyName};component/{stringKey.Replace(".baml", ".xaml")}");
-                                        themes.Add(new Theme(resourceDictionary));
-                                    }
+                                if (resourceDictionary.MergedDictionaries.Count == 0
+                                    && resourceDictionary.Contains(Theme.ThemeNameKey))
+                                {
+                                    themes.Add(new Theme(resourceDictionary));
                                 }
                             }
                         }
