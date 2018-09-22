@@ -319,7 +319,7 @@ namespace Fluent
         public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether tab headers are visible or not.
+        /// Defines whether tab headers are visible or not.
         /// </summary>
         public bool AreTabHeadersVisible
         {
@@ -333,7 +333,7 @@ namespace Fluent
         public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether tab headers are visible or not.
+        /// Defines whether tab headers are visible or not.
         /// </summary>
         public bool IsToolBarVisible
         {
@@ -347,7 +347,7 @@ namespace Fluent
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// Defines whether scrolling by mouse wheel is enabled or not.
         /// </summary>
         public bool IsMouseWheelScrollingEnabled
         {

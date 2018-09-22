@@ -71,7 +71,7 @@ namespace Fluent
         public static readonly DependencyProperty IsDefaultContextMenuEnabledProperty = DependencyProperty.Register(nameof(IsDefaultContextMenuEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Gets or sets wether the default context menu should be enabled/used.
+        /// Gets or sets whether the default context menu should be enabled/used.
         /// </summary>
         public bool IsDefaultContextMenuEnabled
         {
@@ -1294,7 +1294,7 @@ namespace Fluent
         public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether tab headers are visible or not.
+        /// Defines whether tab headers are visible or not.
         /// </summary>
         public bool AreTabHeadersVisible
         {
@@ -1308,7 +1308,7 @@ namespace Fluent
         public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether tab headers are visible or not.
+        /// Defines whether tab headers are visible or not.
         /// </summary>
         public bool IsToolBarVisible
         {
@@ -1322,7 +1322,7 @@ namespace Fluent
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// Defines whether scrolling by mouse wheel is enabled or not.
         /// </summary>
         public bool IsMouseWheelScrollingEnabled
         {
@@ -1341,7 +1341,7 @@ namespace Fluent
         public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
 
         /// <summary>
-        /// Defines wether handling of key tips is enabled or not.
+        /// Defines whether handling of key tips is enabled or not.
         /// </summary>
         public bool IsKeyTipHandlingEnabled
         {

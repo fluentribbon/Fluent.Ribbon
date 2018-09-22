@@ -8,7 +8,7 @@ namespace Fluent
     public interface IRibbonStateStorage : IDisposable
     {
         /// <summary>
-        /// Gets wether state is currently loading.
+        /// Gets whether state is currently loading.
         /// </summary>
         bool IsLoading { get; }
 

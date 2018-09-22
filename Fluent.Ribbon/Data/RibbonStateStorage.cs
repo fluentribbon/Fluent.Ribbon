@@ -42,7 +42,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets wether this object already got disposed.
+        /// Gets whether this object already got disposed.
         /// </summary>
         protected bool Disposed { get; private set; }
 
@@ -416,7 +416,7 @@ namespace Fluent
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// <param name="disposing">Defines wether managed resources should also be freed.</param>
+        /// <param name="disposing">Defines whether managed resources should also be freed.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (this.Disposed)

@@ -538,7 +538,7 @@ namespace Fluent
         #region IsSeparatorVisible
 
         /// <summary>
-        /// Gets or sets wether the groupbox shows a separator.
+        /// Gets or sets whether the groupbox shows a separator.
         /// </summary>
         public bool IsSeparatorVisible
         {

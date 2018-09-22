@@ -695,7 +695,7 @@ namespace Fluent
         private static bool isAutomaticWindowsAppModeSettingSyncEnabled;
 
         /// <summary>
-        /// Gets or sets wether changes to the "app mode" setting from windows should be detected at runtime and the current <see cref="Theme"/> be changed accordingly.
+        /// Gets or sets whether changes to the "app mode" setting from windows should be detected at runtime and the current <see cref="Theme"/> be changed accordingly.
         /// </summary>
         public static bool IsAutomaticWindowsAppModeSettingSyncEnabled
         {

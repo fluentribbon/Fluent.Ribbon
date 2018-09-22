@@ -330,7 +330,7 @@ namespace Fluent
         #endregion TextToValueConverter
 
         /// <summary>
-        /// Defines wether all text should be select as soon as this control gets focus.
+        /// Defines whether all text should be select as soon as this control gets focus.
         /// </summary>
         public bool SelectAllTextOnFocus
         {

@@ -89,7 +89,7 @@ namespace Fluent
             DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Gets or sets wether opening or closing should be animated.
+        /// Gets or sets whether opening or closing should be animated.
         /// </summary>
         public bool AreAnimationsEnabled
         {
@@ -157,7 +157,7 @@ namespace Fluent
         public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Gets or sets wether the highest available adorner layer should be used for the <see cref="BackstageAdorner"/>.
+        /// Gets or sets whether the highest available adorner layer should be used for the <see cref="BackstageAdorner"/>.
         /// This means that we will try to look up the visual tree till we find the highest <see cref="AdornerDecorator"/>.
         /// </summary>
         public bool UseHighestAvailableAdornerLayer
