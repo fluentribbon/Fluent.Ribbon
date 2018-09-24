@@ -98,6 +98,7 @@
   - [#616](../../issues/616) - ContextMenu auto hidden after right click (related to [#439](../../issues/439))
   - [#632](../../issues/632) - Ribbon sometimes clips over other applications
   - [#637](../../issues/637) - Escape key doesn't close menu on data-bound DropDownButton
+  - [#638](../../issues/638) - Setting AreTabHeadersVisible="False" on startup makes entire ribbon disappear
   - [#639](../../issues/639) - Group headers take focus when tabbing through with keyboard
 
 - ### Enhancements

@@ -906,7 +906,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if (this.ItemContainerGenerator.ContainerFromItem(item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible)
                 {
                     return ribbonTab;
@@ -923,7 +923,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if (this.ItemContainerGenerator.ContainerFromItem(item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible
                     && ribbonTab.IsEnabled)
                 {
