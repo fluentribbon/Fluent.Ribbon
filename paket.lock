@@ -3,7 +3,7 @@ SPECIFIC-VERSION: FALSE
 RESTRICTION: || (== net45) (== net462)
 NUGET
   remote: https://ci.appveyor.com/nuget/controlzex
-    ControlzEx (4.0.0-alpha0176)
+    ControlzEx (4.0.0-alpha0177)
   remote: https://api.nuget.org/v3/index.json
     Costura.Fody (3.1.2)
       Fody (>= 3.2.4) - restriction: || (&& (== net45) (>= net46)) (== net462)
