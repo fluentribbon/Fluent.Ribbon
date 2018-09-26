@@ -14,6 +14,9 @@
         {
             this.Content = content;
 
+            this.Width = 800;
+            this.Height = 600;
+
             this.ShowActivated = false;
             this.ShowInTaskbar = false;
 

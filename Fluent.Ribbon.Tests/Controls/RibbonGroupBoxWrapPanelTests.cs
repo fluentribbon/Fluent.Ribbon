@@ -61,7 +61,7 @@
 
         private static TextBlock GetHeaderTextBlock(Control control)
         {
-            return (TextBlock)control.Template.FindName("textBlock", control);
+            return (TextBlock)control.Template.FindName("headerTextBlock", control);
         }
 
         [Test]

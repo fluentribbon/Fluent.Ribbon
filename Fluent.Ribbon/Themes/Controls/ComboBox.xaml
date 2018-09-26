@@ -116,7 +116,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         Grid.ColumnSpan="1"
-                        x:Name="stackPanel"
+                        x:Name="headerAndIconPanel"
                         HorizontalAlignment="Left"
                         Margin="0,0,4,0">
                 <ContentPresenter x:Name="iconImage"
@@ -134,7 +134,7 @@
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"
                                Margin="5,0,0,0"
-                               x:Name="textBlock" />
+                               x:Name="headerTextBlock" />
                 </Grid>
             </StackPanel>
 
@@ -474,7 +474,7 @@
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Visibility"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -483,7 +483,7 @@
             <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Visibility"
-                        TargetName="stackPanel"
+                        TargetName="headerAndIconPanel"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -514,7 +514,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="0.5" />
                 <Setter Property="Effect"
                         TargetName="iconImage">
