@@ -101,7 +101,7 @@ Task("Build")
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
             .SetVerbosity(Verbosity.Minimal)
-            .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
+            .WithProperty("AssemblyVersion", $"{gitVersion.Major}.0.0.0")
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
             );

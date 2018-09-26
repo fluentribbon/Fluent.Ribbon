@@ -20,6 +20,13 @@
       <FileVersion Condition="'$(FileVersion)' == ''">7.0.0.0</FileVersion>
       <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
   </PropertyGroup>
+  <!-- Sign assembly -->
+  <PropertyGroup>
+      <SignAssembly>True</SignAssembly>
+      <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\Shared\SharedKey.snk</AssemblyOriginatorKeyFile>
+      <DelaySign>false</DelaySign>
+      <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>NET45</DefineConstants>
   </PropertyGroup>

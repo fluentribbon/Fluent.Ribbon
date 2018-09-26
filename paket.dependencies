@@ -19,7 +19,7 @@ nuget Fody
 nuget Costura.Fody
 
 nuget ControlzEx >= 4.0.0-alpha prerelease
-nuget MahApps.Metro
+nuget MahApps.Metro prerelease
 
 group test
 	source https://api.nuget.org/v3/index.json
