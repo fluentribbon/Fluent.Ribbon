@@ -34,7 +34,8 @@ if (string.IsNullOrWhiteSpace(configuration))
 //////////////////////////////////////////////////////////////////////
 
 // Set build version
-if (BuildSystem.IsLocalBuild == false)
+if (BuildSystem.IsLocalBuild == false
+    || verbosity == Verbosity.Verbose)
 {
     GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
 }
@@ -101,7 +102,7 @@ Task("Build")
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
             .SetVerbosity(Verbosity.Minimal)
-            .WithProperty("AssemblyVersion", $"{gitVersion.Major}.0.0.0")
+            .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
             );
