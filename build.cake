@@ -33,18 +33,20 @@ if (string.IsNullOrWhiteSpace(configuration))
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
+var local = BuildSystem.IsLocalBuild;
+
 // Set build version
-if (BuildSystem.IsLocalBuild == false
+if (local == false
     || verbosity == Verbosity.Verbose)
 {
     GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.BuildServer });
 }
 GitVersion gitVersion = GitVersion(new GitVersionSettings { OutputType = GitVersionOutput.Json });
 
-var local = BuildSystem.IsLocalBuild;
 var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
-var isDevelopBranch = StringComparer.OrdinalIgnoreCase.Equals("develop", AppVeyor.Environment.Repository.Branch);
-var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
+var branchName = gitVersion.BranchName;
+var isDevelopBranch = StringComparer.OrdinalIgnoreCase.Equals("develop", branchName);
+var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", branchName);
 var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
 
 // Define directories.
@@ -52,15 +54,17 @@ var buildDir = Directory("./bin");
 var publishDir = Directory("./Publish");
 var solutionFile = File("./Fluent.Ribbon.sln");
 
-var username = "";
-var token = "";
-
-//////////////////////////////////////////////////////////////////////
-// TASKS
-//////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+// SETUP / TEARDOWN
+///////////////////////////////////////////////////////////////////////////////
 
 Setup(context =>
 {
+    if (!IsRunningOnWindows())
+    {
+        throw new NotImplementedException("Fluent.Ribbon will only build on Windows because it's not possible to target WPF and Windows Forms from UNIX.");
+    }
+
     Information(Figlet("Fluent.Ribbon"));
 
     Information("Informational Version  : {0}", gitVersion.InformationalVersion);
@@ -69,7 +73,17 @@ Setup(context =>
     Information("MajorMinorPatch Version: {0}", gitVersion.MajorMinorPatch);
     Information("NuGet Version          : {0}", gitVersion.NuGetVersion);
     Information("IsLocalBuild           : {0}", local);
+    Information("Branch                 : {0}", branchName);
+    Information("Configuration          : {0}", configuration);
 });
+
+Teardown(ctx =>
+{
+});
+
+///////////////////////////////////////////////////////////////////////////////
+// TASKS
+///////////////////////////////////////////////////////////////////////////////
 
 Task("Clean")
     .Does(() =>
@@ -79,9 +93,10 @@ Task("Clean")
 });
 
 Task("Restore")
-    //.IsDependentOn("Clean")
     .Does(() =>
 {
+    PaketRestore();
+
     MSBuild(solutionFile, settings => 
         settings
             .SetConfiguration(configuration)
@@ -93,10 +108,8 @@ Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {    
-    if(IsRunningOnWindows())
-    {
-      // Use MSBuild
-      MSBuild(solutionFile, settings => 
+    // Use MSBuild
+    MSBuild(solutionFile, settings => 
         settings
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
@@ -106,7 +119,6 @@ Task("Build")
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
             );
-    }
 });
 
 Task("EnsurePublishDirectory")
