@@ -100,6 +100,7 @@ Task("Restore")
     MSBuild(solutionFile, settings => 
         settings
             .SetConfiguration(configuration)
+            .SetVerbosity(Verbosity.Minimal)
             .WithTarget("restore")
             );
 });
