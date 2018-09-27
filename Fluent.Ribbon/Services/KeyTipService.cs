@@ -345,7 +345,24 @@ namespace Fluent
                 return false;
             }
 
-            return this.KeyTipKeys.Any(x => x == realKey);
+            var isShowOrHideKey = this.KeyTipKeys.Any(x => x == realKey);
+
+            var modifierKeys = new[]
+            {
+                Key.LeftShift,
+                Key.RightShift,
+                Key.LeftCtrl,
+                Key.RightCtrl,
+                Key.LeftAlt,
+                Key.RightAlt,
+            };
+
+            var blacklistedModifierKeys = modifierKeys
+                .Except(this.KeyTipKeys)
+                .ToArray();
+
+            var blacklistedKeyPressed = blacklistedModifierKeys.Any(Keyboard.IsKeyDown);
+            return isShowOrHideKey && !blacklistedKeyPressed;
         }
 
         private void ClearUserInput()
