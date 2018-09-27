@@ -3,8 +3,8 @@
 ## 7.0.0 (preview)
 - ### Breaking changes
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
-  - Reverted [#466](../../issues/466) - StrongName signed assembly?  
-  Assemblies are strong named again, but `AssemblyVersion` is now fixed for every major release.  
+  - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
+  **Assemblies are strong named again**, but `AssemblyVersion` is now fixed for every major release.  
   This means that, for example, for version `7.1` the `AssemblyVersion` will still be `7.0`.  
   Other versions like `AssemblyFileVersion` etc. won't be fixed.
   - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
