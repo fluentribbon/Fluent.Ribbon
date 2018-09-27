@@ -130,6 +130,7 @@
   - [#599](../../issues/599) - MahApps.Metro dialog on backstage  
   You can now use `UseHighestAvailableAdornerLayer` on `Backstage` to improve interop with MahApps.Metro regarding dialogs above the backstage.
   - [#606](../../issues/606) - added non-generated Colorful.Blue and Colorful.Gray themes (thanks @stylefish)
+  - [#642](../../issues/642) - Ignore Alt Gr key, by blacklisting modifier keys, in KeyTips detection (thanks @stylefish)
 
 ## 6.1.0
 
