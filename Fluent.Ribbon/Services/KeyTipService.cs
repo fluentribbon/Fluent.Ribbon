@@ -57,6 +57,16 @@ namespace Fluent
             }
         }
 
+        private static readonly Key[] modifierKeys =
+        {
+            Key.LeftShift,
+            Key.RightShift,
+            Key.LeftCtrl,
+            Key.RightCtrl,
+            Key.LeftAlt,
+            Key.RightAlt,
+        };
+
         /// <summary>
         /// The default keys used to activate key tips.
         /// </summary>
@@ -227,17 +237,16 @@ namespace Fluent
                 this.ClearUserInput();
                 e.Handled = true;
             }
-            else
-            {
-                if ((e.Key != Key.System && this.activeAdornerChain == null)
+            else if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
                     || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
-                {
-                    return;
-                }
-
+            {
+                return;
+            }
+            else
+            {
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
-                // we need to get the real string input for the key because of keys like ä,ö,ü #258
+                // we need to get the real string input for the key because of keys like ï¿½,ï¿½,ï¿½ #258
                 var key = KeyEventUtility.GetStringFromKey(actualKey);
                 var isKeyRealInput = string.IsNullOrEmpty(key) == false
                     && key != "\t";
@@ -334,8 +343,8 @@ namespace Fluent
         private bool IsShowOrHideKey(KeyEventArgs e)
         {
             var realKey = e.Key == Key.System
-                          ? e.SystemKey
-                          : e.Key;
+                              ? e.SystemKey
+                              : e.Key;
 
             // Shift + F10 is meant to open the context menu. So we just ignore it.
             if (realKey == Key.F10
@@ -347,22 +356,14 @@ namespace Fluent
 
             var isShowOrHideKey = this.KeyTipKeys.Any(x => x == realKey);
 
-            var modifierKeys = new[]
+            if (isShowOrHideKey == false)
             {
-                Key.LeftShift,
-                Key.RightShift,
-                Key.LeftCtrl,
-                Key.RightCtrl,
-                Key.LeftAlt,
-                Key.RightAlt,
-            };
+                return false;
+            }
 
-            var blacklistedModifierKeys = modifierKeys
-                .Except(this.KeyTipKeys)
-                .ToArray();
-
+            var blacklistedModifierKeys = modifierKeys.Except(this.KeyTipKeys);
             var blacklistedKeyPressed = blacklistedModifierKeys.Any(Keyboard.IsKeyDown);
-            return isShowOrHideKey && !blacklistedKeyPressed;
+            return blacklistedKeyPressed == false;
         }
 
         private void ClearUserInput()
