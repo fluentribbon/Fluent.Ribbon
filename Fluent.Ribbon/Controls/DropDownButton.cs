@@ -7,6 +7,7 @@ namespace Fluent
     using System.Diagnostics;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -846,6 +847,16 @@ namespace Fluent
                 }
             }
         }
+
+        #region UI Automation
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new FluentButtonAutomationPeer(this);
+        }
+
+        #endregion
 
         #region MenuItem workarounds
 
