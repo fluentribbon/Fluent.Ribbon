@@ -34,7 +34,22 @@ namespace Fluent
         /// <inheritdoc />
         protected override string GetNameCore()
         {
-            return ((IHeaderedControl)this.Owner).Header?.ToString();
+            string result = base.GetNameCore();
+            if (string.IsNullOrEmpty(result))
+            {
+                AutomationPeer labelAutomationPeer = this.GetLabeledByCore();
+                if (labelAutomationPeer != null)
+                {
+                    result = labelAutomationPeer.GetName();
+                }
+
+                if (string.IsNullOrEmpty(result))
+                {
+                    result = ((IHeaderedControl)this.Owner).Header?.ToString();
+                }
+            }
+
+            return result ?? string.Empty;
         }
     }
 }
