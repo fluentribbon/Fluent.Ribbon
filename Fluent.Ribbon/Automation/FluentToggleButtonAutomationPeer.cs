@@ -1,20 +1,20 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using System.Windows;
     using System.Windows.Automation.Peers;
+    using System.Windows.Controls.Primitives;
     using JetBrains.Annotations;
 
     /// <summary>
-    /// Automation peer for button.
+    /// Automation peer for toggle button.
     /// </summary>
-    public class FluentButtonAutomationPeer : ButtonAutomationPeer
+    public class FluentToggleButtonAutomationPeer : ToggleButtonAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentButtonAutomationPeer"/> class.
+        /// Initializes a new instance of the <see cref="FluentToggleButtonAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The class's owner.</param>
-        public FluentButtonAutomationPeer([NotNull] System.Windows.Controls.Button owner) 
+        public FluentToggleButtonAutomationPeer([NotNull] ToggleButton owner) 
             : base(owner)
         {
         }
@@ -22,7 +22,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "FluentButton";
+            return "FluentToggleButton";
         }
 
         /// <inheritdoc />

@@ -3,18 +3,19 @@ namespace Fluent
 {
     using System.Windows;
     using System.Windows.Automation.Peers;
+    using System.Windows.Controls;
     using JetBrains.Annotations;
 
     /// <summary>
-    /// Automation peer for button.
+    /// Automation peer for dropdown button.
     /// </summary>
-    public class FluentButtonAutomationPeer : ButtonAutomationPeer
+    public class FluentDropDownButtonAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FluentButtonAutomationPeer"/> class.
+        /// Initializes a new instance of the <see cref="FluentDropDownButtonAutomationPeer"/> class.
         /// </summary>
         /// <param name="owner">The class's owner.</param>
-        public FluentButtonAutomationPeer([NotNull] System.Windows.Controls.Button owner) 
+        public FluentDropDownButtonAutomationPeer([NotNull] FrameworkElement owner) 
             : base(owner)
         {
         }
@@ -22,7 +23,13 @@ namespace Fluent
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "FluentButton";
+            return "FluentDropDownButton";
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Button;
         }
 
         /// <inheritdoc />

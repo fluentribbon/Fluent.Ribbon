@@ -853,7 +853,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new FluentButtonAutomationPeer(this);
+            return new FluentDropDownButtonAutomationPeer(this);
         }
 
         #endregion
