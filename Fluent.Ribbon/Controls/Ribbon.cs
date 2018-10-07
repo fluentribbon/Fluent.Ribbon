@@ -188,35 +188,38 @@ namespace Fluent
         // Initialize ribbon context menu
         private static void InitRibbonContextMenu()
         {
-            contextMenus.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.ContextMenu());
+            contextMenus.Add(Thread.CurrentThread.ManagedThreadId, new ContextMenu());
             RibbonContextMenu.Opened += OnContextMenuOpened;
+        }
 
+        private static void InitRibbonContextMenuItems()
+        {
             // Add to quick access toolbar
-            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddItem), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add group to quick access toolbar
-            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddGroupToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddGroupToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddGroup), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddGroupToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add menu item to quick access toolbar
-            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddMenuToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddMenuToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddMenu), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddMenuToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add gallery to quick access toolbar
-            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddGalleryToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddGalleryToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddGallery), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddGalleryToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Remove from quick access toolbar
-            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = RemoveFromQuickAccessCommand });
+            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(RemoveFromQuickAccessCommand));
             RibbonContextMenu.Items.Add(RemoveFromQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, RemoveFromQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuRemoveItem), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, RemoveFromQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
@@ -226,19 +229,19 @@ namespace Fluent
             RibbonContextMenu.Items.Add(FirstSeparator);
 
             // Customize quick access toolbar
-            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeQuickAccessToolbarCommand });
+            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(CustomizeQuickAccessToolbarCommand));
             RibbonContextMenu.Items.Add(CustomizeQuickAccessToolbarMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, CustomizeQuickAccessToolbarMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuCustomizeQuickAccessToolBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, CustomizeQuickAccessToolbarMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access below the ribbon
-            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessBelowCommand });
+            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ShowQuickAccessBelowCommand));
             RibbonContextMenu.Items.Add(ShowQuickAccessToolbarBelowTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, ShowQuickAccessToolbarBelowTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuShowBelow), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, ShowQuickAccessToolbarBelowTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access above the ribbon
-            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessAboveCommand });
+            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ShowQuickAccessAboveCommand));
             RibbonContextMenu.Items.Add(ShowQuickAccessToolbarAboveTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, ShowQuickAccessToolbarAboveTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuShowAbove), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, ShowQuickAccessToolbarAboveTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
@@ -248,16 +251,26 @@ namespace Fluent
             RibbonContextMenu.Items.Add(SecondSeparator);
 
             // Customize the ribbon
-            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeTheRibbonCommand });
+            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(CustomizeTheRibbonCommand));
             RibbonContextMenu.Items.Add(CustomizeTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, CustomizeTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuCustomizeRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, CustomizeTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Minimize the ribbon
-            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ToggleMinimizeTheRibbonCommand });
+            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ToggleMinimizeTheRibbonCommand));
             RibbonContextMenu.Items.Add(MinimizeTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, MinimizeTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuMinimizeRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, MinimizeTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
+        }
+
+        private static MenuItem CreateMenuItemForContextMenu(ICommand command)
+        {
+            return new MenuItem
+                   {
+                       Command = command,
+                       CanAddToQuickAccessToolBar = false,
+                       ContextMenu = null
+                   };
         }
 
         /// <inheritdoc />
@@ -293,6 +306,12 @@ namespace Fluent
                 || ribbon == null)
             {
                 return;
+            }
+
+            if (ribbon.IsDefaultContextMenuEnabled
+                && RibbonContextMenu.Items.Count == 0)
+            {
+                InitRibbonContextMenuItems();
             }
 
             if (ribbon.IsDefaultContextMenuEnabled == false)
@@ -1594,8 +1613,6 @@ namespace Fluent
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
-
-            InitRibbonContextMenu();
         }
 
         /// <summary>
@@ -1856,7 +1873,7 @@ namespace Fluent
             }
 
             // Do not add menu items without icon.
-            if (element is MenuItem menuItem && menuItem.Icon == null)
+            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon == null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }

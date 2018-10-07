@@ -4,7 +4,8 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    <Style TargetType="{x:Type Fluent:ContextMenu}">
+    <Style x:Key="Fluent.Ribbon.Styles.ContextMenu"
+           TargetType="{x:Type Fluent:ContextMenu}">
         <Setter Property="Template"
                 Value="{DynamicResource FluentPopupMenuControlTemplate}" />
         <Setter Property="Foreground"

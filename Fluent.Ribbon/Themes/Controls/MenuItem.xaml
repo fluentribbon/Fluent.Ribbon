@@ -144,13 +144,6 @@
     <!--Menu Item Template-->
     <ControlTemplate x:Key="MenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -282,13 +275,6 @@
     <!--Header Menu Item Template-->
     <ControlTemplate x:Key="HeaderMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -525,13 +511,6 @@
     <!--Splited Menu Item Template-->
     <ControlTemplate x:Key="SplitedMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -799,13 +778,6 @@
     <!--Menu Item with Description Template-->
     <ControlTemplate x:Key="MenuItemWithDescriptionTemplate"
                      TargetType="{x:Type Fluent:MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
