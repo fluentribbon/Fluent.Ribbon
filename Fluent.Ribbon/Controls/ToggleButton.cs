@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Data;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
@@ -264,6 +265,16 @@ namespace Fluent
         /// <inheritdoc />
         public void OnKeyTipBack()
         {
+        }
+
+        #endregion
+
+        #region UI Automation
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new FluentToggleButtonAutomationPeer(this);
         }
 
         #endregion

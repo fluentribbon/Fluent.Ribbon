@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
@@ -559,6 +560,16 @@ namespace Fluent
         }
 
         #endregion
+
+        #endregion
+
+        #region UI Automation
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new FluentDropDownButtonAutomationPeer(this);
+        }
 
         #endregion
     }
