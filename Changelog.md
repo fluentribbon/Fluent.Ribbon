@@ -65,7 +65,7 @@
 | --- | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground |
 | --- | Fluent.Ribbon.Brushes.Backstage.Background |
 | --- | Fluent.Ribbon.Brushes.Backstage.Foreground |
-| --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.Background |
+| --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background |
 | --- | Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background |
 | --- | Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background |

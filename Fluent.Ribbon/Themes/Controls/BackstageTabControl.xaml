@@ -8,17 +8,17 @@
         <Grid Background="Transparent">
             <Border x:Name="border"
                     Visibility="Collapsed"
-                    Background="{TemplateBinding Background}" />
-                <StackPanel Orientation="Horizontal"
-                            Margin="25,0,15,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center">
-                <TextBlock Text="{TemplateBinding Header}"
-                           TextWrapping="NoWrap"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           TextTrimming="CharacterEllipsis"
-                           x:Name="controlLabel" />
+                    Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="25,0,15,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+            <TextBlock Text="{TemplateBinding Header}"
+                       TextWrapping="NoWrap"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       TextTrimming="CharacterEllipsis"
+                       x:Name="controlLabel" />
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
@@ -52,10 +52,8 @@
                 Value="0" />
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabControl.Button}" />
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabControl.Button.Background}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
     </Style>
@@ -90,6 +88,7 @@
                 </Grid>
             </ContentControl>
         </Grid>
+
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">
