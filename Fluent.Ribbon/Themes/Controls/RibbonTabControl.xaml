@@ -26,7 +26,7 @@
                         Height="Auto"
                         Stretch="None"
                         VerticalAlignment="Center"
-                        Source="/Fluent;component/Themes/Images/RibbonCollapse.png"
+                        Source="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}"
                         Width="Auto"
                         Margin="2" />
                 <Image x:Name="iconImageChecked"
@@ -35,7 +35,7 @@
                         Height="Auto"
                         Stretch="None"
                         VerticalAlignment="Center"
-                        Source="/Fluent;component/Themes/Images/RibbonExpand.png"
+                        Source="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}"
                         Width="Auto"
                         Margin="2" />
             </Grid>
@@ -307,7 +307,7 @@
                         <Image x:Name="image"
                                Width="22"
                                Height="22"
-                               Source="/Fluent;component/Themes/Images/RibbonPin.png"
+                               Source="{DynamicResource Fluent.Ribbon.Images.RibbonPin}"
                                Stretch="None"
                                Visibility="Collapsed" />
                         <Fluent:ToggleButton x:Name="PART_MinimizeButton"

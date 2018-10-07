@@ -19,17 +19,56 @@
 
     <BitmapImage x:Key="MoreColorsIcon"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Images/MoreColors.png" />
+                 UriSource="/Fluent;component/Themes/Images/MoreColors.png"
+                 x:Shared="False" />
 
     <BitmapImage x:Key="ScreenTipHelpImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Images/Help.png" />
+                 UriSource="/Fluent;component/Themes/Images/Help.png"
+                 x:Shared="False" />
 
     <BitmapImage x:Key="MenuCheckedImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Images/Checked.png" />
+                 UriSource="/Fluent;component/Themes/Images/Checked.png"
+                 x:Shared="False" />
 
     <BitmapImage x:Key="ScreenTipWarningImage"
                  PresentationOptions:Freeze="True"
-                 UriSource="/Fluent;component/Themes/Images/Warning.png" />
+                 UriSource="/Fluent;component/Themes/Images/Warning.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarDropDown"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/QuickAccessToolbarDropDown.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarExtender"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/QuickAccessToolbarExtender.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.ApplicationMenu"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/ApplicationMenu.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.DialogLauncher"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/DialogLauncher.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.RibbonCollapse"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/RibbonCollapse.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.RibbonExpand"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/RibbonExpand.png"
+                 x:Shared="False" />
+
+    <BitmapImage x:Key="Fluent.Ribbon.Images.RibbonPin"
+                 PresentationOptions:Freeze="True"
+                 UriSource="/Fluent;component/Themes/Images/RibbonPin.png"
+                 x:Shared="False" />
 </ResourceDictionary>

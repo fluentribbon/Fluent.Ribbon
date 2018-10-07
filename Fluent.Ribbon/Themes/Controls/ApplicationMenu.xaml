@@ -133,7 +133,7 @@
                 <Setter Property="Content"
                         TargetName="contentPresenter">
                     <Setter.Value>
-                        <Image Source="pack://application:,,,/Fluent;component\Themes\Images\ApplicationMenu.png"
+                        <Image Source="{DynamicResource Fluent.Ribbon.Images.ApplicationMenu}"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Stretch="None" />

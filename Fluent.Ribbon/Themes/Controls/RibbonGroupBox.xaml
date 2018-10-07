@@ -428,7 +428,7 @@
                     Height="Auto"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="pack://application:,,,/Fluent;component/Themes/Images/DialogLauncher.png"
+                    Source="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}"
                     SnapsToDevicePixels="True"
                     Stretch="None">
             </Image>
