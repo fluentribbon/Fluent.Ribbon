@@ -261,7 +261,10 @@ namespace Fluent
             }
         }
 
-        private void OnPopupDismiss(object sender, DismissPopupEventArgs e)
+        /// <summary>
+        /// Called when this control receives the <see cref="PopupService.DismissPopupEvent"/>.
+        /// </summary>
+        protected virtual void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
             // Only close backstage when popups should always be closed.
             // "Always" applies to controls marked with IsDefinitive for example.
@@ -719,12 +722,12 @@ namespace Fluent
 
         private void OnBackstageLoaded(object sender, RoutedEventArgs e)
         {
-            this.AddHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
+            this.AddHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnDismissPopup);
         }
 
         private void OnBackstageUnloaded(object sender, RoutedEventArgs e)
         {
-            this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnPopupDismiss);
+            this.RemoveHandler(PopupService.DismissPopupEvent, (EventHandler<DismissPopupEventArgs>)this.OnDismissPopup);
 
             this.DestroyAdorner();
         }
