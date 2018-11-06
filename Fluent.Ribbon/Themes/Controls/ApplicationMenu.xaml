@@ -4,6 +4,7 @@
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
@@ -20,14 +21,11 @@
                         MinWidth="60"
                         Height="23"
                         Background="{TemplateBinding Background}">
-                    <Grid>
-                        <Rectangle x:Name="rectangle" />
-                        <ContentPresenter x:Name="contentPresenter"
-                                          ContentSource="Header"
-                                          Margin="10,0,10,0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center" />
-                    </Grid>
+                    <ContentControl x:Name="contentPresenter"
+                                    Content="{converters:ObjectToImageConverter {Binding Header, RelativeSource={RelativeSource TemplatedParent}}}"
+                                    Margin="10,0,10,0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
                 </Border>
             </ContentControl>
             <Popup x:Name="PART_Popup"
@@ -128,18 +126,6 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="Header"
-                     Value="{x:Null}">
-                <Setter Property="Content"
-                        TargetName="contentPresenter">
-                    <Setter.Value>
-                        <Image Source="{DynamicResource Fluent.Ribbon.Images.ApplicationMenu}"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Stretch="None" />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -147,5 +133,6 @@
         <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Header" Value="{DynamicResource Fluent.Ribbon.Images.ApplicationMenu}" />
     </Style>
 </ResourceDictionary>
