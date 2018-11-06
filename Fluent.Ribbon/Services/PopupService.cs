@@ -11,28 +11,44 @@ namespace Fluent
     using Fluent.Internal;
 
     /// <summary>
-    /// Dismiss popup mode
+    /// Dismiss popup mode.
     /// </summary>
     public enum DismissPopupMode
     {
         /// <summary>
-        /// Always dismiss popup
+        /// Always dismiss popup.
         /// </summary>
         Always,
 
         /// <summary>
-        /// Dismiss only if mouse is not over popup
+        /// Dismiss only if mouse is not over popup.
         /// </summary>
         MouseNotOver
     }
 
     /// <summary>
-    /// Dismiss popup arguments
+    /// Reason for dismiss popup event.
+    /// </summary>
+    public enum DismissPopupReason
+    {
+        /// <summary>
+        /// No reason given.
+        /// </summary>
+        Undefined,
+
+        /// <summary>
+        /// Application lost focus.
+        /// </summary>
+        ApplicationLostFocus
+    }
+
+    /// <summary>
+    /// Dismiss popup arguments.
     /// </summary>
     public class DismissPopupEventArgs : RoutedEventArgs
     {
         /// <summary>
-        /// Standard constructor
+        /// Standard constructor.
         /// </summary>
         public DismissPopupEventArgs()
             : this(DismissPopupMode.Always)
@@ -40,19 +56,35 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
-        /// <param name="dismissMode">Dismiss mode</param>
+        /// <param name="dismissMode">Dismiss mode.</param>
         public DismissPopupEventArgs(DismissPopupMode dismissMode)
+            : this(dismissMode, DismissPopupReason.Undefined)
         {
-            this.RoutedEvent = PopupService.DismissPopupEvent;
-            this.DismissMode = dismissMode;
         }
 
         /// <summary>
-        /// Popup dismiss mode
+        /// Constructor.
         /// </summary>
-        public DismissPopupMode DismissMode { get; set; }
+        /// <param name="dismissMode">Dismiss mode.</param>
+        /// <param name="reason">Dismiss reason.</param>
+        public DismissPopupEventArgs(DismissPopupMode dismissMode, DismissPopupReason reason)
+        {
+            this.RoutedEvent = PopupService.DismissPopupEvent;
+            this.DismissMode = dismissMode;
+            this.DismissReason = reason;
+        }
+
+        /// <summary>
+        /// Popup dismiss mode.
+        /// </summary>
+        public DismissPopupMode DismissMode { get; }
+
+        /// <summary>
+        /// Popup dismiss reason.
+        /// </summary>
+        public DismissPopupReason DismissReason { get; set; }
 
         /// <inheritdoc />
         protected override void InvokeEventHandler(Delegate genericHandler, object genericTarget)
@@ -77,7 +109,7 @@ namespace Fluent
         /// <summary>
         /// Raises DismissPopup event (Async)
         /// </summary>
-        public static void RaiseDismissPopupEventAsync(object sender, DismissPopupMode mode)
+        public static void RaiseDismissPopupEventAsync(object sender, DismissPopupMode mode, DismissPopupReason reason = DismissPopupReason.Undefined)
         {
             var element = sender as UIElement;
 
@@ -88,13 +120,13 @@ namespace Fluent
 
             Debug.WriteLine($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
 
-            element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode));
+            element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode, reason));
         }
 
         /// <summary>
         /// Raises DismissPopup event
         /// </summary>
-        public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode)
+        public static void RaiseDismissPopupEvent(object sender, DismissPopupMode mode, DismissPopupReason reason = DismissPopupReason.Undefined)
         {
             var element = sender as UIElement;
 
@@ -105,7 +137,7 @@ namespace Fluent
 
             Debug.WriteLine($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
 
-            element.RaiseEvent(new DismissPopupEventArgs(mode));
+            element.RaiseEvent(new DismissPopupEventArgs(mode, reason));
         }
 
         #endregion

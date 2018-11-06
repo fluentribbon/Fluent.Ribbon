@@ -183,9 +183,9 @@ namespace Fluent
             if (message == WM.ACTIVATE
                 && wParam == IntPtr.Zero) // the window is deactivated
             {
-                PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always);
-                PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always);
-                PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always);
+                PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
+                PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
+                PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
             }
 #pragma warning restore 618
 

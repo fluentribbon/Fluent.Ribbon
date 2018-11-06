@@ -90,7 +90,13 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
-            // don't close start screen on dismiss popup event.
+            // don't close start screen on dismiss popup event if application lost focus
+            if (e.DismissReason == DismissPopupReason.ApplicationLostFocus)
+            {
+                return;
+            }
+
+            base.OnDismissPopup(sender, e);
         }
     }
 }
