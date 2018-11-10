@@ -240,8 +240,15 @@
 
             var image = new Image
             {
-                Source = imageSource
+                Source = imageSource,
+                Stretch = Stretch.Uniform
             };
+
+            if (desiredSize.IsEmpty == false)
+            {
+                image.Width = desiredSize.Width;
+                image.Height = desiredSize.Height;
+            }
 
             return image;
         }
