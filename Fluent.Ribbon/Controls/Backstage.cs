@@ -266,6 +266,12 @@ namespace Fluent
         /// </summary>
         protected virtual void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
+            // don't close on dismiss popup event if application lost focus
+            if (e.DismissReason == DismissPopupReason.ApplicationLostFocus)
+            {
+                return;
+            }
+
             // Only close backstage when popups should always be closed.
             // "Always" applies to controls marked with IsDefinitive for example.
             if (e.DismissMode != DismissPopupMode.Always)
