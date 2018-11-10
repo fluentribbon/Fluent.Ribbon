@@ -542,6 +542,7 @@ namespace Fluent
             if (this.HasOverflowItems != newValue)
             // ReSharper restore RedundantCheckBeforeAssignment
             {
+                // todo: code runs very often on startup
                 this.HasOverflowItems = newValue;
             }
         }
