@@ -104,7 +104,8 @@
   - [#637](../../issues/637) - Escape key doesn't close menu on data-bound DropDownButton
   - [#638](../../issues/638) - Setting AreTabHeadersVisible="False" on startup makes entire ribbon disappear
   - [#639](../../issues/639) - Group headers take focus when tabbing through with keyboard
-  - [#662](../../issues/662) -  StartScreen closing if clicking outside of Application
+  - [#656](../../issues/656) - Backstage icons not showing
+  - [#662](../../issues/662) - Backstage/StartScreen closing if clicking outside of Application
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  

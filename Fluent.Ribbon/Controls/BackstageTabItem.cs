@@ -11,8 +11,26 @@ namespace Fluent
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
-    public class BackstageTabItem : ContentControl, IKeyTipedControl
+    public class BackstageTabItem : ContentControl, IKeyTipedControl, ILogicalChildSupport
     {
+        #region Icon
+
+        /// <summary>
+        /// Gets or sets Icon for the element
+        /// </summary>
+        public object Icon
+        {
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Dependency property for <see cref="Icon"/>
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(RibbonControl.OnIconChanged));
+
+        #endregion
+
         /// <inheritdoc />
         public string KeyTip
         {
@@ -192,6 +210,18 @@ namespace Fluent
         /// <inheritdoc />
         public void OnKeyTipBack()
         {
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
         }
     }
 }

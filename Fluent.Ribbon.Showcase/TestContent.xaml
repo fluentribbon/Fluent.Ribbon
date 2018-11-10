@@ -184,6 +184,7 @@
                             <Fluent:BackstageTabItem Header="Disabled"
                                                      IsEnabled="False" />
                             <Fluent:BackstageTabItem Header="Introduction"
+                                                     Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
                                                      KeyTip="T">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>

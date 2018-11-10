@@ -13,12 +13,26 @@
                         Margin="25,0,15,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-                <TextBlock Text="{TemplateBinding Header}"
-                           TextWrapping="NoWrap"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           TextTrimming="CharacterEllipsis"
-                           x:Name="controlLabel" />
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Width="16"
+                                  Height="16"
+                                  Margin="0 0 8 0"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
+                                  SnapsToDevicePixels="True" />
+
+                <ContentControl x:Name="controlLabel"
+                                Content="{TemplateBinding Header}">
+                    <ContentControl.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                        </Style>
+                    </ContentControl.Resources>
+                </ContentControl>
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
@@ -38,6 +52,15 @@
                 <Setter Property="Opacity"
                         TargetName="controlLabel"
                         Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
