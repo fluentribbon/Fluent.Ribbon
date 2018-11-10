@@ -13,12 +13,12 @@
                         Margin="25,0,15,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
-            <TextBlock Text="{TemplateBinding Header}"
-                       TextWrapping="NoWrap"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       TextTrimming="CharacterEllipsis"
-                       x:Name="controlLabel" />
+                <TextBlock Text="{TemplateBinding Header}"
+                           TextWrapping="NoWrap"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           TextTrimming="CharacterEllipsis"
+                           x:Name="controlLabel" />
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
