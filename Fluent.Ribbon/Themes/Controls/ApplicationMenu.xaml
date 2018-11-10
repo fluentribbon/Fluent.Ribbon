@@ -22,7 +22,7 @@
                         Height="23"
                         Background="{TemplateBinding Background}">
                     <ContentControl x:Name="contentPresenter"
-                                    Content="{converters:ObjectToImageConverter {Binding Header, RelativeSource={RelativeSource TemplatedParent}}}"
+                                    Content="{converters:ObjectToImageConverter {Binding Header, RelativeSource={RelativeSource TemplatedParent}}, '32,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                     Margin="10,0,10,0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center" />
