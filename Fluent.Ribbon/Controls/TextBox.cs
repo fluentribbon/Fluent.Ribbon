@@ -11,13 +11,6 @@ namespace Fluent
     /// </summary>
     public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl
     {
-        ////#region Fields
-
-        ////// Content when the textbox got focus
-        ////private string textBoxContentWhenGotFocus;
-
-        ////#endregion
-
         #region Properties (Dependency)
 
         #region InputWidth
