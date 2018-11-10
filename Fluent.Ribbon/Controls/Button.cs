@@ -2,8 +2,10 @@
 namespace Fluent
 {
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
+    using ButtonAutomationPeer = Fluent.Automation.Peers.ButtonAutomationPeer;
 
     /// <summary>
     /// Represents button
@@ -226,5 +228,8 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new ButtonAutomationPeer(this);
     }
 }

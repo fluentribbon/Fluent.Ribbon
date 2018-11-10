@@ -19,6 +19,8 @@
     <UpToDateCheckInput Include="**\*.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <Target Name="GenerateXamlFiles" AfterTargets="CollectPackageReferences">    
