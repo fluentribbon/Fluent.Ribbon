@@ -27,6 +27,11 @@
       <DelaySign>false</DelaySign>
       <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
   </PropertyGroup>
+  <!-- SourceLink -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
+    <EmbedAllSources>True</EmbedAllSources>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>NET45</DefineConstants>
   </PropertyGroup>
