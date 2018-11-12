@@ -7,6 +7,7 @@ namespace Fluent
     using System.Diagnostics;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -15,6 +16,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
+    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Extensions;
     using Fluent.Internal;
@@ -1584,6 +1586,12 @@ namespace Fluent
         void ILogicalChildSupport.RemoveLogicalChild(object child)
         {
             this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new InRibbonGalleryAutomationPeer(this);
         }
     }
 }

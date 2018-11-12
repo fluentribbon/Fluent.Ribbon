@@ -7,12 +7,14 @@ namespace Fluent
     using System.Diagnostics;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
+    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -653,7 +655,10 @@ namespace Fluent
         {
             var control = (DropDownButton)d;
 
+            var oldValue = (bool)e.OldValue;
             var newValue = (bool)e.NewValue;
+
+            (UIElementAutomationPeer.FromElement(control) as DropDownButtonAutomationPeer)?.RaiseToggleStatePropertyChangedEvent(oldValue, newValue);
 
             control.OnIsDropDownOpenChanged(newValue);
         }
@@ -845,6 +850,12 @@ namespace Fluent
                     yield return item;
                 }
             }
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DropDownButtonAutomationPeer(this);
         }
 
         #region MenuItem workarounds

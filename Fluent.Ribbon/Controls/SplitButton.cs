@@ -5,9 +5,11 @@ namespace Fluent
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
+    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Internal.KnownBoxes;
 
@@ -466,6 +468,12 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new SplitButtonAutomationPeer(this);
+        }
+
         #region Overrides of DropDownButton
 
         /// <inheritdoc />
@@ -480,6 +488,11 @@ namespace Fluent
         }
 
         #endregion
+
+        internal void AutomationButtonClick()
+        {
+            this.button.InvokeClick();
+        }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
