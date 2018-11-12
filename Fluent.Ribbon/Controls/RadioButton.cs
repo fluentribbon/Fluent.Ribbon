@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Data;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
@@ -195,6 +196,12 @@ namespace Fluent
         void ILogicalChildSupport.RemoveLogicalChild(object child)
         {
             this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Fluent.Automation.Peers.RadioButtonAutomationPeer(this);
         }
     }
 }
