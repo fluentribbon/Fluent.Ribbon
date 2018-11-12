@@ -3,11 +3,11 @@
     using JetBrains.Annotations;
 
     /// <inheritdoc />
-    public class ButtonAutomationPeer : System.Windows.Automation.Peers.ButtonAutomationPeer
+    public class ComboBoxAutomationPeer : System.Windows.Automation.Peers.ComboBoxAutomationPeer
     {
-        /// <summary>Initializes a new instance of the <see cref="T:ButtonAutomationPeer" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="T:ComboBoxAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public ButtonAutomationPeer([NotNull] Button owner)
+        public ComboBoxAutomationPeer([NotNull] ComboBox owner)
             : base(owner)
         {
         }
