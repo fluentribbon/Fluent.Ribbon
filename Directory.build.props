@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <ExtrasDefaultResourceIncludes>Resources\*.xaml</ExtrasDefaultResourceIncludes>
-    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <TargetFrameworks>net462</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
@@ -10,38 +10,8 @@
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
-    <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>        
-  </PropertyGroup>
-  <PropertyGroup>
-      <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
-      <Product>Fluent.Ribbon</Product>
-      <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
-      <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">7.0.0.0</AssemblyVersion>
-      <FileVersion Condition="'$(FileVersion)' == ''">7.0.0.0</FileVersion>
-      <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
-  </PropertyGroup>
-  <!-- Sign assembly -->
-  <PropertyGroup>
-      <SignAssembly>True</SignAssembly>
-      <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\Shared\SharedKey.snk</AssemblyOriginatorKeyFile>
-      <DelaySign>false</DelaySign>
-      <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
-  <!-- SourceLink -->
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
-    <EmbedAllSources>True</EmbedAllSources>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <DefineConstants>NET45</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <DefineConstants>NET462</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup>
-    <!-- We should switch "DebugType" to "portable" in the future -->
-    <!-- "Full" and "pdbonly" are the same according to https://github.com/dotnet/roslyn/blob/master/docs/compilers/CSharp/CommandLine.md -->
-    <DebugType>full</DebugType>
+    <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
     <None Include="paket.references" />
