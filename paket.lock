@@ -7,7 +7,6 @@ NUGET
     Costura.Fody (3.1.2)
       Fody (>= 3.2.4) - restriction: || (&& (== net45) (>= net46)) (== net462)
     Fody (3.2.4)
-    gitlink (3.1)
     JetBrains.Annotations (2018.2.1) - copy_local: false
     MahApps.Metro (2.0.0-alpha0083)
       ControlzEx (>= 4.0.0-alpha0176 < 5.0.0-alpha)

@@ -8,7 +8,6 @@ framework: net45, net462
 specific_version: false
 redirects: off
 
-nuget gitlink
 nuget MSBuild.Sdk.Extras
 nuget StyleCop.Analyzers
 nuget WpfAnalyzers
