@@ -1,10 +1,10 @@
 <Project>
   <!-- Constants -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <DefineConstants>NET45</DefineConstants>
+    <DefineConstants>$(DefineConstants);NET45</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <DefineConstants>NET462</DefineConstants>
+    <DefineConstants>$(DefineConstants);NET462</DefineConstants>
   </PropertyGroup>
 
   <!-- Assembly info -->
