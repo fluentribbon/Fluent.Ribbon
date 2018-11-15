@@ -119,7 +119,7 @@ Task("Build")
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
-            .WithProperty("ContinuousIntegrationBuild", local == false)
+            .WithProperty("ContinuousIntegrationBuild", local == false ? "true" : "false")
             );
 });
 
