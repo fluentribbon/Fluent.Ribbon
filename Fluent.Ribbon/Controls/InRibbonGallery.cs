@@ -1363,12 +1363,12 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(this.scrollViewer.Height))
+            if (double.IsNaN(this.menuPanel.Height))
             {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+                this.menuPanel.Height = this.menuPanel.ActualHeight;
             }
 
-            this.scrollViewer.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight));
+            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight));
         }
 
         #endregion
