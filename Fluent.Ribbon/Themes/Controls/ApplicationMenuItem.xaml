@@ -5,6 +5,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:converters="clr-namespace:Fluent.Converters"
+                    xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
     <converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
 
@@ -879,9 +880,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style x:Key="{x:Type Fluent:MenuItem}"
-                       TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource ApplicationMenuSecondLevelStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -1178,8 +1176,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource ApplicationMenuSecondLevelStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -1528,6 +1524,8 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
                         Value="{DynamicResource SplitedApplicationMenuItemTemplate}" />
+                <Setter Property="ItemContainerStyleSelector" 
+                        Value="{x:Static styleSelectors:SplitedApplicationMenuItemItemContainerStyleSelector.Instance}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -1538,6 +1536,8 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
                         Value="{DynamicResource HeaderApplicationMenuItemTemplate}" />
+                <Setter Property="ItemContainerStyleSelector" 
+                        Value="{x:Static styleSelectors:HeaderApplicationMenuItemItemContainerStyleSelector.Instance}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>

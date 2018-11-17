@@ -5,18 +5,15 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:converters="clr-namespace:Fluent.Converters"
+                    xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
-        <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource ApplicationMenuStyle}"
-                   TargetType="{x:Type Fluent:MenuItem}" />
-        </ControlTemplate.Resources>
         <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0,0,0,0">
+                            Margin="0">
                 <Border x:Name="PART_ButtonBorder"
                         MinWidth="60"
                         Height="23"
@@ -77,7 +74,6 @@
                                               ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                     <StackPanel Orientation="Vertical"
                                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                x:Name="PART_MenuPanel"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </ScrollViewer>
@@ -134,5 +130,6 @@
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Header" Value="{DynamicResource Fluent.Ribbon.Images.ApplicationMenu}" />
+        <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
     </Style>
 </ResourceDictionary>
