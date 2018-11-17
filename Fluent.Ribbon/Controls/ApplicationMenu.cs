@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using Fluent.Internal.KnownBoxes;
@@ -11,6 +12,8 @@ namespace Fluent
     /// </summary>
     public class ApplicationMenu : DropDownButton
     {
+        private static PropertyInfo targetElementPropertyInfo = typeof(ContextMenuEventArgs).GetProperty("TargetElement", BindingFlags.Instance | BindingFlags.NonPublic);
+
         #region Properties
 
         /// <summary>
@@ -97,8 +100,13 @@ namespace Fluent
         {
             if (ReferenceEquals(e.Source, this))
             {
-                e.Handled = true;
-                return;
+                var targetElement = targetElementPropertyInfo?.GetValue(e);
+                if (targetElement == null
+                    || ReferenceEquals(targetElement, this))
+                {
+                    e.Handled = true;
+                    return;
+                }
             }
 
             base.OnContextMenuOpening(e);
