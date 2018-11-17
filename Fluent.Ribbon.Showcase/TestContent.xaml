@@ -2007,6 +2007,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <!--InRibbonGallery-->
                     <Fluent:InRibbonGallery MinItemsInRow="3"
                                             MaxItemsInRow="5"
+                                            MaxItemsInDropDownRow="2"
                                             Icon="Images\Gray.png"
                                             Header="InRibbonGallery"
                                             ItemWidth="40"

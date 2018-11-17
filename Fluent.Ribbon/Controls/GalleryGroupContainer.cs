@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -229,10 +229,17 @@ namespace Fluent
 
             this.minMaxWidthNeedsToBeUpdated = false;
 
-            var isInsideInRibbonGallery = UIHelper.GetParent<InRibbonGallery>(this) != null;
-            var targetForSizeConstraints = isInsideInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
+            // Issue references:
+            // - #452 + commit https://github.com/fluentribbon/Fluent.Ribbon/commit/8b458b1cfc5e440f54778c808142fffa67a23978
+            // - #666
+            // We need to check if we are inside a closed InRibbonGallery.
+            // - If we are inside an closed InRibbonGallery we need to restrict the size of "this"
+            // - If we are inside an opened InRibbonGallery or not inside an InRibbonGallery we need to restrict the size of "RealItemsPanel"
+            var inRibbonGallery = UIHelper.GetParent<InRibbonGallery>(this);
+            var isInsideClosedInRibbonGallery = inRibbonGallery != null && inRibbonGallery.IsDropDownOpen == false;
+            var targetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
 
-            var nonTargetForSizeConstraints = isInsideInRibbonGallery ? (FrameworkElement)this.RealItemsPanel : this;
+            var nonTargetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this.RealItemsPanel : this;
 
             nonTargetForSizeConstraints.MinWidth = 0;
             nonTargetForSizeConstraints.MaxWidth = double.PositiveInfinity;
