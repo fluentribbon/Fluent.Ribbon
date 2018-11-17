@@ -107,6 +107,7 @@
   - [#656](../../issues/656) - Backstage icons not showing
   - [#659](../../issues/659) - Fix Dutch localization errors (thanks @carloslubbers)
   - [#662](../../issues/662) - Backstage/StartScreen closing if clicking outside of Application
+  - [#663](../../issues/663) - Fluent:ApplicationMenu not closing on outside click after opening context menu.
   - [#666](../../issues/666) - InRibbonGallery DropDown not layouting correctly
 
 - ### Enhancements

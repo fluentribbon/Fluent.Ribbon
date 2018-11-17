@@ -3,6 +3,7 @@ namespace Fluent
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -90,6 +91,18 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            if (ReferenceEquals(e.Source, this))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            base.OnContextMenuOpening(e);
+        }
 
         #region Quick Access Toolbar
 
