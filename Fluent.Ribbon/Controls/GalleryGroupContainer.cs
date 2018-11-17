@@ -230,7 +230,7 @@ namespace Fluent
             this.minMaxWidthNeedsToBeUpdated = false;
 
             // Issue references:
-            // - #452 + commit https://github.com/fluentribbon/Fluent.Ribbon/commit/8b458b1cfc5e440f54778c808142fffa67a23978
+            // - #542 + commit https://github.com/fluentribbon/Fluent.Ribbon/commit/8b458b1cfc5e440f54778c808142fffa67a23978
             // - #666
             // We need to check if we are inside a closed InRibbonGallery.
             // - If we are inside an closed InRibbonGallery we need to restrict the size of "this"
