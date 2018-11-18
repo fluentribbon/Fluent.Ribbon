@@ -768,10 +768,9 @@ namespace Fluent
             var maxItemsInRow = (int)e.NewValue;
 
             if (gal.IsDropDownOpen == false
-                && gal.galleryPanel != null
-                && gal.galleryPanel.MaxItemsInRow < maxItemsInRow)
+                && gal.galleryPanel != null)
             {
-                gal.galleryPanel.MaxItemsInRow = maxItemsInRow;
+                gal.galleryPanel.MaxItemsInRow = Math.Max(maxItemsInRow, gal.galleryPanel.MinItemsInRow);
             }
         }
 
