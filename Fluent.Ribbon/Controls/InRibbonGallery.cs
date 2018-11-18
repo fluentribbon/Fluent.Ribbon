@@ -960,6 +960,13 @@ namespace Fluent
         public InRibbonGallery()
         {
             ContextMenuService.Coerce(this);
+            this.Loaded += this.GalleryLoaded;
+        }
+
+        private void GalleryLoaded(object sender, RoutedEventArgs e)
+        {
+            RibbonControl.Bind(this, this.galleryPanel, nameof(this.MinItemsInRow), GalleryPanel.MinItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
+            RibbonControl.Bind(this, this.galleryPanel, nameof(this.MaxItemsInRow), GalleryPanel.MaxItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
         }
 
         #endregion
@@ -1118,8 +1125,8 @@ namespace Fluent
 
             if (this.galleryPanel != null)
             {
-                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MinItemsInRow), GalleryPanel.MinItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
-                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MaxItemsInRow), GalleryPanel.MaxItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
+                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
                 this.galleryPanel.UpdateMinAndMaxWidth();
             }
 
