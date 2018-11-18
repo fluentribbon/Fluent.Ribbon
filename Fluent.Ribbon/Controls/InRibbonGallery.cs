@@ -1118,8 +1118,8 @@ namespace Fluent
 
             if (this.galleryPanel != null)
             {
-                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
-                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MinItemsInRow), GalleryPanel.MinItemsInRowProperty, BindingMode.OneWay);
+                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MaxItemsInRow), GalleryPanel.MaxItemsInRowProperty, BindingMode.OneWay);
                 this.galleryPanel.UpdateMinAndMaxWidth();
             }
 
