@@ -799,7 +799,7 @@ namespace Fluent
                 && gal.galleryPanel != null
                 && gal.galleryPanel.MinItemsInRow > minItemsInRow)
             {
-                gal.galleryPanel.MinItemsInRow = minItemsInRow;
+                gal.galleryPanel.MinItemsInRow = Math.Max(minItemsInRow, gal.galleryPanel.MaxItemsInRow);
             }
         }
 
@@ -1117,8 +1117,8 @@ namespace Fluent
 
             if (this.galleryPanel != null)
             {
-                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MinItemsInRow), GalleryPanel.MinItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
-                RibbonControl.Bind(this, this.galleryPanel, nameof(this.MaxItemsInRow), GalleryPanel.MaxItemsInRowProperty, BindingMode.TwoWay, UpdateSourceTrigger.Explicit);
+                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
                 this.galleryPanel.UpdateMinAndMaxWidth();
             }
 
