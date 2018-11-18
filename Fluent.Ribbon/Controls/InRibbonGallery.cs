@@ -796,9 +796,10 @@ namespace Fluent
             var minItemsInRow = (int)e.NewValue;
 
             if (gal.IsDropDownOpen == false
-                && gal.galleryPanel != null)
+                && gal.galleryPanel != null
+                && gal.galleryPanel.MinItemsInRow > minItemsInRow)
             {
-                gal.galleryPanel.MinItemsInRow = Math.Min(minItemsInRow,  gal.galleryPanel.MaxItemsInRow);
+                gal.galleryPanel.MinItemsInRow = minItemsInRow;
             }
         }
 
