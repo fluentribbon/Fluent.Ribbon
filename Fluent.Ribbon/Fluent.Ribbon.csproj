@@ -1,32 +1,35 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);**\*.Template.xaml</ExtrasDefaultPageExcludes>
-    <EnableDefaultNoneItems>False</EnableDefaultNoneItems>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/*.Template.xaml</DefaultItemExcludes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <!-- We also have to exclude controls in release mode to reduce binary size -->
-    <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);**\Controls\*.xaml</ExtrasDefaultPageExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**/Controls/*.xaml</DefaultItemExcludes>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="**\*.fx;**\*.json" Exclude="$(BaseIntermediateOutputPath)\**\*" />
-    <None Include="**\Controls\*.xaml" />
-    <None Include="**\Styles.txt" />
-    <EmbeddedResource Include="**\*.Template.xaml" />
-    <EmbeddedResource Include="**\GeneratorParameters.json" />
-    <UpToDateCheckInput Include="**\*.xaml" />
+    <None Include="**/*.fx;**/*.json" Exclude="$(BaseIntermediateOutputPath)/**/*" />
+    <None Include="**/Controls/*.xaml" />
+    <None Include="**/Styles.txt" />
+    <EmbeddedResource Include="**/*.Template.xaml" />
+    <EmbeddedResource Include="**/GeneratorParameters.json" />
+    <UpToDateCheckInput Include="**/*.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <Target Name="GenerateXamlFiles" AfterTargets="CollectPackageReferences">    
-    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" /> 
-    <!--<Exec Command="&quot;C:\DEV\OSS_Own\XamlColorSchemeGenerator\bin\Debug\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\Themes\GeneratorParameters.json&quot;" />-->
-    <Exec Command="&quot;$(MSBuildProjectDirectory)\Themes\XamlCombine.exe&quot; Styles.txt Styles.xaml" />
+  <Target Name="GenerateXamlFiles" BeforeTargets="CheckForDuplicateItems">
+    <Exec Command="&quot;$(MSBuildProjectDirectory)/../packages/XamlColorSchemeGenerator/tools/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" />
+    <!--<Exec Command="&quot;C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" />-->
+    <Exec Command="&quot;$(MSBuildProjectDirectory)/Themes/XamlCombine.exe&quot; Styles.txt Styles.xaml" />
   </Target>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

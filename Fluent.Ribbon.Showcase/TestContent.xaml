@@ -8,6 +8,7 @@
              xmlns:Helpers="clr-namespace:FluentTest.Helpers"
              xmlns:System="clr-namespace:System;assembly=mscorlib"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
+             xmlns:formsInterop="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:converters="clr-namespace:FluentTest.Converters"
              mc:Ignorable="d"
@@ -389,17 +390,28 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                    Command="{Binding TestCommand}"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
-                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference pasteButton}}"
+                <!-- todo: netcore => was using x:Reference before -->
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=pasteButton}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference cutButton}}"
+
+                <Fluent:QuickAccessMenuItem IsChecked="true">
+                    <Separator />
+                </Fluent:QuickAccessMenuItem>
+
+                <!-- todo: netcore => was using x:Reference before -->
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=cutButton}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference copyButton}}" />
-                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference dropDownGreen}}"
+                <!-- todo: netcore => was using x:Reference before -->
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=copyButton}" />
+                <!-- todo: netcore => was using x:Reference before -->
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=dropDownGreen}"
                                             IsChecked="True" />
-                <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference gallerySampleInRibbonGallery}}"
+                <!-- todo: netcore => was using x:Reference before -->
+                <Fluent:QuickAccessMenuItem Target="{Binding ElementName=gallerySampleInRibbonGallery}"
                                             IsChecked="True" />
+                <!-- todo: netcore => was using x:Reference before -->
                 <Fluent:QuickAccessMenuItem IsChecked="True"
-                                            Target="{Binding Source={x:Reference UndoButton}}" />
+                                            Target="{Binding ElementName=UndoButton}" />
             </Fluent:Ribbon.QuickAccessItems>
 
             <Fluent:RibbonTabItem Header="Toolbars"
@@ -3264,10 +3276,10 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             
                             <GroupBox Header="KeyTip issues #254">
                                 <StackPanel Orientation="Vertical">
-                                    <WindowsFormsHost>
+                                    <formsInterop:WindowsFormsHost>
                                         <forms:TextBox Height="30"
                                                        Text="Test Windows.Forms.TextBox" />
-                                    </WindowsFormsHost>
+                                    </formsInterop:WindowsFormsHost>
 
                                     <StackPanel>
                                         <Label Target="{Binding ElementName=targetTextBox}">Label with _Access Key A</Label>
@@ -3325,11 +3337,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <TabItem Header="Airspace issue">
                 <DockPanel LastChildFill="True">
-                    <WindowsFormsHost HorizontalAlignment="Stretch"
+                    <formsInterop:WindowsFormsHost HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch">
                         <forms:TextBox Height="30"
                                        Text="Test Windows.Forms.TextBox" />
-                    </WindowsFormsHost>
+                    </formsInterop:WindowsFormsHost>
                 </DockPanel>
             </TabItem>
         </TabControl>

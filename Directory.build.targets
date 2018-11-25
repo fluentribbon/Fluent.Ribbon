@@ -1,10 +1,13 @@
-<Project>
+﻿<Project>
   <!-- Constants -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>$(DefineConstants);NET45</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <DefineConstants>$(DefineConstants);NET462</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <DefineConstants>$(DefineConstants);NET_CORE_3_0</DefineConstants>
   </PropertyGroup>
 
   <!-- Assembly info -->
@@ -20,9 +23,10 @@
   <!-- Sign assembly -->
   <PropertyGroup>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\Shared\SharedKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
 
   <!-- SourceLink -->

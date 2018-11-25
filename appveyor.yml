@@ -15,6 +15,11 @@
   pull_requests:
     do_not_increment_build_number: false
 
+  # Install dotnet core 3.0 latest (alpha!!), as this is not provided on AppVeyor yet
+  install:
+    - ps: Start-FileDownload 'https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe'
+    - ps: Start-Process .\dotnet-sdk-latest-win-x64.exe "/install /norestart /quiet /log sdkinstall.log" -NoNewWindow -Wait
+
   build_script:
     - ps: .\build.ps1 -Target appveyor -Verbosity Verbose
 

@@ -6,11 +6,8 @@
     using Fluent;
     using MahApps.Metro.Controls;
 
-    /// <summary>
-    /// Interaction logic for MahMetroWindow.xaml
-    /// </summary>
     [CLSCompliant(false)] // Because MetroWindow is not CLSCompliant
-    public partial class MahMetroWindow : IRibbonWindow
+    public partial class MahMetroWindow : MetroWindow, IRibbonWindow
     {
         public MahMetroWindow()
         {

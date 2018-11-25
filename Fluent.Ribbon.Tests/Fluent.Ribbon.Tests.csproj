@@ -1,7 +1,9 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
     <AssemblyName>Fluent.Tests</AssemblyName>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
@@ -13,16 +15,13 @@
     <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ThemeHelper.cs" Link="Helper\ThemeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview*" PrivateAssets="All" />
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web.Extensions">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Web.Extensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

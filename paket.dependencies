@@ -4,11 +4,10 @@ source https://ci.appveyor.com/nuget/controlzex
 source https://ci.appveyor.com/nuget/xamlcolorschemegenerator
 source https://api.nuget.org/v3/index.json
 
-framework: net45, net462
+framework: net45, net462, netcoreapp3.0
 specific_version: false
 redirects: off
 
-nuget MSBuild.Sdk.Extras
 nuget StyleCop.Analyzers
 nuget WpfAnalyzers
 nuget XamlColorSchemeGenerator
@@ -22,7 +21,7 @@ nuget MahApps.Metro prerelease
 
 group test
 	source https://api.nuget.org/v3/index.json
-	framework: net45, net462
+	framework: net45, net462, netcoreapp3.0
 	specific_version: false
 	redirects: off
 

@@ -18,8 +18,9 @@
                    ShowTitleBar="True"
                    ShowSystemMenuOnRightClick="False">
     <Metro:MetroWindow.LayoutTransform>
-        <ScaleTransform ScaleX="{Binding DataContext.Zoom, Source={x:Reference TestContent} }"
-                        ScaleY="{Binding DataContext.Zoom, Source={x:Reference TestContent}}" />
+        <!-- todo: netcore => was using x:Reference before -->
+        <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"
+                        ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
     </Metro:MetroWindow.LayoutTransform>
     
     <Metro:MetroWindow.Resources>
