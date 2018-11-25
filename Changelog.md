@@ -104,6 +104,7 @@
   - [#637](../../issues/637) - Escape key doesn't close menu on data-bound DropDownButton
   - [#638](../../issues/638) - Setting AreTabHeadersVisible="False" on startup makes entire ribbon disappear
   - [#639](../../issues/639) - Group headers take focus when tabbing through with keyboard
+  - [#653](../../issues/653) - Incorrect context menu of Fluent:TextBox
   - [#656](../../issues/656) - Backstage icons not showing
   - [#659](../../issues/659) - Fix Dutch localization errors (thanks @carloslubbers)
   - [#662](../../issues/662) - Backstage/StartScreen closing if clicking outside of Application

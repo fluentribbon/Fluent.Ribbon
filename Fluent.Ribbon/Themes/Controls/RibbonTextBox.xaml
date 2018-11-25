@@ -14,7 +14,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         Grid.ColumnSpan="1"
-                        x:Name="headerAndIconPanel"
+                        x:Name="PART_HeaderAndIconPanel"
                         HorizontalAlignment="Left"
                         Margin="0,0,4,0">
                 <ContentPresenter x:Name="iconImage"
@@ -46,8 +46,8 @@
                     Width="{TemplateBinding InputWidth}"
                     HorizontalAlignment="Right">
                 <ScrollViewer Margin="0"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                x:Name="PART_ContentHost" />
+                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                              x:Name="PART_ContentHost" />
             </Border>
         </Grid>
 
@@ -73,7 +73,7 @@
             <Trigger Property="Size"
                         Value="Small">
                 <Setter Property="Visibility"
-                        TargetName="headerAndIconPanel"
+                        TargetName="PART_HeaderAndIconPanel"
                         Value="Collapsed" />
             </Trigger>
             <Trigger Property="IsEnabled"
