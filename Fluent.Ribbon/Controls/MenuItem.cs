@@ -428,7 +428,19 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnMouseEnter(MouseEventArgs e)
         {
+            var focusMitigationApplied = false;
+            if (Window.GetWindow(this)?.IsActive == false)
+            {
+                focusMitigationApplied = true;
+                this.SetCurrentValue(FocusableProperty, false);
+            }
+
             base.OnMouseEnter(e);
+
+            if (focusMitigationApplied)
+            {
+                this.InvalidateProperty(FocusableProperty);
+            }
 
             if (this.IsItemsControlMenuBase == false
                 && this.isContextMenuOpening == false)
