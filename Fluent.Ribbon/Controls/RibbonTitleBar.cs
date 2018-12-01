@@ -57,7 +57,6 @@ namespace Fluent
         public static readonly DependencyProperty QuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(FrameworkElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolBarChanged));
 
-        // Handles QuickAccessToolBar property chages
         private static void OnQuickAccessToolBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var titleBar = (RibbonTitleBar)d;
@@ -218,8 +217,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            if (this.isAtLeastOneRequiredControlPresent == false
-                || this.IsLoaded == false)
+            if (this.isAtLeastOneRequiredControlPresent == false)
             {
                 return base.MeasureOverride(constraint);
             }

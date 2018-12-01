@@ -2,6 +2,8 @@
 namespace Fluent
 {
     using System.Windows;
+    using System.Windows.Automation.Peers;
+    using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
     using Fluent.Internal.KnownBoxes;
@@ -9,8 +11,11 @@ namespace Fluent
     /// <summary>
     /// Represents custom Fluent UI TextBox
     /// </summary>
+    [TemplatePart(Name = "PART_ContentHost", Type = typeof(UIElement))]
     public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl
     {
+        private UIElement contentHost;
+
         #region Properties (Dependency)
 
         #region InputWidth
@@ -43,21 +48,50 @@ namespace Fluent
         static TextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TextBox), new FrameworkPropertyMetadata(typeof(TextBox)));
-
-            ContextMenuService.Attach(typeof(TextBox));
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        public TextBox()
-        {
-            ContextMenuService.Coerce(this);
         }
 
         #endregion
 
         #region Overrides
+
+        /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.contentHost = this.Template.FindName("PART_ContentHost", this) as UIElement;
+        }
+
+        /// <inheritdoc />
+        // Handling context menu manually to fix #653
+        protected override void OnContextMenuOpening(ContextMenuEventArgs e)
+        {
+            this.InvalidateProperty(ContextMenuProperty);
+
+            if (this.contentHost?.IsMouseOver == true
+                || this.contentHost?.IsKeyboardFocusWithin == true)
+            {
+                base.OnContextMenuOpening(e);
+            }
+            else
+            {
+                var coerced = ContextMenuService.CoerceContextMenu(this, this.ContextMenu);
+                if (coerced != null)
+                {
+                    this.SetCurrentValue(ContextMenuProperty, coerced);
+                }
+
+                base.OnContextMenuOpening(e);
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnContextMenuClosing(ContextMenuEventArgs e)
+        {
+            this.InvalidateProperty(ContextMenuProperty);
+
+            base.OnContextMenuClosing(e);
+        }
 
         /// <inheritdoc />
         protected override void OnKeyUp(KeyEventArgs e)
@@ -247,6 +281,12 @@ namespace Fluent
         void ILogicalChildSupport.RemoveLogicalChild(object child)
         {
             this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new Fluent.Automation.Peers.TextBoxAutomationPeer(this);
         }
     }
 }

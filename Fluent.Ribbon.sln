@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
@@ -40,11 +40,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F645
 		.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Showcase", "Fluent.Ribbon.Showcase\Fluent.Ribbon.Showcase.csproj", "{CFFE1910-4918-4710-8F33-86B584D41316}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon", "Fluent.Ribbon\Fluent.Ribbon.csproj", "{B12AC015-B97F-4975-9112-354449FC95A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Tests", "Fluent.Ribbon.Tests\Fluent.Ribbon.Tests.csproj", "{DCA7EC6D-7356-45DE-9713-495298C4E661}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Showcase", "Fluent.Ribbon.Showcase\Fluent.Ribbon.Showcase.csproj", "{CFFE1910-4918-4710-8F33-86B584D41316}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
