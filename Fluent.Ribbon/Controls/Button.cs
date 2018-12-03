@@ -5,7 +5,6 @@ namespace Fluent
     using System.Windows.Automation.Peers;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
-    using ButtonAutomationPeer = Fluent.Automation.Peers.ButtonAutomationPeer;
 
     /// <summary>
     /// Represents button
@@ -230,6 +229,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new ButtonAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.ButtonAutomationPeer(this);
     }
 }
