@@ -400,7 +400,7 @@
                                             Height="11"
                                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                             BorderThickness="0,1,0,0"
-                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                         <Grid>
                                             <Thumb x:Name="PART_ResizeVerticalThumb"
                                                     HorizontalAlignment="Stretch"
