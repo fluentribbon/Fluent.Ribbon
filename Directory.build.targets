@@ -26,7 +26,6 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
 
   <!-- SourceLink -->
