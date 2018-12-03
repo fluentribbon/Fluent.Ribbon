@@ -321,12 +321,12 @@ namespace Fluent
 
         private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
         {
-            if (contextGroup.IsVisible == false)
-            {
-                return;
-            }
-
             contextGroup.ForceMeasure();
+
+            foreach (var ribbonTabItem in contextGroup.Items)
+            {
+                ribbonTabItem.ForceMeasure();
+            }
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
             ribbonTitleBar?.ForceMeasureAndArrange();

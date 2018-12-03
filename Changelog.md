@@ -107,9 +107,11 @@
   - [#653](../../issues/653) - Incorrect context menu of Fluent:TextBox
   - [#656](../../issues/656) - Backstage icons not showing
   - [#659](../../issues/659) - Fix Dutch localization errors (thanks @carloslubbers)
+  - [#660](../../issues/660) - ContextualTabs visibility problem
   - [#662](../../issues/662) - Backstage/StartScreen closing if clicking outside of Application
   - [#663](../../issues/663) - Fluent:ApplicationMenu not closing on outside click after opening context menu.
   - [#666](../../issues/666) - InRibbonGallery DropDown not layouting correctly
+  - [#673](../../issues/673) - RibbonContextualTabGroup not shown
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
