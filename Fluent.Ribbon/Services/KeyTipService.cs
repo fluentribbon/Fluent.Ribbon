@@ -449,7 +449,7 @@ namespace Fluent
             }
 
             // Focus ribbon
-            this.ribbon.SelectedTabItem?.Focus();
+            (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
 
             this.ClearUserInput();
 
