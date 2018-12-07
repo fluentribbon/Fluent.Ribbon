@@ -38,7 +38,7 @@
         "Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground": "{StaticResource BlackColor}",
         "Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}",
         "Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background": "{StaticResource Fluent.Ribbon.Colors.AccentColor20}",
-        "Fluent.Ribbon.Brushes.LabelTextBrush": "{StaticResource Gray6}",
+        "Fluent.Ribbon.Brushes.LabelTextBrush": "{StaticResource BlackColor}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Gray5}", 
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource BlackColor}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource BlackColor}",
