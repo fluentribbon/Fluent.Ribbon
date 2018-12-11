@@ -327,11 +327,14 @@ namespace Fluent
             {
                 this.ClearUserInput();
 
-                e.Handled = true;
-
                 if (this.timer.IsEnabled)
                 {
                     this.ShowImmediatly();
+                }
+
+                if (this.activeAdornerChain != null)
+                {
+                    e.Handled = true;
                 }
             }
             else

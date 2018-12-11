@@ -112,6 +112,7 @@
   - [#663](../../issues/663) - Fluent:ApplicationMenu not closing on outside click after opening context menu.
   - [#666](../../issues/666) - InRibbonGallery DropDown not layouting correctly
   - [#673](../../issues/673) - RibbonContextualTabGroup not shown
+  - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
 
 - ### Enhancements
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
