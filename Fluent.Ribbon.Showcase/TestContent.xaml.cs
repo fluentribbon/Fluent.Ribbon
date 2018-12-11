@@ -59,7 +59,7 @@ namespace FluentTest
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
             
-            return ThemeManager.Themes.Select(x => new KeyValuePair<string, Brush>(x.DisplayName, (Brush)x.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"]))
+            return ThemeManager.Themes.Select(x => new KeyValuePair<string, Brush>(x.DisplayName, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
         }
