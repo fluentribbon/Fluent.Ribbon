@@ -5,14 +5,13 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
-    using System.Windows.Interactivity;
     using System.Windows.Media;
     using System.Windows.Threading;
     using ControlzEx.Behaviors;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
-
+    using Microsoft.Xaml.Behaviors;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     /// <summary>

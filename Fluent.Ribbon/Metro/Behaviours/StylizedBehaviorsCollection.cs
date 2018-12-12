@@ -1,7 +1,7 @@
 ﻿namespace Fluent.Metro.Behaviours
 {
     using System.Windows;
-    using System.Windows.Interactivity;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     /// Just a <see cref="FreezableCollection{T}"/> for <see cref="Behavior"/>

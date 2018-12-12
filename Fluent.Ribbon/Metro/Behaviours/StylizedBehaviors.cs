@@ -2,7 +2,7 @@
 {
     using System.Diagnostics;
     using System.Windows;
-    using System.Windows.Interactivity;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     /// Enables the use of behaviors in styles

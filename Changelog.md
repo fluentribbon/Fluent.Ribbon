@@ -30,6 +30,7 @@
     Instead of something like `pack://application:,,,/Fluent;component/Themes/Colors/BaseLight.xaml` and `pack://application:,,,/Fluent;component/Themes/Accents/Cobalt.xaml` you now have to use `pack://application:,,,/Fluent;component/Themes/Themes/Light.Cobalt.xaml`.
     The words `AppTheme` and `Accent` are replaced by `Theme` everywhere.
   - The target type for `Fluent.Ribbon.Styles.MenuItem` (previously named `FluentDefaultSystemMenuItemStyle`) now is `Fluent:MenuItem` instead of `MenuItem`
+  - Instead of depending on `System.Windows.Interactivity` we now depend on the open source version `Microsoft.Xaml.Behaviors.Wpf`
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
