@@ -1,4 +1,5 @@
 assembly-versioning-scheme: Major
+assembly-file-versioning-scheme: MajorMinorPatchTag
 mode: ContinuousDeployment
 next-version: 7.0.0
 branches:

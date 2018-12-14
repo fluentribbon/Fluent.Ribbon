@@ -28,7 +28,7 @@ NUGET
     Cake.Figlet (1.2)
     Cake.Paket (4.0)
     Cake.Paket.Module (4.0)
-    GitVersion.CommandLine (3.6.5)
+    GitVersion.CommandLine (4.0)
     NUnit.Console (3.9)
       NUnit.ConsoleRunner (>= 3.9)
       NUnit.Extension.NUnitProjectLoader (>= 3.5)
