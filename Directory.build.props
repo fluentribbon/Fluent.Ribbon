@@ -5,7 +5,6 @@
     <TargetFrameworks>net462;net45</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
