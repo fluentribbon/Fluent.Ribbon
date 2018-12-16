@@ -7,6 +7,7 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -971,9 +972,11 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ribbon = (RibbonGroupBox)d;
+            var groupBox = (RibbonGroupBox)d;
 
-            ribbon.OnIsDropDownOpenChanged();
+            groupBox.OnIsDropDownOpenChanged();
+
+            (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
         }
 
         private void OnIsDropDownOpenChanged()
@@ -1154,5 +1157,8 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer(this);
     }
 }
