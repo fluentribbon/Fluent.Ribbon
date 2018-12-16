@@ -141,7 +141,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.BackgroundBrush" Color="{StaticResource WhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.BorderBrush" Color="{StaticResource Gray5}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush" Color="{StaticResource Gray7}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
 
     <!-- Gallery -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gallery.Header.Background" Color="{StaticResource Gray3}" options:Freeze="True" />
