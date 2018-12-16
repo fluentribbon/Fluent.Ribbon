@@ -263,7 +263,7 @@
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
-            return (ImageSource)CreateImageSource(value, desiredSize)?.GetAsFrozen();
+            return GetAsFrozenIfPossible(CreateImageSource(value, desiredSize));
         }
 
         /// <summary>
@@ -277,7 +277,7 @@
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
-            return (ImageSource)CreateImageSource(value, targetVisual, desiredSize)?.GetAsFrozen();
+            return GetAsFrozenIfPossible(CreateImageSource(value, targetVisual, desiredSize));
         }
 
         /// <summary>
@@ -300,6 +300,11 @@
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
         public static ImageSource CreateImageSource(object value, Visual targetVisual, Size desiredSize)
         {
+            if (value is null)
+            {
+                return null;
+            }
+
             if (desiredSize == default
                 || DoubleUtil.AreClose(desiredSize.Width, 0)
                 || DoubleUtil.AreClose(desiredSize.Height, 0))
@@ -477,6 +482,21 @@
             };
 
             return image;
+        }
+
+        private static ImageSource GetAsFrozenIfPossible(ImageSource imageSource)
+        {
+            if (imageSource is null)
+            {
+                return null;
+            }
+
+            if (imageSource.CanFreeze)
+            {
+                return (ImageSource)imageSource.GetAsFrozen();
+            }
+
+            return imageSource;
         }
     }
 }
