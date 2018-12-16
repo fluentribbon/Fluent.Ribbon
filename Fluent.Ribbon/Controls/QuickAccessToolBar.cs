@@ -132,6 +132,11 @@ namespace Fluent
 
             // Raise items changed event
             this.ItemsChanged?.Invoke(this, e);
+
+            if (this.Items.Count == 0)
+            {
+                this.toolBarDownButton.IsDropDownOpen = false;
+            }
         }
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
