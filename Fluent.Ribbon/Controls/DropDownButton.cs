@@ -301,12 +301,12 @@ namespace Fluent
         #region Events
 
         /// <summary>
-        /// Occurs when context menu is opened
+        /// Occurs when drop down is opened.
         /// </summary>
         public event EventHandler DropDownOpened;
 
         /// <summary>
-        /// Occurs when context menu is closed
+        /// Occurs when drop down menu is closed.
         /// </summary>
         public event EventHandler DropDownClosed;
 
