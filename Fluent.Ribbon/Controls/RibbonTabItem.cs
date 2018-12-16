@@ -8,6 +8,8 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -15,6 +17,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Media;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -486,6 +489,8 @@ namespace Fluent
 
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+
+            AutomationProperties.IsOffscreenBehaviorProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(IsOffscreenBehavior.FromClip));
         }
 
         // Handles visibility changes
@@ -752,6 +757,9 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabItemAutomationPeer(this);
+
         #endregion
 
         #region Private methods
@@ -761,6 +769,9 @@ namespace Fluent
         {
             var container = (RibbonTabItem)d;
             var newValue = (bool)e.NewValue;
+
+            SelectorHelper.RaiseIsSelectedChangedAutomationEvent(container.TabControlParent, container, newValue);
+
             if (newValue)
             {
                 if (container.TabControlParent?.SelectedTabItem != null

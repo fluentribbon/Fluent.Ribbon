@@ -8,6 +8,7 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
@@ -603,6 +604,9 @@ namespace Fluent
                 base.OnKeyDown(e);
             }
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabControlAutomationPeer(this);
 
         #endregion
 
