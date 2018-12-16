@@ -89,7 +89,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
-                                   Source="{DynamicResource ScreenTipWarningImage}" />
+                                   Source="{DynamicResource Fluent.Ribbon.Images.Warning}" />
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -134,7 +134,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
-                                   Source="{DynamicResource ScreenTipHelpImage}" />
+                                   Source="{DynamicResource Fluent.Ribbon.Images.Help}" />
                             <TextBlock x:Uid="HelpText"
                                        x:Name="textBlock"
                                        Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ScreenTipF1LabelHeader, Mode=OneWay}"

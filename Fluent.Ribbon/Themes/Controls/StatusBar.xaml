@@ -124,7 +124,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />

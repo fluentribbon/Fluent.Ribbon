@@ -197,16 +197,16 @@
                                         <Fluent:Button Header="Button"
                                                        IsDefinitive="False"
                                                        Click="HandleShowMetroMessage"
-                                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                                       Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                                       LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
                                     
                                         <Fluent:ToggleButton Header="Toggle"
-                                                             Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                             LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png" />
+                                                             Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                                             LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
                                     
                                         <Fluent:DropDownButton Header="DropDownButton"
-                                                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
+                                                               Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                                               LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                ItemsSource="{Binding ColorViewModel.Themes}"
                                                                DisplayMemberPath="Name" />
 
@@ -415,8 +415,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Fluent:SplitButton x:Name="pasteButton"
                                         KeyTip="V"
                                         Header="Paste"
-                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Paste.png"
-                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PasteLarge.png"
+                                        Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
+                                        LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                         SizeDefinition="Large"
                                         Command="ApplicationCommands.Paste"
                                         FocusManager.IsFocusScope="True">
@@ -491,7 +491,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Fluent:Button x:Name="cutButton"
                                    KeyTip="X"
                                    Header="Cut"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Cut.png"
+                                   Icon="{DynamicResource Fluent.Ribbon.Images.Cut}"
                                    SizeDefinition="Middle,Small"
                                    Command="Cut"
                                    FocusManager.IsFocusScope="True">
@@ -505,7 +505,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Fluent:Button x:Name="copyButton"
                                    KeyTip="C"
                                    Header="Copy"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Copy.png"
+                                   Icon="{DynamicResource Fluent.Ribbon.Images.Copy}"
                                    Command="Copy"
                                    FocusManager.IsFocusScope="True">
                         <Fluent:Button.SizeDefinition>

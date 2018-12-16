@@ -214,7 +214,7 @@
                         </Separator>
                         <Fluent:MenuItem x:Name="PART_MoreColors"
                                          Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MoreColors, Mode=OneWay}"
-                                         Icon="{DynamicResource MoreColorsIcon}" />
+                                         Icon="{DynamicResource Fluent.Ribbon.Images.MoreColors}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsAutomaticColorButtonVisible"

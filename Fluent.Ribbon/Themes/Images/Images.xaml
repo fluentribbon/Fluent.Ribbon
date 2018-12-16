@@ -2,37 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
 
-    <BitmapImage x:Key="MenuCutIcon"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Cut"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Cut.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="MenuCopyIcon"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Copy"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Copy.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="MenuPasteIcon"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Paste"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Paste.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="MoreColorsIcon"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.MoreColors"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/MoreColors.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="ScreenTipHelpImage"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Help"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Help.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="MenuCheckedImage"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Checked"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Checked.png"
                  x:Shared="False" />
 
-    <BitmapImage x:Key="ScreenTipWarningImage"
+    <BitmapImage x:Key="Fluent.Ribbon.Images.Warning"
                  PresentationOptions:Freeze="True"
                  UriSource="/Fluent;component/Themes/Images/Warning.png"
                  x:Shared="False" />

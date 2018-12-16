@@ -76,7 +76,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -210,7 +210,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -548,7 +548,7 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -803,7 +803,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -924,7 +924,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -1244,7 +1244,7 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
