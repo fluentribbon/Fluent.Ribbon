@@ -400,19 +400,7 @@ namespace Fluent
                 }
             }
 
-            if (this.toolBarDownButton != null)
-            {
-                this.toolBarDownButton.DropDownOpened -= this.OnToolBarDownOpened;
-                this.toolBarDownButton.DropDownClosed -= this.OnToolBarDownClosed;
-            }
-
             this.toolBarDownButton = this.GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
-
-            if (this.toolBarDownButton != null)
-            {
-                this.toolBarDownButton.DropDownOpened += this.OnToolBarDownOpened;
-                this.toolBarDownButton.DropDownClosed += this.OnToolBarDownClosed;
-            }
 
             // ToolBar panels
             this.toolBarPanel = this.GetTemplateChild("PART_ToolBarPanel") as Panel;
@@ -434,24 +422,6 @@ namespace Fluent
             this.cachedDeltaWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
             this.cachedConstraint = default;
-        }
-
-        private void OnToolBarDownClosed(object sender, EventArgs e)
-        {
-            this.toolBarOverflowPanel.Children.Clear();
-        }
-
-        private void OnToolBarDownOpened(object sender, EventArgs e)
-        {
-            if (this.toolBarOverflowPanel.Children.Count > 0)
-            {
-                this.toolBarOverflowPanel.Children.Clear();
-            }
-
-            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
-            {
-                this.toolBarOverflowPanel.Children.Add(this.Items[i]);
-            }
         }
 
         /// <summary>
@@ -495,10 +465,8 @@ namespace Fluent
             this.UpdateHasOverflowItems();
             this.cachedConstraint = constraint;
 
-            if (this.HasOverflowItems == false)
-            {
-                this.toolBarOverflowPanel.Children.Clear();
-            }
+            // Clear overflow panel to prevent items from having a visual/logical parent
+            this.toolBarOverflowPanel.Children.Clear();
 
             if (this.itemsHadChanged)
             {
@@ -531,6 +499,12 @@ namespace Fluent
                         this.toolBarPanel.Children.Remove(this.Items[i]);
                     }
                 }
+            }
+
+            // Move overflowing items to overflow panel
+            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
+            {
+                this.toolBarOverflowPanel.Children.Add(this.Items[i]);
             }
 
             return base.MeasureOverride(constraint);
