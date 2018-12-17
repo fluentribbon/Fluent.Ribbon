@@ -46,6 +46,6 @@ Controls\Ribbon.xaml
 Controls\ColorGallery.xaml
 Controls\SeparatorTabItem.xaml
 Controls\Slider.xaml
-Images\Images.xaml
+Images.xaml
 RibbonWindow.xaml
 Common.xaml

@@ -425,12 +425,12 @@
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}">
             <Image x:Name="image"
-                    Height="Auto"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Source="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}"
-                    SnapsToDevicePixels="True"
-                    Stretch="None">
+                   Width="8"
+                   Height="8"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Source="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}"
+                   SnapsToDevicePixels="True">
             </Image>
         </Border>
         <ControlTemplate.Triggers>

@@ -15,47 +15,15 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
                 Width="22">
-            <Border.ToolTip>
-                <Fluent:ScreenTip x:Name="screenTip"
-                                  Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
-                                  Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
-            </Border.ToolTip>
-            <Grid>
-                <Image x:Name="iconImage"
-                        HorizontalAlignment="Center"
-                        Height="Auto"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                        Source="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}"
-                        Width="Auto"
-                        Margin="2" />
-                <Image x:Name="iconImageChecked"
-                        Visibility="Collapsed"
-                        HorizontalAlignment="Center"
-                        Height="Auto"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                        Source="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}"
-                        Width="Auto"
-                        Margin="2" />
-            </Grid>
+            <Image x:Name="iconImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"                       
+                   Source="{TemplateBinding Icon}"
+                   Margin="2" />
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsChecked"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="iconImage"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="iconImageChecked"
-                        Value="Visible" />
-                <Setter Property="Title"
-                        TargetName="screenTip"
-                        Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle , Mode=OneWay}" />
-                <Setter Property="Text"
-                        TargetName="screenTip"
-                        Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText , Mode=OneWay}" />
-            </Trigger>
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="BorderBrush"
@@ -277,9 +245,11 @@
 
                 <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
 
+                <!-- Margin on bottom is need to keep the border surrounding the content area visible below the menu presenter -->
                 <ContentPresenter Grid.Column="0"
                                   VerticalAlignment="Stretch"
-                                  ContentSource="Menu" />
+                                  ContentSource="Menu"
+                                  Margin="0 0 0 1" />
 
                 <Fluent:RibbonScrollViewer Grid.Column="1"
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
@@ -303,22 +273,14 @@
                             Grid.Column="3"
                             Orientation="Horizontal"
                             Margin="0,0,0,1">
-                    <Grid>
-                        <Image x:Name="image"
-                               Width="22"
-                               Height="22"
-                               Source="{DynamicResource Fluent.Ribbon.Images.RibbonPin}"
-                               Stretch="None"
-                               Visibility="Collapsed" />
-                        <Fluent:ToggleButton x:Name="PART_MinimizeButton"
-                                             Margin="0"
-                                             Width="22"
-                                             Height="22"
-                                             Size="Small"
-                                             Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
-                                             IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                             Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
-                    </Grid>
+                    <Fluent:ToggleButton x:Name="PART_MinimizeButton"
+                                         Margin="0"
+                                         Width="22"
+                                         Height="22"
+                                         Size="Small"
+                                         Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
+                                         IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
 
                     <StackPanel x:Name="PART_ToolbarPanel"
                                 Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
@@ -362,6 +324,18 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMinimized"
+                     Value="False">
+                <Setter TargetName="PART_MinimizeButton"
+                        Property="Icon" 
+                        Value="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}" />
+                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
+                    <Setter.Value>
+                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
+                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMinimized"
                      Value="True">
                 <Setter Property="MinHeight"
                         TargetName="rowDefinition"
@@ -377,9 +351,15 @@
                         TargetName="popupContentControl"
                         Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
                 <!-- Switch content to popup END -->
-                <Setter Property="Visibility"
-                        TargetName="image"
-                        Value="Collapsed" />
+                <Setter TargetName="PART_MinimizeButton" 
+                        Property="Icon"
+                        Value="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}" />
+                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
+                    <Setter.Value>
+                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
+                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -388,12 +368,9 @@
                     <Condition Property="IsMinimized"
                                Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="image"
-                        Value="Visible" />
-                <Setter Property="Opacity"
-                        TargetName="PART_MinimizeButton"
-                        Value="0" />
+                <Setter TargetName="PART_MinimizeButton"
+                        Property="Icon" 
+                        Value="{DynamicResource Fluent.Ribbon.Images.RibbonPin}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

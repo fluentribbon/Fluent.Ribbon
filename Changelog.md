@@ -31,6 +31,8 @@
     The words `AppTheme` and `Accent` are replaced by `Theme` everywhere.
   - The target type for `Fluent.Ribbon.Styles.MenuItem` (previously named `FluentDefaultSystemMenuItemStyle`) now is `Fluent:MenuItem` instead of `MenuItem`
   - Instead of depending on `System.Windows.Interactivity` we now depend on the open source version `Microsoft.Xaml.Behaviors.Wpf`
+  - [#650](../../issues/650) - Create XAML icons and replace the shipped pngs with these (thanks @DenZuck for creating the xaml icons)  
+    Due to this change all shipped images are now of type `DrawingImage` instead of `BitmapImage`.
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 

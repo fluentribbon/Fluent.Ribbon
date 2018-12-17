@@ -184,7 +184,7 @@
                             <Fluent:BackstageTabItem Header="Disabled"
                                                      IsEnabled="False" />
                             <Fluent:BackstageTabItem Header="Introduction"
-                                                     Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                                                     Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                                      KeyTip="T">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
@@ -365,13 +365,13 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <Fluent:Ribbon.ToolBarItems>
                 <Fluent:Button Size="Small"
-                               Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Help.png"
+                               Icon="{DynamicResource Fluent.Ribbon.Images.Help}"
                                Click="OnHelpClick">
                     <Fluent:Button.ToolTip>
                         <Fluent:ScreenTip Title="Insert Chart"
                                           Text="Insert a chart to illustarate and compare data. &#xa;&#xa;Bar, Pie, Line, Area and Surface are same of the available types."
                                           Image="pack://application:,,,/Fluent.Ribbon.Showcase;component\Images/SampleImageForScreenTip.png"
-                                          HelpTopic="http:\\fluent.codeplex.com"
+                                          HelpTopic="https://github.com/fluentribbon/Fluent.Ribbon"
                                           DisableReason="Disable reason reason."
                                           Width="190"
                                           IsRibbonAligned="True" />
@@ -405,7 +405,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
             <Fluent:RibbonTabItem Header="Toolbars"
                                   KeyTip="TO"
                                   ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        KeyTip="C"
                                        x:Name="Clipboard"
                                        Header="Clipboard"
@@ -1061,7 +1061,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        KeyTip="ZXB"
                                        x:Name="B"
                                        Header="Spinners"
@@ -1072,20 +1072,20 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Left:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
                                     IsEnabled="False" />
                     <Fluent:Spinner KeyTip="KB"
                                     Value="{Binding BoundSpinnerValue}"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Right:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
                                     SelectAllTextOnFocus="True" />
                     <Fluent:Spinner KeyTip="KC"
                                     InputWidth="75"
                                     Format="0 px"
                                     Header="Top:"
-                                    Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png" />
+                                    Icon="{DynamicResource Fluent.Ribbon.Images.Warning}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
             
@@ -1166,7 +1166,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                 <Fluent:RibbonGroupBox Header="Gallery">
                     <Fluent:InRibbonGallery x:Name="InRibbonGallery"
-                                            Icon="pack://application:,,,/Fluent;component/Themes/Images/Warning.png"
+                                            Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
                                             Header="Split"
                                             KeyTip="S"
                                             GroupBy="Tag"
@@ -2066,14 +2066,14 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     </Fluent:InRibbonGallery>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        x:Name="A"
                                        KeyTip="A"
                                        Header="Galleries"
                                        IsLauncherVisible="True"
                                        LauncherKeys="GAL"
                                        LauncherClick="OnLauncherButtonClick">
-                    <Fluent:InRibbonGallery Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                    <Fluent:InRibbonGallery Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                             LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GalleryLarge.png"
                                             Header="In-Ribbon Gallery"
                                             KeyTip="JS"
@@ -2120,7 +2120,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         </Fluent:InRibbonGallery.ItemTemplate>
                     </Fluent:InRibbonGallery>
 
-                    <Fluent:SplitButton Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Default.png"
+                    <Fluent:SplitButton Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                         LargeIcon="/Images/GalleryLarge.png"
                                         Header="Split"
                                         KeyTip="S"

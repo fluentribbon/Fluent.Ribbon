@@ -124,8 +124,9 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Image x:Name="iconImage"

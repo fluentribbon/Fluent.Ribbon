@@ -175,8 +175,9 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -306,8 +307,9 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -565,8 +567,9 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -824,8 +827,9 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Stretch="None"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"

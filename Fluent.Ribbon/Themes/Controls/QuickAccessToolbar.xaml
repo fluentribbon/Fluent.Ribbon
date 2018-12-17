@@ -10,7 +10,7 @@
         <Setter Property="Height"
                 Value="22" />
         <Setter Property="Width"
-                Value="13" />
+                Value="22" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
     </Style>
@@ -22,18 +22,15 @@
                     BorderThickness="1"
                     Background="Transparent"
                     BorderBrush="Transparent"
-                    Height="22"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Width="13">
+                    VerticalAlignment="Stretch">
                 <Image x:Name="iconImage"
-                        HorizontalAlignment="Center"
-                        Height="8"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                        Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '8,8', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                        Width="8"
-                        Margin="-3,0,2,0" />
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Width="12"
+                       Height="12"                       
+                       Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '12,12', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                       
+                       Margin="2" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -151,42 +148,6 @@
                         TargetName="iconImage"
                         Value="0.25" />
             </Trigger>
-            <Trigger Property="Size"
-                     Value="Small">
-                <Setter Property="Source"
-                        TargetName="iconImage"
-                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="2" />
-            </Trigger>
-            <Trigger Property="Size"
-                     Value="Middle">
-                <Setter Property="Source"
-                        TargetName="iconImage"
-                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="iconImage"
-                        Value="Center" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="PART_ButtonBorder"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="2" />
-            </Trigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
                 <Setter Property="BorderBrush"
@@ -231,11 +192,9 @@
                             Focusable="False">
                 <Fluent:DropDownButton CanAddToQuickAccessToolBar="False"
                                        x:Name="PART_MenuDownButton"
-                                       Width="13"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Stretch"
                                        Style="{DynamicResource ToolbarDropDownButtonStyle}"
-                                       Height="22"
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -260,11 +219,9 @@
 
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
                                    HorizontalAlignment="Right"
-                                   Width="13"
                                    Visibility="Collapsed"
                                    VerticalAlignment="Stretch"
                                    Style="{DynamicResource ToolbarDropDownButtonStyle}"
-                                   Height="22"
                                    DockPanel.Dock="Right"
                                    Fluent:KeyTip.Keys="00"
                                    Size="Small"
@@ -289,15 +246,13 @@
                                 Height="Auto"
                                 VerticalAlignment="Center"
                                 Margin="1,0,0,0" />
-                    <Label x:Name="popupContentControl"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Width="13"
-                           Background="{x:Null}"
-                           Height="22"
-                           Focusable="False"
-                           Padding="0"
-                           Margin="1,0" />
+                    <ContentControl x:Name="popupContentControl"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Background="{x:Null}"
+                                    Focusable="False"
+                                    Padding="0"
+                                    Margin="1,0" />
                 </StackPanel>
             </Fluent:DropDownButton>
 
