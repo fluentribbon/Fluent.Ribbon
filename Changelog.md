@@ -117,7 +117,7 @@
   - [#673](../../issues/673) - RibbonContextualTabGroup not shown
   - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
 
-- ### Enhancements
+- ### Enhancements/Features
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
     You can achieve this by:
     - Setting `Ribbon.Menu` to `null` (or never assigning anything)
@@ -142,6 +142,7 @@
   - [#599](../../issues/599) - MahApps.Metro dialog on backstage  
   You can now use `UseHighestAvailableAdornerLayer` on `Backstage` to improve interop with MahApps.Metro regarding dialogs above the backstage.
   - [#606](../../issues/606) - added non-generated Colorful.Blue and Colorful.Gray themes (thanks @stylefish)
+  - [#635](../../issues/635) - Quick access menu arrow customization
   - [#640](../../issues/640) - Narrator doesn't read out button headers
   - [#642](../../issues/642) - Ignore Alt Gr key, by blacklisting modifier keys, in KeyTips detection (thanks @stylefish)
 

@@ -190,7 +190,7 @@
             <DrawingGroup>
                 <DrawingGroup.Children>
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
-                    <GeometryDrawing Brush="{DynamicResource BlackBrush}" Geometry="F1 M 5.33333,13.3333L 80.0013,13.3333L 80.0013,0L 5.33333,0M 12.6667,28L 42.6667,64L 72.6667,28L 12.6667,28 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown}" Geometry="F1 M 5.33333,13.3333L 80.0013,13.3333L 80.0013,0L 5.33333,0M 12.6667,28L 42.6667,64L 72.6667,28L 12.6667,28 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingImage.Drawing>
@@ -202,7 +202,7 @@
             <DrawingGroup>
                 <DrawingGroup.Children>
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
-                    <GeometryDrawing Brush="{DynamicResource BlackBrush}" Geometry="F1 M 48,14L 48,71.3333L 80,42.6667M 5.33333,14L 37.3333,42.6667L 5.33333,71.3333L 5.33333,14 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender}" Geometry="F1 M 48,14L 48,71.3333L 80,42.6667M 5.33333,14L 37.3333,42.6667L 5.33333,71.3333L 5.33333,14 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingImage.Drawing>
@@ -216,7 +216,7 @@
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z "/>
                     <GeometryDrawing Geometry="F1 M 76.9987,56.5833L 49.1667,28.75L 21.3333,56.5833">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource BlackBrush}"/>
+                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonCollapse}"/>
                         </GeometryDrawing.Pen>
                     </GeometryDrawing>
                 </DrawingGroup.Children>
@@ -232,7 +232,7 @@
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z "/>
                     <GeometryDrawing Geometry="F1 M 76.9987,28.7507L 49.1667,56.584L 21.3333,28.7507">
                         <GeometryDrawing.Pen>
-                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource BlackBrush}"/>
+                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonExpand}"/>
                         </GeometryDrawing.Pen>
                     </GeometryDrawing>
                 </DrawingGroup.Children>
@@ -246,7 +246,7 @@
             <DrawingGroup>
                 <DrawingGroup.Children>
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
-                    <GeometryDrawing Brush="{DynamicResource BlackBrush}" Geometry="F1 M 46.176,42.6667L 33.8947,42.6667L 33.8947,16.3507L 46.176,16.3507M 60.0733,42.6667L 57.58,42.6667L 57.58,13.8693C 57.58,11.364 55.548,9.33334 53.0427,9.33334L 32.2907,9.33334C 29.7853,9.33334 27.7547,11.364 27.7547,13.8693L 27.7547,42.6667L 25.2613,42.6667C 22.7627,42.6667 20.7373,44.6933 20.7373,47.192L 20.7373,48.6693C 20.7373,51.168 22.7627,53.1933 25.2613,53.1933L 37.404,53.1933L 37.404,70.7373C 37.404,73.6427 39.76,76 42.6667,76C 45.5733,76 47.9293,73.6427 47.9293,70.7373L 47.9293,53.1933L 60.0733,53.1933C 62.572,53.1933 64.596,51.168 64.596,48.6693L 64.596,47.192C 64.596,44.6933 62.572,42.6667 60.0733,42.6667 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonPin}" Geometry="F1 M 46.176,42.6667L 33.8947,42.6667L 33.8947,16.3507L 46.176,16.3507M 60.0733,42.6667L 57.58,42.6667L 57.58,13.8693C 57.58,11.364 55.548,9.33334 53.0427,9.33334L 32.2907,9.33334C 29.7853,9.33334 27.7547,11.364 27.7547,13.8693L 27.7547,42.6667L 25.2613,42.6667C 22.7627,42.6667 20.7373,44.6933 20.7373,47.192L 20.7373,48.6693C 20.7373,51.168 22.7627,53.1933 25.2613,53.1933L 37.404,53.1933L 37.404,70.7373C 37.404,73.6427 39.76,76 42.6667,76C 45.5733,76 47.9293,73.6427 47.9293,70.7373L 47.9293,53.1933L 60.0733,53.1933C 62.572,53.1933 64.596,51.168 64.596,48.6693L 64.596,47.192C 64.596,44.6933 62.572,42.6667 60.0733,42.6667 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingImage.Drawing>

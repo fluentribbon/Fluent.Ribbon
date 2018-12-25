@@ -154,6 +154,13 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Selected" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GalleryItem.Pressed" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor60}" options:Freeze="True" />
 
+    <!-- Images -->
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonCollapse" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonExpand" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonPin" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+
     <!-- KeyTip -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.KeyTip.Background" Color="{StaticResource Gray1}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.KeyTip.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
@@ -188,7 +195,6 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background" Color="Transparent" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
-
 
     <!-- RibbonContextualTabGroup -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground" Color="{{Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}}" options:Freeze="True" />
@@ -226,8 +232,8 @@
     <!-- ScrollBar -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollBar.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush" Color="{StaticResource Gray4}" options:Freeze="True"  />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.Background" Color="{StaticResource WhiteColor}" options:Freeze="True"  />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush" Color="{StaticResource Gray4}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollThumb.Default.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
 
     <!-- ScrollViewer -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush" Color="{StaticResource Gray2}" options:Freeze="True" />
@@ -244,7 +250,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
 
     <!-- WindowCommands -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="{StaticResource BlackColor}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="{{Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background" Color="{StaticResource TransparentWhiteColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />

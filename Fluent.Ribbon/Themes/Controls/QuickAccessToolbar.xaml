@@ -27,9 +27,9 @@
                 <Image x:Name="iconImage"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Width="12"
-                       Height="12"                       
-                       Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '12,12', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
+                       Width="8"
+                       Height="8"                       
+                       Source="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '8,8', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"

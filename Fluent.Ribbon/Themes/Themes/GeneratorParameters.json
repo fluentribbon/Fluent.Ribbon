@@ -5,11 +5,13 @@
     "Fluent.Ribbon.Colors.DarkIdealForegroundDisabledColor": "#ADADAD",
     "Fluent.Ribbon.Colors.ExtremeHighlightColor": "#FFFFD232",
     "Fluent.Ribbon.Colors.DarkExtremeHighlightColor": "#FFF29536",
+    "Fluent.Ribbon.Colors.Images.DefaultColor": "{StaticResource BlackColor}",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background": "#FFFCF1C2",
-    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush": "#FFF29536",
+    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush": "#FFF29536",    
     "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource WhiteColor}",
     "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "Transparent",
-    "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource BlackColor}"
+    "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource BlackColor}",
+    "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource BlackColor}"
   },
   "BaseColorSchemes": [
     {
@@ -106,6 +108,7 @@
         "Fluent.Ribbon.Colors.AccentColor40": "#662B579A",
         "Fluent.Ribbon.Colors.AccentColor20": "#332B579A",
         "Fluent.Ribbon.Colors.HighlightColor": "#FF086F9E",
+        "Fluent.Ribbon.Colors.Images.DefaultColor": "{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}",
         "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Gray1}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}",
@@ -115,7 +118,8 @@
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource WhiteColor}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Gray1}",
         "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "{StaticResource Fluent.Ribbon.Colors.AccentBaseColor}",
-        "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}"
+        "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}",
+        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForegroundColor}"
       }
     },
     {
