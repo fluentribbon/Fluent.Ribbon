@@ -27,9 +27,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="{x:Type Fluent:BackstageTabControl}"
@@ -44,7 +42,7 @@
     <Metro:MetroWindow.TitleTemplate>
         <DataTemplate>
             <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"                                   
-                                   Header="{Binding ElementName=window, Path=Title}"/>
+                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}"/>
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>
     

@@ -9,8 +9,8 @@ NUGET
       Fody (>= 3.2.12) - restriction: || (&& (== net45) (>= net46)) (== net462)
     Fody (3.3)
     JetBrains.Annotations (2018.2.1) - copy_local: false
-    MahApps.Metro (2.0.0-alpha0083)
-      ControlzEx (>= 4.0.0-alpha0176 < 5.0.0-alpha)
+    MahApps.Metro (2.0.0-alpha0186)
+      ControlzEx (>= 4.0.0-alpha0218)
     Microsoft.Xaml.Behaviors.Wpf (1.0.1)
     MSBuild.Sdk.Extras (1.6.55)
     Newtonsoft.Json (11.0.2)
