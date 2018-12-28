@@ -221,7 +221,7 @@ namespace Fluent.Tests.ThemeManager
                 Source = new Uri(source)
             };
 
-            var newDic = ThemeHelper.CreateTheme(baseColor, (Color)ColorConverter.ConvertFromString(color), (Color)ColorConverter.ConvertFromString(highlightColor));
+            var newTheme = ThemeHelper.CreateTheme(baseColor, (Color)ColorConverter.ConvertFromString(color), (Color)ColorConverter.ConvertFromString(highlightColor));
 
             var ignoredKeyValues = new[]
                                    {
@@ -231,8 +231,8 @@ namespace Fluent.Tests.ThemeManager
                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
                                    };
-            CompareResourceDictionaries(dic, newDic, ignoredKeyValues);
-            CompareResourceDictionaries(newDic, dic, ignoredKeyValues);
+            CompareResourceDictionaries(dic, newTheme.Item2, ignoredKeyValues);
+            CompareResourceDictionaries(newTheme.Item2, dic, ignoredKeyValues);
         }
 
         private static void CompareResourceDictionaries(ResourceDictionary first, ResourceDictionary second, params string[] ignoredKeyValues)

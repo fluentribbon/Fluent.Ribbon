@@ -3319,7 +3319,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     
                     <TextBox x:Name="ThemeResourceDictionaryTextBox" 
                              Grid.Row="1"
-                             IsReadOnly="True" />
+                             IsReadOnly="True"
+                             VerticalScrollBarVisibility="Visible"
+                             TextWrapping="Wrap"
+                             Background="{DynamicResource WhiteBrush}"
+                             Foreground="{DynamicResource BlackBrush}" />
                 </Grid>
             </TabItem>
 

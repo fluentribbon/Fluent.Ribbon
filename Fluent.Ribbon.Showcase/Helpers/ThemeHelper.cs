@@ -13,7 +13,7 @@
 
     public class ThemeHelper
     {
-        public static ResourceDictionary CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
+        public static Tuple<string, ResourceDictionary> CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
         {
             name = name ?? $"RuntimeTheme_{accentBaseColor.ToString().Replace("#", string.Empty)}";
 
@@ -21,8 +21,10 @@
             var themeTemplateContent = GetThemeTemplateContent();
 
             var variant = generatorParameters.BaseColorSchemes.First(x => x.Name == baseColorScheme);
-            var colorScheme = new ColorScheme();
-            colorScheme.Name = accentBaseColor.ToString().Replace("#", string.Empty);
+            var colorScheme = new XamlColorSchemeGenerator.ColorScheme
+                              {
+                                  Name = accentBaseColor.ToString().Replace("#", string.Empty)
+                              };
             var values = colorScheme.Values;
             values.Add("Fluent.Ribbon.Colors.AccentBaseColor", accentBaseColor.ToString());
             values.Add("Fluent.Ribbon.Colors.AccentColor80", Color.FromArgb(204, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
@@ -47,7 +49,7 @@
                 ThemeManager.ChangeTheme(Application.Current, newTheme);
             }
 
-            return resourceDictionary;
+            return new Tuple<string, ResourceDictionary>(xamlContent, resourceDictionary);
         }
 
         public static string GetResourceDictionaryContent(ResourceDictionary resourceDictionary)
