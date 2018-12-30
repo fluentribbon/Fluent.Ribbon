@@ -22,7 +22,7 @@ namespace FluentTest
     using MahApps.Metro.Controls.Dialogs;
     using Button = Fluent.Button;
 
-    public partial class TestContent
+    public partial class TestContent : UserControl
     {
         private readonly MainViewModel viewModel;
 

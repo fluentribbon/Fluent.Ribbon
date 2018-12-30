@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Threading;
-using NUnit.Framework;
+using System.Reflection;
 
 [assembly: AssemblyDescription("")]
 
-[assembly: Apartment(ApartmentState.STA)]
+#if !NET_CORE_3_0
+[assembly: NUnit.Framework.Apartment(System.Threading.ApartmentState.STA)]
+#endif

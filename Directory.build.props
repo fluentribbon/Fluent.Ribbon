@@ -1,25 +1,47 @@
 <Project>
   <PropertyGroup>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
-    <ExtrasDefaultResourceIncludes>Resources\*.xaml</ExtrasDefaultResourceIncludes>
-    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
-    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)\Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
-    <OutputPath>$(MSBuildThisFileDirectory)\bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
-    <RestoreSources Condition="Exists('C:\DEV\OSS_Own\ControlzEx\Publish')">C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
+    <OutputPath>$(MSBuildThisFileDirectory)/bin/$(MSBuildProjectName)/$(Configuration)/</OutputPath>
+    <RestoreSources Condition="Exists('C:/DEV/OSS_Own/ControlzEx/Publish')">C:/DEV/OSS_Own/ControlzEx/Publish</RestoreSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>
+    <UseWpf>true</UseWpf>
+    <NoWarn>$(NoWarn);NU1701;NU1605;SA1652</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
     <None Include="paket.references" />
-    <Resource Include="**\*.png;**\*.ico;**\*.ps" />
+    <Resource Include="**/*.png;**/*.ico;**/*.ps" />
 
-    <Compile Include="$(MSBuildThisFileDirectory)\Shared\GlobalAssemblyInfo.cs">
-      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    <Compile Include="$(MSBuildThisFileDirectory)/Shared/GlobalAssemblyInfo.cs">
+      <Link>Properties/GlobalAssemblyInfo.cs</Link>
     </Compile>
+  </ItemGroup>
 
-    <Compile Update="**\*.g$(_SdkLanguageExtension)" SubType="Code" DependentUpon="%(Filename)" />
+  <ItemGroup>
+    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
+    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
+  </ItemGroup>
+
+  <!-- Set the reference for the other targets -->
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+      <Reference Include="Microsoft.CSharp" />
+      <Reference Include="PresentationCore" />
+      <Reference Include="PresentationFramework" />
+      <Reference Include="System" />
+      <Reference Include="System.Core" />
+      <Reference Include="System.Drawing" />
+      <Reference Include="System.Xaml" />
+      <Reference Include="System.Xml" />
+      <Reference Include="WindowsBase" />
   </ItemGroup>
 </Project>

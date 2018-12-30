@@ -1,11 +1,10 @@
-﻿<Fluent:RibbonWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<fluent:RibbonWindow x:Class="FluentTest.MinimalWindowSample"
+				     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-                     xmlns:FluentTest="clr-namespace:FluentTest"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:fluent="urn:fluent-ribbon"
                      x:Name="window"
-                     x:Class="FluentTest.MinimalWindowSample"
                      Title="{Binding DataContext.Title, ElementName=TestContent}"
                      FlowDirection="LeftToRight"
                      Height="768"
@@ -14,37 +13,39 @@
                      MinHeight="60"
                      mc:Ignorable="d"
                      WindowState="Normal">
-    <Fluent:RibbonWindow.Resources>
-        <Style TargetType="{x:Type Fluent:QuickAccessToolBar}"
-               BasedOn="{StaticResource {x:Type Fluent:QuickAccessToolBar}}">
+    <fluent:RibbonWindow.Resources>
+        <Style TargetType="{x:Type fluent:QuickAccessToolBar}"
+               BasedOn="{StaticResource {x:Type fluent:QuickAccessToolBar}}">
             <Setter Property="MinWidth"
                     Value="35" />
         </Style>
-    </Fluent:RibbonWindow.Resources>
+    </fluent:RibbonWindow.Resources>
     
-    <Fluent:Ribbon>
-        <Fluent:Ribbon.QuickAccessItems>
-            <Fluent:QuickAccessMenuItem Target="{Binding Source={x:Reference button}}"
+    <fluent:Ribbon>
+        <fluent:Ribbon.QuickAccessItems>
+            <!-- todo: netcore => was using x:Reference before -->
+            <fluent:QuickAccessMenuItem Target="{Binding ElementName=button}"
                                         IsChecked="True" />
-        </Fluent:Ribbon.QuickAccessItems>
+        </fluent:Ribbon.QuickAccessItems>
 
-        <Fluent:Ribbon.ContextualGroups>
-            <Fluent:RibbonContextualTabGroup x:Name="contextGroup1"
+        <fluent:Ribbon.ContextualGroups>
+            <fluent:RibbonContextualTabGroup x:Name="contextGroup1"
                                              BorderBrush="Magenta"
                                              Background="Magenta"
                                              Foreground="Purple"
                                              Header="Generic context"
                                              Visibility="Visible" />        
-        </Fluent:Ribbon.ContextualGroups>
-        
-        <Fluent:RibbonTabItem Header="Generic tab header"
-                              Group="{Binding Source={x:Reference contextGroup1}}">
-            <Fluent:RibbonGroupBox Header="First group">
-                <Fluent:Button x:Name="button"
+        </fluent:Ribbon.ContextualGroups>
+
+        <!-- todo: netcore => was using x:Reference before -->
+        <fluent:RibbonTabItem Header="Generic tab header"
+                              Group="{Binding ElementName=contextGroup1}">
+            <fluent:RibbonGroupBox Header="First group">
+                <fluent:Button x:Name="button"
                                Header="button"
                                Icon="Images\Green.png"
                                LargeIcon="Images\GreenLarge.png" />
-            </Fluent:RibbonGroupBox>
-        </Fluent:RibbonTabItem>
-    </Fluent:Ribbon>
-</Fluent:RibbonWindow>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</fluent:RibbonWindow>
