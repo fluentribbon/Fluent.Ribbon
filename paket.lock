@@ -5,24 +5,16 @@ NUGET
   remote: https://ci.appveyor.com/nuget/controlzex
     ControlzEx (4.0.0-alpha0213)
   remote: https://api.nuget.org/v3/index.json
-<<<<<<< HEAD
     ControlzEx (4.0.0-alpha0218)
       Microsoft.Xaml.Behaviors.Wpf (>= 1.0.1)
-=======
->>>>>>> NETCore3
     Costura.Fody (3.1.6)
       Fody (>= 3.2.12) - restriction: || (&& (== net45) (>= net46)) (== net462) (&& (== netcoreapp3.0) (>= net46))
     Fody (3.3.2)
     JetBrains.Annotations (2018.2.1) - copy_local: false
-<<<<<<< HEAD
     MahApps.Metro (2.0.0-alpha0186)
       ControlzEx (>= 4.0.0-alpha0218)
     Microsoft.Xaml.Behaviors.Wpf (1.0.1)
     MSBuild.Sdk.Extras (1.6.55)
-=======
-    MahApps.Metro (2.0.0-alpha0121)
-      ControlzEx (>= 4.0.0-alpha0210)
->>>>>>> NETCore3
     Newtonsoft.Json (11.0.2)
     StyleCop.Analyzers (1.0.2)
     WpfAnalyzers (2.2.0.2)
