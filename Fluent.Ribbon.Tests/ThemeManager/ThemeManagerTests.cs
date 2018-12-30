@@ -3,6 +3,8 @@ namespace Fluent.Tests.ThemeManager
     using System;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Media;
     using Fluent;
     using Fluent.Tests.TestClasses;
@@ -16,13 +18,13 @@ namespace Fluent.Tests.ThemeManager
         [SetUp]
         public void SetUp()
         {
-            ThemeManager.themes = null;
+            ThemeManager.ClearThemes();
         }
 
         [TearDown]
         public void TearDown()
         {
-            ThemeManager.themes = null;
+            ThemeManager.ClearThemes();
         }
 
         [Test]
@@ -50,27 +52,171 @@ namespace Fluent.Tests.ThemeManager
             var resource = new ResourceDictionary
                            {
                                {
-                                   "Theme.Name", "Runtime"
+                                   Theme.ThemeNameKey, "Runtime"
                                },
                                {
-                                   "Theme.DisplayName", "Runtime"
+                                   Theme.ThemeDisplayNameKey, "Runtime"
                                }
                            };
             Assert.True(ThemeManager.AddTheme(resource));
         }
 
         [Test]
-        public void ChangesWindowTheme()
+        public void NewThemeAddsNewBaseColorAndColorScheme()
+        {
+            var resource = new ResourceDictionary
+                           {
+                               {
+                                   Theme.ThemeNameKey, "Runtime"
+                               },
+                               {
+                                   Theme.ThemeDisplayNameKey, "Runtime"
+                               },
+                               {
+                                    Theme.ThemeBaseColorSchemeKey, "Foo"
+                               },
+                               {
+                                   Theme.ThemeColorSchemeKey, "Bar"
+                               },
+                           };
+
+            Assert.True(ThemeManager.AddTheme(resource));
+            Assert.That(ThemeManager.BaseColors, Is.EqualTo(new[] { ThemeManager.BaseColorLight, ThemeManager.BaseColorDark, "Colorful", "Foo" }));
+            Assert.That(ThemeManager.ColorSchemes.Select(x => x.Name), Does.Contain("Bar"));
+        }
+
+        [Test]
+        public void ChangingAppThemeChangesWindowTheme()
         {
             using (var window = new TestRibbonWindow())
             {
                 var expectedTheme = ThemeManager.GetTheme("Dark.Teal");
                 ThemeManager.ChangeTheme(Application.Current, expectedTheme);
 
-                var theme = ThemeManager.DetectTheme(window);
-
-                Assert.That(theme, Is.EqualTo(expectedTheme));
+                Assert.That(ThemeManager.DetectTheme(Application.Current), Is.EqualTo(expectedTheme));
+                Assert.That(ThemeManager.DetectTheme(window), Is.EqualTo(expectedTheme));
             }
+        }
+
+        [Test]
+        public void ChangeBaseColor()
+        {
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+                ThemeManager.ChangeThemeBaseColor(Application.Current, ThemeManager.GetInverseTheme(currentTheme).BaseColorScheme);
+
+                Assert.That(ThemeManager.DetectTheme(Application.Current).BaseColorScheme, Is.Not.EqualTo(currentTheme.BaseColorScheme));
+                Assert.That(ThemeManager.DetectTheme(Application.Current).ColorScheme, Is.EqualTo(currentTheme.ColorScheme));
+            }
+
+            {
+                using (var window = new TestRibbonWindow())
+                {
+                    var currentTheme = ThemeManager.DetectTheme(window);
+
+                    Assert.That(currentTheme, Is.Not.Null);
+                    ThemeManager.ChangeThemeBaseColor(window, ThemeManager.GetInverseTheme(currentTheme).BaseColorScheme);
+
+                    Assert.That(ThemeManager.DetectTheme(window).BaseColorScheme, Is.Not.EqualTo(currentTheme.BaseColorScheme));
+                    Assert.That(ThemeManager.DetectTheme(window).ColorScheme, Is.EqualTo(currentTheme.ColorScheme));
+                }
+            }
+
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+
+                var control = new Control();
+                ThemeManager.ChangeThemeBaseColor(control.Resources, currentTheme, ThemeManager.GetInverseTheme(currentTheme).BaseColorScheme);
+
+                Assert.That(ThemeManager.DetectTheme(control.Resources).BaseColorScheme, Is.Not.EqualTo(currentTheme.BaseColorScheme));
+                Assert.That(ThemeManager.DetectTheme(control.Resources).ColorScheme, Is.EqualTo(currentTheme.ColorScheme));
+            }
+        }
+
+        [Test]
+        public void ChangeColorScheme()
+        {
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+                ThemeManager.ChangeThemeColorScheme(Application.Current, "Yellow");
+
+                Assert.That(ThemeManager.DetectTheme(Application.Current).BaseColorScheme, Is.EqualTo(currentTheme.BaseColorScheme));
+                Assert.That(ThemeManager.DetectTheme(Application.Current).ColorScheme, Is.EqualTo("Yellow"));
+            }
+
+            {
+                using (var window = new TestRibbonWindow())
+                {
+                    var currentTheme = ThemeManager.DetectTheme(window);
+
+                    Assert.That(currentTheme, Is.Not.Null);
+                    ThemeManager.ChangeThemeColorScheme(window, "Green");
+
+                    Assert.That(ThemeManager.DetectTheme(window).BaseColorScheme, Is.EqualTo(currentTheme.BaseColorScheme));
+                    Assert.That(ThemeManager.DetectTheme(window).ColorScheme, Is.EqualTo("Green"));
+                }
+            }
+
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+
+                var control = new Control();
+                ThemeManager.ChangeThemeColorScheme(control.Resources, currentTheme, "Red");
+
+                Assert.That(ThemeManager.DetectTheme(control.Resources).BaseColorScheme, Is.EqualTo(currentTheme.BaseColorScheme));
+                Assert.That(ThemeManager.DetectTheme(control.Resources).ColorScheme, Is.EqualTo("Red"));
+            }
+
+            Assert.That(ThemeManager.DetectTheme(Application.Current).ColorScheme, Is.EqualTo("Yellow"));
+        }
+
+        [Test]
+        public void ChangeBaseColorAndColorScheme()
+        {
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+                ThemeManager.ChangeTheme(Application.Current, ThemeManager.BaseColorDark, "Yellow");
+
+                Assert.That(ThemeManager.DetectTheme(Application.Current).BaseColorScheme, Is.EqualTo(ThemeManager.BaseColorDark));
+                Assert.That(ThemeManager.DetectTheme(Application.Current).ColorScheme, Is.EqualTo("Yellow"));
+            }
+
+            {
+                using (var window = new TestRibbonWindow())
+                {
+                    var currentTheme = ThemeManager.DetectTheme(window);
+
+                    Assert.That(currentTheme, Is.Not.Null);
+                    ThemeManager.ChangeTheme(window, ThemeManager.BaseColorLight, "Green");
+
+                    Assert.That(ThemeManager.DetectTheme(window).BaseColorScheme, Is.EqualTo(ThemeManager.BaseColorLight));
+                    Assert.That(ThemeManager.DetectTheme(window).ColorScheme, Is.EqualTo("Green"));
+                }
+            }
+
+            {
+                var currentTheme = ThemeManager.DetectTheme(Application.Current);
+
+                Assert.That(currentTheme, Is.Not.Null);
+
+                var control = new Control();
+                ThemeManager.ChangeTheme(control.Resources, currentTheme, ThemeManager.BaseColorDark, "Red");
+
+                Assert.That(ThemeManager.DetectTheme(control.Resources).BaseColorScheme, Is.EqualTo(ThemeManager.BaseColorDark));
+                Assert.That(ThemeManager.DetectTheme(control.Resources).ColorScheme, Is.EqualTo("Red"));
+            }
+
+            Assert.That(ThemeManager.DetectTheme(Application.Current).ColorScheme, Is.EqualTo("Yellow"));
         }
 
         [Test]
@@ -185,7 +331,7 @@ namespace Fluent.Tests.ThemeManager
                                      "Yellow (Dark)",
                                      "Yellow (Light)"
                                  };
-            Assert.That(ThemeManager.Themes.OrderBy(x => x.DisplayName).Select(x => x.DisplayName).ToList(), Is.EquivalentTo(expectedThemes));
+            Assert.That(CollectionViewSource.GetDefaultView(ThemeManager.Themes).Cast<Theme>().Select(x => x.DisplayName).ToList(), Is.EquivalentTo(expectedThemes));
         }
 
         [Test]

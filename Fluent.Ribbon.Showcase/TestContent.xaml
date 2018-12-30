@@ -207,7 +207,7 @@
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
-                                                               ItemsSource="{Binding ColorViewModel.Themes}"
+                                                               ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
                                                                DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
@@ -2851,12 +2851,12 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding ColorViewModel.BaseColors}"
+                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.BaseColors}}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
                                     <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding ColorViewModel.Themes}"
+                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
                                         <Fluent:ComboBox.ItemTemplate>
                                             <DataTemplate DataType="{x:Type Fluent:Theme}">

@@ -19,7 +19,7 @@ namespace FluentTest.ViewModels
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
 
-            CollectionViewSource.GetDefaultView(this.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
+            CollectionViewSource.GetDefaultView(ThemeManager.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
         }
 
         public Color StandardColor
@@ -48,7 +48,7 @@ namespace FluentTest.ViewModels
 
         public Color ThemeColor
         {
-            get { return ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink; }
+            get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink;
 
             set
             {
@@ -59,29 +59,21 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public IEnumerable<string> BaseColors => ThemeManager.Themes.Select(x => x.BaseColorScheme).Distinct().ToList();
-
         public string CurrentBaseColor
         {
             get => this.CurrentTheme.BaseColorScheme;
 
             set
             {
-                ThemeManager.ChangeThemeBaseColor(Application.Current.Resources, value);
+                ThemeManager.ChangeThemeBaseColor(Application.Current, value);
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
             }
         }
 
-        public IEnumerable<Theme> Themes => ThemeManager.Themes.ToList();
-
         public Theme CurrentTheme
         {
-            get
-            {
-                var theme = ThemeManager.DetectTheme(Application.Current);
-                return this.Themes.FirstOrDefault(x => x.Name == theme.Name);
-            }
+            get => ThemeManager.DetectTheme(Application.Current);
 
             set
             {

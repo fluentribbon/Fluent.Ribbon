@@ -1,4 +1,4 @@
-#pragma warning disable SA1402 // File may only contain a single class
+﻿#pragma warning disable SA1402 // File may only contain a single class
 namespace FluentTest
 {
     using System;
@@ -59,7 +59,7 @@ namespace FluentTest
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
             
-            return ThemeManager.Themes.Select(x => new KeyValuePair<string, Brush>(x.DisplayName, x.ShowcaseBrush))
+            return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
         }
