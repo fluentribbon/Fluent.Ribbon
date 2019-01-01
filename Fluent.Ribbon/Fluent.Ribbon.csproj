@@ -7,6 +7,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup>
+    <Description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</Description>
+  </PropertyGroup>
+  <PropertyGroup>
     <DefaultItemExcludes>$(DefaultItemExcludes);**/*.Template.xaml</DefaultItemExcludes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
@@ -22,14 +25,39 @@
     <UpToDateCheckInput Include="**/*.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\License.txt" Pack="true" PackagePath="" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <Target Name="GenerateXamlFiles" BeforeTargets="CheckForDuplicateItems">
-    <Exec Command="&quot;$(MSBuildProjectDirectory)/../packages/XamlColorSchemeGenerator/tools/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" />
-    <!--<Exec Command="&quot;C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" />-->
+
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" version="[4.0-alpha*, 5.0)" />
+  </ItemGroup>
+
+  <Target Name="GenerateXamlFiles" AfterTargets="GenerateAssemblyInfo" Condition="$(IsBuildingWpfTempProj) != 'true'">
+    <PropertyGroup>
+        <XamlColorSchemeGeneratorVersion Condition="'%(PackageReference.Identity)' == 'XamlColorSchemeGenerator'">%(PackageReference.Version)</XamlColorSchemeGeneratorVersion>
+    </PropertyGroup>
+    <Exec Command="&quot;$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" />
+    <!-- <Exec Command="&quot;C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" /> -->
     <Exec Command="&quot;$(MSBuildProjectDirectory)/Themes/XamlCombine.exe&quot; Styles.txt Styles.xaml" />
   </Target>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+
+  <!-- NuGet -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Authors>Bastian Schmidt</Authors>
+    <!-- <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl> -->
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
+    <PackageIcon>../Images/Logo/Logo_32x32.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>
+    <PackageTags>fluent;office;ribbon;ribbonwindow;backstage;UI;XAML;Toolkit;Library;.NET;OSS;OpenSource</PackageTags>
+    <PackageReleaseNotes>https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/fluentribbon/Fluent.Ribbon.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+  </PropertyGroup>
 </Project>

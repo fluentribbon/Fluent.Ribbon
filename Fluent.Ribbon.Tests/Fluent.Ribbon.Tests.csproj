@@ -4,6 +4,11 @@
     <RootNamespace>Fluent.Tests</RootNamespace>
     <AssemblyName>Fluent.Tests</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+
+    <IsTestProject>true</IsTestProject>
+    <!-- We need to disable tests on netcoreapp3.0 till https://github.com/nunit/nunit/pull/3036 is merged into nunit and a new release is available -->
+    <IsTestProject Condition="'$(TargetFramework)' == 'netcoreapp3.0'">false</IsTestProject>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
@@ -15,16 +20,14 @@
     <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ThemeHelper.cs" Link="Helper\ThemeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview*" PrivateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
+
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview*" PrivateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.*" />
+
+    <PackageReference Include="NUnit" version="3.*" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
-  </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

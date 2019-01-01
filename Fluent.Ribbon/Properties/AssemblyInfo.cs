@@ -3,8 +3,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
-[assembly: AssemblyDescription("Fluent.Ribbon")]
-
 [assembly: Guid("d849f751-e8f4-480d-acc0-6148eafcaafc")]
 
 [assembly: XmlnsPrefix("urn:fluent-ribbon", "fluent")]

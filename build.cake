@@ -2,10 +2,9 @@
 // TOOLS / ADDINS
 //////////////////////////////////////////////////////////////////////
 
-#tool paket:?package=GitVersion.CommandLine
-#tool paket:?package=NUnit.ConsoleRunner
-#addin paket:?package=Cake.Figlet
-#addin paket:?package=Cake.Paket
+#tool GitVersion.CommandLine&version=4.0.0
+#tool NUnit.ConsoleRunner&version=3.9.0
+#addin Cake.Figlet&version=1.2.0
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -95,13 +94,11 @@ Task("Clean")
 Task("Restore")
     .Does(() =>
 {
-    PaketRestore();
-
     MSBuild(solutionFile, settings => 
         settings
             .SetConfiguration(configuration)
             .SetVerbosity(Verbosity.Minimal)
-            .WithTarget("restore")
+            .WithRestore()
             );
 });
 
@@ -130,11 +127,26 @@ Task("EnsurePublishDirectory")
     EnsureDirectoryExists(publishDir);
 });
 
-Task("Pack")    
+Task("Pack")
     .IsDependentOn("EnsurePublishDirectory")
     .Does(() =>
-{	
-	PaketPack(publishDir, new PaketPackSettings { Version = isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion, BuildConfig = configuration });
+{
+    var msBuildSettings = new MSBuildSettings {
+        Verbosity = Verbosity.Minimal,
+        Configuration = configuration
+    };
+    var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";
+
+    MSBuild(project, msBuildSettings
+      .WithTarget("pack")
+      .WithProperty("PackageOutputPath", MakeAbsolute(publishDir).ToString())
+      .WithProperty("RepositoryBranch", branchName)
+      .WithProperty("RepositoryCommit", gitVersion.Sha)
+      .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
+      .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
+      .WithProperty("FileVersion", gitVersion.AssemblySemFileVer)
+      .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
+    );
 });
 
 Task("Zip")    
@@ -149,8 +161,7 @@ Task("Tests")
     .Does(() =>
 {
     NUnit3(
-        buildDir.ToString() + "/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll",
-        new NUnit3Settings { ToolPath = "./packages/cake/NUnit.ConsoleRunner/tools/nunit3-console.exe" }
+        buildDir.ToString() + "/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll"
     );
 });
 

@@ -21,16 +21,13 @@
     - ps: Start-Process .\dotnet-sdk-latest-win-x64.exe "/install /norestart /quiet /log sdkinstall.log" -NoNewWindow -Wait
 
   build_script:
-    - ps: .\build.ps1 -Target appveyor -Verbosity Verbose
+    - ps: .\build.ps1 -Target CI -Verbosity Verbose
 
   after_build:
-    - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestResult.xml))
-
-  cache:
-    - packages -> **\paket.lock
+    - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
 
   artifacts:
-    - path: \Publish\*.*
+    - path: \package\*.*
 
   nuget:
     disable_publish_on_pr: true

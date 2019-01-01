@@ -1,1 +1,0 @@
-call ".paket/paket.exe" %*
