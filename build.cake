@@ -43,8 +43,17 @@ var isDevelopBranch = StringComparer.OrdinalIgnoreCase.Equals("develop", branchN
 var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", branchName);
 var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
 
-var latestInstallationPath = VSWhereLatest();
+var VSWhereLatestSettings = new VSWhereLatestSettings
+{
+    IncludePrerelease = true
+};
+var latestInstallationPath = VSWhereLatest(VSWhereLatestSettings);
 var msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe");
+
+if (FileExists(msBuildPath) == false)
+{
+    msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/Current/Bin/MSBuild.exe");
+}
 
 // Define directories.
 var buildDir = Directory("./bin");
@@ -139,6 +148,8 @@ Task("Pack")
 {
     var msBuildSettings = new MSBuildSettings {
         Verbosity = Verbosity.Minimal,
+        ToolPath = msBuildPath,
+        ToolVersion = MSBuildToolVersion.Default,
         Configuration = configuration
     };
     var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";
