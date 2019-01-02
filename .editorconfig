@@ -4,7 +4,7 @@ root = true
 [*]
 end_of_line = CRLF
 
-[*.{cs,xaml,xml,nuspec,msbuild}]
+[*.{cs,xaml,xml,nuspec}]
 indent_style = space
 indent_size = 4
 
