@@ -49,10 +49,14 @@
       <Reference Include="WindowsBase" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <XamlColorSchemeGeneratorVersion>3.0.0.31</XamlColorSchemeGeneratorVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" version="2018.2.1" privateAssets="All" />
     <PackageReference Include="StyleCop.Analyzers" version="1.0.2" privateAssets="All" />
     <PackageReference Include="WpfAnalyzers" version="2.2.0.2" privateAssets="All" />
-    <PackageReference Include="XamlColorSchemeGenerator" version="3.0.0.31" privateAssets="All" />
+    <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
 </Project>

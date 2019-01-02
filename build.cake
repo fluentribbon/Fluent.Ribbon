@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////////////////////
 
 #tool GitVersion.CommandLine&version=4.0.0
-#tool NUnit.ConsoleRunner&version=3.9.0
 #addin Cake.Figlet&version=1.2.0
 
 //////////////////////////////////////////////////////////////////////
@@ -11,22 +10,17 @@
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("target", "Default");
-if (string.IsNullOrWhiteSpace(target))
-{
-    target = "Default";
-}
-
 var configuration = Argument("configuration", "Release");
-if (string.IsNullOrWhiteSpace(configuration))
-{
-    configuration = "Release";
-}
-
 var verbosity = Argument("verbosity", Verbosity.Normal);
-if (string.IsNullOrWhiteSpace(configuration))
-{
-    verbosity = Verbosity.Normal;
-}
+
+var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
+var PACKAGE_DIR = Directory(Argument("artifact-dir", PROJECT_DIR + "package") + "/");
+
+//////////////////////////////////////////////////////////////////////
+// SET ERROR LEVELS
+//////////////////////////////////////////////////////////////////////
+
+var ErrorDetail = new List<string>();
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -50,8 +44,8 @@ var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
 
 // Define directories.
 var buildDir = Directory("./bin");
-var publishDir = Directory("./Publish");
 var solutionFile = File("./Fluent.Ribbon.sln");
+var testResultsDir = Directory("./TestResults");
 
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
@@ -94,12 +88,12 @@ Task("Clean")
 Task("Restore")
     .Does(() =>
 {
-    MSBuild(solutionFile, settings => 
-        settings
-            .SetConfiguration(configuration)
-            .SetVerbosity(Verbosity.Minimal)
-            .WithRestore()
-            );
+    // MSBuild(solutionFile, settings => 
+    //     settings
+    //         .SetConfiguration(configuration)
+    //         .SetVerbosity(Verbosity.Minimal)
+    //         .WithRestore()
+    //         );
 });
 
 Task("Build")
@@ -113,22 +107,22 @@ Task("Build")
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
             .SetVerbosity(Verbosity.Minimal)
+            .WithRestore()
             .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
-            //.WithProperty("ContinuousIntegrationBuild", local == false ? "true" : "false")
             );
 });
 
-Task("EnsurePublishDirectory")
+Task("EnsurePackageDirectory")
     .Does(() =>
 {
-    EnsureDirectoryExists(publishDir);
+    EnsureDirectoryExists(PACKAGE_DIR);
 });
 
 Task("Pack")
-    .IsDependentOn("EnsurePublishDirectory")
+    .IsDependentOn("EnsurePackageDirectory")
     .Does(() =>
 {
     var msBuildSettings = new MSBuildSettings {
@@ -139,7 +133,7 @@ Task("Pack")
 
     MSBuild(project, msBuildSettings
       .WithTarget("pack")
-      .WithProperty("PackageOutputPath", MakeAbsolute(publishDir).ToString())
+      .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
       .WithProperty("RepositoryBranch", branchName)
       .WithProperty("RepositoryCommit", gitVersion.Sha)
       .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
@@ -150,63 +144,29 @@ Task("Pack")
 });
 
 Task("Zip")    
-    .IsDependentOn("EnsurePublishDirectory")
+    .IsDependentOn("EnsurePackageDirectory")
     .Does(() =>
 {
-    Zip(buildDir.ToString() + "/Fluent.Ribbon/" + configuration, publishDir.ToString() + "/Fluent.Ribbon-v" + gitVersion.NuGetVersion + ".zip");
-    Zip(buildDir.ToString() + "/Fluent.Ribbon.Showcase/" + configuration, publishDir.ToString() + "/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
+    Zip(buildDir.ToString() + "/Fluent.Ribbon/" + configuration, PACKAGE_DIR.ToString() + "/Fluent.Ribbon-v" + gitVersion.NuGetVersion + ".zip");
+    Zip(buildDir.ToString() + "/Fluent.Ribbon.Showcase/" + configuration, PACKAGE_DIR.ToString() + "/Fluent.Ribbon.Showcase-v" + gitVersion.NuGetVersion + ".zip");
 });
 
-Task("Tests")    
+Task("Test")    
     .Does(() =>
 {
-    NUnit3(
-        buildDir.ToString() + "/Fluent.Ribbon.Tests/**/" + configuration + "/**/*.Tests.dll"
-    );
-});
+    CleanDirectory(testResultsDir);
 
-Task("GetCredentials")
-    .Does(() => 
-{
-    // username = EnvironmentVariable("GITHUB_USERNAME_FLUENT_RIBBON");
-    // if (string.IsNullOrEmpty(username))
-    // {
-    //     throw new Exception("The GITHUB_USERNAME_FLUENT_RIBBON environment variable is not defined.");
-    // }
+    var settings = new DotNetCoreTestSettings
+        {
+            Configuration = configuration,
+            NoBuild = true,
+            NoRestore = true,
+            Logger = "trx",
+            ResultsDirectory = testResultsDir,
+            Verbosity = DotNetCoreVerbosity.Normal
+        };
 
-    // token = EnvironmentVariable("GITHUB_TOKEN_FLUENT_RIBBON");
-    // if (string.IsNullOrEmpty(token))
-    // {
-    //     throw new Exception("The GITHUB_TOKEN_FLUENT_RIBBON environment variable is not defined.");
-    // }
-});
-
-Task("CreateReleaseNotes")
-    .WithCriteria(() => !isTagged)
-    .IsDependentOn("EnsurePublishDirectory")
-    .IsDependentOn("GetCredentials")
-    .Does(() =>
-{
-    // GitReleaseManagerCreate(username, token, "fluentribbon", "Fluent.Ribbon", new GitReleaseManagerCreateSettings {
-    //     Milestone         = gitVersion.MajorMinorPatch,
-    //     Name              = "Fluent.Ribbon" + gitVersion.SemVer,
-    //     Prerelease        = false,
-    //     TargetCommitish   = "master",
-    //     WorkingDirectory  = "./"
-    // });
-});
-
-Task("ExportReleaseNotes")
-    .IsDependentOn("EnsurePublishDirectory")
-    .IsDependentOn("GetCredentials")
-    .Does(() =>
-{
-    // GitReleaseManagerExport(username, token, "fluentribbon", "Fluent.Ribbon", publishDir.ToString() + "/releasenotes.md", new GitReleaseManagerExportSettings {
-    //     // TagName         = gitVersion.SemVer,
-    //     TagName         = "v6.1.0",
-    //     TargetDirectory = publishDir,
-    //     LogFilePath     = publishDir.ToString() + "/grm.log"
-    // });
+    DotNetCoreTest("./Fluent.Ribbon.Tests/Fluent.Ribbon.Tests.csproj", settings);
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -216,9 +176,9 @@ Task("ExportReleaseNotes")
 Task("Default")
     .IsDependentOn("Build");
 
-Task("appveyor")
+Task("CI")
     .IsDependentOn("Build")
-    .IsDependentOn("Tests")
+    .IsDependentOn("Test")
     .IsDependentOn("Pack")
     .IsDependentOn("Zip");
 
