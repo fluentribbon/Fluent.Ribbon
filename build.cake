@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #tool GitVersion.CommandLine&version=4.0.0
+#tool vswhere
 #addin Cake.Figlet&version=1.2.0
 
 //////////////////////////////////////////////////////////////////////
@@ -42,6 +43,9 @@ var isDevelopBranch = StringComparer.OrdinalIgnoreCase.Equals("develop", branchN
 var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", branchName);
 var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
 
+var latestInstallationPath = VSWhereLatest();
+var msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe");
+
 // Define directories.
 var buildDir = Directory("./bin");
 var solutionFile = File("./Fluent.Ribbon.sln");
@@ -60,14 +64,15 @@ Setup(context =>
 
     Information(Figlet("Fluent.Ribbon"));
 
-    Information("Informational Version  : {0}", gitVersion.InformationalVersion);
-    Information("SemVer Version         : {0}", gitVersion.SemVer);
-    Information("AssemblySemVer Version : {0}", gitVersion.AssemblySemVer);
+    Information("Informational   Version: {0}", gitVersion.InformationalVersion);
+    Information("SemVer          Version: {0}", gitVersion.SemVer);
+    Information("AssemblySemVer  Version: {0}", gitVersion.AssemblySemVer);
     Information("MajorMinorPatch Version: {0}", gitVersion.MajorMinorPatch);
-    Information("NuGet Version          : {0}", gitVersion.NuGetVersion);
+    Information("NuGet           Version: {0}", gitVersion.NuGetVersion);
     Information("IsLocalBuild           : {0}", local);
     Information("Branch                 : {0}", branchName);
     Information("Configuration          : {0}", configuration);
+    Information("MSBuildPath            : {0}", msBuildPath);
 });
 
 Teardown(ctx =>
@@ -100,9 +105,16 @@ Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {    
+    var msBuildSettings = new MSBuildSettings {
+        Verbosity = Verbosity.Minimal,
+        ToolPath = msBuildPath,
+        ToolVersion = MSBuildToolVersion.Default,
+        Configuration = configuration,
+        Restore = true
+    };
+
     // Use MSBuild
-    MSBuild(solutionFile, settings => 
-        settings
+    MSBuild(solutionFile, msBuildSettings
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
