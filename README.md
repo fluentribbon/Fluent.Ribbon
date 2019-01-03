@@ -54,16 +54,14 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 *   Help us updating the documentation
 
 ## Development requirements
-* Visual Studio 2017 (15.7.5) or later
-* .NET core sdk v2.1.0 or higher
+* Visual Studio 2019 Preview 1.1 (16.0) or later (you can get the preview from https://visualstudio.microsoft.com/de/vs/preview/)
+* .NET core SDK v3.0 or later (you can get the latest preview from https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe)
 
-## Settings that should be used
-*   Visual Studio settings which should be used
-  *  All languages
-    * Indentation: 4 spaces (please don't use tabs)
-  * XAML
-    * Position each attribute on a separate line
-      * Position first attribute on same line as start tag
+## Formatting settings that have to be used
+* For general formatting you have to use editorconfig (should work out of the box with Visual Studio 2019)
+* XAML
+  * Position each attribute on a separate line
+    * Position first attribute on same line as start tag
 
 ## Awesome tools which Fluent.Ribbon can use
 
