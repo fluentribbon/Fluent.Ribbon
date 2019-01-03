@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 #tool GitVersion.CommandLine&version=4.0.0
-#tool vswhere
+#tool vswhere&version=2.5.2
 #addin Cake.Figlet&version=1.2.0
 
 //////////////////////////////////////////////////////////////////////
@@ -48,11 +48,11 @@ var VSWhereLatestSettings = new VSWhereLatestSettings
     IncludePrerelease = true
 };
 var latestInstallationPath = VSWhereLatest(VSWhereLatestSettings);
-var msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/15.0/Bin/MSBuild.exe");
+var msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/Current/Bin/MSBuild.exe");
 
 if (FileExists(msBuildPath) == false)
 {
-    msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/Current/Bin/MSBuild.exe");
+    throw new NotImplementedException("You need at least Visual Studio 2019 to build this project.");
 }
 
 // Define directories.
