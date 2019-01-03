@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics;
 
-    public class TestRibbonWindow : RibbonWindow, IDisposable
+    public sealed class TestRibbonWindow : RibbonWindow, IDisposable
     {
         public TestRibbonWindow()
             : this(null)
@@ -31,6 +31,8 @@
 
         public void Dispose()
         {
+            GC.SuppressFinalize(this);
+
             this.Close();
         }
     }
