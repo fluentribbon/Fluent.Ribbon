@@ -2,8 +2,6 @@
 
 namespace FluentTest.ViewModels
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
@@ -28,8 +26,13 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value == this.standardColor)
+                {
+                    return;
+                }
+
                 this.standardColor = value;
-                this.OnPropertyChanged(nameof(this.StandardColor));
+                this.OnPropertyChanged();
             }
         }
 
@@ -39,13 +42,19 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value == this.highlightColor)
+                {
+                    return;
+                }
+
                 this.highlightColor = value;
-                this.OnPropertyChanged(nameof(this.HighlightColor));
+                this.OnPropertyChanged();
             }
         }
 
         public Color[] ThemeColors { get; } = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
 
+#pragma warning disable INPC010 // The property sets a different field than it returns.
         public Color ThemeColor
         {
             get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink;
@@ -55,9 +64,10 @@ namespace FluentTest.ViewModels
                 var solidColorBrush = new SolidColorBrush(value);
                 solidColorBrush.Freeze();
                 Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = solidColorBrush;
-                this.OnPropertyChanged(nameof(this.ThemeColor));
+                this.OnPropertyChanged();
             }
         }
+#pragma warning restore INPC010 // The property sets a different field than it returns.
 
         public string CurrentBaseColor
         {
@@ -66,7 +76,7 @@ namespace FluentTest.ViewModels
             set
             {
                 ThemeManager.ChangeThemeBaseColor(Application.Current, value);
-                this.OnPropertyChanged(nameof(this.CurrentBaseColor));
+                this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
             }
         }
@@ -78,7 +88,7 @@ namespace FluentTest.ViewModels
             set
             {
                 ThemeManager.ChangeTheme(Application.Current, value);
-                this.OnPropertyChanged(nameof(this.CurrentTheme));
+                this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));
             }
         }

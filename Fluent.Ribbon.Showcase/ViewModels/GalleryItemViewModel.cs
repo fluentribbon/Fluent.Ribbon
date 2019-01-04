@@ -23,7 +23,7 @@
                 }
 
                 this.text = value;
-                this.OnPropertyChanged(nameof(this.Text));
+                this.OnPropertyChanged();
             }
         }
 
@@ -39,7 +39,7 @@
                 }
 
                 this.group = value;
-                this.OnPropertyChanged(nameof(this.Group));
+                this.OnPropertyChanged();
             }
         }
     }

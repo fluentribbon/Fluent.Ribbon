@@ -72,7 +72,7 @@
                 }
 
                 this.zoom = value;
-                this.OnPropertyChanged(nameof(this.Zoom));
+                this.OnPropertyChanged();
             }
         }
 
@@ -88,7 +88,7 @@
                 }
 
                 this.colorViewModel = value;
-                this.OnPropertyChanged(nameof(this.ColorViewModel));
+                this.OnPropertyChanged();
             }
         }
 
@@ -104,7 +104,7 @@
                 }
 
                 this.fontsViewModel = value;
-                this.OnPropertyChanged(nameof(this.FontsViewModel));
+                this.OnPropertyChanged();
             }
         }
 
@@ -120,11 +120,11 @@
                 }
 
                 this.galleryViewModel = value;
-                this.OnPropertyChanged(nameof(this.GalleryViewModel));
+                this.OnPropertyChanged();
             }
         }
 
-        public IssueReprosViewModel IssueReprosViewModel { get; set; }
+        public IssueReprosViewModel IssueReprosViewModel { get; }
 
         /// <summary>
         /// Gets data items (uses as DataContext)
@@ -165,11 +165,13 @@
 
             set
             {
-                if (this.isCheckedToggleButton3 != value)
+                if (value == this.isCheckedToggleButton3)
                 {
-                    this.isCheckedToggleButton3 = value;
-                    this.OnPropertyChanged(nameof(this.IsCheckedToggleButton3));
+                    return;
                 }
+
+                this.isCheckedToggleButton3 = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -183,8 +185,13 @@
 
             set
             {
+                if (value == this.boundSpinnerValue)
+                {
+                    return;
+                }
+
                 this.boundSpinnerValue = value;
-                this.OnPropertyChanged(nameof(this.BoundSpinnerValue));
+                this.OnPropertyChanged();
             }
         }
 
@@ -210,15 +217,7 @@
 
         public ICommand TestCommand
         {
-            get
-            {
-                if (this.testCommand == null)
-                {
-                    this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
-                }
-
-                return this.testCommand;
-            }
+            get { return this.testCommand ?? (this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"))); }
         }
 
         #endregion Properties

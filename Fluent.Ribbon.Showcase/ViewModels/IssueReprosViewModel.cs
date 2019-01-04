@@ -9,6 +9,6 @@
             this.ThemeManagerFromThread = new ThemeManagerFromThread();
         }
 
-        public ThemeManagerFromThread ThemeManagerFromThread { get; set; }
+        public ThemeManagerFromThread ThemeManagerFromThread { get; }
     }
 }

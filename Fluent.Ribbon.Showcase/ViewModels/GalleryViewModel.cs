@@ -28,7 +28,7 @@
                 }
 
                 this.items = value;
-                this.OnPropertyChanged(nameof(this.Items));
+                this.OnPropertyChanged();
             }
         }
 
