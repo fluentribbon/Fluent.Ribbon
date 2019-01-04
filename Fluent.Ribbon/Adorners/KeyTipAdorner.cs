@@ -441,7 +441,7 @@ namespace Fluent
         /// <returns>The <see cref="KeyTipInformation"/> associated with <paramref name="keys"/>.</returns>
         private KeyTipInformation TryGetKeyTipInformation(string keys)
         {
-            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.CurrentCultureIgnoreCase));
+            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -454,7 +454,7 @@ namespace Fluent
             {
                 var content = keyTipInformation.Keys;
 
-                if (content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase))
+                if (content.StartsWith(keys, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
@@ -494,7 +494,7 @@ namespace Fluent
                 }
                 else
                 {
-                    keyTipInformation.Visibility = content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase)
+                    keyTipInformation.Visibility = content.StartsWith(keys, StringComparison.OrdinalIgnoreCase)
                                               ? keyTipInformation.BackupVisibility
                                               : Visibility.Collapsed;
                 }
