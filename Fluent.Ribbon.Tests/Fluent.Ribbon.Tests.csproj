@@ -5,9 +5,9 @@
     <AssemblyName>Fluent.Tests</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 
-    <IsTestProject>true</IsTestProject>
+    <TargetFrameworks>net462;net45</TargetFrameworks>
     <!-- We need to disable tests on netcoreapp3.0 till https://github.com/nunit/nunit/pull/3036 is merged into nunit and a new release is available -->
-    <IsTestProject Condition="'$(TargetFramework)' == 'netcoreapp3.0'">false</IsTestProject>
+    <IsTestProject Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</IsTestProject>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
