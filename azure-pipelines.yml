@@ -1,4 +1,4 @@
-﻿trigger:
+trigger:
   branches:
     include: [ '*' ]
     exclude: [ 'refs/tags/*' ]
@@ -11,8 +11,7 @@ steps:
   inputs: 
     version: '3.0.100-preview-009990'
 
-- powershell: |
-    .\build.ps1 --target=CI --artifact-dir='$(Build.ArtifactStagingDirectory)'
+- powershell: .\build.ps1 -target=CI -Verbosity Verbose -artifact-dir='$(Build.ArtifactStagingDirectory)'
   displayName: CI-Build
 
 - task: PublishTestResults@2
