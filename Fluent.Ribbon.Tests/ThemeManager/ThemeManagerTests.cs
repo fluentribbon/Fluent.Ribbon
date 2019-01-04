@@ -335,6 +335,22 @@ namespace Fluent.Tests.ThemeManager
         }
 
         [Test]
+        public void GetBaseColors()
+        {
+            ThemeManager.ClearThemes();
+
+            Assert.That(ThemeManager.BaseColors, Is.Not.Empty);
+        }
+
+        [Test]
+        public void GetColorSchemes()
+        {
+            ThemeManager.ClearThemes();
+
+            Assert.That(ThemeManager.ColorSchemes, Is.Not.Empty);
+        }
+
+        [Test]
         public void CreateDynamicThemeWithColor()
         {
             var applicationTheme = ThemeManager.DetectTheme(Application.Current);
