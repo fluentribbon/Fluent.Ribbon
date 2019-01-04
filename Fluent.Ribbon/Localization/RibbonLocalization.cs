@@ -8,6 +8,7 @@ namespace Fluent
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.CompilerServices;
     using Fluent.Localization;
 
     /// <summary>
@@ -25,13 +26,13 @@ namespace Fluent
 
         #region Implementation of INotifyPropertyChanged
 
-        /// <summary>
-        /// Occurs then property is changed
-        /// </summary>
+        /// <inheritdoc />
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Raises PropertYChanegd event
-        private void RaisePropertyChanged(string propertyName)
+        /// <summary>
+        /// Raises the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -56,7 +57,7 @@ namespace Fluent
                 {
                     this.culture = value;
                     this.LoadCulture(this.culture);
-                    this.RaisePropertyChanged(nameof(this.Culture));
+                    this.RaisePropertyChanged();
                 }
             }
         }
@@ -73,7 +74,7 @@ namespace Fluent
                 if (!Equals(this.localization, value))
                 {
                     this.localization = value;
-                    this.RaisePropertyChanged(nameof(this.Localization));
+                    this.RaisePropertyChanged();
                 }
             }
         }
