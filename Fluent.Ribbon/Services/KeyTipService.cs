@@ -15,7 +15,8 @@ namespace Fluent
     /// <summary>
     /// Handles Alt, F10 and so on
     /// </summary>
-    internal class KeyTipService
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class KeyTipService
     {
         #region Fields
 
@@ -78,7 +79,9 @@ namespace Fluent
                 Key.F10
             };
 
-        // List of key tip activation keys
+        /// <summary>
+        /// List of key tip activation keys.
+        /// </summary>
         public IList<Key> KeyTipKeys { get; } = DefaultKeyTipKeys;
 
         #endregion

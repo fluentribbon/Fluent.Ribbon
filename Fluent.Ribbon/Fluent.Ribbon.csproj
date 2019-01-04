@@ -37,7 +37,15 @@
     <PackageReference Include="ControlzEx" version="[4.0-alpha*, 5.0)" />
   </ItemGroup>
 
-   <!-- NuGet -->
+  <!-- Sign assembly -->
+  <PropertyGroup>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/../Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+
+  <!-- NuGet -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <Authors>Bastian Schmidt</Authors>
     <!-- <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl> -->

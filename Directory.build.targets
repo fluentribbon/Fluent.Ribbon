@@ -13,14 +13,6 @@
     <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
   </PropertyGroup>
 
-  <!-- Sign assembly -->
-  <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
-
   <!-- SourceLink -->
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <!-- Optional: Declare that the Repository URL can be published to NuSpec -->

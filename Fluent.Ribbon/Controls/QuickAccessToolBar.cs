@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -81,7 +82,8 @@ namespace Fluent
         /// <summary>
         /// Gets items collection
         /// </summary>
-        internal ObservableCollection<UIElement> Items
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ObservableCollection<UIElement> Items
         {
             get
             {
