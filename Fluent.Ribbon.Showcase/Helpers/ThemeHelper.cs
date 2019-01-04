@@ -11,7 +11,7 @@
     using Newtonsoft.Json;
     using XamlColorSchemeGenerator;
 
-    public class ThemeHelper
+    public static class ThemeHelper
     {
         public static Tuple<string, ResourceDictionary> CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
         {
