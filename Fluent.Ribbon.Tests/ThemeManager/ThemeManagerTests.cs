@@ -292,6 +292,11 @@ namespace Fluent.Tests.ThemeManager
                                      "Cobalt (Dark)",
                                      "Cobalt (Light)",
                                      "Crimson (Dark)",
+                                     "Crimson (Light)",
+                                     "Cyan (Dark)",
+                                     "Cyan (Light)",
+                                     "Emerald (Dark)",
+                                     "Emerald (Light)",
                                      "Gray (Colorful)",
                                      "Green (Dark)",
                                      "Green (Light)",
@@ -302,11 +307,6 @@ namespace Fluent.Tests.ThemeManager
                                      "Magenta (Dark)",
                                      "Magenta (Light)",
                                      "Mauve (Dark)",
-                                     "Crimson (Light)",
-                                     "Cyan (Dark)",
-                                     "Cyan (Light)",
-                                     "Emerald (Dark)",
-                                     "Emerald (Light)",
                                      "Mauve (Light)",
                                      "Olive (Dark)",
                                      "Olive (Light)",
@@ -331,7 +331,7 @@ namespace Fluent.Tests.ThemeManager
                                      "Yellow (Dark)",
                                      "Yellow (Light)"
                                  };
-            Assert.That(CollectionViewSource.GetDefaultView(ThemeManager.Themes).Cast<Theme>().Select(x => x.DisplayName).ToList(), Is.EquivalentTo(expectedThemes));
+            Assert.That(CollectionViewSource.GetDefaultView(ThemeManager.Themes).Cast<Theme>().Select(x => x.DisplayName).ToList(), Is.EqualTo(expectedThemes));
         }
 
         [Test]
