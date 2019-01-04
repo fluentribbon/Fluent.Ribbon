@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.ComponentModel;
+    using System.Runtime.CompilerServices;
     using System.Windows;
     using Fluent.Extensibility;
     using Fluent.Internal.KnownBoxes;
@@ -9,7 +10,7 @@ namespace Fluent
     /// <summary>
     /// Represent logical definition for a control in toolbar
     /// </summary>
-    public class RibbonToolBarControlDefinition : DependencyObject, INotifyPropertyChanged, IRibbonSizeChangedSink
+    public sealed class RibbonToolBarControlDefinition : DependencyObject, INotifyPropertyChanged, IRibbonSizeChangedSink
     {
         /// <summary>
         /// Creates a new instance
@@ -115,7 +116,7 @@ namespace Fluent
         /// <inheritdoc />
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
