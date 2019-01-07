@@ -1,7 +1,16 @@
-trigger:
+﻿trigger:
   branches:
-    include: [ '*' ]
-    exclude: [ 'refs/tags/*' ]
+    include: 
+      - '*'
+    exclude: 
+      - 'refs/tags/*'
+  paths:
+    include:
+      - '*'
+    exclude:
+      - appveyor.yml
+      - Changelog.md
+      - Readme.md
 
 pool:
   vmImage: 'VS2017-Win2016'
