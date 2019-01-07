@@ -1,0 +1,43 @@
+﻿trigger:
+  branches:
+    include: 
+      - '*'
+    exclude: 
+      - 'refs/tags/*'
+  paths:
+    include:
+      - '*'
+    exclude:
+      - appveyor.yml
+      - Changelog.md
+      - Readme.md
+
+pool:
+  vmImage: 'VS2017-Win2016'
+
+steps:
+- task: DotNetCoreInstaller@0
+  inputs: 
+    version: '3.0.100-preview-009990'
+
+- powershell: .\build.ps1 -target CI -Verbosity Verbose -artifact-dir='$(Build.ArtifactStagingDirectory)'
+  displayName: CI-Build
+
+- task: PublishTestResults@2
+  displayName: Save test results
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
+- task: PublishBuildArtifacts@1
+  displayName: Save package artifacts
+  inputs:
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    ArtifactName: Package
+
+- task: NuGetCommand@2
+  displayName: Publish to internal nuget feed
+  inputs:
+    command: push
+    nuGetFeedType: internal

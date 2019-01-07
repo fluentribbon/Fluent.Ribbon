@@ -55,6 +55,8 @@ if (FileExists(msBuildPath) == false)
     throw new NotImplementedException("You need at least Visual Studio 2019 to build this project.");
 }
 
+var msBuildToolVersion = MSBuildToolVersion.VS2019;
+
 // Define directories.
 var buildDir = Directory("./bin");
 var solutionFile = File("./Fluent.Ribbon.sln");
@@ -117,7 +119,7 @@ Task("Build")
     var msBuildSettings = new MSBuildSettings {
         Verbosity = Verbosity.Minimal,
         ToolPath = msBuildPath,
-        ToolVersion = MSBuildToolVersion.Default,
+        ToolVersion = msBuildToolVersion,
         Configuration = configuration,
         Restore = true
     };
@@ -149,7 +151,7 @@ Task("Pack")
     var msBuildSettings = new MSBuildSettings {
         Verbosity = Verbosity.Minimal,
         ToolPath = msBuildPath,
-        ToolVersion = MSBuildToolVersion.Default,
+        ToolVersion = msBuildToolVersion,
         Configuration = configuration
     };
     var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";

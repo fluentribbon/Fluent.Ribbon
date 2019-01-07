@@ -566,7 +566,8 @@ namespace Fluent
         /// <summary>
         /// Property for defining the QuickAccessToolBar.
         /// </summary>
-        internal QuickAccessToolBar QuickAccessToolBar
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public QuickAccessToolBar QuickAccessToolBar
         {
             get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
             private set { this.SetValue(QuickAccessToolBarPropertyKey, value); }
@@ -593,7 +594,8 @@ namespace Fluent
         /// <summary>
         /// Property for defining the TabControl.
         /// </summary>
-        internal RibbonTabControl TabControl
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public RibbonTabControl TabControl
         {
             get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
             private set { this.SetValue(TabControlPropertyKey, value); }
