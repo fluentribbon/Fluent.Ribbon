@@ -15,13 +15,14 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
                 Width="22">
-            <Image x:Name="iconImage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Width="16"
-                   Height="16"                       
-                   Source="{TemplateBinding Icon}"
-                   Margin="2" />
+            <ContentPresenter x:Name="iconImage"
+                              Width="16"
+                              Height="16"
+                              Margin="2"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                                                            
+                              SnapsToDevicePixels="True" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed"
