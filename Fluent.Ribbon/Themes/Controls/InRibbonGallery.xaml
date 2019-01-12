@@ -352,6 +352,7 @@
                             </ContentControl>
 
                             <Image x:Name="PART_FakeImage"
+                                   Stretch="Uniform"
                                    Visibility="Collapsed" />
                         </Grid>
                     </ScrollViewer>

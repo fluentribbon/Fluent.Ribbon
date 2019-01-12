@@ -67,6 +67,7 @@
                                    Margin="7,5,3,7"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
+                                   Stretch="Uniform"
                                    Source="{TemplateBinding Property=Image}"
                                    MaxHeight="48" />
                             <TextBlock Text="{TemplateBinding Property=Text}"
@@ -89,6 +90,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
+                                   Stretch="Uniform"
                                    Source="{DynamicResource Fluent.Ribbon.Images.Warning}" />
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -134,6 +136,7 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
+                                   Stretch="Uniform"
                                    Source="{DynamicResource Fluent.Ribbon.Images.Help}" />
                             <TextBlock x:Uid="HelpText"
                                        x:Name="textBlock"

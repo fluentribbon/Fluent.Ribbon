@@ -177,6 +177,7 @@
                    VerticalAlignment="Center"
                    Width="16"
                    Height="16"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -309,6 +310,7 @@
                    VerticalAlignment="Center"
                    Width="16"
                    Height="16"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -569,6 +571,7 @@
                    VerticalAlignment="Center"
                    Width="16"
                    Height="16"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -829,6 +832,7 @@
                    VerticalAlignment="Center"
                    Width="16"
                    Height="16"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />

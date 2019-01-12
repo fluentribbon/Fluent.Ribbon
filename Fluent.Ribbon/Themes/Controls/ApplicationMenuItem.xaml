@@ -78,6 +78,7 @@
                    Margin="0,4,0,0"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -213,6 +214,7 @@
                    Margin="0,4,0,0"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -552,6 +554,7 @@
                    Margin="0,4,0,0"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -808,6 +811,7 @@
                    VerticalAlignment="Center"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -930,6 +934,7 @@
                    VerticalAlignment="Center"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
@@ -1251,6 +1256,7 @@
                    VerticalAlignment="Center"
                    Width="32"
                    Height="32"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />

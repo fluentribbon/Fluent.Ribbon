@@ -57,12 +57,12 @@
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
                 <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
+                                  Width="32"
                                   Height="32"
+                                  Margin="0 2 0 0"
+                                  HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  Width="32"
-                                  Margin="0 2 0 0"
                                   SnapsToDevicePixels="True" />
                 <Fluent:TwoLineLabel x:Name="controlLabel"
                                      Text="{TemplateBinding Header}"

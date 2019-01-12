@@ -373,6 +373,7 @@
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
+                   Stretch="Uniform"
                    Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -429,6 +430,7 @@
                    Height="8"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   Stretch="Uniform"
                    Source="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}"
                    SnapsToDevicePixels="True">
             </Image>
