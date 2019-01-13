@@ -5,6 +5,7 @@
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NoWarn>$(NoWarn);NU5125</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <Description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</Description>
@@ -46,11 +47,11 @@
   </PropertyGroup>
 
   <!-- NuGet -->
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+  <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
-    <!-- <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl> -->
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl>
+    <!-- <PackageLicenseFile>License.txt</PackageLicenseFile> -->
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
     <PackageIcon>../Images/Logo/Logo_32x32.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>
