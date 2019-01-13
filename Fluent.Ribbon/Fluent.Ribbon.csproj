@@ -47,6 +47,7 @@
 
   <!-- NuGet -->
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
     <!-- <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl> -->
     <PackageLicenseFile>License.txt</PackageLicenseFile>
