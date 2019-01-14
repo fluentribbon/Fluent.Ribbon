@@ -36,7 +36,7 @@ Almost all features are shown in the showcase application.
 The showcase application is included with every release, so you can just grab it from [releases](../../releases)  
 If you think there is something missing in the showcase application feel free to create an issue for that.
 
-To be more familiar with the Ribbon concept see [msdn article](http://msdn.microsoft.com/en-us/library/cc872782.aspx).
+To be more familiar with the Ribbon concept see [msdn article](https://docs.microsoft.com/en-us/windows/desktop/uxguide/cmd-ribbons).
 
 ## History &amp; roadmap
 A history of changes is maintained in the [Changelog](Changelog.md).
