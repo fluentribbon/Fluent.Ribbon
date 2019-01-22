@@ -21,8 +21,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
-
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview*" PrivateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />

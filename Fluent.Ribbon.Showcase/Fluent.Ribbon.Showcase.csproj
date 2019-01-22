@@ -18,8 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="3.0.0-preview*" PrivateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
-
     <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" />
     <PackageReference Include="Costura.Fody" version="3.2.1" PrivateAssets="All" Condition="'$(DisableFody)' != 'true'" />
   </ItemGroup>
