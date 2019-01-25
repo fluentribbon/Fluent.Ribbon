@@ -446,6 +446,18 @@ namespace Fluent
                 return;
             }
 
+            // Special behavior for backstage, application menu and start screen.
+            // If one of those is open we have to forward key tips directly to them.
+            var keyTipsTarget = this.GetStartScreen()
+                ?? this.GetBackstage()
+                ?? this.GetApplicationMenu()
+                ?? this.ribbon;
+
+            if (keyTipsTarget == null)
+            {
+                return;
+            }
+
             this.ClosePopups();
 
             // If focus is inside the Ribbon already we don't want to jump around after finishing with KeyTips
@@ -454,37 +466,30 @@ namespace Fluent
                 this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
             }
 
-            // Focus ribbon
-            (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+            if (keyTipsTarget is Ribbon targetRibbon
+                && targetRibbon.IsMinimized == false
+                && targetRibbon.SelectedTabIndex >= 0
+                && targetRibbon.TabControl != null)
+            {
+                // Focus ribbon
+                (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+            }
 
             this.ClearUserInput();
 
-            this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
+            this.activeAdornerChain = new KeyTipAdorner(keyTipsTarget, keyTipsTarget, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
-
-            // Special behavior for backstage
-            var specialControl = this.GetBackstage()
-                ?? this.GetApplicationMenu()
-                ?? this.GetStartScreen();
-
-            if (specialControl != null)
-            {
-                this.DirectlyForwardToSpecialControl(specialControl);
-            }
-            else
-            {
-                this.activeAdornerChain.Attach();
-            }
+            this.activeAdornerChain.Attach();
         }
 
-        private DependencyObject GetBackstage()
+        private FrameworkElement GetBackstage()
         {
             if (this.ribbon.Menu == null)
             {
                 return null;
             }
 
-            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
+            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, IsVisible);
 
             if (control == null)
             {
@@ -496,14 +501,14 @@ namespace Fluent
                 : null;
         }
 
-        private DependencyObject GetApplicationMenu()
+        private FrameworkElement GetApplicationMenu()
         {
             if (this.ribbon.Menu == null)
             {
                 return null;
             }
 
-            var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
+            var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, IsVisible);
 
             if (control == null)
             {
@@ -515,7 +520,7 @@ namespace Fluent
                 : null;
         }
 
-        private DependencyObject GetStartScreen()
+        private FrameworkElement GetStartScreen()
         {
             var control = this.ribbon.StartScreen;
 
@@ -529,18 +534,9 @@ namespace Fluent
                 : null;
         }
 
-        private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
+        private static bool IsVisible(FrameworkElement obj)
         {
-            var keys = KeyTip.GetKeys(specialControl);
-
-            if (string.IsNullOrEmpty(keys) == false)
-            {
-                this.activeAdornerChain.Forward(keys, false);
-            }
-            else
-            {
-                this.activeAdornerChain.Attach();
-            }
+            return obj.Visibility == Visibility.Visible;
         }
     }
 }
