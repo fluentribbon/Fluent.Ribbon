@@ -432,6 +432,7 @@ namespace Fluent
                 storyboard = storyboard.Clone();
 
                 storyboard.CurrentStateInvalidated += HanldeStoryboardCurrentStateInvalidated;
+                storyboard.Completed += HandleStoryboardOnCompleted;
 
                 storyboard.Begin(this.adorner);
             }
@@ -445,6 +446,13 @@ namespace Fluent
                 this.adorner.Visibility = Visibility.Visible;
                 storyboard.CurrentStateInvalidated -= HanldeStoryboardCurrentStateInvalidated;
             }
+
+            void HandleStoryboardOnCompleted(object sender, EventArgs args)
+            {
+                this.AdornerLayer?.Update();
+
+                storyboard.Completed -= HandleStoryboardOnCompleted;
+            }
         }
 
         private void HideAdornerAndRestoreParentProperties()
@@ -457,6 +465,11 @@ namespace Fluent
             if (this.AreAnimationsEnabled
                 && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
             {
+                if (this.AdornerLayer != null)
+                {
+                    this.AdornerLayer.Visibility = Visibility.Collapsed;
+                }
+
                 storyboard = storyboard.Clone();
 
                 storyboard.Completed += HandleStoryboardOnCompleted;
@@ -474,6 +487,11 @@ namespace Fluent
                 if (this.adorner != null)
                 {
                     this.adorner.Visibility = Visibility.Collapsed;
+                }
+
+                if (this.AdornerLayer != null)
+                {
+                    this.AdornerLayer.Visibility = Visibility.Visible;
                 }
 
                 this.RestoreParentProperties();
