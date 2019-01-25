@@ -379,7 +379,7 @@ namespace Fluent
 
         private void ClosePopups()
         {
-            PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always);
+            PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ShowingKeyTips);
         }
 
         private void RestoreFocus()

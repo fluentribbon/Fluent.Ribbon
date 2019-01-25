@@ -266,8 +266,10 @@ namespace Fluent
         /// </summary>
         protected virtual void OnDismissPopup(object sender, DismissPopupEventArgs e)
         {
-            // don't close on dismiss popup event if application lost focus
-            if (e.DismissReason == DismissPopupReason.ApplicationLostFocus)
+            // Don't close on dismiss popup event if application lost focus
+            // or keytips should be shown.
+            if (e.DismissReason == DismissPopupReason.ApplicationLostFocus
+                || e.DismissReason == DismissPopupReason.ShowingKeyTips)
             {
                 return;
             }

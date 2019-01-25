@@ -39,7 +39,12 @@ namespace Fluent
         /// <summary>
         /// Application lost focus.
         /// </summary>
-        ApplicationLostFocus
+        ApplicationLostFocus,
+
+        /// <summary>
+        /// Showing key tips.
+        /// </summary>
+        ShowingKeyTips
     }
 
     /// <summary>

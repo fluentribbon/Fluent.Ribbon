@@ -116,6 +116,7 @@
   - [#666](../../issues/666) - InRibbonGallery DropDown not layouting correctly
   - [#673](../../issues/673) - RibbonContextualTabGroup not shown
   - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
+  - [#688](../../issues/688) - Backstage and StartScreen closing when pressing Alt
 
 - ### Enhancements/Features
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
