@@ -56,7 +56,7 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" version="2018.2.1" privateAssets="All" />
 
-  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="*" privateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
+  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="2.10.*" privateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
     <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="All" /> -->
     <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="All" />
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="All" /> -->

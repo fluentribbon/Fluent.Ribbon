@@ -62,6 +62,13 @@ var buildDir = Directory("./bin");
 var solutionFile = File("./Fluent.Ribbon.sln");
 var testResultsDir = Directory("./TestResults");
 
+var defaultMSBuildSettings = new MSBuildSettings {
+        Verbosity = Verbosity.Minimal,
+        ToolPath = msBuildPath,
+        ToolVersion = msBuildToolVersion,
+        Configuration = configuration
+    };
+
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
@@ -104,33 +111,24 @@ Task("Clean")
 Task("Restore")
     .Does(() =>
 {
-    // MSBuild(solutionFile, settings => 
-    //     settings
-    //         .SetConfiguration(configuration)
-    //         .SetVerbosity(Verbosity.Minimal)
-    //         .WithRestore()
-    //         );
+    StartProcess("nuget", new ProcessSettings {
+        Arguments = new ProcessArgumentBuilder()
+            .Append("restore")
+        }
+    );
 });
 
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {    
-    var msBuildSettings = new MSBuildSettings {
-        Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPath,
-        ToolVersion = msBuildToolVersion,
-        Configuration = configuration,
-        Restore = true
-    };
-
     // Use MSBuild
-    MSBuild(solutionFile, msBuildSettings
+    MSBuild(solutionFile, defaultMSBuildSettings
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
             .SetVerbosity(Verbosity.Minimal)
-            .WithRestore()
+            //.WithRestore()
             .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
@@ -148,15 +146,9 @@ Task("Pack")
     .IsDependentOn("EnsurePackageDirectory")
     .Does(() =>
 {
-    var msBuildSettings = new MSBuildSettings {
-        Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPath,
-        ToolVersion = msBuildToolVersion,
-        Configuration = configuration
-    };
     var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";
 
-    MSBuild(project, msBuildSettings
+    MSBuild(project, defaultMSBuildSettings
       .WithTarget("pack")
       .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
       .WithProperty("RepositoryBranch", branchName)
