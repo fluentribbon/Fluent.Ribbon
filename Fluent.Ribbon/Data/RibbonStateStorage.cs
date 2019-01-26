@@ -9,6 +9,7 @@ namespace Fluent
     using System.IO;
     using System.IO.IsolatedStorage;
     using System.Linq;
+    using System.Security.Cryptography;
     using System.Text;
     using System.Windows;
 
@@ -17,6 +18,8 @@ namespace Fluent
     /// </summary>
     public class RibbonStateStorage : IRibbonStateStorage
     {
+        private static readonly MD5 md5Hasher = MD5.Create();
+
         private readonly Ribbon ribbon;
 
         // Name of the isolated storage file
@@ -84,7 +87,7 @@ namespace Fluent
                     stringForHash += "." + this.ribbon.Name;
                 }
 
-                this.isolatedStorageFileName = "Fluent.Ribbon.State.2.0." + stringForHash.GetHashCode().ToString("X");
+                this.isolatedStorageFileName = "Fluent.Ribbon.State." + BitConverter.ToInt32(md5Hasher.ComputeHash(Encoding.Default.GetBytes(stringForHash)), 0).ToString("X");
                 return this.isolatedStorageFileName;
             }
         }
