@@ -48,9 +48,10 @@ var VSWhereLatestSettings = new VSWhereLatestSettings
     IncludePrerelease = true
 };
 var latestInstallationPath = VSWhereLatest(VSWhereLatestSettings);
-var msBuildPath = latestInstallationPath.CombineWithFilePath("./MSBuild/Current/Bin/MSBuild.exe");
+var msBuildPath = latestInstallationPath.Combine("./MSBuild/Current/Bin");
+var msBuildPathExe = msBuildPath.CombineWithFilePath("./MSBuild.exe");
 
-if (FileExists(msBuildPath) == false)
+if (FileExists(msBuildPathExe) == false)
 {
     throw new NotImplementedException("You need at least Visual Studio 2019 to build this project.");
 }
@@ -64,7 +65,7 @@ var testResultsDir = Directory("./TestResults");
 
 var defaultMSBuildSettings = new MSBuildSettings {
         Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPath,
+        ToolPath = msBuildPathExe,
         ToolVersion = msBuildToolVersion,
         Configuration = configuration
     };
@@ -114,6 +115,8 @@ Task("Restore")
     StartProcess("nuget", new ProcessSettings {
         Arguments = new ProcessArgumentBuilder()
             .Append("restore")
+            .Append("-msbuildpath")
+            .AppendQuoted(msBuildPath.ToString())
         }
     );
 });
