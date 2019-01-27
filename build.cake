@@ -63,13 +63,6 @@ var buildDir = Directory("./bin");
 var solutionFile = File("./Fluent.Ribbon.sln");
 var testResultsDir = Directory("./TestResults");
 
-var defaultMSBuildSettings = new MSBuildSettings {
-        Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPathExe,
-        ToolVersion = msBuildToolVersion,
-        Configuration = configuration
-    };
-
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
@@ -125,8 +118,15 @@ Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {    
+    var msBuildSettings = new MSBuildSettings {
+        Verbosity = Verbosity.Minimal,
+        ToolPath = msBuildPathExe,
+        ToolVersion = msBuildToolVersion,
+        Configuration = configuration
+    };
+
     // Use MSBuild
-    MSBuild(solutionFile, defaultMSBuildSettings
+    MSBuild(solutionFile, msBuildSettings   
             .SetMaxCpuCount(0)
             .SetConfiguration(configuration)
             // .SetVerbosity(verbosity)
@@ -149,9 +149,16 @@ Task("Pack")
     .IsDependentOn("EnsurePackageDirectory")
     .Does(() =>
 {
+    var msBuildSettings = new MSBuildSettings {
+        Verbosity = Verbosity.Minimal,
+        ToolPath = msBuildPathExe,
+        ToolVersion = msBuildToolVersion,
+        Configuration = configuration
+    };
+
     var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";
 
-    MSBuild(project, defaultMSBuildSettings
+    MSBuild(project, msBuildSettings
       .WithTarget("pack")
       .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
       .WithProperty("RepositoryBranch", branchName)
