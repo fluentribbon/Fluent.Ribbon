@@ -57,6 +57,13 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 * Visual Studio 2019 Preview 1.1 (16.0) or later (you can get the preview from https://visualstudio.microsoft.com/de/vs/preview/)
 * .NET core SDK v3.0 or later (you can get the latest preview from https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe)
 
+## Designer issues
+If you have issues using the designer inside of Visual Studio you can try the following things:
+- Clear `%LOCALAPPDATA%\Microsoft\VisualStudio\[VERSION]\Designer\ShadowCache` or `%LOCALAPPDATA%\Microsoft\WDExpress\[VERSION]\Designer\ShadowCache` where `[VERSION]` has to be changed according to your version of Visual Studio
+- Clear the `.vs` folder in your development folder
+
+If none of that helps feel free to report an issue here.
+
 ## Formatting settings that have to be used
 * For general formatting you have to use editorconfig (should work out of the box with Visual Studio 2019)
 * XAML
