@@ -23,7 +23,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="paket.references" />
     <Resource Include="**/*.png;**/*.ico;**/*.ps" />
 
     <Compile Include="$(MSBuildThisFileDirectory)/Shared/GlobalAssemblyInfo.cs">
