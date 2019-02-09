@@ -80,6 +80,7 @@
                 using (new TestRibbonWindow(splitButton))
                 {
                     var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations, Has.Count.EqualTo(2));
                     Assert.That(keyTipInformations[0].Keys, Is.EqualTo("ZA"));
                     Assert.That(keyTipInformations[1].Keys, Is.EqualTo("ZB"));
                 }
@@ -96,8 +97,43 @@
                 using (new TestRibbonWindow(splitButton))
                 {
                     var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations, Has.Count.EqualTo(2));
                     Assert.That(keyTipInformations[0].Keys, Is.EqualTo("ZX"));
                     Assert.That(keyTipInformations[1].Keys, Is.EqualTo("ZY"));
+                }
+            }
+        }
+
+        [Test]
+        public void KeyTips_Should_Work_With_Secondary_KeyTip()
+        {
+            {
+                var splitButton = new SplitButton
+                {
+                    SecondaryKeyTip = "Z"
+                };
+
+                using (new TestRibbonWindow(splitButton))
+                {
+                    var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations, Has.Count.EqualTo(1));
+                    Assert.That(keyTipInformations[0].Keys, Is.EqualTo("Z"));
+                }
+            }
+
+            {
+                var splitButton = new SplitButton
+                {
+                    KeyTip = "X",
+                    SecondaryKeyTip = "Z"
+                };
+
+                using (new TestRibbonWindow(splitButton))
+                {
+                    var keyTipInformations = splitButton.GetKeyTipInformations(false).ToList();
+                    Assert.That(keyTipInformations, Has.Count.EqualTo(2));
+                    Assert.That(keyTipInformations[0].Keys, Is.EqualTo("X"));
+                    Assert.That(keyTipInformations[1].Keys, Is.EqualTo("Z"));
                 }
             }
         }

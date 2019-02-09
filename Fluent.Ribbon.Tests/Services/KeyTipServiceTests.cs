@@ -1,4 +1,4 @@
-﻿namespace Fluent.Tests
+﻿namespace Fluent.Tests.Services
 {
     using System.Linq;
     using NUnit.Framework;

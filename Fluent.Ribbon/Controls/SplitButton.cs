@@ -276,9 +276,7 @@ namespace Fluent
             set { this.SetValue(PrimaryActionKeyTipPostfixProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="SecondaryActionKeyTipPostfix"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="SecondaryActionKeyTipPostfix"/> dependency property.</summary>
         public static readonly DependencyProperty SecondaryActionKeyTipPostfixProperty = DependencyProperty.Register(nameof(SecondaryActionKeyTipPostfix), typeof(string), typeof(SplitButton), new PropertyMetadata("B"));
 
         /// <summary>
@@ -291,6 +289,18 @@ namespace Fluent
         }
 
         #endregion KeyTipPostfix
+
+        /// <summary>Identifies the <see cref="SecondaryKeyTip"/> dependency property.</summary>
+        public static readonly DependencyProperty SecondaryKeyTipProperty = DependencyProperty.Register(nameof(SecondaryKeyTip), typeof(string), typeof(SplitButton), new PropertyMetadata(string.Empty));
+
+        /// <summary>
+        /// Gets or sets the keytip for the secondary action.
+        /// </summary>
+        public string SecondaryKeyTip
+        {
+            get { return (string)this.GetValue(SecondaryKeyTipProperty); }
+            set { this.SetValue(SecondaryKeyTipProperty, value); }
+        }
 
         #endregion
 
@@ -564,11 +574,32 @@ namespace Fluent
         /// <inheritdoc />
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
-            yield return new KeyTipInformation(this.KeyTip + this.PrimaryActionKeyTipPostfix, this.button, hide)
+            if (string.IsNullOrEmpty(this.KeyTip) == false)
+            {
+                if (string.IsNullOrEmpty(this.SecondaryKeyTip))
                 {
-                    VisualTarget = this
-                };
-            yield return new KeyTipInformation(this.KeyTip + this.SecondaryActionKeyTipPostfix, this, hide);
+                    yield return new KeyTipInformation(this.KeyTip + this.PrimaryActionKeyTipPostfix, this.button, hide)
+                        {
+                            VisualTarget = this
+                        };
+                }
+                else
+                {
+                    yield return new KeyTipInformation(this.KeyTip, this.button, hide)
+                    {
+                        VisualTarget = this
+                    };
+                }
+            }
+
+            if (string.IsNullOrEmpty(this.SecondaryKeyTip) == false)
+            {
+                yield return new KeyTipInformation(this.SecondaryKeyTip, this, hide);
+            }
+            else if (string.IsNullOrEmpty(this.KeyTip) == false)
+            {
+                yield return new KeyTipInformation(this.KeyTip + this.SecondaryActionKeyTipPostfix, this, hide);
+            }
         }
 
         #endregion

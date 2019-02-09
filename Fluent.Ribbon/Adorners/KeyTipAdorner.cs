@@ -17,7 +17,7 @@ namespace Fluent
     /// KeyTipAdorners is chained to produce one from another.
     /// Detaching root adorner couses detaching all adorners in the chain
     /// </summary>
-    internal class KeyTipAdorner : Adorner
+    public class KeyTipAdorner : Adorner
     {
         #region Events
 
@@ -64,11 +64,17 @@ namespace Fluent
             get { return this.isAttaching || this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
         }
 
+        /// <summary>
+        /// Returns wether any key tips are visibile.
+        /// </summary>
         public bool AreAnyKeyTipsVisible
         {
             get { return this.keyTipInformations.Any(x => x.IsVisible) || (this.childAdorner != null && this.childAdorner.AreAnyKeyTipsVisible); }
         }
 
+        /// <summary>
+        /// Gets the currently active <see cref="KeyTipAdorner"/> by following eventually present child adorners.
+        /// </summary>
         public KeyTipAdorner ActiveKeyTipAdorner
         {
             get
@@ -76,6 +82,17 @@ namespace Fluent
                 return this.childAdorner != null && this.childAdorner.IsAdornerChainAlive
                            ? this.childAdorner.ActiveKeyTipAdorner
                            : this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a copied list of the currently available <see cref="KeyTipInformation"/>.
+        /// </summary>
+        public IReadOnlyList<KeyTipInformation> KeyTipInformations
+        {
+            get
+            {
+                return this.keyTipInformations.ToList();
             }
         }
 
@@ -105,9 +122,9 @@ namespace Fluent
         }
 
         // Find key tips on the given element
-        private void FindKeyTips(FrameworkElement element, bool hide)
+        private void FindKeyTips(FrameworkElement container, bool hide)
         {
-            var children = GetVisibleChildren(element);
+            var children = GetVisibleChildren(container);
 
             foreach (var child in children)
             {
@@ -115,7 +132,7 @@ namespace Fluent
 
                 var keys = KeyTip.GetKeys(child);
 
-                if (keys != null)
+                if (keys != null || child is IKeyTipInformationProvider)
                 {
                     if (groupBox != null)
                     {
@@ -158,12 +175,15 @@ namespace Fluent
                 informations = new[] { new KeyTipInformation(keys, child, hide) };
             }
 
-            foreach (var keyTipInformation in informations)
+            if (informations != null)
             {
-                // Add to list & visual children collections
-                this.AddKeyTipInformationElement(keyTipInformation);
+                foreach (var keyTipInformation in informations)
+                {
+                    // Add to list & visual children collections
+                    this.AddKeyTipInformationElement(keyTipInformation);
 
-                this.LogDebug("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+                    this.LogDebug("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+                }
             }
         }
 
@@ -353,7 +373,9 @@ namespace Fluent
 
         #region Methods
 
-        // Back to the previous adorner
+        /// <summary>
+        /// Back to the previous adorner.
+        /// </summary>
         public void Back()
         {
             this.LogTrace("Invoking back.");

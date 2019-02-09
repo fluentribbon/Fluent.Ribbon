@@ -147,6 +147,8 @@
   - [#635](../../issues/635) - Quick access menu arrow customization
   - [#640](../../issues/640) - Narrator doesn't read out button headers
   - [#642](../../issues/642) - Ignore Alt Gr key, by blacklisting modifier keys, in KeyTips detection (thanks @stylefish)
+  - [#692](../../issues/692) -  Add dedicated secondary KeyTip on SplitButton  
+  You can now use `SecondaryKeyTip` on `SplitButton` for the secondary key tip. If `KeyTip` is empty or null only the `SecondaryKeyTip` will be used.
 
 ## 6.1.0
 
