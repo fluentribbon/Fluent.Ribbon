@@ -1,6 +1,231 @@
 # Changelog for Fluent.Ribbon
 
-## 5.0.0 (preview)
+## 6.1.0
+
+- ### Bug fixes
+  - [#510](../../issues/510) - Submenus in DropDownButton are not opened each time
+  - [#511](../../issues/511) - Binding on RibbonWindow.Icon not working
+  - [#512](../../issues/512) - Ideal text color should match the colors in the ribbon
+  - [#513](../../issues/513) - Hovering causes flickering of ribbon backstage menu items
+  - [#517](../../issues/517) - Fluent 6.0: buttons inside drop downs don't seem to work when using ClosePopupOnMouseDown
+  - [#524](../../issues/524) - Fixes Korean translation error. (thanks @softinus)
+
+- ### Enhancements
+  - [#509](../../issues/509) - Checked mark + Icon image at Menuitem
+  - [#514](../../issues/514) - Detect Windows 10 app mode setting and adjust current AppTheme automatically  
+  You can use `ThemeManager.SyncAppThemeWithWindowsAppModeSetting` to align the `AppTheme` once.
+  You can use `ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled` to align the `AppTheme` automatically when the Windows setting is changed during runtime.
+  - [#518](../../issues/518) - Replace Thread.Sleep with Task.Delay for non-.NET 4.0 platforms (thanks @GeertvanHorrik)
+
+## 6.0.0
+
+- ### Breaking changes
+  - **[#466](../../issues/466) - StrongName signed assembly? Hey, it's 2017...**  
+  **Fluent.Ribbon is no longer a strong-named assembly.**
+  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
+    `ToggleButton` grouping was done like it's done for a regular `RadioButton`, except that it was bound to visual root scope.  
+    The dependency on a visual root scope has been remove, so please adjust the `GroupName` for groups if you have groups with the same name in different visual root scopes.
+  - `DropDownButton` (and thus also `SplitButton`) now inherit from `ItemsControl` instead of `MenuBase`.  
+    This was changed because `MenuBase` causes a lot of issues regarding keyboard navigation, focus etc..
+    This also means that you should use `Fluent:MenuItem` instead of the system provided `MenuItem` as immediate children of `DropDownButton` and `SplitButton`.
+  - `SplitButton` now generates two `KeyTip` elements for itself. If you previously used "S" as `KeyTip` there will now be "S1" for the button action and "S2" will open the dropdown.
+  - Changes made to `Ribbon`
+    - Internal properties for `QuickAccessToolBar` and `TabControl` got converted to `DependencyProperty`
+    - Changed order of Children returned from `LogicalChildren`
+    - Type of metadata for `Menu` and `StartScreen` changed from `PropertyMetadata` to `FrameworkPropertyMetadata`
+  - There are a lot new resources to control the colorization. Please have a look at Colors.xaml for a list of all available resources.  
+    This also means that, for example, simply changing the foreground/background of one outer control won't change the foreground/background of all inner controls.
+  - [#457](../../issues/457) - Return type of `IKeyTipedControl.OnKeyTipPressed` was changed from `void` to `KeyTipPressedResult`.
+  - The following `Color` and `Brush` resources got replaced/renamed/removed:
+
+<details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
+
+|Old|New|
+|---|---|
+| Fluent:MetroColors.ThemeColorKey | Fluent.Ribbon.Colors.AccentBaseColor |
+| ButtonDisabledBackgroundBrush | --- |
+| ButtonDisabledBorderBrush | --- |
+| SliderShadowBrush | WhiteBrush |
+| SliderLightenBrush | WhiteBrush |
+| BackstageBackgroundBrush | WhiteBrush |
+| BackstageControlHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| BackstageControlActiveBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| ButtonHoverOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| ButtonHoverOuterBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| ButtonPressedOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ButtonPressedOuterBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonPressedInnerBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ButtonPressedInnerBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ButtonHoverInnerBackgroundBrush | --- |
+| ButtonHoverInnerBorderBrush | --- |
+| ButtonCheckedBrush | Fluent.Ribbon.Brushes.HighlightBrush & Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| CheckBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| CheckBoxHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| CheckBoxPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| CheckBoxPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| CheckBoxOutterBorderBrush | --- |
+| CheckBoxOutterBackgroundBrush | --- |
+| CheckBoxInnerBorderBrush | --- |
+| CheckBoxInnerBackgroundBrush | --- |
+| CheckBoxHoverOutterBorderBrush | --- |
+| CheckBoxHoverOutterBackgroundBrush | --- |
+| CheckBoxHoverInnerBorderBrush | --- |
+| CheckBoxHoverInnerBackgroundBrush | --- |
+| CheckBoxPressedOutterBorderBrush | --- |
+| CheckBoxPressedOutterBackgroundBrush | --- |
+| CheckBoxPressedInnerBorderBrush | --- |
+| CheckBoxPressedInnerBackgroundBrush | --- |
+| ContextMenuLineBrush | --- |
+| ContextMenuBarBackgroundBrush | Fluent.Ribbon.Brushes.DropDown.BackgroundBrush |
+| ContextMenuBarBorderBrush | Fluent.Ribbon.Brushes.DropDown.BorderBrush |
+| ContextMenuBarResizeBorderBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush |
+| ContextMenuBarResizeBackgoundBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush |
+| GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
+| BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| BackstageGalleryItemSelectedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| BackstageToggleButtonCheckedBorderBrush | Fluent.Ribbon.Brushes.HighlightBrush |
+| BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| QuickAccessToolbarPopupBackgrondBrush | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}} |
+| WindowContentBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| GroupBoxSeparatorBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| GroupBoxSeparatorBackgroundBrush | Fluent.Ribbon.Brushes.Separator.Background |
+| ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
+| KeyTipBackgroundBrush | Fluent.Ribbon.Brushes.KeyTip.Background |
+| KeyTipBorderBrush | Fluent.Ribbon.Brushes.KeyTip.BorderBrush |
+| GalleryHeaderBackgroundBrush | Fluent.Ribbon.Brushes.Gallery.Header.Background |
+| TextBoxBorderBrush | Fluent.Ribbon.Brushes.TextBox.BorderBrush |
+| TextBoxBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Background |
+| TextBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.Background |
+| TextBoxHoverBorderBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush |
+| TextBoxDisabledBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.Background |
+| TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
+| RibbonSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| GroupSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
+| CloseButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background |
+| CloseButtonPressedBackgroundBrush| Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background |
+| MenuItemBackground | Fluent.Ribbon.Brushes.MenuItem.Background |
+| MenuItemCheckBoxBackgroundBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background |
+| MenuItemCheckBoxBorderBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush |
+| RibbonThemeColorBrush | Fluent.Ribbon.Brushes.AccentBaseColorBrush |
+| TransparentBrush | --- |
+| BackstageFontBrush | Fluent.Ribbon.Brushes.IdealForegroundColorBrush |
+| TabItemFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| Fluent.Ribbon.Brushes.LabelTextBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
+| GroupHoverBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background GroupHoverBrush |
+| GroupHighlightBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background |
+| GroupBoxFontBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground |
+| ActiveTabBackgroundBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background |
+| TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
+| RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
+| RibbonTopBorderBrush | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
+| ScrollButtonDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush |
+| ScrollButtonDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.Background |
+| ScrollButtonHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| ScrollButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| ScrollButtonPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ScrollButtonPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ScrollBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
+| ScrollVerticalBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
+| ScrollThumbDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush |
+| ScrollThumbDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.Background |
+| ScrollThumbHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
+| ScrollThumbHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
+| ScrollThumbPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
+| ScrollThumbPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
+| ScrollViewerButtonBorderBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush |
+| ScrollViewerButtonBackgroundBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BackgroundBrush |
+|  |  |
+
+  - The following default values changed:
+
+|Name/Location|Old|New|
+|---|---|---|
+| Button.BorderThickness | 0 | 1 |
+| ContentGapHeight | 5 | 1 |
+
+  - The following styles got removed/renamed:
+
+|Old|New|
+|---|---|
+| NonEditableComboBoxItemStyle | is now the default style |
+| EditableComboBoxItemStyle | --- |
+</p></details>
+
+- ### Bug fixes
+  - [#344](../../issues/344) - Invisible header of combobox on QuickAccessToolBar.
+  - [#395](../../issues/395) - issues with contextual tab group
+  - [#405](../../issues/405) - InRibbonGallery when loaded, mouse wheel up or down cause crash.  (thanks @Yumeryu)
+  - [#419](../../issues/419) - BackstageTabItem Is Never Deselected if BackstageTabControl is not Logical Parent
+  - [#428](../../issues/428) - Values from DependencyProperties with FrameworkPropertyMetadataOptions.Inherits are not properly inherited from Ribbon to Menu, StartScreen and some other children  
+    This also overrules the fix made for [#415](../../issues/415).
+  - [#430](../../issues/430) - No Rezising at Fluent:RibbonContextualTabGroup at Version 5.0
+  - [#433](../../issues/433) - ToggleButton not working correctly when placed in collapsed GroupBox
+  - [#438](../../issues/438) - Titlebar icon missing left margin when maximized
+  - [#439](../../issues/439) - Context menu and submenu disappears after a right click
+  - [#446](../../issues/446) - Wrong submenu Position in application menu
+  - [#450](../../issues/450) - Fix Ribbon.OnTitleBarChanged clearing the new title bar instead of the old one (thanks @Cubey2019)
+  - [#451](../../issues/451) - combobox and dateformat
+  - [#454](../../issues/454) - RibbonWindow title not shown in correct position when using SizeToContent
+  - [#456](../../issues/456) - Maximising a RibbonWindow with MaxWidth or MaxHeight causes an extra border above the title bar
+  - [#457](../../issues/457) - Using the keytip shortcut to open a backstage briefly opens it, then closes it immediately
+  - [#459](../../issues/459) - Label of the Spinner disappears, if there isn't enough place
+  - [#463](../../issues/463) - ShowQuickAccessToolBarAboveRibbon="False" causes crash
+  - [#464](../../issues/464) - Clicking on hyperlink inside of ApplicationMenu causes crash
+  - [#465](../../issues/465) - Clicking on ContextualGroup background or scrolling through ribbon will open disabled tab  
+    During this fix `RibbonTabControl.GetFirstVisibleItem` was renamed to `RibbonTabControl.GetFirstVisibleAndEnabledItem`.
+  - [#473](../../issues/473) - RibbonWindow does not resize when Children resize and SizeToContent is used
+  - [#481](../../issues/481) - ToggleButton behaviour is wrong when GroupName is set
+  - [#485](../../issues/485) - InRibbonGallery broken when ItemsSource is empty
+  - [#486](../../issues/486) - Stretching of DropDownButton differs from Button
+  - [#489](../../issues/489) - Fluent Ribbon crashes program on shutdown
+  - [#493](../../issues/493) - Sometimes icons are not drawn when using ObjectToImageConverter
+  - [#500](../../issues/500) - Binding error for RibbonProperties.MouseOverBackground
+  - [#501](../../issues/501) - Ribbon controls disappear when ribbon is initially disabled
+
+- ### Enhancements
+  - `LayoutTransform` and `RenderTransform` can now be used directly on `RibbonWindow` as this now gets forwarded to the first template child of the window. Have a look at `TestWindow` in the showcase application for an example on how to use it. This was added as the fix for [#430](../../issues/430).
+  - You can change accent and base colors by using `ThemeManager` just like in MahApps.Metro. Please read the [documentation](http://fluentribbon.github.io/documentation/styles) for details.
+  - [#275](../../issues/275) - Option for customizing the quick access toolbar access keys  
+  `QuickAccessToolBar` now has a property called `UpdateKeyTipsAction` which accepts an instance of `QuickAccessToolBar` through which you can create your own keytips for items in the toolbar.  
+  Look at the UnitTest `QuickAccessToolBarTests.TestCustomKeyTips` for a sample.
+  - [#313](../../issues/313) - Window state buttons not updating to Windows 10 look / feel
+  - [#417](../../issues/417) - Keytips for Splitbuttons  
+  You now get 2 KeyTips for `SplitButton`. One for the main action button and one for the dropdown. Those KeyTips get generated by append "A" and "B" to the original `KeyTip`.
+  - [#431](../../issues/431) - Changing Ribbon Tab Control Background color and possibly adding Graphic Styling.
+  - [#435](../../issues/435) - Add ability to change the Window Title Background the Ribbon Bar is on in order to match the Office 365 Style.
+  - [#440](../../issues/440) - Enable changing the height of content area of RibbonTabControl  
+  `ContentHeight` is available on `Ribbon` and tranferred to `RibbonTabControl` from there
+  - [#443](../../issues/443) - Release .NET 4.6.2 version
+  - [#444](../../issues/444) - Add `IgnoreTaskbarOnMaximize` to `RibbonWindow`
+  - [#445](../../issues/445) - Startsceen "shines" through backstage
+  - [#455](../../issues/455) - Add brushes for checked toggle buttons (thanks @Cubey2019)
+  - [#478](../../issues/478) - Custom MinWidth of Start Screen (LeftContent)
+  - [#479](../../issues/479) - Bulgarian language (thanks @kalatchev)
+  - [#480](../../issues/480) - Disable Scroll Wheel for tab selection  
+  You can control this behavior by using `IsMouseWheelScrollingEnabled` on `Ribbon`
+  - [#484](../../issues/484) - Add special style/template for MenuItem with set description
+  - [#488](../../issues/488) - Display border around content area of RibbonTabControl  
+  You can now use `Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness` to control the thickness of the border around the content area of `RibbonTabControl`
+  - [#494](../../issues/494) - How to align controls such as ToggleButton, Spinner with text  
+  You can now opt in to align the headers of controls like `ComboBox` or `Spinner` which are placed in the same column of a `RibbonGroupBox` by adding `Grid.IsSharedSizeScope="True"` to a `RibbonGroupBox`.
+  You can opt out of this behavior for single controls in that column by adding `Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True"` to that control.  
+  Documentation can be found at http://fluentribbon.github.io/documentation/concepts/sizing#aligningControls
+  - [#495](../../issues/495) - Add option disable handling of KeyTips  
+  You can now disable handling of all KeyTips by setting `IsKeyTipHandlingEnabled` on `Ribbon` to `False`.
+  - [#503](../../issues/503) - Add IsDefinitive property to GalleryItem (thanks @noctis0430)  
+
+## 5.0.2
+  - [#437](../../issues/437) - "Could not load ControlzEx"
+
+## 5.0.1
+- ### Bug fixes
+  - [#412](../../issues/412) - Specific version for nuget references causes issues
+  - [#413](../../issues/413) - ColorGallery SelectedColorChanged issue
+  - [#415](../../issues/415) - DataContext not forwarded from Ribbon to Backstage (in adorner) and TitleBar
+
+## 5.0.0
 
 - ### Breaking changes
   - Office 2010 and Windows 8 themes got removed. 
@@ -21,6 +246,9 @@
     - `SelectedContentMargin` was added to `BackstageTabControl`
     - `QuickAccessToolBarHeight` on `Ribbon`
     - `TitleBarHeight` on `RibbonWindow`
+  - [#400](../../issues/400) - Default menu / menuitem appearance overridden by FluentRibbon
+    - Styles for the following types are no longer overwritten globally `ContextMenu`, `MenuItem`, `MenuItem.SeparatorStyleKey`, `StatusBar`, `StatusBarItem`, `StatusBar.SeparatorStyleKey`
+    - `MenuItemStyle` is renamed to `FluentDefaultSystemMenuItemStyle`
 
 - ### Bug fixes
   - [#288](../../issues/288) - Fluent:DropDownButton Background can't be changed
@@ -39,6 +267,12 @@
   - [#368](../../issues/368) - Render Glitch when Maximizing RibbonWindow with SizeToContent Enabled 
   - [#369](../../issues/369) - "Restore" button in title bar not displayed correctly when application starts maximized
   - [#377](../../issues/377) - ToggleButton highlight doesn't match the button size
+  - [#388](../../issues/388) - QuickAccess item not visible when added from backstage
+  - [#391](../../issues/391) - QAT items not displayed properly if tab is made visible after initialization
+  - [#392](../../issues/392) - Change Window Title doesn't update Title length
+  - [#397](../../issues/397) - Backstage Opening Animation
+  - [#398](../../issues/398) - ColorGallery: SelectedColorChanged event raised before SelectedColor changed
+  - [#403](../../issues/403) - Tabs can "detach" from ribbon area
 
 - ### Enhancements
   - [#250](../../issues/250) - Enable change/hide of window title foreground
@@ -52,8 +286,12 @@
   - [#334](../../issues/334) - Select all text in Spinner on focus
   - [#340](../../issues/340) - Expose GroupByAdvanced from GalleryPanel on Gallery and InRibbonGallery
   - [#360](../../issues/360) - Toggling of KeyTips should not happen when Shift is pressed (thanks to @stylefish)
+  - [#387](../../issues/387) - Disable/Hide the Menu-DropDown in QuickAccessToolbar
+    - `Ribbon` now has `IsQuickAccessToolBarMenuDropDownVisible` and `QuickAccessToolbar` now has `IsMenuDropDownVisible`.
   - Added `CanChangeIsOpen` to `Backstage`
   - Added `ActiveTabBackground` and `ActiveTabBorderBrush` to `RibbonTabItem`
+  - Improved interop with windows which are not of type `RibbonWindow`.  
+    The showcase contains a sample showcasing working context-tabs in a MahApps.Metro `MetroWindow`.
 
 ## 4.0.3
 
@@ -314,4 +552,14 @@ Commits: [9f8c919f1b...175ba6c882](../../compare/9f8c919f1b...175ba6c882)
 - Fixed: 22516 "Issues with backstage content localization using WPF Localization Extension"
 
 ## 3.0.0
-- Too much work to write down changes made in 4 years. Please have a look at [changes in version 3.0](https://fluent.codeplex.com/wikipage?title=Changes%20in%20version%203.0&referringTitle=Documentation).
+## Major changes
+* Office 2013 theme is now included
+* MVVM support got better (yet not complete, please file a bug for things you need to work)
+* Samples are not divided anymore (all features shown there are now present in the showcase application)
+* All resource reference are now of type "DynamicResource" see comments for changeset https://fluent.codeplex.com/SourceControl/changeset/3572af781b96
+* We now use the WindowChrome class provided by Microsoft instead of custom code to render in the non client area
+* Large amount of [fixed bugs](https://fluent.codeplex.com/workitem/list/advanced?keyword=&status=Resolved%7cClosed&type=All&priority=All&release=All&assignedTo=All&component=All&reasonClosed=Fixed&sortField=LastUpdatedDate&sortDirection=Descending&page=0)
+* Style resources have been improved. That means you now have to include "Themes/Generic.xaml" to get Office 2010 silver and you can just import "Themes/Office2010/Black.xaml" etc. afterwards to get the different colors. To use the Office 2013 theme you can omit "Themes/Generic.xaml" and include "Themes/Office2013/Generic.xaml" instead. You can use RibbonWindow for Office 2010 or Office 2013 themes and you can switch between those at runtime. The showcase application shows how you can do that.
+
+## Breaking changes
+* No control in this library sets IsFocusScope=True anymore. This means that ApplicationCommands (such as paste, cut or copy), when bound to a button, don't get enabled when you would expect them to be activated. The showcase application uses those buttons with IsFocusScope=True.

@@ -3,7 +3,6 @@ namespace Fluent
 {
     using System;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Documents;
@@ -43,7 +42,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HasTwoLines.  
+        /// Using a DependencyProperty as the backing store for HasTwoLines.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HasTwoLinesProperty =
@@ -106,7 +105,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static TwoLineLabel()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
@@ -125,7 +123,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal 
+        /// When overridden in a derived class, is invoked whenever application code or internal
         /// processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()

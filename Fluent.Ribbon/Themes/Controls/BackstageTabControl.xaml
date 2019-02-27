@@ -4,15 +4,11 @@
                     xmlns:Converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
-        <Grid Background="#00000000">
+        <Grid Background="Transparent">
             <Border x:Name="border"
-                    Visibility="Collapsed">
-                <Border.Background>
-                    <SolidColorBrush Opacity="0.2"
-                                     Color="Black" />
-                </Border.Background>
-            </Border>
-            <StackPanel Orientation="Horizontal"
+                    Visibility="Collapsed"
+                    Background="{TemplateBinding Background}" />
+                <StackPanel Orientation="Horizontal"
                         Margin="25,0,15,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
@@ -56,38 +52,65 @@
         <Setter Property="Template"
                 Value="{DynamicResource BackstageButtonControlTemplate}" />
         <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}, FallbackValue=Red}" />
+                Value="Transparent" />
         <Setter Property="Foreground"
-                Value="{DynamicResource BackstageFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Fluent:RibbonProperties.AppTheme"
+                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
+        <Style.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Opacity="0.2"
+                                         Color="{DynamicResource BlackColor}" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+            </Trigger>
+        </Style.Triggers>    
     </Style>
 
     <ControlTemplate x:Key="BackstageBackButtonTemplate"
                      TargetType="Button">
         <Grid x:Name="ContentGrid"
+              Background="Transparent"
               Fluent:FrameworkHelper.UseLayoutRounding="False">
-            <Path x:Name="arrowpath"
-                  Width="16"
-                  Height="12"
-                  Stretch="Uniform"
-                  Fill="White"
-                  Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z " />
+            <ContentControl Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Left">
+                <Grid>
+                    <Path x:Name="arrowpath"
+                          Width="16"
+                          Height="12"
+                          Stretch="Uniform"
+                          Fill="{TemplateBinding Foreground}"
+                          Data="F1 M 36,22L 36,26L 19.75,26L 27,33L 20.5,33L 11,24L 20.5,15L 27,15L 19.75,22L 36,22 Z " />
 
-            <Ellipse x:Name="backellipse"
-                     Stroke="White"
-                     Height="35"
-                     Width="35"
-                     StrokeThickness="2" />
+                    <Ellipse x:Name="backellipse"
+                             Stroke="{TemplateBinding Foreground}"
+                             Height="34"
+                             Width="34"
+                             StrokeThickness="2" />
 
-            <Path Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
-                  Fill="Transparent"
-                  HorizontalAlignment="Stretch"
-                  Margin="0"
-                  Stretch="None"
-                  Width="Auto" />
+                    <Path Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
+                          Fill="Transparent"
+                          HorizontalAlignment="Stretch"
+                          Margin="0"
+                          Stretch="None"
+                          Width="Auto" />
+                </Grid>
+            </ContentControl>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">
+                <Setter Property="Background"
+                        TargetName="ContentGrid"
+                        Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter Property="Opacity"
                         TargetName="arrowpath"
                         Value="0.5" />
@@ -101,11 +124,29 @@
     <Style x:Key="BackstageBackButtonStyle"
            TargetType="{x:Type Button}">
         <Setter Property="Height"
-                Value="35" />
-        <Setter Property="Width"
-                Value="35" />
+                Value="48" />
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
         <Setter Property="Template"
                 Value="{DynamicResource BackstageBackButtonTemplate}" />
+        <Setter Property="Fluent:RibbonProperties.AppTheme"
+                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
+        <Style.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource BlackBrush}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
@@ -123,12 +164,12 @@
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="SemiBold"
-                                   Foreground="{DynamicResource BackstageFontBrush}"
+                                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
                                    Visibility="Visible" />
                         <Line MinWidth="75"
                               Height="1"
                               X2="1"
-                              Stroke="#17FFFFFF"
+                              Stroke="{DynamicResource HighTransparentWhiteBrush}"
                               Stretch="Uniform" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
@@ -159,21 +200,18 @@
                        BasedOn="{StaticResource DropDownButtonBackstageStyle}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
                        TargetType="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource ComboBoxBackstageStyle}" />
-                <Style x:Key="{x:Type Fluent:Spinner}"
-                       TargetType="{x:Type Fluent:Spinner}"
-                       BasedOn="{StaticResource SpinnerBackstageStyle}" />
+                       BasedOn="{StaticResource ComboBoxBackstageStyle}" />                
                 <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
                        BasedOn="{StaticResource BackstageSeparatorTabItemStyle}" />
                 <Storyboard x:Key="OnIsOpenTrueStoryboard">
                     <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)"
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
-                                                 Value="-30,0,0,0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
+                                                 Value="-125,0,0,0" />
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.5"
                                                  Value="0">
                             <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut" />
+                                <CubicEase EasingMode="EaseOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
@@ -183,10 +221,10 @@
                                                       Storyboard.TargetName="grid">
                         <EasingThicknessKeyFrame KeyTime="0"
                                                  Value="0" />
-                        <EasingThicknessKeyFrame KeyTime="0:0:0.2"
-                                                 Value="-30,0,0,0">
+                        <EasingThicknessKeyFrame KeyTime="0:0:0.3"
+                                                 Value="-125,0,0,0">
                             <EasingThicknessKeyFrame.EasingFunction>
-                                <CubicEase EasingMode="EaseInOut" />
+                                <CubicEase EasingMode="EaseOut" />
                             </EasingThicknessKeyFrame.EasingFunction>
                         </EasingThicknessKeyFrame>
                     </ThicknessAnimationUsingKeyFrames>
@@ -195,11 +233,13 @@
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="115"
+                <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
                                   Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Grid VerticalAlignment="Stretch"
+            
+            <Grid x:Name="PART_ItemsPanelGrid"
+                  VerticalAlignment="Stretch"
                   Background="{TemplateBinding ItemsPanelBackground}">
                 <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
                                                     VerticalAlignment="Top"
@@ -208,16 +248,18 @@
                 <Button x:Name="backbutton"
                         Style="{DynamicResource BackstageBackButtonStyle}"
                         Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
-                        Margin="22,19,0,0"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left">
+                        Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                        Margin="0,16,0,0"
+                        Padding="22,7,0,7"
+                        VerticalAlignment="Top">
                 </Button>
 
-                <ItemsPresenter Margin="0,69,0,0"
+                <ItemsPresenter Margin="0,77,0,0"
                                 Height="Auto" />
             </Grid>
 
-            <Grid Height="Auto"
+            <Grid x:Name="PART_SelectedContentGrid"
+                  Height="Auto"
                   Grid.Column="1"
                   Background="{TemplateBinding Background}"
                   Margin="{TemplateBinding SelectedContentMargin}">
@@ -228,6 +270,7 @@
                                BasedOn="{StaticResource BackstageButtonStyle}" />
                     </ResourceDictionary>
                 </Grid.Resources>
+                
                 <ContentPresenter x:Name="PART_SelectedContentHost"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch"
@@ -273,26 +316,38 @@
     <Style x:Key="BackstageStyle"
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource BackstageControlTemplate}" />
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Background"
-                Value="{DynamicResource BackstageBackgroundBrush}" />
-        <Setter Property="ItemsPanelBackground"
-                Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
+                Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="Fluent:RibbonProperties.AppTheme"
+                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
         <Setter Property="SelectedContentMargin">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static Converters:StaticConverters.ThicknessConverter}">
                     <Binding Source="0" />
-                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonWindow}}"
-                             Path="TitleBarHeight"
+                    <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}"
+                             Path="TitleBar.ActualHeight"
                              FallbackValue="0" />
                         <Binding Source="0" />
                     <Binding Source="0" />
                 </MultiBinding>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseLight">
+                <Setter Property="ItemsPanelBackground"
+                        Value="{Binding ParentBackstage.Background, RelativeSource={RelativeSource Self}, FallbackValue=Red}" />
+            </Trigger>
+            <Trigger Property="Fluent:RibbonProperties.AppTheme"
+                     Value="BaseDark">
+                <Setter Property="ItemsPanelBackground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

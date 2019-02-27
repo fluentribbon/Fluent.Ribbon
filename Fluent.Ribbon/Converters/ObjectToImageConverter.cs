@@ -1,8 +1,8 @@
 ﻿namespace Fluent.Converters
 {
     using System;
-    using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net.Cache;
     using System.Windows;
@@ -12,72 +12,48 @@
     using System.Windows.Media.Imaging;
 
     /// <summary>
-    /// Converts string or ImageSource to Image control
+    /// Converts string, URI or ImageSource to Image control
     /// </summary>
+    [ValueConversion(sourceType: typeof(string), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(Uri), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(Image))]
     public class ObjectToImageConverter : IValueConverter
     {
         #region Implementation of IValueConverter
 
-        /// <summary>
-        /// Converts a value. 
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value produced by the binding source.</param><param name="targetType">The type of the binding target property.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = double.NaN;
+            var desiredSize = Size.Empty;
 
-            if (parameter != null)
+            if (parameter is double
+                || parameter is int
+                || parameter is string)
             {
-                try
-                {
-                    desiredSize = System.Convert.ToDouble(parameter);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex);
-                }
+                var size = System.Convert.ToDouble(parameter);
+                desiredSize = new Size(size, size);
+            }
+            else if (parameter is Size)
+            {
+                desiredSize = (Size)parameter;
             }
 
-            var imagePath = value as string;
-            if (imagePath != null)
-            {
-                return CreateImage(imagePath, desiredSize);
-            }
-
-            var imageUri = value as Uri;
-            if (imageUri != null)
-            {
-                return CreateImage(imageUri, desiredSize);
-            }
-
-            var imageSource = value as ImageSource;
+            var imageSource = CreateImageSource(value, desiredSize);
 
             if (imageSource == null)
             {
                 return value;
             }
 
-            var image = new Image();
-
-            // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
-            // In case of BitmapImage it even gets worse when using the same Uri...
-            image.Source = (ImageSource)ExtractImage(imageSource, desiredSize).GetAsFrozen();
-            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.NearestNeighbor);
-
+            var image = new Image
+                        {
+                            Source = imageSource
+                        };
 
             return image;
         }
 
-        /// <summary>
-        /// Converts a value. 
-        /// </summary>
-        /// <returns>
-        /// A converted value. If the method returns null, the valid null value is used.
-        /// </returns>
-        /// <param name="value">The value that is produced by the binding target.</param><param name="targetType">The type to convert to.</param><param name="parameter">The converter parameter to use.</param><param name="culture">The culture to use in the converter.</param>
+        /// <inheritdoc />
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return Binding.DoNothing;
@@ -85,61 +61,92 @@
 
         #endregion
 
-        private static Image CreateImage(string imagePath, double desiredSize)
+        /// <summary>
+        /// Extracts an <see cref="ImageSource"/> from <paramref name="value"/> which closest matches the <paramref name="desiredSize"/>.
+        /// </summary>
+        /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
+        /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
+        /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
+        public static ImageSource CreateImageSource(object value, Size desiredSize)
         {
-            if (double.IsNaN(desiredSize) == false
-                && imagePath.EndsWith(".ico"))
+            var imageSource = value as ImageSource;
+
+            if (imageSource == null)
             {
-                return new Image
+                var imagePath = value as string;
+                if (imagePath != null)
                 {
-                    Source = ExtractImageFromIcoFile(imagePath, desiredSize)
-                };
+                    imageSource = CreateImageSource(imagePath, desiredSize);
+                }
             }
 
-            return new Image
+            if (imageSource == null)
             {
-                Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute), new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
-            };
-        }
-        private static Image CreateImage(Uri imageUri, double desiredSize)
-        {
-            if (double.IsNaN(desiredSize) == false
-                && imageUri.AbsolutePath.EndsWith(".ico"))
-            {
-                return new Image
+                var imageUri = value as Uri;
+                if (imageUri != null)
                 {
-                    Source = ExtractImageFromIcoFile(imageUri, desiredSize)
-                };
+                    imageSource = CreateImageSource(imageUri, desiredSize);
+                }
             }
 
-            return new Image
+            if (imageSource == null)
             {
-                Source = new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore))
-            };
+                return null;
+            }
+
+            // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
+            // In case of BitmapImage it even gets worse when using the same Uri...
+            return (ImageSource)ExtractImageSource(imageSource, desiredSize).GetAsFrozen();
         }
 
-        private static ImageSource ExtractImageFromIcoFile(string imagePath, double desiredSize)
+        private static ImageSource CreateImageSource(string imagePath, Size desiredSize)
         {
-            return ExtractImageFromIcoFile(
-                new Uri("pack://application:,,," + imagePath, UriKind.RelativeOrAbsolute),
-                desiredSize
-                );
+            // Allow things like "Images\Green.png"
+            if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
+            {
+                // If that file does not exist, try to find it using resource notation
+                if (File.Exists(imagePath) == false)
+                {
+                    var slash = string.Empty;
+
+                    if (imagePath.StartsWith("/", StringComparison.OrdinalIgnoreCase) == false)
+                    {
+                        slash = "/";
+                    }
+
+                    imagePath = "pack://application:,,," + slash + imagePath;
+                }
+            }
+
+            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+
+            return CreateImageSource(imageUri, desiredSize);
         }
 
-        private static ImageSource ExtractImageFromIcoFile(Uri imageUri, double desiredSize)
+        private static ImageSource CreateImageSource(Uri imageUri, Size desiredSize)
+        {
+            if (desiredSize.IsEmpty == false
+                && imageUri.AbsolutePath.EndsWith(".ico", StringComparison.OrdinalIgnoreCase))
+            {
+                return ExtractImageSourceFromIcoFile(imageUri, desiredSize);
+            }
+
+            return new BitmapImage(imageUri, new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore));
+        }
+
+        private static ImageSource ExtractImageSourceFromIcoFile(Uri imageUri, Size desiredSize)
         {
             var decoder = BitmapDecoder.Create(
                 imageUri,
                 BitmapCreateOptions.DelayCreation | BitmapCreateOptions.IgnoreImageCache,
-                BitmapCacheOption.None
-                );
+                BitmapCacheOption.None);
 
-            return ExtractImage(decoder, desiredSize);
+            return ExtractImageSource(decoder, desiredSize);
         }
 
-        private static ImageSource ExtractImage(ImageSource imageSource, double desiredSize)
+        private static ImageSource ExtractImageSource(ImageSource imageSource, Size desiredSize)
         {
-            if (double.IsNaN(desiredSize))
+            if (desiredSize.IsEmpty)
             {
                 return imageSource;
             }
@@ -148,48 +155,40 @@
 
             // We may have some other type of ImageSource
             // that doesn't have a notion of frames or decoder
-            if (bitmapFrame == null
-                || bitmapFrame.Decoder == null)
+            if (bitmapFrame?.Decoder == null)
             {
                 return imageSource;
             }
 
-            return ExtractImage(bitmapFrame.Decoder, desiredSize);
+            return ExtractImageSource(bitmapFrame.Decoder, desiredSize);
         }
 
-        private static ImageSource ExtractImage(BitmapDecoder decoder, double desiredSize)
+        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Size desiredSize)
         {
             var dpiFactor = 1.0;
 
-            if (Application.Current != null
-                && Application.Current.CheckAccess()
-                && Application.Current.MainWindow != null
-                && Application.Current.MainWindow.CheckAccess())
+            if (Application.Current?.CheckAccess() == true
+                && Application.Current.MainWindow?.CheckAccess() == true)
             {
                 // dpi.M11 = dpiX, dpi.M22 = dpiY
                 var presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
 
-                if (presentationSource != null)
+                if (presentationSource?.CompositionTarget != null)
                 {
-                    if (presentationSource.CompositionTarget != null)
-                    {
-                        var dpi = presentationSource.CompositionTarget.TransformToDevice;
-                        dpiFactor = dpi.M11;
-                    }
+                    dpiFactor = presentationSource.CompositionTarget.TransformToDevice.M11;
                 }
             }
 
-            var result = decoder.Frames
-                .OrderBy(f => f.Width)
-                .FirstOrDefault(f => f.Width >= desiredSize * dpiFactor);
+            var framesOrderedByWidth = decoder.Frames
+                                              .OrderBy(f => f.Width)
+                                              .ThenBy(f => f.Height)
+                                              .ToList();
 
             // if there is no matching frame, get the largest frame
-            if (ReferenceEquals(result, default(BitmapFrame)))
-            {
-                result = decoder.Frames.OrderBy(f => f.Width).Last();
-            }
-
-            return result;
+            return framesOrderedByWidth
+                    .FirstOrDefault(f => f.Width >= desiredSize.Width * dpiFactor
+                                         && f.Height >= desiredSize.Height * dpiFactor)
+                   ?? framesOrderedByWidth.Last();
         }
     }
 }

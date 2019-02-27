@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -29,20 +28,14 @@ namespace Fluent
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(BackstageTabItem));
 
         /// <summary>
-        /// Gets or sets whether the tab is selected
+        /// Gets or sets a value indicating whether the tab is selected
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
         public bool IsSelected
         {
-            get
-            {
-                return (bool)this.GetValue(IsSelectedProperty);
-            }
-            set
-            {
-                this.SetValue(IsSelectedProperty, value);
-            }
+            get { return (bool)this.GetValue(IsSelectedProperty); }
+            set { this.SetValue(IsSelectedProperty, value); }
         }
 
         /// <summary>
@@ -77,7 +70,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  
+        /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata());
@@ -85,7 +78,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static BackstageTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
@@ -110,10 +102,10 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised on this element. 
+        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised on this element.
         /// Implement this method to add class handling for this event.
         /// </summary>
-        /// <param name="e"> The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// <param name="e"> The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -134,16 +126,14 @@ namespace Fluent
             var container = (BackstageTabItem)d;
             var newValue = (bool)e.NewValue;
 
-            var backstageTabControl = container.Parent as BackstageTabControl;
-
             if (newValue)
             {
-                if (backstageTabControl != null
-                    && ReferenceEquals(backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem), container) == false)
+                if (container.TabControlParent != null
+                    && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerFromItem(container.TabControlParent.SelectedItem), container) == false)
                 {
-                    UnselectSelectedItem(backstageTabControl);
+                    UnselectSelectedItem(container.TabControlParent);
 
-                    backstageTabControl.SelectedItem = backstageTabControl.ItemContainerGenerator.ItemFromContainer(container);
+                    container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainer(container);
                 }
 
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
@@ -205,11 +195,13 @@ namespace Fluent
         /// <summary>
         /// Handles key tip pressed
         /// </summary>
-        public void OnKeyTipPressed()
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             UnselectSelectedItem(this.TabControlParent);
 
             this.IsSelected = true;
+
+            return KeyTipPressedResult.Empty;
         }
 
         /// <summary>

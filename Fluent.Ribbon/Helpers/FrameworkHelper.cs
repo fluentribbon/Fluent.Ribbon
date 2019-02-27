@@ -1,17 +1,16 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-  using System;
-  using System.Reflection;
-  using System.Windows;
-  using System.Windows.Input;
-  using System.Windows.Media;
-  using Fluent.Internal.KnownBoxes;
+    using System;
+    using System.Reflection;
+    using System.Windows;
+    using System.Windows.Media;
+    using Fluent.Internal.KnownBoxes;
 
-  /// <summary>
-  /// Represents class to determine .NET Framework version difference
-  /// </summary>
-  public static class FrameworkHelper
+    /// <summary>
+    /// Represents class to determine .NET Framework version difference
+    /// </summary>
+    public static class FrameworkHelper
     {
         /// <summary>
         /// Version of WPF
@@ -21,7 +20,6 @@ namespace Fluent
         /// <summary>
         /// Gets UseLayoutRounding attached property value
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
         public static bool GetUseLayoutRounding(DependencyObject obj)
         {
@@ -31,8 +29,6 @@ namespace Fluent
         /// <summary>
         /// Gets UseLayoutRounding attached property value
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="value"></param>
         public static void SetUseLayoutRounding(DependencyObject obj, bool value)
         {
             obj.SetValue(UseLayoutRoundingProperty, value);
@@ -50,21 +46,5 @@ namespace Fluent
             RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
             d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
         }
-
-    public static bool NavigateFocus(this FrameworkElement self, FocusNavigationDirection dircetion)
-    {
-
-      try
-      {
-        var res = self.MoveFocus(new TraversalRequest(dircetion));
-        return res;
-      }
-      catch (ArgumentNullException)
-      {
-        //Fluent sometimes throws an exception on load when dynamically created items are in the DropDownButton's items collection
-      }
-      return false;
     }
-
-  }
 }

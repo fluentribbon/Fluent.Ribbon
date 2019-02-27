@@ -1,15 +1,14 @@
-using System;
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Controls;
-
+#pragma warning disable SA1402 // File may only contain a single class
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Markup;
+    using System.Windows.Media;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -20,38 +19,35 @@ namespace Fluent
     {
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
         FrameworkElement CreateQuickAccessItem();
 
         /// <summary>
-        /// Gets or sets whether control can be added to quick access toolbar
+        /// Gets or sets a value indicating whether control can be added to quick access toolbar
         /// </summary>
         bool CanAddToQuickAccessToolBar { get; set; }
     }
-    
+
     /// <summary>
     /// Peresents quick access shortcut to another control
     /// </summary>
     [ContentProperty(nameof(Target))]
     public class QuickAccessMenuItem : MenuItem
     {
+        #region Fields
 
-
-    #region Fields
-
-    internal Ribbon Ribbon;
+        internal Ribbon Ribbon { get; set; }
 
         #endregion
 
         #region Initialization
 
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static QuickAccessMenuItem()
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));            
+            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
         }
 
         /// <summary>
@@ -62,60 +58,39 @@ namespace Fluent
             this.Checked += this.OnChecked;
             this.Unchecked += this.OnUnchecked;
             this.Loaded += this.OnFirstLoaded;
-            this.Loaded += this.OnItemLoaded;            
+            this.Loaded += this.OnItemLoaded;
         }
 
-    #endregion
+        #endregion
 
-    #region Target Property
+        #region Target Property
 
-
-    public string TargetName
-    {
-      get { return (string)GetValue(TargetNameProperty); }
-      set { SetValue(TargetProperty, value); }
-    }
-
-    /// <summary>
-    /// Using a DependencyProperty as the backing store for shortcut. 
-    /// This enables animation, styling, binding, etc...
-    /// </summary>
-    public static readonly DependencyProperty TargetNameProperty =
-        DependencyProperty.Register("TargetName", typeof(string), typeof(QuickAccessMenuItem));
-
-
-    /// <summary>
-    /// Gets or sets shortcut to the target control
-    /// </summary>
-    public Control Target
+        /// <summary>
+        /// Gets or sets shortcut to the target control
+        /// </summary>
+        public UIElement Target
         {
             get { return (Control)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for shortcut. 
+        /// Using a DependencyProperty as the backing store for shortcut.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register(nameof(Target), typeof(Control), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
+            DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
         private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var quickAccessMenuItem = (QuickAccessMenuItem)d;
             var ribbonControl = e.NewValue as IRibbonControl;
 
-            if (quickAccessMenuItem.Header == null 
+            if (quickAccessMenuItem.Header == null
                 && ribbonControl != null)
             {
                 // Set Default Text Value
                 RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
-            }
-            if (quickAccessMenuItem.Icon == null
-                && ribbonControl != null)
-            {
-              // Set Default Text Value
-              RibbonControl.Bind(ribbonControl, quickAccessMenuItem, "Icon", IconProperty, BindingMode.OneWay);
             }
 
             if (ribbonControl != null)
@@ -129,7 +104,7 @@ namespace Fluent
 
             var oldRibbonControl = e.OldValue as IRibbonControl;
 
-            if (oldRibbonControl!=null)
+            if (oldRibbonControl != null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
                 if (ReferenceEquals(parent, quickAccessMenuItem))
@@ -170,28 +145,22 @@ namespace Fluent
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.AddToQuickAccessToolBar(this.Target);
         }
 
         private void OnUnchecked(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
 
-            if (this.Ribbon != null)
-            {
-                this.Ribbon.RemoveFromQuickAccessToolBar(this.Target);
-            }
+            this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
         }
 
         private void OnItemLoaded(object sender, RoutedEventArgs e)
         {
-            if (!this.IsLoaded)
+            if (this.IsLoaded == false)
             {
                 return;
             }
@@ -205,10 +174,10 @@ namespace Fluent
         private void OnFirstLoaded(object sender, RoutedEventArgs e)
         {
             this.Loaded -= this.OnFirstLoaded;
-            if (this.IsChecked 
-                && this.Ribbon != null)
+
+            if (this.IsChecked)
             {
-                this.Ribbon.AddToQuickAccessToolBar(this.Target);
+                this.Ribbon?.AddToQuickAccessToolBar(this.Target);
             }
         }
 
@@ -231,7 +200,8 @@ namespace Fluent
         public static bool IsSupported(UIElement element)
         {
             var provider = element as IQuickAccessItemProvider;
-            if (provider != null 
+
+            if (provider != null
                 && provider.CanAddToQuickAccessToolBar)
             {
                 return true;
@@ -245,17 +215,17 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        [SuppressMessage("Microsoft.Performance", "CA1800")]
         public static FrameworkElement GetQuickAccessItem(UIElement element)
         {
             FrameworkElement result = null;
 
-            // If control supports the interface just return what it provides 
+            // If control supports the interface just return what it provides
             var provider = element as IQuickAccessItemProvider;
-            if (provider != null 
+
+            if (provider != null
                 && provider.CanAddToQuickAccessToolBar)
             {
-                result = ((IQuickAccessItemProvider)element).CreateQuickAccessItem();
+                result = provider.CreateQuickAccessItem();
             }
 
             // The control isn't supported
@@ -280,9 +250,6 @@ namespace Fluent
         /// <summary>
         /// Finds the top supported control
         /// </summary>
-        /// <param name="visual">Visual</param>
-        /// <param name="point">Point</param>
-        /// <returns>Point</returns>
         public static FrameworkElement FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);

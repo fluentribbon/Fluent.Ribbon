@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <Style TargetType="Fluent:RibbonMenu">
+    <Style TargetType="{x:Type Fluent:RibbonMenu}">
         <Setter Property="Focusable"
                 Value="False" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Fluent:RibbonMenu">
+                <ControlTemplate TargetType="{x:Type Fluent:RibbonMenu}">
                     <ControlTemplate.Resources>
                         <Style BasedOn="{StaticResource MenuSeparatorStyle}"
                                TargetType="{x:Type Separator}" />
@@ -14,7 +14,7 @@
                     <Grid>
                         <Rectangle Fill="{x:Null}"
                                    Stretch="Fill"
-                                   Stroke="#FFE2E4E7"
+                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                    HorizontalAlignment="Left"
                                    Margin="24,0,0,0"
                                    Width="1"

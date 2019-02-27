@@ -41,38 +41,25 @@
                      x:Key="SliderThumbControlTemplate">
         <Grid Margin="2.5,0.5">
             <Border Name="path"
-                    Background="{DynamicResource WhiteBrush}"
+                    Background="{TemplateBinding Foreground}"
                     Width="3"
                     Height="11">
                 <Border Name="hoverborder" />
             </Border>
         </Grid>
         <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="hoverborder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
             <Trigger Property="IsDragging"
                      Value="True">
                 <Setter Property="Background"
-                        TargetName="hoverborder">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.5" />
-                    </Setter.Value>
-                </Setter>
+                        TargetName="hoverborder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
-                    <Condition Property="IsDragging"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Background"
-                        TargetName="hoverborder">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                                         Opacity="0.5" />
-                    </Setter.Value>
-                </Setter>
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -87,6 +74,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource SliderRepeatButtonControlTemplate}" />
     </Style>
+    
     <ControlTemplate x:Key="SliderRepeatButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
         <Grid>
@@ -96,18 +84,6 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center" />
         </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsPressed"
-                     Value="True">
-                <!--<Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonPressedInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonPressedInnerBorderBrush}"/>-->
-            </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <!--<Setter Property="Fill" TargetName="path" Value="{DynamicResource ButtonHoverInnerBackgroundBrush}"/>
-        <Setter Property="Stroke" TargetName="path" Value="{DynamicResource ButtonHoverInnerBorderBrush}"/>-->
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="ZoomSliderStyle"
@@ -128,6 +104,8 @@
                 Value="10" />
         <Setter Property="Value"
                 Value="100" />
+        <Setter Property="KeyboardNavigation.TabNavigation"
+                Value="None" />
     </Style>
 
     <ControlTemplate TargetType="{x:Type Slider}"
@@ -141,20 +119,20 @@
             </Grid.ColumnDefinitions>
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,-1,0,0"
-                       Stroke="{DynamicResource SliderShadowBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <!--<Rectangle Grid.ColumnSpan="1" Margin="-1,0,0,0" Stroke="{DynamicResource SliderShadowBrush}" VerticalAlignment="Center" Height="7" Grid.Column="1" Width="1" HorizontalAlignment="Center"/>-->
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,0"
-                       Stroke="{DynamicResource SliderLightenBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="1"
                        Grid.Column="1" />
             <Rectangle Grid.ColumnSpan="1"
                        Margin="0,1,0,1"
-                       Stroke="{DynamicResource SliderLightenBrush}"
+                       Stroke="{TemplateBinding Foreground}"
                        VerticalAlignment="Center"
                        Height="7"
                        Grid.Column="1"
@@ -166,7 +144,7 @@
                        Stroke="{x:Null}"
                        Grid.Column="1"
                        StrokeThickness="0"
-                       Fill="#00000000" />
+                       Fill="Transparent" />
             <Track Grid.Row="0"
                    x:Name="PART_Track"
                    Height="16"
@@ -203,7 +181,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{TemplateBinding Foreground}" />
                 </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy"
@@ -221,7 +199,7 @@
                           VerticalAlignment="Center"
                           Height="10"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{TemplateBinding Foreground}" />
                     <Path Data="M0,0L1,0"
                           HorizontalAlignment="Center"
                           Margin="0"
@@ -230,7 +208,7 @@
                           VerticalAlignment="Center"
                           Height="2"
                           StrokeThickness="2"
-                          Stroke="White" />
+                          Stroke="{TemplateBinding Foreground}" />
                 </Grid>
             </RepeatButton>
         </Grid>

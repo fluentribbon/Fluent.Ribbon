@@ -1,12 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Diagnostics;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -29,7 +28,7 @@ namespace Fluent
         #region IsHeadered
 
         /// <summary>
-        /// Gets or sets whether the header must be shown. 
+        /// Gets or sets whether the header must be shown.
         /// When the property is false this control uses to show all items without grouping
         /// </summary>
         public bool IsHeadered
@@ -39,7 +38,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsHeadered.  
+        /// Using a DependencyProperty as the backing store for IsHeadered.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
@@ -60,7 +59,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.  
+        /// Using a DependencyProperty as the backing store for Orientation.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
@@ -72,7 +71,7 @@ namespace Fluent
         #region ItemWidth
 
         /// <summary>
-        /// Gets or sets a value that specifies the width of 
+        /// Gets or sets a value that specifies the width of
         /// all items that are contained within
         /// </summary>
         public double ItemWidth
@@ -82,7 +81,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.  
+        /// Using a DependencyProperty as the backing store for ItemWidth.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
@@ -94,7 +93,7 @@ namespace Fluent
         #region ItemHeight
 
         /// <summary>
-        /// Gets or sets a value that specifies the height of 
+        /// Gets or sets a value that specifies the height of
         /// all items that are contained within
         /// </summary>
         public double ItemHeight
@@ -104,7 +103,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.  
+        /// Using a DependencyProperty as the backing store for ItemHeight.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
@@ -125,7 +124,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow. 
+        /// Using a DependencyProperty as the backing store for ItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
@@ -146,7 +145,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow. 
+        /// Using a DependencyProperty as the backing store for ItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
@@ -240,8 +239,8 @@ namespace Fluent
                 return;
             }
 
-            this.RealItemsPanel.MinWidth = Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth + 0.1;
-            this.RealItemsPanel.MaxWidth = Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth + 0.1;
+            this.RealItemsPanel.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
+            this.RealItemsPanel.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -316,7 +315,7 @@ namespace Fluent
         #endregion
 
         /// <summary>
-        /// Called to remeasure a control. 
+        /// Called to remeasure a control.
         /// </summary>
         /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
         /// <param name="constraint">The maximum size that the method can return.</param>

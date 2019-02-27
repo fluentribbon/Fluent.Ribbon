@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-  using System.Windows.Automation.Peers;
-  using Extensions;
-  using Fluent.Internal;
-  using Fluent.Internal.KnownBoxes;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+    using System.Windows.Shapes;
+    using Fluent.Internal;
+    using Fluent.Internal.KnownBoxes;
 
-  /// <summary>
-  /// RibbonGroup represents a logical group of controls as they appear on
-  /// a RibbonTab.  These groups can resize its content
-  /// </summary>
-  [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
+    /// <summary>
+    /// RibbonGroup represents a logical group of controls as they appear on
+    /// a RibbonTab.  These groups can resize its content
+    /// </summary>
+    [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     public class RibbonGroupBox : ItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl
@@ -61,7 +57,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(RibbonGroupBox));
@@ -90,9 +86,9 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for State.  
+        /// Using a DependencyProperty as the backing store for State.
         /// This enables animation, styling, binding, etc...
-        /// </summary> 
+        /// </summary>
         public static readonly DependencyProperty StateProperty =
             DependencyProperty.Register(nameof(State), typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new PropertyMetadata(RibbonGroupBoxState.Large, StatePropertyChanged));
 
@@ -139,6 +135,7 @@ namespace Fluent
         internal int Scale
         {
             get { return this.scale; }
+
             set
             {
                 var difference = value - this.scale;
@@ -269,9 +266,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets key tip for dialog launcher button
         /// </summary>
-        [DisplayName("DialogLauncher Keys"),
-        Category("KeyTips"),
-        Description("Key tip keys for dialog launcher button")]
+        [DisplayName("DialogLauncher Keys")]
+        [Category("KeyTips")]
+        [Description("Key tip keys for dialog launcher button")]
         public string LauncherKeys
         {
             get { return (string)this.GetValue(DialogLauncherButtonKeyTipKeysProperty); }
@@ -279,7 +276,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for 
+        /// Using a DependencyProperty as the backing store for
         /// LauncherKeys.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DialogLauncherButtonKeyTipKeysProperty =
@@ -340,13 +337,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
         /// </summary>
-        [Category("Action"), Localizability(LocalizationCategory.NeverLocalize), Bindable(true)]
+        [Category("Action")]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Bindable(true)]
         public ICommand LauncherCommand
         {
             get
             {
                 return (ICommand)this.GetValue(LauncherCommandProperty);
             }
+
             set
             {
                 this.SetValue(LauncherCommandProperty, value);
@@ -356,13 +356,16 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
         /// </summary>
-        [Bindable(true), Localizability(LocalizationCategory.NeverLocalize), Category("Action")]
+        [Bindable(true)]
+        [Localizability(LocalizationCategory.NeverLocalize)]
+        [Category("Action")]
         public object LauncherCommandParameter
         {
             get
             {
                 return this.GetValue(LauncherCommandParameterProperty);
             }
+
             set
             {
                 this.SetValue(LauncherCommandParameterProperty, value);
@@ -372,13 +375,15 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the element on which to raise the specified command. This is a dependency property.
         /// </summary>
-        [Bindable(true), Category("Action")]
+        [Bindable(true)]
+        [Category("Action")]
         public IInputElement LauncherCommandTarget
         {
             get
             {
                 return (IInputElement)this.GetValue(LauncherCommandTargetProperty);
             }
+
             set
             {
                 this.SetValue(LauncherCommandTargetProperty, value);
@@ -389,6 +394,7 @@ namespace Fluent
         /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
         /// </summary>
         public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register(nameof(LauncherCommandParameter), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata());
+
         /// <summary>
         /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
         /// </summary>
@@ -494,7 +500,7 @@ namespace Fluent
         #region LogicalChildren
 
         /// <summary>
-        /// Gets an enumerator for the logical child objects of 
+        /// Gets an enumerator for the logical child objects of
         /// the System.Windows.Controls.ItemsControl object.
         /// </summary>
         protected override IEnumerator LogicalChildren
@@ -593,9 +599,8 @@ namespace Fluent
         #region Initialize
 
         /// <summary>
-        /// Static constructor
+        /// Initializes static members of the <see cref="RibbonGroupBox"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonGroupBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
@@ -621,62 +626,15 @@ namespace Fluent
             this.ToolTip = new ToolTip();
             ((ToolTip)this.ToolTip).Template = null;
             this.CoerceValue(ContextMenuProperty);
-            //this.Focusable = false;
+            this.Focusable = false;
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
-            this.KeyDown += RibbonGroupBox_KeyDown;
 
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
         }
 
-    private void RibbonGroupBox_KeyDown(object sender, KeyEventArgs e)
-    {
-      if(State==RibbonGroupBoxState.Collapsed && !DropDownPopup.IsOpen && (e.Key==Key.Space || e.Key==Key.Down))
-      {
-        IsDropDownOpen = true;
-        var item = FindFirstFocusableElement(DropDownPopup.Child);
-        if(item!=null)
-          Keyboard.Focus(item);
-        e.Handled = true;
-      }
-      if (State == RibbonGroupBoxState.Collapsed && DropDownPopup.IsOpen && (e.Key == Key.Escape))
-      {
-        IsDropDownOpen = false;
-        Keyboard.Focus(this);
-        e.Handled = true;
-      }
-    }
-
-    private static UIElement FindFirstFocusableElement(UIElement element)
-    {
-      if (element == null)
-      {
-        return null;
-      }
-
-
-      for (var i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
-      {
-        var child = VisualTreeHelper.GetChild(element, i) as UIElement;
-
-        if (child == null)
-        {
-          continue;
-        }
-        if(child.Focusable)
-        {
-          return child;
-        }
-
-        var item = FindFirstFocusableElement(child);
-        if (item != null)
-          return item;
-      }
-      return null;
-    }
-
-    private void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.SubscribeEvents();
         }
@@ -729,20 +687,26 @@ namespace Fluent
         /// Gets a panel with items
         /// </summary>
         /// <returns></returns>
-        internal Panel GetPanel() { return this.upPanel; }
+        internal Panel GetPanel()
+        {
+            return this.upPanel;
+        }
 
         /// <summary>
         /// Gets cmmon layout root for popup and groupbox
         /// </summary>
         /// <returns></returns>
-        internal Panel GetLayoutRoot() { return this.parentPanel; }
+        internal Panel GetLayoutRoot()
+        {
+            return this.parentPanel;
+        }
 
         #endregion
 
         #region Snapping
 
         /// <summary>
-        /// Snaps / Unsnaps the Visual 
+        /// Snaps / Unsnaps the Visual
         /// (remove visuals and substitute with freezed image)
         /// </summary>
         public bool IsSnapped
@@ -751,6 +715,7 @@ namespace Fluent
             {
                 return this.isSnapped;
             }
+
             set
             {
                 if (value == this.isSnapped)
@@ -762,7 +727,7 @@ namespace Fluent
                 {
                     if (this.IsVisible)
                     {
-                        // Render the freezed image                        
+                        // Render the freezed image
                         var renderTargetBitmap = new RenderTargetBitmap((int)this.ActualWidth, (int)this.ActualHeight, 96, 96, PixelFormats.Pbgra32);
                         renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
                         this.snappedImage.FlowDirection = this.FlowDirection;
@@ -820,6 +785,8 @@ namespace Fluent
 
                 if (this.cachedMeasures.TryGetValue(stateScale, out result) == false)
                 {
+                    var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
+
                     this.SuppressCacheReseting = true;
                     this.UpdateScalableControlSubscribing();
 
@@ -829,7 +796,8 @@ namespace Fluent
                     this.State = this.StateIntermediate;
                     this.Scale = this.ScaleIntermediate;
                     this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
+                    this.cachedMeasures.Remove(stateScale);
                     this.cachedMeasures.Add(stateScale, this.DesiredSize);
                     result = this.DesiredSize;
 
@@ -837,7 +805,7 @@ namespace Fluent
                     this.State = backupState;
                     this.Scale = backupScale;
                     this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
 
                     this.SuppressCacheReseting = false;
                 }
@@ -889,7 +857,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code 
+        /// When overridden in a derived class, is invoked whenever application code
         /// or internal processes call System.Windows.FrameworkElement.ApplyTemplate().
         /// </summary>
         public override void OnApplyTemplate()
@@ -931,10 +899,10 @@ namespace Fluent
 
         /// <summary>
         /// Invoked when an unhandled System.Windows.UIElement.PreviewMouseLeftButtonDown
-        /// event reaches an element in its route that is derived from this class. 
+        /// event reaches an element in its route that is derived from this class.
         /// Implement this method to add class handling for this event.
         /// </summary>
-        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data. 
+        /// <param name="e">The System.Windows.Input.MouseButtonEventArgs that contains the event data.
         /// The event data reports that the left mouse button was pressed.</param>
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -961,7 +929,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Supports layout behavior when a child element is resized. 
+        /// Supports layout behavior when a child element is resized.
         /// </summary>
         /// <param name="child">The child element that is being resized.</param>
         protected override void OnChildDesiredSizeChanged(UIElement child)
@@ -979,12 +947,6 @@ namespace Fluent
                 State = this.StateIntermediate
             };
             return stateScale;
-        }
-
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-          RibbonAutomationPeer peer = new RibbonAutomationPeer(this);
-          return peer;
         }
 
         #endregion
@@ -1007,51 +969,51 @@ namespace Fluent
             //IsHitTestVisible = true;
             if (ReferenceEquals(Mouse.Captured, this))
             {
-               Mouse.Capture(null);
+                Mouse.Capture(null);
             }
         }
 
-            // handles popup opening
-            private void OnRibbonGroupBoxPopupOpening()
+        // handles popup opening
+        private void OnRibbonGroupBoxPopupOpening()
+        {
+            //IsHitTestVisible = false;
+            Mouse.Capture(this, CaptureMode.SubTree);
+        }
+
+        /// <summary>
+        /// Handles IsOpen propertyu changes
+        /// </summary>
+        /// <param name="d">Object</param>
+        /// <param name="e">The event data</param>
+        private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var ribbon = (RibbonGroupBox)d;
+
+            if (ribbon.IsDropDownOpen)
             {
-                //IsHitTestVisible = false;            
-                Mouse.Capture(this, CaptureMode.SubTree);
+                ribbon.OnRibbonGroupBoxPopupOpening();
             }
-
-            /// <summary>
-            /// Handles IsOpen propertyu changes
-            /// </summary>
-            /// <param name="d">Object</param>
-            /// <param name="e">The event data</param>
-            private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+            else
             {
-                var ribbon = (RibbonGroupBox)d;
-
-                if (ribbon.IsDropDownOpen)
-                {
-                    ribbon.OnRibbonGroupBoxPopupOpening();
-                }
-                else
-                {
-                    ribbon.OnRibbonGroupBoxPopupClosing();
-                }
+                ribbon.OnRibbonGroupBoxPopupClosing();
             }
+        }
 
-            #endregion
+        #endregion
 
         #region Quick Access Item Creating
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
-        public FrameworkElement CreateQuickAccessItem()
+        public virtual FrameworkElement CreateQuickAccessItem()
         {
             var groupBox = new RibbonGroupBox();
 
-            
+            RibbonControl.BindQuickAccessItem(this, groupBox);
 
             groupBox.DropDownOpened += this.OnQuickAccessOpened;
             groupBox.DropDownClosed += this.OnQuickAccessClosed;
@@ -1089,17 +1051,6 @@ namespace Fluent
                 {
                     RibbonControl.Bind(this, groupBox, nameof(this.Icon), RibbonControl.IconProperty, BindingMode.OneWay);
                 }
-            }
-
-            //var attachedProperties = DependencyObjectHelper.GetAttachedProperties(this);
-            //foreach (var attachedProperty in attachedProperties)
-            //  RibbonControl.Bind(this, groupBox, new PropertyPath(attachedProperty), attachedProperty, BindingMode.OneWay);
-
-            RibbonControl.BindQuickAccessItem(this, groupBox);
-
-            if (this.Header != null)
-            {
-                RibbonControl.Bind(this, groupBox, "Header", RibbonControl.HeaderProperty, BindingMode.OneWay);
             }
 
             return groupBox;
@@ -1164,21 +1115,29 @@ namespace Fluent
 
         #region Implementation of IKeyTipedControl
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
-        public void OnKeyTipPressed()
+        /// <inheritdoc />
+        public KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.State == RibbonGroupBoxState.Collapsed
                 || this.State == RibbonGroupBoxState.QuickAccess)
             {
                 this.IsDropDownOpen = true;
+
+                if (this.DropDownPopup?.Child != null)
+                {
+                    Keyboard.Focus(this.DropDownPopup.Child);
+                    this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+
+                    return new KeyTipPressedResult(true, true);
+                }
+
+                return new KeyTipPressedResult(false, true);
             }
+
+            return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
             this.IsDropDownOpen = false;

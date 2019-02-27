@@ -16,7 +16,7 @@
                                                  Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                                  HasTwoLines="False"
                                                  HasGlyph="True"
-                                                 Foreground="White"
+                                                 Foreground="{DynamicResource WhiteBrush}"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
                                                  Margin="6,-2,0,0" />
@@ -37,8 +37,8 @@
                                 <Border x:Name="PART_DropDownBorder"
                                         MinWidth="{TemplateBinding ActualWidth}"
                                         SnapsToDevicePixels="True"
-                                        Background="{DynamicResource ContextMenuBarBackgroundBrush}"
-                                        BorderBrush="{DynamicResource ContextMenuBarBorderBrush}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                                         BorderThickness="1"
                                         CornerRadius="1"
                                         Grid.ColumnSpan="1"
@@ -52,7 +52,7 @@
                                         <Border VerticalAlignment="Top"
                                                 Width="Auto"
                                                 Height="Auto"
-                                                BorderBrush="{DynamicResource ContextMenuBarBackgroundBrush}"
+                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                                 BorderThickness="1"
                                                 CornerRadius="1" />
                                         <Grid Margin="1"
@@ -60,7 +60,7 @@
                                               VerticalAlignment="Top">
                                             <Rectangle Fill="{x:Null}"
                                                        Stretch="Fill"
-                                                       Stroke="#FFE2E4E7"
+                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                        HorizontalAlignment="Left"
                                                        Margin="24,0,0,0"
                                                        Width="1"
@@ -89,7 +89,7 @@
                                  Value="True">
                             <Setter Property="Foreground"
                                     TargetName="twoLineLabel"
-                                    Value="#FFFFD232" />
+                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -110,7 +110,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border BorderThickness="{TemplateBinding BorderThickness}"
-                BorderBrush="{DynamicResource GalleryBorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 x:Name="layoutRoot">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>
@@ -121,7 +121,7 @@
                         BorderBrush="{x:Null}"
                         BorderThickness="0"
                         Height="13"
-                        Background="{DynamicResource GalleryHeaderBackgroundBrush}">
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Gallery.Header.Background}">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
                                            Style="{DynamicResource GalleryDropDownButtonStyle}"
                                            Height="Auto"
@@ -134,7 +134,7 @@
                               Grid.Row="1"
                               Margin="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="White"
+                    <Fluent:GalleryPanel Background="{DynamicResource WhiteBrush}"
                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"

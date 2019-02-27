@@ -15,7 +15,7 @@
         <Setter Property="Width"
                 Value="Auto" />
         <Setter Property="Foreground"
-                Value="{DynamicResource DefaultFontBrush}" />
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="BorderThickness"
                 Value="1" />
         <Style.Triggers>
@@ -42,17 +42,13 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    <SolidColorBrush x:Key="ButtonCheckedBrush"
-                     Color="{DynamicResource {x:Static Fluent:MetroColors.ThemeColorKey}}"
-                     Opacity="0.2" />
-    
+
     <ControlTemplate x:Key="RibbonToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                Background="{DynamicResource TransparentBrush}"
-                BorderBrush="{DynamicResource TransparentBrush}"
+                Background="Transparent"
+                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}">
@@ -142,23 +138,14 @@
                         TargetName="iconImage"
                         Value="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="True">
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBorderBrush}" />
-                <Setter Property="Background"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonPressedOuterBackgroundBrush}" />
-            </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
-                <Setter Property="BorderBrush"
-                        TargetName="border"
-                        Value="{DynamicResource ButtonCheckedBrush}" />
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonCheckedBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled"
                      Value="False">
@@ -181,13 +168,15 @@
                                Value="True" />
                     <Condition Property="IsPressed"
                                Value="False" />
+                    <Condition Property="IsChecked"
+                               Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -200,11 +189,20 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Background"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBackgroundBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background}" />
                 <Setter Property="BorderBrush"
                         TargetName="border"
-                        Value="{DynamicResource ButtonHoverOuterBorderBrush}" />
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush}" />
             </MultiTrigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

@@ -3,9 +3,7 @@ namespace Fluent
 {
     using System;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Threading;
     using System.Windows;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -13,6 +11,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Threading;
     using Fluent.Converters;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -42,7 +41,6 @@ namespace Fluent
         /// <summary>
         /// Gets or sets current value
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1721")]
         public double Value
         {
             get { return (double)this.GetValue(ValueProperty); }
@@ -50,7 +48,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Value.  
+        /// Using a DependencyProperty as the backing store for Value.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ValueProperty;
@@ -106,7 +104,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.  
+        /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty = textPropertyKey.DependencyProperty;
@@ -248,8 +246,8 @@ namespace Fluent
         #region Delay
 
         /// <summary>
-        /// Gets or sets the amount of time, in milliseconds, 
-        /// the Spinner waits while it is pressed before it starts repeating. 
+        /// Gets or sets the amount of time, in milliseconds,
+        /// the Spinner waits while it is pressed before it starts repeating.
         /// The value must be non-negative. This is a dependency property.
         /// </summary>
         public int Delay
@@ -259,7 +257,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Delay.  
+        /// Using a DependencyProperty as the backing store for Delay.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DelayProperty =
@@ -271,8 +269,8 @@ namespace Fluent
         #region Interval
 
         /// <summary>
-        /// Gets or sets the amount of time, in milliseconds, 
-        /// between repeats once repeating starts. The value must be non-negative. 
+        /// Gets or sets the amount of time, in milliseconds,
+        /// between repeats once repeating starts. The value must be non-negative.
         /// This is a dependency property.
         /// </summary>
         public int Interval
@@ -282,7 +280,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Interval.  
+        /// Using a DependencyProperty as the backing store for Interval.
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IntervalProperty =
@@ -294,7 +292,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets or sets width of the value input part of spinner
-        /// </summary>               
+        /// </summary>
         public double InputWidth
         {
             get { return (double)this.GetValue(InputWidthProperty); }
@@ -350,7 +348,6 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static Spinner()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(typeof(Spinner)));
@@ -360,6 +357,18 @@ namespace Fluent
             ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double), typeof(Spinner), new FrameworkPropertyMetadata(DoubleBoxes.Zero, OnValueChanged, CoerceValue) { BindsTwoWayByDefault = true });
 
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Spinner), new FrameworkPropertyMetadata(KeyboardNavigationMode.Once));
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Select all text in the Spinner.
+        /// </summary>
+        public void SelectAll()
+        {
+            this.textBox.SelectAll();
         }
 
         #endregion
@@ -428,24 +437,18 @@ namespace Fluent
 
         #region Event Handling
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
-        public override void OnKeyTipPressed()
+        /// <inheritdoc />
+        public override KeyTipPressedResult OnKeyTipPressed()
         {
             if (this.textBox == null)
             {
-                return;
+                return KeyTipPressedResult.Empty;
             }
 
-            // Use dispatcher to avoid focus moving to backup'ed element 
-            // (focused element before keytips processing)
-            this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                (ThreadStart)(() =>
-                {
-                    this.textBox.SelectAll();
-                    this.textBox.Focus();
-                }));
+            this.textBox.SelectAll();
+            this.textBox.Focus();
+
+            return new KeyTipPressedResult(true, false);
         }
 
         private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
@@ -453,16 +456,15 @@ namespace Fluent
             if (this.SelectAllTextOnFocus)
             {
                 // Async because setting the carret happens after focus.
-                this.Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                    (ThreadStart)(() =>
+                this.RunInDispatcherAsync(() =>
                     {
                         this.textBox.SelectAll();
-                    }));
+                    }, DispatcherPriority.Background);
             }
         }
 
         /// <summary>
-        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches 
+        /// Invoked when an unhandled System.Windows.Input.Keyboard.KeyUp attached event reaches
         /// an element in its route that is derived from this class. Implement this method to add class handling for this event.
         /// </summary>
         /// <param name="e">The System.Windows.Input.KeyEventArgs that contains the event data.</param>
@@ -542,7 +544,7 @@ namespace Fluent
 
         /// <summary>
         /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original 
+        /// This item MUST be syncronized with the original
         /// and send command to original one control.
         /// </summary>
         /// <returns>Control which represents shortcut item</returns>
@@ -557,7 +559,7 @@ namespace Fluent
         /// This method must be overriden to bind properties to use in quick access creating
         /// </summary>
         /// <param name="element">Toolbar item</param>
-        protected void BindQuickAccessItem(FrameworkElement element)
+        protected virtual void BindQuickAccessItem(FrameworkElement element)
         {
             var spinner = (Spinner)element;
 

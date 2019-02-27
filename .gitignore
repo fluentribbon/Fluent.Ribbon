@@ -38,12 +38,17 @@ tools/
 *.nupkg
 
 # Generated files
-Fluent.Ribbon/Themes/**/Generic.xaml
+Fluent.Ribbon/Themes/**/Styles.xaml
+Fluent.Ribbon/Themes/Accents/*.xaml
 packages/
 .tmp
 
 # Result files
 TestResult.xml
+
+# cache and local files
+*.cached
+*.local
 
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe

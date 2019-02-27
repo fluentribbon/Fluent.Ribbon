@@ -80,9 +80,7 @@
                     <GeometryDrawing Brush="#FFFFFFFF"
                                      Geometry="F1 M 27.6854,12.2101L 19.2737,17.0836L 18.6082,15.935L 19.685,6.89886L 15.52,9.31194L 14.3031,7.21157L 22.1541,2.66294L 22.9544,4.04429L 21.9911,12.7038L 26.4685,10.1097L 27.6854,12.2101 Z " />
                 </DrawingGroup.Children>
-
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-
 </ResourceDictionary>

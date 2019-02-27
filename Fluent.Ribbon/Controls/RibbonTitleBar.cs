@@ -1,27 +1,27 @@
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using Fluent.Internal;
-
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
-    using ControlzEx.Microsoft.Windows.Shell;
+    using System;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
+    using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     /// <summary>
     /// Represents title bar
     /// </summary>
-    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(RibbonContextualTabGroup))]
+    [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonContextualTabGroup))]
     [TemplatePart(Name = "PART_QuickAccessToolbarHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_HeaderHolder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ItemsContainer", Type = typeof(Panel))]
     public class RibbonTitleBar : HeaderedItemsControl
     {
         #region Fields
-   
 
         // Quick access toolbar holder
         private FrameworkElement quickAccessToolbarHolder;
@@ -36,31 +36,6 @@ namespace Fluent
         // Items rect
         private Rect itemsRect;
 
-        private double? _windowCommandWidth;
-        private double WindowCommandWidth
-        {
-          get
-          {
-            if (_windowCommandWidth.HasValue)
-              return _windowCommandWidth.Value;
-            var windowCommands = UIHelper.FindVisualChildByName<FrameworkElement>(Window.GetWindow(this),"PART_WindowCommands");
-            if (windowCommands == null || windowCommands.ActualWidth==0)
-              return 110;
-            _windowCommandWidth = windowCommands.ActualWidth;
-            return _windowCommandWidth.Value;
-          }
-        }
-
-        private double WindowWidth
-        {
-          get
-          {
-            var window = Window.GetWindow(this);
-            if (window == null)
-              return 0;
-            return window.Width;
-          }
-        }
         #endregion
 
         #region Properties
@@ -68,112 +43,158 @@ namespace Fluent
         /// <summary>
         /// Gets or sets quick access toolbar
         /// </summary>
-        public UIElement QuickAccessToolBar
-                {
-                    get { return (UIElement)this.GetValue(QuickAccessToolBarProperty); }
-                    set { this.SetValue(QuickAccessToolBarProperty, value); }
-                }
+        public FrameworkElement QuickAccessToolBar
+        {
+            get { return (FrameworkElement)this.GetValue(QuickAccessToolBarProperty); }
+            set { this.SetValue(QuickAccessToolBarProperty, value); }
+        }
 
-                /// <summary>
-                /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
-                /// </summary>
-                public static readonly DependencyProperty QuickAccessToolBarProperty =
-                    DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(UIElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolbarChanged));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty QuickAccessToolBarProperty =
+            DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(FrameworkElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolbarChanged));
 
-                // Handles QuickAccessToolBar property chages
-                private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-                {
-                    var titleBar = (RibbonTitleBar)d;
-                    titleBar.InvalidateMeasure();
-                }
+        // Handles QuickAccessToolBar property chages
+        private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var titleBar = (RibbonTitleBar)d;
+            titleBar.ForceMeasureAndArrange();
+        }
 
-                /// <summary>
-                /// Gets or sets header alignment
-                /// </summary>
-                public HorizontalAlignment HeaderAlignment
-                {
-                    get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
-                    set { this.SetValue(HeaderAlignmentProperty, value); }
-                }
+        /// <summary>
+        /// Gets or sets header alignment
+        /// </summary>
+        public HorizontalAlignment HeaderAlignment
+        {
+            get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
+            set { this.SetValue(HeaderAlignmentProperty, value); }
+        }
 
-                /// <summary>
-                /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
-                /// </summary> 
-                public static readonly DependencyProperty HeaderAlignmentProperty =
-                    DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HeaderAlignmentProperty =
+            DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
 
-                /// <summary>
-                /// Defines whether title bar is collapsed
-                /// </summary>
-                public bool IsCollapsed
-                {
-                    get { return (bool)this.GetValue(IsCollapsedProperty); }
-                    set { this.SetValue(IsCollapsedProperty, value); }
-                }
+        /// <summary>
+        /// Defines whether title bar is collapsed
+        /// </summary>
+        public bool IsCollapsed
+        {
+            get { return (bool)this.GetValue(IsCollapsedProperty); }
+            set { this.SetValue(IsCollapsedProperty, value); }
+        }
 
-                /// <summary>
-                /// DependencyProperty for <see cref="IsCollapsed"/>
-                /// </summary>
-                public static readonly DependencyProperty IsCollapsedProperty =
-                    DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+        /// <summary>
+        /// DependencyProperty for <see cref="IsCollapsed"/>
+        /// </summary>
+        public static readonly DependencyProperty IsCollapsedProperty =
+            DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-                private bool isAtLeastOneRequiredControlPresent;
+        private bool isAtLeastOneRequiredControlPresent;
 
-                /// <summary>
-                /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
-                /// </summary>
-                public static readonly DependencyProperty HideContextTabsProperty =
-                    DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new PropertyMetadata(BooleanBoxes.FalseBox));
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty HideContextTabsProperty =
+            DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-                /// <summary>
-                ///  Gets or sets whether context tabs are hidden.
-                /// </summary>
-                public bool HideContextTabs
-                {
-                    get { return (bool)this.GetValue(HideContextTabsProperty); }
-                    set { this.SetValue(HideContextTabsProperty, value); }
-                }
+        /// <summary>
+        ///  Gets or sets whether context tabs are hidden.
+        /// </summary>
+        public bool HideContextTabs
+        {
+            get { return (bool)this.GetValue(HideContextTabsProperty); }
+            set { this.SetValue(HideContextTabsProperty, value); }
+        }
 
-                #endregion
+        #endregion
 
         #region Initialize
 
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static RibbonTitleBar()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(typeof(RibbonTitleBar)));
+
+            HeaderProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public RibbonTitleBar()
+        {
+            WindowChrome.SetIsHitTestVisibleInChrome(this, true);
         }
 
         #endregion
 
         #region Overrides
 
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
+        /// <inheritdoc />
+        protected override HitTestResult HitTestCore(PointHitTestParameters hitTestParameters)
+        {
+            var baseResult = base.HitTestCore(hitTestParameters);
+
+            if (baseResult == null)
+            {
+                return new PointHitTestResult(this, hitTestParameters.HitPoint);
+            }
+
+            return baseResult;
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseRightButtonUp(e);
+
+            if (e.Handled
+                || this.IsMouseDirectlyOver == false)
+            {
+                return;
+            }
+
+            WindowSteeringHelper.ShowSystemMenu(this, e);
+        }
+
+        /// <inheritdoc />
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            // Contextual groups shall handle mouse events
+            if (e.Source is RibbonContextualGroupsContainer
+                || e.Source is RibbonContextualTabGroup)
+            {
+                return;
+            }
+
+            WindowSteeringHelper.HandleMouseLeftButtonDown(e, true, true);
+        }
+
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new RibbonContextualTabGroup();
         }
 
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item"> The item to check.</param>
-        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+        /// <inheritdoc />
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is RibbonContextualTabGroup;
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes 
-        /// call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -192,19 +213,10 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <param name="constraint">The maximum size that the method can return.</param>
-        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if (this.isAtLeastOneRequiredControlPresent == false)
-            {
-                return base.MeasureOverride(constraint);
-            }
-
-            if (this.IsCollapsed)
             {
                 return base.MeasureOverride(constraint);
             }
@@ -229,11 +241,7 @@ namespace Fluent
             return new Size(width, maxHeight);
         }
 
-        /// <summary>
-        /// Called to arrange and size the content of a System.Windows.Controls.Control object.
-        /// </summary>
-        /// <param name="arrangeBounds">The computed size that is used to arrange the content.</param>
-        /// <returns>The size of the control.</returns>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
             if (this.isAtLeastOneRequiredControlPresent == false)
@@ -241,20 +249,49 @@ namespace Fluent
                 return base.ArrangeOverride(arrangeBounds);
             }
 
-            if (this.IsCollapsed)
-            {
-                return base.ArrangeOverride(arrangeBounds);
-            }
-
             this.itemsContainer.Arrange(this.itemsRect);
             this.headerHolder.Arrange(this.headerRect);
             this.quickAccessToolbarHolder.Arrange(this.quickAccessToolbarRect);
+
+            this.EnsureCorrectLayoutAfterArrange();
+
             return arrangeBounds;
         }
 
         #endregion
 
         #region Private methods
+
+        /// <summary>
+        /// Sometimes the relative position only changes after the arrange phase.
+        /// To compensate such sitiations we issue a second layout pass by invalidating our measure.
+        /// This situation can occur if, for example, the icon of a ribbon window has it's visibility changed.
+        /// </summary>
+        private void EnsureCorrectLayoutAfterArrange()
+        {
+            var currentRelativePosition = this.GetCurrentRelativePosition();
+            this.RunInDispatcherAsync(() => this.CheckPosition(currentRelativePosition, this.GetCurrentRelativePosition()));
+        }
+
+        private void CheckPosition(Point previousRelativePosition, Point currentRelativePositon)
+        {
+            if (previousRelativePosition != currentRelativePositon)
+            {
+                this.InvalidateMeasure();
+            }
+        }
+
+        private Point GetCurrentRelativePosition()
+        {
+            var parentUIElement = this.Parent as UIElement;
+
+            if (parentUIElement == null)
+            {
+                return default(Point);
+            }
+
+            return this.TranslatePoint(default(Point), parentUIElement);
+        }
 
         // Update items size and positions
         private void Update(Size constraint)
@@ -278,11 +315,23 @@ namespace Fluent
                 }
             }
 
-            if (visibleGroups.Count == 0
+            if (this.IsCollapsed)
+            {
+                // Collapse QuickAccessToolbar
+                this.quickAccessToolbarRect = new Rect(0, 0, 0, 0);
+
+                // Collapse itemRect
+                this.itemsRect = new Rect(0, 0, 0, 0);
+
+                this.headerHolder.Measure(new Size(constraint.Width, constraint.Height));
+                this.headerRect = new Rect(0, 0, this.headerHolder.DesiredSize.Width, constraint.Height);
+            }
+            else if (visibleGroups.Count == 0
                 || canRibbonTabControlScroll)
             {
                 // Collapse itemRect
                 this.itemsRect = new Rect(0, 0, 0, 0);
+
                 // Set quick launch toolbar and header position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
 
@@ -304,17 +353,7 @@ namespace Fluent
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Center)
                     {
-                        double headerSpace = 25; 
-                        double windowWidth = WindowWidth;
-                        if (windowWidth > (this.quickAccessToolbarHolder.DesiredSize.Width + this.headerHolder.DesiredSize.Width+WindowCommandWidth))
-                        {
-                          if(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace < ((windowWidth / 2) - (this.headerHolder.DesiredSize.Width / 2)))
-                            this.headerRect = new Rect((windowWidth / 2) - (this.headerHolder.DesiredSize.Width/2), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
-                          else
-                            this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace, 0, Math.Min(allTextWidth -50 , this.headerHolder.DesiredSize.Width), constraint.Height);
-                        }
-                        else
-                          this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + headerSpace + Math.Max(0, (allTextWidth- headerSpace) / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidth-headerSpace, this.headerHolder.DesiredSize.Width), constraint.Height);
+                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, (allTextWidth / 2) - (this.headerHolder.DesiredSize.Width / 2)), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                     }
                     else if (this.HeaderAlignment == HorizontalAlignment.Right)
                     {
@@ -332,34 +371,28 @@ namespace Fluent
             }
             else
             {
-                // Set items container size and position
-                var firstItem = visibleGroups.First().FirstVisibleItem;
-                var lastItem = visibleGroups.Last().LastVisibleItem;
+                var pointZero = default(Point);
 
-                var startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                var endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
+                // get initial StartX value
+                var startX = visibleGroups.First().FirstVisibleItem.TranslatePoint(pointZero, this).X;
+                var endX = 0D;
 
                 //Get minimum x point (workaround)
                 foreach (var group in visibleGroups)
                 {
-                    firstItem = group.FirstVisibleItem;
+                    var currentStartX = group.FirstVisibleItem.TranslatePoint(pointZero, this).X;
 
-                    if (firstItem != null)
+                    if (currentStartX < startX)
                     {
-                        if (firstItem.TranslatePoint(new Point(0, 0), this).X < startX)
-                        {
-                            startX = firstItem.TranslatePoint(new Point(0, 0), this).X;
-                        }
+                        startX = currentStartX;
                     }
 
-                    lastItem = group.LastVisibleItem;
+                    var lastItem = group.LastVisibleItem;
+                    var currentEndX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
 
-                    if (lastItem != null)
+                    if (currentEndX > endX)
                     {
-                        if (lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X > endX)
-                        {
-                            endX = lastItem.TranslatePoint(new Point(lastItem.DesiredSize.Width, 0), this).X;
-                        }
+                        endX = currentEndX;
                     }
                 }
 
@@ -367,11 +400,13 @@ namespace Fluent
                 startX = Math.Max(0, startX);
                 endX = Math.Max(0, endX);
 
-                //Looks like thr titlebar things are ordered in an other way
-                if (DoubleUtil.AreClose(startX, endX) == false)
-                {
-                    this.itemsRect = new Rect(startX, 0, Math.Max(0, Math.Min(endX, constraint.Width) - startX), constraint.Height);
-                }
+                // Ensure that startX respect min width of QuickAccessToolBar
+                startX = Math.Max(startX, this.QuickAccessToolBar?.MinWidth ?? 0);
+
+                // Set contextual groups position and size
+                this.itemsContainer.Measure(infinity);
+                var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));
+                this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
 
                 // Set quick launch toolbar position and size
                 this.quickAccessToolbarHolder.Measure(infinity);
@@ -404,6 +439,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(endX, constraint.Width), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Center:
@@ -414,13 +450,14 @@ namespace Fluent
 
                             if (((startX - quickAccessToolbarWidth < 150 || fitsRightButNotLeft) && (startX - quickAccessToolbarWidth > 0) && (startX - quickAccessToolbarWidth < constraint.Width - endX)) || (endX < constraint.Width / 2))
                             {
-                                this.headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width / 2 - this.headerHolder.DesiredSize.Width / 2), constraint.Width), 0, Math.Min(allTextWidthRight, this.headerHolder.DesiredSize.Width), constraint.Height);
+                                this.headerRect = new Rect(Math.Min(Math.Max(endX, (constraint.Width / 2) - (this.headerHolder.DesiredSize.Width / 2)), constraint.Width), 0, Math.Min(allTextWidthRight, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                             else
                             {
-                                this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidthLeft / 2 - this.headerHolder.DesiredSize.Width / 2), 0, Math.Min(allTextWidthLeft, this.headerHolder.DesiredSize.Width), constraint.Height);
+                                this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, (allTextWidthLeft / 2) - (this.headerHolder.DesiredSize.Width / 2)), 0, Math.Min(allTextWidthLeft, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Right:
@@ -436,6 +473,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(Math.Max(endX, constraint.Width - this.headerHolder.DesiredSize.Width), constraint.Width), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
                             }
                         }
+
                         break;
 
                     case HorizontalAlignment.Stretch:
@@ -451,6 +489,7 @@ namespace Fluent
                                 this.headerRect = new Rect(Math.Min(endX, constraint.Width), 0, allTextWidth, constraint.Height);
                             }
                         }
+
                         break;
                 }
             }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\gitlink\build\GitLink.props" Condition="Exists('..\packages\gitlink\build\GitLink.props')" Label="Paket" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -13,23 +14,19 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Properties\FluentStrongName.snk</AssemblyOriginatorKeyFile>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
-    <BaseIntermediateOutputPath>..\build\obj\NET 4.5</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\build\bin\NET 4.5\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>$(OutputPath)\Fluent.xml</DocumentationFile>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
@@ -39,11 +36,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\bin\NET 4.5\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\NET 4.5\Release\Fluent.XML</DocumentationFile>
+    <DocumentationFile>$(OutputPath)\Fluent.XML</DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
@@ -52,18 +50,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx, Version=2.1.4.13, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\ControlzEx.2.1.4.13\lib\net45\ControlzEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\ControlzEx.2.1.4.13\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
@@ -85,14 +75,17 @@
     <Compile Include="Controls\ColorGallery.cs" />
     <Compile Include="Controls\ComboBox.cs" />
     <Compile Include="Controls\ContextMenu.cs" />
+    <Compile Include="Controls\RibbonGroupBoxWrapPanel.cs" />
     <Compile Include="Controls\StartScreen.cs" />
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
-    <Compile Include="Converters\ObjectToStringConverter.cs" />
+    <Compile Include="Converters\IsNullConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
-    <Compile Include="Extensions\DependencyObjectHelper.cs" />
+    <Compile Include="Data\KeyTipPressedResult.cs" />
+    <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="ILargeIconProvider.cs" />
@@ -107,8 +100,11 @@
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
+    <Compile Include="IRibbonWindow.cs" />
+    <Compile Include="Data\KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
+    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
     <Compile Include="Localization\Languages\Chinese.cs" />
     <Compile Include="Localization\Languages\Czech.cs" />
@@ -145,10 +141,8 @@
     <Compile Include="Localization\Languages\Vietnamese.cs" />
     <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
     <Compile Include="Localization\RibbonLocalizationBase.cs" />
-    <Compile Include="RibbonAutomationPeer.cs" />
-    <Compile Include="RibbonLocalization.cs" />
-    <Compile Include="StringRibbonStateStorage.cs" />
-    <Compile Include="RibbonStateStorage.cs" />
+    <Compile Include="Localization\RibbonLocalization.cs" />
+    <Compile Include="Data\RibbonStateStorage.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
@@ -172,17 +166,13 @@
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
-    <Compile Include="Metro\MetroColors.cs" />
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
-    <Compile Include="Metro\Native\Constants.cs" />
-    <Compile Include="Metro\Native\MONITORINFO.cs" />
-    <Compile Include="Metro\Native\RECT.cs" />
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
-    <Compile Include="RibbonControlSizeDefinition.cs" />
+    <Compile Include="Data\RibbonControlSizeDefinition.cs" />
     <Compile Include="Controls\StatusBar.cs" />
     <Compile Include="Controls\StatusBarItem.cs" />
     <Compile Include="Controls\StatusBarMenuItem.cs" />
@@ -201,7 +191,6 @@
     <Compile Include="Controls\RibbonToolBarControlDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarRow.cs" />
-    <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Controls\RibbonToolBar.cs" />
     <Compile Include="Controls\RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="Controls\RibbonWindow.cs" />
@@ -235,13 +224,16 @@
     <Compile Include="Controls\ToggleButton.cs" />
     <Compile Include="Metro\Controls\WindowCommands.cs" />
     <Compile Include="Controls\StartScreenTabControl.cs" />
+    <Compile Include="ThemeManager\Accent.cs" />
+    <Compile Include="ThemeManager\AppTheme.cs" />
+    <Compile Include="ThemeManager\ThemeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
     <None Include="Documents\Fluent Ribbon Control Suite Walkthrough.docx" />
-    <None Include="packages.config" />
-    <None Include="Properties\FluentStrongName.snk" />
     <Resource Include="Themes\Effects\Grayscale.ps" />
+    <None Include="paket.references" />
+    <None Include="Themes\Accents\GeneratorParameters.json" />
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
@@ -253,10 +245,110 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Themes\Colors\Colors.xaml">
+    <None Include="Themes\Accents\Accent.Template.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Accents\Olive.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Steel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Mauve.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Taupe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Sienna.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Green.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Lime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Emerald.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Teal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Cyan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Cobalt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Indigo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Violet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Pink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Magenta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Crimson.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Amber.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Yellow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Brown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors\BaseLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="Themes\Controls\Backstage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -329,10 +421,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\Controls\RibbonStatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Themes\Controls\RibbonTabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -368,6 +456,10 @@
     <None Include="Themes\Controls\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\RibbonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Themes\Controls\RibbonScrollViewer.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -433,10 +525,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\Controls\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Themes\Controls\TwoLineLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -453,233 +541,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Colors\BaseDark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Generic\Common.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\Button.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\EmptyFocusStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\GalleryGroupContainer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\MenuSeparator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RadioButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonScrollViewer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonTextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonTitleBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonToolBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\RibbonToolBarControlGroup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\SeparatorTabItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\StartScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\StartScreenTabControlTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\TwoLineLabel.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic\Controls\WindowCommands.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Colors\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Colors\ColorsWhite.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ApplicationMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Backstage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\BackstageControls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\BackstageTabControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\BackstageTabItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Button.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\CheckBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ComboBoxItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\DropDownButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Gallery.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\GalleryItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\InRibbonGallery.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\KeyTip.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Menu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\MenuItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\QuickAccessToolbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Ribbon.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonContextualTabGroup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonGroupBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonSeparator.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonStatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonTabControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonTabItem.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\RibbonTitleBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ScreenTip.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ScrollBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Slider.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\Spinner.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\SplitButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\StartScreenTabControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\StatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Controls\ToggleButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\Generic.xaml">
+    <Page Include="Themes\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Office2016\Images\Images.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Office2016\RibbonWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -695,11 +567,8 @@
     <Resource Include="Images\DefaultSmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Themes\Generic.txt" />
+    <None Include="Themes\Styles.txt" />
     <None Include="Themes\XamlCombine.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2010\Images\QuickAccessToolbarDropDownWhite.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Images\ApplicationMenu.png" />
@@ -710,42 +579,73 @@
     <Resource Include="Themes\Images\RibbonExpand.png" />
     <Resource Include="Themes\Images\RibbonPin.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2016\Generic.txt" />
-    <Resource Include="Themes\Office2016\Images\Checked.png" />
-    <Resource Include="Themes\Office2016\Images\Copy.png" />
-    <Resource Include="Themes\Office2016\Images\Cut.png" />
-    <Resource Include="Themes\Office2016\Images\Help.png" />
-    <Resource Include="Themes\Office2016\Images\MoreColors.png" />
-    <Resource Include="Themes\Office2016\Images\Paste.png" />
-    <Resource Include="Themes\Office2016\Images\Warning.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2016\Images\ApplicationMenu.png" />
-    <Resource Include="Themes\Office2016\Images\BackstageCorner.png" />
-    <Resource Include="Themes\Office2016\Images\CaptionButtonClose.png" />
-    <Resource Include="Themes\Office2016\Images\CaptionButtonMaximize.png" />
-    <Resource Include="Themes\Office2016\Images\CaptionButtonMinimize.png" />
-    <Resource Include="Themes\Office2016\Images\CaptionButtonNormalize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2016\Images\DialogLauncher.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarDropDown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarDropDownWhite.png" />
-    <Resource Include="Themes\Office2016\Images\QuickAccessToolbarExtender.png" />
-    <Resource Include="Themes\Office2016\Images\ResizeGrip.png" />
-    <Resource Include="Themes\Office2016\Images\RibbonCollapse.png" />
-    <Resource Include="Themes\Office2016\Images\RibbonExpand.png" />
-    <Resource Include="Themes\Office2016\Images\RibbonPin.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>SET tmpError=0
-"$(ProjectDir)Themes\XamlCombine.exe" Office2016\Generic.txt Office2016\Generic.xaml
-SET tmpError=%25tmpError%25 + %25ERRORLEVEL%25</PreBuildEvent>
+"$(ProjectDir)\Themes\XamlCombine.exe" Styles.txt Styles.xaml
+SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+"$(ProjectDir)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe" "$(ProjectDir)\Themes\Accents\GeneratorParameters.json"
+SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\.paket\paket.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.0'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net40\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net40\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.5'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net45\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net45\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6.2'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net462\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net462\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="..\packages\gitlink\build\GitLink.targets" Condition="Exists('..\packages\gitlink\build\GitLink.targets')" Label="Paket" />
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+  </ItemGroup>
 </Project>

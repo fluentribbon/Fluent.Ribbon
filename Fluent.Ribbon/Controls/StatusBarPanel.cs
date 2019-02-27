@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Controls;
+
     /// <summary>
     /// Represents panel for status bar
     /// </summary>
@@ -25,7 +25,7 @@ namespace Fluent
         #region Overrides
 
         /// <summary>
-        /// When overridden in a derived class, measures the size in layout required for child elements and determines a size for the <see cref="T:System.Windows.FrameworkElement"/>-derived class. 
+        /// When overridden in a derived class, measures the size in layout required for child elements and determines a size for the <see cref="T:System.Windows.FrameworkElement"/>-derived class.
         /// </summary>
         /// <returns>
         /// The size that this element determines it needs during layout, based on its calculations of child element sizes.
@@ -112,7 +112,6 @@ namespace Fluent
                         canAdd = false;
                         this.leftChildren[i].Measure(zero);
                         this.lastLeftIndex = i;
-
                     }
                 }
                 else
@@ -131,7 +130,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// When overridden in a derived class, positions child elements and determines a size for a <see cref="T:System.Windows.FrameworkElement"/> derived class. 
+        /// When overridden in a derived class, positions child elements and determines a size for a <see cref="T:System.Windows.FrameworkElement"/> derived class.
         /// </summary>
         /// <returns>
         /// The actual size used.
@@ -153,7 +152,9 @@ namespace Fluent
                     this.rightChildren[i].Arrange(new Rect(finalSize.Width - rightShift, 0, this.rightChildren[i].DesiredSize.Width, finalSize.Height));
                 }
                 else
+                {
                     this.rightChildren[i].Arrange(zero);
+                }
             }
 
             // Left shift

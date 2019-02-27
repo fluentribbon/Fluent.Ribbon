@@ -12,7 +12,10 @@
                 Value="Stretch" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
     </Style>
+    
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
@@ -21,7 +24,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Width="Auto"
-                BorderThickness="1,0">
+                BorderThickness="1,0,1,0">
             <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="0,0"
                     VerticalAlignment="Stretch"
@@ -33,11 +36,8 @@
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
                                Width="Auto"
-                               Height="Auto">
-                        <Rectangle.OpacityMask>
-                            <SolidColorBrush Color="#14000000" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
+                               Height="Auto"
+                               OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
                     <Rectangle Fill="{TemplateBinding BorderBrush}"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
@@ -54,13 +54,5 @@
                 </Grid>
             </Border>
         </Border>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsWindowMaximized"
-                     Value="True">
-                <Setter Property="Margin"
-                        TargetName="rootBorder"
-                        Value="1,0,1,-0.1" />
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

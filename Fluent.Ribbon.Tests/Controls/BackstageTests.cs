@@ -22,21 +22,21 @@
             {
                 Assert.That(backstage.IsLoaded, Is.True);
 
-                Assert.That(backstage.GetPrivateFieldValue("adorner"), Is.Null);
+                Assert.That(backstage.GetFieldValue<object>("adorner"), Is.Null);
 
                 backstage.IsOpen = true;
 
-                Assert.That(backstage.GetPrivateFieldValue("adorner"), Is.Not.Null);
+                Assert.That(backstage.GetFieldValue<object>("adorner"), Is.Not.Null);
 
                 backstage.IsOpen = false;
 
-                Assert.That(backstage.GetPrivateFieldValue("adorner"), Is.Not.Null);
+                Assert.That(backstage.GetFieldValue<object>("adorner"), Is.Not.Null);
 
                 window.Content = null;
 
                 UIHelper.DoEvents();
 
-                Assert.That(backstage.GetPrivateFieldValue("adorner"), Is.Null);
+                Assert.That(backstage.GetFieldValue<object>("adorner"), Is.Null);
             }
         }
     }

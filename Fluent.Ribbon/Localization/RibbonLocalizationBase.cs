@@ -11,7 +11,7 @@
         /// <summary>
         /// Fallback instance of <see cref="English"/> for localization.
         /// </summary>
-        public static RibbonLocalizationBase FallbackLocalization = new English();
+        public static readonly RibbonLocalizationBase FallbackLocalization = new English();
 
         /// <summary>
         /// Gets text for representing "Automatic"
@@ -149,9 +149,11 @@
         public abstract string ScreenTipF1LabelHeader { get; }
 
         /// <summary>
-        /// Change notifications are not implemented. 
+        /// Change notifications are not implemented.
         /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
         /// </summary>
+#pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 67
     }
 }

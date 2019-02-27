@@ -1,10 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows;
+    using System.Windows.Controls;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -15,19 +13,14 @@ namespace Fluent
         #region Keys Attached Property
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.  
+        /// Using a DependencyProperty as the backing store for Keys.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty KeysProperty = DependencyProperty.RegisterAttached(
-          "Keys",
-          typeof(string),
-          typeof(KeyTip),
-          new PropertyMetadata(KeysPropertyChanged)
-        );
+        public static readonly DependencyProperty KeysProperty =
+            DependencyProperty.RegisterAttached("Keys", typeof(string), typeof(KeyTip), new PropertyMetadata(KeysPropertyChanged));
 
         private static void KeysPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         /// <summary>
@@ -44,10 +37,10 @@ namespace Fluent
         /// Gets value of the attached property Keys of the given element
         /// </summary>
         /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("Keys"),
-        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Key sequence for the given element")]
+        [System.ComponentModel.DisplayName("Keys")]
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+        [System.ComponentModel.Category("KeyTips")]
+        [System.ComponentModel.Description("Key sequence for the given element")]
         public static string GetKeys(DependencyObject element)
         {
             return (string)element.GetValue(KeysProperty);
@@ -58,19 +51,14 @@ namespace Fluent
         #region AutoPlacement Attached Property
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for AutoPlacement.  
+        /// Using a DependencyProperty as the backing store for AutoPlacement.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty AutoPlacementProperty = DependencyProperty.RegisterAttached(
-          "AutoPlacement",
-          typeof(bool),
-          typeof(KeyTip),
-          new PropertyMetadata(BooleanBoxes.TrueBox)
-        );
-
+        public static readonly DependencyProperty AutoPlacementProperty =
+            DependencyProperty.RegisterAttached("AutoPlacement", typeof(bool), typeof(KeyTip), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Sets whether key tip placement is auto 
+        /// Sets whether key tip placement is auto
         /// or defined by alignment and margin properties
         /// </summary>
         /// <param name="element">The given element</param>
@@ -81,14 +69,14 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Gets whether key tip placement is auto 
+        /// Gets whether key tip placement is auto
         /// or defined by alignment and margin properties
         /// </summary>
         /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("AutoPlacement"),
-        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Whether key tip placement is auto or defined by alignment and margin properties")]
+        [System.ComponentModel.DisplayName("AutoPlacement")]
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+        [System.ComponentModel.Category("KeyTips")]
+        [System.ComponentModel.Description("Whether key tip placement is auto or defined by alignment and margin properties")]
         public static bool GetAutoPlacement(DependencyObject element)
         {
             return (bool)element.GetValue(AutoPlacementProperty);
@@ -99,16 +87,11 @@ namespace Fluent
         #region HorizontalAlignment Attached Property
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HorizontalAlignment.  
+        /// Using a DependencyProperty as the backing store for HorizontalAlignment.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public new static readonly DependencyProperty HorizontalAlignmentProperty = DependencyProperty.RegisterAttached(
-          nameof(HorizontalAlignment),
-          typeof(HorizontalAlignment),
-          typeof(KeyTip),
-          new PropertyMetadata(HorizontalAlignment.Center)
-        );
-
+        public static new readonly DependencyProperty HorizontalAlignmentProperty =
+            DependencyProperty.RegisterAttached(nameof(HorizontalAlignment), typeof(HorizontalAlignment), typeof(KeyTip), new PropertyMetadata(HorizontalAlignment.Center));
 
         /// <summary>
         /// Sets Horizontal Alignment of the key tip
@@ -124,10 +107,10 @@ namespace Fluent
         /// Gets Horizontal alignment of the key tip
         /// </summary>
         /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("HorizontalAlignment"),
-        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Horizontal alignment of the key tip")]
+        [System.ComponentModel.DisplayName("HorizontalAlignment")]
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+        [System.ComponentModel.Category("KeyTips")]
+        [System.ComponentModel.Description("Horizontal alignment of the key tip")]
         public static HorizontalAlignment GetHorizontalAlignment(DependencyObject element)
         {
             return (HorizontalAlignment)element.GetValue(HorizontalAlignmentProperty);
@@ -141,10 +124,10 @@ namespace Fluent
         /// Gets vertical alignment of the key tip
         /// </summary>
         /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("VerticalAlignment"),
-        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Vertical alignment of the key tip")]
+        [System.ComponentModel.DisplayName("VerticalAlignment")]
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+        [System.ComponentModel.Category("KeyTips")]
+        [System.ComponentModel.Description("Vertical alignment of the key tip")]
         public static VerticalAlignment GetVerticalAlignment(DependencyObject element)
         {
             return (VerticalAlignment)element.GetValue(VerticalAlignmentProperty);
@@ -161,13 +144,11 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for VerticalAlignment.  
+        /// Using a DependencyProperty as the backing store for VerticalAlignment.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public new static readonly DependencyProperty VerticalAlignmentProperty =
-            DependencyProperty.RegisterAttached("VerticalAlignment",
-            typeof(VerticalAlignment), typeof(KeyTip),
-            new PropertyMetadata(VerticalAlignment.Center));
+        public static new readonly DependencyProperty VerticalAlignmentProperty =
+            DependencyProperty.RegisterAttached(nameof(VerticalAlignment), typeof(VerticalAlignment), typeof(KeyTip), new PropertyMetadata(VerticalAlignment.Center));
 
         #endregion
 
@@ -178,10 +159,10 @@ namespace Fluent
         /// </summary>
         /// <param name="obj">The key tip</param>
         /// <returns>Margin</returns>
-        [System.ComponentModel.DisplayName("Margin"),
-        AttachedPropertyBrowsableForChildren(IncludeDescendants = true),
-        System.ComponentModel.Category("KeyTips"),
-        System.ComponentModel.Description("Margin of the key tip")]
+        [System.ComponentModel.DisplayName("Margin")]
+        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+        [System.ComponentModel.Category("KeyTips")]
+        [System.ComponentModel.Description("Margin of the key tip")]
         public static Thickness GetMargin(DependencyObject obj)
         {
             return (Thickness)obj.GetValue(MarginProperty);
@@ -198,18 +179,17 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Margin. 
+        /// Using a DependencyProperty as the backing store for Margin.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public new static readonly DependencyProperty MarginProperty =
-            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new PropertyMetadata(new Thickness()));
+        public static new readonly DependencyProperty MarginProperty =
+            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new PropertyMetadata(default(Thickness)));
 
         #endregion
 
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static KeyTip()
         {
-            // Override metadata to allow slyling
+            // Override metadata to allow styling
             DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
         }
     }

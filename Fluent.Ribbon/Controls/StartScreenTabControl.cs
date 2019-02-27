@@ -6,6 +6,9 @@ namespace Fluent
     /// <summary>
     /// Control for representing the left and right side of the start screen.
     /// </summary>
+    /// <remarks>
+    /// To control some aspects of the left handed side of this control please use properties prefixed with "ItemsPanel*".
+    /// </remarks>
     public class StartScreenTabControl : BackstageTabControl
     {
         /// <summary>
@@ -24,21 +27,6 @@ namespace Fluent
             DependencyProperty.Register(nameof(LeftContent), typeof(object), typeof(StartScreenTabControl));
 
         /// <summary>
-        /// Right side panel content of the startscreen.
-        /// </summary>
-        public object RightContent
-        {
-            get { return this.GetValue(RightContentProperty); }
-            set { this.SetValue(RightContentProperty, value); }
-        }
-
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="RightContent"/>.
-        /// </summary>
-        public static readonly DependencyProperty RightContentProperty =
-            DependencyProperty.Register(nameof(RightContent), typeof(object), typeof(StartScreenTabControl));
-
-        /// <summary>
         /// Defines the margin for <see cref="LeftContent"/>
         /// </summary>
         public Thickness LeftContentMargin
@@ -54,11 +42,28 @@ namespace Fluent
             DependencyProperty.Register(nameof(LeftContentMargin), typeof(Thickness), typeof(StartScreenTabControl), new PropertyMetadata(default(Thickness)));
 
         /// <summary>
+        /// Right side panel content of the startscreen.
+        /// </summary>
+        public object RightContent
+        {
+            get { return this.GetValue(RightContentProperty); }
+            set { this.SetValue(RightContentProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="RightContent"/>.
+        /// </summary>
+        public static readonly DependencyProperty RightContentProperty =
+            DependencyProperty.Register(nameof(RightContent), typeof(object), typeof(StartScreenTabControl));
+
+        /// <summary>
         /// Static constructor.
         /// </summary>
         static StartScreenTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StartScreenTabControl), new FrameworkPropertyMetadata(typeof(StartScreenTabControl)));
+
+            ItemsPanelMinWidthProperty.OverrideMetadata(typeof(StartScreen), new PropertyMetadata(342d));
         }
     }
 }

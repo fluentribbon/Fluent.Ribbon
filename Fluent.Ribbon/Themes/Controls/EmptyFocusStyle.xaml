@@ -7,7 +7,7 @@
     </Style>
     <ControlTemplate x:Key="ControlFocusEmptyTemplate"
                      TargetType="{x:Type Control}">
-        <Rectangle Stroke="#00000000">
+        <Rectangle Stroke="Transparent">
             <Rectangle.Fill>
                 <SolidColorBrush />
             </Rectangle.Fill>

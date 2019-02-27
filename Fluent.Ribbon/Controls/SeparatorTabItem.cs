@@ -1,10 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Windows;
+    using System.Windows.Controls;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -17,10 +16,10 @@ namespace Fluent
         /// <summary>
         /// Static constructor
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810")]
         static SeparatorTabItem()
         {
             var type = typeof(SeparatorTabItem);
+
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
             IsEnabledProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, null, CoerceIsEnabledAndTabStop));
             IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, null, CoerceIsEnabledAndTabStop));
@@ -29,13 +28,13 @@ namespace Fluent
 
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(bool)e.NewValue)
+            if ((bool)e.NewValue == false)
             {
                 return;
             }
 
             var separatorTabItem = (SeparatorTabItem)d;
-            var tabControl = separatorTabItem.Parent as TabControl;
+            var tabControl = UIHelper.GetParent<TabControl>(separatorTabItem);
 
             if (tabControl == null
                 || tabControl.Items.Count <= 1)

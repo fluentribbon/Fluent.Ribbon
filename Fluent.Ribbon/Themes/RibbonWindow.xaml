@@ -11,7 +11,8 @@
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
-        <Grid>
+        <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
+              RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">
                     <Grid.RowDefinitions>
@@ -23,7 +24,7 @@
                                Height="{TemplateBinding TitleBarHeight}"
                                VerticalAlignment="Top"
                                HorizontalAlignment="Stretch"
-                               Background="Transparent"
+                               Background="{TemplateBinding TitleBackground}"
                                LastChildFill="True">
                         <Image x:Name="PART_Icon"
                                DockPanel.Dock="Left"
@@ -39,26 +40,12 @@
                                           Content="{TemplateBinding WindowCommands}"                                          
                                           Grid.Row="0"
                                           Panel.ZIndex="1"
-                                          VerticalAlignment="Top"
                                           HorizontalAlignment="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                               Style="{DynamicResource RibbonTitleBarStyle}"
-                                               VerticalAlignment="Top"
-                                               HorizontalAlignment="Stretch"
-                                               IsCollapsed="{TemplateBinding IsCollapsed}">
-                            <Fluent:RibbonTitleBar.Header>
-                                <TextBlock x:Name="PART_Title"
-                                           Margin="-2,0"
-                                           VerticalAlignment="Center"
-                                           d:LayoutOverrides="Width"
-                                           HorizontalAlignment="Center"
-                                           Text="{TemplateBinding Title}"
-                                           Foreground="{TemplateBinding TitleForeground}"
-                                           TextWrapping="NoWrap"
-                                           TextTrimming="CharacterEllipsis" />
-                            </Fluent:RibbonTitleBar.Header>
-                        </Fluent:RibbonTitleBar>
+                                               Header="{TemplateBinding Title}"
+                                               IsCollapsed="{TemplateBinding IsCollapsed}"
+                                               Foreground="{TemplateBinding TitleForeground}" />
                     </DockPanel>
 
                     <ContentPresenter x:Name="PART_ContentPresenter" 
@@ -109,7 +96,7 @@
                         Value="0" />
                 <Setter Property="Margin"
                         TargetName="PART_Icon"
-                        Value="0" />
+                        Value="2,0,0,0" />
                 <Setter Property="Visibility"
                         TargetName="PART_Border"
                         Value="Collapsed" />
@@ -122,33 +109,19 @@
 
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="BorderThickness"
-                Value="1" />
         <Setter Property="BorderBrush"
-                Value="{DynamicResource RibbonThemeColorBrush}" />
-        <!-- GlassFrameThickness != 0 enables the default window drop shadow -->
-        <Setter Property="GlassFrameThickness"
-                Value="1" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="TitleForeground"
-                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />        
+                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Background"
                 Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+        <Setter Property="TitleBackground"
+                Value="{Binding Background, RelativeSource={RelativeSource Self}}" />
+        <Setter Property="TitleForeground"
+                Value="{Binding Foreground, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Template"
                 Value="{StaticResource RibbonWindowControlTemplate}" />
-        <Setter Property="WindowStyle"
-                Value="None" />
         <Setter Property="TitleBarHeight"
-                Value="35" />
-        <Style.Triggers>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="BorderThickness"
-                        Value="0" />
-                <Setter Property="ResizeBorderThickness"
-                        Value="0" />
-            </Trigger>
-        </Style.Triggers>
+                Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
     </Style>
 </ResourceDictionary>

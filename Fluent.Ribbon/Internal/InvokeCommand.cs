@@ -7,8 +7,8 @@
     using System.Windows.Interactivity;
 
     /// <summary>
-    /// This trigger action binds a command/command parameter for MVVM usage with 
-    /// a Blend based trigger.  This is used in place of the one in the Blend samples - 
+    /// This trigger action binds a command/command parameter for MVVM usage with
+    /// a Blend based trigger.  This is used in place of the one in the Blend samples -
     /// it has a problem in it as of the current (first) release.  Once it is fixed, this
     /// command can go away.
     /// </summary>

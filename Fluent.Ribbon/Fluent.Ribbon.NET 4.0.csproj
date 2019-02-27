@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\gitlink\build\GitLink.props" Condition="Exists('..\packages\gitlink\build\GitLink.props')" Label="Paket" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -13,23 +14,19 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Properties\FluentStrongName.snk</AssemblyOriginatorKeyFile>
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20621.0</ExpressionBlendVersion>
-    <BaseIntermediateOutputPath>..\build\obj\NET 4.0</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\build\bin\NET 4.0\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
     <DefineConstants>TRACE;DEBUG;NET40;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>$(OutputPath)\Fluent.xml</DocumentationFile>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
@@ -39,11 +36,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\build\bin\NET 4.0\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\obj\$(AssemblyName)\$(Configuration)$(TargetFrameworkVersion)\</IntermediateOutputPath>
     <DefineConstants>TRACE;NET40;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\NET 4.0\Release\Fluent.XML</DocumentationFile>
+    <DocumentationFile>$(OutputPath)\Fluent.XML</DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRules>
     </CodeAnalysisRules>
@@ -52,18 +50,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ControlzEx, Version=2.1.4.13, Culture=neutral, PublicKeyToken=f08b075e934b7045, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net40\ControlzEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\ControlzEx.2.1.4.13\lib\net40\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
@@ -85,12 +75,17 @@
     <Compile Include="Controls\ColorGallery.cs" />
     <Compile Include="Controls\ComboBox.cs" />
     <Compile Include="Controls\ContextMenu.cs" />
+    <Compile Include="Controls\RibbonGroupBoxWrapPanel.cs" />
     <Compile Include="Controls\StartScreen.cs" />
     <Compile Include="Controls\WindowSteeringHelperControl.cs" />
     <Compile Include="Converters\ColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\EqualsToVisibilityConverter.cs" />
+    <Compile Include="Converters\IsNullConverter.cs" />
     <Compile Include="Converters\SpinnerTextToValueConverter.cs" />
+    <Compile Include="Data\KeyTipPressedResult.cs" />
+    <Compile Include="Extensibility\IKeyTipInformationProvider.cs" />
     <Compile Include="Extensions\ICommandSourceExtensions.cs" />
+    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Helpers\PoupHelper.cs" />
     <Compile Include="Helpers\WindowSteeringHelper.cs" />
     <Compile Include="ILargeIconProvider.cs" />
@@ -105,8 +100,11 @@
     <Compile Include="Internal\KnownBoxes\VisibilityBoxes.cs" />
     <Compile Include="Internal\UIHelper.cs" />
     <Compile Include="IRibbonStateStorage.cs" />
+    <Compile Include="IRibbonWindow.cs" />
+    <Compile Include="Data\KeyTipInformation.cs" />
     <Compile Include="Localization\Languages\Arabic.cs" />
     <Compile Include="Localization\Languages\Azerbaijani.cs" />
+    <Compile Include="Localization\Languages\Bulgarian.cs" />
     <Compile Include="Localization\Languages\Catalan.cs" />
     <Compile Include="Localization\Languages\Chinese.cs" />
     <Compile Include="Localization\Languages\Czech.cs" />
@@ -143,8 +141,8 @@
     <Compile Include="Localization\Languages\Vietnamese.cs" />
     <Compile Include="Localization\RibbonLocalizationAttribute.cs" />
     <Compile Include="Localization\RibbonLocalizationBase.cs" />
-    <Compile Include="RibbonLocalization.cs" />
-    <Compile Include="RibbonStateStorage.cs" />
+    <Compile Include="Localization\RibbonLocalization.cs" />
+    <Compile Include="Data\RibbonStateStorage.cs" />
     <Compile Include="Services\ContextMenuService.cs" />
     <Compile Include="Converters\ApplicationMenuRightScrollViewerExtractorConverter.cs" />
     <Compile Include="Converters\InvertNumericConverter.cs" />
@@ -168,17 +166,13 @@
     <Compile Include="IToggleButton.cs" />
     <Compile Include="Internal\DoubleUtil.cs" />
     <Compile Include="Internal\InvokeCommand.cs" />
-    <Compile Include="Metro\MetroColors.cs" />
     <Compile Include="RibbonCommands.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Metro\Behaviours\StylizedBehaviorsCollection.cs" />
-    <Compile Include="Metro\Native\Constants.cs" />
-    <Compile Include="Metro\Native\MONITORINFO.cs" />
-    <Compile Include="Metro\Native\RECT.cs" />
     <Compile Include="Services\PopupService.cs" />
     <Compile Include="Controls\RadioButton.cs" />
     <Compile Include="Controls\RibbonMenu.cs" />
-    <Compile Include="RibbonControlSizeDefinition.cs" />
+    <Compile Include="Data\RibbonControlSizeDefinition.cs" />
     <Compile Include="Controls\StatusBar.cs" />
     <Compile Include="Controls\StatusBarItem.cs" />
     <Compile Include="Controls\StatusBarMenuItem.cs" />
@@ -197,7 +191,6 @@
     <Compile Include="Controls\RibbonToolBarControlDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarControlGroupDefinition.cs" />
     <Compile Include="Controls\RibbonToolBarRow.cs" />
-    <Compile Include="Internal\NativeMethods.cs" />
     <Compile Include="Controls\RibbonToolBar.cs" />
     <Compile Include="Controls\RibbonToolBarLayoutDefinition.cs" />
     <Compile Include="Controls\RibbonWindow.cs" />
@@ -231,13 +224,16 @@
     <Compile Include="Controls\ToggleButton.cs" />
     <Compile Include="Metro\Controls\WindowCommands.cs" />
     <Compile Include="Controls\StartScreenTabControl.cs" />
+    <Compile Include="ThemeManager\Accent.cs" />
+    <Compile Include="ThemeManager\AppTheme.cs" />
+    <Compile Include="ThemeManager\ThemeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Documents\Features.xlsx" />
     <None Include="Documents\Fluent Ribbon Control Suite Walkthrough.docx" />
-    <None Include="packages.config" />
-    <None Include="Properties\FluentStrongName.snk" />
     <Resource Include="Themes\Effects\Grayscale.ps" />
+    <None Include="paket.references" />
+    <None Include="Themes\Accents\GeneratorParameters.json" />
     <None Include="Themes\Effects\Grayscale.fx" />
   </ItemGroup>
   <ItemGroup>
@@ -249,10 +245,110 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Themes\Colors\Colors.xaml">
+    <None Include="Themes\Accents\Accent.Template.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Accents\Olive.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Steel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Mauve.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Taupe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Sienna.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Green.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Lime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Emerald.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Teal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Cyan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Cobalt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Indigo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Violet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Pink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Magenta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Crimson.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Amber.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Yellow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Brown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Accents\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Colors\BaseLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <None Include="Themes\Controls\Backstage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -322,10 +418,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Themes\Controls\RibbonGroupBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Themes\Controls\RibbonStatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
@@ -433,10 +525,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Themes\Controls\TextBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Themes\Controls\TwoLineLabel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -453,9 +541,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
+    <Page Include="Themes\Colors\BaseDark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -471,10 +567,9 @@
     <Resource Include="Images\DefaultSmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Themes\Generic.txt" />
+    <None Include="Themes\Styles.txt" />
     <None Include="Themes\XamlCombine.exe" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Themes\Images\ApplicationMenu.png" />
     <Resource Include="Themes\Images\DialogLauncher.png" />
@@ -487,8 +582,70 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>SET tmpError=0
-"$(ProjectDir)Themes\XamlCombine.exe" Generic.txt Generic.xaml
+"$(ProjectDir)\Themes\XamlCombine.exe" Styles.txt Styles.xaml
+SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
+"$(ProjectDir)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe" "$(ProjectDir)\Themes\Accents\GeneratorParameters.json"
 SET /a tmpError=%25tmpError%25 + %25ERRORLEVEL%25
 SET ERRORLEVEL=%25tmpError%25</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\.paket\paket.targets" />
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.0'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net40\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net40\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.5'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net45\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net45\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6.2'">
+      <ItemGroup>
+        <Reference Include="ControlzEx">
+          <HintPath>..\packages\ControlzEx\lib\net462\ControlzEx.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="System.Windows.Interactivity">
+          <HintPath>..\packages\ControlzEx\lib\net462\System.Windows.Interactivity.dll</HintPath>
+          <Private>True</Private>
+          <SpecificVersion>False</SpecificVersion>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="..\packages\gitlink\build\GitLink.targets" Condition="Exists('..\packages\gitlink\build\GitLink.targets')" Label="Paket" />
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+    <Analyzer Include="..\packages\StyleCop.Analyzers\analyzers\dotnet\cs\StyleCop.Analyzers.dll">
+      <Paket>True</Paket>
+    </Analyzer>
+  </ItemGroup>
 </Project>

@@ -13,12 +13,10 @@
                 <ControlTemplate TargetType="Separator">
                     <Rectangle Width="1"
                                VerticalAlignment="Stretch"
-                               Stroke="{DynamicResource RibbonSeparatorBrush}"
+                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
                                StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
 </ResourceDictionary>

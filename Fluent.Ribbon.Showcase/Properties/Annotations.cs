@@ -1,7 +1,7 @@
-﻿using System;
+﻿#pragma warning disable
+using System;
 // ReSharper disable All
 
-#pragma warning disable 1591
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable MemberCanBePrivate.Global

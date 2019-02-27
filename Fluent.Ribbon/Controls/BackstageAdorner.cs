@@ -1,20 +1,17 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Documents;
+    using System.Windows.Input;
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents adorner for Backstage
     /// </summary>
     internal class BackstageAdorner : Adorner
     {
-        // Backstage
-        public readonly Backstage Backstage;
-
         // Content of Backstage
         private readonly UIElement backstageContent;
 
@@ -22,7 +19,7 @@ namespace Fluent
         private readonly VisualCollection visualChildren;
 
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.
         /// </summary>
         /// <param name="adornedElement">Adorned element</param>
         /// <param name="backstage">Backstage</param>
@@ -34,7 +31,7 @@ namespace Fluent
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;
 
-            this.visualChildren = new VisualCollection(this) 
+            this.visualChildren = new VisualCollection(this)
                 {
                     this.backstageContent
                 };
@@ -44,6 +41,11 @@ namespace Fluent
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
         }
+
+        /// <summary>
+        /// Gets the <see cref="Fluent.Backstage"/>.
+        /// </summary>
+        public Backstage Backstage { get; }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -74,8 +76,8 @@ namespace Fluent
         /// Positions child elements and determines
         /// a size for the control
         /// </summary>
-        /// <param name="finalSize">The final area within the parent 
-        /// that this element should use to arrange 
+        /// <param name="finalSize">The final area within the parent
+        /// that this element should use to arrange
         /// itself and its children</param>
         /// <returns>The actual size used</returns>
         protected override Size ArrangeOverride(Size finalSize)
@@ -88,7 +90,7 @@ namespace Fluent
         /// Measures KeyTips
         /// </summary>
         /// <param name="constraint">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during 
+        /// <returns>The size that the groups container determines it needs during
         /// layout, based on its calculations of child element sizes.
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
@@ -101,14 +103,20 @@ namespace Fluent
         /// <summary>
         /// Gets visual children count
         /// </summary>
-        protected override int VisualChildrenCount { get { return this.visualChildren.Count; } }
+        protected override int VisualChildrenCount
+        {
+            get { return this.visualChildren.Count; }
+        }
 
         /// <summary>
         /// Returns a child at the specified index from a collection of child elements
         /// </summary>
         /// <param name="index">The zero-based index of the requested child element in the collection</param>
         /// <returns>The requested child element</returns>
-        protected override Visual GetVisualChild(int index) { return this.visualChildren[index]; }
+        protected override Visual GetVisualChild(int index)
+        {
+            return this.visualChildren[index];
+        }
 
         #endregion
     }

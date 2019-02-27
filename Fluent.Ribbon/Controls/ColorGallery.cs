@@ -11,6 +11,9 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using ControlzEx.Native;
+    using ControlzEx.Standard;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -76,7 +79,10 @@ namespace Fluent
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 colorGallery = parent as ColorGallery;
-                if (colorGallery != null) break;
+                if (colorGallery != null)
+                {
+                    break;
+                }
             }
 
             if (colorGallery == null)
@@ -97,7 +103,6 @@ namespace Fluent
 
             return listBox.TryFindResource("GradientColorCenterDataTemplate") as DataTemplate;
         }
-
     }
 
     /// <summary>
@@ -109,6 +114,7 @@ namespace Fluent
         /// Gets or sets choosed color
         /// </summary>
         public Color Color { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether more colors is canceled
         /// </summary>
@@ -128,25 +134,25 @@ namespace Fluent
         /// </summary>
         public static readonly Color[] HighlightColors = new Color[]
         {
-            Color.FromRgb(0xFF ,0xFF ,0x00),
-            Color.FromRgb(0x00 ,0xFF ,0x00),
-            Color.FromRgb(0x00 ,0xFF ,0xFF),
+            Color.FromRgb(0xFF, 0xFF, 0x00),
+            Color.FromRgb(0x00, 0xFF, 0x00),
+            Color.FromRgb(0x00, 0xFF, 0xFF),
 
-            Color.FromRgb(0xFF ,0x00 ,0xFF),
-            Color.FromRgb(0x00 ,0x00 ,0xFF),
-            Color.FromRgb(0xFF ,0x00 ,0x00),
+            Color.FromRgb(0xFF, 0x00, 0xFF),
+            Color.FromRgb(0x00, 0x00, 0xFF),
+            Color.FromRgb(0xFF, 0x00, 0x00),
 
-            Color.FromRgb(0x00 ,0x00 ,0x80),
-            Color.FromRgb(0x00 ,0x80 ,0x80),
-            Color.FromRgb(0x00 ,0x80 ,0x00),
+            Color.FromRgb(0x00, 0x00, 0x80),
+            Color.FromRgb(0x00, 0x80, 0x80),
+            Color.FromRgb(0x00, 0x80, 0x00),
 
-            Color.FromRgb(0x80 ,0x00 ,0x80),
-            Color.FromRgb(0x80 ,0x00 ,0x00),
-            Color.FromRgb(0x80 ,0x80 ,0x00),
+            Color.FromRgb(0x80, 0x00, 0x80),
+            Color.FromRgb(0x80, 0x00, 0x00),
+            Color.FromRgb(0x80, 0x80, 0x00),
 
-            Color.FromRgb(0x80 ,0x80 ,0x80),
-            Color.FromRgb(0xC0 ,0xC0 ,0xC0),
-            Color.FromRgb(0x00 ,0x00 ,0x00),
+            Color.FromRgb(0x80, 0x80, 0x80),
+            Color.FromRgb(0xC0, 0xC0, 0xC0),
+            Color.FromRgb(0x00, 0x00, 0x00),
         };
 
         /// <summary>
@@ -154,41 +160,41 @@ namespace Fluent
         /// </summary>
         public static readonly Color[] StandardColors = new Color[]
         {
-              Color.FromRgb(0xFF ,0xFF ,0xFF),
-              Color.FromRgb(0xFF ,0x00 ,0x00),
-              Color.FromRgb(0xC0 ,0x50 ,0x4D),
-              Color.FromRgb(0xD1 ,0x63 ,0x49),
-              Color.FromRgb(0xDD ,0x84 ,0x84),
+              Color.FromRgb(0xFF, 0xFF, 0xFF),
+              Color.FromRgb(0xFF, 0x00, 0x00),
+              Color.FromRgb(0xC0, 0x50, 0x4D),
+              Color.FromRgb(0xD1, 0x63, 0x49),
+              Color.FromRgb(0xDD, 0x84, 0x84),
 
-              Color.FromRgb(0xCC ,0xCC ,0xCC),
-              Color.FromRgb(0xFF ,0xC0 ,0x00),
-              Color.FromRgb(0xF7 ,0x96 ,0x46),
-              Color.FromRgb(0xD1 ,0x90 ,0x49),
-              Color.FromRgb(0xF3 ,0xA4 ,0x47),
+              Color.FromRgb(0xCC, 0xCC, 0xCC),
+              Color.FromRgb(0xFF, 0xC0, 0x00),
+              Color.FromRgb(0xF7, 0x96, 0x46),
+              Color.FromRgb(0xD1, 0x90, 0x49),
+              Color.FromRgb(0xF3, 0xA4, 0x47),
 
-              Color.FromRgb(0xA5 ,0xA5 ,0xA5),
-              Color.FromRgb(0xFF ,0xFF ,0x00),
-              Color.FromRgb(0x9B ,0xBB ,0x59),
-              Color.FromRgb(0xCC ,0xB4 ,0x00),
-              Color.FromRgb(0xDF ,0xCE ,0x04),
+              Color.FromRgb(0xA5, 0xA5, 0xA5),
+              Color.FromRgb(0xFF, 0xFF, 0x00),
+              Color.FromRgb(0x9B, 0xBB, 0x59),
+              Color.FromRgb(0xCC, 0xB4, 0x00),
+              Color.FromRgb(0xDF, 0xCE, 0x04),
 
-              Color.FromRgb(0x66 ,0x66 ,0x66),
-              Color.FromRgb(0x00 ,0xB0 ,0x50),
-              Color.FromRgb(0x4B ,0xAC ,0xC6),
-              Color.FromRgb(0x8F ,0xB0 ,0x8C),
-              Color.FromRgb(0xA5 ,0xB5 ,0x92),
+              Color.FromRgb(0x66, 0x66, 0x66),
+              Color.FromRgb(0x00, 0xB0, 0x50),
+              Color.FromRgb(0x4B, 0xAC, 0xC6),
+              Color.FromRgb(0x8F, 0xB0, 0x8C),
+              Color.FromRgb(0xA5, 0xB5, 0x92),
 
-              Color.FromRgb(0x33 ,0x33 ,0x33),
-              Color.FromRgb(0x00 ,0x4D ,0xBB),
-              Color.FromRgb(0x4F ,0x81 ,0xBD),
-              Color.FromRgb(0x64 ,0x6B ,0x86),
-              Color.FromRgb(0x80 ,0x9E ,0xC2),
+              Color.FromRgb(0x33, 0x33, 0x33),
+              Color.FromRgb(0x00, 0x4D, 0xBB),
+              Color.FromRgb(0x4F, 0x81, 0xBD),
+              Color.FromRgb(0x64, 0x6B, 0x86),
+              Color.FromRgb(0x80, 0x9E, 0xC2),
 
-              Color.FromRgb(0x00 ,0x00 ,0x00),
-              Color.FromRgb(0x9B ,0x00 ,0xD3),
-              Color.FromRgb(0x80 ,0x64 ,0xA2),
-              Color.FromRgb(0x9E ,0x7C ,0x7C),
-              Color.FromRgb(0x9C ,0x85 ,0xC0),
+              Color.FromRgb(0x00, 0x00, 0x00),
+              Color.FromRgb(0x9B, 0x00, 0xD3),
+              Color.FromRgb(0x80, 0x64, 0xA2),
+              Color.FromRgb(0x9E, 0x7C, 0x7C),
+              Color.FromRgb(0x9C, 0x85, 0xC0),
         };
 
         /// <summary>
@@ -196,16 +202,16 @@ namespace Fluent
         /// </summary>
         public static readonly Color[] StandardThemeColors = new Color[]
         {
-            Color.FromRgb(0xC0 ,0x00 ,0x00),
-            Color.FromRgb(0xFF ,0x00 ,0x00),
-            Color.FromRgb(0xFF ,0xC0 ,0x00),
-            Color.FromRgb(0xFF ,0xFF ,0x00),
-            Color.FromRgb(0x92 ,0xD0 ,0x50),
-            Color.FromRgb(0x00 ,0xB0 ,0x50),
-            Color.FromRgb(0x00 ,0xB0 ,0xF0),
-            Color.FromRgb(0x00 ,0x70 ,0xC0),
-            Color.FromRgb(0x00 ,0x20 ,0x60),
-            Color.FromRgb(0x70 ,0x30 ,0xA0),
+            Color.FromRgb(0xC0, 0x00, 0x00),
+            Color.FromRgb(0xFF, 0x00, 0x00),
+            Color.FromRgb(0xFF, 0xC0, 0x00),
+            Color.FromRgb(0xFF, 0xFF, 0x00),
+            Color.FromRgb(0x92, 0xD0, 0x50),
+            Color.FromRgb(0x00, 0xB0, 0x50),
+            Color.FromRgb(0x00, 0xB0, 0xF0),
+            Color.FromRgb(0x00, 0x70, 0xC0),
+            Color.FromRgb(0x00, 0x20, 0x60),
+            Color.FromRgb(0x70, 0x30, 0xA0),
         };
 
         #endregion
@@ -242,7 +248,6 @@ namespace Fluent
         private bool isSelectionChanging;
 
         private bool isTemplateApplied;
-
 
         #endregion
 
@@ -292,7 +297,11 @@ namespace Fluent
         private static object CoerceChipSize(DependencyObject d, object basevalue)
         {
             var value = (double)basevalue;
-            if (value < 0) return 0;
+            if (value < 0)
+            {
+                return 0;
+            }
+
             return basevalue;
         }
 
@@ -370,27 +379,6 @@ namespace Fluent
 
         #endregion
 
-        #region IsRecentColorsVisible
-
-        /// <summary>
-        /// Gets or set a value indicating whether recent colors group displayed. Work only when Mode is ThemeColors
-        /// </summary>
-        public bool IsRecentColorsVisible
-        {
-            get { return (bool)this.GetValue(IsRecentColorsVisibleProperty); }
-            set { this.SetValue(IsRecentColorsVisibleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsRecentColorsVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IsRecentColorsVisibleProperty =
-            DependencyProperty.Register(nameof(IsRecentColorsVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-
-
-        #endregion
-
         #region Columns
 
         /// <summary>
@@ -411,7 +399,11 @@ namespace Fluent
         private static object CoerceColumns(DependencyObject d, object basevalue)
         {
             var value = (int)basevalue;
-            if (value < 1) return 1;
+            if (value < 1)
+            {
+                return 1;
+            }
+
             return basevalue;
         }
 
@@ -442,7 +434,11 @@ namespace Fluent
         private static object CoeceGridRows(DependencyObject d, object basevalue)
         {
             var value = (int)basevalue;
-            if (value < 0) return 0;
+            if (value < 0)
+            {
+                return 0;
+            }
+
             return basevalue;
         }
 
@@ -504,12 +500,12 @@ namespace Fluent
                 return;
             }
 
-            // Raise event
-            gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent));
-
             // Set color in gallery
             var color = (Color?)e.NewValue;
             gallery.UpdateSelectedColor(color);
+
+            // Raise event
+            gallery.RunInDispatcherAsync(() => gallery.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent)));
         }
 
         private void UpdateSelectedColor(Color? color)
@@ -581,6 +577,7 @@ namespace Fluent
                     this.themeColors = new ObservableCollection<Color>();
                     this.themeColors.CollectionChanged += this.OnThemeColorsChanged;
                 }
+
                 return this.themeColors;
             }
         }
@@ -628,13 +625,13 @@ namespace Fluent
         /// <summary>
         /// Gets theme gradients collection
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[] ThemeGradients
         {
             get { return (Color[])this.GetValue(ThemeGradientsProperty); }
             private set { this.SetValue(ThemeGradientsPropertyKey, value); }
         }
 
-        // 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
@@ -650,12 +647,12 @@ namespace Fluent
         /// <summary>
         /// Gets standart gradients collection
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[] StandardGradients
         {
             get { return (Color[])this.GetValue(StandardGradientsProperty); }
             private set { this.SetValue(StandardGradientsPropertyKey, value); }
         }
-
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
@@ -680,23 +677,17 @@ namespace Fluent
             {
                 this.AddHandler(SelectedColorChangedEvent, value);
             }
+
             remove
             {
                 this.RemoveHandler(SelectedColorChangedEvent, value);
             }
         }
+
         /// <summary>
         /// Identifies the SelectedColorChanged routed event.
         /// </summary>
-        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent("SelectedColorChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
-
-        /// <summary>
-        /// Raises SelectedColorChanged event
-        /// </summary>
-        public void RaiseSelectedColorChanged()
-        {
-            this.RaiseEvent(new RoutedEventArgs(SelectedColorChangedEvent, this));
-        }
+        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ColorGallery));
 
         /// <summary>
         /// Occurs whether more colors menu item is clicked
@@ -729,60 +720,100 @@ namespace Fluent
             base.OnApplyTemplate();
 
             if (this.moreColorsButton != null)
+            {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
+            }
+
             this.moreColorsButton = this.GetTemplateChild("PART_MoreColors") as MenuItem;
             if (this.moreColorsButton != null)
+            {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
+            }
 
             if (this.noColorButton != null)
+            {
                 this.noColorButton.Click -= this.OnNoColorClick;
+            }
+
             this.noColorButton = this.GetTemplateChild("PART_NoColor") as MenuItem;
             if (this.noColorButton != null)
+            {
                 this.noColorButton.Click += this.OnNoColorClick;
+            }
 
             if (this.automaticButton != null)
+            {
                 this.automaticButton.Click -= this.OnAutomaticClick;
+            }
+
             this.automaticButton = this.GetTemplateChild("PART_AutomaticColor") as MenuItem;
             if (this.automaticButton != null)
+            {
                 this.automaticButton.Click += this.OnAutomaticClick;
+            }
 
             // List boxes
             this.listBoxes.Clear();
 
             if (this.themeColorsListBox != null)
+            {
                 this.themeColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            }
+
             this.themeColorsListBox = this.GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
             this.listBoxes.Add(this.themeColorsListBox);
             if (this.themeColorsListBox != null)
+            {
                 this.themeColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
+            }
 
             if (this.themeGradientsListBox != null)
+            {
                 this.themeGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            }
+
             this.themeGradientsListBox = this.GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
             this.listBoxes.Add(this.themeGradientsListBox);
             if (this.themeGradientsListBox != null)
+            {
                 this.themeGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
+            }
 
             if (this.standardColorsListBox != null)
+            {
                 this.standardColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            }
+
             this.standardColorsListBox = this.GetTemplateChild("PART_StandardColorsListBox") as ListBox;
             this.listBoxes.Add(this.standardColorsListBox);
             if (this.standardColorsListBox != null)
+            {
                 this.standardColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
+            }
 
             if (this.standardGradientsListBox != null)
+            {
                 this.standardGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            }
+
             this.standardGradientsListBox = this.GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
             this.listBoxes.Add(this.standardGradientsListBox);
             if (this.standardGradientsListBox != null)
+            {
                 this.standardGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
+            }
 
             if (this.recentColorsListBox != null)
+            {
                 this.recentColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
+            }
+
             this.recentColorsListBox = this.GetTemplateChild("PART_RecentColorsListBox") as ListBox;
             this.listBoxes.Add(this.recentColorsListBox);
             if (this.recentColorsListBox != null)
+            {
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
+            }
 
             this.isTemplateApplied = true;
 
@@ -805,32 +836,50 @@ namespace Fluent
                 if (!args.Canceled)
                 {
                     var color = args.Color;
-                    if (RecentColors.Contains(color)) RecentColors.Remove(color);
+                    if (RecentColors.Contains(color))
+                    {
+                        RecentColors.Remove(color);
+                    }
+
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
                 }
             }
             else
             {
+#pragma warning disable 618
                 var chooseColor = new NativeMethods.CHOOSECOLOR();
                 var wnd = Window.GetWindow(this);
-                if (wnd != null) chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
-                chooseColor.Flags = NativeMethods.CC_ANYCOLOR;
+                if (wnd != null)
+                {
+                    chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
+                }
+
+                chooseColor.Flags = Constants.CC_ANYCOLOR;
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
                     for (var i = 0; i < this.colorsArray.Length; i++)
+                    {
                         this.colorsArray[i] = 0x00FFFFFF;
+                    }
+
                     customColors = GCHandle.Alloc(this.colorsArray, GCHandleType.Pinned).AddrOfPinnedObject();
                 }
+
                 chooseColor.lpCustColors = customColors;
                 if (NativeMethods.ChooseColor(chooseColor))
                 {
                     var color = ConvertFromWin32Color(chooseColor.rgbResult);
-                    if (RecentColors.Contains(color)) RecentColors.Remove(color);
+                    if (RecentColors.Contains(color))
+                    {
+                        RecentColors.Remove(color);
+                    }
+
                     RecentColors.Insert(0, color);
                     this.recentColorsListBox.SelectedIndex = 0;
                 }
+#pragma warning restore 618
             }
         }
 
@@ -881,7 +930,7 @@ namespace Fluent
 
             this.isSelectionChanging = true;
 
-            if (e.AddedItems != null 
+            if (e.AddedItems != null
                 && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
@@ -921,7 +970,9 @@ namespace Fluent
                     this.StandardGradients = this.GenerateStandardGradients();
                 }
                 else
+                {
                     this.StandardGradients = null;
+                }
             }
             else
             {
@@ -939,9 +990,10 @@ namespace Fluent
                 var colors = GetGradient(StandardThemeColors[i], this.StandardColorGridRows);
                 for (var j = 0; j < this.StandardColorGridRows; j++)
                 {
-                    result[i + j * this.Columns] = colors[j];
+                    result[i + (j * this.Columns)] = colors[j];
                 }
             }
+
             return result;
         }
 
@@ -954,9 +1006,10 @@ namespace Fluent
                 var colors = GetGradient(this.ThemeColors[i], this.ThemeColorGridRows);
                 for (var j = 0; j < this.ThemeColorGridRows; j++)
                 {
-                    result[i + j * this.Columns] = colors[j];
+                    result[i + (j * this.Columns)] = colors[j];
                 }
             }
+
             return result;
         }
 
@@ -975,10 +1028,10 @@ namespace Fluent
             return summ / (255.0 * 3.0);
         }
 
-        // Makes the given color lighter 
+        // Makes the given color lighter
         private static Color Lighter(Color color, double power)
         {
-            var totalAvailability = 255.0 * 3.0 - color.R + color.G + color.B;
+            var totalAvailability = (255.0 * 3.0) - color.R + color.G + color.B;
             double redAvailability;
             double greenAvailability;
             double blueAvailability;
@@ -999,7 +1052,6 @@ namespace Fluent
                 needToBeAdded = ((double)color.R + color.G + color.B) * (power - 1);
             }
 
-
             var result = Color.FromRgb(
                 (byte)(color.R + (byte)(redAvailability * needToBeAdded)),
                 (byte)(color.G + (byte)(greenAvailability * needToBeAdded)),
@@ -1008,7 +1060,7 @@ namespace Fluent
             return result;
         }
 
-        // Makes the given color darker 
+        // Makes the given color darker
         private static Color Darker(Color color, double power)
         {
             var totalAvailability = (double)color.R + color.G + color.B;
@@ -1017,7 +1069,7 @@ namespace Fluent
             var blueAvailability = color.B / totalAvailability;
 
             var needToBeAdded = (double)color.R + color.G + color.B;
-            needToBeAdded = needToBeAdded - needToBeAdded * power;
+            needToBeAdded = needToBeAdded - (needToBeAdded * power);
 
             var result = Color.FromRgb(
                 (byte)(color.R - (byte)(redAvailability * needToBeAdded)),
@@ -1031,8 +1083,8 @@ namespace Fluent
         private static Color Rebright(Color color, double newBrightness)
         {
             var currentBrightness = GetBrightness(color);
-            var power = DoubleUtil.AreClose(currentBrightness, 0.0) == false 
-                ? newBrightness / currentBrightness 
+            var power = DoubleUtil.AreClose(currentBrightness, 0.0) == false
+                ? newBrightness / currentBrightness
                 : 1.0 + newBrightness;
 
             // TODO: round power to make nice numbers
@@ -1060,13 +1112,12 @@ namespace Fluent
 
             for (var i = 0; i < count; i++)
             {
-                var brightness = lowBrightness + i * (highBrightness - lowBrightness) / count;
+                var brightness = lowBrightness + (i * (highBrightness - lowBrightness) / count);
                 result[count - i - 1] = Rebright(color, brightness);
             }
 
             return result;
         }
-
 
         #endregion
     }
