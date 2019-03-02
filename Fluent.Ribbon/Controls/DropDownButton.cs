@@ -343,7 +343,6 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             this.AddHandler(System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(this.OnSubmenuOpened));
-            this.AddHandler(System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(this.OnSubmenuClosed));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -721,9 +720,15 @@ namespace Fluent
         {
             foreach (var openMenuItem in this.openMenuItems.ToArray())
             {
-                if (openMenuItem.IsAlive)
+                if (openMenuItem.IsAlive == false)
                 {
-                    ((System.Windows.Controls.MenuItem)openMenuItem.Target).IsSubmenuOpen = false;
+                    continue;
+                }
+
+                var menuItem = (System.Windows.Controls.MenuItem)openMenuItem.Target;
+                if (menuItem.IsSubmenuOpen)
+                {
+                    menuItem.IsSubmenuOpen = false;
                 }
             }
 
@@ -865,14 +870,6 @@ namespace Fluent
             if (e.OriginalSource is MenuItem menuItem)
             {
                 this.openMenuItems.Push(new WeakReference(menuItem));
-            }
-        }
-
-        private void OnSubmenuClosed(object sender, RoutedEventArgs e)
-        {
-            if (this.openMenuItems.Count > 0)
-            {
-                this.openMenuItems.Pop();
             }
         }
 
