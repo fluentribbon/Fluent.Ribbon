@@ -9,7 +9,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
+    
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
