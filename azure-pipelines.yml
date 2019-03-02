@@ -41,3 +41,4 @@ steps:
   inputs:
     command: push
     nuGetFeedType: internal
+    publishVstsFeed: Fluent.Ribbon
