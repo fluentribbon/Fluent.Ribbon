@@ -20,6 +20,8 @@ namespace Fluent
     {
         #region Fields
 
+        private ScopeGuard windowPreviewKeyDownScopeGuard;
+
         // Host element, usually this is Ribbon
         private readonly Ribbon ribbon;
 
@@ -197,6 +199,15 @@ namespace Fluent
 
         private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (this.windowPreviewKeyDownScopeGuard?.IsActive == true)
+            {
+                System.Media.SystemSounds.Beep.Play();
+                return;
+            }
+
+            using var scopeGuard = new ScopeGuard();
+            this.windowPreviewKeyDownScopeGuard = scopeGuard;
+
             if (e.IsRepeat
                 || e.Handled)
             {
