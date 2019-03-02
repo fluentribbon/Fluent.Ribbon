@@ -105,38 +105,42 @@ Task("Clean")
 Task("Restore")
     .Does(() =>
 {
-    StartProcess("nuget", new ProcessSettings {
-        Arguments = new ProcessArgumentBuilder()
-            .Append("restore")
-            .Append("-msbuildpath")
-            .AppendQuoted(msBuildPath.ToString())
-        }
-    );
+    //DotNetCoreRestore();
 });
 
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {    
-    var msBuildSettings = new MSBuildSettings {
-        Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPathExe,
-        ToolVersion = msBuildToolVersion,
-        Configuration = configuration
-    };
-
-    // Use MSBuild
-    MSBuild(solutionFile, msBuildSettings   
-            .SetMaxCpuCount(0)
-            .SetConfiguration(configuration)
-            // .SetVerbosity(verbosity)
-            .SetVerbosity(Verbosity.Minimal)
-            //.WithRestore()
+    var buildSettings = new DotNetCoreBuildSettings {
+        Configuration = configuration,
+        MSBuildSettings = new DotNetCoreMSBuildSettings()
             .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
-            );
+    };
+
+    DotNetCoreBuild(solutionFile, buildSettings);
+    // var msBuildSettings = new MSBuildSettings {
+    //     Verbosity = Verbosity.Minimal,
+    //     ToolPath = msBuildPathExe,
+    //     ToolVersion = msBuildToolVersion,
+    //     Configuration = configuration
+    // };
+
+    // // Use MSBuild
+    // MSBuild(solutionFile, msBuildSettings   
+    //         .SetMaxCpuCount(0)
+    //         .SetConfiguration(configuration)
+    //         // .SetVerbosity(verbosity)
+    //         .SetVerbosity(Verbosity.Minimal)
+    //         //.WithRestore()
+    //         .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
+    //         .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
+    //         .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
+    //         .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
+    //         );
 });
 
 Task("EnsurePackageDirectory")
