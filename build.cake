@@ -56,8 +56,6 @@ if (FileExists(msBuildPathExe) == false)
     throw new NotImplementedException("You need at least Visual Studio 2019 to build this project.");
 }
 
-var msBuildToolVersion = MSBuildToolVersion.VS2019;
-
 // Define directories.
 var buildDir = Directory("./bin");
 var solutionFile = File("./Fluent.Ribbon.sln");
@@ -115,6 +113,8 @@ Task("Build")
     var buildSettings = new DotNetCoreBuildSettings {
         Configuration = configuration,
         MSBuildSettings = new DotNetCoreMSBuildSettings()
+            .SetMaxCpuCount(0)
+            .SetConfiguration(configuration)
             .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
             .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
@@ -122,25 +122,6 @@ Task("Build")
     };
 
     DotNetCoreBuild(solutionFile, buildSettings);
-    // var msBuildSettings = new MSBuildSettings {
-    //     Verbosity = Verbosity.Minimal,
-    //     ToolPath = msBuildPathExe,
-    //     ToolVersion = msBuildToolVersion,
-    //     Configuration = configuration
-    // };
-
-    // // Use MSBuild
-    // MSBuild(solutionFile, msBuildSettings   
-    //         .SetMaxCpuCount(0)
-    //         .SetConfiguration(configuration)
-    //         // .SetVerbosity(verbosity)
-    //         .SetVerbosity(Verbosity.Minimal)
-    //         //.WithRestore()
-    //         .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
-    //         .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
-    //         .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
-    //         .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
-    //         );
 });
 
 Task("EnsurePackageDirectory")
@@ -153,25 +134,23 @@ Task("Pack")
     .IsDependentOn("EnsurePackageDirectory")
     .Does(() =>
 {
-    var msBuildSettings = new MSBuildSettings {
-        Verbosity = Verbosity.Minimal,
-        ToolPath = msBuildPathExe,
-        ToolVersion = msBuildToolVersion,
-        Configuration = configuration
-    };
-
     var project = "./Fluent.Ribbon/Fluent.Ribbon.csproj";
 
-    MSBuild(project, msBuildSettings
-      .WithTarget("pack")
-      .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
-      .WithProperty("RepositoryBranch", branchName)
-      .WithProperty("RepositoryCommit", gitVersion.Sha)
-      .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
-      .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
-      .WithProperty("FileVersion", gitVersion.AssemblySemFileVer)
-      .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
-    );
+    var buildSettings = new DotNetCorePackSettings {
+        Configuration = configuration,
+        MSBuildSettings = new DotNetCoreMSBuildSettings()
+            .SetMaxCpuCount(0)
+            .SetConfiguration(configuration)
+            .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
+            .WithProperty("RepositoryBranch", branchName)
+            .WithProperty("RepositoryCommit", gitVersion.Sha)
+            .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
+            .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
+            .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
+            .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
+    };
+
+    DotNetCorePack(project, buildSettings);
 });
 
 Task("Zip")    
