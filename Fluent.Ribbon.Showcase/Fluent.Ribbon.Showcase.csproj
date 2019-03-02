@@ -21,7 +21,7 @@
     <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" />
     <PackageReference Include="Costura.Fody" version="3.2.1" PrivateAssets="All" Condition="'$(DisableFody)' != 'true'" />
   </ItemGroup>
-  <ItemGroup  Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
