@@ -15,7 +15,7 @@ var configuration = Argument("configuration", "Release");
 var verbosity = Argument("verbosity", Verbosity.Normal);
 
 var PROJECT_DIR = Context.Environment.WorkingDirectory.FullPath + "/";
-var PACKAGE_DIR = Directory(Argument("artifact-dir", PROJECT_DIR + "package") + "/");
+var PACKAGE_DIR = Directory(Argument("artifact-dir", PROJECT_DIR + "/bin/package") + "/");
 
 //////////////////////////////////////////////////////////////////////
 // SET ERROR LEVELS
