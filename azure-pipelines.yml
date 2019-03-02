@@ -13,12 +13,12 @@
       - Readme.md
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'windows-2019'
 
 steps:
 - task: DotNetCoreInstaller@0
   inputs: 
-    version: '3.0.100-preview-009990'
+    version: '3.0.100-preview4-010569'
 
 - powershell: .\build.ps1 -target CI -Verbosity Verbose -artifact-dir='$(Build.ArtifactStagingDirectory)'
   displayName: CI-Build
