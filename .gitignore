@@ -6,6 +6,7 @@
 *.ide
 *.vs
 *.idea
+launchSettings\.json
 
 # Build results
 [Dd]ebug/
