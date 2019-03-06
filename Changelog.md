@@ -118,7 +118,8 @@
   - [#673](../../issues/673) - RibbonContextualTabGroup not shown
   - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
   - [#688](../../issues/688) - Backstage and StartScreen closing when pressing Alt
-  - [#698](../../issues/698) - Submenus in the application menu are not opened each time 
+  - [#698](../../issues/698) - Submenus in the application menu are not opened each time
+  - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
 
 - ### Enhancements/Features
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  

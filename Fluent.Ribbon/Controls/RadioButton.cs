@@ -71,7 +71,7 @@ namespace Fluent
         /// <inheritdoc />
         public object Header
         {
-            get { return (string)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
