@@ -505,6 +505,11 @@ namespace FluentTest
 
             await metroWindow.ShowMessageAsync("Test", "Message");
         }
+
+        private void OpenSimplifiedRibbonWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            new SimplifiedRibbonWindow().Show();
+        }
     }
 
     public class TestRoutedCommand

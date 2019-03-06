@@ -204,6 +204,79 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="SimplifiedRibbonButtonControlTemplate"
+                     TargetType="{x:Type Fluent:Button}">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                Height="Auto">
+            <StackPanel x:Name="stackPanel"
+                        Height="Auto"
+                        Margin="1 0"
+                        Orientation="Horizontal">
+                <ContentPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  Height="24"
+                                  VerticalAlignment="Center"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                  Width="24"
+                                  Margin="0"
+                                  SnapsToDevicePixels="True" />
+                <Fluent:TwoLineLabel x:Name="controlLabel"
+                                     Text="{TemplateBinding Header}"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Margin="7 0"
+                                     HasTwoLines="False"/>
+            </StackPanel>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsPressed"
+                               Value="False" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style x:Key="RibbonButtonStyle"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Template"
@@ -244,6 +317,13 @@
                 <Setter Property="HorizontalAlignment"
                         Value="Left" />
             </Trigger>
+            <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, FallbackValue=False}"
+                         Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource SimplifiedRibbonButtonControlTemplate}"/>
+                <Setter Property="Height"
+                        Value="28"/>
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 

@@ -15,6 +15,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="SimplifiedRibbonWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
@@ -28,5 +31,10 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />
     <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="SimplifiedRibbonWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

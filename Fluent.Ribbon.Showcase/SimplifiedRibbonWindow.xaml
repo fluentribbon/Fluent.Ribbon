@@ -1,0 +1,53 @@
+﻿<fluent:RibbonWindow x:Class="FluentTest.SimplifiedRibbonWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:fluent="urn:fluent-ribbon"
+                     xmlns:converters="clr-namespace:FluentTest.Converters"
+                     mc:Ignorable="d"
+                     Title="SimplifiedRibbonWindow"
+                     Height="600"
+                     Width="800"
+                     TitleForeground="Black"
+                     TitleBackground="Transparent">
+    <Grid>
+        <fluent:Ribbon IsSimplified="True">
+            <fluent:Ribbon.Menu>
+                <fluent:Backstage />
+            </fluent:Ribbon.Menu>
+
+            <fluent:RibbonTabItem Header="First">
+                <fluent:RibbonGroupBox>
+                    <fluent:Button Header="First Button">
+                        <fluent:Button.Icon>
+                            <Rectangle Width="24" Height="24" Fill="Red"/>
+                        </fluent:Button.Icon>
+                    </fluent:Button>
+                    <fluent:Button Header="Second Button">
+                        <fluent:Button.Icon>
+                            <Rectangle Width="24" Height="24" Fill="Green"/>
+                        </fluent:Button.Icon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+                <fluent:RibbonGroupBox>
+                    <fluent:Button Header="Third Button">
+                        <fluent:Button.Icon>
+                            <Rectangle Width="24" Height="24" Fill="Blue"/>
+                        </fluent:Button.Icon>
+                    </fluent:Button>
+                    <fluent:Button Header="Fourth Button">
+                        <fluent:Button.Icon>
+                            <Rectangle Width="24" Height="24" Fill="Yellow"/>
+                        </fluent:Button.Icon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+            <fluent:RibbonTabItem Header="Second">
+                <fluent:RibbonGroupBox>
+                    <fluent:Button/>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+        </fluent:Ribbon>
+    </Grid>
+</fluent:RibbonWindow>

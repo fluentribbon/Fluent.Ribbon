@@ -13,12 +13,17 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Separator">
-                    <Border Width="1"
-                            Height="55"
+                    <Border x:Name="SeparatorBorder"
+                            Width="1"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Margin="2,5,2,10"
                             Background="{TemplateBinding Background}" />
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, FallbackValue=False}" Value="False">
+                            <Setter TargetName="SeparatorBorder" Property="Height" Value="55"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -264,6 +269,14 @@
                                                         Height="Auto"
                                                         IsItemsHost="True"
                                                         Margin="4,0,4,0" />
+                        <StackPanel x:Name="SimplifiedUpPanel"
+                                    Visibility="Collapsed"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="Stretch"
+                                                        Width="Auto"
+                                                        Height="Auto"
+                                                        Margin="4,0,4,0" />
 
                         <Grid x:Name="PART_DownGrid"
                               MaxWidth="{Binding ActualWidth, ElementName=PART_ParentPanel}"
@@ -315,7 +328,8 @@
                       Visibility="Collapsed"
                       Grid.RowSpan="2">
 
-                    <ContentControl Content="{TemplateBinding Header}"
+                    <ContentControl x:Name="HeaderContentControl"
+                                    Content="{TemplateBinding Header}"
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -377,6 +391,13 @@
                    Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, FallbackValue=False}" Value="True">
+                <Setter TargetName="PART_UpPanel" Property="IsItemsHost" Value="False"/>
+                <Setter TargetName="PART_UpPanel" Property="Visibility" Value="Collapsed"/>
+                <Setter TargetName="SimplifiedUpPanel" Property="IsItemsHost" Value="True"/>
+                <Setter TargetName="SimplifiedUpPanel" Property="Visibility" Value="Visible"/>
+                <Setter TargetName="PART_DownGrid" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"
