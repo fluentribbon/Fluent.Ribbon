@@ -26,7 +26,7 @@
     <UpToDateCheckInput Include="**/*.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\License.txt" Pack="true" PackagePath="" />
+    <None Include="..\License.txt" Pack="true" PackagePath="licenses/License.txt" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <Reference Include="UIAutomationProvider" />
@@ -50,8 +50,7 @@
   <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl>
-    <!-- <PackageLicenseFile>License.txt</PackageLicenseFile> -->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
     <PackageIcon>../Images/Logo/Logo_32x32.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>

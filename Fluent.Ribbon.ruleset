@@ -170,6 +170,8 @@
   </Rules>
   <Rules AnalyzerId="WpfAnalyzers.Analyzers" RuleNamespace="WpfAnalyzers.Analyzers">
     <Rule Id="WPF0006" Action="None" />
+    <Rule Id="WPF0012" Action="Error" />
+    <Rule Id="WPF0022" Action="Error" />
     <Rule Id="WPF0033" Action="Info" />
     <Rule Id="WPF0041" Action="None" />
     <Rule Id="WPF0052" Action="None" />

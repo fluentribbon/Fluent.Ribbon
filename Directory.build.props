@@ -17,7 +17,6 @@
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)/Fluent.Ribbon.ruleset</CodeAnalysisRuleSet>
     <OutputPath Condition="$(IsBuildingWpfTempProj) != 'true'">$(MSBuildThisFileDirectory)/bin/$(MSBuildProjectName)/$(Configuration)/</OutputPath>
     <RestoreSources Condition="Exists('C:/DEV/OSS_Own/ControlzEx/Publish')">C:/DEV/OSS_Own/ControlzEx/Publish</RestoreSources>    
-    <!--<DisableImplicitFrameworkReferences Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</DisableImplicitFrameworkReferences>-->
 
     <UseWpf>true</UseWpf>
     <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652</NoWarn>
@@ -31,37 +30,24 @@
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
     <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-  </ItemGroup>
-
-  <!-- Set the reference for the other targets -->
-  <!--<ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
-      <Reference Include="Microsoft.CSharp" />
-      <Reference Include="PresentationCore" />
-      <Reference Include="PresentationFramework" />
-      <Reference Include="System" />
-      <Reference Include="System.Core" />
-      <Reference Include="System.Drawing" />
-      <Reference Include="System.Xaml" />
-      <Reference Include="System.Xml" />
-      <Reference Include="WindowsBase" />
-  </ItemGroup>-->
+  </ItemGroup> -->
 
   <PropertyGroup>
     <XamlColorSchemeGeneratorVersion>3.0.0.31</XamlColorSchemeGeneratorVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" version="2018.3.0" privateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" version="2018.*" privateAssets="All" />
 
   	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="2.10.*" privateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
     <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="All" /> -->
     <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="All" />
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="All" /> -->
     <PackageReference Include="StyleCop.Analyzers" version="1.0.2" privateAssets="All" />
-    <PackageReference Include="WpfAnalyzers" version="2.2.0.2" privateAssets="All" />
+    <PackageReference Include="WpfAnalyzers" version="2.2.*" privateAssets="All" />
 
     <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
