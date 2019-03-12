@@ -221,7 +221,7 @@
                                   HorizontalAlignment="Center"
                                   Height="24"
                                   VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                  Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="24"
                                   Margin="0"
                                   SnapsToDevicePixels="True" />

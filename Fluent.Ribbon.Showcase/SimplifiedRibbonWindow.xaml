@@ -20,26 +20,26 @@
             <fluent:RibbonTabItem Header="First">
                 <fluent:RibbonGroupBox>
                     <fluent:Button Header="First Button">
-                        <fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
                             <Rectangle Width="24" Height="24" Fill="Red"/>
-                        </fluent:Button.Icon>
+                        </fluent:Button.MediumIcon>
                     </fluent:Button>
                     <fluent:Button Header="Second Button">
-                        <fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
                             <Rectangle Width="24" Height="24" Fill="Green"/>
-                        </fluent:Button.Icon>
+                        </fluent:Button.MediumIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
                 <fluent:RibbonGroupBox>
                     <fluent:Button Header="Third Button">
-                        <fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
                             <Rectangle Width="24" Height="24" Fill="Blue"/>
-                        </fluent:Button.Icon>
+                        </fluent:Button.MediumIcon>
                     </fluent:Button>
                     <fluent:Button Header="Fourth Button">
-                        <fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
                             <Rectangle Width="24" Height="24" Fill="Yellow"/>
-                        </fluent:Button.Icon>
+                        </fluent:Button.MediumIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
