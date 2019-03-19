@@ -371,6 +371,28 @@ namespace Fluent.Tests.ThemeManager
         }
 
         [Test]
+        public void CreateDynamicAccentWithColorAndChangeBaseColorScheme()
+        {
+            var applicationTheme = ThemeManager.DetectTheme(Application.Current);
+
+            Assert.That(() => ThemeHelper.CreateTheme("Dark", Colors.Red, Colors.Orange), Throws.Nothing);
+
+            Assert.That(() => ThemeHelper.CreateTheme("Light", Colors.Red, Colors.Orange, changeImmediately: true), Throws.Nothing);
+
+            var detected = ThemeManager.DetectTheme(Application.Current);
+            Assert.NotNull(detected);
+            Assert.That(detected.ColorScheme, Is.EqualTo(Colors.Red.ToString().Replace("#", string.Empty)));
+
+            var newTheme = ThemeManager.ChangeThemeBaseColor(Application.Current, "Dark");
+            Assert.NotNull(newTheme);
+
+            newTheme = ThemeManager.ChangeThemeBaseColor(Application.Current, "Light");
+            Assert.NotNull(newTheme);
+
+            ThemeManager.ChangeTheme(Application.Current, applicationTheme);
+        }
+
+        [Test]
         [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.blue.xaml", "Dark", "#FF2B579A", "#FF086F9E")]
         [TestCase("pack://application:,,,/Fluent;component/Themes/themes/dark.green.xaml", "Dark", "#FF60A917", "#FF477D11")]
 
