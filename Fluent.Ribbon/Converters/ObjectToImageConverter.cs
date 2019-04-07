@@ -90,6 +90,14 @@
         /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
         public ObjectToImageConverter(object input, object desiredSize, Binding targetVisualBinding)
         {
+            if (desiredSize is Size desiredSizeValue
+                && (desiredSizeValue.IsEmpty
+                    || DoubleUtil.AreClose(desiredSizeValue.Width, 0)
+                    || DoubleUtil.AreClose(desiredSizeValue.Height, 0)))
+            {
+                throw new ArgumentException("DesiredSize must not be empty and width/height must be greater than 0.", nameof(desiredSize));
+            }
+
             this.IconBinding = input as Binding ?? new Binding { Source = input };
             this.DesiredSizeBinding = desiredSize as Binding ?? new Binding { Source = desiredSize };
             this.TargetVisualBinding = targetVisualBinding;
@@ -192,7 +200,7 @@
                 }
             }
 
-            if (desiredSize == Size.Empty
+            if (desiredSize.IsEmpty
                 && targetVisual != null
                 && targetVisual is FrameworkElement targetFrameworkElement
                 && DoubleHelper.IsFinite(targetFrameworkElement.Width)
