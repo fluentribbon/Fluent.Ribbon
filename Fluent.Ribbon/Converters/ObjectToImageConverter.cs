@@ -13,6 +13,7 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using Fluent.Helpers;
 #if NET45 // for DpiScale
     using ControlzEx.Standard;
 #endif
@@ -43,6 +44,7 @@
     public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiValueConverter
     {
         private static readonly ImageSource imageNotFoundImageSource = (ImageSource)CreateImageNotFoundImageSource().GetAsFrozen();
+        private static readonly SizeConverter sizeConverter = new SizeConverter();
 
         /// <summary>
         /// Creates a new instance.
@@ -54,44 +56,43 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
-        public ObjectToImageConverter(Binding iconBinding)
-            : this(iconBinding, Size.Empty)
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
+        public ObjectToImageConverter(object input)
+            : this(input, Size.Empty, null)
         {
         }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
-        public ObjectToImageConverter(Binding iconBinding, Size desiredSize)
-            : this(desiredSize)
+        public ObjectToImageConverter(object input, Size desiredSize)
+            : this(input, desiredSize, null)
         {
-            this.IconBinding = iconBinding;
         }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
+        /// <param name="desiredSize">The desired size for the image.</param>
+        public ObjectToImageConverter(object input, object desiredSize)
+            : this(input, desiredSize, null)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
         /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
-        public ObjectToImageConverter(Binding iconBinding, Size desiredSize, Binding targetVisualBinding)
-            : this(desiredSize)
+        public ObjectToImageConverter(object input, object desiredSize, Binding targetVisualBinding)
         {
-            this.IconBinding = iconBinding;
+            this.IconBinding = input as Binding ?? new Binding { Source = input };
+            this.DesiredSizeBinding = desiredSize as Binding ?? new Binding { Source = desiredSize };
             this.TargetVisualBinding = targetVisualBinding;
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="desiredSize">The desired size for the image.</param>
-        public ObjectToImageConverter(Size desiredSize)
-            : this()
-        {
-            this.DesiredSize = desiredSize;
         }
 
         /// <summary>
@@ -107,17 +108,17 @@
         public Binding IconBinding { get; set; }
 
         /// <summary>
-        /// The desired size for the image.
+        /// The binding for the desired size for the image.
         /// </summary>
         [ConstructorArgument("desiredSize")]
-        public Size DesiredSize { get; set; } = Size.Empty;
+        public Binding DesiredSizeBinding { get; set; }
 
         #region Implementation of IValueConverter
 
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = this.DesiredSize;
+            var desiredSize = Size.Empty;
 
             if (parameter is double
                 || parameter is int
@@ -155,21 +156,49 @@
         /// <inheritdoc />
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = this.DesiredSize;
+            var desiredSize = Size.Empty;
 
-            var targetVisual = values.Length >= 2
+            // TargetVisual can be at index 1 or index 2, depending on the number of values passed
+            var targetVisual = values.Length == 2
                                    ? values[1] as Visual
                                    : null;
 
-            if (values.Length == 2
+            if (targetVisual == null)
+            {
+                targetVisual = values.Length == 3
+                                   ? values[2] as Visual
+                                   : null;
+            }
+
+            if (values.Length >= 2
                 && values[1] is Size desiredSizeFromIndex1)
             {
                 desiredSize = desiredSizeFromIndex1;
             }
-            else if (values.Length == 3
-                && values[2] is Size desiredSizeFromIndex2)
+            else if (values.Length >= 2
+                     && (values[1] is Visual) == false)
             {
-                desiredSize = desiredSizeFromIndex2;
+                var possibleDesiredSizeValue = values[1];
+                object convertedValue;
+
+                if (sizeConverter.CanConvertFrom(possibleDesiredSizeValue.GetType())
+                    && (convertedValue = sizeConverter.ConvertFrom(possibleDesiredSizeValue)) != null)
+                {
+                    desiredSize = (Size)convertedValue;
+                }
+                else
+                {
+                    desiredSize = Size.Empty;
+                }
+            }
+
+            if (desiredSize == Size.Empty
+                && targetVisual != null
+                && targetVisual is FrameworkElement targetFrameworkElement
+                && DoubleHelper.IsFinite(targetFrameworkElement.Width)
+                && DoubleHelper.IsFinite(targetFrameworkElement.Height))
+            {
+                desiredSize = new Size(targetFrameworkElement.Width, targetFrameworkElement.Height);
             }
 
             return this.Convert(values[0], targetVisual, desiredSize, targetType);
@@ -188,22 +217,6 @@
         /// <inheritdoc />
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            // Get the target of the extension from the IServiceProvider interface
-            var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-
-            // Setters don't accept anything else than DynamicResourceExtension and everything inherited from BindingBase.
-            // So we cheat and create a new MultiBinding.
-            if (provideValueTarget.TargetObject is Setter)
-            {
-                return this.CreateMultiBinding(serviceProvider);
-            }
-
-            // If we are inside a ControlTemplate there is no suitable target object so we return ourself and so we are being called again when the real control is created
-            if (provideValueTarget.TargetObject is DependencyObject)
-            {
-                return this;
-            }
-
             return this.CreateMultiBinding(serviceProvider);
         }
 
@@ -215,7 +228,14 @@
             {
                 Converter = this
             };
+
             multiBinding.Bindings.Add(this.IconBinding);
+
+            if (this.DesiredSizeBinding != null)
+            {
+                multiBinding.Bindings.Add(this.DesiredSizeBinding);
+            }
+
             if (this.TargetVisualBinding != null)
             {
                 multiBinding.Bindings.Add(this.TargetVisualBinding);
