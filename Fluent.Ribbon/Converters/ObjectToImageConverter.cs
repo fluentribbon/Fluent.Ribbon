@@ -200,14 +200,14 @@
                 }
             }
 
-            if (desiredSize.IsEmpty
-                && targetVisual != null
-                && targetVisual is FrameworkElement targetFrameworkElement
-                && DoubleHelper.IsFinite(targetFrameworkElement.Width)
-                && DoubleHelper.IsFinite(targetFrameworkElement.Height))
-            {
-                desiredSize = new Size(targetFrameworkElement.Width, targetFrameworkElement.Height);
-            }
+            //if (desiredSize.IsEmpty
+            //    && targetVisual != null
+            //    && targetVisual is FrameworkElement targetFrameworkElement
+            //    && DoubleHelper.IsFinite(targetFrameworkElement.Width)
+            //    && DoubleHelper.IsFinite(targetFrameworkElement.Height))
+            //{
+            //    desiredSize = new Size(targetFrameworkElement.Width, targetFrameworkElement.Height);
+            //}
 
             return this.Convert(values[0], targetVisual, desiredSize, targetType);
         }
