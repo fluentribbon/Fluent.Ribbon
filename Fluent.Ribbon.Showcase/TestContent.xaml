@@ -1764,12 +1764,12 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <Fluent:MenuItem Header="Item 7" />
                         <Fluent:MenuItem Header="Item 8" />
                         <Fluent:MenuItem Header="Item 9" />
-                        <Fluent:MenuItem Header="Item 10" />
-                        <Fluent:MenuItem Header="Item 11" />
-                        <Fluent:MenuItem Header="Item 12" />
-                        <Fluent:MenuItem Header="Item 13" />
-                        <Fluent:MenuItem Header="Item 14" />
-                        <Fluent:MenuItem Header="Item 15" />
+                        <Fluent:MenuItem Header="Item 10" IsCheckable="True" IsChecked="True" />
+                        <Fluent:MenuItem Header="Item 11" IsCheckable="True" IsChecked="True" />
+                        <Fluent:MenuItem Header="Item 12" IsCheckable="True" IsChecked="True" />
+                        <Fluent:MenuItem Header="Item 13" IsCheckable="True" IsChecked="True" />
+                        <Fluent:MenuItem Header="Item 14" IsCheckable="True" IsChecked="True" />
+                        <Fluent:MenuItem Header="Item 15" IsCheckable="True" IsChecked="True" />
                         <Fluent:MenuItem Header="Item 16" />
                         <Fluent:MenuItem Header="Item 17" />
                         <Fluent:MenuItem Header="Item 18" />
