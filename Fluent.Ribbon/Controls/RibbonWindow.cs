@@ -271,9 +271,9 @@ namespace Fluent
         private void InitializeWindowChromeBehavior()
         {
             var behavior = new WindowChromeBehavior();
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding {Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this});
-            BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding {Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this});
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding {Path = new PropertyPath(GlowBrushProperty), Source = this});
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
 
             Interaction.GetBehaviors(this).Add(behavior);
         }
@@ -284,9 +284,9 @@ namespace Fluent
         private void InitializeGlowWindowBehavior()
         {
             var behavior = new GlowWindowBehavior();
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding {Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this});
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding {Path = new PropertyPath(GlowBrushProperty), Source = this});
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding {Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this});
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding { Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this });
 
             Interaction.GetBehaviors(this).Add(behavior);
         }
