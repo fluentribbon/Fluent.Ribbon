@@ -255,6 +255,7 @@ namespace Fluent
         {
             this.SizeChanged += this.OnSizeChanged;
             this.Loaded += this.OnLoaded;
+            this.ContentRendered += this.OnContentRendered;
 
             // WindowChromeBehavior initialization has to occur in constructor. Otherwise the load event is fired early and performance of the window is degraded.
             this.InitializeWindowChromeBehavior();
@@ -262,30 +263,32 @@ namespace Fluent
 
         #endregion
 
-        #region Overrides
+        #region Behaviors
 
         /// <summary>
         /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome.
         /// </summary>
         private void InitializeWindowChromeBehavior()
         {
-            {
-                var behavior = new WindowChromeBehavior();
-                BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-                BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
-                BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
+            var behavior = new WindowChromeBehavior();
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding {Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this});
+            BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding {Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this});
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding {Path = new PropertyPath(GlowBrushProperty), Source = this});
 
-                Interaction.GetBehaviors(this).Add(behavior);
-            }
+            Interaction.GetBehaviors(this).Add(behavior);
+        }
 
-            {
-                var behavior = new GlowWindowBehavior();
-                BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-                BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
-                BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding { Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this });
+        /// <summary>
+        /// Initializes the GlowWindowBehavior which is needed to render the custom resize windows around the current window.
+        /// </summary>
+        private void InitializeGlowWindowBehavior()
+        {
+            var behavior = new GlowWindowBehavior();
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding {Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this});
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding {Path = new PropertyPath(GlowBrushProperty), Source = this});
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding {Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this});
 
-                Interaction.GetBehaviors(this).Add(behavior);
-            }
+            Interaction.GetBehaviors(this).Add(behavior);
         }
 
         #endregion
@@ -294,6 +297,13 @@ namespace Fluent
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.MaintainIsCollapsed();
+        }
+
+        private void OnContentRendered(object sender, EventArgs e)
+        {
+            this.ContentRendered -= this.OnContentRendered;
+
+            this.InitializeGlowWindowBehavior();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
