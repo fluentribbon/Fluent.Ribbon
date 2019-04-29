@@ -4,6 +4,8 @@
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>

@@ -9,6 +9,8 @@
     <!-- We need to disable tests on netcoreapp3.0 till https://github.com/nunit/nunit/pull/3036 is merged into nunit and a new release is available -->
     <IsTestProject Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</IsTestProject>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
