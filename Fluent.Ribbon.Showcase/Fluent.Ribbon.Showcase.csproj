@@ -4,9 +4,6 @@
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <!-- <DisableFody Condition="'$(TargetFramework)' == 'netcoreapp3.0'">true</DisableFody> -->
-    <!-- We have to disable fody as costura does not work correctly when using dotnet command to compile -->
-    <DisableFody>true</DisableFody>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -21,7 +18,8 @@
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
     <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" />
-    <PackageReference Include="Costura.Fody" version="3.3.2" PrivateAssets="All" Condition="'$(DisableFody)' != 'true'" />
+    <!-- Costura does not work with .net core 3.0 as of 4.0 -->
+    <PackageReference Include="Costura.Fody" version="4.*" PrivateAssets="All" Condition="'$(TargetFramework)' != 'netcoreapp3.0'" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <Reference Include="System.Web" />
