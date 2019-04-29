@@ -1,0 +1,163 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETFramework,Version=v4.5": {
+      "JetBrains.Annotations": {
+        "type": "Direct",
+        "requested": "[2019.*, )",
+        "resolved": "2019.1.1",
+        "contentHash": "y4RFn+HZ7BekqIx+uXuVAvh80quYNiu86oRG2QztmFXQ2mm1lprb7xNawZdFfLxBAh8BQUkSQdO0Itanal8DbQ=="
+      },
+      "Microsoft.NET.Test.Sdk": {
+        "type": "Direct",
+        "requested": "[16.*, )",
+        "resolved": "16.0.1",
+        "contentHash": "ON7UIMIhAwrYb0ep+3ztoWVGvtfo88IhiHVnbyOiuVsi8bOMCdMPVcR+EX1WYGgKAd030pHRaxazMlkQ6uDyJQ==",
+        "dependencies": {
+          "Microsoft.CodeCoverage": "16.0.1"
+        }
+      },
+      "NUnit": {
+        "type": "Direct",
+        "requested": "[3.*, )",
+        "resolved": "3.11.0",
+        "contentHash": "BzGk+u02RCrysmLlSzD+okxzMQ8JRF4eFC/qijDJ8Y/FBdTrTkxkQyTFsYkG1o++pr7QpFAE4VDXDqIfZ/gBAg=="
+      },
+      "NUnit3TestAdapter": {
+        "type": "Direct",
+        "requested": "[3.*, )",
+        "resolved": "3.13.0",
+        "contentHash": "9OlA81APTyR/tNkapK2a2dlz4jFra7/Bm1eYT1P1lIq2cJv4OYtWD5uHj3XsO1dz3btiwbIFrWBtZNr/ebRhSw=="
+      },
+      "StyleCop.Analyzers": {
+        "type": "Direct",
+        "requested": "[1.1.*, )",
+        "resolved": "1.1.118",
+        "contentHash": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw=="
+      },
+      "WpfAnalyzers": {
+        "type": "Direct",
+        "requested": "[2.2.*, )",
+        "resolved": "2.2.0.2",
+        "contentHash": "/lKb3dd3sEN5SXZF+CA1JpHvLr/QrCMUAzucr6yyonEiw1SG8VuTmd4CEiUWMNQ4OhHZ0lzvHbkWHsAp4PjDvg=="
+      },
+      "XamlColorSchemeGenerator": {
+        "type": "Direct",
+        "requested": "[3.0.0.31, )",
+        "resolved": "3.0.0.31",
+        "contentHash": "ecWVr9VaZepfKtkesG6V1/Ua5u5qZ2Bb6wtgf9PgfjFeEdBURhDhbtznLM5DeK5zdRqjOolDWP+d1ikECftulg==",
+        "dependencies": {
+          "Newtonsoft.Json": "10.1.0"
+        }
+      },
+      "ControlzEx": {
+        "type": "Transitive",
+        "resolved": "4.0.0-alpha0285",
+        "contentHash": "zfv7Dzixc8tMJ9Z7fVCN1WOWt3lb/o6c0+mzSkcT2uxuc9mTmiS34owLDeH9YuHk1lJ0LRQeo/5yfhtjCmuLnQ==",
+        "dependencies": {
+          "Microsoft.Xaml.Behaviors.Wpf": "1.0.1"
+        }
+      },
+      "Microsoft.CodeCoverage": {
+        "type": "Transitive",
+        "resolved": "16.0.1",
+        "contentHash": "W7WI3iH6At2I/9x2ODgCIIMO0QfpA7ZCoHkeygMLAaz3Nms/GsugKz9N4hkTve2Lj66g2K4CAmbwe6utEH66lw=="
+      },
+      "Microsoft.Xaml.Behaviors.Wpf": {
+        "type": "Transitive",
+        "resolved": "1.0.1",
+        "contentHash": "ZFmmeTIbRP5a5J47lIUeO6WgFdrU+d2NBPSv1BgsQFVdUK9jgIKs0zOnt6RJDOlSvrvlGWzhv0LgNZfXGz9nEA=="
+      },
+      "Newtonsoft.Json": {
+        "type": "Transitive",
+        "resolved": "11.0.1",
+        "contentHash": "wrf5LBX1omJ/8HiYKby22uBV7MPCfwxXWY39w28VZJjYdN1Cb3eiTkkWk5gAkkdW+N/A0hgSmqtiPoAwsb07qg=="
+      },
+      "Fluent.Ribbon": {
+        "type": "Project",
+        "dependencies": {
+          "ControlzEx": "[4.0.0-alpha, 5.0.0)"
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6.2": {
+      "JetBrains.Annotations": {
+        "type": "Direct",
+        "requested": "[2019.*, )",
+        "resolved": "2019.1.1",
+        "contentHash": "y4RFn+HZ7BekqIx+uXuVAvh80quYNiu86oRG2QztmFXQ2mm1lprb7xNawZdFfLxBAh8BQUkSQdO0Itanal8DbQ=="
+      },
+      "Microsoft.NET.Test.Sdk": {
+        "type": "Direct",
+        "requested": "[16.*, )",
+        "resolved": "16.0.1",
+        "contentHash": "ON7UIMIhAwrYb0ep+3ztoWVGvtfo88IhiHVnbyOiuVsi8bOMCdMPVcR+EX1WYGgKAd030pHRaxazMlkQ6uDyJQ==",
+        "dependencies": {
+          "Microsoft.CodeCoverage": "16.0.1"
+        }
+      },
+      "NUnit": {
+        "type": "Direct",
+        "requested": "[3.*, )",
+        "resolved": "3.11.0",
+        "contentHash": "BzGk+u02RCrysmLlSzD+okxzMQ8JRF4eFC/qijDJ8Y/FBdTrTkxkQyTFsYkG1o++pr7QpFAE4VDXDqIfZ/gBAg=="
+      },
+      "NUnit3TestAdapter": {
+        "type": "Direct",
+        "requested": "[3.*, )",
+        "resolved": "3.13.0",
+        "contentHash": "9OlA81APTyR/tNkapK2a2dlz4jFra7/Bm1eYT1P1lIq2cJv4OYtWD5uHj3XsO1dz3btiwbIFrWBtZNr/ebRhSw=="
+      },
+      "StyleCop.Analyzers": {
+        "type": "Direct",
+        "requested": "[1.1.*, )",
+        "resolved": "1.1.118",
+        "contentHash": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw=="
+      },
+      "WpfAnalyzers": {
+        "type": "Direct",
+        "requested": "[2.2.*, )",
+        "resolved": "2.2.0.2",
+        "contentHash": "/lKb3dd3sEN5SXZF+CA1JpHvLr/QrCMUAzucr6yyonEiw1SG8VuTmd4CEiUWMNQ4OhHZ0lzvHbkWHsAp4PjDvg=="
+      },
+      "XamlColorSchemeGenerator": {
+        "type": "Direct",
+        "requested": "[3.0.0.31, )",
+        "resolved": "3.0.0.31",
+        "contentHash": "ecWVr9VaZepfKtkesG6V1/Ua5u5qZ2Bb6wtgf9PgfjFeEdBURhDhbtznLM5DeK5zdRqjOolDWP+d1ikECftulg==",
+        "dependencies": {
+          "Newtonsoft.Json": "10.1.0"
+        }
+      },
+      "ControlzEx": {
+        "type": "Transitive",
+        "resolved": "4.0.0-alpha0285",
+        "contentHash": "zfv7Dzixc8tMJ9Z7fVCN1WOWt3lb/o6c0+mzSkcT2uxuc9mTmiS34owLDeH9YuHk1lJ0LRQeo/5yfhtjCmuLnQ==",
+        "dependencies": {
+          "Microsoft.Xaml.Behaviors.Wpf": "1.0.1"
+        }
+      },
+      "Microsoft.CodeCoverage": {
+        "type": "Transitive",
+        "resolved": "16.0.1",
+        "contentHash": "W7WI3iH6At2I/9x2ODgCIIMO0QfpA7ZCoHkeygMLAaz3Nms/GsugKz9N4hkTve2Lj66g2K4CAmbwe6utEH66lw=="
+      },
+      "Microsoft.Xaml.Behaviors.Wpf": {
+        "type": "Transitive",
+        "resolved": "1.0.1",
+        "contentHash": "ZFmmeTIbRP5a5J47lIUeO6WgFdrU+d2NBPSv1BgsQFVdUK9jgIKs0zOnt6RJDOlSvrvlGWzhv0LgNZfXGz9nEA=="
+      },
+      "Newtonsoft.Json": {
+        "type": "Transitive",
+        "resolved": "11.0.1",
+        "contentHash": "wrf5LBX1omJ/8HiYKby22uBV7MPCfwxXWY39w28VZJjYdN1Cb3eiTkkWk5gAkkdW+N/A0hgSmqtiPoAwsb07qg=="
+      },
+      "Fluent.Ribbon": {
+        "type": "Project",
+        "dependencies": {
+          "ControlzEx": "[4.0.0-alpha, 5.0.0)"
+        }
+      }
+    }
+  }
+}
