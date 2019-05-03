@@ -1,8 +1,9 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
@@ -71,7 +72,8 @@ namespace Fluent
         // Itemc collection was changed
         private bool itemsHadChanged;
 
-        private double cachedDeltaWidth;
+        private double cachedMenuDownButtonWidth;
+        private double cachedOverflowDownButtonWidth;
 
         #endregion
 
@@ -329,7 +331,17 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="IsMenuDropDownVisible"/>.
         /// </summary>
         public static readonly DependencyProperty IsMenuDropDownVisibleProperty =
-            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnIsMenuDropDownVisibleChanged));
+
+        private static void OnIsMenuDropDownVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (QuickAccessToolBar)d;
+
+            if ((bool)e.NewValue == false)
+            {
+                control.cachedMenuDownButtonWidth = 0;
+            }
+        }
 
         #endregion DropDownVisibility
 
@@ -422,7 +434,8 @@ namespace Fluent
             }
 
             // Clears cache
-            this.cachedDeltaWidth = 0;
+            this.cachedMenuDownButtonWidth = 0;
+            this.cachedOverflowDownButtonWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
             this.cachedConstraint = default;
         }
@@ -606,29 +619,70 @@ namespace Fluent
             }
         }
 
-        private int GetNonOverflowItemsCount(double width)
+        private int GetNonOverflowItemsCount(in double width)
         {
-            if (DoubleUtil.AreClose(this.cachedDeltaWidth, 0)
+            // Cache width of menuDownButton
+            if (DoubleUtil.AreClose(this.cachedMenuDownButtonWidth, 0)
                 && this.rootPanel != null
-                && this.toolBarPanel != null)
+                && this.menuDownButton != null
+                && this.IsMenuDropDownVisible)
             {
-                this.rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                this.cachedDeltaWidth = this.rootPanel.DesiredSize.Width - this.toolBarPanel.DesiredSize.Width;
+                this.rootPanel.Measure(SizeConstants.Infinite);
+                this.cachedMenuDownButtonWidth = this.menuDownButton.DesiredSize.Width;
             }
 
-            var currentWidth = 0D;
-            for (var i = 0; i < this.Items.Count; i++)
+            // Cache width of toolBarDownButton
+            if (DoubleUtil.AreClose(this.cachedOverflowDownButtonWidth, 0)
+                && this.rootPanel != null
+                && this.menuDownButton != null)
             {
-                this.Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                currentWidth += this.Items[i].DesiredSize.Width;
+                this.rootPanel.Measure(SizeConstants.Infinite);
+                this.cachedOverflowDownButtonWidth = this.toolBarDownButton.DesiredSize.Width;
+            }
 
-                if (currentWidth + this.cachedDeltaWidth > width)
+            // If IsMenuDropDownVisible is true we have less width available
+            var widthReductionWhenNotCompressed = this.IsMenuDropDownVisible ? this.cachedMenuDownButtonWidth : 0;
+
+            return CalculateNonOverflowItems(this.Items, width, widthReductionWhenNotCompressed, this.cachedOverflowDownButtonWidth);
+        }
+
+        private static int CalculateNonOverflowItems(IList<UIElement> items, double maxAvailableWidth, double widthReductionWhenNotCompressed, double widthReductionWhenCompressed)
+        {
+            // Calculate how many items we can fit into the available width
+            var maxPossibleItems = GetMaxPossibleItems(maxAvailableWidth - widthReductionWhenNotCompressed, true);
+
+            if (maxPossibleItems < items.Count)
+            {
+                // If we can't fit all items into the available width
+                // we have to reduce the available width as the overflow button also needs space.
+                var availableWidth = maxAvailableWidth - widthReductionWhenCompressed;
+
+                return GetMaxPossibleItems(availableWidth, false);
+            }
+
+            return items.Count;
+
+            int GetMaxPossibleItems(double availableWidth, bool measureItems)
+            {
+                var currentWidth = 0D;
+
+                for (var i = 0; i < items.Count; i++)
                 {
-                    return i;
-                }
-            }
+                    if (measureItems)
+                    {
+                        items[i].Measure(SizeConstants.Infinite);
+                    }
 
-            return this.Items.Count;
+                    currentWidth += items[i].DesiredSize.Width;
+
+                    if (currentWidth > availableWidth)
+                    {
+                        return i;
+                    }
+                }
+
+                return items.Count;
+            }
         }
 
         #endregion
