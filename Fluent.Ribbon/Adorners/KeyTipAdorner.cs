@@ -547,10 +547,9 @@ namespace Fluent
         {
             this.LogDebug("MeasureOverride");
 
-            var infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (var keyTipInformation in this.keyTipInformations)
             {
-                keyTipInformation.KeyTip.Measure(infinitySize);
+                keyTipInformation.KeyTip.Measure(SizeConstants.Infinite);
             }
 
             this.UpdateKeyTipPositions();

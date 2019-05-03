@@ -1233,7 +1233,7 @@ namespace Fluent
 
             //if (ResizeMode != ContextMenuResizeMode.None)
             {
-                this.scrollViewer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                this.scrollViewer.Measure(SizeConstants.Infinite);
 
                 var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
 
@@ -1254,7 +1254,7 @@ namespace Fluent
 
                 if (this.Menu != null)
                 {
-                    this.Menu.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    this.Menu.Measure(SizeConstants.Infinite);
                     menuHeight = this.Menu.DesiredSize.Height;
                     menuWidth = this.Menu.DesiredSize.Width;
                 }

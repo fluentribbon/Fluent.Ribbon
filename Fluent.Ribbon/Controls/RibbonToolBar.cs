@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Media;
     using Fluent.Extensibility;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -296,14 +297,12 @@ namespace Fluent
             double resultWidth = 0;
             double resultHeight = 0;
 
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
             foreach (var child in this.Children)
             {
                 // Measuring
                 if (measure)
                 {
-                    child.Measure(infinity);
+                    child.Measure(SizeConstants.Infinite);
                 }
 
                 if (currentheight + child.DesiredSize.Height > availableHeight)
@@ -561,7 +560,7 @@ namespace Fluent
                         return defaultRowHeight;
                     }
 
-                    control.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    control.Measure(SizeConstants.Infinite);
 
                     return control.DesiredSize.Height;
                 }

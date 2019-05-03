@@ -305,7 +305,7 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            anItem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            anItem.Measure(SizeConstants.Infinite);
             var result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
             return result;

@@ -12,6 +12,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Threading;
     using Fluent.Extensions;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -344,7 +345,7 @@ namespace Fluent
                 galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                galleryGroupContainer.Measure(SizeConstants.Infinite);
 
                 galleryGroupContainer.InvalidateMeasure();
 

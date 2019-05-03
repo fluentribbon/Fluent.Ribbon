@@ -651,7 +651,7 @@ namespace Fluent
             this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
             var baseConstraint = base.MeasureOverride(constraint);
             var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
-            this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            this.contentContainer.Child.Measure(SizeConstants.Infinite);
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
 
             if (totalWidth < headerWidth + (this.Indent * 2))

@@ -39,7 +39,6 @@ namespace Fluent
         {
             var allGroupsWidth = 0D;
             this.sizes.Clear();
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
             var availableSizeHeight = availableSize.Height;
 
@@ -61,7 +60,7 @@ namespace Fluent
                     tabsWidth += item.DesiredSize.Width;
                 }
 
-                contextualGroup.Measure(infinity);
+                contextualGroup.Measure(SizeConstants.Infinite);
                 var groupWidth = contextualGroup.DesiredSize.Width;
 
                 var tabWasChanged = false;

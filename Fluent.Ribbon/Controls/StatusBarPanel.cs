@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents panel for status bar
@@ -55,7 +56,6 @@ namespace Fluent
             this.lastLeftIndex = this.leftChildren.Count;
 
             // Measure children
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
             var zero = new Size(0, 0);
             double width = 0;
             double height = 0;
@@ -66,7 +66,7 @@ namespace Fluent
             {
                 if (canAdd)
                 {
-                    this.rightChildren[i].Measure(infinity);
+                    this.rightChildren[i].Measure(SizeConstants.Infinite);
                     height = Math.Max(this.rightChildren[i].DesiredSize.Height, height);
 
                     if (width + this.rightChildren[i].DesiredSize.Width <= availableSize.Width)
@@ -92,7 +92,7 @@ namespace Fluent
             {
                 if (canAdd)
                 {
-                    this.leftChildren[i].Measure(infinity);
+                    this.leftChildren[i].Measure(SizeConstants.Infinite);
                     height = Math.Max(this.leftChildren[i].DesiredSize.Height, height);
 
                     if (width + this.leftChildren[i].DesiredSize.Width <= availableSize.Width)

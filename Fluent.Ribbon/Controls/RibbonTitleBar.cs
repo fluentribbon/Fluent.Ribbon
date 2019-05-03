@@ -300,8 +300,6 @@ namespace Fluent
                             .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
                             .ToList();
 
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
             var canRibbonTabControlScroll = false;
 
             // Defensively try to find out if the RibbonTabControl can scroll
@@ -330,7 +328,7 @@ namespace Fluent
                 this.itemsRect = new Rect(0, 0, 0, 0);
 
                 // Set quick launch toolbar and header position and size
-                this.quickAccessToolbarHolder.Measure(infinity);
+                this.quickAccessToolbarHolder.Measure(SizeConstants.Infinite);
 
                 if (constraint.Width <= this.quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
@@ -341,7 +339,7 @@ namespace Fluent
                 if (constraint.Width > this.quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
                     this.quickAccessToolbarRect = new Rect(0, 0, this.quickAccessToolbarHolder.DesiredSize.Width, this.quickAccessToolbarHolder.DesiredSize.Height);
-                    this.headerHolder.Measure(infinity);
+                    this.headerHolder.Measure(SizeConstants.Infinite);
                     var allTextWidth = constraint.Width - this.quickAccessToolbarHolder.DesiredSize.Width;
 
                     if (this.HeaderAlignment == HorizontalAlignment.Left)
@@ -401,12 +399,12 @@ namespace Fluent
                 startX = Math.Max(startX, this.QuickAccessToolBar?.MinWidth ?? 0);
 
                 // Set contextual groups position and size
-                this.itemsContainer.Measure(infinity);
+                this.itemsContainer.Measure(SizeConstants.Infinite);
                 var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));
                 this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
 
                 // Set quick launch toolbar position and size
-                this.quickAccessToolbarHolder.Measure(infinity);
+                this.quickAccessToolbarHolder.Measure(SizeConstants.Infinite);
 
                 var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
                 this.quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), this.quickAccessToolbarHolder.DesiredSize.Height);
@@ -419,7 +417,7 @@ namespace Fluent
                 }
 
                 // Set header
-                this.headerHolder.Measure(infinity);
+                this.headerHolder.Measure(SizeConstants.Infinite);
 
                 switch (this.HeaderAlignment)
                 {
