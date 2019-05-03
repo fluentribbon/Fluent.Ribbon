@@ -221,7 +221,9 @@ namespace Fluent
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item as GalleryGroupFilter);
+                            menuItem.Click -= this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Remove(menuItem);
                         }
                     }
 
@@ -232,7 +234,9 @@ namespace Fluent
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item as GalleryGroupFilter);
+                            menuItem.Click -= this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Remove(menuItem);
                         }
                     }
 
@@ -522,6 +526,14 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            if (this.groupsMenuButton != null)
+            {
+                foreach (var menuItem in this.groupsMenuButton.Items.Cast<MenuItem>())
+                {
+                    menuItem.Click -= this.OnFilterMenuItemClick;
+                }
+            }
+
             this.groupsMenuButton?.Items.Clear();
 
             this.groupsMenuButton = this.GetTemplateChild("PART_DropDownButton") as DropDownButton;
