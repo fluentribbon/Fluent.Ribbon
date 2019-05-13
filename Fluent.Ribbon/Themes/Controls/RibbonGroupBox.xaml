@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -247,7 +247,7 @@
                     BorderBrush="{TemplateBinding BorderBrush}" />
 
             <Grid>
-                <ContentControl x:Name="border1"
+                <ContentControl x:Name="nonCollapsedStateBorder"
                                 Focusable="False">
                     <Grid x:Name="PART_ParentPanel"
                           Margin="0,1,0,2"
@@ -308,7 +308,8 @@
                         </Grid>
                     </Grid>
                 </ContentControl>
-                <Grid x:Name="grid1"
+
+                <Grid x:Name="collapsedStateGrid"
                       Margin="0"
                       Width="Auto"
                       Height="Auto"
@@ -340,11 +341,12 @@
                                           Width="16"
                                           SnapsToDevicePixels="True" />
                     </Border>
+
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
                            Height="Auto"
                            AllowsTransparency="True"
-                           PlacementTarget="{Binding ElementName=grid1, Mode=OneWay}"
+                           PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}"
                            IsOpen="{TemplateBinding IsDropDownOpen}">
                         <Grid Width="Auto"
                               Height="Auto"
@@ -380,16 +382,16 @@
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"
-                        TargetName="grid1"
+                        TargetName="collapsedStateGrid"
                         Value="Visible" />
                 <Setter Property="UIElement.Visibility"
-                        TargetName="border1"
+                        TargetName="nonCollapsedStateBorder"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="grid2"
                         Value="Left" />
                 <Setter Property="Content"
-                        TargetName="border1"
+                        TargetName="nonCollapsedStateBorder"
                         Value="{x:Null}" />
                 <Setter Property="Content"
                         TargetName="popupContent"
