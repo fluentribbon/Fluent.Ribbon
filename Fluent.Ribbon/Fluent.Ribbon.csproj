@@ -50,7 +50,7 @@
   <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
-    <PackageLicenseFile>..\License.txt</PackageLicenseFile>
+    <PackageLicenseFile>licenses/License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
     <PackageIcon>../Images/Logo/Logo_32x32.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>
