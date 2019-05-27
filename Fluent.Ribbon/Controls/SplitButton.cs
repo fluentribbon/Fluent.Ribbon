@@ -37,9 +37,12 @@ namespace Fluent
             get
             {
                 var baseEnumerator = base.LogicalChildren;
-                while (baseEnumerator.MoveNext())
+                if (baseEnumerator != null)
                 {
-                    yield return baseEnumerator.Current;
+                    while (baseEnumerator.MoveNext())
+                    {
+                        yield return baseEnumerator.Current;
+                    }
                 }
 
                 if (this.button != null)
@@ -225,7 +228,8 @@ namespace Fluent
         #region IsButtonEnabled
 
         /// <summary>
-        /// Gets or sets a value indicating whether dropdown part of split button is enabled
+        /// Gets or sets a value indicating whether the button part of split button is enabled.
+        /// If you want to disable the button part and the DropDown please use <see cref="UIElement.IsEnabled"/>.
         /// </summary>
         public bool IsButtonEnabled
         {
@@ -234,7 +238,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsDropDownEnabled.  This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="IsButtonEnabled"/>.
         /// </summary>
         public static readonly DependencyProperty IsButtonEnabledProperty =
             DependencyProperty.Register(nameof(IsButtonEnabled), typeof(bool), typeof(SplitButton), new PropertyMetadata(BooleanBoxes.TrueBox));
