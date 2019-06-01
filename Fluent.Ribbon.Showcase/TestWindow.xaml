@@ -7,7 +7,7 @@
                      mc:Ignorable="d"
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
-                     Title="{Binding DataContext.Title, ElementName=TestContent}"
+                     Title="{Binding WindowTitle, ElementName=TestContent}"
                      FlowDirection="LeftToRight"
                      Height="768"
                      Width="1024"

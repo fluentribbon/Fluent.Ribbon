@@ -1,10 +1,11 @@
-﻿#pragma warning disable SA1402 // File may only contain a single class
+#pragma warning disable SA1402 // File may only contain a single class
 namespace FluentTest
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Reflection;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace FluentTest
     public partial class TestContent : UserControl
     {
         private readonly MainViewModel viewModel;
+        private string windowTitle;
 
         public TestContent()
         {
@@ -42,8 +44,10 @@ namespace FluentTest
             this.Loaded += this.TestContent_Loaded;
         }
 
-        public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+        public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
+        public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+        
         public List<KeyValuePair<string, Brush>> Brushes
         {
             get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
@@ -58,10 +62,25 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-            
+
             return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
+        }
+
+        private static string GetVersionText(Type type)
+        {
+            var version = type.Assembly.GetName().Version;
+
+            var assemblyProductAttribute = (type.Assembly
+                .GetCustomAttributes(typeof(AssemblyProductAttribute), false) as AssemblyProductAttribute[])
+                .FirstOrDefault();
+
+            var assemblyInformationalVersionAttribute = (type.Assembly
+                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false) as AssemblyInformationalVersionAttribute[])
+                .FirstOrDefault();
+
+            return $"{assemblyProductAttribute.Product} {version} ({assemblyInformationalVersionAttribute.InformationalVersion})";
         }
 
         private string selectedMenu = "Backstage";
@@ -357,27 +376,27 @@ namespace FluentTest
         private async void HandleSaveAsClick(object sender, RoutedEventArgs e)
         {
             var progressAdornerChild = new Border
-                                      {
-                                          VerticalAlignment = VerticalAlignment.Stretch,
-                                          HorizontalAlignment = HorizontalAlignment.Stretch,
-                                          Background = new SolidColorBrush(Colors.Black) { Opacity = 0.25 },
-                                          IsHitTestVisible = true,
-                                          Child = new ProgressBar
-                                                  {
-                                                      IsIndeterminate = true,
-                                                      Width = 300,
-                                                      Height = 20,
-                                                      VerticalAlignment = VerticalAlignment.Center,
-                                                      HorizontalAlignment = HorizontalAlignment.Center
-                                                  }
-                                      };
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = new SolidColorBrush(Colors.Black) { Opacity = 0.25 },
+                IsHitTestVisible = true,
+                Child = new ProgressBar
+                {
+                    IsIndeterminate = true,
+                    Width = 300,
+                    Height = 20,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center
+                }
+            };
             BindingOperations.SetBinding(progressAdornerChild, WidthProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualWidth)) { Source = this.Backstage.AdornerLayer });
             BindingOperations.SetBinding(progressAdornerChild, HeightProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualHeight)) { Source = this.Backstage.AdornerLayer });
 
             var progressAdorner = new SimpleControlAdorner(this.Backstage.AdornerLayer)
-                                  {
-                                      Child = progressAdornerChild
-                                  };
+            {
+                Child = progressAdornerChild
+            };
 
             this.Backstage.AdornerLayer.Add(progressAdorner);
 
@@ -451,9 +470,9 @@ namespace FluentTest
                                         new TestWindow().Show();
                                         System.Windows.Threading.Dispatcher.Run();
                                     })
-                         {
-                             IsBackground = true
-                         };
+            {
+                IsBackground = true
+            };
             thread.SetApartmentState(ApartmentState.STA);
 
             thread.Start();

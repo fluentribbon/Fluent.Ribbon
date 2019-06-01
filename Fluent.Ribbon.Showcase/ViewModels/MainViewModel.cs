@@ -10,6 +10,7 @@
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
+    using MahApps.Metro.Controls;
 
     public class MainViewModel : ViewModel
     {
@@ -33,7 +34,6 @@
 
         public MainViewModel()
         {
-            this.Title = $"Fluent.Ribbon {GetVersionText()}";
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
@@ -55,8 +55,6 @@
         }
 
         #region Properties
-
-        public string Title { get; private set; }
 
         public long UsedMemory => GC.GetTotalMemory(true) / 1014;
 
@@ -221,19 +219,6 @@
         }
 
         #endregion Properties
-
-        private static string GetVersionText()
-        {
-            var version = typeof(Ribbon).Assembly.GetName().Version;
-
-            var attributes = typeof(Ribbon).Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
-                    as AssemblyInformationalVersionAttribute[];
-
-            var attrib = attributes.FirstOrDefault();
-
-            return $"{version} ({attrib.InformationalVersion})";
-        }
 
         private static void Preview(GalleryItem galleryItem)
         {

@@ -6,7 +6,7 @@
                    xmlns:fluentTest="clr-namespace:FluentTest"
                    Style="{DynamicResource CleanWindowStyleKey}"
                    WindowStartupLocation="CenterScreen"
-                   Title="{Binding DataContext.Title, ElementName=TestContent}"
+                   Title="{Binding WindowTitle, ElementName=TestContent}"
                    Height="768"
                    Width="1024"
                    x:Name="window"
