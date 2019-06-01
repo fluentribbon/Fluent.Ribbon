@@ -300,14 +300,10 @@ namespace Fluent
 
         #region Events
 
-        /// <summary>
-        /// Occurs when drop down is opened.
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when drop down menu is closed.
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownClosed;
 
         #endregion

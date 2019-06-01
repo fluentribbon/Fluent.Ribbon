@@ -1,5 +1,6 @@
 ﻿namespace Fluent
 {
+    using System;
     using System.Windows.Controls.Primitives;
 
     /// <summary>
@@ -21,5 +22,15 @@
         /// Gets or sets a value indicating whether drop down is opened
         /// </summary>
         bool IsDropDownOpen { get; set; }
+
+        /// <summary>
+        /// Occurs when drop down is opened.
+        /// </summary>
+        event EventHandler DropDownOpened;
+
+        /// <summary>
+        /// Occurs when drop down menu is closed.
+        /// </summary>
+        event EventHandler DropDownClosed;
     }
 }

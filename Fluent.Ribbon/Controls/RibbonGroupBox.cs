@@ -563,14 +563,10 @@ namespace Fluent
         /// </summary>
         public event RoutedEventHandler LauncherClick;
 
-        /// <summary>
-        /// Occurs when context menu is opened
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when context menu is closed
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownClosed;
 
         #endregion

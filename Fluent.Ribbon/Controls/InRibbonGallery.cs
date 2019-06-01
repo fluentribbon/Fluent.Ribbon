@@ -905,14 +905,10 @@ namespace Fluent
         /// <inheritdoc />
         public event EventHandler Scaled;
 
-        /// <summary>
-        /// Occurs when context menu is opened
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when context menu is closed
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownClosed;
 
         #endregion
