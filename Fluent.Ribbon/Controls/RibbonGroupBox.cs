@@ -578,14 +578,15 @@ namespace Fluent
         /// </summary>
         static RibbonGroupBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(typeof(RibbonGroupBox)));
-            VisibilityProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(OnVisibilityChanged));
-            FontSizeProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontSizeChanged));
-            FontFamilyProperty.AddOwner(typeof(RibbonGroupBox), new FrameworkPropertyMetadata(OnFontFamilyChanged));
+            var type = typeof(RibbonGroupBox);
 
-            PopupService.Attach(typeof(RibbonGroupBox));
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            VisibilityProperty.AddOwner(type, new PropertyMetadata(OnVisibilityChanged));
+            FontSizeProperty.AddOwner(type, new FrameworkPropertyMetadata(OnFontSizeChanged));
+            FontFamilyProperty.AddOwner(type, new FrameworkPropertyMetadata(OnFontFamilyChanged));
 
-            ContextMenuService.Attach(typeof(RibbonGroupBox));
+            PopupService.Attach(type);
+            ContextMenuService.Attach(type);
         }
 
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

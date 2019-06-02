@@ -371,9 +371,12 @@ namespace Fluent
         static RibbonTabControl()
         {
             var type = typeof(RibbonTabControl);
+
             DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(typeof(RibbonTabControl)));
             IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
+
             ContextMenuService.Attach(type);
             PopupService.Attach(type);
         }
