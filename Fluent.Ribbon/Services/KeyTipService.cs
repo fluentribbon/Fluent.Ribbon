@@ -401,7 +401,11 @@ namespace Fluent
 
         private void OnAdornerChainTerminated(object sender, KeyTipPressedResult e)
         {
-            this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            if (this.activeAdornerChain != null)
+            {
+                this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            }
+
             this.activeAdornerChain = null;
             this.ClearUserInput();
 

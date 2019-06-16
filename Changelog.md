@@ -121,6 +121,7 @@
   - [#698](../../issues/698) - Submenus in the application menu are not opened each time
   - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
   - [#714](../../issues/714) - ResizeMode="NoResize" and ShowInTaskbar="False" causes crash on startup
+  - [#722](../../issues/722) - NullReferenceException in KeyTipService.OnAdornerChainTerminated
 
 - ### Enhancements/Features
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
