@@ -475,6 +475,8 @@ namespace Fluent
 
             this.ClosePopups();
 
+            this.backUpFocusedControl = null;
+
             // If focus is inside the Ribbon already we don't want to jump around after finishing with KeyTips
             if (UIHelper.GetParent<Ribbon>(Keyboard.FocusedElement as DependencyObject) == null)
             {
@@ -491,6 +493,11 @@ namespace Fluent
             }
 
             this.ClearUserInput();
+
+            if (this.activeAdornerChain != null)
+            {
+                this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            }
 
             this.activeAdornerChain = new KeyTipAdorner(keyTipsTarget, keyTipsTarget, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
