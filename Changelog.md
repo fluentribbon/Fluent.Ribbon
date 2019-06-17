@@ -41,6 +41,8 @@
 
 |Old|New|
 |---|---|
+| ApplicationMenuStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItem |
+| ApplicationMenuSecondLevelStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel |
 | BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
 | FluentDefaultSystemMenuItemStyle | Fluent.Ribbon.Styles.MenuItem |
 | BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |

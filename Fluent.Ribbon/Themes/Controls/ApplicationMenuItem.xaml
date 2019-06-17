@@ -706,7 +706,7 @@
     </ControlTemplate>
 
     <!--Menu Item Style-->
-    <Style x:Key="ApplicationMenuSecondLevelStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
@@ -1510,7 +1510,7 @@
     </ControlTemplate>
 
     <!--Menu Item Style-->
-    <Style x:Key="ApplicationMenuStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItem"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />

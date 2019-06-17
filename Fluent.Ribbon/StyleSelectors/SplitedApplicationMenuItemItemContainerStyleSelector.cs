@@ -20,7 +20,7 @@
             switch (item)
             {
                 case MenuItem _:
-                    return (container as FrameworkElement)?.TryFindResource("ApplicationMenuSecondLevelStyle") as Style;
+                    return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel") as Style;
             }
 
             return base.SelectStyle(item, container);
