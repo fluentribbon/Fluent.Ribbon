@@ -124,6 +124,7 @@
   - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
   - [#714](../../issues/714) - ResizeMode="NoResize" and ShowInTaskbar="False" causes crash on startup
   - [#722](../../issues/722) - NullReferenceException in KeyTipService.OnAdornerChainTerminated
+  - [#730](../../issues/730) - Add null check for Application.Current to ThemeManager (thanks @Evangelink)
 
 - ### Enhancements/Features
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
