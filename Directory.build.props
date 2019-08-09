@@ -19,6 +19,7 @@
     <RestoreSources Condition="Exists('C:/DEV/OSS_Own/ControlzEx/Publish')">C:/DEV/OSS_Own/ControlzEx/Publish</RestoreSources>    
 
     <UseWpf>true</UseWpf>
+    <UseWindowsForms>true</UseWindowsForms>
     <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652</NoWarn>
   </PropertyGroup>
 

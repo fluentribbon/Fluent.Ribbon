@@ -86,7 +86,7 @@ namespace Fluent
 
                 // Add separator lines between
                 // tabs to assist readability
-                this.UpdateSeparators(false, false);
+                this.UpdateSeparators(true, true);
                 this.VerifyScrollData(availableSize.Width, desiredSize.Width);
                 return desiredSize;
             }

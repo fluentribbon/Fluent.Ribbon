@@ -215,7 +215,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(12.0));
+            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(8.0));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -648,18 +648,12 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
             var baseConstraint = base.MeasureOverride(constraint);
             var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
             this.contentContainer.Child.Measure(SizeConstants.Infinite);
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
 
-            if (totalWidth < headerWidth + (this.Indent * 2))
-            {
-                var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
-                this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
-            }
-            else
+            if (totalWidth > headerWidth + (this.Indent * 2))
             {
                 if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
                 {
