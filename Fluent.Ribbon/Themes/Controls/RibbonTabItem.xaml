@@ -128,6 +128,9 @@
             <Trigger Property="Selector.IsSelected"
                      Value="True">
                 <Setter Property="Visibility"
+                        TargetName="separatorGrid"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
                         TargetName="selectedBorder"
                         Value="Visible" />
             </Trigger>
