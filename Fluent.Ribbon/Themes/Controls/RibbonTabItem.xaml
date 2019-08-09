@@ -234,8 +234,6 @@
                 Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
         <Setter Property="Template"
                 Value="{DynamicResource RibbonTabItemControlTemplate}" />
-        <Setter Property="Indent"
-                Value="12" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="BorderBrush"
