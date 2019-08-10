@@ -8,10 +8,6 @@
                      x:Key="RibbonTabItemControlTemplate">
         <Grid x:Name="grid"              
               Height="Auto">
-            <Border x:Name="mouseOverBorder"            
-                    Margin="0,0,1,0"
-                    BorderThickness="0"
-                    Background="{TemplateBinding Background}" />
             <Border x:Name="groupBorder"
                     Margin="0,0,0,1"
                     BorderThickness="0"
@@ -19,11 +15,15 @@
                     OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
             <Border x:Name="selectedBorder"                        
                     Visibility="Collapsed"
-                    Margin="1,0,1,0"
+                    Margin="0"
                     VerticalAlignment="Stretch"
                     BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                     BorderThickness="1,1,1,0"                        
                     Background="{TemplateBinding ActiveTabBackground}" />
+            <Border x:Name="mouseOverBorder"            
+                    Margin="0,0,1,0"
+                    BorderThickness="0"
+                    Background="{TemplateBinding Background}" />
             <Border x:Name="PART_ContentContainer"
                     HorizontalAlignment="Stretch"
                     Margin="0"
