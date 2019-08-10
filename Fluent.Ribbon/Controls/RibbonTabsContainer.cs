@@ -59,30 +59,24 @@ namespace Fluent
             // of all the tabs until the minimum padding required for displaying
             // the tab selection and hover states is reached (regular tabs)
             var overflowWidth = desiredSize.Width - availableSize.Width;
+            // We assume that the indent/whitespace for all tabs is the same
             var whitespace = ((RibbonTabItem)this.InternalChildren[0]).Indent;
-            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => x.IsContextual && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed))
-                .ToList();
+            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>()
+                                  .Where(x => x.IsContextual == false && (x.Visibility != Visibility.Collapsed))
+                                  .OrderByDescending(x => x.DesiredSize.Width)
+                                  .ToList();
 
-            double contextualTabsCount = contextualTabs.Count;
-            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(x => !x.IsContextual && (x.Visibility != Visibility.Collapsed))
-                .ToList();
-
-            double regularTabsCount = regularTabs.Count; //InternalChildren.Count - contextualTabsCount;
-            var childrenCount = contextualTabsCount + regularTabsCount;
+            double regularTabsCount = regularTabs.Count;
 
             if (overflowWidth < regularTabsCount * whitespace * 2)
             {
                 var decreaseValue = overflowWidth / regularTabsCount;
                 foreach (var tab in regularTabs)
                 {
-                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height)); // tab.Width = Math.Max(0, tab.ActualWidth - decreaseValue);
+                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
                 }
 
                 desiredSize = this.GetChildrenDesiredSize();
-                if (desiredSize.Width > availableSize.Width)
-                {
-                    desiredSize.Width = availableSize.Width;
-                }
 
                 // Add separator lines between
                 // tabs to assist readability
@@ -91,27 +85,37 @@ namespace Fluent
                 return desiredSize;
             }
 
+            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>()
+                                     .Where(x => x.IsContextual && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed))
+                                     .OrderByDescending(x => x.DesiredSize.Width)
+                                     .ToList();
+
+            double contextualTabsCount = contextualTabs.Count;
+            var tabsCount = contextualTabsCount + regularTabsCount;
+
             // Step 3. Gradually and uniformly remove the padding from both sides
             // of all the tabs until the minimum padding required for displaying
             // the tab selection and hover states is reached (contextual tabs)
-            if (overflowWidth < childrenCount * whitespace * 2)
+            if (overflowWidth < tabsCount * whitespace * 2)
             {
                 var regularTabsWhitespace = regularTabsCount * whitespace * 2.0;
                 var decreaseValue = (overflowWidth - regularTabsWhitespace) / contextualTabsCount;
 
                 foreach (var tab in regularTabs)
                 {
-                    //if (!tab.IsContextual)
+                    var widthBeforeMeasure = tab.DesiredSize.Width;
+                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
+                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+
+                    if (overflowWidth <= 0)
                     {
-                        var widthBeforeMeasure = tab.DesiredSize.Width;
-                        tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
-                        overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                        break;
                     }
                 }
 
-                foreach (var tab in contextualTabs.Reverse<RibbonTabItem>())
+                if (overflowWidth > 0)
                 {
-                    //if (tab.IsContextual)
+                    foreach (var tab in contextualTabs.Reverse<RibbonTabItem>())
                     {
                         var widthBeforeMeasure = tab.DesiredSize.Width;
                         tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
@@ -119,7 +123,7 @@ namespace Fluent
                         // Contextual tabs may overreduce, so check that
                         overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
 
-                        if (overflowWidth < 0)
+                        if (overflowWidth <= 0)
                         {
                             break;
                         }
@@ -127,11 +131,6 @@ namespace Fluent
                 }
 
                 desiredSize = this.GetChildrenDesiredSize();
-
-                if (desiredSize.Width > availableSize.Width)
-                {
-                    desiredSize.Width = availableSize.Width;
-                }
 
                 // Add separator lines between
                 // tabs to assist readability
@@ -146,42 +145,44 @@ namespace Fluent
             // (Regular tabs)
             foreach (var tab in regularTabs)
             {
-                //if (!tab.IsContextual)
+                var widthBeforeMeasure = tab.DesiredSize.Width;
+                tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
+                overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+
+                if (overflowWidth < 0)
                 {
-                    var widthBeforeMeasure = tab.DesiredSize.Width;
-                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
-                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+                    desiredSize = this.GetChildrenDesiredSize();
+
+                    // Add separator lines between
+                    // tabs to assist readability
+                    this.UpdateSeparators(true, false);
+                    this.VerifyScrollData(availableSize.Width, desiredSize.Width);
+                    return desiredSize;
                 }
             }
 
             foreach (var tab in contextualTabs.Reverse<RibbonTabItem>())
             {
-                //if (tab.IsContextual)
+                var widthBeforeMeasure = tab.DesiredSize.Width;
+                tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
+
+                // Contextual tabs may overreduce, so check that
+                overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
+
+                if (overflowWidth < 0)
                 {
-                    var widthBeforeMeasure = tab.DesiredSize.Width;
-                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
+                    desiredSize = this.GetChildrenDesiredSize();
 
-                    // Contextual tabs may overreduce, so check that
-                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-
-                    if (overflowWidth < 0)
-                    {
-                        desiredSize = this.GetChildrenDesiredSize();
-                        if (desiredSize.Width > availableSize.Width)
-                        {
-                            desiredSize.Width = availableSize.Width;
-                        }
-
-                        // Add separator lines between
-                        // tabs to assist readability
-                        this.UpdateSeparators(true, false);
-                        this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                        return desiredSize;
-                    }
+                    // Add separator lines between
+                    // tabs to assist readability
+                    this.UpdateSeparators(true, false);
+                    this.VerifyScrollData(availableSize.Width, desiredSize.Width);
+                    return desiredSize;
                 }
             }
 
-            // Sort regular tabs by descending
+            // Sort regular tabs by their desired width descending.
+            // We already sorted them earlier, but their size changed since then, so we have to do it again.
             var sortedRegularTabItems = regularTabs
                 .OrderByDescending(x => x.DesiredSize.Width)
                 .ToList();
@@ -218,11 +219,6 @@ namespace Fluent
 
                 desiredSize = this.GetChildrenDesiredSize();
 
-                if (desiredSize.Width > availableSize.Width)
-                {
-                    desiredSize.Width = availableSize.Width;
-                }
-
                 // Add separator lines between
                 // tabs to assist readability
                 this.UpdateSeparators(true, true);
@@ -245,7 +241,6 @@ namespace Fluent
                 }
 
                 desiredSize = this.GetChildrenDesiredSize();
-                //if (desiredSize.Width > availableSize.Width) desiredSize.Width = availableSize.Width;
 
                 // Add separator lines between
                 // tabs to assist readability
@@ -301,11 +296,6 @@ namespace Fluent
                 }
 
                 desiredSize = this.GetChildrenDesiredSize();
-
-                if (desiredSize.Width > availableSize.Width)
-                {
-                    desiredSize.Width = availableSize.Width;
-                }
 
                 // Add separator lines between
                 // tabs to assist readability
@@ -697,31 +687,46 @@ namespace Fluent
             isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
             isValid &= DoubleUtil.AreClose(this.ScrollData.OffsetX, offsetX);
 
+            System.Diagnostics.Trace.WriteLine($"View: {viewportWidth}");
+            System.Diagnostics.Trace.WriteLine($"Exte: {extentWidth}");
+
             this.ScrollData.ViewportWidth = viewportWidth;
 
-            // newExtentWidth is neccessary to fix 20762 (Tab scroll button appears randomly when resizing)
-            // To fix 20762 we are manipulating the extentWidth by checking if all regular (non contextual) tabs are at their minimum width.
-            // When they are all at their minimum width we have to force the extentWidth to be greater than the viewportWidth.
-            // When there are no regular tabs, we MUST NOT apply this fix
-            var newExtentWidth = Math.Max(viewportWidth, extentWidth);
-
-            var visibleRegularTabs = this.InternalChildren.Cast<RibbonTabItem>()
-                .Where(item => item.IsContextual == false && item.Visibility != Visibility.Collapsed)
-                .ToList();
-
-            if (visibleRegularTabs.Any()
-                && visibleRegularTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth)))
+            // Prevent flickering by only using extentWidth if it's at least 2 larger than viewportWidth
+            if (viewportWidth + 2 < extentWidth)
             {
-                if (DoubleUtil.AreClose(newExtentWidth, viewportWidth))
-                {
-                    newExtentWidth = newExtentWidth + 1;
-                }
-
-                this.ScrollData.ExtentWidth = newExtentWidth;
+                this.scrollData.ExtentWidth = extentWidth;
             }
             else
             {
-                this.ScrollData.ExtentWidth = this.ScrollData.ViewportWidth;
+                // Or we show show the srollbar if all tabs are at their minimum width or smaller
+                // but do this early (if extent + 2 is equal or larger than the viewport, or they are equal)
+                if (extentWidth + 2 >= viewportWidth
+                    || DoubleUtil.AreClose(extentWidth, viewportWidth))
+                {
+                    var visibleTabs = this.InternalChildren.Cast<RibbonTabItem>().Where(item => item.Visibility != Visibility.Collapsed).ToList();
+
+                    var newExtentWidth = viewportWidth;
+
+                    if (visibleTabs.Any()
+                        && visibleTabs.All(item => DoubleUtil.AreClose(item.DesiredSize.Width, MinimumRegularTabWidth) || item.DesiredSize.Width < MinimumRegularTabWidth))
+                    {
+                        if (DoubleUtil.AreClose(newExtentWidth, viewportWidth))
+                        {
+                            newExtentWidth += 1;
+                        }
+
+                        this.ScrollData.ExtentWidth = newExtentWidth;
+                    }
+                    else
+                    {
+                        this.scrollData.ExtentWidth = viewportWidth;
+                    }
+                }
+                else
+                {
+                    this.scrollData.ExtentWidth = viewportWidth;
+                }
             }
 
             this.ScrollData.OffsetX = offsetX;
