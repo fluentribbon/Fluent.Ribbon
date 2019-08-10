@@ -8,8 +8,9 @@
                      x:Key="RibbonTabItemControlTemplate">
         <Grid x:Name="grid"              
               Height="Auto">
-            <Border x:Name="mouseOverBorder"
-                    Margin="1,0,1,0"
+            <Border x:Name="mouseOverBorder"            
+                    Margin="0,0,1,0"
+                    BorderThickness="0"
                     Background="{TemplateBinding Background}" />
             <Border x:Name="groupBorder"
                     Margin="0,0,0,1"
@@ -75,7 +76,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
                         TargetName="groupBorder"
-                        Value="2,0,0,0" />
+                        Value="1,0,0,0" />
+                <Setter Property="Margin"
+                        TargetName="mouseOverBorder"
+                        Value="1,0,0,0" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -86,6 +90,9 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
                         TargetName="groupBorder"
+                        Value="0,0,2,0" />
+                <Setter Property="Margin"
+                        TargetName="mouseOverBorder"
                         Value="0,0,2,0" />
             </MultiTrigger>
             <MultiTrigger>
@@ -98,6 +105,9 @@
                 <Setter Property="Margin"
                         TargetName="groupBorder"
                         Value="0,0,0,0" />
+                <Setter Property="Margin"
+                        TargetName="mouseOverBorder"
+                        Value="0,0,0,0" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -108,7 +118,10 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
                         TargetName="groupBorder"
-                        Value="2,0,2,0" />
+                        Value="1,0,2,0" />
+                <Setter Property="Margin"
+                        TargetName="mouseOverBorder"
+                        Value="1,0,2,0" />
             </MultiTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">
@@ -123,7 +136,7 @@
                         Value="Collapsed" />
                 <Setter Property="Margin"
                         TargetName="separatorGrid"
-                        Value="-1,0,0,1" />
+                        Value="-1,0,0,0" />
             </Trigger>
             <Trigger Property="Selector.IsSelected"
                      Value="True">
