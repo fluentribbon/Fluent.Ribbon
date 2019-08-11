@@ -14,8 +14,6 @@
         private const double ReferenceWidth = 300;
 
         private static readonly double ReferenceHeight = 26;
-        private static readonly Size referenceSize = new Size(ReferenceWidth, SystemParameters.WindowCaptionHeight);
-        private static readonly double DefaultTabsContainerHeight = SystemParameters.WindowCaptionHeight;
 
         [Test]
         public void Empty()
@@ -24,8 +22,6 @@
 
             using (new TestRibbonWindow(container))
             {
-                container.Measure(referenceSize);
-
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(0, 0)));
             }
         }
@@ -86,7 +82,7 @@
                                                                 37
                                                             }));
 
-                testWindow.Width = 290;
+                container.Measure(new Size(290, ReferenceHeight));
 
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(290, ReferenceHeight)));
 
@@ -98,7 +94,7 @@
                                                                 37
                                                             }));
 
-                testWindow.Width = 289;
+                container.Measure(new Size(289, ReferenceHeight));
 
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(283, ReferenceHeight)));
 
@@ -110,7 +106,7 @@
                                                                 37
                                                             }));
 
-                testWindow.Width = 230;
+                container.Measure(new Size(230, ReferenceHeight));
 
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(229, ReferenceHeight)));
 
@@ -122,9 +118,7 @@
                                                                 37
                                                             }));
 
-                testWindow.Width = 150;
-
-                //await Task.Delay(TimeSpan.FromSeconds(30));
+                container.Measure(new Size(150, ReferenceHeight));
 
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(147, ReferenceHeight)));
                 Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
@@ -137,9 +131,9 @@
                                                                 37
                                                             }));
 
-                testWindow.Width = 130;
+                container.Measure(new Size(130, ReferenceHeight));
 
-                Assert.That(container.DesiredSize, Is.EqualTo(new Size(133, ReferenceHeight)));
+                Assert.That(container.DesiredSize, Is.EqualTo(new Size(126, ReferenceHeight)));
                 Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
 
                 Assert.That(childrenWidths, Is.EquivalentTo(new[]
@@ -147,24 +141,21 @@
                                                                 30,
                                                                 33,
                                                                 33,
-                                                                37
+                                                                30
                                                             }));
 
-                testWindow.Width = 120;
+                container.Measure(new Size(120, ReferenceHeight));
 
-                Assert.That(container.DesiredSize, Is.EqualTo(new Size(133, ReferenceHeight)));
-                Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
+                Assert.That(container.DesiredSize, Is.EqualTo(new Size(120, ReferenceHeight)));
+                Assert.That(container.ExtentWidth, Is.EqualTo(121));
 
                 Assert.That(childrenWidths, Is.EquivalentTo(new[]
                                                             {
                                                                 30,
-                                                                33,
-                                                                33,
-                                                                37
+                                                                30,
+                                                                30,
+                                                                30
                                                             }));
-
-                //Assert.That(container.DesiredSize, Is.EqualTo(new Size(246, ReferenceHeight)));
-                //Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
             }
 
             //await Task.Yield();
