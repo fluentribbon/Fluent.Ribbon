@@ -26,13 +26,14 @@
                 this.Top = int.MinValue;
             }
 
+            // As Ribbon uses layout rounding we should use it here too
+            FrameworkHelper.SetUseLayoutRounding(this, true);
+
             this.Show();
         }
 
         public void Dispose()
         {
-            GC.SuppressFinalize(this);
-
             this.Close();
         }
     }
