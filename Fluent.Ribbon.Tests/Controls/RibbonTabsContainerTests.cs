@@ -31,7 +31,7 @@
         }
 
         [Test]
-        public async Task With_One_Tab()
+        public void With_One_Tab()
         {
             var container = new RibbonTabsContainer();
             var tabItem = new RibbonTabItem();
@@ -48,11 +48,11 @@
                 Assert.That(container.DesiredSize, Is.EqualTo(new Size(38, ReferenceHeight)));
             }
 
-            await Task.Yield();
+            //await Task.Yield();
         }
 
         [Test]
-        public async Task With_Many_Tab()
+        public void With_Many_Tab()
         {
             var container = new RibbonTabsContainer();
 
@@ -167,7 +167,7 @@
                 //Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
             }
 
-            await Task.Yield();
+            //await Task.Yield();
         }
     }
 }
