@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
@@ -42,12 +43,9 @@ namespace Fluent
 
             var desiredSize = this.MeasureChildrenDesiredSize(availableSize);
 
-            // Performs steps as described in "2007 MICROSOFT® OFFICE FLUENT™
-            // USER INTERFACE DESIGN GUIDELINES"
-
-            // Step 1. Gradually remove empty space to the right of the tabs
-            // If all tabs already in full size, just return
-            if (availableSize.Width > desiredSize.Width)
+            // Step 1. If all tabs already fit, just return.
+            if (availableSize.Width >= desiredSize.Width
+                || DoubleUtil.AreClose(availableSize.Width, desiredSize.Width))
             {
                 // Hide separator lines between tabs
                 this.UpdateSeparators(false, false);
@@ -55,273 +53,105 @@ namespace Fluent
                 return desiredSize;
             }
 
-            // Step 2. Gradually and uniformly remove the padding from both sides
-            // of all the tabs until the minimum padding required for displaying
-            // the tab selection and hover states is reached (regular tabs)
+            // Size reduction:
+            // - calculate the overflow width
+            // - get all visible tabs ordered by:
+            //   - non context tabs first
+            //   - largest tabs first
+            // - then loop over all tabs and reduce their size in steps
+            //   - during each tabs reduction check if it's still the largest tab
+            //   - if it's still the largest tab reduce it's size further till there is no larger tab left
             var overflowWidth = desiredSize.Width - availableSize.Width;
-            // We assume that the indent/whitespace for all tabs is the same
-            var whitespace = ((RibbonTabItem)this.InternalChildren[0]).Indent;
-            var regularTabs = this.InternalChildren.Cast<RibbonTabItem>()
-                                  .Where(x => x.IsContextual == false && (x.Visibility != Visibility.Collapsed))
-                                  .OrderByDescending(x => x.DesiredSize.Width)
+
+            var visibleTabs = this.InternalChildren.Cast<RibbonTabItem>()
+                                  .Where(x => x.Visibility != Visibility.Collapsed)
+                                  .OrderBy(x => x.IsContextual)
                                   .ToList();
 
-            double regularTabsCount = regularTabs.Count;
+            // did we change the size of any contextual tabs?
+            var contextualTabsSizeChanged = false;
 
-            if (overflowWidth < regularTabsCount * whitespace * 2)
+            // step size for reducing the size of tabs
+            const int sizeChangeStepSize = 4;
+
+            // loop while we got overflow left (still need to reduce more) and all tabs are larger than the minimum size
+            while (overflowWidth > 0
+                   && AreAnyTabsAboveMinimumSize(visibleTabs))
             {
-                var decreaseValue = overflowWidth / regularTabsCount;
-                foreach (var tab in regularTabs)
-                {
-                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
-                }
-
-                desiredSize = this.GetChildrenDesiredSize();
-
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, true);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
-
-            var contextualTabs = this.InternalChildren.Cast<RibbonTabItem>()
-                                     .Where(x => x.IsContextual && (x.Visibility != Visibility.Collapsed) && (x.Group.Visibility != Visibility.Collapsed))
-                                     .OrderByDescending(x => x.DesiredSize.Width)
-                                     .ToList();
-
-            double contextualTabsCount = contextualTabs.Count;
-            var tabsCount = contextualTabsCount + regularTabsCount;
-
-            // Step 3. Gradually and uniformly remove the padding from both sides
-            // of all the tabs until the minimum padding required for displaying
-            // the tab selection and hover states is reached (contextual tabs)
-            if (overflowWidth < tabsCount * whitespace * 2)
-            {
-                var regularTabsWhitespace = regularTabsCount * whitespace * 2.0;
-                var decreaseValue = (overflowWidth - regularTabsWhitespace) / contextualTabsCount;
-
-                foreach (var tab in regularTabs)
+                var tabsChangedInSize = 0;
+                foreach (var tab in visibleTabs.OrderByDescending(x => x.DesiredSize.Width))
                 {
                     var widthBeforeMeasure = tab.DesiredSize.Width;
-                    tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
-                    overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
 
+                    // ignore tabs that are smaller or equal to the minimum size
+                    if (widthBeforeMeasure < MinimumRegularTabWidth
+                        || DoubleUtil.AreClose(widthBeforeMeasure, MinimumRegularTabWidth))
+                    {
+                        continue;
+                    }
+
+                    var wasLargestTab = IsLargestTab(visibleTabs, tab.DesiredSize.Width, tab.IsContextual);
+
+                    // measure with reduced size, but at least the minimum size
+                    tab.Measure(new Size(Math.Max(MinimumRegularTabWidth, tab.DesiredSize.Width - sizeChangeStepSize), tab.DesiredSize.Height));
+
+                    // calculate diff of measure before and after possible reduction
+                    var widthDifference = widthBeforeMeasure - tab.DesiredSize.Width;
+                    var didWidthChange = widthDifference > 0;
+
+                    // count as changed if diff is greater than zero
+                    tabsChangedInSize += didWidthChange
+                                       ? 1
+                                       : 0;
+
+                    // was it a changed contextual tab?
+                    if (tab.IsContextual
+                        && didWidthChange)
+                    {
+                        contextualTabsSizeChanged = true;
+                    }
+
+                    // reduce remaining overflow width
+                    overflowWidth -= widthDifference;
+
+                    // break if no overflow width is left
                     if (overflowWidth <= 0)
+                    {
+                        break;
+                    }
+
+                    // if the current tab was the largest tab break to reduce it's size further
+                    if (wasLargestTab
+                        && didWidthChange)
                     {
                         break;
                     }
                 }
 
-                if (overflowWidth > 0)
-                {
-                    foreach (var tab in contextualTabs.Reverse<RibbonTabItem>())
-                    {
-                        var widthBeforeMeasure = tab.DesiredSize.Width;
-                        tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - decreaseValue), tab.DesiredSize.Height));
-
-                        // Contextual tabs may overreduce, so check that
-                        overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-
-                        if (overflowWidth <= 0)
-                        {
-                            break;
-                        }
-                    }
-                }
-
-                desiredSize = this.GetChildrenDesiredSize();
-
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, false);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
-
-            // Step 4. Reduce the width of the tab with the longest name by
-            // truncating the text label. Continue reducing the width of the largest
-            // tab (or tabs in the case of ties) until all tabs are the same width.
-            // (Regular tabs)
-            foreach (var tab in regularTabs)
-            {
-                var widthBeforeMeasure = tab.DesiredSize.Width;
-                tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
-                overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-
-                if (overflowWidth < 0)
-                {
-                    desiredSize = this.GetChildrenDesiredSize();
-
-                    // Add separator lines between
-                    // tabs to assist readability
-                    this.UpdateSeparators(true, false);
-                    this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                    return desiredSize;
-                }
-            }
-
-            foreach (var tab in contextualTabs.Reverse<RibbonTabItem>())
-            {
-                var widthBeforeMeasure = tab.DesiredSize.Width;
-                tab.Measure(new Size(Math.Max(0, tab.DesiredSize.Width - (whitespace * 2.0)), tab.DesiredSize.Height));
-
-                // Contextual tabs may overreduce, so check that
-                overflowWidth -= widthBeforeMeasure - tab.DesiredSize.Width;
-
-                if (overflowWidth < 0)
-                {
-                    desiredSize = this.GetChildrenDesiredSize();
-
-                    // Add separator lines between
-                    // tabs to assist readability
-                    this.UpdateSeparators(true, false);
-                    this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                    return desiredSize;
-                }
-            }
-
-            // Sort regular tabs by their desired width descending.
-            // We already sorted them earlier, but their size changed since then, so we have to do it again.
-            var sortedRegularTabItems = regularTabs
-                .OrderByDescending(x => x.DesiredSize.Width)
-                .ToList();
-
-            // Find how many regular tabs we have to reduce
-            double reducedLength = 0;
-            var reduceCount = 0;
-
-            for (var i = 0; i < sortedRegularTabItems.Count - 1; i++)
-            {
-                var temp = sortedRegularTabItems[i].DesiredSize.Width - sortedRegularTabItems[i + 1].DesiredSize.Width;
-                reducedLength += temp * (i + 1);
-                reduceCount = i + 1;
-
-                if (reducedLength > overflowWidth)
+                // break if no tabs changed their size
+                if (tabsChangedInSize == 0)
                 {
                     break;
                 }
             }
 
-            if (reducedLength > overflowWidth)
-            {
-                // Reduce regular tabs
-                var requiredWidth = sortedRegularTabItems[reduceCount].DesiredSize.Width;
-                if (reducedLength > overflowWidth)
-                {
-                    requiredWidth += (reducedLength - overflowWidth) / reduceCount;
-                }
+            desiredSize = this.GetChildrenDesiredSize();
 
-                for (var i = 0; i < reduceCount; i++)
-                {
-                    sortedRegularTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
-                }
+            // Add separator lines between
+            // tabs to assist readability
+            this.UpdateSeparators(true, contextualTabsSizeChanged || AreAnyTabsAboveMinimumSize(visibleTabs) == false);
+            this.VerifyScrollData(availableSize.Width, desiredSize.Width);
+            return desiredSize;
+        }
 
-                desiredSize = this.GetChildrenDesiredSize();
+        private static bool AreAnyTabsAboveMinimumSize(List<RibbonTabItem> tabs)
+        {
+            return tabs.Any(item => item.DesiredSize.Width > MinimumRegularTabWidth);
+        }
 
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, true);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
-
-            // Step 5. Reduce the width of all regular tabs equally
-            // down to a minimum of about three characters.
-            var regularTabsWidth = sortedRegularTabItems.Sum(x => x.DesiredSize.Width);
-            var minimumRegularTabsWidth = MinimumRegularTabWidth * sortedRegularTabItems.Count;
-
-            if (overflowWidth < regularTabsWidth - minimumRegularTabsWidth)
-            {
-                var settedWidth = (regularTabsWidth - overflowWidth) / regularTabsCount;
-
-                for (var i = 0; i < regularTabsCount; i++)
-                {
-                    sortedRegularTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
-                }
-
-                desiredSize = this.GetChildrenDesiredSize();
-
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, true);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
-
-            // Step 6. Reduce the width of the tab with the longest name by
-            // truncating the text label. Continue reducing the width of the largest
-            // tab (or tabs in the case of ties) until all tabs are the same width.
-            // (Contextual tabs)
-            for (var i = 0; i < regularTabsCount; i++)
-            {
-                sortedRegularTabItems[i].Measure(new Size(MinimumRegularTabWidth, availableSize.Height));
-            }
-
-            overflowWidth -= regularTabsWidth - minimumRegularTabsWidth;
-
-            // Sort contextual tabs by descending
-            var sortedContextualTabItems = contextualTabs
-                .OrderByDescending(x => x.DesiredSize.Width)
-                .ToList();
-
-            // Find how many contextual tabs we have to reduce
-            reducedLength = 0;
-            reduceCount = 0;
-
-            for (var i = 0; i < sortedContextualTabItems.Count - 1; i++)
-            {
-                var temp = sortedContextualTabItems[i].DesiredSize.Width - sortedContextualTabItems[i + 1].DesiredSize.Width;
-                reducedLength += temp * (i + 1);
-                reduceCount = i + 1;
-
-                if (reducedLength > overflowWidth)
-                {
-                    break;
-                }
-            }
-
-            if (reducedLength > overflowWidth)
-            {
-                // Reduce regular tabs
-                var requiredWidth = sortedContextualTabItems[reduceCount].DesiredSize.Width;
-                if (reducedLength > overflowWidth)
-                {
-                    requiredWidth += (reducedLength - overflowWidth) / reduceCount;
-                }
-
-                for (var i = 0; i < reduceCount; i++)
-                {
-                    sortedContextualTabItems[i].Measure(new Size(requiredWidth, availableSize.Height));
-                }
-
-                desiredSize = this.GetChildrenDesiredSize();
-
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, true);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
-            else
-            {
-                var contextualTabsWidth = sortedContextualTabItems.Sum(x => x.DesiredSize.Width);
-
-                var settedWidth = Math.Max(MinimumRegularTabWidth, (contextualTabsWidth - overflowWidth) / contextualTabsCount);
-
-                for (var i = 0; i < sortedContextualTabItems.Count; i++)
-                {
-                    sortedContextualTabItems[i].Measure(new Size(settedWidth, availableSize.Height));
-                }
-
-                desiredSize = this.GetChildrenDesiredSize();
-
-                // Add separator lines between
-                // tabs to assist readability
-                this.UpdateSeparators(true, true);
-                this.VerifyScrollData(availableSize.Width, desiredSize.Width);
-                return desiredSize;
-            }
+        private static bool IsLargestTab(List<RibbonTabItem> tabs, double width, bool isContextual)
+        {
+            return tabs.Count > 1 && tabs.Any(x => x.IsContextual == isContextual && x.DesiredSize.Width > width) == false;
         }
 
         private Size MeasureChildrenDesiredSize(Size availableSize)
@@ -333,6 +163,7 @@ namespace Fluent
             {
                 child.Measure(availableSize);
                 width += child.DesiredSize.Width;
+
                 height = Math.Max(height, child.DesiredSize.Height);
             }
 
