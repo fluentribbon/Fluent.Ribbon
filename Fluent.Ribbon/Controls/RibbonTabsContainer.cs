@@ -518,9 +518,6 @@ namespace Fluent
             isValid &= DoubleUtil.AreClose(extentWidth, this.ScrollData.ExtentWidth);
             isValid &= DoubleUtil.AreClose(this.ScrollData.OffsetX, offsetX);
 
-            System.Diagnostics.Trace.WriteLine($"View: {viewportWidth}");
-            System.Diagnostics.Trace.WriteLine($"Exte: {extentWidth}");
-
             this.ScrollData.ViewportWidth = viewportWidth;
 
             // Prevent flickering by only using extentWidth if it's at least 2 larger than viewportWidth
