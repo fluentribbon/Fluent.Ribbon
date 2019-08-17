@@ -21,7 +21,7 @@
                     BorderThickness="1,1,1,0"                        
                     Background="{TemplateBinding ActiveTabBackground}" />
             <Border x:Name="mouseOverBorder"            
-                    Margin="0,0,1,0"
+                    Margin="0"
                     BorderThickness="0"
                     Background="{TemplateBinding Background}" />
             <Border x:Name="PART_ContentContainer"
@@ -57,10 +57,10 @@
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="HasRightGroupBorder"
-                               Value="False" />
                     <Condition Property="HasLeftGroupBorder"
                                Value="True" />
+                    <Condition Property="HasRightGroupBorder"
+                               Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Margin"
                         TargetName="groupBorder"
@@ -82,20 +82,6 @@
                 <Setter Property="Margin"
                         TargetName="mouseOverBorder"
                         Value="0,0,2,0" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasLeftGroupBorder"
-                               Value="False" />
-                    <Condition Property="HasRightGroupBorder"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Margin"
-                        TargetName="groupBorder"
-                        Value="0,0,0,0" />
-                <Setter Property="Margin"
-                        TargetName="mouseOverBorder"
-                        Value="0,0,0,0" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -117,23 +103,17 @@
                         TargetName="separatorGrid"
                         Value="Visible" />
                 <Setter Property="Margin"
-                        TargetName="mouseOverBorder"
-                        Value="0,0,0,0" />
+                        TargetName="selectedBorder"
+                        Value="0,0,1,0" />
             </Trigger>
             <Trigger Property="Group"
                      Value="{x:Null}">
                 <Setter Property="Visibility"
                         TargetName="groupBorder"
                         Value="Collapsed" />
-                <Setter Property="Margin"
-                        TargetName="separatorGrid"
-                        Value="-1,0,0,0" />
             </Trigger>
             <Trigger Property="Selector.IsSelected"
                      Value="True">
-                <Setter Property="Visibility"
-                        TargetName="separatorGrid"
-                        Value="Collapsed" />
                 <Setter Property="Visibility"
                         TargetName="selectedBorder"
                         Value="Visible" />
