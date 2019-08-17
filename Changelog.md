@@ -34,6 +34,7 @@
   - [#650](../../issues/650) - Create XAML icons and replace the shipped pngs with these (thanks @DenZuck for creating the xaml icons)  
     Due to this change all shipped images are now of type `DrawingImage` instead of `BitmapImage`.
   - The filename inside `IsolatedStorageFile` for the default `RibbonStateStorage` is now "Fluent.Ribbon.State." + Hex value of MD5 instead of "Fluent.Ribbon.State.2.0." + hex value of `GetHashCode`. This was done because `GetHashCode` does not return a stable value, especially on .NET core 3.0.
+  - `RibbonTabItem.Indent` was replaced by `RibbonTabItem.HeaderPadding`
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 

@@ -203,19 +203,19 @@ namespace Fluent
         internal RibbonTabControl TabControlParent => UIHelper.GetParent<RibbonTabControl>(this);
 
         /// <summary>
-        /// Gets or sets indent
+        /// Gets or sets the padding for the header.
         /// </summary>
-        public double Indent
+        public Thickness HeaderPadding
         {
-            get { return (double)this.GetValue(IndentProperty); }
-            set { this.SetValue(IndentProperty, value); }
+            get { return (Thickness)this.GetValue(HeaderPaddingProperty); }
+            set { this.SetValue(HeaderPaddingProperty, value); }
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
+        /// Using a DependencyProperty as the backing store for HeaderPadding.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(8.0));
+        public static readonly DependencyProperty HeaderPaddingProperty =
+            DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 5, 8, 5)));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -649,11 +649,11 @@ namespace Fluent
             }
 
             var baseConstraint = base.MeasureOverride(constraint);
-            var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
+            var totalWidth = this.contentContainer.DesiredSize.Width - (this.contentContainer.Margin.Left - this.contentContainer.Margin.Right);
             this.contentContainer.Child.Measure(SizeConstants.Infinite);
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
 
-            if (totalWidth > headerWidth + (this.Indent * 2))
+            if (totalWidth > headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right))
             {
                 if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
                 {
@@ -665,7 +665,7 @@ namespace Fluent
                     }
                     else
                     {
-                        baseConstraint.Width = headerWidth + (this.Indent * 2) + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
+                        baseConstraint.Width = headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right) + (this.contentContainer.Margin.Left + this.contentContainer.Margin.Right);
                     }
                 }
             }

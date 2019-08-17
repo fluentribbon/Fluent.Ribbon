@@ -27,24 +27,12 @@
             <Border x:Name="PART_ContentContainer"
                     HorizontalAlignment="Stretch"
                     Margin="0"
-                    VerticalAlignment="Stretch">
-                <Border.Padding>
-                    <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="Indent" />
-                        <Binding Source="5" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="Indent" />
-                        <Binding Source="5" />
-                    </MultiBinding>
-                </Border.Padding>
+                    VerticalAlignment="Stretch"
+                    Padding="{TemplateBinding HeaderPadding}">
                 <ContentControl AutomationProperties.Name="{TemplateBinding Header}"
                                 AutomationProperties.AutomationId="{TemplateBinding Name}"
                                 Content="{TemplateBinding Header}"
-                                ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Height="Auto" />
+                                ContentTemplate="{TemplateBinding HeaderTemplate}" />
             </Border>
             <Grid x:Name="separatorGrid"
                   Margin="0"
@@ -272,7 +260,7 @@
             <Setter.Value>
                 <DataTemplate>
                     <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
+                               HorizontalAlignment="Center"
                                Text="{Binding}"
                                TextWrapping="NoWrap"
                                TextTrimming="CharacterEllipsis" />
