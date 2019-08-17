@@ -2839,6 +2839,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
             </TabControl.Resources>
             
             <TabItem Header="Home">
+                <ScrollViewer>
                 <StackPanel>
                     <TextBlock TextWrapping="Wrap">
                         <Run FontWeight="ExtraBold"
@@ -3052,6 +3053,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         </WrapPanel>
                     </GroupBox>
                 </StackPanel>
+                </ScrollViewer>
             </TabItem>
             
             <TabItem Header="Developer">
@@ -3218,6 +3220,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
             </TabItem>
             
             <TabItem Header="Tests">
+                <ScrollViewer>
                 <StackPanel Orientation="Vertical">
                     <GroupBox Header="Tabs">
                         <WrapPanel>
@@ -3285,6 +3288,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         </WrapPanel>
                     </GroupBox>
                 </StackPanel>
+                </ScrollViewer>
             </TabItem>
 
             <TabItem Header="Styles">
