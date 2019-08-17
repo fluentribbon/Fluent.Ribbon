@@ -128,6 +128,9 @@
                 <Setter Property="Visibility"
                         TargetName="separatorGrid"
                         Value="Visible" />
+                <Setter Property="Margin"
+                        TargetName="mouseOverBorder"
+                        Value="0,0,0,0" />
             </Trigger>
             <Trigger Property="Group"
                      Value="{x:Null}">
