@@ -53,7 +53,7 @@
     <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="All" />
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="All" /> -->
     <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="All" />
-    <PackageReference Include="WpfAnalyzers" version="2.2.*" privateAssets="All" />
+    <PackageReference Include="WpfAnalyzers" version="2.3.*" privateAssets="All" />
 
     <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
