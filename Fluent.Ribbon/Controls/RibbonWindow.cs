@@ -297,6 +297,18 @@ namespace Fluent
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.MaintainIsCollapsed();
+
+            if (this.iconImage != null
+                && this.ActualWidth <= 140D + 16)
+            {
+                this.SetCurrentValue(IsIconVisibleProperty, false);
+                this.TitleBar.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
+            }
+            else
+            {
+                this.ClearValue(IsIconVisibleProperty);
+                this.TitleBar.ClearValue(VisibilityProperty);
+            }
         }
 
         private void OnContentRendered(object sender, EventArgs e)
