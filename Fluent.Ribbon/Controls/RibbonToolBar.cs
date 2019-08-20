@@ -20,6 +20,7 @@ namespace Fluent
     /// Represent panel for group box panel
     /// </summary>
     [ContentProperty(nameof(Children))]
+    [StyleTypedProperty(Property = nameof(SeparatorStyle), StyleTargetType = typeof(Separator))]
     public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink
     {
         #region Fields

@@ -1418,37 +1418,37 @@ namespace Fluent
         /// <summary>
         /// Gets add to quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand("AddToQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand(nameof(AddToQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets remove from quick access command
         /// </summary>
-        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand("RemoveFromQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand(nameof(RemoveFromQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access above command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand("ShowQuickAccessAboveCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand(nameof(ShowQuickAccessAboveCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access below command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand("ShowQuickAccessBelowCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand(nameof(ShowQuickAccessBelowCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets toggle ribbon minimize command
         /// </summary>
-        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand("ToggleMinimizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand(nameof(ToggleMinimizeTheRibbonCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand("CustomizeQuickAccessToolbarCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand(nameof(CustomizeQuickAccessToolbarCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize the ribbon command
         /// </summary>
-        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand("CustomizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand(nameof(CustomizeTheRibbonCommand), typeof(Ribbon));
 
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)

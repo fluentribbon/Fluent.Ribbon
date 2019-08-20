@@ -533,7 +533,7 @@ namespace FluentTest
 
     public class TestRoutedCommand
     {
-        public static RoutedCommand TestPresenterCommand { get; } = new RoutedCommand("TestPresenterCommand", typeof(TestRoutedCommand));
+        public static RoutedCommand TestPresenterCommand { get; } = new RoutedCommand(nameof(TestPresenterCommand), typeof(TestRoutedCommand));
 
         public ICommand ItemCommand => TestPresenterCommand;
 
