@@ -35,6 +35,16 @@ namespace Fluent
         /// </summary>
         public const double DefaultContentHeight = 94;
 
+        /// <summary>
+        /// Provides a value needed to add space to the popup to accomodate for overlapping keytips.
+        /// </summary>
+        public const double AdditionalPopupSpaceForKeyTips = 20;
+
+        /// <summary>
+        /// Provides a value needed to add space to the popup to accomodate for overlapping keytips.
+        /// </summary>
+        public static readonly GridLength AdditionalPopupSpaceForKeyTipsGridLength = new GridLength(AdditionalPopupSpaceForKeyTips);
+
         #region Fields
 
         // Collection of toolbar items
@@ -834,49 +844,63 @@ namespace Fluent
                 return null;
             }
 
-            // Get current workarea
-            var tabItemPos = this.SelectedTabItem.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
-            var tabItemRect = new RECT
-            {
-                Left = (int)tabItemPos.X,
-                Top = (int)tabItemPos.Y,
-                Right = (int)tabItemPos.X + (int)this.SelectedTabItem.ActualWidth,
-                Bottom = (int)tabItemPos.Y + (int)this.SelectedTabItem.ActualHeight
-            };
-#pragma warning restore 618
+            var tabItemDimensionsOnScreen = this.SelectedTabItem.PointToScreen(new Point(this.SelectedTabItem.ActualWidth, this.SelectedTabItem.ActualHeight)) - this.SelectedTabItem.PointToScreen(new Point(0, 0));
+            var tabItemActualSizeOnScreen = new Point(Math.Abs(tabItemDimensionsOnScreen.X), Math.Abs(tabItemDimensionsOnScreen.Y));
 
+            var widthFactor = tabItemActualSizeOnScreen.X / this.SelectedTabItem.ActualWidth;
+            var heightFactor = tabItemActualSizeOnScreen.Y / this.SelectedTabItem.ActualHeight;
+
+            // Get current workarea
+            var tabItemUpperLeftOnScreen = this.SelectedTabItem.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var tabItemOriginPointOnScreenRect = new RECT
+            {
+                Left = (int)tabItemUpperLeftOnScreen.X,
+                Top = (int)tabItemUpperLeftOnScreen.Y,
+                Right = (int)tabItemUpperLeftOnScreen.X + (int)tabItemDimensionsOnScreen.X,
+                Bottom = (int)tabItemUpperLeftOnScreen.Y + (int)tabItemDimensionsOnScreen.Y
+            };
+
+            var monitor = NativeMethods.MonitorFromRect(ref tabItemOriginPointOnScreenRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor == IntPtr.Zero)
             {
                 return null;
             }
 
             var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
+
 #pragma warning restore 618
-            var startPoint = this.PointToScreen(new Point(0, 0));
+
+            var tabControlUpperLeftOnScreen = this.PointToScreen(new Point(0, 0));
+            var tabControlDimensionsOnScreen = this.PointToScreen(new Point(this.ActualWidth, this.ActualHeight)) - this.PointToScreen(new Point(0, 0));
+            var tabControlActualSizeOnScreen = new Point(Math.Abs(tabControlDimensionsOnScreen.X), Math.Abs(tabControlDimensionsOnScreen.Y));
+
             if (this.FlowDirection == FlowDirection.RightToLeft)
             {
-                startPoint.X -= this.ActualWidth;
+                tabControlUpperLeftOnScreen.X -= tabControlActualSizeOnScreen.X;
             }
 
-            var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, startPoint.X);
-
-            var actualWidth = this.ActualWidth;
-            if (startPoint.X < monitorInfo.rcWork.Left)
+            // Calculate the popup width
+            // We have to take into account here that, when the window is moved to the side of a monitor and the window is not fully visible 
+            // the popup width is reduced to the maximum visible size of the window on the monitor the selected tab item is on.
+            // If we don't reduce the popup width wpf tries to be helpful and moves the popup out of the window to satisfy the width.
             {
-                actualWidth -= monitorInfo.rcWork.Left - startPoint.X;
-                startPoint.X = monitorInfo.rcWork.Left;
-            }
+                var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X);
 
-            // Set width and prevent negative values
-            this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+                var actualWidth = this.ActualWidth;
+                if (tabControlUpperLeftOnScreen.X < monitorInfo.rcWork.Left)
+                {
+                    actualWidth -= (monitorInfo.rcWork.Left - tabControlUpperLeftOnScreen.X) / widthFactor;
+                }
+
+                // Set width and prevent negative values
+                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+            }
 
             return new[]
             {
-                new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X + offset.X, targetsize.Height + offset.Y), PopupPrimaryAxis.Vertical),
-                new CustomPopupPlacement(new Point(startPoint.X - tabItemPos.X + offset.X, -1 * (targetsize.Height + offset.Y + ((ScrollViewer)this.SelectedContent).ActualHeight)), PopupPrimaryAxis.Vertical)
+                new CustomPopupPlacement(new Point(tabControlUpperLeftOnScreen.X - tabItemUpperLeftOnScreen.X, tabItemActualSizeOnScreen.Y - (AdditionalPopupSpaceForKeyTips * heightFactor)), PopupPrimaryAxis.Vertical),
+                new CustomPopupPlacement(new Point(tabControlUpperLeftOnScreen.X - tabItemUpperLeftOnScreen.X, -1 * (tabItemActualSizeOnScreen.Y - (AdditionalPopupSpaceForKeyTips * heightFactor))), PopupPrimaryAxis.Vertical)
             };
         }
 
