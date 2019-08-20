@@ -46,7 +46,15 @@
                     <x:Type TypeName="ResizeMode" />
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-            
+
+            <ObjectDataProvider MethodName="GetValues"
+                                ObjectType="{x:Type FlowDirection}"
+                                x:Key="FlowDirectionEnumValues">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="FlowDirection" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
             <Style TargetType="Label">
                 <Setter Property="Foreground"
                         Value="{DynamicResource BlackBrush}" />
@@ -2987,7 +2995,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                               ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
                                               SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
-                                    <Fluent:CheckBox IsChecked="{Binding Path=IgnoreTaskbarOnMaximize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=False}">
+                                    <ComboBox x:Name="FlowDirectionComboBox"
+                                              ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
+                                              SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+
+                                        <Fluent:CheckBox IsChecked="{Binding Path=IgnoreTaskbarOnMaximize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=False}">
                                         IgnoreTaskbarOnMaximize
                                     </Fluent:CheckBox>
                                 </WrapPanel>
