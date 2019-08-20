@@ -1,4 +1,4 @@
-#pragma warning disable SA1402 // File may only contain a single class
+﻿#pragma warning disable SA1402 // File may only contain a single class
 namespace FluentTest
 {
     using System;
@@ -523,6 +523,11 @@ namespace FluentTest
             }
 
             await metroWindow.ShowMessageAsync("Test", "Message");
+        }
+
+        private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
+        {
+            new Window().ShowDialog();
         }
     }
 
