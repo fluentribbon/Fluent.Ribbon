@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -379,7 +379,8 @@ namespace Fluent
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
         private BackstageTabItem GetSelectedTabItem()
         {
-            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
+            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem
+                ?? (this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as ContentPresenter)?.Content as BackstageTabItem;
             if (container == null
                 || container?.IsEnabled == false
                 || container?.Visibility != Visibility.Visible)
@@ -417,7 +418,9 @@ namespace Fluent
                     index = this.Items.Count - 1;
                 }
 
-                if (this.ItemContainerGenerator.ContainerFromIndex(index) is BackstageTabItem container
+                var container = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem
+                                ?? (this.ItemContainerGenerator.ContainerFromIndex(index) as ContentPresenter)?.Content as BackstageTabItem;
+                if (container != null
                     && container.IsEnabled
                     && container.Visibility == Visibility.Visible)
                 {
