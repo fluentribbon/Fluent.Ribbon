@@ -15,18 +15,15 @@
                     OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
             <Border x:Name="selectedBorder"                        
                     Visibility="Collapsed"
-                    Margin="0"
                     VerticalAlignment="Stretch"
                     BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                     BorderThickness="1,1,1,0"                        
                     Background="{TemplateBinding ActiveTabBackground}" />
             <Border x:Name="mouseOverBorder"            
-                    Margin="0"
                     BorderThickness="0"
                     Background="{TemplateBinding Background}" />
             <Border x:Name="PART_ContentContainer"
                     HorizontalAlignment="Stretch"
-                    Margin="0"
                     VerticalAlignment="Stretch"
                     Padding="{TemplateBinding HeaderPadding}">
                 <ContentControl AutomationProperties.Name="{TemplateBinding Header}"
@@ -55,48 +52,12 @@
                         TargetName="PART_ContentContainer"
                         Value="0.5" />
             </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasLeftGroupBorder"
-                               Value="True" />
-                    <Condition Property="HasRightGroupBorder"
-                               Value="False" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Margin"
-                        TargetName="groupBorder"
-                        Value="1,0,0,0" />
-                <Setter Property="Margin"
-                        TargetName="mouseOverBorder"
-                        Value="1,0,0,0" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasLeftGroupBorder"
-                               Value="False" />
-                    <Condition Property="HasRightGroupBorder"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Margin"
-                        TargetName="groupBorder"
-                        Value="0,0,2,0" />
-                <Setter Property="Margin"
-                        TargetName="mouseOverBorder"
-                        Value="0,0,2,0" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="HasLeftGroupBorder"
-                               Value="True" />
-                    <Condition Property="HasRightGroupBorder"
-                               Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter Property="Margin"
-                        TargetName="groupBorder"
-                        Value="1,0,2,0" />
-                <Setter Property="Margin"
-                        TargetName="mouseOverBorder"
-                        Value="1,0,2,0" />
-            </MultiTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Fluent:RibbonTabControl}, Path=SelectedItem}"
+                         Value="{x:Null}">
+                <Setter TargetName="groupBorder"
+                        Property="Margin"
+                        Value="0" />
+            </DataTrigger>
             <Trigger Property="IsSeparatorVisible"
                      Value="True">
                 <Setter Property="Visibility"
