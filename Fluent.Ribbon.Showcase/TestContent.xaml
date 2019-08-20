@@ -3367,6 +3367,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                           Grid.Row="2">
             <Fluent:StatusBarItem Title="Words Width"
                                   Value="150"
+                                  IsEnabled="False"
                                   HorizontalAlignment="Left">
                 <TextBlock Text="150 px" />
             </Fluent:StatusBarItem>
