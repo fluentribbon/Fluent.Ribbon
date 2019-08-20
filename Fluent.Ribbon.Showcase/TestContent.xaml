@@ -419,7 +419,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <Fluent:RibbonTabItem Header="Toolbars"
                                   KeyTip="TO"
-                                  ReduceOrder="Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
+                                  ReduceOrder="Group2, Group2, Group2, Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
                 <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        KeyTip="C"
                                        x:Name="Clipboard"
