@@ -148,27 +148,6 @@ namespace Fluent
 
         #endregion
 
-        #region GroupStyle
-
-        /// <summary>
-        /// Gets or sets group style
-        /// </summary>
-        public Style GroupStyle
-        {
-            get { return (Style)this.GetValue(GroupStyleProperty); }
-            set { this.SetValue(GroupStyleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupHeaderStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
-            typeof(GalleryPanel), new PropertyMetadata());
-
-        #endregion
-
         #region ItemWidth
 
         /// <summary>
@@ -493,7 +472,6 @@ namespace Fluent
                     {
                         Header = propertyValue
                     };
-                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.GroupStyle), GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.Orientation), GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemWidth), GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemHeight), GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
