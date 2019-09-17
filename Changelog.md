@@ -123,6 +123,7 @@
   - [#688](../../issues/688) - Backstage and StartScreen closing when pressing Alt
   - [#698](../../issues/698) - Submenus in the application menu are not opened each time
   - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
+  - [#705](../../issues/705) - ApplicationMenu header can't be set to text
   - [#714](../../issues/714) - ResizeMode="NoResize" and ShowInTaskbar="False" causes crash on startup
   - [#722](../../issues/722) - NullReferenceException in KeyTipService.OnAdornerChainTerminated
   - [#730](../../issues/730) - Add null check for Application.Current to ThemeManager (thanks @Evangelink)

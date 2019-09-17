@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -358,6 +359,46 @@
             if (value is System.Drawing.Icon icon)
             {
                 return ExtractImageSource(icon, targetVisual, desiredSize);
+            }
+
+            // !!! Danger zone ahead !!!
+            // !!! Please do not copy that code somewhere and blame me for failures !!!
+            // Hack to get the value from resource expressions
+            {
+                if (targetVisual is null == false // to get values for resource expressions we need a DependencyObject
+                    && value is Expression expression)
+                {
+                    var type = expression.GetType();
+                    var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                    if (method != null)
+                    {
+                        var valueFromExpression = method.Invoke(expression, new object[]
+                                                                            {
+                                                                                targetVisual,
+                                                                                // to get values from resource expressions we need a DependencyProperty, so just pass a random one
+                                                                                RibbonProperties.SizeProperty
+                                                                            });
+
+                        return CreateImageSource(valueFromExpression, targetVisual, desiredSize);
+                    }
+                }
+
+                if (value.GetType().InheritsFrom("DeferredReference"))
+                {
+                    var type = value.GetType();
+                    var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                    if (method != null)
+                    {
+                        var valueFromDeferredReference = method.Invoke(value, new object[]
+                                                                              {
+                                                                                  null
+                                                                              });
+
+                        return CreateImageSource(valueFromDeferredReference, targetVisual, desiredSize);
+                    }
+                }
             }
 
             return null;
