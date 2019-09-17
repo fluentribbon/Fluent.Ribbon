@@ -26,7 +26,7 @@
     <UpToDateCheckInput Include="**/*.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\License.txt" Pack="true" PackagePath="licenses/License.txt" />
+    <None Include="..\License.txt" Pack="true" PackagePath="license/License.txt" />
     <None Include="../Images/Logo/Logo_128x128.png" Pack="true" PackagePath="Logo.png" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
@@ -51,7 +51,7 @@
   <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
-    <PackageLicenseFile>licenses/License.txt</PackageLicenseFile>
+    <PackageLicenseFile>license/License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
     <PackageIcon>Logo.png</PackageIcon>
     <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_128x128.png</PackageIconUrl>
