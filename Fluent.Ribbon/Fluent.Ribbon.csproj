@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\License.txt" Pack="true" PackagePath="licenses/License.txt" />
+    <None Include="../Images/Logo/Logo_128x128.png" Pack="true" PackagePath="Logo.png" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
     <Reference Include="UIAutomationProvider" />
@@ -52,8 +53,8 @@
     <Authors>Bastian Schmidt</Authors>
     <PackageLicenseFile>licenses/License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
-    <PackageIcon>$(MSBuildProjectDirectory)/../Images/Logo/Logo_32x32.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_128x128.png</PackageIconUrl>
     <PackageTags>fluent;office;ribbon;ribbonwindow;backstage;UI;XAML;Toolkit;Library;.NET;OSS;OpenSource;fluentribbon</PackageTags>
     <PackageReleaseNotes>https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/fluentribbon/Fluent.Ribbon.git</RepositoryUrl>
