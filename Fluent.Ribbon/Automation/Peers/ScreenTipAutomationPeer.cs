@@ -1,9 +1,6 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using System.Windows;
-    using System.Windows.Automation;
     using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -20,9 +17,22 @@
         }
 
         /// <inheritdoc />
-        protected override bool IsContentElementCore()
+        protected override string GetClassNameCore()
         {
-            return true;
+            return "ScreenTip";
+        }
+
+        /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var name = base.GetNameCore();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                name = ((ScreenTip)this.Owner).Title;
+            }
+
+            return name;
         }
     }
 }
