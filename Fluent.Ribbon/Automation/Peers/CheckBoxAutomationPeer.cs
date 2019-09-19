@@ -15,18 +15,14 @@
         /// <inheritdoc />
         protected override string GetNameCore()
         {
-            var text = base.GetNameCore();
-            var owner = (IHeaderedControl)this.Owner;
+            var name = base.GetNameCore();
 
-            if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(name))
             {
-                if (owner.Header is string headerString)
-                {
-                    return headerString;
-                }
+                name = (this.Owner as IHeaderedControl)?.Header as string;
             }
 
-            return text;
+            return name;
         }
     }
 }
