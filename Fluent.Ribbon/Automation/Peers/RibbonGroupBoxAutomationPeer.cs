@@ -72,6 +72,19 @@
         }
 
         /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var name = base.GetNameCore();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                name = (this.Owner as IHeaderedControl)?.Header as string;
+            }
+
+            return name;
+        }
+
+        /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
             if (patternInterface == PatternInterface.Scroll)
