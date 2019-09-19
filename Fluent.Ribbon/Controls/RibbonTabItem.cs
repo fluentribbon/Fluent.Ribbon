@@ -16,6 +16,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -770,8 +771,6 @@ namespace Fluent
             var container = (RibbonTabItem)d;
             var newValue = (bool)e.NewValue;
 
-            SelectorHelper.RaiseIsSelectedChangedAutomationEvent(container.TabControlParent, container, newValue);
-
             if (newValue)
             {
                 if (container.TabControlParent?.SelectedTabItem != null
@@ -785,6 +784,15 @@ namespace Fluent
             else
             {
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
+            }
+
+            // Raise UI automation events on this RibbonTabItem
+            if (AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementSelected)
+                || AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection))
+            {
+                //SelectorHelper.RaiseIsSelectedChangedAutomationEvent(container.TabControlParent, container, newValue);
+                var peer = UIElementAutomationPeer.CreatePeerForElement(container) as RibbonTabItemAutomationPeer;
+                peer?.RaiseTabSelectionEvents();
             }
         }
 
