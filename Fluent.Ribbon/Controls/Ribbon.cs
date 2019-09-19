@@ -1208,6 +1208,8 @@ namespace Fluent
             var ribbon = (Ribbon)d;
 
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
+
+            (UIElementAutomationPeer.FromElement(ribbon) as Fluent.Automation.Peers.RibbonAutomationPeer)?.RaiseExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
         }
 
         /// <summary>
