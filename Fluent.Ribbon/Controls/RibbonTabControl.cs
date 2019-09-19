@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using ControlzEx.Standard;
+    using Fluent.Automation.Peers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -913,20 +914,21 @@ namespace Fluent
         {
             var ribbonTabControl = (RibbonTabControl)d;
 
-            ribbonTabControl.OnIsDropDownOpenChanged();
-        }
+            ribbonTabControl.RaiseRequestBackstageClose();
 
-        private void OnIsDropDownOpenChanged()
-        {
-            this.RaiseRequestBackstageClose();
-
-            if (this.IsDropDownOpen)
+            if (ribbonTabControl.IsDropDownOpen)
             {
-                this.OnRibbonTabPopupOpening();
+                ribbonTabControl.OnRibbonTabPopupOpening();
             }
             else
             {
-                this.OnRibbonTabPopupClosing();
+                ribbonTabControl.OnRibbonTabPopupClosing();
+            }
+
+            if (ribbonTabControl.SelectedTabItem != null)
+            {
+                var peer = UIElementAutomationPeer.CreatePeerForElement(ribbonTabControl.SelectedTabItem) as RibbonTabItemAutomationPeer;
+                peer?.RaiseTabExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
             }
         }
 
