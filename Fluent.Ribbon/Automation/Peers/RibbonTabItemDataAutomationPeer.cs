@@ -37,9 +37,9 @@
             if (string.IsNullOrEmpty(nameCore) == false)
             {
                 var wrapper = this.GetWrapper() as RibbonTabItem;
-                if (wrapper?.Header is string)
+                if (wrapper?.Header is string headerString)
                 {
-                    return nameCore;
+                    return headerString;
                 }
             }
 
@@ -55,7 +55,7 @@
         /// <inheritdoc />
         protected override List<AutomationPeer> GetChildrenCore()
         {
-            var automationPeerList = base.GetChildrenCore();
+            var automationPeerList = new List<AutomationPeer>();
 
             if (this.GetWrapper() is RibbonTabItem wrapper
                 && wrapper.IsSelected)
@@ -69,14 +69,7 @@
                         var children = new FrameworkElementAutomationPeer(contentPresenter).GetChildren();
                         if (children != null)
                         {
-                            if (automationPeerList == null)
-                            {
-                                automationPeerList = children;
-                            }
-                            else
-                            {
-                                automationPeerList.AddRange(children);
-                            }
+                            automationPeerList.AddRange(children);
                         }
                     }
                 }
