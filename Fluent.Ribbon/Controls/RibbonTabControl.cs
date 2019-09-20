@@ -22,7 +22,7 @@ namespace Fluent
     /// </summary>
     [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
+    [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
@@ -96,6 +96,11 @@ namespace Fluent
 
         /// <inheritdoc />
         public Popup DropDownPopup { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Panel"/> responsible for displaying the selected tabs content.
+        /// </summary>
+        public Panel TabsContainer { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
@@ -209,7 +214,7 @@ namespace Fluent
         {
             get
             {
-                if (this.GetTemplateChild("PART_TabsContainer") is IScrollInfo scrollInfo)
+                if (this.TabsContainer is IScrollInfo scrollInfo)
                 {
                     return scrollInfo.ExtentWidth > scrollInfo.ViewportWidth;
                 }
@@ -430,6 +435,8 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            this.TabsContainer = this.GetTemplateChild("PART_TabsContainer") as Panel;
+
             this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
