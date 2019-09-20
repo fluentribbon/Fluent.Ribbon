@@ -91,7 +91,7 @@ namespace Fluent.Automation.Peers
             switch (patternInterface)
             {
                 case PatternInterface.ExpandCollapse:
-                    return this;
+                    return this.IsCollapseOrExpandValid ? this : null;
 
                 case PatternInterface.Scroll:
                     return null;
@@ -112,20 +112,36 @@ namespace Fluent.Automation.Peers
             return new RibbonControlDataAutomationPeer(item, this);
         }
 
+        #region IExpandCollapseProvider Members
+
         /// <inheritdoc />
         void IExpandCollapseProvider.Expand()
         {
+            if (this.IsCollapseOrExpandValid == false)
+            {
+                return;
+            }
+
             this.OwningGroup.IsDropDownOpen = true;
         }
 
         /// <inheritdoc />
         void IExpandCollapseProvider.Collapse()
         {
+            if (this.IsCollapseOrExpandValid == false)
+            {
+                return;
+            }
+
             this.OwningGroup.IsDropDownOpen = false;
         }
 
         /// <inheritdoc />
-        public ExpandCollapseState ExpandCollapseState => this.OwningGroup.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
+        public ExpandCollapseState ExpandCollapseState => this.IsCollapseOrExpandValid
+                                                              ? ExpandCollapseState.Collapsed
+                                                              : ExpandCollapseState.Expanded;
+
+        private bool IsCollapseOrExpandValid => this.OwningGroup.State == RibbonGroupBoxState.Collapsed || this.OwningGroup.State == RibbonGroupBoxState.QuickAccess;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
