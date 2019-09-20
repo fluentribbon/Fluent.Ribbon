@@ -1,19 +1,14 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using System.Runtime.CompilerServices;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Input;
-    using Fluent.Internal;
     using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="DropDownButton"/>.
     /// </summary>
-    public class RibbonDropDownButtonAutomationPeer : RibbonHeaderedControlAutomationPeer, IToggleProvider
+    public class RibbonDropDownButtonAutomationPeer : RibbonHeaderedControlAutomationPeer, IExpandCollapseProvider
     {
         /// <summary>
         /// Creates a new instance.
@@ -35,40 +30,44 @@
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Button;
+            return AutomationControlType.Custom;
         }
 
         /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Toggle)
+            switch (patternInterface)
             {
-                return this;
+                case PatternInterface.ExpandCollapse:
+                    return this;
+
+                default:
+                    return base.GetPattern(patternInterface);
             }
-
-            return base.GetPattern(patternInterface);
         }
 
         /// <inheritdoc />
-        void IToggleProvider.Toggle()
+        void IExpandCollapseProvider.Collapse()
         {
-            this.OwnerDropDownButton.IsDropDownOpen = !this.OwnerDropDownButton.IsDropDownOpen;
+            this.OwnerDropDownButton.IsDropDownOpen = false;
         }
 
         /// <inheritdoc />
-        ToggleState IToggleProvider.ToggleState => ConvertToToggleState(this.OwnerDropDownButton.IsDropDownOpen);
-
-        private static ToggleState ConvertToToggleState(bool value)
+        void IExpandCollapseProvider.Expand()
         {
-            return value
-                       ? ToggleState.On
-                       : ToggleState.Off;
+            this.OwnerDropDownButton.IsDropDownOpen = true;
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        internal virtual void RaiseToggleStatePropertyChangedEvent(bool oldValue, bool newValue)
+        /// <inheritdoc />
+        /// <inheritdoc />
+        public ExpandCollapseState ExpandCollapseState => this.OwnerDropDownButton.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
         {
-            this.RaisePropertyChangedEvent(TogglePatternIdentifiers.ToggleStateProperty, ConvertToToggleState(oldValue), ConvertToToggleState(newValue));
+            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                                           oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                                           newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
     }
 }
