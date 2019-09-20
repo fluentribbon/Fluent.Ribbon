@@ -1207,9 +1207,13 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
+
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
 
-            (UIElementAutomationPeer.FromElement(ribbon) as Fluent.Automation.Peers.RibbonAutomationPeer)?.RaiseExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
+            // Invert values of arguments for RaiseExpandCollapseAutomationEvent because IsMinimized means the negative for expand/collapsed
+            (UIElementAutomationPeer.FromElement(ribbon) as Fluent.Automation.Peers.RibbonAutomationPeer)?.RaiseExpandCollapseAutomationEvent(!oldValue, !newValue);
         }
 
         /// <summary>
