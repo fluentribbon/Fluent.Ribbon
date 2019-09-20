@@ -1,7 +1,6 @@
-﻿namespace Fluent.Automation.Peers
+namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
@@ -14,7 +13,16 @@
     {
         private RibbonGroupHeaderAutomationPeer headerPeer;
 
-        private RibbonGroupBox OwningGroup => (RibbonGroupBox)this.Owner;
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public RibbonGroupBoxAutomationPeer([NotNull] RibbonGroupBox owner)
+            : base(owner)
+        {
+            this.OwningGroup = owner;
+        }
+
+        private RibbonGroupBox OwningGroup { get; }
 
         private RibbonGroupHeaderAutomationPeer HeaderPeer
         {
@@ -25,27 +33,19 @@
                 {
                     if (this.OwningGroup.State == RibbonGroupBoxState.Collapsed)
                     {
-                        if (this.OwningGroup.DropDownPopup != null)
+                        if (this.OwningGroup.CollapsedHeaderContentControl != null)
                         {
-                            this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.DropDownPopup);
+                            this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.CollapsedHeaderContentControl);
                         }
                     }
                     else if (this.OwningGroup.Header != null)
                     {
-                        this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup);
+                        this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.HeaderContentControl);
                     }
                 }
 
                 return this.headerPeer;
             }
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        public RibbonGroupBoxAutomationPeer([NotNull] RibbonGroupBox owner)
-            : base(owner)
-        {
         }
 
         /// <inheritdoc />

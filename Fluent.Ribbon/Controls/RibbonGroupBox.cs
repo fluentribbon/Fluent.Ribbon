@@ -23,6 +23,8 @@ namespace Fluent
     /// a RibbonTab.  These groups can resize its content
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_HeaderContentControl", Type = typeof(ContentControl))]
+    [TemplatePart(Name = "PART_CollapsedHeaderContentControl", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
@@ -47,6 +49,16 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header.
+        /// </summary>
+        public ContentControl HeaderContentControl { get; private set; }
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header when <see cref="State"/> is equal to <see cref="RibbonGroupBoxState.Collapsed"/>.
+        /// </summary>
+        public ContentControl CollapsedHeaderContentControl { get; private set; }
 
         #region KeyTip
 
@@ -877,6 +889,9 @@ namespace Fluent
 
             // Clear cache
             this.ClearCache();
+
+            this.HeaderContentControl = this.GetTemplateChild("PART_HeaderContentControl") as ContentControl;
+            this.CollapsedHeaderContentControl = this.GetTemplateChild("PART_CollapsedHeaderContentControl") as ContentControl;
 
             this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 
