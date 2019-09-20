@@ -112,11 +112,11 @@
 
                 if (automationPeer != null)
                 {
-                    automationPeer.ForceEnsureChildren();
+                    automationPeer.ResetChildrenCache();
 
                     var ribbonTabs = automationPeer.GetChildren();
                     children.AddRange(ribbonTabs);
-                    children.ForEach(x => x.ForceEnsureChildren());
+                    children.ForEach(x => x.ResetChildrenCache());
                 }
             }
 
