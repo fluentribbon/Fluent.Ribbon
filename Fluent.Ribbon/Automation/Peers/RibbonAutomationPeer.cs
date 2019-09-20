@@ -1,4 +1,4 @@
-namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -14,8 +14,6 @@ namespace Fluent.Automation.Peers
     /// </summary>
     public class RibbonAutomationPeer : FrameworkElementAutomationPeer, IExpandCollapseProvider
     {
-        private Ribbon OwningRibbon => (Ribbon)this.Owner;
-
         /// <summary>
         /// Creates a new instance.
         /// </summary>
@@ -34,10 +32,32 @@ namespace Fluent.Automation.Peers
         }
 
         /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var name = base.GetNameCore();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                name = this.GetLocalizedControlTypeCore();
+            }
+
+            return name;
+        }
+
+        /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return "Ribbon";
+        }
+
+        /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
             switch (patternInterface)
             {
+                case PatternInterface.ExpandCollapse:
+                    return this;
+
                 case PatternInterface.Scroll:
                 {
                     ItemsControl ribbonTabControl = this.OwningRibbon.TabControl;
@@ -66,13 +86,13 @@ namespace Fluent.Automation.Peers
                 return null;
             }
 
-            var list = new List<AutomationPeer>();
+            var children = new List<AutomationPeer>();
             if (this.OwningRibbon.QuickAccessToolBar != null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.QuickAccessToolBar);
                 if (automationPeer != null)
                 {
-                    list.Add(automationPeer);
+                    children.Add(automationPeer);
                 }
             }
 
@@ -81,10 +101,11 @@ namespace Fluent.Automation.Peers
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
                 if (automationPeer != null)
                 {
-                    list.Add(automationPeer);
+                    children.Add(automationPeer);
                 }
             }
 
+            // Directly forward the children from the tab control
             if (this.OwningRibbon.TabControl != null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.TabControl);
@@ -92,17 +113,10 @@ namespace Fluent.Automation.Peers
                 if (automationPeer != null)
                 {
                     automationPeer.ForceEnsureChildren();
-                    list.Add(automationPeer);
-                }
-            }
 
-            var childrenCore = base.GetChildrenCore();
-            if (childrenCore != null && childrenCore.Count > 0)
-            {
-                list.AddRange(childrenCore);
-                for (var i = 0; i < childrenCore.Count; i++)
-                {
-                    childrenCore[i].ForceEnsureChildren();
+                    var ribbonTabs = automationPeer.GetChildren();
+                    children.AddRange(ribbonTabs);
+                    children.ForEach(x => x.ForceEnsureChildren());
                 }
             }
 
@@ -112,17 +126,17 @@ namespace Fluent.Automation.Peers
                 var automationPeer = CreatePeerForElement(toolbarPanel);
                 if (automationPeer != null)
                 {
-                    list.Add(automationPeer);
+                    children.Add(automationPeer);
                 }
             }
 
-            return list;
+            return children;
         }
 
         /// <inheritdoc/>
         protected override bool IsOffscreenCore()
         {
-            return this.OwningRibbon.IsCollapsed 
+            return this.OwningRibbon.IsCollapsed
                    || base.IsOffscreenCore();
         }
 
