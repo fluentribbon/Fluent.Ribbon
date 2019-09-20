@@ -1,4 +1,4 @@
-﻿namespace Fluent.Automation.Peers
+namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -90,6 +90,7 @@
             if (this.OwningRibbon.QuickAccessToolBar != null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.QuickAccessToolBar);
+
                 if (automationPeer != null)
                 {
                     children.Add(automationPeer);
@@ -140,20 +141,22 @@
                    || base.IsOffscreenCore();
         }
 
+        #region IExpandCollapseProvider Members
+
         /// <inheritdoc />
-        public void Collapse()
+        void IExpandCollapseProvider.Collapse()
         {
             this.OwningRibbon.IsMinimized = true;
         }
 
         /// <inheritdoc />
-        public void Expand()
+        void IExpandCollapseProvider.Expand()
         {
             this.OwningRibbon.IsMinimized = false;
         }
 
         /// <inheritdoc />
-        public ExpandCollapseState ExpandCollapseState => this.OwningRibbon.IsMinimized ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
+        ExpandCollapseState IExpandCollapseProvider.ExpandCollapseState => this.OwningRibbon.IsMinimized ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
@@ -162,5 +165,7 @@
                                       oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
                                       newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
+
+        #endregion
     }
 }

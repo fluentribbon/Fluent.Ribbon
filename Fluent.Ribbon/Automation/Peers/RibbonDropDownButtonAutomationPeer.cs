@@ -46,6 +46,8 @@
             }
         }
 
+        #region IExpandCollapseProvider Members
+
         /// <inheritdoc />
         void IExpandCollapseProvider.Collapse()
         {
@@ -59,7 +61,7 @@
         }
 
         /// <inheritdoc />
-        public ExpandCollapseState ExpandCollapseState => this.OwnerDropDownButton.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
+        ExpandCollapseState IExpandCollapseProvider.ExpandCollapseState => this.OwnerDropDownButton.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
@@ -68,5 +70,7 @@
                                            oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
                                            newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
+
+        #endregion
     }
 }
