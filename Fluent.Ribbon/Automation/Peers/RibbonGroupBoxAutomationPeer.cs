@@ -4,12 +4,13 @@
     using System.Runtime.CompilerServices;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
+    using System.Windows.Automation.Provider;
     using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonGroupBox"/>.
     /// </summary>
-    public class RibbonGroupBoxAutomationPeer : ItemsControlAutomationPeer
+    public class RibbonGroupBoxAutomationPeer : ItemsControlAutomationPeer, IExpandCollapseProvider
     {
         private RibbonGroupHeaderAutomationPeer headerPeer;
 
@@ -89,6 +90,9 @@
         {
             switch (patternInterface)
             {
+                case PatternInterface.ExpandCollapse:
+                    return this;
+
                 case PatternInterface.Scroll:
                     return null;
 
@@ -108,10 +112,27 @@
             return new RibbonControlDataAutomationPeer(item, this);
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
+        /// <inheritdoc />
+        void IExpandCollapseProvider.Expand()
+        {
+            this.OwningGroup.IsDropDownOpen = true;
+        }
+
+        /// <inheritdoc />
+        void IExpandCollapseProvider.Collapse()
+        {
+            this.OwningGroup.IsDropDownOpen = false;
+        }
+
+        /// <inheritdoc />
+        public ExpandCollapseState ExpandCollapseState => this.OwningGroup.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
+
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
         internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
         {
-            this.EventsSource?.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty, oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed, newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
+            this.RaisePropertyChangedEvent(ExpandCollapsePatternIdentifiers.ExpandCollapseStateProperty,
+                                           oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
+                                           newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
     }
 }
