@@ -6,11 +6,12 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
+    using System.Windows.Controls.Primitives;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonTabItem"/>.
     /// </summary>
-    public class RibbonTabItemDataAutomationPeer : SelectorItemAutomationPeer, ISelectionItemProvider
+    public class RibbonTabItemDataAutomationPeer : SelectorItemAutomationPeer, ISelectionItemProvider, IScrollItemProvider, IExpandCollapseProvider
     {
         private readonly object item;
 
@@ -52,31 +53,78 @@
             return AutomationControlType.TabItem;
         }
 
-        /// <inheritdoc />
-        protected override List<AutomationPeer> GetChildrenCore()
+        #region IExpandCollapseProvider Members
+
+        /// <summary>
+        /// If Ribbon.IsMinimized then set Ribbon.IsDropDownOpen to false
+        /// </summary>
+        void IExpandCollapseProvider.Collapse()
         {
-            var automationPeerList = new List<AutomationPeer>();
-
-            if (this.GetWrapper() is RibbonTabItem wrapper
-                && wrapper.IsSelected)
+            var wrapperTab = this.GetWrapper() as RibbonTabItem;
+            if (wrapperTab != null)
             {
-                if (this.ItemsControlAutomationPeer.Owner is RibbonTabControl owner)
+                var tabControl = wrapperTab.TabControlParent;
+                if (tabControl != null &&
+                    tabControl.IsMinimized)
                 {
-                    var contentPresenter = owner.SelectedContentPresenter;
+                    tabControl.IsDropDownOpen = false;
+                }
+            }
+        }
 
-                    if (contentPresenter != null)
+        /// <summary>
+        /// If Ribbon.IsMinimized then set Ribbon.IsDropDownOpen to true
+        /// </summary>
+        void IExpandCollapseProvider.Expand()
+        {
+            var wrapperTab = this.GetWrapper() as RibbonTabItem;
+
+            // Select the tab and display popup
+            if (wrapperTab != null)
+            {
+                var tabControl = wrapperTab.TabControlParent;
+                if (tabControl != null &&
+                    tabControl.IsMinimized)
+                {
+                    wrapperTab.IsSelected = true;
+                    tabControl.IsDropDownOpen = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Return Ribbon.IsDropDownOpen
+        /// </summary>
+        ExpandCollapseState IExpandCollapseProvider.ExpandCollapseState
+        {
+            get
+            {
+                var wrapperTab = this.GetWrapper() as RibbonTabItem;
+                if (wrapperTab != null)
+                {
+                    var tabControl = wrapperTab.TabControlParent;
+                    if (tabControl != null &&
+                        tabControl.IsMinimized)
                     {
-                        var children = new FrameworkElementAutomationPeer(contentPresenter).GetChildren();
-                        if (children != null)
+                        if (wrapperTab.IsSelected && tabControl.IsDropDownOpen)
                         {
-                            automationPeerList.AddRange(children);
+                            return ExpandCollapseState.Expanded;
+                        }
+                        else
+                        {
+                            return ExpandCollapseState.Collapsed;
                         }
                     }
                 }
-            }
 
-            return automationPeerList;
+                // When not minimized
+                return ExpandCollapseState.Expanded;
+            }
         }
+
+        #endregion
+
+        #region ISelectionItemProvider Members
 
         void ISelectionItemProvider.RemoveFromSelection()
         {
@@ -91,6 +139,39 @@
                 throw new InvalidOperationException("Cannot perform operation.");
             }
         }
+
+        void ISelectionItemProvider.AddToSelection()
+        {
+            if (this.IsEnabled() == false)
+            {
+                throw new ElementNotEnabledException();
+            }
+
+            var parentSelector = (Selector)this.ItemsControlAutomationPeer.Owner;
+            if (parentSelector == null)
+            {
+                var wrapperTab = this.GetWrapper() as RibbonTabItem;
+                if (wrapperTab != null)
+                {
+                    wrapperTab.IsSelected = true;
+                }
+            }
+        }
+
+        #endregion
+
+        #region IScrollItemProvider Members
+
+        void IScrollItemProvider.ScrollIntoView()
+        {
+            var wrapperTab = this.GetWrapper() as RibbonTabItem;
+            if (wrapperTab != null)
+            {
+                wrapperTab.BringIntoView();
+            }
+        }
+
+        #endregion
 
         internal UIElement GetWrapper()
         {
