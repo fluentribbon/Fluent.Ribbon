@@ -1,10 +1,8 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using System.Windows.Controls;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -18,7 +16,10 @@
         public RibbonTabControlAutomationPeer([NotNull] RibbonTabControl owner)
             : base(owner)
         {
+            this.OwningRibbonTabControl = owner;
         }
+
+        private RibbonTabControl OwningRibbonTabControl { get; }
 
         /// <inheritdoc />
         protected override ItemAutomationPeer CreateItemAutomationPeer(object item)
@@ -41,5 +42,39 @@
         bool ISelectionProvider.IsSelectionRequired => true;
 
         bool ISelectionProvider.CanSelectMultiple => false;
+
+        /// <inheritdoc />
+        public override object GetPattern(PatternInterface patternInterface)
+        {
+            switch (patternInterface)
+            {
+                case PatternInterface.Scroll:
+                    var ribbonTabsContainerPanel = this.OwningRibbonTabControl.TabsContainer;
+                    if (ribbonTabsContainerPanel != null)
+                    {
+                        var automationPeer = CreatePeerForElement(ribbonTabsContainerPanel);
+                        if (automationPeer != null)
+                        {
+                            return automationPeer.GetPattern(patternInterface);
+                        }
+                    }
+
+                    var ribbonTabsContainer = this.OwningRibbonTabControl.TabsContainer as RibbonTabsContainer;
+                    if (ribbonTabsContainer != null
+                        && ribbonTabsContainer.ScrollOwner != null)
+                    {
+                        var automationPeer = CreatePeerForElement(ribbonTabsContainer.ScrollOwner);
+                        if (automationPeer != null)
+                        {
+                            automationPeer.EventsSource = this;
+                            return automationPeer.GetPattern(patternInterface);
+                        }
+                    }
+
+                    break;
+            }
+
+            return base.GetPattern(patternInterface);
+        }
     }
 }

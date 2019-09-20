@@ -1,4 +1,4 @@
-﻿namespace Fluent.Automation.Peers
+namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -22,7 +22,10 @@
         public RibbonAutomationPeer([NotNull] Ribbon owner)
             : base(owner)
         {
+            this.OwningRibbon = owner;
         }
+
+        private Ribbon OwningRibbon { get; }
 
         /// <inheritdoc />
         protected override string GetClassNameCore()
@@ -37,10 +40,10 @@
             {
                 case PatternInterface.Scroll:
                 {
-                    ItemsControl ribbonTabHeaderItemsControl = this.OwningRibbon.TabControl;
-                    if (ribbonTabHeaderItemsControl != null)
+                    ItemsControl ribbonTabControl = this.OwningRibbon.TabControl;
+                    if (ribbonTabControl != null)
                     {
-                        var automationPeer = CreatePeerForElement(ribbonTabHeaderItemsControl);
+                        var automationPeer = CreatePeerForElement(ribbonTabControl);
                         if (automationPeer != null)
                         {
                             return automationPeer.GetPattern(patternInterface);
