@@ -1,4 +1,4 @@
-namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -7,6 +7,7 @@ namespace Fluent.Automation.Peers
     using System.Windows.Automation.Provider;
     using System.Windows.Controls;
     using Fluent.Extensions;
+    using Fluent.Internal;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -99,7 +100,8 @@ namespace Fluent.Automation.Peers
 
             if (this.OwningRibbon.Menu != null)
             {
-                var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
+                var automationPeer = this.CreatePeerForMenu(children);
+
                 if (automationPeer != null)
                 {
                     children.Add(automationPeer);
@@ -167,5 +169,21 @@ namespace Fluent.Automation.Peers
         }
 
         #endregion
+
+        protected virtual AutomationPeer CreatePeerForMenu(List<AutomationPeer> children)
+        {
+            var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
+            if (automationPeer == null)
+            {
+                var menu = (UIElement)UIHelper.FindImmediateVisualChild<Backstage>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible) ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible);
+
+                if (menu != null)
+                {
+                    automationPeer = CreatePeerForElement(menu);
+                }
+            }
+
+            return automationPeer;
+        }
     }
 }
