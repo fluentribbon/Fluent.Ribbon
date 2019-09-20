@@ -87,12 +87,14 @@
         /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Scroll)
+            switch (patternInterface)
             {
-                return null;
-            }
+                case PatternInterface.Scroll:
+                    return null;
 
-            return base.GetPattern(patternInterface);
+                default:
+                    return base.GetPattern(patternInterface);
+            }
         }
 
         /// <inheritdoc />

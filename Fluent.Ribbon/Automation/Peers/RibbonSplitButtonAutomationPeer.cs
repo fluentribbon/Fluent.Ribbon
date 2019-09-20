@@ -3,8 +3,6 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using System.Windows.Controls;
-    using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Threading;
     using Fluent.Extensions;
@@ -42,13 +40,14 @@
         /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
-            if (patternInterface == PatternInterface.Invoke)
+            switch (patternInterface)
             {
-                //return ((SplitButton)this.Owner).button;
-                return this;
-            }
+                case PatternInterface.Invoke:
+                    return this;
 
-            return base.GetPattern(patternInterface);
+                default:
+                    return base.GetPattern(patternInterface);
+            }
         }
 
         /// <inheritdoc />
