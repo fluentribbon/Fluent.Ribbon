@@ -59,7 +59,6 @@
         }
 
         /// <inheritdoc />
-        /// <inheritdoc />
         public ExpandCollapseState ExpandCollapseState => this.OwnerDropDownButton.IsDropDownOpen == false ? ExpandCollapseState.Collapsed : ExpandCollapseState.Expanded;
 
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
