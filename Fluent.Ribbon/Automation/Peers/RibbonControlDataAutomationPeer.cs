@@ -1,7 +1,6 @@
 ﻿namespace Fluent.Automation.Peers
 {
     using System.Windows.Automation.Peers;
-    using Fluent.Extensions;
 
     /// <summary>
     /// Automation peer for ribbon control items.
@@ -19,34 +18,13 @@
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.ListItem;
+            return AutomationControlType.DataItem;
         }
 
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            var wrapperPeer = this.GetWrapperPeer();
-
-            if (wrapperPeer != null)
-            {
-                return wrapperPeer.GetClassName();
-            }
-
-            return string.Empty;
-        }
-
-        /// <inheritdoc />
-        public override object GetPattern(PatternInterface patternInterface)
-        {
-            object result = null;
-            var wrapperPeer = this.GetWrapperPeer();
-
-            if (wrapperPeer != null)
-            {
-                result = wrapperPeer.GetPattern(patternInterface);
-            }
-
-            return result;
+            return "ItemsControlItem";
         }
     }
 }
