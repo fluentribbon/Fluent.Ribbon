@@ -9,7 +9,6 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
-    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Internal.KnownBoxes;
 
@@ -22,14 +21,19 @@ namespace Fluent
     {
         #region Fields
 
+#pragma warning disable IDE0032
         // Inner button
         private ToggleButton button;
+#pragma warning restore IDE0032
 
         private SplitButton quickAccessButton;
 
         #endregion
 
         #region Properties
+
+        // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
+        internal ToggleButton Button => this.button;
 
         /// <inheritdoc />
         protected override IEnumerator LogicalChildren
@@ -485,7 +489,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new Automation.Peers.RibbonSplitButtonAutomationPeer(this);
+            return new Fluent.Automation.Peers.RibbonSplitButtonAutomationPeer(this);
         }
 
         #region Overrides of DropDownButton

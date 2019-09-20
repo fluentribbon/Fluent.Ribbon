@@ -3,8 +3,12 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
     using System.Windows.Threading;
     using Fluent.Extensions;
+    using Fluent.Internal;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -18,7 +22,10 @@
         public RibbonSplitButtonAutomationPeer([NotNull] SplitButton owner)
             : base(owner)
         {
+            this.SplitButtonOnwer = owner;
         }
+
+        private SplitButton SplitButtonOnwer { get; }
 
         /// <inheritdoc />
         protected override string GetClassNameCore()
@@ -29,7 +36,7 @@
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Custom;
+            return AutomationControlType.SplitButton;
         }
 
         /// <inheritdoc />
@@ -45,6 +52,44 @@
         }
 
         /// <inheritdoc />
+        protected override string GetAutomationIdCore()
+        {
+            var id = base.GetAutomationIdCore();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                if (this.SplitButtonOnwer.Command is RoutedCommand routedCommand
+                    && string.IsNullOrEmpty(routedCommand.Name) == false)
+                {
+                    id = routedCommand.Name;
+                }
+            }
+
+            return id ?? string.Empty;
+        }
+
+        /// <inheritdoc />
+        protected override string GetNameCore()
+        {
+            var name = base.GetNameCore();
+
+            if (string.IsNullOrEmpty(name))
+            {
+                if (this.SplitButtonOnwer.Command is RoutedUICommand routedUiCommand
+                    && string.IsNullOrEmpty(routedUiCommand.Text) == false)
+                {
+                    name = routedUiCommand.Text;
+                }
+                else if (this.SplitButtonOnwer.Button?.Content is string buttonContent)
+                {
+                    name = AccessTextHelper.RemoveAccessKeyMarker(buttonContent);
+                }
+            }
+
+            return name;
+        }
+
+        /// <inheritdoc />
         public void Invoke()
         {
             if (this.IsEnabled() == false)
@@ -52,7 +97,7 @@
                 throw new ElementNotEnabledException();
             }
 
-            this.RunInDispatcherAsync(() => ((SplitButton)this.Owner).AutomationButtonClick(), DispatcherPriority.Input);
+            this.RunInDispatcherAsync(() => this.SplitButtonOnwer.AutomationButtonClick(), DispatcherPriority.Input);
         }
     }
 }

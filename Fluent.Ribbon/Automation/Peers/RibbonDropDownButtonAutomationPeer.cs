@@ -4,6 +4,10 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using Fluent.Internal;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -17,12 +21,21 @@
         public RibbonDropDownButtonAutomationPeer([NotNull] DropDownButton owner)
             : base(owner)
         {
+            this.OwnerDropDownButton = owner;
         }
+
+        private DropDownButton OwnerDropDownButton { get; }
 
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
             return "DropDownButton";
+        }
+
+        /// <inheritdoc />
+        protected override AutomationControlType GetAutomationControlTypeCore()
+        {
+            return AutomationControlType.Button;
         }
 
         /// <inheritdoc />
@@ -37,13 +50,13 @@
         }
 
         /// <inheritdoc />
-        public void Toggle()
+        void IToggleProvider.Toggle()
         {
-            ((DropDownButton)this.Owner).IsDropDownOpen = !((DropDownButton)this.Owner).IsDropDownOpen;
+            this.OwnerDropDownButton.IsDropDownOpen = !this.OwnerDropDownButton.IsDropDownOpen;
         }
 
         /// <inheritdoc />
-        public ToggleState ToggleState => ConvertToToggleState(((DropDownButton)this.Owner).IsDropDownOpen);
+        ToggleState IToggleProvider.ToggleState => ConvertToToggleState(this.OwnerDropDownButton.IsDropDownOpen);
 
         private static ToggleState ConvertToToggleState(bool value)
         {

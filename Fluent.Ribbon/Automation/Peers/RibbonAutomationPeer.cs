@@ -1,4 +1,4 @@
-namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -22,6 +22,12 @@ namespace Fluent.Automation.Peers
         public RibbonAutomationPeer([NotNull] Ribbon owner)
             : base(owner)
         {
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />
@@ -67,15 +73,6 @@ namespace Fluent.Automation.Peers
                 }
             }
 
-            if (this.OwningRibbon.TitleBar != null)
-            {
-                var automationPeer = CreatePeerForElement(this.OwningRibbon.TitleBar);
-                if (automationPeer != null)
-                {
-                    list.Add(new RibbonTitleBarAutomationPeer(this.OwningRibbon.TitleBar));
-                }
-            }
-
             if (this.OwningRibbon.Menu != null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
@@ -87,7 +84,13 @@ namespace Fluent.Automation.Peers
 
             if (this.OwningRibbon.TabControl != null)
             {
-                CreatePeerForElement(this.OwningRibbon.TabControl)?.ForceEnsureChildren();
+                var automationPeer = CreatePeerForElement(this.OwningRibbon.TabControl);
+
+                if (automationPeer != null)
+                {
+                    automationPeer.ForceEnsureChildren();
+                    list.Add(automationPeer);
+                }
             }
 
             var childrenCore = base.GetChildrenCore();
@@ -106,7 +109,7 @@ namespace Fluent.Automation.Peers
                 var automationPeer = CreatePeerForElement(toolbarPanel);
                 if (automationPeer != null)
                 {
-                    list.Add(new FrameworkElementAutomationPeer(toolbarPanel));
+                    list.Add(automationPeer);
                 }
             }
 
