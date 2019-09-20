@@ -29,7 +29,7 @@
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.SplitButton;
+            return AutomationControlType.Custom;
         }
 
         /// <inheritdoc />
