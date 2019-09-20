@@ -974,9 +974,12 @@ namespace Fluent
         {
             var groupBox = (RibbonGroupBox)d;
 
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
+
             groupBox.OnIsDropDownOpenChanged();
 
-            (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
+            (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         private void OnIsDropDownOpenChanged()
