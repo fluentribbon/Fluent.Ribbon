@@ -11,14 +11,37 @@
     /// </summary>
     public class RibbonTabItemAutomationPeer : FrameworkElementAutomationPeer
     {
-        private RibbonTabItem OwningTab => (RibbonTabItem)this.Owner;
-
         /// <summary>
         /// Creates a new instance.
         /// </summary>
         public RibbonTabItemAutomationPeer([NotNull] RibbonTabItem owner)
             : base(owner)
         {
+            this.OwningTab = owner;
+        }
+
+        private RibbonTabItem OwningTab { get; }
+
+        /// <inheritdoc />
+        public override object GetPattern(PatternInterface patternInterface)
+        {
+            switch (patternInterface)
+            {
+                case PatternInterface.Scroll:
+                    var container = this.OwningTab.GroupsContainer;
+                    if (container != null)
+                    {
+                        var automationPeer = CreatePeerForElement(container);
+                        if (automationPeer != null)
+                        {
+                            return automationPeer.GetPattern(patternInterface);
+                        }
+                    }
+
+                    break;
+            }
+
+            return base.GetPattern(patternInterface);
         }
 
         /// <inheritdoc />
