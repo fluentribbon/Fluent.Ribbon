@@ -137,7 +137,7 @@ namespace Fluent.Automation.Peers
         }
 
         /// <inheritdoc />
-        public ExpandCollapseState ExpandCollapseState => this.IsCollapseOrExpandValid
+        ExpandCollapseState IExpandCollapseProvider.ExpandCollapseState => this.IsCollapseOrExpandValid
                                                               ? ExpandCollapseState.Collapsed
                                                               : ExpandCollapseState.Expanded;
 
