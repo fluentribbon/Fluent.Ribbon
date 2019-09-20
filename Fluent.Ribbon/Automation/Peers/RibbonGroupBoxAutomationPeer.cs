@@ -9,7 +9,7 @@ namespace Fluent.Automation.Peers
     /// <summary>
     /// Automation peer for <see cref="RibbonGroupBox"/>.
     /// </summary>
-    public class RibbonGroupBoxAutomationPeer : ItemsControlAutomationPeer, IExpandCollapseProvider
+    public class RibbonGroupBoxAutomationPeer : ItemsControlAutomationPeer, IExpandCollapseProvider, IScrollItemProvider
     {
         private RibbonGroupHeaderAutomationPeer headerPeer;
 
@@ -150,5 +150,17 @@ namespace Fluent.Automation.Peers
                                            oldValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed,
                                            newValue ? ExpandCollapseState.Expanded : ExpandCollapseState.Collapsed);
         }
+
+        #endregion
+
+        #region IScrollItemProvider Members
+
+        /// <inheritdoc />
+        void IScrollItemProvider.ScrollIntoView()
+        {
+            this.OwningGroup.BringIntoView();
+        }
+
+        #endregion
     }
 }
