@@ -3,11 +3,11 @@
     using JetBrains.Annotations;
 
     /// <inheritdoc />
-    public class CheckBoxAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
+    public class RibbonComboBoxAutomationPeer : System.Windows.Automation.Peers.ComboBoxAutomationPeer
     {
-        /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="T:ComboBoxAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public CheckBoxAutomationPeer([NotNull] CheckBox owner)
+        public RibbonComboBoxAutomationPeer([NotNull] ComboBox owner)
             : base(owner)
         {
         }

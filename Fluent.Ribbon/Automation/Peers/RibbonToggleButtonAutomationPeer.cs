@@ -3,11 +3,11 @@
     using JetBrains.Annotations;
 
     /// <inheritdoc />
-    public class ToggleButtonAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
+    public class RibbonToggleButtonAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public ToggleButtonAutomationPeer([NotNull] ToggleButton owner)
+        public RibbonToggleButtonAutomationPeer([NotNull] ToggleButton owner)
             : base(owner)
         {
         }

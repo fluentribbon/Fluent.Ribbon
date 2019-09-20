@@ -652,7 +652,7 @@ namespace Fluent
             var oldValue = (bool)e.OldValue;
             var newValue = (bool)e.NewValue;
 
-            (UIElementAutomationPeer.FromElement(control) as DropDownButtonAutomationPeer)?.RaiseToggleStatePropertyChangedEvent(oldValue, newValue);
+            (UIElementAutomationPeer.FromElement(control) as RibbonDropDownButtonAutomationPeer)?.RaiseToggleStatePropertyChangedEvent(oldValue, newValue);
 
             control.OnIsDropDownOpenChanged(newValue);
         }
@@ -855,7 +855,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new DropDownButtonAutomationPeer(this);
+            return new RibbonDropDownButtonAutomationPeer(this);
         }
 
         #region MenuItem workarounds

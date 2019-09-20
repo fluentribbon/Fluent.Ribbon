@@ -1,25 +1,20 @@
 ﻿namespace Fluent.Automation.Peers
 {
+    using System.Windows;
     using System.Windows.Automation.Peers;
     using JetBrains.Annotations;
 
     /// <summary>
-    ///     Automation peer for <see cref="ScreenTip" />.
+    /// Base automation peer for <see cref="IHeaderedControl"/>.
     /// </summary>
-    public class ScreenTipAutomationPeer : ToolTipAutomationPeer
+    public abstract class RibbonHeaderedControlAutomationPeer : FrameworkElementAutomationPeer
     {
         /// <summary>
-        ///     Creates a new instance.
+        /// Creates a new instance.
         /// </summary>
-        public ScreenTipAutomationPeer([NotNull] ScreenTip owner)
+        protected RibbonHeaderedControlAutomationPeer([NotNull] FrameworkElement owner)
             : base(owner)
         {
-        }
-
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return "ScreenTip";
         }
 
         /// <inheritdoc />
@@ -29,7 +24,7 @@
 
             if (string.IsNullOrEmpty(name))
             {
-                name = ((ScreenTip)this.Owner).Title;
+                name = (this.Owner as IHeaderedControl)?.Header as string;
             }
 
             return name;

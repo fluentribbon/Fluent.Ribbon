@@ -1587,7 +1587,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new InRibbonGalleryAutomationPeer(this);
+            return new RibbonInRibbonGalleryAutomationPeer(this);
         }
     }
 }

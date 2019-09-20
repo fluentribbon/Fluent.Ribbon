@@ -852,6 +852,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.ComboBoxAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonComboBoxAutomationPeer(this);
     }
 }

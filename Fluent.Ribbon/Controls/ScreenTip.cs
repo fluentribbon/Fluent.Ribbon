@@ -403,7 +403,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer()
         {
-            return new ScreenTipAutomationPeer(this);
+            return new RibbonScreenTipAutomationPeer(this);
         }
     }
 

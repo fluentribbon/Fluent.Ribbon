@@ -9,12 +9,12 @@
     /// <summary>
     /// Automation peer for <see cref="DropDownButton"/>.
     /// </summary>
-    public class DropDownButtonAutomationPeer : HeaderedControlAutomationPeer, IToggleProvider
+    public class RibbonDropDownButtonAutomationPeer : RibbonHeaderedControlAutomationPeer, IToggleProvider
     {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public DropDownButtonAutomationPeer([NotNull] DropDownButton owner)
+        public RibbonDropDownButtonAutomationPeer([NotNull] DropDownButton owner)
             : base(owner)
         {
         }

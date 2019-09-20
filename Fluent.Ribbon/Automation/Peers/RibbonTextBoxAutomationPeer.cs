@@ -1,18 +1,13 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using System.Windows;
-    using System.Windows.Automation.Peers;
     using JetBrains.Annotations;
 
-    /// <summary>
-    /// Base automation peer for <see cref="IHeaderedControl"/>.
-    /// </summary>
-    public abstract class HeaderedControlAutomationPeer : FrameworkElementAutomationPeer
+    /// <inheritdoc />
+    public class RibbonTextBoxAutomationPeer : System.Windows.Automation.Peers.TextBoxAutomationPeer
     {
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        protected HeaderedControlAutomationPeer([NotNull] FrameworkElement owner)
+        /// <summary>Initializes a new instance of the <see cref="T:TextBoxAutomationPeer" /> class.</summary>
+        /// <param name="owner">The element associated with this automation peer.</param>
+        public RibbonTextBoxAutomationPeer([NotNull] TextBox owner)
             : base(owner)
         {
         }

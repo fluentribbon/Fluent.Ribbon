@@ -10,12 +10,12 @@
     /// <summary>
     /// Automation peer for <see cref="SplitButton"/>.
     /// </summary>
-    public class SplitButtonAutomationPeer : DropDownButtonAutomationPeer, IInvokeProvider
+    public class RibbonSplitButtonAutomationPeer : RibbonDropDownButtonAutomationPeer, IInvokeProvider
     {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public SplitButtonAutomationPeer([NotNull] SplitButton owner)
+        public RibbonSplitButtonAutomationPeer([NotNull] SplitButton owner)
             : base(owner)
         {
         }
