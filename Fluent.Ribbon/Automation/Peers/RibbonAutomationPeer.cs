@@ -170,7 +170,10 @@
 
         #endregion
 
-        protected virtual AutomationPeer CreatePeerForMenu(List<AutomationPeer> children)
+        /// <summary>
+        /// Creates the <see cref="AutomationPeer"/> for <see cref="Ribbon.Menu"/>.
+        /// </summary>
+        protected virtual AutomationPeer CreatePeerForMenu()
         {
             var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
             if (automationPeer == null)
