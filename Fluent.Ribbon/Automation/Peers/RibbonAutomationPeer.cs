@@ -123,16 +123,6 @@
                 }
             }
 
-            var toolbarPanel = this.OwningRibbon.TabControl?.ToolbarPanel;
-            if (toolbarPanel != null)
-            {
-                var automationPeer = CreatePeerForElement(toolbarPanel);
-                if (automationPeer != null)
-                {
-                    children.Add(automationPeer);
-                }
-            }
-
             return children;
         }
 
