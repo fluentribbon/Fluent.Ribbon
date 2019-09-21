@@ -24,7 +24,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "DropDownButton";
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />

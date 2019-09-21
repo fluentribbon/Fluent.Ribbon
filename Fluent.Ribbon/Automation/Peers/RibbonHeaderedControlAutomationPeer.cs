@@ -18,6 +18,12 @@
         }
 
         /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return this.Owner.GetType().Name;
+        }
+
+        /// <inheritdoc />
         protected override string GetNameCore()
         {
             var name = base.GetNameCore();

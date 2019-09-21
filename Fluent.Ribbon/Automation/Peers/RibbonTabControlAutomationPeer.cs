@@ -31,7 +31,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "RibbonTabControl";
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />

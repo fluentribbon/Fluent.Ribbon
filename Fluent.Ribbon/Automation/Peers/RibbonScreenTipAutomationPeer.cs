@@ -19,7 +19,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "ScreenTip";
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />

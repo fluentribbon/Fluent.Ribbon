@@ -16,7 +16,6 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
-    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Extensions;
     using Fluent.Internal;
@@ -1585,9 +1584,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new RibbonInRibbonGalleryAutomationPeer(this);
-        }
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonInRibbonGalleryAutomationPeer(this);
     }
 }

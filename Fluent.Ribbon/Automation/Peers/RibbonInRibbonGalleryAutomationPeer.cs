@@ -15,5 +15,11 @@
             : base(owner)
         {
         }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return this.Owner.GetType().Name;
+        }
     }
 }

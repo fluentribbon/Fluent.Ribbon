@@ -29,7 +29,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return this.OwnerPanel.GetType().Name;
+            return "ToolbarPanel";
         }
 
         /// <inheritdoc />

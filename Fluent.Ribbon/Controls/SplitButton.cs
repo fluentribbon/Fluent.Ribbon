@@ -487,10 +487,7 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new Fluent.Automation.Peers.RibbonSplitButtonAutomationPeer(this);
-        }
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonSplitButtonAutomationPeer(this);
 
         #region Overrides of DropDownButton
 

@@ -519,6 +519,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new RibbonControlAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonControlAutomationPeer(this);
     }
 }

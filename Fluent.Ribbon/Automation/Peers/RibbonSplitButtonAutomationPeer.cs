@@ -28,7 +28,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return "SplitButton";
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />

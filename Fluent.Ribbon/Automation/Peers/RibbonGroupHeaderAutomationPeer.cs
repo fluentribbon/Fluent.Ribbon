@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Automation.Peers;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for the header of <see cref="RibbonGroupBox"/>.
@@ -11,7 +12,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonGroupHeaderAutomationPeer(FrameworkElement owner)
+        public RibbonGroupHeaderAutomationPeer([NotNull] FrameworkElement owner)
             : base(owner)
         {
         }

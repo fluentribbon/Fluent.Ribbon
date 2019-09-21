@@ -1,6 +1,5 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using Fluent.Extensions;
     using JetBrains.Annotations;
 
     /// <inheritdoc />
@@ -11,6 +10,12 @@
         public RibbonButtonAutomationPeer([NotNull] Button owner)
             : base(owner)
         {
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />
