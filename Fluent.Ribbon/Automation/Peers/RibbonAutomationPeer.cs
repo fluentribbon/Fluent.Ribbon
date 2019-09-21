@@ -100,7 +100,7 @@
 
             if (this.OwningRibbon.Menu != null)
             {
-                var automationPeer = this.CreatePeerForMenu(children);
+                var automationPeer = this.CreatePeerForMenu();
 
                 if (automationPeer != null)
                 {
