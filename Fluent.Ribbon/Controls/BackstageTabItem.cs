@@ -89,7 +89,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata());
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(BackstageTabItem));
 
         /// <summary>
         /// Static constructor

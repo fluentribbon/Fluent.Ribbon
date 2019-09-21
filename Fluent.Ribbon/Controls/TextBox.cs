@@ -249,7 +249,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Header.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(TextBox), new PropertyMetadata());
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(TextBox));
 
         #endregion
 
