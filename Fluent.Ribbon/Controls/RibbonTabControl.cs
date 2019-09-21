@@ -23,6 +23,7 @@ namespace Fluent
     [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_MinimizeButton", Type = typeof(ButtonBase))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
@@ -101,6 +102,8 @@ namespace Fluent
         /// Gets the <see cref="Panel"/> responsible for displaying the selected tabs content.
         /// </summary>
         public Panel TabsContainer { get; private set; }
+
+        internal ButtonBase MinimizeButton { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
@@ -436,6 +439,8 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             this.TabsContainer = this.GetTemplateChild("PART_TabsContainer") as Panel;
+
+            this.MinimizeButton = this.GetTemplateChild("PART_MinimizeButton") as ButtonBase;
 
             this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
 

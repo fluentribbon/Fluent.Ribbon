@@ -1,5 +1,6 @@
 ﻿namespace Fluent.Automation.Peers
 {
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
@@ -75,6 +76,33 @@
             }
 
             return base.GetPattern(patternInterface);
+        }
+
+        /// <inheritdoc />
+        protected override List<AutomationPeer> GetChildrenCore()
+        {
+            var children = base.GetChildrenCore() ?? new List<AutomationPeer>();
+
+            var minimizeButton = this.OwningRibbonTabControl.MinimizeButton;
+
+            if (minimizeButton != null)
+            {
+                var automationPeer = CreatePeerForElement(minimizeButton);
+
+                if (automationPeer != null)
+                {
+                    children.Add(automationPeer);
+                }
+            }
+
+            var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
+            if (toolbarPanel != null)
+            {
+                var automationPeer = new RibbonToolbarPanelAutomationPeer(toolbarPanel);
+                children.Add(automationPeer);
+            }
+
+            return children;
         }
     }
 }
