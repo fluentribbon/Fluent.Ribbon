@@ -14,9 +14,12 @@ namespace Fluent
     /// <summary>
     /// Represents Backstage tab control.
     /// </summary>
+    [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class BackstageTabControl : Selector
     {
         #region Properties
+
+        internal ContentPresenter SelectedContentHost { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -318,6 +321,14 @@ namespace Fluent
             base.OnInitialized(e);
 
             this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
+        }
+
+        /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
         }
 
         /// <inheritdoc />
