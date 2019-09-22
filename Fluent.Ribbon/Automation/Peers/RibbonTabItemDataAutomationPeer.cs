@@ -1,26 +1,21 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using System;
-    using System.Windows;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using System.Windows.Controls.Primitives;
+    using Fluent.Extensions;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonTabItem"/>.
     /// </summary>
-    public class RibbonTabItemDataAutomationPeer : SelectorItemAutomationPeer, ISelectionItemProvider, IScrollItemProvider, IExpandCollapseProvider
+    public class RibbonTabItemDataAutomationPeer : SelectorItemAutomationPeer, IScrollItemProvider, IExpandCollapseProvider
     {
-        private readonly object item;
-
         /// <summary>
         /// Creates a new instance.
         /// </summary>
         public RibbonTabItemDataAutomationPeer(object item, RibbonTabControlAutomationPeer tabControlAutomationPeer)
             : base(item, tabControlAutomationPeer)
         {
-            this.item = item;
         }
 
         /// <inheritdoc />
@@ -123,42 +118,6 @@
 
         #endregion
 
-        #region ISelectionItemProvider Members
-
-        void ISelectionItemProvider.RemoveFromSelection()
-        {
-            if (this.IsEnabled() == false)
-            {
-                throw new ElementNotEnabledException();
-            }
-
-            if (this.GetWrapper() is RibbonTabItem wrapper
-                && wrapper.IsSelected)
-            {
-                throw new InvalidOperationException("Cannot perform operation.");
-            }
-        }
-
-        void ISelectionItemProvider.AddToSelection()
-        {
-            if (this.IsEnabled() == false)
-            {
-                throw new ElementNotEnabledException();
-            }
-
-            var parentSelector = (Selector)this.ItemsControlAutomationPeer.Owner;
-            if (parentSelector == null)
-            {
-                var wrapperTab = this.GetWrapper() as RibbonTabItem;
-                if (wrapperTab != null)
-                {
-                    wrapperTab.IsSelected = true;
-                }
-            }
-        }
-
-        #endregion
-
         #region IScrollItemProvider Members
 
         void IScrollItemProvider.ScrollIntoView()
@@ -171,21 +130,5 @@
         }
 
         #endregion
-
-        internal UIElement GetWrapper()
-        {
-            var uiElement = (UIElement)null;
-            var controlAutomationPeer = this.ItemsControlAutomationPeer;
-            var owner = (RibbonTabControl)controlAutomationPeer?.Owner;
-
-            if (owner != null)
-            {
-                uiElement = owner.IsItemItsOwnContainer(this.item) == false
-                                ? owner.ItemContainerGenerator.ContainerFromItem(this.item) as UIElement
-                                : this.item as UIElement;
-            }
-
-            return uiElement;
-        }
     }
 }
