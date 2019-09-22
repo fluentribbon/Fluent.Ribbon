@@ -25,6 +25,7 @@ namespace Fluent
     /// <summary>
     /// Represents ribbon tab item
     /// </summary>
+    [TemplatePart(Name = "PART_HeaderContentHost", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty(nameof(Groups))]
     [DefaultProperty(nameof(Groups))]
@@ -50,6 +51,8 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        internal FrameworkElement HeaderContentHost { get; private set; }
 
         #region Colors/Brushes
 
@@ -706,6 +709,10 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
+
+            this.HeaderContentHost = this.GetTemplateChild("PART_HeaderContentHost") as FrameworkElement;
+
             this.contentContainer = this.GetTemplateChild("PART_ContentContainer") as Border;
         }
 

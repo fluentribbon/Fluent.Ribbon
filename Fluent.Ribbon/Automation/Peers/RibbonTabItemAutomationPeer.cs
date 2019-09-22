@@ -47,23 +47,24 @@
         /// <inheritdoc />
         protected override List<AutomationPeer> GetChildrenCore()
         {
-            List<AutomationPeer> list = null;
-            if (this.OwningTab.IsSelected)
-            {
-                //list = base.GetChildrenCore();
-                list = new List<AutomationPeer>(this.OwningTab.Groups.Count);
-                foreach (var @group in this.OwningTab.Groups)
-                {
-                    var peer = CreatePeerForElement(@group);
+            var children = (this.OwningTab.Header is string == false ? base.GetChildrenCore() : null) ?? new List<AutomationPeer>();
 
-                    if (peer != null)
-                    {
-                        list.Add(peer);
-                    }
+            if (this.OwningTab.IsSelected == false)
+            {
+                return children;
+            }
+
+            foreach (var @group in this.OwningTab.Groups)
+            {
+                var peer = CreatePeerForElement(@group);
+
+                if (peer != null)
+                {
+                    children.Add(peer);
                 }
             }
 
-            return list;
+            return children;
         }
 
         /// <inheritdoc />

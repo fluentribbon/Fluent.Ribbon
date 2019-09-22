@@ -26,7 +26,8 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Padding="{TemplateBinding HeaderPadding}">
-                <ContentControl Focusable="False"
+                <ContentControl x:Name="PART_HeaderContentHost"
+                                Focusable="False"
                                 AutomationProperties.Name="{TemplateBinding Header}"
                                 AutomationProperties.AutomationId="{TemplateBinding Name}"
                                 Content="{TemplateBinding Header}"
