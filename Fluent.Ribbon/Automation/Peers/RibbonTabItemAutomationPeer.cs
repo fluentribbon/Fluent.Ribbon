@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
+    using System.Windows;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using JetBrains.Annotations;
@@ -47,7 +48,7 @@
         /// <inheritdoc />
         protected override List<AutomationPeer> GetChildrenCore()
         {
-            var children = (this.OwningTab.Header is string == false ? base.GetChildrenCore() : null) ?? new List<AutomationPeer>();
+            var children = GetHeaderChildren() ?? new List<AutomationPeer>();
 
             if (this.OwningTab.IsSelected == false)
             {
@@ -65,6 +66,21 @@
             }
 
             return children;
+
+            List<AutomationPeer> GetHeaderChildren()
+            {
+                if (this.OwningTab.Header is string)
+                {
+                    return null;
+                }
+
+                if (this.OwningTab.HeaderContentHost != null)
+                {
+                    return new FrameworkElementAutomationPeer(this.OwningTab.HeaderContentHost).GetChildren();
+                }
+
+                return null;
+            }
         }
 
         /// <inheritdoc />
