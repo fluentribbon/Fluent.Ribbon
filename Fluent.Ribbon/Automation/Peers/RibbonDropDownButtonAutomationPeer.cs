@@ -40,10 +40,9 @@
             {
                 case PatternInterface.ExpandCollapse:
                     return this;
-
-                default:
-                    return base.GetPattern(patternInterface);
             }
+
+            return base.GetPattern(patternInterface);
         }
 
         #region IExpandCollapseProvider Members
