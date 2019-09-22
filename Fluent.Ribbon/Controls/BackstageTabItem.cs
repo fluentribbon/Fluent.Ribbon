@@ -11,8 +11,11 @@ namespace Fluent
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
+    [TemplatePart(Name = "PART_Header", Type = typeof(FrameworkElement))]
     public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
     {
+        internal FrameworkElement HeaderContentHost { get; private set; }
+
         #region Icon
 
         /// <summary>
@@ -100,6 +103,14 @@ namespace Fluent
         }
 
         #region Overrides
+
+        /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.HeaderContentHost = this.GetTemplateChild("PART_Header") as FrameworkElement;
+        }
 
         /// <inheritdoc />
         protected override void OnContentChanged(object oldContent, object newContent)
