@@ -467,8 +467,16 @@ namespace FluentTest
         {
             var thread = new Thread(() =>
                                     {
-                                        new TestWindow().Show();
+                                        var testWindow = new TestWindow();
+                                        testWindow.Closed += OnTestWindowOnClosed;
+                                        testWindow.Show();
                                         System.Windows.Threading.Dispatcher.Run();
+
+                                        void OnTestWindowOnClosed(object o, EventArgs args)
+                                        {
+                                            testWindow.Closed -= OnTestWindowOnClosed;
+                                            ((Window)o).Dispatcher?.InvokeShutdown();
+                                        }
                                     })
             {
                 IsBackground = true
