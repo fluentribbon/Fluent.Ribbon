@@ -338,6 +338,7 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             this.AddHandler(System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(this.OnSubmenuOpened));
+            this.AddHandler(System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(this.OnSubmenuClosed));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -852,23 +853,32 @@ namespace Fluent
             }
         }
 
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new DropDownButtonAutomationPeer(this);
-        }
-
         #region MenuItem workarounds
 
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is MenuItem menuItem)
+            var menuItem = e.OriginalSource as MenuItem;
+            if (menuItem != null)
             {
                 this.openMenuItems.Push(new WeakReference(menuItem));
             }
         }
 
+        private void OnSubmenuClosed(object sender, RoutedEventArgs e)
+        {
+            if (this.openMenuItems.Count > 0)
+            {
+                this.openMenuItems.Pop();
+            }
+        }
+
         #endregion MenuItem workarounds
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new DropDownButtonAutomationPeer(this);
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
