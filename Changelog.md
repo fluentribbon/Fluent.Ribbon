@@ -80,6 +80,11 @@
 | --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
 | --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
+| --- | Fluent.Ribbon.Templates.WindowCommands |
+| WindowCommandsControlTemplate | Fluent.Ribbon.Templates.WindowCommands.Button |
+| --- | Fluent.Ribbon.Styles.WindowCommands.Button |
+| CaptionButtonStyle | Fluent.Ribbon.Styles.WindowCommands.CaptionButton |
+| --- | Fluent.Ribbon.Templates.WindowCommands.CaptionButton |
 </p></details>
 
 - ### Bug fixes
