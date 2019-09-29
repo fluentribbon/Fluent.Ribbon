@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 7.0.0 (preview)
+## 7.0.0
 - ### Breaking changes
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
