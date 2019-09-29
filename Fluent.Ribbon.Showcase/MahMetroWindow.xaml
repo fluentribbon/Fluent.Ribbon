@@ -4,7 +4,6 @@
                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                    xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                    xmlns:fluentTest="clr-namespace:FluentTest"
-                   Style="{DynamicResource CleanWindowStyleKey}"
                    WindowStartupLocation="CenterScreen"
                    Title="{Binding WindowTitle, ElementName=TestContent}"
                    Height="768"
@@ -13,7 +12,7 @@
                    WindowState="Normal"
                    TitleCharacterCasing="Normal"
                    WindowTransitionsEnabled="False"
-                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                    ShowIconOnTitleBar="False"
                    ShowTitleBar="True"
                    ShowSystemMenuOnRightClick="False">
