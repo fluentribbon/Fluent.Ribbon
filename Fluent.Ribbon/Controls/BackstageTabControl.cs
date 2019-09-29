@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -47,15 +47,8 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object SelectedContent
         {
-            get
-            {
-                return this.GetValue(SelectedContentProperty);
-            }
-
-            internal set
-            {
-                this.SetValue(SelectedContentPropertyKey, value);
-            }
+            get { return this.GetValue(SelectedContentProperty); }
+            internal set { this.SetValue(SelectedContentPropertyKey, value); }
         }
 
         /// <summary>
@@ -319,12 +312,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Raises the System.Windows.FrameworkElement.Initialized event.
-        /// This method is invoked whenever System.Windows.FrameworkElement.
-        /// IsInitialized is set to true internally.
-        /// </summary>
-        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
+        /// <inheritdoc />
         protected override void OnInitialized(EventArgs e)
         {
             base.OnInitialized(e);
@@ -332,20 +320,13 @@ namespace Fluent
             this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
         }
 
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new BackstageTabItem();
         }
 
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is BackstageTabItem
@@ -354,10 +335,7 @@ namespace Fluent
                 || item is Separator;
         }
 
-        /// <summary>
-        /// Updates the current selection when an item in the System.Windows.Controls.Primitives.Selector has changed
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
@@ -379,10 +357,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Called when the selection changes.
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
@@ -404,8 +379,11 @@ namespace Fluent
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
         private BackstageTabItem GetSelectedTabItem()
         {
-            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem;
-            if (container == null)
+            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem
+                ?? (this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as ContentPresenter)?.Content as BackstageTabItem;
+            if (container == null
+                || container?.IsEnabled == false
+                || container?.Visibility != Visibility.Visible)
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
 
@@ -440,8 +418,8 @@ namespace Fluent
                     index = this.Items.Count - 1;
                 }
 
-                var container = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem;
-
+                var container = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem
+                                ?? (this.ItemContainerGenerator.ContainerFromIndex(index) as ContentPresenter)?.Content as BackstageTabItem;
                 if (container != null
                     && container.IsEnabled
                     && container.Visibility == Visibility.Visible)
@@ -469,6 +447,7 @@ namespace Fluent
                 }
 
                 this.SelectedContent = selectedTabItem.Content;
+
                 if (selectedTabItem.ContentTemplate != null
                     || selectedTabItem.ContentTemplateSelector != null
                     || selectedTabItem.ContentStringFormat != null)

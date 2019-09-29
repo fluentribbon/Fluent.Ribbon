@@ -1,4 +1,4 @@
-#pragma warning disable // Localization
+#pragma warning disable
 
 namespace Fluent.Localization.Languages
 {
@@ -18,8 +18,8 @@ namespace Fluent.Localization.Languages
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Werkbalk snelle toegang aanpassen";
         public override string QuickAccessToolBarMenuHeader { get; } = " Werkbalk snelle toegang aanpassen ";
         public override string QuickAccessToolBarMenuShowAbove { get; } = "Boven het lint weergeven";
-        public override string QuickAccessToolBarMenuShowBelow { get; } = "beneden het lint weergeven";
-        public override string QuickAccessToolBarMoreControlsButtonTooltip { get; } = "meer opdrachten";
+        public override string QuickAccessToolBarMenuShowBelow { get; } = "Onder het lint weergeven";
+        public override string QuickAccessToolBarMoreControlsButtonTooltip { get; } = "Meer opdrachten";
         public override string RibbonContextMenuAddGallery { get; } = "Galerij toevoegen aan werkbalk snelle toegang";
         public override string RibbonContextMenuAddGroup { get; } = "Groep toevoegen aan werkbalk snelle toegang";
         public override string RibbonContextMenuAddItem { get; } = "Menu toevoegen aan werkbalk snelle toegang";

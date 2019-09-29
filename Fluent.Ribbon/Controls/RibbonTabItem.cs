@@ -83,9 +83,7 @@ namespace Fluent
 
         #region KeyTip
 
-        /// <summary>
-        /// Gets or sets KeyTip for element.
-        /// </summary>
+        /// <inheritdoc />
         public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
@@ -164,9 +162,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsContextualProperty = IsContextualPropertyKey.DependencyProperty;
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -204,28 +200,22 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon tab control parent
         /// </summary>
-        internal RibbonTabControl TabControlParent
+        internal RibbonTabControl TabControlParent => UIHelper.GetParent<RibbonTabControl>(this);
+
+        /// <summary>
+        /// Gets or sets the padding for the header.
+        /// </summary>
+        public Thickness HeaderPadding
         {
-            get
-            {
-                return ItemsControl.ItemsControlFromItemContainer(this) as RibbonTabControl;
-            }
+            get { return (Thickness)this.GetValue(HeaderPaddingProperty); }
+            set { this.SetValue(HeaderPaddingProperty, value); }
         }
 
         /// <summary>
-        /// Gets or sets indent
+        /// Using a DependencyProperty as the backing store for HeaderPadding.  This enables animation, styling, binding, etc...
         /// </summary>
-        public double Indent
-        {
-            get { return (double)this.GetValue(IndentProperty); }
-            set { this.SetValue(IndentProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HeaderMargin.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IndentProperty =
-            DependencyProperty.Register(nameof(Indent), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(12.0));
+        public static readonly DependencyProperty HeaderPaddingProperty =
+            DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 5, 8, 5)));
 
         /// <summary>
         /// Gets or sets whether separator is visible
@@ -392,9 +382,7 @@ namespace Fluent
 
         #region Header Property
 
-        /// <summary>
-        /// Gets or sets header of tab item
-        /// </summary>
+        /// <inheritdoc />
         public object Header
         {
             get { return this.GetValue(HeaderProperty); }
@@ -467,8 +455,7 @@ namespace Fluent
             var element = this.Parent;
             while (element != null)
             {
-                var ribbon = element as Ribbon;
-                if (ribbon != null)
+                if (element is Ribbon ribbon)
                 {
                     return ribbon;
                 }
@@ -599,9 +586,7 @@ namespace Fluent
 
         private bool SettingFocus { get; set; }
 
-        /// <summary>
-        /// Focus event handler
-        /// </summary>
+        /// <inheritdoc />
         protected override void OnPreviewGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
         {
             base.OnPreviewGotKeyboardFocus(e);
@@ -650,11 +635,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <param name="constraint">The maximum size that the method can return.</param>
-        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if (this.contentContainer == null)
@@ -667,18 +648,12 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            this.contentContainer.Padding = new Thickness(this.Indent, this.contentContainer.Padding.Top, this.Indent, this.contentContainer.Padding.Bottom);
             var baseConstraint = base.MeasureOverride(constraint);
-            var totalWidth = this.contentContainer.DesiredSize.Width - this.contentContainer.Margin.Left - this.contentContainer.Margin.Right;
-            this.contentContainer.Child.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            var totalWidth = this.contentContainer.DesiredSize.Width - (this.contentContainer.Margin.Left - this.contentContainer.Margin.Right);
+            this.contentContainer.Child.Measure(SizeConstants.Infinite);
             var headerWidth = this.contentContainer.Child.DesiredSize.Width;
 
-            if (totalWidth < headerWidth + (this.Indent * 2))
-            {
-                var newPaddings = Math.Max(0, (totalWidth - headerWidth) / 2);
-                this.contentContainer.Padding = new Thickness(newPaddings, this.contentContainer.Padding.Top, newPaddings, this.contentContainer.Padding.Bottom);
-            }
-            else
+            if (totalWidth > headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right))
             {
                 if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
                 {
@@ -690,7 +665,7 @@ namespace Fluent
                     }
                     else
                     {
-                        baseConstraint.Width = headerWidth + (this.Indent * 2) + this.contentContainer.Margin.Left + this.contentContainer.Margin.Right;
+                        baseConstraint.Width = headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right) + (this.contentContainer.Margin.Left + this.contentContainer.Margin.Right);
                     }
                 }
             }
@@ -722,9 +697,7 @@ namespace Fluent
             return result;
         }
 
-        /// <summary>
-        /// On new style applying
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             this.contentContainer = this.GetTemplateChild("PART_ContentContainer") as Border;
@@ -756,7 +729,7 @@ namespace Fluent
                     {
                         var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
 
-                        if (ReferenceEquals(this.TabControlParent.SelectedTabItem, newItem))
+                        if (ReferenceEquals(this.TabControlParent.SelectedItem, newItem))
                         {
                             this.TabControlParent.IsDropDownOpen = !this.TabControlParent.IsDropDownOpen;
                         }
@@ -790,10 +763,10 @@ namespace Fluent
             var newValue = (bool)e.NewValue;
             if (newValue)
             {
-                if (container.TabControlParent?.SelectedItem is RibbonTabItem
-                    && ReferenceEquals(container.TabControlParent.SelectedItem, container) == false)
+                if (container.TabControlParent?.SelectedTabItem != null
+                    && ReferenceEquals(container.TabControlParent.SelectedTabItem, container) == false)
                 {
-                    ((RibbonTabItem)container.TabControlParent.SelectedItem).IsSelected = false;
+                    container.TabControlParent.SelectedTabItem.IsSelected = false;
                 }
 
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
@@ -866,9 +839,7 @@ namespace Fluent
         /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
-            var currentSelectedItem = this.TabControlParent?.SelectedItem as RibbonTabItem;
-
-            if (currentSelectedItem != null)
+            if (this.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
             {
                 currentSelectedItem.IsSelected = false;
             }

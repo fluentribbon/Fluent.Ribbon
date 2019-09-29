@@ -1,26 +1,15 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
-#if NET40
-    using System;
-#endif
-
     /// <summary>
     /// Represents the result of <see cref="IKeyTipedControl.OnKeyTipPressed"/>.
     /// </summary>
     public class KeyTipPressedResult
-#if NET40
-        : EventArgs
-#endif
     {
         /// <summary>
         /// An empty default instance.
         /// </summary>
-#if NET40
-        public static new readonly KeyTipPressedResult Empty = new KeyTipPressedResult();
-#else
         public static readonly KeyTipPressedResult Empty = new KeyTipPressedResult();
-#endif
 
         private KeyTipPressedResult()
         {

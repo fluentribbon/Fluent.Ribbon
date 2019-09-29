@@ -1,80 +1,39 @@
-# http://www.appveyor.com/docs/appveyor-yml
+# configuration for develop and master branch
 
-# configuration for develop/CI branch
 -
   branches:
     only:
       - develop
-
-  version: 6.1.0-dev{build}
-  configuration: Release
-
-  init:
-    - ps: Update-AppveyorBuild -Version "$($env:appveyor_build_version.Replace("-dev$env:appveyor_build_number", "-dev"))$($env:appveyor_build_number.PadLeft(4, '0'))"
-
-  # Install scripts. (runs after repo cloning)
-  install:
-    - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-
-  build_script:
-    - msbuild Fluent.Ribbon.msbuild /target:CI /v:m /nologo
-
-  after_build:
-    - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestResult.xml))
-
-  artifacts:
-    - path: Publish\**\*.nupkg
-      name: NuGet
-  
-    - path: Publish\**\*.zip
-      name: zip
-
-  assembly_info:
-    patch: true
-    file: Shared\GlobalAssemblyInfo.*
-    assembly_version: "{version}"
-    assembly_file_version: "{version}"
-    assembly_informational_version: "{version}"
-
-  notifications:
-    - provider: Webhook
-      url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
-      on_build_success: true
-      on_build_failure: true
-      on_build_status_changed: false
-
-# configuration for master/CI branch
--
-  branches:
-    only:
       - master
 
-  version: 6.1.0.{build}
+  skip_tags: true
+  image: Visual Studio 2019
   configuration: Release
+  platform: Any CPU
+  test: off
 
-  # Install scripts. (runs after repo cloning)
+  pull_requests:
+    do_not_increment_build_number: false
+
+  # Install dotnet core 3.0 latest
   install:
-    - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+    - cinst dotnetcore-sdk
 
   build_script:
-    - msbuild Fluent.Ribbon.msbuild /target:CI /v:m /nologo
+    - ps: .\build.ps1 -Target CI -Verbosity Verbose
 
   after_build:
-    - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\TestResult.xml))
+    - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
 
   artifacts:
-    - path: Publish\**\*.nupkg
-      name: NuGet
-  
-    - path: Publish\**\*.zip
-      name: zip
+    - path: \bin\package\*.*
 
-  assembly_info:
-    patch: true
-    file: Shared\GlobalAssemblyInfo.*
-    assembly_version: "{version}"
-    assembly_file_version: "{version}"
-    assembly_informational_version: "{version}"
+  nuget:
+    disable_publish_on_pr: true
+
+  skip_commits:
+    files:
+      - '**/*.md'
 
   notifications:
     - provider: Webhook

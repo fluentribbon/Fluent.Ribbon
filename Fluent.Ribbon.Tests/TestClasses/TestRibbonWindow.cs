@@ -3,7 +3,7 @@
     using System;
     using System.Diagnostics;
 
-    public class TestRibbonWindow : RibbonWindow, IDisposable
+    public sealed class TestRibbonWindow : RibbonWindow, IDisposable
     {
         public TestRibbonWindow()
             : this(null)
@@ -14,6 +14,9 @@
         {
             this.Content = content;
 
+            this.Width = 800;
+            this.Height = 600;
+
             this.ShowActivated = false;
             this.ShowInTaskbar = false;
 
@@ -22,6 +25,9 @@
                 this.Left = int.MinValue;
                 this.Top = int.MinValue;
             }
+
+            // As Ribbon uses layout rounding we should use it here too
+            FrameworkHelper.SetUseLayoutRounding(this, true);
 
             this.Show();
         }

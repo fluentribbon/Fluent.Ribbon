@@ -3,64 +3,109 @@ namespace Fluent
 {
     using System;
     using System.Diagnostics;
-    using System.Globalization;
     using System.Windows;
+    using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using ControlzEx.Standard;
     using Fluent.Converters;
+    using Fluent.Internal;
 
     /// <summary>
-    /// Icon converter provides application default icon if user-defined is not present.
+    /// Icon converter provides window or application default icon if user-defined is not present.
     /// </summary>
+    [ValueConversion(sourceType: typeof(string), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(Uri), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(System.Drawing.Icon), targetType: typeof(Image))]
+    [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(Image))]
     [ValueConversion(sourceType: typeof(string), targetType: typeof(ImageSource))]
     [ValueConversion(sourceType: typeof(Uri), targetType: typeof(ImageSource))]
+    [ValueConversion(sourceType: typeof(System.Drawing.Icon), targetType: typeof(ImageSource))]
     [ValueConversion(sourceType: typeof(ImageSource), targetType: typeof(ImageSource))]
-    public sealed class IconConverter : IValueConverter
+    public sealed class IconConverter : ObjectToImageConverter
     {
-        #region Implementation of IValueConverter
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        public IconConverter(Binding iconBinding)
+            : base(iconBinding, new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
+        public IconConverter(Binding iconBinding, Binding targetVisualBinding)
+            : base(iconBinding, new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight), targetVisualBinding)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="desiredSize">The desired size for the image.</param>
+        /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
+        public IconConverter(Binding iconBinding, object desiredSize, Binding targetVisualBinding)
+            : base(iconBinding, desiredSize, targetVisualBinding)
+        {
+        }
 
         /// <inheritdoc />
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
         {
-            var desiredSize = new Size(SystemParameters.SmallIconWidth, SystemParameters.SmallIconHeight);
-
             if (value == null)
             {
-                if (Application.Current != null
-                    && Application.Current.CheckAccess()
-                    && Application.Current.MainWindow != null
-                    && Application.Current.MainWindow.CheckAccess())
-                {
-                    try
-                    {
-                        return GetDefaultIcon(new WindowInteropHelper(Application.Current.MainWindow).Handle, desiredSize);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        return null;
-                    }
-                }
+                var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 
-                var p = Process.GetCurrentProcess();
+                if (defaultIcon != null)
+                {
+                    return defaultIcon;
+                }
+            }
+
+            return base.GetValueToConvert(value, desiredSize, targetVisual);
+        }
+
+        private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
+        {
+            IntPtr windowHandle;
+
+            if (targetVisual != null)
+            {
+                var window = Window.GetWindow(targetVisual);
+
+                if (window != null
+                    && (windowHandle = new WindowInteropHelper(window).Handle) != IntPtr.Zero)
+                {
+                    return GetDefaultIcon(windowHandle, desiredSize);
+                }
+            }
+
+            if (Application.Current != null
+                && Application.Current.CheckAccess()
+                && Application.Current.MainWindow != null
+                && Application.Current.MainWindow.CheckAccess()
+                && (windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle) != IntPtr.Zero)
+            {
+                return GetDefaultIcon(windowHandle, desiredSize);
+            }
+
+            using (var p = Process.GetCurrentProcess())
+            {
                 if (p.MainWindowHandle != IntPtr.Zero)
                 {
                     return GetDefaultIcon(p.MainWindowHandle, desiredSize);
                 }
             }
 
-            return ObjectToImageConverter.CreateImageSource(value, desiredSize);
+            return null;
         }
-
-        /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return Binding.DoNothing;
-        }
-
-        #endregion
 
         private static ImageSource GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
@@ -73,40 +118,37 @@ namespace Fluent
             // Retrieves the small icon provided by the application. If the application does not provide one, the system uses the system-generated icon for that window.
             const int ICON_SMALL2 = 2;
 
-            // Retrieves a handle to the icon associated with the class.
-            const int GCL_HICON = -14;
-            // Retrieves a handle to the small icon associated with the class.
-            const int GCL_HICONSM = -34;
-
             // Shares the image handle if the image is loaded multiple times. If LR_SHARED is not set, a second call to LoadImage for the same resource will load the image again and return a different handle.
             const int LR_SHARED = 0x00008000;
 
-#pragma warning restore CS0219 // Variable is assigned but its value is never used
+            const int IDI_APPLICATION = 0x7f00;
 
-            if (hwnd == IntPtr.Zero)
-            {
-                return null;
-            }
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
 
             try
             {
 #pragma warning disable 618
-                var iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL), IntPtr.Zero);
+                var iconPtr = IntPtr.Zero;
 
-                if (iconPtr == IntPtr.Zero)
+                if (hwnd != IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.GetClassLong(hwnd, GCL_HICONSM);
+                    iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL2), IntPtr.Zero);
+
+                    if (iconPtr == IntPtr.Zero)
+                    {
+                        iconPtr = NativeMethods.GetClassLong(hwnd, GCLP.HICONSM);
+                    }
                 }
 
                 if (iconPtr == IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(0x7f00) /*IDI_APPLICATION*/, 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
+                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(IDI_APPLICATION), 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
                 }
 
                 if (iconPtr != IntPtr.Zero)
                 {
                     var bitmapFrame = BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)desiredSize.Width, (int)desiredSize.Height)));
-                    return (ImageSource)bitmapFrame.GetAsFrozen();
+                    return bitmapFrame;
                 }
 #pragma warning restore 618
             }

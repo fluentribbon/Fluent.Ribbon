@@ -1,0 +1,269 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.ApplicationMenu"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 0,85.3333L 170.667,85.3333L 170.667,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 91.3333,71.3333L 16,71.3333C 14.5333,71.3333 13.3333,70.1333 13.3333,68.6667L 13.3333,10C 13.3333,8.53333 14.5333,7.33333 16,7.33333L 91.3333,7.33333C 92.8,7.33333 94,8.53333 94,10L 94,68.6667C 94,70.1333 92.8,71.3333 91.3333,71.3333 Z "/>
+                    <GeometryDrawing Brush="#FF497DB1" Geometry="F1 M 41.3333,64L 37.3333,64L 37.3333,14.6667L 41.3333,14.6667M 78.8,25.3333L 53.8667,25.3333C 52.8,25.3333 52,24.5333 52,23.4667L 52,21.8667C 52,20.8 52.8,20 53.8667,20L 78.8,20C 79.8667,20 80.6667,20.8 80.6667,21.8667L 80.6667,23.4667C 80.6667,24.5333 79.8667,25.3333 78.8,25.3333 Z M 78.8,37.3333L 53.8667,37.3333C 52.8,37.3333 52,36.5333 52,35.4667L 52,33.8667C 52,32.8 52.8,32 53.8667,32L 78.8,32C 79.8667,32 80.6667,32.8 80.6667,33.8667L 80.6667,35.4667C 80.6667,36.5333 79.8667,37.3333 78.8,37.3333 Z M 78.8,48L 53.8667,48C 52.8,48 52,47.2 52,46.1333L 52,44.5333C 52,43.4667 52.8,42.6667 53.8667,42.6667L 78.8,42.6667C 79.8667,42.6667 80.6667,43.4667 80.6667,44.5333L 80.6667,46.1333C 80.6667,47.2 79.8667,48 78.8,48 Z M 78.8,58.6667L 53.8667,58.6667C 52.8,58.6667 52,57.8667 52,56.8L 52,55.2C 52,54.1333 52.8,53.3333 53.8667,53.3333L 78.8,53.3333C 79.8667,53.3333 80.6667,54.1333 80.6667,55.2L 80.6667,56.8C 80.6667,57.8667 79.8667,58.6667 78.8,58.6667 Z M 92,68.6667C 92,69.0667 91.7333,69.3333 91.3333,69.3333L 42.5333,69.3333C 42.2667,67.8667 40.9333,66.6667 39.3333,66.6667C 37.7333,66.6667 36.4,67.8667 36.1333,69.3333L 16,69.3333C 15.6,69.3333 15.3333,69.0667 15.3333,68.6667L 15.3333,10C 15.3333,9.6 15.6,9.33333 16,9.33333L 36.1333,9.33333C 36.4,10.8 37.7333,12 39.3333,12C 40.9333,12 42.2667,10.8 42.5333,9.33333L 91.3333,9.33333C 91.7333,9.33333 92,9.6 92,10M 91.3333,5.33333L 16,5.33333C 13.4667,5.33333 11.3333,7.46666 11.3333,10L 11.3333,68.6667C 11.3333,71.2 13.4667,73.3333 16,73.3333L 91.3333,73.3333C 93.8667,73.3333 96,71.2 96,68.6667L 96,10C 96,7.46666 93.8667,5.33333 91.3333,5.33333 Z "/>
+                    <GeometryDrawing Brush="#FFD1D1D1" Geometry="F1 M 20.444,49L 30.6667,49L 30.6667,63.6667L 20.444,63.6667L 20.444,49 Z "/>
+                    <GeometryDrawing Brush="#9AD1D1D1" Geometry="F1 M 20.444,32.556L 30.6667,32.556L 30.6667,47.2227L 20.444,47.2227L 20.444,32.556 Z "/>
+                    <GeometryDrawing Brush="#4DD1D1D1" Geometry="F1 M 20.444,15.2227L 30.6667,15.2227L 30.6667,29.8893L 20.444,29.8893L 20.444,15.2227 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 137.867,58L 161.334,32.2667C 162.399,31.2 161.601,29.3333 160.133,29.3333L 112.399,29.3333C 111.201,29.3333 110.667,30.6667 111.466,31.6L 135.466,58C 136.133,58.6667 137.201,58.6667 137.867,58 Z "/>
+                    <GeometryDrawing Brush="#FF497DB1" Geometry="F1 M 115.333,32L 136.667,55.3333L 158,32M 136.667,61.2C 135.467,61.2 134.267,60.6667 133.467,59.7333L 109.333,33.3333C 108.267,32.1333 108,30.5333 108.667,29.0667C 109.333,27.6 110.8,26.6667 112.267,26.6667L 160,26.6667C 161.733,26.6667 163.333,27.7333 164,29.3333C 164.667,30.9333 164.4,32.8 163.2,34L 139.733,59.7333C 139.067,60.6667 137.867,61.2 136.667,61.2 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Checked"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Geometry="F1 M 65.1237,26.8028L 38.0797,58.5308L 20.2091,43.5268">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="6.66667" MiterLimit="2.75" Brush="{DynamicResource BlackBrush}"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Copy"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 4.66667,87.3333L 90,87.3333L 90,2L 4.66667,2L 4.66667,87.3333 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 52,65.3333L 9.33334,65.3333L 9.33334,9.33334L 33,9.33334L 52,26L 52,65.3333 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="4.66667" MiterLimit="2.75" Brush="#FF515151"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 84,80L 41.3333,80L 41.3333,24L 65,24L 84,40.6667L 84,80 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="4.66667" MiterLimit="2.75" Brush="#FF515151"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 63.3333,24L 63.3333,43.3333L 84,43.3333">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="4.66667" MiterLimit="2.75" Brush="#FF515151"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF497DB1" Geometry="F1 M 15.3333,27L 15.3333,28.3333C 15.3333,29.4333 16.2333,30.3333 17.3333,30.3333L 24,30.3333C 25.1,30.3333 26,29.4333 26,28.3333L 26,27C 26,25.9 25.1,25 24,25L 17.3333,25C 16.2333,25 15.3333,25.9 15.3333,27 Z M 15.3333,37.6667L 15.3333,39C 15.3333,40.1 16.2333,41 17.3333,41L 36,41C 37.1,41 38,40.1 38,39L 38,37.6667C 38,36.5667 37.1,35.6667 36,35.6667L 17.3333,35.6667C 16.2333,35.6667 15.3333,36.5667 15.3333,37.6667 Z M 17.3333,47.6667L 36,47.6667C 37.1,47.6667 38,48.5667 38,49.6667L 38,51C 38,52.1 37.1,53 36,53L 17.3333,53C 16.2333,53 15.3333,52.1 15.3333,51L 15.3333,49.6667C 15.3333,48.5667 16.2333,47.6667 17.3333,47.6667 Z "/>
+                    <GeometryDrawing Brush="#FF497DB1" Geometry="F1 M 48.6667,40.3333L 48.6667,41.6667C 48.6667,42.7667 49.5667,43.6667 50.6667,43.6667L 57.3333,43.6667C 58.4333,43.6667 59.3333,42.7667 59.3333,41.6667L 59.3333,40.3333C 59.3333,39.2333 58.4333,38.3333 57.3333,38.3333L 50.6667,38.3333C 49.5667,38.3333 48.6667,39.2333 48.6667,40.3333 Z M 48.6667,51L 48.6667,52.3333C 48.6667,53.4333 49.5667,54.3333 50.6667,54.3333L 74,54.3333C 75.1,54.3333 76,53.4333 76,52.3333L 76,51C 76,49.9 75.1,49 74,49L 50.6667,49C 49.5667,49 48.6667,49.9 48.6667,51 Z M 50.6667,61L 74,61C 75.1,61 76,61.9 76,63L 76,64.3333C 76,65.4333 75.1,66.3333 74,66.3333L 50.6667,66.3333C 49.5667,66.3333 48.6667,65.4333 48.6667,64.3333L 48.6667,63C 48.6667,61.9 49.5667,61 50.6667,61 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Cut"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 4.66667,86L 90,86L 90,0.666664L 4.66667,0.666664L 4.66667,86 Z "/>
+                    <GeometryDrawing Brush="#FF666666" Geometry="F1 M 66.8841,0.666664L 45.7748,29.0547L 24.6668,0.666664C 21.8641,16.544 32.7961,30.4493 39.5988,37.36L 28.2175,52.6667L 33.5508,58L 45.7748,43.3307L 58.0001,58L 63.3335,52.6667L 51.9521,37.36C 58.7548,30.4493 69.6855,16.544 66.8841,0.666664 Z "/>
+                    <GeometryDrawing Geometry="F1 M 70.6667,80C 78.0293,80 84,74.0293 84,66.6667C 84,59.304 78.0293,53.3333 70.6667,53.3333C 63.304,53.3333 57.3333,59.304 57.3333,66.6667C 57.3333,74.0293 63.304,80 70.6667,80 Z M 10.6667,66.6667C 10.6667,59.304 16.636,53.3333 24,53.3333C 31.364,53.3333 37.3333,59.304 37.3333,66.6667C 37.3333,74.0293 31.364,80 24,80C 16.636,80 10.6667,74.0293 10.6667,66.6667 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="5.33334" MiterLimit="2.75" Brush="#FF497DB1"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.DefaultPlaceholder"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 10.6667,96L 96,96L 96,10.6667L 10.6667,10.6667L 10.6667,96 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 17.3333,53.3333C 17.3333,33.4507 33.4507,17.3333 53.3333,17.3333C 73.216,17.3333 89.3333,33.4507 89.3333,53.3333C 89.3333,73.216 73.216,89.3333 53.3333,89.3333C 33.4507,89.3333 17.3333,73.216 17.3333,53.3333 Z "/>
+                    <GeometryDrawing Geometry="F1 M 16,53.3333C 16,32.7147 32.7147,16 53.3333,16C 73.952,16 90.6667,32.7147 90.6667,53.3333C 90.6667,73.952 73.952,90.6667 53.3333,90.6667C 32.7147,90.6667 16,73.952 16,53.3333 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="8" MiterLimit="2.75" Brush="#FF8099BD"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF6F9A42" Geometry="F1 M 25.3333,53.3333C 25.3333,37.8693 37.8693,25.3333 53.3333,25.3333C 68.7973,25.3333 81.3333,37.8693 81.3333,53.3333C 81.3333,68.7973 68.7973,81.3333 53.3333,81.3333C 37.8693,81.3333 25.3333,68.7973 25.3333,53.3333 Z "/>
+                    <GeometryDrawing Geometry="F1 M 31.25,66C 31.25,57.5307 41.1378,50.6667 53.3333,50.6667C 65.5303,50.6667 75.4167,57.5307 75.4167,66C 75.4167,74.4693 65.5303,81.3333 53.3333,81.3333C 41.1378,81.3333 31.25,74.4693 31.25,66 Z ">
+                        <GeometryDrawing.Brush>
+                            <RadialGradientBrush RadiusX="0.408531" RadiusY="0.568391" Center="0.5,0.5" GradientOrigin="0.5,0.5">
+                                <RadialGradientBrush.GradientStops>
+                                    <GradientStop Color="#6CFFFFFF" Offset="0"/>
+                                    <GradientStop Color="#6CB7CCA0" Offset="0.539535"/>
+                                    <GradientStop Color="#6C6F9A42" Offset="1"/>
+                                </RadialGradientBrush.GradientStops>
+                                <RadialGradientBrush.RelativeTransform>
+                                    <TransformGroup/>
+                                </RadialGradientBrush.RelativeTransform>
+                            </RadialGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M 30.6667,42.6667C 30.6667,33.0933 40.8147,25.3333 53.3333,25.3333C 65.852,25.3333 76,33.0933 76,42.6667C 76,52.24 65.852,57.6667 53.3333,57.6667C 40.8147,57.6667 30.6667,52.24 30.6667,42.6667 Z ">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush StartPoint="0.5,2.35961e-007" EndPoint="0.5,0.907216">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStop Color="#CAFFFFFF" Offset="0"/>
+                                    <GradientStop Color="#65FFFFFF" Offset="0.725581"/>
+                                    <GradientStop Color="#00FFFFFF" Offset="1"/>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.DialogLauncher"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3331L 85.3333,85.3331L 85.3333,-0.000259399L 0,-0.000259399L 0,85.3331 Z "/>
+                    <GeometryDrawing Brush="#FF999999" Geometry="F1 M 21.3336,10.6667L 10.6669,10.6667L 10.6669,21.3333L 10.6669,80L 21.3336,80L 21.3336,21.3333L 80.0003,21.3333L 80.0003,10.6667M 42.2283,48.436L 60.0376,66.2453L 41.3323,84.9507L 41.3323,85.3333L 85.3336,85.3333L 85.3336,41.332L 84.9509,41.332L 67.5789,58.704L 49.7709,40.8947L 42.2283,48.436 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Help"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="#FF497DB1" Geometry="F1 M 85.3333,42.6667C 85.3333,66.2307 66.2307,85.3333 42.6667,85.3333C 19.1027,85.3333 0,66.2307 0,42.6667C 0,19.1027 19.1027,0 42.6667,0C 66.2307,0 85.3333,19.1027 85.3333,42.6667 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 36.8092,57.4479C 36.8092,53.7604 37.2675,50.8229 38.1842,48.6145C 39.1009,46.427 40.9134,44.0104 43.6217,41.3854C 46.33,38.7604 48.0384,36.9062 48.7675,35.7812C 49.8717,34.0937 50.4342,32.2604 50.4342,30.2812C 50.4342,27.677 49.7884,25.677 48.4967,24.302C 47.205,22.927 45.3092,22.2395 42.8092,22.2395C 40.4134,22.2395 38.4967,22.927 37.0384,24.2604C 35.58,25.6145 34.8509,27.4479 34.8509,29.7395L 24.7259,29.7395C 24.7675,24.8229 26.455,20.9479 29.7467,18.0729C 33.0384,15.2187 37.3925,13.7812 42.8092,13.7812C 48.3925,13.7812 52.7467,15.1979 55.8717,18.0312C 58.9967,20.8645 60.5592,24.8229 60.5592,29.9062C 60.5592,34.4479 58.4342,38.9062 54.2259,43.2812L 49.1009,48.3229C 47.2675,50.4062 46.3092,53.4479 46.2675,57.4479L 36.8092,57.4479 Z M 36.1009,70.4062C 36.1009,68.7812 36.6009,67.4479 37.6425,66.427C 38.6634,65.427 40.0592,64.9062 41.8092,64.9062C 43.58,64.9062 44.9759,65.427 46.0175,66.4687C 47.0384,67.5104 47.5592,68.8229 47.5592,70.4062C 47.5592,71.9479 47.0592,73.2187 46.0592,74.2395C 45.0592,75.2812 43.6425,75.7812 41.8092,75.7812C 39.9759,75.7812 38.5592,75.2812 37.58,74.2395C 36.58,73.2187 36.1009,71.9479 36.1009,70.4062 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.MoreColors"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="#FFD76345" Geometry="F1 M 15.5469,75.6068L 38.3523,44.2188L 1.3016,32.1815C 0.454933,35.5361 0.000266667,39.0481 0.000266667,42.6668C 0.000266667,55.9308 6.0536,67.7815 15.5469,75.6068 Z "/>
+                    <GeometryDrawing Brush="#FFE68C42" Geometry="F1 M 40,39.1459L 40,0.0912094C 23.088,1.13521 8.852,12.0272 2.94133,27.1045L 40,39.1459 Z "/>
+                    <GeometryDrawing Brush="#FFEAC282" Geometry="F1 M 45.3333,39.1459L 82.3933,27.1045C 76.48,12.0272 62.2453,1.13521 45.3333,0.0912094L 45.3333,39.1459 Z "/>
+                    <GeometryDrawing Brush="#FF4F82B7" Geometry="F1 M 42.6667,47.3528L 19.872,78.7261C 26.468,82.9048 34.2813,85.3328 42.6667,85.3328C 51.052,85.3328 58.8653,82.9048 65.4613,78.7261L 42.6667,47.3528 Z "/>
+                    <GeometryDrawing Brush="#FF76A797" Geometry="F1 M 46.9817,44.2188L 69.7871,75.6068C 79.2804,67.7801 85.3337,55.9308 85.3337,42.6668C 85.3337,39.0481 84.8791,35.5361 84.0311,32.1801L 46.9817,44.2188 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Paste"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,86L 85.3333,86L 85.3333,0.666664L 0,0.666664L 0,86 Z "/>
+                    <GeometryDrawing Brush="#FFEAC282" Geometry="F1 M 40,31.3333L 72.6667,31.3333C 74.1387,31.3333 75.3333,30.14 75.3333,28.6667L 75.3333,12.6667C 75.3333,11.1947 74.1387,10 72.6667,10L 64,10L 64,11.104L 64,18.2293C 64,22.5213 60.5213,26 56.2293,26L 23.7707,26C 19.4787,26 16,22.5213 16,18.2293L 16,11.104L 16,10L 7.33333,10C 5.86133,10 4.66667,11.1947 4.66667,12.6667L 4.66667,77.3333C 4.66667,78.8053 5.86133,80 7.33333,80L 34.6667,80C 36.1387,80 37.3333,78.8053 37.3333,77.3333L 37.3333,34C 37.3333,32.528 38.528,31.3333 40,31.3333 Z "/>
+                    <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1 M 82,82.6667L 47.3333,82.6667C 46.596,82.6667 46,82.0707 46,81.3333L 46,41.3333C 46,40.5973 46.596,40 47.3333,40L 68.6667,40L 83.3333,52L 83.3333,81.3333C 83.3333,82.0707 82.7373,82.6667 82,82.6667 Z "/>
+                    <GeometryDrawing Geometry="F1 M 68.6667,40L 68.6667,52L 84,52M 82,82.6667L 47.3333,82.6667C 46.596,82.6667 46,82.0707 46,81.3333L 46,41.3333C 46,40.5973 46.596,40 47.3333,40L 68.6667,40L 83.3333,52L 83.3333,81.3333C 83.3333,82.0707 82.7373,82.6667 82,82.6667 Z ">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="4" MiterLimit="2.75" Brush="#FF666666"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="#FF666666" Geometry="F1 M 40,14.6667C 37.4227,14.6667 35.3333,12.5773 35.3333,10C 35.3333,7.42267 37.4227,5.33333 40,5.33333C 42.5773,5.33333 44.6667,7.42267 44.6667,10C 44.6667,12.5773 42.5773,14.6667 40,14.6667 Z M 56.2293,8.66666L 49.228,8.66666C 48.5787,4.14533 44.7,0.666664 40,0.666664C 35.3,0.666664 31.4213,4.14533 30.7733,8.66666L 23.7707,8.66666C 22.424,8.66666 21.3333,9.75733 21.3333,11.104L 21.3333,18.2293C 21.3333,19.576 22.424,20.6667 23.7707,20.6667L 56.2293,20.6667C 57.576,20.6667 58.6667,19.576 58.6667,18.2293L 58.6667,11.104C 58.6667,9.75733 57.576,8.66666 56.2293,8.66666 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarDropDown"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown}" Geometry="F1 M 5.33333,13.3333L 80.0013,13.3333L 80.0013,0L 5.33333,0M 12.6667,28L 42.6667,64L 72.6667,28L 12.6667,28 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarExtender"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender}" Geometry="F1 M 48,14L 48,71.3333L 80,42.6667M 5.33333,14L 37.3333,42.6667L 5.33333,71.3333L 5.33333,14 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.RibbonCollapse"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z "/>
+                    <GeometryDrawing Geometry="F1 M 76.9987,56.5833L 49.1667,28.75L 21.3333,56.5833">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonCollapse}"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.RibbonExpand"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z "/>
+                    <GeometryDrawing Geometry="F1 M 76.9987,28.7507L 49.1667,56.584L 21.3333,28.7507">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="10.6667" MiterLimit="2.75" Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonExpand}"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.RibbonPin"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonPin}" Geometry="F1 M 46.176,42.6667L 33.8947,42.6667L 33.8947,16.3507L 46.176,16.3507M 60.0733,42.6667L 57.58,42.6667L 57.58,13.8693C 57.58,11.364 55.548,9.33334 53.0427,9.33334L 32.2907,9.33334C 29.7853,9.33334 27.7547,11.364 27.7547,13.8693L 27.7547,42.6667L 25.2613,42.6667C 22.7627,42.6667 20.7373,44.6933 20.7373,47.192L 20.7373,48.6693C 20.7373,51.168 22.7627,53.1933 25.2613,53.1933L 37.404,53.1933L 37.404,70.7373C 37.404,73.6427 39.76,76 42.6667,76C 45.5733,76 47.9293,73.6427 47.9293,70.7373L 47.9293,53.1933L 60.0733,53.1933C 62.572,53.1933 64.596,51.168 64.596,48.6693L 64.596,47.192C 64.596,44.6933 62.572,42.6667 60.0733,42.6667 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.Warning"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Children>
+                        <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                        <GeometryDrawing Brush="#FFE9C281" Geometry="F1 M 37.5892,9.95308L 2.41053,70.8837C 0.154533,74.7931 2.97587,79.6784 7.48787,79.6784L 77.8452,79.6784C 82.3585,79.6784 85.1799,74.7931 82.9225,70.8837L 47.7452,9.95308C 45.4865,6.04373 39.8452,6.04373 37.5892,9.95308 Z "/>
+                        <GeometryDrawing Brush="#FF333333" Geometry="F1 M 37.9675,54.0599L 37.9675,25.1849L 48.2592,25.1849L 48.2592,54.0599L 37.9675,54.0599 Z M 49.1342,63.3933C 49.1342,64.2266 48.9675,64.9974 48.655,65.7058C 48.3425,66.4141 47.905,67.0391 47.3633,67.5391C 46.8217,68.0391 46.1758,68.4558 45.4467,68.7474C 44.6967,69.0391 43.9258,69.2058 43.1133,69.2058C 42.28,69.2058 41.5092,69.0599 40.8008,68.7683C 40.0925,68.4974 39.4675,68.1016 38.9467,67.5599C 38.405,67.0391 37.9883,66.4349 37.655,65.7266C 37.3217,65.0391 37.155,64.2891 37.155,63.4558C 37.155,62.6849 37.3008,61.9349 37.6133,61.2266C 37.9258,60.5183 38.3425,59.8933 38.8842,59.3516C 39.405,58.8099 40.03,58.3933 40.78,58.0808C 41.5092,57.7891 42.28,57.6224 43.1133,57.6224C 43.9258,57.6224 44.6967,57.7891 45.4467,58.0808C 46.1758,58.3933 46.8217,58.8099 47.3633,59.3099C 47.905,59.8308 48.3425,60.4558 48.655,61.1641C 48.9675,61.8724 49.1342,62.6224 49.1342,63.3933 Z "/>
+                    </DrawingGroup.Children>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>

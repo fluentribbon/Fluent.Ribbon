@@ -98,16 +98,17 @@ namespace Fluent
         public string Text
         {
             get { return (string)this.GetValue(TextProperty); }
-            private set { this.SetValue(textPropertyKey, value); }
+            private set { this.SetValue(TextPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey textPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey TextPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty TextProperty = textPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -322,12 +323,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for TextToValueConverter.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextToValueConverterProperty =
+#pragma warning disable WPF0016 // Default value is shared reference type.
             DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(new SpinnerTextToValueConverter()));
+#pragma warning restore WPF0016 // Default value is shared reference type.
 
         #endregion TextToValueConverter
 
         /// <summary>
-        /// Defines wether all text should be select as soon as this control gets focus.
+        /// Defines whether all text should be select as soon as this control gets focus.
         /// </summary>
         public bool SelectAllTextOnFocus
         {

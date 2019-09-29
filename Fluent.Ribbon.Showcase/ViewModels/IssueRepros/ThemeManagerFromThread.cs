@@ -13,7 +13,7 @@
         private int currentTheme;
         private CancellationTokenSource cancellationTokenSource;
 
-        public enum ThemeAccents
+        public enum ThemeColors
         {
             Red,
             Amber,
@@ -65,7 +65,7 @@
                 this.currentTheme = 0;
             }
 
-            var newTheme = (ThemeAccents)this.currentTheme;
+            var newTheme = (ThemeColors)this.currentTheme;
 
             this.Info("Changing theme to " + newTheme);
             this.ChangeTheme(newTheme);
@@ -73,25 +73,24 @@
             this.currentTheme++;
         }
 
-        private void ChangeTheme(ThemeAccents themeAccent)
+        private void ChangeTheme(ThemeColors themeColor)
         {
             if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action<ThemeAccents>(this.ChangeTheme), themeAccent);
+                Application.Current.Dispatcher.BeginInvoke(new Action<ThemeColors>(this.ChangeTheme), themeColor);
             }
             else
             {
-                var newAccent = ThemeManager.GetAccent(themeAccent.ToString());
-                if (newAccent != null)
+                var newTheme = ThemeManager.GetTheme("Light." + themeColor.ToString());
+                if (newTheme != null)
                 {
-                    var theme = ThemeManager.DetectAppStyle(Application.Current);
-                    ThemeManager.ChangeAppStyle(Application.Current, newAccent, theme.Item1);
+                    ThemeManager.ChangeTheme(Application.Current, newTheme);
 
-                    this.Info($"Change theme: NewTheme: {newAccent.Name} Theme changed.");
+                    this.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
                 }
                 else
                 {
-                    this.Info($"Change theme: Theme not found: {themeAccent}.");
+                    this.Info($"Change theme: Theme not found: {themeColor}.");
                 }
             }
         }
@@ -100,9 +99,9 @@
         {
             try
             {
-                var theme = ThemeManager.DetectAppStyle(Application.Current);
-                this.Info($"Current theme from args: {e.Accent.Name}");
-                this.Info($"Current theme from detection: {theme.Item2.Name}");
+                var theme = ThemeManager.DetectTheme(Application.Current);
+                this.Info($"Current theme from args: {e.Theme.Name}");
+                this.Info($"Current theme from detection: {theme.Name}");
             }
             catch (Exception ex)
             {

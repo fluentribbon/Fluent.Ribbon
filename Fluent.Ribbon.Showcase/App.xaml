@@ -6,13 +6,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Generic.xaml" />
                 
-                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/BaseLight.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Accents/Green.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Light.Green.xaml" />-->
                 
-                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/BaseDark.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Accents/Green.xaml" />-->
+                <!--<ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Dark.Green.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

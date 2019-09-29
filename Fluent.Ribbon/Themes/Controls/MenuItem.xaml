@@ -3,7 +3,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
@@ -52,7 +52,7 @@
                        Height="2" />
         </Grid>
     </ControlTemplate>
-    
+
     <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
                      TargetType="{x:Type Thumb}">
         <Grid Background="Transparent">
@@ -144,13 +144,6 @@
     <!--Menu Item Template-->
     <ControlTemplate x:Key="MenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -170,6 +163,8 @@
             </Border>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -180,8 +175,10 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -190,7 +187,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -276,17 +273,10 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Header Menu Item Template-->
     <ControlTemplate x:Key="HeaderMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -306,6 +296,8 @@
             </Border>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -316,8 +308,10 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -326,7 +320,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -359,7 +353,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -404,7 +397,7 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -518,17 +511,10 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Splited Menu Item Template-->
     <ControlTemplate x:Key="SplitedMenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="25" />
@@ -541,7 +527,7 @@
                        Margin="0,4,23,4"
                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                        Width="1" />
-            
+
             <Grid  HorizontalAlignment="Stretch"
                    Margin="0"
                    Width="Auto"
@@ -567,11 +553,12 @@
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                         BorderThickness="1"
-                        CornerRadius="2"
                         Grid.Column="1" />
             </Grid>
             <ContentPresenter x:Name="textBlock"
                               ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               Width="Auto"
                               Height="Auto"
                               Margin="5,3,3,3"
@@ -582,8 +569,10 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -592,7 +581,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -625,8 +614,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -636,8 +623,7 @@
                             <Border VerticalAlignment="Stretch"
                                     Width="Auto"
                                     Height="Auto"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    CornerRadius="1" />
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -671,7 +657,7 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -798,13 +784,6 @@
     <!--Menu Item with Description Template-->
     <ControlTemplate x:Key="MenuItemWithDescriptionTemplate"
                      TargetType="{x:Type Fluent:MenuItem}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Grid Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -830,6 +809,8 @@
             <ContentControl x:Name="textBlock"
                             Content="{TemplateBinding Header}"
                             ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                            TextElement.FontWeight="Bold"
                             Width="Auto"
                             Height="Auto"
                             Margin="0,3,3,3"
@@ -849,8 +830,10 @@
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Border x:Name="iconImageBorder"
@@ -859,7 +842,7 @@
                                   HorizontalAlignment="Center"
                                   Height="16"
                                   VerticalAlignment="Center"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="16"
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
@@ -942,10 +925,10 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!--Menu Item Style-->
-    <Style x:Key="FluentDefaultSystemMenuItemStyle"
-           TargetType="{x:Type MenuItem}">
+    <Style x:Key="Fluent.Ribbon.Styles.MenuItem"
+           TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
@@ -956,13 +939,6 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template"
                 Value="{DynamicResource MenuItemTemplate}" />
-        <Setter Property="HeaderTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" />
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -984,18 +960,10 @@
                 <Setter Property="Template"
                         Value="{DynamicResource HeaderMenuItemTemplate}" />
             </MultiTrigger>
-            <DataTrigger Binding="{Binding Description, RelativeSource={RelativeSource Self}, Converter={x:Static Converters:IsNullConverter.Instance}}"
+            <DataTrigger Binding="{Binding Description, RelativeSource={RelativeSource Self}, Converter={x:Static converters:IsNullConverter.Instance}}"
                          Value="False">
                 <Setter Property="Template"
                         Value="{DynamicResource MenuItemWithDescriptionTemplate}" />
-                <Setter Property="HeaderTemplate">
-                    <Setter.Value>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding}"
-                                       FontWeight="Bold" />
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
             </DataTrigger>
         </Style.Triggers>
     </Style>

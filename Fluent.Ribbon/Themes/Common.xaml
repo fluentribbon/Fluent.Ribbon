@@ -35,7 +35,8 @@
     <Style TargetType="{x:Type Fluent:Ribbon}" BasedOn="{StaticResource RibbonStyle}" />
     <Style TargetType="{x:Type Fluent:RibbonWindow}" BasedOn="{StaticResource RibbonWindowStyle}" />
 
-    <Style TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
+    <Style TargetType="{x:Type Fluent:ContextMenu}" BasedOn="{StaticResource Fluent.Ribbon.Styles.ContextMenu}" />
+    <Style TargetType="{x:Type Fluent:MenuItem}" BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuItem}" />
     <Style TargetType="{x:Type Fluent:StatusBarItem}" BasedOn="{StaticResource RibbonStatusBarItemStyle}" />
     <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
     <Style TargetType="{x:Type Fluent:RibbonTitleBar}" BasedOn="{StaticResource RibbonTitleBarStyle}" />

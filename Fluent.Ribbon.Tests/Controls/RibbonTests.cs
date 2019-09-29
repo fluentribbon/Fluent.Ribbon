@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Windows;
+    using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Tests.Helper;
     using Fluent.Tests.TestClasses;
     using NUnit.Framework;
 
@@ -40,32 +42,32 @@
                               };
 
                 {
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
                 }
 
                 {
                     window.Language = enUs;
                     window.DataContext = window.Language;
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
                 }
 
                 {
                     window.Language = deDe;
                     window.DataContext = window.Language;
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
                 }
 
                 {
                     window.Language = enUs;
                     window.DataContext = window.Language;
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, window);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, window);
                 }
             }
         }
@@ -104,8 +106,8 @@
                     Assert.That(ribbon.Language, Is.EqualTo(window.Language), "Language on Window should match.");
                     Assert.That(ribbon.DataContext, Is.EqualTo(window.DataContext), "DataContext on Window should match.");
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
                 }
 
                 {
@@ -115,8 +117,8 @@
                     Assert.That(ribbon.Language, Is.Not.EqualTo(window.Language), "Language on Ribbon should not match Window.");
                     Assert.That(ribbon.DataContext, Is.Not.EqualTo(window.DataContext), "DataContext on Ribbon should not match Window.");
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
                 }
 
                 {
@@ -126,8 +128,8 @@
                     Assert.That(ribbon.Language, Is.EqualTo(window.Language), "Language on Ribbon should match Window.");
                     Assert.That(ribbon.DataContext, Is.EqualTo(window.DataContext), "DataContext on Ribbon should match Window.");
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
                 }
 
                 {
@@ -137,13 +139,13 @@
                     Assert.That(ribbon.Language, Is.Not.EqualTo(window.Language), "Language on Ribbon should not match Window.");
                     Assert.That(ribbon.DataContext, Is.Not.EqualTo(window.DataContext), "DataContext on Ribbon should not match Window.");
 
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
-                    AssertAttElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.DataContextProperty, ribbon);
+                    CheckIfAllElementsHaveSameValue(elemens, FrameworkElement.LanguageProperty, ribbon);
                 }
             }
         }
 
-        private static void AssertAttElementsHaveSameValue(Dictionary<FrameworkElement, string> elements, DependencyProperty property, FrameworkElement expectedValueSource)
+        private static void CheckIfAllElementsHaveSameValue(Dictionary<FrameworkElement, string> elements, DependencyProperty property, FrameworkElement expectedValueSource)
         {
             var expectedValue = expectedValueSource.GetValue(property);
 
@@ -184,6 +186,28 @@
                 Assert.AreEqual(0, newTitleBar.Items.Count);
                 Assert.IsNull(newTitleBar.QuickAccessToolBar);
             }
+        }
+
+        [Test]
+        public void Test_KeyTipKeys()
+        {
+            var ribbon = new Ribbon();
+            var keyTipService = ribbon.GetFieldValue<KeyTipService>("keyTipService");
+
+            Assert.That(ribbon.KeyTipKeys, Is.Empty);                
+            Assert.That(keyTipService.KeyTipKeys, Is.EquivalentTo(KeyTipService.DefaultKeyTipKeys));
+
+            ribbon.KeyTipKeys.Add(Key.A);
+
+            Assert.That(ribbon.KeyTipKeys, Is.EquivalentTo(new[]
+                                                           {
+                                                               Key.A
+                                                           }));
+
+            Assert.That(keyTipService.KeyTipKeys, Is.EquivalentTo(new[]
+                                                           {
+                                                               Key.A
+                                                           }));
         }
     }
 }

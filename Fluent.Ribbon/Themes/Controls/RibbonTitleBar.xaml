@@ -53,10 +53,10 @@
             <Trigger Property="HideContextTabs"
                      Value="True">
                 <Setter Property="Visibility"
-                        Value="Collapsed"
+                        Value="Hidden"
                         TargetName="PART_ItemsContainer" />
                 <Setter Property="Visibility"
-                        Value="Collapsed"
+                        Value="Hidden"
                         TargetName="PART_QuickAccessToolbarHolder" />
             </Trigger>
         </ControlTemplate.Triggers>

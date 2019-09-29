@@ -37,7 +37,6 @@
             <TextBlock Margin="7,0"
                        Text="{TemplateBinding Header}"
                        TextWrapping="Wrap"
-                       d:LayoutOverrides="Width, Height"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        FontWeight="Bold" />

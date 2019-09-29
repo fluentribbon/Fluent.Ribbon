@@ -1,5 +1,170 @@
 # Changelog for Fluent.Ribbon
 
+## 7.0.0 (preview)
+- ### Breaking changes
+  - [#471](../../issues/471) - **Drop support for .Net 4.0**
+  - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
+  **Assemblies are strong named again**, but `AssemblyVersion` is now fixed for every major release.  
+  This means that, for example, for version `7.1` the `AssemblyVersion` will still be `7.0`.  
+  Other versions like `AssemblyFileVersion` etc. won't be fixed.
+  - [#515](../../issues/515) - Switch to new csproj format and require VS2017 for development
+  - [#545](../../issues/545) - SplitButton.IsChecked is not bound 2 way by default
+  - Due to [#549](../../issues/549) `RibbonGroupBox.Header` is now of type object and `RibbonGroupBox` now inherits from `HeaderedItemsControl` instead of `ItemsControl`.  
+  Please have a look at the [documentation](http://fluentribbon.github.io/documentation/controls/ribbon-group-box#customizingHeader) for details.
+  - Removed `CornerRadius` everywhere except in all controls related to `ApplicationMenu`.
+  - Default `Foreground` for `ComboBox` changed from `Inherited` to `Fluent.Ribbon.Brushes.LabelTextBrush`.
+  - Default `VerticalContentAlignment` for `ComboBox`, `Spinner` and `TextBox` changed from `Top` to `Center`.
+  - Key tips can not be opened by pressing `Space` anymore.
+  - [#574](../../issues/574) - Move backstage animations from BackstageTabControl to Backstage  .
+  - `Backstage.IsOpenAnimationEnabled` got renamed to `Backstage.AreAnimationsEnabled`. This also applies to `StartScreen`.
+  - `Backstage.HideAnimationDuration` got removed. This also applies to `StartScreen`.
+  - Default value of dependency property `Backstage.HideContextTabsOnOpen` is now `true`. The default value from style was already set to `true`. So this should only be a breaking change for you if you did not use the default style for `Backstage`.
+  - Default value for `Foreground` of `RibbonTabItem` is now `Fluent.Ribbon.Brushes.RibbonTabItem.Foreground` instead of `Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground` because trigger order was fixed in [#578](../../issues/578).
+  - `GlassFrameThickness` was removed in favor of the new `GlowWindowBehavior`. Thus you can now use `GlowBrush` and `NonActiveGlowBrush` on `RibbonWindow`. The resize border now also works "outside" of the window.  
+    This fixes [#307](../../issues/307), [#319](../../issues/319) and [#556](../../issues/556).
+  - The default value for `TabItemSelectedForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground`. Previously this was bound to `Foreground` of `RibbonContextualTabGroup`.
+  - The default value for `TabItemMouseOverForeground` on `RibbonContextualTabGroup` is now bound to `Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground`. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
+  - The default value for `Fluent:RibbonProperties.MouseOverForeground` on `RibbonTabItem` is now bound to `Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground`. Previously this was bound to `Fluent.Ribbon.Brushes.HighlightBrush` or `BlackBrush`.
+  - [#596](../../issues/596) - Breaking changes in theming  
+    The theming got rewritten this means that there is no longer a separation between `AppTheme` and `Accent`. These got replaced by `Theme`.  
+    Instead of something like `pack://application:,,,/Fluent;component/Themes/Colors/BaseLight.xaml` and `pack://application:,,,/Fluent;component/Themes/Accents/Cobalt.xaml` you now have to use `pack://application:,,,/Fluent;component/Themes/Themes/Light.Cobalt.xaml`.
+    The words `AppTheme` and `Accent` are replaced by `Theme` everywhere.
+  - The target type for `Fluent.Ribbon.Styles.MenuItem` (previously named `FluentDefaultSystemMenuItemStyle`) now is `Fluent:MenuItem` instead of `MenuItem`
+  - Instead of depending on `System.Windows.Interactivity` we now depend on the open source version `Microsoft.Xaml.Behaviors.Wpf`
+  - [#650](../../issues/650) - Create XAML icons and replace the shipped pngs with these (thanks @DenZuck for creating the xaml icons)  
+    Due to this change all shipped images are now of type `DrawingImage` instead of `BitmapImage`.
+  - The filename inside `IsolatedStorageFile` for the default `RibbonStateStorage` is now "Fluent.Ribbon.State." + Hex value of MD5 instead of "Fluent.Ribbon.State.2.0." + hex value of `GetHashCode`. This was done because `GetHashCode` does not return a stable value, especially on .NET core 3.0.
+  - `RibbonTabItem.Indent` was replaced by `RibbonTabItem.HeaderPadding`
+
+**The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+| ApplicationMenuStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItem |
+| ApplicationMenuSecondLevelStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel |
+| BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
+| FluentDefaultSystemMenuItemStyle | Fluent.Ribbon.Styles.MenuItem |
+| BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |
+| BackstageSeparatorTabItemStyle | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem |
+| ComboBoxBackstageStyle | Fluent.Ribbon.Styles.Backstage.ComboBox |
+| ComboBoxItemBackstageControlTemplate | --- |
+| MetroComboBoxItemBackstageStyle | --- |
+| ComboBoxBackstageControlTemplate | --- |
+| ButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.Button |
+| ButtonBackstageControlTemplate | --- |
+| ToggleButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.ToggleButton |
+| ToggleButtonBackstageControlTemplate | --- |
+| DropDownButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.DropDownButton |
+| DropDownButtonBackstageControlTemplate | --- |
+| --- | Fluent.Ribbon.Brushes.TextBox.CaretBrush |
+| --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
+| DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty |
+| OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
+| OnIsOpenTrueStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard |
+| OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
+| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground |
+| --- | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground |
+| --- | Fluent.Ribbon.Brushes.Backstage.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background |
+| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Background |
+| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
+| --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
+| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
+| --- | Fluent.Ribbon.Templates.WindowCommands |
+| WindowCommandsControlTemplate | Fluent.Ribbon.Templates.WindowCommands.Button |
+| --- | Fluent.Ribbon.Styles.WindowCommands.Button |
+| CaptionButtonStyle | Fluent.Ribbon.Styles.WindowCommands.CaptionButton |
+| --- | Fluent.Ribbon.Templates.WindowCommands.CaptionButton |
+</p></details>
+
+- ### Bug fixes
+  - [#165](../../issues/165) - Save As menu is added to QAT but does not have child items
+  - [#307](../../issues/307) - Black flicker on complete window-area when resizing
+  - [#319](../../issues/319) - How to make window resizable with Win32 content?
+  - [#535](../../issues/535) - BorderBush on bottom of RibbonTabItem (and Ribbon)
+  - [#536](../../issues/536) - RibbonContextualTabGroup header text trimmed until hovered
+  - [#542](../../issues/542) - InRibbonGallery not reducing properly
+  - [#543](../../issues/543) - Using images that can't be found during design time crashes designer  
+  A generic "error" image is rendered during design time and an exception is thrown during runtime.
+  - [#551](../../issues/551) - "Auto" size for ribbon group box header to support custom font sizes (thanks @chrfin)
+  - [#552](../../issues/552) - RibbonGroupBox should resize when font family or size are changed
+  - [#556](../../issues/556) - Wrong Window Resize-Border Sensitivity
+  - [#562](../../issues/562) - Pressing "right" arrow key to open submenu on menuitem causes NullRef exception when there is no submenu
+  - [#564](../../issues/564) - Gallery overflow panel (with menu items) doesn't close when clicking once in the application
+  - [#572](../../issues/572) - KeyTip.Keys Position
+  - [#573](../../issues/573) - Empty context menu on controls and ribbon
+  - [#576](../../issues/576) - Does RibbonGroupBox set Foreground invalid?
+  - [#581](../../issues/581) - StackOverflow Exception when trying to access ApplicationMenu while RibbonMenu is minimized
+  - [#586](../../issues/586) - BackstageTabItem IsEnabled=False still displays content
+  - [#587](../../issues/587) - DisplayMemberPath no longer working on DropDownButton/MenuItem as of version 6.0
+  - [#593](../../issues/593) - Disable state selected in InRibbonGallery after click
+  - [#594](../../issues/594) - Keep title in the same location when opening the backstage
+  - [#602](../../issues/602) - Pin button not clickable when Ribbon in collapsed state
+  - [#607](../../issues/607) - Submenu contained in DropDownButton closes too slow
+  - [#616](../../issues/616) - ContextMenu auto hidden after right click (related to [#439](../../issues/439))
+  - [#632](../../issues/632) - Ribbon sometimes clips over other applications
+  - [#637](../../issues/637) - Escape key doesn't close menu on data-bound DropDownButton
+  - [#638](../../issues/638) - Setting AreTabHeadersVisible="False" on startup makes entire ribbon disappear
+  - [#639](../../issues/639) - Group headers take focus when tabbing through with keyboard
+  - [#653](../../issues/653) - Incorrect context menu of Fluent:TextBox
+  - [#656](../../issues/656) - Backstage icons not showing
+  - [#659](../../issues/659) - Fix Dutch localization errors (thanks @carloslubbers)
+  - [#660](../../issues/660) - ContextualTabs visibility problem
+  - [#662](../../issues/662) - Backstage/StartScreen closing if clicking outside of Application
+  - [#663](../../issues/663) - Fluent:ApplicationMenu not closing on outside click after opening context menu.
+  - [#666](../../issues/666) - InRibbonGallery DropDown not layouting correctly
+  - [#673](../../issues/673) - RibbonContextualTabGroup not shown
+  - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
+  - [#688](../../issues/688) - Backstage and StartScreen closing when pressing Alt
+  - [#698](../../issues/698) - Submenus in the application menu are not opened each time
+  - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
+  - [#705](../../issues/705) - ApplicationMenu header can't be set to text
+  - [#714](../../issues/714) - ResizeMode="NoResize" and ShowInTaskbar="False" causes crash on startup
+  - [#722](../../issues/722) - NullReferenceException in KeyTipService.OnAdornerChainTerminated
+  - [#730](../../issues/730) - Add null check for Application.Current to ThemeManager (thanks @Evangelink)
+
+- ### Enhancements/Features
+  - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
+    You can achieve this by:
+    - Setting `Ribbon.Menu` to `null` (or never assigning anything)
+    - Setting `Ribbon.CanMinimize` to `false`
+    - Setting `Ribbon.AreTabHeadersVisible` to `false`
+    - Setting `Ribbon.IsToolBarVisible` to `false`
+  - [#533](../../issues/533) - Issue when using templated ribbon items
+  - [#544](../../issues/544) - Add proper DPI support for icons/images aquired through ObjectToImageConverter on .NET 4.6.2
+  - [#549](../../issues/549) - Implement RibbonGroupBox header template
+  - [#553](../../issues/553) - Introduce resources for CaretBrush and SelectionBrush for TextBox
+  - [#554](../../issues/554) - No Keytips on templated ribbon items.
+  - [#563](../../issues/563) - Add customizable keys for activating the key tips. (thanks @pschimmel)  
+  You can now set your own keys for showing key tips. Have a look at `Ribbon.KeyTipKeys`.
+  - [#568](../../issues/568) - Allow setting the height of GalleryPanel inside InRibbonGallery  
+  You can now control the height of the `GalleryPanel` inside `InRibbonGallery` by setting `GalleryPanelContainerHeight`.
+  - [#578](../../issues/578) - Theming of selected context ribbon tab  
+  You can now use `Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground`, `RibbonContextualTabGroup.TabItemSelectedForeground` and `RibbonContextualTabGroup.TabItemMouseOverForeground` to further control colors.
+  - [#590](../../issues/590) - SplitButton custom KeyTip  
+  You can now use `PrimaryActionKeyTipPostfix` and `SecondaryActionKeyTipPostfix` on `SplitButton` to control the postfix for key tips.
+  - [#592](../../issues/592) - Disable context menu on Ribbon  
+  You can now use `IsDefaultContextMenuEnabled` on `Ribbon` to disable the default context menu.
+  - [#599](../../issues/599) - MahApps.Metro dialog on backstage  
+  You can now use `UseHighestAvailableAdornerLayer` on `Backstage` to improve interop with MahApps.Metro regarding dialogs above the backstage.
+  - [#606](../../issues/606) - added non-generated Colorful.Blue and Colorful.Gray themes (thanks @stylefish)
+  - [#635](../../issues/635) - Quick access menu arrow customization
+  - [#640](../../issues/640) - Narrator doesn't read out button headers
+  - [#642](../../issues/642) - Ignore Alt Gr key, by blacklisting modifier keys, in KeyTips detection (thanks @stylefish)
+  - [#692](../../issues/692) - Add dedicated secondary KeyTip on SplitButton  
+  You can now use `SecondaryKeyTip` on `SplitButton` for the secondary key tip. If `KeyTip` is empty or null only the `SecondaryKeyTip` will be used.
+  - [#696](../../issues/696) - Adding Greek language translations (thanks @b-karamichael)
+
 ## 6.1.0
 
 - ### Bug fixes
@@ -36,7 +201,7 @@
   - There are a lot new resources to control the colorization. Please have a look at Colors.xaml for a list of all available resources.  
     This also means that, for example, simply changing the foreground/background of one outer control won't change the foreground/background of all inner controls.
   - [#457](../../issues/457) - Return type of `IKeyTipedControl.OnKeyTipPressed` was changed from `void` to `KeyTipPressedResult`.
-  - The following `Color` and `Brush` resources got replaced/renamed/removed:
+  - The following `Color` and `Brush` resources were replaced/renamed/removed ("---" indicates removed):
 
 <details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
 
@@ -80,7 +245,7 @@
 | ContextMenuBarBackgroundBrush | Fluent.Ribbon.Brushes.DropDown.BackgroundBrush |
 | ContextMenuBarBorderBrush | Fluent.Ribbon.Brushes.DropDown.BorderBrush |
 | ContextMenuBarResizeBorderBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush |
-| ContextMenuBarResizeBackgoundBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush |
+| ContextMenuBarResizeBackgoundBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush |
 | GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
 | InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
 | BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |

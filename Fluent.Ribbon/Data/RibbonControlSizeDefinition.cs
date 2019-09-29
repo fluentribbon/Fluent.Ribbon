@@ -96,9 +96,7 @@ namespace Fluent
         /// </summary>
         public static RibbonControlSize ToRibbonControlSize(string ribbonControlSize)
         {
-            RibbonControlSize result;
-
-            return Enum.TryParse(ribbonControlSize, true, out result)
+            return Enum.TryParse(ribbonControlSize, true, out RibbonControlSize result)
                        ? result
                        : RibbonControlSize.Large;
         }
@@ -133,12 +131,13 @@ namespace Fluent
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
             {
                 return false;
             }
 
-            return obj is RibbonControlSizeDefinition && this.Equals((RibbonControlSizeDefinition)obj);
+            return obj is RibbonControlSizeDefinition definition
+                   && this.Equals(definition);
         }
 
         #region Equality members

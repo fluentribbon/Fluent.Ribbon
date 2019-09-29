@@ -4,7 +4,7 @@ namespace FluentTest.TemplateSelectors
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
-    using Helpers;
+    using FluentTest.Helpers;
 
     /// <summary>
     /// Provides a means to specify DataTemplates to be selected from within WPF code

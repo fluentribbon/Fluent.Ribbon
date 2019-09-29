@@ -4,30 +4,25 @@
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
+                    xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
-        <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource ApplicationMenuStyle}"
-                   TargetType="{x:Type Fluent:MenuItem}" />
-        </ControlTemplate.Resources>
         <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0,0,0,0">
+                            Margin="0">
                 <Border x:Name="PART_ButtonBorder"
                         MinWidth="60"
                         Height="23"
                         Background="{TemplateBinding Background}">
-                    <Grid>
-                        <Rectangle x:Name="rectangle" />
-                        <ContentPresenter x:Name="contentPresenter"
-                                          ContentSource="Header"
-                                          Margin="10,0,10,0"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center" />
-                    </Grid>
+                    <ContentControl x:Name="contentPresenter"
+                                    Content="{TemplateBinding Header}"
+                                    Margin="10,0,10,0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center" />
                 </Border>
             </ContentControl>
             <Popup x:Name="PART_Popup"
@@ -52,7 +47,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -80,7 +74,6 @@
                                               ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                                     <StackPanel Orientation="Vertical"
                                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                x:Name="PART_MenuPanel"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </ScrollViewer>
@@ -129,18 +122,6 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="Header"
-                     Value="{x:Null}">
-                <Setter Property="Content"
-                        TargetName="contentPresenter">
-                    <Setter.Value>
-                        <Image Source="pack://application:,,,/Fluent;component\Themes\Images\ApplicationMenu.png"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Stretch="None" />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -148,5 +129,7 @@
         <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
+        <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
     </Style>
 </ResourceDictionary>

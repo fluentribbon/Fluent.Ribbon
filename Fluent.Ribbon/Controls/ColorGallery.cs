@@ -125,6 +125,14 @@ namespace Fluent
     /// Represents color gallery
     /// </summary>
     [ContentProperty(nameof(ThemeColors))]
+    [TemplatePart(Name = "PART_MoreColors", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_NoColor", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_AutomaticColor", Type = typeof(MenuItem))]
+    [TemplatePart(Name = "PART_ThemeColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_ThemeGradientColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_StandardColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_StandardGradientColorsListBox", Type = typeof(ListBox))]
+    [TemplatePart(Name = "PART_RecentColorsListBox", Type = typeof(ListBox))]
     public class ColorGallery : Control
     {
         #region Constants
@@ -607,9 +615,7 @@ namespace Fluent
             var gal = (ColorGallery)d;
             gal.ThemeColors.Clear();
 
-            var colors = e.NewValue as IEnumerable<Color>;
-
-            if (colors != null)
+            if (e.NewValue is IEnumerable<Color> colors)
             {
                 foreach (var color in colors)
                 {
@@ -712,9 +718,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();

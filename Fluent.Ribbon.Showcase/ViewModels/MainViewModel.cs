@@ -10,6 +10,7 @@
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
+    using MahApps.Metro.Controls;
 
     public class MainViewModel : ViewModel
     {
@@ -33,7 +34,6 @@
 
         public MainViewModel()
         {
-            this.Title = $"Fluent.Ribbon {GetVersionText()}";
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
@@ -52,13 +52,9 @@
             this.memoryTimer = new Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
             this.memoryTimer.Elapsed += this.HandleMemoryTimer_Elapsed;
             this.memoryTimer.Start();
-
-            ////string.Format("{0:##,000}", this.UsedMemory)
         }
 
         #region Properties
-
-        public string Title { get; private set; }
 
         public long UsedMemory => GC.GetTotalMemory(true) / 1014;
 
@@ -74,7 +70,7 @@
                 }
 
                 this.zoom = value;
-                this.OnPropertyChanged(nameof(this.Zoom));
+                this.OnPropertyChanged();
             }
         }
 
@@ -90,7 +86,7 @@
                 }
 
                 this.colorViewModel = value;
-                this.OnPropertyChanged(nameof(this.ColorViewModel));
+                this.OnPropertyChanged();
             }
         }
 
@@ -106,7 +102,7 @@
                 }
 
                 this.fontsViewModel = value;
-                this.OnPropertyChanged(nameof(this.FontsViewModel));
+                this.OnPropertyChanged();
             }
         }
 
@@ -122,11 +118,11 @@
                 }
 
                 this.galleryViewModel = value;
-                this.OnPropertyChanged(nameof(this.GalleryViewModel));
+                this.OnPropertyChanged();
             }
         }
 
-        public IssueReprosViewModel IssueReprosViewModel { get; set; }
+        public IssueReprosViewModel IssueReprosViewModel { get; }
 
         /// <summary>
         /// Gets data items (uses as DataContext)
@@ -167,11 +163,13 @@
 
             set
             {
-                if (this.isCheckedToggleButton3 != value)
+                if (value == this.isCheckedToggleButton3)
                 {
-                    this.isCheckedToggleButton3 = value;
-                    this.OnPropertyChanged(nameof(this.IsCheckedToggleButton3));
+                    return;
                 }
+
+                this.isCheckedToggleButton3 = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -185,8 +183,13 @@
 
             set
             {
+                if (value == this.boundSpinnerValue)
+                {
+                    return;
+                }
+
                 this.boundSpinnerValue = value;
-                this.OnPropertyChanged(nameof(this.BoundSpinnerValue));
+                this.OnPropertyChanged();
             }
         }
 
@@ -212,31 +215,10 @@
 
         public ICommand TestCommand
         {
-            get
-            {
-                if (this.testCommand == null)
-                {
-                    this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
-                }
-
-                return this.testCommand;
-            }
+            get { return this.testCommand ?? (this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"))); }
         }
 
         #endregion Properties
-
-        private static string GetVersionText()
-        {
-            var version = typeof(Ribbon).Assembly.GetName().Version;
-
-            var attributes = typeof(Ribbon).Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
-                    as AssemblyInformationalVersionAttribute[];
-
-            var attrib = attributes.FirstOrDefault();
-
-            return $"{version} ({attrib.InformationalVersion})";
-        }
 
         private static void Preview(GalleryItem galleryItem)
         {

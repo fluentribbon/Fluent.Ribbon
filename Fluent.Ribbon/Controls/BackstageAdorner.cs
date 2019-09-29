@@ -3,9 +3,14 @@ namespace Fluent
 {
     using System;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Media;
+    using System.Windows.Shapes;
+    using Fluent.Converters;
+    using Fluent.Internal;
 
     /// <summary>
     /// Represents adorner for Backstage
@@ -17,6 +22,8 @@ namespace Fluent
 
         // Collection of visual children
         private readonly VisualCollection visualChildren;
+        private readonly Rectangle background;
+        private readonly BackstageTabControl backstageTabControl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.
@@ -30,16 +37,35 @@ namespace Fluent
 
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;
+            this.backstageTabControl = this.backstageContent as BackstageTabControl 
+                                       ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+
+            this.background = new Rectangle();
+
+            if (this.backstageTabControl != null)
+            {
+                BindingOperations.SetBinding(this.background, Shape.FillProperty, new Binding
+                                                                                  {
+                                                                                      Path = new PropertyPath(Control.BackgroundProperty),
+                                                                                      Source = this.backstageTabControl
+                                                                                  });
+
+                BindingOperations.SetBinding(this.background, MarginProperty, new Binding
+                                                                                  {
+                                                                                      Path = new PropertyPath(BackstageTabControl.SelectedContentMarginProperty),
+                                                                                      Source = this.backstageTabControl
+                                                                                  });
+            }
+            else
+            {
+                this.background.SetResourceReference(Shape.FillProperty, "WhiteBrush");
+            }
 
             this.visualChildren = new VisualCollection(this)
                 {
+                    this.background,
                     this.backstageContent
                 };
-
-            // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            // Syncronize with visual size
-            this.Loaded += this.OnLoaded;
-            this.Unloaded += this.OnUnloaded;
         }
 
         /// <summary>
@@ -47,77 +73,42 @@ namespace Fluent
         /// </summary>
         public Backstage Backstage { get; }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            CompositionTarget.Rendering += this.CompositionTargetRendering;
-        }
-
-        private void OnUnloaded(object sender, RoutedEventArgs e)
-        {
-            CompositionTarget.Rendering -= this.CompositionTargetRendering;
-        }
-
-        private void CompositionTargetRendering(object sender, EventArgs e)
-        {
-            if (this.RenderSize != this.AdornedElement.RenderSize)
-            {
-                this.InvalidateMeasure();
-            }
-        }
-
         public void Clear()
         {
+            BindingOperations.ClearAllBindings(this.background);
+
             this.visualChildren.Clear();
         }
 
-        #region Layout & Visual Children
-
-        /// <summary>
-        /// Positions child elements and determines
-        /// a size for the control
-        /// </summary>
-        /// <param name="finalSize">The final area within the parent
-        /// that this element should use to arrange
-        /// itself and its children</param>
-        /// <returns>The actual size used</returns>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
-            this.backstageContent.Arrange(new Rect(0, 0, finalSize.Width, Math.Max(0, finalSize.Height)));
+            // Arrange background and compensate margin used by animation
+            this.background.Arrange(new Rect(this.Margin.Left * -1, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
+
+            this.backstageContent.Arrange(new Rect(0, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
+
             return finalSize;
         }
 
-        /// <summary>
-        /// Measures KeyTips
-        /// </summary>
-        /// <param name="constraint">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during
-        /// layout, based on its calculations of child element sizes.
-        /// </returns>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            // TODO: fix it! (below ugly workaround) in measureoverride we cannot get RenderSize, we must use DesiredSize
-            this.backstageContent.Measure(new Size(this.AdornedElement.RenderSize.Width, Math.Max(0, this.AdornedElement.RenderSize.Height)));
+            var size = new Size(Math.Max(0, this.AdornedElement.RenderSize.Width), Math.Max(0, this.AdornedElement.RenderSize.Height));
+
+            this.background.Measure(size);
+            this.backstageContent.Measure(size);
+
             return this.AdornedElement.RenderSize;
         }
 
-        /// <summary>
-        /// Gets visual children count
-        /// </summary>
-        protected override int VisualChildrenCount
-        {
-            get { return this.visualChildren.Count; }
-        }
+        /// <inheritdoc />
+        protected override int VisualChildrenCount => this.visualChildren.Count;
 
-        /// <summary>
-        /// Returns a child at the specified index from a collection of child elements
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested child element in the collection</param>
-        /// <returns>The requested child element</returns>
+        /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
             return this.visualChildren[index];
         }
-
-        #endregion
     }
 }

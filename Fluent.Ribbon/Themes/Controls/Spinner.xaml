@@ -3,7 +3,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
     <!--Button in Spinner Control Style-->
@@ -54,7 +54,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="SpinnerButtonStyle"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template"
@@ -75,7 +75,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         Grid.ColumnSpan="1"
-                        x:Name="stackPanel"
+                        x:Name="headerAndIconPanel"
                         HorizontalAlignment="Left"
                         Margin="0,0,4,0">
                 <ContentPresenter x:Name="iconImage"
@@ -83,7 +83,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="4,0,0,0"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -93,7 +93,7 @@
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"
                                Margin="5,0,0,0"
-                               x:Name="textBlock" />
+                               x:Name="headerTextBlock" />
                 </Grid>
             </StackPanel>
 
@@ -118,15 +118,18 @@
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="PART_TextBox"
-                                BorderThickness="0"
-                                Grid.RowSpan="2"
-                                Grid.Column="0"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Padding="2,0,2,0"
-                                Margin="0"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                
+                             Style="{x:Null}"
+                             BorderThickness="0"
+                             Grid.RowSpan="2"
+                             Grid.Column="0"
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                             Padding="2,0,2,0"
+                             Margin="0"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+
                     <Path Visibility="Collapsed"
                             HorizontalAlignment="Left"
                             Margin="0,-1,0,-1"
@@ -139,7 +142,7 @@
                             Grid.Column="1"
                             Grid.RowSpan="2"
                             Data="M0,0L0,1" />
-                                
+
                     <Path HorizontalAlignment="Left"
                             Margin="0,0,-1,0"
                             Width="Auto"
@@ -154,7 +157,7 @@
                             Height="1"
                             Grid.Column="1"
                             Grid.RowSpan="1" />
-                                
+
                     <RepeatButton x:Name="PART_ButtonUp"
                                     Grid.Column="1"
                                     Grid.Row="0"
@@ -224,7 +227,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="0.5" />
                 <Setter Property="Effect"
                         TargetName="iconImage">
@@ -236,7 +239,7 @@
             <Trigger Property="Size"
                         Value="Middle">
                 <Setter Property="Visibility"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -245,7 +248,7 @@
             <Trigger Property="Size"
                         Value="Small">
                 <Setter Property="Visibility"
-                        TargetName="stackPanel"
+                        TargetName="headerAndIconPanel"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -280,6 +283,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
     </Style>

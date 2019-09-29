@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle" TargetType="{x:Type ListBoxItem}">
         <Setter Property="Padding"
                 Value="{Binding Padding, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, FallbackValue='2,0,2,0'}" />
@@ -57,7 +57,7 @@
     
     <DataTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate">
         <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                   Fill="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+                   Fill="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
     
     <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row0" TargetType="{x:Type ListBox}">
@@ -108,19 +108,19 @@
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
         <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,0"
-                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorTopDataTemplate">
         <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,1,1,0"
-                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
         <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1,0,1,1"
-                Background="{Binding Converter={x:Static Converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
     </DataTemplate>
 
     <Style x:Key="ColorGalleryGradientListBox"
@@ -214,7 +214,7 @@
                         </Separator>
                         <Fluent:MenuItem x:Name="PART_MoreColors"
                                          Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MoreColors, Mode=OneWay}"
-                                         Icon="{DynamicResource MoreColorsIcon}" />
+                                         Icon="{DynamicResource Fluent.Ribbon.Images.MoreColors}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsAutomaticColorButtonVisible"

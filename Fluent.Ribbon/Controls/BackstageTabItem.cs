@@ -11,11 +11,27 @@ namespace Fluent
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
-    public class BackstageTabItem : ContentControl, IKeyTipedControl
+    public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
     {
+        #region Icon
+
         /// <summary>
-        /// Gets or sets KeyTip for element.
+        /// Gets or sets Icon for the element
         /// </summary>
+        public object Icon
+        {
+            get { return this.GetValue(IconProperty); }
+            set { this.SetValue(IconProperty, value); }
+        }
+
+        /// <summary>
+        /// Dependency property for <see cref="Icon"/>
+        /// </summary>
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(RibbonControl.OnIconChanged));
+
+        #endregion
+
+        /// <inheritdoc />
         public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
@@ -85,11 +101,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Called when the System.Windows.Controls.ContentControl.Content property changes.
-        /// </summary>
-        /// <param name="oldContent">The old value of the System.Windows.Controls.ContentControl.Content property.</param>
-        /// <param name="newContent">The new value of the System.Windows.Controls.ContentControl.Content property.</param>
+        /// <inheritdoc />
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
@@ -101,12 +113,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Invoked when an unhandled System.Windows.UIElement.MouseLeftButtonDown routed event is raised on this element.
-        /// Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e"> The System.Windows.Input.MouseButtonEventArgs that contains the event data.
-        /// The event data reports that the left mouse button was pressed.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this)
@@ -151,9 +158,7 @@ namespace Fluent
                 return;
             }
 
-            var backstageTabItem = backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) as BackstageTabItem;
-
-            if (backstageTabItem != null)
+            if (backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
             {
                 backstageTabItem.IsSelected = false;
             }
@@ -192,9 +197,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Handles key tip pressed
-        /// </summary>
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             UnselectSelectedItem(this.TabControlParent);
@@ -204,11 +207,21 @@ namespace Fluent
             return KeyTipPressedResult.Empty;
         }
 
-        /// <summary>
-        /// Handles back navigation with KeyTips
-        /// </summary>
+        /// <inheritdoc />
         public void OnKeyTipBack()
         {
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
         }
     }
 }

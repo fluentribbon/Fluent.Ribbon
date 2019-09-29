@@ -5,12 +5,13 @@
         xmlns:fluentTest="clr-namespace:FluentTest"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="{Binding DataContext.Title, ElementName=TestContent}"        
+        Title="{Binding WindowTitle, ElementName=TestContent}"        
         Height="768"
         Width="1024"
         MinWidth="80"
         MinHeight="60"
         mc:Ignorable="d"
-        WindowState="Normal">
+        WindowState="Normal"
+        Background="{DynamicResource WhiteBrush}">
     <fluentTest:TestContent x:Name="TestContent" />
 </Window>

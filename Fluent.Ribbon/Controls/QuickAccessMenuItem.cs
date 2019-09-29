@@ -102,9 +102,7 @@ namespace Fluent
                 }
             }
 
-            var oldRibbonControl = e.OldValue as IRibbonControl;
-
-            if (oldRibbonControl != null)
+            if (e.OldValue is IRibbonControl oldRibbonControl)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
                 if (ReferenceEquals(parent, quickAccessMenuItem))
@@ -118,9 +116,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -199,9 +195,7 @@ namespace Fluent
         /// a quick access toolbar item, false otherwise</returns>
         public static bool IsSupported(UIElement element)
         {
-            var provider = element as IQuickAccessItemProvider;
-
-            if (provider != null
+            if (element is IQuickAccessItemProvider provider
                 && provider.CanAddToQuickAccessToolBar)
             {
                 return true;
@@ -220,9 +214,7 @@ namespace Fluent
             FrameworkElement result = null;
 
             // If control supports the interface just return what it provides
-            var provider = element as IQuickAccessItemProvider;
-
-            if (provider != null
+            if (element is IQuickAccessItemProvider provider
                 && provider.CanAddToQuickAccessToolBar)
             {
                 result = provider.CreateQuickAccessItem();

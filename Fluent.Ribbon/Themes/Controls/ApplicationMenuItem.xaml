@@ -4,9 +4,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
+                    xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
-    <Converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
+    <converters:ApplicationMenuRightScrollViewerExtractorConverter x:Key="ApplicationMenuRightScrollViewerExtractorConverter" />
 
     <!-- Second level-->
 
@@ -75,8 +76,10 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
@@ -84,7 +87,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
         </Grid>
@@ -152,9 +155,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style x:Key="{x:Type Fluent:MenuItem}"
-                       TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -212,8 +212,10 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
@@ -221,7 +223,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -360,7 +362,6 @@
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -470,9 +471,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style x:Key="{x:Type Fluent:MenuItem}"
-                       TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource FluentDefaultSystemMenuItemStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -554,8 +552,10 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    Margin="0,4,0,0"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
@@ -563,7 +563,7 @@
                               Height="32"
                               VerticalAlignment="Top"
                               Margin="3,4,2,2"
-                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               SnapsToDevicePixels="True" />
             <Path x:Name="path"
@@ -595,7 +595,6 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
                             CornerRadius="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -707,7 +706,7 @@
     </ControlTemplate>
 
     <!--Menu Item Style-->
-    <Style x:Key="ApplicationMenuSecondLevelStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
@@ -810,15 +809,17 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -887,9 +888,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style x:Key="{x:Type Fluent:MenuItem}"
-                       TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource ApplicationMenuSecondLevelStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -934,15 +932,17 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -1086,7 +1086,6 @@
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             Grid.ColumnSpan="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -1187,8 +1186,6 @@
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
                        BasedOn="{StaticResource MenuScrollViewer}" />
-                <Style TargetType="{x:Type Fluent:MenuItem}"
-                       BasedOn="{StaticResource ApplicationMenuSecondLevelStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -1257,15 +1254,17 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="32"
+                   Height="32"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <ContentPresenter x:Name="iconImage"
                               HorizontalAlignment="Center"
                               Height="32"
                               VerticalAlignment="Center"
-                              Content="{Binding Icon, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}, RelativeSource={RelativeSource TemplatedParent}}"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                               Width="32"
                               Margin="3,2,2,2"
                               SnapsToDevicePixels="True" />
@@ -1409,7 +1408,6 @@
                             BorderThickness="1"
                             CornerRadius="1"
                             Grid.ColumnSpan="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch">
                         <Grid Width="Auto"
@@ -1512,7 +1510,7 @@
     </ControlTemplate>
 
     <!--Menu Item Style-->
-    <Style x:Key="ApplicationMenuStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItem"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
@@ -1538,6 +1536,8 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
                         Value="{DynamicResource SplitedApplicationMenuItemTemplate}" />
+                <Setter Property="ItemContainerStyleSelector" 
+                        Value="{x:Static styleSelectors:SplitedApplicationMenuItemItemContainerStyleSelector.Instance}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -1548,6 +1548,8 @@
                 </MultiTrigger.Conditions>
                 <Setter Property="Template"
                         Value="{DynamicResource HeaderApplicationMenuItemTemplate}" />
+                <Setter Property="ItemContainerStyleSelector" 
+                        Value="{x:Static styleSelectors:HeaderApplicationMenuItemItemContainerStyleSelector.Instance}" />
             </MultiTrigger>
         </Style.Triggers>
     </Style>

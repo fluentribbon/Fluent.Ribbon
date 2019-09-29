@@ -67,6 +67,7 @@
                                    Margin="7,5,3,7"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
+                                   Stretch="Uniform"
                                    Source="{TemplateBinding Property=Image}"
                                    MaxHeight="48" />
                             <TextBlock Text="{TemplateBinding Property=Text}"
@@ -82,14 +83,15 @@
                                 Margin="5"
                                 Background="{DynamicResource GrayBrush6}"
                                 BorderThickness="0,0,0,1"
-                                IsEnabled="{Binding Path=(IsEnabled), RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" />
+                                IsEnabled="{Binding Path=IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}" />
                         <Grid x:Name="disableReasonSection">
                             <Image Width="16"
                                    Height="16"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
-                                   Source="{DynamicResource ScreenTipWarningImage}" />
+                                   Stretch="Uniform"
+                                   Source="{DynamicResource Fluent.Ribbon.Images.Warning}" />
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -134,7 +136,8 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Margin="5,0,0,0"
-                                   Source="{DynamicResource ScreenTipHelpImage}" />
+                                   Stretch="Uniform"
+                                   Source="{DynamicResource Fluent.Ribbon.Images.Help}" />
                             <TextBlock x:Uid="HelpText"
                                        x:Name="textBlock"
                                        Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ScreenTipF1LabelHeader, Mode=OneWay}"

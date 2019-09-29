@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="RibbonContextualTabGroupStyle"
            TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Setter Property="Template"
@@ -14,17 +14,22 @@
                 Value="False" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
+        <Setter Property="TabItemSelectedForeground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
+        <Setter Property="TabItemMouseOverForeground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
+        <Setter Property="TabItemSelectedMouseOverForeground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
     </Style>
     
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
                 Visibility="{TemplateBinding InnerVisibility}"
-                Margin="1,0,1,0"
+                Margin="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Width="Auto"
-                BorderThickness="1,0,1,0">
+                Width="Auto">
             <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="0,0"
                     VerticalAlignment="Stretch"

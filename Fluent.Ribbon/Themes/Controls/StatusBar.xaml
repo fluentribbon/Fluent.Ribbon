@@ -124,8 +124,10 @@
             <Image x:Name="image"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   Source="{DynamicResource MenuCheckedImage}"
-                   Stretch="None"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
             <Image x:Name="iconImage"
@@ -133,6 +135,7 @@
                    Margin="3,2,2,2"
                    VerticalAlignment="Center"
                    Width="Auto"
+                   Stretch="Uniform"
                    Source="{TemplateBinding Icon}"
                    SnapsToDevicePixels="True" />
             <TextBlock Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}"

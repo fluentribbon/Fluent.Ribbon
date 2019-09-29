@@ -1,0 +1,23 @@
+type file
+id Fluent.Ribbon
+title Fluent.Ribbon
+version 1.0.0
+authors Bastian Schmidt
+owners batzen
+licenseUrl https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt
+projectUrl https://github.com/fluentribbon/Fluent.Ribbon
+iconUrl https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png
+requireLicenseAcceptance false
+tags fluent office ribbon ribbonwindow backstage WPF UI XAML Toolkit Library .NET OSS OpenSource
+description
+  Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
+summary
+  Fluent.Ribbon is a library that implements an Office-like Ribbon for WPF.
+releaseNotes
+  You can read the changelog at: https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md
+dependencies
+  ControlzEx >= LOCKEDVERSION < 5
+include-pdbs true
+files
+  bin/Fluent.Ribbon/Release/net45/Fluent.* ==> lib/net45/
+  bin/Fluent.Ribbon/Release/net462/Fluent.* ==> lib/net462/

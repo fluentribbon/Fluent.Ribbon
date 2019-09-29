@@ -3,10 +3,41 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
-    <Style x:Key="CaptionButtonStyle"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands.CaptionButton"
+                     TargetType="{x:Type Button}">
+        <Grid Background="{TemplateBinding Background}">
+            <ContentPresenter x:Name="contentPresenter"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              RecognizesAccessKey="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="contentPresenter"
+                        Property="Opacity"
+                        Value="1" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                     Value="False">
+                <Setter TargetName="contentPresenter"
+                        Property="Opacity"
+                        Value="0.75" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Foreground"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.WhiteBrush}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.CaptionButton"
            TargetType="{x:Type Button}">
         <Setter Property="Background"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background}" />
@@ -22,39 +53,8 @@
                 Value="1" />
         <Setter Property="Width"
                 Value="46" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <ContentPresenter x:Name="contentPresenter"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                          RecognizesAccessKey="True" />
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter TargetName="contentPresenter"
-                                    Property="Opacity"
-                                    Value="1" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver"
-                                 Value="False">
-                            <Setter TargetName="contentPresenter"
-                                    Property="Opacity"
-                                    Value="0.5" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="False">
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.WhiteBrush}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template"
+                Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.CaptionButton}" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">
@@ -72,7 +72,6 @@
     <ControlTemplate x:Key="RibbonButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
-                CornerRadius="{TemplateBinding CornerRadius}"
                 BorderThickness="{TemplateBinding BorderThickness}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -81,19 +80,18 @@
                 Height="Auto">
             <StackPanel x:Name="stackPanel"
                         Width="Auto"
-                        Orientation="Vertical"
-                        d:LayoutOverrides="Width, Height">
+                        Margin="{TemplateBinding Padding}"
+                        Orientation="Vertical">
                 <ContentPresenter x:Name="iconImage"
                                   HorizontalAlignment="Center"
                                   Height="32"
                                   VerticalAlignment="Center"
-                                  Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                  Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                   Width="32"
                                   Margin="0 2 0 0"
                                   SnapsToDevicePixels="True" />
                 <Fluent:TwoLineLabel x:Name="controlLabel"
                                      Text="{TemplateBinding Header}"
-                                     Style="{DynamicResource TwoLineLabelStyle}"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
                                      Margin="2 0 2 0" />
@@ -122,7 +120,7 @@
                         Value="2,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,0,2,0" />
@@ -158,7 +156,7 @@
                         Value="2,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="VerticalAlignment"
                         TargetName="controlLabel"
                         Value="Center" />
@@ -224,8 +222,6 @@
                 Value="False" />
         <Setter Property="BorderThickness"
                 Value="1" />
-        <Setter Property="CornerRadius"
-                Value="0" />
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">

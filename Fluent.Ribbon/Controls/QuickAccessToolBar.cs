@@ -1,10 +1,12 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
+    using System.ComponentModel;
     using System.Globalization;
     using System.Linq;
     using System.Windows;
@@ -22,6 +24,10 @@ namespace Fluent
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RootPanel", Type = typeof(Panel))]
     [ContentProperty(nameof(QuickAccessItems))]
+    [TemplatePart(Name = "PART_MenuDownButton", Type = typeof(DropDownButton))]
+    [TemplatePart(Name = "PART_ToolbarDownButton", Type = typeof(DropDownButton))]
+    [TemplatePart(Name = "PART_ToolBarPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_ToolBarOverflowPanel", Type = typeof(Panel))]
     public class QuickAccessToolBar : Control
     {
         #region Events
@@ -66,7 +72,8 @@ namespace Fluent
         // Itemc collection was changed
         private bool itemsHadChanged;
 
-        private double cachedDeltaWidth;
+        private double cachedMenuDownButtonWidth;
+        private double cachedOverflowDownButtonWidth;
 
         #endregion
 
@@ -77,7 +84,8 @@ namespace Fluent
         /// <summary>
         /// Gets items collection
         /// </summary>
-        internal ObservableCollection<UIElement> Items
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ObservableCollection<UIElement> Items
         {
             get
             {
@@ -128,6 +136,12 @@ namespace Fluent
 
             // Raise items changed event
             this.ItemsChanged?.Invoke(this, e);
+
+            if (this.Items.Count == 0
+                && this.toolBarDownButton != null)
+            {
+                this.toolBarDownButton.IsDropDownOpen = false;
+            }
         }
 
         private void OnChildSizeChanged(object sender, SizeChangedEventArgs e)
@@ -145,16 +159,17 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-            private set { this.SetValue(hasOverflowItemsPropertyKey, value); }
+            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey hasOverflowItemsPropertyKey =
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HasOverflowItemsProperty = hasOverflowItemsPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -271,9 +286,7 @@ namespace Fluent
 
         #region LogicalChildren
 
-        /// <summary>
-        /// Gets an enumerator to the logical child elements
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -318,7 +331,17 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="IsMenuDropDownVisible"/>.
         /// </summary>
         public static readonly DependencyProperty IsMenuDropDownVisibleProperty =
-            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnIsMenuDropDownVisibleChanged));
+
+        private static void OnIsMenuDropDownVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (QuickAccessToolBar)d;
+
+            if ((bool)e.NewValue == false)
+            {
+                control.cachedMenuDownButtonWidth = 0;
+            }
+        }
 
         #endregion DropDownVisibility
 
@@ -338,10 +361,7 @@ namespace Fluent
 
         #region Override
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or
-        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             if (this.showAbove != null)
@@ -395,19 +415,7 @@ namespace Fluent
                 }
             }
 
-            if (this.toolBarDownButton != null)
-            {
-                this.toolBarDownButton.DropDownOpened -= this.OnToolBarDownOpened;
-                this.toolBarDownButton.DropDownClosed -= this.OnToolBarDownClosed;
-            }
-
             this.toolBarDownButton = this.GetTemplateChild("PART_ToolbarDownButton") as DropDownButton;
-
-            if (this.toolBarDownButton != null)
-            {
-                this.toolBarDownButton.DropDownOpened += this.OnToolBarDownOpened;
-                this.toolBarDownButton.DropDownClosed += this.OnToolBarDownClosed;
-            }
 
             // ToolBar panels
             this.toolBarPanel = this.GetTemplateChild("PART_ToolBarPanel") as Panel;
@@ -426,27 +434,10 @@ namespace Fluent
             }
 
             // Clears cache
-            this.cachedDeltaWidth = 0;
+            this.cachedMenuDownButtonWidth = 0;
+            this.cachedOverflowDownButtonWidth = 0;
             this.cachedNonOverflowItemsCount = this.GetNonOverflowItemsCount(this.ActualWidth);
-            this.cachedConstraint = default(Size);
-        }
-
-        private void OnToolBarDownClosed(object sender, EventArgs e)
-        {
-            this.toolBarOverflowPanel.Children.Clear();
-        }
-
-        private void OnToolBarDownOpened(object sender, EventArgs e)
-        {
-            if (this.toolBarOverflowPanel.Children.Count > 0)
-            {
-                this.toolBarOverflowPanel.Children.Clear();
-            }
-
-            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
-            {
-                this.toolBarOverflowPanel.Children.Add(this.Items[i]);
-            }
+            this.cachedConstraint = default;
         }
 
         /// <summary>
@@ -469,11 +460,7 @@ namespace Fluent
             this.ShowAboveRibbon = true;
         }
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <returns>The size of the control, up to the maximum specified by constraint</returns>
-        /// <param name="constraint">The maximum size that the method can return</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if ((this.cachedConstraint == constraint)
@@ -494,10 +481,8 @@ namespace Fluent
             this.UpdateHasOverflowItems();
             this.cachedConstraint = constraint;
 
-            if (this.HasOverflowItems == false)
-            {
-                this.toolBarOverflowPanel.Children.Clear();
-            }
+            // Clear overflow panel to prevent items from having a visual/logical parent
+            this.toolBarOverflowPanel.Children.Clear();
 
             if (this.itemsHadChanged)
             {
@@ -532,6 +517,12 @@ namespace Fluent
                 }
             }
 
+            // Move overflowing items to overflow panel
+            for (var i = this.cachedNonOverflowItemsCount; i < this.Items.Count; i++)
+            {
+                this.toolBarOverflowPanel.Children.Add(this.Items[i]);
+            }
+
             return base.MeasureOverride(constraint);
         }
 
@@ -546,6 +537,7 @@ namespace Fluent
             if (this.HasOverflowItems != newValue)
             // ReSharper restore RedundantCheckBeforeAssignment
             {
+                // todo: code runs very often on startup
                 this.HasOverflowItems = newValue;
             }
         }
@@ -585,9 +577,9 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="UpdateKeyTipsAction"/>.
         /// </summary>
         public static readonly DependencyProperty UpdateKeyTipsActionProperty =
-            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsChanged));
+            DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsActionChanged));
 
-        private static void OnUpdateKeyTipsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnUpdateKeyTipsActionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var quickAccessToolBar = (QuickAccessToolBar)d;
             quickAccessToolBar.UpdateKeyTips();
@@ -627,29 +619,70 @@ namespace Fluent
             }
         }
 
-        private int GetNonOverflowItemsCount(double width)
+        private int GetNonOverflowItemsCount(in double width)
         {
-            if (DoubleUtil.AreClose(this.cachedDeltaWidth, 0)
+            // Cache width of menuDownButton
+            if (DoubleUtil.AreClose(this.cachedMenuDownButtonWidth, 0)
                 && this.rootPanel != null
-                && this.toolBarPanel != null)
+                && this.menuDownButton != null
+                && this.IsMenuDropDownVisible)
             {
-                this.rootPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                this.cachedDeltaWidth = this.rootPanel.DesiredSize.Width - this.toolBarPanel.DesiredSize.Width;
+                this.rootPanel.Measure(SizeConstants.Infinite);
+                this.cachedMenuDownButtonWidth = this.menuDownButton.DesiredSize.Width;
             }
 
-            var currentWidth = 0D;
-            for (var i = 0; i < this.Items.Count; i++)
+            // Cache width of toolBarDownButton
+            if (DoubleUtil.AreClose(this.cachedOverflowDownButtonWidth, 0)
+                && this.rootPanel != null
+                && this.menuDownButton != null)
             {
-                this.Items[i].Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-                currentWidth += this.Items[i].DesiredSize.Width;
+                this.rootPanel.Measure(SizeConstants.Infinite);
+                this.cachedOverflowDownButtonWidth = this.toolBarDownButton.DesiredSize.Width;
+            }
 
-                if (currentWidth + this.cachedDeltaWidth > width)
+            // If IsMenuDropDownVisible is true we have less width available
+            var widthReductionWhenNotCompressed = this.IsMenuDropDownVisible ? this.cachedMenuDownButtonWidth : 0;
+
+            return CalculateNonOverflowItems(this.Items, width, widthReductionWhenNotCompressed, this.cachedOverflowDownButtonWidth);
+        }
+
+        private static int CalculateNonOverflowItems(IList<UIElement> items, double maxAvailableWidth, double widthReductionWhenNotCompressed, double widthReductionWhenCompressed)
+        {
+            // Calculate how many items we can fit into the available width
+            var maxPossibleItems = GetMaxPossibleItems(maxAvailableWidth - widthReductionWhenNotCompressed, true);
+
+            if (maxPossibleItems < items.Count)
+            {
+                // If we can't fit all items into the available width
+                // we have to reduce the available width as the overflow button also needs space.
+                var availableWidth = maxAvailableWidth - widthReductionWhenCompressed;
+
+                return GetMaxPossibleItems(availableWidth, false);
+            }
+
+            return items.Count;
+
+            int GetMaxPossibleItems(double availableWidth, bool measureItems)
+            {
+                var currentWidth = 0D;
+
+                for (var i = 0; i < items.Count; i++)
                 {
-                    return i;
-                }
-            }
+                    if (measureItems)
+                    {
+                        items[i].Measure(SizeConstants.Infinite);
+                    }
 
-            return this.Items.Count;
+                    currentWidth += items[i].DesiredSize.Width;
+
+                    if (currentWidth > availableWidth)
+                    {
+                        return i;
+                    }
+                }
+
+                return items.Count;
+            }
         }
 
         #endregion

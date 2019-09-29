@@ -1,8 +1,5 @@
-﻿using System.Reflection;
-using System.Threading;
-using NUnit.Framework;
+using System.Reflection;
 
-[assembly: AssemblyTitle("Fluent.Ribbon.Tests")]
 [assembly: AssemblyDescription("")]
 
-[assembly: Apartment(ApartmentState.STA)]
+[assembly: NUnit.Framework.Apartment(System.Threading.ApartmentState.STA)]

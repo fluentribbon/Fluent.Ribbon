@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="StartScreenTabControlTemplate"
                      TargetType="{x:Type Fluent:StartScreenTabControl}">
         <ControlTemplate.Resources>
@@ -9,14 +9,15 @@
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
                        BasedOn="{StaticResource ScrollBarWhite}" />
+                <Style x:Key="{x:Type Fluent:Button}"
+                       TargetType="{x:Type Fluent:Button}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
                        TargetType="{x:Type Fluent:DropDownButton}"
-                       BasedOn="{StaticResource DropDownButtonBackstageStyle}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
                        TargetType="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource ComboBoxBackstageStyle}" />
-                <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
-                       BasedOn="{StaticResource BackstageSeparatorTabItemStyle}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid x:Name="grid">

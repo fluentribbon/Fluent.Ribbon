@@ -17,7 +17,7 @@ namespace Fluent
     /// KeyTipAdorners is chained to produce one from another.
     /// Detaching root adorner couses detaching all adorners in the chain
     /// </summary>
-    internal class KeyTipAdorner : Adorner
+    public class KeyTipAdorner : Adorner
     {
         #region Events
 
@@ -64,11 +64,17 @@ namespace Fluent
             get { return this.isAttaching || this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
         }
 
+        /// <summary>
+        /// Returns wether any key tips are visibile.
+        /// </summary>
         public bool AreAnyKeyTipsVisible
         {
             get { return this.keyTipInformations.Any(x => x.IsVisible) || (this.childAdorner != null && this.childAdorner.AreAnyKeyTipsVisible); }
         }
 
+        /// <summary>
+        /// Gets the currently active <see cref="KeyTipAdorner"/> by following eventually present child adorners.
+        /// </summary>
         public KeyTipAdorner ActiveKeyTipAdorner
         {
             get
@@ -76,6 +82,17 @@ namespace Fluent
                 return this.childAdorner != null && this.childAdorner.IsAdornerChainAlive
                            ? this.childAdorner.ActiveKeyTipAdorner
                            : this;
+            }
+        }
+
+        /// <summary>
+        /// Gets a copied list of the currently available <see cref="KeyTipInformation"/>.
+        /// </summary>
+        public IReadOnlyList<KeyTipInformation> KeyTipInformations
+        {
+            get
+            {
+                return this.keyTipInformations.ToList();
             }
         }
 
@@ -105,16 +122,17 @@ namespace Fluent
         }
 
         // Find key tips on the given element
-        private void FindKeyTips(FrameworkElement element, bool hide)
+        private void FindKeyTips(FrameworkElement container, bool hide)
         {
-            var children = GetVisibleChildren(element);
+            var children = GetVisibleChildren(container);
 
             foreach (var child in children)
             {
                 var groupBox = child as RibbonGroupBox;
 
                 var keys = KeyTip.GetKeys(child);
-                if (keys != null)
+
+                if (keys != null || child is IKeyTipInformationProvider)
                 {
                     if (groupBox != null)
                     {
@@ -147,9 +165,8 @@ namespace Fluent
         private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
         {
             IEnumerable<KeyTipInformation> informations;
-            var keyTipInformationProvider = child as IKeyTipInformationProvider;
 
-            if (keyTipInformationProvider != null)
+            if (child is IKeyTipInformationProvider keyTipInformationProvider)
             {
                 informations = keyTipInformationProvider.GetKeyTipInformations(hide);
             }
@@ -158,12 +175,15 @@ namespace Fluent
                 informations = new[] { new KeyTipInformation(keys, child, hide) };
             }
 
-            foreach (var keyTipInformation in informations)
+            if (informations != null)
             {
-                // Add to list & visual children collections
-                this.AddKeyTipInformationElement(keyTipInformation);
+                foreach (var keyTipInformation in informations)
+                {
+                    // Add to list & visual children collections
+                    this.AddKeyTipInformationElement(keyTipInformation);
 
-                this.LogDebug("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+                    this.LogDebug("Found KeyTipped element \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
+                }
             }
         }
 
@@ -180,7 +200,7 @@ namespace Fluent
 
             var children = logicalChildren;
 
-            // Always using the visual tree is very expensive, so we only search through it when you got specific control types.
+            // Always using the visual tree is very expensive, so we only search through it when we got specific control types.
             // Using the visual tree here, in addition to the logical, partially fixes #244.
             if (element is ContentPresenter
                 || element is ContentControl)
@@ -188,6 +208,10 @@ namespace Fluent
                 children = children
                     .Concat(UIHelper.GetVisualChildren(element))
                     .OfType<FrameworkElement>();
+            }
+            else if (element is ItemsControl itemsControl)
+            {
+                children = children.Concat(UIHelper.GetAllItemContainers<FrameworkElement>(itemsControl));
             }
 
             return children
@@ -349,7 +373,9 @@ namespace Fluent
 
         #region Methods
 
-        // Back to the previous adorner
+        /// <summary>
+        /// Back to the previous adorner.
+        /// </summary>
         public void Back()
         {
             this.LogTrace("Invoking back.");
@@ -396,7 +422,7 @@ namespace Fluent
             this.LogTrace("Forwarding keys \"{0}\" to element \"{1}\".", keys, GetControlLogText(element));
 
             this.Detach();
-            KeyTipPressedResult keyTipPressedResult = KeyTipPressedResult.Empty;
+            var keyTipPressedResult = KeyTipPressedResult.Empty;
 
             if (click)
             {
@@ -437,7 +463,7 @@ namespace Fluent
         /// <returns>The <see cref="KeyTipInformation"/> associated with <paramref name="keys"/>.</returns>
         private KeyTipInformation TryGetKeyTipInformation(string keys)
         {
-            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.CurrentCultureIgnoreCase));
+            return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -450,7 +476,7 @@ namespace Fluent
             {
                 var content = keyTipInformation.Keys;
 
-                if (content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase))
+                if (content.StartsWith(keys, StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
@@ -490,7 +516,7 @@ namespace Fluent
                 }
                 else
                 {
-                    keyTipInformation.Visibility = content.StartsWith(keys, StringComparison.CurrentCultureIgnoreCase)
+                    keyTipInformation.Visibility = content.StartsWith(keys, StringComparison.OrdinalIgnoreCase)
                                               ? keyTipInformation.BackupVisibility
                                               : Visibility.Collapsed;
                 }
@@ -503,14 +529,7 @@ namespace Fluent
 
         #region Layout & Visual Children
 
-        /// <summary>
-        /// Positions child elements and determines
-        /// a size for the control
-        /// </summary>
-        /// <param name="finalSize">The final area within the parent
-        /// that this element should use to arrange
-        /// itself and its children</param>
-        /// <returns>The actual size used</returns>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             this.LogDebug("ArrangeOverride");
@@ -523,21 +542,14 @@ namespace Fluent
             return finalSize;
         }
 
-        /// <summary>
-        /// Measures KeyTips
-        /// </summary>
-        /// <param name="constraint">The available size that this element can give to child elements.</param>
-        /// <returns>The size that the groups container determines it needs during
-        /// layout, based on its calculations of child element sizes.
-        /// </returns>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             this.LogDebug("MeasureOverride");
 
-            var infinitySize = new Size(double.PositiveInfinity, double.PositiveInfinity);
             foreach (var keyTipInformation in this.keyTipInformations)
             {
-                keyTipInformation.KeyTip.Measure(infinitySize);
+                keyTipInformation.KeyTip.Measure(SizeConstants.Infinite);
             }
 
             this.UpdateKeyTipPositions();
@@ -673,7 +685,8 @@ namespace Fluent
 
                     keyTipInformation.Position = keyTipInformation.VisualTarget.TranslatePoint(new Point(x, y), this.AdornedElement);
                 }
-                else if (keyTipInformation.AssociatedElement is InRibbonGallery && !((InRibbonGallery)keyTipInformation.AssociatedElement).IsCollapsed)
+                else if (keyTipInformation.AssociatedElement is InRibbonGallery gallery
+                         && gallery.IsCollapsed == false)
                 {
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
@@ -712,7 +725,7 @@ namespace Fluent
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.DesiredSize;
                     var parent = (UIElement)keyTipInformation.VisualTarget.Parent;
-                    var positionInParent = keyTipInformation.VisualTarget.TranslatePoint(default(Point), parent);
+                    var positionInParent = keyTipInformation.VisualTarget.TranslatePoint(default, parent);
                     keyTipInformation.Position = parent.TranslatePoint(
                                                        new Point(
                                                                  5,
@@ -723,35 +736,13 @@ namespace Fluent
                     if (RibbonProperties.GetSize(keyTipInformation.AssociatedElement) != RibbonControlSize.Large
                         || IsTextBoxShapedControl(keyTipInformation.AssociatedElement))
                     {
-                        var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
                         var x = keyTipInformation.KeyTip.DesiredSize.Width / 2.0;
                         var y = keyTipInformation.KeyTip.DesiredSize.Height / 2.0;
                         var point = new Point(x, y);
                         var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
                         // Snapping to rows if it present
-                        if (rows != null)
-                        {
-                            var index = 0;
-                            var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
-                            for (var j = 1; j < rows.Length; j++)
-                            {
-                                if (withinRibbonToolbar
-                                    && j == 1)
-                                {
-                                    continue;
-                                }
-
-                                var distance = Math.Abs(rows[j] - translatedPoint.Y);
-                                if (distance < mindistance)
-                                {
-                                    mindistance = distance;
-                                    index = j;
-                                }
-                            }
-
-                            translatedPoint.Y = rows[index] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
-                        }
+                        SnapToRowsIfPresent(rows, keyTipInformation, translatedPoint);
 
                         keyTipInformation.Position = translatedPoint;
                     }
@@ -762,10 +753,8 @@ namespace Fluent
                         var point = new Point(x, y);
                         var translatedPoint = keyTipInformation.VisualTarget.TranslatePoint(point, this.AdornedElement);
 
-                        if (rows != null)
-                        {
-                            translatedPoint.Y = rows[2] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
-                        }
+                        // Snapping to rows if it present
+                        SnapToRowsIfPresent(rows, keyTipInformation, translatedPoint);
 
                         keyTipInformation.Position = translatedPoint;
                     }
@@ -804,16 +793,39 @@ namespace Fluent
             return UIHelper.GetParent<QuickAccessToolBar>(element) != null;
         }
 
-        /// <summary>
-        /// Gets visual children count
-        /// </summary>
+        private static void SnapToRowsIfPresent(double[] rows, KeyTipInformation keyTipInformation, Point translatedPoint)
+        {
+            if (rows == null)
+            {
+                return;
+            }
+
+            var withinRibbonToolbar = IsWithinRibbonToolbarInTwoLine(keyTipInformation.VisualTarget);
+
+            var index = 0;
+            var mindistance = Math.Abs(rows[0] - translatedPoint.Y);
+            for (var j = 1; j < rows.Length; j++)
+            {
+                if (withinRibbonToolbar && j == 1)
+                {
+                    continue;
+                }
+
+                var distance = Math.Abs(rows[j] - translatedPoint.Y);
+                if (distance < mindistance)
+                {
+                    mindistance = distance;
+                    index = j;
+                }
+            }
+
+            translatedPoint.Y = rows[index] - (keyTipInformation.KeyTip.DesiredSize.Height / 2.0);
+        }
+
+        /// <inheritdoc />
         protected override int VisualChildrenCount => this.keyTipInformations.Count;
 
-        /// <summary>
-        /// Returns a child at the specified index from a collection of child elements
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested child element in the collection</param>
-        /// <returns>The requested child element</returns>
+        /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
             return this.keyTipInformations[index].KeyTip;
@@ -851,8 +863,7 @@ namespace Fluent
         {
             var name = control.GetType().Name;
 
-            var headeredControl = control as IHeaderedControl;
-            if (headeredControl != null)
+            if (control is IHeaderedControl headeredControl)
             {
                 name += $" ({headeredControl.Header})";
             }

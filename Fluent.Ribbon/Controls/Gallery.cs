@@ -11,13 +11,12 @@ namespace Fluent
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
 
-    // TODO: add TemplatePart's in Gallery (!)
-
     /// <summary>
     /// Represents gallery control.
     /// Usually a gallery is hosted in context menu
     /// </summary>
     [ContentProperty(nameof(Items))]
+    [TemplatePart(Name = "PART_DropDownButton", Type = typeof(DropDownButton))]
     public class Gallery : ListBox
     {
         #region Fields
@@ -222,7 +221,9 @@ namespace Fluent
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item as GalleryGroupFilter);
+                            menuItem.Click -= this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Remove(menuItem);
                         }
                     }
 
@@ -233,7 +234,9 @@ namespace Fluent
                     {
                         if (this.groupsMenuButton != null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item as GalleryGroupFilter);
+                            menuItem.Click -= this.OnFilterMenuItemClick;
+                            this.groupsMenuButton.Items.Remove(menuItem);
                         }
                     }
 
@@ -277,7 +280,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty SelectedFilterProperty =
             DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
-            typeof(Gallery), new PropertyMetadata(null, OnFilterChanged, CoerceSelectedFilter));
+            typeof(Gallery), new PropertyMetadata(null, OnSelectedFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
@@ -293,11 +296,10 @@ namespace Fluent
         }
 
         // Handles filter property changed
-        private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var gallery = (Gallery)d;
-            var filter = e.NewValue as GalleryGroupFilter;
-            if (filter != null)
+            if (e.NewValue is GalleryGroupFilter filter)
             {
                 gallery.SelectedFilterTitle = filter.Title;
                 gallery.SelectedFilterGroups = filter.Groups;
@@ -492,8 +494,7 @@ namespace Fluent
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            var parent = this.Parent as ItemsControl;
-            if (parent != null)
+            if (this.Parent is ItemsControl parent)
             {
                 if (parent.Items.IndexOf(this) == parent.Items.Count - 1)
                 {
@@ -510,34 +511,30 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new GalleryItem();
         }
 
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is GalleryItem;
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             if (this.groupsMenuButton != null)
             {
-                this.groupsMenuButton.Items.Clear();
+                foreach (var menuItem in this.groupsMenuButton.Items.Cast<MenuItem>())
+                {
+                    menuItem.Click -= this.OnFilterMenuItemClick;
+                }
             }
+
+            this.groupsMenuButton?.Items.Clear();
 
             this.groupsMenuButton = this.GetTemplateChild("PART_DropDownButton") as DropDownButton;
 

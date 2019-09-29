@@ -1,59 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <RestoreSources>C:\DEV\OSS_Own\ControlzEx\Publish</RestoreSources>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <StartupObject />
-    <NoWarn>SA1652</NoWarn>
+    <StartupObject>FluentTest.Program</StartupObject>
     <ApplicationIcon>Icons\App.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Include="app.manifest" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
+
+    <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" />
+    <!-- Costura does not work with .net core 3.0 as of 4.0 -->
+    <!-- <PackageReference Include="Costura.Fody" version="4.*" PrivateAssets="All" Condition="'$(TargetFramework)' != 'netcoreapp3.0'" /> -->
   </ItemGroup>
-
-  <ItemGroup>
-    <None Include="paket.references" />
-
-    <None Include="app.manifest" />
-    <Resource Include="**\*.png;**\*.ico" />
-
-    <!-- App.xaml -->
-    <ApplicationDefinition Include="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </ApplicationDefinition>
-    
-    <!-- XAML elements -->
-    <Page Include="**\*.xaml" Exclude="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    
-    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
-    <UpToDateCheckInput Include="**\*.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

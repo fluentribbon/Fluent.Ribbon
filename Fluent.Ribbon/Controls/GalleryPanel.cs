@@ -12,11 +12,11 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Threading;
     using Fluent.Extensions;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
-    /// Represents panel for Gallery, InRibbonGallery, ComboBox
-    /// with grouping and filtering capabilities
+    /// Represents panel for Gallery and InRibbonGallery with grouping and filtering capabilities
     /// </summary>
     public class GalleryPanel : StackPanel
     {
@@ -34,6 +34,12 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Used to prevent measures which cause the layout to flicker.
+        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
+        /// </summary>
+        public bool IgnoreNextMeasureCall { get; set; }
 
         #region IsGrouped
 
@@ -142,27 +148,6 @@ namespace Fluent
 
         #endregion
 
-        #region GroupStyle
-
-        /// <summary>
-        /// Gets or sets group style
-        /// </summary>
-        public Style GroupStyle
-        {
-            get { return (Style)this.GetValue(GroupStyleProperty); }
-            set { this.SetValue(GroupStyleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupHeaderStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
-            typeof(GalleryPanel), new PropertyMetadata());
-
-        #endregion
-
         #region ItemWidth
 
         /// <summary>
@@ -251,7 +236,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1));
+            typeof(GalleryPanel), new PropertyMetadata(1, OnMinItemsInRowChanged));
+
+        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMinOrMaxItemsInRowChanged(d, e);
+        }
 
         #endregion
 
@@ -272,7 +262,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue));
+            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMaxItemsInRowChanged));
+
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMinOrMaxItemsInRowChanged(d, e);
+        }
 
         #endregion
 
@@ -294,19 +289,10 @@ namespace Fluent
 
         private readonly VisualCollection visualCollection;
 
-        /// <summary>
-        /// Gets the number of visual child elements within this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override int VisualChildrenCount => base.VisualChildrenCount + this.visualCollection.Count;
 
-        /// <summary>
-        /// Overrides System.Windows.Media.Visual.GetVisualChild(System.Int32),
-        /// and returns a child at the specified index from a collection of child elements.
-        /// </summary>
-        /// <param name="index">The zero-based index of the requested
-        /// child element in the collection</param>
-        /// <returns>The requested child element. This should not return null;
-        /// if the provided index is out of range, an exception is thrown</returns>
+        /// <inheritdoc />
         protected override Visual GetVisualChild(int index)
         {
             if (index < base.VisualChildrenCount)
@@ -338,7 +324,7 @@ namespace Fluent
                 galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                galleryGroupContainer.Measure(SizeConstants.Infinite);
 
                 galleryGroupContainer.InvalidateMeasure();
 
@@ -359,8 +345,7 @@ namespace Fluent
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
             {
-                var element = VisualTreeHelper.GetChild(visual, i) as UIElement;
-                if (element != null)
+                if (VisualTreeHelper.GetChild(visual, i) is UIElement element)
                 {
                     InvalidateMeasureRecursive(element);
                 }
@@ -487,7 +472,6 @@ namespace Fluent
                     {
                         Header = propertyValue
                     };
-                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.GroupStyle), GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.Orientation), GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemWidth), GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemHeight), GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
@@ -513,11 +497,7 @@ namespace Fluent
             this.InvalidateMeasure();
         }
 
-        /// <summary>
-        /// Invoked when the VisualCollection of a visual object is modified.
-        /// </summary>
-        /// <param name="visualAdded">The Visual that was added to the collection.</param>
-        /// <param name="visualRemoved">The Visual that was removed from the collection.</param>
+        /// <inheritdoc />
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
             base.OnVisualChildrenChanged(visualAdded, visualRemoved);
@@ -539,20 +519,15 @@ namespace Fluent
 
         #region Layout Overrides
 
-        /// <summary>
-        /// When overridden in a derived class, measures the size in
-        /// layout required for child elements and determines a size
-        /// for the derived class.
-        /// </summary>
-        /// <returns>
-        /// The size that this element determines it needs during layout,
-        /// based on its calculations of child element sizes.
-        /// </returns>
-        /// <param name="availableSize">The available size that this element can give
-        /// to child elements. Infinity can be specified as a value to indicate that
-        /// the element will size to whatever content is available.</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
+            if (this.IgnoreNextMeasureCall)
+            {
+                this.IgnoreNextMeasureCall = false;
+                return this.DesiredSize;
+            }
+
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -565,13 +540,7 @@ namespace Fluent
             return new Size(width, height);
         }
 
-        /// <summary>
-        /// When overridden in a derived class, positions child elements
-        /// and determines a size for a derived class.
-        /// </summary>
-        /// <returns> The actual size used. </returns>
-        /// <param name="finalSize">The final area within the parent that this
-        /// element should use to arrange itself and its children.</param>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var finalRect = new Rect(finalSize);
@@ -589,7 +558,7 @@ namespace Fluent
                 // Now arrange our actual items using arranged size of placeholders
                 foreach (GalleryItemPlaceholder placeholder in item.Items)
                 {
-                    var leftTop = placeholder.TranslatePoint(default(Point), this);
+                    var leftTop = placeholder.TranslatePoint(default, this);
 
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.ArrangedSize.Width, placeholder.ArrangedSize.Height));
                 }
@@ -601,6 +570,12 @@ namespace Fluent
         #endregion
 
         #region Private Methods
+
+        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var galleryPanel = (GalleryPanel)d;
+            galleryPanel.UpdateMinAndMaxWidth();
+        }
 
         private string GetPropertyValueAsString(object item)
         {
@@ -623,12 +598,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Gets an enumerator that can iterate the logical child elements of this <see cref="T:System.Windows.Controls.Panel"/> element.
-        /// </summary>
-        /// <returns>
-        /// An <see cref="T:System.Collections.IEnumerator"/>. This property has no default value.
-        /// </returns>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get

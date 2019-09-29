@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
-                    xmlns:Converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="InRibbonGalleryToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
@@ -51,13 +51,12 @@
                                       HorizontalAlignment="Center"
                                       Height="32"
                                       VerticalAlignment="Center"
-                                      Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                       Width="32"
                                       Margin="2"
                                       SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                          Text="{TemplateBinding Header}"
-                                         Style="{DynamicResource TwoLineLabelStyle}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Stretch"
                                          Margin="2,-2,2,2"
@@ -73,7 +72,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
@@ -103,7 +102,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Width"
                         TargetName="stackPanel"
                         Value="Auto" />
@@ -172,7 +171,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="InRibbonGalleryButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template">
@@ -280,17 +279,16 @@
               Height="Auto"
               x:Name="PART_LayoutRoot"
               HorizontalAlignment="Stretch"
-              VerticalAlignment="Top">
-            <Border Width="Auto"
+              VerticalAlignment="Stretch">
+            <Border x:Name="border"
+                    Width="Auto"
+                    Height="{TemplateBinding GalleryPanelContainerHeight}"
                     BorderThickness="1,1,1,1"
-                    CornerRadius="0,1,1,0"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                     ClipToBounds="True"
-                    Margin="0,0,0,0"
-                    x:Name="border"
-                    Height="60"
+                    Margin="0,0,0,0"                    
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Stretch">
                 <Grid Width="Auto"
                       Height="Auto">
                     <ScrollViewer HorizontalScrollBarVisibility="Hidden"
@@ -336,6 +334,7 @@
                                         Value="{x:Null}" />
                             </Style>
                         </ScrollViewer.Resources>
+
                         <Grid>
                             <ContentControl x:Name="PART_ContentPresenter"
                                             Focusable="False">
@@ -351,10 +350,13 @@
                                                      GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
                                                      IsGrouped="False" />
                             </ContentControl>
+
                             <Image x:Name="PART_FakeImage"
+                                   Stretch="Uniform"
                                    Visibility="Collapsed" />
                         </Grid>
                     </ScrollViewer>
+
                     <Fluent:ToggleButton IsDefinitive="False"
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Bottom"
@@ -366,6 +368,7 @@
                                          ClickMode="Press"
                                          CanAddToQuickAccessToolBar="False"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}" />
+
                     <Popup x:Name="PART_Popup"
                            Placement="Custom"
                            CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
@@ -394,7 +397,6 @@
                                     Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                                     BorderThickness="1"
-                                    CornerRadius="1"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Top">
                                 <Grid Width="Auto"
@@ -406,8 +408,7 @@
                                             Width="Auto"
                                             Height="Auto"
                                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                            BorderThickness="1"
-                                            CornerRadius="1" />
+                                            BorderThickness="1" />
                                     <Grid Margin="1"
                                           HorizontalAlignment="Stretch"
                                           VerticalAlignment="Top">
@@ -479,8 +480,7 @@
                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                                 BorderThickness="0,1,0,0"
                                                 Grid.Row="2"
-                                                CornerRadius="0,0,1,1"
-                                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                             <Grid>
                                                 <Thumb x:Name="PART_ResizeVerticalThumb"
                                                        HorizontalAlignment="Stretch"
@@ -507,6 +507,7 @@
                     </Popup>
                 </Grid>
             </Border>
+
             <Fluent:ToggleButton IsDefinitive="False"
                                  Margin="0,0,0,0"
                                  Visibility="Collapsed"
@@ -597,6 +598,12 @@
 
     <Style x:Key="{x:Type Fluent:InRibbonGallery}"
            TargetType="{x:Type Fluent:InRibbonGallery}">
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Template"
+                Value="{DynamicResource InRibbonGalleryControlTemplate}" />
+        <Setter Property="Margin"
+                Value="2,3,3,0" />
         <Style.Triggers>
             <Trigger Property="IsCollapsed"
                      Value="True">
@@ -604,11 +611,5 @@
                         Value="0" />
             </Trigger>
         </Style.Triggers>
-        <Setter Property="Focusable"
-                Value="False" />
-        <Setter Property="Template"
-                Value="{DynamicResource InRibbonGalleryControlTemplate}" />
-        <Setter Property="Margin"
-                Value="2,3,3,0" />
     </Style>
 </ResourceDictionary>

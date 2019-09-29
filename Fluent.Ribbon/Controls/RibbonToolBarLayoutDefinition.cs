@@ -74,7 +74,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty RowCountProperty =
-            DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(RibbonToolBar), new PropertyMetadata(3));
+            DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(RibbonToolBarLayoutDefinition), new PropertyMetadata(3));
 
         #endregion
 

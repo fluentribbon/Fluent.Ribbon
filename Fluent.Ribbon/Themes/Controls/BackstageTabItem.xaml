@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageTabItemControlTemplate"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
         <Grid x:Name="rootGrid" 
@@ -14,21 +15,32 @@
                     Visibility="Collapsed"
                     Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}" />
 
-            <ContentControl x:Name="PART_Header"
-                            Foreground="{TemplateBinding Foreground}"
-                            Margin="25,0,15,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Content="{TemplateBinding Header}">
-                <ContentControl.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="TextWrapping"
-                                Value="NoWrap" />
-                        <Setter Property="TextTrimming"
-                                Value="CharacterEllipsis" />
-                    </Style>
-                </ContentControl.Resources>
-            </ContentControl>
+            <StackPanel Orientation="Horizontal"
+                        Margin="25,0,15,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                <ContentPresenter x:Name="iconImage"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Width="16"
+                              Height="16"
+                              Margin="0 0 8 0"
+                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
+                              SnapsToDevicePixels="True" />
+
+                <ContentControl x:Name="PART_Header"
+                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}"
+                                Content="{TemplateBinding Header}">
+                    <ContentControl.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping"
+                                    Value="NoWrap" />
+                            <Setter Property="TextTrimming"
+                                    Value="CharacterEllipsis" />
+                        </Style>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"
@@ -39,6 +51,15 @@
                 <Setter TargetName="PART_Header"
                         Property="Opacity"
                         Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <Trigger Property="Selector.IsSelected"
                      Value="True">
@@ -66,37 +87,13 @@
                 Value="38" />
         <Setter Property="Background"
                 Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
+        <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Margin"
                 Value="0" />
-        <Setter Property="Fluent:RibbonProperties.AppTheme"
-                Value="{DynamicResource Fluent.Ribbon.AppTheme}" />
-        <Style.Triggers>
-            <Trigger Property="Fluent:RibbonProperties.AppTheme"
-                     Value="BaseLight">
-                <Setter Property="Fluent:RibbonProperties.MouseOverBackground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource BlackColor}"
-                                         Opacity="0.2" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Fluent:RibbonProperties.IsSelectedBackground">
-                    <Setter.Value>
-                        <SolidColorBrush Color="{DynamicResource WhiteColor}"
-                                         Opacity="0.2" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
-            </Trigger>
-            <Trigger Property="Fluent:RibbonProperties.AppTheme"
-                     Value="BaseDark">
-                <Setter Property="Fluent:RibbonProperties.MouseOverBackground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-                <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource BlackBrush}" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 </ResourceDictionary>

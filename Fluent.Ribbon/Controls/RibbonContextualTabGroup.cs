@@ -6,7 +6,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-
+    using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -17,6 +17,48 @@ namespace Fluent
     public class RibbonContextualTabGroup : Control
     {
         #region Properties
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemSelectedForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used for a selected <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemSelectedForeground
+        {
+            get { return (Brush)this.GetValue(TabItemSelectedForegroundProperty); }
+            set { this.SetValue(TabItemSelectedForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemMouseOverForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used when the mouse is over a <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemMouseOverForeground
+        {
+            get { return (Brush)this.GetValue(TabItemMouseOverForegroundProperty); }
+            set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedMouseOverForeground"/>
+        /// </summary>
+        public static readonly DependencyProperty TabItemSelectedMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
+
+        /// <summary>
+        /// Gets or sets the foreground brush to be used when the mouse is over a selected <see cref="RibbonTabItem"/> belonging to this group.
+        /// </summary>
+        public Brush TabItemSelectedMouseOverForeground
+        {
+            get { return (Brush)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
+            set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
+        }
 
         /// <summary>
         /// Gets or sets group header
@@ -70,7 +112,13 @@ namespace Fluent
         {
             var contextGroup = (RibbonContextualTabGroup)d;
 
-            ForceRedraw(contextGroup);
+            if (contextGroup.IsLoaded == false)
+            {
+                return;
+            }
+
+            // Delaying forced redraw fixes #536
+            contextGroup.RunInDispatcherAsync(() => ForceRedraw(contextGroup));
         }
 
         /// <summary>
@@ -238,9 +286,7 @@ namespace Fluent
             if (e.ClickCount == 1
                 && firstVisibleItem != null)
             {
-                var currentSelectedItem = firstVisibleItem.TabControlParent?.SelectedItem as RibbonTabItem;
-
-                if (currentSelectedItem != null)
+                if (firstVisibleItem.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
                 {
                     currentSelectedItem.IsSelected = false;
                 }
@@ -276,6 +322,11 @@ namespace Fluent
         private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
         {
             contextGroup.ForceMeasure();
+
+            foreach (var ribbonTabItem in contextGroup.Items)
+            {
+                ribbonTabItem.ForceMeasure();
+            }
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
             ribbonTitleBar?.ForceMeasureAndArrange();

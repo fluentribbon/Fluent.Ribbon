@@ -2,7 +2,9 @@
 namespace Fluent
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Interop;
@@ -13,9 +15,12 @@ namespace Fluent
     /// <summary>
     /// Handles Alt, F10 and so on
     /// </summary>
-    internal class KeyTipService
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class KeyTipService
     {
         #region Fields
+
+        private ScopeGuard windowPreviewKeyDownScopeGuard;
 
         // Host element, usually this is Ribbon
         private readonly Ribbon ribbon;
@@ -55,6 +60,32 @@ namespace Fluent
             }
         }
 
+        private static readonly Key[] modifierKeys =
+        {
+            Key.LeftShift,
+            Key.RightShift,
+            Key.LeftCtrl,
+            Key.RightCtrl,
+            Key.LeftAlt,
+            Key.RightAlt,
+        };
+
+        /// <summary>
+        /// The default keys used to activate key tips.
+        /// </summary>
+        public static IList<Key> DefaultKeyTipKeys =>
+            new List<Key>
+            {
+                Key.LeftAlt,
+                Key.RightAlt,
+                Key.F10
+            };
+
+        /// <summary>
+        /// List of key tip activation keys.
+        /// </summary>
+        public IList<Key> KeyTipKeys { get; } = DefaultKeyTipKeys;
+
         #endregion
 
         #region Initialization
@@ -65,12 +96,7 @@ namespace Fluent
         /// <param name="ribbon">Host element</param>
         public KeyTipService(Ribbon ribbon)
         {
-            if (ribbon == null)
-            {
-                throw new ArgumentNullException(nameof(ribbon));
-            }
-
-            this.ribbon = ribbon;
+            this.ribbon = ribbon ?? throw new ArgumentNullException(nameof(ribbon));
 
             // Initialize timer
             this.timer = new DispatcherTimer(TimeSpan.FromSeconds(0.7), DispatcherPriority.SystemIdle, this.OnDelayedShow, Dispatcher.CurrentDispatcher);
@@ -143,18 +169,28 @@ namespace Fluent
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
 #pragma warning disable 618
+            var message = (WM)msg;
+
             // We must terminate the keytip's adorner chain if:
-            if (msg == (int)WM.NCACTIVATE // mouse clicks in non client area
-                || (msg == (int)WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
-                                                                           // >= WM_NCLBUTTONDOWN <= WM_NCXBUTTONDBLCLK
-                || (msg >= 161 && msg <= 173) // mouse click (non client area)
-                || (msg >= 513 && msg <= 521)) // mouse click
+            if (message == WM.NCACTIVATE // mouse clicks in non client area
+                || (message == WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+                || (message >= WM.NCLBUTTONDOWN && message <= WM.NCXBUTTONDBLCLK) // mouse click (non client area)
+                || (message >= WM.LBUTTONDOWN && message <= WM.MBUTTONDBLCLK)) // mouse click
             {
-                if (this.activeAdornerChain != null
-                    && this.activeAdornerChain.IsAdornerChainAlive)
+                if (this.activeAdornerChain?.IsAdornerChainAlive == true)
                 {
                     this.Terminate();
                 }
+            }
+
+            // Fix for #632.
+            // Yes this looks awkward, calling the PopupService here, but the alternative would be to let the PopupService know about windows.
+            if (message == WM.ACTIVATE
+                && wParam == IntPtr.Zero) // the window is deactivated
+            {
+                PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
+                PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
+                PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
             }
 #pragma warning restore 618
 
@@ -163,6 +199,15 @@ namespace Fluent
 
         private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
+            if (this.windowPreviewKeyDownScopeGuard?.IsActive == true)
+            {
+                System.Media.SystemSounds.Beep.Play();
+                return;
+            }
+
+            using var scopeGuard = new ScopeGuard();
+            this.windowPreviewKeyDownScopeGuard = scopeGuard;
+
             if (e.IsRepeat
                 || e.Handled)
             {
@@ -186,7 +231,7 @@ namespace Fluent
                 return;
             }
 
-            if (IsShowOrHideKey(e))
+            if (this.IsShowOrHideKey(e))
             {
                 if (this.activeAdornerChain == null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
@@ -206,17 +251,16 @@ namespace Fluent
                 this.ClearUserInput();
                 e.Handled = true;
             }
-            else
-            {
-                if ((e.Key != Key.System && this.activeAdornerChain == null)
+            else if ((e.Key != Key.System && this.activeAdornerChain == null)
                     || e.SystemKey == Key.Escape
                     || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
-                {
-                    return;
-                }
-
+            {
+                return;
+            }
+            else
+            {
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
-                // we need to get the real string input for the key because of keys like ä,ö,ü #258
+                // we need to get the real string input for the key because of keys like ï¿½,ï¿½,ï¿½ #258
                 var key = KeyEventUtility.GetStringFromKey(actualKey);
                 var isKeyRealInput = string.IsNullOrEmpty(key) == false
                     && key != "\t";
@@ -293,15 +337,18 @@ namespace Fluent
                 return;
             }
 
-            if (IsShowOrHideKey(e))
+            if (this.IsShowOrHideKey(e))
             {
                 this.ClearUserInput();
-
-                e.Handled = true;
 
                 if (this.timer.IsEnabled)
                 {
                     this.ShowImmediatly();
+                }
+
+                if (this.activeAdornerChain != null)
+                {
+                    e.Handled = true;
                 }
             }
             else
@@ -310,13 +357,30 @@ namespace Fluent
             }
         }
 
-        private static bool IsShowOrHideKey(KeyEventArgs e)
+        private bool IsShowOrHideKey(KeyEventArgs e)
         {
-            return e.Key == Key.System && !Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift)
-                   && (e.SystemKey == Key.LeftAlt
-                       || e.SystemKey == Key.RightAlt
-                       || e.SystemKey == Key.F10
-                       || e.SystemKey == Key.Space);
+            var realKey = e.Key == Key.System
+                              ? e.SystemKey
+                              : e.Key;
+
+            // Shift + F10 is meant to open the context menu. So we just ignore it.
+            if (realKey == Key.F10
+                && (Keyboard.IsKeyDown(Key.LeftShift)
+                    || Keyboard.IsKeyDown(Key.RightShift)))
+            {
+                return false;
+            }
+
+            var isShowOrHideKey = this.KeyTipKeys.Any(x => x == realKey);
+
+            if (isShowOrHideKey == false)
+            {
+                return false;
+            }
+
+            var blacklistedModifierKeys = modifierKeys.Except(this.KeyTipKeys);
+            var blacklistedKeyPressed = blacklistedModifierKeys.Any(Keyboard.IsKeyDown);
+            return blacklistedKeyPressed == false;
         }
 
         private void ClearUserInput()
@@ -326,7 +390,7 @@ namespace Fluent
 
         private void ClosePopups()
         {
-            PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always);
+            PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ShowingKeyTips);
         }
 
         private void RestoreFocus()
@@ -337,7 +401,11 @@ namespace Fluent
 
         private void OnAdornerChainTerminated(object sender, KeyTipPressedResult e)
         {
-            this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            if (this.activeAdornerChain != null)
+            {
+                this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            }
+
             this.activeAdornerChain = null;
             this.ClearUserInput();
 
@@ -393,7 +461,21 @@ namespace Fluent
                 return;
             }
 
+            // Special behavior for backstage, application menu and start screen.
+            // If one of those is open we have to forward key tips directly to them.
+            var keyTipsTarget = this.GetStartScreen()
+                ?? this.GetBackstage()
+                ?? this.GetApplicationMenu()
+                ?? this.ribbon;
+
+            if (keyTipsTarget == null)
+            {
+                return;
+            }
+
             this.ClosePopups();
+
+            this.backUpFocusedControl = null;
 
             // If focus is inside the Ribbon already we don't want to jump around after finishing with KeyTips
             if (UIHelper.GetParent<Ribbon>(Keyboard.FocusedElement as DependencyObject) == null)
@@ -401,37 +483,35 @@ namespace Fluent
                 this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
             }
 
-            // Focus ribbon
-            this.ribbon.SelectedTabItem?.Focus();
+            if (keyTipsTarget is Ribbon targetRibbon
+                && targetRibbon.IsMinimized == false
+                && targetRibbon.SelectedTabIndex >= 0
+                && targetRibbon.TabControl != null)
+            {
+                // Focus ribbon
+                (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+            }
 
             this.ClearUserInput();
 
-            this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
+            if (this.activeAdornerChain != null)
+            {
+                this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
+            }
+
+            this.activeAdornerChain = new KeyTipAdorner(keyTipsTarget, keyTipsTarget, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
-
-            // Special behavior for backstage
-            var specialControl = this.GetBackstage()
-                ?? this.GetApplicationMenu()
-                ?? this.GetStartScreen();
-
-            if (specialControl != null)
-            {
-                this.DirectlyForwardToSpecialControl(specialControl);
-            }
-            else
-            {
-                this.activeAdornerChain.Attach();
-            }
+            this.activeAdornerChain.Attach();
         }
 
-        private DependencyObject GetBackstage()
+        private FrameworkElement GetBackstage()
         {
             if (this.ribbon.Menu == null)
             {
                 return null;
             }
 
-            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
+            var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, IsVisible);
 
             if (control == null)
             {
@@ -443,14 +523,14 @@ namespace Fluent
                 : null;
         }
 
-        private DependencyObject GetApplicationMenu()
+        private FrameworkElement GetApplicationMenu()
         {
             if (this.ribbon.Menu == null)
             {
                 return null;
             }
 
-            var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, obj => obj.Visibility == Visibility.Visible);
+            var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, IsVisible);
 
             if (control == null)
             {
@@ -462,7 +542,7 @@ namespace Fluent
                 : null;
         }
 
-        private DependencyObject GetStartScreen()
+        private FrameworkElement GetStartScreen()
         {
             var control = this.ribbon.StartScreen;
 
@@ -476,18 +556,9 @@ namespace Fluent
                 : null;
         }
 
-        private void DirectlyForwardToSpecialControl(DependencyObject specialControl)
+        private static bool IsVisible(FrameworkElement obj)
         {
-            var keys = KeyTip.GetKeys(specialControl);
-
-            if (string.IsNullOrEmpty(keys) == false)
-            {
-                this.activeAdornerChain.Forward(keys, false);
-            }
-            else
-            {
-                this.activeAdornerChain.Attach();
-            }
+            return obj.Visibility == Visibility.Visible;
         }
     }
 }

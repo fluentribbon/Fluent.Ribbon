@@ -5,6 +5,8 @@
 *.sln.docstates
 *.ide
 *.vs
+*.idea
+launchSettings\.json
 
 # Build results
 [Dd]ebug/
@@ -18,6 +20,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# Test results
+TestResults
+
 # Visual Studio profiler
 *.psess
 *.vsp
@@ -30,6 +35,7 @@ _ReSharper*/
 
 # Publishing directory
 publish/
+package/
 
 # Tools directory
 tools/
@@ -39,9 +45,10 @@ tools/
 
 # Generated files
 Fluent.Ribbon/Themes/**/Styles.xaml
-Fluent.Ribbon/Themes/Accents/*.xaml
+Fluent.Ribbon/Themes/Themes/*.xaml
 packages/
 .tmp
+*_wpftmp.csproj
 
 # Result files
 TestResult.xml
@@ -52,3 +59,4 @@ TestResult.xml
 
 # Allowed files
 !Fluent.Ribbon/Themes/XamlCombine.exe
+!Fluent.Ribbon/Themes/Theme.Template.xaml

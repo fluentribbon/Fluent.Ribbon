@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Styles.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Colors/BaseLight.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Styles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Fluent;component/Themes/Themes/Light.Blue.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

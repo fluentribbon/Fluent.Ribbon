@@ -1,0 +1,35 @@
+﻿<Project>
+  <!-- AssemblyInfo -->
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+
+    <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
+    <Product>Fluent.Ribbon</Product>
+    <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
+
+    <Version Condition="'$(Version)' == ''">7.0.0.0</Version>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">7.0.0.0</AssemblyVersion>
+    <FileVersion Condition="'$(FileVersion)' == ''">7.0.0.0</FileVersion>
+    <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
+  </PropertyGroup>
+
+  <!-- SourceLink -->
+  <PropertyGroup>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <!-- By using EmbedAllSources we don't need SourceLink itself -->
+    <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
+    <EmbedAllSources>True</EmbedAllSources>
+  </PropertyGroup>
+
+  <!-- PDB-Options -->
+  <PropertyGroup>
+    <!-- We should switch "DebugType" to "portable" in the future -->
+    <!-- "Full" and "pdbonly" are the same according to https://github.com/dotnet/roslyn/blob/master/docs/compilers/CSharp/CommandLine.md -->
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+</Project>

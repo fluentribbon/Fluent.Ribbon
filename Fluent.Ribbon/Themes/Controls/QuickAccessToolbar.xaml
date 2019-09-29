@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="ToolbarDropDownButtonStyle"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template"
@@ -9,7 +10,7 @@
         <Setter Property="Height"
                 Value="22" />
         <Setter Property="Width"
-                Value="13" />
+                Value="14" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
     </Style>
@@ -21,18 +22,14 @@
                     BorderThickness="1"
                     Background="Transparent"
                     BorderBrush="Transparent"
-                    Height="22"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Width="13">
-                <Image x:Name="iconImage"
-                        HorizontalAlignment="Center"
-                        Height="8"
-                        Stretch="None"
-                        VerticalAlignment="Center"
-                        Source="{TemplateBinding LargeIcon}"
-                        Width="8"
-                        Margin="-3,0,2,0" />
+                    VerticalAlignment="Stretch">
+                <ContentPresenter x:Name="iconImage"
+                                  Width="8"
+                                  Height="8"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '8,8', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Placement="Bottom"
@@ -87,7 +84,7 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -150,42 +147,6 @@
                         TargetName="iconImage"
                         Value="0.25" />
             </Trigger>
-            <Trigger Property="Size"
-                     Value="Small">
-                <Setter Property="Source"
-                        TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="2" />
-            </Trigger>
-            <Trigger Property="Size"
-                     Value="Middle">
-                <Setter Property="Source"
-                        TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="iconImage"
-                        Value="Center" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="PART_ButtonBorder"
-                        Value="Stretch" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="2" />
-            </Trigger>
             <Trigger Property="IsDropDownOpen"
                      Value="True">
                 <Setter Property="BorderBrush"
@@ -230,15 +191,13 @@
                             Focusable="False">
                 <Fluent:DropDownButton CanAddToQuickAccessToolBar="False"
                                        x:Name="PART_MenuDownButton"
-                                       Width="13"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Stretch"
                                        Style="{DynamicResource ToolbarDropDownButtonStyle}"
-                                       Height="22"
                                        DockPanel.Dock="Right"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarDropDown.png"
+                                       Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown}"
                                        Size="Small"
                                        ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
                                        KeyboardNavigation.TabIndex="3">
@@ -256,19 +215,17 @@
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
-            
+
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
                                    HorizontalAlignment="Right"
-                                   Width="13"
                                    Visibility="Collapsed"
                                    VerticalAlignment="Stretch"
                                    Style="{DynamicResource ToolbarDropDownButtonStyle}"
-                                   Height="22"
                                    DockPanel.Dock="Right"
                                    Fluent:KeyTip.Keys="00"
                                    Size="Small"
                                    IsEnabled="{TemplateBinding IsEnabled}"
-                                   Icon="pack://application:,,,/Fluent;Component/Themes/Images/QuickAccessToolBarExtender.png"
+                                   Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender}"
                                    ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}"
                                    KeyboardNavigation.TabIndex="2"
                                    KeyboardNavigation.TabNavigation="Local">
@@ -288,18 +245,16 @@
                                 Height="Auto"
                                 VerticalAlignment="Center"
                                 Margin="1,0,0,0" />
-                    <Label x:Name="popupContentControl"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Width="13"
-                           Background="{x:Null}"
-                           Height="22"
-                           Focusable="False"
-                           Padding="0"
-                           Margin="1,0" />
+                    <ContentControl x:Name="popupContentControl"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    Background="{x:Null}"
+                                    Focusable="False"
+                                    Padding="0"
+                                    Margin="1,0" />
                 </StackPanel>
             </Fluent:DropDownButton>
-            
+
             <StackPanel Orientation="Horizontal"
                         x:Name="PART_ToolBarPanel"
                         Width="Auto"

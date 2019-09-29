@@ -2,10 +2,8 @@
 
 namespace FluentTest.ViewModels
 {
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
     using System.Windows;
+    using System.Windows.Data;
     using System.Windows.Media;
     using Fluent;
 
@@ -18,6 +16,8 @@ namespace FluentTest.ViewModels
         {
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
+
+            CollectionViewSource.GetDefaultView(ThemeManager.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
         }
 
         public Color StandardColor
@@ -26,8 +26,13 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value == this.standardColor)
+                {
+                    return;
+                }
+
                 this.standardColor = value;
-                this.OnPropertyChanged(nameof(this.StandardColor));
+                this.OnPropertyChanged();
             }
         }
 
@@ -37,57 +42,55 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value == this.highlightColor)
+                {
+                    return;
+                }
+
                 this.highlightColor = value;
-                this.OnPropertyChanged(nameof(this.HighlightColor));
+                this.OnPropertyChanged();
             }
         }
 
         public Color[] ThemeColors { get; } = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
 
+#pragma warning disable INPC010 // The property sets a different field than it returns.
         public Color ThemeColor
         {
-            get { return ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink; }
+            get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink;
 
             set
             {
-                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = new SolidColorBrush(value);
-                this.OnPropertyChanged(nameof(this.ThemeColor));
+                var solidColorBrush = new SolidColorBrush(value);
+                solidColorBrush.Freeze();
+                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = solidColorBrush;
+                this.OnPropertyChanged();
             }
         }
+#pragma warning restore INPC010 // The property sets a different field than it returns.
 
-        public IEnumerable<AppTheme> AppThemes { get; } = ThemeManager.AppThemes;
-
-        public IEnumerable<AccentItem> Accents { get; } = ThemeManager.Accents.Select(x => new AccentItem(x)).ToList();
-
-        public AppTheme CurrentAppTheme
+        public string CurrentBaseColor
         {
-            get { return ThemeManager.DetectAppStyle(Application.Current).Item1; }
-            set { ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.DetectAppStyle().Item2, value); }
-        }
+            get => this.CurrentTheme.BaseColorScheme;
 
-        public AccentItem CurrentAccent
-        {
-            get
+            set
             {
-                var accent = ThemeManager.DetectAppStyle(Application.Current).Item2;
-                return this.Accents.FirstOrDefault(x => x.Accent.Name == accent.Name);
+                ThemeManager.ChangeThemeBaseColor(Application.Current, value);
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.CurrentTheme));
             }
-
-            set { ThemeManager.ChangeAppStyle(Application.Current, value.Accent, this.CurrentAppTheme); }
         }
-    }
 
-    [DebuggerDisplay("accent={Accent.Name}")]
-    public class AccentItem
-    {
-        public AccentItem(Accent accent)
+        public Theme CurrentTheme
         {
-            this.Accent = accent;
-            this.AccentBaseColor = (Brush)accent.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"];
+            get => ThemeManager.DetectTheme(Application.Current);
+
+            set
+            {
+                ThemeManager.ChangeTheme(Application.Current, value);
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.CurrentBaseColor));
+            }
         }
-
-        public Accent Accent { get; }
-
-        public Brush AccentBaseColor { get; }
     }
 }

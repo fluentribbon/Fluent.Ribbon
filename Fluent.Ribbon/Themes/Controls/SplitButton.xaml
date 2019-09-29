@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonSplitButtonStyle"
            TargetType="{x:Type Fluent:SplitButton}">
@@ -81,8 +81,8 @@
                                          Height="Auto"
                                          Width="Auto"
                                          Style="{DynamicResource InnerButtonStyle}"
-                                         LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                         Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
+                                         LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsEnabled="{TemplateBinding IsButtonEnabled}"
                                          Header="{TemplateBinding Header}"
                                          ToolTip="{TemplateBinding ToolTip}"
@@ -98,7 +98,6 @@
                         <Grid>
                             <Fluent:TwoLineLabel x:Name="controlLabel"
                                                  Text="{TemplateBinding Header}"
-                                                 Style="{DynamicResource TwoLineLabelStyle}"
                                                  HorizontalAlignment="Center"
                                                  VerticalAlignment="Center"
                                                  Margin="2,1,2,2"
@@ -127,8 +126,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -166,8 +163,7 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -388,7 +384,6 @@
                 <StackPanel x:Name="stackPanel"
                             Width="Auto"
                             Orientation="Vertical"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             SnapsToDevicePixels="True">
                     <ContentPresenter x:Name="iconImage"
@@ -396,12 +391,11 @@
                                       HorizontalAlignment="Center"
                                       Height="32"
                                       VerticalAlignment="Center"
-                                      Content="{TemplateBinding LargeIcon}"
+                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
                                       Width="32"
                                       SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
                                          Text="{TemplateBinding Header}"
-                                         Style="{DynamicResource TwoLineLabelStyle}"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Margin="2,0,2,2"
@@ -472,7 +466,7 @@
                         Value="1,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,0,2,1" />
@@ -508,7 +502,7 @@
                         Value="1,0,2,0" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Visibility"
                         TargetName="controlLabel"
                         Value="Visible" />

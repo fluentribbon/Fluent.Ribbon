@@ -6,11 +6,9 @@
            BasedOn="{StaticResource RibbonBackstageStyle}">
         <Setter Property="Template"
                 Value="{x:Null}" />
-        <Setter Property="HideAnimationDuration"
-                Value="0" />
         <Setter Property="HideContextTabsOnOpen"
                 Value="True" />
-        <Setter Property="IsOpenAnimationEnabled"
+        <Setter Property="AreAnimationsEnabled"
                 Value="False" />
         <Setter Property="Fluent:KeyTip.Keys"
                 Value="{x:Null}" />

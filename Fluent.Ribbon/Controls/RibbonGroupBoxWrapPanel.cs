@@ -79,9 +79,20 @@ namespace Fluent
             return (bool)element.GetValue(ExcludeFromSharedSizeProperty);
         }
 
-        private static bool IsWidthHeightValid(object value)
+        private static bool ValidateItemWidth(object value)
         {
-            double v = (double)value;
+            var v = (double)value;
+            return ValidateWidthOrHeight(v);
+        }
+
+        private static bool ValidateItemHeight(object value)
+        {
+            var v = (double)value;
+            return ValidateWidthOrHeight(v);
+        }
+
+        private static bool ValidateWidthOrHeight(double v)
+        {
             return double.IsNaN(v) || (v >= 0.0d && !double.IsPositiveInfinity(v));
         }
 
@@ -89,14 +100,11 @@ namespace Fluent
         /// DependencyProperty for <see cref="ItemWidth" /> property.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
-            DependencyProperty.Register(
-                                        "ItemWidth",
+            DependencyProperty.Register(nameof(ItemWidth),
                                         typeof(double),
                                         typeof(RibbonGroupBoxWrapPanel),
-                                        new FrameworkPropertyMetadata(
-                                                                      double.NaN,
-                                                                      FrameworkPropertyMetadataOptions.AffectsMeasure),
-                                        new ValidateValueCallback(IsWidthHeightValid));
+                                        new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure),
+                                        ValidateItemWidth);
 
         /// <summary>
         /// The ItemWidth and ItemHeight properties specify the size of all items in the WrapPanel.
@@ -117,14 +125,11 @@ namespace Fluent
         /// DependencyProperty for <see cref="ItemHeight" /> property.
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
-            DependencyProperty.Register(
-                                        "ItemHeight",
+            DependencyProperty.Register(nameof(ItemHeight),
                                         typeof(double),
                                         typeof(RibbonGroupBoxWrapPanel),
-                                        new FrameworkPropertyMetadata(
-                                                                      double.NaN,
-                                                                      FrameworkPropertyMetadataOptions.AffectsMeasure),
-                                        new ValidateValueCallback(IsWidthHeightValid));
+                                        new FrameworkPropertyMetadata(double.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure),
+                                        ValidateItemHeight);
 
         /// <summary>
         /// The ItemWidth and ItemHeight properties specify the size of all items in the WrapPanel.
@@ -150,7 +155,7 @@ namespace Fluent
                                                     new FrameworkPropertyMetadata(
                                                                                   Orientation.Horizontal,
                                                                                   FrameworkPropertyMetadataOptions.AffectsMeasure,
-                                                                                  new PropertyChangedCallback(OnOrientationChanged)));
+                                                                                  OnOrientationChanged));
 
         /// <summary>
         /// Specifies dimension of children positioning in absence of wrapping.
@@ -170,7 +175,7 @@ namespace Fluent
         /// </summary>
         private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            RibbonGroupBoxWrapPanel p = (RibbonGroupBoxWrapPanel)d;
+            var p = (RibbonGroupBoxWrapPanel)d;
             p.orientation = (Orientation)e.NewValue;
         }
 
@@ -229,28 +234,26 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// <see cref="FrameworkElement.MeasureOverride"/>
-        /// </summary>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            UvSize curLineSize = new UvSize(this.Orientation);
-            UvSize panelSize = new UvSize(this.Orientation);
-            UvSize uvConstraint = new UvSize(this.Orientation, constraint.Width, constraint.Height);
-            double itemWidth = this.ItemWidth;
-            double itemHeight = this.ItemHeight;
-            bool itemWidthSet = !double.IsNaN(itemWidth);
-            bool itemHeightSet = !double.IsNaN(itemHeight);
+            var curLineSize = new UvSize(this.Orientation);
+            var panelSize = new UvSize(this.Orientation);
+            var uvConstraint = new UvSize(this.Orientation, constraint.Width, constraint.Height);
+            var itemWidth = this.ItemWidth;
+            var itemHeight = this.ItemHeight;
+            var itemWidthSet = !double.IsNaN(itemWidth);
+            var itemHeightSet = !double.IsNaN(itemHeight);
 
-            Size childConstraint = new Size(
+            var childConstraint = new Size(
                                             itemWidthSet ? itemWidth : constraint.Width,
                                             itemHeightSet ? itemHeight : constraint.Height);
 
-            UIElementCollection children = this.InternalChildren;
+            var children = this.InternalChildren;
 
             for (int i = 0, count = children.Count; i < count; i++)
             {
-                UIElement child = children[i] as UIElement;
+                var child = children[i];
                 if (child == null)
                 {
                     continue;
@@ -260,7 +263,7 @@ namespace Fluent
                 child.Measure(childConstraint);
 
                 //this is the size of the child in UV space
-                UvSize sz = new UvSize(
+                var sz = new UvSize(
                                        this.Orientation,
                                        itemWidthSet ? itemWidth : child.DesiredSize.Width,
                                        itemHeightSet ? itemHeight : child.DesiredSize.Height);
@@ -293,40 +296,38 @@ namespace Fluent
             return new Size(panelSize.Width, panelSize.Height);
         }
 
-        /// <summary>
-        /// <see cref="FrameworkElement.ArrangeOverride"/>
-        /// </summary>
+        /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)
         {
             var parentRibbonGroupBox = UIHelper.GetParent<RibbonGroupBox>(this);
 
             var isParentRibbonGroupBoxSharedSizeScope = parentRibbonGroupBox != null && Grid.GetIsSharedSizeScope(parentRibbonGroupBox);
 
-            int firstInLine = 0;
-            double itemWidth = this.ItemWidth;
-            double itemHeight = this.ItemHeight;
+            var firstInLine = 0;
+            var itemWidth = this.ItemWidth;
+            var itemHeight = this.ItemHeight;
             double accumulatedV = 0;
-            double itemU = this.Orientation == Orientation.Horizontal ? itemWidth : itemHeight;
-            UvSize curLineSize = new UvSize(this.Orientation);
-            UvSize uvFinalSize = new UvSize(this.Orientation, finalSize.Width, finalSize.Height);
-            bool itemWidthSet = !double.IsNaN(itemWidth);
-            bool itemHeightSet = !double.IsNaN(itemHeight);
-            bool useItemU = this.Orientation == Orientation.Horizontal ? itemWidthSet : itemHeightSet;
+            var itemU = this.Orientation == Orientation.Horizontal ? itemWidth : itemHeight;
+            var curLineSize = new UvSize(this.Orientation);
+            var uvFinalSize = new UvSize(this.Orientation, finalSize.Width, finalSize.Height);
+            var itemWidthSet = !double.IsNaN(itemWidth);
+            var itemHeightSet = !double.IsNaN(itemHeight);
+            var useItemU = this.Orientation == Orientation.Horizontal ? itemWidthSet : itemHeightSet;
 
-            UIElementCollection children = this.InternalChildren;
+            var children = this.InternalChildren;
 
             var currentColumn = 1;
 
             for (int i = 0, count = children.Count; i < count; i++)
             {
-                UIElement child = children[i] as UIElement;
+                var child = children[i];
 
                 if (child == null)
                 {
                     continue;
                 }
 
-                UvSize sz = new UvSize(
+                var sz = new UvSize(
                                        this.Orientation,
                                        itemWidthSet ? itemWidth : child.DesiredSize.Width,
                                        itemHeightSet ? itemHeight : child.DesiredSize.Height);
@@ -379,16 +380,16 @@ namespace Fluent
         private void ArrangeLine(double v, double lineV, int start, int end, bool useItemU, double itemU)
         {
             double u = 0;
-            bool isHorizontal = this.Orientation == Orientation.Horizontal;
+            var isHorizontal = this.Orientation == Orientation.Horizontal;
 
-            UIElementCollection children = this.InternalChildren;
-            for (int i = start; i < end; i++)
+            var children = this.InternalChildren;
+            for (var i = start; i < end; i++)
             {
-                UIElement child = children[i] as UIElement;
+                var child = children[i];
                 if (child != null)
                 {
-                    UvSize childSize = new UvSize(this.Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
-                    double layoutSlotU = useItemU ? itemU : childSize.U;
+                    var childSize = new UvSize(this.Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
+                    var layoutSlotU = useItemU ? itemU : childSize.U;
                     child.Arrange(new Rect(
                                            isHorizontal ? u : v,
                                            isHorizontal ? v : u,

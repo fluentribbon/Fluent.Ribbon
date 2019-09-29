@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <Style x:Key="RibbonComboButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
@@ -18,12 +18,11 @@
         <Setter Property="FocusVisualStyle"
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonComboButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
-                CornerRadius="0"
                 Background="{DynamicResource WhiteBrush}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                 Height="Auto"
@@ -117,7 +116,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         Grid.ColumnSpan="1"
-                        x:Name="stackPanel"
+                        x:Name="headerAndIconPanel"
                         HorizontalAlignment="Left"
                         Margin="0,0,4,0">
                 <ContentPresenter x:Name="iconImage"
@@ -125,7 +124,7 @@
                                   Height="16"
                                   VerticalAlignment="Center"
                                   Margin="3,0,0,0"
-                                  Content="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -135,7 +134,7 @@
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"
                                Margin="5,0,0,0"
-                               x:Name="textBlock" />
+                               x:Name="headerTextBlock" />
                 </Grid>
             </StackPanel>
 
@@ -184,17 +183,20 @@
                             Visibility="Collapsed"
                             Width="Auto"
                             Height="Auto" />
-                    <TextBox Focusable="True"
-                                x:Name="PART_EditableTextBox"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                TextWrapping="NoWrap"
-                                BorderThickness="0,0,0,0"
-                                IsReadOnly="{TemplateBinding IsReadOnly}"                                 
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Visibility="Hidden" />
+                    <TextBox x:Name="PART_EditableTextBox"
+                             Focusable="True"                             
+                             Style="{x:Null}"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                             TextWrapping="NoWrap"
+                             BorderThickness="0,0,0,0"
+                             IsReadOnly="{TemplateBinding IsReadOnly}"                                 
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                             Visibility="Hidden" />
                 </Grid>
             </Border>
             <Popup x:Name="PART_Popup"
@@ -331,9 +333,7 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
                             Grid.ColumnSpan="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -345,8 +345,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1" />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Top">
@@ -401,8 +400,7 @@
                                             Height="11"
                                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                             BorderThickness="0,1,0,0"
-                                            CornerRadius="0,0,1,1"
-                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                         <Grid>
                                             <Thumb x:Name="PART_ResizeVerticalThumb"
                                                     HorizontalAlignment="Stretch"
@@ -476,7 +474,7 @@
             <Trigger Property="Size"
                      Value="Middle">
                 <Setter Property="Visibility"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -485,7 +483,7 @@
             <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Visibility"
-                        TargetName="stackPanel"
+                        TargetName="headerAndIconPanel"
                         Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
@@ -516,7 +514,7 @@
                         TargetName="iconImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
-                        TargetName="textBlock"
+                        TargetName="headerTextBlock"
                         Value="0.5" />
                 <Setter Property="Effect"
                         TargetName="iconImage">
@@ -578,6 +576,8 @@
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Template"
                 Value="{DynamicResource ComboboxControlTemplate}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
                 Value="Auto" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
@@ -586,6 +586,8 @@
                 Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="IsEditable"
                 Value="True" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
         <Setter Property="ScrollViewer.CanContentScroll"
                 Value="true" />
         <Style.Triggers>

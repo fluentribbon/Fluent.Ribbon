@@ -27,9 +27,7 @@ namespace Fluent
 
         #region Properties
 
-#if NET45 || NET462
         private object currentItem;
-#endif
 
         #endregion
 
@@ -69,13 +67,9 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
-#if NET45 || NET462
             var item = this.currentItem;
             this.currentItem = null;
 
@@ -95,25 +89,19 @@ namespace Fluent
                     throw new InvalidOperationException("Invalid ItemContainer");
                 }
             }
-#endif
+
             return new StatusBarItem();
         }
 
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns>true if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+        /// <inheritdoc />
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             var isItemItsOwnContainerOverride = item is StatusBarItem || item is Separator;
 
-#if NET45 || NET462
             if (isItemItsOwnContainerOverride == false)
             {
                 this.currentItem = item;
             }
-#endif
 
             return isItemItsOwnContainerOverride;
         }
@@ -128,10 +116,7 @@ namespace Fluent
             this.RunInDispatcherAsync(this.RecreateMenu, DispatcherPriority.Loaded);
         }
 
-        /// <summary>
-        /// Invoked when the <see cref="P:System.Windows.Controls.ItemsControl.Items"/> property changes.
-        /// </summary>
-        /// <param name="e">Information about the change.</param>
+        /// <inheritdoc />
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
@@ -151,9 +136,8 @@ namespace Fluent
                     {
                         var container = this.ItemContainerGenerator.ContainerFromItem(newItem);
                         var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
-                        var item = container as StatusBarItem;
 
-                        if (item != null)
+                        if (container is StatusBarItem item)
                         {
                             item.Checked += this.OnItemChecked;
                             item.Unchecked += this.OnItemUnchecked;
@@ -184,11 +168,10 @@ namespace Fluent
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
                         {
-                            var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
-                            if (menuItem != null)
+                            if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
-                                menuItem.StatusBarItem.Checked += this.OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked += this.OnItemUnchecked;
+                                menuItem.StatusBarItem.Checked -= this.OnItemChecked;
+                                menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
                             }
 
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
@@ -201,11 +184,10 @@ namespace Fluent
                     {
                         for (var i = 0; i < e.OldItems.Count; i++)
                         {
-                            var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1] as StatusBarMenuItem;
-                            if (menuItem != null)
+                            if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
-                                menuItem.StatusBarItem.Checked += this.OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked += this.OnItemUnchecked;
+                                menuItem.StatusBarItem.Checked -= this.OnItemChecked;
+                                menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
                             }
 
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
@@ -213,8 +195,7 @@ namespace Fluent
 
                         for (var i = 0; i < e.NewItems.Count; i++)
                         {
-                            var item = this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]) as StatusBarItem;
-                            if (item != null)
+                            if (this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]) is StatusBarItem item)
                             {
                                 item.Checked += this.OnItemChecked;
                                 item.Unchecked += this.OnItemUnchecked;
@@ -262,9 +243,12 @@ namespace Fluent
 
             for (var i = 0; i < this.Items.Count; i++)
             {
-                var item = this.ItemContainerGenerator.ContainerFromItem(this.Items[i]) as StatusBarItem;
-                if (item != null)
+                if (this.ItemContainerGenerator.ContainerFromItem(this.Items[i]) is StatusBarItem item)
                 {
+                    // Prevent double event handler
+                    item.Checked -= this.OnItemChecked;
+                    item.Unchecked -= this.OnItemUnchecked;
+
                     item.Checked += this.OnItemChecked;
                     item.Unchecked += this.OnItemUnchecked;
                     this.contextMenu.Items.Add(new StatusBarMenuItem(item));
@@ -289,9 +273,8 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var containerFromItem = this.ItemContainerGenerator.ContainerFromItem(item);
-                var separator = containerFromItem as Separator;
 
-                if (separator != null)
+                if (containerFromItem is Separator separator)
                 {
                     if (isPrevSeparator || isFirstVsible)
                     {

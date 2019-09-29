@@ -1,4 +1,3 @@
-Colors\BaseLight.xaml
 Controls\Button.xaml
 Controls\WindowCommands.xaml
 Controls\EmptyFocusStyle.xaml
@@ -47,6 +46,6 @@ Controls\Ribbon.xaml
 Controls\ColorGallery.xaml
 Controls\SeparatorTabItem.xaml
 Controls\Slider.xaml
-Images\Images.xaml
+Images.xaml
 RibbonWindow.xaml
 Common.xaml

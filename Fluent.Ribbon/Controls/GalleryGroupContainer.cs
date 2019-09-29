@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -6,6 +6,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -38,8 +39,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for IsHeadered.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="IsHeadered"/>.
         /// </summary>
         public static readonly DependencyProperty IsHeaderedProperty =
             DependencyProperty.Register(nameof(IsHeadered), typeof(bool),
@@ -59,8 +59,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="Orientation"/>.
         /// </summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
@@ -81,8 +80,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="ItemWidth"/>.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
@@ -103,8 +101,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="ItemHeight"/>.
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
@@ -115,7 +112,7 @@ namespace Fluent
         #region MinItemsInRow
 
         /// <summary>
-        /// Gets or sets minimum items quantity in row
+        /// Gets or sets minimum items in which should be placed in one row.
         /// </summary>
         public int MinItemsInRow
         {
@@ -124,19 +121,23 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="MinItemsInRow"/>.
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new PropertyMetadata(IntBoxes.Zero, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(IntBoxes.Zero, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMinItemsInRowChanged));
+
+        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMaxOrMinItemsInRowChanged(d, e);
+        }
 
         #endregion
 
         #region MaxItemsInRow
 
         /// <summary>
-        /// Gets or sets maximum items quantity in row
+        /// Gets or sets maximum items in which should be placed in one row.
         /// </summary>
         public int MaxItemsInRow
         {
@@ -145,32 +146,39 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
+        /// <see cref="DependencyProperty"/> for <see cref="MaxItemsInRow"/>.
         /// </summary>
         public static readonly DependencyProperty MaxItemsInRowProperty =
             DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new PropertyMetadata(int.MaxValue, OnMaxMinItemsInRowChanged));
+            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
+
+        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            OnMaxOrMinItemsInRowChanged(d, e);
+        }
 
         #endregion
 
-        private Panel RealItemsPanel
-        {
-            get
-            {
-                return this.itemsPanel ?? (this.itemsPanel = FindItemsPanel(this));
-            }
-        }
+        private Panel RealItemsPanel => this.itemsPanel ?? (this.itemsPanel = FindItemsPanel(this));
 
-        private static void OnMaxMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnMaxOrMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryGroupContainer = (GalleryGroupContainer)d;
             galleryGroupContainer.minMaxWidthNeedsToBeUpdated = true;
+            galleryGroupContainer.UpdateMinAndMaxWidth();
         }
 
         #endregion
 
         #region Initialization
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GalleryGroupContainer"/>.
+        /// </summary>
+        public GalleryGroupContainer()
+        {
+            this.Unloaded += this.HandleUnloaded;
+        }
 
         /// <summary>
         /// Static constructor
@@ -180,10 +188,7 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(typeof(GalleryGroupContainer)));
         }
 
-        /// <summary>
-        /// Invoked when the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property changes.
-        /// </summary>
-        /// <param name="oldItemsPanel">Old value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param><param name="newItemsPanel">New value of the <see cref="P:System.Windows.Controls.ItemsControl.ItemsPanel"/> property.</param>
+        /// <inheritdoc />
         protected override void OnItemsPanelChanged(ItemsPanelTemplate oldItemsPanel, ItemsPanelTemplate newItemsPanel)
         {
             base.OnItemsPanelChanged(oldItemsPanel, newItemsPanel);
@@ -224,11 +229,26 @@ namespace Fluent
 
             this.minMaxWidthNeedsToBeUpdated = false;
 
+            // Issue references:
+            // - #542 + commit https://github.com/fluentribbon/Fluent.Ribbon/commit/8b458b1cfc5e440f54778c808142fffa67a23978
+            // - #666
+            // We need to check if we are inside a closed InRibbonGallery.
+            // - If we are inside an closed InRibbonGallery we need to restrict the size of "this"
+            // - If we are inside an opened InRibbonGallery or not inside an InRibbonGallery we need to restrict the size of "RealItemsPanel"
+            var inRibbonGallery = UIHelper.GetParent<InRibbonGallery>(this);
+            var isInsideClosedInRibbonGallery = inRibbonGallery != null && inRibbonGallery.IsDropDownOpen == false;
+            var targetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
+
+            var nonTargetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this.RealItemsPanel : this;
+
+            nonTargetForSizeConstraints.MinWidth = 0;
+            nonTargetForSizeConstraints.MaxWidth = double.PositiveInfinity;
+
             if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
-                this.RealItemsPanel.MinWidth = 0;
-                this.RealItemsPanel.MaxWidth = double.PositiveInfinity;
+                targetForSizeConstraints.MinWidth = 0;
+                targetForSizeConstraints.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -239,8 +259,8 @@ namespace Fluent
                 return;
             }
 
-            this.RealItemsPanel.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
-            this.RealItemsPanel.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
+            targetForSizeConstraints.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
+            targetForSizeConstraints.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -253,6 +273,13 @@ namespace Fluent
             }
 
             this.InvalidateMeasure();
+        }
+
+        private void HandleUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.itemsPanel = null;
+
+            this.minMaxWidthNeedsToBeUpdated = true;
         }
 
         /// <summary>
@@ -278,7 +305,7 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            anItem.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            anItem.Measure(SizeConstants.Infinite);
             var result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
             return result;
@@ -295,8 +322,7 @@ namespace Fluent
         {
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
             {
-                var panel = obj as Panel;
-                if (panel != null &&
+                if (obj is Panel panel &&
                     panel.IsItemsHost)
                 {
                     return panel;
@@ -314,11 +340,7 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Called to remeasure a control.
-        /// </summary>
-        /// <returns>The size of the control, up to the maximum specified by constraint.</returns>
-        /// <param name="constraint">The maximum size that the method can return.</param>
+        /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
             if (this.previousItemsCount != this.Items.Count

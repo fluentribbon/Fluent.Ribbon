@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -18,6 +18,10 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty(nameof(Items))]
+    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
+    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
+    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields
@@ -39,9 +43,7 @@ namespace Fluent
 
         #region Size
 
-        /// <summary>
-        /// Gets or sets Size for the element.
-        /// </summary>
+        /// <inheritdoc />
         public RibbonControlSize Size
         {
             get { return (RibbonControlSize)this.GetValue(SizeProperty); }
@@ -58,9 +60,7 @@ namespace Fluent
 
         #region SizeDefinition
 
-        /// <summary>
-        /// Gets or sets SizeDefinition for element.
-        /// </summary>
+        /// <inheritdoc />
         public RibbonControlSizeDefinition SizeDefinition
         {
             get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
@@ -77,9 +77,7 @@ namespace Fluent
 
         #region KeyTip
 
-        /// <summary>
-        /// Gets or sets KeyTip for element.
-        /// </summary>
+        /// <inheritdoc />
         public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
@@ -94,14 +92,10 @@ namespace Fluent
 
         #endregion
 
-        /// <summary>
-        /// Gets drop down popup
-        /// </summary>
+        /// <inheritdoc />
         public Popup DropDownPopup { get; private set; }
 
-        /// <summary>
-        /// Gets a value indicating whether context menu is opened
-        /// </summary>
+        /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
 
         #region Description
@@ -125,9 +119,7 @@ namespace Fluent
 
         #region IsDropDownOpen
 
-        /// <summary>
-        /// Gets or sets whether popup is opened
-        /// </summary>
+        /// <inheritdoc />
         public bool IsDropDownOpen
         {
             get { return this.IsSubmenuOpen; }
@@ -216,14 +208,7 @@ namespace Fluent
 
         #region GroupName
 
-        /// <summary>
-        /// Gets or sets the name of the group that the toggle button belongs to.
-        /// Use the GroupName property to specify a grouping of toggle buttons to
-        /// create a mutually exclusive set of controls. You can use the GroupName
-        /// property when only one selection is possible from a list of available
-        /// options. When this property is set, only one ToggleButton in the specified
-        /// group can be selected at a time.
-        /// </summary>
+        /// <inheritdoc />
         public string GroupName
         {
             get { return (string)this.GetValue(GroupNameProperty); }
@@ -249,14 +234,10 @@ namespace Fluent
 
         #region Events
 
-        /// <summary>
-        /// Occurs when context menu is opened
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when context menu is closed
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownClosed;
 
         #endregion
@@ -296,19 +277,17 @@ namespace Fluent
 
         #region QuickAccess
 
-        /// <summary>
-        /// Gets control which represents shortcut item.
-        /// This item MUST be synchronized with the original
-        /// and send command to original one control.
-        /// </summary>
-        /// <returns>Control which represents shortcut item</returns>
+        /// <inheritdoc />
         public virtual FrameworkElement CreateQuickAccessItem()
         {
             if (this.HasItems)
             {
                 if (this.IsSplited)
                 {
-                    var button = new SplitButton();
+                    var button = new SplitButton
+                                 {
+                                     CanAddButtonToQuickAccessToolBar = false
+                                 };
                     RibbonControl.BindQuickAccessItem(this, button);
                     RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
                     RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
@@ -355,7 +334,7 @@ namespace Fluent
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+            ItemsControlHelper.MoveItemsToDifferentControl(this, buttonInQuickAccess);
         }
 
         /// <summary>
@@ -371,9 +350,7 @@ namespace Fluent
             ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
         }
 
-        /// <summary>
-        /// Gets or sets whether control can be added to quick access toolbar
-        /// </summary>
+        /// <inheritdoc />
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
@@ -419,20 +396,13 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Creates or identifies the element that is used to display the given item.
-        /// </summary>
-        /// <returns>The element that is used to display the given item.</returns>
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new MenuItem();
         }
 
-        /// <summary>
-        /// Determines if the specified item is (or is eligible to be) its own container.
-        /// </summary>
-        /// <param name="item">The item to check.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is FrameworkElement;
@@ -456,9 +426,11 @@ namespace Fluent
         {
             base.OnMouseEnter(e);
 
-            if (this.IsItemsControlMenuBase == false)
+            if (this.IsItemsControlMenuBase == false
+                && this.isContextMenuOpening == false)
             {
-                if (this.HasItems)
+                if (this.HasItems
+                    && this.Parent is DropDownButton)
                 {
                     this.IsSubmenuOpen = true;
                 }
@@ -468,19 +440,31 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnMouseLeave(MouseEventArgs e)
         {
-            if (this.isContextMenuOpening)
-            {
-                return;
-            }
-
             base.OnMouseLeave(e);
+
+            if (this.IsItemsControlMenuBase == false
+                && this.isContextMenuOpening == false)
+            {
+                if (this.HasItems
+                    && this.Parent is DropDownButton // prevent too slow close on regular DropDown
+                    && this.Parent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
+                {
+                    this.IsSubmenuOpen = false;
+                }
+            }
         }
 
         /// <inheritdoc />
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
         {
             this.isContextMenuOpening = true;
-            this.IsContextMenuOpened = true;
+
+            // We have to close the sub menu as soon as the context menu gets opened
+            // but only if it should be opened on ourself
+            if (ReferenceEquals(this, e.Source))
+            {
+                this.IsSubmenuOpen = false;
+            }
 
             base.OnContextMenuOpening(e);
         }
@@ -489,43 +473,35 @@ namespace Fluent
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
         {
             this.isContextMenuOpening = false;
-            this.IsContextMenuOpened = false;
 
             base.OnContextMenuClosing(e);
-
-            if (this.IsMouseOver == false)
-            {
-                this.OnMouseLeave(new MouseEventArgs(Mouse.PrimaryDevice, 0));
-            }
         }
 
         #endregion Non MenuBase ItemsControl workarounds
 
-        /// <summary>
-        /// Called when the left mouse button is released.
-        /// </summary>
-        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.MouseLeftButtonUp"/> event.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (e.ClickCount == 1)
             {
                 if (this.IsSplited)
                 {
-                    var buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as Border;
-                    if (buttonBorder != null
+                    if (this.GetTemplateChild("PART_ButtonBorder") is Border buttonBorder
                         && PopupService.IsMousePhysicallyOver(buttonBorder))
                     {
                         this.OnClick();
                     }
+                }
+                else if (this.HasItems)
+                {
+                    this.IsSubmenuOpen = !this.IsSubmenuOpen;
                 }
             }
 
             base.OnMouseLeftButtonUp(e);
         }
 
-        /// <summary>
-        /// Called when a <see cref="T:System.Windows.Controls.Button"/> is clicked.
-        /// </summary>
+        /// <inheritdoc />
         protected override void OnClick()
         {
             // Close popup on click
@@ -557,9 +533,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Called when the template's tree is generated.
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             if (this.DropDownPopup != null)
@@ -606,10 +580,7 @@ namespace Fluent
             this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
         }
 
-        /// <summary>
-        /// Responds to the <see cref="E:System.Windows.UIElement.KeyDown"/> event.
-        /// </summary>
-        /// <param name="e">The event data for the <see cref="E:System.Windows.UIElement.KeyDown"/> event.</param>
+        /// <inheritdoc />
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -620,19 +591,7 @@ namespace Fluent
                 }
                 else
                 {
-                    var parent = this.FindParentDropDownOrMenuItem();
-                    if (parent != null)
-                    {
-                        var dropDown = parent as IDropDownControl;
-                        if (dropDown != null)
-                        {
-                            dropDown.IsDropDownOpen = false;
-                        }
-                        else
-                        {
-                            ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
-                        }
-                    }
+                    this.CloseParentDropDownOrMenuItem();
                 }
 
                 e.Handled = true;
@@ -657,7 +616,8 @@ namespace Fluent
                         }
                     }
 
-                    if (key == Key.Right)
+                    if (key == Key.Right
+                        && this.menuPanel != null)
                     {
                         this.IsSubmenuOpen = true;
                         this.menuPanel.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -665,7 +625,19 @@ namespace Fluent
                     }
                     else if (key == Key.Left)
                     {
-                        this.IsSubmenuOpen = false;
+                        if (this.IsSubmenuOpen)
+                        {
+                            this.IsSubmenuOpen = false;
+                        }
+                        else
+                        {
+                            var parentMenuItem = UIHelper.GetParent<System.Windows.Controls.MenuItem>(this);
+                            if (parentMenuItem != null)
+                            {
+                                parentMenuItem.IsSubmenuOpen = false;
+                            }
+                        }
+
                         e.Handled = true;
                     }
 
@@ -681,27 +653,23 @@ namespace Fluent
             }
         }
 
-        private DependencyObject FindParentDropDownOrMenuItem()
+        private void CloseParentDropDownOrMenuItem()
         {
-            var parent = this.Parent;
-            while (parent != null)
+            var parent = UIHelper.GetParent<DependencyObject>(this, x => x is IDropDownControl || x is System.Windows.Controls.MenuItem);
+
+            if (parent == null)
             {
-                var dropDown = parent as IDropDownControl;
-                if (dropDown != null)
-                {
-                    return parent;
-                }
-
-                var menuItem = parent as System.Windows.Controls.MenuItem;
-                if (menuItem != null)
-                {
-                    return parent;
-                }
-
-                parent = LogicalTreeHelper.GetParent(parent);
+                return;
             }
 
-            return null;
+            if (parent is IDropDownControl dropDown)
+            {
+                dropDown.IsDropDownOpen = false;
+            }
+            else
+            {
+                ((System.Windows.Controls.MenuItem)parent).IsSubmenuOpen = false;
+            }
         }
 
         #endregion
@@ -777,5 +745,17 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
     }
 }

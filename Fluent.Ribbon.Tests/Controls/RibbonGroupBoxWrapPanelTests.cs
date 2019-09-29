@@ -61,7 +61,7 @@
 
         private static TextBlock GetHeaderTextBlock(Control control)
         {
-            return (TextBlock)control.Template.FindName("textBlock", control);
+            return (TextBlock)control.Template.FindName("headerTextBlock", control);
         }
 
         [Test]
@@ -96,7 +96,7 @@
                     Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                                                                             {
                                                                                 96,
-                                                                                83,
+                                                                                84,
                                                                                 96
                                                                             }));
                 }
@@ -120,7 +120,7 @@
                                                                             {
                                                                                 160,
                                                                                 160,
-                                                                                83
+                                                                                84
                                                                             }));
                 }
             }
@@ -209,8 +209,8 @@
 
                     Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                                                                             {
-                                                                                83,
-                                                                                83,
+                                                                                84,
+                                                                                84,
                                                                                 96
                                                                             }));
                 }
@@ -232,9 +232,9 @@
 
                     Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                                                                             {
-                                                                                100,
+                                                                                101,
                                                                                 160,
-                                                                                83
+                                                                                84
                                                                             }));
                 }
             }
@@ -275,8 +275,8 @@
 
                     Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                                                                             {
-                                                                                83,
-                                                                                83,
+                                                                                84,
+                                                                                84,
                                                                                 96
                                                                             }));
                 }
@@ -298,9 +298,9 @@
 
                     Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                                                                             {
-                                                                                100,
+                                                                                101,
                                                                                 160,
-                                                                                83
+                                                                                84
                                                                             }));
                 }
             }

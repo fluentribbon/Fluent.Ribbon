@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -28,6 +28,9 @@ namespace Fluent
     /// </summary>
     [ContentProperty(nameof(Tabs))]
     [DefaultProperty(nameof(Tabs))]
+    [TemplatePart(Name = "PART_LayoutRoot", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_RibbonTabControl", Type = typeof(RibbonTabControl))]
+    [TemplatePart(Name = "PART_QuickAccessToolBar", Type = typeof(QuickAccessToolBar))]
     public class Ribbon : Control
     {
         private IRibbonStateStorage ribbonStateStorage;
@@ -35,7 +38,7 @@ namespace Fluent
         /// <summary>
         /// Gets the current instance for storing the state of this control.
         /// </summary>
-        protected IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
+        public IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
 
         /// <summary>
         /// Create a new instance for storing the state of this control.
@@ -61,6 +64,20 @@ namespace Fluent
         #endregion
 
         #region ContextMenu
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsDefaultContextMenuEnabled"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsDefaultContextMenuEnabledProperty = DependencyProperty.Register(nameof(IsDefaultContextMenuEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Gets or sets whether the default context menu should be enabled/used.
+        /// </summary>
+        public bool IsDefaultContextMenuEnabled
+        {
+            get { return (bool)this.GetValue(IsDefaultContextMenuEnabledProperty); }
+            set { this.SetValue(IsDefaultContextMenuEnabledProperty, value); }
+        }
 
         private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
 
@@ -171,35 +188,38 @@ namespace Fluent
         // Initialize ribbon context menu
         private static void InitRibbonContextMenu()
         {
-            contextMenus.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.ContextMenu());
+            contextMenus.Add(Thread.CurrentThread.ManagedThreadId, new ContextMenu());
             RibbonContextMenu.Opened += OnContextMenuOpened;
+        }
 
+        private static void InitRibbonContextMenuItems()
+        {
             // Add to quick access toolbar
-            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddItem), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add group to quick access toolbar
-            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addGroupToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddGroupToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddGroupToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddGroup), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddGroupToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add menu item to quick access toolbar
-            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addMenuToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddMenuToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddMenuToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddMenu), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddMenuToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Add gallery to quick access toolbar
-            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = AddToQuickAccessCommand });
+            addGalleryToQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(AddToQuickAccessCommand));
             RibbonContextMenu.Items.Add(AddGalleryToQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, AddGalleryToQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuAddGallery), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, AddGalleryToQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Remove from quick access toolbar
-            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = RemoveFromQuickAccessCommand });
+            removeFromQuickAccessMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(RemoveFromQuickAccessCommand));
             RibbonContextMenu.Items.Add(RemoveFromQuickAccessMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, RemoveFromQuickAccessMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuRemoveItem), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, RemoveFromQuickAccessMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
@@ -209,19 +229,19 @@ namespace Fluent
             RibbonContextMenu.Items.Add(FirstSeparator);
 
             // Customize quick access toolbar
-            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeQuickAccessToolbarCommand });
+            customizeQuickAccessToolbarMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(CustomizeQuickAccessToolbarCommand));
             RibbonContextMenu.Items.Add(CustomizeQuickAccessToolbarMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, CustomizeQuickAccessToolbarMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuCustomizeQuickAccessToolBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, CustomizeQuickAccessToolbarMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access below the ribbon
-            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessBelowCommand });
+            showQuickAccessToolbarBelowTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ShowQuickAccessBelowCommand));
             RibbonContextMenu.Items.Add(ShowQuickAccessToolbarBelowTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, ShowQuickAccessToolbarBelowTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuShowBelow), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, ShowQuickAccessToolbarBelowTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Show quick access above the ribbon
-            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ShowQuickAccessAboveCommand });
+            showQuickAccessToolbarAboveTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ShowQuickAccessAboveCommand));
             RibbonContextMenu.Items.Add(ShowQuickAccessToolbarAboveTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, ShowQuickAccessToolbarAboveTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuShowAbove), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, ShowQuickAccessToolbarAboveTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
@@ -231,32 +251,36 @@ namespace Fluent
             RibbonContextMenu.Items.Add(SecondSeparator);
 
             // Customize the ribbon
-            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = CustomizeTheRibbonCommand });
+            customizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(CustomizeTheRibbonCommand));
             RibbonContextMenu.Items.Add(CustomizeTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, CustomizeTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuCustomizeRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, CustomizeTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Minimize the ribbon
-            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, new System.Windows.Controls.MenuItem { Command = ToggleMinimizeTheRibbonCommand });
+            minimizeTheRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(ToggleMinimizeTheRibbonCommand));
             RibbonContextMenu.Items.Add(MinimizeTheRibbonMenuItem);
             RibbonControl.Bind(RibbonLocalization.Current.Localization, MinimizeTheRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuMinimizeRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, MinimizeTheRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuOpening"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.RoutedEventArgs"/> that contains the event data.</param>
+        private static MenuItem CreateMenuItemForContextMenu(ICommand command)
+        {
+            return new MenuItem
+                   {
+                       Command = command,
+                       CanAddToQuickAccessToolBar = false,
+                       ContextMenu = null
+                   };
+        }
+
+        /// <inheritdoc />
         protected override void OnContextMenuOpening(ContextMenuEventArgs e)
         {
             contextMenuOwner = this;
             base.OnContextMenuOpening(e);
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled <see cref="E:System.Windows.FrameworkElement.ContextMenuClosing"/> routed event reaches this class in its route. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">Provides data about the event.</param>
+        /// <inheritdoc />
         protected override void OnContextMenuClosing(ContextMenuEventArgs e)
         {
             contextMenuOwner = null;
@@ -281,6 +305,23 @@ namespace Fluent
             if (RibbonContextMenu == null
                 || ribbon == null)
             {
+                return;
+            }
+
+            if (ribbon.IsDefaultContextMenuEnabled
+                && RibbonContextMenu.Items.Count == 0)
+            {
+                InitRibbonContextMenuItems();
+            }
+
+            if (ribbon.IsDefaultContextMenuEnabled == false)
+            {
+                foreach (UIElement item in RibbonContextMenu.Items)
+                {
+                    item.Visibility = Visibility.Collapsed;
+                }
+
+                RibbonContextMenu.IsOpen = false;
                 return;
             }
 
@@ -401,6 +442,12 @@ namespace Fluent
                     }
                 }
             }
+
+            // We have to close the context menu if no items are visible
+            if (RibbonContextMenu.Items.OfType<System.Windows.Controls.MenuItem>().All(x => x.Visibility == Visibility.Collapsed))
+            {
+                RibbonContextMenu.IsOpen = false;
+            }
         }
 
         #endregion
@@ -435,6 +482,8 @@ namespace Fluent
         #endregion
 
         #region Fields
+
+        private ObservableCollection<Key> keyTipKeys;
 
         // Collection of contextual tab groups
         private ObservableCollection<RibbonContextualTabGroup> contextualGroups;
@@ -479,7 +528,12 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
         /// </summary>
         public static readonly DependencyProperty MenuProperty =
-            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new FrameworkPropertyMetadata(default(FrameworkElement), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new FrameworkPropertyMetadata(default(FrameworkElement), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnMenuChanged));
+
+        private static void OnMenuChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AddOrRemoveLogicalChildOnPropertyChanged(d, e);
+        }
 
         #endregion
 
@@ -498,7 +552,12 @@ namespace Fluent
         /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
         /// </summary>
         public static readonly DependencyProperty StartScreenProperty =
-            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new FrameworkPropertyMetadata(default(StartScreen), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+            DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new FrameworkPropertyMetadata(default(StartScreen), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnStartScreenChanged));
+
+        private static void OnStartScreenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AddOrRemoveLogicalChildOnPropertyChanged(d, e);
+        }
 
         #endregion
 
@@ -507,19 +566,26 @@ namespace Fluent
         /// <summary>
         /// Property for defining the QuickAccessToolBar.
         /// </summary>
-        internal QuickAccessToolBar QuickAccessToolBar
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public QuickAccessToolBar QuickAccessToolBar
         {
             get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
-            private set { this.SetValue(quickAccessToolBarPropertyKey, value); }
+            private set { this.SetValue(QuickAccessToolBarPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey quickAccessToolBarPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(QuickAccessToolBar), typeof(QuickAccessToolBar), typeof(Ribbon), new FrameworkPropertyMetadata(default(QuickAccessToolBar), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, AddOrRemoveLogicalChildOnPropertyChanged));
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey QuickAccessToolBarPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(QuickAccessToolBar), typeof(QuickAccessToolBar), typeof(Ribbon), new FrameworkPropertyMetadata(default(QuickAccessToolBar), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnQuickAccessToolBarChanged));
+
+        private static void OnQuickAccessToolBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            AddOrRemoveLogicalChildOnPropertyChanged(d, e);
+        }
 
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBar"/>
         /// </summary>
-        public static readonly DependencyProperty QuickAccessToolBarProperty = quickAccessToolBarPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty QuickAccessToolBarProperty = QuickAccessToolBarPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -528,19 +594,21 @@ namespace Fluent
         /// <summary>
         /// Property for defining the TabControl.
         /// </summary>
-        internal RibbonTabControl TabControl
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public RibbonTabControl TabControl
         {
             get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
-            private set { this.SetValue(tabControlPropertyKey, value); }
+            private set { this.SetValue(TabControlPropertyKey, value); }
         }
 
-        private static readonly DependencyPropertyKey tabControlPropertyKey =
+        // ReSharper disable once InconsistentNaming
+        private static readonly DependencyPropertyKey TabControlPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TabControl"/>
         /// </summary>
-        public static readonly DependencyProperty TabControlProperty = tabControlPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty TabControlProperty = TabControlPropertyKey.DependencyProperty;
 
         #endregion
 
@@ -567,9 +635,7 @@ namespace Fluent
                 ribbon.TabControl.SelectedItem = e.NewValue;
             }
 
-            var selectedItem = e.NewValue as RibbonTabItem;
-
-            if (selectedItem != null
+            if (e.NewValue is RibbonTabItem selectedItem
                 && ribbon.Tabs.Contains(selectedItem))
             {
                 ribbon.SelectedTabIndex = ribbon.Tabs.IndexOf(selectedItem);
@@ -670,10 +736,7 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            var oldValue = e.OldValue as RibbonTitleBar;
-            var newValue = e.NewValue as RibbonTitleBar;
-
-            if (oldValue != null)
+            if (e.OldValue is RibbonTitleBar oldValue)
             {
                 foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
                 {
@@ -686,7 +749,7 @@ namespace Fluent
                 ribbon.RemoveQuickAccessToolBarFromTitleBar(oldValue);
             }
 
-            if (newValue != null)
+            if (e.NewValue is RibbonTitleBar newValue)
             {
                 foreach (var contextualTabGroup in ribbon.ContextualGroups)
                 {
@@ -715,14 +778,14 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
-            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnShowQuickAccesToolBarAboveRibbonChanged));
+            DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnShowQuickAccessToolBarAboveRibbonChanged));
 
         /// <summary>
         /// Handles ShowQuickAccessToolBarAboveRibbon property changed
         /// </summary>
         /// <param name="d">Object</param>
         /// <param name="e">The event data</param>
-        private static void OnShowQuickAccesToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnShowQuickAccessToolBarAboveRibbonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
 
@@ -944,9 +1007,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets an enumerator for logical child elements of this element.
-        /// </summary>
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -1139,22 +1200,13 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty CanMinimizeProperty =
-            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanMinimizeChanged));
+            DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
 
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
-        }
-
-        private static void OnCanMinimizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var ribbon = (Ribbon)d;
-            if (ribbon.TabControl != null)
-            {
-                ribbon.TabControl.CanMinimize = ribbon.CanMinimize;
-            }
         }
 
         /// <summary>
@@ -1258,12 +1310,40 @@ namespace Fluent
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="AreTabHeadersVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines whether tab headers are visible or not.
+        /// </summary>
+        public bool AreTabHeadersVisible
+        {
+            get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
+            set { this.SetValue(AreTabHeadersVisibleProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="IsToolBarVisible"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines whether tab headers are visible or not.
+        /// </summary>
+        public bool IsToolBarVisible
+        {
+            get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
+            set { this.SetValue(IsToolBarVisibleProperty, value); }
+        }
+
+        /// <summary>
         /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
         /// </summary>
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
-        /// Defines wether scrolling by mouse wheel is enabled or not.
+        /// Defines whether scrolling by mouse wheel is enabled or not.
         /// </summary>
         public bool IsMouseWheelScrollingEnabled
         {
@@ -1282,7 +1362,7 @@ namespace Fluent
         public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
 
         /// <summary>
-        /// Defines wether handling of key tips is enabled or not.
+        /// Defines whether handling of key tips is enabled or not.
         /// </summary>
         public bool IsKeyTipHandlingEnabled
         {
@@ -1304,6 +1384,33 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Defines the keys that are used to activate the key tips.
+        /// </summary>
+        public ObservableCollection<Key> KeyTipKeys
+        {
+            get
+            {
+                if (this.keyTipKeys == null)
+                {
+                    this.keyTipKeys = new ObservableCollection<Key>();
+                    this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
+                }
+
+                return this.keyTipKeys;
+            }
+        }
+
+        private void HandleKeyTipKeys_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            this.keyTipService.KeyTipKeys.Clear();
+
+            foreach (var keyTipKey in this.KeyTipKeys)
+            {
+                this.keyTipService.KeyTipKeys.Add(keyTipKey);
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -1311,44 +1418,42 @@ namespace Fluent
         /// <summary>
         /// Gets add to quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand("AddToQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand(nameof(AddToQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets remove from quick access command
         /// </summary>
-        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand("RemoveFromQuickAccessCommand", typeof(Ribbon));
+        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand(nameof(RemoveFromQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access above command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand("ShowQuickAccessAboveCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand(nameof(ShowQuickAccessAboveCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access below command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand("ShowQuickAccessBelowCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand(nameof(ShowQuickAccessBelowCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets toggle ribbon minimize command
         /// </summary>
-        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand("ToggleMinimizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand(nameof(ToggleMinimizeTheRibbonCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand("CustomizeQuickAccessToolbarCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand(nameof(CustomizeQuickAccessToolbarCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize the ribbon command
         /// </summary>
-        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand("CustomizeTheRibbonCommand", typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand(nameof(CustomizeTheRibbonCommand), typeof(Ribbon));
 
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
                 e.CanExecute = ribbon.CanMinimize;
             }
@@ -1357,10 +1462,9 @@ namespace Fluent
         // Occurs when toggle minimize command executed
         private static void OnToggleMinimizeTheRibbonCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-            if (ribbon?.TabControl != null)
+            if (sender is Ribbon ribbon)
             {
-                ribbon.TabControl.IsMinimized = !ribbon.TabControl.IsMinimized;
+                ribbon.IsMinimized = !ribbon.IsMinimized;
             }
         }
 
@@ -1458,14 +1562,8 @@ namespace Fluent
         // Occurs when remove from quick access command can execute handles
         private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon == null)
-            {
-                return;
-            }
-
-            if (ribbon.IsQuickAccessToolBarVisible)
+            if (sender is Ribbon ribbon
+                && ribbon.IsQuickAccessToolBarVisible)
             {
                 e.CanExecute = ribbon.QuickAccessElements.ContainsValue(e.Parameter as UIElement);
             }
@@ -1478,15 +1576,12 @@ namespace Fluent
         // Occurs when add to quick access command can execute handles
         private static void OnAddToQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            var ribbon = sender as Ribbon;
-
-            if (ribbon != null
+            if (sender is Ribbon ribbon
                 && ribbon.IsQuickAccessToolBarVisible
                 && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement)
                 && ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false)
             {
-                var gallery = e.Parameter as Gallery;
-                if (gallery != null)
+                if (e.Parameter is Gallery gallery)
                 {
                     e.CanExecute = ribbon.IsInQuickAccessToolBar(FindParentRibbonControl(gallery) as UIElement) == false;
                 }
@@ -1520,8 +1615,6 @@ namespace Fluent
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(ToggleMinimizeTheRibbonCommand, OnToggleMinimizeTheRibbonCommandExecuted, OnToggleMinimizeTheRibbonCommandCanExecute));
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeTheRibbonCommand, OnCustomizeTheRibbonCommandExecuted, OnCustomizeTheRibbonCommandCanExecute));
             CommandManager.RegisterClassCommandBinding(typeof(Ribbon), new CommandBinding(CustomizeQuickAccessToolbarCommand, OnCustomizeQuickAccessToolbarCommandExecuted, OnCustomizeQuickAccessToolbarCommandCanExecute));
-
-            InitRibbonContextMenu();
         }
 
         /// <summary>
@@ -1568,21 +1661,14 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Invoked whenever an unhandled System.Windows.UIElement.GotFocus
-        /// event reaches this element in its route.
-        /// </summary>
-        /// <param name="e">The System.Windows.RoutedEventArgs that contains the event data.</param>
+        /// <inheritdoc />
         protected override void OnGotFocus(RoutedEventArgs e)
         {
             var ribbonTabItem = (RibbonTabItem)this.TabControl?.SelectedItem;
             ribbonTabItem?.Focus();
         }
 
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or
-        /// internal processes call System.Windows.FrameworkElement.ApplyTemplate().
-        /// </summary>
+        /// <inheritdoc />
         public override void OnApplyTemplate()
         {
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;
@@ -1615,13 +1701,6 @@ namespace Fluent
             if (this.TabControl != null)
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
-
-                this.TabControl.CanMinimize = this.CanMinimize;
-                this.TabControl.IsMinimized = this.IsMinimized;
-                this.TabControl.ContentGapHeight = this.ContentGapHeight;
-
-                this.TabControl.SetBinding(RibbonTabControl.IsMinimizedProperty, new Binding(nameof(this.IsMinimized)) { Source = this, Mode = BindingMode.TwoWay });
-                this.TabControl.SetBinding(RibbonTabControl.ContentGapHeightProperty, new Binding(nameof(this.ContentGapHeight)) { Source = this, Mode = BindingMode.OneWay });
 
                 foreach (var ribbonTabItem in this.Tabs)
                 {
@@ -1667,10 +1746,10 @@ namespace Fluent
 
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
-                                  {
-                                      Source = this,
-                                      Mode = BindingMode.OneWay
-                                  };
+                    {
+                        Source = this,
+                        Mode = BindingMode.OneWay
+                    };
                     this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
                 }
 
@@ -1796,8 +1875,7 @@ namespace Fluent
             }
 
             // Do not add menu items without icon.
-            var menuItem = element as MenuItem;
-            if (menuItem != null && menuItem.Icon == null)
+            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon == null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }
@@ -1829,8 +1907,7 @@ namespace Fluent
 
             while (parent != null)
             {
-                var control = parent as IRibbonControl;
-                if (control != null)
+                if (parent is IRibbonControl control)
                 {
                     return control;
                 }
@@ -1948,18 +2025,7 @@ namespace Fluent
 
             this.RibbonStateStorage.Load();
 
-            if (this.TabControl != null
-                && this.TabControl.SelectedIndex == -1
-                && this.TabControl.IsMinimized == false)
-            {
-                this.TabControl.SelectedItem = this.TabControl.GetFirstVisibleAndEnabledItem();
-
-                if (this.TabControl.SelectedItem == null
-                    && this.IsEnabled == false)
-                {
-                    this.TabControl.SelectedItem = this.GetFirstVisibleItem();
-                }
-            }
+            this.TabControl?.SelectFirstTab();
         }
 
         // Handles items changing in QAT
@@ -1974,13 +2040,12 @@ namespace Fluent
         public void TraverseLogicalTree(DependencyObject item, string path, IDictionary<FrameworkElement, string> paths)
         {
             // Is this item in QAT
-            var uielement = item as FrameworkElement;
-            if (uielement != null
-                && this.QuickAccessElements.ContainsKey(uielement))
+            if (item is FrameworkElement frameworkElement
+                && this.QuickAccessElements.ContainsKey(frameworkElement))
             {
-                if (paths.ContainsKey(uielement) == false)
+                if (paths.ContainsKey(frameworkElement) == false)
                 {
-                    paths.Add(uielement, path);
+                    paths.Add(frameworkElement, path);
                 }
             }
 
@@ -2016,9 +2081,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
-            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutoStateManagement, CoerceAutoStateManagement));
+            DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutomaticStateManagementChanged, CoerceAutomaticStateManagement));
 
-        private static object CoerceAutoStateManagement(DependencyObject d, object basevalue)
+        private static object CoerceAutomaticStateManagement(DependencyObject d, object basevalue)
         {
             var ribbon = (Ribbon)d;
             if (ribbon.RibbonStateStorage.IsLoading)
@@ -2029,7 +2094,7 @@ namespace Fluent
             return basevalue;
         }
 
-        private static void OnAutoStateManagement(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAutomaticStateManagementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
             if ((bool)e.NewValue)

@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Helpers;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
@@ -53,10 +54,9 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty QuickAccessToolBarProperty =
-            DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(FrameworkElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolbarChanged));
+            DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(FrameworkElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolBarChanged));
 
-        // Handles QuickAccessToolBar property chages
-        private static void OnQuickAccessToolbarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnQuickAccessToolBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var titleBar = (RibbonTitleBar)d;
             titleBar.ForceMeasureAndArrange();
@@ -287,20 +287,18 @@ namespace Fluent
 
             if (parentUIElement == null)
             {
-                return default(Point);
+                return default;
             }
 
-            return this.TranslatePoint(default(Point), parentUIElement);
+            return this.TranslatePoint(default, parentUIElement);
         }
 
         // Update items size and positions
         private void Update(Size constraint)
         {
             var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
-                .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
-                .ToList();
-
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
+                            .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
+                            .ToList();
 
             var canRibbonTabControlScroll = false;
 
@@ -309,10 +307,7 @@ namespace Fluent
             {
                 var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
 
-                if (firstVisibleItem?.Parent != null)
-                {
-                    canRibbonTabControlScroll = ((RibbonTabControl)firstVisibleItem.Parent).CanScroll;
-                }
+                canRibbonTabControlScroll = UIHelper.GetParent<RibbonTabControl>(firstVisibleItem)?.CanScroll == true;
             }
 
             if (this.IsCollapsed)
@@ -333,7 +328,7 @@ namespace Fluent
                 this.itemsRect = new Rect(0, 0, 0, 0);
 
                 // Set quick launch toolbar and header position and size
-                this.quickAccessToolbarHolder.Measure(infinity);
+                this.quickAccessToolbarHolder.Measure(SizeConstants.Infinite);
 
                 if (constraint.Width <= this.quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
@@ -344,7 +339,7 @@ namespace Fluent
                 if (constraint.Width > this.quickAccessToolbarHolder.DesiredSize.Width + 50)
                 {
                     this.quickAccessToolbarRect = new Rect(0, 0, this.quickAccessToolbarHolder.DesiredSize.Width, this.quickAccessToolbarHolder.DesiredSize.Height);
-                    this.headerHolder.Measure(infinity);
+                    this.headerHolder.Measure(SizeConstants.Infinite);
                     var allTextWidth = constraint.Width - this.quickAccessToolbarHolder.DesiredSize.Width;
 
                     if (this.HeaderAlignment == HorizontalAlignment.Left)
@@ -404,12 +399,12 @@ namespace Fluent
                 startX = Math.Max(startX, this.QuickAccessToolBar?.MinWidth ?? 0);
 
                 // Set contextual groups position and size
-                this.itemsContainer.Measure(infinity);
+                this.itemsContainer.Measure(SizeConstants.Infinite);
                 var itemsRectWidth = Math.Min(this.itemsContainer.DesiredSize.Width, Math.Max(0, Math.Min(endX, constraint.Width) - startX));
                 this.itemsRect = new Rect(startX, 0, itemsRectWidth, constraint.Height);
 
                 // Set quick launch toolbar position and size
-                this.quickAccessToolbarHolder.Measure(infinity);
+                this.quickAccessToolbarHolder.Measure(SizeConstants.Infinite);
 
                 var quickAccessToolbarWidth = this.quickAccessToolbarHolder.DesiredSize.Width;
                 this.quickAccessToolbarRect = new Rect(0, 0, Math.Min(quickAccessToolbarWidth, startX), this.quickAccessToolbarHolder.DesiredSize.Height);
@@ -422,7 +417,7 @@ namespace Fluent
                 }
 
                 // Set header
-                this.headerHolder.Measure(infinity);
+                this.headerHolder.Measure(SizeConstants.Infinite);
 
                 switch (this.HeaderAlignment)
                 {

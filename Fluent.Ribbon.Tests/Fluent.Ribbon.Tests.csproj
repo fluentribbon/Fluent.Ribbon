@@ -1,41 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
     <RootNamespace>Fluent.Tests</RootNamespace>
     <AssemblyName>Fluent.Tests</AssemblyName>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <TargetFrameworks>net462;net45</TargetFrameworks>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    
+    <IsTestProject>true</IsTestProject>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="paket.references" />
-
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
       <Link>Commanding\IRelayCommand.cs</Link>
     </Compile>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\RelayCommand.cs">
       <Link>Commanding\RelayCommand.cs</Link>
     </Compile>
+    <Compile Include="..\Fluent.Ribbon.Showcase\Helpers\ThemeHelper.cs" Link="Helper\ThemeHelper.cs" />
   </ItemGroup>
-
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
-  <Import Project="..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.*" />
+
+    <PackageReference Include="NUnit" version="3.*" />
+  </ItemGroup>
 </Project>

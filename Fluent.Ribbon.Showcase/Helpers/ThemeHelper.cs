@@ -2,95 +2,71 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Xml;
     using Fluent;
+    using Newtonsoft.Json;
+    using XamlColorSchemeGenerator;
 
-    public class ThemeHelper
+    public static class ThemeHelper
     {
-        public static string CreateAppStyleBy(Color color, bool changeImmediately = false)
+        public static Tuple<string, ResourceDictionary> CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
         {
-            // create a runtime accent resource dictionary
-            var resourceDictionary = new ResourceDictionary();
+            name = name ?? $"RuntimeTheme_{baseColorScheme}_{accentBaseColor.ToString().Replace("#", string.Empty)}";
 
-            resourceDictionary.Add("Fluent.Ribbon.Colors.HighlightColor", color);
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentBaseColor", color);
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor80", Color.FromArgb(204, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor60", Color.FromArgb(153, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor40", Color.FromArgb(102, color.R, color.G, color.B));
-            resourceDictionary.Add("Fluent.Ribbon.Colors.AccentColor20", Color.FromArgb(51, color.R, color.G, color.B));
+            var generatorParameters = GetGeneratorParameters();
+            var themeTemplateContent = GetThemeTemplateContent();
 
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.HighlightBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentBaseColorBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentBaseColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush80", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor80"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush60", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush40", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.AccentColorBrush20", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
+            var variant = generatorParameters.BaseColorSchemes.First(x => x.Name == baseColorScheme);
+            var colorScheme = new XamlColorSchemeGenerator.ColorScheme
+                              {
+                                  Name = accentBaseColor.ToString().Replace("#", string.Empty)
+                              };
+            var values = colorScheme.Values;
+            values.Add("Fluent.Ribbon.Colors.AccentBaseColor", accentBaseColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor80", Color.FromArgb(204, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor60", Color.FromArgb(153, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor40", Color.FromArgb(102, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor20", Color.FromArgb(51, accentBaseColor.R, accentBaseColor.G, accentBaseColor.B).ToString());
 
-            resourceDictionary.Add("Fluent.Ribbon.Colors.IdealForegroundColor", IdealTextColor(color));
+            values.Add("Fluent.Ribbon.Colors.HighlightColor", highlightColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.IdealForegroundColor", IdealTextColor(accentBaseColor).ToString());
 
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundColorBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.IdealForegroundColor"], 0.4));
+            var xamlContent = new ColorSchemeGenerator().GenerateColorSchemeFileContent(generatorParameters, variant, colorScheme, themeTemplateContent, name, name);
 
-            // Button
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.MouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.Button.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
+            var resourceDictionary = (ResourceDictionary)XamlReader.Parse(xamlContent);
 
-            // ToggleButton
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.HighlightColor"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
+            var newTheme = new Theme(resourceDictionary);
 
-            // GalleryItem
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.MouseOver", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Selected", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.GalleryItem.Pressed", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor60"]));
-
-            // WindowCommands
-            resourceDictionary.Add("FFluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor20"]));
-            resourceDictionary.Add("Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background", GetSolidColorBrush((Color)resourceDictionary["Fluent.Ribbon.Colors.AccentColor40"]));
-
-            // Create theme
-            var resDictName = $"ApplicationAccent_{color.ToString().Replace("#", string.Empty)}.xaml";
-            var fileName = Path.Combine(Path.GetTempPath(), resDictName);
-            using (var writer = XmlWriter.Create(fileName, new XmlWriterSettings
-                                                           {
-                                                               Indent = true,
-                                                               IndentChars = "    "
-                                                           }))
-            {
-                XamlWriter.Save(resourceDictionary, writer);
-                writer.Close();
-            }
-
-            resourceDictionary = new ResourceDictionary
-                                 {
-                                     Source = new Uri(fileName, UriKind.Absolute)
-                                 };
-
-            var newAccent = new Accent
-                            {
-                                Name = resDictName,
-                                Resources = resourceDictionary
-                            };
-            ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
+            ThemeManager.AddTheme(newTheme.Resources);
 
             // Apply theme
             if (changeImmediately)
             {
-                var application = Application.Current;
-                //var applicationTheme = ThemeManager.AppThemes.First(x => string.Equals(x.Name, "BaseLight"));
-                // detect current application theme
-                var applicationTheme = ThemeManager.DetectAppStyle(application);
-                ThemeManager.ChangeAppStyle(application, newAccent, applicationTheme.Item1);
+                ThemeManager.ChangeTheme(Application.Current, newTheme);
             }
 
-            return File.ReadAllText(fileName);
+            return new Tuple<string, ResourceDictionary>(xamlContent, resourceDictionary);
+        }
+
+        public static string GetResourceDictionaryContent(ResourceDictionary resourceDictionary)
+        {
+            using (var sw = new StringWriter())
+            {
+                using (var writer = XmlWriter.Create(sw, new XmlWriterSettings
+                                                               {
+                                                                   Indent = true,
+                                                                   IndentChars = "    "
+                                                               }))
+                {
+                    XamlWriter.Save(resourceDictionary, writer);
+
+                    return sw.ToString();
+                }
+            }
         }
 
         /// <summary>
@@ -109,14 +85,31 @@
             return foreColor;
         }
 
-        private static SolidColorBrush GetSolidColorBrush(Color color, double opacity = 1d)
+        private static string GetThemeTemplateContent()
         {
-            var brush = new SolidColorBrush(color)
-                        {
-                            Opacity = opacity
-                        };
-            brush.Freeze();
-            return brush;
+            using (var stream = typeof(ThemeManager).Assembly.GetManifestResourceStream("Fluent.Themes.Themes.Theme.Template.xaml"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+        private static GeneratorParameters GetGeneratorParameters()
+        {
+            return JsonConvert.DeserializeObject<GeneratorParameters>(GetGeneratorParametersJson());
+        }
+
+        private static string GetGeneratorParametersJson()
+        {
+            using (var stream = typeof(ThemeManager).Assembly.GetManifestResourceStream("Fluent.Themes.Themes.GeneratorParameters.json"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
         }
     }
 }

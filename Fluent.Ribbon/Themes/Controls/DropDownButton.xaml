@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:Converters="clr-namespace:Fluent.Converters"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
@@ -23,6 +23,13 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SnapsToDevicePixels"
                 Value="False" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
@@ -47,7 +54,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
@@ -58,30 +65,28 @@
             <Border x:Name="PART_ButtonBorder"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    Height="Auto"
+                    BorderBrush="{TemplateBinding BorderBrush}"                    
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="Stretch"
-                    d:LayoutOverrides="Width, Height">
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    Height="Auto">
                 <StackPanel x:Name="stackPanel"
+                            Margin="{TemplateBinding Padding}"
                             Width="Auto"
-                            Orientation="Vertical"
-                            d:LayoutOverrides="Width, Height">
+                            Orientation="Vertical">
                     <ContentPresenter x:Name="iconImage"
-                                        HorizontalAlignment="Center"
-                                        Height="32"
-                                        VerticalAlignment="Center"
-                                        Content="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}"
-                                        Width="32"
-                                        Margin="0 2 0 0"
-                                        SnapsToDevicePixels="True" />
+                                      HorizontalAlignment="Center"
+                                      Height="32"
+                                      VerticalAlignment="Center"
+                                      Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                      Width="32"
+                                      Margin="0 2 0 0"
+                                      SnapsToDevicePixels="True" />
                     <Fluent:TwoLineLabel x:Name="controlLabel"
-                                            Text="{TemplateBinding Header}"
-                                            Style="{DynamicResource TwoLineLabelStyle}"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Center"
-                                            Margin="2 0 2 2"
-                                            HasGlyph="{TemplateBinding HasTriangle}" />
+                                         Text="{TemplateBinding Header}"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Margin="2 0 2 2"
+                                         HasGlyph="{TemplateBinding HasTriangle}" />
                 </StackPanel>
             </Border>
             <Popup x:Name="PART_Popup"
@@ -102,8 +107,6 @@
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            CornerRadius="1"
-                            d:LayoutOverrides="Width, Height"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top">
                         <Grid Width="Auto"
@@ -114,8 +117,7 @@
                                     Width="Auto"
                                     Height="Auto"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    BorderThickness="1"
-                                    CornerRadius="1" />
+                                    BorderThickness="1" />
                             <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -131,9 +133,7 @@
                                               SnapsToDevicePixels="True"
                                               VerticalScrollBarVisibility="Auto"
                                               HorizontalScrollBarVisibility="Hidden">
-                                    <StackPanel Orientation="Vertical"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Local" />
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                                 </ScrollViewer>
                                 <Border x:Name="resizeBorder"
                                         HorizontalAlignment="Stretch"
@@ -142,8 +142,7 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                         BorderThickness="0,1,0,0"
                                         Grid.Row="1"
-                                        CornerRadius="0,0,1,1"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
                                                HorizontalAlignment="Stretch"
@@ -207,7 +206,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
@@ -240,7 +239,7 @@
                         Value="Horizontal" />
                 <Setter Property="Content"
                         TargetName="iconImage"
-                        Value="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static Converters:StaticConverters.ObjectToImageConverter}}" />
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Width"
                         TargetName="stackPanel"
                         Value="Auto" />

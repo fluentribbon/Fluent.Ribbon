@@ -20,9 +20,7 @@ namespace Fluent
 
         #region KeyTip
 
-        /// <summary>
-        /// Gets or sets KeyTip for element.
-        /// </summary>
+        /// <inheritdoc />
         public string KeyTip
         {
             get { return (string)this.GetValue(KeyTipProperty); }
@@ -93,9 +91,7 @@ namespace Fluent
 
         private bool currentCanExecute = true;
 
-        /// <summary>
-        /// Gets or sets the command to invoke when this button is pressed. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Category("Action")]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Bindable(true)]
@@ -112,9 +108,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets or sets the parameter to pass to the System.Windows.Controls.Primitives.ButtonBase.Command property. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Bindable(true)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Category("Action")]
@@ -131,9 +125,7 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Gets or sets the element on which to raise the specified command. This is a dependency property.
-        /// </summary>
+        /// <inheritdoc />
         [Bindable(true)]
         [Category("Action")]
         public IInputElement CommandTarget
@@ -211,14 +203,12 @@ namespace Fluent
                 return;
             }
 
-            var oldCommand = e.OldValue as ICommand;
-            if (oldCommand != null)
+            if (e.OldValue is ICommand oldCommand)
             {
                 oldCommand.CanExecuteChanged -= control.OnCommandCanExecuteChanged;
             }
 
-            var newCommand = e.NewValue as ICommand;
-            if (newCommand != null)
+            if (e.NewValue is ICommand newCommand)
             {
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
             }
@@ -250,20 +240,8 @@ namespace Fluent
 
         #region IsEnabled
 
-        /// <summary>
-        /// Gets a value that becomes the return
-        /// value of IsEnabled in derived classes.
-        /// </summary>
-        /// <returns>
-        /// true if the element is enabled; otherwise, false.
-        /// </returns>
-        protected override bool IsEnabledCore
-        {
-            get
-            {
-                return base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
-            }
-        }
+        /// <inheritdoc />
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
 
         #endregion
 
@@ -315,18 +293,16 @@ namespace Fluent
         static GalleryItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(GalleryItem), new FrameworkPropertyMetadata(typeof(GalleryItem)));
-            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedPropertyChanged));
+            IsSelectedProperty.AddOwner(typeof(GalleryItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.None, OnIsSelectedChanged));
         }
 
-        private static void OnIsSelectedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
             {
                 ((GalleryItem)d).BringIntoView();
 
-                var parentSelector = ItemsControl.ItemsControlFromItemContainer(d) as Selector;
-
-                if (parentSelector != null)
+                if (ItemsControl.ItemsControlFromItemContainer(d) is Selector parentSelector)
                 {
                     var item = parentSelector.ItemContainerGenerator.ItemFromContainer(d);
 
@@ -350,11 +326,7 @@ namespace Fluent
 
         #region Overrides
 
-        /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonDown routed event that occurs
-        /// when the left mouse button is pressed while the mouse pointer is over this control.
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             this.IsPressed = true;
@@ -362,10 +334,7 @@ namespace Fluent
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Invoked when an unhandled <see cref="E:System.Windows.Input.Mouse.LostMouseCapture"/> attached event reaches an element in its route that is derived from this class. Implement this method to add class handling for this event.
-        /// </summary>
-        /// <param name="e">The <see cref="T:System.Windows.Input.MouseEventArgs"/> that contains event data.</param>
+        /// <inheritdoc />
         protected override void OnLostMouseCapture(MouseEventArgs e)
         {
             base.OnLostMouseCapture(e);
@@ -373,11 +342,7 @@ namespace Fluent
             this.IsPressed = false;
         }
 
-        /// <summary>
-        /// Provides class handling for the System.Windows.UIElement.MouseLeftButtonUp routed event that occurs
-        /// when the left mouse button is released while the mouse pointer is over this control.
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             this.IsPressed = false;
@@ -397,10 +362,7 @@ namespace Fluent
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Called when the mouse enters a <see cref="T:System.Windows.Controls.ListBoxItem"/>.
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnMouseEnter(MouseEventArgs e)
         {
             base.OnMouseEnter(e);
@@ -408,10 +370,7 @@ namespace Fluent
             CommandHelper.Execute(this.PreviewCommand, this, null);
         }
 
-        /// <summary>
-        /// Called when the mouse leaves a <see cref="T:System.Windows.Controls.ListBoxItem"/>.
-        /// </summary>
-        /// <param name="e">The event data.</param>
+        /// <inheritdoc />
         protected override void OnMouseLeave(MouseEventArgs e)
         {
             base.OnMouseLeave(e);

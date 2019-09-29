@@ -4,7 +4,8 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:Fluent="clr-namespace:Fluent"
                     mc:Ignorable="d">
-    <Style TargetType="{x:Type Fluent:ContextMenu}">
+    <Style x:Key="Fluent.Ribbon.Styles.ContextMenu"
+           TargetType="{x:Type Fluent:ContextMenu}">
         <Setter Property="Template"
                 Value="{DynamicResource FluentPopupMenuControlTemplate}" />
         <Setter Property="Foreground"
@@ -52,8 +53,6 @@
                     Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
-                    d:LayoutOverrides="Width, Height"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
                 <Grid Width="Auto"
@@ -76,7 +75,6 @@
                                         Margin="0"
                                         Width="Auto"
                                         Height="Auto"
-                                        d:LayoutOverrides="Width, Height"
                                         x:Name="PART_ItemsHost"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top" />
@@ -88,8 +86,7 @@
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
                                 BorderThickness="0,1,0,0"
                                 Grid.Row="1"
-                                CornerRadius="0,0,1,1"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgoundBrush}">
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}">
                             <Grid>
                                 <Thumb x:Name="PART_ResizeVerticalThumb"
                                        HorizontalAlignment="Stretch"
@@ -168,8 +165,6 @@
                     Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                     BorderThickness="1"
-                    CornerRadius="1"
-                    d:LayoutOverrides="Width, Height"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
                 <Grid Width="Auto"
@@ -180,8 +175,7 @@
                             Width="Auto"
                             Height="Auto"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderThickness="1"
-                            CornerRadius="1" />
+                            BorderThickness="1" />
                     <Grid HorizontalAlignment="Left"
                           VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -197,7 +191,6 @@
                                         Width="Auto"
                                         Height="Auto"
                                         IsItemsHost="True"
-                                        d:LayoutOverrides="Width, Height"
                                         Grid.RowSpan="1"
                                         x:Name="PART_ItemsHost"
                                         HorizontalAlignment="Left"

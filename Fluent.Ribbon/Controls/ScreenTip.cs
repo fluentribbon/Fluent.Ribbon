@@ -3,11 +3,13 @@ namespace Fluent
 {
     using System;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Fluent.Automation.Peers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -51,7 +53,11 @@ namespace Fluent
         {
             if (this.PlacementTarget == null)
             {
+#if NETCOREAPP3_0
+                return Array.Empty<CustomPopupPlacement>();
+#else
                 return new CustomPopupPlacement[] { };
+#endif
             }
 
             Ribbon ribbon = null;
@@ -131,15 +137,13 @@ namespace Fluent
 
         private static UIElement GetDecoratorChild(UIElement popupRoot)
         {
-            if (popupRoot == null)
+            switch (popupRoot)
             {
-                return null;
-            }
+                case null:
+                    return null;
 
-            var decorator = popupRoot as AdornerDecorator;
-            if (decorator != null)
-            {
-                return decorator.Child;
+                case AdornerDecorator decorator:
+                    return decorator.Child;
             }
 
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
@@ -156,15 +160,14 @@ namespace Fluent
 
         private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
         {
-            if (obj == null)
+            switch (obj)
             {
-                return;
-            }
+                case null:
+                    return;
 
-            var objRibbon = obj as Ribbon;
-            if (objRibbon != null)
-            {
-                ribbon = objRibbon;
+                case Ribbon objRibbon:
+                    ribbon = objRibbon;
+                    break;
             }
 
             var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
@@ -199,7 +202,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TitleProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 
@@ -222,7 +227,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty TextProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 
@@ -245,7 +252,9 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty DisableReasonProperty =
+#pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+#pragma warning restore WPF0010 // Default value type must match registered type.
 
         #endregion
 
@@ -390,6 +399,12 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer()
+        {
+            return new ScreenTipAutomationPeer(this);
+        }
     }
 
     /// <summary>
@@ -398,11 +413,6 @@ namespace Fluent
     public class ScreenTipHelpEventArgs : EventArgs
     {
         /// <summary>
-        /// Gets help topic associated with screen tip
-        /// </summary>
-        public object HelpTopic { get; private set; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="helpTopic">Help topic</param>
@@ -410,5 +420,10 @@ namespace Fluent
         {
             this.HelpTopic = helpTopic;
         }
+
+        /// <summary>
+        /// Gets help topic associated with screen tip
+        /// </summary>
+        public object HelpTopic { get; }
     }
 }
