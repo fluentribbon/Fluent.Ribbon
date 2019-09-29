@@ -55,7 +55,7 @@
                 Value="46" />
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.CaptionButton}" />
-            <Style.Triggers>
+        <Style.Triggers>
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
