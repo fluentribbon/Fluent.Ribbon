@@ -85,6 +85,18 @@
                 Value="{Binding ContentGapHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}}" />
     </Style>
 
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip"
+                      x:Shared="False"
+                      Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}"
+                      IsRibbonAligned="False" />
+
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip"
+                      x:Shared="False"
+                      Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}"
+                      IsRibbonAligned="False" />
+
     <ControlTemplate x:Key="RibbonTabControlControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTabControl}">
         <ControlTemplate.Resources>
@@ -324,12 +336,9 @@
                 <Setter TargetName="PART_MinimizeButton"
                         Property="Icon" 
                         Value="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}" />
-                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
-                    <Setter.Value>
-                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
-                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter TargetName="PART_MinimizeButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip}" />
             </Trigger>
             <Trigger Property="IsMinimized"
                      Value="True">
@@ -350,12 +359,9 @@
                 <Setter TargetName="PART_MinimizeButton" 
                         Property="Icon"
                         Value="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}" />
-                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
-                    <Setter.Value>
-                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
-                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter TargetName="PART_MinimizeButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
