@@ -259,7 +259,7 @@
 
             if (imageSource == null)
             {
-                return null;
+                return value;
             }
 
             if (typeof(ImageSource).IsAssignableFrom(targetType))
