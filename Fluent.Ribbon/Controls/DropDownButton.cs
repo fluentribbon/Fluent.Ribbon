@@ -880,7 +880,6 @@ namespace Fluent
             return new DropDownButtonAutomationPeer(this);
         }
 
-
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
         {
