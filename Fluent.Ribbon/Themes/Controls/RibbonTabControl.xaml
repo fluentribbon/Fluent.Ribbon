@@ -88,14 +88,12 @@
     <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip"
                       x:Shared="False"
                       Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
-                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}"
-                      IsRibbonAligned="False" />
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
 
     <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip"
                       x:Shared="False"
                       Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
-                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}"
-                      IsRibbonAligned="False" />
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
 
     <ControlTemplate x:Key="RibbonTabControlControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTabControl}">
