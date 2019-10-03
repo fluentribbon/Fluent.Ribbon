@@ -18,7 +18,7 @@ pool:
 steps:
 - task: DotNetCoreInstaller@0
   inputs: 
-    version: '3.0.100-preview6-012264'
+    version: '3.0.100'
 
 - powershell: .\build.ps1 -target CI -Verbosity Verbose -artifact-dir='$(Build.ArtifactStagingDirectory)'
   displayName: CI-Build

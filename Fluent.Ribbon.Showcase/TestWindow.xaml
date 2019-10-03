@@ -19,5 +19,10 @@
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"
                         ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
     </Fluent:RibbonWindow.LayoutTransform>
+    <Fluent:RibbonWindow.WindowCommands>
+        <Fluent:WindowCommands>
+            <Button Content="Test" Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.Button}" />
+        </Fluent:WindowCommands>
+    </Fluent:RibbonWindow.WindowCommands>
     <FluentTest:TestContent x:Name="TestContent" />
 </Fluent:RibbonWindow>

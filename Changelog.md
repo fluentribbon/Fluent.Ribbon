@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 7.0.0 (preview)
+## 7.0.0
 - ### Breaking changes
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
@@ -80,6 +80,11 @@
 | --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
 | --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
+| --- | Fluent.Ribbon.Templates.WindowCommands |
+| WindowCommandsControlTemplate | Fluent.Ribbon.Templates.WindowCommands.Button |
+| --- | Fluent.Ribbon.Styles.WindowCommands.Button |
+| CaptionButtonStyle | Fluent.Ribbon.Styles.WindowCommands.CaptionButton |
+| --- | Fluent.Ribbon.Templates.WindowCommands.CaptionButton |
 </p></details>
 
 - ### Bug fixes

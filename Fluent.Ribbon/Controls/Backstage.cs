@@ -471,11 +471,6 @@ namespace Fluent
             if (this.AreAnimationsEnabled
                 && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
             {
-                if (this.AdornerLayer != null)
-                {
-                    this.AdornerLayer.Visibility = Visibility.Collapsed;
-                }
-
                 storyboard = storyboard.Clone();
 
                 storyboard.Completed += HandleStoryboardOnCompleted;
