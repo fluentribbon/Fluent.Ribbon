@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -135,7 +135,7 @@ namespace Fluent
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
 
-                if (element == null)
+                if (element is null)
                 {
                     continue;
                 }
@@ -845,7 +845,7 @@ namespace Fluent
 
         private static void InvalidateMeasureRecursive(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -856,7 +856,7 @@ namespace Fluent
             {
                 var child = VisualTreeHelper.GetChild(element, i) as UIElement;
 
-                if (child == null)
+                if (child is null)
                 {
                     continue;
                 }
@@ -911,7 +911,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this) == false
-                || this.DropDownPopup == null)
+                || this.DropDownPopup is null)
             {
                 return;
             }
@@ -1065,7 +1065,7 @@ namespace Fluent
                 // Save state
                 this.IsSnapped = true;
 
-                if (this.ItemsSource == null)
+                if (this.ItemsSource is null)
                 {
                     for (var i = 0; i < this.Items.Count; i++)
                     {
@@ -1082,7 +1082,7 @@ namespace Fluent
         {
             var groupBox = (RibbonGroupBox)sender;
 
-            if (this.ItemsSource == null)
+            if (this.ItemsSource is null)
             {
                 for (var i = 0; i < groupBox.Items.Count; i++)
                 {
