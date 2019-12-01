@@ -1,5 +1,9 @@
 # Changelog for Fluent.Ribbon
 
+## 7.1.0
+- ### Bug fixes
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+
 ## 7.0.1
 - ### Bug fixes
   - [#746](../../issues/746) - NullReferenceException after upgrading to 7.0.0
