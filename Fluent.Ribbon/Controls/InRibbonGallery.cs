@@ -16,11 +16,11 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
-    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Represents the In-Ribbon Gallery, a gallery-based control that exposes
@@ -66,6 +66,7 @@ namespace Fluent
 
         private DropDownButton groupsMenuButton;
 
+        [CanBeNull]
         private GalleryPanel galleryPanel;
 
         private ContentControl controlPresenter;
@@ -693,6 +694,7 @@ namespace Fluent
                 if (value
                     && (int)this.ActualWidth > 0
                     && (int)this.ActualHeight > 0
+                    && this.galleryPanel.IsNotNull()
                     && (int)this.galleryPanel.ActualWidth > 0
                     && (int)this.galleryPanel.ActualHeight > 0)
                 {
@@ -1112,7 +1114,7 @@ namespace Fluent
 
             this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
 
-            if (this.galleryPanel != null)
+            if (this.galleryPanel.IsNotNull())
             {
                 this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                 this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
@@ -1162,18 +1164,24 @@ namespace Fluent
             this.popupControlPresenter.Content = null;
             this.controlPresenter.Content = this.galleryPanel;
 
-            this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
-            this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-            this.galleryPanel.UpdateMinAndMaxWidth();
-            this.galleryPanel.IsGrouped = false;
+            if (this.galleryPanel.IsNotNull())
+            {
+                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                this.galleryPanel.UpdateMinAndMaxWidth();
+                this.galleryPanel.IsGrouped = false;
+            }
 
             if (this.IsSnapped
                 && (this.quickAccessGallery == null || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false)))
             {
-                this.galleryPanel.Width = this.snappedImage.Width;
-                this.galleryPanel.Height = this.snappedImage.Height;
+                if (this.galleryPanel.IsNotNull())
+                {
+                    this.galleryPanel.Width = this.snappedImage.Width;
+                    this.galleryPanel.Height = this.snappedImage.Height;
 
-                this.galleryPanel.UpdateLayout();
+                    this.galleryPanel.UpdateLayout();
+                }
 
                 this.IsSnapped = false;
             }
@@ -1190,10 +1198,13 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
-                                          // request measure async. call will be ignored because we set IgnoreNextMeasureCall earlier, but we need to "free" width and height to support future resizes
-                                          this.galleryPanel.IgnoreNextMeasureCall = true;
-                                          this.galleryPanel.Width = double.NaN;
-                                          this.galleryPanel.Height = double.NaN;
+                                          if (this.galleryPanel.IsNotNull())
+                                          {
+                                              // request measure async. call will be ignored because we set IgnoreNextMeasureCall earlier, but we need to "free" width and height to support future resizes
+                                              this.galleryPanel.IgnoreNextMeasureCall = true;
+                                              this.galleryPanel.Width = double.NaN;
+                                              this.galleryPanel.Height = double.NaN;
+                                          }
 
                                           var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
                                           selectedContainer?.BringIntoView();
@@ -1208,10 +1219,13 @@ namespace Fluent
             this.controlPresenter.Content = null;
             this.popupControlPresenter.Content = this.galleryPanel;
 
-            this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
-            this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-            this.galleryPanel.UpdateMinAndMaxWidth();
-            this.galleryPanel.IsGrouped = true;
+            if (this.galleryPanel.IsNotNull())
+            {
+                this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
+                this.galleryPanel.UpdateMinAndMaxWidth();
+                this.galleryPanel.IsGrouped = true;
+            }
 
             this.DropDownOpened?.Invoke(this, e);
 
@@ -1261,9 +1275,12 @@ namespace Fluent
                 {
                     this.scrollViewer.Height = initialHeight - menuHeight;
 
-                    if (this.scrollViewer.Height < this.galleryPanel.GetItemSize().Height)
+                    if (this.galleryPanel.IsNotNull())
                     {
-                        this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
+                        if (this.scrollViewer.Height < this.galleryPanel.GetItemSize().Height)
+                        {
+                            this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
+                        }
                     }
                 }
 
@@ -1271,9 +1288,12 @@ namespace Fluent
                 {
                     this.scrollViewer.Width = initialWidth - menuWidth;
 
-                    if (this.scrollViewer.Width < this.galleryPanel.GetItemSize().Width)
+                    if (this.galleryPanel.IsNotNull())
                     {
-                        this.scrollViewer.Width = this.galleryPanel.GetItemSize().Width;
+                        if (this.scrollViewer.Width < this.galleryPanel.GetItemSize().Width)
+                        {
+                            this.scrollViewer.Width = this.galleryPanel.GetItemSize().Width;
+                        }
                     }
                 }
             }
@@ -1285,7 +1305,7 @@ namespace Fluent
             if (this.CanCollapseToButton)
             {
                 if (current == RibbonControlSize.Large
-                    && this.galleryPanel.MinItemsInRow > this.MinItemsInRow)
+                    && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
                 {
                     this.IsCollapsed = false;
                 }
@@ -1348,12 +1368,15 @@ namespace Fluent
 
             this.menuPanel.Width = double.NaN;
 
-            if (double.IsNaN(this.galleryPanel.Width))
+            if (this.galleryPanel.IsNotNull())
             {
-                this.galleryPanel.Width = this.galleryPanel.ActualWidth;
-            }
+                if (double.IsNaN(this.galleryPanel.Width))
+                {
+                    this.galleryPanel.Width = this.galleryPanel.ActualWidth;
+                }
 
-            this.galleryPanel.Width = Math.Max(this.layoutRoot.ActualWidth, this.galleryPanel.Width + e.HorizontalChange);
+                this.galleryPanel.Width = Math.Max(this.layoutRoot.ActualWidth, this.galleryPanel.Width + e.HorizontalChange);
+            }
         }
 
         // Handles resize vertical drag
@@ -1364,7 +1387,7 @@ namespace Fluent
                 this.menuPanel.Height = this.menuPanel.ActualHeight;
             }
 
-            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel.GetItemSize().Height, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight));
+            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel?.GetItemSize().Height ?? 0, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight));
         }
 
         #endregion
@@ -1412,7 +1435,6 @@ namespace Fluent
             return gallery;
         }
 
-        private object selectedItem;
         private InRibbonGallery quickAccessGallery;
 
         private void OnQuickAccessOpened(object sender, EventArgs e)
@@ -1444,26 +1466,35 @@ namespace Fluent
         private void Freeze()
         {
             this.IsSnapped = true;
-            this.selectedItem = this.SelectedItem;
+
+            // Move items and selected item
+            var selectedItem = this.SelectedItem;
             this.SelectedItem = null;
 
             ItemsControlHelper.MoveItemsToDifferentControl(this, this.quickAccessGallery);
 
-            this.quickAccessGallery.SelectedItem = this.selectedItem;
-            this.quickAccessGallery.Menu = this.Menu;
+            this.quickAccessGallery.SelectedItem = selectedItem;
+
+            // Move menu
+            var menu = this.Menu;
             this.Menu = null;
+            this.quickAccessGallery.Menu = menu;
         }
 
         private void Unfreeze()
         {
-            this.selectedItem = this.quickAccessGallery.SelectedItem;
+            // Move items and selected item
+            var selectedItem = this.quickAccessGallery.SelectedItem;
             this.quickAccessGallery.SelectedItem = null;
 
             ItemsControlHelper.MoveItemsToDifferentControl(this.quickAccessGallery, this);
 
-            this.SelectedItem = this.selectedItem;
-            this.Menu = this.quickAccessGallery.Menu;
+            this.SelectedItem = selectedItem;
+
+            // Move menu
+            var menu = this.quickAccessGallery.Menu;
             this.quickAccessGallery.Menu = null;
+            this.Menu = menu;
 
             if (this.IsDropDownOpen == false)
             {
@@ -1477,7 +1508,7 @@ namespace Fluent
                     this.popupControlPresenter.Content = this.galleryPanel;
                 }
 
-                if (this.galleryPanel != null)
+                if (this.galleryPanel.IsNotNull())
                 {
                     this.galleryPanel.IsGrouped = true;
                     this.galleryPanel.IsGrouped = false;
@@ -1513,9 +1544,7 @@ namespace Fluent
             set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty = RibbonControl.CanAddToQuickAccessToolBarProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolBarChanged));
 
         #endregion
@@ -1530,8 +1559,9 @@ namespace Fluent
             {
                 this.IsCollapsed = false;
             }
-            else if (this.galleryPanel.MinItemsInRow < this.MinItemsInRow
-                     || this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
+            else if (this.galleryPanel.IsNotNull()
+                    && (this.galleryPanel.MinItemsInRow < this.MinItemsInRow
+                        || this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow))
             {
                 this.galleryPanel.MinItemsInRow = Math.Min(this.galleryPanel.MinItemsInRow + 1, this.MinItemsInRow);
                 this.galleryPanel.MaxItemsInRow = Math.Min(this.galleryPanel.MaxItemsInRow + 1, this.MaxItemsInRow);
@@ -1549,8 +1579,9 @@ namespace Fluent
         /// <inheritdoc />
         public void Reduce()
         {
-            if (this.galleryPanel.MinItemsInRow > 1
-                || this.galleryPanel.MaxItemsInRow > 1)
+            if (this.galleryPanel.IsNotNull()
+                && (this.galleryPanel.MinItemsInRow > 1
+                    || this.galleryPanel.MaxItemsInRow > 1))
             {
                 this.galleryPanel.MinItemsInRow = Math.Max(this.galleryPanel.MinItemsInRow - 1, 0);
                 this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
@@ -1585,9 +1616,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new InRibbonGalleryAutomationPeer(this);
-        }
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonInRibbonGalleryAutomationPeer(this);
     }
 }

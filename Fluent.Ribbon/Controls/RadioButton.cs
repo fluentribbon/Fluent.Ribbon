@@ -199,6 +199,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RadioButtonAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonRadioButtonAutomationPeer(this);
     }
 }

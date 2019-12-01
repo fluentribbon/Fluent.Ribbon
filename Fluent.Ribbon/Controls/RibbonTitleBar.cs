@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
@@ -493,5 +494,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTitleBarAutomationPeer(this);
     }
 }

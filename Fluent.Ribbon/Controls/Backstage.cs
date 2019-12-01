@@ -6,6 +6,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Input;
@@ -133,22 +134,27 @@ namespace Fluent
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var backstage = (Backstage)d;
+            var control = (Backstage)d;
+
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
 
             lock (syncIsOpen)
             {
                 if ((bool)e.NewValue)
                 {
-                    backstage.Show();
+                    control.Show();
                 }
                 else
                 {
-                    backstage.Hide();
+                    control.Hide();
                 }
 
                 // Invoke the event
-                backstage.IsOpenChanged?.Invoke(backstage, e);
+                control.IsOpenChanged?.Invoke(control, e);
             }
+
+            (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         /// <summary>
@@ -465,11 +471,6 @@ namespace Fluent
             if (this.AreAnimationsEnabled
                 && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
             {
-                if (this.AdornerLayer != null)
-                {
-                    this.AdornerLayer.Visibility = Visibility.Collapsed;
-                }
-
                 storyboard = storyboard.Clone();
 
                 storyboard.Completed += HandleStoryboardOnCompleted;
@@ -822,5 +823,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageAutomationPeer(this);
     }
 }

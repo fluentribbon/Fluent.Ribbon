@@ -14,7 +14,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
-    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -338,6 +337,7 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             this.AddHandler(System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(this.OnSubmenuOpened));
+            this.AddHandler(System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(this.OnSubmenuClosed));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -652,9 +652,9 @@ namespace Fluent
             var oldValue = (bool)e.OldValue;
             var newValue = (bool)e.NewValue;
 
-            (UIElementAutomationPeer.FromElement(control) as DropDownButtonAutomationPeer)?.RaiseToggleStatePropertyChangedEvent(oldValue, newValue);
-
             control.OnIsDropDownOpenChanged(newValue);
+
+            (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonDropDownButtonAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         private void OnIsDropDownOpenChanged(bool newValue)
@@ -853,18 +853,24 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new DropDownButtonAutomationPeer(this);
-        }
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonDropDownButtonAutomationPeer(this);
 
         #region MenuItem workarounds
 
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
-            if (e.OriginalSource is MenuItem menuItem)
+            var menuItem = e.OriginalSource as MenuItem;
+            if (menuItem != null)
             {
                 this.openMenuItems.Push(new WeakReference(menuItem));
+            }
+        }
+
+        private void OnSubmenuClosed(object sender, RoutedEventArgs e)
+        {
+            if (this.openMenuItems.Count > 0)
+            {
+                this.openMenuItems.Pop();
             }
         }
 

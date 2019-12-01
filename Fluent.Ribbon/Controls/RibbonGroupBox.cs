@@ -7,6 +7,7 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -22,6 +23,8 @@ namespace Fluent
     /// a RibbonTab.  These groups can resize its content
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_HeaderContentControl", Type = typeof(ContentControl))]
+    [TemplatePart(Name = "PART_CollapsedHeaderContentControl", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
@@ -46,6 +49,16 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header.
+        /// </summary>
+        public ContentControl HeaderContentControl { get; private set; }
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header when <see cref="State"/> is equal to <see cref="RibbonGroupBoxState.Collapsed"/>.
+        /// </summary>
+        public ContentControl CollapsedHeaderContentControl { get; private set; }
 
         #region KeyTip
 
@@ -135,7 +148,7 @@ namespace Fluent
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
 
-                if (element == null)
+                if (element is null)
                 {
                     continue;
                 }
@@ -174,24 +187,63 @@ namespace Fluent
                 {
                     if (difference > 0)
                     {
-                        this.IncreaseScalableElement();
+                        this.EnlargeScalableItems();
                     }
                     else
                     {
-                        this.DecreaseScalableElement();
+                        this.ReduceScalableItems();
                     }
                 }
             }
         }
 
-        // Finds and increase size of all scalable elements in the given group box
-        private void IncreaseScalableElement()
+        private enum ScaleDirection
+        {
+            Enlarge,
+            Reduce
+        }
+        
+        // Finds and increases size of all scalable elements in this group box
+        private void EnlargeScalableItems()
+        {
+            this.ScaleScaleableItems(ScaleDirection.Enlarge);
+        }
+
+        // Finds and decreases size of all scalable elements in this group box
+        private void ReduceScalableItems()
+        {
+            this.ScaleScaleableItems(ScaleDirection.Reduce);
+        }
+
+        private void ScaleScaleableItems(ScaleDirection scaleDirection)
         {
             foreach (var item in this.Items)
             {
-                var scalableRibbonControl = item as IScalableRibbonControl;
+                var element = this.ItemContainerGenerator.ContainerFromItem(item);
 
-                scalableRibbonControl?.Enlarge();
+                if (element is null
+                    || (element is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
+                {
+                    continue;
+                }
+
+                var scalableRibbonControl = element as IScalableRibbonControl;
+
+                if (scalableRibbonControl is null)
+                {
+                    continue;
+                }
+
+                switch (scaleDirection)
+                {
+                    case ScaleDirection.Enlarge:
+                        scalableRibbonControl.Enlarge();
+                        break;
+
+                    case ScaleDirection.Reduce:
+                        scalableRibbonControl.Reduce();
+                        break;
+                }
             }
         }
 
@@ -205,26 +257,19 @@ namespace Fluent
         /// </summary>
         internal bool SuppressCacheReseting { get; set; }
 
-        // Finds and decrease size of all scalable elements in the given group box
-        private void DecreaseScalableElement()
+        private void UpdateScalableControlSubscritions(bool registerEvents)
         {
             foreach (var item in this.Items)
             {
-                var scalableRibbonControl = item as IScalableRibbonControl;
+                var element = this.ItemContainerGenerator.ContainerFromItem(item);
 
-                scalableRibbonControl?.Reduce();
-            }
-        }
+                var scalableRibbonControl = element as IScalableRibbonControl;
 
-        private void UpdateScalableControlSubscribing()
-        {
-            this.UpdateScalableControlSubscribing(true);
-        }
+                if (scalableRibbonControl is null)
+                {
+                    continue;
+                }
 
-        private void UpdateScalableControlSubscribing(bool registerEvents)
-        {
-            foreach (var scalableRibbonControl in this.Items.OfType<IScalableRibbonControl>())
-            {
                 // Always unregister first to ensure that we don't subscribe twice
                 scalableRibbonControl.Scaled -= this.OnScalableControlScaled;
 
@@ -638,7 +683,7 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            this.UpdateScalableControlSubscribing();
+            this.UpdateScalableControlSubscritions(true);
 
             if (this.LauncherButton != null)
             {
@@ -654,7 +699,7 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            this.UpdateScalableControlSubscribing(false);
+            this.UpdateScalableControlSubscritions(false);
 
             if (this.LauncherButton != null)
             {
@@ -793,7 +838,7 @@ namespace Fluent
                     var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
 
                     this.SuppressCacheReseting = true;
-                    this.UpdateScalableControlSubscribing();
+                    this.UpdateScalableControlSubscritions(true);
 
                     // Get desired size for these values
                     var backupState = this.State;
@@ -845,7 +890,7 @@ namespace Fluent
 
         private static void InvalidateMeasureRecursive(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -856,7 +901,7 @@ namespace Fluent
             {
                 var child = VisualTreeHelper.GetChild(element, i) as UIElement;
 
-                if (child == null)
+                if (child is null)
                 {
                     continue;
                 }
@@ -876,6 +921,9 @@ namespace Fluent
 
             // Clear cache
             this.ClearCache();
+
+            this.HeaderContentControl = this.GetTemplateChild("PART_HeaderContentControl") as ContentControl;
+            this.CollapsedHeaderContentControl = this.GetTemplateChild("PART_CollapsedHeaderContentControl") as ContentControl;
 
             this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 
@@ -911,7 +959,7 @@ namespace Fluent
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this) == false
-                || this.DropDownPopup == null)
+                || this.DropDownPopup is null)
             {
                 return;
             }
@@ -971,9 +1019,14 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ribbon = (RibbonGroupBox)d;
+            var groupBox = (RibbonGroupBox)d;
 
-            ribbon.OnIsDropDownOpenChanged();
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
+
+            groupBox.OnIsDropDownOpenChanged();
+
+            (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         private void OnIsDropDownOpenChanged()
@@ -1065,7 +1118,7 @@ namespace Fluent
                 // Save state
                 this.IsSnapped = true;
 
-                if (this.ItemsSource == null)
+                if (this.ItemsSource is null)
                 {
                     for (var i = 0; i < this.Items.Count; i++)
                     {
@@ -1082,7 +1135,7 @@ namespace Fluent
         {
             var groupBox = (RibbonGroupBox)sender;
 
-            if (this.ItemsSource == null)
+            if (this.ItemsSource is null)
             {
                 for (var i = 0; i < groupBox.Items.Count; i++)
                 {
@@ -1154,5 +1207,8 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer(this);
     }
 }
