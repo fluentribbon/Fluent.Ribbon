@@ -1,5 +1,9 @@
 # Changelog for Fluent.Ribbon
 
+## 7.0.1
+- ### Bug fixes
+  - [#746](../../issues/746) -  NullReferenceException after upgrading to 7.0.0
+
 ## 7.0.0
 - ### Breaking changes
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
