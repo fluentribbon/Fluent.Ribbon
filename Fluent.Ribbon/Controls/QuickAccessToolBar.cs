@@ -10,6 +10,7 @@ namespace Fluent
     using System.Globalization;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Markup;
     using Fluent.Extensions;
@@ -43,7 +44,7 @@ namespace Fluent
 
         private DropDownButton toolBarDownButton;
 
-        private DropDownButton menuDownButton;
+        internal DropDownButton MenuDownButton { get; private set; }
 
         // Show above menu item
         private MenuItem showAbove;
@@ -202,9 +203,9 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
-                        if (this.menuDownButton != null)
+                        if (this.MenuDownButton != null)
                         {
-                            this.menuDownButton.Items.Insert(e.NewStartingIndex + i + 1, e.NewItems[i]);
+                            this.MenuDownButton.Items.Insert(e.NewStartingIndex + i + 1, e.NewItems[i]);
                         }
                         else
                         {
@@ -217,9 +218,9 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.menuDownButton != null)
+                        if (this.MenuDownButton != null)
                         {
-                            this.menuDownButton.Items.Remove(item);
+                            this.MenuDownButton.Items.Remove(item);
                         }
                         else
                         {
@@ -232,9 +233,9 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
-                        if (this.menuDownButton != null)
+                        if (this.MenuDownButton != null)
                         {
-                            this.menuDownButton.Items.Remove(item);
+                            this.MenuDownButton.Items.Remove(item);
                         }
                         else
                         {
@@ -245,9 +246,9 @@ namespace Fluent
                     var ii = 0;
                     foreach (var item in e.NewItems)
                     {
-                        if (this.menuDownButton != null)
+                        if (this.MenuDownButton != null)
                         {
-                            this.menuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, item);
+                            this.MenuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, item);
                         }
                         else
                         {
@@ -387,11 +388,11 @@ namespace Fluent
                 this.showBelow.Click += this.OnShowBelowClick;
             }
 
-            if (this.menuDownButton != null)
+            if (this.MenuDownButton != null)
             {
                 foreach (var item in this.QuickAccessItems)
                 {
-                    this.menuDownButton.Items.Remove(item);
+                    this.MenuDownButton.Items.Remove(item);
                     item.InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
@@ -403,14 +404,14 @@ namespace Fluent
                 }
             }
 
-            this.menuDownButton = this.GetTemplateChild("PART_MenuDownButton") as DropDownButton;
+            this.MenuDownButton = this.GetTemplateChild("PART_MenuDownButton") as DropDownButton;
 
-            if (this.menuDownButton != null
+            if (this.MenuDownButton != null
                 && this.quickAccessItems != null)
             {
                 for (var i = 0; i < this.quickAccessItems.Count; i++)
                 {
-                    this.menuDownButton.Items.Insert(i + 1, this.quickAccessItems[i]);
+                    this.MenuDownButton.Items.Insert(i + 1, this.quickAccessItems[i]);
                     this.quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
@@ -624,17 +625,17 @@ namespace Fluent
             // Cache width of menuDownButton
             if (DoubleUtil.AreClose(this.cachedMenuDownButtonWidth, 0)
                 && this.rootPanel != null
-                && this.menuDownButton != null
+                && this.MenuDownButton != null
                 && this.IsMenuDropDownVisible)
             {
                 this.rootPanel.Measure(SizeConstants.Infinite);
-                this.cachedMenuDownButtonWidth = this.menuDownButton.DesiredSize.Width;
+                this.cachedMenuDownButtonWidth = this.MenuDownButton.DesiredSize.Width;
             }
 
             // Cache width of toolBarDownButton
             if (DoubleUtil.AreClose(this.cachedOverflowDownButtonWidth, 0)
                 && this.rootPanel != null
-                && this.menuDownButton != null)
+                && this.MenuDownButton != null)
             {
                 this.rootPanel.Measure(SizeConstants.Infinite);
                 this.cachedOverflowDownButtonWidth = this.toolBarDownButton.DesiredSize.Width;
@@ -686,5 +687,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonQuickAccessToolBarAutomationPeer(this);
     }
 }

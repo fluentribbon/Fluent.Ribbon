@@ -8,19 +8,24 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Media;
+    using Fluent.Automation.Peers;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents ribbon tab item
     /// </summary>
+    [TemplatePart(Name = "PART_HeaderContentHost", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty(nameof(Groups))]
     [DefaultProperty(nameof(Groups))]
@@ -46,6 +51,8 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        internal FrameworkElement HeaderContentHost { get; private set; }
 
         #region Colors/Brushes
 
@@ -486,6 +493,8 @@ namespace Fluent
 
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+
+            AutomationProperties.IsOffscreenBehaviorProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(IsOffscreenBehavior.FromClip));
         }
 
         // Handles visibility changes
@@ -561,25 +570,25 @@ namespace Fluent
                 return false;
             }
 
-                var currentFocus = Keyboard.FocusedElement as RibbonTabItem;
+            var currentFocus = Keyboard.FocusedElement as RibbonTabItem;
 
-                // If current focus was another TabItem in the same TabControl - dont set focus on content
-                bool setFocusOnContent = ReferenceEquals(currentFocus, this)
-                                         || currentFocus == null
-                                         || ReferenceEquals(currentFocus.TabControlParent, this.TabControlParent) == false;
-                this.SettingFocus = true;
-                this.SetFocusOnContent = setFocusOnContent;
+            // If current focus was another TabItem in the same TabControl - dont set focus on content
+            var setFocusOnContent = ReferenceEquals(currentFocus, this)
+                                     || currentFocus == null
+                                     || ReferenceEquals(currentFocus.TabControlParent, this.TabControlParent) == false;
+            this.SettingFocus = true;
+            this.SetFocusOnContent = setFocusOnContent;
 
-                try
-                {
-                    return this.Focus()
-                    || setFocusOnContent;
-                }
-                finally
-                {
-                    this.SettingFocus = false;
-                    this.SetFocusOnContent = false;
-                }
+            try
+            {
+                return this.Focus()
+                || setFocusOnContent;
+            }
+            finally
+            {
+                this.SettingFocus = false;
+                this.SetFocusOnContent = false;
+            }
         }
 
         private bool SetFocusOnContent { get; set; }
@@ -700,6 +709,10 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
+
+            this.HeaderContentHost = this.GetTemplateChild("PART_HeaderContentHost") as FrameworkElement;
+
             this.contentContainer = this.GetTemplateChild("PART_ContentContainer") as Border;
         }
 
@@ -752,6 +765,9 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabItemAutomationPeer(this);
+
         #endregion
 
         #region Private methods
@@ -761,6 +777,7 @@ namespace Fluent
         {
             var container = (RibbonTabItem)d;
             var newValue = (bool)e.NewValue;
+
             if (newValue)
             {
                 if (container.TabControlParent?.SelectedTabItem != null
@@ -774,6 +791,15 @@ namespace Fluent
             else
             {
                 container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
+            }
+
+            // Raise UI automation events on this RibbonTabItem
+            if (AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementSelected)
+                || AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection))
+            {
+                //SelectorHelper.RaiseIsSelectedChangedAutomationEvent(container.TabControlParent, container, newValue);
+                var peer = UIElementAutomationPeer.CreatePeerForElement(container) as RibbonTabItemAutomationPeer;
+                peer?.RaiseTabSelectionEvents();
             }
         }
 

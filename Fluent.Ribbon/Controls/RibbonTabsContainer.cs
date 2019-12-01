@@ -248,27 +248,19 @@ namespace Fluent
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
                 this.scrollData.OffsetX = newValue;
-                this.InvalidateArrange();
+                this.InvalidateMeasure();
+                this.ScrollOwner?.InvalidateScrollInfo();
             }
         }
 
         /// <inheritdoc />
-        public double ExtentWidth
-        {
-            get { return this.ScrollData.ExtentWidth; }
-        }
+        public double ExtentWidth => this.ScrollData.ExtentWidth;
 
         /// <inheritdoc />
-        public double HorizontalOffset
-        {
-            get { return this.ScrollData.OffsetX; }
-        }
+        public double HorizontalOffset => this.ScrollData.OffsetX;
 
         /// <inheritdoc />
-        public double ViewportWidth
-        {
-            get { return this.ScrollData.ViewportWidth; }
-        }
+        public double ViewportWidth => this.ScrollData.ViewportWidth;
 
         /// <inheritdoc />
         public void LineLeft()
@@ -367,18 +359,16 @@ namespace Fluent
         {
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void MouseWheelLeft()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset - 16);
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void MouseWheelRight()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset + 16);
         }
 
         /// <summary>
@@ -409,18 +399,16 @@ namespace Fluent
         {
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void PageLeft()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset - this.ViewportWidth);
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void PageRight()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset + this.ViewportWidth);
         }
 
         /// <summary>
@@ -440,49 +428,34 @@ namespace Fluent
         /// <inheritdoc />
         public bool CanVerticallyScroll
         {
-            get { return false; }
+            get => false;
             set { }
         }
 
         /// <inheritdoc />
         public bool CanHorizontallyScroll
         {
-            get { return true; }
+            get => true;
             set { }
         }
 
         /// <summary>
         /// Not implemented
         /// </summary>
-        public double ExtentHeight
-        {
-            get { return 0.0; }
-        }
+        public double ExtentHeight => 0.0;
 
         /// <summary>
         /// Not implemented
         /// </summary>
-        public double VerticalOffset
-        {
-            get { return 0.0; }
-        }
+        public double VerticalOffset => 0.0;
 
         /// <summary>
         /// Not implemented
         /// </summary>
-        public double ViewportHeight
-        {
-            get { return 0.0; }
-        }
+        public double ViewportHeight => 0.0;
 
         // Gets scroll data info
-        private ScrollData ScrollData
-        {
-            get
-            {
-                return this.scrollData ?? (this.scrollData = new ScrollData());
-            }
-        }
+        private ScrollData ScrollData => this.scrollData ?? (this.scrollData = new ScrollData());
 
         // Scroll data info
         private ScrollData scrollData;
@@ -502,7 +475,7 @@ namespace Fluent
         // Verifies scrolling data using the passed viewport and extent as newly computed values.
         // Checks the X/Y offset and coerces them into the range [0, Extent - ViewportSize]
         // If extent, viewport, or the newly coerced offsets are different than the existing offset,
-        //   cachces are updated and InvalidateScrollInfo() is called.
+        //   caches are updated and InvalidateScrollInfo() is called.
         private void VerifyScrollData(double viewportWidth, double extentWidth)
         {
             var isValid = true;

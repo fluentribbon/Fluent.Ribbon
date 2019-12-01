@@ -14,7 +14,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Markup;
     using System.Windows.Threading;
-    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -653,9 +652,9 @@ namespace Fluent
             var oldValue = (bool)e.OldValue;
             var newValue = (bool)e.NewValue;
 
-            (UIElementAutomationPeer.FromElement(control) as DropDownButtonAutomationPeer)?.RaiseToggleStatePropertyChangedEvent(oldValue, newValue);
-
             control.OnIsDropDownOpenChanged(newValue);
+
+            (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonDropDownButtonAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         private void OnIsDropDownOpenChanged(bool newValue)
@@ -853,6 +852,9 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonDropDownButtonAutomationPeer(this);
+
         #region MenuItem workarounds
 
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
@@ -873,12 +875,6 @@ namespace Fluent
         }
 
         #endregion MenuItem workarounds
-
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new DropDownButtonAutomationPeer(this);
-        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

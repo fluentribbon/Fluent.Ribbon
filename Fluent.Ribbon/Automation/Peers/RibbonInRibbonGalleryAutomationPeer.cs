@@ -6,14 +6,20 @@
     ///     Automation peer for <see cref="InRibbonGallery" />
     /// </summary>
     // todo: add full automation for expansion, listing items (?) etc.
-    public class InRibbonGalleryAutomationPeer : HeaderedControlAutomationPeer
+    public class RibbonInRibbonGalleryAutomationPeer : RibbonHeaderedControlAutomationPeer
     {
         /// <summary>
         ///     Creates a new instance.
         /// </summary>
-        public InRibbonGalleryAutomationPeer([NotNull] InRibbonGallery owner)
+        public RibbonInRibbonGalleryAutomationPeer([NotNull] InRibbonGallery owner)
             : base(owner)
         {
+        }
+
+        /// <inheritdoc />
+        protected override string GetClassNameCore()
+        {
+            return this.Owner.GetType().Name;
         }
     }
 }

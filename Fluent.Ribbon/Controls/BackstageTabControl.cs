@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
@@ -14,9 +15,12 @@ namespace Fluent
     /// <summary>
     /// Represents Backstage tab control.
     /// </summary>
+    [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class BackstageTabControl : Selector
     {
         #region Properties
+
+        internal ContentPresenter SelectedContentHost { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -321,6 +325,14 @@ namespace Fluent
         }
 
         /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
+        }
+
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new BackstageTabItem();
@@ -489,5 +501,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageTabControlAutomationPeer(this);
     }
 }
