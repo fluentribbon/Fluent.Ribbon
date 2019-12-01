@@ -59,12 +59,12 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty IsGroupedProperty =
             DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(GalleryPanel),
-            new PropertyMetadata(BooleanBoxes.TrueBox, OnIsGroupedChanged));
+            new PropertyMetadata(BooleanBoxes.FalseBox, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -89,7 +89,7 @@ namespace Fluent
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -115,7 +115,7 @@ namespace Fluent
         private static void OnGroupByAdvancedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -143,7 +143,7 @@ namespace Fluent
         private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -214,7 +214,7 @@ namespace Fluent
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -281,6 +281,13 @@ namespace Fluent
         public GalleryPanel()
         {
             this.visualCollection = new VisualCollection(this);
+
+            this.Loaded += this.HandleGalleryPanel_Loaded;
+        }
+
+        private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Refresh();
         }
 
         #endregion
@@ -378,7 +385,7 @@ namespace Fluent
 
         #region Refresh
 
-        private void Invalidate()
+        private void RefreshAsync()
         {
             if (this.needsRefresh)
             {
@@ -386,18 +393,16 @@ namespace Fluent
             }
 
             this.needsRefresh = true;
-            this.RunInDispatcherAsync(this.RefreshDispatchered, DispatcherPriority.Send);
-        }
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          if (this.needsRefresh == false)
+                                          {
+                                              return;
+                                          }
 
-        private void RefreshDispatchered()
-        {
-            if (this.needsRefresh == false)
-            {
-                return;
-            }
-
-            this.Refresh();
-            this.needsRefresh = false;
+                                          this.Refresh();
+                                          this.needsRefresh = false;
+                                      }, DispatcherPriority.Send);
         }
 
         private void Refresh()
@@ -425,19 +430,19 @@ namespace Fluent
                 }
 
                 // Resolve group name
-                string propertyValue;
-
-                if (this.GroupByAdvanced == null)
-                {
-                    propertyValue = this.ItemContainerGenerator == null
-                                        ? this.GetPropertyValueAsString(item)
-                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
-                }
-                else
+                string propertyValue = null;
+                
+                if (this.GroupByAdvanced != null)
                 {
                     propertyValue = this.ItemContainerGenerator == null
                                         ? this.GroupByAdvanced(item)
                                         : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainer(item));
+                }
+                else if (string.IsNullOrEmpty(this.GroupBy) == false)
+                {
+                    propertyValue = this.ItemContainerGenerator == null
+                                        ? this.GetPropertyValueAsString(item)
+                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
                 }
 
                 if (propertyValue == null)
@@ -489,7 +494,7 @@ namespace Fluent
             if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
                 && this.galleryGroupContainers.Count != 0)
             {
-                // Make it without headers if there is only one group and we are not supposed to group
+                // Make it without headers if there is only one group or if we are not supposed to group
                 this.galleryGroupContainers[0].IsHeadered = false;
             }
 
@@ -512,7 +517,7 @@ namespace Fluent
                 return;
             }
 
-            this.Invalidate();
+            this.RefreshAsync();
         }
 
         #endregion
@@ -579,8 +584,8 @@ namespace Fluent
 
         private string GetPropertyValueAsString(object item)
         {
-            if (item == null ||
-                this.GroupBy == null)
+            if (item == null 
+                || this.GroupBy == null)
             {
                 return Undefined;
             }
