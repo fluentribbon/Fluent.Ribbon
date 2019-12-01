@@ -131,7 +131,7 @@
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
 #pragma warning disable 618
-            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenu(window, screenLocation);
+            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenuPhysicalCoordinates(window, screenLocation);
 #pragma warning restore 618
         }
     }
