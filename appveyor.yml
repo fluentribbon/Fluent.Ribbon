@@ -14,7 +14,7 @@
   pull_requests:
     do_not_increment_build_number: false
 
-  # Install dotnet core 3.0 latest
+  # Install dotnet core latest
   install:
     - cinst dotnetcore-sdk
 
