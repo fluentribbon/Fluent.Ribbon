@@ -2980,6 +2980,17 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                 </WrapPanel>
                             </GroupBox>
 
+                            <GroupBox Header="Localization">
+                                <WrapPanel>
+                                    <Fluent:ComboBox Header="Localization" 
+                                                     IsEditable="False"
+                                                     SizeDefinition="Middle"
+                                                     DisplayMemberPath="DisplayName"
+                                                     ItemsSource="{Binding Localizations, ElementName=TestContentControl}"
+                                                     SelectedItem="{Binding Path=Localization, Source={x:Static Fluent:RibbonLocalization.Current}}" />
+                                </WrapPanel>
+                            </GroupBox>
+
                             <GroupBox Header="Window options">
                                 <WrapPanel>
                                     <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">

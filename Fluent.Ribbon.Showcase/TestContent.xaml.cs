@@ -16,6 +16,7 @@ namespace FluentTest
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent;
+    using Fluent.Localization;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
@@ -52,6 +53,15 @@ namespace FluentTest
         {
             get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
             set { this.SetValue(BrushesProperty, value); }
+        }
+
+        public List<RibbonLocalizationBase> Localizations { get; } = GetLocalizations();
+
+        private static List<RibbonLocalizationBase> GetLocalizations()
+        {
+            return RibbonLocalization.Current.LocalizationMap.Values
+                .Select(x => (RibbonLocalizationBase)Activator.CreateInstance(x))
+                .ToList();
         }
 
         private static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
