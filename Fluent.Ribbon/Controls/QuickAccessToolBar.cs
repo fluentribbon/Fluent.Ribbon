@@ -464,6 +464,11 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
+            if (this.IsLoaded == false)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
             if ((this.cachedConstraint == constraint)
                 && !this.itemsHadChanged)
             {
@@ -669,12 +674,14 @@ namespace Fluent
 
                 for (var i = 0; i < items.Count; i++)
                 {
+                    var currentItem = items[i];
+
                     if (measureItems)
                     {
-                        items[i].Measure(SizeConstants.Infinite);
+                        currentItem.Measure(SizeConstants.Infinite);
                     }
 
-                    currentWidth += items[i].DesiredSize.Width;
+                    currentWidth += currentItem.DesiredSize.Width;
 
                     if (currentWidth > availableWidth)
                     {
