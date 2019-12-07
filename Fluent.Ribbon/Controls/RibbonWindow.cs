@@ -299,15 +299,21 @@ namespace Fluent
             this.MaintainIsCollapsed();
 
             if (this.iconImage != null
-                && this.ActualWidth <= 140D + 16)
+                && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands.ItemsControl).GetZeroIfInfinityOrNaN())
             {
                 this.SetCurrentValue(IsIconVisibleProperty, false);
                 this.TitleBar.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
+                this.WindowCommands.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, Visibility.Collapsed);
             }
             else
             {
-                this.ClearValue(IsIconVisibleProperty);
-                this.TitleBar.ClearValue(VisibilityProperty);
+                this.InvalidateProperty(IsIconVisibleProperty);
+                this.iconImage.SetValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
+
+                this.TitleBar.InvalidateProperty(VisibilityProperty);
+
+                this.WindowCommands.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
+                this.WindowCommands.ItemsControl.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
             }
         }
 
