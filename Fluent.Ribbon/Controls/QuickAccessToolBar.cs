@@ -463,6 +463,11 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
+            if (this.IsLoaded == false)
+            {
+                return base.MeasureOverride(constraint);
+            }
+
             if ((this.cachedConstraint == constraint)
                 && !this.itemsHadChanged)
             {
