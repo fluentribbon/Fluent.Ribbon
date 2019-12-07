@@ -6,11 +6,13 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands"
                      TargetType="Fluent:WindowCommands">
         <StackPanel Orientation="Horizontal">
-            <ItemsControl ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+            <ItemsControl x:Name="PART_Items"
+                          ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                           ItemTemplate="{TemplateBinding ItemTemplate}"
                           ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                           ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                           ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
+                          Visibility="{TemplateBinding ItemsPanelVisibility}"
                           Focusable="False"
                           Margin="0 0 2 0">
                 <ItemsControl.ItemsPanel>

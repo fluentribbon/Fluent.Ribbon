@@ -10,6 +10,7 @@ namespace Fluent
     using System.Windows.Media;
     using ControlzEx.Native;
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Contains commands for <see cref="RibbonWindow"/>
@@ -18,16 +19,19 @@ namespace Fluent
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Restore", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_Items", Type = typeof(ItemsControl))]
     public class WindowCommands : ItemsControl, IDisposable
     {
         private static string minimize;
         private static string maximize;
         private static string closeText;
         private static string restore;
+
         private System.Windows.Controls.Button minimizeButton;
         private System.Windows.Controls.Button maximizeButton;
         private System.Windows.Controls.Button restoreButton;
         private System.Windows.Controls.Button closeButton;
+
 #pragma warning disable 618
         private SafeLibraryHandle user32;
 #pragma warning restore 618
@@ -157,6 +161,23 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Gets the <see cref="System.Windows.Controls.ItemsControl"/> responsible for showing <see cref="System.Windows.Controls.ItemsControl.Items"/>.
+        /// </summary>
+        public ItemsControl ItemsControl { get; private set; }
+
+        /// <summary>Identifies the <see cref="ItemsPanelVisibility"/> dependency property.</summary>
+        public static readonly DependencyProperty ItemsPanelVisibilityProperty = DependencyProperty.Register(nameof(ItemsPanelVisibility), typeof(Visibility), typeof(WindowCommands), new PropertyMetadata(VisibilityBoxes.Visible));
+
+        /// <summary>
+        /// Gets or sets the <see cref="Visibility"/> of the panel which contains <see cref="System.Windows.Controls.ItemsControl.Items"/>.
+        /// </summary>
+        public Visibility ItemsPanelVisibility
+        {
+            get { return (Visibility)this.GetValue(ItemsPanelVisibilityProperty); }
+            set { this.SetValue(ItemsPanelVisibilityProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the button brush
         /// </summary>
         public Brush ButtonBrush
@@ -216,6 +237,8 @@ namespace Fluent
             {
                 this.closeButton.Click += this.CloseClick;
             }
+
+            this.ItemsControl = this.Template.FindName("PART_Items", this) as ItemsControl;
         }
 
         /// <inheritdoc />

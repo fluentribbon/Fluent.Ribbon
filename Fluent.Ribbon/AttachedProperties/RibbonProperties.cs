@@ -4,10 +4,12 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Media;
     using Fluent.Extensibility;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
+    [PublicAPI]
     public static class RibbonProperties
     {
         #region Size Property
@@ -205,5 +207,28 @@ namespace Fluent
         }
 
         #endregion
+
+        #region LastVisibleWidthProperty
+
+        /// <summary>
+        /// asdf
+        /// </summary>
+        public static readonly DependencyProperty LastVisibleWidthProperty = DependencyProperty.RegisterAttached(
+            "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(default(double)));
+
+        /// <summary>Helper for setting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetLastVisibleWidth(DependencyObject element, double value)
+        {
+            element.SetValue(LastVisibleWidthProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> from <paramref name="element"/>.</summary>
+        /// <returns>LastVisibleWidth property value.</returns>
+        public static double GetLastVisibleWidth(DependencyObject element)
+        {
+            return (double)element.GetValue(LastVisibleWidthProperty);
+        }
+
+        #endregion LastVisibleWidthProperty
     }
 }

@@ -10,6 +10,7 @@
 ## 7.0.1
 - ### Bug fixes
   - [#746](../../issues/746) - NullReferenceException after upgrading to 7.0.0
+  - [#756](../../issues/756) - RibbonWindow.IsIconVisible does not seem to work
   - [#757](../../issues/757) - Ribbon right-click menu offsetted for DPI=150% (or more)
 
 ## 7.0.0
