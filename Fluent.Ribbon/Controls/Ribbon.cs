@@ -15,6 +15,7 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
@@ -1968,6 +1969,8 @@ namespace Fluent
             this.AttachToWindow();
 
             this.LoadInitialState();
+
+            this.TitleBar?.ForceMeasureAndArrange();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
