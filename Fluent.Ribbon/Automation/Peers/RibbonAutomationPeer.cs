@@ -119,7 +119,7 @@
 
                     var ribbonTabs = automationPeer.GetChildren();
                     children.AddRange(ribbonTabs);
-                    children.ForEach(x => x.ResetChildrenCache());
+                    ribbonTabs.ForEach(x => x.ResetChildrenCache());
                 }
             }
 
