@@ -287,7 +287,7 @@ namespace Fluent
 
         private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Refresh();
+            this.RefreshAsync();
         }
 
         #endregion
