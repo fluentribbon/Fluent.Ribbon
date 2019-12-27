@@ -482,7 +482,7 @@ namespace Fluent
                                                       this.quickAccessCombo.isSnapped = true;
                                                   }
                                               }
-                                              
+
                                               this.IsSnapped = false;
                                           }, DispatcherPriority.ApplicationIdle);
             }

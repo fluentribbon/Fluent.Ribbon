@@ -584,7 +584,7 @@ namespace Fluent
 
         private string GetPropertyValueAsString(object item)
         {
-            if (item == null 
+            if (item == null
                 || this.GroupBy == null)
             {
                 return Undefined;

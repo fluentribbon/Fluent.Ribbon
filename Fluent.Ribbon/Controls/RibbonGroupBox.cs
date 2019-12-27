@@ -203,7 +203,7 @@ namespace Fluent
             Enlarge,
             Reduce
         }
-        
+
         // Finds and increases size of all scalable elements in this group box
         private void EnlargeScalableItems()
         {

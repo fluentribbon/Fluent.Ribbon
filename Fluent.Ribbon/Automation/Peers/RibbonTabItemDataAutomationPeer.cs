@@ -28,7 +28,7 @@
         protected override string GetNameCore()
         {
             var nameCore = base.GetNameCore();
-            
+
             if (string.IsNullOrEmpty(nameCore) == false)
             {
                 var wrapper = this.GetWrapper() as RibbonTabItem;

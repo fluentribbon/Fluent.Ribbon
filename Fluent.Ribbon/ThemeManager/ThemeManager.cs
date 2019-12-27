@@ -945,7 +945,7 @@ namespace Fluent
             return Uri.Compare(first.Source, second.Source, UriComponents.Host | UriComponents.Path, UriFormat.SafeUnescaped, StringComparison.OrdinalIgnoreCase) == 0;
         }
 
-#region WindowsAppModeSetting
+        #region WindowsAppModeSetting
 
         /// <summary>
         /// Synchronizes the current <see cref="Theme"/> with the "app mode" setting from windows.
@@ -1015,7 +1015,7 @@ namespace Fluent
             return true;
         }
 
-#endregion WindowsAppModeSetting
+        #endregion WindowsAppModeSetting
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Pure]

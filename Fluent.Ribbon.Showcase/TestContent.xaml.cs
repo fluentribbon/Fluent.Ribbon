@@ -48,7 +48,7 @@ namespace FluentTest
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
-        
+
         public List<KeyValuePair<string, Brush>> Brushes
         {
             get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }

@@ -629,7 +629,7 @@ namespace Fluent
 
                 this.savedWindowWidth = double.NaN;
                 this.savedWindowHeight = double.NaN;
-                
+
                 this.ownerWindow = null;
             }
 
