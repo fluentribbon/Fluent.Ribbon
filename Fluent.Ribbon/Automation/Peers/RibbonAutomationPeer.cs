@@ -115,11 +115,13 @@
 
                 if (automationPeer != null)
                 {
-                    automationPeer.ResetChildrenCache();
+                    // Resetting the children cache might call a recursive loop...
+                    //automationPeer.ResetChildrenCache();
 
                     var ribbonTabs = automationPeer.GetChildren();
                     children.AddRange(ribbonTabs);
-                    ribbonTabs.ForEach(x => x.ResetChildrenCache());
+                    // Resetting the children cache might call a recursive loop...
+                    //ribbonTabs.ForEach(x => x.ResetChildrenCache());
                 }
             }
 
