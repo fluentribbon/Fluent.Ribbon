@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -1560,10 +1560,8 @@ namespace Fluent
                 this.IsCollapsed = false;
             }
             else if (this.galleryPanel.IsNotNull()
-                    && (this.galleryPanel.MinItemsInRow < this.MinItemsInRow
-                        || this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow))
+                     && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
             {
-                this.galleryPanel.MinItemsInRow = Math.Min(this.galleryPanel.MinItemsInRow + 1, this.MinItemsInRow);
                 this.galleryPanel.MaxItemsInRow = Math.Min(this.galleryPanel.MaxItemsInRow + 1, this.MaxItemsInRow);
             }
             else
@@ -1580,10 +1578,8 @@ namespace Fluent
         public void Reduce()
         {
             if (this.galleryPanel.IsNotNull()
-                && (this.galleryPanel.MinItemsInRow > 1
-                    || this.galleryPanel.MaxItemsInRow > 1))
+                && this.galleryPanel.MaxItemsInRow > this.MinItemsInRow)
             {
-                this.galleryPanel.MinItemsInRow = Math.Max(this.galleryPanel.MinItemsInRow - 1, 0);
                 this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
             }
             else if (this.CanCollapseToButton
