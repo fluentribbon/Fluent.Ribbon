@@ -46,14 +46,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="All" />
+    <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
 
-  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="3.*" privateAssets="All" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
-    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="All" /> -->
-    <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="All" />
-    <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="All" /> -->
-    <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="All" />
-    <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="All" />
+  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="3.*" privateAssets="all" includeAssets="build;analyzers" Condition="'$(TargetFramework)' == 'netcoreapp3.0'" />
+    <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="all" includeAssets="build;analyzers" /> -->
+    <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="all" includeAssets="build;analyzers" />
+    <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
+    <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
+    <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
 
     <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
