@@ -14,6 +14,7 @@ namespace Fluent
     using System.Windows.Input;
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -706,7 +707,7 @@ namespace Fluent
             }
 
             var item = selectedItem as RibbonTabItem
-                ?? this.ItemContainerGenerator.ContainerFromIndex(this.SelectedIndex) as RibbonTabItem;
+                ?? this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(this.SelectedIndex);
 
             return item;
         }
@@ -730,7 +731,7 @@ namespace Fluent
                         index = this.Items.Count - 1;
                     }
 
-                    if (this.ItemContainerGenerator.ContainerFromIndex(index) is RibbonTabItem nextItem
+                    if (this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(index) is RibbonTabItem nextItem
                         && nextItem.IsEnabled
                         && nextItem.Visibility == Visibility.Visible)
                     {
@@ -961,7 +962,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerOrContainerContentFromItem<RibbonTabItem>(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible)
                 {
                     return ribbonTab;
@@ -978,7 +979,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerOrContainerContentFromItem<RibbonTabItem>(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible
                     && ribbonTab.IsEnabled)
                 {

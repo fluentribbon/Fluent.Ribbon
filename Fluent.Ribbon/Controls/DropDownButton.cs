@@ -15,7 +15,7 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Threading;
     using Fluent.Extensions;
-    using Fluent.Internal;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>

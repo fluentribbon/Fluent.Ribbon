@@ -740,7 +740,7 @@ namespace Fluent
                 {
                     if (this.TabControlParent != null)
                     {
-                        var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainer(this);
+                        var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainerOrContainerContent(this);
 
                         if (ReferenceEquals(this.TabControlParent.SelectedItem, newItem))
                         {

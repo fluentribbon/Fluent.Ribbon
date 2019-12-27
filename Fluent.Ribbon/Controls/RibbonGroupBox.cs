@@ -15,6 +15,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Shapes;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -219,17 +220,10 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                var element = this.ItemContainerGenerator.ContainerFromItem(item);
+                var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
 
-                if (element is null
-                    || (element is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
-                {
-                    continue;
-                }
-
-                var scalableRibbonControl = element as IScalableRibbonControl;
-
-                if (scalableRibbonControl is null)
+                if (scalableRibbonControl is null
+                    || (scalableRibbonControl is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
                 {
                     continue;
                 }
@@ -261,9 +255,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                var element = this.ItemContainerGenerator.ContainerFromItem(item);
-
-                var scalableRibbonControl = element as IScalableRibbonControl;
+                var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
 
                 if (scalableRibbonControl is null)
                 {

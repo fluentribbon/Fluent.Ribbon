@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -18,6 +18,7 @@ namespace Fluent
     using System.Windows.Threading;
     using Fluent.Extensibility;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
     using JetBrains.Annotations;
@@ -939,7 +940,7 @@ namespace Fluent
 
             if (gallery.Selectable == false)
             {
-                var galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
+                var galleryItem = gallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(basevalue);
                 if (basevalue != null
                     && galleryItem != null)
                 {
@@ -991,7 +992,7 @@ namespace Fluent
         {
             foreach (var item in e.RemovedItems)
             {
-                if (this.ItemContainerGenerator.ContainerFromItem(item) is GalleryItem itemContainer)
+                if (this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(item) is GalleryItem itemContainer)
                 {
                     itemContainer.IsSelected = false;
                 }
@@ -999,7 +1000,7 @@ namespace Fluent
 
             foreach (var item in e.AddedItems)
             {
-                if (this.ItemContainerGenerator.ContainerFromItem(item) is GalleryItem itemContainer)
+                if (this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(item) is GalleryItem itemContainer)
                 {
                     itemContainer.IsSelected = this.Selectable;
                 }
@@ -1206,7 +1207,7 @@ namespace Fluent
                                               this.galleryPanel.Height = double.NaN;
                                           }
 
-                                          var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                          var selectedContainer = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(this.SelectedItem);
                                           selectedContainer?.BringIntoView();
                                       }, DispatcherPriority.SystemIdle);
         }
@@ -1532,7 +1533,7 @@ namespace Fluent
                                               this.IsSnapped = false;
                                           }
 
-                                          var selectedContainer = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as GalleryItem;
+                                          var selectedContainer = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(this.SelectedItem);
                                           selectedContainer?.BringIntoView();
                                       }, DispatcherPriority.SystemIdle);
         }

@@ -6,6 +6,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -299,7 +300,7 @@ namespace Fluent
                 return Size.Empty;
             }
 
-            var anItem = this.ItemContainerGenerator.ContainerFromItem(this.Items[0]) as UIElement;
+            var anItem = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<UIElement>(this.Items[0]);
             if (anItem == null)
             {
                 return Size.Empty;

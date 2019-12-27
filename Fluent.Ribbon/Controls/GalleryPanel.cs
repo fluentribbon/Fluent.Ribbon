@@ -431,18 +431,18 @@ namespace Fluent
 
                 // Resolve group name
                 string propertyValue = null;
-                
+
                 if (this.GroupByAdvanced != null)
                 {
                     propertyValue = this.ItemContainerGenerator == null
-                                        ? this.GroupByAdvanced(item)
-                                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainer(item));
+                        ? this.GroupByAdvanced(item)
+                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
                 else if (string.IsNullOrEmpty(this.GroupBy) == false)
                 {
                     propertyValue = this.ItemContainerGenerator == null
-                                        ? this.GetPropertyValueAsString(item)
-                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
+                        ? this.GetPropertyValueAsString(item)
+                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
 
                 if (propertyValue == null)

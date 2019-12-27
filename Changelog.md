@@ -3,6 +3,8 @@
 ## 7.1.0
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#765](../../issues/765) - InRibbonGallery Resizing Issues
+  - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
 
 - ### Enhancements/Features
   - Many automation peers have been added and improved
