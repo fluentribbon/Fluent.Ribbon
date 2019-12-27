@@ -309,6 +309,19 @@ namespace Fluent
             anItem.Measure(SizeConstants.Infinite);
             var result = anItem.DesiredSize;
             anItem.InvalidateMeasure();
+
+            // We only land here if only size is defined as NaN.
+            // In such cases we have to measure one size and take the other one from the settings.
+            if (!double.IsNaN(this.ItemWidth))
+            {
+                return new Size(this.ItemWidth, result.Height);
+            }
+
+            if (!double.IsNaN(this.ItemHeight))
+            {
+                return new Size(result.Width, this.ItemHeight);
+            }
+
             return result;
         }
 
