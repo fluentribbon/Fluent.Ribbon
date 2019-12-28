@@ -287,6 +287,8 @@ namespace Fluent.Tests.ThemeManager
                                      "Blue (Colorful)",
                                      "Blue (Dark)",
                                      "Blue (Light)",
+                                     "Blue (MahApps.Metro) (Dark)",
+                                     "Blue (MahApps.Metro) (Light)",
                                      "Brown (Dark)",
                                      "Brown (Light)",
                                      "Cobalt (Dark)",
