@@ -72,7 +72,6 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-
             return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
@@ -143,6 +142,7 @@ namespace FluentTest
         {
             var currentBrushes = new[]
                                  {
+                                     new KeyValuePair<string, Brush>("None", null),
                                      new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
                                      new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
                                  };
