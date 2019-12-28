@@ -41,6 +41,17 @@
             var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
             var newMahAppsMetroTheme = MahApps.Metro.ThemeManager.ChangeTheme(this, fluentRibbonTheme.Name);
 
+            if (newMahAppsMetroTheme.Name != fluentRibbonTheme.Name)
+            {
+                var mostLikelyMatchingTheme = MahApps.Metro.ThemeManager.Themes.FirstOrDefault(x => x.BaseColorScheme == fluentRibbonTheme.BaseColorScheme
+                                                                                                    && x.ShowcaseBrush?.ToString() == fluentRibbonTheme.ShowcaseBrush?.ToString());
+
+                if (mostLikelyMatchingTheme != null)
+                {
+                    newMahAppsMetroTheme = MahApps.Metro.ThemeManager.ChangeTheme(this, mostLikelyMatchingTheme);
+                }
+            }
+
             if (newMahAppsMetroTheme.BaseColorScheme != fluentRibbonTheme.BaseColorScheme)
             {
                 MahApps.Metro.ThemeManager.ChangeThemeBaseColor(this, fluentRibbonTheme.BaseColorScheme);
