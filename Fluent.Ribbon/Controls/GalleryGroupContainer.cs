@@ -22,6 +22,7 @@ namespace Fluent
         // Whether MinWidth/MaxWidth of the ItemsPanel needs to be updated
         private bool minMaxWidthNeedsToBeUpdated = true;
         private Panel itemsPanel;
+        private FrameworkElement targetForSizeConstraints;
 
         #endregion
 
@@ -166,7 +167,6 @@ namespace Fluent
         {
             var galleryGroupContainer = (GalleryGroupContainer)d;
             galleryGroupContainer.minMaxWidthNeedsToBeUpdated = true;
-            galleryGroupContainer.UpdateMinAndMaxWidth();
         }
 
         #endregion
@@ -238,7 +238,7 @@ namespace Fluent
             // - If we are inside an opened InRibbonGallery or not inside an InRibbonGallery we need to restrict the size of "RealItemsPanel"
             var inRibbonGallery = UIHelper.GetParent<InRibbonGallery>(this);
             var isInsideClosedInRibbonGallery = inRibbonGallery != null && inRibbonGallery.IsDropDownOpen == false;
-            var targetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
+            this.targetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this : this.RealItemsPanel;
 
             var nonTargetForSizeConstraints = isInsideClosedInRibbonGallery ? (FrameworkElement)this.RealItemsPanel : this;
 
@@ -248,8 +248,8 @@ namespace Fluent
             if (this.Orientation == Orientation.Vertical)
             {
                 // Min/Max is used for Horizontal layout only
-                targetForSizeConstraints.MinWidth = 0;
-                targetForSizeConstraints.MaxWidth = double.PositiveInfinity;
+                this.targetForSizeConstraints.MinWidth = 0;
+                this.targetForSizeConstraints.MaxWidth = double.PositiveInfinity;
                 return;
             }
 
@@ -260,8 +260,8 @@ namespace Fluent
                 return;
             }
 
-            targetForSizeConstraints.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
-            targetForSizeConstraints.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
+            this.targetForSizeConstraints.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
+            this.targetForSizeConstraints.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -360,9 +360,16 @@ namespace Fluent
             if (this.previousItemsCount != this.Items.Count
                 || this.minMaxWidthNeedsToBeUpdated)
             {
-                // Track ItemsPanel changing
+                // Track ItemsPanel changes
                 this.previousItemsCount = this.Items.Count;
+                this.minMaxWidthNeedsToBeUpdated = true;
+
                 this.UpdateMinAndMaxWidth();
+            }
+
+            if (this.targetForSizeConstraints != null)
+            {
+                return base.MeasureOverride(new Size(this.targetForSizeConstraints.MaxWidth, constraint.Height));
             }
 
             return base.MeasureOverride(constraint);

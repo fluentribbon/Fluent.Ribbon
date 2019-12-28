@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -287,7 +287,7 @@ namespace Fluent
 
         private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            this.RefreshAsync();
+            this.Refresh();
         }
 
         #endregion
@@ -325,21 +325,14 @@ namespace Fluent
 
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
             {
-                var backupMinItemsInRow = galleryGroupContainer.MinItemsInRow;
-                var backupMaxItemsInRow = galleryGroupContainer.MaxItemsInRow;
                 galleryGroupContainer.MinItemsInRow = this.MinItemsInRow;
                 galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
                 galleryGroupContainer.Measure(SizeConstants.Infinite);
 
-                galleryGroupContainer.InvalidateMeasure();
-
                 actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
                 actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
-
-                galleryGroupContainer.MinItemsInRow = backupMinItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = backupMaxItemsInRow;
             }
 
             this.MinWidth = actualMinWidth;
