@@ -75,9 +75,6 @@ namespace Fluent
 
         private ScrollViewer scrollViewer;
 
-        // Needed to prevent drop down reopen
-        private bool canOpenDropDown = true;
-
         private IInputElement focusedElement;
 
         private bool isButtonClicked;
@@ -1026,17 +1023,7 @@ namespace Fluent
                 this.expandButton.Click += this.OnExpandClick;
             }
 
-            if (this.dropDownButton != null)
-            {
-                this.dropDownButton.Click -= this.OnDropDownClick;
-            }
-
             this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
-
-            if (this.dropDownButton != null)
-            {
-                this.dropDownButton.Click += this.OnDropDownClick;
-            }
 
             if (this.DropDownPopup != null)
             {
@@ -1151,14 +1138,6 @@ namespace Fluent
             this.isButtonClicked = true;
         }
 
-        private void OnDropDownClick(object sender, RoutedEventArgs e)
-        {
-            if (this.canOpenDropDown)
-            {
-                this.IsDropDownOpen = true;
-            }
-        }
-
         // Handles drop down closed
         private void OnDropDownClosed(object sender, EventArgs e)
         {
@@ -1194,9 +1173,6 @@ namespace Fluent
                 Mouse.Capture(null);
             }
 
-            this.dropDownButton.IsChecked = false;
-            this.canOpenDropDown = true;
-
             this.RunInDispatcherAsync(() =>
                                       {
                                           if (this.galleryPanel.IsNotNull())
@@ -1229,9 +1205,6 @@ namespace Fluent
             }
 
             this.DropDownOpened?.Invoke(this, e);
-
-            this.dropDownButton.IsChecked = true;
-            this.canOpenDropDown = false;
 
             Mouse.Capture(this, CaptureMode.SubTree);
 
