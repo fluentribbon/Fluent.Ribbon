@@ -16,7 +16,7 @@
 
   # Install dotnet core latest
   install:
-    - cinst dotnetcore-sdk
+    - cinst dotnetcore-sdk --version 3.1.100
 
   build_script:
     - ps: .\build.ps1 -Target CI -Verbosity Verbose
