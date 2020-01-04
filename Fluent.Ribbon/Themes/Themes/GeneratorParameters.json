@@ -171,17 +171,6 @@
       }
     },
     {
-      "Name": "Blue (MahApps.Metro)",
-      "Values": {
-        "Fluent.Ribbon.Colors.AccentBaseColor": "#FF119EDA",
-        "Fluent.Ribbon.Colors.AccentColor80": "#CC119EDA",
-        "Fluent.Ribbon.Colors.AccentColor60": "#99119EDA",
-        "Fluent.Ribbon.Colors.AccentColor40": "#66119EDA",
-        "Fluent.Ribbon.Colors.AccentColor20": "#33119EDA",
-        "Fluent.Ribbon.Colors.HighlightColor": "#FF086F9E"
-      }
-    },
-    {
       "Name": "Brown",
       "Values": {
         "Fluent.Ribbon.Colors.AccentBaseColor": "#FF825A2C",
