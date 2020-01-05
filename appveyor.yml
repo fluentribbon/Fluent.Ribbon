@@ -1,42 +1,40 @@
 # configuration for develop and master branch
 
--
-  branches:
-    only:
-      - develop
-      - master
+branches:
+  only:
+    - develop
+    - master
 
-  image: Visual Studio 2019
-  configuration: Release
-  platform: Any CPU
-  test: off
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+test: off
 
-  pull_requests:
-    do_not_increment_build_number: false
+pull_requests:
+  do_not_increment_build_number: false
 
-  # Install dotnet core latest
-  install:
-    - cinst dotnetcore-sdk --version 3.1.100
+install:
+  - cinst dotnetcore-sdk --version 3.1.100
 
-  build_script:
-    - ps: .\build.ps1 -Target CI -Verbosity Verbose
+build_script:
+  - ps: .\build.ps1 -Target CI -Verbosity Verbose
 
-  # after_build:
-  #   - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
+after_build:
+  - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
 
-  artifacts:
-    - path: \bin\package\*.*
+artifacts:
+  - path: \bin\package\*.*
 
-  nuget:
-    disable_publish_on_pr: true
+nuget:
+  disable_publish_on_pr: true
 
-  skip_commits:
-    files:
-      - '**/*.md'
+skip_commits:
+  files:
+    - '**/*.md'
 
-  notifications:
-    - provider: Webhook
-      url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
-      on_build_success: true
-      on_build_failure: true
-      on_build_status_changed: false
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: false
