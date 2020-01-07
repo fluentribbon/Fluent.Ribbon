@@ -1,5 +1,4 @@
 ﻿{
-  "TemplateFile": "Theme.Template.xaml",
   "DefaultValues": {
     "Fluent.Ribbon.Colors.IdealForegroundColor": "White",
     "Fluent.Ribbon.Colors.DarkIdealForegroundDisabledColor": "#ADADAD",

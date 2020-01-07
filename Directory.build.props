@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>latest</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -43,10 +43,6 @@
     <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
   </ItemGroup> -->
 
-  <PropertyGroup>
-    <XamlColorSchemeGeneratorVersion>3.0.0.31</XamlColorSchemeGeneratorVersion>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
 
@@ -56,7 +52,5 @@
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
     <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
     <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
-
-    <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
 </Project>
