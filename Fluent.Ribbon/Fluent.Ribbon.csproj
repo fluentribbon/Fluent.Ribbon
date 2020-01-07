@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="[4.0*, 5.0)" />
+    <PackageReference Include="ControlzEx" version="4.3.0-thememanager0015" />
     <PackageReference Include="XamlColorSchemeGenerator" version="4-*" privateAssets="All" includeAssets="build" />
   </ItemGroup>
 

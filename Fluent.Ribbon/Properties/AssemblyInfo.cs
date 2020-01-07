@@ -1,5 +1,3 @@
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
 
@@ -9,4 +7,5 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent")]
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Converters")]
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.TemplateSelectors")]
+[assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Theming")]
 [assembly: XmlnsDefinition("urn:fluent-ribbon", "Fluent.Metro.Behaviours")]

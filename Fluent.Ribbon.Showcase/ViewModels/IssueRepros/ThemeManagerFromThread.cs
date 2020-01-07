@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
     using FluentTest.Commanding;
 
@@ -36,13 +37,13 @@
         {
             if (this.cancellationTokenSource != null)
             {
-                ThemeManager.IsThemeChanged -= this.ThemeManagerIsThemeChangedHandler;
+                ThemeManager.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
 
                 this.cancellationTokenSource.Cancel();
             }
             else
             {
-                ThemeManager.IsThemeChanged += this.ThemeManagerIsThemeChangedHandler;
+                ThemeManager.ThemeChanged += this.ThemeManagerThemeChangedHandler;
 
                 Task.Factory.StartNew(() =>
                     {
@@ -95,12 +96,12 @@
             }
         }
 
-        private void ThemeManagerIsThemeChangedHandler(object sender, OnThemeChangedEventArgs e)
+        private void ThemeManagerThemeChangedHandler(object sender, ThemeChangedEventArgs e)
         {
             try
             {
                 var theme = ThemeManager.DetectTheme(Application.Current);
-                this.Info($"Current theme from args: {e.Theme.Name}");
+                this.Info($"Current theme from args: {e.NewTheme.Name}");
                 this.Info($"Current theme from detection: {theme.Name}");
             }
             catch (Exception ex)

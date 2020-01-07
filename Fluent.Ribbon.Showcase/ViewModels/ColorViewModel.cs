@@ -5,6 +5,7 @@ namespace FluentTest.ViewModels
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
+    using ControlzEx.Theming;
     using Fluent;
 
     public class ColorViewModel : ViewModel

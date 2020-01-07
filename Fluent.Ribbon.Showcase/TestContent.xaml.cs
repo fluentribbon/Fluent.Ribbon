@@ -15,8 +15,10 @@ namespace FluentTest
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using ControlzEx.Theming;
     using Fluent;
     using Fluent.Localization;
+    using Fluent.Theming;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
@@ -72,7 +74,9 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-            return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
+            return ThemeManager.Themes.GroupBy(x => x.ColorScheme)
+                               .Select(x => x.First())
+                               .Select(x => new KeyValuePair<string, Brush>(x.ColorScheme, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
         }
@@ -519,6 +523,8 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
+            // var theme = RuntimeThemeGenerator.GenerateRuntimeTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, RibbonLibraryThemeProvider.DefaultInstance);
+            // this.ThemeResourceDictionaryTextBox.Text = theme.Name;
             this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
         }
 

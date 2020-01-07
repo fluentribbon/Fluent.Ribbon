@@ -11,6 +11,7 @@
              xmlns:formsInterop="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:converters="clr-namespace:FluentTest.Converters"
+             xmlns:controlzEx="urn:controlzex"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -216,7 +217,7 @@
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
-                                                               ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
+                                                               ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Themes}}"
                                                                DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
@@ -2872,15 +2873,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.BaseColors}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.BaseColors}}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
                                     <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Themes}}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
                                         <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type Fluent:Theme}">
+                                            <DataTemplate DataType="{x:Type controlzEx:Theme}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Ellipse Width="16"
                                                              Height="16"
@@ -2889,7 +2890,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                 </StackPanel>
                                             </DataTemplate>
                                         </Fluent:ComboBox.ItemTemplate>
-                                        <Fluent:ComboBox.GroupStyle>
+                                        <!--<Fluent:ComboBox.GroupStyle>
                                             <GroupStyle>
                                                 <GroupStyle.HeaderTemplate>
                                                     <DataTemplate>
@@ -2901,7 +2902,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                     </DataTemplate>
                                                 </GroupStyle.HeaderTemplate>
                                             </GroupStyle>
-                                        </Fluent:ComboBox.GroupStyle>
+                                        </Fluent:ComboBox.GroupStyle>-->
                                     </Fluent:ComboBox>
                                 </WrapPanel>
                             </GroupBox>

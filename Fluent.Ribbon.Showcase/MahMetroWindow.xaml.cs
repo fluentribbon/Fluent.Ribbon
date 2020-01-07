@@ -3,10 +3,10 @@
     using System;
     using System.Linq;
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
     using MahApps.Metro.Controls;
 
-    [CLSCompliant(false)] // Because MetroWindow is not CLSCompliant
     public partial class MahMetroWindow : MetroWindow, IRibbonWindow
     {
         public MahMetroWindow()
@@ -27,18 +27,18 @@
 
             this.SyncThemeManagers(null, null);
 
-            ThemeManager.IsThemeChanged += this.SyncThemeManagers;
+            ThemeManager.ThemeChanged += this.SyncThemeManagers;
         }
 
         private void MahMetroWindow_Closed(object sender, EventArgs e)
         {
-            ThemeManager.IsThemeChanged -= this.SyncThemeManagers;
+            ThemeManager.ThemeChanged -= this.SyncThemeManagers;
         }
 
-        private void SyncThemeManagers(object sender, OnThemeChangedEventArgs args)
+        private void SyncThemeManagers(object sender, ThemeChangedEventArgs args)
         {
             // Sync Fluent and MahApps ThemeManager
-            var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
+            var fluentRibbonTheme = args?.NewTheme ?? ThemeManager.DetectTheme();
             var newMahAppsMetroTheme = MahApps.Metro.ThemeManager.ChangeTheme(this, fluentRibbonTheme.Name);
 
             if (newMahAppsMetroTheme.Name != fluentRibbonTheme.Name)
