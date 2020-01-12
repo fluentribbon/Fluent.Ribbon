@@ -96,11 +96,8 @@
   ],
   "ColorSchemes": [
     {
-      "CustomBaseColorSchemeName": "Colorful",
-      "BaseColorSchemeReference": "Light",
-      "Name": "Blue",
+      "Name": "Blue (Colorful)",
       "Values": {
-        "WhiteColor": "#FFF0F0F0",
         "Fluent.Ribbon.Colors.AccentBaseColor": "#FF0173C7",
         "Fluent.Ribbon.Colors.AccentColor80": "#CC2B579A",
         "Fluent.Ribbon.Colors.AccentColor60": "#992B579A",
@@ -122,11 +119,8 @@
       }
     },
     {
-      "CustomBaseColorSchemeName": "Colorful",
-      "BaseColorSchemeReference": "Light",
-      "Name": "Gray",
+      "Name": "Gray (Colorful)",
       "Values": {
-        "WhiteColor": "#FFF0F0F0",
         "Fluent.Ribbon.Colors.AccentBaseColor": "#FF474747",
         "Fluent.Ribbon.Colors.AccentColor80": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.AccentColor60": "#5EC9C9C9",
@@ -161,11 +155,11 @@
     {
       "Name": "Blue",
       "Values": {
-        "Fluent.Ribbon.Colors.AccentBaseColor": "#FF2B579A",
-        "Fluent.Ribbon.Colors.AccentColor80": "#CC2B579A",
-        "Fluent.Ribbon.Colors.AccentColor60": "#992B579A",
-        "Fluent.Ribbon.Colors.AccentColor40": "#662B579A",
-        "Fluent.Ribbon.Colors.AccentColor20": "#332B579A",
+        "Fluent.Ribbon.Colors.AccentBaseColor": "#FF0078D7",
+        "Fluent.Ribbon.Colors.AccentColor80": "#CC0078D7",
+        "Fluent.Ribbon.Colors.AccentColor60": "#990078D7",
+        "Fluent.Ribbon.Colors.AccentColor40": "#660078D7",
+        "Fluent.Ribbon.Colors.AccentColor20": "#330078D7",
         "Fluent.Ribbon.Colors.HighlightColor": "#FF086F9E"
       }
     },
