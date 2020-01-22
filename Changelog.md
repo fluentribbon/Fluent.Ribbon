@@ -3,6 +3,8 @@
 ## 7.1.0 (preview)
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#755](../../issues/755) - ComboBox.Height fixed at 22  
+  The height setting was moved from the template to the style.
   - [#758](../../issues/758) - Auto menu expanding not working for MenuItems with ItemSource binding
   - [#765](../../issues/765) - InRibbonGallery Resizing Issues
   - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
