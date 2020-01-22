@@ -8,6 +8,7 @@
   - [#758](../../issues/758) - Auto menu expanding not working for MenuItems with ItemSource binding
   - [#765](../../issues/765) - InRibbonGallery Resizing Issues
   - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
+  - [#768](../../issues/768) - Accessibility Insights: "An onscreen element must not have a null"
 
 - ### Enhancements/Features
   - Many automation peers have been added and improved
