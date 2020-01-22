@@ -411,6 +411,25 @@ namespace Fluent
 
         #region Non MenuBase ItemsControl workarounds
 
+        /// <summary>
+        /// Returns logical parent; either Parent or ItemsControlFromItemContainer(this).
+        /// </summary>
+        /// <remarks>
+        /// Copied from <see cref="System.Windows.Controls.MenuItem"/>.
+        /// </remarks>
+        public object LogicalParent
+        {
+            get
+            {
+                if (this.Parent != null)
+                {
+                    return this.Parent;
+                }
+
+                return ItemsControlFromItemContainer(this);
+            }
+        }
+
         /// <inheritdoc />
         protected override void OnIsKeyboardFocusedChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -431,7 +450,7 @@ namespace Fluent
                 && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
-                    && this.Parent is DropDownButton)
+                    && this.LogicalParent is DropDownButton)
                 {
                     this.IsSubmenuOpen = true;
                 }
@@ -447,8 +466,8 @@ namespace Fluent
                 && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
-                    && this.Parent is DropDownButton // prevent too slow close on regular DropDown
-                    && this.Parent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
+                    && this.LogicalParent is DropDownButton // prevent too slow close on regular DropDown
+                    && this.LogicalParent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
                 {
                     this.IsSubmenuOpen = false;
                 }

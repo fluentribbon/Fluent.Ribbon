@@ -1,8 +1,9 @@
 # Changelog for Fluent.Ribbon
 
-## 7.1.0
+## 7.1.0 (preview)
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#758](../../issues/758) - Auto menu expanding not working for MenuItems with ItemSource binding
   - [#765](../../issues/765) - InRibbonGallery Resizing Issues
   - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
 
