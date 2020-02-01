@@ -3,7 +3,6 @@
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
     <AssemblyName>Fluent.Tests</AssemblyName>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     
     <IsTestProject>true</IsTestProject>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
