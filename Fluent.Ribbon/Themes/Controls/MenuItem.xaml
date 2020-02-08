@@ -171,7 +171,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="{TemplateBinding RecognizesAccessKey}" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -304,7 +304,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="{TemplateBinding RecognizesAccessKey}" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -565,7 +565,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="{TemplateBinding RecognizesAccessKey}" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -826,7 +826,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="{TemplateBinding RecognizesAccessKey}" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"

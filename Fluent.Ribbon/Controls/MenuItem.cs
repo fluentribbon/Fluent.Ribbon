@@ -277,8 +277,24 @@ namespace Fluent
         #endregion
 
         /// <summary>Identifies the <see cref="RecognizesAccessKey"/> dependency property.</summary>
-        public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(
             nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>Helper for setting <see cref="RecognizesAccessKeyProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="DependencyObject"/> to set <see cref="RecognizesAccessKeyProperty"/> on.</param>
+        /// <param name="value">RecognizesAccessKey property value.</param>
+        public static void SetRecognizesAccessKey(DependencyObject element, bool value)
+        {
+            element.SetValue(RecognizesAccessKeyProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="RecognizesAccessKeyProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="DependencyObject"/> to read <see cref="RecognizesAccessKeyProperty"/> from.</param>
+        /// <returns>RecognizesAccessKey property value.</returns>
+        public static bool GetRecognizesAccessKey(DependencyObject element)
+        {
+            return (bool)element.GetValue(RecognizesAccessKeyProperty);
+        }
 
         /// <summary>
         /// Defines if access keys should be recognized.

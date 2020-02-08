@@ -3102,6 +3102,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             <Fluent:ContextMenu ResizeMode="Both">
                                 <Fluent:MenuItem Header="_Lala"
                                                  InputGestureText="(Ctrl+F)" />
+                                <Fluent:MenuItem Header="_Lala"
+                                                 RecognizesAccessKey="False" />
                                 <Fluent:MenuItem Header="Lala">
                                     <Fluent:MenuItem Header="Lala" />
                                     <Fluent:MenuItem Header="Lala">
