@@ -3007,10 +3007,12 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                         IsStatusBarVisible
                                     </Fluent:CheckBox>
                                     <ComboBox x:Name="ResizeModeComboBox"
+                                              AutomationProperties.Name="Window resize mode"
                                               ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
                                               SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
                                     <ComboBox x:Name="FlowDirectionComboBox"
+                                              AutomationProperties.Name="Window flow direction"
                                               ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
                                               SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
