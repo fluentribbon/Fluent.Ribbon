@@ -34,6 +34,12 @@
         }
 
         /// <inheritdoc />
+        protected override string GetLocalizedControlTypeCore()
+        {
+            return this.Owner.GetType().Name;
+        }
+
+        /// <inheritdoc />
         public override object GetPattern(PatternInterface patternInterface)
         {
             switch (patternInterface)
