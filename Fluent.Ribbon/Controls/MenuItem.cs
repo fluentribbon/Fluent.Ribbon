@@ -276,6 +276,19 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>Identifies the <see cref="RecognizesAccessKey"/> dependency property.</summary>
+        public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.Register(
+            nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Defines if access keys should be recognized.
+        /// </summary>
+        public bool RecognizesAccessKey
+        {
+            get { return (bool)this.GetValue(RecognizesAccessKeyProperty); }
+            set { this.SetValue(RecognizesAccessKeyProperty, value); }
+        }
+
         #region QuickAccess
 
         /// <inheritdoc />

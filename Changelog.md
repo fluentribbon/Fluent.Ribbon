@@ -12,6 +12,8 @@
 
 - ### Enhancements/Features
   - Many automation peers have been added and improved
+  - [#775](../../issues/775) - First underscore missing in drop down menu header text  
+  You can now control wether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
 
 ## 7.0.1
 - ### Bug fixes
