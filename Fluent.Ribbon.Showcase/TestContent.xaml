@@ -1194,6 +1194,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             MinItemsInRow="2"
                                             ItemWidth="40"
                                             ItemHeight="55"
+                                            Width="300"
                                             MinItemsInDropDownRow="5">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"

@@ -1200,8 +1200,9 @@ namespace Fluent
             {
                 this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
                 this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-                this.galleryPanel.UpdateMinAndMaxWidth();
                 this.galleryPanel.IsGrouped = true;
+
+                this.galleryPanel.UpdateMinAndMaxWidth();
             }
 
             this.DropDownOpened?.Invoke(this, e);
