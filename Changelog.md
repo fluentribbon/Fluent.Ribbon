@@ -9,6 +9,7 @@
   - [#765](../../issues/765) - InRibbonGallery Resizing Issues
   - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
   - [#768](../../issues/768) - Accessibility Insights: "An onscreen element must not have a null"
+  - [#769](../../issues/769) - GalleryPanel does not resize properly on apply of filter
   - [#770](../../issues/770) - Cannot left align the content in InRibbonGallery
 
 - ### Enhancements/Features

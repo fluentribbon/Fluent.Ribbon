@@ -523,6 +523,9 @@ namespace Fluent
             if (this.IgnoreNextMeasureCall)
             {
                 this.IgnoreNextMeasureCall = false;
+
+                // Force a new async measure after we returned our temporary desired size
+                this.RunInDispatcherAsync(this.ForceMeasure);
                 return this.DesiredSize;
             }
 
