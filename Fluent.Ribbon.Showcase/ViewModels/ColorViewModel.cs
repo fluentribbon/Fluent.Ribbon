@@ -6,7 +6,6 @@ namespace FluentTest.ViewModels
     using System.Windows.Data;
     using System.Windows.Media;
     using ControlzEx.Theming;
-    using Fluent;
 
     public class ColorViewModel : ViewModel
     {
@@ -76,6 +75,11 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value is null)
+                {
+                    return;
+                }
+
                 ThemeManager.ChangeThemeBaseColor(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
@@ -88,6 +92,11 @@ namespace FluentTest.ViewModels
 
             set
             {
+                if (value is null)
+                {
+                    return;
+                }
+
                 ThemeManager.ChangeTheme(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));
