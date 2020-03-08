@@ -15,7 +15,7 @@
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent.Helpers;
-#if NET45 // for DpiScale
+#if NET452 // for DpiScale
     using ControlzEx.Standard;
 #endif
     using Fluent.Internal;
@@ -511,7 +511,7 @@
 
         private static DpiScale GetDpiScale(Visual targetVisual)
         {
-#if !NET45 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
+#if !NET452 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
             if (targetVisual != null)
             {
                 return VisualTreeHelper.GetDpi(targetVisual);

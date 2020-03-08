@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net462;net452</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
