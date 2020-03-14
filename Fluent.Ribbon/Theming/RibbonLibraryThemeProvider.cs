@@ -22,14 +22,14 @@ namespace Fluent.Theming
         /// <inheritdoc />
         public override void FillColorSchemeValues(Dictionary<string, string> values, RuntimeThemeColorValues colorValues)
         {
-            values.Add("ControlzEx.Colors.AccentBaseColor", colorValues.AccentColor.ToString());
-            values.Add("ControlzEx.Colors.AccentColor80", colorValues.AccentColor80.ToString());
-            values.Add("ControlzEx.Colors.AccentColor60", colorValues.AccentColor60.ToString());
-            values.Add("ControlzEx.Colors.AccentColor40", colorValues.AccentColor40.ToString());
-            values.Add("ControlzEx.Colors.AccentColor20", colorValues.AccentColor20.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentBaseColor", colorValues.AccentColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor80", colorValues.AccentColor80.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor60", colorValues.AccentColor60.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor40", colorValues.AccentColor40.ToString());
+            values.Add("Fluent.Ribbon.Colors.AccentColor20", colorValues.AccentColor20.ToString());
 
-            values.Add("ControlzEx.Colors.HighlightColor", colorValues.HighlightColor.ToString());
-            values.Add("ControlzEx.Colors.IdealForegroundColor", colorValues.IdealForegroundColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.HighlightColor", colorValues.HighlightColor.ToString());
+            values.Add("Fluent.Ribbon.Colors.IdealForegroundColor", colorValues.IdealForegroundColor.ToString());
         }
     }
 }
