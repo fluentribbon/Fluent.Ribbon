@@ -32,11 +32,12 @@
 
         private void SyncThemes(object sender, ThemeChangedEventArgs e)
         {
-            ThemeManager.ThemeChanged -= this.SyncThemes;
+            if (e.Target == this)
+            {
+                return;
+            }
 
             ThemeManager.ChangeTheme(this, e.NewTheme);
-
-            ThemeManager.ThemeChanged += this.SyncThemes;
         }
 
         private void MahMetroWindow_Closed(object sender, EventArgs e)
