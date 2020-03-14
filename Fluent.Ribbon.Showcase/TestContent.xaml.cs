@@ -227,6 +227,11 @@ namespace FluentTest
             }
         }
 
+        private void SyncThemeNow_OnClick(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.SyncTheme();
+        }
+
         public Button CreateRibbonButton()
         {
             var fooCommand1 = new TestRoutedCommand();

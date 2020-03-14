@@ -2870,6 +2870,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <WrapPanel>
                             <GroupBox Header="Theme">
                                 <WrapPanel>
+                                    <WrapPanel.Resources>
+                                        <ObjectDataProvider MethodName="GetValues"
+                                                            ObjectType="{x:Type controlzEx:ThemeSyncMode}"
+                                                            x:Key="SyncModePreferenceEnumValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="controlzEx:ThemeSyncMode" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                    </WrapPanel.Resources>
                                     <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
@@ -2904,6 +2913,14 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             </GroupStyle>
                                         </Fluent:ComboBox.GroupStyle>-->
                                     </Fluent:ComboBox>
+
+                                    <Fluent:ComboBox Header="SyncMode"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
+                                                     SelectedItem="{Binding Path=(controlzEx:ThemeManager.ThemeSyncMode)}" />
+                                    <Fluent:CheckBox IsChecked="{Binding Path=ColorOptions.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
+                                                     Header="Use HSL color" />
+                                    <Button Click="SyncThemeNow_OnClick">Sync now</Button>
                                 </WrapPanel>
                             </GroupBox>
 
