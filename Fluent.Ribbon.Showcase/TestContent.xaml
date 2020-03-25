@@ -271,7 +271,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                             <Fluent:BackstageTabItem Header="Extra wide content"
                                                      KeyTip="W"
+                                                     DataContext="{Binding ColorViewModel}"
                                                      Content="The template used to display this is extremely wide. Width = 6000">
+                                <Fluent:BackstageTabItem.Icon>
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding HighlightColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Fluent:BackstageTabItem.Icon>
                                 <Fluent:BackstageTabItem.ContentTemplate>
                                     <DataTemplate>
                                         <Grid>
