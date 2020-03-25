@@ -1,6 +1,7 @@
 ﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Collections;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Data;
@@ -113,7 +114,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(RibbonControl.OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata());
 
         #endregion
 
@@ -130,9 +131,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for SmallIcon.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty LargeIconProperty =
-            DependencyProperty.Register(nameof(LargeIcon), typeof(object),
-            typeof(ToggleButton), new PropertyMetadata());
+        public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register(nameof(LargeIcon), typeof(object), typeof(ToggleButton), new PropertyMetadata());
 
         #endregion
 
@@ -268,18 +267,6 @@ namespace Fluent
         }
 
         #endregion
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.AddLogicalChild(object child)
-        {
-            this.AddLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.RemoveLogicalChild(object child)
-        {
-            this.RemoveLogicalChild(child);
-        }
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonToggleButtonAutomationPeer(this);

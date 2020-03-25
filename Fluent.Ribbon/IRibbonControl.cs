@@ -3,7 +3,7 @@
     /// <summary>
     /// Base interface for Fluent controls
     /// </summary>
-    public interface IRibbonControl : IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
+    public interface IRibbonControl : IHeaderedControl, IKeyTipedControl
     {
         /// <summary>
         /// Gets or sets Size for the element

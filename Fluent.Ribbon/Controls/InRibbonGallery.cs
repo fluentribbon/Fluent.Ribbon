@@ -165,7 +165,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(RibbonControl.OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata());
 
         #endregion
 
@@ -1573,18 +1573,6 @@ namespace Fluent
         }
 
         #endregion
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.AddLogicalChild(object child)
-        {
-            this.AddLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.RemoveLogicalChild(object child)
-        {
-            this.RemoveLogicalChild(child);
-        }
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonInRibbonGalleryAutomationPeer(this);
