@@ -77,7 +77,7 @@ namespace Fluent
         {
             var element = d as ILogicalChildSupport;
 
-            if (element == null)
+            if (element is null)
             {
                 throw new ArgumentException("Argument musst be of type ILogicalChildSupport.", nameof(d));
             }
