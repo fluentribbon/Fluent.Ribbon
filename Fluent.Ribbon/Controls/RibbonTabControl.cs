@@ -8,10 +8,13 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using ControlzEx.Standard;
+    using Fluent.Automation.Peers;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -20,7 +23,8 @@ namespace Fluent
     /// </summary>
     [StyleTypedProperty(Property = nameof(ItemContainerStyle), StyleTargetType = typeof(RibbonTabItem))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    [TemplatePart(Name = "PART_TabsContainer", Type = typeof(IScrollInfo))]
+    [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_MinimizeButton", Type = typeof(ButtonBase))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
     public class RibbonTabControl : Selector, IDropDownControl
@@ -94,6 +98,13 @@ namespace Fluent
 
         /// <inheritdoc />
         public Popup DropDownPopup { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="Panel"/> responsible for displaying the selected tabs content.
+        /// </summary>
+        public Panel TabsContainer { get; private set; }
+
+        internal ButtonBase MinimizeButton { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
@@ -207,7 +218,7 @@ namespace Fluent
         {
             get
             {
-                if (this.GetTemplateChild("PART_TabsContainer") is IScrollInfo scrollInfo)
+                if (this.TabsContainer is IScrollInfo scrollInfo)
                 {
                     return scrollInfo.ExtentWidth > scrollInfo.ViewportWidth;
                 }
@@ -428,6 +439,10 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            this.TabsContainer = this.GetTemplateChild("PART_TabsContainer") as Panel;
+
+            this.MinimizeButton = this.GetTemplateChild("PART_MinimizeButton") as ButtonBase;
+
             this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
@@ -604,6 +619,9 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabControlAutomationPeer(this);
+
         #endregion
 
         #region Private methods
@@ -689,7 +707,7 @@ namespace Fluent
             }
 
             var item = selectedItem as RibbonTabItem
-                ?? this.ItemContainerGenerator.ContainerFromIndex(this.SelectedIndex) as RibbonTabItem;
+                ?? this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(this.SelectedIndex);
 
             return item;
         }
@@ -713,7 +731,7 @@ namespace Fluent
                         index = this.Items.Count - 1;
                     }
 
-                    if (this.ItemContainerGenerator.ContainerFromIndex(index) is RibbonTabItem nextItem
+                    if (this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(index) is RibbonTabItem nextItem
                         && nextItem.IsEnabled
                         && nextItem.Visibility == Visibility.Visible)
                     {
@@ -909,20 +927,21 @@ namespace Fluent
         {
             var ribbonTabControl = (RibbonTabControl)d;
 
-            ribbonTabControl.OnIsDropDownOpenChanged();
-        }
+            ribbonTabControl.RaiseRequestBackstageClose();
 
-        private void OnIsDropDownOpenChanged()
-        {
-            this.RaiseRequestBackstageClose();
-
-            if (this.IsDropDownOpen)
+            if (ribbonTabControl.IsDropDownOpen)
             {
-                this.OnRibbonTabPopupOpening();
+                ribbonTabControl.OnRibbonTabPopupOpening();
             }
             else
             {
-                this.OnRibbonTabPopupClosing();
+                ribbonTabControl.OnRibbonTabPopupClosing();
+            }
+
+            if (ribbonTabControl.SelectedTabItem != null)
+            {
+                var peer = UIElementAutomationPeer.CreatePeerForElement(ribbonTabControl.SelectedTabItem) as RibbonTabItemAutomationPeer;
+                peer?.RaiseTabExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
             }
         }
 
@@ -943,7 +962,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerOrContainerContentFromItem<RibbonTabItem>(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible)
                 {
                     return ribbonTab;
@@ -960,7 +979,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                if ((this.ItemContainerGenerator.ContainerFromItem(item) ?? item) is RibbonTabItem ribbonTab
+                if ((this.ItemContainerGenerator.ContainerOrContainerContentFromItem<RibbonTabItem>(item) ?? item) is RibbonTabItem ribbonTab
                     && ribbonTab.Visibility == Visibility.Visible
                     && ribbonTab.IsEnabled)
                 {

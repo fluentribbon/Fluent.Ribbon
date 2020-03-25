@@ -8,6 +8,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -302,9 +303,9 @@ namespace Fluent
             {
                 ((GalleryItem)d).BringIntoView();
 
-                if (ItemsControl.ItemsControlFromItemContainer(d) is Selector parentSelector)
+                if (ItemsControlHelper.ItemsControlFromItemContainer(d) is Selector parentSelector)
                 {
-                    var item = parentSelector.ItemContainerGenerator.ItemFromContainer(d);
+                    var item = parentSelector.ItemContainerGenerator.ItemFromContainerOrContainerContent(d);
 
                     if (ReferenceEquals(parentSelector.SelectedItem, item) == false)
                     {

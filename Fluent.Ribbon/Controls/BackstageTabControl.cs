@@ -5,18 +5,23 @@ namespace Fluent
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents Backstage tab control.
     /// </summary>
+    [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
     public class BackstageTabControl : Selector
     {
         #region Properties
+
+        internal ContentPresenter SelectedContentHost { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -321,6 +326,14 @@ namespace Fluent
         }
 
         /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
+        }
+
+        /// <inheritdoc />
         protected override DependencyObject GetContainerForItemOverride()
         {
             return new BackstageTabItem();
@@ -379,17 +392,17 @@ namespace Fluent
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
         private BackstageTabItem GetSelectedTabItem()
         {
-            var container = this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as BackstageTabItem
-                ?? (this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as ContentPresenter)?.Content as BackstageTabItem;
+            var container = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(this.SelectedItem);
+
             if (container == null
-                || container?.IsEnabled == false
-                || container?.Visibility != Visibility.Visible)
+                || container.IsEnabled == false
+                || container.Visibility != Visibility.Visible)
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
 
                 if (container != null)
                 {
-                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer(container);
+                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
                 }
             }
 
@@ -418,8 +431,7 @@ namespace Fluent
                     index = this.Items.Count - 1;
                 }
 
-                var container = this.ItemContainerGenerator.ContainerFromIndex(index) as BackstageTabItem
-                                ?? (this.ItemContainerGenerator.ContainerFromIndex(index) as ContentPresenter)?.Content as BackstageTabItem;
+                var container = this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<BackstageTabItem>(index);
                 if (container != null
                     && container.IsEnabled
                     && container.Visibility == Visibility.Visible)
@@ -489,5 +501,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageTabControlAutomationPeer(this);
     }
 }

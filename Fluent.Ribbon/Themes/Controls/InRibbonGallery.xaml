@@ -521,7 +521,8 @@
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
                                  ClickMode="Press"
-                                 CanAddToQuickAccessToolBar="False" />
+                                 CanAddToQuickAccessToolBar="False"
+                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource = {RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="HasFilter"

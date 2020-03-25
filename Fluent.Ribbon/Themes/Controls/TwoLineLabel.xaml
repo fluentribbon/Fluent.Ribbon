@@ -70,6 +70,9 @@
                 <Setter Property="VerticalAlignment"
                         TargetName="stackPanel1"
                         Value="Center" />
+                <Setter Property="Visibility"
+                        TargetName="PART_TextRun2"
+                        Value="Collapsed" />
             </Trigger>
             <Trigger Property="HasGlyph"
                      Value="False">
@@ -79,6 +82,20 @@
                 <Setter Property="Width"
                         TargetName="border"
                         Value="0.1" />
+            </Trigger>
+            <Trigger Property="Text"
+                     SourceName="PART_TextRun2"
+                     Value="">
+                <Setter Property="Visibility"
+                        TargetName="PART_TextRun2"
+                        Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Text"
+                     SourceName="PART_TextRun2"
+                     Value="{x:Null}">
+                <Setter Property="Visibility"
+                        TargetName="PART_TextRun2"
+                        Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

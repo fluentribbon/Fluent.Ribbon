@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -467,7 +468,7 @@ namespace Fluent
 
             if (gallery.Selectable == false)
             {
-                var galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
+                var galleryItem = gallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(basevalue);
 
                 if (basevalue != null
                     && galleryItem != null)

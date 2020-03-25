@@ -276,7 +276,8 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <ContentControl Content="{TemplateBinding Header}"
+                            <ContentControl x:Name="PART_HeaderContentControl" 
+                                            Content="{TemplateBinding Header}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -316,7 +317,8 @@
                       Visibility="Collapsed"
                       Grid.RowSpan="2">
 
-                    <ContentControl Content="{TemplateBinding Header}"
+                    <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Content="{TemplateBinding Header}"
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"

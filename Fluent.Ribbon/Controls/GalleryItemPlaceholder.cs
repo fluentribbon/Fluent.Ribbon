@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Windows;
+    using System.Windows.Media;
 
     /// <summary>
     /// Represents internal class to use it in
@@ -59,7 +60,7 @@ namespace Fluent
         /* FOR DEGUG */
         //protected override void OnRender(DrawingContext drawingContext)
         //{
-        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
+        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(this.RenderSize));
         //}
 
         #endregion

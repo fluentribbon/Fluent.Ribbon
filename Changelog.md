@@ -1,5 +1,22 @@
 # Changelog for Fluent.Ribbon
 
+## 7.1.0 (preview)
+- ### Bug fixes
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#755](../../issues/755) - ComboBox.Height fixed at 22  
+  The height setting was moved from the template to the style.
+  - [#758](../../issues/758) - Auto menu expanding not working for MenuItems with ItemSource binding
+  - [#765](../../issues/765) - InRibbonGallery Resizing Issues
+  - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
+  - [#768](../../issues/768) - Accessibility Insights: "An onscreen element must not have a null"
+  - [#769](../../issues/769) - GalleryPanel does not resize properly on apply of filter
+  - [#770](../../issues/770) - Cannot left align the content in InRibbonGallery
+
+- ### Enhancements/Features
+  - Many automation peers have been added and improved
+  - [#775](../../issues/775) - First underscore missing in drop down menu header text  
+  You can now control wether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
+
 ## 7.0.1
 - ### Bug fixes
   - [#746](../../issues/746) - NullReferenceException after upgrading to 7.0.0

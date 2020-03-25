@@ -11,6 +11,7 @@ namespace Fluent
     using System.Linq;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Input;
@@ -1207,7 +1208,13 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
+
             ribbon.IsMinimizedChanged?.Invoke(ribbon, e);
+
+            // Invert values of arguments for RaiseExpandCollapseAutomationEvent because IsMinimized means the negative for expand/collapsed
+            (UIElementAutomationPeer.FromElement(ribbon) as Fluent.Automation.Peers.RibbonAutomationPeer)?.RaiseExpandCollapseAutomationEvent(!oldValue, !newValue);
         }
 
         /// <summary>
@@ -1762,6 +1769,9 @@ namespace Fluent
                 this.MoveQuickAccessToolBarToTitleBar(this.TitleBar);
             }
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonAutomationPeer(this);
 
         private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar titleBar)
         {

@@ -16,6 +16,7 @@ namespace FluentTest
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Fluent;
+    using Fluent.Localization;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
@@ -47,11 +48,20 @@ namespace FluentTest
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
-        
+
         public List<KeyValuePair<string, Brush>> Brushes
         {
             get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
             set { this.SetValue(BrushesProperty, value); }
+        }
+
+        public List<RibbonLocalizationBase> Localizations { get; } = GetLocalizations();
+
+        private static List<RibbonLocalizationBase> GetLocalizations()
+        {
+            return RibbonLocalization.Current.LocalizationMap.Values
+                .Select(x => (RibbonLocalizationBase)Activator.CreateInstance(x))
+                .ToList();
         }
 
         private static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
@@ -62,7 +72,6 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-
             return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
@@ -133,6 +142,7 @@ namespace FluentTest
         {
             var currentBrushes = new[]
                                  {
+                                     new KeyValuePair<string, Brush>("None", null),
                                      new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
                                      new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
                                  };

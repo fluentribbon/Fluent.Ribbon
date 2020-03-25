@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -37,7 +37,7 @@ namespace Fluent
 
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;
-            this.backstageTabControl = this.backstageContent as BackstageTabControl 
+            this.backstageTabControl = this.backstageContent as BackstageTabControl
                                        ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
 
             this.background = new Rectangle();

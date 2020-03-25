@@ -7,6 +7,7 @@ namespace Fluent
     using System.ComponentModel;
     using System.Linq;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -14,6 +15,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Shapes;
+    using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -22,6 +24,8 @@ namespace Fluent
     /// a RibbonTab.  These groups can resize its content
     /// </summary>
     [TemplatePart(Name = "PART_DialogLauncherButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_HeaderContentControl", Type = typeof(ContentControl))]
+    [TemplatePart(Name = "PART_CollapsedHeaderContentControl", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
@@ -46,6 +50,16 @@ namespace Fluent
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header.
+        /// </summary>
+        public ContentControl HeaderContentControl { get; private set; }
+
+        /// <summary>
+        /// Get the <see cref="ContentControl"/> responsible for rendering the header when <see cref="State"/> is equal to <see cref="RibbonGroupBoxState.Collapsed"/>.
+        /// </summary>
+        public ContentControl CollapsedHeaderContentControl { get; private set; }
 
         #region KeyTip
 
@@ -189,7 +203,7 @@ namespace Fluent
             Enlarge,
             Reduce
         }
-        
+
         // Finds and increases size of all scalable elements in this group box
         private void EnlargeScalableItems()
         {
@@ -206,17 +220,10 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                var element = this.ItemContainerGenerator.ContainerFromItem(item);
+                var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
 
-                if (element is null
-                    || (element is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
-                {
-                    continue;
-                }
-
-                var scalableRibbonControl = element as IScalableRibbonControl;
-
-                if (scalableRibbonControl is null)
+                if (scalableRibbonControl is null
+                    || (scalableRibbonControl is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
                 {
                     continue;
                 }
@@ -248,9 +255,7 @@ namespace Fluent
         {
             foreach (var item in this.Items)
             {
-                var element = this.ItemContainerGenerator.ContainerFromItem(item);
-
-                var scalableRibbonControl = element as IScalableRibbonControl;
+                var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
 
                 if (scalableRibbonControl is null)
                 {
@@ -909,6 +914,9 @@ namespace Fluent
             // Clear cache
             this.ClearCache();
 
+            this.HeaderContentControl = this.GetTemplateChild("PART_HeaderContentControl") as ContentControl;
+            this.CollapsedHeaderContentControl = this.GetTemplateChild("PART_CollapsedHeaderContentControl") as ContentControl;
+
             this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 
             if (this.LauncherButton != null)
@@ -1003,9 +1011,14 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ribbon = (RibbonGroupBox)d;
+            var groupBox = (RibbonGroupBox)d;
 
-            ribbon.OnIsDropDownOpenChanged();
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
+
+            groupBox.OnIsDropDownOpenChanged();
+
+            (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
         private void OnIsDropDownOpenChanged()
@@ -1186,5 +1199,8 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer(this);
     }
 }

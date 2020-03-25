@@ -11,6 +11,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Threading;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -39,7 +40,7 @@ namespace Fluent
 
         #region Properties
 
-        private bool IsItemsControlMenuBase => (ItemsControlFromItemContainer(this) ?? VisualTreeHelper.GetParent(this)) is MenuBase;
+        private bool IsItemsControlMenuBase => (ItemsControlHelper.ItemsControlFromItemContainer(this) ?? VisualTreeHelper.GetParent(this)) is MenuBase;
 
         #region Size
 
@@ -275,6 +276,35 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>Identifies the <see cref="RecognizesAccessKey"/> dependency property.</summary>
+        public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(
+            nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>Helper for setting <see cref="RecognizesAccessKeyProperty"/> on <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="DependencyObject"/> to set <see cref="RecognizesAccessKeyProperty"/> on.</param>
+        /// <param name="value">RecognizesAccessKey property value.</param>
+        public static void SetRecognizesAccessKey(DependencyObject element, bool value)
+        {
+            element.SetValue(RecognizesAccessKeyProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="RecognizesAccessKeyProperty"/> from <paramref name="element"/>.</summary>
+        /// <param name="element"><see cref="DependencyObject"/> to read <see cref="RecognizesAccessKeyProperty"/> from.</param>
+        /// <returns>RecognizesAccessKey property value.</returns>
+        public static bool GetRecognizesAccessKey(DependencyObject element)
+        {
+            return (bool)element.GetValue(RecognizesAccessKeyProperty);
+        }
+
+        /// <summary>
+        /// Defines if access keys should be recognized.
+        /// </summary>
+        public bool RecognizesAccessKey
+        {
+            get { return (bool)this.GetValue(RecognizesAccessKeyProperty); }
+            set { this.SetValue(RecognizesAccessKeyProperty, value); }
+        }
+
         #region QuickAccess
 
         /// <inheritdoc />
@@ -410,6 +440,25 @@ namespace Fluent
 
         #region Non MenuBase ItemsControl workarounds
 
+        /// <summary>
+        /// Returns logical parent; either Parent or ItemsControlFromItemContainer(this).
+        /// </summary>
+        /// <remarks>
+        /// Copied from <see cref="System.Windows.Controls.MenuItem"/>.
+        /// </remarks>
+        public object LogicalParent
+        {
+            get
+            {
+                if (this.Parent != null)
+                {
+                    return this.Parent;
+                }
+
+                return ItemsControlFromItemContainer(this);
+            }
+        }
+
         /// <inheritdoc />
         protected override void OnIsKeyboardFocusedChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -430,7 +479,7 @@ namespace Fluent
                 && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
-                    && this.Parent is DropDownButton)
+                    && this.LogicalParent is DropDownButton)
                 {
                     this.IsSubmenuOpen = true;
                 }
@@ -446,8 +495,8 @@ namespace Fluent
                 && this.isContextMenuOpening == false)
             {
                 if (this.HasItems
-                    && this.Parent is DropDownButton // prevent too slow close on regular DropDown
-                    && this.Parent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
+                    && this.LogicalParent is DropDownButton // prevent too slow close on regular DropDown
+                    && this.LogicalParent is ApplicationMenu == false) // prevent eager close on ApplicationMenu
                 {
                     this.IsSubmenuOpen = false;
                 }

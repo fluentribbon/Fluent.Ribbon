@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Markup;
     using Fluent.Internal.KnownBoxes;
@@ -123,6 +124,9 @@ namespace Fluent
 
             this.UpdateTextRun();
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.TwoLineLabelAutomationPeer(this);
 
         #endregion
 

@@ -9,7 +9,6 @@ namespace Fluent
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Media;
-    using Fluent.Automation.Peers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -401,10 +400,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
-        {
-            return new ScreenTipAutomationPeer(this);
-        }
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonScreenTipAutomationPeer(this);
     }
 
     /// <summary>

@@ -3,16 +3,22 @@ namespace Fluent
 {
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents backstage tab item
     /// </summary>
+    [TemplatePart(Name = "PART_Header", Type = typeof(FrameworkElement))]
     public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
     {
+        internal FrameworkElement HeaderContentHost { get; private set; }
+
         #region Icon
 
         /// <summary>
@@ -72,7 +78,7 @@ namespace Fluent
         {
             get
             {
-                return ItemsControl.ItemsControlFromItemContainer(this) as BackstageTabControl;
+                return ItemsControlHelper.ItemsControlFromItemContainer(this) as BackstageTabControl;
             }
         }
 
@@ -89,7 +95,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(nameof(Header), typeof(object), typeof(BackstageTabItem), new PropertyMetadata());
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(BackstageTabItem));
 
         /// <summary>
         /// Static constructor
@@ -100,6 +106,14 @@ namespace Fluent
         }
 
         #region Overrides
+
+        /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            this.HeaderContentHost = this.GetTemplateChild("PART_Header") as FrameworkElement;
+        }
 
         /// <inheritdoc />
         protected override void OnContentChanged(object oldContent, object newContent)
@@ -136,11 +150,11 @@ namespace Fluent
             if (newValue)
             {
                 if (container.TabControlParent != null
-                    && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerFromItem(container.TabControlParent.SelectedItem), container) == false)
+                    && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(container.TabControlParent.SelectedItem), container) == false)
                 {
                     UnselectSelectedItem(container.TabControlParent);
 
-                    container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainer(container);
+                    container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
                 }
 
                 container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
@@ -158,7 +172,7 @@ namespace Fluent
                 return;
             }
 
-            if (backstageTabControl.ItemContainerGenerator.ContainerFromItem(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
+            if (backstageTabControl.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
             {
                 backstageTabItem.IsSelected = false;
             }
@@ -223,5 +237,8 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageTabItemAutomationPeer(this);
     }
 }

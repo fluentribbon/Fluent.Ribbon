@@ -12,7 +12,7 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
     using Fluent.Extensions;
-    using Fluent.Internal;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -413,7 +413,7 @@ namespace Fluent
                 return;
             }
 
-            var containerFromItem = this.quickAccessCombo.ItemContainerGenerator.ContainerFromItem(this.quickAccessCombo.SelectedItem) as FrameworkElement;
+            var containerFromItem = this.quickAccessCombo.ItemContainerGenerator.ContainerOrContainerContentFromItem<FrameworkElement>(this.quickAccessCombo.SelectedItem);
             containerFromItem?.BringIntoView();
         }
 
@@ -482,7 +482,7 @@ namespace Fluent
                                                       this.quickAccessCombo.isSnapped = true;
                                                   }
                                               }
-                                              
+
                                               this.IsSnapped = false;
                                           }, DispatcherPriority.ApplicationIdle);
             }
@@ -570,7 +570,7 @@ namespace Fluent
 
             if (this.SelectedItem != null)
             {
-                Keyboard.Focus(this.ItemContainerGenerator.ContainerFromItem(this.SelectedItem) as IInputElement);
+                Keyboard.Focus(this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IInputElement>(this.SelectedItem));
             }
 
             this.focusedElement = Keyboard.FocusedElement;
@@ -636,9 +636,9 @@ namespace Fluent
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
 
                 if (this.IsEditable &&
-                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
+                    this.Items.Contains(this.ItemContainerGenerator.ItemFromContainerOrContainerContent((DependencyObject)Keyboard.FocusedElement)))
                 {
-                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement);
+                    this.SelectedItem = this.ItemContainerGenerator.ItemFromContainerOrContainerContent((DependencyObject)Keyboard.FocusedElement);
                 }
             }
         }
@@ -683,18 +683,18 @@ namespace Fluent
                 {
                     if (this.Menu.IsKeyboardFocusWithin)
                     {
-                        Keyboard.Focus(this.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        Keyboard.Focus(this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
                     }
                     else
                     {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
                     }
 
                     e.Handled = true;
                     return;
                 }
 
-                if (this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainer((DependencyObject)Keyboard.FocusedElement)))
+                if (this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainerOrContainerContent((DependencyObject)Keyboard.FocusedElement)))
                 {
                     if (e.Key == Key.Down)
                     {
@@ -702,11 +702,11 @@ namespace Fluent
 
                         if (indexOfMenuSelectedItem != this.Menu.Items.Count - 1)
                         {
-                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMenuSelectedItem + 1) as IInputElement);
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(indexOfMenuSelectedItem + 1));
                         }
                         else
                         {
-                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(0) as IInputElement);
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
                         }
 
                         e.Handled = true;
@@ -719,11 +719,11 @@ namespace Fluent
 
                         if (indexOfMenuSelectedItem != 0)
                         {
-                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(indexOfMenuSelectedItem - 1) as IInputElement);
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(indexOfMenuSelectedItem - 1));
                         }
                         else
                         {
-                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerFromIndex(this.Menu.Items.Count - 1) as IInputElement);
+                            Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(this.Menu.Items.Count - 1));
                         }
 
                         e.Handled = true;
@@ -852,6 +852,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.ComboBoxAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonComboBoxAutomationPeer(this);
     }
 }

@@ -4,7 +4,6 @@
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NoWarn>$(NoWarn);NU5125</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -29,7 +28,7 @@
     <None Include="../License.txt" Pack="true" PackagePath="license/License.txt" />
     <None Include="../Images/Logo/Logo_128x128.png" Pack="true" PackagePath="Logo.png" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
