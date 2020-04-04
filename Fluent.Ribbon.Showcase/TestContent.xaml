@@ -217,7 +217,7 @@
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
-                                                               ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Themes}}"
+                                                               ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                                DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
@@ -2882,12 +2882,12 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.BaseColors}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=BaseColors}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
                                     <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Themes}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
                                         <Fluent:ComboBox.ItemTemplate>
                                             <DataTemplate DataType="{x:Type controlzEx:Theme}">
@@ -2917,7 +2917,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     <Fluent:ComboBox Header="SyncMode"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
-                                                     SelectedItem="{Binding Path=(controlzEx:ThemeManager.ThemeSyncMode)}" />
+                                                     SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
                                     <Fluent:CheckBox IsChecked="{Binding Path=ColorOptions.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
                                                      Header="Use HSL color" />
                                     <Button Click="SyncThemeNow_OnClick">Sync now</Button>

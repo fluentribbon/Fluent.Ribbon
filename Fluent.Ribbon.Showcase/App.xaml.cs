@@ -38,8 +38,8 @@ namespace FluentTest
         /// <inheritdoc />
         protected override void OnStartup(StartupEventArgs e)
         {
-            ThemeManager.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
-            ThemeManager.SyncTheme();
+            ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
+            ThemeManager.Current.SyncTheme();
 
             base.OnStartup(e);
         }

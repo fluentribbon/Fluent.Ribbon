@@ -26,8 +26,8 @@
 
             // We need this inside this window because MahApps.Metro is not loaded globally inside the Fluent.Ribbon Showcase application.
             // This code is not required in an application that loads the MahApps.Metro styles globally.
-            ThemeManager.ChangeTheme(this, ThemeManager.DetectTheme(Application.Current));
-            ThemeManager.ThemeChanged += this.SyncThemes;
+            ThemeManager.Current.ChangeTheme(this, ThemeManager.Current.DetectTheme(Application.Current));
+            ThemeManager.Current.ThemeChanged += this.SyncThemes;
         }
 
         private void SyncThemes(object sender, ThemeChangedEventArgs e)
@@ -37,12 +37,12 @@
                 return;
             }
 
-            ThemeManager.ChangeTheme(this, e.NewTheme);
+            ThemeManager.Current.ChangeTheme(this, e.NewTheme);
         }
 
         private void MahMetroWindow_Closed(object sender, EventArgs e)
         {
-            ThemeManager.ThemeChanged -= this.SyncThemes;
+            ThemeManager.Current.ThemeChanged -= this.SyncThemes;
         }
 
         #region TitelBar

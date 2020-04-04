@@ -37,13 +37,13 @@
         {
             if (this.cancellationTokenSource != null)
             {
-                ThemeManager.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
+                ThemeManager.Current.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
 
                 this.cancellationTokenSource.Cancel();
             }
             else
             {
-                ThemeManager.ThemeChanged += this.ThemeManagerThemeChangedHandler;
+                ThemeManager.Current.ThemeChanged += this.ThemeManagerThemeChangedHandler;
 
                 Task.Factory.StartNew(() =>
                     {
@@ -82,10 +82,10 @@
             }
             else
             {
-                var newTheme = ThemeManager.GetTheme("Light." + themeColor.ToString());
+                var newTheme = ThemeManager.Current.GetTheme("Light." + themeColor.ToString());
                 if (newTheme != null)
                 {
-                    ThemeManager.ChangeTheme(Application.Current, newTheme);
+                    ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
 
                     this.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
                 }
@@ -100,7 +100,7 @@
         {
             try
             {
-                var theme = ThemeManager.DetectTheme(Application.Current);
+                var theme = ThemeManager.Current.DetectTheme(Application.Current);
                 this.Info($"Current theme from args: {e.NewTheme.Name}");
                 this.Info($"Current theme from detection: {theme.Name}");
             }

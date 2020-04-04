@@ -74,7 +74,7 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-            return ThemeManager.Themes.GroupBy(x => x.ColorScheme)
+            return ThemeManager.Current.Themes.GroupBy(x => x.ColorScheme)
                                .Select(x => x.First())
                                .Select(x => new KeyValuePair<string, Brush>(x.ColorScheme, x.ShowcaseBrush))
                                .Concat(brushes)
@@ -229,7 +229,7 @@ namespace FluentTest
 
         private void SyncThemeNow_OnClick(object sender, RoutedEventArgs e)
         {
-            ThemeManager.SyncTheme();
+            ThemeManager.Current.SyncTheme();
         }
 
         public Button CreateRibbonButton()

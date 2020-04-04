@@ -17,7 +17,7 @@ namespace FluentTest.ViewModels
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
 
-            CollectionViewSource.GetDefaultView(ThemeManager.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
+            CollectionViewSource.GetDefaultView(ThemeManager.Current.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
         }
 
         public Color StandardColor
@@ -80,7 +80,7 @@ namespace FluentTest.ViewModels
                     return;
                 }
 
-                ThemeManager.ChangeThemeBaseColor(Application.Current, value);
+                ThemeManager.Current.ChangeThemeBaseColor(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
             }
@@ -88,7 +88,7 @@ namespace FluentTest.ViewModels
 
         public Theme CurrentTheme
         {
-            get => ThemeManager.DetectTheme(Application.Current);
+            get => ThemeManager.Current.DetectTheme(Application.Current);
 
             set
             {
@@ -97,7 +97,7 @@ namespace FluentTest.ViewModels
                     return;
                 }
 
-                ThemeManager.ChangeTheme(Application.Current, value);
+                ThemeManager.Current.ChangeTheme(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));
             }
