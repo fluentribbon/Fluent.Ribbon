@@ -4,6 +4,7 @@ branches:
   only:
     - develop
     - master
+    - /v\d*\.\d*\.\d*/
 
 image: Visual Studio 2019
 configuration: Release

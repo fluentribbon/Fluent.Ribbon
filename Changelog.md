@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 7.1.0 (preview)
+## 7.1.0
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
   - [#755](../../issues/755) - ComboBox.Height fixed at 22  

@@ -437,7 +437,7 @@ namespace Fluent
             {
                 storyboard = storyboard.Clone();
 
-                storyboard.CurrentStateInvalidated += HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated += HandleStoryboardCurrentStateInvalidated;
                 storyboard.Completed += HandleStoryboardOnCompleted;
 
                 storyboard.Begin(this.adorner);
@@ -447,10 +447,10 @@ namespace Fluent
                 this.adorner.Visibility = Visibility.Visible;
             }
 
-            void HanldeStoryboardCurrentStateInvalidated(object sender, EventArgs e)
+            void HandleStoryboardCurrentStateInvalidated(object sender, EventArgs e)
             {
                 this.adorner.Visibility = Visibility.Visible;
-                storyboard.CurrentStateInvalidated -= HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
             }
 
             void HandleStoryboardOnCompleted(object sender, EventArgs args)

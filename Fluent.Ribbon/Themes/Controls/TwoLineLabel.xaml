@@ -6,6 +6,7 @@
         <Setter Property="Template"
                 Value="{DynamicResource TwoLineLabelControlTemplate}" />
     </Style>
+
     <ControlTemplate x:Key="TwoLineLabelControlTemplate"
                      TargetType="{x:Type Fluent:TwoLineLabel}">
         <StackPanel x:Name="stackPanel"
@@ -88,14 +89,14 @@
                      Value="">
                 <Setter Property="Visibility"
                         TargetName="PART_TextRun2"
-                        Value="Collapsed" />
+                        Value="Hidden" />
             </Trigger>
             <Trigger Property="Text"
                      SourceName="PART_TextRun2"
                      Value="{x:Null}">
                 <Setter Property="Visibility"
                         TargetName="PART_TextRun2"
-                        Value="Collapsed" />
+                        Value="Hidden" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
