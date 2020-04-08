@@ -4,13 +4,14 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Timers;
     using System.Windows;
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
+    #if MahApps_Metro
     using MahApps.Metro.Controls;
+    #endif
 
     public class MainViewModel : ViewModel
     {

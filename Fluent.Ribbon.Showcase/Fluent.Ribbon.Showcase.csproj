@@ -5,6 +5,9 @@
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     
     <NoWarn>$(NoWarn);SA0001</NoWarn>
+    <InlcudeMahAppsMetro>false</InlcudeMahAppsMetro>
+
+    <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -12,13 +15,21 @@
     <ApplicationIcon>Icons\App.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+
   <ItemGroup>
     <None Include="app.manifest" />
   </ItemGroup>
+
+  <ItemGroup Condition="$(InlcudeMahAppsMetro) == false">
+    <Page Remove="MahMetro*" />
+    <Compile Remove="MahMetro*" />
+    <None Include="MahMetro*" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
-    <PackageReference Include="MahApps.Metro" version="2.0.0-thememanager*" />
+    <PackageReference Include="MahApps.Metro" version="2.0.0-thememanager*" Condition="$(InlcudeMahAppsMetro)" />
     <!-- Costura does not work with .net core 3.0 as of 4.0 -->
     <!-- <PackageReference Include="Costura.Fody" version="4.*" PrivateAssets="All" Condition="'$(TargetFramework)' != 'netcoreapp3.0'" /> -->
   </ItemGroup>

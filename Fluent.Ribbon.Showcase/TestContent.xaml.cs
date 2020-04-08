@@ -22,8 +22,10 @@ namespace FluentTest
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
+    #if MahApps_Metro
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    #endif
     using Button = Fluent.Button;
 
     public partial class TestContent : UserControl
@@ -159,8 +161,10 @@ namespace FluentTest
                 {
                     case RibbonWindow x:
                         return x.GlowBrush;
+#if MahApps_Metro
                     case MetroWindow x:
                         return x.GlowBrush;
+#endif
                 }
 
                 return null;
@@ -172,8 +176,10 @@ namespace FluentTest
                 {
                     case RibbonWindow x:
                         return x.NonActiveGlowBrush;
+#if MahApps_Metro
                     case MetroWindow x:
                         return x.NonActiveGlowBrush;
+#endif
                 }
 
                 return null;
@@ -438,7 +444,11 @@ namespace FluentTest
 
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
+#if MahApps_Metro
             new MahMetroWindow().Show();
+#else
+            ShowMahAppsMetroNotAvailableMessageBox();
+#endif
         }
 
         private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
@@ -544,6 +554,7 @@ namespace FluentTest
 
         private async void HandleShowMetroMessage(object sender, RoutedEventArgs e)
         {
+#if MahApps_Metro
             var metroWindow = Window.GetWindow(this) as MetroWindow;
 
             if (metroWindow == null)
@@ -552,11 +563,20 @@ namespace FluentTest
             }
 
             await metroWindow.ShowMessageAsync("Test", "Message");
+#else
+            ShowMahAppsMetroNotAvailableMessageBox();
+            await Task.Yield();
+#endif
         }
 
         private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
         {
             new Window().ShowDialog();
+        }
+
+        private static void ShowMahAppsMetroNotAvailableMessageBox()
+        {
+            MessageBox.Show("MahApps.Metro is not available in this showcase version.");
         }
     }
 
