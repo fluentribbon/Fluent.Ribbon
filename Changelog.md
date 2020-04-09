@@ -1,5 +1,9 @@
 # Changelog for Fluent.Ribbon
 
+## Next
+- ### Bug fixes
+  - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
+
 ## 7.1.0
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
