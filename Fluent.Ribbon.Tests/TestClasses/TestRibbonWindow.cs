@@ -12,8 +12,6 @@
 
         public TestRibbonWindow(object content)
         {
-            this.Content = content;
-
             this.Width = 800;
             this.Height = 600;
 
@@ -28,6 +26,8 @@
 
             // As Ribbon uses layout rounding we should use it here too
             FrameworkHelper.SetUseLayoutRounding(this, true);
+
+            this.Content = content;
 
             this.Show();
         }
