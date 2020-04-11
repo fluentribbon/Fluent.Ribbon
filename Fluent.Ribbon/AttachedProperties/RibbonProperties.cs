@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.Windows;
@@ -211,7 +211,7 @@ namespace Fluent
         #region LastVisibleWidthProperty
 
         /// <summary>
-        /// asdf
+        /// Stores the last visible width of an element.
         /// </summary>
         public static readonly DependencyProperty LastVisibleWidthProperty = DependencyProperty.RegisterAttached(
             "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(default(double)));
