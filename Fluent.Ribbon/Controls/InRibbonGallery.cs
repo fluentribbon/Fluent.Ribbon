@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -1152,6 +1152,11 @@ namespace Fluent
                     this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
                     this.galleryPanel.IsGrouped = false;
+
+                    if (RibbonProperties.GetIsElementInQuickAccessToolBar(this) == false)
+                    {
+                        this.galleryPanel.NextSizeConstraint = this.galleryPanelSizeBeforeDropDownOpen;
+                    }
                 }
             }
 
