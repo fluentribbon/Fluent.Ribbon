@@ -373,6 +373,13 @@ namespace Fluent
             }
 
             return base.MeasureOverride(constraint);
+            // todo: maybe the following code is a better alternative
+            //if (this.targetForSizeConstraints != null)
+            //{
+            //    return base.MeasureOverride(new Size(Math.Min(constraint.Width, this.targetForSizeConstraints.MaxWidth), constraint.Height));
+            //}
+
+            //return Size.Empty;
         }
     }
 }
