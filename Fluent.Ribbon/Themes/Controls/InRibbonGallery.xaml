@@ -335,26 +335,20 @@
                             </Style>
                         </ScrollViewer.Resources>
 
-                        <Grid>
-                            <ContentControl x:Name="PART_ContentPresenter"
-                                            Focusable="False">
-                                <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
-                                                     ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
-                                                     Background="{DynamicResource WhiteBrush}"
-                                                     IsItemsHost="True"
-                                                     ItemHeight="{TemplateBinding ItemHeight}"
-                                                     ItemWidth="{TemplateBinding ItemWidth}"
-                                                     Orientation="{TemplateBinding Orientation}"
-                                                     Filter="{TemplateBinding SelectedFilterGroups}"
-                                                     GroupBy="{TemplateBinding GroupBy}"
-                                                     GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
-                                                     IsGrouped="False" />
-                            </ContentControl>
-
-                            <Image x:Name="PART_FakeImage"
-                                   Stretch="Uniform"
-                                   Visibility="Collapsed" />
-                        </Grid>
+                        <ContentControl x:Name="PART_ContentPresenter"
+                                        Focusable="False">
+                            <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
+                                                 ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
+                                                 Background="{DynamicResource WhiteBrush}"
+                                                 IsItemsHost="True"
+                                                 ItemHeight="{TemplateBinding ItemHeight}"
+                                                 ItemWidth="{TemplateBinding ItemWidth}"
+                                                 Orientation="{TemplateBinding Orientation}"
+                                                 Filter="{TemplateBinding SelectedFilterGroups}"
+                                                 GroupBy="{TemplateBinding GroupBy}"
+                                                 GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
+                                                 IsGrouped="False" />
+                        </ContentControl>
                     </ScrollViewer>
 
                     <Fluent:ToggleButton IsDefinitive="False"

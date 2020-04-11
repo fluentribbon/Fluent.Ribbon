@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -80,6 +80,8 @@ namespace Fluent
         private bool isButtonClicked;
 
         private FrameworkElement layoutRoot;
+
+        private Size galleryPanelSizeBeforeDropDownOpen;
 
         #endregion
 
@@ -667,12 +669,9 @@ namespace Fluent
         /// </summary>
         public bool IsSnapped
         {
-            get
-            {
-                return this.isSnapped;
-            }
+            get => this.isSnapped;
 
-            set
+            private set
             {
                 if (value == this.isSnapped)
                 {
@@ -712,16 +711,16 @@ namespace Fluent
                     this.snappedImage.FlowDirection = this.FlowDirection;
                     this.snappedImage.Width = this.galleryPanel.ActualWidth;
                     this.snappedImage.Height = this.galleryPanel.ActualHeight;
-                    this.snappedImage.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    this.snappedImage.Visibility = Visibility.Collapsed;
                 }
 
                 this.isSnapped = value;
             }
         }
+
+        /// <summary>
+        /// Defines whether this item is frozen or not because the copy of this item shown in the <see cref="QuickAccessToolBar"/> has it's dropdown open.
+        /// </summary>
+        public bool IsFrozen { get; private set; }
 
         #endregion
 
@@ -1104,12 +1103,14 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
-                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-                this.galleryPanel.UpdateMinAndMaxWidth();
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesAndUpdate))
+                {
+                    this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+                    this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                }
             }
 
-            this.snappedImage = this.GetTemplateChild("PART_FakeImage") as Image;
+            this.snappedImage = new Image();
 
             this.controlPresenter = this.GetTemplateChild("PART_ContentPresenter") as ContentControl;
 
@@ -1146,23 +1147,17 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
-                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-                this.galleryPanel.UpdateMinAndMaxWidth();
-                this.galleryPanel.IsGrouped = false;
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                {
+                    this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
+                    this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+                    this.galleryPanel.IsGrouped = false;
+                }
             }
 
             if (this.IsSnapped
-                && (this.quickAccessGallery == null || (this.quickAccessGallery != null && this.quickAccessGallery.IsDropDownOpen == false)))
+                && this.IsFrozen == false)
             {
-                if (this.galleryPanel.IsNotNull())
-                {
-                    this.galleryPanel.Width = this.snappedImage.Width;
-                    this.galleryPanel.Height = this.snappedImage.Height;
-
-                    this.galleryPanel.UpdateLayout();
-                }
-
                 this.IsSnapped = false;
             }
 
@@ -1175,14 +1170,6 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
-                                          if (this.galleryPanel.IsNotNull())
-                                          {
-                                              // request measure async. call will be ignored because we set IgnoreNextMeasureCall earlier, but we need to "free" width and height to support future resizes
-                                              this.galleryPanel.IgnoreNextMeasureCall = true;
-                                              this.galleryPanel.Width = double.NaN;
-                                              this.galleryPanel.Height = double.NaN;
-                                          }
-
                                           var selectedContainer = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(this.SelectedItem);
                                           selectedContainer?.BringIntoView();
                                       }, DispatcherPriority.SystemIdle);
@@ -1193,16 +1180,19 @@ namespace Fluent
         {
             this.IsSnapped = true;
 
-            this.controlPresenter.Content = null;
+            this.galleryPanelSizeBeforeDropDownOpen = new Size(this.galleryPanel?.ActualWidth ?? 0, this.galleryPanel?.ActualHeight ?? 0);
+
+            this.controlPresenter.Content = this.snappedImage;
             this.popupControlPresenter.Content = this.galleryPanel;
 
             if (this.galleryPanel.IsNotNull())
             {
-                this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
-                this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-                this.galleryPanel.IsGrouped = true;
-
-                this.galleryPanel.UpdateMinAndMaxWidth();
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                {
+                    this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
+                    this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
+                    this.galleryPanel.IsGrouped = true;
+                }
             }
 
             this.DropDownOpened?.Invoke(this, e);
@@ -1210,7 +1200,6 @@ namespace Fluent
             Mouse.Capture(this, CaptureMode.SubTree);
 
             this.focusedElement = Keyboard.FocusedElement;
-            Debug.WriteLine("Focused element - " + this.focusedElement);
 
             if (this.focusedElement != null)
             {
@@ -1424,8 +1413,7 @@ namespace Fluent
             this.quickAccessGallery.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             this.quickAccessGallery.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            this.UpdateLayout();
-            this.RunInDispatcherAsync(this.Freeze, DispatcherPriority.Render);
+            this.Freeze();
         }
 
         private void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
@@ -1435,12 +1423,19 @@ namespace Fluent
 
             this.SelectedFilter = this.quickAccessGallery.SelectedFilter;
             this.quickAccessGallery.Filters.Clear();
+
             this.Unfreeze();
         }
 
         private void Freeze()
         {
             this.IsSnapped = true;
+            this.IsFrozen = true;
+
+            if (this.controlPresenter != null)
+            {
+                this.controlPresenter.Content = this.snappedImage;
+            }
 
             // Move items and selected item
             var selectedItem = this.SelectedItem;
@@ -1473,22 +1468,6 @@ namespace Fluent
 
             if (this.IsDropDownOpen == false)
             {
-                if (this.controlPresenter != null)
-                {
-                    this.controlPresenter.Content = null;
-                }
-
-                if (this.popupControlPresenter != null)
-                {
-                    this.popupControlPresenter.Content = this.galleryPanel;
-                }
-
-                if (this.galleryPanel.IsNotNull())
-                {
-                    this.galleryPanel.IsGrouped = true;
-                    this.galleryPanel.IsGrouped = false;
-                }
-
                 if (this.popupControlPresenter != null)
                 {
                     this.popupControlPresenter.Content = null;
@@ -1502,6 +1481,8 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
+                                          this.IsFrozen = false;
+
                                           if (this.IsDropDownOpen == false)
                                           {
                                               this.IsSnapped = false;

@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
@@ -34,12 +35,6 @@ namespace Fluent
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Used to prevent measures which cause the layout to flicker.
-        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
-        /// </summary>
-        public bool IgnoreNextMeasureCall { get; set; }
 
         #region IsGrouped
 
@@ -287,6 +282,7 @@ namespace Fluent
 
         private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= this.HandleGalleryPanel_Loaded;
             this.Refresh();
         }
 
@@ -315,10 +311,20 @@ namespace Fluent
         #region GetActualMinWidth
 
         /// <summary>
+        /// Internal marker for the next size constraint for <see cref="UpdateMinAndMaxWidth"/>.
+        /// </summary>
+        internal Size? NextSizeConstraint { get; set; }
+
+        /// <summary>
         /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
         /// </summary>
         public void UpdateMinAndMaxWidth()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Calculate actual min width
             double actualMinWidth = 0;
             var actualMaxWidth = double.PositiveInfinity;
@@ -329,7 +335,7 @@ namespace Fluent
                 galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(SizeConstants.Infinite);
+                galleryGroupContainer.Measure(this.NextSizeConstraint ?? SizeConstants.Infinite);
 
                 actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
                 actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
@@ -337,6 +343,8 @@ namespace Fluent
 
             this.MinWidth = actualMinWidth;
             this.MaxWidth = actualMaxWidth;
+
+            Debug.WriteLine($"UpdateMinAndMaxWidth = {this.MinWidth},{this.MaxWidth} ({this.Tag})");
         }
 
         private static void InvalidateMeasureRecursive(UIElement visual)
@@ -378,9 +386,46 @@ namespace Fluent
 
         #region Refresh
 
+        private bool areUpdatesSuspsended;
+
+        /// <summary>
+        /// Suspends updates.
+        /// </summary>
+        public void SuspendUpdates()
+        {
+            this.areUpdatesSuspsended = true;
+        }
+
+        /// <summary>
+        /// Resumes updates.
+        /// </summary>
+        public void ResumeUpdates()
+        {
+            this.areUpdatesSuspsended = false;
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="UpdateMinAndMaxWidth"/>.
+        /// </summary>
+        public void ResumeUpdatesAndUpdate()
+        {
+            this.ResumeUpdates();
+            this.UpdateMinAndMaxWidth();
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="Refresh"/>.
+        /// </summary>
+        public void ResumeUpdatesRefresh()
+        {
+            this.ResumeUpdates();
+            this.Refresh();
+        }
+
         private void RefreshAsync()
         {
-            if (this.needsRefresh)
+            if (this.needsRefresh
+                || this.areUpdatesSuspsended)
             {
                 return;
             }
@@ -400,6 +445,11 @@ namespace Fluent
 
         private void Refresh()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Clear currently used group containers
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -520,13 +570,20 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (this.IgnoreNextMeasureCall)
+            // We need to use the set size constraint for the next measures, if one is present.
+            // Without this #789 will happen, as the size of the control inside the popup might have differed from the state before.
+            // Said size difference would trigger the resize logic in RibbonGroupsContainer to trigger and resize this control and other controls.
+            if (this.NextSizeConstraint != null)
             {
-                this.IgnoreNextMeasureCall = false;
+                var size = this.NextSizeConstraint.Value;
 
-                // Force a new async measure after we returned our temporary desired size
-                this.RunInDispatcherAsync(this.ForceMeasure);
-                return this.DesiredSize;
+                if (this.galleryGroupContainers.FirstOrDefault()?.IsLoaded == false)
+                {
+                    Debug.WriteLine($"{this.Tag} = {size} for {availableSize}");
+                    return size;
+                }
+
+                availableSize = size;
             }
 
             double width = 0;
@@ -538,7 +595,19 @@ namespace Fluent
                 width = Math.Max(width, child.DesiredSize.Width);
             }
 
-            return new Size(width, height);
+            {
+                var size = new Size(width, height);
+
+                Debug.WriteLine($"{this.Tag} = {size} for {availableSize}");
+
+                // If there was a size constraint set we have to revert it to enable future resizing to work correctly
+                if (!(this.NextSizeConstraint is null))
+                {
+                    this.RunInDispatcherAsync(() => this.NextSizeConstraint = null, DispatcherPriority.ApplicationIdle);
+                }
+
+                return size;
+            }
         }
 
         /// <inheritdoc />

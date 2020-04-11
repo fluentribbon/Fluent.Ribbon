@@ -3,6 +3,7 @@
 ## Next
 - ### Bug fixes
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
+  - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
 
 ## 7.1.0
 - ### Bug fixes
