@@ -150,9 +150,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="MaxItemsInRow"/>.
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
