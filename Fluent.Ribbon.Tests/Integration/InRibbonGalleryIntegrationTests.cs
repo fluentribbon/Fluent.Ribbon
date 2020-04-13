@@ -61,6 +61,8 @@
 
                 Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
                 Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
                 Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
 
@@ -70,21 +72,56 @@
 
                     Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
                     Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                    Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                    Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+
                     Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
 
-                    firstInRibbonGallery.IsDropDownOpen = true;
-                    UIHelper.DoEvents();
+                    // open and close first
+                    {
+                        firstInRibbonGallery.IsDropDownOpen = true;
+                        UIHelper.DoEvents();
 
-                    Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
-                    Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                        Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(int.MaxValue));
+                        Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
 
-                    firstInRibbonGallery.IsDropDownOpen = false;
-                    UIHelper.DoEvents();
+                        Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
 
-                    Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
-                    Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
-                    Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                        firstInRibbonGallery.IsDropDownOpen = false;
+                        UIHelper.DoEvents();
+
+                        Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                        Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+
+                        Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    }
+
+                    // open and close second
+                    {
+                        secondInRibbonGallery.IsDropDownOpen = true;
+                        UIHelper.DoEvents();
+
+                        Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                        Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(int.MaxValue));
+
+                        Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+
+                        secondInRibbonGallery.IsDropDownOpen = false;
+                        UIHelper.DoEvents();
+
+                        Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                        Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                        Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+
+                        Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
+                    }
 
                     ++ribbonGroupsContainer.Width;
                 }
@@ -93,37 +130,34 @@
 
                 Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
                 Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(219));
+                Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+                Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(4));
+
                 Assert.That(groupBox.ActualWidth, Is.EqualTo(456));
 
-                //ribbonGroupsContainer.Width = 700;
+                ribbonGroupsContainer.Width = 560;
 
-                //UIHelper.DoEvents();
+                UIHelper.DoEvents();
 
-                //Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(219));
-                //Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(269));
-                //Assert.That(groupBox.ActualWidth, Is.EqualTo(506));
-
-                //ribbonGroupsContainer.Width = 700;
-
-                //UIHelper.DoEvents();
-
-                //Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(269));
-                //Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(269));
-                //Assert.That(groupBox.ActualWidth, Is.EqualTo(556));
+                Assert.That(firstInRibbonGallery.ActualWidth, Is.EqualTo(269));
+                Assert.That(secondInRibbonGallery.ActualWidth, Is.EqualTo(269));
+                Assert.That(firstInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
+                Assert.That(secondInRibbonGallery.CurrentGalleryPanelState.GalleryPanel.MaxItemsInRow, Is.EqualTo(5));
+                Assert.That(groupBox.ActualWidth, Is.EqualTo(556));
             }
         }
 
         private readonly SampleDataItem[] sampleDataItems =
         {
-            new SampleDataItem("A", "1"),
-            new SampleDataItem("A", "2"),
-            new SampleDataItem("A", "3"),
-            new SampleDataItem("A", "4"),
-            new SampleDataItem("A", "5"),
+            new SampleDataItem("A", "Blue"),
+            new SampleDataItem("A", "Brown"),
+            new SampleDataItem("A", "Gray"),
+            new SampleDataItem("A", "Green"),
+            new SampleDataItem("A", "Orange"),
 
-            new SampleDataItem("B", "1"),
-            new SampleDataItem("B", "2"),
-            new SampleDataItem("B", "3")
+            new SampleDataItem("B", "Pink"),
+            new SampleDataItem("B", "Red"),
+            new SampleDataItem("B", "Yellow")
         };
 
         private class SampleDataItem

@@ -311,11 +311,6 @@ namespace Fluent
         #region GetActualMinWidth
 
         /// <summary>
-        /// Internal marker for the next size constraint for <see cref="UpdateMinAndMaxWidth"/>.
-        /// </summary>
-        internal Size? NextSizeConstraint { get; set; }
-
-        /// <summary>
         /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
         /// </summary>
         public void UpdateMinAndMaxWidth()
@@ -335,7 +330,7 @@ namespace Fluent
                 galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
 
                 InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(this.NextSizeConstraint ?? SizeConstants.Infinite);
+                galleryGroupContainer.Measure(SizeConstants.Infinite);
 
                 actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
                 actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
@@ -343,8 +338,6 @@ namespace Fluent
 
             this.MinWidth = actualMinWidth;
             this.MaxWidth = actualMaxWidth;
-
-            Debug.WriteLine($"UpdateMinAndMaxWidth = {this.MinWidth},{this.MaxWidth} ({this.Tag})");
         }
 
         private static void InvalidateMeasureRecursive(UIElement visual)
@@ -570,22 +563,6 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            // We need to use the set size constraint for the next measures, if one is present.
-            // Without this #789 will happen, as the size of the control inside the popup might have differed from the state before.
-            // Said size difference would trigger the resize logic in RibbonGroupsContainer to trigger and resize this control and other controls.
-            if (this.NextSizeConstraint != null)
-            {
-                var size = this.NextSizeConstraint.Value;
-
-                if (this.galleryGroupContainers.FirstOrDefault()?.IsLoaded == false)
-                {
-                    Debug.WriteLine($"{this.Tag} = {size} for {availableSize}");
-                    return size;
-                }
-
-                availableSize = size;
-            }
-
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -595,19 +572,9 @@ namespace Fluent
                 width = Math.Max(width, child.DesiredSize.Width);
             }
 
-            {
-                var size = new Size(width, height);
+            var size = new Size(width, height);
 
-                Debug.WriteLine($"{this.Tag} = {size} for {availableSize}");
-
-                // If there was a size constraint set we have to revert it to enable future resizing to work correctly
-                if (!(this.NextSizeConstraint is null))
-                {
-                    this.RunInDispatcherAsync(() => this.NextSizeConstraint = null, DispatcherPriority.ApplicationIdle);
-                }
-
-                return size;
-            }
+            return size;
         }
 
         /// <inheritdoc />

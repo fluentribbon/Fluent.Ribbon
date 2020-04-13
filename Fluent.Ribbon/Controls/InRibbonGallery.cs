@@ -81,7 +81,8 @@ namespace Fluent
 
         private FrameworkElement layoutRoot;
 
-        private Size galleryPanelSizeBeforeDropDownOpen;
+        [CanBeNull]
+        internal GalleryPanelState CurrentGalleryPanelState { get; private set; }
 
         #endregion
 
@@ -1100,7 +1101,7 @@ namespace Fluent
             }
 
             this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
-
+            
             if (this.galleryPanel.IsNotNull())
             {
                 using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesAndUpdate))
@@ -1108,6 +1109,12 @@ namespace Fluent
                     this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
                 }
+
+                this.CurrentGalleryPanelState = new GalleryPanelState(this.galleryPanel);
+            }
+            else
+            {
+                this.CurrentGalleryPanelState = null;
             }
 
             this.snappedImage = new Image();
@@ -1149,14 +1156,9 @@ namespace Fluent
             {
                 using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
                 {
-                    this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
-                    this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-                    this.galleryPanel.IsGrouped = false;
+                    this.CurrentGalleryPanelState.Restore();
 
-                    if (RibbonProperties.GetIsElementInQuickAccessToolBar(this) == false)
-                    {
-                        this.galleryPanel.NextSizeConstraint = this.galleryPanelSizeBeforeDropDownOpen;
-                    }
+                    this.galleryPanel.IsGrouped = false;
                 }
             }
 
@@ -1185,8 +1187,6 @@ namespace Fluent
         {
             this.IsSnapped = true;
 
-            this.galleryPanelSizeBeforeDropDownOpen = new Size(this.galleryPanel?.ActualWidth ?? 0, this.galleryPanel?.ActualHeight ?? 0);
-
             this.controlPresenter.Content = this.snappedImage;
             this.popupControlPresenter.Content = this.galleryPanel;
 
@@ -1194,6 +1194,8 @@ namespace Fluent
             {
                 using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
                 {
+                    this.CurrentGalleryPanelState.Save();
+
                     this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
                     this.galleryPanel.IsGrouped = true;
@@ -1574,5 +1576,32 @@ namespace Fluent
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonInRibbonGalleryAutomationPeer(this);
+
+        internal class GalleryPanelState
+        {
+            public GalleryPanelState(GalleryPanel galleryPanel)
+            {
+                this.GalleryPanel = galleryPanel;
+                this.Save();
+            }
+
+            public GalleryPanel GalleryPanel { get; }
+
+            public int MinItemsInRow { get; private set; }
+
+            public int MaxItemsInRow { get; private set; }
+
+            public void Save()
+            {
+                this.MinItemsInRow = this.GalleryPanel.MinItemsInRow;
+                this.MaxItemsInRow = this.GalleryPanel.MaxItemsInRow;
+            }
+
+            public void Restore()
+            {
+                this.GalleryPanel.MinItemsInRow = this.MinItemsInRow;
+                this.GalleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            }
+        }
     }
 }
