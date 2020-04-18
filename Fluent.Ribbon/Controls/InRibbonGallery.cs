@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -41,6 +41,9 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_PopupContentPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
+
+    [TemplatePart(Name = "PART_PopupMenuPresenter", Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = "PART_PopupResizeBorder", Type = typeof(FrameworkElement))]
     public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
     {
         #region Fields
@@ -80,8 +83,13 @@ namespace Fluent
 
         private FrameworkElement layoutRoot;
 
+        private FrameworkElement popupMenuPresenter;
+        private FrameworkElement popupResizeBorder;
+
         [CanBeNull]
         internal GalleryPanelState CurrentGalleryPanelState { get; private set; }
+
+        internal PopupState CurrentPopupState { get; } = new PopupState();
 
         #endregion
 
@@ -186,7 +194,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MinItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty MinItemsInDropDownRowProperty =
-            DependencyProperty.Register(nameof(MinItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(1));
+            DependencyProperty.Register(nameof(MinItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(IntBoxes.One));
 
         #endregion
 
@@ -204,7 +212,8 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for MaxItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInDropDownRowProperty = DependencyProperty.Register(nameof(MaxItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(0));
+        public static readonly DependencyProperty MaxItemsInDropDownRowProperty = 
+            DependencyProperty.Register(nameof(MaxItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(IntBoxes.Zero));
 
         #endregion
 
@@ -1128,6 +1137,9 @@ namespace Fluent
             this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
 
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
+
+            this.popupMenuPresenter = this.GetTemplateChild("PART_PopupMenuPresenter") as FrameworkElement;
+            this.popupResizeBorder = this.GetTemplateChild("PART_PopupResizeBorder") as FrameworkElement;
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -1207,6 +1219,8 @@ namespace Fluent
                     this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
                     this.galleryPanel.IsGrouped = true;
+
+                    this.CurrentPopupState.Restore(this.galleryPanel, this.menuPanel);
                 }
             }
 
@@ -1344,28 +1358,42 @@ namespace Fluent
         {
             this.OnResizeVerticalDelta(sender, e);
 
-            this.menuPanel.Width = double.NaN;
+            if (DoubleUtil.AreClose(e.HorizontalChange, 0))
+            {
+                return;
+            }
 
             if (this.galleryPanel.IsNotNull())
             {
                 if (double.IsNaN(this.galleryPanel.Width))
                 {
-                    this.galleryPanel.Width = this.galleryPanel.ActualWidth;
+                    this.galleryPanel.SetCurrentValue(WidthProperty, this.galleryPanel.ActualWidth);
                 }
 
-                this.galleryPanel.Width = Math.Max(this.layoutRoot.ActualWidth, this.galleryPanel.Width + e.HorizontalChange);
+                var minimumWidth = this.snappedImage.ActualWidth;
+                this.galleryPanel.SetCurrentValue(WidthProperty, Math.Max(minimumWidth, this.galleryPanel.Width + e.HorizontalChange));
             }
+
+            this.CurrentPopupState.Save(this.galleryPanel, this.menuPanel);
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (double.IsNaN(this.menuPanel.Height))
+            if (DoubleUtil.AreClose(e.VerticalChange, 0))
             {
-                this.menuPanel.Height = this.menuPanel.ActualHeight;
+                return;
             }
 
-            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(this.menuPanel.Height + e.VerticalChange, this.MaxDropDownHeight));
+            if (double.IsNaN(this.menuPanel.Height))
+            {
+                this.menuPanel.SetCurrentValue(HeightProperty, this.menuPanel.ActualHeight);
+            }
+
+            var minimumHeight = this.layoutRoot.ActualHeight + this.popupMenuPresenter.ActualHeight + this.popupResizeBorder.ActualHeight + 10;
+            this.menuPanel.SetCurrentValue(HeightProperty, Math.Max(minimumHeight, Math.Min(this.menuPanel.Height + e.VerticalChange, this.MaxDropDownHeight)));
+
+            this.CurrentPopupState.Save(this.galleryPanel, this.menuPanel);
         }
 
         #endregion
@@ -1608,6 +1636,36 @@ namespace Fluent
             {
                 this.GalleryPanel.MinItemsInRow = this.MinItemsInRow;
                 this.GalleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            }
+        }
+
+        internal class PopupState
+        {
+            public double Width { get; private set; } = double.NaN;
+
+            public double Height { get; private set; } = double.NaN;
+
+            public void Save(FrameworkElement widthControl, FrameworkElement heightControl)
+            {
+                this.Width = widthControl.Width;
+                this.Height = heightControl.Height;
+            }
+
+            public void Restore(FrameworkElement widthControl, FrameworkElement heightControl)
+            {
+                if (double.IsNaN(this.Width) == false)
+                {
+                    widthControl.SetCurrentValue(WidthProperty, this.Width);
+                }
+                else
+                {
+                    widthControl.SetCurrentValue(WidthProperty, widthControl.ActualWidth);
+                }
+
+                if (double.IsNaN(this.Height) == false)
+                {
+                    heightControl.SetCurrentValue(HeightProperty, this.Height);
+                }
             }
         }
     }
