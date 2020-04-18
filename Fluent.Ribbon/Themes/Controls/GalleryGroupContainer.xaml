@@ -42,11 +42,12 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"
-                               HorizontalAlignment="Left"
-                               Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                               ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                               ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
+                    <Fluent:UniformGridWithItemSize IsItemsHost="True"
+                                                    HorizontalAlignment="Left"
+                                                    MinColumns="{Binding MinItemsInRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
+                                                    MaxColumns="{Binding MaxItemsInRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
+                                                    ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
+                                                    ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
@@ -63,32 +64,16 @@
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
-                            <StackPanel IsItemsHost="True"
-                                        Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
+                            <Fluent:UniformGridWithItemSize IsItemsHost="True"
+                                                            HorizontalAlignment="Left"
+                                                            MinColumns="1"
+                                                            MaxColumns="1"
+                                                            ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
+                                                            ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
                         </ItemsPanelTemplate>
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Orientation"
-                               Value="Horizontal" />
-                    <Condition Property="ItemWidth"
-                               Value="NaN" />
-                </MultiTrigger.Conditions>
-                <MultiTrigger.Setters>
-                    <Setter Property="ItemsPanel">
-                        <Setter.Value>
-                            <ItemsPanelTemplate>
-                                <Fluent:UniformGridWithItemHeight IsItemsHost="True"
-                                                                  HorizontalAlignment="Left"
-                                                                  Columns="{Binding MaxItemsInRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                                                                  ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
-                            </ItemsPanelTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </MultiTrigger.Setters>
-            </MultiTrigger>
         </Style.Triggers>
     </Style>
 

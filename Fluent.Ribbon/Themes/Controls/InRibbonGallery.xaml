@@ -430,8 +430,7 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <Border BorderThickness="{TemplateBinding BorderThickness}"
-                                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                                    x:Name="layoutRoot">
+                                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}">
                                                 <Grid Width="Auto">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto" />
@@ -461,13 +460,13 @@
                                                     </ScrollViewer>
                                                 </Grid>
                                             </Border>
-                                            <ContentPresenter x:Name="menuPresenter"
+                                            <ContentPresenter x:Name="PART_PopupMenuPresenter"
                                                               ContentSource="Menu"
                                                               Grid.Row="1"
                                                               KeyboardNavigation.DirectionalNavigation="None"
                                                               VerticalAlignment="Top" />
                                         </Grid>
-                                        <Border x:Name="resizeBorder"
+                                        <Border x:Name="PART_PopupResizeBorder"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Top"
                                                 Height="11"
@@ -555,7 +554,7 @@
             <Trigger Property="ResizeMode"
                      Value="None">
                 <Setter Property="Visibility"
-                        TargetName="resizeBorder"
+                        TargetName="PART_PopupResizeBorder"
                         Value="Collapsed" />
             </Trigger>
             <Trigger Property="ResizeMode"
@@ -567,7 +566,7 @@
                         TargetName="PART_ResizeBothThumb"
                         Value="Visible" />
                 <Setter Property="Visibility"
-                        TargetName="resizeBorder"
+                        TargetName="PART_PopupResizeBorder"
                         Value="Visible" />
             </Trigger>
             <Trigger Property="ResizeMode"
@@ -579,7 +578,7 @@
                         TargetName="PART_ResizeVerticalThumb"
                         Value="Visible" />
                 <Setter Property="Visibility"
-                        TargetName="resizeBorder"
+                        TargetName="PART_PopupResizeBorder"
                         Value="Visible" />
             </Trigger>
             <Trigger Property="Menu"

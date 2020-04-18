@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -711,6 +711,12 @@ namespace Fluent
                     this.snappedImage.Width = this.galleryPanel.ActualWidth;
                     this.snappedImage.Height = this.galleryPanel.ActualHeight;
                 }
+                else
+                {
+                    this.snappedImage.Source = null;
+                    this.snappedImage.Width = 0;
+                    this.snappedImage.Height = 0;
+                }
 
                 this.isSnapped = value;
             }
@@ -1102,7 +1108,7 @@ namespace Fluent
             
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesAndUpdate))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdates))
                 {
                     this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
@@ -1148,7 +1154,8 @@ namespace Fluent
         private void OnDropDownClosed(object sender, EventArgs e)
         {
             this.popupControlPresenter.Content = null;
-            this.controlPresenter.Content = this.galleryPanel;
+
+            this.menuPanel.ClearValue(HeightProperty);
 
             if (this.galleryPanel.IsNotNull())
             {
@@ -1157,6 +1164,8 @@ namespace Fluent
                     this.CurrentGalleryPanelState.Restore();
 
                     this.galleryPanel.IsGrouped = false;
+
+                    this.galleryPanel.ClearValue(WidthProperty);
                 }
             }
 
@@ -1165,6 +1174,8 @@ namespace Fluent
             {
                 this.IsSnapped = false;
             }
+
+            this.controlPresenter.Content = this.galleryPanel;
 
             this.DropDownClosed?.Invoke(this, e);
 
@@ -1186,7 +1197,6 @@ namespace Fluent
             this.IsSnapped = true;
 
             this.controlPresenter.Content = this.snappedImage;
-            this.popupControlPresenter.Content = this.galleryPanel;
 
             if (this.galleryPanel.IsNotNull())
             {
@@ -1199,6 +1209,8 @@ namespace Fluent
                     this.galleryPanel.IsGrouped = true;
                 }
             }
+
+            this.popupControlPresenter.Content = this.galleryPanel;
 
             this.DropDownOpened?.Invoke(this, e);
 
@@ -1283,6 +1295,19 @@ namespace Fluent
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is GalleryItem;
+        }
+
+        /// <inheritdoc />
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+
+            // We don't want to notify scaling when items are moved to a different control.
+            // This prevents excessive cache invalidation.
+            if (ItemsControlHelper.GetIsMovingItemsToDifferentControl(this) == false)
+            {
+                this.Scaled?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         /// <inheritdoc />

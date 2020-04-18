@@ -231,12 +231,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1, OnMinItemsInRowChanged));
-
-        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+            typeof(GalleryPanel), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -255,12 +250,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new PropertyMetadata(0, OnMaxItemsInRowChanged));
-
-        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -306,53 +296,6 @@ namespace Fluent
 
         #endregion
 
-        #region GetActualMinWidth
-
-        /// <summary>
-        /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
-        /// </summary>
-        public void UpdateMinAndMaxWidth()
-        {
-            if (this.areUpdatesSuspsended)
-            {
-                return;
-            }
-
-            // Calculate actual min width
-            double actualMinWidth = 0;
-            var actualMaxWidth = double.PositiveInfinity;
-
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                galleryGroupContainer.MinItemsInRow = this.MinItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
-
-                InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(SizeConstants.Infinite);
-
-                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
-                actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
-            }
-
-            this.MinWidth = actualMinWidth;
-            this.MaxWidth = actualMaxWidth;
-        }
-
-        private static void InvalidateMeasureRecursive(UIElement visual)
-        {
-            visual.InvalidateMeasure();
-
-            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
-            {
-                if (VisualTreeHelper.GetChild(visual, i) is UIElement element)
-                {
-                    InvalidateMeasureRecursive(element);
-                }
-            }
-        }
-
-        #endregion
-
         #region Refresh
 
         private bool areUpdatesSuspsended;
@@ -371,15 +314,6 @@ namespace Fluent
         public void ResumeUpdates()
         {
             this.areUpdatesSuspsended = false;
-        }
-
-        /// <summary>
-        /// Resumes updates and calls <see cref="UpdateMinAndMaxWidth"/>.
-        /// </summary>
-        public void ResumeUpdatesAndUpdate()
-        {
-            this.ResumeUpdates();
-            this.UpdateMinAndMaxWidth();
         }
 
         /// <summary>
@@ -511,7 +445,6 @@ namespace Fluent
                 this.galleryGroupContainers[0].IsHeadered = false;
             }
 
-            this.UpdateMinAndMaxWidth();
             this.InvalidateMeasure();
         }
 
@@ -584,12 +517,6 @@ namespace Fluent
         #endregion
 
         #region Private Methods
-
-        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var galleryPanel = (GalleryPanel)d;
-            galleryPanel.UpdateMinAndMaxWidth();
-        }
 
         private string GetPropertyValueAsString(object item)
         {
