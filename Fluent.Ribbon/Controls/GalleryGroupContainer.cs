@@ -150,7 +150,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="MaxItemsInRow"/>.
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(int.MaxValue, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryGroupContainer), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsMeasure, OnMaxItemsInRowChanged));
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -202,7 +202,7 @@ namespace Fluent
         #region MaxWidth Updating
 
         // Sets MaxWidth of the items panel based of ItemsInRow property
-        private void UpdateMinAndMaxWidth()
+        private void UpdateMinAndMaxWidth(Size constraint)
         {
             if (this.minMaxWidthNeedsToBeUpdated == false)
             {
@@ -251,7 +251,7 @@ namespace Fluent
                 return;
             }
 
-            var itemWidth = this.GetItemWidth();
+            var itemWidth = this.GetItemSize().Width;
             if (double.IsNaN(itemWidth))
             {
                 // We can't calc item's width now
@@ -259,7 +259,9 @@ namespace Fluent
             }
 
             this.targetForSizeConstraints.MinWidth = (Math.Min(this.Items.Count, this.MinItemsInRow) * itemWidth) + 0.1;
-            this.targetForSizeConstraints.MaxWidth = (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
+            this.targetForSizeConstraints.MaxWidth = this.MaxItemsInRow == 0
+                ? constraint.Width
+                : (Math.Min(this.Items.Count, this.MaxItemsInRow) * itemWidth) + 0.1;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
@@ -282,51 +284,20 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Determinates item's size (return Size.Empty in case of it is not possible)
+        /// Determines the desired item size.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// <see cref="Size"/> constructed from <see cref="ItemWidth"/> and <see cref="ItemHeight"/>.
+        /// If no items are present <see cref="Size.Empty"/>.
+        /// </returns>
         public Size GetItemSize()
         {
-            if (!double.IsNaN(this.ItemWidth)
-                && !double.IsNaN(this.ItemHeight))
-            {
-                return new Size(this.ItemWidth, this.ItemHeight);
-            }
-
             if (this.Items.Count == 0)
             {
                 return Size.Empty;
             }
 
-            var anItem = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<UIElement>(this.Items[0]);
-            if (anItem == null)
-            {
-                return Size.Empty;
-            }
-
-            anItem.Measure(SizeConstants.Infinite);
-            var result = anItem.DesiredSize;
-            anItem.InvalidateMeasure();
-
-            // We only land here if only size is defined as NaN.
-            // In such cases we have to measure one size and take the other one from the settings.
-            if (!double.IsNaN(this.ItemWidth))
-            {
-                return new Size(this.ItemWidth, result.Height);
-            }
-
-            if (!double.IsNaN(this.ItemHeight))
-            {
-                return new Size(result.Width, this.ItemHeight);
-            }
-
-            return result;
-        }
-
-        // Determinates item's width (return Double.NaN in case of it is not possible)
-        private double GetItemWidth()
-        {
-            return this.GetItemSize().Width;
+            return new Size(this.ItemWidth, this.ItemHeight);
         }
 
         // Finds panel with IsItemsHost, or null if such panel is not found
@@ -362,7 +333,7 @@ namespace Fluent
                 this.previousItemsCount = this.Items.Count;
                 this.minMaxWidthNeedsToBeUpdated = true;
 
-                this.UpdateMinAndMaxWidth();
+                this.UpdateMinAndMaxWidth(constraint);
             }
 
             if (this.targetForSizeConstraints != null)

@@ -255,7 +255,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMaxItemsInRowChanged));
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new PropertyMetadata(0, OnMaxItemsInRowChanged));
 
         private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -349,28 +349,6 @@ namespace Fluent
                     InvalidateMeasureRecursive(element);
                 }
             }
-        }
-
-        #endregion
-
-        #region GetItemSize
-
-        /// <summary>
-        /// Determinates item's size (return Size.Empty in case of it is not possible)
-        /// </summary>
-        /// <returns></returns>
-        public Size GetItemSize()
-        {
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                var size = galleryGroupContainer.GetItemSize();
-                if (size.IsEmpty == false)
-                {
-                    return size;
-                }
-            }
-
-            return Size.Empty;
         }
 
         #endregion
@@ -522,7 +500,8 @@ namespace Fluent
                     this.visualCollection.Add(galleryGroupContainer);
                 }
 
-                dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
+                var galleryItemPlaceholder = new GalleryItemPlaceholder(item);
+                dictionary[propertyValue].Items.Add(galleryItemPlaceholder);
             }
 
             if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))

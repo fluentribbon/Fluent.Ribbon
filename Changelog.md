@@ -2,6 +2,7 @@
 
 ## Next
 - ### Bug fixes
+  - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
 

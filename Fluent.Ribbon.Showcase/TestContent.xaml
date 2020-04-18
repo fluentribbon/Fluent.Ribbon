@@ -2105,7 +2105,6 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             IsCollapsed="False"
                                             SizeDefinition="Large"
                                             Orientation="Horizontal"
-                                            ItemWidth="40"
                                             ItemHeight="56"
                                             GroupBy="Group"
                                             CanCollapseToButton="True"

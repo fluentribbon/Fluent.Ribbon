@@ -4,7 +4,6 @@ namespace Fluent
     using System;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
-    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -205,8 +204,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for MaxItemsInDropDownRow.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInDropDownRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(int.MaxValue));
+        public static readonly DependencyProperty MaxItemsInDropDownRowProperty = DependencyProperty.Register(nameof(MaxItemsInDropDownRow), typeof(int), typeof(InRibbonGallery), new PropertyMetadata(0));
 
         #endregion
 
@@ -1245,27 +1243,11 @@ namespace Fluent
                 if (this.scrollViewer.DesiredSize.Height > initialHeight)
                 {
                     this.scrollViewer.Height = initialHeight - menuHeight;
-
-                    if (this.galleryPanel.IsNotNull())
-                    {
-                        if (this.scrollViewer.Height < this.galleryPanel.GetItemSize().Height)
-                        {
-                            this.scrollViewer.Height = this.galleryPanel.GetItemSize().Height;
-                        }
-                    }
                 }
 
                 if (this.scrollViewer.DesiredSize.Width > initialWidth)
                 {
                     this.scrollViewer.Width = initialWidth - menuWidth;
-
-                    if (this.galleryPanel.IsNotNull())
-                    {
-                        if (this.scrollViewer.Width < this.galleryPanel.GetItemSize().Width)
-                        {
-                            this.scrollViewer.Width = this.galleryPanel.GetItemSize().Width;
-                        }
-                    }
                 }
             }
         }
@@ -1358,7 +1340,7 @@ namespace Fluent
                 this.menuPanel.Height = this.menuPanel.ActualHeight;
             }
 
-            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(Math.Max(this.galleryPanel?.GetItemSize().Height ?? 0, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight));
+            this.menuPanel.Height = Math.Max(this.layoutRoot.ActualHeight, Math.Min(this.menuPanel.Height + e.VerticalChange, this.MaxDropDownHeight));
         }
 
         #endregion
