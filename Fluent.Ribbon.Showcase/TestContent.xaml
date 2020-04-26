@@ -2056,7 +2056,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             MaxItemsInRow="5"
                                             Icon="Images\Gray.png"
                                             Header="Grouped"
-                                            ItemWidth="50"
+                                            ItemWidth="52"
                                             ItemHeight="18"
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
@@ -2078,7 +2078,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             MaxItemsInRow="5"
                                             Icon="Images\Gray.png"
                                             Header="GroupedByAdvanced"
-                                            ItemWidth="50"
+                                            ItemWidth="52"
                                             ItemHeight="18"
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
@@ -2106,7 +2106,6 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             IsCollapsed="False"
                                             SizeDefinition="Large"
                                             Orientation="Horizontal"
-                                            ItemWidth="40"
                                             ItemHeight="56"
                                             GroupBy="Group"
                                             CanCollapseToButton="True"
@@ -3225,7 +3224,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                    Canvas.Top="-3"
                                    Foreground="Red"
                                    FontSize="0.2"
-                                   Padding="0">
+                                   Padding="0"
+                                   Panel.ZIndex="1">
                                 Rectangle and Ellipse should be between green lines and Text 1 to 3 shouldn't overlap
                             </Label>
                             <Label Canvas.Left="-2.2"

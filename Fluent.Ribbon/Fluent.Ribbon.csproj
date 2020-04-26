@@ -39,14 +39,6 @@
     <PackageReference Include="XamlColorSchemeGenerator" version="4.0.0-rc*" privateAssets="all" includeAssets="build" />
   </ItemGroup>
 
-  <!-- Sign assembly -->
-  <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/../Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
-
   <!-- NuGet -->
   <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>

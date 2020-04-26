@@ -28,16 +28,15 @@
                     Padding="0"
                     ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                <Line HorizontalAlignment="Center"
+                <Path Width="10"
+                      Height="10"
+                      HorizontalAlignment="Center"
                       VerticalAlignment="Center"
+                      Data="M0,0L10,0 10,1 10,1 1,1 0,1z"
+                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                      RenderOptions.EdgeMode="Aliased"
                       SnapsToDevicePixels="True"
-                      UseLayoutRounding="True"
-                      Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                      StrokeThickness="1.5"
-                      X1="0"
-                      X2="10"
-                      Y1="0"
-                      Y2="0" />
+                      Stretch="Uniform" />
             </Button>
 
             <Button x:Name="PART_Max"
@@ -47,16 +46,15 @@
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
                     ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                <Canvas Width="12"
-                        Height="12"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                    <Path Data="M2,2 2,10 10,10 10,2 2,2Z M1,11 1,1 11,1 11,11 1,11Z"
-                          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                          RenderOptions.EdgeMode="Aliased"
-                          SnapsToDevicePixels="True"
-                          Stretch="Uniform" />
-                </Canvas>
+                <Path Width="10"
+                      Height="10"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M1,1L1,11 11,11 11,1z M0,0L12,0 12,12 0,12z"
+                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                      RenderOptions.EdgeMode="Aliased"
+                      SnapsToDevicePixels="True"
+                      Stretch="Uniform" />
             </Button>
 
             <Button x:Name="PART_Restore"
@@ -66,16 +64,15 @@
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
                     ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                <Canvas Width="12"
-                        Height="12"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                    <Path Data="M10,9 9,9 9,3 3,3 3,2 10,2 10,9Z M8,11 1,11 1,4 8,4 8,11Z M2,1 2,3 0,3 0,12 9,12 9,10 11,10 11,1 2,1Z"
-                          Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                          RenderOptions.EdgeMode="Aliased"
-                          SnapsToDevicePixels="True"
-                          Stretch="Uniform" />
-                </Canvas>
+                <Path Width="10"
+                      Height="10"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M1,4.56L1,14.56 11,14.56 11,4.56z M4,1L4,3.56 12,3.56 12,11 14,11 14,1z M3,0L15,0 15,12 12,12 12,15.56 0,15.56 0,3.56 3,3.56z"
+                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                      RenderOptions.EdgeMode="Aliased"
+                      SnapsToDevicePixels="True"
+                      Stretch="Uniform" />
             </Button>
 
             <Button x:Name="PART_Close"
@@ -84,24 +81,15 @@
                     Padding="0"
                     ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
-                <Grid>
-                    <Line HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          SnapsToDevicePixels="True"
-                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                          X1="0"
-                          X2="10"
-                          Y1="0"
-                          Y2="10" />
-                    <Line HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          SnapsToDevicePixels="True"
-                          Stroke="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                          X1="0"
-                          X2="10"
-                          Y1="10"
-                          Y2="0" />
-                </Grid>
+                <Path Width="10"
+                      Height="10"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
+                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                      RenderOptions.EdgeMode="Aliased"
+                      SnapsToDevicePixels="True"
+                      Stretch="Uniform" />
             </Button>
         </StackPanel>
         <ControlTemplate.Triggers>

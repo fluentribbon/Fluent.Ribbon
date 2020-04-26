@@ -221,10 +221,12 @@ namespace Fluent
             }
 
             // The control isn't supported
-            if (result == null)
+            if (result is null)
             {
                 throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
             }
+
+            RibbonProperties.SetIsElementInQuickAccessToolBar(result, true);
 
             if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
             {

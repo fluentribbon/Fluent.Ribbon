@@ -166,7 +166,7 @@ namespace Fluent
                 // Something wrong with cache?
                 if (groupBox.DesiredSizeIntermediate != groupBox.DesiredSize)
                 {
-                    // Reset cache and reinvoke masure
+                    // Reset cache and reinvoke measure
                     groupBox.ClearCache();
                     return this.MeasureOverride(availableSize);
                 }

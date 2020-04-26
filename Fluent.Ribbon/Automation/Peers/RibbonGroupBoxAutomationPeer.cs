@@ -38,7 +38,8 @@ namespace Fluent.Automation.Peers
                             this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.CollapsedHeaderContentControl);
                         }
                     }
-                    else if (this.OwningGroup.Header != null)
+                    else if (this.OwningGroup.Header != null
+                            && this.OwningGroup.HeaderContentControl != null)
                     {
                         this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.HeaderContentControl);
                     }

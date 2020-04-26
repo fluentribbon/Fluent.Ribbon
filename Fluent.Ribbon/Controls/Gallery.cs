@@ -66,9 +66,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for MaxItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(Gallery), new PropertyMetadata(int.MaxValue));
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(Gallery), new PropertyMetadata(0));
 
         #endregion
 

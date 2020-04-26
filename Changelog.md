@@ -1,6 +1,13 @@
 # Changelog for Fluent.Ribbon
 
-## 7.1.0 (preview)
+## Next
+- ### Bug fixes
+  - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
+  - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
+  - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
+  - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
+
+## 7.1.0
 - ### Bug fixes
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
   - [#755](../../issues/755) - ComboBox.Height fixed at 22  
@@ -15,7 +22,7 @@
 - ### Enhancements/Features
   - Many automation peers have been added and improved
   - [#775](../../issues/775) - First underscore missing in drop down menu header text  
-  You can now control wether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
+  You can now control whether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
 
 ## 7.0.1
 - ### Bug fixes

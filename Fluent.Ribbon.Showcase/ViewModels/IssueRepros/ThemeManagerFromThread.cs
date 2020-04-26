@@ -1,4 +1,4 @@
-﻿namespace FluentTest.ViewModels.IssueRepros
+namespace FluentTest.ViewModels.IssueRepros
 {
     using System;
     using System.Diagnostics;
@@ -7,6 +7,7 @@
     using System.Windows;
     using ControlzEx.Theming;
     using Fluent;
+    using Fluent.Extensions;
     using FluentTest.Commanding;
 
     public class ThemeManagerFromThread
@@ -45,12 +46,13 @@
             {
                 ThemeManager.Current.ThemeChanged += this.ThemeManagerThemeChangedHandler;
 
-                Task.Factory.StartNew(() =>
+                Task.Factory.StartNew(async () =>
                     {
                         while (this.cancellationTokenSource.IsCancellationRequested == false)
                         {
                             this.ThreadProc();
-                            Thread.Sleep(2000);
+
+                            await Task.Delay(TimeSpan.FromSeconds(2));
                         }
 
                         this.cancellationTokenSource.Dispose();
@@ -78,7 +80,7 @@
         {
             if (!Application.Current.Dispatcher.CheckAccess())
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action<ThemeColors>(this.ChangeTheme), themeColor);
+                Application.Current.RunInDispatcherAsync(() => this.ChangeTheme(themeColor));
             }
             else
             {
