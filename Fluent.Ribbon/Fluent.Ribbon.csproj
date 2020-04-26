@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="ControlzEx" version="4.3.0-alpha*" />
-    <PackageReference Include="XamlColorSchemeGenerator" version="4.0.0-alpha*" privateAssets="all" includeAssets="build" />
+    <PackageReference Include="XamlColorSchemeGenerator" version="4.0.0-rc*" privateAssets="all" includeAssets="build" />
   </ItemGroup>
 
   <!-- Sign assembly -->
