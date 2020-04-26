@@ -15,7 +15,7 @@
     {
         public static Tuple<string, Theme> CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
         {
-            var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, RibbonLibraryThemeProvider.DefaultInstance);
+            var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, false, RibbonLibraryThemeProvider.DefaultInstance);
 
             // Apply theme
             if (changeImmediately)
