@@ -68,31 +68,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
-
-        /// <summary>
-        /// Called when <see cref="IconProperty"/> changes.
-        /// </summary>
-        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var element = d as ILogicalChildSupport;
-
-            if (element is null)
-            {
-                throw new ArgumentException("Argument musst be of type ILogicalChildSupport.", nameof(d));
-            }
-
-            if (e.OldValue is FrameworkElement oldElement)
-            {
-                element.RemoveLogicalChild(oldElement);
-            }
-
-            if (e.NewValue is FrameworkElement newElement
-                && LogicalTreeHelper.GetParent(newElement) == null)
-            {
-                element.AddLogicalChild(newElement);
-            }
-        }
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata());
 
         #endregion
 
@@ -505,18 +481,6 @@ namespace Fluent
         }
 
         #endregion
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.AddLogicalChild(object child)
-        {
-            this.AddLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.RemoveLogicalChild(object child)
-        {
-            this.RemoveLogicalChild(child);
-        }
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonControlAutomationPeer(this);

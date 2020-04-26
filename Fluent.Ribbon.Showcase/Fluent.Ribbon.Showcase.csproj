@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
+    <PackageReference Include="MahApps.Metro.IconPacks" version="3.*" />
     <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" Condition="$(InlcudeMahAppsMetro)" />
     <!-- Costura does not work with .net core 3.0 as of 4.0 -->
     <!-- <PackageReference Include="Costura.Fody" version="4.*" PrivateAssets="All" Condition="'$(TargetFramework)' != 'netcoreapp3.0'" /> -->
