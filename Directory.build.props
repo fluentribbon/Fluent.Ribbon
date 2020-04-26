@@ -38,17 +38,6 @@
     </Compile>
   </ItemGroup>
 
-  <!-- Configuration for GitVersionTask -->
-  <PropertyGroup>
-    <WriteVersionInfoToBuildLog>false</WriteVersionInfoToBuildLog>
-    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
-  </PropertyGroup>
-
-  <!-- <ItemGroup>
-    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-  </ItemGroup> -->
-
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
 
@@ -58,7 +47,5 @@
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
     <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
     <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
-
-    <PackageReference Include="GitVersionTask" Version="5.*" PrivateAssets="All" IncludeAssets="build; native" />
   </ItemGroup>
 </Project>
