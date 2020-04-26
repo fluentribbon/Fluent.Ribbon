@@ -358,6 +358,14 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
         }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public QuickAccessToolBar()
+        {
+            this.Loaded += (sender, args) => this.InvalidateMeasureOfTitleBar();
+        }
+
         #endregion
 
         #region Override
@@ -564,8 +572,13 @@ namespace Fluent
 
         private void InvalidateMeasureOfTitleBar()
         {
+            if (this.IsLoaded == false)
+            {
+                return;
+            }
+
             var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
-                ?? UIHelper.GetParent<RibbonTitleBar>(this);
+                           ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
             titleBar?.ForceMeasureAndArrange();
         }

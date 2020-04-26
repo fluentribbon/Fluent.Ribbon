@@ -11,6 +11,8 @@
              xmlns:formsInterop="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:converters="clr-namespace:FluentTest.Converters"
+             xmlns:controlzEx="urn:controlzex"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -180,10 +182,10 @@
                         </Fluent:Backstage.Style>-->
                         <Fluent:BackstageTabControl>
                             <Fluent:Button Header="Save"
-                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Save.png"
+                                           Icon="{iconPacks:Material Kind=ContentSave}"
                                            KeyTip="S" />
                             <Fluent:Button Header="Save As"
-                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Save.png"
+                                           Icon="{iconPacks:Material Kind=ContentSaveAll}"
                                            KeyTip="A"
                                            CanAddToQuickAccessToolBar="False"
                                            IsDefinitive="False"
@@ -216,7 +218,7 @@
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
-                                                               ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
+                                                               ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                                DisplayMemberPath="Name" />
 
                                         <Fluent:ComboBox Header="ComboBox" 
@@ -252,7 +254,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             <Fluent:SeparatorTabItem Header="Separator" />
 
                             <Fluent:BackstageTabItem Header="Recent"
-                                                     KeyTip="R">
+                                                     KeyTip="R"
+                                                     Icon="{iconPacks:Material Kind=History}">
                                 <TabControl Margin="20,5,20,5"
                                             Style="{DynamicResource InnerBackstageTabControlStyle}">
                                     <Fluent:SeparatorTabItem Header="Test1" />
@@ -268,7 +271,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                             <Fluent:BackstageTabItem Header="Extra wide content"
                                                      KeyTip="W"
+                                                     DataContext="{Binding ColorViewModel}"
                                                      Content="The template used to display this is extremely wide. Width = 6000">
+                                <Fluent:BackstageTabItem.Icon>
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding HighlightColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Fluent:BackstageTabItem.Icon>
                                 <Fluent:BackstageTabItem.ContentTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -280,7 +291,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             </Fluent:BackstageTabItem>
 
                             <Fluent:Button Header="Exit"
-                                           Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Exit.png"
+                                           Icon="{iconPacks:Material Kind=ExitToApp}"
                                            KeyTip="X"
                                            Command="{Binding ExitCommand}" />
                         </Fluent:BackstageTabControl>
@@ -1833,6 +1844,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Fluent:SplitButton Header="Split 1"
                                         IsCheckable="True"
                                         IsChecked="True"
+                                        Icon="{iconPacks:Material Kind=Settings}"
+                                        LargeIcon="{iconPacks:Material Kind=Settings}"
                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}">
                         <Fluent:MenuItem Header="First (with icon)" 
                                          IsCheckable="True"
@@ -1858,6 +1871,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                 <Fluent:RibbonGroupBox Header="Grouped ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
                                          KeyTip="T1"
+                                         Icon="{iconPacks:Material Kind=Settings}"
+                                         LargeIcon="{iconPacks:Material Kind=Settings}"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}" />
                     <Fluent:ToggleButton Header="Toggle 2"
                                          KeyTip="T2"
@@ -2868,18 +2883,27 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <WrapPanel>
                             <GroupBox Header="Theme">
                                 <WrapPanel>
+                                    <WrapPanel.Resources>
+                                        <ObjectDataProvider MethodName="GetValues"
+                                                            ObjectType="{x:Type controlzEx:ThemeSyncMode}"
+                                                            x:Key="SyncModePreferenceEnumValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="controlzEx:ThemeSyncMode" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                    </WrapPanel.Resources>
                                     <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.BaseColors}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=BaseColors}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
                                     <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
-                                                     ItemsSource="{Binding Source={x:Static Fluent:ThemeManager.Themes}}"
+                                                     ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
                                         <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type Fluent:Theme}">
+                                            <DataTemplate DataType="{x:Type controlzEx:Theme}">
                                                 <StackPanel Orientation="Horizontal">
                                                     <Ellipse Width="16"
                                                              Height="16"
@@ -2888,7 +2912,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                 </StackPanel>
                                             </DataTemplate>
                                         </Fluent:ComboBox.ItemTemplate>
-                                        <Fluent:ComboBox.GroupStyle>
+                                        <!--<Fluent:ComboBox.GroupStyle>
                                             <GroupStyle>
                                                 <GroupStyle.HeaderTemplate>
                                                     <DataTemplate>
@@ -2900,8 +2924,16 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                     </DataTemplate>
                                                 </GroupStyle.HeaderTemplate>
                                             </GroupStyle>
-                                        </Fluent:ComboBox.GroupStyle>
+                                        </Fluent:ComboBox.GroupStyle>-->
                                     </Fluent:ComboBox>
+
+                                    <Fluent:ComboBox Header="SyncMode"
+                                                     IsEditable="False"
+                                                     ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
+                                                     SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
+                                    <Fluent:CheckBox IsChecked="{Binding Path=ColorOptions.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
+                                                     Header="Use HSL color" />
+                                    <Button Click="SyncThemeNow_OnClick">Sync now</Button>
                                 </WrapPanel>
                             </GroupBox>
 

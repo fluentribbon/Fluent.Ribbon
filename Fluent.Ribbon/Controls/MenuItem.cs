@@ -794,17 +794,5 @@ namespace Fluent
         }
 
         #endregion
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.AddLogicalChild(object child)
-        {
-            this.AddLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.RemoveLogicalChild(object child)
-        {
-            this.RemoveLogicalChild(child);
-        }
     }
 }

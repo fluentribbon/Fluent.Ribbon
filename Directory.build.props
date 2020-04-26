@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;net462;net452</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -30,14 +30,6 @@
     <RestoreLockedMode Condition="'$(RestoreLockedMode)' == ''">true</RestoreLockedMode> -->
   </PropertyGroup>
 
-  <ItemGroup>
-    <Resource Include="**/*.png;**/*.ico;**/*.ps" />
-
-    <Compile Include="$(MSBuildThisFileDirectory)/Shared/GlobalAssemblyInfo.cs">
-      <Link>Properties/GlobalAssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-
   <!-- Sign assembly -->
   <PropertyGroup>
     <SignAssembly>True</SignAssembly>
@@ -46,14 +38,13 @@
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
   </PropertyGroup>
 
-  <!-- <ItemGroup>
-    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-  </ItemGroup> -->
+  <ItemGroup>
+    <Resource Include="**/*.png;**/*.ico;**/*.ps" />
 
-  <PropertyGroup>
-    <XamlColorSchemeGeneratorVersion>3.0.0.31</XamlColorSchemeGeneratorVersion>
-  </PropertyGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)/Shared/GlobalAssemblyInfo.cs">
+      <Link>Properties/GlobalAssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
@@ -64,7 +55,5 @@
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
     <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
     <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
-
-    <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ namespace Fluent
     /// Represents backstage tab item
     /// </summary>
     [TemplatePart(Name = "PART_Header", Type = typeof(FrameworkElement))]
-    public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
+    public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl
     {
         internal FrameworkElement HeaderContentHost { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Fluent
         /// <summary>
         /// Dependency property for <see cref="Icon"/>
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(RibbonControl.OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata());
 
         #endregion
 
@@ -227,18 +227,6 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        void ILogicalChildSupport.AddLogicalChild(object child)
-        {
-            this.AddLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        void ILogicalChildSupport.RemoveLogicalChild(object child)
-        {
-            this.RemoveLogicalChild(child);
-        }
-
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageTabItemAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new Automation.Peers.RibbonBackstageTabItemAutomationPeer(this);
     }
 }

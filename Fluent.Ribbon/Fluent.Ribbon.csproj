@@ -35,7 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="[4.0*, 5.0)" />
+    <PackageReference Include="ControlzEx" version="4.3.0-alpha*" />
+    <PackageReference Include="XamlColorSchemeGenerator" version="4.0.0-rc*" privateAssets="all" includeAssets="build" />
   </ItemGroup>
 
   <!-- NuGet -->
@@ -53,23 +54,15 @@
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
 
- <Target Name="GenerateXamlFilesInner">
+ <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds">
     <PropertyGroup>
-      <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
-      <!-- <XamlColorSchemeGeneratorPath>C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
-      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/XamlCombine.exe</XamlCombinePath> -->
-    </PropertyGroup>
+      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
+    </PropertyGroup>       
     <!-- Generate theme files -->
-    <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+    <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
+    <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
-  </Target>
-
-  <!-- Key to generating the xaml files at the right point in time is to do this before DispatchToInnerBuilds -->
-  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;BeforeBuild">
-    <!--TargetFramework=once is critical here, as it will not execute task from same project with same properties multiple times. 
-    We need to unify TargetFramework between empty, net45, netcoreapp3.0 etc.-->
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" />
   </Target>
 </Project>

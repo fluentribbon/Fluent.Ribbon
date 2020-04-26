@@ -5,6 +5,7 @@ namespace FluentTest.ViewModels.IssueRepros
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
     using Fluent.Extensions;
     using FluentTest.Commanding;
@@ -37,13 +38,13 @@ namespace FluentTest.ViewModels.IssueRepros
         {
             if (this.cancellationTokenSource != null)
             {
-                ThemeManager.IsThemeChanged -= this.ThemeManagerIsThemeChangedHandler;
+                ThemeManager.Current.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
 
                 this.cancellationTokenSource.Cancel();
             }
             else
             {
-                ThemeManager.IsThemeChanged += this.ThemeManagerIsThemeChangedHandler;
+                ThemeManager.Current.ThemeChanged += this.ThemeManagerThemeChangedHandler;
 
                 Task.Factory.StartNew(async () =>
                     {
@@ -83,10 +84,10 @@ namespace FluentTest.ViewModels.IssueRepros
             }
             else
             {
-                var newTheme = ThemeManager.GetTheme("Light." + themeColor.ToString());
+                var newTheme = ThemeManager.Current.GetTheme("Light." + themeColor.ToString());
                 if (newTheme != null)
                 {
-                    ThemeManager.ChangeTheme(Application.Current, newTheme);
+                    ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
 
                     this.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
                 }
@@ -97,13 +98,12 @@ namespace FluentTest.ViewModels.IssueRepros
             }
         }
 
-        private void ThemeManagerIsThemeChangedHandler(object sender, OnThemeChangedEventArgs e)
+        private void ThemeManagerThemeChangedHandler(object sender, ThemeChangedEventArgs e)
         {
             try
             {
-                var theme = ThemeManager.DetectTheme(Application.Current);
-
-                this.Info($"Current theme from args: {e.Theme.Name}");
+                var theme = ThemeManager.Current.DetectTheme(Application.Current);
+                this.Info($"Current theme from args: {e.NewTheme.Name}");
                 this.Info($"Current theme from detection: {theme.Name}");
             }
             catch (Exception ex)
