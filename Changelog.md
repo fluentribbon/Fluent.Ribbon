@@ -1,14 +1,30 @@
 # Changelog for Fluent.Ribbon
 
-## Next
+## 8.0.0
+
+- ### Breaking changes
+
+  - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
+  - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
+    Because of this you now got more automatic and manual sync options.
+    Syncing now, optionally, includes the current accent color from Windows.
+    You can now generate themes at runtime more easily.
+  - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon  
+    Due to the fixes made for this `Icon` and `LargeIcon` are not added as logical children explicitly to controls anymore
+  - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
+    Due to this change you now have a lot more themes to choose from.
+
 - ### Bug fixes
+
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
   - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
 
 ## 7.1.0
+
 - ### Bug fixes
+
   - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
   - [#755](../../issues/755) - ComboBox.Height fixed at 22  
   The height setting was moved from the template to the style.
@@ -20,19 +36,24 @@
   - [#770](../../issues/770) - Cannot left align the content in InRibbonGallery
 
 - ### Enhancements/Features
+
   - Many automation peers have been added and improved
   - [#775](../../issues/775) - First underscore missing in drop down menu header text  
   You can now control whether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
 
 ## 7.0.1
+
 - ### Bug fixes
+
   - [#746](../../issues/746) - NullReferenceException after upgrading to 7.0.0
   - [#751](../../issues/751) - QuickAccessMenuItem - IsChecked doesn't work for Target
   - [#756](../../issues/756) - RibbonWindow.IsIconVisible does not seem to work
   - [#757](../../issues/757) - Ribbon right-click menu offsetted for DPI=150% (or more)
 
 ## 7.0.0
+
 - ### Breaking changes
+  
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
   **Assemblies are strong named again**, but `AssemblyVersion` is now fixed for every major release.  
@@ -119,6 +140,7 @@
 </p></details>
 
 - ### Bug fixes
+
   - [#165](../../issues/165) - Save As menu is added to QAT but does not have child items
   - [#307](../../issues/307) - Black flicker on complete window-area when resizing
   - [#319](../../issues/319) - How to make window resizable with Win32 content?
@@ -165,6 +187,7 @@
   - [#730](../../issues/730) - Add null check for Application.Current to ThemeManager (thanks @Evangelink)
 
 - ### Enhancements/Features
+
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
     You can achieve this by:
     - Setting `Ribbon.Menu` to `null` (or never assigning anything)
