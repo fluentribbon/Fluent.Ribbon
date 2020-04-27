@@ -33,7 +33,9 @@ namespace Fluent
         public BackstageAdorner(FrameworkElement adornedElement, Backstage backstage)
             : base(adornedElement)
         {
-            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Cycle);
+            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Contained);
+            KeyboardNavigation.SetControlTabNavigation(this, KeyboardNavigationMode.Contained);
+            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
 
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;

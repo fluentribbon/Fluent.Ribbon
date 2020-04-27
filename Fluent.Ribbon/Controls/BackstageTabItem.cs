@@ -103,6 +103,9 @@ namespace Fluent
         static BackstageTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
+
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         #region Overrides
@@ -128,12 +131,26 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this)
                 || this.IsSelected == false)
             {
                 this.IsSelected = true;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Space || e.Key == Key.Enter) 
+                && (ReferenceEquals(e.Source, this) || this.IsSelected == false))
+            {
+                this.IsSelected = true;
+            }
+            else
+            {
+                base.OnKeyUp(e);
             }
         }
 
