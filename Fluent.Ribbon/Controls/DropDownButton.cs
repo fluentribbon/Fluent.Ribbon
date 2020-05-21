@@ -135,7 +135,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata());
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(RibbonControl.OnIconChanged));
 
         #endregion
 
@@ -835,6 +835,16 @@ namespace Fluent
         {
             get
             {
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.LargeIcon != null)
+                {
+                    yield return this.LargeIcon;
+                }
+
                 foreach (var item in this.Items)
                 {
                     yield return item;
@@ -865,5 +875,17 @@ namespace Fluent
         }
 
         #endregion MenuItem workarounds
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
     }
 }
