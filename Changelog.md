@@ -21,6 +21,7 @@
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
   - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
+  - [#795](../../issues/795) - Check mark of menuitem not visible
 
 ## 7.1.0
 
