@@ -270,15 +270,20 @@ namespace FluentTest
                 return "NULL";
             }
 
-            var header = element is IHeaderedControl ribbonControl
-                           ? ribbonControl.Header
-                           : string.Empty;
+            var debugInfo = $"[{element}]";
 
-            var name = element is FrameworkElement frameworkElement
-                           ? frameworkElement.Name
-                           : string.Empty;
+            if (element is IHeaderedControl headeredControl)
+            {
+                debugInfo += $" Header: \"{headeredControl.Header}\"";
+            }
 
-            return $"[{element}] (Header: {header} || Name: {name})";
+            if (element is FrameworkElement frameworkElement
+                && string.IsNullOrEmpty(frameworkElement.Name) == false)
+            {
+                debugInfo += $" Name: \"{frameworkElement.Name}\"";
+            }
+
+            return debugInfo;
         }
 
         private void CheckLogicalTree(DependencyObject root)
