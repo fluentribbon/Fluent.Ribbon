@@ -2,7 +2,7 @@
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
-                   xmlns:Metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                   xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:fluentTest="clr-namespace:FluentTest"
                    WindowStartupLocation="CenterScreen"
                    Title="{Binding WindowTitle, ElementName=TestContent}"
