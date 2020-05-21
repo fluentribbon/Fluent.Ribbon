@@ -1,6 +1,7 @@
 ﻿namespace FluentTest.Helpers
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Windows;
@@ -8,19 +9,19 @@
     using System.Windows.Media;
     using System.Xml;
     using ControlzEx.Theming;
-    using Fluent;
-    using Fluent.Theming;
 
     public static class ThemeHelper
     {
-        public static Tuple<string, Theme> CreateTheme(string baseColorScheme, Color accentBaseColor, Color highlightColor, string name = null, bool changeImmediately = false)
+        public static Tuple<string, Theme> CreateTheme(string baseColorScheme, Color accentBaseColor, bool changeImmediately = false)
         {
-            var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, false, RibbonLibraryThemeProvider.DefaultInstance);
+            var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, false);
 
             // Apply theme
             if (changeImmediately)
             {
-                //ThemeManager.ChangeTheme(Application.Current, newTheme);
+                var changedTheme = ThemeManager.Current.ChangeTheme(Application.Current, theme);
+
+                Debug.Assert(changedTheme == theme, "Theme must have been changed.");
             }
 
             return new Tuple<string, Theme>(string.Join(Environment.NewLine, theme.GetAllResources().Select(GetResourceDictionaryContent)), theme);

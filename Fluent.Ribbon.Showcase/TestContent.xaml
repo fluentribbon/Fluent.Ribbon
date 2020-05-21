@@ -2931,7 +2931,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
                                                      SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
-                                    <Fluent:CheckBox IsChecked="{Binding Path=ColorOptions.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
+                                    <Fluent:CheckBox IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
                                                      Header="Use HSL color" />
                                     <Button Click="SyncThemeNow_OnClick">Sync now</Button>
                                 </WrapPanel>
@@ -3376,7 +3376,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             </Fluent:DropDownButton.Icon>
                             <Fluent:ColorGallery x:Name="ThemeColorGallery"
                                                  ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
-                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=OneTime}"
+                                                 SelectedColor="Red"
                                                  Mode="ThemeColors"
                                                  StandardColorGridRows="3"
                                                  Columns="10"
