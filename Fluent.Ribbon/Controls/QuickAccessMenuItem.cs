@@ -121,17 +121,20 @@ namespace Fluent
         {
             get
             {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
                 if (this.Target != null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
                     if (ReferenceEquals(parent, this))
                     {
-                        var list = new ArrayList { this.Target };
-                        return list.GetEnumerator();
+                        yield return this.Target;
                     }
                 }
-
-                return base.LogicalChildren;
             }
         }
 

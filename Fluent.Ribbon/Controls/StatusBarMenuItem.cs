@@ -46,6 +46,10 @@ namespace Fluent
             this.StatusBarItem = item;
         }
 
+        internal StatusBarMenuItem()
+        {
+        }
+
         #endregion
     }
 }

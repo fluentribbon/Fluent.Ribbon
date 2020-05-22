@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
@@ -15,6 +16,7 @@ namespace Fluent
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -27,7 +29,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_MinimizeButton", Type = typeof(ButtonBase))]
     [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
-    public class RibbonTabControl : Selector, IDropDownControl
+    public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     {
         /// <summary>
         /// Default value for <see cref="ContentGapHeight"/>.
@@ -132,7 +134,7 @@ namespace Fluent
         }
 
         // DependencyProperty key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata());
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
@@ -988,6 +990,36 @@ namespace Fluent
             }
 
             return null;
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.SelectedContent != null)
+                {
+                    yield return this.SelectedContent;
+                }
+            }
         }
     }
 }

@@ -35,27 +35,6 @@ namespace Fluent
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         internal ToggleButton Button => this.button;
 
-        /// <inheritdoc />
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                var baseEnumerator = base.LogicalChildren;
-                if (baseEnumerator != null)
-                {
-                    while (baseEnumerator.MoveNext())
-                    {
-                        yield return baseEnumerator.Current;
-                    }
-                }
-
-                if (this.button != null)
-                {
-                    yield return this.button;
-                }
-            }
-        }
-
         #region Command
 
         /// <inheritdoc />
@@ -610,5 +589,23 @@ namespace Fluent
         #endregion
 
         #endregion
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.button != null)
+                {
+                    yield return this.button;
+                }
+            }
+        }
     }
 }

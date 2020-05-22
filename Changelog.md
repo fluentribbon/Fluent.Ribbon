@@ -9,14 +9,13 @@
     Because of this you now got more automatic and manual sync options.
     Syncing now, optionally, includes the current accent color from Windows.
     You can now generate themes at runtime more easily.
-  - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon  
-    Due to the fixes made for this `Icon` and `LargeIcon` are not added as logical children explicitly to controls anymore
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
 
 - ### Bug fixes
 
   - [#772](../../issues/772) -  Backstage & Keyboard navigation
+  - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.

@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Windows;
@@ -10,6 +11,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Media;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -17,7 +19,7 @@ namespace Fluent
     /// Represents Backstage tab control.
     /// </summary>
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
-    public class BackstageTabControl : Selector
+    public class BackstageTabControl : Selector, ILogicalChildSupport
     {
         #region Properties
 
@@ -39,7 +41,7 @@ namespace Fluent
             DependencyProperty.Register(nameof(SelectedContentMargin), typeof(Thickness), typeof(BackstageTabControl), new PropertyMetadata(default(Thickness)));
 
         // Dependency property key for SelectedContent
-        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata());
+        private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// Dependency property for <see cref="SelectedContent"/>
@@ -504,5 +506,35 @@ namespace Fluent
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageTabControlAutomationPeer(this);
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.SelectedContent != null)
+                {
+                    yield return this.SelectedContent;
+                }
+            }
+        }
     }
 }
