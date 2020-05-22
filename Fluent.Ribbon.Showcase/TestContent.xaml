@@ -3293,17 +3293,21 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                            Click="AddRibbonTab_OnClick">Add tab</Fluent:Button>
                         </WrapPanel>
                     </GroupBox>
+                    <GroupBox Header="Interop">
+                        <WrapPanel>
+                            <Fluent:Button x:Name="OpenMahMetroWindow"
+                                           Size="Middle"
+                                           Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
+                        </WrapPanel>
+                    </GroupBox>
                     <GroupBox Header="Windows">
-                        <WrapPanel>                    
+                        <WrapPanel>
                             <Fluent:Button x:Name="OpenRegularWindow"
                                            Size="Middle"
                                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Fluent:Button>
                             <Fluent:Button x:Name="OpenMinimalRibbonWindowSample"
                                            Size="Middle"
-                                           Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>                            
-                            <Fluent:Button x:Name="OpenMahMetroWindow"
-                                           Size="Middle"
-                                           Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
+                                           Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>
                             <Fluent:Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Fluent:Button>
