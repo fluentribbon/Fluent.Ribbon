@@ -952,7 +952,7 @@ namespace Fluent
         /// </summary>
         public void RaiseRequestBackstageClose()
         {
-            this.RequestBackstageClose?.Invoke(this, null);
+            this.RequestBackstageClose?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
