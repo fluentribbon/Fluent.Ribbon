@@ -1531,15 +1531,7 @@ namespace Fluent
 
             if (this.QuickAccessToolBar != null)
             {
-                if (this.AutomaticStateManagement == false
-                    || this.RibbonStateStorage.IsLoaded)
-                {
-                    this.RibbonStateStorage.SaveTemporary();
-                }
-
                 this.ClearQuickAccessToolBar();
-
-                this.QuickAccessToolBar.ItemsChanged -= this.OnQuickAccessItemsChanged;
 
                 this.quickAccessItemsSync?.TransferItemsToSource();
                 this.quickAccessItemsSync?.Target.Clear();
@@ -1552,8 +1544,6 @@ namespace Fluent
                 this.quickAccessItemsSync = new CollectionSyncHelper<QuickAccessMenuItem>(this.QuickAccessItems, this.QuickAccessToolBar.QuickAccessItems);
                 this.quickAccessItemsSync.TransferItemsToTarget();
 
-                this.QuickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
-
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
                     {
@@ -1562,8 +1552,6 @@ namespace Fluent
                     };
                     this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
                 }
-
-                this.QuickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
             }
 
             if (this.ShowQuickAccessToolBarAboveRibbon)
@@ -1643,13 +1631,6 @@ namespace Fluent
             }
 
             this.ownerWindow = null;
-        }
-
-        private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
-        {
-            this.QuickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
-
-            this.RibbonStateStorage.LoadTemporary();
         }
 
         #endregion
@@ -1841,40 +1822,6 @@ namespace Fluent
             this.RibbonStateStorage.Load();
 
             this.TabControl?.SelectFirstTab();
-        }
-
-        // Handles items changing in QAT
-        private void OnQuickAccessItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            this.RibbonStateStorage.SaveTemporary();
-        }
-
-        /// <summary>
-        /// Traverse logical tree and find QAT items, remember paths
-        /// </summary>
-        public void TraverseLogicalTree(DependencyObject item, string path, IDictionary<FrameworkElement, string> paths)
-        {
-            // Is this item in QAT
-            if (item is FrameworkElement frameworkElement
-                && this.QuickAccessElements.ContainsKey(frameworkElement))
-            {
-                if (paths.ContainsKey(frameworkElement) == false)
-                {
-                    paths.Add(frameworkElement, path);
-                }
-            }
-
-            var children = LogicalTreeHelper.GetChildren(item).Cast<object>().ToList();
-            for (var i = 0; i < children.Count; i++)
-            {
-                var child = children[i] as DependencyObject;
-                if (child == null)
-                {
-                    continue;
-                }
-
-                this.TraverseLogicalTree(child, path + i + ",", paths);
-            }
         }
 
         #endregion

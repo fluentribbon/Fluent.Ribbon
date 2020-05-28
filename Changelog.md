@@ -11,6 +11,8 @@
     You can now generate themes at runtime more easily.
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
+  - The built in state storage will no longer persist the state of quick access items.  
+    Details can be found in [#810](../../issues/810)
 
 - ### Bug fixes
 
