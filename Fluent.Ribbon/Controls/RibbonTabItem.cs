@@ -108,7 +108,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon groups container
         /// </summary>
-        public ScrollViewer GroupsContainer { get; } = new ScrollViewer();
+        public ScrollViewer GroupsContainer { get; } = new ScrollViewer { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
