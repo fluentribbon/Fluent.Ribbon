@@ -21,6 +21,7 @@
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
   - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
   - [#795](../../issues/795) - Check mark of menuitem not visible
+  - [#798](../../issues/798) - The elements in the ribbon use ElementName = xxx to bind the data and cannot find the xxx element
 
 ## 7.1.0
 
