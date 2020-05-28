@@ -16,9 +16,12 @@ namespace Fluent
     using System.Windows.Data;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Collections;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
+    using JetBrains.Annotations;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     // TODO: improve style parts naming & using
@@ -33,7 +36,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_LayoutRoot", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_RibbonTabControl", Type = typeof(RibbonTabControl))]
     [TemplatePart(Name = "PART_QuickAccessToolBar", Type = typeof(QuickAccessToolBar))]
-    public class Ribbon : Control
+    public class Ribbon : Control, ILogicalChildSupport
     {
         private IRibbonStateStorage ribbonStateStorage;
 
@@ -488,13 +491,14 @@ namespace Fluent
         private ObservableCollection<Key> keyTipKeys;
 
         // Collection of contextual tab groups
-        private ObservableCollection<RibbonContextualTabGroup> contextualGroups;
+        private ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup> contextualGroups;
 
         // Collection of tabs
-        private ObservableCollection<RibbonTabItem> tabs;
+        private ItemCollectionWithLogicalTreeSupport<RibbonTabItem> tabs;
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
+        private ItemCollectionWithLogicalTreeSupport<UIElement> toolBarItems;
+        private CollectionSyncHelper<UIElement> toolBarItemsSync;
 
         // Ribbon quick access toolbar
 
@@ -505,7 +509,8 @@ namespace Fluent
         private readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
-        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
+        private ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> quickAccessItems;
+        private CollectionSyncHelper<QuickAccessMenuItem> quickAccessItemsSync;
 
         // Currently added in QAT items
 
@@ -596,6 +601,7 @@ namespace Fluent
         /// <summary>
         /// Property for defining the TabControl.
         /// </summary>
+        [CanBeNull]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RibbonTabControl TabControl
         {
@@ -605,7 +611,7 @@ namespace Fluent
 
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TabControlPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// <see cref="DependencyProperty"/> for <see cref="TabControl"/>
@@ -740,23 +746,14 @@ namespace Fluent
 
             if (e.OldValue is RibbonTitleBar oldValue)
             {
-                foreach (var ribbonContextualTabGroup in ribbon.ContextualGroups)
-                {
-                    oldValue.Items.Remove(ribbonContextualTabGroup);
-                }
-
-                // Make sure everything is cleared
-                oldValue.Items.Clear();
+                oldValue.ItemsSource = null;
 
                 ribbon.RemoveQuickAccessToolBarFromTitleBar(oldValue);
             }
 
             if (e.NewValue is RibbonTitleBar newValue)
             {
-                foreach (var contextualTabGroup in ribbon.ContextualGroups)
-                {
-                    newValue.Items.Add(contextualTabGroup);
-                }
+                newValue.ItemsSource = ribbon.ContextualGroups;
 
                 if (ribbon.ShowQuickAccessToolBarAboveRibbon)
                 {
@@ -827,14 +824,13 @@ namespace Fluent
         /// Gets collection of contextual tab groups
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
+        public ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup> ContextualGroups
         {
             get
             {
                 if (this.contextualGroups == null)
                 {
-                    this.contextualGroups = new ObservableCollection<RibbonContextualTabGroup>();
-                    this.contextualGroups.CollectionChanged += this.OnContextualGroupsCollectionChanged;
+                    this.contextualGroups = new ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup>(this);
                 }
 
                 return this.contextualGroups;
@@ -842,60 +838,16 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles collection of contextual tab groups ghanges
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnContextualGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
-                    {
-                        this.TitleBar?.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TitleBar?.Items.Remove(item);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TitleBar?.Items.Remove(item);
-                    }
-
-                    foreach (var item in e.NewItems)
-                    {
-                        this.TitleBar?.Items.Add(item);
-                    }
-
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    this.TitleBar?.Items.Clear();
-                    break;
-            }
-        }
-
-        /// <summary>
         /// gets collection of ribbon tabs
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonTabItem> Tabs
+        public ItemCollectionWithLogicalTreeSupport<RibbonTabItem> Tabs
         {
             get
             {
                 if (this.tabs == null)
                 {
-                    this.tabs = new ObservableCollection<RibbonTabItem>();
-                    this.tabs.CollectionChanged += this.OnTabsCollectionChanged;
+                    this.tabs = new ItemCollectionWithLogicalTreeSupport<RibbonTabItem>(this);
                 }
 
                 return this.tabs;
@@ -903,66 +855,16 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles collection of ribbon tabs changed
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnTabsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (this.TabControl == null)
-            {
-                return;
-            }
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
-                    {
-                        this.TabControl.Items.Insert(e.NewStartingIndex + i, e.NewItems[i]);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TabControl.Items.Remove(item);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TabControl.Items.Remove(item);
-                    }
-
-                    foreach (var item in e.NewItems)
-                    {
-                        this.TabControl.Items.Add(item);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-                    this.TabControl.Items.Clear();
-                    break;
-            }
-        }
-
-        /// <summary>
         /// Gets collection of toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<UIElement> ToolBarItems
+        public ItemCollectionWithLogicalTreeSupport<UIElement> ToolBarItems
         {
             get
             {
                 if (this.toolBarItems == null)
                 {
-                    this.toolBarItems = new ObservableCollection<UIElement>();
-                    this.toolBarItems.CollectionChanged += this.OnToolbarItemsCollectionChanged;
+                    this.toolBarItems = new ItemCollectionWithLogicalTreeSupport<UIElement>(this);
                 }
 
                 return this.toolBarItems;
@@ -970,88 +872,16 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Handles collection of toolbar items changes
-        /// </summary>
-        /// <param name="sender">Sender</param>
-        /// <param name="e">The event data</param>
-        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
-                    {
-                        this.TabControl?.ToolBarItems.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TabControl?.ToolBarItems.Remove(item as UIElement);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
-                    {
-                        this.TabControl?.ToolBarItems.Remove(item as UIElement);
-                    }
-
-                    foreach (var item in e.NewItems)
-                    {
-                        this.TabControl?.ToolBarItems.Add(item as UIElement);
-                    }
-
-                    break;
-            }
-        }
-
-        /// <inheritdoc />
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                if (this.Menu != null)
-                {
-                    yield return this.Menu;
-                }
-
-                if (this.StartScreen != null)
-                {
-                    yield return this.StartScreen;
-                }
-
-                if (this.QuickAccessToolBar != null)
-                {
-                    yield return this.QuickAccessToolBar;
-                }
-
-                if (this.TabControl?.ToolbarPanel != null)
-                {
-                    yield return this.TabControl.ToolbarPanel;
-                }
-
-                if (this.layoutRoot != null)
-                {
-                    yield return this.layoutRoot;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets collection of quick access menu items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
+        public ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> QuickAccessItems
         {
             get
             {
                 if (this.quickAccessItems == null)
                 {
-                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
+                    this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
                 }
 
@@ -1069,11 +899,9 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
-                        var menuItem = (QuickAccessMenuItem)e.NewItems[i];
-                        this.QuickAccessToolBar?.QuickAccessItems.Insert(e.NewStartingIndex + i, menuItem);
-                        menuItem.Ribbon = this;
+                        item.Ribbon = this;
                     }
 
                     break;
@@ -1081,9 +909,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        var menuItem = item;
-                        this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
-                        menuItem.Ribbon = null;
+                        item.Ribbon = null;
                     }
 
                     break;
@@ -1091,16 +917,12 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
                     {
-                        var menuItem = item;
-                        this.QuickAccessToolBar?.QuickAccessItems.Remove(menuItem);
-                        menuItem.Ribbon = null;
+                        item.Ribbon = null;
                     }
 
                     foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
                     {
-                        var menuItem = item;
-                        this.QuickAccessToolBar?.QuickAccessItems.Add(menuItem);
-                        menuItem.Ribbon = this;
+                        item.Ribbon = this;
                     }
 
                     break;
@@ -1687,21 +1509,10 @@ namespace Fluent
                 this.TabControl.SelectionChanged -= this.OnTabControlSelectionChanged;
                 selectedTab = this.TabControl.SelectedItem as RibbonTabItem;
 
-                foreach (var ribbonTabItem in this.Tabs)
-                {
-                    this.TabControl.Items.Remove(ribbonTabItem);
-                }
+                this.TabControl.ItemsSource = null;
 
-                // Make sure everything is cleared
-                this.TabControl.Items.Clear();
-
-                foreach (var toolBarItem in this.ToolBarItems)
-                {
-                    this.TabControl.ToolBarItems.Remove(toolBarItem);
-                }
-
-                // Make sure everything is cleared
-                this.TabControl.ToolBarItems.Clear();
+                this.toolBarItemsSync?.TransferItemsToSource();
+                this.toolBarItemsSync?.Target.Clear();
             }
 
             this.TabControl = this.GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
@@ -1710,47 +1521,28 @@ namespace Fluent
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
-                foreach (var ribbonTabItem in this.Tabs)
-                {
-                    this.TabControl.Items.Add(ribbonTabItem);
-                }
+                this.TabControl.ItemsSource = this.Tabs;
 
                 this.TabControl.SelectedItem = selectedTab;
 
-                foreach (var toolBarItem in this.ToolBarItems)
-                {
-                    this.TabControl.ToolBarItems.Add(toolBarItem);
-                }
+                this.toolBarItemsSync = new CollectionSyncHelper<UIElement>(this.ToolBarItems, this.TabControl.ToolBarItems);
+                this.toolBarItemsSync.TransferItemsToTarget();
             }
 
             if (this.QuickAccessToolBar != null)
             {
-                if (this.AutomaticStateManagement == false
-                    || this.RibbonStateStorage.IsLoaded)
-                {
-                    this.RibbonStateStorage.SaveTemporary();
-                }
-
                 this.ClearQuickAccessToolBar();
 
-                this.QuickAccessToolBar.ItemsChanged -= this.OnQuickAccessItemsChanged;
-
-                foreach (var quickAccessMenuItem in this.QuickAccessItems)
-                {
-                    this.QuickAccessToolBar.QuickAccessItems.Remove(quickAccessMenuItem);
-                }
+                this.quickAccessItemsSync?.TransferItemsToSource();
+                this.quickAccessItemsSync?.Target.Clear();
             }
 
             this.QuickAccessToolBar = this.GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
 
             if (this.QuickAccessToolBar != null)
             {
-                foreach (var quickAccessMenuItem in this.QuickAccessItems)
-                {
-                    this.QuickAccessToolBar.QuickAccessItems.Add(quickAccessMenuItem);
-                }
-
-                this.QuickAccessToolBar.ItemsChanged += this.OnQuickAccessItemsChanged;
+                this.quickAccessItemsSync = new CollectionSyncHelper<QuickAccessMenuItem>(this.QuickAccessItems, this.QuickAccessToolBar.QuickAccessItems);
+                this.quickAccessItemsSync.TransferItemsToTarget();
 
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))
@@ -1760,8 +1552,6 @@ namespace Fluent
                     };
                     this.QuickAccessToolBar.SetBinding(QuickAccessToolBar.CanQuickAccessLocationChangingProperty, binding);
                 }
-
-                this.QuickAccessToolBar.Loaded += this.OnFirstToolbarLoaded;
             }
 
             if (this.ShowQuickAccessToolBarAboveRibbon)
@@ -1841,13 +1631,6 @@ namespace Fluent
             }
 
             this.ownerWindow = null;
-        }
-
-        private void OnFirstToolbarLoaded(object sender, RoutedEventArgs e)
-        {
-            this.QuickAccessToolBar.Loaded -= this.OnFirstToolbarLoaded;
-
-            this.RibbonStateStorage.LoadTemporary();
         }
 
         #endregion
@@ -1966,8 +1749,8 @@ namespace Fluent
                 return;
             }
 
-            this.SelectedTabItem = this.TabControl.SelectedItem as RibbonTabItem;
-            this.SelectedTabIndex = this.TabControl.SelectedIndex;
+            this.SelectedTabItem = this.TabControl?.SelectedItem as RibbonTabItem;
+            this.SelectedTabIndex = this.TabControl?.SelectedIndex ?? -1;
 
             this.SelectedTabChanged?.Invoke(this, e);
         }
@@ -1988,7 +1771,7 @@ namespace Fluent
             if (e.Key == Key.F1
                 && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                if (this.TabControl.HasItems)
+                if (this.TabControl?.HasItems == true)
                 {
                     if (this.CanMinimize)
                     {
@@ -2041,40 +1824,6 @@ namespace Fluent
             this.TabControl?.SelectFirstTab();
         }
 
-        // Handles items changing in QAT
-        private void OnQuickAccessItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            this.RibbonStateStorage.SaveTemporary();
-        }
-
-        /// <summary>
-        /// Traverse logical tree and find QAT items, remember paths
-        /// </summary>
-        public void TraverseLogicalTree(DependencyObject item, string path, IDictionary<FrameworkElement, string> paths)
-        {
-            // Is this item in QAT
-            if (item is FrameworkElement frameworkElement
-                && this.QuickAccessElements.ContainsKey(frameworkElement))
-            {
-                if (paths.ContainsKey(frameworkElement) == false)
-                {
-                    paths.Add(frameworkElement, path);
-                }
-            }
-
-            var children = LogicalTreeHelper.GetChildren(item).Cast<object>().ToList();
-            for (var i = 0; i < children.Count; i++)
-            {
-                var child = children[i] as DependencyObject;
-                if (child == null)
-                {
-                    continue;
-                }
-
-                this.TraverseLogicalTree(child, path + i + ",", paths);
-            }
-        }
-
         #endregion
 
         #region AutomaticStateManagement Property
@@ -2117,5 +1866,75 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Menu != null)
+                {
+                    yield return this.Menu;
+                }
+
+                if (this.StartScreen != null)
+                {
+                    yield return this.StartScreen;
+                }
+
+                if (this.QuickAccessToolBar != null)
+                {
+                    yield return this.QuickAccessToolBar;
+                }
+
+                if (this.TabControl?.ToolbarPanel != null)
+                {
+                    yield return this.TabControl.ToolbarPanel;
+                }
+
+                foreach (var item in this.Tabs.GetLogicalChildren())
+                {
+                    yield return item;
+                }
+
+                foreach (var item in this.ContextualGroups.GetLogicalChildren())
+                {
+                    yield return item;
+                }
+
+                foreach (var item in this.QuickAccessItems.GetLogicalChildren())
+                {
+                    yield return item;
+                }
+
+                foreach (var item in this.ToolBarItems.GetLogicalChildren())
+                {
+                    yield return item;
+                }
+
+                if (this.layoutRoot != null)
+                {
+                    yield return this.layoutRoot;
+                }
+            }
+        }
     }
 }

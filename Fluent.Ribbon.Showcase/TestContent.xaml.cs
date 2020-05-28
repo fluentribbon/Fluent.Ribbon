@@ -4,6 +4,7 @@ namespace FluentTest
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -580,6 +581,21 @@ namespace FluentTest
         private static void ShowMahAppsMetroNotAvailableMessageBox()
         {
             MessageBox.Show("MahApps.Metro is not available in this showcase version.");
+        }
+
+        private void StartSnoop_OnClick(object sender, RoutedEventArgs e)
+        {
+            var snoopPath = "snoop";
+            var alternativeSnoopPath = Environment.GetEnvironmentVariable("snoop_dev_path");
+
+            if (string.IsNullOrEmpty(alternativeSnoopPath)
+                && Directory.Exists(alternativeSnoopPath))
+            {
+                snoopPath = alternativeSnoopPath;
+            }
+
+            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
+            using var p = Process.Start(startInfo);
         }
     }
 

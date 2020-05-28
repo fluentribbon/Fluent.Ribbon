@@ -5,12 +5,14 @@
 - ### Breaking changes
 
   - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
-  - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
+  - [#811](../../issues/811) - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
     Because of this you now got more automatic and manual sync options.
     Syncing now, optionally, includes the current accent color from Windows.
     You can now generate themes at runtime more easily.
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
+  - The built in state storage will no longer persist the state of quick access items.  
+    Details can be found in [#810](../../issues/810)
 
 - ### Bug fixes
 
@@ -21,6 +23,7 @@
   - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
   - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
   - [#795](../../issues/795) - Check mark of menuitem not visible
+  - [#798](../../issues/798) - The elements in the ribbon use ElementName = xxx to bind the data and cannot find the xxx element
 
 ## 7.1.0
 
