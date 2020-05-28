@@ -5,7 +5,7 @@
 - ### Breaking changes
 
   - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
-  - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
+  - [#811](../../issues/811) - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
     Because of this you now got more automatic and manual sync options.
     Syncing now, optionally, includes the current accent color from Windows.
     You can now generate themes at runtime more easily.
