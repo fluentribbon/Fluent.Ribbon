@@ -4,7 +4,6 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
@@ -15,6 +14,7 @@ namespace Fluent
     using System.Windows.Input;
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
+    using Fluent.Collections;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -54,7 +54,7 @@ namespace Fluent
         #region Fields
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
+        private ItemCollectionWithLogicalTreeSupport<UIElement> toolBarItems;
 
         // ToolBar panel
 
@@ -246,13 +246,13 @@ namespace Fluent
         /// Gets collection of ribbon toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<UIElement> ToolBarItems
+        public ItemCollectionWithLogicalTreeSupport<UIElement> ToolBarItems
         {
             get
             {
                 if (this.toolBarItems == null)
                 {
-                    this.toolBarItems = new ObservableCollection<UIElement>();
+                    this.toolBarItems = new ItemCollectionWithLogicalTreeSupport<UIElement>(this);
                     this.toolBarItems.CollectionChanged += this.OnToolbarItemsCollectionChanged;
                 }
 
@@ -457,9 +457,10 @@ namespace Fluent
             if (this.ToolbarPanel != null
                 && this.toolBarItems != null)
             {
-                for (var i = 0; i < this.toolBarItems.Count; i++)
+                foreach (var item in this.toolBarItems)
                 {
-                    this.ToolbarPanel.Children.Remove(this.toolBarItems[i]);
+                    this.ToolbarPanel.Children.Remove(item);
+                    this.AddLogicalChild(item);
                 }
             }
 
@@ -468,9 +469,10 @@ namespace Fluent
             if (this.ToolbarPanel != null
                 && this.toolBarItems != null)
             {
-                for (var i = 0; i < this.toolBarItems.Count; i++)
+                foreach (var item in this.toolBarItems)
                 {
-                    this.ToolbarPanel.Children.Add(this.toolBarItems[i]);
+                    this.RemoveLogicalChild(item);
+                    this.ToolbarPanel.Children.Add(item);
                 }
             }
         }
