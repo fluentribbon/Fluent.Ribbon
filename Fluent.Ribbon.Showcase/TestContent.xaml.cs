@@ -588,8 +588,8 @@ namespace FluentTest
             var snoopPath = "snoop";
             var alternativeSnoopPath = Environment.GetEnvironmentVariable("snoop_dev_path");
 
-            if (string.IsNullOrEmpty(alternativeSnoopPath)
-                && Directory.Exists(alternativeSnoopPath))
+            if (string.IsNullOrEmpty(alternativeSnoopPath) == false
+                && File.Exists(alternativeSnoopPath))
             {
                 snoopPath = alternativeSnoopPath;
             }
