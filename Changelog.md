@@ -25,6 +25,10 @@
   - [#795](../../issues/795) - Check mark of menuitem not visible
   - [#798](../../issues/798) - The elements in the ribbon use ElementName = xxx to bind the data and cannot find the xxx element
 
+- ### Enhancements/Features
+  - [#804](../../issues/804) - Ribbon Window's Icon Not Centered  
+  Added `VerticalIconAlignment` to `RibbonWindow`
+
 ## 7.1.0
 
 - ### Bug fixes
