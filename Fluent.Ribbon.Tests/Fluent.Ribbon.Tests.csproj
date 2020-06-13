@@ -22,9 +22,9 @@
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit3TestAdapter" />
 
-    <PackageReference Include="NUnit" version="3.*" />
+    <PackageReference Include="NUnit" />
   </ItemGroup>
 </Project>
