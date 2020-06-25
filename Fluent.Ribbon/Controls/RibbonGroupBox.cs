@@ -627,8 +627,6 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBox()
         {
-            this.ToolTip = new ToolTip();
-            ((ToolTip)this.ToolTip).Template = null;
             this.CoerceValue(ContextMenuProperty);
             this.Focusable = false;
 
