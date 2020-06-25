@@ -31,6 +31,9 @@
     
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="Blue" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="DarkBlue" />
+
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="Red" />
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush" Color="Red" />
     </fluent:RibbonWindow.Resources>
 
     <Grid>
