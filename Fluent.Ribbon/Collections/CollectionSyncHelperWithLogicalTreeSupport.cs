@@ -1,18 +1,17 @@
 ﻿namespace Fluent.Collections
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Collections.Specialized;
 
     /// <summary>
     /// asdfasdfasdf
     /// </summary>
-    public class CollectionSyncHelper<TItem>
+    public class CollectionSyncHelperWithLogicalTreeSupport<TItem>
     {
         /// <summary>
         /// asdfasdf
         /// </summary>
-        public CollectionSyncHelper(ObservableCollection<TItem> source, ObservableCollection<TItem> target)
+        public CollectionSyncHelperWithLogicalTreeSupport(ItemCollectionWithLogicalTreeSupport<TItem> source, ItemCollectionWithLogicalTreeSupport<TItem> target)
         {
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
             this.Target = target ?? throw new ArgumentNullException(nameof(target));
@@ -23,12 +22,12 @@
         /// <summary>
         /// The source collection.
         /// </summary>
-        public ObservableCollection<TItem> Source { get; }
+        public ItemCollectionWithLogicalTreeSupport<TItem> Source { get; }
 
         /// <summary>
         /// The target collection.
         /// </summary>
-        public ObservableCollection<TItem> Target { get; }
+        public ItemCollectionWithLogicalTreeSupport<TItem> Target { get; }
 
         /// <summary>
         /// asdf
@@ -37,10 +36,21 @@
         {
             this.Target.Clear();
 
+            this.Source.ReleaseLogicalOwnership();
+
             foreach (var item in this.Source)
             {
                 this.Target.Add(item);
             }
+        }
+
+        /// <summary>
+        /// asdf
+        /// </summary>
+        public void TransferOwnershipToSource()
+        {
+            this.Source.AquireLogicalOwnership();
+            this.Target.ReleaseLogicalOwnership();
         }
 
         private void SourceOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -51,6 +61,7 @@
                     for (var i = 0; i < e.NewItems.Count; i++)
                     {
                         var item = (TItem)e.NewItems[i];
+                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Insert(e.NewStartingIndex + i, item);
                     }
 
@@ -59,6 +70,7 @@
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems)
                     {
+                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Remove((TItem)item);
                     }
 
@@ -67,11 +79,13 @@
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems)
                     {
+                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Remove((TItem)item);
                     }
 
                     foreach (var item in e.NewItems)
                     {
+                        this.Source.Parent.RemoveLogicalChild(item);
                         this.Target.Add((TItem)item);
                     }
 
@@ -82,6 +96,7 @@
 
                     foreach (var item in this.Source)
                     {
+                        this.Source.Parent.AddLogicalChild(item);
                         this.Target.Add(item);
                     }
 

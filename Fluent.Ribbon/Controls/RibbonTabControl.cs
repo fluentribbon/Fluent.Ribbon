@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
@@ -54,7 +55,7 @@ namespace Fluent
         #region Fields
 
         // Collection of toolbar items
-        private ItemCollectionWithLogicalTreeSupport<UIElement> toolBarItems;
+        private ObservableCollection<UIElement> toolBarItems;
 
         // ToolBar panel
 
@@ -246,13 +247,13 @@ namespace Fluent
         /// Gets collection of ribbon toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ItemCollectionWithLogicalTreeSupport<UIElement> ToolBarItems
+        public ObservableCollection<UIElement> ToolBarItems
         {
             get
             {
                 if (this.toolBarItems == null)
                 {
-                    this.toolBarItems = new ItemCollectionWithLogicalTreeSupport<UIElement>(this);
+                    this.toolBarItems = new ObservableCollection<UIElement>();
                     this.toolBarItems.CollectionChanged += this.OnToolbarItemsCollectionChanged;
                 }
 
