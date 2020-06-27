@@ -9,7 +9,7 @@ namespace Fluent.Automation.Peers
     /// <summary>
     /// Automation peer for <see cref="RibbonGroupBox"/>.
     /// </summary>
-    public class RibbonGroupBoxAutomationPeer : ItemsControlAutomationPeer, IExpandCollapseProvider, IScrollItemProvider
+    public class RibbonGroupBoxAutomationPeer : FrameworkElementAutomationPeer, IExpandCollapseProvider, IScrollItemProvider
     {
         private RibbonGroupHeaderAutomationPeer headerPeer;
 
@@ -105,12 +105,6 @@ namespace Fluent.Automation.Peers
         /// <inheritdoc />
         protected override void SetFocusCore()
         {
-        }
-
-        /// <inheritdoc />
-        protected override ItemAutomationPeer CreateItemAutomationPeer(object item)
-        {
-            return new RibbonControlDataAutomationPeer(item, this);
         }
 
         #region IExpandCollapseProvider Members
