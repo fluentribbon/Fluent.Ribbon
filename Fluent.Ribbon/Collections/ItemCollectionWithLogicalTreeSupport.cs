@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Windows;
+    using System.Linq;
 
     /// <summary>
     /// Special collection with support for logical children of a parent object.
@@ -21,6 +21,11 @@
         }
 
         /// <summary>
+        /// Gets wether this collections parent has logical ownership of the items.
+        /// </summary>
+        public bool IsOwningItems { get; private set; } = true;
+
+        /// <summary>
         /// The parent object which support logical children.
         /// </summary>
         public ILogicalChildSupport Parent { get; }
@@ -30,9 +35,16 @@
         /// </summary>
         public void AquireLogicalOwnership()
         {
+            if (this.IsOwningItems)
+            {
+                return;
+            }
+
+            this.IsOwningItems = true;
+
             foreach (var item in this.Items)
             {
-                this.Parent.AddLogicalChild(item);
+                this.AddLogicalChild(item);
             }
         }
 
@@ -41,10 +53,17 @@
         /// </summary>
         public void ReleaseLogicalOwnership()
         {
+            if (this.IsOwningItems == false)
+            {
+                return;
+            }
+
             foreach (var item in this.Items)
             {
-                this.Parent.RemoveLogicalChild(item);
+                this.RemoveLogicalChild(item);
             }
+
+            this.IsOwningItems = false;
         }
 
         /// <summary>
@@ -52,15 +71,12 @@
         /// </summary>
         public IEnumerable<TItem> GetLogicalChildren()
         {
-            foreach (var item in this.Items)
+            if (this.IsOwningItems == false)
             {
-                if (item is DependencyObject dependencyObject
-                    // ReSharper disable once SuspiciousTypeConversion.Global
-                    && ReferenceEquals(LogicalTreeHelper.GetParent(dependencyObject), this.Parent))
-                {
-                    yield return item;
-                }
+                return Enumerable.Empty<TItem>();
             }
+
+            return this.Items;
         }
 
         /// <inheritdoc />
@@ -68,13 +84,13 @@
         {
             base.InsertItem(index, item);
 
-            this.Parent.AddLogicalChild(item);
+            this.AddLogicalChild(item);
         }
 
         /// <inheritdoc />
         protected override void RemoveItem(int index)
         {
-            this.Parent.RemoveLogicalChild(this[index]);
+            this.RemoveLogicalChild(this[index]);
 
             base.RemoveItem(index);
         }
@@ -86,14 +102,14 @@
 
             if (oldItem != null)
             {
-                this.Parent.RemoveLogicalChild(oldItem);
+                this.RemoveLogicalChild(oldItem);
             }
 
             base.SetItem(index, item);
 
             if (item != null)
             {
-                this.Parent.AddLogicalChild(item);
+                this.AddLogicalChild(item);
             }
         }
 
@@ -102,10 +118,30 @@
         {
             foreach (var item in this.Items)
             {
-                this.Parent.RemoveLogicalChild(item);
+                this.RemoveLogicalChild(item);
             }
 
             base.ClearItems();
+        }
+
+        private void AddLogicalChild(TItem item)
+        {
+            if (this.IsOwningItems == false)
+            {
+                return;
+            }
+
+            this.Parent.AddLogicalChild(item);
+        }
+
+        private void RemoveLogicalChild(TItem item)
+        {
+            if (this.IsOwningItems == false)
+            {
+                return;
+            }
+
+            this.Parent.RemoveLogicalChild(item);
         }
     }
 }
