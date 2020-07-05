@@ -90,6 +90,11 @@
             }
 
             base.SetItem(index, item);
+
+            if (item != null)
+            {
+                this.Parent.AddLogicalChild(item);
+            }
         }
 
         /// <inheritdoc />

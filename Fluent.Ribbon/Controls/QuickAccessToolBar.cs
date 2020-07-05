@@ -331,10 +331,10 @@ namespace Fluent
             {
                 this.QuickAccessItems.ReleaseLogicalOwnership();
 
-                for (var i = 0; i < this.quickAccessItems.Count; i++)
+                for (var i = 0; i < this.QuickAccessItems.Count; i++)
                 {
-                    this.MenuDownButton.Items.Insert(i + 1, this.quickAccessItems[i]);
-                    this.quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    this.MenuDownButton.Items.Insert(i + 1, this.QuickAccessItems[i]);
+                    this.QuickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
 
