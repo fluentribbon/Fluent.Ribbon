@@ -35,8 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="4.3.0-alpha*" />
-    <PackageReference Include="XamlColorSchemeGenerator" version="4-*" privateAssets="all" includeAssets="build" />
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="XamlColorSchemeGenerator" privateAssets="all" includeAssets="build" />
   </ItemGroup>
 
   <!-- NuGet -->

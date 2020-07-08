@@ -19,6 +19,7 @@
             
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{DynamicResource WhiteColor}" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="Black" />
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="Black" />
     </fluent:RibbonWindow.Resources>
     
     <Window.Background>
@@ -59,12 +60,8 @@
               Grid.Row="1">
             <TextBlock TextWrapping="Wrap"
                        Margin="5">
-                This sample shows how to use custom colors for various parts of the RibbonWindow, Ribbon, RibbonTitleBar and caption buttons inside WindowCommands.
-                <LineBreak />
-                The colors are chosen to be extreme by purpose.
-                <LineBreak />
-                Have a look at ColorizedRibbonWindow.xaml for details.
-                </TextBlock>
+                This sample shows how to use a background image for the titlebar.
+            </TextBlock>
         </Grid>
     </Grid>
 </fluent:RibbonWindow>

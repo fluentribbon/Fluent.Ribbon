@@ -1844,8 +1844,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Fluent:SplitButton Header="Split 1"
                                         IsCheckable="True"
                                         IsChecked="True"
-                                        Icon="{iconPacks:Material Kind=Settings}"
-                                        LargeIcon="{iconPacks:Material Kind=Settings}"
+                                        Icon="{iconPacks:Material Kind=Cog}"
+                                        LargeIcon="{iconPacks:Material Kind=Cog}"
                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}">
                         <Fluent:MenuItem Header="First (with icon)" 
                                          IsCheckable="True"
@@ -1871,8 +1871,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                 <Fluent:RibbonGroupBox Header="Grouped ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
                                          KeyTip="T1"
-                                         Icon="{iconPacks:Material Kind=Settings}"
-                                         LargeIcon="{iconPacks:Material Kind=Settings}"
+                                         Icon="{iconPacks:Material Kind=Cog}"
+                                         LargeIcon="{iconPacks:Material Kind=Cog}"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}" />
                     <Fluent:ToggleButton Header="Toggle 2"
                                          KeyTip="T2"
@@ -2931,7 +2931,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
                                                      SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
-                                    <Fluent:CheckBox IsChecked="{Binding Path=ColorOptions.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
+                                    <Fluent:CheckBox IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
                                                      Header="Use HSL color" />
                                     <Button Click="SyncThemeNow_OnClick">Sync now</Button>
                                 </WrapPanel>
@@ -3124,76 +3124,84 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Fluent:Button x:Name="showLogicalTree"
-                                   Size="Middle"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   Header="Show logical tree"
-                                   Click="OnShowLogicalTreeClick">
-                        <Button.ContextMenu>
-                            <Fluent:ContextMenu ResizeMode="Both">
-                                <Fluent:MenuItem Header="_Lala"
-                                                 InputGestureText="(Ctrl+F)" />
-                                <Fluent:MenuItem Header="_Lala"
-                                                 RecognizesAccessKey="False" />
-                                <Fluent:MenuItem Header="Lala">
-                                    <Fluent:MenuItem Header="Lala" />
+                    <StackPanel Orientation="Horizontal">
+                        <Fluent:Button x:Name="showLogicalTree"
+                                       Size="Middle"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Header="Show logical tree"
+                                       Click="OnShowLogicalTreeClick">
+                            <Button.ContextMenu>
+                                <Fluent:ContextMenu ResizeMode="Both">
+                                    <Fluent:MenuItem Header="_Lala"
+                                                     InputGestureText="(Ctrl+F)" />
+                                    <Fluent:MenuItem Header="_Lala"
+                                                     RecognizesAccessKey="False" />
                                     <Fluent:MenuItem Header="Lala">
                                         <Fluent:MenuItem Header="Lala" />
-                                        <Fluent:MenuItem Header="Lala" />
+                                        <Fluent:MenuItem Header="Lala">
+                                            <Fluent:MenuItem Header="Lala" />
+                                            <Fluent:MenuItem Header="Lala" />
+                                            <Fluent:MenuItem Header="Lala" />
+                                        </Fluent:MenuItem>
                                         <Fluent:MenuItem Header="Lala" />
                                     </Fluent:MenuItem>
-                                    <Fluent:MenuItem Header="Lala" />
-                                </Fluent:MenuItem>
-                                <Fluent:MenuItem Header="Lala">
-                                    <Fluent:MenuItem.Icon>
-                                        <BitmapImage UriSource="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
-                                    </Fluent:MenuItem.Icon>
-                                </Fluent:MenuItem>
-                                <Separator />
-                                <Fluent:MenuItem Header="1" />
-                                <Fluent:MenuItem Header="2" />
-                                <Fluent:MenuItem Header="3" />
-                                <Fluent:MenuItem Header="4" />
-                                <Fluent:MenuItem Header="5" />
-                                <Fluent:MenuItem Header="6" />
-                                <Fluent:MenuItem Header="7" />
-                                <Fluent:MenuItem Header="8" />
-                                <Fluent:MenuItem Header="9" />
-                                <Fluent:MenuItem Header="10" />
-                                <Fluent:MenuItem Header="11" />
-                                <Fluent:MenuItem Header="12" />
-                                <Fluent:MenuItem Header="13" />
-                                <Fluent:MenuItem Header="14" />
-                                <Fluent:MenuItem Header="15" />
-                                <Fluent:MenuItem Header="16" />
-                                <Fluent:MenuItem Header="17" />
-                                <Fluent:MenuItem Header="18" />
-                                <Fluent:MenuItem Header="19" />
-                                <Fluent:MenuItem Header="20" />
-                                <Fluent:MenuItem Header="21" />
-                                <Fluent:MenuItem Header="22" />
-                                <Fluent:MenuItem Header="23" />
-                                <Fluent:MenuItem Header="24" />
-                                <Fluent:MenuItem Header="25" />
-                                <Fluent:MenuItem Header="26" />
-                                <Fluent:MenuItem Header="27" />
-                                <Fluent:MenuItem Header="28" />
-                                <Fluent:MenuItem Header="29" />
-                                <Fluent:MenuItem Header="30" />
-                                <Fluent:MenuItem Header="31" />
-                                <Fluent:MenuItem Header="32" />
-                                <Fluent:MenuItem Header="33" />
-                                <Fluent:MenuItem Header="34" />
-                                <Fluent:MenuItem Header="35" />
-                                <Fluent:MenuItem Header="36" />
-                                <Fluent:MenuItem Header="37" />
-                                <Fluent:MenuItem Header="38" />
-                                <Fluent:MenuItem Header="39" />
-                                <Fluent:MenuItem Header="40" />
-                            </Fluent:ContextMenu>
-                        </Button.ContextMenu>
-                    </Fluent:Button>
+                                    <Fluent:MenuItem Header="Lala">
+                                        <Fluent:MenuItem.Icon>
+                                            <BitmapImage UriSource="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
+                                        </Fluent:MenuItem.Icon>
+                                    </Fluent:MenuItem>
+                                    <Separator />
+                                    <Fluent:MenuItem Header="1" />
+                                    <Fluent:MenuItem Header="2" />
+                                    <Fluent:MenuItem Header="3" />
+                                    <Fluent:MenuItem Header="4" />
+                                    <Fluent:MenuItem Header="5" />
+                                    <Fluent:MenuItem Header="6" />
+                                    <Fluent:MenuItem Header="7" />
+                                    <Fluent:MenuItem Header="8" />
+                                    <Fluent:MenuItem Header="9" />
+                                    <Fluent:MenuItem Header="10" />
+                                    <Fluent:MenuItem Header="11" />
+                                    <Fluent:MenuItem Header="12" />
+                                    <Fluent:MenuItem Header="13" />
+                                    <Fluent:MenuItem Header="14" />
+                                    <Fluent:MenuItem Header="15" />
+                                    <Fluent:MenuItem Header="16" />
+                                    <Fluent:MenuItem Header="17" />
+                                    <Fluent:MenuItem Header="18" />
+                                    <Fluent:MenuItem Header="19" />
+                                    <Fluent:MenuItem Header="20" />
+                                    <Fluent:MenuItem Header="21" />
+                                    <Fluent:MenuItem Header="22" />
+                                    <Fluent:MenuItem Header="23" />
+                                    <Fluent:MenuItem Header="24" />
+                                    <Fluent:MenuItem Header="25" />
+                                    <Fluent:MenuItem Header="26" />
+                                    <Fluent:MenuItem Header="27" />
+                                    <Fluent:MenuItem Header="28" />
+                                    <Fluent:MenuItem Header="29" />
+                                    <Fluent:MenuItem Header="30" />
+                                    <Fluent:MenuItem Header="31" />
+                                    <Fluent:MenuItem Header="32" />
+                                    <Fluent:MenuItem Header="33" />
+                                    <Fluent:MenuItem Header="34" />
+                                    <Fluent:MenuItem Header="35" />
+                                    <Fluent:MenuItem Header="36" />
+                                    <Fluent:MenuItem Header="37" />
+                                    <Fluent:MenuItem Header="38" />
+                                    <Fluent:MenuItem Header="39" />
+                                    <Fluent:MenuItem Header="40" />
+                                </Fluent:ContextMenu>
+                            </Button.ContextMenu>
+                        </Fluent:Button>
+
+                        <Fluent:Button Header="Snoop"
+                                       Size="Middle"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Click="StartSnoop_OnClick" />
+                    </StackPanel>
 
                     <TreeView x:Name="logicalTreeView"
                               Grid.Row="1"
@@ -3293,17 +3301,21 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                            Click="AddRibbonTab_OnClick">Add tab</Fluent:Button>
                         </WrapPanel>
                     </GroupBox>
+                    <GroupBox Header="Interop">
+                        <WrapPanel>
+                            <Fluent:Button x:Name="OpenMahMetroWindow"
+                                           Size="Middle"
+                                           Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
+                        </WrapPanel>
+                    </GroupBox>
                     <GroupBox Header="Windows">
-                        <WrapPanel>                    
+                        <WrapPanel>
                             <Fluent:Button x:Name="OpenRegularWindow"
                                            Size="Middle"
                                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Fluent:Button>
                             <Fluent:Button x:Name="OpenMinimalRibbonWindowSample"
                                            Size="Middle"
-                                           Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>                            
-                            <Fluent:Button x:Name="OpenMahMetroWindow"
-                                           Size="Middle"
-                                           Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
+                                           Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>
                             <Fluent:Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Fluent:Button>
@@ -3376,7 +3388,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                             </Fluent:DropDownButton.Icon>
                             <Fluent:ColorGallery x:Name="ThemeColorGallery"
                                                  ThemeColorsSource="{Binding ColorViewModel.ThemeColors}"
-                                                 SelectedColor="{Binding ColorViewModel.ThemeColor, Mode=OneTime}"
+                                                 SelectedColor="Red"
                                                  Mode="ThemeColors"
                                                  StandardColorGridRows="3"
                                                  Columns="10"

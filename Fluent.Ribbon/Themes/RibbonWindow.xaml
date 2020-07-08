@@ -30,7 +30,7 @@
                                Height="16"
                                Width="16"
                                Margin="4,2,0,0"
-                               VerticalAlignment="Top"
+                               VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
                                Stretch="Uniform"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                                Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, {Binding RelativeSource={RelativeSource Self}}}"

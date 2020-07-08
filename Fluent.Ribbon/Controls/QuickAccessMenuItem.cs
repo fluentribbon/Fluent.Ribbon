@@ -122,12 +122,9 @@ namespace Fluent
             get
             {
                 var baseEnumerator = base.LogicalChildren;
-                if (baseEnumerator != null)
+                while (baseEnumerator?.MoveNext() == true)
                 {
-                    while (baseEnumerator.MoveNext())
-                    {
-                        yield return baseEnumerator.Current;
-                    }
+                    yield return baseEnumerator.Current;
                 }
 
                 if (this.Target != null)

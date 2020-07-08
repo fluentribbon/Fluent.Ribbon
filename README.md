@@ -58,8 +58,8 @@ You can access preview versions through the [AppVeyor nuget feed](https://ci.app
 
 ## Development requirements
 
-- Visual Studio 2019 Preview 1.1 (16.4) or later (you can get the preview from https://visualstudio.microsoft.com/downloads/
-- .NET core SDK v3.1 or later (you can get the latest preview from https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe)
+- Visual Studio 2019 (16.6) or later (you can it the from https://visualstudio.microsoft.com/downloads/
+- .NET core SDK v3.1.300 or later (you can it from https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-win-x64.exe)
 
 ## Designer issues
 

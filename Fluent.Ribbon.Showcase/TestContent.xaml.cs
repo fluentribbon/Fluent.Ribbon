@@ -4,6 +4,7 @@ namespace FluentTest
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -270,15 +271,20 @@ namespace FluentTest
                 return "NULL";
             }
 
-            var header = element is IHeaderedControl ribbonControl
-                           ? ribbonControl.Header
-                           : string.Empty;
+            var debugInfo = $"[{element}]";
 
-            var name = element is FrameworkElement frameworkElement
-                           ? frameworkElement.Name
-                           : string.Empty;
+            if (element is IHeaderedControl headeredControl)
+            {
+                debugInfo += $" Header: \"{headeredControl.Header}\"";
+            }
 
-            return $"[{element}] (Header: {header} || Name: {name})";
+            if (element is FrameworkElement frameworkElement
+                && string.IsNullOrEmpty(frameworkElement.Name) == false)
+            {
+                debugInfo += $" Name: \"{frameworkElement.Name}\"";
+            }
+
+            return debugInfo;
         }
 
         private void CheckLogicalTree(DependencyObject root)
@@ -538,9 +544,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            // var theme = RuntimeThemeGenerator.GenerateRuntimeTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, RibbonLibraryThemeProvider.DefaultInstance);
-            // this.ThemeResourceDictionaryTextBox.Text = theme.Name;
-            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme(ThemeManager.Current.DetectTheme()?.BaseColorScheme ?? "Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
         }
 
         private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)
@@ -577,6 +581,21 @@ namespace FluentTest
         private static void ShowMahAppsMetroNotAvailableMessageBox()
         {
             MessageBox.Show("MahApps.Metro is not available in this showcase version.");
+        }
+
+        private void StartSnoop_OnClick(object sender, RoutedEventArgs e)
+        {
+            var snoopPath = "snoop";
+            var alternativeSnoopPath = Environment.GetEnvironmentVariable("snoop_dev_path");
+
+            if (string.IsNullOrEmpty(alternativeSnoopPath) == false
+                && File.Exists(alternativeSnoopPath))
+            {
+                snoopPath = alternativeSnoopPath;
+            }
+
+            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
+            using var p = Process.Start(startInfo);
         }
     }
 

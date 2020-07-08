@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> -->
     <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
@@ -47,13 +48,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" version="2020.*" privateAssets="all" includeAssets="build;compile" />
+    <PackageReference Include="JetBrains.Annotations" privateAssets="all" includeAssets="build;compile" />
 
-  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="3.*" privateAssets="all" includeAssets="build;analyzers" Condition="$(DefineConstants.Contains(NETCOREAPP))" />
+  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" privateAssets="all" includeAssets="build;analyzers" Condition="$(DefineConstants.Contains(NETCOREAPP))" />
     <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="all" includeAssets="build;analyzers" /> -->
     <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="all" includeAssets="build;analyzers" />
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
-    <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
-    <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
+    <PackageReference Include="StyleCop.Analyzers" privateAssets="all" includeAssets="build;analyzers" />
+    <PackageReference Include="WpfAnalyzers" privateAssets="all" includeAssets="build;analyzers" />
   </ItemGroup>
 </Project>
