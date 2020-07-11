@@ -1173,7 +1173,7 @@ namespace Fluent
             {
                 using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
                 {
-                    this.CurrentGalleryPanelState.Restore();
+                    this.CurrentGalleryPanelState?.Restore();
 
                     this.galleryPanel.IsGrouped = false;
 
@@ -1214,7 +1214,7 @@ namespace Fluent
             {
                 using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
                 {
-                    this.CurrentGalleryPanelState.Save();
+                    this.CurrentGalleryPanelState?.Save();
 
                     this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
