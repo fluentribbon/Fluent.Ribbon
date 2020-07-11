@@ -24,6 +24,7 @@
   - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
   - [#795](../../issues/795) - Check mark of menuitem not visible
   - [#798](../../issues/798) - The elements in the ribbon use ElementName = xxx to bind the data and cannot find the xxx element
+  - [#819](../../issues/819) - Is there a way to disable default tooltip when RibbonGroupBox is disabled?
 
 - ### Enhancements/Features
   - [#804](../../issues/804) - Ribbon Window's Icon Not Centered  
