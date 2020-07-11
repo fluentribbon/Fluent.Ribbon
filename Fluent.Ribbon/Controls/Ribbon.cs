@@ -1525,7 +1525,6 @@ namespace Fluent
                 this.TabControl.SelectedItem = selectedTab;
 
                 this.toolBarItemsSync = new CollectionSyncHelper<UIElement>(this.ToolBarItems, this.TabControl.ToolBarItems);
-                this.toolBarItemsSync.TransferItemsToTarget();
             }
 
             if (this.QuickAccessToolBar != null)
@@ -1540,7 +1539,6 @@ namespace Fluent
             if (this.QuickAccessToolBar != null)
             {
                 this.quickAccessItemsSync = new CollectionSyncHelper<QuickAccessMenuItem>(this.QuickAccessItems, this.QuickAccessToolBar.QuickAccessItems);
-                this.quickAccessItemsSync.TransferItemsToTarget();
 
                 {
                     var binding = new Binding(nameof(this.CanQuickAccessLocationChanging))

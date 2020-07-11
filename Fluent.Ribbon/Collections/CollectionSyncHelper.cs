@@ -5,17 +5,19 @@
     using System.Collections.Specialized;
 
     /// <summary>
-    /// asdfasdfasdf
+    /// Synchronizes a target collection with a source collection in a one way fashion.
     /// </summary>
     public class CollectionSyncHelper<TItem>
     {
         /// <summary>
-        /// asdfasdf
+        /// Creates a new instance with <paramref name="source"/> as <see cref="Source"/> and <paramref name="target"/> as <see cref="Target"/>.
         /// </summary>
         public CollectionSyncHelper(ObservableCollection<TItem> source, ObservableCollection<TItem> target)
         {
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
             this.Target = target ?? throw new ArgumentNullException(nameof(target));
+
+            this.SyncTarget();
 
             this.Source.CollectionChanged += this.SourceOnCollectionChanged;
         }
@@ -31,9 +33,9 @@
         public ObservableCollection<TItem> Target { get; }
 
         /// <summary>
-        /// asdf
+        /// Clears <see cref="Target"/> and then copies all items from <see cref="Source"/> to <see cref="Target"/>.
         /// </summary>
-        public void TransferItemsToTarget()
+        private void SyncTarget()
         {
             this.Target.Clear();
 
@@ -78,12 +80,7 @@
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    this.Target.Clear();
-
-                    foreach (var item in this.Source)
-                    {
-                        this.Target.Add(item);
-                    }
+                    this.SyncTarget();
 
                     break;
             }
