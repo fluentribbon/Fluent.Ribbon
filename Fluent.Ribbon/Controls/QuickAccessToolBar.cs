@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Markup;
+    using Fluent.Collections;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -29,7 +30,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ToolbarDownButton", Type = typeof(DropDownButton))]
     [TemplatePart(Name = "PART_ToolBarPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ToolBarOverflowPanel", Type = typeof(Panel))]
-    public class QuickAccessToolBar : Control
+    public class QuickAccessToolBar : Control, ILogicalChildSupport
     {
         #region Events
 
@@ -53,7 +54,7 @@ namespace Fluent
         private MenuItem showBelow;
 
         // Items of quick access menu
-        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
+        private ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> quickAccessItems;
 
         // Root panel
         private Panel rootPanel;
@@ -179,86 +180,16 @@ namespace Fluent
         /// <summary>
         /// Gets quick access menu items
         /// </summary>
-        public ObservableCollection<QuickAccessMenuItem> QuickAccessItems
+        public ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem> QuickAccessItems
         {
             get
             {
                 if (this.quickAccessItems == null)
                 {
-                    this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
-                    this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
+                    this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
                 }
 
                 return this.quickAccessItems;
-            }
-        }
-
-        /// <summary>
-        /// Handles quick access menu items chages
-        /// </summary>
-        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
-                    {
-                        if (this.MenuDownButton != null)
-                        {
-                            this.MenuDownButton.Items.Insert(e.NewStartingIndex + i + 1, e.NewItems[i]);
-                        }
-                        else
-                        {
-                            this.AddLogicalChild(e.NewItems[i]);
-                        }
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
-                    {
-                        if (this.MenuDownButton != null)
-                        {
-                            this.MenuDownButton.Items.Remove(item);
-                        }
-                        else
-                        {
-                            this.RemoveLogicalChild(item);
-                        }
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
-                    {
-                        if (this.MenuDownButton != null)
-                        {
-                            this.MenuDownButton.Items.Remove(item);
-                        }
-                        else
-                        {
-                            this.RemoveLogicalChild(item);
-                        }
-                    }
-
-                    var ii = 0;
-                    foreach (var item in e.NewItems)
-                    {
-                        if (this.MenuDownButton != null)
-                        {
-                            this.MenuDownButton.Items.Insert(e.NewStartingIndex + ii + 1, item);
-                        }
-                        else
-                        {
-                            this.AddLogicalChild(item);
-                        }
-
-                        ii++;
-                    }
-
-                    break;
             }
         }
 
@@ -282,19 +213,6 @@ namespace Fluent
         public static readonly DependencyProperty ShowAboveRibbonProperty =
             DependencyProperty.Register(nameof(ShowAboveRibbon), typeof(bool),
             typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-        #endregion
-
-        #region LogicalChildren
-
-        /// <inheritdoc />
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                yield return this.rootPanel;
-            }
-        }
 
         #endregion
 
@@ -358,6 +276,14 @@ namespace Fluent
             DefaultStyleKeyProperty.OverrideMetadata(typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(typeof(QuickAccessToolBar)));
         }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public QuickAccessToolBar()
+        {
+            this.Loaded += (sender, args) => this.InvalidateMeasureOfTitleBar();
+        }
+
         #endregion
 
         #region Override
@@ -395,24 +321,20 @@ namespace Fluent
                     this.MenuDownButton.Items.Remove(item);
                     item.InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
-            }
-            else if (this.quickAccessItems != null)
-            {
-                foreach (var item in this.quickAccessItems)
-                {
-                    this.RemoveLogicalChild(item);
-                }
+
+                this.QuickAccessItems.AquireLogicalOwnership();
             }
 
             this.MenuDownButton = this.GetTemplateChild("PART_MenuDownButton") as DropDownButton;
 
-            if (this.MenuDownButton != null
-                && this.quickAccessItems != null)
+            if (this.MenuDownButton != null)
             {
-                for (var i = 0; i < this.quickAccessItems.Count; i++)
+                this.QuickAccessItems.ReleaseLogicalOwnership();
+
+                for (var i = 0; i < this.QuickAccessItems.Count; i++)
                 {
-                    this.MenuDownButton.Items.Insert(i + 1, this.quickAccessItems[i]);
-                    this.quickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    this.MenuDownButton.Items.Insert(i + 1, this.QuickAccessItems[i]);
+                    this.QuickAccessItems[i].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
                 }
             }
 
@@ -564,8 +486,13 @@ namespace Fluent
 
         private void InvalidateMeasureOfTitleBar()
         {
+            if (this.IsLoaded == false)
+            {
+                return;
+            }
+
             var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
-                ?? UIHelper.GetParent<RibbonTitleBar>(this);
+                           ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
             titleBar?.ForceMeasureAndArrange();
         }
@@ -697,5 +624,37 @@ namespace Fluent
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonQuickAccessToolBarAutomationPeer(this);
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                yield return this.rootPanel;
+
+                foreach (var item in this.QuickAccessItems.GetLogicalChildren())
+                {
+                    yield return item;
+                }
+            }
+        }
     }
 }

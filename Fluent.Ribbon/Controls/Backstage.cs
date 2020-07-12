@@ -224,9 +224,20 @@ namespace Fluent
         {
             get
             {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
                 if (this.Content != null)
                 {
                     yield return this.Content;
+                }
+
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
                 }
             }
         }

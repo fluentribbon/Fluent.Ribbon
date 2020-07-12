@@ -65,7 +65,7 @@ namespace Fluent
         }
 
         /// <summary>
-        /// Returns wether any key tips are visibile.
+        /// Returns whether any key tips are visibile.
         /// </summary>
         public bool AreAnyKeyTipsVisible
         {

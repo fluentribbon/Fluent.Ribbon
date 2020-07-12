@@ -2,9 +2,11 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -28,8 +30,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RightPaneWidthProperty =
-            DependencyProperty.Register(nameof(RightPaneWidth), typeof(double), typeof(ApplicationMenu), new PropertyMetadata(300.0));
+        public static readonly DependencyProperty RightPaneWidthProperty = DependencyProperty.Register(nameof(RightPaneWidth), typeof(double), typeof(ApplicationMenu), new PropertyMetadata(300.0));
 
         /// <summary>
         /// Gets or sets application menu right pane content
@@ -43,8 +44,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty RightPaneContentProperty =
-            DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata());
+        public static readonly DependencyProperty RightPaneContentProperty = DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// Gets or sets application menu bottom pane content
@@ -58,8 +58,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty FooterPaneContentProperty =
-            DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata());
+        public static readonly DependencyProperty FooterPaneContentProperty = DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -121,5 +120,28 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.RightPaneContent != null)
+                {
+                    yield return this.RightPaneContent;
+                }
+
+                if (this.FooterPaneContent != null)
+                {
+                    yield return this.FooterPaneContent;
+                }
+            }
+        }
     }
 }

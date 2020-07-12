@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:theming="clr-namespace:Fluent.Theming">
+    <theming:RibbonLibraryThemeProvider x:Key="{x:Static theming:RibbonLibraryThemeProvider.DefaultInstance}" />
+    
     <!-- Set default values -->
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
 

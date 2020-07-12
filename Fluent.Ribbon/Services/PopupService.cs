@@ -123,7 +123,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
+            WriteDebug($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
 
             element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode, reason));
         }
@@ -140,7 +140,7 @@ namespace Fluent
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
+            WriteDebug($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
 
             element.RaiseEvent(new DismissPopupEventArgs(mode, reason));
         }
@@ -165,10 +165,10 @@ namespace Fluent
         /// </summary>
         public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine(nameof(OnClickThroughThunk));
-            Debug.WriteLine($"Sender         - {sender}");
-            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
-            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
+            WriteDebug(nameof(OnClickThroughThunk));
+            WriteDebug($"Sender         - {sender}");
+            WriteDebug($"OriginalSource - {e.OriginalSource}");
+            WriteDebug($"Mouse.Captured - {Mouse.Captured}");
 
             if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
@@ -204,10 +204,10 @@ namespace Fluent
         /// </summary>
         public static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(nameof(OnLostMouseCapture));
-            Debug.WriteLine($"Sender         - {sender}");
-            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
-            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
+            WriteDebug(nameof(OnLostMouseCapture));
+            WriteDebug($"Sender         - {sender}");
+            WriteDebug($"OriginalSource - {e.OriginalSource}");
+            WriteDebug($"Mouse.Captured - {Mouse.Captured}");
 
             var control = sender as IDropDownControl;
 
@@ -220,7 +220,7 @@ namespace Fluent
                 || control.IsDropDownOpen == false
                 || control.IsContextMenuOpened)
             {
-                Debug.WriteLine($"OnLostMouseCapture => Taking no action");
+                WriteDebug($"OnLostMouseCapture => Taking no action");
                 return;
             }
 
@@ -261,7 +261,7 @@ namespace Fluent
                 && Mouse.Captured == null
                 && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
             {
-                Debug.WriteLine($"Setting mouse capture to: {sender}");
+                WriteDebug($"Setting mouse capture to: {sender}");
                 Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                 e.Handled = true;
 
@@ -412,7 +412,7 @@ namespace Fluent
             if (sender is IDropDownControl control)
             {
                 control.IsContextMenuOpened = true;
-                Debug.WriteLine("Context menu opening");
+                WriteDebug("Context menu opening");
             }
         }
 
@@ -423,7 +423,7 @@ namespace Fluent
         {
             if (sender is IDropDownControl control)
             {
-                Debug.WriteLine("Context menu closing");
+                WriteDebug("Context menu closing");
                 control.IsContextMenuOpened = false;
 
                 if (Mouse.Captured is System.Windows.Controls.ContextMenu == false)
@@ -444,6 +444,11 @@ namespace Fluent
 
             return type.FullName == "System.Windows.Controls.Primitives.PopupRoot"
                    || type.Name == "PopupRoot";
+        }
+
+        private static void WriteDebug(string message)
+        {
+            //Debug.WriteLine(message);
         }
     }
 }

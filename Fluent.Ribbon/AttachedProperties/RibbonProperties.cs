@@ -211,7 +211,7 @@ namespace Fluent
         #region LastVisibleWidthProperty
 
         /// <summary>
-        /// asdf
+        /// Stores the last visible width of an element.
         /// </summary>
         public static readonly DependencyProperty LastVisibleWidthProperty = DependencyProperty.RegisterAttached(
             "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(default(double)));
@@ -222,13 +222,34 @@ namespace Fluent
             element.SetValue(LastVisibleWidthProperty, value);
         }
 
-        /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> from <paramref name="element"/>.</summary>
-        /// <returns>LastVisibleWidth property value.</returns>
+        /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
         public static double GetLastVisibleWidth(DependencyObject element)
         {
             return (double)element.GetValue(LastVisibleWidthProperty);
         }
 
         #endregion LastVisibleWidthProperty
+
+        #region IsElementInQuickAccessToolBarProperty
+
+        /// <summary>
+        /// Defines if the element is part of the <see cref="QuickAccessToolBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsElementInQuickAccessToolBarProperty = DependencyProperty.RegisterAttached(
+            "IsElementInQuickAccessToolBar", typeof(bool), typeof(RibbonProperties), new PropertyMetadata(default(bool)));
+
+        /// <summary>Helper for setting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetIsElementInQuickAccessToolBar(DependencyObject element, bool value)
+        {
+            element.SetValue(IsElementInQuickAccessToolBarProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
+        public static bool GetIsElementInQuickAccessToolBar(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsElementInQuickAccessToolBarProperty);
+        }
+
+        #endregion IsElementInQuickAccessToolBarProperty
     }
 }

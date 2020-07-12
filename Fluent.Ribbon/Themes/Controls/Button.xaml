@@ -48,7 +48,7 @@
         <Setter Property="HorizontalContentAlignment"
                 Value="Center" />
         <Setter Property="VerticalContentAlignment"
-                Value="Stretch" />
+                Value="Center" />
         <Setter Property="Padding"
                 Value="1" />
         <Setter Property="Width"

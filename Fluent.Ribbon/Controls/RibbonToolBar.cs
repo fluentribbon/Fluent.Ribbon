@@ -124,7 +124,21 @@ namespace Fluent
         {
             get
             {
-                return this.Children.GetEnumerator();
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                foreach (var child in this.Children)
+                {
+                    yield return child;
+                }
             }
         }
 

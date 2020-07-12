@@ -274,7 +274,7 @@ namespace Fluent
                     panelSize.V += curLineSize.V;
                     curLineSize = sz;
 
-                    if (DoubleUtil.GreaterThan(sz.U, uvConstraint.U)) //the element is wider then the constrint - give it a separate line
+                    if (DoubleUtil.GreaterThan(sz.U, uvConstraint.U)) //the element is wider then the constraint - give it a separate line
                     {
                         panelSize.U = Math.Max(sz.U, panelSize.U);
                         panelSize.V += sz.V;

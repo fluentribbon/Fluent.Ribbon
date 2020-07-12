@@ -6,6 +6,19 @@
 
     internal static class ItemsControlHelper
     {
+        public static readonly DependencyProperty IsMovingItemsToDifferentControlProperty = DependencyProperty.RegisterAttached(
+            "IsMovingItemsToDifferentControl", typeof(bool), typeof(ItemsControlHelper), new PropertyMetadata(default(bool)));
+
+        public static void SetIsMovingItemsToDifferentControl(DependencyObject element, bool value)
+        {
+            element.SetValue(IsMovingItemsToDifferentControlProperty, value);
+        }
+
+        public static bool GetIsMovingItemsToDifferentControl(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsMovingItemsToDifferentControlProperty);
+        }
+
         public static ItemsControl ItemsControlFromItemContainer(DependencyObject container)
         {
             if (container is null)
@@ -44,19 +57,31 @@
 
         public static void MoveItemsToDifferentControl(ItemsControl source, ItemsControl target)
         {
-            if (source.ItemsSource != null)
+            try
             {
-                target.ItemsSource = source.ItemsSource;
-                source.ItemsSource = null;
-            }
-            else
-            {
-                while (source.Items.Count > 0)
+                SetIsMovingItemsToDifferentControl(source, true);
+                SetIsMovingItemsToDifferentControl(target, true);
+
+                var itemsSource = source.ItemsSource;
+                if (itemsSource != null)
                 {
-                    var item = source.Items[0];
-                    source.Items.Remove(item);
-                    target.Items.Add(item);
+                    source.ItemsSource = null;
+                    target.ItemsSource = itemsSource;
                 }
+                else
+                {
+                    while (source.Items.Count > 0)
+                    {
+                        var item = source.Items[0];
+                        source.Items.Remove(item);
+                        target.Items.Add(item);
+                    }
+                }
+            }
+            finally
+            {
+                SetIsMovingItemsToDifferentControl(source, false);
+                SetIsMovingItemsToDifferentControl(target, false);
             }
         }
     }

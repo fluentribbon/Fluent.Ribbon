@@ -121,17 +121,20 @@ namespace Fluent
         {
             get
             {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
                 if (this.Target != null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
                     if (ReferenceEquals(parent, this))
                     {
-                        var list = new ArrayList { this.Target };
-                        return list.GetEnumerator();
+                        yield return this.Target;
                     }
                 }
-
-                return base.LogicalChildren;
             }
         }
 
@@ -221,10 +224,12 @@ namespace Fluent
             }
 
             // The control isn't supported
-            if (result == null)
+            if (result is null)
             {
                 throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
             }
+
+            RibbonProperties.SetIsElementInQuickAccessToolBar(result, true);
 
             if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
             {

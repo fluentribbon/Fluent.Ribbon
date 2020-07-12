@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -13,6 +14,7 @@ namespace Fluent
     using System.Windows.Shapes;
     using ControlzEx.Standard;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -52,7 +54,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata());
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -68,31 +70,7 @@ namespace Fluent
         /// <summary>
         /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
-
-        /// <summary>
-        /// Called when <see cref="IconProperty"/> changes.
-        /// </summary>
-        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var element = d as ILogicalChildSupport;
-
-            if (element == null)
-            {
-                throw new ArgumentException("Argument musst be of type ILogicalChildSupport.", nameof(d));
-            }
-
-            if (e.OldValue is FrameworkElement oldElement)
-            {
-                element.RemoveLogicalChild(oldElement);
-            }
-
-            if (e.NewValue is FrameworkElement newElement
-                && LogicalTreeHelper.GetParent(newElement) == null)
-            {
-                element.AddLogicalChild(newElement);
-            }
-        }
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -516,6 +494,29 @@ namespace Fluent
         void ILogicalChildSupport.RemoveLogicalChild(object child)
         {
             this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.Header != null)
+                {
+                    yield return this.Header;
+                }
+            }
         }
 
         /// <inheritdoc />

@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> -->
     <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
@@ -8,8 +9,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net462;net45</TargetFrameworks>
-    <LangVersion>preview</LangVersion>
+    <TargetFrameworks>netcoreapp3.0;net462;net452</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -30,6 +31,14 @@
     <RestoreLockedMode Condition="'$(RestoreLockedMode)' == ''">true</RestoreLockedMode> -->
   </PropertyGroup>
 
+  <!-- Sign assembly -->
+  <PropertyGroup>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+
   <ItemGroup>
     <Resource Include="**/*.png;**/*.ico;**/*.ps" />
 
@@ -38,25 +47,14 @@
     </Compile>
   </ItemGroup>
 
-  <!-- <ItemGroup>
-    <Compile DependentUpon="%(Filename)" SubType="Code" Update="**\obj\**\*.g$(DefaultLanguageSourceExtension)" />
-    <Compile DependentUpon="%(Filename)" SubType="Designer" Update="**\*.xaml$(DefaultLanguageSourceExtension)" />
-  </ItemGroup> -->
-
-  <PropertyGroup>
-    <XamlColorSchemeGeneratorVersion>3.0.0.31</XamlColorSchemeGeneratorVersion>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" version="2019.*" privateAssets="all" includeAssets="build;compile" />
+    <PackageReference Include="JetBrains.Annotations" privateAssets="all" includeAssets="build;compile" />
 
-  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" version="3.*" privateAssets="all" includeAssets="build;analyzers" Condition="$(DefineConstants.Contains(NETCOREAPP))" />
+  	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" privateAssets="all" includeAssets="build;analyzers" Condition="$(DefineConstants.Contains(NETCOREAPP))" />
     <!-- <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" version="*" privateAssets="all" includeAssets="build;analyzers" /> -->
     <!-- <PackageReference Include="PropertyChangedAnalyzers" version="2.7.0" privateAssets="all" includeAssets="build;analyzers" />
     <PackageReference Include="ReflectionAnalyzers" version="0.1.19-dev" privateAssets="all" includeAssets="build;analyzers" /> -->
-    <PackageReference Include="StyleCop.Analyzers" version="1.1.*" privateAssets="all" includeAssets="build;analyzers" />
-    <PackageReference Include="WpfAnalyzers" version="2.4.*" privateAssets="all" includeAssets="build;analyzers" />
-
-    <PackageReference Include="XamlColorSchemeGenerator" version="$(XamlColorSchemeGeneratorVersion)" privateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" privateAssets="all" includeAssets="build;analyzers" />
+    <PackageReference Include="WpfAnalyzers" privateAssets="all" includeAssets="build;analyzers" />
   </ItemGroup>
 </Project>

@@ -172,7 +172,7 @@ namespace Fluent
         #endregion
 
         /// <summary>
-        /// Gets or sets whether icon is visible
+        /// Gets or sets whether icon is visible.
         /// </summary>
         public bool IsIconVisible
         {
@@ -180,10 +180,20 @@ namespace Fluent
             set { this.SetValue(IsIconVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Gets or sets whether icon is visible
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsIconVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsIconVisibleProperty = DependencyProperty.Register(nameof(IsIconVisible), typeof(bool), typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
+
+        /// <summary>
+        /// Gets or sets the vertical alignment of the icon.
+        /// </summary>
+        public VerticalAlignment VerticalIconAlignment
+        {
+            get { return (VerticalAlignment)this.GetValue(VerticalIconAlignmentProperty); }
+            set { this.SetValue(VerticalIconAlignmentProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="VerticalIconAlignment"/> dependency property.</summary>
+        public static readonly DependencyProperty VerticalIconAlignmentProperty = DependencyProperty.Register(nameof(VerticalIconAlignment), typeof(VerticalAlignment), typeof(RibbonWindow), new PropertyMetadata(VerticalAlignment.Top));
 
         // todo check if IsCollapsed and IsAutomaticCollapseEnabled should be reduced to one shared property for RibbonWindow and Ribbon
 

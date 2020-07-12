@@ -29,7 +29,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty(nameof(Groups))]
     [DefaultProperty(nameof(Groups))]
-    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl
+    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport
     {
         #region Fields
 
@@ -108,7 +108,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon groups container
         /// </summary>
-        public ScrollViewer GroupsContainer { get; } = new ScrollViewer();
+        public ScrollViewer GroupsContainer { get; } = new ScrollViewer { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
 
         /// <summary>
         /// Gets or sets whether ribbon is minimized
@@ -168,15 +168,6 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IsContextualProperty = IsContextualPropertyKey.DependencyProperty;
-
-        /// <inheritdoc />
-        protected override IEnumerator LogicalChildren
-        {
-            get
-            {
-                yield return this.GroupsContainer;
-            }
-        }
 
         #endregion
 
@@ -399,15 +390,7 @@ namespace Fluent
         /// <summary>
         /// DependencyProperty for <see cref="Header"/>.
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, OnHeaderChanged));
-
-        // Header changed handler
-        private static void OnHeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var tabItem = (RibbonTabItem)d;
-            tabItem.CoerceValue(ToolTipProperty);
-        }
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -488,9 +471,6 @@ namespace Fluent
             FocusableProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnFocusableChanged, CoerceFocusable));
             VisibilityProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(OnVisibilityChanged));
 
-            ToolTipProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, CoerceToolTip));
-            System.Windows.Controls.ToolTipService.InitialShowDelayProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(2000));
-
             KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Contained));
             KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(RibbonTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
 
@@ -524,19 +504,6 @@ namespace Fluent
                     }
                 }
             }
-        }
-
-        // Coerce ToolTip to ensure that tooltip displays name of the tabitem
-        private static object CoerceToolTip(DependencyObject d, object basevalue)
-        {
-            var tabItem = (RibbonTabItem)d;
-            if (basevalue == null
-                && tabItem.Header is string)
-            {
-                basevalue = tabItem.Header;
-            }
-
-            return basevalue;
         }
 
         /// <summary>
@@ -885,6 +852,38 @@ namespace Fluent
                 && this.TabControlParent.IsMinimized)
             {
                 this.TabControlParent.IsDropDownOpen = false;
+            }
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
+        {
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                yield return this.GroupsContainer;
+
+                if (this.Header != null)
+                {
+                    yield return this.Header;
+                }
             }
         }
     }

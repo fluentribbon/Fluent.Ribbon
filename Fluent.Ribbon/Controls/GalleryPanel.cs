@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Windows;
@@ -34,12 +35,6 @@ namespace Fluent
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Used to prevent measures which cause the layout to flicker.
-        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
-        /// </summary>
-        public bool IgnoreNextMeasureCall { get; set; }
 
         #region IsGrouped
 
@@ -236,12 +231,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1, OnMinItemsInRowChanged));
-
-        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+            typeof(GalleryPanel), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -260,14 +250,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for ItemsInRow.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMaxItemsInRowChanged));
-
-        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -287,6 +270,7 @@ namespace Fluent
 
         private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
         {
+            this.Loaded -= this.HandleGalleryPanel_Loaded;
             this.Refresh();
         }
 
@@ -312,75 +296,39 @@ namespace Fluent
 
         #endregion
 
-        #region GetActualMinWidth
-
-        /// <summary>
-        /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
-        /// </summary>
-        public void UpdateMinAndMaxWidth()
-        {
-            // Calculate actual min width
-            double actualMinWidth = 0;
-            var actualMaxWidth = double.PositiveInfinity;
-
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                galleryGroupContainer.MinItemsInRow = this.MinItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
-
-                InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(SizeConstants.Infinite);
-
-                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
-                actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
-            }
-
-            this.MinWidth = actualMinWidth;
-            this.MaxWidth = actualMaxWidth;
-        }
-
-        private static void InvalidateMeasureRecursive(UIElement visual)
-        {
-            visual.InvalidateMeasure();
-
-            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
-            {
-                if (VisualTreeHelper.GetChild(visual, i) is UIElement element)
-                {
-                    InvalidateMeasureRecursive(element);
-                }
-            }
-        }
-
-        #endregion
-
-        #region GetItemSize
-
-        /// <summary>
-        /// Determinates item's size (return Size.Empty in case of it is not possible)
-        /// </summary>
-        /// <returns></returns>
-        public Size GetItemSize()
-        {
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                var size = galleryGroupContainer.GetItemSize();
-                if (size.IsEmpty == false)
-                {
-                    return size;
-                }
-            }
-
-            return Size.Empty;
-        }
-
-        #endregion
-
         #region Refresh
+
+        private bool areUpdatesSuspsended;
+
+        /// <summary>
+        /// Suspends updates.
+        /// </summary>
+        public void SuspendUpdates()
+        {
+            this.areUpdatesSuspsended = true;
+        }
+
+        /// <summary>
+        /// Resumes updates.
+        /// </summary>
+        public void ResumeUpdates()
+        {
+            this.areUpdatesSuspsended = false;
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="Refresh"/>.
+        /// </summary>
+        public void ResumeUpdatesRefresh()
+        {
+            this.ResumeUpdates();
+            this.Refresh();
+        }
 
         private void RefreshAsync()
         {
-            if (this.needsRefresh)
+            if (this.needsRefresh
+                || this.areUpdatesSuspsended)
             {
                 return;
             }
@@ -400,6 +348,11 @@ namespace Fluent
 
         private void Refresh()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Clear currently used group containers
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -481,7 +434,8 @@ namespace Fluent
                     this.visualCollection.Add(galleryGroupContainer);
                 }
 
-                dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
+                var galleryItemPlaceholder = new GalleryItemPlaceholder(item);
+                dictionary[propertyValue].Items.Add(galleryItemPlaceholder);
             }
 
             if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
@@ -491,7 +445,6 @@ namespace Fluent
                 this.galleryGroupContainers[0].IsHeadered = false;
             }
 
-            this.UpdateMinAndMaxWidth();
             this.InvalidateMeasure();
         }
 
@@ -520,15 +473,6 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (this.IgnoreNextMeasureCall)
-            {
-                this.IgnoreNextMeasureCall = false;
-
-                // Force a new async measure after we returned our temporary desired size
-                this.RunInDispatcherAsync(this.ForceMeasure);
-                return this.DesiredSize;
-            }
-
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -538,7 +482,9 @@ namespace Fluent
                 width = Math.Max(width, child.DesiredSize.Width);
             }
 
-            return new Size(width, height);
+            var size = new Size(width, height);
+
+            return size;
         }
 
         /// <inheritdoc />
@@ -571,12 +517,6 @@ namespace Fluent
         #endregion
 
         #region Private Methods
-
-        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var galleryPanel = (GalleryPanel)d;
-            galleryPanel.UpdateMinAndMaxWidth();
-        }
 
         private string GetPropertyValueAsString(object item)
         {

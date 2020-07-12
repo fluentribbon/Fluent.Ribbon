@@ -1,6 +1,7 @@
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
+    using System.Collections;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -33,7 +34,7 @@ namespace Fluent
         /// <summary>
         /// Dependency property for <see cref="Icon"/>
         /// </summary>
-        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(RibbonControl.OnIconChanged));
+        public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -95,7 +96,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for Text.
         /// This enables animation, styling, binding, etc...
         /// </summary>
-        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(BackstageTabItem));
+        public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(BackstageTabItem), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// Static constructor
@@ -103,6 +104,9 @@ namespace Fluent
         static BackstageTabItem()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(typeof(BackstageTabItem)));
+
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Local));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(BackstageTabItem), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         #region Overrides
@@ -128,12 +132,26 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this)
                 || this.IsSelected == false)
             {
                 this.IsSelected = true;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            if ((e.Key == Key.Space || e.Key == Key.Enter) 
+                && (ReferenceEquals(e.Source, this) || this.IsSelected == false))
+            {
+                this.IsSelected = true;
+            }
+            else
+            {
+                base.OnKeyUp(e);
             }
         }
 
@@ -236,6 +254,29 @@ namespace Fluent
         void ILogicalChildSupport.RemoveLogicalChild(object child)
         {
             this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Icon != null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.Header != null)
+                {
+                    yield return this.Header;
+                }
+            }
         }
 
         /// <inheritdoc />

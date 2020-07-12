@@ -24,6 +24,7 @@ namespace Fluent
 
         // Name of the isolated storage file
         private string isolatedStorageFileName;
+
         private readonly Stream memoryStream;
 
         /// <summary>
@@ -158,40 +159,10 @@ namespace Fluent
         {
             var builder = new StringBuilder();
 
-            var isMinimizedSaveState = this.ribbon.IsMinimized;
-
             // Save Ribbon State
-            builder.Append(isMinimizedSaveState.ToString(CultureInfo.InvariantCulture));
+            builder.Append(this.ribbon.IsMinimized.ToString(CultureInfo.InvariantCulture));
             builder.Append(',');
             builder.Append(this.ribbon.ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
-            builder.Append('|');
-
-            // Save QAT items
-            var paths = new Dictionary<FrameworkElement, string>();
-            this.ribbon.TraverseLogicalTree(this.ribbon, string.Empty, paths);
-
-            // Foreach items and see whether path is found for the item
-            foreach (var element in this.ribbon.GetQuickAccessElements())
-            {
-                var control = element.Key as FrameworkElement;
-
-                if (control != null
-                    && paths.TryGetValue(control, out var path))
-                {
-                    builder.Append(path);
-                    builder.Append(';');
-                }
-                else
-                {
-                    // Item is not found in logical tree, output to debug console
-#if DEBUG
-                    var controlName = control != null && string.IsNullOrEmpty(control.Name) == false
-                                          ? string.Format(CultureInfo.InvariantCulture, " (name of the control is {0})", control.Name)
-                                          : string.Empty;
-                    Debug.WriteLine($"Control \"{controlName}\" of type \"{element.Key.GetType().Name}\" is not found in logical tree during QAT saving");
-#endif
-                }
-            }
 
             return builder;
         }
@@ -281,93 +252,12 @@ namespace Fluent
         /// <param name="data">The <see cref="string"/> to load the state from.</param>
         protected virtual void LoadState(string data)
         {
-            var splitted = data.Split('|');
-
-            if (splitted.Length != 2)
-            {
-                return;
-            }
-
             // Load Ribbon State
-            var ribbonProperties = splitted[0].Split(',');
+            var ribbonProperties = data.Split(',');
 
-            var isMinimized = bool.Parse(ribbonProperties[0]);
-
-            this.ribbon.IsMinimized = isMinimized;
+            this.ribbon.IsMinimized = bool.Parse(ribbonProperties[0]);
 
             this.ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonProperties[1]);
-
-            this.LoadQuickAccessItems(splitted[1]);
-        }
-
-        /// <summary>
-        /// Loads quick access items from <paramref name="quickAccessItemsData"/>.
-        /// </summary>
-        /// <param name="quickAccessItemsData">Serialized data for generating quick access items.</param>
-        protected virtual void LoadQuickAccessItems(string quickAccessItemsData)
-        {
-            // Load items
-            var items = quickAccessItemsData.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-            this.ribbon.ClearQuickAccessToolBar();
-
-            foreach (var item in items)
-            {
-                var quickAccessItem = this.CreateQuickAccessItem(item);
-
-                if (quickAccessItem != null)
-                {
-                    this.ribbon.AddToQuickAccessToolBar(quickAccessItem);
-                }
-            }
-
-            // Sync QAT menu items
-            foreach (var menuItem in this.ribbon.QuickAccessItems)
-            {
-                menuItem.IsChecked = this.ribbon.IsInQuickAccessToolBar(menuItem.Target);
-            }
-        }
-
-        /// <summary>
-        /// Creates a quick access item (<see cref="UIElement"/>) from the given <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">Serialized data for one quick access item.</param>
-        /// <returns>The created quick access item or <c>null</c> of the creation failed.</returns>
-        protected virtual UIElement CreateQuickAccessItem(string data)
-        {
-            var indices = data.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                              .Select(x => int.Parse(x, CultureInfo.InvariantCulture)).ToList();
-
-            DependencyObject current = this.ribbon;
-
-            foreach (var index in indices)
-            {
-                var children = LogicalTreeHelper.GetChildren(current).OfType<object>().ToList();
-                var indexIsInvalid = children.Count <= index;
-                var item = indexIsInvalid
-                               ? null
-                               : children[index] as DependencyObject;
-
-                if (item == null)
-                {
-                    // Path is incorrect
-                    Debug.WriteLine("Error while QAT items loading: one of the paths is invalid");
-                    return null;
-                }
-
-                current = item;
-            }
-
-            var result = current as UIElement;
-            if (result == null
-                || QuickAccessItemsProvider.IsSupported(result) == false)
-            {
-                // Item is invalid
-                Debug.WriteLine($"Error while QAT items loading. Could not add \"{current}\" to QAT.");
-                return null;
-            }
-
-            return result;
         }
 
         /// <summary>

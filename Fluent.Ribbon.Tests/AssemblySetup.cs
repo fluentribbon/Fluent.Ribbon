@@ -17,7 +17,6 @@
             var app = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
 
             app.Resources.MergedDictionaries.Add((ResourceDictionary)Application.LoadComponent(new Uri("/Fluent;component/Themes/Generic.xaml", UriKind.Relative)));
-            Fluent.ThemeManager.SyncThemeWithWindowsAppModeSetting();
         }
 
         [OneTimeTearDown]

@@ -8,7 +8,9 @@
     /// </summary>
     internal static class DispatcherExtensions
     {
-        public static void RunInDispatcherAsync(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+        private const DispatcherPriority DefaultDispatcherPriority = DispatcherPriority.Normal;
+
+        public static void RunInDispatcherAsync(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
             if (dispatcher == null)
             {
@@ -19,7 +21,7 @@
             dispatcher.Dispatcher.RunInDispatcherAsync(action, priority);
         }
 
-        public static void RunInDispatcherAsync(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+        public static void RunInDispatcherAsync(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
             if (dispatcher == null)
             {
@@ -31,7 +33,7 @@
             }
         }
 
-        public static void RunInDispatcher(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+        public static void RunInDispatcher(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
             if (dispatcher == null)
             {
@@ -42,7 +44,7 @@
             dispatcher.Dispatcher.RunInDispatcher(action, priority);
         }
 
-        public static void RunInDispatcher(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DispatcherPriority.Normal)
+        public static void RunInDispatcher(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
             if (dispatcher == null
                 || dispatcher.CheckAccess())

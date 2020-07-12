@@ -1,9 +1,10 @@
 ﻿namespace Fluent.Automation.Peers
 {
+    using System.Windows.Automation.Peers;
     using JetBrains.Annotations;
 
     /// <inheritdoc />
-    public class RibbonButtonAutomationPeer : System.Windows.Automation.Peers.ButtonAutomationPeer
+    public class RibbonButtonAutomationPeer : ButtonAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:ButtonAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
@@ -15,7 +16,7 @@
         /// <inheritdoc />
         protected override string GetClassNameCore()
         {
-            return this.Owner.GetType().Name;
+            return "RibbonButton";
         }
 
         /// <inheritdoc />
@@ -29,6 +30,34 @@
             }
 
             return name;
+        }
+
+        /// <inheritdoc />
+        protected override string GetAccessKeyCore()
+        {
+            var text = ((Button)this.Owner).KeyTip;
+            if (string.IsNullOrEmpty(text))
+            {
+                text = base.GetAccessKeyCore();
+            }
+
+            return text;
+        }
+
+        /// <inheritdoc />
+        protected override string GetHelpTextCore()
+        {
+            var text = base.GetHelpTextCore();
+
+            if (string.IsNullOrEmpty(text))
+            {
+                if (((Button)this.Owner).ToolTip is ScreenTip ribbonToolTip)
+                {
+                    text = ribbonToolTip.Text;
+                }
+            }
+
+            return text;
         }
     }
 }

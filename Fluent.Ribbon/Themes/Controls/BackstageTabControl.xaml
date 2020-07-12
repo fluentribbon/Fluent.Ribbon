@@ -23,6 +23,7 @@
                                   SnapsToDevicePixels="True" />
 
                 <ContentControl x:Name="controlLabel"
+                                Focusable="False"
                                 Content="{TemplateBinding Header}">
                     <ContentControl.Resources>
                         <Style TargetType="TextBlock">
@@ -39,6 +40,17 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsEnabled"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="border"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocused"
                                Value="True" />
                     <Condition Property="IsEnabled"
                                Value="True" />
@@ -87,7 +99,8 @@
               Background="Transparent"
               Fluent:FrameworkHelper.UseLayoutRounding="False">
             <ContentControl Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="Left">
+                            HorizontalAlignment="Left"
+                            Focusable="False">
                 <Grid>
                     <Path x:Name="arrowpath"
                           Width="16"
@@ -113,6 +126,18 @@
         </Grid>
 
         <ControlTemplate.Triggers>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="ContentGrid"
+                        Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="Opacity"
+                        TargetName="arrowpath"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="backellipse"
+                        Value="0.5" />
+            </Trigger>
             <Trigger Property="IsMouseOver"
                      Value="True">
                 <Setter Property="Background"
@@ -130,6 +155,8 @@
 
     <Style x:Key="BackstageBackButtonStyle"
            TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle"
+                Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Height"
                 Value="48" />
         <Setter Property="HorizontalAlignment"
@@ -146,6 +173,8 @@
            x:Key="Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem">
         <Setter Property="Margin"
                 Value="25,10,20,10" />
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">

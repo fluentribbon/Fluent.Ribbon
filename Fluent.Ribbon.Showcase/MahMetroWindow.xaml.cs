@@ -1,13 +1,12 @@
 ﻿namespace FluentTest
 {
     using System;
-    using System.Linq;
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
     using MahApps.Metro.Controls;
 
-    [CLSCompliant(false)] // Because MetroWindow is not CLSCompliant
-    public partial class MahMetroWindow : MetroWindow, IRibbonWindow
+    public partial class MahMetroWindow : IRibbonWindow
     {
         public MahMetroWindow()
         {
@@ -25,37 +24,25 @@
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
 
-            this.SyncThemeManagers(null, null);
+            // We need this inside this window because MahApps.Metro is not loaded globally inside the Fluent.Ribbon Showcase application.
+            // This code is not required in an application that loads the MahApps.Metro styles globally.
+            ThemeManager.Current.ChangeTheme(this, ThemeManager.Current.DetectTheme(Application.Current));
+            ThemeManager.Current.ThemeChanged += this.SyncThemes;
+        }
 
-            ThemeManager.IsThemeChanged += this.SyncThemeManagers;
+        private void SyncThemes(object sender, ThemeChangedEventArgs e)
+        {
+            if (e.Target == this)
+            {
+                return;
+            }
+
+            ThemeManager.Current.ChangeTheme(this, e.NewTheme);
         }
 
         private void MahMetroWindow_Closed(object sender, EventArgs e)
         {
-            ThemeManager.IsThemeChanged -= this.SyncThemeManagers;
-        }
-
-        private void SyncThemeManagers(object sender, OnThemeChangedEventArgs args)
-        {
-            // Sync Fluent and MahApps ThemeManager
-            var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
-            var newMahAppsMetroTheme = MahApps.Metro.ThemeManager.ChangeTheme(this, fluentRibbonTheme.Name);
-
-            if (newMahAppsMetroTheme.Name != fluentRibbonTheme.Name)
-            {
-                var mostLikelyMatchingTheme = MahApps.Metro.ThemeManager.Themes.FirstOrDefault(x => x.BaseColorScheme == fluentRibbonTheme.BaseColorScheme
-                                                                                                    && x.ShowcaseBrush?.ToString() == fluentRibbonTheme.ShowcaseBrush?.ToString());
-
-                if (mostLikelyMatchingTheme != null)
-                {
-                    newMahAppsMetroTheme = MahApps.Metro.ThemeManager.ChangeTheme(this, mostLikelyMatchingTheme);
-                }
-            }
-
-            if (newMahAppsMetroTheme.BaseColorScheme != fluentRibbonTheme.BaseColorScheme)
-            {
-                MahApps.Metro.ThemeManager.ChangeThemeBaseColor(this, fluentRibbonTheme.BaseColorScheme);
-            }
+            ThemeManager.Current.ThemeChanged -= this.SyncThemes;
         }
 
         #region TitelBar

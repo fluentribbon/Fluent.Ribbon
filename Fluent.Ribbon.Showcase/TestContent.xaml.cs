@@ -4,6 +4,7 @@ namespace FluentTest
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -15,13 +16,17 @@ namespace FluentTest
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
+    using ControlzEx.Theming;
     using Fluent;
     using Fluent.Localization;
+    using Fluent.Theming;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
+    #if MahApps_Metro
     using MahApps.Metro.Controls;
     using MahApps.Metro.Controls.Dialogs;
+    #endif
     using Button = Fluent.Button;
 
     public partial class TestContent : UserControl
@@ -72,7 +77,9 @@ namespace FluentTest
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
                                       new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
-            return ThemeManager.ColorSchemes.Select(x => new KeyValuePair<string, Brush>(x.Name, x.ShowcaseBrush))
+            return ThemeManager.Current.Themes.GroupBy(x => x.ColorScheme)
+                               .Select(x => x.First())
+                               .Select(x => new KeyValuePair<string, Brush>(x.ColorScheme, x.ShowcaseBrush))
                                .Concat(brushes)
                                .OrderBy(x => x.Key);
         }
@@ -155,8 +162,10 @@ namespace FluentTest
                 {
                     case RibbonWindow x:
                         return x.GlowBrush;
+#if MahApps_Metro
                     case MetroWindow x:
                         return x.GlowBrush;
+#endif
                 }
 
                 return null;
@@ -168,8 +177,10 @@ namespace FluentTest
                 {
                     case RibbonWindow x:
                         return x.NonActiveGlowBrush;
+#if MahApps_Metro
                     case MetroWindow x:
                         return x.NonActiveGlowBrush;
+#endif
                 }
 
                 return null;
@@ -223,6 +234,11 @@ namespace FluentTest
             }
         }
 
+        private void SyncThemeNow_OnClick(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.Current.SyncTheme();
+        }
+
         public Button CreateRibbonButton()
         {
             var fooCommand1 = new TestRoutedCommand();
@@ -255,15 +271,20 @@ namespace FluentTest
                 return "NULL";
             }
 
-            var header = element is IHeaderedControl ribbonControl
-                           ? ribbonControl.Header
-                           : string.Empty;
+            var debugInfo = $"[{element}]";
 
-            var name = element is FrameworkElement frameworkElement
-                           ? frameworkElement.Name
-                           : string.Empty;
+            if (element is IHeaderedControl headeredControl)
+            {
+                debugInfo += $" Header: \"{headeredControl.Header}\"";
+            }
 
-            return $"[{element}] (Header: {header} || Name: {name})";
+            if (element is FrameworkElement frameworkElement
+                && string.IsNullOrEmpty(frameworkElement.Name) == false)
+            {
+                debugInfo += $" Name: \"{frameworkElement.Name}\"";
+            }
+
+            return debugInfo;
         }
 
         private void CheckLogicalTree(DependencyObject root)
@@ -429,7 +450,11 @@ namespace FluentTest
 
         private void OpenMahMetroWindow_OnClick(object sender, RoutedEventArgs e)
         {
+#if MahApps_Metro
             new MahMetroWindow().Show();
+#else
+            ShowMahAppsMetroNotAvailableMessageBox();
+#endif
         }
 
         private void OpenRibbonWindowWithoutVisibileRibbon_OnClick(object sender, RoutedEventArgs e)
@@ -519,7 +544,7 @@ namespace FluentTest
 
         private void CreateThemeResourceDictionaryButton_OnClick(object sender, RoutedEventArgs e)
         {
-            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme("Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
+            this.ThemeResourceDictionaryTextBox.Text = ThemeHelper.CreateTheme(ThemeManager.Current.DetectTheme()?.BaseColorScheme ?? "Dark", this.ThemeColorGallery.SelectedColor ?? this.viewModel.ColorViewModel.ThemeColor, changeImmediately: this.ChangeImmediatelyCheckBox.IsChecked ?? false).Item1;
         }
 
         private void HandleResetSavedState_OnClick(object sender, RoutedEventArgs e)
@@ -533,6 +558,7 @@ namespace FluentTest
 
         private async void HandleShowMetroMessage(object sender, RoutedEventArgs e)
         {
+#if MahApps_Metro
             var metroWindow = Window.GetWindow(this) as MetroWindow;
 
             if (metroWindow == null)
@@ -541,11 +567,35 @@ namespace FluentTest
             }
 
             await metroWindow.ShowMessageAsync("Test", "Message");
+#else
+            ShowMahAppsMetroNotAvailableMessageBox();
+            await Task.Yield();
+#endif
         }
 
         private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
         {
             new Window().ShowDialog();
+        }
+
+        private static void ShowMahAppsMetroNotAvailableMessageBox()
+        {
+            MessageBox.Show("MahApps.Metro is not available in this showcase version.");
+        }
+
+        private void StartSnoop_OnClick(object sender, RoutedEventArgs e)
+        {
+            var snoopPath = "snoop";
+            var alternativeSnoopPath = Environment.GetEnvironmentVariable("snoop_dev_path");
+
+            if (string.IsNullOrEmpty(alternativeSnoopPath) == false
+                && File.Exists(alternativeSnoopPath))
+            {
+                snoopPath = alternativeSnoopPath;
+            }
+
+            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
+            using var p = Process.Start(startInfo);
         }
     }
 

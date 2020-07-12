@@ -1,6 +1,7 @@
 namespace FluentTest
 {
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
 
     public partial class App
@@ -37,8 +38,8 @@ namespace FluentTest
         /// <inheritdoc />
         protected override void OnStartup(StartupEventArgs e)
         {
-            ThemeManager.IsAutomaticWindowsAppModeSettingSyncEnabled = true;
-            ThemeManager.SyncThemeWithWindowsAppModeSetting();
+            ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
+            ThemeManager.Current.SyncTheme();
 
             base.OnStartup(e);
         }
