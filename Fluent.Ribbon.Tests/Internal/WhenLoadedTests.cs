@@ -17,7 +17,7 @@
 
             using (new TestRibbonWindow(control))
             {
-                control.WhenLoaded(x => ++loadedActionCallCount);
+                WhenLoadedExtension.WhenLoaded(control, x => ++loadedActionCallCount);
 
                 Assert.That(loadedActionCallCount, Is.EqualTo(1));
             }
