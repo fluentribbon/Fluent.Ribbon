@@ -6,7 +6,7 @@
 
     <ItemGroup Label="Showcase">
         <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="4.*" />
-        <PackageVersion Include="MahApps.Metro" version="2.0.*" />
+        <PackageVersion Include="MahApps.Metro" version="2.1.*" />
     </ItemGroup>
 
     <ItemGroup Label="Test">
