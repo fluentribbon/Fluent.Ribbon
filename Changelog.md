@@ -27,6 +27,7 @@
   - [#819](../../issues/819) - Is there a way to disable default tooltip when RibbonGroupBox is disabled?
 
 - ### Enhancements/Features
+
   - [#804](../../issues/804) - Ribbon Window's Icon Not Centered  
   Added `VerticalIconAlignment` to `RibbonWindow`
 

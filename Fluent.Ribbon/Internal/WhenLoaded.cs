@@ -56,7 +56,7 @@
         public static void WhenLoaded(this FrameworkElement frameworkElement, Action<FrameworkElement> loadedAction)
         {
             // The following object will not be GCed before its time.
-            // * if frameworkElement is already loaded the ctor immediately exectues loadedAction and rests in piece
+            // * if frameworkElement is already loaded the ctor immediately executes loadedAction and rests in piece
             // * otherwise framework element's Loaded event will keep the reference to event handler
             //   until it's loaded and and only then let it rest in piece.
             // ReSharper disable once ObjectCreationAsStatement
