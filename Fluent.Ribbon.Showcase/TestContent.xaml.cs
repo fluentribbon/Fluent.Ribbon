@@ -595,7 +595,14 @@ namespace FluentTest
             }
 
             var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
-            using var p = Process.Start(startInfo);
+            try
+            {
+                using var p = Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\n\nCommandline: {startInfo.FileName} {startInfo.Arguments}");
+            }
         }
     }
 

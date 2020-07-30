@@ -176,14 +176,14 @@ if(-Not $SkipToolPackageRestore.IsPresent) {
     $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$TOOLS_DIR`""
 
     if ($LASTEXITCODE -ne 0) {
-        Throw "An error occured while restoring NuGet tools."
+        Throw "An error occurred while restoring NuGet tools."
     }
     else
     {
         $md5Hash | Out-File $PACKAGES_CONFIG_MD5 -Encoding "ASCII"
     }
     Write-Verbose -Message ($NuGetOutput | out-string)
-    
+
     Pop-Location
 }
 
@@ -196,7 +196,7 @@ if (Test-Path $ADDINS_PACKAGES_CONFIG) {
     $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$ADDINS_DIR`""
 
     if ($LASTEXITCODE -ne 0) {
-        Throw "An error occured while restoring NuGet addins."
+        Throw "An error occurred while restoring NuGet addins."
     }
 
     Write-Verbose -Message ($NuGetOutput | out-string)
@@ -213,7 +213,7 @@ if (Test-Path $MODULES_PACKAGES_CONFIG) {
     $NuGetOutput = Invoke-Expression "&`"$NUGET_EXE`" install -ExcludeVersion -OutputDirectory `"$MODULES_DIR`""
 
     if ($LASTEXITCODE -ne 0) {
-        Throw "An error occured while restoring NuGet modules."
+        Throw "An error occurred while restoring NuGet modules."
     }
 
     Write-Verbose -Message ($NuGetOutput | out-string)

@@ -1,9 +1,10 @@
 trigger:
   branches:
     include: 
-      - '*'
-    exclude: 
+      - 'master'
+      - 'develop'
       - 'refs/tags/*'
+
   paths:
     include:
       - '*'
