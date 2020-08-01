@@ -6,6 +6,7 @@
 
   - [#821](../../issues/821) - Different visual of menu item and submenu item
   - [#830](../../issues/830) - When a window is set to automatically resize to its content, when its title is set in code, it disappears
+  - [#834](../../issues/834) - InRibbonGallery resizing issue when changing `Visibility`
 
 ## 8.0.0
 

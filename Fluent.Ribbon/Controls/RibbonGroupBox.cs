@@ -938,7 +938,13 @@ namespace Fluent
         {
             base.OnChildDesiredSizeChanged(child);
 
+            // We must clear the current cached measure.
             this.cachedMeasures.Remove(this.GetCurrentIntermediateStateScale());
+
+            // We should try to clear the entire cache.
+            // The entire cache is only cleared when we don't do regular measuring, but only if some event outside our own measuring code caused size changes.
+            // For reference https://github.com/fluentribbon/Fluent.Ribbon/issues/834
+            this.TryClearCache();
         }
 
         private StateScale GetCurrentIntermediateStateScale()
