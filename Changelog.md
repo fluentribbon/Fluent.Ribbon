@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## Next
+
+- ### Bug fixes
+
+  - [#830](../../issues/830) - When a window is set to automatically resize to its content, when its title is set in code, it disappears
+
 ## 8.0.0
 
 - ### Breaking changes
@@ -16,7 +22,7 @@
 
 - ### Bug fixes
 
-  - [#772](../../issues/772) -  Backstage & Keyboard navigation
+  - [#772](../../issues/772) - Backstage & Keyboard navigation
   - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
