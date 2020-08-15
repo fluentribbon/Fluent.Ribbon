@@ -1685,10 +1685,6 @@ namespace Fluent
                 {
                     widthControl.SetCurrentValue(WidthProperty, this.Width);
                 }
-                else if (DoubleUtil.GreaterThan(widthControl.ActualWidth, 0))
-                {
-                    widthControl.SetCurrentValue(WidthProperty, widthControl.ActualWidth);
-                }
 
                 if (double.IsNaN(this.Height) == false)
                 {
