@@ -614,12 +614,13 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size constraint)
         {
-            if (this.contentContainer == null)
+            if (this.contentContainer is null)
             {
                 return base.MeasureOverride(constraint);
             }
 
-            if (this.IsContextual && this.Group != null && this.Group.Visibility == Visibility.Collapsed)
+            if (this.IsContextual
+                && this.Group?.Visibility == Visibility.Collapsed)
             {
                 return Size.Empty;
             }
