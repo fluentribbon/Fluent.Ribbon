@@ -8,6 +8,7 @@
   - [#830](../../issues/830) - When a window is set to automatically resize to its content, when its title is set in code, it disappears
   - [#834](../../issues/834) - InRibbonGallery resizing issue when changing `Visibility`
   - [#837](../../issues/837) - InRibbonGallery Property MinItemsInDropDownRow not considered
+  - [#838](../../issues/838) - InRibbonGallery changes into DropDownButton after DropDown is opened and closed
   - [#840](../../issues/840) - Ribbon does not scroll anymore
 
 ## 8.0.0
