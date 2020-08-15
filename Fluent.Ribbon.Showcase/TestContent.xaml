@@ -1201,11 +1201,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             KeyTip="S"
                                             GroupBy="Tag"
                                             ResizeMode="Both"
-                                            MaxItemsInRow="6"
+                                            MaxItemsInRow="2"
                                             MinItemsInRow="2"
                                             ItemWidth="40"
                                             ItemHeight="55"
-                                            Width="300"
+                                            Width="100"
                                             MinItemsInDropDownRow="5">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
