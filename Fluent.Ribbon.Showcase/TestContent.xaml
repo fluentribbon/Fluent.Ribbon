@@ -2321,6 +2321,27 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <Fluent:MenuItem Header="Item" />
                     </Fluent:SplitButton>
                 </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox Header="Vertical">
+                    <Fluent:InRibbonGallery Orientation="Vertical" 
+                                            MaxItemsInDropDownRow="2"
+                                            Icon="Images\Gray.png"
+                                            Header="InRibbonGallery"
+                                            ItemWidth="40"
+                                            ItemHeight="56"
+                                            ItemsSource="{Binding DataItems}"
+                                            ItemTemplate="{DynamicResource largeDataItemTemplate}"
+                                            ResizeMode="Both"
+                                            Selectable="False">
+                        <!--You can also add items to context menu-->
+                        <Fluent:InRibbonGallery.Menu>
+                            <Fluent:RibbonMenu>
+                                <Fluent:MenuItem Header="Menu Item 1" />
+                                <Fluent:MenuItem Header="Menu Item 2" />
+                            </Fluent:RibbonMenu>
+                        </Fluent:InRibbonGallery.Menu>
+                    </Fluent:InRibbonGallery>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Resizing &amp; Screentips"
