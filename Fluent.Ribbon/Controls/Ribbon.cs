@@ -491,10 +491,10 @@ namespace Fluent
         private ObservableCollection<Key> keyTipKeys;
 
         // Collection of contextual tab groups
-        private ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup> contextualGroups;
+        private ObservableCollection<RibbonContextualTabGroup> contextualGroups;
 
         // Collection of tabs
-        private ItemCollectionWithLogicalTreeSupport<RibbonTabItem> tabs;
+        private ObservableCollection<RibbonTabItem> tabs;
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
@@ -824,13 +824,13 @@ namespace Fluent
         /// Gets collection of contextual tab groups
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup> ContextualGroups
+        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
         {
             get
             {
                 if (this.contextualGroups == null)
                 {
-                    this.contextualGroups = new ItemCollectionWithLogicalTreeSupport<RibbonContextualTabGroup>(this);
+                    this.contextualGroups = new ObservableCollection<RibbonContextualTabGroup>();
                 }
 
                 return this.contextualGroups;
@@ -841,13 +841,13 @@ namespace Fluent
         /// gets collection of ribbon tabs
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ItemCollectionWithLogicalTreeSupport<RibbonTabItem> Tabs
+        public ObservableCollection<RibbonTabItem> Tabs
         {
             get
             {
                 if (this.tabs == null)
                 {
-                    this.tabs = new ItemCollectionWithLogicalTreeSupport<RibbonTabItem>(this);
+                    this.tabs = new ObservableCollection<RibbonTabItem>();
                 }
 
                 return this.tabs;
@@ -1904,16 +1904,6 @@ namespace Fluent
                 if (this.TabControl?.ToolbarPanel != null)
                 {
                     yield return this.TabControl.ToolbarPanel;
-                }
-
-                foreach (var item in this.Tabs.GetLogicalChildren())
-                {
-                    yield return item;
-                }
-
-                foreach (var item in this.ContextualGroups.GetLogicalChildren())
-                {
-                    yield return item;
                 }
 
                 if (this.layoutRoot != null)
