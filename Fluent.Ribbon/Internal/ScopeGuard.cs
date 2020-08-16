@@ -27,14 +27,29 @@
         {
             this.onEntry = onEntry ?? throw new ArgumentNullException(nameof(onEntry));
             this.onDispose = onDispose ?? throw new ArgumentNullException(nameof(onDispose));
-
-            this.onEntry();
         }
 
         /// <summary>
         /// Gets whether this instance is still active (not disposed) or not.
         /// </summary>
-        public bool IsActive { get; private set; } = true;
+        public bool IsActive { get; private set; }
+
+        /// <summary>
+        /// Starts the scope guard.
+        /// </summary>
+        /// <returns>The current instance for fluent usage.</returns>
+        public ScopeGuard Start()
+        {
+            if (this.IsActive)
+            {
+                return this;
+            }
+
+            this.IsActive = true;
+            this.onEntry?.Invoke();
+
+            return this;
+        }
 
         /// <inheritdoc />
         public void Dispose()

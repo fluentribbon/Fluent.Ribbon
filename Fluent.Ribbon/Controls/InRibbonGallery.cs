@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -1114,10 +1114,10 @@ namespace Fluent
             }
 
             this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
-            
+
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdates))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdates).Start())
                 {
                     this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
@@ -1171,7 +1171,7 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
                 {
                     this.CurrentGalleryPanelState?.Restore();
 
@@ -1212,7 +1212,7 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
                 {
                     this.CurrentGalleryPanelState?.Save();
 
