@@ -19,7 +19,6 @@ namespace FluentTest
     using ControlzEx.Theming;
     using Fluent;
     using Fluent.Localization;
-    using Fluent.Theming;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
@@ -29,7 +28,10 @@ namespace FluentTest
     #endif
     using Button = Fluent.Button;
 
-    public partial class TestContent : UserControl
+    /// <summary>
+    /// Test-Content
+    /// </summary>
+    public partial class TestContent
     {
         private readonly MainViewModel viewModel;
         private string windowTitle;
