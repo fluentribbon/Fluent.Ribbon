@@ -596,7 +596,10 @@ namespace FluentTest
                 snoopPath = alternativeSnoopPath;
             }
 
-            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
+            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}")
+                {
+                    UseShellExecute = true
+                };
             try
             {
                 using var p = Process.Start(startInfo);
