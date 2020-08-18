@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -1548,6 +1548,24 @@ namespace Fluent
         #endregion
 
         #region Implementation of IScalableRibbonControl
+
+        /// <inheritdoc />
+        public void ResetScale()
+        {
+            if (this.IsCollapsed
+                && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
+            {
+                this.IsCollapsed = false;
+            }
+
+            if (this.galleryPanel.IsNotNull()
+                && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
+            {
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            }
+
+            this.InvalidateMeasure();
+        }
 
         /// <inheritdoc />
         public void Enlarge()

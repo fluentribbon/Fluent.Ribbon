@@ -28,22 +28,31 @@
             using (new TestRibbonWindow(ribbonGroupBox))
             {
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Small;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Small;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(items.First().ControlSize, Is.EqualTo(RibbonControlSize.Small));
                 }
 
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Middle;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Middle;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(items.First().ControlSize, Is.EqualTo(RibbonControlSize.Middle));
                 }
 
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Large;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Large;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(items.First().ControlSize, Is.EqualTo(RibbonControlSize.Large));
                 }
@@ -60,22 +69,31 @@
             using (new TestRibbonWindow(ribbonGroupBox))
             {
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Small;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Small;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Small));
                 }
 
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Middle;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Middle;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Middle));
                 }
 
                 {
-                    ribbonGroupBox.State = RibbonGroupBoxState.Large;
-                    UIHelper.DoEvents();
+                    using (ribbonGroupBox.CacheResetGuard.Start())
+                    {
+                        ribbonGroupBox.State = RibbonGroupBoxState.Large;
+                        UIHelper.DoEvents();
+                    }
 
                     Assert.That(ribbonGroupBox.Items.OfType<Fluent.Button>().First().Size, Is.EqualTo(RibbonControlSize.Large));
                 }

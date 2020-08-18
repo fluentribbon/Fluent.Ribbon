@@ -155,12 +155,13 @@ namespace Fluent
                 if (groupBox.State != groupBox.StateIntermediate
                     || groupBox.Scale != groupBox.ScaleIntermediate)
                 {
-                    groupBox.SuppressCacheReseting = true;
-                    groupBox.State = groupBox.StateIntermediate;
-                    groupBox.Scale = groupBox.ScaleIntermediate;
-                    groupBox.InvalidateLayout();
-                    groupBox.Measure(new Size(double.PositiveInfinity, availableSize.Height));
-                    groupBox.SuppressCacheReseting = false;
+                    using (groupBox.CacheResetGuard.Start())
+                    {
+                        groupBox.State = groupBox.StateIntermediate;
+                        groupBox.Scale = groupBox.ScaleIntermediate;
+                        groupBox.InvalidateLayout();
+                        groupBox.Measure(new Size(double.PositiveInfinity, availableSize.Height));
+                    }
                 }
 
                 // Something wrong with cache?
@@ -597,5 +598,19 @@ namespace Fluent
         }
 
         #endregion
+
+        // We have to reset the reduce order to it's initial value, clear all caches we keep here and invalidate measure/arrange
+        internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox ribbonGroupBox)
+        {
+            var ribbonPanel = this;
+
+            var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
+            ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
+
+            this.measureCache = default;
+
+            ribbonPanel.InvalidateMeasure();
+            ribbonPanel.InvalidateArrange();
+        }
     }
 }
