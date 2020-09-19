@@ -969,6 +969,8 @@ namespace Fluent
         public InRibbonGallery()
         {
             ContextMenuService.Coerce(this);
+
+            this.IsVisibleChanged += this.OnIsVisibleChanged;
         }
 
         #endregion
@@ -1140,6 +1142,13 @@ namespace Fluent
 
             this.popupMenuPresenter = this.GetTemplateChild("PART_PopupMenuPresenter") as FrameworkElement;
             this.popupResizeBorder = this.GetTemplateChild("PART_PopupResizeBorder") as FrameworkElement;
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var groupBox = UIHelper.GetParent<RibbonGroupBox>(this);
+
+            groupBox?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
