@@ -11,6 +11,7 @@
   - [#837](../../issues/837) - InRibbonGallery Property MinItemsInDropDownRow not considered
   - [#838](../../issues/838) - InRibbonGallery changes into DropDownButton after DropDown is opened and closed
   - [#840](../../issues/840) - Ribbon does not scroll anymore
+  - [#848](../../issues/848) - Colorful-Theme and Fullscreen Issue
 
 ## 8.0.0
 

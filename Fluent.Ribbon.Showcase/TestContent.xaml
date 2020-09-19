@@ -2457,7 +2457,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <Fluent:RibbonTabItem Header="KeyTips"
                                   KeyTip="K"
-                                  Group="{Binding ElementName=tabGroup1, Mode=OneWay}">
+                                  Group="{Binding ElementName=tabGroup1, Mode=OneWay}"
+                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
                     <Fluent:DropDownButton Fluent:KeyTip.Keys="C"
