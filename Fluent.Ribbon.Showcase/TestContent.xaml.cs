@@ -54,6 +54,7 @@ namespace FluentTest
 
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
+        /// <summary>Identifies the <see cref="Brushes"/> dependency property.</summary>
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
 
         public List<KeyValuePair<string, Brush>> Brushes
@@ -90,15 +91,11 @@ namespace FluentTest
         {
             var version = type.Assembly.GetName().Version;
 
-            var assemblyProductAttribute = (type.Assembly
-                .GetCustomAttributes(typeof(AssemblyProductAttribute), false) as AssemblyProductAttribute[])
-                .FirstOrDefault();
+            var assemblyProductAttribute = type.Assembly.GetCustomAttribute<AssemblyProductAttribute>();
 
-            var assemblyInformationalVersionAttribute = (type.Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false) as AssemblyInformationalVersionAttribute[])
-                .FirstOrDefault();
+            var assemblyInformationalVersionAttribute = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
-            return $"{assemblyProductAttribute.Product} {version} ({assemblyInformationalVersionAttribute.InformationalVersion})";
+            return $"{assemblyProductAttribute?.Product} {version} ({assemblyInformationalVersionAttribute?.InformationalVersion})";
         }
 
         private string selectedMenu = "Backstage";
