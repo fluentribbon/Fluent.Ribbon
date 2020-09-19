@@ -609,6 +609,17 @@ namespace Fluent
 
             this.measureCache = default;
 
+            foreach (var item in this.InternalChildren)
+            {
+                var groupBox = item as RibbonGroupBox;
+                if (groupBox is null)
+                {
+                    continue;
+                }
+
+                groupBox.TryClearCacheAndResetStateAndScale();
+            }
+
             ribbonPanel.InvalidateMeasure();
             ribbonPanel.InvalidateArrange();
         }

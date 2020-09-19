@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -623,19 +624,19 @@ namespace Fluent
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private static void OnFontSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private static void OnFontFamilyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         /// <summary>
@@ -846,21 +847,36 @@ namespace Fluent
             return false;
         }
 
-        private bool TryClearCacheAndResetStateAndScale()
+        internal bool TryClearCacheAndResetStateAndScale()
         {
-            if (this.CacheResetGuard.IsActive == false)
+            if (this.CacheResetGuard.IsActive
+                || this.IsLoaded == false)
             {
-                this.UpdateScalableControlSubscritions(false);
+                return false;
+            }
 
-                this.State = RibbonGroupBoxState.Large;
-                this.Scale = 0;
-                this.StateIntermediate = RibbonGroupBoxState.Large;
-                this.ScaleIntermediate = 0;
-                this.ClearCache();
+            this.UpdateScalableControlSubscritions(false);
 
-                this.ResetScaleableItems();
+            this.State = RibbonGroupBoxState.Large;
+            this.Scale = 0;
+            this.StateIntermediate = RibbonGroupBoxState.Large;
+            this.ScaleIntermediate = 0;
+            this.ClearCache();
 
-                this.UpdateScalableControlSubscritions(true);
+            this.ResetScaleableItems();
+
+            this.UpdateScalableControlSubscritions(true);
+            return true;
+        }
+
+        internal bool TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer()
+        {
+            // We should try to clear the entire cache.
+            // The entire cache should only be cleared if we don't do regular measuring, but only if some event outside our own measuring code caused size changes (such as elements getting visible/invisible or being added/removed).
+            // For reference https://github.com/fluentribbon/Fluent.Ribbon/issues/834
+            if (this.TryClearCacheAndResetStateAndScale())
+            {
+                UIHelper.GetParent<RibbonGroupsContainer>(this)?.GroupBoxCacheClearedAndStateAndScaleResetted(this);
                 return true;
             }
 
@@ -951,6 +967,14 @@ namespace Fluent
         }
 
         /// <inheritdoc />
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+
+            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        }
+
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this) == false
@@ -982,14 +1006,6 @@ namespace Fluent
 
             // We must always clear the current cached measure.
             this.cachedMeasures.Remove(this.GetCurrentIntermediateStateScale());
-
-            // We should try to clear the entire cache.
-            // The entire cache should only be cleared if we don't do regular measuring, but only if some event outside our own measuring code caused size changes (such as elements getting visible/invisible or being added/removed).
-            // For reference https://github.com/fluentribbon/Fluent.Ribbon/issues/834
-            if (this.TryClearCacheAndResetStateAndScale())
-            {
-                UIHelper.GetParent<RibbonGroupsContainer>(this)?.GroupBoxCacheClearedAndStateAndScaleResetted(this);
-            }
         }
 
         private StateScale GetCurrentIntermediateStateScale()

@@ -28,7 +28,6 @@
             using (new TestRibbonWindow(ribbonGroupBox))
             {
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Small;
                         UIHelper.DoEvents();
@@ -38,7 +37,6 @@
                 }
 
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Middle;
                         UIHelper.DoEvents();
@@ -48,7 +46,6 @@
                 }
 
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Large;
                         UIHelper.DoEvents();
@@ -69,7 +66,6 @@
             using (new TestRibbonWindow(ribbonGroupBox))
             {
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Small;
                         UIHelper.DoEvents();
@@ -79,7 +75,6 @@
                 }
 
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Middle;
                         UIHelper.DoEvents();
@@ -89,7 +84,6 @@
                 }
 
                 {
-                    using (ribbonGroupBox.CacheResetGuard.Start())
                     {
                         ribbonGroupBox.State = RibbonGroupBoxState.Large;
                         UIHelper.DoEvents();
