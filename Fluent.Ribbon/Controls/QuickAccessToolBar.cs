@@ -201,7 +201,7 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.MenuDownButton == null)
+            if (this.MenuDownButton is null)
             {
                 return;
             }
