@@ -343,6 +343,15 @@
 
     <Style x:Key="ScrollViewerStyle"
            TargetType="{x:Type ScrollViewer}">
+        <Style.Resources>
+            <Style x:Key="{x:Type ScrollBar}"
+                   TargetType="{x:Type ScrollBar}"
+                   BasedOn="{StaticResource ScrollBarWhite}" />
+        </Style.Resources>
+
+        <Setter Property="Template"
+                Value="{DynamicResource ScrollViewerControlTemplate}" />
+
         <Style.Triggers>
             <Trigger Property="IsEnabled"
                      Value="false">
@@ -350,8 +359,11 @@
                         Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
         </Style.Triggers>
-        <Setter Property="Template"
-                Value="{DynamicResource ScrollViewerControlTemplate}" />
+    </Style>
+
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
+           TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}"
+           BasedOn="{StaticResource RibbonScrollViewer}">
     </Style>
 
     <ControlTemplate x:Key="ScrollViewerControlTemplate"

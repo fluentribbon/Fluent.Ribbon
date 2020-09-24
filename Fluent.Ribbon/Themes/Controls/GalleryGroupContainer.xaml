@@ -19,7 +19,13 @@
                            TextTrimming="CharacterEllipsis" />
             </Grid>
 
-            <ItemsPresenter />
+            <Fluent:UniformGridWithItemSize IsItemsHost="True"
+                                            HorizontalAlignment="Left"
+                                            Orientation="{TemplateBinding Orientation}"
+                                            MinColumns="{TemplateBinding MinItemsInRow}"
+                                            MaxColumns="{TemplateBinding MaxItemsInRow}"
+                                            ItemWidth="{TemplateBinding ItemWidth}"
+                                            ItemHeight="{TemplateBinding ItemHeight}" />
         </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="IsHeadered"
@@ -39,40 +45,11 @@
                 Value="Stretch" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <Fluent:UniformGridWithItemSize IsItemsHost="True"
-                                                    HorizontalAlignment="Left"
-                                                    MinColumns="{Binding MinItemsInRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                                                    MaxColumns="{Binding MaxItemsInRow, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                                                    ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                                                    ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
             <Trigger Property="IsHeadered"
                      Value="False">
                 <Setter Property="HorizontalAlignment"
                         Value="Left" />
-            </Trigger>
-
-            <!-- Triggers for different ItemsPanels -->
-            <Trigger Property="Orientation"
-                     Value="Vertical">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <Fluent:UniformGridWithItemSize IsItemsHost="True"
-                                                            HorizontalAlignment="Left"
-                                                            MinColumns="1"
-                                                            MaxColumns="1"
-                                                            ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                                                            ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
             </Trigger>
         </Style.Triggers>
     </Style>

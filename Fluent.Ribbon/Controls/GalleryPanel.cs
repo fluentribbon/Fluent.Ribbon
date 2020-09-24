@@ -370,7 +370,7 @@ namespace Fluent
 
             foreach (UIElement item in this.InternalChildren)
             {
-                if (item == null)
+                if (item is null)
                 {
                     continue;
                 }
@@ -380,18 +380,18 @@ namespace Fluent
 
                 if (this.GroupByAdvanced != null)
                 {
-                    propertyValue = this.ItemContainerGenerator == null
+                    propertyValue = this.ItemContainerGenerator is null
                         ? this.GroupByAdvanced(item)
                         : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
                 else if (string.IsNullOrEmpty(this.GroupBy) == false)
                 {
-                    propertyValue = this.ItemContainerGenerator == null
+                    propertyValue = this.ItemContainerGenerator is null
                         ? this.GetPropertyValueAsString(item)
                         : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
 
-                if (propertyValue == null)
+                if (propertyValue is null)
                 {
                     propertyValue = Undefined;
                 }
@@ -438,7 +438,7 @@ namespace Fluent
                 dictionary[propertyValue].Items.Add(galleryItemPlaceholder);
             }
 
-            if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
+            if ((this.IsGrouped == false || (this.GroupBy is null && this.GroupByAdvanced is null))
                 && this.galleryGroupContainers.Count != 0)
             {
                 // Make it without headers if there is only one group or if we are not supposed to group
@@ -520,8 +520,8 @@ namespace Fluent
 
         private string GetPropertyValueAsString(object item)
         {
-            if (item == null
-                || this.GroupBy == null)
+            if (item is null
+                || this.GroupBy is null)
             {
                 return Undefined;
             }
@@ -529,7 +529,7 @@ namespace Fluent
             var property = item.GetType().GetProperty(this.GroupBy, BindingFlags.Public | BindingFlags.Instance);
 
             var result = property?.GetValue(item, null);
-            if (result == null)
+            if (result is null)
             {
                 return Undefined;
             }

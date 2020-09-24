@@ -5,7 +5,7 @@ namespace Fluent
     using System.Windows.Media;
 
     /// <summary>
-    /// Represents ScrollViewer with modified hit test
+    /// Represents <see cref="ScrollViewer"/> with modified hit test
     /// </summary>
     public class RibbonScrollViewer : ScrollViewer
     {
