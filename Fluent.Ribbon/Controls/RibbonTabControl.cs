@@ -1016,6 +1016,11 @@ namespace Fluent
                 {
                     yield return baseEnumerator.Current;
                 }
+
+                if (this.SelectedContent != null)
+                {
+                    yield return this.SelectedContent;
+                }
             }
         }
     }
