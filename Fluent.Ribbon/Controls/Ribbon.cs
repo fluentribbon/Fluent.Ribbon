@@ -495,6 +495,7 @@ namespace Fluent
 
         // Collection of tabs
         private ObservableCollection<RibbonTabItem> tabs;
+        private CollectionSyncHelper<RibbonTabItem> tabsSync;
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
@@ -824,52 +825,19 @@ namespace Fluent
         /// Gets collection of contextual tab groups
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
-        {
-            get
-            {
-                if (this.contextualGroups == null)
-                {
-                    this.contextualGroups = new ObservableCollection<RibbonContextualTabGroup>();
-                }
-
-                return this.contextualGroups;
-            }
-        }
+        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups => this.contextualGroups ??= new ObservableCollection<RibbonContextualTabGroup>();
 
         /// <summary>
         /// gets collection of ribbon tabs
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonTabItem> Tabs
-        {
-            get
-            {
-                if (this.tabs == null)
-                {
-                    this.tabs = new ObservableCollection<RibbonTabItem>();
-                }
-
-                return this.tabs;
-            }
-        }
+        public ObservableCollection<RibbonTabItem> Tabs => this.tabs ??= new ObservableCollection<RibbonTabItem>();
 
         /// <summary>
         /// Gets collection of toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<UIElement> ToolBarItems
-        {
-            get
-            {
-                if (this.toolBarItems == null)
-                {
-                    this.toolBarItems = new ObservableCollection<UIElement>();
-                }
-
-                return this.toolBarItems;
-            }
-        }
+        public ObservableCollection<UIElement> ToolBarItems => this.toolBarItems ??= new ObservableCollection<UIElement>();
 
         /// <summary>
         /// Gets collection of quick access menu items
@@ -1509,7 +1477,7 @@ namespace Fluent
                 this.TabControl.SelectionChanged -= this.OnTabControlSelectionChanged;
                 selectedTab = this.TabControl.SelectedItem as RibbonTabItem;
 
-                this.TabControl.ItemsSource = null;
+                this.tabsSync?.Target.Clear();
 
                 this.toolBarItemsSync?.Target.Clear();
             }
@@ -1520,7 +1488,7 @@ namespace Fluent
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
-                this.TabControl.ItemsSource = this.Tabs;
+                this.tabsSync = new CollectionSyncHelper<RibbonTabItem>(this.Tabs, this.TabControl.Items);
 
                 this.TabControl.SelectedItem = selectedTab;
 
