@@ -307,8 +307,8 @@ namespace Fluent
         {
             var ribbon = contextMenuOwner;
 
-            if (RibbonContextMenu == null
-                || ribbon == null)
+            if (RibbonContextMenu is null
+                || ribbon is null)
             {
                 return;
             }
@@ -495,6 +495,7 @@ namespace Fluent
 
         // Collection of tabs
         private ObservableCollection<RibbonTabItem> tabs;
+        private CollectionSyncHelper<RibbonTabItem> tabsSync;
 
         // Collection of toolbar items
         private ObservableCollection<UIElement> toolBarItems;
@@ -824,52 +825,19 @@ namespace Fluent
         /// Gets collection of contextual tab groups
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups
-        {
-            get
-            {
-                if (this.contextualGroups == null)
-                {
-                    this.contextualGroups = new ObservableCollection<RibbonContextualTabGroup>();
-                }
-
-                return this.contextualGroups;
-            }
-        }
+        public ObservableCollection<RibbonContextualTabGroup> ContextualGroups => this.contextualGroups ??= new ObservableCollection<RibbonContextualTabGroup>();
 
         /// <summary>
         /// gets collection of ribbon tabs
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonTabItem> Tabs
-        {
-            get
-            {
-                if (this.tabs == null)
-                {
-                    this.tabs = new ObservableCollection<RibbonTabItem>();
-                }
-
-                return this.tabs;
-            }
-        }
+        public ObservableCollection<RibbonTabItem> Tabs => this.tabs ??= new ObservableCollection<RibbonTabItem>();
 
         /// <summary>
         /// Gets collection of toolbar items
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<UIElement> ToolBarItems
-        {
-            get
-            {
-                if (this.toolBarItems == null)
-                {
-                    this.toolBarItems = new ObservableCollection<UIElement>();
-                }
-
-                return this.toolBarItems;
-            }
-        }
+        public ObservableCollection<UIElement> ToolBarItems => this.toolBarItems ??= new ObservableCollection<UIElement>();
 
         /// <summary>
         /// Gets collection of quick access menu items
@@ -879,7 +847,7 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (this.quickAccessItems is null)
                 {
                     this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
@@ -1221,7 +1189,7 @@ namespace Fluent
         {
             get
             {
-                if (this.keyTipKeys == null)
+                if (this.keyTipKeys is null)
                 {
                     this.keyTipKeys = new ObservableCollection<Key>();
                     this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
@@ -1303,7 +1271,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1316,7 +1284,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1368,7 +1336,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1381,7 +1349,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1475,7 +1443,7 @@ namespace Fluent
         private void MaintainIsCollapsed()
         {
             if (this.IsAutomaticCollapseEnabled == false
-                || this.ownerWindow == null)
+                || this.ownerWindow is null)
             {
                 return;
             }
@@ -1509,7 +1477,7 @@ namespace Fluent
                 this.TabControl.SelectionChanged -= this.OnTabControlSelectionChanged;
                 selectedTab = this.TabControl.SelectedItem as RibbonTabItem;
 
-                this.TabControl.ItemsSource = null;
+                this.tabsSync?.Target.Clear();
 
                 this.toolBarItemsSync?.Target.Clear();
             }
@@ -1520,7 +1488,7 @@ namespace Fluent
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
-                this.TabControl.ItemsSource = this.Tabs;
+                this.tabsSync = new CollectionSyncHelper<RibbonTabItem>(this.Tabs, this.TabControl.Items);
 
                 this.TabControl.SelectedItem = selectedTab;
 
@@ -1640,7 +1608,7 @@ namespace Fluent
         /// <returns>True if element in quick access toolbar</returns>
         public bool IsInQuickAccessToolBar(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return false;
             }
@@ -1654,7 +1622,7 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -1665,12 +1633,12 @@ namespace Fluent
             }
 
             // Do not add menu items without icon.
-            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon == null)
+            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon is null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }

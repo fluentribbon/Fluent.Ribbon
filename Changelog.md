@@ -14,6 +14,7 @@
   - [#840](../../issues/840) - Ribbon does not scroll anymore
   - [#848](../../issues/848) - Colorful-Theme and Fullscreen Issue
   - [#849](../../issues/849) - QuickAccessToolBar not editable anymore (thanks @chrfin)
+  - [#851](../../issues/851) - Tab KeyTips Are Shown Together With Tab-Item KeyTips (different to 7.0.0)
 
 ## 8.0.0
 

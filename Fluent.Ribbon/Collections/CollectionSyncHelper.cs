@@ -1,6 +1,7 @@
 ﻿namespace Fluent.Collections
 {
     using System;
+    using System.Collections;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
 
@@ -12,7 +13,7 @@
         /// <summary>
         /// Creates a new instance with <paramref name="source"/> as <see cref="Source"/> and <paramref name="target"/> as <see cref="Target"/>.
         /// </summary>
-        public CollectionSyncHelper(ObservableCollection<TItem> source, ObservableCollection<TItem> target)
+        public CollectionSyncHelper(ObservableCollection<TItem> source, IList target)
         {
             this.Source = source ?? throw new ArgumentNullException(nameof(source));
             this.Target = target ?? throw new ArgumentNullException(nameof(target));
@@ -30,7 +31,7 @@
         /// <summary>
         /// The target collection.
         /// </summary>
-        public ObservableCollection<TItem> Target { get; }
+        public IList Target { get; }
 
         /// <summary>
         /// Clears <see cref="Target"/> and then copies all items from <see cref="Source"/> to <see cref="Target"/>.
