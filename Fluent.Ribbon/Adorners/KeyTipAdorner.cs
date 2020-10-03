@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -134,17 +134,15 @@ namespace Fluent
 
                 if (keys != null || child is IKeyTipInformationProvider)
                 {
-                    if (groupBox != null)
-                    {
-                        this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
-                    }
-                    else
+                    if (groupBox is null)
                     {
                         this.GenerateAndAddRegularKeyTipInformations(keys, child, hide);
 
                         // Do not search deeper in the tree
                         continue;
                     }
+
+                    this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
                 }
 
                 var innerHide = hide || groupBox?.State == RibbonGroupBoxState.Collapsed;
@@ -250,7 +248,7 @@ namespace Fluent
 
             this.adornerLayer = GetAdornerLayer(this.oneOfAssociatedElements);
 
-            if (this.adornerLayer == null)
+            if (this.adornerLayer is null)
             {
                 this.LogDebug("No adorner layer found");
                 this.isAttaching = false;
@@ -337,7 +335,7 @@ namespace Fluent
 
             while (true)
             {
-                if (current == null)
+                if (current is null)
                 {
                     return null;
                 }
@@ -360,7 +358,7 @@ namespace Fluent
             {
                 var current = VisualTreeHelper.GetParent(element) as UIElement;
 
-                if (current == null)
+                if (current is null)
                 {
                     return element;
                 }
@@ -406,7 +404,7 @@ namespace Fluent
             this.LogTrace("Trying to forward keys \"{0}\"...", keys);
 
             var keyTipInformation = this.TryGetKeyTipInformation(keys);
-            if (keyTipInformation == null)
+            if (keyTipInformation is null)
             {
                 this.LogTrace("Found no element for keys \"{0}\".", keys);
                 return false;
@@ -639,7 +637,7 @@ namespace Fluent
                     // Dialog Launcher Button Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
-                    if (rows == null)
+                    if (rows is null)
                     {
                         continue;
                     }
@@ -691,7 +689,7 @@ namespace Fluent
                     // InRibbonGallery Exclusive Placement
                     var keyTipSize = keyTipInformation.KeyTip.DesiredSize;
                     var elementSize = keyTipInformation.VisualTarget.RenderSize;
-                    if (rows == null)
+                    if (rows is null)
                     {
                         continue;
                     }
@@ -773,7 +771,7 @@ namespace Fluent
             var ribbonToolBar = UIHelper.GetParent<RibbonToolBar>(element);
 
             var definition = ribbonToolBar?.GetCurrentLayoutDefinition();
-            if (definition == null)
+            if (definition is null)
             {
                 return false;
             }
@@ -795,7 +793,7 @@ namespace Fluent
 
         private static void SnapToRowsIfPresent(double[] rows, KeyTipInformation keyTipInformation, Point translatedPoint)
         {
-            if (rows == null)
+            if (rows is null)
             {
                 return;
             }
