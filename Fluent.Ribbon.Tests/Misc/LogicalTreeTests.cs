@@ -69,11 +69,26 @@
 
             Assert.That(control, Is.Not.Null);
 
+            if (excludedTypesForLogicalChildSupportTest.Contains(controlType))
+            {
+                Assert.That(control is ILogicalChildSupport, Is.False, "Type must NOT implement ILogicalChildSupport");
+                return;
+            }
+            else
+            {
+                Assert.That(control is ILogicalChildSupport, Is.True, "Type must implement ILogicalChildSupport");
+            }
+
             var metadata = dependencyProperty.GetMetadata(control);
 
-            Assert.That(metadata.PropertyChangedCallback == LogicalChildSupportHelper.OnLogicalChildPropertyChanged);
-
-            Assert.That(controlType.GetInterfaces(), Does.Contain(typeof(ILogicalChildSupport)));
+            if (excludedPropertiesForLogicalChildSupportTest.Contains(dependencyProperty))
+            {
+                Assert.That(metadata.PropertyChangedCallback != LogicalChildSupportHelper.OnLogicalChildPropertyChanged, "PropertyChangedCallback must not be LogicalChildSupportHelper.OnLogicalChildPropertyChanged");
+            }
+            else
+            {
+                Assert.That(metadata.PropertyChangedCallback == LogicalChildSupportHelper.OnLogicalChildPropertyChanged, "PropertyChangedCallback must be LogicalChildSupportHelper.OnLogicalChildPropertyChanged");
+            }
 
             if (dependencyProperty.ReadOnly)
             {
@@ -100,7 +115,8 @@
 
         private static readonly Type[] excludedTypesForLogicalChildSupportTest =
         {
-            typeof(LargeIconProviderProperties)
+            typeof(LargeIconProviderProperties),
+            typeof(GalleryItem)
         };
 
         private static readonly DependencyProperty[] excludedPropertiesForLogicalChildSupportTest =
@@ -116,16 +132,6 @@
         {
             foreach (var keyValuePair in GetDependencyPropertiesWithPropertyTypeObject())
             {
-                if (excludedTypesForLogicalChildSupportTest.Contains(keyValuePair.Key))
-                {
-                    continue;
-                }
-
-                if (excludedPropertiesForLogicalChildSupportTest.Contains(keyValuePair.Value))
-                {
-                    continue;
-                }
-
                 yield return keyValuePair;
             }
         }
@@ -164,7 +170,14 @@
                 {
                     var children = LogicalTreeHelper.GetChildren(control);
 
-                    Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    if (excludedPropertiesForLogicalChildSupportTest.Contains(property))
+                    {
+                        Assert.That(children, Does.Not.Contain(value), "Logical children must NOT contain the value.");
+                    }
+                    else
+                    {
+                        Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    }
                 }
 
                 SetValue(null);
@@ -183,7 +196,14 @@
                 {
                     var children = LogicalTreeHelper.GetChildren(control);
 
-                    Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    if (excludedPropertiesForLogicalChildSupportTest.Contains(property))
+                    {
+                        Assert.That(children, Does.Not.Contain(value), "Logical children must NOT contain the value.");
+                    }
+                    else
+                    {
+                        Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    }
                 }
 
                 {
@@ -207,12 +227,26 @@
                 {
                     var children = LogicalTreeHelper.GetChildren(control);
 
-                    Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    if (excludedPropertiesForLogicalChildSupportTest.Contains(property))
+                    {
+                        Assert.That(children, Does.Not.Contain(value), "Logical children must NOT contain the value.");
+                    }
+                    else
+                    {
+                        Assert.That(children, Does.Contain(value), "Logical children must contain the value.");
+                    }
                 }
 
                 {
                     var parent = LogicalTreeHelper.GetParent(value);
-                    Assert.That(parent, Is.EqualTo(control), "Parent should match.");
+                    if (excludedPropertiesForLogicalChildSupportTest.Contains(property))
+                    {
+                        Assert.That(parent, Is.Not.EqualTo(control), "Parent should match.");
+                    }
+                    else
+                    {
+                        Assert.That(parent, Is.EqualTo(control), "Parent should match.");
+                    }
                 }
 
                 SetValue(null);
