@@ -212,6 +212,13 @@ namespace Fluent
                 children = children.Concat(UIHelper.GetAllItemContainers<FrameworkElement>(itemsControl));
             }
 
+            // Don't show key tips for the selected content too early
+            if (element is RibbonTabControl ribbonTabControl
+                && ribbonTabControl.SelectedContent is FrameworkElement selectedContent)
+            {
+                children = children.Except(new[] { selectedContent });
+            }
+
             return children
                 .Where(x => x.Visibility == Visibility.Visible)
                 .Distinct()
