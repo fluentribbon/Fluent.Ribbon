@@ -307,8 +307,8 @@ namespace Fluent
         {
             var ribbon = contextMenuOwner;
 
-            if (RibbonContextMenu == null
-                || ribbon == null)
+            if (RibbonContextMenu is null
+                || ribbon is null)
             {
                 return;
             }
@@ -879,7 +879,7 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (this.quickAccessItems is null)
                 {
                     this.quickAccessItems = new ObservableCollection<QuickAccessMenuItem>();
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
@@ -1221,7 +1221,7 @@ namespace Fluent
         {
             get
             {
-                if (this.keyTipKeys == null)
+                if (this.keyTipKeys is null)
                 {
                     this.keyTipKeys = new ObservableCollection<Key>();
                     this.keyTipKeys.CollectionChanged += this.HandleKeyTipKeys_CollectionChanged;
@@ -1303,7 +1303,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1316,7 +1316,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1368,7 +1368,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1381,7 +1381,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon == null)
+            if (ribbon is null)
             {
                 return;
             }
@@ -1475,7 +1475,7 @@ namespace Fluent
         private void MaintainIsCollapsed()
         {
             if (this.IsAutomaticCollapseEnabled == false
-                || this.ownerWindow == null)
+                || this.ownerWindow is null)
             {
                 return;
             }
@@ -1640,7 +1640,7 @@ namespace Fluent
         /// <returns>True if element in quick access toolbar</returns>
         public bool IsInQuickAccessToolBar(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return false;
             }
@@ -1654,7 +1654,7 @@ namespace Fluent
         /// <param name="element">Element</param>
         public void AddToQuickAccessToolBar(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -1665,12 +1665,12 @@ namespace Fluent
             }
 
             // Do not add menu items without icon.
-            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon == null)
+            if (element is System.Windows.Controls.MenuItem menuItem && menuItem.Icon is null)
             {
                 element = FindParentRibbonControl(element) as UIElement;
             }
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
