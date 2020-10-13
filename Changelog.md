@@ -15,6 +15,7 @@
   - [#848](../../issues/848) - Colorful-Theme and Fullscreen Issue
   - [#849](../../issues/849) - QuickAccessToolBar not editable anymore (thanks @chrfin)
   - [#851](../../issues/851) - Tab KeyTips Are Shown Together With Tab-Item KeyTips (different to 7.0.0)
+  - [#855](../../issues/855) - Method Fluent.StartScreen.Show lacks documentation return value
 
 ## 8.0.0
 
