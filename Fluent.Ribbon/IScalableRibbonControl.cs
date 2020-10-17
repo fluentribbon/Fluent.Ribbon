@@ -8,17 +8,22 @@
     public interface IScalableRibbonControl
     {
         /// <summary>
-        /// Enlarge control size
+        /// Resets the scale.
+        /// </summary>
+        void ResetScale();
+
+        /// <summary>
+        /// Enlarge control size.
         /// </summary>
         void Enlarge();
 
         /// <summary>
-        /// Reduce control size
+        /// Reduce control size.
         /// </summary>
         void Reduce();
 
         /// <summary>
-        /// Occurs when contol is scaled
+        /// Occurs when contol is scaled.
         /// </summary>
         event EventHandler Scaled;
     }

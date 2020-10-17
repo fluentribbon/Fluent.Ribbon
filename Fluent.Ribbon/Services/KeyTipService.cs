@@ -205,7 +205,7 @@ namespace Fluent
                 return;
             }
 
-            using var scopeGuard = new ScopeGuard();
+            using var scopeGuard = new ScopeGuard().Start();
             this.windowPreviewKeyDownScopeGuard = scopeGuard;
 
             if (e.IsRepeat

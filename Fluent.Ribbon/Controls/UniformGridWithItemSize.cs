@@ -5,6 +5,7 @@ namespace Fluent
     using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -19,11 +20,32 @@ namespace Fluent
         private int usedColumns;
 
         /// <summary>
+        /// Gets or sets panel orientation
+        /// </summary>
+        public Orientation Orientation
+        {
+            get { return (Orientation)this.GetValue(OrientationProperty); }
+            set { this.SetValue(OrientationProperty, value); }
+        }
+
+        /// <summary>
+        /// <see cref="DependencyProperty"/> for <see cref="Orientation"/>.
+        /// </summary>
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register(
+                nameof(Orientation), 
+                typeof(Orientation),
+                typeof(UniformGridWithItemSize), 
+                new FrameworkPropertyMetadata(
+                    Orientation.Horizontal, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+
+        /// <summary>
         /// Specifies the number of maximum columns in the grid
         /// </summary>
         public int MinColumns
         {
-            get => (int)this.GetValue(MinColumnsProperty);
+            get => this.Orientation == Orientation.Horizontal ? (int)this.GetValue(MinColumnsProperty) : 1;
             set => this.SetValue(MinColumnsProperty, value);
         }
 
@@ -37,7 +59,7 @@ namespace Fluent
                 typeof(UniformGridWithItemSize),
                 new FrameworkPropertyMetadata(
                     IntBoxes.Zero,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure),
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMinColumns);
 
         private static bool ValidateMinColumns(object o)
@@ -50,7 +72,7 @@ namespace Fluent
         /// </summary>
         public int MaxColumns
         {
-            get => (int)this.GetValue(MaxColumnsProperty);
+            get => this.Orientation == Orientation.Horizontal ? (int)this.GetValue(MaxColumnsProperty) : 1;
             set => this.SetValue(MaxColumnsProperty, value);
         }
 
@@ -64,7 +86,7 @@ namespace Fluent
                 typeof(UniformGridWithItemSize),
                 new FrameworkPropertyMetadata(
                     IntBoxes.Zero,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure),
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMaxColumns);
 
         private static bool ValidateMaxColumns(object o)
@@ -76,7 +98,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ItemWidth" /> property.
         /// </summary>
         public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(
-            nameof(ItemWidth), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
+            nameof(ItemWidth), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         /// <summary>
         /// Specifies the item width.
@@ -91,7 +113,7 @@ namespace Fluent
         /// DependencyProperty for <see cref="ItemHeight" /> property.
         /// </summary>
         public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(
-            nameof(ItemHeight), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure));
+            nameof(ItemHeight), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         /// <summary>
         /// Specifies the item height.
@@ -116,8 +138,6 @@ namespace Fluent
         /// <returns>Desired size</returns>
         protected override Size MeasureOverride(Size constraint)
         {
-            Debug.WriteLine($"MeasureOverride: {constraint}");
-
             this.UpdateComputedValues(this.MaxColumns);
 
             var useDefinedItemWidth = double.IsNaN(this.ItemWidth) == false && DoubleUtil.AreClose(this.ItemWidth, 0) == false;
@@ -188,8 +208,6 @@ namespace Fluent
         /// <param name="arrangeSize">Arrange size</param>
         protected override Size ArrangeOverride(Size arrangeSize)
         {
-            Debug.WriteLine($"ArrangeOverride: {arrangeSize}");
-
             var childBounds = new Rect(0, 0, arrangeSize.Width / this.usedColumns, arrangeSize.Height / this.rows);
             var xStep = childBounds.Width;
             var xBound = arrangeSize.Width;

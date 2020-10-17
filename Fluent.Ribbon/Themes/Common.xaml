@@ -45,4 +45,6 @@
     <Style TargetType="{x:Type Fluent:RibbonTitleBar}" BasedOn="{StaticResource RibbonTitleBarStyle}" />
     <Style TargetType="{x:Type Fluent:RibbonTabControl}" BasedOn="{StaticResource RibbonTabControlStyle}" />
     <Style TargetType="{x:Type Fluent:QuickAccessToolBar}" BasedOn="{StaticResource QuickAccessToolbarStyle}" />
+    
+    <Style TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}" BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer}" />
 </ResourceDictionary>

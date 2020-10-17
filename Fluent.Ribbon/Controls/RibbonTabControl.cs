@@ -15,7 +15,6 @@ namespace Fluent
     using System.Windows.Input;
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
-    using Fluent.Collections;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;

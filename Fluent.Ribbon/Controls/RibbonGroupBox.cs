@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -243,6 +244,22 @@ namespace Fluent
             }
         }
 
+        private void ResetScaleableItems()
+        {
+            foreach (var item in this.Items)
+            {
+                var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
+
+                if (scalableRibbonControl is null
+                    || (scalableRibbonControl is UIElement uiElement && uiElement.Visibility != Visibility.Visible))
+                {
+                    continue;
+                }
+
+                scalableRibbonControl.ResetScale();
+            }
+        }
+
         private void OnScalableControlScaled(object sender, EventArgs e)
         {
             this.TryClearCache();
@@ -251,7 +268,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets whether to reset cache when scalable control is scaled
         /// </summary>
-        internal bool SuppressCacheReseting { get; set; }
+        internal ScopeGuard CacheResetGuard { get; }
 
         private void UpdateScalableControlSubscritions(bool registerEvents)
         {
@@ -607,19 +624,19 @@ namespace Fluent
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private static void OnFontSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private static void OnFontFamilyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.ClearCache();
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         /// <summary>
@@ -627,6 +644,8 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBox()
         {
+            this.CacheResetGuard = new ScopeGuard(() => this.UpdateScalableControlSubscritions(false), () => this.UpdateScalableControlSubscritions(true));
+
             this.CoerceValue(ContextMenuProperty);
             this.Focusable = false;
 
@@ -790,39 +809,83 @@ namespace Fluent
                 {
                     var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
 
-                    this.SuppressCacheReseting = true;
-                    this.UpdateScalableControlSubscritions(true);
+                    using (this.CacheResetGuard.Start())
+                    {
+                        // Get desired size for these values
+                        var backupState = this.State;
+                        var backupScale = this.Scale;
+                        this.State = this.StateIntermediate;
+                        this.Scale = this.ScaleIntermediate;
+                        this.InvalidateLayout();
+                        this.Measure(new Size(double.PositiveInfinity, contentHeight));
+                        this.cachedMeasures.Remove(stateScale);
+                        this.cachedMeasures.Add(stateScale, this.DesiredSize);
+                        result = this.DesiredSize;
 
-                    // Get desired size for these values
-                    var backupState = this.State;
-                    var backupScale = this.Scale;
-                    this.State = this.StateIntermediate;
-                    this.Scale = this.ScaleIntermediate;
-                    this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
-                    this.cachedMeasures.Remove(stateScale);
-                    this.cachedMeasures.Add(stateScale, this.DesiredSize);
-                    result = this.DesiredSize;
+                        // Rollback changes
+                        this.State = backupState;
+                        this.Scale = backupScale;
+                        this.InvalidateLayout();
+                        this.Measure(new Size(double.PositiveInfinity, contentHeight));
 
-                    // Rollback changes
-                    this.State = backupState;
-                    this.Scale = backupScale;
-                    this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
-
-                    this.SuppressCacheReseting = false;
+                        this.UpdateScalableControlSubscritions(true);
+                    }
                 }
 
                 return result;
             }
         }
 
-        private void TryClearCache()
+        private bool TryClearCache()
         {
-            if (this.SuppressCacheReseting == false)
+            if (this.CacheResetGuard.IsActive == false)
             {
                 this.ClearCache();
+                return true;
             }
+
+            return false;
+        }
+
+        internal bool TryClearCacheAndResetStateAndScale()
+        {
+            if (this.CacheResetGuard.IsActive
+                || this.IsLoaded == false)
+            {
+                return false;
+            }
+
+            this.UpdateScalableControlSubscritions(false);
+
+            this.State = RibbonGroupBoxState.Large;
+            this.Scale = 0;
+            this.StateIntermediate = RibbonGroupBoxState.Large;
+            this.ScaleIntermediate = 0;
+            this.ClearCache();
+
+            this.ResetScaleableItems();
+
+            this.UpdateScalableControlSubscritions(true);
+            return true;
+        }
+
+        /// <summary>
+        /// Tries to clear the cache, reset the state and reset the scale.
+        /// If that succeeds the parent <see cref="RibbonGroupsContainer"/> is notified about that.
+        /// </summary>
+        /// <returns><c>true</c> if the cache was reset. Otherwise <c>false</c>.</returns>
+        public bool TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer()
+        {
+            // We should try to clear the entire cache.
+            // The entire cache should only be cleared if we don't do regular measuring, but only if some event outside our own measuring code caused size changes (such as elements getting visible/invisible or being added/removed).
+            // For reference https://github.com/fluentribbon/Fluent.Ribbon/issues/834
+            if (this.TryClearCacheAndResetStateAndScale())
+            {
+                UIHelper.GetParent<RibbonGroupsContainer>(this)?.GroupBoxCacheClearedAndStateAndScaleResetted(this);
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -909,6 +972,14 @@ namespace Fluent
         }
 
         /// <inheritdoc />
+        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+
+            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        }
+
+        /// <inheritdoc />
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (ReferenceEquals(e.Source, this) == false
@@ -938,6 +1009,7 @@ namespace Fluent
         {
             base.OnChildDesiredSizeChanged(child);
 
+            // We must always clear the current cached measure.
             this.cachedMeasures.Remove(this.GetCurrentIntermediateStateScale());
         }
 

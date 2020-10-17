@@ -54,8 +54,17 @@ namespace Fluent
         /// <summary>
         /// Shows the <see cref="StartScreen"/>.
         /// </summary>
+        /// <returns>
+        /// <c>true</c> if the <see cref="StartScreen"/> was made visible.
+        /// <c>false</c> if the <see cref="StartScreen"/> was previously shown and was not made visible during this call.
+        /// </returns>
         protected override bool Show()
         {
+            if (this.Shown)
+            {
+                return false;
+            }
+
             var parentRibbon = GetParentRibbon(this);
 
             if (parentRibbon?.TitleBar != null)
@@ -63,11 +72,6 @@ namespace Fluent
                 this.previousTitleBarIsCollapsed = parentRibbon.TitleBar.IsCollapsed;
 
                 this.UpdateIsTitleBarCollapsed();
-            }
-
-            if (this.Shown)
-            {
-                return false;
             }
 
             return this.Shown = base.Show();
@@ -78,12 +82,16 @@ namespace Fluent
         /// </summary>
         protected override void Hide()
         {
+            var wasOpen = this.IsOpen;
             base.Hide();
 
-            var parentRibbon = GetParentRibbon(this);
-            if (parentRibbon?.TitleBar != null)
+            if (wasOpen)
             {
-                parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
+                var parentRibbon = GetParentRibbon(this);
+                if (parentRibbon?.TitleBar != null)
+                {
+                    parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
+                }
             }
         }
     }

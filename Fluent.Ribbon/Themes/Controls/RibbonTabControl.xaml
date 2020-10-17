@@ -214,7 +214,6 @@
                     BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             
             <Border HorizontalAlignment="Stretch"
-                    Margin="1,0,1,0"
                     Grid.Row="1"
                     Grid.RowSpan="1"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
