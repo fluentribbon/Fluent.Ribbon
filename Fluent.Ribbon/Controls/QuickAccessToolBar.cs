@@ -187,9 +187,61 @@ namespace Fluent
                 if (this.quickAccessItems == null)
                 {
                     this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
+                    this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
                 }
 
                 return this.quickAccessItems;
+            }
+        }
+
+        /// <summary>
+        /// Handles collection of quick access menu items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
+        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (this.MenuDownButton is null)
+            {
+                return;
+            }
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
+                    {
+                        var index = this.QuickAccessItems.IndexOf(item);
+                        this.MenuDownButton.Items.Insert(index + 1, item);
+                        this.QuickAccessItems[index].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    }
+
+                    break;
+
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
+                    {
+                        this.MenuDownButton.Items.Remove(item);
+                        item.InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    }
+
+                    break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
+                    {
+                        this.MenuDownButton.Items.Remove(item);
+                        item.InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    }
+
+                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
+                    {
+                        var index = this.QuickAccessItems.IndexOf(item);
+                        this.MenuDownButton.Items.Insert(index + 1, item);
+                        this.QuickAccessItems[index].InvalidateProperty(QuickAccessMenuItem.TargetProperty);
+                    }
+
+                    break;
             }
         }
 

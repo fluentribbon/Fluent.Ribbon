@@ -371,16 +371,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
                                               Margin="1"
@@ -631,16 +621,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer Margin="1"
                                               x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"

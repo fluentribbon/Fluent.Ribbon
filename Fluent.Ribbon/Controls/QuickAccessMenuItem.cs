@@ -70,7 +70,7 @@ namespace Fluent
         /// </summary>
         public UIElement Target
         {
-            get { return (Control)this.GetValue(TargetProperty); }
+            get { return (UIElement)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 

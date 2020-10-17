@@ -969,6 +969,8 @@ namespace Fluent
         public InRibbonGallery()
         {
             ContextMenuService.Coerce(this);
+
+            this.IsVisibleChanged += this.OnIsVisibleChanged;
         }
 
         #endregion
@@ -1114,10 +1116,10 @@ namespace Fluent
             }
 
             this.galleryPanel = this.GetTemplateChild("PART_GalleryPanel") as GalleryPanel;
-            
+
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdates))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdates).Start())
                 {
                     this.galleryPanel.MinItemsInRow = this.MinItemsInRow;
                     this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
@@ -1140,6 +1142,13 @@ namespace Fluent
 
             this.popupMenuPresenter = this.GetTemplateChild("PART_PopupMenuPresenter") as FrameworkElement;
             this.popupResizeBorder = this.GetTemplateChild("PART_PopupResizeBorder") as FrameworkElement;
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var groupBox = UIHelper.GetParent<RibbonGroupBox>(this);
+
+            groupBox?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -1171,7 +1180,7 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
                 {
                     this.CurrentGalleryPanelState?.Restore();
 
@@ -1212,7 +1221,7 @@ namespace Fluent
 
             if (this.galleryPanel.IsNotNull())
             {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh))
+                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
                 {
                     this.CurrentGalleryPanelState?.Save();
 
@@ -1550,6 +1559,24 @@ namespace Fluent
         #region Implementation of IScalableRibbonControl
 
         /// <inheritdoc />
+        public void ResetScale()
+        {
+            if (this.IsCollapsed
+                && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
+            {
+                this.IsCollapsed = false;
+            }
+
+            if (this.galleryPanel.IsNotNull()
+                && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
+            {
+                this.galleryPanel.MaxItemsInRow = this.MaxItemsInRow;
+            }
+
+            this.InvalidateMeasure();
+        }
+
+        /// <inheritdoc />
         public void Enlarge()
         {
             if (this.IsCollapsed
@@ -1684,10 +1711,6 @@ namespace Fluent
                 if (double.IsNaN(this.Width) == false)
                 {
                     widthControl.SetCurrentValue(WidthProperty, this.Width);
-                }
-                else if (DoubleUtil.GreaterThan(widthControl.ActualWidth, 0))
-                {
-                    widthControl.SetCurrentValue(WidthProperty, widthControl.ActualWidth);
                 }
 
                 if (double.IsNaN(this.Height) == false)

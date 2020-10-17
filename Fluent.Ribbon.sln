@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{CDBFA905
 		Directory.build.targets = Directory.build.targets
 		GitVersion.yml = GitVersion.yml
 		global.json = global.json
+		Directory.packages.props = Directory.packages.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6ADD536-3DB2-4418-AED6-98AB991D1B77}"

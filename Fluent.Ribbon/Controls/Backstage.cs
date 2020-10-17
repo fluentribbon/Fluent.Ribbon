@@ -327,6 +327,10 @@ namespace Fluent
         /// <summary>
         /// Shows the <see cref="Backstage"/>
         /// </summary>
+        /// <returns>
+        /// <c>true</c> if the <see cref="Backstage"/> was made visible.
+        /// <c>false</c> if the <see cref="Backstage"/> was not made visible.
+        /// </returns>
         protected virtual bool Show()
         {
             // don't open the backstage while in design mode

@@ -19,7 +19,6 @@ namespace FluentTest
     using ControlzEx.Theming;
     using Fluent;
     using Fluent.Localization;
-    using Fluent.Theming;
     using FluentTest.Adorners;
     using FluentTest.Helpers;
     using FluentTest.ViewModels;
@@ -29,7 +28,10 @@ namespace FluentTest
     #endif
     using Button = Fluent.Button;
 
-    public partial class TestContent : UserControl
+    /// <summary>
+    /// Test-Content
+    /// </summary>
+    public partial class TestContent
     {
         private readonly MainViewModel viewModel;
         private string windowTitle;
@@ -52,6 +54,7 @@ namespace FluentTest
 
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
+        /// <summary>Identifies the <see cref="Brushes"/> dependency property.</summary>
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
 
         public List<KeyValuePair<string, Brush>> Brushes
@@ -88,15 +91,11 @@ namespace FluentTest
         {
             var version = type.Assembly.GetName().Version;
 
-            var assemblyProductAttribute = (type.Assembly
-                .GetCustomAttributes(typeof(AssemblyProductAttribute), false) as AssemblyProductAttribute[])
-                .FirstOrDefault();
+            var assemblyProductAttribute = type.Assembly.GetCustomAttribute<AssemblyProductAttribute>();
 
-            var assemblyInformationalVersionAttribute = (type.Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false) as AssemblyInformationalVersionAttribute[])
-                .FirstOrDefault();
+            var assemblyInformationalVersionAttribute = type.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
-            return $"{assemblyProductAttribute.Product} {version} ({assemblyInformationalVersionAttribute.InformationalVersion})";
+            return $"{assemblyProductAttribute?.Product} {version} ({assemblyInformationalVersionAttribute?.InformationalVersion})";
         }
 
         private string selectedMenu = "Backstage";
@@ -594,8 +593,18 @@ namespace FluentTest
                 snoopPath = alternativeSnoopPath;
             }
 
-            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}");
-            using var p = Process.Start(startInfo);
+            var startInfo = new ProcessStartInfo(snoopPath, $"inspect --targetPID {Process.GetCurrentProcess().Id}")
+                {
+                    UseShellExecute = true
+                };
+            try
+            {
+                using var p = Process.Start(startInfo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}\n\nCommandline: {startInfo.FileName} {startInfo.Arguments}");
+            }
         }
     }
 

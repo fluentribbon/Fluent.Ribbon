@@ -1,5 +1,22 @@
 # Changelog for Fluent.Ribbon
 
+## Next
+
+- ### Bug fixes
+
+  - [#821](../../issues/821) - Different visual of menu item and submenu item
+  - [#823](../../issues/823) - Gallery item content hidden when mouse pressed
+  - [#825](../../issues/825) - CLS compliance
+  - [#830](../../issues/830) - When a window is set to automatically resize to its content, when its title is set in code, it disappears
+  - [#834](../../issues/834) - InRibbonGallery resizing issue when changing `Visibility`
+  - [#837](../../issues/837) - InRibbonGallery Property MinItemsInDropDownRow not considered
+  - [#838](../../issues/838) - InRibbonGallery changes into DropDownButton after DropDown is opened and closed
+  - [#840](../../issues/840) - Ribbon does not scroll anymore
+  - [#848](../../issues/848) - Colorful-Theme and Fullscreen Issue
+  - [#849](../../issues/849) - QuickAccessToolBar not editable anymore (thanks @chrfin)
+  - [#851](../../issues/851) - Tab KeyTips Are Shown Together With Tab-Item KeyTips (different to 7.0.0)
+  - [#855](../../issues/855) - Method Fluent.StartScreen.Show lacks documentation return value
+
 ## 8.0.0
 
 - ### Breaking changes
@@ -16,7 +33,7 @@
 
 - ### Bug fixes
 
-  - [#772](../../issues/772) -  Backstage & Keyboard navigation
+  - [#772](../../issues/772) - Backstage & Keyboard navigation
   - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
   - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays

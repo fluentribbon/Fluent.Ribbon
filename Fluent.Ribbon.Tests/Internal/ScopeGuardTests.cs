@@ -11,6 +11,10 @@
         {
             var guard = new ScopeGuard();
 
+            Assert.That(guard.IsActive, Is.False);
+
+            guard.Start();
+
             Assert.That(guard.IsActive, Is.True);
 
             guard.Dispose();
@@ -31,7 +35,7 @@
             var disposeActionCallCount = 0;
             void DisposeAction() => ++disposeActionCallCount;
 
-            var guard = new ScopeGuard(EntryAction, DisposeAction);
+            var guard = new ScopeGuard(EntryAction, DisposeAction).Start();
 
             Assert.That(entryActionCallCount, Is.EqualTo(1));
             Assert.That(disposeActionCallCount, Is.EqualTo(0));

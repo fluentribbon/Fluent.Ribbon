@@ -38,6 +38,8 @@ namespace Fluent
         // Items rect
         private Rect itemsRect;
 
+        private Size lastMeasureConstraint;
+
         #endregion
 
         #region Properties
@@ -76,7 +78,7 @@ namespace Fluent
         /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty HeaderAlignmentProperty =
-            DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new PropertyMetadata(HorizontalAlignment.Center));
+            DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(HorizontalAlignment.Center, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         /// <summary>
         /// Defines whether title bar is collapsed
@@ -222,6 +224,8 @@ namespace Fluent
                 return base.MeasureOverride(constraint);
             }
 
+            this.lastMeasureConstraint = constraint;
+
             var resultSize = constraint;
 
             if (double.IsPositiveInfinity(resultSize.Width)
@@ -237,7 +241,7 @@ namespace Fluent
             this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
 
             var maxHeight = Math.Max(Math.Max(this.itemsRect.Height, this.headerRect.Height), this.quickAccessToolbarRect.Height);
-            var width = this.itemsRect.Width + this.headerRect.Width + this.quickAccessToolbarRect.Width;
+            var width = this.quickAccessToolbarRect.Width + this.headerRect.Width + this.itemsRect.Width;
 
             return new Size(width, maxHeight);
         }
@@ -248,6 +252,19 @@ namespace Fluent
             if (this.isAtLeastOneRequiredControlPresent == false)
             {
                 return base.ArrangeOverride(arrangeBounds);
+            }
+
+            // If the last measure constraint and the arrangeBounds are not equal we have to update again.
+            // This can happen if the window is set to auto-size it's width.
+            // As Update also does some things that are related to an arrange pass we have to update again.
+            // It would be way better if Update wouldn't handle parts of the arrange pass, but that would be very difficult to implement...
+            if (arrangeBounds.Equals(this.lastMeasureConstraint) == false)
+            {
+                this.Update(arrangeBounds);
+
+                this.itemsContainer.Measure(this.itemsRect.Size);
+                this.headerHolder.Measure(this.headerRect.Size);
+                this.quickAccessToolbarHolder.Measure(this.quickAccessToolbarRect.Size);
             }
 
             this.itemsContainer.Arrange(this.itemsRect);
@@ -490,7 +507,7 @@ namespace Fluent
                 }
             }
 
-            this.headerRect.Width = this.headerRect.Width + 2;
+            this.headerRect.Width += 2;
         }
 
         #endregion
