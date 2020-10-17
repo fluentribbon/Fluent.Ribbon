@@ -126,7 +126,7 @@ namespace Fluent
         /// <inheritdoc />
         public bool? IsChecked
         {
-            get { return (bool)this.GetValue(IsCheckedProperty); }
+            get { return (bool?)this.GetValue(IsCheckedProperty); }
             set { this.SetValue(IsCheckedProperty, value); }
         }
 
