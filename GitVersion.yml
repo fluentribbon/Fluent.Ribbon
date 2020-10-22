@@ -9,11 +9,14 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     is-release-branch: true
+    increment: Patch
   develop:
     mode: ContinuousDeployment
     tag: alpha
     prevent-increment-of-merged-branch-version: true
     track-merge-target: true
+    tracks-release-branches: true
+    increment: Patch
   pull-request:
     mode: ContinuousDelivery
 ignore:
