@@ -6,9 +6,9 @@
     internal static class DoubleBoxes
     {
         /// <summary>
-        /// Gets a boxed value for <c>0.0D</c>.
+        /// Gets a boxed value for <c>0D</c>.
         /// </summary>
-        internal static readonly object Zero = 0.0D;
+        internal static readonly object Zero = 0D;
 
         /// <summary>
         /// Gets a boxed value for <see cref="double.NaN"/>.
@@ -19,5 +19,10 @@
         /// Gets a boxed value for <see cref="double.MaxValue"/>.
         /// </summary>
         internal static readonly object MaxValue = double.MaxValue;
+
+        /// <summary>
+        /// Gets a boxed value for <c>1D</c>.
+        /// </summary>
+        internal static readonly object One = 1D;
     }
 }

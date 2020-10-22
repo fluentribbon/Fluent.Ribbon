@@ -59,8 +59,7 @@ namespace Fluent
                                                 "ExcludeFromSharedSize",
                                                 typeof(bool),
                                                 typeof(RibbonGroupBoxWrapPanel),
-                                                new FrameworkPropertyMetadata(
-                                                                              BooleanBoxes.FalseBox,
+                                                new FrameworkPropertyMetadata(BooleanBoxes.FalseBox,
                                                                               FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange));
 
         /// <summary>
@@ -152,8 +151,7 @@ namespace Fluent
         public static readonly DependencyProperty OrientationProperty =
             StackPanel.OrientationProperty.AddOwner(
                                                     typeof(RibbonGroupBoxWrapPanel),
-                                                    new FrameworkPropertyMetadata(
-                                                                                  Orientation.Horizontal,
+                                                    new FrameworkPropertyMetadata(Orientation.Horizontal,
                                                                                   FrameworkPropertyMetadataOptions.AffectsMeasure,
                                                                                   OnOrientationChanged));
 

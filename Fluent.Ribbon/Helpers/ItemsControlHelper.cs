@@ -3,11 +3,12 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using Fluent.Internal.KnownBoxes;
 
     internal static class ItemsControlHelper
     {
         public static readonly DependencyProperty IsMovingItemsToDifferentControlProperty = DependencyProperty.RegisterAttached(
-            "IsMovingItemsToDifferentControl", typeof(bool), typeof(ItemsControlHelper), new PropertyMetadata(default(bool)));
+            "IsMovingItemsToDifferentControl", typeof(bool), typeof(ItemsControlHelper), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         public static void SetIsMovingItemsToDifferentControl(DependencyObject element, bool value)
         {

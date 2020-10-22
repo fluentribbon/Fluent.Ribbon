@@ -128,7 +128,7 @@ namespace Fluent
         /// This enables animation, styling, binding, etc...
         /// </summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(1.0d));
+            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.One));
 
         #endregion
 
@@ -324,7 +324,7 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty TextToValueConverterProperty =
 #pragma warning disable WPF0016 // Default value is shared reference type.
-            DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(new SpinnerTextToValueConverter()));
+            DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(SpinnerTextToValueConverter.DefaultInstance));
 #pragma warning restore WPF0016 // Default value is shared reference type.
 
         #endregion TextToValueConverter
