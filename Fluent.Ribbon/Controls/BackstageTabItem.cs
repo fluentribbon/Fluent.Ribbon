@@ -185,7 +185,7 @@ namespace Fluent
 
         private static void UnselectSelectedItem(BackstageTabControl backstageTabControl)
         {
-            if (backstageTabControl?.SelectedItem == null)
+            if (backstageTabControl?.SelectedItem is null)
             {
                 return;
             }

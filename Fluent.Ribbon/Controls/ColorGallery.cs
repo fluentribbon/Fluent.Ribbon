@@ -50,7 +50,7 @@ namespace Fluent
         /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item == null)
+            if (item is null)
             {
                 return null;
             }
@@ -67,7 +67,7 @@ namespace Fluent
                 }
             }
 
-            if (listBox == null)
+            if (listBox is null)
             {
                 return null;
             }
@@ -83,7 +83,7 @@ namespace Fluent
                 }
             }
 
-            if (colorGallery == null)
+            if (colorGallery is null)
             {
                 return null;
             }
@@ -501,7 +501,7 @@ namespace Fluent
         {
             var gallery = d as ColorGallery;
 
-            if (gallery == null)
+            if (gallery is null)
             {
                 return;
             }
@@ -578,7 +578,7 @@ namespace Fluent
         {
             get
             {
-                if (this.themeColors == null)
+                if (this.themeColors is null)
                 {
                     this.themeColors = new ObservableCollection<Color>();
                     this.themeColors.CollectionChanged += this.OnThemeColorsChanged;
@@ -1136,6 +1136,7 @@ namespace Fluent
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool ChooseColor(CHOOSECOLOR lpcc);
 
+#pragma warning disable 649
         /// <summary>
         /// Contains information the ChooseColor function uses to initialize the Color dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. 
         /// </summary>
@@ -1187,6 +1188,7 @@ namespace Fluent
             /// </summary>
             public IntPtr lpTemplateName = IntPtr.Zero;
         }
+#pragma warning restore 649
 
         /// <summary>
         /// Causes the dialog box to display all available colors in the set of basic colors.

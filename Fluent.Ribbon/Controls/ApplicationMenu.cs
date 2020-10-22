@@ -100,7 +100,7 @@ namespace Fluent
             if (ReferenceEquals(e.Source, this))
             {
                 var targetElement = targetElementPropertyInfo?.GetValue(e);
-                if (targetElement == null
+                if (targetElement is null
                     || ReferenceEquals(targetElement, this))
                 {
                     e.Handled = true;

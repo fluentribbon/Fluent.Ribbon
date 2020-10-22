@@ -265,7 +265,7 @@ namespace FluentTest
 
         private static string GetDebugInfo(DependencyObject element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return "NULL";
             }
@@ -324,7 +324,7 @@ namespace FluentTest
             var treeView = sender as TreeView;
 
             var item = treeView?.SelectedItem as TreeViewItem;
-            if (item == null)
+            if (item is null)
             {
                 return;
             }
@@ -337,7 +337,7 @@ namespace FluentTest
 
         private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)
         {
-            if (current == null
+            if (current is null
                 || ReferenceEquals(current, this.ribbon))
             {
                 return;
@@ -560,7 +560,7 @@ namespace FluentTest
 #if MahApps_Metro
             var metroWindow = Window.GetWindow(this) as MetroWindow;
 
-            if (metroWindow == null)
+            if (metroWindow is null)
             {
                 return;
             }

@@ -78,7 +78,7 @@ namespace Fluent
 
         private void ValueToTextBoxText()
         {
-            if (this.textBox == null)
+            if (this.textBox is null)
             {
                 return;
             }
@@ -443,7 +443,7 @@ namespace Fluent
         /// <inheritdoc />
         public override KeyTipPressedResult OnKeyTipPressed()
         {
-            if (this.textBox == null)
+            if (this.textBox is null)
             {
                 return KeyTipPressedResult.Empty;
             }

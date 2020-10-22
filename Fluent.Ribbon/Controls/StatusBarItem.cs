@@ -146,7 +146,7 @@ namespace Fluent
         {
             var item = (StatusBarItem)d;
             // if content is null returns value
-            if (basevalue == null
+            if (basevalue is null
                 && item.Value != null)
             {
                 return item.Value;

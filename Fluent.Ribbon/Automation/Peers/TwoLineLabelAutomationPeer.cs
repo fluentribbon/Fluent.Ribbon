@@ -60,7 +60,7 @@
             var templatedParent = tb.TemplatedParent;
 
             // If the templatedParent is a ContentPresenter, this TextBlock is generated from a DataTemplate
-            if (templatedParent == null
+            if (templatedParent is null
                 || templatedParent is ContentPresenter)
             {
                 return base.IsControlElementCore();

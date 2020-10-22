@@ -199,7 +199,7 @@ namespace Fluent
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as GalleryItem;
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -242,7 +242,7 @@ namespace Fluent
         #region IsEnabled
 
         /// <inheritdoc />
-        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command is null);
 
         #endregion
 

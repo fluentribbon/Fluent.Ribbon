@@ -91,7 +91,7 @@ namespace Fluent
         {
             get
             {
-                if (this.items == null)
+                if (this.items is null)
                 {
                     this.items = new ObservableCollection<UIElement>();
                     this.items.CollectionChanged += this.OnItemsCollectionChanged;
@@ -184,7 +184,7 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (this.quickAccessItems is null)
                 {
                     this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
@@ -572,7 +572,7 @@ namespace Fluent
 
         private void UpdateKeyTips()
         {
-            if (this.UpdateKeyTipsAction == null)
+            if (this.UpdateKeyTipsAction is null)
             {
                 DefaultUpdateKeyTips(this);
                 return;

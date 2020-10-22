@@ -152,8 +152,8 @@ namespace Fluent
         /// </summary>
         private void UpdateTextRun()
         {
-            if (this.textRun == null
-                || this.textRun2 == null)
+            if (this.textRun is null
+                || this.textRun2 is null)
             {
                 return;
             }

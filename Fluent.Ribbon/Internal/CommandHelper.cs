@@ -15,7 +15,7 @@
         /// <returns><c>true</c> if the command can be executed, otherwise <c>false</c>.</returns>
         public static bool CanExecute(ICommand command, object commandParameter, IInputElement commandTarget)
         {
-            if (command == null)
+            if (command is null)
             {
                 return false;
             }
@@ -34,7 +34,7 @@
         /// </summary>
         public static void Execute(ICommand command, object commandParameter, IInputElement commandTarget)
         {
-            if (command == null)
+            if (command is null)
             {
                 return;
             }

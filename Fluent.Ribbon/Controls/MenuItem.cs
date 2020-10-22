@@ -709,7 +709,7 @@ namespace Fluent
         {
             var parent = UIHelper.GetParent<DependencyObject>(this, x => x is IDropDownControl || x is System.Windows.Controls.MenuItem);
 
-            if (parent == null)
+            if (parent is null)
             {
                 return;
             }

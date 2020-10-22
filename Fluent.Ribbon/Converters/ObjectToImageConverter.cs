@@ -172,7 +172,7 @@
                                    ? values[1] as Visual
                                    : null;
 
-            if (targetVisual == null)
+            if (targetVisual is null)
             {
                 targetVisual = values.Length == 3
                                    ? values[2] as Visual
@@ -257,7 +257,7 @@
         {
             var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
-            if (imageSource == null)
+            if (imageSource is null)
             {
                 return value;
             }
@@ -464,7 +464,7 @@
 
             // We may have some other type of ImageSource
             // that doesn't have a notion of frames or decoder
-            if (bitmapFrame?.Decoder == null)
+            if (bitmapFrame?.Decoder is null)
             {
                 return imageSource;
             }

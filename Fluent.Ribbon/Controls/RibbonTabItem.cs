@@ -317,7 +317,7 @@ namespace Fluent
         {
             get
             {
-                if (this.groups == null)
+                if (this.groups is null)
                 {
                     this.groups = new ObservableCollection<RibbonGroupBox>();
                     this.groups.CollectionChanged += this.OnGroupsCollectionChanged;
@@ -330,7 +330,7 @@ namespace Fluent
         // handles ribbon groups collection changes
         private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.groupsInnerContainer == null)
+            if (this.groupsInnerContainer is null)
             {
                 return;
             }
@@ -482,7 +482,7 @@ namespace Fluent
         {
             var item = d as RibbonTabItem;
 
-            if (item == null)
+            if (item is null)
             {
                 return;
             }

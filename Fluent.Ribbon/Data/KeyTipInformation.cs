@@ -23,7 +23,7 @@ namespace Fluent
                 throw new ArgumentNullException(nameof(keys));
             }
 
-            if (associatedElement == null)
+            if (associatedElement is null)
             {
                 throw new ArgumentNullException(nameof(associatedElement));
             }

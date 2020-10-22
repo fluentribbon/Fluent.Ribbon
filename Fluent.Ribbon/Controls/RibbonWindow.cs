@@ -380,7 +380,7 @@ namespace Fluent
                 this.iconImage.MouseDown -= this.HandleIconMouseDown;
             }
 
-            if (this.WindowCommands == null)
+            if (this.WindowCommands is null)
             {
                 this.WindowCommands = new WindowCommands();
             }

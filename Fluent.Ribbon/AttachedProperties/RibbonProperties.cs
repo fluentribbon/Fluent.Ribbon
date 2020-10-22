@@ -104,12 +104,12 @@ namespace Fluent
             var currentElement = element;
             RibbonGroupBox groupBox;
 
-            while ((groupBox = currentElement as RibbonGroupBox) == null)
+            while ((groupBox = currentElement as RibbonGroupBox) is null)
             {
                 currentElement = VisualTreeHelper.GetParent(currentElement)
                     ?? LogicalTreeHelper.GetParent(currentElement);
 
-                if (currentElement == null)
+                if (currentElement is null)
                 {
                     break;
                 }

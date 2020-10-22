@@ -203,7 +203,7 @@
         {
             get
             {
-                if (this.exitCommand == null)
+                if (this.exitCommand is null)
                 {
                     this.exitCommand = new RelayCommand(Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
                 }

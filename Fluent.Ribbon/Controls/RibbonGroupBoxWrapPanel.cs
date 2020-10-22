@@ -252,7 +252,7 @@ namespace Fluent
             for (int i = 0, count = children.Count; i < count; i++)
             {
                 var child = children[i];
-                if (child == null)
+                if (child is null)
                 {
                     continue;
                 }
@@ -320,7 +320,7 @@ namespace Fluent
             {
                 var child = children[i];
 
-                if (child == null)
+                if (child is null)
                 {
                     continue;
                 }

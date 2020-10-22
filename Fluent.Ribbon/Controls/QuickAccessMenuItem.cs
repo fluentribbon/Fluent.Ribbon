@@ -86,7 +86,7 @@ namespace Fluent
             var quickAccessMenuItem = (QuickAccessMenuItem)d;
             var ribbonControl = e.NewValue as IRibbonControl;
 
-            if (quickAccessMenuItem.Header == null
+            if (quickAccessMenuItem.Header is null
                 && ribbonControl != null)
             {
                 // Set Default Text Value
@@ -96,7 +96,7 @@ namespace Fluent
             if (ribbonControl != null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
-                if (parent == null)
+                if (parent is null)
                 {
                     quickAccessMenuItem.AddLogicalChild(ribbonControl);
                 }
@@ -250,7 +250,7 @@ namespace Fluent
         public static FrameworkElement FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);
-            if (result == null)
+            if (result is null)
             {
                 return null;
             }

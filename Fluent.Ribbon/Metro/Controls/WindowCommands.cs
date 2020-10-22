@@ -194,7 +194,7 @@ namespace Fluent
         private string GetCaption(uint id)
         {
 #pragma warning disable 618
-            if (this.user32 == null)
+            if (this.user32 is null)
             {
                 this.user32 = UnsafeNativeMethods.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
             }
@@ -307,7 +307,7 @@ namespace Fluent
             Window parentWindow = null;
 
             while (parent != null
-                && (parentWindow = parent as Window) == null)
+                && (parentWindow = parent as Window) is null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }

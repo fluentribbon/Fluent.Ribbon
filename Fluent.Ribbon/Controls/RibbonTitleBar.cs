@@ -143,7 +143,7 @@ namespace Fluent
         {
             var baseResult = base.HitTestCore(hitTestParameters);
 
-            if (baseResult == null)
+            if (baseResult is null)
             {
                 return new PointHitTestResult(this, hitTestParameters.HitPoint);
             }
@@ -303,7 +303,7 @@ namespace Fluent
         {
             var parentUIElement = this.Parent as UIElement;
 
-            if (parentUIElement == null)
+            if (parentUIElement is null)
             {
                 return default;
             }

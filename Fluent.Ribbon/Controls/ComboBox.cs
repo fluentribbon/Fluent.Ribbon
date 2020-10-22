@@ -223,7 +223,7 @@ namespace Fluent
                     return;
                 }
 
-                if (this.snappedImage == null)
+                if (this.snappedImage is null)
                 {
                     return;
                 }
@@ -409,7 +409,7 @@ namespace Fluent
 
         private void BringSelectedItemIntoView()
         {
-            if (this.quickAccessCombo.SelectedItem == null)
+            if (this.quickAccessCombo.SelectedItem is null)
             {
                 return;
             }
@@ -798,7 +798,7 @@ namespace Fluent
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
             var popupChild = this.DropDownPopup.Child as FrameworkElement;
 
-            if (popupChild == null)
+            if (popupChild is null)
             {
                 return;
             }

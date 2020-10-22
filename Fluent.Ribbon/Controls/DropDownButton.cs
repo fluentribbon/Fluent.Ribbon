@@ -561,7 +561,7 @@ namespace Fluent
         {
             var element = container as FrameworkElement;
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -608,7 +608,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer == null)
+            if (this.scrollViewer is null)
             {
                 return;
             }
@@ -630,7 +630,7 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer == null)
+            if (this.scrollViewer is null)
             {
                 return;
             }

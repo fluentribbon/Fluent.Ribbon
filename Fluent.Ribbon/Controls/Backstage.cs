@@ -345,7 +345,7 @@ namespace Fluent
                 return false;
             }
 
-            if (this.Content == null)
+            if (this.Content is null)
             {
                 return false;
             }
@@ -377,7 +377,7 @@ namespace Fluent
 
             this.ownerWindow = Window.GetWindow(this);
 
-            if (this.ownerWindow == null
+            if (this.ownerWindow is null
                 && this.Parent != null)
             {
                 this.ownerWindow = Window.GetWindow(this.Parent);
@@ -426,13 +426,13 @@ namespace Fluent
 
             this.Loaded -= this.OnDelayedShow;
 
-            if (this.Content == null)
+            if (this.Content is null)
             {
                 return;
             }
 
             if (!this.IsLoaded
-                || this.adorner == null)
+                || this.adorner is null)
             {
                 return;
             }
@@ -442,7 +442,7 @@ namespace Fluent
 
         private void ShowAdorner()
         {
-            if (this.adorner == null)
+            if (this.adorner is null)
             {
                 return;
             }
@@ -478,7 +478,7 @@ namespace Fluent
 
         private void HideAdornerAndRestoreParentProperties()
         {
-            if (this.adorner == null)
+            if (this.adorner is null)
             {
                 return;
             }
@@ -533,7 +533,7 @@ namespace Fluent
             // It's possible that we created an adorner but it's parent AdornerLayer got destroyed.
             // If that's the case we have to destroy our adorner.
             // This fixes #228 Backstage disappears when changing DontUseDwm
-            if (this.adorner?.Parent == null)
+            if (this.adorner?.Parent is null)
             {
                 this.DestroyAdorner();
             }
@@ -546,7 +546,7 @@ namespace Fluent
             FrameworkElement elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
                                               ?? UIHelper.GetParent<AdornerDecorator>(this.Parent);
 
-            if (elementToAdorn == null)
+            if (elementToAdorn is null)
             {
                 return;
             }
@@ -562,7 +562,7 @@ namespace Fluent
 
             this.AdornerLayer = UIHelper.GetAdornerLayer(elementToAdorn);
 
-            if (this.AdornerLayer == null)
+            if (this.AdornerLayer is null)
             {
                 throw new Exception($"AdornerLayer could not be found for {this}.");
             }
@@ -668,7 +668,7 @@ namespace Fluent
 
         private void SaveWindowMinSize(Window window)
         {
-            if (window == null)
+            if (window is null)
             {
                 this.savedWindowMinWidth = double.NaN;
                 this.savedWindowMinHeight = double.NaN;
@@ -681,7 +681,7 @@ namespace Fluent
 
         private void SaveWindowSize(Window window)
         {
-            if (window == null
+            if (window is null
                 || window.WindowState == WindowState.Maximized)
             {
                 this.savedWindowWidth = double.NaN;

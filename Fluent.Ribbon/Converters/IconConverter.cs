@@ -59,7 +59,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
         {
-            if (value == null)
+            if (value is null)
             {
                 var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 

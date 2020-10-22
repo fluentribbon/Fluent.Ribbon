@@ -396,7 +396,7 @@ namespace Fluent
         {
             var container = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(this.SelectedItem);
 
-            if (container == null
+            if (container is null
                 || container.IsEnabled == false
                 || container.Visibility != Visibility.Visible)
             {
@@ -455,7 +455,7 @@ namespace Fluent
             else
             {
                 var selectedTabItem = this.GetSelectedTabItem();
-                if (selectedTabItem == null)
+                if (selectedTabItem is null)
                 {
                     return;
                 }

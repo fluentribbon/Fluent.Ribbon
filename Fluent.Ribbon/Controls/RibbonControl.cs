@@ -150,7 +150,7 @@ namespace Fluent
         {
             var control = d as RibbonControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -165,7 +165,7 @@ namespace Fluent
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
 
                 if (e.NewValue is RoutedUICommand routedUiCommand
-                    && control.Header == null)
+                    && control.Header is null)
                 {
                     control.Header = routedUiCommand.Text;
                 }
@@ -199,7 +199,7 @@ namespace Fluent
         #region IsEnabled
 
         /// <inheritdoc />
-        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command is null);
 
         #endregion
 

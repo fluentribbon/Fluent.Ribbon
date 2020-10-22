@@ -141,7 +141,7 @@ namespace Fluent
             if (button.IsCheckable)
             {
                 var nullable = (bool?)e.NewValue;
-                if (nullable == null)
+                if (nullable is null)
                 {
                     button.RaiseEvent(new RoutedEventArgs(IndeterminateEvent, button));
                 }

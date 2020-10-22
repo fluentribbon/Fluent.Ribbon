@@ -185,7 +185,7 @@ namespace Fluent
         {
             var tabControl = d as RibbonTabControl;
 
-            if (tabControl == null)
+            if (tabControl is null)
             {
                 return basevalue;
             }
@@ -250,7 +250,7 @@ namespace Fluent
         {
             get
             {
-                if (this.toolBarItems == null)
+                if (this.toolBarItems is null)
                 {
                     this.toolBarItems = new ObservableCollection<UIElement>();
                     this.toolBarItems.CollectionChanged += this.OnToolbarItemsCollectionChanged;
@@ -265,7 +265,7 @@ namespace Fluent
         // Handle toolbar iitems changes
         private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.ToolbarPanel == null)
+            if (this.ToolbarPanel is null)
             {
                 return;
             }
@@ -635,7 +635,7 @@ namespace Fluent
         internal void ProcessMouseWheel(MouseWheelEventArgs e)
         {
             if (this.IsMinimized
-                || this.SelectedItem == null)
+                || this.SelectedItem is null)
             {
                 return;
             }
@@ -647,7 +647,7 @@ namespace Fluent
                 && UIHelper.GetParent<RibbonGroupBox>(focusedElement) != null)
                 ||
                 (e.OriginalSource is DependencyObject originalSource
-                && UIHelper.GetParent<RibbonTabControl>(originalSource) == null))
+                && UIHelper.GetParent<RibbonTabControl>(originalSource) is null))
             {
                 return;
             }
@@ -706,7 +706,7 @@ namespace Fluent
         private RibbonTabItem GetSelectedTabItem()
         {
             var selectedItem = this.SelectedItem;
-            if (selectedItem == null)
+            if (selectedItem is null)
             {
                 return null;
             }
@@ -865,8 +865,8 @@ namespace Fluent
         /// </summary>
         private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
-            if (this.DropDownPopup == null
-                || this.SelectedTabItem == null)
+            if (this.DropDownPopup is null
+                || this.SelectedTabItem is null)
             {
                 return null;
             }

@@ -52,7 +52,7 @@ namespace Fluent
         // Calculate two variants: below and upper ribbon
         private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
         {
-            if (this.PlacementTarget == null)
+            if (this.PlacementTarget is null)
             {
 #if NETCOREAPP3_0
                 return Array.Empty<CustomPopupPlacement>();
@@ -172,7 +172,7 @@ namespace Fluent
             }
 
             var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
-            if (parentVisual == null)
+            if (parentVisual is null)
             {
                 topLevelElement = obj;
             }
@@ -364,7 +364,7 @@ namespace Fluent
 
         private void OnToolTipClosed(object sender, RoutedEventArgs e)
         {
-            if (this.focusedElement == null)
+            if (this.focusedElement is null)
             {
                 return;
             }
@@ -375,7 +375,7 @@ namespace Fluent
 
         private void OnToolTipOpened(object sender, RoutedEventArgs e)
         {
-            if (this.HelpTopic == null)
+            if (this.HelpTopic is null)
             {
                 return;
             }

@@ -31,8 +31,8 @@ namespace Fluent
         public static object CoerceContextMenu(DependencyObject d, object basevalue)
         {
             var control = d as IQuickAccessItemProvider;
-            if (basevalue == null
-                && (control == null || control.CanAddToQuickAccessToolBar))
+            if (basevalue is null
+                && (control is null || control.CanAddToQuickAccessToolBar))
             {
                 return Ribbon.RibbonContextMenu;
             }

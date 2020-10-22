@@ -253,7 +253,7 @@ namespace Fluent
                 this.cachedControlGroups.Clear();
             }
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 if (this.rebuildVisualAndLogicalChildren)
                 {
@@ -283,7 +283,7 @@ namespace Fluent
         {
             var layoutDefinition = this.GetCurrentLayoutDefinition();
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 return this.WrapPanelLayuot(finalSize, false);
             }
@@ -473,7 +473,7 @@ namespace Fluent
                     {
                         var control = this.GetControl(ribbonToolBarControlDefinition);
 
-                        if (control == null)
+                        if (control is null)
                         {
                             continue;
                         }
@@ -570,7 +570,7 @@ namespace Fluent
                         control = this.GetControlGroup(controlGroupDefinition);
                     }
 
-                    if (control == null)
+                    if (control is null)
                     {
                         return defaultRowHeight;
                     }

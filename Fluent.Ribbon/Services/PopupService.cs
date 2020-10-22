@@ -118,7 +118,7 @@ namespace Fluent
         {
             var element = sender as UIElement;
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -135,7 +135,7 @@ namespace Fluent
         {
             var element = sender as UIElement;
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
@@ -211,7 +211,7 @@ namespace Fluent
 
             var control = sender as IDropDownControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -226,7 +226,7 @@ namespace Fluent
 
             var popup = control.DropDownPopup;
 
-            if (popup?.Child == null)
+            if (popup?.Child is null)
             {
                 RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                 return;
@@ -237,7 +237,7 @@ namespace Fluent
                 // If Ribbon loses capture because something outside popup is clicked - close the popup
                 if (popup.PlacementTarget is RibbonTabItem)
                 {
-                    if (Mouse.Captured == null
+                    if (Mouse.Captured is null
                         || IsAncestorOf(popup, Mouse.Captured as DependencyObject) == false)
                     {
                         RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
@@ -258,7 +258,7 @@ namespace Fluent
             // This code is needed to keep some popus open.
             // One of these is the ribbon popup when it's minimized.
             if (e.OriginalSource != null
-                && Mouse.Captured == null
+                && Mouse.Captured is null
                 && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
             {
                 WriteDebug($"Setting mouse capture to: {sender}");
@@ -282,7 +282,7 @@ namespace Fluent
         /// <returns>Returns true whether parent is ancestor of element</returns>
         public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
         {
-            if (parent == null)
+            if (parent is null)
             {
                 return false;
             }
@@ -307,7 +307,7 @@ namespace Fluent
         {
             var control = sender as IDropDownControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -377,7 +377,7 @@ namespace Fluent
         /// <returns>Returns true whether mouse is physically over the popup</returns>
         public static bool IsMousePhysicallyOver(Popup popup)
         {
-            if (popup?.Child == null)
+            if (popup?.Child is null)
             {
                 return false;
             }
@@ -392,7 +392,7 @@ namespace Fluent
         /// <returns>Returns true whether mouse is physically over the element</returns>
         public static bool IsMousePhysicallyOver(UIElement element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return false;
             }
@@ -435,7 +435,7 @@ namespace Fluent
 
         private static bool IsPopupRoot(object obj)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 return false;
             }

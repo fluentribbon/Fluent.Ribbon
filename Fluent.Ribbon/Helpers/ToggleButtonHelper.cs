@@ -49,13 +49,13 @@ namespace Fluent
 
         private static void Register(string groupName, IToggleButton toggleButton)
         {
-            if (groupNameToElements == null)
+            if (groupNameToElements is null)
             {
                 groupNameToElements = new Hashtable(1);
             }
 
             var elements = (ArrayList)groupNameToElements[groupName];
-            if (elements == null)
+            if (elements is null)
             {
                 elements = new ArrayList(1);
                 groupNameToElements[groupName] = elements;
@@ -70,7 +70,7 @@ namespace Fluent
 
         private static void Unregister(string groupName, IToggleButton toggleButton)
         {
-            if (groupNameToElements == null)
+            if (groupNameToElements is null)
             {
                 return;
             }
@@ -92,7 +92,7 @@ namespace Fluent
             while (index < elements.Count)
             {
                 var target = ((WeakReference)elements[index]).Target;
-                if (target == null
+                if (target is null
                     || target == elementToRemove)
                 {
                     elements.RemoveAt(index);
@@ -114,7 +114,7 @@ namespace Fluent
             if (string.IsNullOrEmpty(groupName) == false)
             {
                 var visualRoot = getVisualRootMethodInfo.Invoke(null, new object[] { (DependencyObject)toggleButton });
-                if (groupNameToElements == null)
+                if (groupNameToElements is null)
                 {
                     groupNameToElements = new Hashtable(1);
                 }
@@ -124,7 +124,7 @@ namespace Fluent
                 while (index < groupNameToElement.Count)
                 {
                     var target = ((WeakReference)groupNameToElement[index]).Target as IToggleButton;
-                    if (target == null)
+                    if (target is null)
                     {
                         groupNameToElement.RemoveAt(index);
                     }
@@ -149,7 +149,7 @@ namespace Fluent
             //else
             //{
             //    var parent = toggleButton.Parent;
-            //    if (parent == null)
+            //    if (parent is null)
             //    {
             //        return;
             //    }
@@ -177,7 +177,7 @@ namespace Fluent
         {
             var dependencyObject = toggleButton as DependencyObject;
 
-            if (dependencyObject == null)
+            if (dependencyObject is null)
             {
                 return;
             }

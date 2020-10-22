@@ -147,7 +147,7 @@ namespace Fluent
             foreach (var item in this.InternalChildren)
             {
                 var groupBox = item as RibbonGroupBox;
-                if (groupBox == null)
+                if (groupBox is null)
                 {
                     continue;
                 }
@@ -187,7 +187,7 @@ namespace Fluent
             foreach (UIElement child in this.InternalChildren)
             {
                 var groupBox = child as RibbonGroupBox;
-                if (groupBox == null)
+                if (groupBox is null)
                 {
                     continue;
                 }
@@ -206,7 +206,7 @@ namespace Fluent
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
 
-            if (groupBox == null)
+            if (groupBox is null)
             {
                 return;
             }
@@ -229,7 +229,7 @@ namespace Fluent
             var groupBox = this.FindGroup(name);
             var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
 
-            if (groupBox == null)
+            if (groupBox is null)
             {
                 return;
             }
@@ -342,7 +342,7 @@ namespace Fluent
             // We can only work on visuals that are us or children.
             // An empty rect has no size or position.  We can't meaningfully use it.
             if (rectangle.IsEmpty
-                || visual == null
+                || visual is null
                 || ReferenceEquals(visual, this)
                 || !this.IsAncestorOf(visual))
             {

@@ -36,7 +36,7 @@ namespace Fluent
             var separatorTabItem = (SeparatorTabItem)d;
             var tabControl = UIHelper.GetParent<TabControl>(separatorTabItem);
 
-            if (tabControl == null
+            if (tabControl is null
                 || tabControl.Items.Count <= 1)
             {
                 return;

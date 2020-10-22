@@ -320,7 +320,7 @@ namespace Fluent
         {
             get
             {
-                if (this.filters == null)
+                if (this.filters is null)
                 {
                     this.filters = new ObservableCollection<GalleryGroupFilter>();
                     this.filters.CollectionChanged += this.OnFilterCollectionChanged;
@@ -425,7 +425,7 @@ namespace Fluent
         private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
         {
             var gallery = (InRibbonGallery)d;
-            if (basevalue == null
+            if (basevalue is null
                 && gallery.Filters.Count > 0)
             {
                 return gallery.Filters[0];
@@ -535,7 +535,7 @@ namespace Fluent
 
         private MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
         {
-            if (filter == null)
+            if (filter is null)
             {
                 return null;
             }
