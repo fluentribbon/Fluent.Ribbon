@@ -19,6 +19,8 @@
 #endif
     using Fluent.Internal;
 
+    #pragma warning disable WPF0072
+    
     /// <summary>
     /// Converts <see cref="string"/>, <see cref="Uri"/>, <see cref="System.Drawing.Icon"/> or <see cref="ImageSource"/> to <see cref="System.Windows.Controls.Image"/> or <see cref="ImageSource"/> (dependent upon target type).
     /// When converting you can pass a desired size as the converter parameter.
