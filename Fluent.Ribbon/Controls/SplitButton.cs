@@ -162,7 +162,7 @@ namespace Fluent
 
             if (button.IsCheckable == false)
             {
-                return false;
+                return BooleanBoxes.FalseBox;
             }
 
             return basevalue;
@@ -278,7 +278,7 @@ namespace Fluent
         #endregion KeyTipPostfix
 
         /// <summary>Identifies the <see cref="SecondaryKeyTip"/> dependency property.</summary>
-        public static readonly DependencyProperty SecondaryKeyTipProperty = DependencyProperty.Register(nameof(SecondaryKeyTip), typeof(string), typeof(SplitButton), new PropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SecondaryKeyTipProperty = DependencyProperty.Register(nameof(SecondaryKeyTip), typeof(string), typeof(SplitButton), new PropertyMetadata(StringBoxes.Empty));
 
         /// <summary>
         /// Gets or sets the keytip for the secondary action.

@@ -36,9 +36,8 @@ namespace Fluent
                 nameof(Orientation), 
                 typeof(Orientation),
                 typeof(UniformGridWithItemSize), 
-                new FrameworkPropertyMetadata(
-                    Orientation.Horizontal, 
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+                new FrameworkPropertyMetadata(Orientation.Horizontal,
+                                              FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         /// <summary>
         /// Specifies the number of maximum columns in the grid
@@ -57,9 +56,8 @@ namespace Fluent
                 nameof(MinColumns),
                 typeof(int),
                 typeof(UniformGridWithItemSize),
-                new FrameworkPropertyMetadata(
-                    IntBoxes.Zero,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
+                new FrameworkPropertyMetadata(IntBoxes.Zero,
+                                              FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMinColumns);
 
         private static bool ValidateMinColumns(object o)
@@ -84,9 +82,8 @@ namespace Fluent
                 nameof(MaxColumns),
                 typeof(int),
                 typeof(UniformGridWithItemSize),
-                new FrameworkPropertyMetadata(
-                    IntBoxes.Zero,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
+                new FrameworkPropertyMetadata(IntBoxes.Zero,
+                                              FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMaxColumns);
 
         private static bool ValidateMaxColumns(object o)

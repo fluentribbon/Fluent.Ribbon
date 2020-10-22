@@ -86,7 +86,7 @@ namespace Fluent
         /// <summary>
         /// <see cref="DependencyProperty"/> for IsCollapsedHeaderContentPresenter.
         /// </summary>
-        public static readonly DependencyProperty IsCollapsedHeaderContentPresenterProperty = DependencyProperty.RegisterAttached("IsCollapsedHeaderContentPresenter", typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty IsCollapsedHeaderContentPresenterProperty = DependencyProperty.RegisterAttached("IsCollapsedHeaderContentPresenter", typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
         /// Sets the value of <see cref="IsCollapsedHeaderContentPresenterProperty"/>.

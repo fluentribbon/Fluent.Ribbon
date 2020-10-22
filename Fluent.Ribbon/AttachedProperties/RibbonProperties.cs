@@ -4,6 +4,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Media;
     using Fluent.Extensibility;
+    using Fluent.Internal.KnownBoxes;
     using JetBrains.Annotations;
 
     /// <summary>
@@ -214,7 +215,7 @@ namespace Fluent
         /// Stores the last visible width of an element.
         /// </summary>
         public static readonly DependencyProperty LastVisibleWidthProperty = DependencyProperty.RegisterAttached(
-            "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(default(double)));
+            "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(DoubleBoxes.Zero));
 
         /// <summary>Helper for setting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
         public static void SetLastVisibleWidth(DependencyObject element, double value)
@@ -236,7 +237,7 @@ namespace Fluent
         /// Defines if the element is part of the <see cref="QuickAccessToolBar"/>.
         /// </summary>
         public static readonly DependencyProperty IsElementInQuickAccessToolBarProperty = DependencyProperty.RegisterAttached(
-            "IsElementInQuickAccessToolBar", typeof(bool), typeof(RibbonProperties), new PropertyMetadata(default(bool)));
+            "IsElementInQuickAccessToolBar", typeof(bool), typeof(RibbonProperties), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>Helper for setting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
         public static void SetIsElementInQuickAccessToolBar(DependencyObject element, bool value)
