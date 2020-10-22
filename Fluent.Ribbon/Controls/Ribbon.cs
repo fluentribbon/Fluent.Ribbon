@@ -70,9 +70,7 @@ namespace Fluent
 
         #region ContextMenu
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsDefaultContextMenuEnabled"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsDefaultContextMenuEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsDefaultContextMenuEnabledProperty = DependencyProperty.Register(nameof(IsDefaultContextMenuEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -532,9 +530,7 @@ namespace Fluent
             set { this.SetValue(MenuProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="Menu"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register(nameof(Menu), typeof(FrameworkElement), typeof(Ribbon), new FrameworkPropertyMetadata(default(FrameworkElement), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnMenuChanged));
 
@@ -556,9 +552,7 @@ namespace Fluent
             set { this.SetValue(StartScreenProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="StartScreen"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="StartScreen"/> dependency property.</summary>
         public static readonly DependencyProperty StartScreenProperty =
             DependencyProperty.Register(nameof(StartScreen), typeof(StartScreen), typeof(Ribbon), new FrameworkPropertyMetadata(default(StartScreen), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnStartScreenChanged));
 
@@ -590,9 +584,7 @@ namespace Fluent
             AddOrRemoveLogicalChildOnPropertyChanged(d, e);
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBar"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="QuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty QuickAccessToolBarProperty = QuickAccessToolBarPropertyKey.DependencyProperty;
 
         #endregion
@@ -614,9 +606,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey TabControlPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(TabControl), typeof(RibbonTabControl), typeof(Ribbon), new FrameworkPropertyMetadata(default(RibbonTabControl), FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TabControl"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="TabControl"/> dependency property.</summary>
         public static readonly DependencyProperty TabControlProperty = TabControlPropertyKey.DependencyProperty;
 
         #endregion
@@ -630,9 +620,7 @@ namespace Fluent
             set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="SelectedTabItem"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedTabItem"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(Ribbon), new PropertyMetadata(OnSelectedTabItemChanged));
 
@@ -664,9 +652,7 @@ namespace Fluent
             set { this.SetValue(SelectedTabIndexProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="SelectedTabIndex"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedTabIndex"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedTabIndexProperty =
             DependencyProperty.Register(nameof(SelectedTabIndex), typeof(int), typeof(Ribbon), new PropertyMetadata(-1, OnSelectedTabIndexChanged));
 
@@ -736,9 +722,7 @@ namespace Fluent
             set { this.SetValue(TitleBarProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="TitleBar"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBarProperty = DependencyProperty.Register(nameof(TitleBar), typeof(RibbonTitleBar), typeof(Ribbon), new PropertyMetadata(OnTitleBarChanged));
 
         private static void OnTitleBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -774,9 +758,7 @@ namespace Fluent
             set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ShowQuickAccessToolBarAboveRibbon"/> dependency property.</summary>
         public static readonly DependencyProperty ShowQuickAccessToolBarAboveRibbonProperty =
             DependencyProperty.Register(nameof(ShowQuickAccessToolBarAboveRibbon), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnShowQuickAccessToolBarAboveRibbonChanged));
 
@@ -815,9 +797,7 @@ namespace Fluent
             set { this.SetValue(QuickAccessToolBarHeightProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="QuickAccessToolBarHeight"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="QuickAccessToolBarHeight"/> dependency property.</summary>
         public static readonly DependencyProperty QuickAccessToolBarHeightProperty =
             DependencyProperty.Register(nameof(QuickAccessToolBarHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(23D));
 
@@ -906,10 +886,7 @@ namespace Fluent
             set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBar.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBar), typeof(bool),
             typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -923,10 +900,7 @@ namespace Fluent
             set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeQuickAccessToolBarItems.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBarItems"/> dependency property.</summary>
         public static readonly DependencyProperty CanCustomizeQuickAccessToolBarItemsProperty =
             DependencyProperty.Register(nameof(CanCustomizeQuickAccessToolBarItems), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -939,9 +913,7 @@ namespace Fluent
             set { this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsQuickAccessToolBarMenuDropDownVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsQuickAccessToolBarMenuDropDownVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsQuickAccessToolBarMenuDropDownVisibleProperty =
             DependencyProperty.Register(nameof(IsQuickAccessToolBarMenuDropDownVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -954,10 +926,7 @@ namespace Fluent
             set { this.SetValue(CanCustomizeRibbonProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanCustomizeRibbon.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanCustomizeRibbon"/> dependency property.</summary>
         public static readonly DependencyProperty CanCustomizeRibbonProperty =
             DependencyProperty.Register(nameof(CanCustomizeRibbon), typeof(bool),
             typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -980,17 +949,12 @@ namespace Fluent
             set { this.SetValue(IsMinimizedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMinimized.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
         public static readonly DependencyProperty IsMinimizedProperty =
             DependencyProperty.Register(nameof(IsMinimized), typeof(bool),
             typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsMinimizedChanged));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanMinimize.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
         public static readonly DependencyProperty CanMinimizeProperty =
             DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -1016,9 +980,7 @@ namespace Fluent
             set { this.SetValue(ContentGapHeightProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ContentGapHeight"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="ContentGapHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentGapHeight));
 
@@ -1031,9 +993,7 @@ namespace Fluent
             set { this.SetValue(ContentHeightProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="ContentHeight"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="ContentHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ContentHeightProperty =
             DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(Ribbon), new PropertyMetadata(RibbonTabControl.DefaultContentHeight));
 
@@ -1048,9 +1008,7 @@ namespace Fluent
             set { this.SetValue(IsCollapsedProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsCollapsed"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register(nameof(IsCollapsed), typeof(bool),
             typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsCollapsedChanged));
@@ -1070,10 +1028,7 @@ namespace Fluent
             set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
             DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -1086,9 +1041,7 @@ namespace Fluent
             set { this.SetValue(IsQuickAccessToolBarVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsQuickAccessToolBarVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsQuickAccessToolBarVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
             DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -1101,15 +1054,11 @@ namespace Fluent
             set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="AreTabHeadersVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="AreTabHeadersVisible"/> dependency property.</summary>
         public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -1121,9 +1070,7 @@ namespace Fluent
             set { this.SetValue(AreTabHeadersVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsToolBarVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -1135,9 +1082,7 @@ namespace Fluent
             set { this.SetValue(IsToolBarVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -1154,9 +1099,7 @@ namespace Fluent
         /// </summary>
         public bool AreAnyKeyTipsVisible => this.keyTipService?.AreAnyKeyTipsVisible == true;
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsKeyTipHandlingEnabled"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsKeyTipHandlingEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsKeyTipHandlingEnabledProperty = DependencyProperty.Register(nameof(IsKeyTipHandlingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsKeyTipHandlingEnabledChanged));
 
         /// <summary>
@@ -1802,10 +1745,7 @@ namespace Fluent
             set { this.SetValue(AutomaticStateManagementProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for AutomaticStateManagement.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="AutomaticStateManagement"/> dependency property.</summary>
         public static readonly DependencyProperty AutomaticStateManagementProperty =
             DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutomaticStateManagementChanged, CoerceAutomaticStateManagement));
 

@@ -186,15 +186,13 @@ namespace Fluent
             set { this.SetValue(ButtonBrushProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
         public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
         private string GetCaption(uint id)
         {
 #pragma warning disable 618
-            if (this.user32 == null)
+            if (this.user32 is null)
             {
                 this.user32 = UnsafeNativeMethods.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
             }
@@ -307,7 +305,7 @@ namespace Fluent
             Window parentWindow = null;
 
             while (parent != null
-                && (parentWindow = parent as Window) == null)
+                && (parentWindow = parent as Window) is null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }

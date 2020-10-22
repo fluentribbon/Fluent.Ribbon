@@ -26,7 +26,7 @@
         {
             var dependencyObject = e.Source as DependencyObject;
 
-            if (dependencyObject == null)
+            if (dependencyObject is null)
             {
                 return;
             }
@@ -46,7 +46,7 @@
         {
             var window = Window.GetWindow(dependencyObject);
 
-            if (window == null)
+            if (window is null)
             {
                 return;
             }
@@ -101,7 +101,7 @@
         {
             var window = Window.GetWindow(dependencyObject);
 
-            if (window == null)
+            if (window is null)
             {
                 return;
             }

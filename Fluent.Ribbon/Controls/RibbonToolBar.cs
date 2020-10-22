@@ -48,10 +48,7 @@ namespace Fluent
             set { this.SetValue(SeparatorStyleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SeparatorStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SeparatorStyle"/> dependency property.</summary>
         public static readonly DependencyProperty SeparatorStyleProperty =
             DependencyProperty.Register(nameof(SeparatorStyle), typeof(Style),
             typeof(RibbonToolBar), new PropertyMetadata(OnSeparatorStyleChanged));
@@ -253,7 +250,7 @@ namespace Fluent
                 this.cachedControlGroups.Clear();
             }
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 if (this.rebuildVisualAndLogicalChildren)
                 {
@@ -283,7 +280,7 @@ namespace Fluent
         {
             var layoutDefinition = this.GetCurrentLayoutDefinition();
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 return this.WrapPanelLayuot(finalSize, false);
             }
@@ -473,7 +470,7 @@ namespace Fluent
                     {
                         var control = this.GetControl(ribbonToolBarControlDefinition);
 
-                        if (control == null)
+                        if (control is null)
                         {
                             continue;
                         }
@@ -570,7 +567,7 @@ namespace Fluent
                         control = this.GetControlGroup(controlGroupDefinition);
                     }
 
-                    if (control == null)
+                    if (control is null)
                     {
                         return defaultRowHeight;
                     }

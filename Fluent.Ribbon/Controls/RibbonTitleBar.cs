@@ -53,9 +53,7 @@ namespace Fluent
             set { this.SetValue(QuickAccessToolBarProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for QuickAccessToolBar.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="QuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty QuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(QuickAccessToolBar), typeof(FrameworkElement), typeof(RibbonTitleBar), new PropertyMetadata(OnQuickAccessToolBarChanged));
 
@@ -74,9 +72,7 @@ namespace Fluent
             set { this.SetValue(HeaderAlignmentProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HeaderAlignment.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HeaderAlignment"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderAlignmentProperty =
             DependencyProperty.Register(nameof(HeaderAlignment), typeof(HorizontalAlignment), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(HorizontalAlignment.Center, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
@@ -89,17 +85,13 @@ namespace Fluent
             set { this.SetValue(IsCollapsedProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsCollapsed"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
         public static readonly DependencyProperty IsCollapsedProperty =
             DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private bool isAtLeastOneRequiredControlPresent;
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HideContextTabs.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HideContextTabs"/> dependency property.</summary>
         public static readonly DependencyProperty HideContextTabsProperty =
             DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
@@ -143,7 +135,7 @@ namespace Fluent
         {
             var baseResult = base.HitTestCore(hitTestParameters);
 
-            if (baseResult == null)
+            if (baseResult is null)
             {
                 return new PointHitTestResult(this, hitTestParameters.HitPoint);
             }
@@ -303,7 +295,7 @@ namespace Fluent
         {
             var parentUIElement = this.Parent as UIElement;
 
-            if (parentUIElement == null)
+            if (parentUIElement is null)
             {
                 return default;
             }

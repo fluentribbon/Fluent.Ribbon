@@ -20,9 +20,7 @@ namespace Fluent
             set { this.SetValue(ShownProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="Shown"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Shown"/> dependency property.</summary>
         public static readonly DependencyProperty ShownProperty =
             DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
 

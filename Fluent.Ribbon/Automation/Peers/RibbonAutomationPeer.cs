@@ -6,7 +6,6 @@
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
     using System.Windows.Controls;
-    using Fluent.Extensions;
     using Fluent.Internal;
     using JetBrains.Annotations;
 
@@ -168,7 +167,7 @@
         protected virtual AutomationPeer CreatePeerForMenu()
         {
             var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
-            if (automationPeer == null)
+            if (automationPeer is null)
             {
                 var menu = (UIElement)UIHelper.FindImmediateVisualChild<Backstage>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible) ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible);
 

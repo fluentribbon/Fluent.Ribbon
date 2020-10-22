@@ -125,7 +125,7 @@ namespace Fluent
             }
 
             this.window = Window.GetWindow(this.ribbon);
-            if (this.window == null)
+            if (this.window is null)
             {
                 return;
             }
@@ -233,7 +233,7 @@ namespace Fluent
 
             if (this.IsShowOrHideKey(e))
             {
-                if (this.activeAdornerChain == null
+                if (this.activeAdornerChain is null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
                     || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
                 {
@@ -251,9 +251,9 @@ namespace Fluent
                 this.ClearUserInput();
                 e.Handled = true;
             }
-            else if ((e.Key != Key.System && this.activeAdornerChain == null)
+            else if ((e.Key != Key.System && this.activeAdornerChain is null)
                     || e.SystemKey == Key.Escape
-                    || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain == null))
+                    || (e.KeyboardDevice.Modifiers != ModifierKeys.Alt && this.activeAdornerChain is null))
             {
                 return;
             }
@@ -283,7 +283,7 @@ namespace Fluent
                 var shownImmediately = false;
 
                 // Should we show the keytips and immediately react to key?
-                if (this.activeAdornerChain == null
+                if (this.activeAdornerChain is null
                     || this.activeAdornerChain.IsAdornerChainAlive == false
                     || this.activeAdornerChain.AreAnyKeyTipsVisible == false)
                 {
@@ -291,7 +291,7 @@ namespace Fluent
                     shownImmediately = true;
                 }
 
-                if (this.activeAdornerChain == null)
+                if (this.activeAdornerChain is null)
                 {
                     return;
                 }
@@ -422,7 +422,7 @@ namespace Fluent
 
         private void OnDelayedShow(object sender, EventArgs e)
         {
-            if (this.activeAdornerChain == null)
+            if (this.activeAdornerChain is null)
             {
                 this.Show();
             }
@@ -454,7 +454,7 @@ namespace Fluent
             // Check whether the window is
             // - still present (prevents exceptions when window is closed by system commands)
             // - still active (prevents keytips showing during Alt-Tab'ing)
-            if (this.window == null
+            if (this.window is null
                 || this.window.IsActive == false)
             {
                 this.RestoreFocus();
@@ -468,7 +468,7 @@ namespace Fluent
                 ?? this.GetApplicationMenu()
                 ?? this.ribbon;
 
-            if (keyTipsTarget == null)
+            if (keyTipsTarget is null)
             {
                 return;
             }
@@ -478,7 +478,7 @@ namespace Fluent
             this.backUpFocusedControl = null;
 
             // If focus is inside the Ribbon already we don't want to jump around after finishing with KeyTips
-            if (UIHelper.GetParent<Ribbon>(Keyboard.FocusedElement as DependencyObject) == null)
+            if (UIHelper.GetParent<Ribbon>(Keyboard.FocusedElement as DependencyObject) is null)
             {
                 this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
             }
@@ -506,14 +506,14 @@ namespace Fluent
 
         private FrameworkElement GetBackstage()
         {
-            if (this.ribbon.Menu == null)
+            if (this.ribbon.Menu is null)
             {
                 return null;
             }
 
             var control = this.ribbon.Menu as Backstage ?? UIHelper.FindImmediateVisualChild<Backstage>(this.ribbon.Menu, IsVisible);
 
-            if (control == null)
+            if (control is null)
             {
                 return null;
             }
@@ -525,14 +525,14 @@ namespace Fluent
 
         private FrameworkElement GetApplicationMenu()
         {
-            if (this.ribbon.Menu == null)
+            if (this.ribbon.Menu is null)
             {
                 return null;
             }
 
             var control = this.ribbon.Menu as ApplicationMenu ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.ribbon.Menu, IsVisible);
 
-            if (control == null)
+            if (control is null)
             {
                 return null;
             }
@@ -546,7 +546,7 @@ namespace Fluent
         {
             var control = this.ribbon.StartScreen;
 
-            if (control == null)
+            if (control is null)
             {
                 return null;
             }

@@ -28,7 +28,7 @@ namespace Fluent.Automation.Peers
         {
             get
             {
-                if (this.headerPeer == null
+                if (this.headerPeer is null
                     || !this.headerPeer.Owner.IsDescendantOf(this.OwningGroup))
                 {
                     if (this.OwningGroup.State == RibbonGroupBoxState.Collapsed)
@@ -56,7 +56,7 @@ namespace Fluent.Automation.Peers
 
             if (this.HeaderPeer != null)
             {
-                if (list == null)
+                if (list is null)
                 {
                     list = new List<AutomationPeer>(1);
                 }

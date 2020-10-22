@@ -23,10 +23,7 @@ namespace Fluent
             set { this.SetValue(IsFirstInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsFirstInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsFirstInRow"/> dependency property.</summary>
         public static readonly DependencyProperty IsFirstInRowProperty =
             DependencyProperty.Register(nameof(IsFirstInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -39,10 +36,7 @@ namespace Fluent
             set { this.SetValue(IsLastInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsFirstInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLastInRow"/> dependency property.</summary>
         public static readonly DependencyProperty IsLastInRowProperty =
             DependencyProperty.Register(nameof(IsLastInRow), typeof(bool), typeof(RibbonToolBarControlGroup), new PropertyMetadata(BooleanBoxes.TrueBox));
 

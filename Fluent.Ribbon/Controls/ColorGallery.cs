@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -50,7 +50,7 @@ namespace Fluent
         /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item == null)
+            if (item is null)
             {
                 return null;
             }
@@ -67,7 +67,7 @@ namespace Fluent
                 }
             }
 
-            if (listBox == null)
+            if (listBox is null)
             {
                 return null;
             }
@@ -83,7 +83,7 @@ namespace Fluent
                 }
             }
 
-            if (colorGallery == null)
+            if (colorGallery is null)
             {
                 return null;
             }
@@ -270,9 +270,7 @@ namespace Fluent
             set { this.SetValue(ModeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Mode"/> dependency property.</summary>
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register(nameof(Mode), typeof(ColorGalleryMode), typeof(ColorGallery), new PropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
 
@@ -294,9 +292,7 @@ namespace Fluent
             set { this.SetValue(ChipWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ChipWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ChipWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ChipWidthProperty =
             DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
@@ -320,9 +316,7 @@ namespace Fluent
             set { this.SetValue(ChipHeightProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ChipHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ChipHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ChipHeightProperty =
             DependencyProperty.Register(nameof(ChipHeight), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
@@ -339,9 +333,7 @@ namespace Fluent
             set { this.SetValue(IsAutomaticColorButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsAutomaticColorButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsAutomaticColorButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsAutomaticColorButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -358,9 +350,7 @@ namespace Fluent
             set { this.SetValue(IsNoColorButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsNoColorButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsNoColorButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsNoColorButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -377,9 +367,7 @@ namespace Fluent
             set { this.SetValue(IsMoreColorsButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMoreColorsButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMoreColorsButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsMoreColorsButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -396,9 +384,7 @@ namespace Fluent
             set { this.SetValue(ColumnsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Columns"/> dependency property.</summary>
         public static readonly DependencyProperty ColumnsProperty =
             DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new PropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
@@ -431,9 +417,7 @@ namespace Fluent
             set { this.SetValue(StandardColorGridRowsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for StandardColorGridRows.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="StandardColorGridRows"/> dependency property.</summary>
         public static readonly DependencyProperty StandardColorGridRowsProperty =
             DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnStandardColorGridRowsChanged, CoeceGridRows));
 
@@ -466,9 +450,7 @@ namespace Fluent
             set { this.SetValue(ThemeColorGridRowsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeColorGridRows.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeColorGridRows"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeColorGridRowsProperty =
             DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnThemeColorGridRowsChanged, CoeceGridRows));
 
@@ -490,9 +472,7 @@ namespace Fluent
             set { this.SetValue(SelectedColorProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedColor"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(OnSelectedColorChanged));
 
@@ -501,7 +481,7 @@ namespace Fluent
         {
             var gallery = d as ColorGallery;
 
-            if (gallery == null)
+            if (gallery is null)
             {
                 return;
             }
@@ -578,7 +558,7 @@ namespace Fluent
         {
             get
             {
-                if (this.themeColors == null)
+                if (this.themeColors is null)
                 {
                     this.themeColors = new ObservableCollection<Color>();
                     this.themeColors.CollectionChanged += this.OnThemeColorsChanged;
@@ -602,9 +582,7 @@ namespace Fluent
             set { this.SetValue(ThemeColorsSourceProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeColorsSource"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeColorsSourceProperty =
             DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(OnThemeColorsSourceChanged));
 
@@ -639,9 +617,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeGradients"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeGradientsProperty = ThemeGradientsPropertyKey.DependencyProperty;
 
         #endregion
@@ -661,9 +637,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="StandardGradients"/> dependency property.</summary>
         public static readonly DependencyProperty StandardGradientsProperty = StandardGradientsPropertyKey.DependencyProperty;
 
         #endregion
@@ -1136,6 +1110,7 @@ namespace Fluent
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool ChooseColor(CHOOSECOLOR lpcc);
 
+#pragma warning disable 649
         /// <summary>
         /// Contains information the ChooseColor function uses to initialize the Color dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. 
         /// </summary>
@@ -1187,6 +1162,7 @@ namespace Fluent
             /// </summary>
             public IntPtr lpTemplateName = IntPtr.Zero;
         }
+#pragma warning restore 649
 
         /// <summary>
         /// Causes the dialog box to display all available colors in the set of basic colors.

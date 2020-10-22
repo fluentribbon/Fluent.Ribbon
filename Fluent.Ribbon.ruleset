@@ -172,14 +172,11 @@
     <Rule Id="SA1649" Action="None" />
   </Rules>
   <Rules AnalyzerId="WpfAnalyzers" RuleNamespace="WpfAnalyzers.Analyzers">
-    <Rule Id="WPF0006" Action="None" />
     <Rule Id="WPF0010" Action="Info" />
     <Rule Id="WPF0012" Action="Error" />
     <Rule Id="WPF0022" Action="Error" />
     <Rule Id="WPF0033" Action="Info" />
-    <Rule Id="WPF0041" Action="None" />
-    <Rule Id="WPF0052" Action="None" />
-    <Rule Id="WPF0060" Action="Info" />
-    <Rule Id="WPF0072" Action="None" />
+    <Rule Id="WPF0041" Action="Info" />
+    <Rule Id="WPF0060" Action="Warning" />
   </Rules>
 </RuleSet>

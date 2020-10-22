@@ -22,9 +22,7 @@ namespace Fluent
             set { this.SetValue(LeftContentProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="LeftContent"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="LeftContent"/> dependency property.</summary>
         public static readonly DependencyProperty LeftContentProperty = DependencyProperty.Register(nameof(LeftContent), typeof(object), typeof(StartScreenTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
@@ -36,9 +34,7 @@ namespace Fluent
             set { this.SetValue(LeftContentMarginProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="LeftContentMargin"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="LeftContentMargin"/> dependency property.</summary>
         public static readonly DependencyProperty LeftContentMarginProperty =
             DependencyProperty.Register(nameof(LeftContentMargin), typeof(Thickness), typeof(StartScreenTabControl), new PropertyMetadata(default(Thickness)));
 
@@ -51,9 +47,7 @@ namespace Fluent
             set { this.SetValue(RightContentProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="RightContent"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="RightContent"/> dependency property.</summary>
         public static readonly DependencyProperty RightContentProperty = DependencyProperty.Register(nameof(RightContent), typeof(object), typeof(StartScreenTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿namespace Fluent.Extensions
 {
-    using System.Runtime.Serialization;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;

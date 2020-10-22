@@ -37,7 +37,7 @@
         private static void OnBehaviorsChanged(DependencyObject dpo, DependencyPropertyChangedEventArgs e)
         {
             var frameworkElement = dpo as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -94,7 +94,7 @@
         {
             // BehaviorCollection doesn't call Detach, so we do this
             var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -112,7 +112,7 @@
         private static void FrameworkElementLoaded(object sender, RoutedEventArgs e)
         {
             var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }

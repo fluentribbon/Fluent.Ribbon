@@ -1,9 +1,7 @@
 ﻿namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
-    using System.Windows.Automation;
     using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
     using JetBrains.Annotations;
 
     /// <summary>

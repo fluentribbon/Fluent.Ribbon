@@ -124,10 +124,7 @@ namespace Fluent
             set { this.SetValue(StateProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for State.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="State"/> dependency property.</summary>
         public static readonly DependencyProperty StateProperty =
             DependencyProperty.Register(nameof(State), typeof(RibbonGroupBoxState), typeof(RibbonGroupBox), new PropertyMetadata(RibbonGroupBoxState.Large, OnStateChanged));
 
@@ -304,9 +301,7 @@ namespace Fluent
             set { this.SetValue(IsLauncherVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsLauncherVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLauncherVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsLauncherVisibleProperty =
             DependencyProperty.Register(nameof(IsLauncherVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox));
 
@@ -326,10 +321,7 @@ namespace Fluent
             set { this.SetValue(LauncherKeysProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for
-        /// LauncherKeys.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherKeys"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherKeysProperty =
             DependencyProperty.Register(nameof(LauncherKeys),
             typeof(string), typeof(RibbonGroupBox), new PropertyMetadata(OnLauncherKeysChanged));
@@ -356,9 +348,7 @@ namespace Fluent
             set { this.SetValue(LauncherIconProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherIcon"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherIconProperty =
             DependencyProperty.Register(nameof(LauncherIcon), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
@@ -375,9 +365,7 @@ namespace Fluent
             set { this.SetValue(LauncherTextProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for LauncherIcon.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherText"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherTextProperty =
             DependencyProperty.Register(nameof(LauncherText), typeof(string), typeof(RibbonGroupBox), new PropertyMetadata());
 
@@ -441,19 +429,13 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandParameter dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherCommandParameter"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherCommandParameterProperty = DependencyProperty.Register(nameof(LauncherCommandParameter), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata());
 
-        /// <summary>
-        /// Identifies the routed System.Windows.Controls.Primitives.ButtonBase.Command dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherCommand"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherCommandProperty = DependencyProperty.Register(nameof(LauncherCommand), typeof(ICommand), typeof(RibbonGroupBox), new PropertyMetadata());
 
-        /// <summary>
-        /// Identifies the System.Windows.Controls.Primitives.ButtonBase.CommandTarget dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherCommandTarget"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherCommandTargetProperty = DependencyProperty.Register(nameof(LauncherCommandTarget), typeof(IInputElement), typeof(RibbonGroupBox), new PropertyMetadata());
 
         #endregion
@@ -469,9 +451,7 @@ namespace Fluent
             set { this.SetValue(LauncherToolTipProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for LauncherToolTip.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherToolTip"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherToolTipProperty =
             DependencyProperty.Register(nameof(LauncherToolTip), typeof(object), typeof(RibbonGroupBox), new PropertyMetadata());
 
@@ -488,9 +468,7 @@ namespace Fluent
             set { this.SetValue(IsLauncherEnabledProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsLauncherEnabled.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLauncherEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsLauncherEnabledProperty =
             DependencyProperty.Register(nameof(IsLauncherEnabled), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -511,9 +489,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey LauncherButtonPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(LauncherButton), typeof(Button), typeof(RibbonGroupBox), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for LauncherButton.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="LauncherButton"/> dependency property.</summary>
         public static readonly DependencyProperty LauncherButtonProperty = LauncherButtonPropertyKey.DependencyProperty;
 
         #endregion
@@ -527,9 +503,7 @@ namespace Fluent
             set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
@@ -560,9 +534,7 @@ namespace Fluent
             set { this.SetValue(IconProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
@@ -578,9 +550,7 @@ namespace Fluent
             set { this.SetValue(IsSeparatorVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsSeparatorVisible"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsSeparatorVisibleProperty =
           DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -1181,9 +1151,7 @@ namespace Fluent
             set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.TrueBox, RibbonControl.OnCanAddToQuickAccessToolBarChanged));
 

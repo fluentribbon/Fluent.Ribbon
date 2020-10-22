@@ -5,7 +5,6 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Markup;
     using System.Windows.Media;
@@ -74,10 +73,7 @@ namespace Fluent
             set { this.SetValue(TargetProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for shortcut.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 
@@ -86,7 +82,7 @@ namespace Fluent
             var quickAccessMenuItem = (QuickAccessMenuItem)d;
             var ribbonControl = e.NewValue as IRibbonControl;
 
-            if (quickAccessMenuItem.Header == null
+            if (quickAccessMenuItem.Header is null
                 && ribbonControl != null)
             {
                 // Set Default Text Value
@@ -96,7 +92,7 @@ namespace Fluent
             if (ribbonControl != null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
-                if (parent == null)
+                if (parent is null)
                 {
                     quickAccessMenuItem.AddLogicalChild(ribbonControl);
                 }
@@ -250,7 +246,7 @@ namespace Fluent
         public static FrameworkElement FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);
-            if (result == null)
+            if (result is null)
             {
                 return null;
             }

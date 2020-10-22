@@ -91,7 +91,7 @@ namespace Fluent
         {
             get
             {
-                if (this.items == null)
+                if (this.items is null)
                 {
                     this.items = new ObservableCollection<UIElement>();
                     this.items.CollectionChanged += this.OnItemsCollectionChanged;
@@ -168,9 +168,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey HasOverflowItemsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(HasOverflowItems), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HasOverflowItems.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HasOverflowItems"/> dependency property.</summary>
         public static readonly DependencyProperty HasOverflowItemsProperty = HasOverflowItemsPropertyKey.DependencyProperty;
 
         #endregion
@@ -184,7 +182,7 @@ namespace Fluent
         {
             get
             {
-                if (this.quickAccessItems == null)
+                if (this.quickAccessItems is null)
                 {
                     this.quickAccessItems = new ItemCollectionWithLogicalTreeSupport<QuickAccessMenuItem>(this);
                     this.quickAccessItems.CollectionChanged += this.OnQuickAccessItemsCollectionChanged;
@@ -258,10 +256,7 @@ namespace Fluent
             set { this.SetValue(ShowAboveRibbonProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ShowAboveRibbon.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ShowAboveRibbon"/> dependency property.</summary>
         public static readonly DependencyProperty ShowAboveRibbonProperty =
             DependencyProperty.Register(nameof(ShowAboveRibbon), typeof(bool),
             typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.TrueBox));
@@ -279,9 +274,7 @@ namespace Fluent
             set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanQuickAccessLocationChanging.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
         public static readonly DependencyProperty CanQuickAccessLocationChangingProperty =
             DependencyProperty.Register(nameof(CanQuickAccessLocationChanging), typeof(bool), typeof(QuickAccessToolBar), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -298,9 +291,7 @@ namespace Fluent
             set { this.SetValue(IsMenuDropDownVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsMenuDropDownVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMenuDropDownVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsMenuDropDownVisibleProperty =
             DependencyProperty.Register(nameof(IsMenuDropDownVisible), typeof(bool), typeof(QuickAccessToolBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure, OnIsMenuDropDownVisibleChanged));
 
@@ -558,9 +549,7 @@ namespace Fluent
             set { this.SetValue(UpdateKeyTipsActionProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="UpdateKeyTipsAction"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="UpdateKeyTipsAction"/> dependency property.</summary>
         public static readonly DependencyProperty UpdateKeyTipsActionProperty =
             DependencyProperty.Register(nameof(UpdateKeyTipsAction), typeof(Action<QuickAccessToolBar>), typeof(QuickAccessToolBar), new PropertyMetadata(OnUpdateKeyTipsActionChanged));
 
@@ -572,7 +561,7 @@ namespace Fluent
 
         private void UpdateKeyTips()
         {
-            if (this.UpdateKeyTipsAction == null)
+            if (this.UpdateKeyTipsAction is null)
             {
                 DefaultUpdateKeyTips(this);
                 return;

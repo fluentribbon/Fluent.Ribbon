@@ -31,7 +31,7 @@ namespace FluentTest.Commanding
         [DebuggerStepThrough]
         public virtual bool CanExecute(object parameter)
         {
-            return this.canExecute == null
+            return this.canExecute is null
                 || this.canExecute();
         }
 
@@ -118,7 +118,7 @@ namespace FluentTest.Commanding
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public override bool CanExecute(object parameter)
         {
-            return this.canExecute == null
+            return this.canExecute is null
                    || this.canExecute((T)parameter);
         }
 

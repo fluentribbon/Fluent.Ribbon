@@ -11,7 +11,6 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using ControlzEx.Standard;
     using Fluent.Converters;
-    using Fluent.Internal;
 
     /// <summary>
     /// Icon converter provides window or application default icon if user-defined is not present.
@@ -59,7 +58,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
         {
-            if (value == null)
+            if (value is null)
             {
                 var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 

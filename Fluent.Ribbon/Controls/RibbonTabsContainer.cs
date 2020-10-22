@@ -280,7 +280,7 @@ namespace Fluent
             // We can only work on visuals that are us or children.
             // An empty rect has no size or position.  We can't meaningfully use it.
             if (rectangle.IsEmpty
-                || visual == null
+                || visual is null
                 || ReferenceEquals(visual, this)
                 || this.IsAncestorOf(visual) == false)
             {

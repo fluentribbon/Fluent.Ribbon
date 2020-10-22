@@ -22,7 +22,7 @@
             }
 
             if (e.NewValue is DependencyObject newValue
-                && LogicalTreeHelper.GetParent(newValue) == null)
+                && LogicalTreeHelper.GetParent(newValue) is null)
             {
                 logicalChildSupport.AddLogicalChild(newValue);
             }

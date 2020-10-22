@@ -9,7 +9,6 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using Fluent.Converters;
     using Fluent.Internal;
 
     /// <summary>

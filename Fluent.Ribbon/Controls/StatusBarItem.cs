@@ -22,9 +22,7 @@ namespace Fluent
             set { this.SetValue(TitleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata());
 
@@ -41,10 +39,7 @@ namespace Fluent
             set { this.SetValue(ValueProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Value.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
             new PropertyMetadata(OnValueChanged));
@@ -68,9 +63,7 @@ namespace Fluent
             set { this.SetValue(IsCheckedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsCheckedChanged));
 
@@ -146,7 +139,7 @@ namespace Fluent
         {
             var item = (StatusBarItem)d;
             // if content is null returns value
-            if (basevalue == null
+            if (basevalue is null
                 && item.Value != null)
             {
                 return item.Value;

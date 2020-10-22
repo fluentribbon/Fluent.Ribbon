@@ -18,9 +18,7 @@ namespace Fluent
     {
         #region Properties
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedForeground"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="TabItemSelectedForeground"/> dependency property.</summary>
         public static readonly DependencyProperty TabItemSelectedForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -32,9 +30,7 @@ namespace Fluent
             set { this.SetValue(TabItemSelectedForegroundProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TabItemMouseOverForeground"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="TabItemMouseOverForeground"/> dependency property.</summary>
         public static readonly DependencyProperty TabItemMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -46,9 +42,7 @@ namespace Fluent
             set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TabItemSelectedMouseOverForeground"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="TabItemSelectedMouseOverForeground"/> dependency property.</summary>
         public static readonly DependencyProperty TabItemSelectedMouseOverForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedMouseOverForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -69,10 +63,7 @@ namespace Fluent
             set { this.SetValue(HeaderProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register(nameof(Header), typeof(string), typeof(RibbonContextualTabGroup),
             new PropertyMetadata("RibbonContextualTabGroup", OnHeaderChanged));
@@ -103,9 +94,7 @@ namespace Fluent
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(InnerVisibility), typeof(Visibility), typeof(RibbonContextualTabGroup), new PropertyMetadata(VisibilityBoxes.Visible, OnInnerVisibilityChanged));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for InnerVisibility.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="InnerVisibility"/> dependency property.</summary>
         public static readonly DependencyProperty InnerVisibilityProperty = InnerVisibilityPropertyKey.DependencyProperty;
 
         private static void OnInnerVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

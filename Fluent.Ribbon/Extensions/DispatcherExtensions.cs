@@ -12,7 +12,7 @@
 
         public static void RunInDispatcherAsync(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 action();
                 return;
@@ -23,7 +23,7 @@
 
         public static void RunInDispatcherAsync(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 action();
             }
@@ -35,7 +35,7 @@
 
         public static void RunInDispatcher(this DispatcherObject dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
-            if (dispatcher == null)
+            if (dispatcher is null)
             {
                 action();
                 return;
@@ -46,7 +46,7 @@
 
         public static void RunInDispatcher(this Dispatcher dispatcher, Action action, DispatcherPriority priority = DefaultDispatcherPriority)
         {
-            if (dispatcher == null
+            if (dispatcher is null
                 || dispatcher.CheckAccess())
             {
                 action();

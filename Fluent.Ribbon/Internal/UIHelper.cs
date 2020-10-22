@@ -100,7 +100,7 @@
         public static T GetParent<T>(DependencyObject element, Predicate<T> filter = null)
             where T : DependencyObject
         {
-            if (element == null)
+            if (element is null)
             {
                 return null;
             }
@@ -153,7 +153,7 @@
         /// </summary>
         public static DependencyObject GetVisualParent(DependencyObject element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return null;
             }
@@ -183,7 +183,7 @@
         /// <exception cref="T:System.ArgumentNullException">Raised when visual is null.</exception>
         public static AdornerLayer GetAdornerLayer(Visual visual)
         {
-            if (visual == null)
+            if (visual is null)
             {
                 throw new ArgumentNullException(nameof(visual));
             }

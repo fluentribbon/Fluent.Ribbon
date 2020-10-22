@@ -89,7 +89,7 @@
 //                }
 //            }
 
-//            if (obj == null)
+//            if (obj is null)
 //            {
 //                var wrapperPeer = this.GetWrapperPeer();
 //                if (wrapperPeer != null)

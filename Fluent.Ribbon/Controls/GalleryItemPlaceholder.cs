@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System.Windows;
-    using System.Windows.Media;
 
     /// <summary>
     /// Represents internal class to use it in

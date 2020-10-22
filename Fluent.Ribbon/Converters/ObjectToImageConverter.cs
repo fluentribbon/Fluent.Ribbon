@@ -14,12 +14,13 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Fluent.Helpers;
 #if NET452 // for DpiScale
     using ControlzEx.Standard;
 #endif
     using Fluent.Internal;
 
+    #pragma warning disable WPF0072
+    
     /// <summary>
     /// Converts <see cref="string"/>, <see cref="Uri"/>, <see cref="System.Drawing.Icon"/> or <see cref="ImageSource"/> to <see cref="System.Windows.Controls.Image"/> or <see cref="ImageSource"/> (dependent upon target type).
     /// When converting you can pass a desired size as the converter parameter.
@@ -172,7 +173,7 @@
                                    ? values[1] as Visual
                                    : null;
 
-            if (targetVisual == null)
+            if (targetVisual is null)
             {
                 targetVisual = values.Length == 3
                                    ? values[2] as Visual
@@ -257,7 +258,7 @@
         {
             var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
-            if (imageSource == null)
+            if (imageSource is null)
             {
                 return value;
             }
@@ -464,7 +465,7 @@
 
             // We may have some other type of ImageSource
             // that doesn't have a notion of frames or decoder
-            if (bitmapFrame?.Decoder == null)
+            if (bitmapFrame?.Decoder is null)
             {
                 return imageSource;
             }

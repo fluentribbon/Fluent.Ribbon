@@ -1,8 +1,6 @@
 ﻿namespace Fluent.Tests.Controls
 {
-    using System;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Windows;
     using Fluent.Tests.TestClasses;
     using NUnit.Framework;
