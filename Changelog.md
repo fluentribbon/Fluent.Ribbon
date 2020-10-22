@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## Next
+## 8.0.1
 
 - ### Bug fixes
 
@@ -16,6 +16,7 @@
   - [#849](../../issues/849) - QuickAccessToolBar not editable anymore (thanks @chrfin)
   - [#851](../../issues/851) - Tab KeyTips Are Shown Together With Tab-Item KeyTips (different to 7.0.0)
   - [#855](../../issues/855) - Method Fluent.StartScreen.Show lacks documentation return value
+  - [#856](../../issues/856) - RibbonTabItem.IsSelected is briefly set to true for a tab that's not selected anymore, when a modal dialog is closed.
 
 ## 8.0.0
 

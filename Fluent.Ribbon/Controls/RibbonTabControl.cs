@@ -519,7 +519,7 @@ namespace Fluent
             {
                 // If keyboard focus is within the control, make sure it is going to the correct place
                 var item = this.GetSelectedTabItem();
-                item?.SetFocus();
+                item?.Focus();
             }
 
             if (e.AddedItems.Count > 0)
@@ -614,7 +614,8 @@ namespace Fluent
             if (nextTabItem != null
                 && ReferenceEquals(nextTabItem, this.SelectedItem) == false)
             {
-                e.Handled = nextTabItem.SetFocus();
+                e.Handled = true;
+                nextTabItem.IsSelected = true;
             }
 
             if (e.Handled == false)
@@ -735,7 +736,7 @@ namespace Fluent
                         index = this.Items.Count - 1;
                     }
 
-                    if (this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(index) is RibbonTabItem nextItem
+                    if (this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<RibbonTabItem>(index) is { } nextItem
                         && nextItem.IsEnabled
                         && nextItem.Visibility == Visibility.Visible)
                     {
@@ -792,32 +793,36 @@ namespace Fluent
         /// </summary>
         public void SelectFirstTab()
         {
-            if (this.IsMinimized == false)
+            if (this.IsMinimized)
             {
-                this.SelectedItem = this.GetFirstVisibleAndEnabledItem();
-
-                if (this.SelectedItem == null
-                    && this.IsEnabled == false)
-                {
-                    this.SelectedItem = this.GetFirstVisibleItem();
-                }
+                return;
             }
+
+            this.SelectedItem = this.GetFirstVisibleAndEnabledItem();
+
+            if (this.SelectedItem is null
+                && this.IsEnabled == false)
+            {
+                this.SelectedItem = this.GetFirstVisibleItem();
+            }
+
+            this.SelectedTabItem?.Focus();
         }
 
         // Handles IsMinimized changed
         private static void OnIsMinimizedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var tab = (RibbonTabControl)d;
+            var tabControl = (RibbonTabControl)d;
 
-            if (!tab.IsMinimized)
+            if (tabControl.IsMinimized == false)
             {
-                tab.IsDropDownOpen = false;
+                tabControl.IsDropDownOpen = false;
             }
 
             if ((bool)e.NewValue == false
-                && tab.SelectedIndex < 0)
+                && tabControl.SelectedIndex < 0)
             {
-                var item = tab.FindNextTabItem(-1, 1);
+                var item = tabControl.FindNextTabItem(-1, 1);
 
                 if (item != null)
                 {
