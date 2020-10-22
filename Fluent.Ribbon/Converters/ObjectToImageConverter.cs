@@ -14,7 +14,6 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using Fluent.Helpers;
 #if NET452 // for DpiScale
     using ControlzEx.Standard;
 #endif

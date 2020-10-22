@@ -50,10 +50,7 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
             typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsPressed.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsPressed"/> dependency property.</summary>
         public static readonly DependencyProperty IsPressedProperty = IsPressedPropertyKey.DependencyProperty;
 
         /// <summary>
@@ -65,10 +62,7 @@ namespace Fluent
             set { this.SetValue(GroupProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Group.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Group"/> dependency property.</summary>
         public static readonly DependencyProperty GroupProperty =
             DependencyProperty.Register(nameof(Group), typeof(string),
             typeof(GalleryItem), new PropertyMetadata());
@@ -82,9 +76,7 @@ namespace Fluent
             set { this.SetValue(IsDefinitiveProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
             DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -142,19 +134,13 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Identifies the CommandParameter dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new PropertyMetadata());
 
-        /// <summary>
-        /// Identifies the routed Command dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Command"/> dependency property.</summary>
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(OnCommandChanged));
 
-        /// <summary>
-        /// Identifies the CommandTarget dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandTarget"/> dependency property.</summary>
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
@@ -169,9 +155,7 @@ namespace Fluent
             set { this.SetValue(PreviewCommandProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the PreviewCommand dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="PreviewCommand"/> dependency property.</summary>
         public static readonly DependencyProperty PreviewCommandProperty =
             DependencyProperty.Register(nameof(PreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 
@@ -187,9 +171,7 @@ namespace Fluent
             set { this.SetValue(CancelPreviewCommandProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the PreviewCommand dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CancelPreviewCommand"/> dependency property.</summary>
         public static readonly DependencyProperty CancelPreviewCommandProperty =
             DependencyProperty.Register(nameof(CancelPreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 

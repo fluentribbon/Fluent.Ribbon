@@ -59,10 +59,10 @@
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(MahMetroWindow), new PropertyMetadata());
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
-        /// </summary>
+#pragma warning disable WPF0060
+        /// <summary>Identifies the <see cref="TitleBar"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
+#pragma warning restore WPF0060
 
         #endregion
     }

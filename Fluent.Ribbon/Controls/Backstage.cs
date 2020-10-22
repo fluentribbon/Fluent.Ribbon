@@ -51,10 +51,7 @@ namespace Fluent
             set { this.SetValue(IsOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsOpenProperty =
             DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
 
@@ -67,9 +64,7 @@ namespace Fluent
             set { this.SetValue(CanChangeIsOpenProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="CanChangeIsOpen"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanChangeIsOpen"/> dependency property.</summary>
         public static readonly DependencyProperty CanChangeIsOpenProperty =
             DependencyProperty.Register(nameof(CanChangeIsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -82,10 +77,7 @@ namespace Fluent
             set { this.SetValue(HideContextTabsOnOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HideContextTabsOnOpen"/> dependency property.</summary>
         public static readonly DependencyProperty HideContextTabsOnOpenProperty =
             DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -98,9 +90,7 @@ namespace Fluent
             set { this.SetValue(AreAnimationsEnabledProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpenAnimationEnabled.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="AreAnimationsEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty AreAnimationsEnabledProperty =
             DependencyProperty.Register(nameof(AreAnimationsEnabled), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -113,10 +103,7 @@ namespace Fluent
             set { this.SetValue(CloseOnEscProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CloseOnEsc.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CloseOnEsc"/> dependency property.</summary>
         public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -157,9 +144,7 @@ namespace Fluent
             (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="UseHighestAvailableAdornerLayer"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="UseHighestAvailableAdornerLayer"/> dependency property.</summary>
         public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -183,10 +168,7 @@ namespace Fluent
             set { this.SetValue(ContentProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Content.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Content"/> dependency property.</summary>
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Backstage), new PropertyMetadata(OnContentChanged));
 

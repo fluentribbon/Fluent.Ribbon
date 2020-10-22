@@ -88,10 +88,7 @@ namespace Fluent
             set { this.SetValue(MenuProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Button.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register(nameof(Menu), typeof(UIElement),
             typeof(RibbonTabControl), new PropertyMetadata());
@@ -136,9 +133,7 @@ namespace Fluent
         // DependencyProperty key for SelectedContent
         private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(RibbonTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="SelectedContent"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedContent"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedContentProperty = SelectedContentPropertyKey.DependencyProperty;
 
         /// <summary>
@@ -150,9 +145,7 @@ namespace Fluent
             set { this.SetValue(IsMinimizedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="IsMinimized"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
         public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsMinimizedChanged));
 
         /// <summary>
@@ -164,9 +157,7 @@ namespace Fluent
             set { this.SetValue(CanMinimizeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="CanMinimize"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
         public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <inheritdoc />
@@ -176,9 +167,7 @@ namespace Fluent
             set { this.SetValue(IsDropDownOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="IsDropDownOpen"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
         private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
@@ -207,9 +196,7 @@ namespace Fluent
             set { this.SetValue(HighlightSelectedItemProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for <see cref="HighlightSelectedItem"/>.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HighlightSelectedItem"/> dependency property.</summary>
         public static readonly DependencyProperty HighlightSelectedItemProperty =
             DependencyProperty.RegisterAttached(nameof(HighlightSelectedItem), typeof(bool), typeof(RibbonTabControl), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.Inherits));
 
@@ -238,7 +225,7 @@ namespace Fluent
             private set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SelectedTabItem.  This enables animation, styling, binding, etc...
+        /// <summary>Identifies the <see cref="SelectedTabItem"/> dependency property.</summary>
         internal static readonly DependencyProperty SelectedTabItemProperty =
             DependencyProperty.Register(nameof(SelectedTabItem), typeof(RibbonTabItem), typeof(RibbonTabControl), new PropertyMetadata());
 
@@ -321,9 +308,7 @@ namespace Fluent
             set { this.SetValue(ContentHeightProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="ContentHeight"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="ContentHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ContentHeightProperty =
             DependencyProperty.Register(nameof(ContentHeight), typeof(double), typeof(RibbonTabControl), new FrameworkPropertyMetadata(DefaultContentHeight, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
@@ -336,15 +321,11 @@ namespace Fluent
             set { this.SetValue(ContentGapHeightProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ContentGapHeight"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="ContentGapHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ContentGapHeightProperty =
             DependencyProperty.Register(nameof(ContentGapHeight), typeof(double), typeof(RibbonTabControl), new PropertyMetadata(DefaultContentGapHeight));
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="AreTabHeadersVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="AreTabHeadersVisible"/> dependency property.</summary>
         public static readonly DependencyProperty AreTabHeadersVisibleProperty = DependencyProperty.Register(nameof(AreTabHeadersVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -356,9 +337,7 @@ namespace Fluent
             set { this.SetValue(AreTabHeadersVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsToolBarVisible"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsToolBarVisibleProperty = DependencyProperty.Register(nameof(IsToolBarVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -370,9 +349,7 @@ namespace Fluent
             set { this.SetValue(IsToolBarVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="IsMouseWheelScrollingEnabled"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>

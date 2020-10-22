@@ -179,7 +179,7 @@
     <Rule Id="WPF0033" Action="Info" />
     <Rule Id="WPF0041" Action="None" />
     <Rule Id="WPF0052" Action="None" />
-    <Rule Id="WPF0060" Action="Info" />
+    <Rule Id="WPF0060" Action="Warning" />
     <Rule Id="WPF0072" Action="None" />
   </Rules>
 </RuleSet>

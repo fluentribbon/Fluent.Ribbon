@@ -6,7 +6,6 @@ namespace FluentTest.ViewModels.IssueRepros
     using System.Threading.Tasks;
     using System.Windows;
     using ControlzEx.Theming;
-    using Fluent;
     using Fluent.Extensions;
     using FluentTest.Commanding;
 

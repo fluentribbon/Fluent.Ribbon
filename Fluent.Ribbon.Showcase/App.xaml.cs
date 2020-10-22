@@ -2,7 +2,6 @@ namespace FluentTest
 {
     using System.Windows;
     using ControlzEx.Theming;
-    using Fluent;
 
     public partial class App
     {

@@ -48,10 +48,7 @@ namespace Fluent
             set { this.SetValue(SeparatorStyleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SeparatorStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SeparatorStyle"/> dependency property.</summary>
         public static readonly DependencyProperty SeparatorStyleProperty =
             DependencyProperty.Register(nameof(SeparatorStyle), typeof(Style),
             typeof(RibbonToolBar), new PropertyMetadata(OnSeparatorStyleChanged));

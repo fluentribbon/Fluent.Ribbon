@@ -11,7 +11,6 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using ControlzEx.Standard;
     using Fluent.Converters;
-    using Fluent.Internal;
 
     /// <summary>
     /// Icon converter provides window or application default icon if user-defined is not present.

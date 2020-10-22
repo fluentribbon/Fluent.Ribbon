@@ -10,8 +10,8 @@
     using Fluent;
     using FluentTest.Commanding;
     #if MahApps_Metro
-    using MahApps.Metro.Controls;
-    #endif
+
+#endif
 
     public class MainViewModel : ViewModel
     {

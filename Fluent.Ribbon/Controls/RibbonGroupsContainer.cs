@@ -44,10 +44,7 @@ namespace Fluent
             set { this.SetValue(ReduceOrderProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ReduceOrder.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ReduceOrder"/> dependency property.</summary>
         public static readonly DependencyProperty ReduceOrderProperty =
             DependencyProperty.Register(nameof(ReduceOrder), typeof(string), typeof(RibbonGroupsContainer), new PropertyMetadata(OnReduceOrderChanged));
 

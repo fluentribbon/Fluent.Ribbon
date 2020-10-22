@@ -5,7 +5,6 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Data;
     using System.Windows.Markup;
     using System.Windows.Media;
@@ -74,10 +73,7 @@ namespace Fluent
             set { this.SetValue(TargetProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for shortcut.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
 

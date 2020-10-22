@@ -104,10 +104,7 @@ namespace Fluent
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TextPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
 
         #endregion
@@ -123,10 +120,7 @@ namespace Fluent
             set { this.SetValue(IncrementProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Increment.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Increment"/> dependency property.</summary>
         public static readonly DependencyProperty IncrementProperty =
             DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.One));
 
@@ -229,10 +223,7 @@ namespace Fluent
             set { this.SetValue(FormatProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Format.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Format"/> dependency property.</summary>
         public static readonly DependencyProperty FormatProperty =
             DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new PropertyMetadata("F1", OnFormatChanged));
 
@@ -257,10 +248,7 @@ namespace Fluent
             set { this.SetValue(DelayProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Delay.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Delay"/> dependency property.</summary>
         public static readonly DependencyProperty DelayProperty =
             DependencyProperty.Register(nameof(Delay), typeof(int), typeof(Spinner),
             new PropertyMetadata(400));
@@ -280,10 +268,7 @@ namespace Fluent
             set { this.SetValue(IntervalProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Interval.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Interval"/> dependency property.</summary>
         public static readonly DependencyProperty IntervalProperty =
             DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new PropertyMetadata(80));
 
@@ -300,9 +285,7 @@ namespace Fluent
             set { this.SetValue(InputWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
         public static readonly DependencyProperty InputWidthProperty =
             DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -319,9 +302,7 @@ namespace Fluent
             set { this.SetValue(TextToValueConverterProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for TextToValueConverter.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="TextToValueConverter"/> dependency property.</summary>
         public static readonly DependencyProperty TextToValueConverterProperty =
 #pragma warning disable WPF0016 // Default value is shared reference type.
             DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(SpinnerTextToValueConverter.DefaultInstance));
@@ -338,9 +319,7 @@ namespace Fluent
             set { this.SetValue(SelectAllTextOnFocusProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectAllTextOnFocus"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
 

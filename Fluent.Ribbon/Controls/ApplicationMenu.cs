@@ -27,9 +27,7 @@ namespace Fluent
             set { this.SetValue(RightPaneWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RightContentWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="RightPaneWidth"/> dependency property.</summary>
         public static readonly DependencyProperty RightPaneWidthProperty = DependencyProperty.Register(nameof(RightPaneWidth), typeof(double), typeof(ApplicationMenu), new PropertyMetadata(300.0));
 
         /// <summary>
@@ -41,9 +39,7 @@ namespace Fluent
             set { this.SetValue(RightPaneContentProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RightContent.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="RightPaneContent"/> dependency property.</summary>
         public static readonly DependencyProperty RightPaneContentProperty = DependencyProperty.Register(nameof(RightPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
@@ -55,9 +51,7 @@ namespace Fluent
             set { this.SetValue(FooterPaneContentProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BottomContent.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="FooterPaneContent"/> dependency property.</summary>
         public static readonly DependencyProperty FooterPaneContentProperty = DependencyProperty.Register(nameof(FooterPaneContent), typeof(object), typeof(ApplicationMenu), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion

@@ -48,9 +48,7 @@ namespace Fluent
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(RibbonWindow), new PropertyMetadata());
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="TitleBar"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
 
         #endregion
@@ -64,9 +62,7 @@ namespace Fluent
             set { this.SetValue(TitleBarHeightProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBarHeight"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="TitleBarHeight"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBarHeightProperty = DependencyProperty.Register(nameof(TitleBarHeight), typeof(double), typeof(RibbonWindow), new PropertyMetadata(DoubleBoxes.Zero));
 
         /// <summary>
@@ -78,9 +74,7 @@ namespace Fluent
             set { this.SetValue(TitleForegroundProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleForeground"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="TitleForeground"/> dependency property.</summary>
         public static readonly DependencyProperty TitleForegroundProperty = DependencyProperty.Register(nameof(TitleForeground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
@@ -92,14 +86,10 @@ namespace Fluent
             set { this.SetValue(TitleBackgroundProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBackground"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="TitleBackground"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBackgroundProperty = DependencyProperty.Register(nameof(TitleBackground), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for WindowCommands.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="WindowCommands"/> dependency property.</summary>
         public static readonly DependencyProperty WindowCommandsProperty = DependencyProperty.Register(nameof(WindowCommands), typeof(WindowCommands), typeof(RibbonWindow), new PropertyMetadata());
 
         /// <summary>
@@ -122,14 +112,10 @@ namespace Fluent
             set { this.SetValue(ResizeBorderThicknessProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeBorderTickness.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ResizeBorderThickness"/> dependency property.</summary>
         public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(6D)));
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="GlowBrush"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="GlowBrush"/> dependency property.</summary>
         public static readonly DependencyProperty GlowBrushProperty = DependencyProperty.Register(nameof(GlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -141,9 +127,7 @@ namespace Fluent
             set { this.SetValue(GlowBrushProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="NonActiveGlowBrush"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="NonActiveGlowBrush"/> dependency property.</summary>
         public static readonly DependencyProperty NonActiveGlowBrushProperty = DependencyProperty.Register(nameof(NonActiveGlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -155,9 +139,7 @@ namespace Fluent
             set { this.SetValue(NonActiveGlowBrushProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="NonActiveBorderBrush"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="NonActiveBorderBrush"/> dependency property.</summary>
         public static readonly DependencyProperty NonActiveBorderBrushProperty = DependencyProperty.Register(nameof(NonActiveBorderBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
 
         /// <summary>
@@ -206,10 +188,7 @@ namespace Fluent
             set { this.SetValue(IsCollapsedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
         public static readonly DependencyProperty IsCollapsedProperty = DependencyProperty.Register(nameof(IsCollapsed), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
@@ -221,10 +200,7 @@ namespace Fluent
             set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsCollapsed.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -236,9 +212,7 @@ namespace Fluent
             set { this.SetValue(IgnoreTaskbarOnMaximizeProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IgnoreTaskbarOnMaximize"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IgnoreTaskbarOnMaximize"/> dependency property.</summary>
         public static readonly DependencyProperty IgnoreTaskbarOnMaximizeProperty = DependencyProperty.Register(nameof(IgnoreTaskbarOnMaximize), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(default(bool)));
 
         #endregion

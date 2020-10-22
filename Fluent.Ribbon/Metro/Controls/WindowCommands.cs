@@ -186,9 +186,7 @@ namespace Fluent
             set { this.SetValue(ButtonBrushProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
         public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
         private string GetCaption(uint id)

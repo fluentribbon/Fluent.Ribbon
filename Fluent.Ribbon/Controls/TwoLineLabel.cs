@@ -40,9 +40,7 @@ namespace Fluent
             set { this.SetValue(HasTwoLinesProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="HasTwoLines"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
         public static readonly DependencyProperty HasTwoLinesProperty =
             DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.TrueBox, OnHasTwoLinesChanged));
 
@@ -65,9 +63,7 @@ namespace Fluent
             set { this.SetValue(HasGlyphProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="HasGlyph"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>
         public static readonly DependencyProperty HasGlyphProperty =
             DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.FalseBox, OnHasGlyphChanged));
 
@@ -90,9 +86,7 @@ namespace Fluent
             set { this.SetValue(TextProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="Text"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));

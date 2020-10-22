@@ -54,8 +54,10 @@ namespace FluentTest
 
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
+#pragma warning disable WPF0060
         /// <summary>Identifies the <see cref="Brushes"/> dependency property.</summary>
         public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+#pragma warning restore WPF0060
 
         public List<KeyValuePair<string, Brush>> Brushes
         {

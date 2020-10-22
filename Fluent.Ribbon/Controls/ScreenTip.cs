@@ -198,10 +198,7 @@ namespace Fluent
             set { this.SetValue(TitleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
         public static readonly DependencyProperty TitleProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -223,10 +220,7 @@ namespace Fluent
             set { this.SetValue(TextProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -248,10 +242,7 @@ namespace Fluent
             set { this.SetValue(DisableReasonProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for DisableReason.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="DisableReason"/> dependency property.</summary>
         public static readonly DependencyProperty DisableReasonProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -273,10 +264,7 @@ namespace Fluent
             set { this.SetValue(HelpTopicProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HelpTopic.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HelpTopic"/> dependency property.</summary>
         public static readonly DependencyProperty HelpTopicProperty =
             DependencyProperty.Register(nameof(HelpTopic), typeof(object), typeof(ScreenTip), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
@@ -296,10 +284,7 @@ namespace Fluent
             set { this.SetValue(ImageProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Image.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Image"/> dependency property.</summary>
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new PropertyMetadata());
 
@@ -319,10 +304,7 @@ namespace Fluent
             set { this.SetValue(HelpLabelVisibilityProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store the boolean.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HelpLabelVisibility"/> dependency property.</summary>
         public static readonly DependencyProperty HelpLabelVisibilityProperty =
             DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new PropertyMetadata(VisibilityBoxes.Visible));
         #endregion
@@ -347,10 +329,7 @@ namespace Fluent
             set { this.SetValue(IsRibbonAlignedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BelowRibbon.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsRibbonAligned"/> dependency property.</summary>
         public static readonly DependencyProperty IsRibbonAlignedProperty =
             DependencyProperty.Register(nameof(IsRibbonAligned), typeof(bool), typeof(ScreenTip),
             new PropertyMetadata(BooleanBoxes.TrueBox));

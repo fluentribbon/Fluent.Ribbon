@@ -18,9 +18,7 @@ namespace Fluent
         public static readonly DependencyProperty InputProperty =
             RegisterPixelShaderSamplerProperty(nameof(Input), typeof(GrayscaleEffect), 0);
 
-        /// <summary>
-        /// Dependency property for FilterColor
-        /// </summary>
+        /// <summary>Identifies the <see cref="FilterColor"/> dependency property.</summary>
         public static readonly DependencyProperty FilterColorProperty =
             DependencyProperty.Register(nameof(FilterColor), typeof(Color), typeof(GrayscaleEffect),
             new PropertyMetadata(Color.FromArgb(255, 255, 255, 255), PixelShaderConstantCallback(0)));

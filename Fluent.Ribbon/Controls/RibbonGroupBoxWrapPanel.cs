@@ -95,9 +95,7 @@ namespace Fluent
             return double.IsNaN(v) || (v >= 0.0d && !double.IsPositiveInfinity(v));
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ItemWidth" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth),
                                         typeof(double),
@@ -120,9 +118,7 @@ namespace Fluent
             set { this.SetValue(ItemWidthProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ItemHeight" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight),
                                         typeof(double),
@@ -145,9 +141,7 @@ namespace Fluent
             set { this.SetValue(ItemHeightProperty, value); }
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="Orientation" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
         public static readonly DependencyProperty OrientationProperty =
             StackPanel.OrientationProperty.AddOwner(
                                                     typeof(RibbonGroupBoxWrapPanel),

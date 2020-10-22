@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;
-    using System.Windows;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using JetBrains.Annotations;

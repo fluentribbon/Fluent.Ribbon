@@ -41,10 +41,7 @@ namespace Fluent
             set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MinItemsInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
             typeof(Gallery), new PropertyMetadata(1));
@@ -62,10 +59,7 @@ namespace Fluent
             set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxItemsInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>
         public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(Gallery), new PropertyMetadata(IntBoxes.Zero));
 
         #endregion
@@ -82,10 +76,7 @@ namespace Fluent
             set { this.SetValue(GroupByProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
         public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery), new PropertyMetadata());
 
         #endregion
@@ -102,10 +93,7 @@ namespace Fluent
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
         public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(Gallery), new PropertyMetadata());
 
         #endregion
@@ -121,10 +109,7 @@ namespace Fluent
             set { this.SetValue(OrientationProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
             typeof(Gallery), new PropertyMetadata(Orientation.Horizontal));
@@ -142,9 +127,7 @@ namespace Fluent
             set { this.SetValue(ItemWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -157,9 +140,7 @@ namespace Fluent
             set { this.SetValue(ItemHeightProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -273,10 +254,7 @@ namespace Fluent
             set { this.SetValue(SelectedFilterProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilter.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilter"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterProperty =
             DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
             typeof(Gallery), new PropertyMetadata(null, OnSelectedFilterChanged, CoerceSelectedFilter));
@@ -325,10 +303,7 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string),
             typeof(Gallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterTitle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilterTitle"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterTitleProperty = SelectedFilterTitlePropertyKey.DependencyProperty;
 
         /// <summary>
@@ -344,10 +319,7 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string),
             typeof(Gallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterGroups.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilterGroups"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterGroupsProperty = SelectedFilterGroupsPropertyKey.DependencyProperty;
 
         /// <summary>
@@ -361,10 +333,7 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HasFilter.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HasFilter"/> dependency property.</summary>
         public static readonly DependencyProperty HasFilterProperty = HasFilterPropertyKey.DependencyProperty;
 
         private void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
@@ -406,10 +375,7 @@ namespace Fluent
             set { this.SetValue(SelectableProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Selectable.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register(nameof(Selectable), typeof(bool),
             typeof(Gallery), new PropertyMetadata(BooleanBoxes.TrueBox, OnSelectableChanged));
@@ -432,14 +398,10 @@ namespace Fluent
             private set { this.SetValue(IsLastItemPropertyKey, value); }
         }
 
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>
         public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>
         public static readonly DependencyProperty IsLastItemProperty = IsLastItemPropertyKey.DependencyProperty;
 
         #endregion

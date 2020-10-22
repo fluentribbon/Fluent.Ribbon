@@ -2,10 +2,8 @@
 namespace Fluent
 {
     using System;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Data;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -28,9 +26,7 @@ namespace Fluent
             set { this.SetValue(OrientationProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="Orientation"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(
                 nameof(Orientation), 
@@ -48,9 +44,7 @@ namespace Fluent
             set => this.SetValue(MinColumnsProperty, value);
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="MinColumns" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="MinColumns"/> dependency property.</summary>
         public static readonly DependencyProperty MinColumnsProperty =
             DependencyProperty.Register(
                 nameof(MinColumns),
@@ -74,9 +68,7 @@ namespace Fluent
             set => this.SetValue(MaxColumnsProperty, value);
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="MaxColumns" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="MaxColumns"/> dependency property.</summary>
         public static readonly DependencyProperty MaxColumnsProperty =
             DependencyProperty.Register(
                 nameof(MaxColumns),
@@ -91,9 +83,7 @@ namespace Fluent
             return (int)o >= 0;
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ItemWidth" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(
             nameof(ItemWidth), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
@@ -106,9 +96,7 @@ namespace Fluent
             set => this.SetValue(ItemWidthProperty, value);
         }
 
-        /// <summary>
-        /// DependencyProperty for <see cref="ItemHeight" /> property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(
             nameof(ItemHeight), typeof(double), typeof(UniformGridWithItemSize), new FrameworkPropertyMetadata(DoubleBoxes.NaN, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 

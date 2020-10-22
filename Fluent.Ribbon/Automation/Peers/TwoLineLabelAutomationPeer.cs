@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
     using System.Windows.Controls;
 
     /// <summary>
