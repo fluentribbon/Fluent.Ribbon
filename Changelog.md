@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 8.0.2
+
+- ### Bug fixes
+
+  - Fixing window button layout when DPI != 100%
+
 ## 8.0.1
 
 - ### Bug fixes
