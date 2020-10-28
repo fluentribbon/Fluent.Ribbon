@@ -27,7 +27,8 @@
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    UseLayoutRounding="True">
                 <Path Width="10"
                       Height="10"
                       HorizontalAlignment="Center"
@@ -45,7 +46,8 @@
                     Padding="0"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
                     ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    UseLayoutRounding="True">
                 <Path Width="10"
                       Height="10"
                       HorizontalAlignment="Center"
@@ -63,7 +65,8 @@
                     Padding="0"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
                     ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    UseLayoutRounding="True">
                 <Path Width="10"
                       Height="10"
                       HorizontalAlignment="Center"
@@ -80,7 +83,8 @@
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    UseLayoutRounding="True">
                 <Path Width="10"
                       Height="10"
                       HorizontalAlignment="Center"
