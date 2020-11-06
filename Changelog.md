@@ -5,6 +5,7 @@
 - ### Bug fixes
 
   - Fixing window button layout when DPI != 100%
+  - [#860](../../issues/860) - Quick access buttons do not show when first item is added
 
 ## 8.0.1
 
