@@ -494,14 +494,21 @@ namespace Fluent
                 this.toolBarOverflowPanel.Children.Add(this.Items[i]);
             }
 
-            // It seems strange that we have to explicitly measure the toolbar panel, but if we don't do that the base measure call does not seem to measure correctly...
-            if (this.cachedNonOverflowItemsCount > 0)
+            if (constraint.Equals(SizeConstants.Infinite))
             {
-                this.toolBarPanel.Measure(new Size(constraint.Width - this.cachedMenuDownButtonWidth, constraint.Height));
+                this.toolBarPanel.Measure(constraint);
             }
             else
             {
-                this.toolBarPanel.Measure(new Size(constraint.Width - this.cachedOverflowDownButtonWidth, constraint.Height));
+                // It seems strange that we have to explicitly measure the toolbar panel, but if we don't do that the base measure call does not seem to measure correctly...
+                if (this.cachedNonOverflowItemsCount > 0)
+                {
+                    this.toolBarPanel.Measure(new Size(Math.Max(0, constraint.Width - this.cachedMenuDownButtonWidth), constraint.Height));
+                }
+                else
+                {
+                    this.toolBarPanel.Measure(new Size(Math.Max(0, constraint.Width - this.cachedOverflowDownButtonWidth), constraint.Height));
+                }
             }
 
             return base.MeasureOverride(constraint);
