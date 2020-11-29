@@ -2,6 +2,7 @@
 
 namespace FluentTest.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
@@ -52,7 +53,7 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public Color[] ThemeColors { get; } = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
+        public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new ReadOnlyObservableCollection<Color>(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
 
 #pragma warning disable INPC010 // The property sets a different field than it returns.
         public Color ThemeColor

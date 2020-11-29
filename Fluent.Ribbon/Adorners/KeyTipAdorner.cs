@@ -471,7 +471,7 @@ namespace Fluent
         /// </summary>
         /// <param name="keys">The keys to look for.</param>
         /// <returns>The <see cref="KeyTipInformation"/> associated with <paramref name="keys"/>.</returns>
-        private KeyTipInformation TryGetKeyTipInformation(string keys)
+        private KeyTipInformation? TryGetKeyTipInformation(string keys)
         {
             return this.keyTipInformations.FirstOrDefault(x => x.IsEnabled && x.Visibility == Visibility.Visible && keys.Equals(x.Keys, StringComparison.OrdinalIgnoreCase));
         }

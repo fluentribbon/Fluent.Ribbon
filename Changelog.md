@@ -1,5 +1,12 @@
 # Changelog for Fluent.Ribbon
 
+## 9.0.0
+
+- ### Breaking changes
+
+  - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
+  Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
+
 ## 8.0.2
 
 - ### Bug fixes

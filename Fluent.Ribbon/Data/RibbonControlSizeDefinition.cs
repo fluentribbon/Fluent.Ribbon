@@ -78,9 +78,17 @@ namespace Fluent
         /// <summary>
         /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
         /// </summary>
-        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        public static RibbonControlSizeDefinition FromString(string sizeDefinition)
         {
             return new RibbonControlSizeDefinition(sizeDefinition);
+        }
+
+        /// <summary>
+        /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
+        /// </summary>
+        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        {
+            return FromString(sizeDefinition);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;net462;net452</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net462;net452</TargetFrameworks>
     <LangVersion>latestmajor</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

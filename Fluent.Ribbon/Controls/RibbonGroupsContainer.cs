@@ -597,7 +597,9 @@ namespace Fluent
         #endregion
 
         // We have to reset the reduce order to it's initial value, clear all caches we keep here and invalidate measure/arrange
+#pragma warning disable CA1801 // Review unused parameters
         internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox ribbonGroupBox)
+#pragma warning restore CA1801 // Review unused parameters
         {
             var ribbonPanel = this;
 

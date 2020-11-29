@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
     using System.Timers;
@@ -9,18 +10,20 @@
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
-    #if MahApps_Metro
+#if MahApps_Metro
 
 #endif
 
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
     public class MainViewModel : ViewModel
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
         private int boundSpinnerValue;
         private ColorViewModel colorViewModel;
         private FontsViewModel fontsViewModel;
         private GalleryViewModel galleryViewModel;
 
-        private GallerySampleDataItemViewModel[] dataItems;
+        private ReadOnlyObservableCollection<GallerySampleDataItemViewModel> dataItems;
 
         private RelayCommand exitCommand;
         private double zoom;
@@ -128,11 +131,11 @@
         /// <summary>
         /// Gets data items (uses as DataContext)
         /// </summary>
-        public GallerySampleDataItemViewModel[] DataItems
+        public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems
         {
             get
             {
-                return this.dataItems ?? (this.dataItems = new[]
+                return this.dataItems ?? (this.dataItems = new ReadOnlyObservableCollection<GallerySampleDataItemViewModel>(new ObservableCollection<GallerySampleDataItemViewModel>
                 {
                     GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
                     GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
@@ -142,7 +145,7 @@
                     GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
                     GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
                     GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
-                });
+                }));
             }
         }
 

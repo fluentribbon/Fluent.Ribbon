@@ -131,7 +131,9 @@ namespace Fluent
     [TemplatePart(Name = "PART_StandardColorsListBox", Type = typeof(ListBox))]
     [TemplatePart(Name = "PART_StandardGradientColorsListBox", Type = typeof(ListBox))]
     [TemplatePart(Name = "PART_RecentColorsListBox", Type = typeof(ListBox))]
+#pragma warning disable CA1060 // Move pinvokes to native methods class
     public class ColorGallery : Control
+#pragma warning restore CA1060 // Move pinvokes to native methods class
     {
         #region Constants
 

@@ -204,7 +204,9 @@ namespace Fluent
                 sb.AppendFormat("String with id '{0}' could not be found.", id);
             }
 #pragma warning restore 618
+#pragma warning disable CA1307 // Specify StringComparison for clarity
             return sb.ToString().Replace("&", string.Empty);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
         }
 
         /// <inheritdoc />

@@ -9,7 +9,9 @@ namespace FluentTest.ViewModels.IssueRepros
     using Fluent.Extensions;
     using FluentTest.Commanding;
 
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
     public class ThemeManagerFromThread
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
         private int currentTheme;
         private CancellationTokenSource cancellationTokenSource;

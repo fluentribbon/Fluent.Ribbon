@@ -60,7 +60,7 @@
             // * otherwise framework element's Loaded event will keep the reference to event handler
             //   until it's loaded and and only then let it rest in piece.
             // ReSharper disable once ObjectCreationAsStatement
-            new WhenLoaded(frameworkElement, loadedAction);
+            _ = new WhenLoaded(frameworkElement, loadedAction);
         }
     }
 }

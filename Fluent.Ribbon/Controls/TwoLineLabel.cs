@@ -163,7 +163,9 @@ namespace Fluent
             }
 
             // Find soft hyphen, break at its position and display a normal hyphen.
+#pragma warning disable CA1307 // Specify StringComparison for clarity
             var hyphenIndex = text.IndexOf((char)173);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
             if (hyphenIndex >= 0)
             {
