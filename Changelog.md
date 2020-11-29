@@ -6,6 +6,7 @@
 
   - Fixing window button layout when DPI != 100%
   - [#860](../../issues/860) - Quick access buttons do not show when first item is added
+  - [#862](../../issues/862) - Hover effects on minimize/maximize icons (colorful theme)
   - [#869](../../issues/869) - Crash if Ribbon is collapsed (after Update to Version 8.0.1)
 
 ## 8.0.1
