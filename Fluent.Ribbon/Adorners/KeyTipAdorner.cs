@@ -1,3 +1,4 @@
+#nullable enable
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
@@ -25,7 +26,7 @@ namespace Fluent
         /// This event is occured when adorner is
         /// detached and is not able to be attached again
         /// </summary>
-        public event EventHandler<KeyTipPressedResult> Terminated;
+        public event EventHandler<KeyTipPressedResult>? Terminated;
 
         #endregion
 
@@ -38,8 +39,8 @@ namespace Fluent
         private readonly FrameworkElement oneOfAssociatedElements;
 
         // Parent adorner
-        private readonly KeyTipAdorner parentAdorner;
-        private KeyTipAdorner childAdorner;
+        private readonly KeyTipAdorner? parentAdorner;
+        private KeyTipAdorner? childAdorner;
 
         private readonly FrameworkElement keyTipElementContainer;
 
@@ -50,7 +51,7 @@ namespace Fluent
         // Designate that this adorner is terminated
         private bool terminated;
 
-        private AdornerLayer adornerLayer;
+        private AdornerLayer? adornerLayer;
 
         #endregion
 
@@ -61,7 +62,7 @@ namespace Fluent
         /// </summary>
         public bool IsAdornerChainAlive
         {
-            get { return this.isAttaching || this.attached || (this.childAdorner != null && this.childAdorner.IsAdornerChainAlive); }
+            get { return this.isAttaching || this.attached || this.childAdorner?.IsAdornerChainAlive == true; }
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Fluent
         /// </summary>
         public bool AreAnyKeyTipsVisible
         {
-            get { return this.keyTipInformations.Any(x => x.IsVisible) || (this.childAdorner != null && this.childAdorner.AreAnyKeyTipsVisible); }
+            get { return this.keyTipInformations.Any(x => x.IsVisible) || this.childAdorner?.AreAnyKeyTipsVisible == true; }
         }
 
         /// <summary>
@@ -79,9 +80,9 @@ namespace Fluent
         {
             get
             {
-                return this.childAdorner != null && this.childAdorner.IsAdornerChainAlive
-                           ? this.childAdorner.ActiveKeyTipAdorner
-                           : this;
+                return this.childAdorner?.IsAdornerChainAlive == true
+                       ? this.childAdorner.ActiveKeyTipAdorner
+                       : this;
             }
         }
 
@@ -132,7 +133,8 @@ namespace Fluent
 
                 var keys = KeyTip.GetKeys(child);
 
-                if (keys != null || child is IKeyTipInformationProvider)
+                if (keys is null == false
+                    || child is IKeyTipInformationProvider)
                 {
                     if (groupBox is null)
                     {
@@ -142,7 +144,10 @@ namespace Fluent
                         continue;
                     }
 
-                    this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
+                    if (keys is null == false)
+                    {
+                        this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
+                    }
                 }
 
                 var innerHide = hide || groupBox?.State == RibbonGroupBoxState.Collapsed;
@@ -160,20 +165,20 @@ namespace Fluent
             this.LogDebug("Found KeyTipped RibbonGroupBox \"{0}\" with keys \"{1}\".", keyTipInformation.AssociatedElement, keyTipInformation.Keys);
         }
 
-        private void GenerateAndAddRegularKeyTipInformations(string keys, FrameworkElement child, bool hide)
+        private void GenerateAndAddRegularKeyTipInformations(string? keys, FrameworkElement child, bool hide)
         {
-            IEnumerable<KeyTipInformation> informations;
+            IEnumerable<KeyTipInformation>? informations = null;
 
             if (child is IKeyTipInformationProvider keyTipInformationProvider)
             {
                 informations = keyTipInformationProvider.GetKeyTipInformations(hide);
             }
-            else
+            else if (keys is null == false)
             {
                 informations = new[] { new KeyTipInformation(keys, child, hide) };
             }
 
-            if (informations != null)
+            if (informations is null == false)
             {
                 foreach (var keyTipInformation in informations)
                 {
@@ -298,7 +303,7 @@ namespace Fluent
             this.oneOfAssociatedElements.Loaded -= this.OnDelayAttach;
 
             // Show this adorner
-            this.adornerLayer.Remove(this);
+            this.adornerLayer?.Remove(this);
 
             this.attached = false;
 
@@ -336,7 +341,7 @@ namespace Fluent
 
         #region Static Methods
 
-        private static AdornerLayer GetAdornerLayer(UIElement element)
+        private static AdornerLayer? GetAdornerLayer(UIElement element)
         {
             var current = element;
 
@@ -388,7 +393,7 @@ namespace Fluent
             var control = this.keyTipElementContainer as IKeyTipedControl;
             control?.OnKeyTipBack();
 
-            if (this.parentAdorner != null)
+            if (this.parentAdorner is null == false)
             {
                 this.LogDebug("Back");
                 this.Detach();
@@ -588,11 +593,12 @@ namespace Fluent
                 return;
             }
 
-            double[] rows = null;
+            double[]? rows = null;
             var groupBox = this.oneOfAssociatedElements as RibbonGroupBox ?? UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
             var panel = groupBox?.GetPanel();
 
-            if (panel != null)
+            if (panel is null == false
+                && groupBox is null == false)
             {
                 var height = groupBox.GetLayoutRoot().DesiredSize.Height;
                 rows = new[]
@@ -614,7 +620,7 @@ namespace Fluent
 
                 // Update KeyTip Visibility
                 var visualTargetIsVisible = keyTipInformation.VisualTarget.IsVisible;
-                var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) != null;
+                var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) is null == false;
                 keyTipInformation.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
                 keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
@@ -795,10 +801,10 @@ namespace Fluent
         // Determines whether the element is children to quick access toolbar
         private static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
-            return UIHelper.GetParent<QuickAccessToolBar>(element) != null;
+            return UIHelper.GetParent<QuickAccessToolBar>(element) is null == false;
         }
 
-        private static void SnapToRowsIfPresent(double[] rows, KeyTipInformation keyTipInformation, Point translatedPoint)
+        private static void SnapToRowsIfPresent(double[]? rows, KeyTipInformation keyTipInformation, Point translatedPoint)
         {
             if (rows is null)
             {
