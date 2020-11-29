@@ -1,4 +1,5 @@
-﻿// ReSharper disable once CheckNamespace
+﻿#nullable enable
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;

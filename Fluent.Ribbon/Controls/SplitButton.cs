@@ -1,4 +1,5 @@
-﻿// ReSharper disable once CheckNamespace
+﻿#nullable enable
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.Collections;
@@ -23,17 +24,17 @@ namespace Fluent
 
 #pragma warning disable IDE0032
         // Inner button
-        private ToggleButton button;
+        private ToggleButton? button;
 #pragma warning restore IDE0032
 
-        private SplitButton quickAccessButton;
+        private SplitButton? quickAccessButton;
 
         #endregion
 
         #region Properties
 
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
-        internal ToggleButton Button => this.button;
+        internal ToggleButton? Button => this.button;
 
         #region Command
 
@@ -456,7 +457,7 @@ namespace Fluent
 
             if (e.Key == Key.Enter)
             {
-                this.button.InvokeClick();
+                this.button?.InvokeClick();
             }
         }
 
@@ -464,7 +465,7 @@ namespace Fluent
 
         internal void AutomationButtonClick()
         {
-            this.button.InvokeClick();
+            this.button?.InvokeClick();
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
@@ -535,7 +536,8 @@ namespace Fluent
         /// <inheritdoc />
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
-            if (string.IsNullOrEmpty(this.KeyTip) == false)
+            if (string.IsNullOrEmpty(this.KeyTip) == false
+                && this.button is null == false)
             {
                 if (string.IsNullOrEmpty(this.SecondaryKeyTip))
                 {
