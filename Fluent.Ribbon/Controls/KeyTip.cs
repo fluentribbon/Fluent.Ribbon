@@ -1,3 +1,4 @@
+#nullable enable
 // ReSharper disable once CheckNamespace
 namespace Fluent
 {
@@ -28,7 +29,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">The given element</param>
         /// <param name="value">Value</param>
-        public static void SetKeys(DependencyObject element, string value)
+        public static void SetKeys(DependencyObject element, string? value)
         {
             element.SetValue(KeysProperty, value);
         }
@@ -41,9 +42,9 @@ namespace Fluent
         [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
         [System.ComponentModel.Category("KeyTips")]
         [System.ComponentModel.Description("Key sequence for the given element")]
-        public static string GetKeys(DependencyObject element)
+        public static string? GetKeys(DependencyObject element)
         {
-            return (string)element.GetValue(KeysProperty);
+            return (string?)element.GetValue(KeysProperty);
         }
 
         #endregion
