@@ -18,7 +18,13 @@ pool:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core sdk'
+  displayName: 'Use .NET Core SDK 3.1'
+  inputs:
+    packageType: sdk
+    version: 3.1
+
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK (json)'
   inputs:
     packageType: sdk
     useGlobalJson: true
