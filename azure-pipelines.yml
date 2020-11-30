@@ -18,10 +18,10 @@ pool:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core runtime 3.1'
+  displayName: 'Use .NET Core SDK 3.1'
   inputs:
-    packageType: runtime
-    version: 3.1.10
+    packageType: sdk
+    version: 3.1.404
 
 - task: UseDotNet@2
   displayName: 'Use .NET Core SDK (json)'
