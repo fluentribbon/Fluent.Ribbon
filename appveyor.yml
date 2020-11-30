@@ -12,9 +12,10 @@ pull_requests:
   do_not_increment_build_number: false
 
 install:
-  - cinst dotnetcore-sdk --version 5.0.100
+  - cinst dotnet-5.0-sdk
 
 build_script:
+  - ps: dotnet --list-sdks
   - ps: .\build.ps1 -Target CI -Verbosity Verbose
 
 after_build:
