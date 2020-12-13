@@ -155,7 +155,7 @@
                                 <TextBlock VerticalAlignment="Center"
                                            HorizontalAlignment="Center">You can close the start screen by either clicking the button below or by pressing ESC</TextBlock>
                                 <Fluent:Button HorizontalAlignment="Center"
-                                               LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Exit.png"
+                                               LargeIcon="{iconPacks:Material Kind=ExitToApp}"
                                                IsDefinitive="True">Close start screen</Fluent:Button>
                             </StackPanel>
                         </Fluent:StartScreenTabControl.RightContent>

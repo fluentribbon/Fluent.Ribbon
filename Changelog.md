@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 8.0.3
+
+- ### Bug fixes
+
+  - [#877](../../issues/877) - Titlebar and Quick-Access broken when using StartScreen
+
 ## 8.0.2
 
 - ### Bug fixes
