@@ -195,6 +195,18 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    
+        <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarDropDown.BelowRibbon"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown.BelowRibbon}" Geometry="F1 M 5.33333,13.3333L 80.0013,13.3333L 80.0013,0L 5.33333,0M 12.6667,28L 42.6667,64L 72.6667,28L 12.6667,28 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 
     <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarExtender"
                   x:Shared="False">
@@ -203,6 +215,18 @@
                 <DrawingGroup.Children>
                     <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
                     <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender}" Geometry="F1 M 48,14L 48,71.3333L 80,42.6667M 5.33333,14L 37.3333,42.6667L 5.33333,71.3333L 5.33333,14 Z "/>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
+    <DrawingImage x:Key="Fluent.Ribbon.Images.QuickAccessToolbarExtender.BelowRibbon"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF" Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z "/>
+                    <GeometryDrawing Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender.BelowRibbon}" Geometry="F1 M 48,14L 48,71.3333L 80,42.6667M 5.33333,14L 37.3333,42.6667L 5.33333,71.3333L 5.33333,14 Z "/>
                 </DrawingGroup.Children>
             </DrawingGroup>
         </DrawingImage.Drawing>
