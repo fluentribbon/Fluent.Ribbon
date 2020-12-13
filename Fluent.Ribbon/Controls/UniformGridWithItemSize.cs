@@ -198,8 +198,13 @@ namespace Fluent
             var xBound = arrangeSize.Width;
 
             // Arrange and Position each child to the same cell size
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
+                if (child is null)
+                {
+                    continue;
+                }
+
                 child.Arrange(childBounds);
 
                 // only advance to the next grid cell if the child was not collapsed

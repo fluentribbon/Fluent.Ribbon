@@ -181,7 +181,7 @@ namespace Fluent
             double width = 0;
             double height = 0;
 
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
                 var groupBox = child as RibbonGroupBox;
                 if (groupBox is null)
@@ -243,16 +243,16 @@ namespace Fluent
             }
         }
 
-        private RibbonGroupBox FindGroup(string name)
+        private RibbonGroupBox? FindGroup(string name)
         {
             if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase))
             {
                 name = name.Substring(1, name.Length - 2);
             }
 
-            foreach (FrameworkElement child in this.InternalChildren)
+            foreach (FrameworkElement? child in this.InternalChildren)
             {
-                if (child.Name == name)
+                if (child?.Name == name)
                 {
                     return child as RibbonGroupBox;
                 }
@@ -269,8 +269,13 @@ namespace Fluent
                 X = -this.HorizontalOffset
             };
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
+                if (item is null)
+                {
+                    continue;
+                }
+
                 finalRect.Width = item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
                 item.Arrange(finalRect);
@@ -285,7 +290,7 @@ namespace Fluent
         #region IScrollInfo Members
 
         /// <inheritdoc />
-        public ScrollViewer ScrollOwner
+        public ScrollViewer? ScrollOwner
         {
             get { return this.ScrollData.ScrollOwner; }
             set { this.ScrollData.ScrollOwner = value; }
@@ -294,11 +299,11 @@ namespace Fluent
         /// <inheritdoc />
         public void SetHorizontalOffset(double offset)
         {
-            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.ScrollData.ExtentWidth, this.ScrollData.ViewportWidth);
 
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
-                this.scrollData.OffsetX = newValue;
+                this.ScrollData.OffsetX = newValue;
                 this.InvalidateArrange();
             }
         }
@@ -536,7 +541,7 @@ namespace Fluent
         }
 
         // Scroll data info
-        private ScrollData scrollData;
+        private ScrollData? scrollData;
 
         // Validates input offset
         private static double ValidateInputOffset(double offset, string parameterName)

@@ -20,7 +20,7 @@
             return (bool)element.GetValue(IsMovingItemsToDifferentControlProperty);
         }
 
-        public static ItemsControl ItemsControlFromItemContainer(DependencyObject container)
+        public static ItemsControl? ItemsControlFromItemContainer(DependencyObject container)
         {
             if (container is null)
             {

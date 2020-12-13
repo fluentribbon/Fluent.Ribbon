@@ -11,7 +11,7 @@ namespace Fluent.Automation.Peers
     /// </summary>
     public class RibbonGroupBoxAutomationPeer : FrameworkElementAutomationPeer, IExpandCollapseProvider, IScrollItemProvider
     {
-        private RibbonGroupHeaderAutomationPeer headerPeer;
+        private RibbonGroupHeaderAutomationPeer? headerPeer;
 
         /// <summary>
         /// Creates a new instance.
@@ -24,7 +24,7 @@ namespace Fluent.Automation.Peers
 
         private RibbonGroupBox OwningGroup { get; }
 
-        private RibbonGroupHeaderAutomationPeer HeaderPeer
+        private RibbonGroupHeaderAutomationPeer? HeaderPeer
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Fluent.Automation.Peers
                 name = (this.Owner as IHeaderedControl)?.Header as string;
             }
 
-            return name;
+            return name ?? string.Empty;
         }
 
         /// <inheritdoc />
@@ -92,10 +92,10 @@ namespace Fluent.Automation.Peers
             switch (patternInterface)
             {
                 case PatternInterface.ExpandCollapse:
-                    return this.IsCollapseOrExpandValid ? this : null;
+                    return this.IsCollapseOrExpandValid ? this : base.GetPattern(patternInterface);
 
                 case PatternInterface.Scroll:
-                    return null;
+                    return base.GetPattern(patternInterface);
 
                 default:
                     return base.GetPattern(patternInterface);

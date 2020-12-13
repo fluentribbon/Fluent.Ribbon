@@ -32,14 +32,14 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        private Thumb? resizeBothThumb;
 
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        private Thumb? resizeVerticalThumb;
 
-        private ScrollViewer scrollViewer;
+        private ScrollViewer? scrollViewer;
 
-        private UIElement buttonBorder;
+        private UIElement? buttonBorder;
 
         private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
 
@@ -95,7 +95,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -103,7 +103,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -117,7 +117,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -131,7 +131,7 @@ namespace Fluent
         #region LargeIcon
 
         /// <inheritdoc />
-        public object LargeIcon
+        public object? LargeIcon
         {
             get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
@@ -266,10 +266,10 @@ namespace Fluent
         #region Events
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -436,8 +436,8 @@ namespace Fluent
         private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
         {
             if (this.ClosePopupOnMouseDown
-                && this.resizeBothThumb.IsMouseOver == false
-                && this.resizeVerticalThumb.IsMouseOver == false)
+                && (this.resizeBothThumb?.IsMouseOver ?? false) == false
+                && (this.resizeVerticalThumb?.IsMouseOver ?? false) == false)
             {
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
                 var timespan = this.ClosePopupOnMouseDownDelay;
@@ -687,8 +687,8 @@ namespace Fluent
                     continue;
                 }
 
-                var menuItem = (System.Windows.Controls.MenuItem)openMenuItem.Target;
-                if (menuItem.IsSubmenuOpen)
+                var menuItem = (System.Windows.Controls.MenuItem?)openMenuItem.Target;
+                if (menuItem?.IsSubmenuOpen == true)
                 {
                     menuItem.IsSubmenuOpen = false;
                 }
@@ -730,9 +730,14 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu opened
         /// </summary>
-        protected void OnQuickAccessOpened(object sender, EventArgs e)
+        protected void OnQuickAccessOpened(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
+
+            if (buttonInQuickAccess is null)
+            {
+                return;
+            }
 
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
@@ -743,9 +748,15 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu closed
         /// </summary>
-        protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
+        protected void OnQuickAccessMenuClosedOrUnloaded(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
+
+            if (buttonInQuickAccess is null)
+            {
+                return;
+            }
+
             buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
             this.RunInDispatcherAsync(() =>

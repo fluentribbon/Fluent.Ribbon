@@ -159,8 +159,13 @@ namespace Fluent
             double width = 0;
             double height = 0;
 
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
+                if (child is null)
+                {
+                    continue;
+                }
+
                 child.Measure(availableSize);
                 width += child.DesiredSize.Width;
 
@@ -175,8 +180,13 @@ namespace Fluent
             double width = 0;
             double height = 0;
 
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
+                if (child is null)
+                {
+                    continue;
+                }
+
                 width += child.DesiredSize.Width;
                 height = Math.Max(height, child.DesiredSize.Height);
             }
@@ -213,8 +223,13 @@ namespace Fluent
         /// <param name="contextualTabs">If this parameter true, contextual tabs will have separators</param>
         private void UpdateSeparators(bool regularTabs, bool contextualTabs)
         {
-            foreach (RibbonTabItem tab in this.Children)
+            foreach (RibbonTabItem? tab in this.Children)
             {
+                if (tab is null)
+                {
+                    continue;
+                }
+
                 if (tab.IsContextual)
                 {
                     if (tab.IsSeparatorVisible != contextualTabs)
@@ -234,7 +249,7 @@ namespace Fluent
         #region IScrollInfo Members
 
         /// <inheritdoc />
-        public ScrollViewer ScrollOwner
+        public ScrollViewer? ScrollOwner
         {
             get { return this.ScrollData.ScrollOwner; }
             set { this.ScrollData.ScrollOwner = value; }
@@ -243,11 +258,11 @@ namespace Fluent
         /// <inheritdoc />
         public void SetHorizontalOffset(double offset)
         {
-            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.ScrollData.ExtentWidth, this.ScrollData.ViewportWidth);
 
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
-                this.scrollData.OffsetX = newValue;
+                this.ScrollData.OffsetX = newValue;
                 this.InvalidateMeasure();
                 this.ScrollOwner?.InvalidateScrollInfo();
             }
@@ -458,7 +473,7 @@ namespace Fluent
         private ScrollData ScrollData => this.scrollData ?? (this.scrollData = new ScrollData());
 
         // Scroll data info
-        private ScrollData scrollData;
+        private ScrollData? scrollData;
         private const double MinimumRegularTabWidth = 30D;
 
         // Validates input offset
@@ -496,7 +511,7 @@ namespace Fluent
             // Prevent flickering by only using extentWidth if it's at least 2 larger than viewportWidth
             if (viewportWidth + 2 < extentWidth)
             {
-                this.scrollData.ExtentWidth = extentWidth;
+                this.ScrollData.ExtentWidth = extentWidth;
             }
             else
             {
@@ -521,12 +536,12 @@ namespace Fluent
                     }
                     else
                     {
-                        this.scrollData.ExtentWidth = viewportWidth;
+                        this.ScrollData.ExtentWidth = viewportWidth;
                     }
                 }
                 else
                 {
-                    this.scrollData.ExtentWidth = viewportWidth;
+                    this.ScrollData.ExtentWidth = viewportWidth;
                 }
             }
 
@@ -569,7 +584,7 @@ namespace Fluent
         /// <summary>
         /// Scroll viewer
         /// </summary>
-        internal ScrollViewer ScrollOwner { get; set; }
+        internal ScrollViewer? ScrollOwner { get; set; }
 
         /// <summary>
         /// Scroll offset

@@ -27,12 +27,12 @@ namespace Fluent
         /// <summary>
         /// Occurs when value has been changed
         /// </summary>
-        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+        public event RoutedPropertyChangedEventHandler<double>? ValueChanged;
 
         // Parts of the control (must be in control template)
-        private System.Windows.Controls.TextBox textBox;
-        private RepeatButton buttonUp;
-        private RepeatButton buttonDown;
+        private System.Windows.Controls.TextBox? textBox;
+        private RepeatButton? buttonUp;
+        private RepeatButton? buttonDown;
 
         #region Properties
 
@@ -350,7 +350,7 @@ namespace Fluent
         /// </summary>
         public void SelectAll()
         {
-            this.textBox.SelectAll();
+            this.textBox?.SelectAll();
         }
 
         #endregion
@@ -386,7 +386,9 @@ namespace Fluent
             this.buttonDown = this.GetTemplateChild("PART_ButtonDown") as RepeatButton;
 
             // Check template
-            if (this.IsTemplateValid() == false)
+            if (this.textBox is null
+                || this.buttonUp is null
+                || this.buttonDown is null)
             {
                 Debug.WriteLine("Template for Spinner control is invalid");
                 return;
@@ -406,13 +408,6 @@ namespace Fluent
             this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
 
             this.ValueToTextBoxText();
-        }
-
-        private bool IsTemplateValid()
-        {
-            return this.textBox != null
-                && this.buttonUp != null
-                && this.buttonDown != null;
         }
 
         #endregion
@@ -435,7 +430,8 @@ namespace Fluent
 
         private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
-            if (this.SelectAllTextOnFocus)
+            if (this.SelectAllTextOnFocus
+                && this.textBox is not null)
             {
                 // Async because setting the carret happens after focus.
                 this.RunInDispatcherAsync(() =>
@@ -493,18 +489,20 @@ namespace Fluent
                 || e.Key == Key.Escape)
             {
                 // Move Focus
-                this.textBox.Focusable = false;
+                this.textBox!.Focusable = false;
                 this.Focus();
-                this.textBox.Focusable = true;
+                this.textBox!.Focusable = true;
                 e.Handled = true;
             }
 
-            if (e.Key == Key.Up)
+            if (e.Key == Key.Up
+                && this.buttonUp is not null)
             {
                 this.buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
 
-            if (e.Key == Key.Down)
+            if (e.Key == Key.Down
+                && this.buttonDown is not null)
             {
                 this.buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
@@ -513,7 +511,7 @@ namespace Fluent
         private void TextBoxTextToValue()
         {
             var converterParam = new Tuple<string, double>(this.Format, this.Value);
-            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
+            var newValue = (double)this.TextToValueConverter.Convert(this.textBox!.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
 
             this.Value = GetLimitedValue(this, newValue);
 

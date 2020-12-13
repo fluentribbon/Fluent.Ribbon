@@ -34,7 +34,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        protected override string? GetNameCore()
         {
             var name = AutomationProperties.GetName(this.Owner);
 
@@ -69,7 +69,7 @@
 
             return children;
 
-            List<AutomationPeer> GetHeaderChildren()
+            List<AutomationPeer>? GetHeaderChildren()
             {
                 if (this.OwningBackstageTabItem.Header is string)
                 {

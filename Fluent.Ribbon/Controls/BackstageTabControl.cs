@@ -23,7 +23,7 @@ namespace Fluent
     {
         #region Properties
 
-        internal ContentPresenter SelectedContentHost { get; private set; }
+        internal ContentPresenter? SelectedContentHost { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -48,7 +48,7 @@ namespace Fluent
         /// Gets content for selected tab
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public object? SelectedContent
         {
             get { return this.GetValue(SelectedContentProperty); }
             internal set { this.SetValue(SelectedContentPropertyKey, value); }
@@ -146,11 +146,11 @@ namespace Fluent
         /// Gets or sets the <see cref="DataTemplate"/> which should be used for the selected content
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public DataTemplate SelectedContentTemplate
+        public DataTemplate? SelectedContentTemplate
         {
             get
             {
-                return (DataTemplate)this.GetValue(SelectedContentTemplateProperty);
+                return (DataTemplate?)this.GetValue(SelectedContentTemplateProperty);
             }
 
             internal set
@@ -163,7 +163,7 @@ namespace Fluent
         /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the selected content
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public DataTemplateSelector SelectedContentTemplateSelector
+        public DataTemplateSelector? SelectedContentTemplateSelector
         {
             get
             {
@@ -213,9 +213,9 @@ namespace Fluent
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Backstage ParentBackstage
+        public Backstage? ParentBackstage
         {
-            get { return (Backstage)this.GetValue(ParentBackstageProperty); }
+            get { return (Backstage?)this.GetValue(ParentBackstageProperty); }
             set { this.SetValue(ParentBackstageProperty, value); }
         }
 
@@ -366,7 +366,7 @@ namespace Fluent
         /// If there is no item selected, the first found item is selected and it's container (<see cref="BackstageTabItem"/>) is returned.
         /// </summary>
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
-        private BackstageTabItem GetSelectedTabItem()
+        private BackstageTabItem? GetSelectedTabItem()
         {
             var container = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(this.SelectedItem);
 
@@ -386,7 +386,7 @@ namespace Fluent
         }
 
         // Finds next tab item
-        private BackstageTabItem FindNextTabItem(int startIndex, int direction)
+        private BackstageTabItem? FindNextTabItem(int startIndex, int direction)
         {
             if (direction == 0)
             {
@@ -460,7 +460,7 @@ namespace Fluent
         #region Event handling
 
         // Handles GeneratorStatusChange
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        private void OnGeneratorStatusChanged(object? sender, EventArgs e)
         {
             if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {

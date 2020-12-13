@@ -87,14 +87,14 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public Func<object, string> GroupByAdvanced
+        public Func<object?, string> GroupByAdvanced
         {
-            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            get { return (Func<object?, string>)this.GetValue(GroupByAdvancedProperty); }
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
         /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
-        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
+        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object?, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
 
         private static void OnGroupByAdvancedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -339,7 +339,7 @@ namespace Fluent
 
             var dictionary = new Dictionary<string, GalleryGroupContainer>();
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
                 if (item is null)
                 {
@@ -347,7 +347,7 @@ namespace Fluent
                 }
 
                 // Resolve group name
-                string propertyValue = null;
+                string? propertyValue = null;
 
                 if (this.GroupByAdvanced != null)
                 {
@@ -474,8 +474,13 @@ namespace Fluent
                 finalRect.Y += item.DesiredSize.Height;
 
                 // Now arrange our actual items using arranged size of placeholders
-                foreach (GalleryItemPlaceholder placeholder in item.Items)
+                foreach (GalleryItemPlaceholder? placeholder in item.Items)
                 {
+                    if (placeholder is null)
+                    {
+                        continue;
+                    }
+
                     var leftTop = placeholder.TranslatePoint(default, this);
 
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.ArrangedSize.Width, placeholder.ArrangedSize.Height));
@@ -489,7 +494,7 @@ namespace Fluent
 
         #region Private Methods
 
-        private string GetPropertyValueAsString(object item)
+        private string? GetPropertyValueAsString(object? item)
         {
             if (item is null
                 || this.GroupBy is null)

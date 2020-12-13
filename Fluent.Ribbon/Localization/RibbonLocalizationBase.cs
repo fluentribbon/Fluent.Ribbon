@@ -31,12 +31,12 @@
         /// <summary>
         /// Gets or sets the culture name.
         /// </summary>
-        public string CultureName { get; }
+        public string? CultureName { get; }
 
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
-        public string DisplayName { get; }
+        public string? DisplayName { get; }
 
         /// <summary>
         /// Fallback instance of <see cref="English"/> for localization.
@@ -183,11 +183,11 @@
         /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
         /// </summary>
 #pragma warning disable 67
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 #pragma warning restore 67
 
         /// <inheritdoc />
-        public bool Equals(RibbonLocalizationBase other)
+        public bool Equals(RibbonLocalizationBase? other)
         {
             if (other is null)
             {
@@ -203,7 +203,7 @@
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
             {
