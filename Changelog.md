@@ -5,6 +5,7 @@
 - ### Bug fixes
 
   - [#877](../../issues/877) - Titlebar and Quick-Access broken when using StartScreen
+  - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
 
 ## 8.0.2
 
