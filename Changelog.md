@@ -51,6 +51,7 @@
 
 - ### Bug fixes
 
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
   - [#772](../../issues/772) - Backstage & Keyboard navigation
   - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
