@@ -60,7 +60,7 @@
 
                 case PatternInterface.Scroll:
                 {
-                    ItemsControl ribbonTabControl = this.OwningRibbon.TabControl;
+                    ItemsControl? ribbonTabControl = this.OwningRibbon.TabControl;
                     if (ribbonTabControl != null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabControl);
@@ -80,13 +80,14 @@
         /// <inheritdoc />
         protected override List<AutomationPeer> GetChildrenCore()
         {
+            var children = new List<AutomationPeer>();
+
             // If Ribbon is Collapsed, dont show anything in the UIA tree
             if (this.OwningRibbon.IsCollapsed)
             {
-                return null;
+                return children;
             }
 
-            var children = new List<AutomationPeer>();
             if (this.OwningRibbon.QuickAccessToolBar != null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.QuickAccessToolBar);
@@ -164,12 +165,17 @@
         /// <summary>
         /// Creates the <see cref="AutomationPeer"/> for <see cref="Ribbon.Menu"/>.
         /// </summary>
-        protected virtual AutomationPeer CreatePeerForMenu()
+        protected virtual AutomationPeer? CreatePeerForMenu()
         {
+            if (this.OwningRibbon.Menu is null)
+            {
+                return null;
+            }
+
             var automationPeer = CreatePeerForElement(this.OwningRibbon.Menu);
             if (automationPeer is null)
             {
-                var menu = (UIElement)UIHelper.FindImmediateVisualChild<Backstage>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible) ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible);
+                var menu = (UIElement?)UIHelper.FindImmediateVisualChild<Backstage>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible) ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible);
 
                 if (menu != null)
                 {

@@ -36,18 +36,18 @@
             // Doesnt implement any patterns of its own, so just forward to the wrapper peer. 
             var wrapperPeer = this.GetWrapperPeer();
 
-            return wrapperPeer?.GetPattern(patternInterface);
+            return wrapperPeer?.GetPattern(patternInterface) ?? base.GetPattern(patternInterface);
         }
 
-        private UIElement GetWrapper()
+        private UIElement? GetWrapper()
         {
             var itemsControlAutomationPeer = this.ItemsControlAutomationPeer;
 
-            var owner = (ItemsControl)itemsControlAutomationPeer?.Owner;
+            var owner = (ItemsControl?)itemsControlAutomationPeer?.Owner;
             return owner?.ItemContainerGenerator.ContainerFromItem(this.Item) as UIElement;
         }
 
-        private AutomationPeer GetWrapperPeer()
+        private AutomationPeer? GetWrapperPeer()
         {
             var wrapper = this.GetWrapper();
             if (wrapper is null)

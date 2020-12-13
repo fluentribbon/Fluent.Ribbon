@@ -27,7 +27,7 @@ namespace Fluent
 
         #region Properties
 
-        private object currentItem;
+        private object? currentItem;
 
         #endregion
 
@@ -106,7 +106,7 @@ namespace Fluent
             return isItemItsOwnContainerOverride;
         }
 
-        private void HandleItemContainerGeneratorStatusChanged(object sender, EventArgs e)
+        private void HandleItemContainerGeneratorStatusChanged(object? sender, EventArgs e)
         {
             if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
@@ -132,7 +132,7 @@ namespace Fluent
             {
                 case NotifyCollectionChangedAction.Add:
                 {
-                    foreach (var newItem in e.NewItems)
+                    foreach (var newItem in e.NewItems.NullSafe())
                     {
                         var container = this.ItemContainerGenerator.ContainerFromItem(newItem);
                         var containerIndex = this.ItemContainerGenerator.IndexFromContainer(container);
@@ -154,7 +154,7 @@ namespace Fluent
 
                 case NotifyCollectionChangedAction.Move:
                     {
-                        for (var i = 0; i < e.NewItems.Count; i++)
+                        for (var i = 0; i < e.NewItems?.Count; i++)
                         {
                             var menuItem = this.contextMenu.Items[e.OldStartingIndex + 1];
                             this.contextMenu.Items.Remove(e.OldStartingIndex + 1);
@@ -166,7 +166,7 @@ namespace Fluent
 
                 case NotifyCollectionChangedAction.Remove:
                     {
-                        for (var i = 0; i < e.OldItems.Count; i++)
+                        for (var i = 0; i < e.OldItems?.Count; i++)
                         {
                             if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
@@ -182,7 +182,7 @@ namespace Fluent
 
                 case NotifyCollectionChangedAction.Replace:
                     {
-                        for (var i = 0; i < e.OldItems.Count; i++)
+                        for (var i = 0; i < e.OldItems?.Count; i++)
                         {
                             if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
@@ -193,7 +193,7 @@ namespace Fluent
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
                         }
 
-                        for (var i = 0; i < e.NewItems.Count; i++)
+                        for (var i = 0; i < e.NewItems?.Count; i++)
                         {
                             if (this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]) is StatusBarItem item)
                             {
@@ -239,7 +239,12 @@ namespace Fluent
 
             // Adding header separator
             this.contextMenu.Items.Add(new GroupSeparatorMenuItem());
-            RibbonControl.Bind(RibbonLocalization.Current.Localization, this.contextMenu.Items[0] as FrameworkElement, nameof(RibbonLocalizationBase.CustomizeStatusBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            var target = this.contextMenu.Items[0] as FrameworkElement;
+
+            if (target is not null)
+            {
+                RibbonControl.Bind(RibbonLocalization.Current.Localization, target, nameof(RibbonLocalizationBase.CustomizeStatusBar), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            }
 
             for (var i = 0; i < this.Items.Count; i++)
             {

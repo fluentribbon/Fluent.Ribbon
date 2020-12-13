@@ -113,17 +113,17 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible TabItem in this group
         /// </summary>
-        public RibbonTabItem FirstVisibleItem => this.GetFirstVisibleItem();
+        public RibbonTabItem? FirstVisibleItem => this.GetFirstVisibleItem();
 
         /// <summary>
         /// Gets the first visible TabItem in this group
         /// </summary>
-        public RibbonTabItem FirstVisibleAndEnabledItem => this.GetFirstVisibleAndEnabledItem();
+        public RibbonTabItem? FirstVisibleAndEnabledItem => this.GetFirstVisibleAndEnabledItem();
 
         /// <summary>
         /// Gets the last visible TabItem in this group
         /// </summary>
-        public RibbonTabItem LastVisibleItem => this.GetLastVisibleItem();
+        public RibbonTabItem? LastVisibleItem => this.GetLastVisibleItem();
 
         #endregion
 
@@ -206,17 +206,17 @@ namespace Fluent
             this.UpdateInnerVisiblityAndGroupBorders();
         }
 
-        private RibbonTabItem GetFirstVisibleItem()
+        private RibbonTabItem? GetFirstVisibleItem()
         {
             return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private RibbonTabItem GetLastVisibleItem()
+        private RibbonTabItem? GetLastVisibleItem()
         {
             return this.Items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private RibbonTabItem GetFirstVisibleAndEnabledItem()
+        private RibbonTabItem? GetFirstVisibleAndEnabledItem()
         {
             return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible && item.IsEnabled);
         }

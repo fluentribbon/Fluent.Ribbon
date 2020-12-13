@@ -54,7 +54,7 @@ namespace Fluent
         #region Fields
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
+        private ObservableCollection<UIElement>? toolBarItems;
 
         // ToolBar panel
 
@@ -65,13 +65,13 @@ namespace Fluent
         /// <summary>
         /// Event which is fired when the, maybe listening, <see cref="Backstage"/> should be closed
         /// </summary>
-        public event EventHandler RequestBackstageClose;
+        public event EventHandler? RequestBackstageClose;
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -96,19 +96,19 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="Panel"/> responsible for displaying the selected tabs content.
         /// </summary>
-        public Panel TabsContainer { get; private set; }
+        public Panel? TabsContainer { get; private set; }
 
-        internal ButtonBase MinimizeButton { get; private set; }
+        internal ButtonBase? MinimizeButton { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
         /// </summary>
-        public ContentPresenter SelectedContentPresenter { get; private set; }
+        public ContentPresenter? SelectedContentPresenter { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -117,7 +117,7 @@ namespace Fluent
         /// Gets content of selected tab item
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public object? SelectedContent
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets selected tab item
         /// </summary>
-        internal RibbonTabItem SelectedTabItem
+        internal RibbonTabItem? SelectedTabItem
         {
             get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
             private set { this.SetValue(SelectedTabItemProperty, value); }
@@ -247,10 +247,10 @@ namespace Fluent
             }
         }
 
-        internal Panel ToolbarPanel { get; private set; }
+        internal Panel? ToolbarPanel { get; private set; }
 
         // Handle toolbar iitems changes
-        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnToolbarItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (this.ToolbarPanel is null)
             {
@@ -260,15 +260,20 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        var element = (UIElement?)e.NewItems[i];
+
+                        if (element is not null)
+                        {
+                            this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, element);
+                        }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var obj3 in e.OldItems.OfType<UIElement>())
+                    foreach (var obj3 in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Remove(obj3);
                     }
@@ -276,12 +281,12 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var obj4 in e.OldItems.OfType<UIElement>())
+                    foreach (var obj4 in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Remove(obj4);
                     }
 
-                    foreach (var obj5 in e.NewItems.OfType<UIElement>())
+                    foreach (var obj5 in e.NewItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Add(obj5);
                     }
@@ -505,7 +510,12 @@ namespace Fluent
                 {
                     this.IsDropDownOpen = true;
 
-                    ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
+                    var ribbonTabItem = (RibbonTabItem?)e.AddedItems[0];
+
+                    if (ribbonTabItem is not null)
+                    {
+                        ribbonTabItem.IsHitTestVisible = false;
+                    }
                 }
             }
             else
@@ -518,7 +528,12 @@ namespace Fluent
 
             if (e.RemovedItems.Count > 0)
             {
-                ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
+                var ribbonTabItem = (RibbonTabItem?)e.RemovedItems[0];
+
+                if (ribbonTabItem is not null)
+                {
+                    ribbonTabItem.IsHitTestVisible = true;
+                }
             }
 
             base.OnSelectionChanged(e);
@@ -680,7 +695,7 @@ namespace Fluent
         }
 
         // Get selected ribbon tab item
-        private RibbonTabItem GetSelectedTabItem()
+        private RibbonTabItem? GetSelectedTabItem()
         {
             var selectedItem = this.SelectedItem;
             if (selectedItem is null)
@@ -695,7 +710,7 @@ namespace Fluent
         }
 
         // Find next tab item
-        private RibbonTabItem FindNextTabItem(int startIndex, int direction)
+        private RibbonTabItem? FindNextTabItem(int startIndex, int direction)
         {
             if (direction != 0)
             {
@@ -757,7 +772,7 @@ namespace Fluent
         }
 
         // Handles GeneratorStatus changed
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        private void OnGeneratorStatusChanged(object? sender, EventArgs e)
         {
             if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {
@@ -840,7 +855,7 @@ namespace Fluent
         /// <summary>
         /// Implements custom placement for ribbon popup
         /// </summary>
-        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
+        private CustomPopupPlacement[]? CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
             if (this.DropDownPopup is null
                 || this.SelectedTabItem is null)
@@ -944,7 +959,7 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible item
         /// </summary>
-        public object GetFirstVisibleItem()
+        public object? GetFirstVisibleItem()
         {
             foreach (var item in this.Items)
             {
@@ -961,7 +976,7 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible and enabled item
         /// </summary>
-        public object GetFirstVisibleAndEnabledItem()
+        public object? GetFirstVisibleAndEnabledItem()
         {
             foreach (var item in this.Items)
             {

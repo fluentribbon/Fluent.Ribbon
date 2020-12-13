@@ -30,9 +30,9 @@ namespace Fluent
         /// <summary>
         /// Occurs when IsOpen has been changed
         /// </summary>
-        public event DependencyPropertyChangedEventHandler IsOpenChanged;
+        public event DependencyPropertyChangedEventHandler? IsOpenChanged;
 
-        private BackstageAdorner adorner;
+        private BackstageAdorner? adorner;
 
         #region Properties
 
@@ -40,7 +40,7 @@ namespace Fluent
         /// Gets the <see cref="AdornerLayer"/> for the <see cref="Backstage"/>.
         /// </summary>
         /// <remarks>This is exposed to make it possible to show content on the same <see cref="AdornerLayer"/> as the backstage is shown on.</remarks>
-        public AdornerLayer AdornerLayer { get; private set; }
+        public AdornerLayer? AdornerLayer { get; private set; }
 
         /// <summary>
         /// Gets or sets whether backstage is shown
@@ -263,7 +263,7 @@ namespace Fluent
         /// <summary>
         /// Called when this control receives the <see cref="PopupService.DismissPopupEvent"/>.
         /// </summary>
-        protected virtual void OnDismissPopup(object sender, DismissPopupEventArgs e)
+        protected virtual void OnDismissPopup(object? sender, DismissPopupEventArgs e)
         {
             // Don't close on dismiss popup event if application lost focus
             // or keytips should be shown.
@@ -303,8 +303,8 @@ namespace Fluent
         private double savedWindowMinHeight = double.NaN;
         private double savedWindowWidth = double.NaN;
         private double savedWindowHeight = double.NaN;
-        private Window ownerWindow;
-        private Ribbon parentRibbon;
+        private Window? ownerWindow;
+        private Ribbon? parentRibbon;
 
         /// <summary>
         /// Shows the <see cref="Backstage"/>
@@ -365,8 +365,11 @@ namespace Fluent
                 this.ownerWindow = Window.GetWindow(this.Parent);
             }
 
-            this.SaveWindowSize(this.ownerWindow);
-            this.SaveWindowMinSize(this.ownerWindow);
+            if (this.ownerWindow is null == false)
+            {
+                this.SaveWindowSize(this.ownerWindow);
+                this.SaveWindowMinSize(this.ownerWindow);
+            }
 
             if (this.ownerWindow != null)
             {
@@ -444,13 +447,13 @@ namespace Fluent
                 this.adorner.Visibility = Visibility.Visible;
             }
 
-            void HandleStoryboardCurrentStateInvalidated(object sender, EventArgs e)
+            void HandleStoryboardCurrentStateInvalidated(object? sender, EventArgs e)
             {
                 this.adorner.Visibility = Visibility.Visible;
                 storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
             }
 
-            void HandleStoryboardOnCompleted(object sender, EventArgs args)
+            void HandleStoryboardOnCompleted(object? sender, EventArgs args)
             {
                 this.AdornerLayer?.Update();
 
@@ -480,7 +483,7 @@ namespace Fluent
                 this.RestoreParentProperties();
             }
 
-            void HandleStoryboardOnCompleted(object sender, EventArgs args)
+            void HandleStoryboardOnCompleted(object? sender, EventArgs args)
             {
                 if (this.adorner != null)
                 {
@@ -525,7 +528,7 @@ namespace Fluent
                 return;
             }
 
-            FrameworkElement elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
+            FrameworkElement? elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
                                               ?? UIHelper.GetParent<AdornerDecorator>(this.Parent);
 
             if (elementToAdorn is null)
@@ -535,7 +538,7 @@ namespace Fluent
 
             if (this.UseHighestAvailableAdornerLayer)
             {
-                AdornerDecorator currentAdornerDecorator;
+                AdornerDecorator? currentAdornerDecorator;
                 while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
                 {
                     elementToAdorn = currentAdornerDecorator;
@@ -680,7 +683,7 @@ namespace Fluent
             this.SaveWindowSize(Window.GetWindow(this));
         }
 
-        private void HandleTabControlRequestBackstageClose(object sender, EventArgs e)
+        private void HandleTabControlRequestBackstageClose(object? sender, EventArgs e)
         {
             this.IsOpen = false;
         }

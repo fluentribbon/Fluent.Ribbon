@@ -11,7 +11,7 @@
         /// <summary>
         /// Gets drop down popup
         /// </summary>
-        Popup DropDownPopup { get; }
+        Popup? DropDownPopup { get; }
 
         /// <summary>
         /// Gets a value indicating whether control context menu is opened

@@ -163,13 +163,13 @@ namespace Fluent
             this.LayoutDefinitions.CollectionChanged += this.OnLayoutDefinitionsChanged;
         }
 
-        private void OnLayoutDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnLayoutDefinitionsChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.rebuildVisualAndLogicalChildren = true;
             this.InvalidateMeasure();
         }
 
-        private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             // Children have changed, reset layouts
             this.rebuildVisualAndLogicalChildren = true;
@@ -184,7 +184,7 @@ namespace Fluent
         /// Gets current used layout definition (or null if no present definitions)
         /// </summary>
         /// <returns>Layout definition or null</returns>
-        internal RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
+        internal RibbonToolBarLayoutDefinition? GetCurrentLayoutDefinition()
         {
             if (this.LayoutDefinitions.Count == 0)
             {
@@ -343,7 +343,7 @@ namespace Fluent
 
         #region Control and Group Creation from a Definition
 
-        private FrameworkElement GetControl(RibbonToolBarControlDefinition controlDefinition)
+        private FrameworkElement? GetControl(RibbonToolBarControlDefinition controlDefinition)
         {
             var name = controlDefinition.Target;
             return this.Children.FirstOrDefault(x => x.Name == name);
@@ -556,7 +556,7 @@ namespace Fluent
                 {
                     var controlDefinition = item as RibbonToolBarControlDefinition;
                     var controlGroupDefinition = item as RibbonToolBarControlGroupDefinition;
-                    FrameworkElement control = null;
+                    FrameworkElement? control = null;
 
                     if (controlDefinition != null)
                     {

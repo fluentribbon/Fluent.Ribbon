@@ -61,8 +61,8 @@ namespace Fluent
 #endif
             }
 
-            Ribbon ribbon = null;
-            UIElement topLevelElement = null;
+            Ribbon? ribbon = null;
+            UIElement? topLevelElement = null;
             FindControls(this.PlacementTarget, ref ribbon, ref topLevelElement);
 
             // Exclude QAT items
@@ -112,9 +112,9 @@ namespace Fluent
             {
                 var parent = VisualTreeHelper.GetParent(element) as UIElement;
                 //if (parent is ContextMenuBar) return true;
-                element = parent;
+                element = parent!;
             }
-            while (element != null);
+            while (element is not null);
 
             return false;
         }
@@ -129,14 +129,14 @@ namespace Fluent
                     return true;
                 }
 
-                element = parent;
+                element = parent!;
             }
-            while (element != null);
+            while (element is not null);
 
             return false;
         }
 
-        private static UIElement GetDecoratorChild(UIElement popupRoot)
+        private static UIElement? GetDecoratorChild(UIElement? popupRoot)
         {
             switch (popupRoot)
             {
@@ -159,7 +159,7 @@ namespace Fluent
             return null;
         }
 
-        private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
+        private static void FindControls(UIElement obj, ref Ribbon? ribbon, ref UIElement? topLevelElement)
         {
             switch (obj)
             {
@@ -314,7 +314,7 @@ namespace Fluent
         /// <summary>
         /// Occurs when user press F1 on ScreenTip with HelpTopic filled
         /// </summary>
-        public static event EventHandler<ScreenTipHelpEventArgs> HelpPressed;
+        public static event EventHandler<ScreenTipHelpEventArgs>? HelpPressed;
 
         #endregion
 
@@ -339,7 +339,7 @@ namespace Fluent
         #region F1 Help Handling
 
         // Currently focused element
-        private IInputElement focusedElement;
+        private IInputElement? focusedElement;
 
         private void OnToolTipClosed(object sender, RoutedEventArgs e)
         {

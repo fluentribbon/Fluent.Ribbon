@@ -38,7 +38,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="SharedSizeGroupNameProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetSharedSizeGroupName(DependencyObject element, string value)
+        public static void SetSharedSizeGroupName(DependencyObject element, string? value)
         {
             element.SetValue(SharedSizeGroupNameProperty, value);
         }
@@ -46,7 +46,7 @@ namespace Fluent
         /// <summary>
         /// Gets <see cref="SharedSizeGroupNameProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static string GetSharedSizeGroupName(DependencyObject element)
+        public static string? GetSharedSizeGroupName(DependencyObject element)
         {
             return (string)element.GetValue(SharedSizeGroupNameProperty);
         }

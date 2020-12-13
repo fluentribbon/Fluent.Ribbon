@@ -21,7 +21,7 @@ namespace Fluent
         private readonly Ribbon ribbon;
 
         // Name of the isolated storage file
-        private string isolatedStorageFileName;
+        private string? isolatedStorageFileName;
 
         private readonly Stream memoryStream;
 

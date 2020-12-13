@@ -7,7 +7,7 @@
 
     internal class FocusWrapper
     {
-        private readonly IInputElement inputElement;
+        private readonly IInputElement? inputElement;
         private readonly IntPtr handle;
 
         private FocusWrapper(IInputElement inputElement)
@@ -36,7 +36,7 @@
             }
         }
 
-        public static FocusWrapper GetWrapperForCurrentFocus()
+        public static FocusWrapper? GetWrapperForCurrentFocus()
         {
             if (Keyboard.FocusedElement != null)
             {

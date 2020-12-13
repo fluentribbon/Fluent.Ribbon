@@ -279,7 +279,7 @@ namespace Fluent
         /// <param name="parent">Parent</param>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether parent is ancestor of element</returns>
-        public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
+        public static bool IsAncestorOf(DependencyObject? parent, DependencyObject? element)
         {
             if (parent is null)
             {
@@ -302,7 +302,7 @@ namespace Fluent
         /// <summary>
         /// Handles dismiss popup event
         /// </summary>
-        private static void OnDismissPopup(object sender, DismissPopupEventArgs e)
+        private static void OnDismissPopup(object? sender, DismissPopupEventArgs e)
         {
             var control = sender as IDropDownControl;
 
@@ -376,7 +376,7 @@ namespace Fluent
         /// </summary>
         /// <param name="popup">Element</param>
         /// <returns>Returns true whether mouse is physically over the popup</returns>
-        public static bool IsMousePhysicallyOver(Popup popup)
+        public static bool IsMousePhysicallyOver(Popup? popup)
         {
             if (popup?.Child is null)
             {
@@ -391,7 +391,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether mouse is physically over the element</returns>
-        public static bool IsMousePhysicallyOver(UIElement element)
+        public static bool IsMousePhysicallyOver(UIElement? element)
         {
             if (element is null)
             {

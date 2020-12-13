@@ -22,18 +22,18 @@ namespace Fluent
     [TemplatePart(Name = "PART_Items", Type = typeof(ItemsControl))]
     public class WindowCommands : ItemsControl, IDisposable
     {
-        private static string minimize;
-        private static string maximize;
-        private static string closeText;
-        private static string restore;
+        private static string? minimize;
+        private static string? maximize;
+        private static string? closeText;
+        private static string? restore;
 
-        private System.Windows.Controls.Button minimizeButton;
-        private System.Windows.Controls.Button maximizeButton;
-        private System.Windows.Controls.Button restoreButton;
-        private System.Windows.Controls.Button closeButton;
+        private System.Windows.Controls.Button? minimizeButton;
+        private System.Windows.Controls.Button? maximizeButton;
+        private System.Windows.Controls.Button? restoreButton;
+        private System.Windows.Controls.Button? closeButton;
 
 #pragma warning disable 618
-        private SafeLibraryHandle user32;
+        private SafeLibraryHandle? user32;
 #pragma warning restore 618
         private bool disposed;
 
@@ -99,7 +99,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Minimize
         /// </summary>
-        public string Minimize
+        public string? Minimize
         {
             get
             {
@@ -115,7 +115,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Maximize
         /// </summary>
-        public string Maximize
+        public string? Maximize
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Restore
         /// </summary>
-        public string Restore
+        public string? Restore
         {
             get
             {
@@ -147,7 +147,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Close
         /// </summary>
-        public string Close
+        public string? Close
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Fluent
         /// <summary>
         /// Gets the <see cref="System.Windows.Controls.ItemsControl"/> responsible for showing <see cref="System.Windows.Controls.ItemsControl.Items"/>.
         /// </summary>
-        public ItemsControl ItemsControl { get; private set; }
+        public ItemsControl? ItemsControl { get; private set; }
 
         /// <summary>Identifies the <see cref="ItemsPanelVisibility"/> dependency property.</summary>
         public static readonly DependencyProperty ItemsPanelVisibilityProperty = DependencyProperty.Register(nameof(ItemsPanelVisibility), typeof(Visibility), typeof(WindowCommands), new PropertyMetadata(VisibilityBoxes.Visible));
@@ -180,7 +180,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the button brush
         /// </summary>
-        public Brush ButtonBrush
+        public Brush? ButtonBrush
         {
             get { return (Brush)this.GetValue(ButtonBrushProperty); }
             set { this.SetValue(ButtonBrushProperty, value); }
@@ -294,19 +294,19 @@ namespace Fluent
             }
         }
 
-        private Window GetParentWindow()
+        private Window? GetParentWindow()
         {
             var window = Window.GetWindow(this);
 
-            if (window != null)
+            if (window is not null)
             {
                 return window;
             }
 
             var parent = VisualTreeHelper.GetParent(this);
-            Window parentWindow = null;
+            Window? parentWindow = null;
 
-            while (parent != null
+            while (parent is not null
                 && (parentWindow = parent as Window) is null)
             {
                 parent = VisualTreeHelper.GetParent(parent);

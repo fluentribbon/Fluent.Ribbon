@@ -32,26 +32,26 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        private Thumb? resizeBothThumb;
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        private Thumb? resizeVerticalThumb;
 
-        private IInputElement focusedElement;
+        private IInputElement? focusedElement;
 
-        private Panel menuPanel;
+        private Panel? menuPanel;
 
-        private Border dropDownBorder;
-        private Border contentBorder;
+        private Border? dropDownBorder;
+        private Border? contentBorder;
 
-        private ContentPresenter contentSite;
+        private ContentPresenter? contentSite;
 
         // Freezed image (created during snapping)
-        private Image snappedImage;
+        private Image? snappedImage;
 
         // Is visual currently snapped
         private bool isSnapped;
 
-        private ScrollViewer scrollViewer;
+        private ScrollViewer? scrollViewer;
 
         private bool canSizeY;
 
@@ -105,7 +105,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -113,7 +113,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -127,7 +127,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -143,7 +143,7 @@ namespace Fluent
         /// <summary>
         ///     Gets or sets menu to show in combo box bottom
         /// </summary>
-        public RibbonMenu Menu
+        public RibbonMenu? Menu
         {
             get { return (RibbonMenu)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
@@ -206,7 +206,8 @@ namespace Fluent
                     return;
                 }
 
-                if (this.snappedImage is null)
+                if (this.snappedImage is null
+                    || this.contentSite is null)
                 {
                     return;
                 }
@@ -287,7 +288,7 @@ namespace Fluent
             }
         }
 
-        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
+        private static object? CoerceSelectedItem(DependencyObject d, object basevalue)
         {
             var combo = (ComboBox)d;
             if (combo.isQuickAccessOpened
@@ -342,8 +343,13 @@ namespace Fluent
             return combo;
         }
 
-        private void OnQuickAccessTextBoxGetFocus(object sender, RoutedEventArgs e)
+        private void OnQuickAccessTextBoxGetFocus(object? sender, RoutedEventArgs e)
         {
+            if (this.quickAccessCombo is null)
+            {
+                return;
+            }
+
             this.isQuickAccessFocused = true;
             if (!this.isQuickAccessOpened)
             {
@@ -353,8 +359,13 @@ namespace Fluent
             this.quickAccessCombo.LostFocus += this.OnQuickAccessTextBoxLostFocus;
         }
 
-        private void OnQuickAccessTextBoxLostFocus(object sender, RoutedEventArgs e)
+        private void OnQuickAccessTextBoxLostFocus(object? sender, RoutedEventArgs e)
         {
+            if (this.quickAccessCombo is null)
+            {
+                return;
+            }
+
             this.quickAccessCombo.LostFocus -= this.OnQuickAccessTextBoxLostFocus;
             if (!this.isQuickAccessOpened)
             {
@@ -366,11 +377,16 @@ namespace Fluent
 
         private bool isQuickAccessFocused;
         private bool isQuickAccessOpened;
-        private object selectedItem;
-        private ComboBox quickAccessCombo;
+        private object? selectedItem;
+        private ComboBox? quickAccessCombo;
 
-        private void OnQuickAccessOpened(object sender, EventArgs e)
+        private void OnQuickAccessOpened(object? sender, EventArgs e)
         {
+            if (this.quickAccessCombo is null)
+            {
+                return;
+            }
+
             this.isQuickAccessOpened = true;
             this.quickAccessCombo.DropDownClosed += this.OnQuickAccessMenuClosed;
             this.quickAccessCombo.UpdateLayout();
@@ -389,7 +405,7 @@ namespace Fluent
 
         private void BringSelectedItemIntoView()
         {
-            if (this.quickAccessCombo.SelectedItem is null)
+            if (this.quickAccessCombo?.SelectedItem is null)
             {
                 return;
             }
@@ -398,9 +414,13 @@ namespace Fluent
             containerFromItem?.BringIntoView();
         }
 
-        private void OnQuickAccessMenuClosed(object sender, EventArgs e)
+        private void OnQuickAccessMenuClosed(object? sender, EventArgs e)
         {
-            this.quickAccessCombo.DropDownClosed -= this.OnQuickAccessMenuClosed;
+            if (this.quickAccessCombo is not null)
+            {
+                this.quickAccessCombo.DropDownClosed -= this.OnQuickAccessMenuClosed;
+            }
+
             if (!this.isQuickAccessFocused)
             {
                 this.Unfreeze();
@@ -411,6 +431,11 @@ namespace Fluent
 
         private void Freeze()
         {
+            if (this.quickAccessCombo is null)
+            {
+                return;
+            }
+
             this.IsSnapped = true;
             this.selectedItem = this.SelectedItem;
 
@@ -425,6 +450,11 @@ namespace Fluent
 
         private void Unfreeze()
         {
+            if (this.quickAccessCombo is null)
+            {
+                return;
+            }
+
             var text = this.quickAccessCombo.Text;
             this.selectedItem = this.quickAccessCombo.SelectedItem;
             this.quickAccessCombo.IsSnapped = true;
@@ -445,6 +475,11 @@ namespace Fluent
             if (this.IsLoaded == false)
             {
                 this.Loaded += this.OnFirstLoaded;
+            }
+
+            if (this.quickAccessCombo is null)
+            {
+                return;
             }
 
             if (this.IsEditable == false)
@@ -469,7 +504,7 @@ namespace Fluent
             }
         }
 
-        private void OnFirstLoaded(object sender, RoutedEventArgs e)
+        private void OnFirstLoaded(object? sender, RoutedEventArgs e)
         {
             this.Loaded -= this.OnFirstLoaded;
             this.UpdateQuickAccessCombo();
@@ -560,10 +595,13 @@ namespace Fluent
 
             this.canSizeY = true;
 
-            this.scrollViewer.Width = double.NaN;
-            this.scrollViewer.Height = double.NaN;
+            if (this.scrollViewer is not null)
+            {
+                this.scrollViewer.Width = double.NaN;
+                this.scrollViewer.Height = double.NaN;
+            }
 
-            var popupChild = this.DropDownPopup.Child as FrameworkElement;
+            var popupChild = this.DropDownPopup?.Child as FrameworkElement;
 
             var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
@@ -572,7 +610,7 @@ namespace Fluent
                 initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
             }
 
-            if (this.scrollViewer.DesiredSize.Height > initialHeight)
+            if (this.scrollViewer?.DesiredSize.Height > initialHeight)
             {
                 this.scrollViewer.Height = initialHeight;
             }
@@ -596,11 +634,15 @@ namespace Fluent
             }
 
             this.focusedElement = null;
-            this.scrollViewer.Width = double.NaN;
-            this.scrollViewer.Height = double.NaN;
+
+            if (this.scrollViewer is not null)
+            {
+                this.scrollViewer.Width = double.NaN;
+                this.scrollViewer.Height = double.NaN;
+            }
         }
 
-        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void OnFocusedElementLostKeyboardFocus(object? sender, KeyboardFocusChangedEventArgs e)
         {
             if (this.focusedElement != null)
             {
@@ -750,7 +792,7 @@ namespace Fluent
         #region Private methods
 
         // Prevent reopenning of the dropdown menu (popup)
-        private void OnContentBorderPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void OnContentBorderPreviewMouseDown(object? sender, MouseButtonEventArgs e)
         {
             if (this.IsDropDownOpen)
             {
@@ -760,8 +802,15 @@ namespace Fluent
         }
 
         // Handles resize both drag
-        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
+        private void OnResizeBothDelta(object? sender, DragDeltaEventArgs e)
         {
+            if (this.menuPanel is null
+                || this.scrollViewer is null
+                || this.dropDownBorder is null)
+            {
+                return;
+            }
+
             // Set height
             this.SetDragHeight(e);
 
@@ -773,7 +822,7 @@ namespace Fluent
             }
 
             var monitorRight = RibbonControl.GetControlMonitor(this).Right;
-            var popupChild = this.DropDownPopup.Child as FrameworkElement;
+            var popupChild = this.DropDownPopup?.Child as FrameworkElement;
 
             if (popupChild is null)
             {
@@ -795,14 +844,15 @@ namespace Fluent
         }
 
         // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
+        private void OnResizeVerticalDelta(object? sender, DragDeltaEventArgs e)
         {
             this.SetDragHeight(e);
         }
 
         private void SetDragHeight(DragDeltaEventArgs e)
         {
-            if (this.canSizeY == false)
+            if (this.canSizeY == false
+                || this.scrollViewer is null)
             {
                 return;
             }

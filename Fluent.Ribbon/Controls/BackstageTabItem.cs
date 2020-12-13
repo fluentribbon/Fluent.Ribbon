@@ -18,7 +18,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_Header", Type = typeof(FrameworkElement))]
     public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
     {
-        internal FrameworkElement HeaderContentHost { get; private set; }
+        internal FrameworkElement? HeaderContentHost { get; private set; }
 
         #region Icon
 
@@ -73,7 +73,7 @@ namespace Fluent
         /// <summary>
         /// Gets parent tab control
         /// </summary>
-        internal BackstageTabControl TabControlParent
+        internal BackstageTabControl? TabControlParent
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets tab items text
         /// </summary>
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -178,7 +178,7 @@ namespace Fluent
             }
         }
 
-        private static void UnselectSelectedItem(BackstageTabControl backstageTabControl)
+        private static void UnselectSelectedItem(BackstageTabControl? backstageTabControl)
         {
             if (backstageTabControl?.SelectedItem is null)
             {
