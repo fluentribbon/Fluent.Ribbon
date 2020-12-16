@@ -64,9 +64,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets property name to group items
         /// </summary>
-        public string GroupBy
+        public string? GroupBy
         {
-            get { return (string)this.GetValue(GroupByProperty); }
+            get { return (string?)this.GetValue(GroupByProperty); }
             set { this.SetValue(GroupByProperty, value); }
         }
 
@@ -87,9 +87,9 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public Func<object?, string> GroupByAdvanced
+        public Func<object?, string>? GroupByAdvanced
         {
-            get { return (Func<object?, string>)this.GetValue(GroupByAdvancedProperty); }
+            get { return (Func<object?, string>?)this.GetValue(GroupByAdvancedProperty); }
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
