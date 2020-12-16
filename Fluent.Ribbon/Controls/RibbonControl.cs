@@ -26,9 +26,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 

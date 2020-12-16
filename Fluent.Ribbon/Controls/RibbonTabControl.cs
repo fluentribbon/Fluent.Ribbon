@@ -82,9 +82,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets file menu control (can be application menu button, backstage button and so on)
         /// </summary>
-        public UIElement Menu
+        public UIElement? Menu
         {
-            get { return (UIElement)this.GetValue(MenuProperty); }
+            get { return (UIElement?)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -170,7 +170,7 @@ namespace Fluent
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
-        private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
+        private static object? CoerceIsDropDownOpen(DependencyObject d, object? basevalue)
         {
             var tabControl = d as RibbonTabControl;
 
@@ -221,7 +221,7 @@ namespace Fluent
         /// </summary>
         internal RibbonTabItem? SelectedTabItem
         {
-            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            get { return (RibbonTabItem?)this.GetValue(SelectedTabItemProperty); }
             private set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
@@ -648,7 +648,7 @@ namespace Fluent
             var selectedIndex = -1;
 
             var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
-                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group?.Visibility == Visibility.Visible)))
                 .OrderBy(x => x.IsContextual);
 
             foreach (var ribbonTabItem in tabs)

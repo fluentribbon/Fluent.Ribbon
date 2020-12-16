@@ -563,9 +563,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets a custom action to generate KeyTips for items in this control.
         /// </summary>
-        public Action<QuickAccessToolBar> UpdateKeyTipsAction
+        public Action<QuickAccessToolBar>? UpdateKeyTipsAction
         {
-            get { return (Action<QuickAccessToolBar>)this.GetValue(UpdateKeyTipsActionProperty); }
+            get { return (Action<QuickAccessToolBar>?)this.GetValue(UpdateKeyTipsActionProperty); }
             set { this.SetValue(UpdateKeyTipsActionProperty, value); }
         }
 

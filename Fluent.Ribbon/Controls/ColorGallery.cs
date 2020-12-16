@@ -298,10 +298,10 @@ namespace Fluent
         public static readonly DependencyProperty ChipWidthProperty =
             DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
-        private static object CoerceChipSize(DependencyObject d, object basevalue)
+        private static object? CoerceChipSize(DependencyObject d, object? basevalue)
         {
-            var value = (double)basevalue;
-            if (value < 0)
+            if (basevalue is double value
+                && value < 0)
             {
                 return 0;
             }
@@ -390,10 +390,10 @@ namespace Fluent
         public static readonly DependencyProperty ColumnsProperty =
             DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new PropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
-        private static object CoerceColumns(DependencyObject d, object basevalue)
+        private static object CoerceColumns(DependencyObject d, object? basevalue)
         {
-            var value = (int)basevalue;
-            if (value < 1)
+            if (basevalue is not int value
+                || value < 1)
             {
                 return 1;
             }
@@ -423,10 +423,10 @@ namespace Fluent
         public static readonly DependencyProperty StandardColorGridRowsProperty =
             DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnStandardColorGridRowsChanged, CoeceGridRows));
 
-        private static object CoeceGridRows(DependencyObject d, object basevalue)
+        private static object CoeceGridRows(DependencyObject d, object? basevalue)
         {
-            var value = (int)basevalue;
-            if (value < 0)
+            if (basevalue is not int value
+                || value < 0)
             {
                 return 0;
             }
@@ -583,9 +583,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets theme colors source
         /// </summary>
-        public IEnumerable<Color> ThemeColorsSource
+        public IEnumerable<Color>? ThemeColorsSource
         {
-            get { return (IEnumerable<Color>)this.GetValue(ThemeColorsSourceProperty); }
+            get { return (IEnumerable<Color>?)this.GetValue(ThemeColorsSourceProperty); }
             set { this.SetValue(ThemeColorsSourceProperty, value); }
         }
 
@@ -617,7 +617,7 @@ namespace Fluent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[]? ThemeGradients
         {
-            get { return (Color[])this.GetValue(ThemeGradientsProperty); }
+            get { return (Color[]?)this.GetValue(ThemeGradientsProperty); }
             private set { this.SetValue(ThemeGradientsPropertyKey, value); }
         }
 
@@ -637,7 +637,7 @@ namespace Fluent
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
         public Color[]? StandardGradients
         {
-            get { return (Color[])this.GetValue(StandardGradientsProperty); }
+            get { return (Color[]?)this.GetValue(StandardGradientsProperty); }
             private set { this.SetValue(StandardGradientsPropertyKey, value); }
         }
 

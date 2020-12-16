@@ -33,7 +33,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetAccessKeyCore()
+        protected override string? GetAccessKeyCore()
         {
             var text = ((Button)this.Owner).KeyTip;
             if (string.IsNullOrEmpty(text))

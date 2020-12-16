@@ -524,9 +524,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets file menu control (can be application menu button, backstage button and so on)
         /// </summary>
-        public FrameworkElement Menu
+        public FrameworkElement? Menu
         {
-            get { return (FrameworkElement)this.GetValue(MenuProperty); }
+            get { return (FrameworkElement?)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -546,9 +546,9 @@ namespace Fluent
         /// <summary>
         /// Property for defining the start screen.
         /// </summary>
-        public StartScreen StartScreen
+        public StartScreen? StartScreen
         {
-            get { return (StartScreen)this.GetValue(StartScreenProperty); }
+            get { return (StartScreen?)this.GetValue(StartScreenProperty); }
             set { this.SetValue(StartScreenProperty, value); }
         }
 
@@ -571,7 +571,7 @@ namespace Fluent
         [EditorBrowsable(EditorBrowsableState.Never)]
         public QuickAccessToolBar? QuickAccessToolBar
         {
-            get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
+            get { return (QuickAccessToolBar?)this.GetValue(QuickAccessToolBarProperty); }
             private set { this.SetValue(QuickAccessToolBarPropertyKey, value); }
         }
 
@@ -598,7 +598,7 @@ namespace Fluent
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RibbonTabControl? TabControl
         {
-            get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
+            get { return (RibbonTabControl?)this.GetValue(TabControlProperty); }
             private set { this.SetValue(TabControlPropertyKey, value); }
         }
 
@@ -616,7 +616,7 @@ namespace Fluent
         /// </summary>
         public RibbonTabItem? SelectedTabItem
         {
-            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            get { return (RibbonTabItem?)this.GetValue(SelectedTabItemProperty); }
             set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
@@ -716,9 +716,9 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon titlebar
         /// </summary>
-        public RibbonTitleBar TitleBar
+        public RibbonTitleBar? TitleBar
         {
-            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            get { return (RibbonTitleBar?)this.GetValue(TitleBarProperty); }
             set { this.SetValue(TitleBarProperty, value); }
         }
 
@@ -1471,7 +1471,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonAutomationPeer(this);
 
-        private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar titleBar)
+        private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar? titleBar)
         {
             if (titleBar != null)
             {
@@ -1489,7 +1489,7 @@ namespace Fluent
             }
         }
 
-        private void RemoveQuickAccessToolBarFromTitleBar(RibbonTitleBar titleBar)
+        private void RemoveQuickAccessToolBarFromTitleBar(RibbonTitleBar? titleBar)
         {
             if (titleBar != null)
             {
@@ -1627,8 +1627,13 @@ namespace Fluent
         /// Removes the given elements from quick access toolbar
         /// </summary>
         /// <param name="element">Element</param>
-        public void RemoveFromQuickAccessToolBar(UIElement element)
+        public void RemoveFromQuickAccessToolBar(UIElement? element)
         {
+            if (element is null)
+            {
+                return;
+            }
+
             Debug.WriteLine("Removing \"{0}\" from QuickAccessToolBar.", element);
 
             if (this.IsInQuickAccessToolBar(element))
@@ -1753,7 +1758,7 @@ namespace Fluent
         public static readonly DependencyProperty AutomaticStateManagementProperty =
             DependencyProperty.Register(nameof(AutomaticStateManagement), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnAutomaticStateManagementChanged, CoerceAutomaticStateManagement));
 
-        private static object CoerceAutomaticStateManagement(DependencyObject d, object basevalue)
+        private static object? CoerceAutomaticStateManagement(DependencyObject d, object? basevalue)
         {
             var ribbon = (Ribbon)d;
             if (ribbon.RibbonStateStorage.IsLoading)

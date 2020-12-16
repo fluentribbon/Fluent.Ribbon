@@ -53,8 +53,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ValueProperty;
 
-        private static object CoerceValue(DependencyObject d, object basevalue)
+        private static object CoerceValue(DependencyObject d, object? basevalue)
         {
+            if (basevalue is null)
+            {
+                return double.NaN;
+            }
+
             var spinner = (Spinner)d;
             var value = (double)basevalue;
             value = GetLimitedValue(spinner, value);
@@ -95,9 +100,9 @@ namespace Fluent
         /// <summary>
         /// Gets current text from the spinner
         /// </summary>
-        public string Text
+        public string? Text
         {
-            get { return (string)this.GetValue(TextProperty); }
+            get { return (string?)this.GetValue(TextProperty); }
             private set { this.SetValue(TextPropertyKey, value); }
         }
 
@@ -143,10 +148,10 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinimumProperty;
 
-        private static object CoerceMinimum(DependencyObject d, object basevalue)
+        private static object CoerceMinimum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
+            var value = (double)basevalue!;
 
             if (spinner.Maximum < value)
             {
@@ -186,17 +191,17 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaximumProperty;
 
-        private static object CoerceMaximum(DependencyObject d, object basevalue)
+        private static object? CoerceMaximum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
 
-            if (spinner.Minimum > value)
+            if (basevalue is double value
+                && spinner.Minimum > value)
             {
                 return spinner.Minimum;
             }
 
-            return value;
+            return basevalue;
         }
 
         private static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

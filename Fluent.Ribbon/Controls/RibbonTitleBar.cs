@@ -49,7 +49,7 @@ namespace Fluent
         /// </summary>
         public FrameworkElement? QuickAccessToolBar
         {
-            get { return (FrameworkElement)this.GetValue(QuickAccessToolBarProperty); }
+            get { return (FrameworkElement?)this.GetValue(QuickAccessToolBarProperty); }
             set { this.SetValue(QuickAccessToolBarProperty, value); }
         }
 

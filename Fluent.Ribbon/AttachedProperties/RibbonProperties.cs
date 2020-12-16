@@ -141,7 +141,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverBackground(DependencyObject element, Brush value)
+        public static void SetMouseOverBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverBackgroundProperty, value);
         }
@@ -150,7 +150,7 @@ namespace Fluent
         /// Gets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverBackground(DependencyObject element)
+        public static Brush? GetMouseOverBackground(DependencyObject element)
         {
             return (Brush)element.GetValue(MouseOverBackgroundProperty);
         }
@@ -167,7 +167,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverForeground(DependencyObject element, Brush value)
+        public static void SetMouseOverForeground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverForegroundProperty, value);
         }
@@ -176,9 +176,9 @@ namespace Fluent
         /// Gets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverForeground(DependencyObject element)
+        public static Brush? GetMouseOverForeground(DependencyObject element)
         {
-            return (Brush)element.GetValue(MouseOverForegroundProperty);
+            return (Brush?)element.GetValue(MouseOverForegroundProperty);
         }
 
         #endregion
@@ -193,7 +193,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetIsSelectedBackground(DependencyObject element, Brush value)
+        public static void SetIsSelectedBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(IsSelectedBackgroundProperty, value);
         }
@@ -202,9 +202,9 @@ namespace Fluent
         /// Gets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetIsSelectedBackground(DependencyObject element)
+        public static Brush? GetIsSelectedBackground(DependencyObject element)
         {
-            return (Brush)element.GetValue(IsSelectedBackgroundProperty);
+            return (Brush?)element.GetValue(IsSelectedBackgroundProperty);
         }
 
         #endregion

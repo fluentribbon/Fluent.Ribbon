@@ -41,7 +41,7 @@ namespace Fluent
         /// <inheritdoc />
         public RibbonTitleBar? TitleBar
         {
-            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
+            get { return (RibbonTitleBar?)this.GetValue(TitleBarProperty); }
             private set { this.SetValue(TitleBarPropertyKey, value); }
         }
 
@@ -68,9 +68,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title.
         /// </summary>
-        public Brush TitleForeground
+        public Brush? TitleForeground
         {
-            get { return (Brush)this.GetValue(TitleForegroundProperty); }
+            get { return (Brush?)this.GetValue(TitleForegroundProperty); }
             set { this.SetValue(TitleForegroundProperty, value); }
         }
 
@@ -80,9 +80,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the window title background.
         /// </summary>
-        public Brush TitleBackground
+        public Brush? TitleBackground
         {
-            get { return (Brush)this.GetValue(TitleBackgroundProperty); }
+            get { return (Brush?)this.GetValue(TitleBackgroundProperty); }
             set { this.SetValue(TitleBackgroundProperty, value); }
         }
 
@@ -95,9 +95,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the window commands
         /// </summary>
-        public WindowCommands WindowCommands
+        public WindowCommands? WindowCommands
         {
-            get { return (WindowCommands)this.GetValue(WindowCommandsProperty); }
+            get { return (WindowCommands?)this.GetValue(WindowCommandsProperty); }
             set { this.SetValue(WindowCommandsProperty, value); }
         }
 
@@ -121,9 +121,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets a brush which is used as the glow when the window is active.
         /// </summary>
-        public Brush GlowBrush
+        public Brush? GlowBrush
         {
-            get { return (Brush)this.GetValue(GlowBrushProperty); }
+            get { return (Brush?)this.GetValue(GlowBrushProperty); }
             set { this.SetValue(GlowBrushProperty, value); }
         }
 
@@ -133,9 +133,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets a brush which is used as the glow when the window is not active.
         /// </summary>
-        public Brush NonActiveGlowBrush
+        public Brush? NonActiveGlowBrush
         {
-            get { return (Brush)this.GetValue(NonActiveGlowBrushProperty); }
+            get { return (Brush?)this.GetValue(NonActiveGlowBrushProperty); }
             set { this.SetValue(NonActiveGlowBrushProperty, value); }
         }
 
@@ -145,9 +145,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets a brush which is used as the border brush when the window is not active.
         /// </summary>
-        public Brush NonActiveBorderBrush
+        public Brush? NonActiveBorderBrush
         {
-            get { return (Brush)this.GetValue(NonActiveBorderBrushProperty); }
+            get { return (Brush?)this.GetValue(NonActiveBorderBrushProperty); }
             set { this.SetValue(NonActiveBorderBrushProperty, value); }
         }
 
@@ -283,11 +283,11 @@ namespace Fluent
             this.MaintainIsCollapsed();
 
             if (this.iconImage != null
-                && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands.ItemsControl).GetZeroIfInfinityOrNaN())
+                && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands?.ItemsControl).GetZeroIfInfinityOrNaN())
             {
                 this.SetCurrentValue(IsIconVisibleProperty, false);
                 this.TitleBar?.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
-                this.WindowCommands.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, Visibility.Collapsed);
+                this.WindowCommands?.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, Visibility.Collapsed);
             }
             else
             {
@@ -296,8 +296,8 @@ namespace Fluent
 
                 this.TitleBar?.InvalidateProperty(VisibilityProperty);
 
-                this.WindowCommands.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
-                this.WindowCommands.ItemsControl?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
+                this.WindowCommands?.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
+                this.WindowCommands?.ItemsControl?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
             }
         }
 

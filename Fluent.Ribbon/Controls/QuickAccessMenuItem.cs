@@ -67,9 +67,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets shortcut to the target control
         /// </summary>
-        public UIElement Target
+        public UIElement? Target
         {
-            get { return (UIElement)this.GetValue(TargetProperty); }
+            get { return (UIElement?)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 

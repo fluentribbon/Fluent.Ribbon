@@ -38,9 +38,9 @@ namespace Fluent
         /// Enclose in parentheses as (Control.Name) to reduce/enlarge
         /// scalable elements in the given group
         /// </summary>
-        public string ReduceOrder
+        public string? ReduceOrder
         {
-            get { return (string)this.GetValue(ReduceOrderProperty); }
+            get { return (string?)this.GetValue(ReduceOrderProperty); }
             set { this.SetValue(ReduceOrderProperty, value); }
         }
 
@@ -58,7 +58,7 @@ namespace Fluent
                 ribbonPanel.IncreaseGroupBoxSize(ribbonPanel.reduceOrder[i]);
             }
 
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            ribbonPanel.reduceOrder = (((string?)e.NewValue) ?? string.Empty).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
             ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
 

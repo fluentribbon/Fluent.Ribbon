@@ -74,9 +74,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -99,9 +99,9 @@ namespace Fluent
         /// <summary>
         /// Useless property only used in secon level application menu items
         /// </summary>
-        public string Description
+        public string? Description
         {
-            get { return (string)this.GetValue(DescriptionProperty); }
+            get { return (string?)this.GetValue(DescriptionProperty); }
             set { this.SetValue(DescriptionProperty, value); }
         }
 
@@ -196,7 +196,7 @@ namespace Fluent
         /// <inheritdoc />
         public string? GroupName
         {
-            get { return (string)this.GetValue(GroupNameProperty); }
+            get { return (string?)this.GetValue(GroupNameProperty); }
             set { this.SetValue(GroupNameProperty, value); }
         }
 

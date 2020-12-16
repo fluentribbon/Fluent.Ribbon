@@ -104,7 +104,7 @@ namespace Fluent
         /// <inheritdoc />
         public string? GroupName
         {
-            get { return (string)this.GetValue(GroupNameProperty); }
+            get { return (string?)this.GetValue(GroupNameProperty); }
             set { this.SetValue(GroupNameProperty, value); }
         }
 
@@ -146,7 +146,7 @@ namespace Fluent
             }
         }
 
-        private static object CoerceIsChecked(DependencyObject d, object basevalue)
+        private static object? CoerceIsChecked(DependencyObject d, object? basevalue)
         {
             var button = (SplitButton)d;
 
@@ -182,7 +182,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets tooltip of dropdown part of split button
         /// </summary>
-        public object DropDownToolTip
+        public object? DropDownToolTip
         {
             get { return this.GetValue(DropDownToolTipProperty); }
             set { this.SetValue(DropDownToolTipProperty, value); }
@@ -548,7 +548,7 @@ namespace Fluent
                 }
                 else
                 {
-                    yield return new KeyTipInformation(this.KeyTip, this.button, hide)
+                    yield return new KeyTipInformation(this.KeyTip!, this.button, hide)
                     {
                         VisualTarget = this
                     };

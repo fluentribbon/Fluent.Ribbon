@@ -24,9 +24,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used for a selected <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemSelectedForeground
+        public Brush? TabItemSelectedForeground
         {
-            get { return (Brush)this.GetValue(TabItemSelectedForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemSelectedForegroundProperty); }
             set { this.SetValue(TabItemSelectedForegroundProperty, value); }
         }
 
@@ -36,9 +36,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used when the mouse is over a <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemMouseOverForeground
+        public Brush? TabItemMouseOverForeground
         {
-            get { return (Brush)this.GetValue(TabItemMouseOverForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemMouseOverForegroundProperty); }
             set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
         }
 
@@ -48,9 +48,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used when the mouse is over a selected <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemSelectedMouseOverForeground
+        public Brush? TabItemSelectedMouseOverForeground
         {
-            get { return (Brush)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
             set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
         }
 

@@ -78,14 +78,24 @@ namespace Fluent
             return (bool)element.GetValue(ExcludeFromSharedSizeProperty);
         }
 
-        private static bool ValidateItemWidth(object value)
+        private static bool ValidateItemWidth(object? value)
         {
+            if (value is null)
+            {
+                return false;
+            }
+
             var v = (double)value;
             return ValidateWidthOrHeight(v);
         }
 
-        private static bool ValidateItemHeight(object value)
+        private static bool ValidateItemHeight(object? value)
         {
+            if (value is null)
+            {
+                return false;
+            }
+            
             var v = (double)value;
             return ValidateWidthOrHeight(v);
         }
