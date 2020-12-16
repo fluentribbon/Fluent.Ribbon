@@ -15,7 +15,7 @@ namespace Fluent
         /// <summary>
         /// Version of WPF
         /// </summary>
-        public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window)).GetName().Version;
+        public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window))!.GetName()!.Version!;
 
         /// <summary>
         /// Gets UseLayoutRounding attached property value

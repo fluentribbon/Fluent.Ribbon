@@ -92,12 +92,12 @@ namespace Fluent
         /// <summary>
         /// Occurs when status bar item checks
         /// </summary>
-        public event RoutedEventHandler Checked;
+        public event RoutedEventHandler? Checked;
 
         /// <summary>
         /// Occurs when status bar item unchecks
         /// </summary>
-        public event RoutedEventHandler Unchecked;
+        public event RoutedEventHandler? Unchecked;
 
         // Raises checked event
 #pragma warning disable WPF0005 // Name of PropertyChangedCallback should match registered name.
@@ -135,7 +135,7 @@ namespace Fluent
         }
 
         // Coerce content
-        private static object CoerceContent(DependencyObject d, object basevalue)
+        private static object? CoerceContent(DependencyObject d, object basevalue)
         {
             var item = (StatusBarItem)d;
             // if content is null returns value

@@ -43,7 +43,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -58,7 +58,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -166,7 +166,7 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }
@@ -458,7 +458,7 @@ namespace Fluent
         /// Get the parent <see cref="Ribbon"/>.
         /// </summary>
         /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
-        public static Ribbon GetParentRibbon(DependencyObject obj)
+        public static Ribbon? GetParentRibbon(DependencyObject obj)
         {
             return UIHelper.GetParent<Ribbon>(obj);
         }

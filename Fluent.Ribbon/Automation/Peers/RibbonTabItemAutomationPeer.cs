@@ -66,7 +66,7 @@
 
             return children;
 
-            List<AutomationPeer> GetHeaderChildren()
+            List<AutomationPeer>? GetHeaderChildren()
             {
                 if (this.OwningTab.Header is string)
                 {

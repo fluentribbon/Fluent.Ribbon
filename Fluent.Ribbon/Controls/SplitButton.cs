@@ -102,7 +102,7 @@ namespace Fluent
         #region GroupName
 
         /// <inheritdoc />
-        public string GroupName
+        public string? GroupName
         {
             get { return (string)this.GetValue(GroupNameProperty); }
             set { this.SetValue(GroupNameProperty, value); }

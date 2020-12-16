@@ -36,12 +36,12 @@ namespace Fluent
         #region Fields
 
         // up part
-        private Panel upPanel;
+        private Panel? upPanel;
 
-        private Panel parentPanel;
+        private Panel? parentPanel;
 
         // Freezed image (created during snapping)
-        private Image snappedImage;
+        private Image? snappedImage;
 
         // Is visual currently snapped
         private bool isSnapped;
@@ -55,12 +55,12 @@ namespace Fluent
         /// <summary>
         /// Get the <see cref="ContentControl"/> responsible for rendering the header.
         /// </summary>
-        public ContentControl HeaderContentControl { get; private set; }
+        public ContentControl? HeaderContentControl { get; private set; }
 
         /// <summary>
         /// Get the <see cref="ContentControl"/> responsible for rendering the header when <see cref="State"/> is equal to <see cref="RibbonGroupBoxState.Collapsed"/>.
         /// </summary>
-        public ContentControl CollapsedHeaderContentControl { get; private set; }
+        public ContentControl? CollapsedHeaderContentControl { get; private set; }
 
         #endregion
 
@@ -108,7 +108,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -257,7 +257,7 @@ namespace Fluent
             }
         }
 
-        private void OnScalableControlScaled(object sender, EventArgs e)
+        private void OnScalableControlScaled(object? sender, EventArgs e)
         {
             this.TryClearCache();
         }
@@ -342,7 +342,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets launcher button icon
         /// </summary>
-        public object LauncherIcon
+        public object? LauncherIcon
         {
             get { return this.GetValue(LauncherIconProperty); }
             set { this.SetValue(LauncherIconProperty, value); }
@@ -379,7 +379,7 @@ namespace Fluent
         [Category("Action")]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Bindable(true)]
-        public ICommand LauncherCommand
+        public ICommand? LauncherCommand
         {
             get
             {
@@ -398,7 +398,7 @@ namespace Fluent
         [Bindable(true)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Category("Action")]
-        public object LauncherCommandParameter
+        public object? LauncherCommandParameter
         {
             get
             {
@@ -416,7 +416,7 @@ namespace Fluent
         /// </summary>
         [Bindable(true)]
         [Category("Action")]
-        public IInputElement LauncherCommandTarget
+        public IInputElement? LauncherCommandTarget
         {
             get
             {
@@ -479,7 +479,7 @@ namespace Fluent
         /// <summary>
         /// Gets launcher button
         /// </summary>
-        public Button LauncherButton
+        public Button? LauncherButton
         {
             get { return (Button)this.GetValue(LauncherButtonProperty); }
             private set { this.SetValue(LauncherButtonPropertyKey, value); }
@@ -563,13 +563,13 @@ namespace Fluent
         /// <summary>
         /// Dialog launcher btton click event
         /// </summary>
-        public event RoutedEventHandler LauncherClick;
+        public event RoutedEventHandler? LauncherClick;
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -678,7 +678,7 @@ namespace Fluent
         /// Gets a panel with items
         /// </summary>
         /// <returns></returns>
-        internal Panel GetPanel()
+        internal Panel? GetPanel()
         {
             return this.upPanel;
         }
@@ -687,7 +687,7 @@ namespace Fluent
         /// Gets cmmon layout root for popup and groupbox
         /// </summary>
         /// <returns></returns>
-        internal Panel GetLayoutRoot()
+        internal Panel? GetLayoutRoot()
         {
             return this.parentPanel;
         }
@@ -721,15 +721,20 @@ namespace Fluent
                         // Render the freezed image
                         var renderTargetBitmap = new RenderTargetBitmap((int)this.ActualWidth, (int)this.ActualHeight, 96, 96, PixelFormats.Pbgra32);
                         renderTargetBitmap.Render((Visual)VisualTreeHelper.GetChild(this, 0));
-                        this.snappedImage.FlowDirection = this.FlowDirection;
-                        this.snappedImage.Source = renderTargetBitmap;
-                        this.snappedImage.Width = this.ActualWidth;
-                        this.snappedImage.Height = this.ActualHeight;
-                        this.snappedImage.Visibility = Visibility.Visible;
+
+                        if (this.snappedImage is not null)
+                        {
+                            this.snappedImage.FlowDirection = this.FlowDirection;
+                            this.snappedImage.Source = renderTargetBitmap;
+                            this.snappedImage.Width = this.ActualWidth;
+                            this.snappedImage.Height = this.ActualHeight;
+                            this.snappedImage.Visibility = Visibility.Visible;
+                        }
+
                         this.isSnapped = true;
                     }
                 }
-                else if (this.snappedImage != null)
+                else if (this.snappedImage is not null)
                 {
                     // Clean up
                     this.snappedImage.Visibility = Visibility.Collapsed;
@@ -931,12 +936,12 @@ namespace Fluent
             this.SubscribeEvents();
         }
 
-        private void OnPopupOpened(object sender, EventArgs e)
+        private void OnPopupOpened(object? sender, EventArgs e)
         {
             this.DropDownOpened?.Invoke(this, e);
         }
 
-        private void OnPopupClosed(object sender, EventArgs e)
+        private void OnPopupClosed(object? sender, EventArgs e)
         {
             this.DropDownClosed?.Invoke(this, e);
         }
@@ -1104,12 +1109,12 @@ namespace Fluent
             return groupBox;
         }
 
-        private void OnQuickAccessOpened(object sender, EventArgs e)
+        private void OnQuickAccessOpened(object? sender, EventArgs e)
         {
             if (this.IsDropDownOpen == false
                 && this.IsSnapped == false)
             {
-                var groupBox = (RibbonGroupBox)sender;
+                var groupBox = (RibbonGroupBox?)sender;
                 // Save state
                 this.IsSnapped = true;
 
@@ -1119,20 +1124,20 @@ namespace Fluent
                     {
                         var item = this.Items[0];
                         this.Items.Remove(item);
-                        groupBox.Items.Add(item);
+                        groupBox?.Items.Add(item);
                         i--;
                     }
                 }
             }
         }
 
-        private void OnQuickAccessClosed(object sender, EventArgs e)
+        private void OnQuickAccessClosed(object? sender, EventArgs e)
         {
-            var groupBox = (RibbonGroupBox)sender;
+            var groupBox = (RibbonGroupBox?)sender;
 
             if (this.ItemsSource is null)
             {
-                for (var i = 0; i < groupBox.Items.Count; i++)
+                for (var i = 0; i < groupBox?.Items.Count; i++)
                 {
                     var item = groupBox.Items[0];
                     groupBox.Items.Remove(item);

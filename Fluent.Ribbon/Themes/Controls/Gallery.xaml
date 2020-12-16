@@ -136,6 +136,7 @@
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
+                                         IsGrouped="{TemplateBinding IsGrouped}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
                                          IsItemsHost="True"

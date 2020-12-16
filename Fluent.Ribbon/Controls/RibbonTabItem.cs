@@ -34,13 +34,13 @@ namespace Fluent
         #region Fields
 
         // Content container
-        private Border contentContainer;
+        private Border? contentContainer;
 
         // Desired width
         private double desiredWidth;
 
         // Collection of ribbon groups
-        private ObservableCollection<RibbonGroupBox> groups;
+        private ObservableCollection<RibbonGroupBox>? groups;
 
         // Ribbon groups container
         private readonly RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
@@ -52,7 +52,7 @@ namespace Fluent
 
         #region Properties
 
-        internal FrameworkElement HeaderContentHost { get; private set; }
+        internal FrameworkElement? HeaderContentHost { get; private set; }
 
         #region Colors/Brushes
 
@@ -185,7 +185,7 @@ namespace Fluent
         /// <summary>
         /// Gets ribbon tab control parent
         /// </summary>
-        internal RibbonTabControl TabControlParent => UIHelper.GetParent<RibbonTabControl>(this);
+        internal RibbonTabControl? TabControlParent => UIHelper.GetParent<RibbonTabControl>(this);
 
         /// <summary>
         /// Gets or sets the padding for the header.
@@ -305,7 +305,7 @@ namespace Fluent
         }
 
         // handles ribbon groups collection changes
-        private void OnGroupsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnGroupsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (this.groupsInnerContainer is null)
             {
@@ -315,15 +315,20 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        var element = (UIElement?)e.NewItems[i];
+
+                        if (element is not null)
+                        {
+                            this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, element);
+                        }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems.OfType<UIElement>())
+                    foreach (var item in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.groupsInnerContainer.Children.Remove(item);
                     }
@@ -331,12 +336,12 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems.OfType<UIElement>())
+                    foreach (var item in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.groupsInnerContainer.Children.Remove(item);
                     }
 
-                    foreach (var item in e.NewItems.OfType<UIElement>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<UIElement>())
                     {
                         this.groupsInnerContainer.Children.Add(item);
                     }
@@ -346,7 +351,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Reset:
                     this.groupsInnerContainer.Children.Clear();
 
-                    foreach (var group in this.groups)
+                    foreach (var group in this.Groups)
                     {
                         this.groupsInnerContainer.Children.Add(group);
                     }
@@ -358,7 +363,7 @@ namespace Fluent
         #region Header Property
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -413,7 +418,7 @@ namespace Fluent
         }
 
         // Find parent ribbon
-        private Ribbon FindParentRibbon()
+        private Ribbon? FindParentRibbon()
         {
             var element = this.Parent;
             while (element != null)

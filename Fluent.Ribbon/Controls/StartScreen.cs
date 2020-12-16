@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System.Windows;
@@ -9,15 +9,13 @@ namespace Fluent
     /// </summary>
     public class StartScreen : Backstage
     {
-        private bool previousTitleBarIsCollapsed;
-
         /// <summary>
         /// Indicates whether the <see cref="StartScreen"/> has aleaady been shown or not.
         /// </summary>
         public bool Shown
         {
-            get { return (bool)this.GetValue(ShownProperty); }
-            set { this.SetValue(ShownProperty, value); }
+            get => (bool)this.GetValue(ShownProperty);
+            set => this.SetValue(ShownProperty, value ? BooleanBoxes.TrueBox : BooleanBoxes.FalseBox);
         }
 
         /// <summary>Identifies the <see cref="Shown"/> dependency property.</summary>
@@ -36,17 +34,19 @@ namespace Fluent
             ((StartScreen)d).UpdateIsTitleBarCollapsed();
         }
 
+        // This is required for scenarios like in #445 where the start screen is shown, but never hidden through Hide() but made hidden by changing just it's visibility.
         private void UpdateIsTitleBarCollapsed()
         {
+            if (this.IsOpen == false)
+            {
+                return;
+            }
+
             var parentRibbon = GetParentRibbon(this);
 
-            if (parentRibbon?.TitleBar != null)
-            {
-                if (this.IsOpen)
-                {
-                    parentRibbon.TitleBar.IsCollapsed = this.Visibility == Visibility.Visible;
-                }
-            }
+            parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, this.Visibility == Visibility.Visible
+                ? BooleanBoxes.TrueBox
+                : BooleanBoxes.FalseBox);
         }
 
         /// <summary>
@@ -63,16 +63,16 @@ namespace Fluent
                 return false;
             }
 
-            var parentRibbon = GetParentRibbon(this);
+            this.Shown = base.Show();
 
-            if (parentRibbon?.TitleBar != null)
+            if (this.Shown)
             {
-                this.previousTitleBarIsCollapsed = parentRibbon.TitleBar.IsCollapsed;
+                var parentRibbon = GetParentRibbon(this);
 
-                this.UpdateIsTitleBarCollapsed();
+                parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
 
-            return this.Shown = base.Show();
+            return this.Shown;
         }
 
         /// <summary>
@@ -80,16 +80,15 @@ namespace Fluent
         /// </summary>
         protected override void Hide()
         {
-            var wasOpen = this.IsOpen;
+            var wasShown = this.Shown;
+
             base.Hide();
 
-            if (wasOpen)
+            if (wasShown)
             {
                 var parentRibbon = GetParentRibbon(this);
-                if (parentRibbon?.TitleBar != null)
-                {
-                    parentRibbon.TitleBar.IsCollapsed = this.previousTitleBarIsCollapsed;
-                }
+
+                parentRibbon?.TitleBar?.ClearValue(RibbonTitleBar.IsCollapsedProperty);
             }
         }
     }

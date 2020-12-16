@@ -48,14 +48,14 @@ namespace Fluent
         /// Returns a <see cref="T:System.Windows.DataTemplate"/> or null. The default value is null.
         /// </returns>
         /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
             if (item is null)
             {
                 return null;
             }
 
-            ListBox listBox = null;
+            ListBox? listBox = null;
             var parent = container;
             while (parent != null)
             {
@@ -72,7 +72,7 @@ namespace Fluent
                 return null;
             }
 
-            ColorGallery colorGallery = null;
+            ColorGallery? colorGallery = null;
             while (parent != null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
@@ -226,7 +226,7 @@ namespace Fluent
 
         #region RecentItems
 
-        private static ObservableCollection<Color> recentColors;
+        private static ObservableCollection<Color>? recentColors;
 
         /// <summary>
         /// Gets recent colors collection
@@ -240,16 +240,16 @@ namespace Fluent
 
         #region Fields
 
-        private MenuItem noColorButton;
-        private MenuItem automaticButton;
+        private MenuItem? noColorButton;
+        private MenuItem? automaticButton;
 
-        private MenuItem moreColorsButton;
+        private MenuItem? moreColorsButton;
 
-        private ListBox themeColorsListBox;
-        private ListBox themeGradientsListBox;
-        private ListBox standardColorsListBox;
-        private ListBox standardGradientsListBox;
-        private ListBox recentColorsListBox;
+        private ListBox? themeColorsListBox;
+        private ListBox? themeGradientsListBox;
+        private ListBox? standardColorsListBox;
+        private ListBox? standardGradientsListBox;
+        private ListBox? recentColorsListBox;
 
         private readonly List<ListBox> listBoxes = new List<ListBox>();
 
@@ -507,23 +507,27 @@ namespace Fluent
             this.isSelectionChanging = true;
             var isSetted = false;
 
-            // Check menu items
-            if (color.HasValue == false)
+            if (this.automaticButton is not null
+                && this.noColorButton is not null)
             {
-                isSetted = true;
-                this.automaticButton.IsChecked = true;
-                this.noColorButton.IsChecked = false;
-            }
-            else if (color.Value == Colors.Transparent)
-            {
-                isSetted = true;
-                this.automaticButton.IsChecked = false;
-                this.noColorButton.IsChecked = true;
-            }
-            else
-            {
-                this.automaticButton.IsChecked = false;
-                this.noColorButton.IsChecked = false;
+                // Check menu items
+                if (color.HasValue == false)
+                {
+                    isSetted = true;
+                    this.automaticButton.IsChecked = true;
+                    this.noColorButton.IsChecked = false;
+                }
+                else if (color.Value == Colors.Transparent)
+                {
+                    isSetted = true;
+                    this.automaticButton.IsChecked = false;
+                    this.noColorButton.IsChecked = true;
+                }
+                else
+                {
+                    this.automaticButton.IsChecked = false;
+                    this.noColorButton.IsChecked = false;
+                }
             }
 
             // Remove selection from others
@@ -532,7 +536,8 @@ namespace Fluent
                 if (isSetted == false
                     && listBox.Visibility == Visibility.Visible)
                 {
-                    if (listBox.Items.Contains(color.Value))
+                    if (color is not null 
+                        && listBox.Items.Contains(color.Value))
                     {
                         listBox.SelectedItem = color.Value;
                         isSetted = true;
@@ -551,7 +556,7 @@ namespace Fluent
 
         #region ThemeColors
 
-        private ObservableCollection<Color> themeColors;
+        private ObservableCollection<Color>? themeColors;
 
         /// <summary>
         /// Gets collection of theme colors
@@ -570,7 +575,7 @@ namespace Fluent
             }
         }
 
-        private void OnThemeColorsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnThemeColorsChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.UpdateGradients();
         }
@@ -610,7 +615,7 @@ namespace Fluent
         /// Gets theme gradients collection
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
-        public Color[] ThemeGradients
+        public Color[]? ThemeGradients
         {
             get { return (Color[])this.GetValue(ThemeGradientsProperty); }
             private set { this.SetValue(ThemeGradientsPropertyKey, value); }
@@ -630,7 +635,7 @@ namespace Fluent
         /// Gets standart gradients collection
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
-        public Color[] StandardGradients
+        public Color[]? StandardGradients
         {
             get { return (Color[])this.GetValue(StandardGradientsProperty); }
             private set { this.SetValue(StandardGradientsPropertyKey, value); }
@@ -672,7 +677,7 @@ namespace Fluent
         /// <summary>
         /// Occurs whether more colors menu item is clicked
         /// </summary>
-        public event EventHandler<MoreColorsExecutingEventArgs> MoreColorsExecuting;
+        public event EventHandler<MoreColorsExecutingEventArgs>? MoreColorsExecuting;
 
         #endregion
 
@@ -739,9 +744,10 @@ namespace Fluent
             }
 
             this.themeColorsListBox = this.GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
-            this.listBoxes.Add(this.themeColorsListBox);
+
             if (this.themeColorsListBox != null)
             {
+                this.listBoxes.Add(this.themeColorsListBox);
                 this.themeColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -751,9 +757,10 @@ namespace Fluent
             }
 
             this.themeGradientsListBox = this.GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
-            this.listBoxes.Add(this.themeGradientsListBox);
+            
             if (this.themeGradientsListBox != null)
             {
+                this.listBoxes.Add(this.themeGradientsListBox);
                 this.themeGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -763,9 +770,10 @@ namespace Fluent
             }
 
             this.standardColorsListBox = this.GetTemplateChild("PART_StandardColorsListBox") as ListBox;
-            this.listBoxes.Add(this.standardColorsListBox);
+
             if (this.standardColorsListBox != null)
             {
+                this.listBoxes.Add(this.standardColorsListBox);
                 this.standardColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -775,9 +783,10 @@ namespace Fluent
             }
 
             this.standardGradientsListBox = this.GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
-            this.listBoxes.Add(this.standardGradientsListBox);
+
             if (this.standardGradientsListBox != null)
             {
+                this.listBoxes.Add(this.standardGradientsListBox);
                 this.standardGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -787,9 +796,10 @@ namespace Fluent
             }
 
             this.recentColorsListBox = this.GetTemplateChild("PART_RecentColorsListBox") as ListBox;
-            this.listBoxes.Add(this.recentColorsListBox);
-            if (this.recentColorsListBox != null)
+
+            if (this.recentColorsListBox is not null)
             {
+                this.listBoxes.Add(this.recentColorsListBox);
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -820,7 +830,11 @@ namespace Fluent
                     }
 
                     RecentColors.Insert(0, color);
-                    this.recentColorsListBox.SelectedIndex = 0;
+
+                    if (this.recentColorsListBox is not null)
+                    {
+                        this.recentColorsListBox.SelectedIndex = 0;
+                    }
                 }
             }
             else
@@ -855,7 +869,11 @@ namespace Fluent
                     }
 
                     RecentColors.Insert(0, color);
-                    this.recentColorsListBox.SelectedIndex = 0;
+
+                    if (this.recentColorsListBox is not null)
+                    {
+                        this.recentColorsListBox.SelectedIndex = 0;
+                    }
                 }
 #pragma warning restore 618
             }
@@ -872,8 +890,17 @@ namespace Fluent
         private void OnAutomaticClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            this.noColorButton.IsChecked = false;
-            this.automaticButton.IsChecked = true;
+
+            if (this.noColorButton is not null)
+            {
+                this.noColorButton.IsChecked = false;
+            }
+
+            if (this.automaticButton is not null)
+            {
+                this.automaticButton.IsChecked = true;
+            }
+
             // Remove selection from listboxes
             foreach (var listBox in this.listBoxes)
             {
@@ -887,8 +914,17 @@ namespace Fluent
         private void OnNoColorClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            this.noColorButton.IsChecked = true;
-            this.automaticButton.IsChecked = false;
+
+            if (this.noColorButton is not null)
+            {
+                this.noColorButton.IsChecked = true;
+            }
+
+            if (this.automaticButton is not null)
+            {
+                this.automaticButton.IsChecked = false;
+            }
+
             // Remove selection from listboxes
             foreach (var listBox in this.listBoxes)
             {
@@ -912,8 +948,15 @@ namespace Fluent
                 && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
-                this.noColorButton.IsChecked = false;
-                this.automaticButton.IsChecked = false;
+                if (this.noColorButton is not null)
+                {
+                    this.noColorButton.IsChecked = false;
+                }
+
+                if (this.automaticButton is not null)
+                {
+                    this.automaticButton.IsChecked = false;
+                }
 
                 foreach (var listBox in this.listBoxes)
                 {
@@ -923,7 +966,7 @@ namespace Fluent
                     }
                 }
 
-                this.SelectedColor = (Color)e.AddedItems[0];
+                this.SelectedColor = (Color)e.AddedItems[0]!;
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
 

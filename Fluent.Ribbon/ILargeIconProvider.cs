@@ -11,7 +11,7 @@
         /// <summary>
         /// Gets or sets the large icon.
         /// </summary>
-        object LargeIcon { get; set; }
+        object? LargeIcon { get; set; }
     }
 
     /// <summary>

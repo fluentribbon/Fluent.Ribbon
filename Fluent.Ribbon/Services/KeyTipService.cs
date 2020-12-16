@@ -20,7 +20,7 @@ namespace Fluent
     {
         #region Fields
 
-        private ScopeGuard windowPreviewKeyDownScopeGuard;
+        private ScopeGuard? windowPreviewKeyDownScopeGuard;
 
         // Host element, usually this is Ribbon
         private readonly Ribbon ribbon;
@@ -29,20 +29,20 @@ namespace Fluent
         private readonly DispatcherTimer timer;
 
         // Is KeyTips Actived now
-        private KeyTipAdorner activeAdornerChain;
+        private KeyTipAdorner? activeAdornerChain;
         // This element must be remembered to restore focus
-        private FocusWrapper backUpFocusedControl;
+        private FocusWrapper? backUpFocusedControl;
 
         // Window where we attached
-        private Window window;
+        private Window? window;
 
         // Whether we attached to window
         private bool attached;
 
         // Attached HWND source
-        private HwndSource attachedHwndSource;
+        private HwndSource? attachedHwndSource;
 
-        private string currentUserInput;
+        private string? currentUserInput;
 
         /// <summary>
         /// Checks if any keytips are visible.
@@ -216,6 +216,7 @@ namespace Fluent
 
             if (this.ribbon.IsCollapsed
                 || this.ribbon.IsEnabled == false
+                || this.window is null
                 || this.window.IsActive == false)
             {
                 return;
@@ -331,6 +332,7 @@ namespace Fluent
         {
             if (this.ribbon.IsCollapsed
                 || this.ribbon.IsEnabled == false
+                || this.window is null
                 || this.window.IsActive == false)
             {
                 this.Terminate();
@@ -399,7 +401,7 @@ namespace Fluent
             this.backUpFocusedControl = null;
         }
 
-        private void OnAdornerChainTerminated(object sender, KeyTipPressedResult e)
+        private void OnAdornerChainTerminated(object? sender, KeyTipPressedResult e)
         {
             if (this.activeAdornerChain != null)
             {
@@ -420,7 +422,7 @@ namespace Fluent
             }
         }
 
-        private void OnDelayedShow(object sender, EventArgs e)
+        private void OnDelayedShow(object? sender, EventArgs e)
         {
             if (this.activeAdornerChain is null)
             {
@@ -489,7 +491,7 @@ namespace Fluent
                 && targetRibbon.TabControl != null)
             {
                 // Focus ribbon
-                (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+                (this.ribbon.TabControl?.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
             }
 
             this.ClearUserInput();
@@ -504,7 +506,7 @@ namespace Fluent
             this.activeAdornerChain.Attach();
         }
 
-        private FrameworkElement GetBackstage()
+        private FrameworkElement? GetBackstage()
         {
             if (this.ribbon.Menu is null)
             {
@@ -523,7 +525,7 @@ namespace Fluent
                 : null;
         }
 
-        private FrameworkElement GetApplicationMenu()
+        private FrameworkElement? GetApplicationMenu()
         {
             if (this.ribbon.Menu is null)
             {
@@ -542,7 +544,7 @@ namespace Fluent
                 : null;
         }
 
-        private FrameworkElement GetStartScreen()
+        private FrameworkElement? GetStartScreen()
         {
             var control = this.ribbon.StartScreen;
 

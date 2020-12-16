@@ -38,7 +38,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_QuickAccessToolBar", Type = typeof(QuickAccessToolBar))]
     public class Ribbon : Control, ILogicalChildSupport
     {
-        private IRibbonStateStorage ribbonStateStorage;
+        private IRibbonStateStorage? ribbonStateStorage;
 
         /// <summary>
         /// Gets the current instance for storing the state of this control.
@@ -101,7 +101,7 @@ namespace Fluent
         }
 
         // Context menu owner ribbon
-        private static Ribbon contextMenuOwner;
+        private static Ribbon? contextMenuOwner;
 
         // Context menu items
         private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
@@ -319,7 +319,7 @@ namespace Fluent
 
             if (ribbon.IsDefaultContextMenuEnabled == false)
             {
-                foreach (UIElement item in RibbonContextMenu.Items)
+                foreach (var item in RibbonContextMenu.Items.OfType<UIElement>())
                 {
                     item.Visibility = Visibility.Collapsed;
                 }
@@ -460,60 +460,60 @@ namespace Fluent
         /// <summary>
         /// Occurs when selected tab has been changed (be aware that SelectedTab can be null)
         /// </summary>
-        public event SelectionChangedEventHandler SelectedTabChanged;
+        public event SelectionChangedEventHandler? SelectedTabChanged;
 
         /// <summary>
         /// Occurs when customize the ribbon
         /// </summary>
-        public event EventHandler CustomizeTheRibbon;
+        public event EventHandler? CustomizeTheRibbon;
 
         /// <summary>
         /// Occurs when customize quick access toolbar
         /// </summary>
-        public event EventHandler CustomizeQuickAccessToolbar;
+        public event EventHandler? CustomizeQuickAccessToolbar;
 
         /// <summary>
         /// Occurs when IsMinimized property is changing
         /// </summary>
-        public event DependencyPropertyChangedEventHandler IsMinimizedChanged;
+        public event DependencyPropertyChangedEventHandler? IsMinimizedChanged;
 
         /// <summary>
         /// Occurs when IsCollapsed property is changing
         /// </summary>
-        public event DependencyPropertyChangedEventHandler IsCollapsedChanged;
+        public event DependencyPropertyChangedEventHandler? IsCollapsedChanged;
 
         #endregion
 
         #region Fields
 
-        private ObservableCollection<Key> keyTipKeys;
+        private ObservableCollection<Key>? keyTipKeys;
 
         // Collection of contextual tab groups
-        private ObservableCollection<RibbonContextualTabGroup> contextualGroups;
+        private ObservableCollection<RibbonContextualTabGroup>? contextualGroups;
 
         // Collection of tabs
-        private ObservableCollection<RibbonTabItem> tabs;
-        private CollectionSyncHelper<RibbonTabItem> tabsSync;
+        private ObservableCollection<RibbonTabItem>? tabs;
+        private CollectionSyncHelper<RibbonTabItem>? tabsSync;
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
-        private CollectionSyncHelper<UIElement> toolBarItemsSync;
+        private ObservableCollection<UIElement>? toolBarItems;
+        private CollectionSyncHelper<UIElement>? toolBarItemsSync;
 
         // Ribbon quick access toolbar
 
         // Ribbon layout root
-        private Panel layoutRoot;
+        private Panel? layoutRoot;
 
         // Handles F10, Alt and so on
         private readonly KeyTipService keyTipService;
 
         // Collection of quickaccess menu items
-        private ObservableCollection<QuickAccessMenuItem> quickAccessItems;
-        private CollectionSyncHelper<QuickAccessMenuItem> quickAccessItemsSync;
+        private ObservableCollection<QuickAccessMenuItem>? quickAccessItems;
+        private CollectionSyncHelper<QuickAccessMenuItem>? quickAccessItemsSync;
 
         // Currently added in QAT items
 
-        private Window ownerWindow;
+        private Window? ownerWindow;
 
         #endregion
 
@@ -569,7 +569,7 @@ namespace Fluent
         /// Property for defining the QuickAccessToolBar.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public QuickAccessToolBar QuickAccessToolBar
+        public QuickAccessToolBar? QuickAccessToolBar
         {
             get { return (QuickAccessToolBar)this.GetValue(QuickAccessToolBarProperty); }
             private set { this.SetValue(QuickAccessToolBarPropertyKey, value); }
@@ -596,7 +596,7 @@ namespace Fluent
         /// </summary>
         [CanBeNull]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public RibbonTabControl TabControl
+        public RibbonTabControl? TabControl
         {
             get { return (RibbonTabControl)this.GetValue(TabControlProperty); }
             private set { this.SetValue(TabControlPropertyKey, value); }
@@ -614,7 +614,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets selected tab item
         /// </summary>
-        public RibbonTabItem SelectedTabItem
+        public RibbonTabItem? SelectedTabItem
         {
             get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
             set { this.SetValue(SelectedTabItemProperty, value); }
@@ -694,12 +694,12 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible TabItem
         /// </summary>
-        public RibbonTabItem FirstVisibleItem => this.GetFirstVisibleItem();
+        public RibbonTabItem? FirstVisibleItem => this.GetFirstVisibleItem();
 
         /// <summary>
         /// Gets the last visible TabItem
         /// </summary>
-        public RibbonTabItem LastVisibleItem => this.GetLastVisibleItem();
+        public RibbonTabItem? LastVisibleItem => this.GetLastVisibleItem();
 
         /// <summary>
         /// Gets currently active quick access elements.
@@ -842,12 +842,12 @@ namespace Fluent
         /// </summary>
         /// <param name="sender">Sender</param>
         /// <param name="e">The event data</param>
-        private void OnQuickAccessItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnQuickAccessItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<QuickAccessMenuItem>())
                     {
                         item.Ribbon = this;
                     }
@@ -855,7 +855,7 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
+                    foreach (var item in e.OldItems.NullSafe().OfType<QuickAccessMenuItem>())
                     {
                         item.Ribbon = null;
                     }
@@ -863,12 +863,12 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems.OfType<QuickAccessMenuItem>())
+                    foreach (var item in e.OldItems.NullSafe().OfType<QuickAccessMenuItem>())
                     {
                         item.Ribbon = null;
                     }
 
-                    foreach (var item in e.NewItems.OfType<QuickAccessMenuItem>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<QuickAccessMenuItem>())
                     {
                         item.Ribbon = this;
                     }
@@ -1142,7 +1142,7 @@ namespace Fluent
             }
         }
 
-        private void HandleKeyTipKeys_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void HandleKeyTipKeys_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.keyTipService.KeyTipKeys.Clear();
 
@@ -1304,9 +1304,10 @@ namespace Fluent
         private static void OnRemoveFromQuickAccessCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             if (sender is Ribbon ribbon
-                && ribbon.IsQuickAccessToolBarVisible)
+                && ribbon.IsQuickAccessToolBarVisible
+                && e.Parameter is UIElement element)
             {
-                e.CanExecute = ribbon.QuickAccessElements.ContainsValue(e.Parameter as UIElement);
+                e.CanExecute = ribbon.QuickAccessElements.ContainsValue(element);
             }
             else
             {
@@ -1405,7 +1406,7 @@ namespace Fluent
         /// <inheritdoc />
         protected override void OnGotFocus(RoutedEventArgs e)
         {
-            var ribbonTabItem = (RibbonTabItem)this.TabControl?.SelectedItem;
+            var ribbonTabItem = (RibbonTabItem?)this.TabControl?.SelectedItem;
             ribbonTabItem?.Focus();
         }
 
@@ -1505,7 +1506,7 @@ namespace Fluent
         /// <summary>
         /// Called when the <see cref="ownerWindow"/> is closed, so that we set it to null.
         /// </summary>
-        private void OnOwnerWindowClosed(object sender, EventArgs e)
+        private void OnOwnerWindowClosed(object? sender, EventArgs e)
         {
             this.DetachFromWindow();
         }
@@ -1549,7 +1550,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>True if element in quick access toolbar</returns>
-        public bool IsInQuickAccessToolBar(UIElement element)
+        public bool IsInQuickAccessToolBar(UIElement? element)
         {
             if (element is null)
             {
@@ -1563,7 +1564,7 @@ namespace Fluent
         /// Adds the given element to quick access toolbar
         /// </summary>
         /// <param name="element">Element</param>
-        public void AddToQuickAccessToolBar(UIElement element)
+        public void AddToQuickAccessToolBar(UIElement? element)
         {
             if (element is null)
             {
@@ -1597,12 +1598,15 @@ namespace Fluent
 
                 var control = QuickAccessItemsProvider.GetQuickAccessItem(element);
 
-                this.QuickAccessElements.Add(element, control);
-                this.QuickAccessToolBar.Items.Add(control);
+                if (control is not null)
+                {
+                    this.QuickAccessElements.Add(element, control);
+                    this.QuickAccessToolBar?.Items.Add(control);
+                }
             }
         }
 
-        private static IRibbonControl FindParentRibbonControl(DependencyObject element)
+        private static IRibbonControl? FindParentRibbonControl(DependencyObject element)
         {
             var parent = LogicalTreeHelper.GetParent(element);
 
@@ -1631,7 +1635,7 @@ namespace Fluent
             {
                 var quickAccessItem = this.QuickAccessElements[element];
                 this.QuickAccessElements.Remove(element);
-                this.QuickAccessToolBar.Items.Remove(quickAccessItem);
+                this.QuickAccessToolBar?.Items.Remove(quickAccessItem);
             }
         }
 
@@ -1705,12 +1709,12 @@ namespace Fluent
 
         #region Private methods
 
-        private RibbonTabItem GetFirstVisibleItem()
+        private RibbonTabItem? GetFirstVisibleItem()
         {
             return this.Tabs.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private RibbonTabItem GetLastVisibleItem()
+        private RibbonTabItem? GetLastVisibleItem()
         {
             return this.Tabs.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }

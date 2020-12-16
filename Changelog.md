@@ -7,6 +7,15 @@
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
 
+## 8.0.3
+
+- ### Bug fixes
+
+  - [#877](../../issues/877) - Titlebar and Quick-Access broken when using StartScreen
+  - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
+  - [#883](../../issues/883) - GroupBy not working anymore on Fluent:Gallery?  
+  Added `IsGrouped` to `Gallery`.
+
 ## 8.0.2
 
 - ### Bug fixes
@@ -51,6 +60,7 @@
 
 - ### Bug fixes
 
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
   - [#772](../../issues/772) - Backstage & Keyboard navigation
   - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
   - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items

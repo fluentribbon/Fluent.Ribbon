@@ -5,6 +5,7 @@
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);NU5125</NoWarn>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <Description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</Description>

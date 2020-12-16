@@ -14,7 +14,7 @@ namespace Fluent
     /// </summary>
     public class ApplicationMenu : DropDownButton
     {
-        private static readonly PropertyInfo targetElementPropertyInfo = typeof(ContextMenuEventArgs).GetProperty("TargetElement", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly PropertyInfo? targetElementPropertyInfo = typeof(ContextMenuEventArgs).GetProperty("TargetElement", BindingFlags.Instance | BindingFlags.NonPublic);
 
         #region Properties
 

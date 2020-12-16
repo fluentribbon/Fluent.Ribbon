@@ -18,7 +18,7 @@ namespace Fluent
         /// <summary>
         /// Occures when children has been changed
         /// </summary>
-        public event NotifyCollectionChangedEventHandler ChildrenChanged;
+        public event NotifyCollectionChangedEventHandler? ChildrenChanged;
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace Fluent
             this.Children.CollectionChanged += this.OnChildrenCollectionChanged;
         }
 
-        private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.ChildrenChanged?.Invoke(sender, e);
         }

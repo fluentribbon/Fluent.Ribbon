@@ -32,14 +32,14 @@ namespace Fluent
 #pragma warning restore SA1310 // Field names must not contain underscore
         // ReSharper restore InconsistentNaming
 
-        private FrameworkElement iconImage;
+        private FrameworkElement? iconImage;
 
         #region Properties
 
         #region TitelBar
 
         /// <inheritdoc />
-        public RibbonTitleBar TitleBar
+        public RibbonTitleBar? TitleBar
         {
             get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
             private set { this.SetValue(TitleBarPropertyKey, value); }
@@ -286,22 +286,22 @@ namespace Fluent
                 && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands.ItemsControl).GetZeroIfInfinityOrNaN())
             {
                 this.SetCurrentValue(IsIconVisibleProperty, false);
-                this.TitleBar.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
+                this.TitleBar?.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
                 this.WindowCommands.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, Visibility.Collapsed);
             }
             else
             {
                 this.InvalidateProperty(IsIconVisibleProperty);
-                this.iconImage.SetValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
+                this.iconImage?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
 
-                this.TitleBar.InvalidateProperty(VisibilityProperty);
+                this.TitleBar?.InvalidateProperty(VisibilityProperty);
 
                 this.WindowCommands.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
-                this.WindowCommands.ItemsControl.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
+                this.WindowCommands.ItemsControl?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
             }
         }
 
-        private void OnContentRendered(object sender, EventArgs e)
+        private void OnContentRendered(object? sender, EventArgs e)
         {
             this.ContentRendered -= this.OnContentRendered;
 
@@ -317,6 +317,11 @@ namespace Fluent
 
             this.RunInDispatcherAsync(() =>
                                       {
+                                          if (this.TitleBar is null)
+                                          {
+                                              return;
+                                          }
+
                                           // Fix for #454 while also keeping #473
                                           var availableSize = new Size(this.TitleBar.ActualWidth, this.TitleBar.ActualHeight);
                                           this.TitleBar.Measure(availableSize);
@@ -420,7 +425,7 @@ namespace Fluent
         /// </summary>
         /// <typeparam name="T">The interface type inheirted from DependencyObject.</typeparam>
         /// <param name="name">The name of the template child.</param>
-        internal T GetPart<T>(string name)
+        internal T? GetPart<T>(string name)
             where T : DependencyObject
         {
             return this.GetTemplateChild(name) as T;

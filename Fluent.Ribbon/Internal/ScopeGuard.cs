@@ -10,8 +10,8 @@
 #pragma warning restore CA1063 // Implement IDisposable Correctly
     {
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private readonly Action onEntry;
-        private readonly Action onDispose;
+        private readonly Action? onEntry;
+        private readonly Action? onDispose;
 
         /// <summary>
         /// Creates a new instance.
