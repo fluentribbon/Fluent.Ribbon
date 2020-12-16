@@ -6,6 +6,8 @@
 
   - [#877](../../issues/877) - Titlebar and Quick-Access broken when using StartScreen
   - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
+  - [#883](../../issues/883) - GroupBy not working anymore on Fluent:Gallery?  
+  Added `IsGrouped` to `Gallery`.
 
 ## 8.0.2
 

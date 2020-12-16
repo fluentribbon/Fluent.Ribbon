@@ -64,6 +64,23 @@ namespace Fluent
 
         #endregion
 
+        #region IsGrouped
+
+        /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>
+        public static readonly DependencyProperty IsGroupedProperty = DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>
+        /// Gets or sets whether the inner gallery panel shows groups
+        /// (Filter property still works as usual)
+        /// </summary>
+        public bool IsGrouped
+        {
+            get { return (bool)this.GetValue(IsGroupedProperty); }
+            set { this.SetValue(IsGroupedProperty, value); }
+        }
+
+        #endregion
+
         #region GroupBy
 
         /// <summary>
