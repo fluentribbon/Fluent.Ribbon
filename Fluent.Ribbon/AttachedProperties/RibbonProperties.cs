@@ -99,10 +99,10 @@ namespace Fluent
         }
 
         // Finds parent group box
-        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject element)
+        internal static RibbonGroupBox? FindParentRibbonGroupBox(DependencyObject element)
         {
             var currentElement = element;
-            RibbonGroupBox groupBox;
+            RibbonGroupBox? groupBox;
 
             while ((groupBox = currentElement as RibbonGroupBox) is null)
             {
@@ -224,8 +224,15 @@ namespace Fluent
         }
 
         /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
-        public static double GetLastVisibleWidth(DependencyObject element)
+        public static double GetLastVisibleWidth(DependencyObject? element)
         {
+#pragma warning disable WPF0042 // Avoid side effects in CLR accessors.
+            if (element is null)
+            {
+                return 0;
+            }
+#pragma warning restore WPF0042 // Avoid side effects in CLR accessors.
+
             return (double)element.GetValue(LastVisibleWidthProperty);
         }
 

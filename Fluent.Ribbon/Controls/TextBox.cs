@@ -16,7 +16,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentHost", Type = typeof(UIElement))]
     public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl
     {
-        private UIElement contentHost;
+        private UIElement? contentHost;
 
         #region Properties (Dependency)
 
@@ -227,7 +227,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -241,7 +241,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }

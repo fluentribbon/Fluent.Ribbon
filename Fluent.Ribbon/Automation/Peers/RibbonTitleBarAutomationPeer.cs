@@ -35,7 +35,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        protected override string? GetNameCore()
         {
             var contentPresenter = this.Owner as HeaderedContentControl;
 

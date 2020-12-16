@@ -18,6 +18,6 @@
         /// <summary>
         /// Gets or sets Icon for the element
         /// </summary>
-        object Icon { get; set; }
+        object? Icon { get; set; }
     }
 }

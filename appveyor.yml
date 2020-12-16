@@ -12,7 +12,8 @@ pull_requests:
   do_not_increment_build_number: false
 
 install:
-  - cinst dotnet-5.0-sdk
+  - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
+  - ps: ./dotnet-install.ps1 -Version 5.0.100 -InstallDir "C:\Program Files\dotnet"
 
 build_script:
   - ps: dotnet --list-sdks

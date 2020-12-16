@@ -12,7 +12,7 @@
     /// </summary>
     public static class WindowSteeringHelper
     {
-        private static readonly PropertyInfo criticalHandlePropertyInfo = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly PropertyInfo? criticalHandlePropertyInfo = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private static readonly object[] emptyObjectArray = new object[0];
 
@@ -62,16 +62,19 @@
                 // for the touch usage
                 UnsafeNativeMethods.ReleaseCapture();
 
-                var criticalHandle = (IntPtr)criticalHandlePropertyInfo.GetValue(window, emptyObjectArray);
-#pragma warning disable 618
-                // these lines are from DragMove
-                // NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
-                // NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
+                var criticalHandle = (IntPtr)(criticalHandlePropertyInfo?.GetValue(window, emptyObjectArray) ?? IntPtr.Zero);
 
-                var wpfPoint = window.PointToScreen(Mouse.GetPosition(window));
-                var x = (int)wpfPoint.X;
-                var y = (int)wpfPoint.Y;
-                NativeMethods.SendMessage(criticalHandle, WM.NCLBUTTONDOWN, (IntPtr)HT.CAPTION, new IntPtr(x | (y << 16)));
+                if (criticalHandle != IntPtr.Zero)
+                {
+                    // these lines are from DragMove
+                    // NativeMethods.SendMessage(criticalHandle, WM.SYSCOMMAND, (IntPtr)SC.MOUSEMOVE, IntPtr.Zero);
+                    // NativeMethods.SendMessage(criticalHandle, WM.LBUTTONUP, IntPtr.Zero, IntPtr.Zero);
+
+                    var wpfPoint = window.PointToScreen(Mouse.GetPosition(window));
+                    var x = (int)wpfPoint.X;
+                    var y = (int)wpfPoint.Y;
+                    NativeMethods.SendMessage(criticalHandle, WM.NCLBUTTONDOWN, (IntPtr)HT.CAPTION, new IntPtr(x | (y << 16)));
+                }
             }
             else if (handleStateChange
                 && e.ClickCount == 2
@@ -89,7 +92,6 @@
                 }
             }
         }
-
 #pragma warning restore 618
 
         /// <summary>

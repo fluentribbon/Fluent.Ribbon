@@ -107,7 +107,7 @@ namespace Fluent
         /// <param name="adornedElement">Element to adorn.</param>
         /// <param name="parentAdorner">Parent adorner or null.</param>
         /// <param name="keyTipElementContainer">The element which is container for elements.</param>
-        public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner parentAdorner)
+        public KeyTipAdorner(FrameworkElement adornedElement, FrameworkElement keyTipElementContainer, KeyTipAdorner? parentAdorner)
             : base(adornedElement)
         {
             this.parentAdorner = parentAdorner;
@@ -600,14 +600,19 @@ namespace Fluent
             if (panel is null == false
                 && groupBox is null == false)
             {
-                var height = groupBox.GetLayoutRoot().DesiredSize.Height;
-                rows = new[]
-                       {
-                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
-                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
-                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
-                           groupBox.GetLayoutRoot().TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
-                       };
+                var layoutRoot = groupBox.GetLayoutRoot();
+
+                if (layoutRoot is not null)
+                {
+                    var height = layoutRoot.DesiredSize.Height;
+                    rows = new[]
+                           {
+                               layoutRoot.TranslatePoint(new Point(0, 0), this.AdornedElement).Y,
+                               layoutRoot.TranslatePoint(new Point(0, panel.DesiredSize.Height / 2.0), this.AdornedElement).Y,
+                               layoutRoot.TranslatePoint(new Point(0, panel.DesiredSize.Height), this.AdornedElement).Y,
+                               layoutRoot.TranslatePoint(new Point(0, height + 1), this.AdornedElement).Y
+                           };
+                }
             }
 
             foreach (var keyTipInformation in this.keyTipInformations)

@@ -29,13 +29,13 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        private Thumb? resizeBothThumb;
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        private Thumb? resizeVerticalThumb;
 
-        private Panel menuPanel;
+        private Panel? menuPanel;
 
-        private ScrollViewer scrollViewer;
+        private ScrollViewer? scrollViewer;
 
         #endregion
 
@@ -89,7 +89,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -194,7 +194,7 @@ namespace Fluent
         #region GroupName
 
         /// <inheritdoc />
-        public string GroupName
+        public string? GroupName
         {
             get { return (string)this.GetValue(GroupNameProperty); }
             set { this.SetValue(GroupNameProperty, value); }
@@ -217,10 +217,10 @@ namespace Fluent
         #region Events
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -340,27 +340,33 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu opened
         /// </summary>
-        protected void OnQuickAccessOpened(object sender, EventArgs e)
+        protected void OnQuickAccessOpened(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
 
-            buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
-            buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
+            if (buttonInQuickAccess is not null)
+            {
+                buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
+                buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
 
-            ItemsControlHelper.MoveItemsToDifferentControl(this, buttonInQuickAccess);
+                ItemsControlHelper.MoveItemsToDifferentControl(this, buttonInQuickAccess);
+            }
         }
 
         /// <summary>
         /// Handles quick access button drop down menu closed
         /// </summary>
-        protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
+        protected void OnQuickAccessMenuClosedOrUnloaded(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
 
-            buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
-            buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
+            if (buttonInQuickAccess is not null)
+            {
+                buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
+                buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
 
-            ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+                ItemsControlHelper.MoveItemsToDifferentControl(buttonInQuickAccess, this);
+            }
         }
 
         /// <inheritdoc />
@@ -751,13 +757,13 @@ namespace Fluent
         }
 
         // Handles drop down opened
-        private void OnDropDownClosed(object sender, EventArgs e)
+        private void OnDropDownClosed(object? sender, EventArgs e)
         {
             this.DropDownClosed?.Invoke(this, e);
         }
 
         // Handles drop down closed
-        private void OnDropDownOpened(object sender, EventArgs e)
+        private void OnDropDownOpened(object? sender, EventArgs e)
         {
             if (this.scrollViewer != null
                 && this.ResizeMode != ContextMenuResizeMode.None)

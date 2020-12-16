@@ -15,7 +15,7 @@
         public static BackstageTabControlItemContainerStyleSelector Instance { get; } = new BackstageTabControlItemContainerStyleSelector();
 
         /// <inheritdoc />
-        public override Style SelectStyle(object item, DependencyObject container)
+        public override Style? SelectStyle(object item, DependencyObject container)
         {
             switch (item)
             {

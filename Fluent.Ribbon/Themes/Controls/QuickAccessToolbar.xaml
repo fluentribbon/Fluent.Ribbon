@@ -284,6 +284,12 @@
                 <Setter Property="Visibility"
                         TargetName="PART_ShowAbove"
                         Value="Visible" />
+                <Setter Property="Icon"
+                        TargetName="PART_MenuDownButton"
+                        Value="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown.BelowRibbon}" />
+                <Setter Property="Icon"
+                        TargetName="PART_ToolbarDownButton"
+                        Value="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender.BelowRibbon}" />
             </Trigger>
             <Trigger Property="HasOverflowItems"
                      Value="True">

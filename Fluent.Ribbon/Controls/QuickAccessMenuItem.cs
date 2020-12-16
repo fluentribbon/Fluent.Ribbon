@@ -38,7 +38,7 @@ namespace Fluent
     {
         #region Fields
 
-        internal Ribbon Ribbon { get; set; }
+        internal Ribbon? Ribbon { get; set; }
 
         #endregion
 
@@ -192,7 +192,7 @@ namespace Fluent
         /// <param name="element">Control</param>
         /// <returns>True if this control is able to provide
         /// a quick access toolbar item, false otherwise</returns>
-        public static bool IsSupported(UIElement element)
+        public static bool IsSupported(UIElement? element)
         {
             if (element is IQuickAccessItemProvider provider
                 && provider.CanAddToQuickAccessToolBar)
@@ -208,9 +208,9 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        public static FrameworkElement GetQuickAccessItem(UIElement element)
+        public static FrameworkElement? GetQuickAccessItem(UIElement element)
         {
-            FrameworkElement result = null;
+            FrameworkElement? result = null;
 
             // If control supports the interface just return what it provides
             if (element is IQuickAccessItemProvider provider
@@ -243,7 +243,7 @@ namespace Fluent
         /// <summary>
         /// Finds the top supported control
         /// </summary>
-        public static FrameworkElement FindSupportedControl(Visual visual, Point point)
+        public static FrameworkElement? FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);
             if (result is null)

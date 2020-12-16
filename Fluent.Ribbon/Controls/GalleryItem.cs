@@ -202,7 +202,7 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }

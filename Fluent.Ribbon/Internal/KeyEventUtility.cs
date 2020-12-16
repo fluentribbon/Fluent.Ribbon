@@ -5,7 +5,7 @@
 
     internal static class KeyEventUtility
     {
-        public static string GetStringFromKey(Key key)
+        public static string? GetStringFromKey(Key key)
         {
             var keyboardState = new byte[256];
 #pragma warning disable 618

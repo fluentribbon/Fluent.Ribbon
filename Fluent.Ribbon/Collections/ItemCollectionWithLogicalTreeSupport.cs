@@ -126,7 +126,8 @@
 
         private void AddLogicalChild(TItem item)
         {
-            if (this.IsOwningItems == false)
+            if (this.IsOwningItems == false
+                || item is null)
             {
                 return;
             }
@@ -136,7 +137,8 @@
 
         private void RemoveLogicalChild(TItem item)
         {
-            if (this.IsOwningItems == false)
+            if (this.IsOwningItems == false
+                || item is null)
             {
                 return;
             }

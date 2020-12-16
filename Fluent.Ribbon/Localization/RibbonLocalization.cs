@@ -25,12 +25,12 @@ namespace Fluent
         #region Implementation of INotifyPropertyChanged
 
         /// <inheritdoc />
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Raises the <see cref="PropertyChanged"/> event.
         /// </summary>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -88,11 +88,13 @@ namespace Fluent
         /// <summary>
         /// Default constructor
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public RibbonLocalization()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             var localizationClasses = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Fluent.Localization.Languages");
 
-            this.LocalizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>().CultureName, x => x);
+            this.LocalizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>()!.CultureName, x => x);
 
             this.Culture = CultureInfo.CurrentUICulture;
         }
@@ -101,13 +103,13 @@ namespace Fluent
         {
             if (this.LocalizationMap.TryGetValue(requestedCulture.Name, out var localizationClass))
             {
-                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
+                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass)!;
                 return;
             }
 
             if (this.LocalizationMap.TryGetValue(requestedCulture.TwoLetterISOLanguageName, out localizationClass))
             {
-                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
+                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass)!;
                 return;
             }
 
