@@ -38,8 +38,12 @@ namespace Fluent
 
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;
-            this.backstageTabControl = this.backstageContent as BackstageTabControl
-                                       ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+
+            if (this.backstageContent is not null)
+            {
+                this.backstageTabControl = this.backstageContent as BackstageTabControl
+                                           ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+            }
 
             this.background = new Rectangle();
 

@@ -110,9 +110,9 @@ namespace Fluent
         /// Gets or sets ItemContainerGenerator which generates the
         /// user interface (UI) on behalf of its host, such as an  ItemsControl.
         /// </summary>
-        public ItemContainerGenerator ItemContainerGenerator
+        public ItemContainerGenerator? ItemContainerGenerator
         {
-            get { return (ItemContainerGenerator)this.GetValue(ItemContainerGeneratorProperty); }
+            get { return (ItemContainerGenerator?)this.GetValue(ItemContainerGeneratorProperty); }
             set { this.SetValue(ItemContainerGeneratorProperty, value); }
         }
 
@@ -172,9 +172,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets groups names separated by comma which must be shown
         /// </summary>
-        public string Filter
+        public string? Filter
         {
-            get { return (string)this.GetValue(FilterProperty); }
+            get { return (string?)this.GetValue(FilterProperty); }
             set { this.SetValue(FilterProperty, value); }
         }
 

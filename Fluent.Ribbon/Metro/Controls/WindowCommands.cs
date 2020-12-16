@@ -180,7 +180,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the button brush
         /// </summary>
-        public Brush? ButtonBrush
+        public Brush ButtonBrush
         {
             get { return (Brush)this.GetValue(ButtonBrushProperty); }
             set { this.SetValue(ButtonBrushProperty, value); }

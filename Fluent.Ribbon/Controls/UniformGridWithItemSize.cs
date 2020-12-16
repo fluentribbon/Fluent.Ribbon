@@ -54,9 +54,9 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMinColumns);
 
-        private static bool ValidateMinColumns(object o)
+        private static bool ValidateMinColumns(object? o)
         {
-            return (int)o >= 0;
+            return o is int intValue && intValue >= 0;
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMaxColumns);
 
-        private static bool ValidateMaxColumns(object o)
+        private static bool ValidateMaxColumns(object? o)
         {
-            return (int)o >= 0;
+            return o is int intValue && intValue >= 0;
         }
 
         /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>

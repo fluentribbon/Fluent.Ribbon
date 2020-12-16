@@ -42,9 +42,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets style for the separator
         /// </summary>
-        public Style SeparatorStyle
+        public Style? SeparatorStyle
         {
-            get { return (Style)this.GetValue(SeparatorStyleProperty); }
+            get { return (Style?)this.GetValue(SeparatorStyleProperty); }
             set { this.SetValue(SeparatorStyleProperty, value); }
         }
 

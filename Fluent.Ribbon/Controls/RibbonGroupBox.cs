@@ -67,9 +67,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -315,9 +315,9 @@ namespace Fluent
         [DisplayName("DialogLauncher Keys")]
         [Category("KeyTips")]
         [Description("Key tip keys for dialog launcher button")]
-        public string LauncherKeys
+        public string? LauncherKeys
         {
-            get { return (string)this.GetValue(LauncherKeysProperty); }
+            get { return (string?)this.GetValue(LauncherKeysProperty); }
             set { this.SetValue(LauncherKeysProperty, value); }
         }
 
@@ -331,7 +331,7 @@ namespace Fluent
             var ribbonGroupBox = (RibbonGroupBox)d;
             if (ribbonGroupBox.LauncherButton != null)
             {
-                ribbonGroupBox.LauncherButton.KeyTip = (string)e.NewValue;
+                ribbonGroupBox.LauncherButton.KeyTip = (string?)e.NewValue;
             }
         }
 
@@ -359,9 +359,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets launcher button text
         /// </summary>
-        public string LauncherText
+        public string? LauncherText
         {
-            get { return (string)this.GetValue(LauncherTextProperty); }
+            get { return (string?)this.GetValue(LauncherTextProperty); }
             set { this.SetValue(LauncherTextProperty, value); }
         }
 
@@ -383,7 +383,7 @@ namespace Fluent
         {
             get
             {
-                return (ICommand)this.GetValue(LauncherCommandProperty);
+                return (ICommand?)this.GetValue(LauncherCommandProperty);
             }
 
             set
@@ -420,7 +420,7 @@ namespace Fluent
         {
             get
             {
-                return (IInputElement)this.GetValue(LauncherCommandTargetProperty);
+                return (IInputElement?)this.GetValue(LauncherCommandTargetProperty);
             }
 
             set
@@ -445,7 +445,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets launcher button tooltip
         /// </summary>
-        public object LauncherToolTip
+        public object? LauncherToolTip
         {
             get { return this.GetValue(LauncherToolTipProperty); }
             set { this.SetValue(LauncherToolTipProperty, value); }
@@ -481,7 +481,7 @@ namespace Fluent
         /// </summary>
         public Button? LauncherButton
         {
-            get { return (Button)this.GetValue(LauncherButtonProperty); }
+            get { return (Button?)this.GetValue(LauncherButtonProperty); }
             private set { this.SetValue(LauncherButtonPropertyKey, value); }
         }
 
@@ -506,7 +506,7 @@ namespace Fluent
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
-        private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
+        private static object? CoerceIsDropDownOpen(DependencyObject d, object? basevalue)
         {
             var box = (RibbonGroupBox)d;
 
@@ -528,7 +528,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets icon
         /// </summary>
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }

@@ -16,7 +16,7 @@ namespace Fluent
         /// <summary>
         /// Left side panel content of the startscreen.
         /// </summary>
-        public object LeftContent
+        public object? LeftContent
         {
             get { return this.GetValue(LeftContentProperty); }
             set { this.SetValue(LeftContentProperty, value); }
@@ -41,7 +41,7 @@ namespace Fluent
         /// <summary>
         /// Right side panel content of the startscreen.
         /// </summary>
-        public object RightContent
+        public object? RightContent
         {
             get { return this.GetValue(RightContentProperty); }
             set { this.SetValue(RightContentProperty, value); }

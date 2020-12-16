@@ -21,15 +21,15 @@
         /// <summary>
         /// Gets the behaviors associated with <paramref name="dpo"/>
         /// </summary>
-        public static StylizedBehaviorCollection GetBehaviors(DependencyObject dpo)
+        public static StylizedBehaviorCollection? GetBehaviors(DependencyObject dpo)
         {
-            return (StylizedBehaviorCollection)dpo.GetValue(BehaviorsProperty);
+            return (StylizedBehaviorCollection?)dpo.GetValue(BehaviorsProperty);
         }
 
         /// <summary>
         /// Sets the behaviors associated with <paramref name="dpo"/>
         /// </summary>
-        public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection value)
+        public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection? value)
         {
             dpo.SetValue(BehaviorsProperty, value);
         }
@@ -161,12 +161,12 @@
                                                   typeof(StylizedBehaviors),
                                                   new UIPropertyMetadata(null));
 
-        private static Behavior GetOriginalBehavior(DependencyObject obj)
+        private static Behavior? GetOriginalBehavior(DependencyObject obj)
         {
             return (Behavior)obj.GetValue(OriginalBehaviorProperty);
         }
 
-        private static void SetOriginalBehavior(DependencyObject obj, Behavior value)
+        private static void SetOriginalBehavior(DependencyObject obj, Behavior? value)
         {
             obj.SetValue(OriginalBehaviorProperty, value);
         }

@@ -258,7 +258,7 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Help Topic")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Help topic (it will be used to execute help)")]
-        public object HelpTopic
+        public object? HelpTopic
         {
             get { return this.GetValue(HelpTopicProperty); }
             set { this.SetValue(HelpTopicProperty, value); }
@@ -278,9 +278,9 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Image")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Image of the screen tip")]
-        public ImageSource Image
+        public ImageSource? Image
         {
-            get { return (ImageSource)this.GetValue(ImageProperty); }
+            get { return (ImageSource?)this.GetValue(ImageProperty); }
             set { this.SetValue(ImageProperty, value); }
         }
 
@@ -423,7 +423,7 @@ namespace Fluent
         /// Constructor
         /// </summary>
         /// <param name="helpTopic">Help topic</param>
-        public ScreenTipHelpEventArgs(object helpTopic)
+        public ScreenTipHelpEventArgs(object? helpTopic)
         {
             this.HelpTopic = helpTopic;
         }
@@ -431,6 +431,6 @@ namespace Fluent
         /// <summary>
         /// Gets help topic associated with screen tip
         /// </summary>
-        public object HelpTopic { get; }
+        public object? HelpTopic { get; }
     }
 }

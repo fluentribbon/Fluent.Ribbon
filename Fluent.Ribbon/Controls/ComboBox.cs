@@ -90,9 +90,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -145,7 +145,7 @@ namespace Fluent
         /// </summary>
         public RibbonMenu? Menu
         {
-            get { return (RibbonMenu)this.GetValue(MenuProperty); }
+            get { return (RibbonMenu?)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -288,7 +288,7 @@ namespace Fluent
             }
         }
 
-        private static object? CoerceSelectedItem(DependencyObject d, object basevalue)
+        private static object? CoerceSelectedItem(DependencyObject d, object? basevalue)
         {
             var combo = (ComboBox)d;
             if (combo.isQuickAccessOpened

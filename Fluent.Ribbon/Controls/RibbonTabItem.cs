@@ -59,9 +59,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the background if this <see cref="RibbonTabItem"/> is the currently active/selected one.
         /// </summary>
-        public Brush ActiveTabBackground
+        public Brush? ActiveTabBackground
         {
-            get { return (Brush)this.GetValue(ActiveTabBackgroundProperty); }
+            get { return (Brush?)this.GetValue(ActiveTabBackgroundProperty); }
             set { this.SetValue(ActiveTabBackgroundProperty, value); }
         }
 
@@ -72,9 +72,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="Brush"/> which is used to render the border if this <see cref="RibbonTabItem"/> is the currently active/selected one.
         /// </summary>
-        public Brush ActiveTabBorderBrush
+        public Brush? ActiveTabBorderBrush
         {
-            get { return (Brush)this.GetValue(ActiveTabBorderBrushProperty); }
+            get { return (Brush?)this.GetValue(ActiveTabBorderBrushProperty); }
             set { this.SetValue(ActiveTabBorderBrushProperty, value); }
         }
 
@@ -87,9 +87,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -133,7 +133,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets reduce order
         /// </summary>
-        public string ReduceOrder
+        public string? ReduceOrder
         {
             get { return this.groupsInnerContainer.ReduceOrder; }
             set { this.groupsInnerContainer.ReduceOrder = value; }
@@ -216,9 +216,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets ribbon contextual tab group
         /// </summary>
-        public RibbonContextualTabGroup Group
+        public RibbonContextualTabGroup? Group
         {
-            get { return (RibbonContextualTabGroup)this.GetValue(GroupProperty); }
+            get { return (RibbonContextualTabGroup?)this.GetValue(GroupProperty); }
             set { this.SetValue(GroupProperty, value); }
         }
 
@@ -231,11 +231,10 @@ namespace Fluent
         {
             var tab = (RibbonTabItem)d;
 
-            ((RibbonContextualTabGroup)e.OldValue)?.RemoveTabItem(tab);
+            ((RibbonContextualTabGroup?)e.OldValue)?.RemoveTabItem(tab);
 
-            if (e.NewValue != null)
+            if (e.NewValue is RibbonContextualTabGroup tabGroup)
             {
-                var tabGroup = (RibbonContextualTabGroup)e.NewValue;
                 tabGroup.AppendTabItem(tab);
                 tab.IsContextual = true;
             }
@@ -379,9 +378,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets header template of tab item.
         /// </summary>
-        public DataTemplate HeaderTemplate
+        public DataTemplate? HeaderTemplate
         {
-            get { return (DataTemplate)this.GetValue(HeaderTemplateProperty); }
+            get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
             set { this.SetValue(HeaderTemplateProperty, value); }
         }
 
@@ -403,14 +402,15 @@ namespace Fluent
         /// <summary>
         /// Coerces Focusable
         /// </summary>
-        private static object CoerceFocusable(DependencyObject d, object basevalue)
+        private static object? CoerceFocusable(DependencyObject d, object? basevalue)
         {
             var control = d as RibbonTabItem;
             var ribbon = control?.FindParentRibbon();
 
-            if (ribbon != null)
+            if (ribbon is not null
+                && basevalue is bool boolValue)
             {
-                return (bool)basevalue
+                return boolValue
                        && ribbon.Focusable;
             }
 

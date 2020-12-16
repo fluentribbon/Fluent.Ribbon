@@ -13,9 +13,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets Ribbon Status Bar menu item
         /// </summary>
-        public StatusBarItem StatusBarItem
+        public StatusBarItem? StatusBarItem
         {
-            get { return (StatusBarItem)this.GetValue(StatusBarItemProperty); }
+            get { return (StatusBarItem?)this.GetValue(StatusBarItemProperty); }
             set { this.SetValue(StatusBarItemProperty, value); }
         }
 

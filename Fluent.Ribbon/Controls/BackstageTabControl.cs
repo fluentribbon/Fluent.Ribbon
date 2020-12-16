@@ -81,11 +81,11 @@ namespace Fluent
         /// <summary>
         /// Get or sets the string format for the content.
         /// </summary>
-        public string ContentStringFormat
+        public string? ContentStringFormat
         {
             get
             {
-                return (string)this.GetValue(ContentStringFormatProperty);
+                return (string?)this.GetValue(ContentStringFormatProperty);
             }
 
             set
@@ -97,11 +97,11 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="DataTemplate"/> which should be used for the content
         /// </summary>
-        public DataTemplate ContentTemplate
+        public DataTemplate? ContentTemplate
         {
             get
             {
-                return (DataTemplate)this.GetValue(ContentTemplateProperty);
+                return (DataTemplate?)this.GetValue(ContentTemplateProperty);
             }
 
             set
@@ -113,11 +113,11 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the content
         /// </summary>
-        public DataTemplateSelector ContentTemplateSelector
+        public DataTemplateSelector? ContentTemplateSelector
         {
             get
             {
-                return (DataTemplateSelector)this.GetValue(ContentTemplateSelectorProperty);
+                return (DataTemplateSelector?)this.GetValue(ContentTemplateSelectorProperty);
             }
 
             set
@@ -129,11 +129,11 @@ namespace Fluent
         /// <summary>
         /// Get or sets the string format for the selected content.
         /// </summary>
-        public string SelectedContentStringFormat
+        public string? SelectedContentStringFormat
         {
             get
             {
-                return (string)this.GetValue(SelectedContentStringFormatProperty);
+                return (string?)this.GetValue(SelectedContentStringFormatProperty);
             }
 
             internal set
@@ -167,7 +167,7 @@ namespace Fluent
         {
             get
             {
-                return (DataTemplateSelector)this.GetValue(SelectedContentTemplateSelectorProperty);
+                return (DataTemplateSelector?)this.GetValue(SelectedContentTemplateSelectorProperty);
             }
 
             internal set
@@ -197,9 +197,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets current Backround of the ItemsPanel
         /// </summary>
-        public Brush ItemsPanelBackground
+        public Brush? ItemsPanelBackground
         {
-            get { return (Brush)this.GetValue(ItemsPanelBackgroundProperty); }
+            get { return (Brush?)this.GetValue(ItemsPanelBackgroundProperty); }
             set { this.SetValue(ItemsPanelBackgroundProperty, value); }
         }
 

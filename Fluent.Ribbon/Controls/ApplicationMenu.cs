@@ -33,7 +33,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets application menu right pane content
         /// </summary>
-        public object RightPaneContent
+        public object? RightPaneContent
         {
             get { return this.GetValue(RightPaneContentProperty); }
             set { this.SetValue(RightPaneContentProperty, value); }
@@ -45,7 +45,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets application menu bottom pane content
         /// </summary>
-        public object FooterPaneContent
+        public object? FooterPaneContent
         {
             get { return this.GetValue(FooterPaneContentProperty); }
             set { this.SetValue(FooterPaneContentProperty, value); }
@@ -73,7 +73,7 @@ namespace Fluent
             KeyTipProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceKeys));
         }
 
-        private static object CoerceKeys(DependencyObject d, object basevalue)
+        private static object CoerceKeys(DependencyObject d, object? basevalue)
         {
             return basevalue ?? RibbonLocalization.Current.Localization.BackstageButtonKeyTip;
         }

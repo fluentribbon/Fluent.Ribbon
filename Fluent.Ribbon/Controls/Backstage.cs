@@ -107,7 +107,7 @@ namespace Fluent
         public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        private static object CoerceIsOpen(DependencyObject d, object baseValue)
+        private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
         {
             var backstage = (Backstage)d;
 
@@ -162,9 +162,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets content of the backstage
         /// </summary>
-        public UIElement Content
+        public UIElement? Content
         {
-            get { return (UIElement)this.GetValue(ContentProperty); }
+            get { return (UIElement?)this.GetValue(ContentProperty); }
             set { this.SetValue(ContentProperty, value); }
         }
 

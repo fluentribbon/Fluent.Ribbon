@@ -170,8 +170,11 @@ namespace Fluent
                         {
                             if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
-                                menuItem.StatusBarItem.Checked -= this.OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
+                                if (menuItem.StatusBarItem is not null)
+                                {
+                                    menuItem.StatusBarItem.Checked -= this.OnItemChecked;
+                                    menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
+                                }
                             }
 
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
@@ -186,8 +189,11 @@ namespace Fluent
                         {
                             if (this.contextMenu.Items[e.OldStartingIndex + 1] is StatusBarMenuItem menuItem)
                             {
-                                menuItem.StatusBarItem.Checked -= this.OnItemChecked;
-                                menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
+                                if (menuItem.StatusBarItem is not null)
+                                {
+                                    menuItem.StatusBarItem.Checked -= this.OnItemChecked;
+                                    menuItem.StatusBarItem.Unchecked -= this.OnItemUnchecked;
+                                }
                             }
 
                             this.contextMenu.Items.RemoveAt(e.OldStartingIndex + 1);
