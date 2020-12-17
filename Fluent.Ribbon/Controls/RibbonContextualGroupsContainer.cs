@@ -95,7 +95,7 @@ namespace Fluent
                     // to invalidate down to RibbonTabsContainer
                     var visual = visibleItems[0] as Visual;
 
-                    while (visual != null)
+                    while (visual is not null)
                     {
                         if (visual is UIElement uiElement)
                         {

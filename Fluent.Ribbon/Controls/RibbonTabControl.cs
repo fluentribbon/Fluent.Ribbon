@@ -431,13 +431,13 @@ namespace Fluent
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
             }
 
-            if (this.ToolbarPanel != null
-                && this.toolBarItems != null)
+            if (this.ToolbarPanel is not null
+                && this.toolBarItems is not null)
             {
                 foreach (var item in this.toolBarItems)
                 {
@@ -448,8 +448,8 @@ namespace Fluent
 
             this.ToolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
 
-            if (this.ToolbarPanel != null
-                && this.toolBarItems != null)
+            if (this.ToolbarPanel is not null
+                && this.toolBarItems is not null)
             {
                 foreach (var item in this.toolBarItems)
                 {
@@ -480,7 +480,7 @@ namespace Fluent
                 }
 
                 var item = this.FindNextTabItem(startIndex, -1);
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -603,7 +603,7 @@ namespace Fluent
 
             var nextTabItem = this.FindNextTabItem(startIndex, direction);
 
-            if (nextTabItem != null
+            if (nextTabItem is not null
                 && ReferenceEquals(nextTabItem, this.SelectedItem) == false)
             {
                 e.Handled = true;
@@ -636,7 +636,7 @@ namespace Fluent
             // - any control inside a RibbonGroupBox has focus
             // - any control outside this RibbonTabControl caused the mouse wheel event
             if ((Keyboard.FocusedElement is DependencyObject focusedElement
-                && UIHelper.GetParent<RibbonGroupBox>(focusedElement) != null)
+                && UIHelper.GetParent<RibbonGroupBox>(focusedElement) is not null)
                 ||
                 (e.OriginalSource is DependencyObject originalSource
                 && UIHelper.GetParent<RibbonTabControl>(originalSource) is null))
@@ -751,7 +751,7 @@ namespace Fluent
             else
             {
                 var selectedTabItem = this.GetSelectedTabItem();
-                if (selectedTabItem != null)
+                if (selectedTabItem is not null)
                 {
                     this.SelectedContent = selectedTabItem.GroupsContainer;
                     this.SelectedTabItem = selectedTabItem;
@@ -816,7 +816,7 @@ namespace Fluent
             {
                 var item = tabControl.FindNextTabItem(-1, 1);
 
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -939,7 +939,7 @@ namespace Fluent
                 ribbonTabControl.OnRibbonTabPopupClosing();
             }
 
-            if (ribbonTabControl.SelectedTabItem != null)
+            if (ribbonTabControl.SelectedTabItem is not null)
             {
                 var peer = UIElementAutomationPeer.CreatePeerForElement(ribbonTabControl.SelectedTabItem) as RibbonTabItemAutomationPeer;
                 peer?.RaiseTabExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
@@ -1014,7 +1014,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.SelectedContent != null)
+                if (this.SelectedContent is not null)
                 {
                     yield return this.SelectedContent;
                 }

@@ -329,7 +329,7 @@ namespace Fluent
         private static void OnLauncherKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbonGroupBox = (RibbonGroupBox)d;
-            if (ribbonGroupBox.LauncherButton != null)
+            if (ribbonGroupBox.LauncherButton is not null)
             {
                 ribbonGroupBox.LauncherButton.KeyTip = (string?)e.NewValue;
             }
@@ -642,12 +642,12 @@ namespace Fluent
 
             this.UpdateScalableControlSubscritions(true);
 
-            if (this.LauncherButton != null)
+            if (this.LauncherButton is not null)
             {
                 this.LauncherButton.Click += this.OnDialogLauncherButtonClick;
             }
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened += this.OnPopupOpened;
                 this.DropDownPopup.Closed += this.OnPopupClosed;
@@ -658,12 +658,12 @@ namespace Fluent
         {
             this.UpdateScalableControlSubscritions(false);
 
-            if (this.LauncherButton != null)
+            if (this.LauncherButton is not null)
             {
                 this.LauncherButton.Click -= this.OnDialogLauncherButtonClick;
             }
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened -= this.OnPopupOpened;
                 this.DropDownPopup.Closed -= this.OnPopupClosed;
@@ -918,9 +918,9 @@ namespace Fluent
 
             this.LauncherButton = this.GetTemplateChild("PART_DialogLauncherButton") as Button;
 
-            if (this.LauncherButton != null)
+            if (this.LauncherButton is not null)
             {
-                if (this.LauncherKeys != null)
+                if (this.LauncherKeys is not null)
                 {
                     this.LauncherButton.KeyTip = this.LauncherKeys;
                 }
@@ -1088,7 +1088,7 @@ namespace Fluent
             RibbonControl.Bind(this, groupBox, nameof(this.LauncherKeys), LauncherKeysProperty, BindingMode.OneWay);
             groupBox.LauncherClick += this.LauncherClick;
 
-            if (this.Icon != null)
+            if (this.Icon is not null)
             {
                 if (this.Icon is Visual iconVisual)
                 {
@@ -1172,7 +1172,7 @@ namespace Fluent
             {
                 this.IsDropDownOpen = true;
 
-                if (this.DropDownPopup?.Child != null)
+                if (this.DropDownPopup?.Child is not null)
                 {
                     Keyboard.Focus(this.DropDownPopup.Child);
                     this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -1217,12 +1217,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.LauncherIcon != null)
+                if (this.LauncherIcon is not null)
                 {
                     yield return this.LauncherIcon;
                 }

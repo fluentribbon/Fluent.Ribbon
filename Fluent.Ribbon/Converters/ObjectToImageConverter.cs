@@ -192,7 +192,7 @@
                 object convertedValue;
 
                 if (sizeConverter.CanConvertFrom(possibleDesiredSizeValue.GetType())
-                    && (convertedValue = sizeConverter.ConvertFrom(possibleDesiredSizeValue)) != null)
+                    && (convertedValue = sizeConverter.ConvertFrom(possibleDesiredSizeValue)) is not null)
                 {
                     desiredSize = (Size)convertedValue;
                 }
@@ -203,7 +203,7 @@
             }
 
             //if (desiredSize.IsEmpty
-            //    && targetVisual != null
+            //    && targetVisual is not null
             //    && targetVisual is FrameworkElement targetFrameworkElement
             //    && DoubleHelper.IsFinite(targetFrameworkElement.Width)
             //    && DoubleHelper.IsFinite(targetFrameworkElement.Height))
@@ -241,12 +241,12 @@
 
             multiBinding.Bindings.Add(this.IconBinding);
 
-            if (this.DesiredSizeBinding != null)
+            if (this.DesiredSizeBinding is not null)
             {
                 multiBinding.Bindings.Add(this.DesiredSizeBinding);
             }
 
-            if (this.TargetVisualBinding != null)
+            if (this.TargetVisualBinding is not null)
             {
                 multiBinding.Bindings.Add(this.TargetVisualBinding);
             }
@@ -366,13 +366,13 @@
             // !!! Please do not copy that code somewhere and blame me for failures !!!
             // Hack to get the value from resource expressions
             {
-                if (targetVisual is null == false // to get values for resource expressions we need a DependencyObject
+                if (targetVisual is not null // to get values for resource expressions we need a DependencyObject
                     && value is Expression expression)
                 {
                     var type = expression.GetType();
                     var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-                    if (method != null)
+                    if (method is not null)
                     {
                         var valueFromExpression = method.Invoke(expression, new object[]
                                                                             {
@@ -390,7 +390,7 @@
                     var type = value.GetType();
                     var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-                    if (method != null)
+                    if (method is not null)
                     {
                         var valueFromDeferredReference = method.Invoke(value, new object?[]
                                                                               {
@@ -524,7 +524,7 @@
             {
                 var presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
 
-                if (presentationSource?.CompositionTarget != null)
+                if (presentationSource?.CompositionTarget is not null)
                 {
                     // dpi.M11 = dpiX, dpi.M22 = dpiY
                     return new DpiScale(presentationSource.CompositionTarget.TransformToDevice.M11, presentationSource.CompositionTarget.TransformToDevice.M22);

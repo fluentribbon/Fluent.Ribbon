@@ -407,7 +407,7 @@ namespace Fluent
                     RemoveFromQuickAccessCommand.CanExecute(null, control);
 
                     //Debug.WriteLine("Menu opened on "+control);
-                    if (control != null)
+                    if (control is not null)
                     {
                         FirstSeparator.Visibility = Visibility.Visible;
 
@@ -627,7 +627,7 @@ namespace Fluent
         private static void OnSelectedTabItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            if (ribbon.TabControl != null)
+            if (ribbon.TabControl is not null)
             {
                 ribbon.TabControl.SelectedItem = e.NewValue;
             }
@@ -661,7 +661,7 @@ namespace Fluent
             var ribbon = (Ribbon)d;
             var selectedIndex = (int)e.NewValue;
 
-            if (ribbon.TabControl != null)
+            if (ribbon.TabControl is not null)
             {
                 ribbon.TabControl.SelectedIndex = selectedIndex;
             }
@@ -680,12 +680,12 @@ namespace Fluent
         private static void AddOrRemoveLogicalChildOnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ribbon = (Ribbon)d;
-            if (e.OldValue != null)
+            if (e.OldValue is not null)
             {
                 ribbon.RemoveLogicalChild(e.OldValue);
             }
 
-            if (e.NewValue != null)
+            if (e.NewValue is not null)
             {
                 ribbon.AddLogicalChild(e.NewValue);
             }
@@ -771,7 +771,7 @@ namespace Fluent
         {
             var ribbon = (Ribbon)d;
 
-            if (ribbon.TitleBar != null)
+            if (ribbon.TitleBar is not null)
             {
                 if ((bool)e.NewValue)
                 {
@@ -1240,7 +1240,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon?.QuickAccessToolBar != null)
+            if (ribbon?.QuickAccessToolBar is not null)
             {
                 var element = ribbon.QuickAccessElements.First(x => ReferenceEquals(x.Value, e.Parameter)).Key;
                 ribbon.RemoveFromQuickAccessToolBar(element);
@@ -1252,7 +1252,7 @@ namespace Fluent
         {
             var ribbon = sender as Ribbon;
 
-            if (ribbon?.QuickAccessToolBar != null)
+            if (ribbon?.QuickAccessToolBar is not null)
             {
                 ribbon.AddToQuickAccessToolBar(e.Parameter as UIElement);
             }
@@ -1416,7 +1416,7 @@ namespace Fluent
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as Panel;
 
             var selectedTab = this.SelectedTabItem;
-            if (this.TabControl != null)
+            if (this.TabControl is not null)
             {
                 this.TabControl.SelectionChanged -= this.OnTabControlSelectionChanged;
                 selectedTab = this.TabControl.SelectedItem as RibbonTabItem;
@@ -1428,7 +1428,7 @@ namespace Fluent
 
             this.TabControl = this.GetTemplateChild("PART_RibbonTabControl") as RibbonTabControl;
 
-            if (this.TabControl != null)
+            if (this.TabControl is not null)
             {
                 this.TabControl.SelectionChanged += this.OnTabControlSelectionChanged;
 
@@ -1439,7 +1439,7 @@ namespace Fluent
                 this.toolBarItemsSync = new CollectionSyncHelper<UIElement>(this.ToolBarItems, this.TabControl.ToolBarItems);
             }
 
-            if (this.QuickAccessToolBar != null)
+            if (this.QuickAccessToolBar is not null)
             {
                 this.ClearQuickAccessToolBar();
 
@@ -1448,7 +1448,7 @@ namespace Fluent
 
             this.QuickAccessToolBar = this.GetTemplateChild("PART_QuickAccessToolBar") as QuickAccessToolBar;
 
-            if (this.QuickAccessToolBar != null)
+            if (this.QuickAccessToolBar is not null)
             {
                 this.quickAccessItemsSync = new CollectionSyncHelper<QuickAccessMenuItem>(this.QuickAccessItems, this.QuickAccessToolBar.QuickAccessItems);
 
@@ -1473,12 +1473,12 @@ namespace Fluent
 
         private void MoveQuickAccessToolBarToTitleBar(RibbonTitleBar? titleBar)
         {
-            if (titleBar != null)
+            if (titleBar is not null)
             {
                 titleBar.QuickAccessToolBar = this.QuickAccessToolBar;
             }
 
-            if (this.QuickAccessToolBar != null)
+            if (this.QuickAccessToolBar is not null)
             {
                 // Prevent double add for handler if this method is called multiple times
                 this.QuickAccessToolBar.ContextMenuOpening -= this.OnQuickAccessContextMenuOpening;
@@ -1491,12 +1491,12 @@ namespace Fluent
 
         private void RemoveQuickAccessToolBarFromTitleBar(RibbonTitleBar? titleBar)
         {
-            if (titleBar != null)
+            if (titleBar is not null)
             {
                 titleBar.QuickAccessToolBar = null;
             }
 
-            if (this.QuickAccessToolBar != null)
+            if (this.QuickAccessToolBar is not null)
             {
                 this.QuickAccessToolBar.ContextMenuOpening -= this.OnQuickAccessContextMenuOpening;
                 this.QuickAccessToolBar.ContextMenuClosing -= this.OnQuickAccessContextMenuClosing;
@@ -1517,7 +1517,7 @@ namespace Fluent
 
             this.ownerWindow = Window.GetWindow(this);
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.Closed += this.OnOwnerWindowClosed;
                 this.ownerWindow.SizeChanged += this.OnSizeChanged;
@@ -1527,7 +1527,7 @@ namespace Fluent
 
         private void DetachFromWindow()
         {
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.RibbonStateStorage.Save();
                 this.RibbonStateStorage.Dispose();
@@ -1610,7 +1610,7 @@ namespace Fluent
         {
             var parent = LogicalTreeHelper.GetParent(element);
 
-            while (parent != null)
+            while (parent is not null)
             {
                 if (parent is IRibbonControl control)
                 {
@@ -1703,7 +1703,7 @@ namespace Fluent
 
             this.keyTipService.Detach();
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.SizeChanged -= this.OnSizeChanged;
                 this.ownerWindow.KeyDown -= this.OnKeyDown;
@@ -1803,27 +1803,27 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Menu != null)
+                if (this.Menu is not null)
                 {
                     yield return this.Menu;
                 }
 
-                if (this.StartScreen != null)
+                if (this.StartScreen is not null)
                 {
                     yield return this.StartScreen;
                 }
 
-                if (this.QuickAccessToolBar != null)
+                if (this.QuickAccessToolBar is not null)
                 {
                     yield return this.QuickAccessToolBar;
                 }
 
-                if (this.TabControl?.ToolbarPanel != null)
+                if (this.TabControl?.ToolbarPanel is not null)
                 {
                     yield return this.TabControl.ToolbarPanel;
                 }
 
-                if (this.layoutRoot != null)
+                if (this.layoutRoot is not null)
                 {
                     yield return this.layoutRoot;
                 }

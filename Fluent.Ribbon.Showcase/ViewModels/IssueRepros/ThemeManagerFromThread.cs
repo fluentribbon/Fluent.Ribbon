@@ -37,7 +37,7 @@ namespace FluentTest.ViewModels.IssueRepros
 
         private void StartStop()
         {
-            if (this.cancellationTokenSource != null)
+            if (this.cancellationTokenSource is not null)
             {
                 ThemeManager.Current.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
 
@@ -86,7 +86,7 @@ namespace FluentTest.ViewModels.IssueRepros
             else
             {
                 var newTheme = ThemeManager.Current.GetTheme("Light." + themeColor.ToString());
-                if (newTheme != null)
+                if (newTheme is not null)
                 {
                     ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
 

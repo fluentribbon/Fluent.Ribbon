@@ -20,7 +20,7 @@
             return (bool)element.GetValue(IsMovingItemsToDifferentControlProperty);
         }
 
-        public static ItemsControl? ItemsControlFromItemContainer(DependencyObject container)
+        public static ItemsControl? ItemsControlFromItemContainer(DependencyObject? container)
         {
             if (container is null)
             {
@@ -29,26 +29,25 @@
 
             var itemsControl = ItemsControl.ItemsControlFromItemContainer(container);
 
-            if (!(itemsControl is null)
+            if (itemsControl is not null
                 && itemsControl != DependencyProperty.UnsetValue)
             {
                 return itemsControl;
             }
 
             var visualParent = VisualTreeHelper.GetParent(container);
-            if (!(visualParent is null))
+            if (visualParent is not null)
             {
                 itemsControl = ItemsControl.ItemsControlFromItemContainer(visualParent);
             }
 
-            if (!(itemsControl is null)
+            if (itemsControl is not null
                 && itemsControl != DependencyProperty.UnsetValue)
             {
                 return itemsControl;
             }
 
-            if (container is FrameworkElement frameworkElement
-                && frameworkElement.Parent != null)
+            if (container is FrameworkElement { Parent: { } } frameworkElement)
             {
                 itemsControl = ItemsControl.ItemsControlFromItemContainer(frameworkElement.Parent);
             }
@@ -64,7 +63,7 @@
                 SetIsMovingItemsToDifferentControl(target, true);
 
                 var itemsSource = source.ItemsSource;
-                if (itemsSource != null)
+                if (itemsSource is not null)
                 {
                     source.ItemsSource = null;
                     target.ItemsSource = itemsSource;

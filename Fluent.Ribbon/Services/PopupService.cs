@@ -256,7 +256,7 @@ namespace Fluent
 
             // This code is needed to keep some popus open.
             // One of these is the ribbon popup when it's minimized.
-            if (e.OriginalSource != null
+            if (e.OriginalSource is not null
                 && Mouse.Captured is null
                 && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
             {
@@ -286,7 +286,7 @@ namespace Fluent
                 return false;
             }
 
-            while (element != null)
+            while (element is not null)
             {
                 if (ReferenceEquals(element, parent))
                 {

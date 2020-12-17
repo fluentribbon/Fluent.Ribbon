@@ -71,12 +71,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.LeftContent != null)
+                if (this.LeftContent is not null)
                 {
                     yield return this.LeftContent;
                 }
 
-                if (this.RightContent != null)
+                if (this.RightContent is not null)
                 {
                     yield return this.RightContent;
                 }

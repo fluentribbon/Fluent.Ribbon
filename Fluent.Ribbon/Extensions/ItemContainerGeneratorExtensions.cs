@@ -21,13 +21,13 @@
         {
             var container = @this.ContainerFromItem(item) as TContainerOrContent;
 
-            if (!(container is null))
+            if (container is not null)
             {
                 return container;
             }
 
             var contentPresenterFromContainer = @this.ContainerFromItem(item) as ContentPresenter;
-            if (!(contentPresenterFromContainer is null)
+            if (contentPresenterFromContainer is not null
                 && VisualTreeHelper.GetChildrenCount(contentPresenterFromContainer) > 0)
             {
                 return VisualTreeHelper.GetChild(contentPresenterFromContainer, 0) as TContainerOrContent;
@@ -48,13 +48,13 @@
         {
             var container = @this.ContainerFromIndex(index) as TContainerOrContent;
 
-            if (!(container is null))
+            if (container is not null)
             {
                 return container;
             }
 
             var contentPresenterFromContainer = @this.ContainerFromIndex(index) as ContentPresenter;
-            if (!(contentPresenterFromContainer is null)
+            if (contentPresenterFromContainer is not null
                 && VisualTreeHelper.GetChildrenCount(contentPresenterFromContainer) > 0)
             {
                 return VisualTreeHelper.GetChild(contentPresenterFromContainer, 0) as TContainerOrContent;
@@ -67,7 +67,7 @@
         /// asdf
         /// </summary>
         /// <returns></returns>
-        public static object? ItemFromContainerOrContainerContent(this ItemContainerGenerator @this, DependencyObject container)
+        public static object? ItemFromContainerOrContainerContent(this ItemContainerGenerator @this, DependencyObject? container)
         {
             if (container is null)
             {
@@ -76,26 +76,26 @@
 
             var item = @this.ItemFromContainer(container);
 
-            if (!(item is null)
+            if (item is not null
                 && item != DependencyProperty.UnsetValue)
             {
                 return item;
             }
 
             var visualParent = VisualTreeHelper.GetParent(container);
-            if (!(visualParent is null))
+            if (visualParent is not null)
             {
                 item = @this.ItemFromContainer(visualParent);
             }
 
-            if (!(item is null)
+            if (item is not null
                 && item != DependencyProperty.UnsetValue)
             {
                 return item;
             }
 
             if (container is FrameworkElement frameworkElement
-                && frameworkElement.Parent != null)
+                && frameworkElement.Parent is not null)
             {
                 item = @this.ItemFromContainer(frameworkElement.Parent);
             }

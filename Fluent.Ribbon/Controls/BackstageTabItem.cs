@@ -120,7 +120,7 @@ namespace Fluent
             base.OnContentChanged(oldContent, newContent);
 
             if (this.IsSelected
-                && this.TabControlParent != null)
+                && this.TabControlParent is not null)
             {
                 this.TabControlParent.SelectedContent = newContent;
             }
@@ -162,7 +162,7 @@ namespace Fluent
 
             if (newValue)
             {
-                if (container.TabControlParent != null
+                if (container.TabControlParent is not null
                     && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(container.TabControlParent.SelectedItem), container) == false)
                 {
                     UnselectSelectedItem(container.TabControlParent);
@@ -262,12 +262,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

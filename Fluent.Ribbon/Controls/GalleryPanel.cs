@@ -349,7 +349,7 @@ namespace Fluent
                 // Resolve group name
                 string? propertyValue = null;
 
-                if (this.GroupByAdvanced != null)
+                if (this.GroupByAdvanced is not null)
                 {
                     propertyValue = this.ItemContainerGenerator is null
                         ? this.GroupByAdvanced(item)
@@ -369,14 +369,14 @@ namespace Fluent
 
                 // Make invisible if it is not in filter (or is not grouped)
                 if (this.IsGrouped == false
-                    || (filter != null && filter.Contains(propertyValue) == false))
+                    || (filter is not null && filter.Contains(propertyValue) == false))
                 {
                     item.Measure(new Size(0, 0));
                     item.Arrange(new Rect(0, 0, 0, 0));
                 }
 
                 // Skip if it is not in filter
-                if (filter != null
+                if (filter is not null
                     && filter.Contains(propertyValue) == false)
                 {
                     continue;

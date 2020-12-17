@@ -273,7 +273,7 @@ namespace Fluent
             var firstVisibleItem = this.FirstVisibleAndEnabledItem;
 
             if (e.ClickCount == 1
-                && firstVisibleItem != null)
+                && firstVisibleItem is not null)
             {
                 if (firstVisibleItem.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
                 {
@@ -282,7 +282,7 @@ namespace Fluent
 
                 e.Handled = true;
 
-                if (firstVisibleItem.TabControlParent != null)
+                if (firstVisibleItem.TabControlParent is not null)
                 {
                     if (firstVisibleItem.TabControlParent.IsMinimized)
                     {

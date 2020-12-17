@@ -83,13 +83,13 @@ namespace Fluent
             var ribbonControl = e.NewValue as IRibbonControl;
 
             if (quickAccessMenuItem.Header is null
-                && ribbonControl != null)
+                && ribbonControl is not null)
             {
                 // Set Default Text Value
                 RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
             }
 
-            if (ribbonControl != null)
+            if (ribbonControl is not null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
                 if (parent is null)
@@ -123,7 +123,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Target != null)
+                if (this.Target is not null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
                     if (ReferenceEquals(parent, this))
@@ -160,7 +160,7 @@ namespace Fluent
                 return;
             }
 
-            if (this.Ribbon != null)
+            if (this.Ribbon is not null)
             {
                 this.IsChecked = this.Ribbon.IsInQuickAccessToolBar(this.Target);
             }
@@ -253,7 +253,7 @@ namespace Fluent
 
             // Try to find in visual (or logical) tree
             var element = result.VisualHit as FrameworkElement;
-            while (element != null)
+            while (element is not null)
             {
                 if (IsSupported(element))
                 {

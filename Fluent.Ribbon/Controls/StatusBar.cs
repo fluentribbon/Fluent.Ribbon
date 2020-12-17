@@ -74,10 +74,10 @@ namespace Fluent
             this.currentItem = null;
 
             if (this.UsesItemContainerTemplate
-                && item != null)
+                && item is not null)
             {
                 var dataTemplate = this.ItemContainerTemplateSelector.SelectTemplate(item, this);
-                if (dataTemplate != null)
+                if (dataTemplate is not null)
                 {
                     var dataTemplateContent = (object)dataTemplate.LoadContent();
                     if (dataTemplateContent is StatusBarItem

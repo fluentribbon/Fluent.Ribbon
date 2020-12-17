@@ -112,7 +112,7 @@ namespace Fluent
 
             this.UpdateKeyTips();
 
-            if (e.OldItems != null)
+            if (e.OldItems is not null)
             {
                 foreach (var item in e.OldItems.OfType<FrameworkElement>())
                 {
@@ -120,7 +120,7 @@ namespace Fluent
                 }
             }
 
-            if (e.NewItems != null)
+            if (e.NewItems is not null)
             {
                 foreach (var item in e.NewItems.OfType<FrameworkElement>())
                 {
@@ -140,7 +140,7 @@ namespace Fluent
             this.ItemsChanged?.Invoke(this, e);
 
             if (this.Items.Count == 0
-                && this.toolBarDownButton != null)
+                && this.toolBarDownButton is not null)
             {
                 this.toolBarDownButton.IsDropDownOpen = false;
             }
@@ -334,12 +334,12 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
-            if (this.showAbove != null)
+            if (this.showAbove is not null)
             {
                 this.showAbove.Click -= this.OnShowAboveClick;
             }
 
-            if (this.showBelow != null)
+            if (this.showBelow is not null)
             {
                 this.showBelow.Click -= this.OnShowBelowClick;
             }
@@ -347,17 +347,17 @@ namespace Fluent
             this.showAbove = this.GetTemplateChild("PART_ShowAbove") as MenuItem;
             this.showBelow = this.GetTemplateChild("PART_ShowBelow") as MenuItem;
 
-            if (this.showAbove != null)
+            if (this.showAbove is not null)
             {
                 this.showAbove.Click += this.OnShowAboveClick;
             }
 
-            if (this.showBelow != null)
+            if (this.showBelow is not null)
             {
                 this.showBelow.Click += this.OnShowBelowClick;
             }
 
-            if (this.MenuDownButton != null)
+            if (this.MenuDownButton is not null)
             {
                 foreach (var item in this.QuickAccessItems)
                 {
@@ -370,7 +370,7 @@ namespace Fluent
 
             this.MenuDownButton = this.GetTemplateChild("PART_MenuDownButton") as DropDownButton;
 
-            if (this.MenuDownButton != null)
+            if (this.MenuDownButton is not null)
             {
                 this.QuickAccessItems.ReleaseLogicalOwnership();
 
@@ -387,14 +387,14 @@ namespace Fluent
             this.toolBarPanel = this.GetTemplateChild("PART_ToolBarPanel") as Panel;
             this.toolBarOverflowPanel = this.GetTemplateChild("PART_ToolBarOverflowPanel") as Panel;
 
-            if (this.rootPanel != null)
+            if (this.rootPanel is not null)
             {
                 this.RemoveLogicalChild(this.rootPanel);
             }
 
             this.rootPanel = this.GetTemplateChild("PART_RootPanel") as Panel;
 
-            if (this.rootPanel != null)
+            if (this.rootPanel is not null)
             {
                 this.AddLogicalChild(this.rootPanel);
             }
@@ -617,8 +617,8 @@ namespace Fluent
         {
             // Cache width of menuDownButton
             if (DoubleUtil.AreClose(this.cachedMenuDownButtonWidth, 0)
-                && this.rootPanel != null
-                && this.MenuDownButton != null
+                && this.rootPanel is not null
+                && this.MenuDownButton is not null
                 && this.IsMenuDropDownVisible)
             {
                 this.rootPanel.Measure(SizeConstants.Infinite);
@@ -627,8 +627,8 @@ namespace Fluent
 
             // Cache width of toolBarDownButton
             if (DoubleUtil.AreClose(this.cachedOverflowDownButtonWidth, 0)
-                && this.rootPanel != null
-                && this.MenuDownButton != null)
+                && this.rootPanel is not null
+                && this.MenuDownButton is not null)
             {
                 this.rootPanel.Measure(SizeConstants.Infinite);
                 this.cachedOverflowDownButtonWidth = this.toolBarDownButton?.DesiredSize.Width ?? default;

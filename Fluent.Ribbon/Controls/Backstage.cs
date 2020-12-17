@@ -176,7 +176,7 @@ namespace Fluent
         {
             var backstage = (Backstage)d;
 
-            if (e.OldValue != null)
+            if (e.OldValue is not null)
             {
                 if (e.NewValue is DependencyObject dependencyObject)
                 {
@@ -186,7 +186,7 @@ namespace Fluent
                 backstage.RemoveLogicalChild(e.OldValue);
             }
 
-            if (e.NewValue != null)
+            if (e.NewValue is not null)
             {
                 backstage.AddLogicalChild(e.NewValue);
 
@@ -212,12 +212,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Content != null)
+                if (this.Content is not null)
                 {
                     yield return this.Content;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
@@ -254,7 +254,7 @@ namespace Fluent
 
         private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 this.adorner.DataContext = e.NewValue;
             }
@@ -337,21 +337,21 @@ namespace Fluent
             this.ShowAdorner();
 
             this.parentRibbon = GetParentRibbon(this);
-            if (this.parentRibbon != null)
+            if (this.parentRibbon is not null)
             {
-                if (this.parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl is not null)
                 {
                     this.parentRibbon.TabControl.IsDropDownOpen = false;
                     this.parentRibbon.TabControl.HighlightSelectedItem = false;
                     this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (this.parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar is not null)
                 {
                     this.parentRibbon.QuickAccessToolBar.IsEnabled = false;
                 }
 
-                if (this.parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar is not null)
                 {
                     this.parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
@@ -360,18 +360,18 @@ namespace Fluent
             this.ownerWindow = Window.GetWindow(this);
 
             if (this.ownerWindow is null
-                && this.Parent != null)
+                && this.Parent is not null)
             {
                 this.ownerWindow = Window.GetWindow(this.Parent);
             }
 
-            if (this.ownerWindow is null == false)
+            if (this.ownerWindow is not null)
             {
                 this.SaveWindowSize(this.ownerWindow);
                 this.SaveWindowMinSize(this.ownerWindow);
             }
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.KeyDown += this.HandleOwnerWindowKeyDown;
 
@@ -485,12 +485,12 @@ namespace Fluent
 
             void HandleStoryboardOnCompleted(object? sender, EventArgs args)
             {
-                if (this.adorner != null)
+                if (this.adorner is not null)
                 {
                     this.adorner.Visibility = Visibility.Collapsed;
                 }
 
-                if (this.AdornerLayer != null)
+                if (this.AdornerLayer is not null)
                 {
                     this.AdornerLayer.Visibility = Visibility.Visible;
                 }
@@ -523,7 +523,7 @@ namespace Fluent
                 this.DestroyAdorner();
             }
 
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 return;
             }
@@ -539,7 +539,7 @@ namespace Fluent
             if (this.UseHighestAvailableAdornerLayer)
             {
                 AdornerDecorator? currentAdornerDecorator;
-                while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+                while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) is not null)
                 {
                     elementToAdorn = currentAdornerDecorator;
                 }
@@ -570,7 +570,7 @@ namespace Fluent
             this.AdornerLayer?.CommandBindings.Clear();
             this.AdornerLayer?.Remove(this.adorner);
 
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 BindingOperations.ClearAllBindings(this.adorner);
             }
@@ -583,21 +583,21 @@ namespace Fluent
 
         private void RestoreParentProperties()
         {
-            if (this.parentRibbon != null)
+            if (this.parentRibbon is not null)
             {
-                if (this.parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl is not null)
                 {
                     this.parentRibbon.TabControl.HighlightSelectedItem = true;
                     this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (this.parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar is not null)
                 {
                     this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
                     this.parentRibbon.QuickAccessToolBar.Refresh();
                 }
 
-                if (this.parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar is not null)
                 {
                     this.parentRibbon.TitleBar.HideContextTabs = false;
                 }
@@ -605,7 +605,7 @@ namespace Fluent
                 this.parentRibbon = null;
             }
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.PreviewKeyDown -= this.HandleOwnerWindowKeyDown;
                 this.ownerWindow.SizeChanged -= this.HandleOwnerWindowSizeChanged;

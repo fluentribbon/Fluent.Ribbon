@@ -61,10 +61,10 @@
                 case PatternInterface.Scroll:
                 {
                     ItemsControl? ribbonTabControl = this.OwningRibbon.TabControl;
-                    if (ribbonTabControl != null)
+                    if (ribbonTabControl is not null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabControl);
-                        if (automationPeer != null)
+                        if (automationPeer is not null)
                         {
                             return automationPeer.GetPattern(patternInterface);
                         }
@@ -88,32 +88,32 @@
                 return children;
             }
 
-            if (this.OwningRibbon.QuickAccessToolBar != null)
+            if (this.OwningRibbon.QuickAccessToolBar is not null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.QuickAccessToolBar);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
             }
 
-            if (this.OwningRibbon.Menu != null)
+            if (this.OwningRibbon.Menu is not null)
             {
                 var automationPeer = this.CreatePeerForMenu();
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
             }
 
             // Directly forward the children from the tab control
-            if (this.OwningRibbon.TabControl != null)
+            if (this.OwningRibbon.TabControl is not null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningRibbon.TabControl);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     // Resetting the children cache might call a recursive loop...
                     //automationPeer.ResetChildrenCache();
@@ -177,7 +177,7 @@
             {
                 var menu = (UIElement?)UIHelper.FindImmediateVisualChild<Backstage>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible) ?? UIHelper.FindImmediateVisualChild<ApplicationMenu>(this.OwningRibbon.Menu, x => x.Visibility == Visibility.Visible);
 
-                if (menu != null)
+                if (menu is not null)
                 {
                     automationPeer = CreatePeerForElement(menu);
                 }

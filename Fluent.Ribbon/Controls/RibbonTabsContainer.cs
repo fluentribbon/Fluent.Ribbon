@@ -203,7 +203,7 @@ namespace Fluent
             };
 
             var orderedChildren = this.InternalChildren.OfType<RibbonTabItem>()
-                                      .OrderBy(x => x.Group != null);
+                                      .OrderBy(x => x.Group is not null);
 
             foreach (var item in orderedChildren)
             {

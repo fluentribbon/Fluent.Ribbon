@@ -57,11 +57,11 @@ namespace Fluent
 
             ListBox? listBox = null;
             var parent = container;
-            while (parent != null)
+            while (parent is not null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 listBox = parent as ListBox;
-                if (listBox != null)
+                if (listBox is not null)
                 {
                     break;
                 }
@@ -73,11 +73,11 @@ namespace Fluent
             }
 
             ColorGallery? colorGallery = null;
-            while (parent != null)
+            while (parent is not null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 colorGallery = parent as ColorGallery;
-                if (colorGallery != null)
+                if (colorGallery is not null)
                 {
                     break;
                 }
@@ -702,35 +702,35 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            if (this.moreColorsButton != null)
+            if (this.moreColorsButton is not null)
             {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
             }
 
             this.moreColorsButton = this.GetTemplateChild("PART_MoreColors") as MenuItem;
-            if (this.moreColorsButton != null)
+            if (this.moreColorsButton is not null)
             {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
             }
 
-            if (this.noColorButton != null)
+            if (this.noColorButton is not null)
             {
                 this.noColorButton.Click -= this.OnNoColorClick;
             }
 
             this.noColorButton = this.GetTemplateChild("PART_NoColor") as MenuItem;
-            if (this.noColorButton != null)
+            if (this.noColorButton is not null)
             {
                 this.noColorButton.Click += this.OnNoColorClick;
             }
 
-            if (this.automaticButton != null)
+            if (this.automaticButton is not null)
             {
                 this.automaticButton.Click -= this.OnAutomaticClick;
             }
 
             this.automaticButton = this.GetTemplateChild("PART_AutomaticColor") as MenuItem;
-            if (this.automaticButton != null)
+            if (this.automaticButton is not null)
             {
                 this.automaticButton.Click += this.OnAutomaticClick;
             }
@@ -738,59 +738,59 @@ namespace Fluent
             // List boxes
             this.listBoxes.Clear();
 
-            if (this.themeColorsListBox != null)
+            if (this.themeColorsListBox is not null)
             {
                 this.themeColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.themeColorsListBox = this.GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
 
-            if (this.themeColorsListBox != null)
+            if (this.themeColorsListBox is not null)
             {
                 this.listBoxes.Add(this.themeColorsListBox);
                 this.themeColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.themeGradientsListBox != null)
+            if (this.themeGradientsListBox is not null)
             {
                 this.themeGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.themeGradientsListBox = this.GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
             
-            if (this.themeGradientsListBox != null)
+            if (this.themeGradientsListBox is not null)
             {
                 this.listBoxes.Add(this.themeGradientsListBox);
                 this.themeGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.standardColorsListBox != null)
+            if (this.standardColorsListBox is not null)
             {
                 this.standardColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.standardColorsListBox = this.GetTemplateChild("PART_StandardColorsListBox") as ListBox;
 
-            if (this.standardColorsListBox != null)
+            if (this.standardColorsListBox is not null)
             {
                 this.listBoxes.Add(this.standardColorsListBox);
                 this.standardColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.standardGradientsListBox != null)
+            if (this.standardGradientsListBox is not null)
             {
                 this.standardGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.standardGradientsListBox = this.GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
 
-            if (this.standardGradientsListBox != null)
+            if (this.standardGradientsListBox is not null)
             {
                 this.listBoxes.Add(this.standardGradientsListBox);
                 this.standardGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.recentColorsListBox != null)
+            if (this.recentColorsListBox is not null)
             {
                 this.recentColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
@@ -817,7 +817,7 @@ namespace Fluent
 
         private void OnMoreColorsClick(object sender, RoutedEventArgs e)
         {
-            if (this.MoreColorsExecuting != null)
+            if (this.MoreColorsExecuting is not null)
             {
                 var args = new MoreColorsExecutingEventArgs();
                 this.MoreColorsExecuting(this, args);
@@ -842,7 +842,7 @@ namespace Fluent
 #pragma warning disable 618
                 var chooseColor = new CHOOSECOLOR();
                 var wnd = Window.GetWindow(this);
-                if (wnd != null)
+                if (wnd is not null)
                 {
                     chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
                 }
@@ -944,7 +944,7 @@ namespace Fluent
 
             this.isSelectionChanging = true;
 
-            if (e.AddedItems != null
+            if (e.AddedItems is not null
                 && e.AddedItems.Count > 0)
             {
                 // Remove selection from others

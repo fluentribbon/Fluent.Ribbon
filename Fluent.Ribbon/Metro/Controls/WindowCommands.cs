@@ -86,7 +86,7 @@ namespace Fluent
             // unmanaged resources here.
             // If disposing is false,
             // only the following code is executed.
-            if (this.user32 != null)
+            if (this.user32 is not null)
             {
                 this.user32.Close();
                 this.user32 = null;
@@ -215,25 +215,25 @@ namespace Fluent
             base.OnApplyTemplate();
 
             this.minimizeButton = this.Template.FindName("PART_Min", this) as System.Windows.Controls.Button;
-            if (this.minimizeButton != null)
+            if (this.minimizeButton is not null)
             {
                 this.minimizeButton.Click += this.MinimizeClick;
             }
 
             this.maximizeButton = this.Template.FindName("PART_Max", this) as System.Windows.Controls.Button;
-            if (this.maximizeButton != null)
+            if (this.maximizeButton is not null)
             {
                 this.maximizeButton.Click += this.MaximiseClick;
             }
 
             this.restoreButton = this.Template.FindName("PART_Restore", this) as System.Windows.Controls.Button;
-            if (this.restoreButton != null)
+            if (this.restoreButton is not null)
             {
                 this.restoreButton.Click += this.RestoreClick;
             }
 
             this.closeButton = this.GetTemplateChild("PART_Close") as System.Windows.Controls.Button;
-            if (this.closeButton != null)
+            if (this.closeButton is not null)
             {
                 this.closeButton.Click += this.CloseClick;
             }
@@ -252,7 +252,7 @@ namespace Fluent
         private void MinimizeClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.MinimizeWindow(parentWindow);
@@ -263,7 +263,7 @@ namespace Fluent
         private void MaximiseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(parentWindow);
@@ -274,7 +274,7 @@ namespace Fluent
         private void RestoreClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(parentWindow);
@@ -286,7 +286,7 @@ namespace Fluent
         {
             var parentWindow = this.GetParentWindow();
 
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.CloseWindow(parentWindow);

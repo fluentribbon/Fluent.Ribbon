@@ -75,7 +75,7 @@ namespace Fluent
             else
             {
                 var coerced = ContextMenuService.CoerceContextMenu(this, this.ContextMenu);
-                if (coerced != null)
+                if (coerced is not null)
                 {
                     this.SetCurrentValue(ContextMenuProperty, coerced);
                 }
@@ -277,12 +277,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

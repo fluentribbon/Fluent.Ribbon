@@ -62,7 +62,7 @@ namespace Fluent
             {
                 var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 
-                if (defaultIcon != null)
+                if (defaultIcon is not null)
                 {
                     return defaultIcon;
                 }
@@ -79,16 +79,16 @@ namespace Fluent
             {
                 var window = Window.GetWindow(targetVisual);
 
-                if (window != null
+                if (window is not null
                     && (windowHandle = new WindowInteropHelper(window).Handle) != IntPtr.Zero)
                 {
                     return GetDefaultIcon(windowHandle, desiredSize);
                 }
             }
 
-            if (Application.Current != null
+            if (Application.Current is not null
                 && Application.Current.CheckAccess()
-                && Application.Current.MainWindow != null
+                && Application.Current.MainWindow is not null
                 && Application.Current.MainWindow.CheckAccess()
                 && (windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle) != IntPtr.Zero)
             {

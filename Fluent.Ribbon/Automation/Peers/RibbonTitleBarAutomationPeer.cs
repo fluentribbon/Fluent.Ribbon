@@ -39,7 +39,7 @@
         {
             var contentPresenter = this.Owner as HeaderedContentControl;
 
-            if (contentPresenter?.Header != null)
+            if (contentPresenter?.Header is not null)
             {
                 return contentPresenter.Header.ToString();
             }

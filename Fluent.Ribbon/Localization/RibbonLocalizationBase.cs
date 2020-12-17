@@ -222,7 +222,7 @@
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.CultureName is null == false
+            return this.CultureName is not null
 #pragma warning disable CA1307 // Specify StringComparison for clarity
                 ? this.CultureName.GetHashCode()
 #pragma warning restore CA1307 // Specify StringComparison for clarity

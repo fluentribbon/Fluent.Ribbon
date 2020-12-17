@@ -312,7 +312,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     foreach (var item in e.NewItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var filter = item;
                             var menuItem = new MenuItem
@@ -349,7 +349,7 @@ namespace Fluent
 
                     foreach (var item in e.NewItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var filter = item;
                             var menuItem = new MenuItem
@@ -411,7 +411,7 @@ namespace Fluent
             {
                 var menuItem = gallery.GetFilterMenuItem(oldFilter);
 
-                if (menuItem != null)
+                if (menuItem is not null)
                 {
                     menuItem.IsChecked = false;
                 }
@@ -423,7 +423,7 @@ namespace Fluent
                 gallery.SelectedFilterGroups = newFilter.Groups;
                 var menuItem = gallery.GetFilterMenuItem(newFilter);
 
-                if (menuItem != null)
+                if (menuItem is not null)
                 {
                     menuItem.IsChecked = true;
                 }
@@ -509,7 +509,7 @@ namespace Fluent
             }
 
             return this.groupsMenuButton?.Items.Cast<MenuItem>()
-                .FirstOrDefault(item => item != null && item.Header.ToString() == filter.Title);
+                .FirstOrDefault(item => item is not null && item.Header.ToString() == filter.Title);
         }
 
         #endregion
@@ -730,7 +730,7 @@ namespace Fluent
             var maxItemsInRow = (int)e.NewValue;
 
             if (gal.IsDropDownOpen == false
-                && gal.galleryPanel != null)
+                && gal.galleryPanel is not null)
             {
                 gal.galleryPanel.MaxItemsInRow = maxItemsInRow;
             }
@@ -755,7 +755,7 @@ namespace Fluent
             var minItemsInRow = (int)e.NewValue;
 
             if (gal.IsDropDownOpen == false
-                && gal.galleryPanel != null)
+                && gal.galleryPanel is not null)
             {
                 gal.galleryPanel.MinItemsInRow = minItemsInRow;
             }
@@ -887,8 +887,8 @@ namespace Fluent
             if (gallery.Selectable == false)
             {
                 var galleryItem = gallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(basevalue);
-                if (basevalue != null
-                    && galleryItem != null)
+                if (basevalue is not null
+                    && galleryItem is not null)
                 {
                     galleryItem.IsSelected = false;
                 }
@@ -918,7 +918,7 @@ namespace Fluent
         {
             this.IsDropDownOpen = true;
 
-            if (this.DropDownPopup?.Child != null)
+            if (this.DropDownPopup?.Child is not null)
             {
                 Keyboard.Focus(this.DropDownPopup.Child);
                 this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -962,21 +962,21 @@ namespace Fluent
         {
             this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as FrameworkElement;
 
-            if (this.expandButton != null)
+            if (this.expandButton is not null)
             {
                 this.expandButton.Click -= this.OnExpandClick;
             }
 
             this.expandButton = this.GetTemplateChild("PART_ExpandButton") as ToggleButton;
 
-            if (this.expandButton != null)
+            if (this.expandButton is not null)
             {
                 this.expandButton.Click += this.OnExpandClick;
             }
 
             this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened -= this.OnDropDownOpened;
                 this.DropDownPopup.Closed -= this.OnDropDownClosed;
@@ -987,7 +987,7 @@ namespace Fluent
 
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened += this.OnDropDownOpened;
                 this.DropDownPopup.Closed += this.OnDropDownClosed;
@@ -1000,26 +1000,26 @@ namespace Fluent
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
 
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
 
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
@@ -1030,7 +1030,7 @@ namespace Fluent
 
             this.groupsMenuButton = this.GetTemplateChild("PART_FilterDropDownButton") as DropDownButton;
 
-            if (this.groupsMenuButton != null)
+            if (this.groupsMenuButton is not null)
             {
                 foreach (var currentFilter in this.Filters)
                 {
@@ -1193,7 +1193,7 @@ namespace Fluent
 
             this.focusedElement = Keyboard.FocusedElement;
 
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
                 this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
@@ -1220,7 +1220,7 @@ namespace Fluent
                 double menuHeight = 0;
                 double menuWidth = 0;
 
-                if (this.Menu != null)
+                if (this.Menu is not null)
                 {
                     this.Menu.Measure(SizeConstants.Infinite);
                     menuHeight = this.Menu.DesiredSize.Height;
@@ -1408,12 +1408,12 @@ namespace Fluent
 
             gallery.DropDownOpened += this.OnQuickAccessOpened;
 
-            if (this.DropDownClosed != null)
+            if (this.DropDownClosed is not null)
             {
                 gallery.DropDownClosed += this.DropDownClosed;
             }
 
-            if (this.DropDownOpened != null)
+            if (this.DropDownOpened is not null)
             {
                 gallery.DropDownOpened += this.DropDownOpened;
             }
@@ -1468,7 +1468,7 @@ namespace Fluent
             this.IsSnapped = true;
             this.IsFrozen = true;
 
-            if (this.controlPresenter != null)
+            if (this.controlPresenter is not null)
             {
                 this.controlPresenter.Content = this.snappedImage;
             }
@@ -1509,12 +1509,12 @@ namespace Fluent
 
             if (this.IsDropDownOpen == false)
             {
-                if (this.popupControlPresenter != null)
+                if (this.popupControlPresenter is not null)
                 {
                     this.popupControlPresenter.Content = null;
                 }
 
-                if (this.controlPresenter != null)
+                if (this.controlPresenter is not null)
                 {
                     this.controlPresenter.Content = this.galleryPanel;
                 }
@@ -1637,17 +1637,17 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.LargeIcon != null)
+                if (this.LargeIcon is not null)
                 {
                     yield return this.LargeIcon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

@@ -17,7 +17,7 @@
 
                 currentType = currentType.BaseType;
             }
-            while (currentType != null
+            while (currentType is not null
                      && currentType != typeof(object));
 
             return false;

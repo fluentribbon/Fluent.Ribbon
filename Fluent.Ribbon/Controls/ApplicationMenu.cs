@@ -126,12 +126,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.RightPaneContent != null)
+                if (this.RightPaneContent is not null)
                 {
                     yield return this.RightPaneContent;
                 }
 
-                if (this.FooterPaneContent != null)
+                if (this.FooterPaneContent is not null)
                 {
                     yield return this.FooterPaneContent;
                 }

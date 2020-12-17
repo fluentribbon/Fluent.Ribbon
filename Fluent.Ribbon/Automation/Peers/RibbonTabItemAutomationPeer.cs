@@ -29,10 +29,10 @@
             {
                 case PatternInterface.Scroll:
                     var container = this.OwningTab.GroupsContainer;
-                    if (container != null)
+                    if (container is not null)
                     {
                         var automationPeer = CreatePeerForElement(container);
-                        if (automationPeer != null)
+                        if (automationPeer is not null)
                         {
                             return automationPeer.GetPattern(patternInterface);
                         }
@@ -58,7 +58,7 @@
             {
                 var peer = CreatePeerForElement(@group);
 
-                if (peer != null)
+                if (peer is not null)
                 {
                     children.Add(peer);
                 }
@@ -73,7 +73,7 @@
                     return null;
                 }
 
-                if (this.OwningTab.HeaderContentHost != null)
+                if (this.OwningTab.HeaderContentHost is not null)
                 {
                     return new FrameworkElementAutomationPeer(this.OwningTab.HeaderContentHost).GetChildren();
                 }
@@ -98,7 +98,7 @@
         internal void RaiseTabSelectionEvents()
         {
             var eventsSource = this.EventsSource;
-            if (eventsSource != null)
+            if (eventsSource is not null)
             {
                 if (this.OwningTab.IsSelected)
                 {

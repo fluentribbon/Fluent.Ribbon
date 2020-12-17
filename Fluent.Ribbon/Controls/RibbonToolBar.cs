@@ -127,7 +127,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
@@ -558,11 +558,11 @@ namespace Fluent
                     var controlGroupDefinition = item as RibbonToolBarControlGroupDefinition;
                     FrameworkElement? control = null;
 
-                    if (controlDefinition != null)
+                    if (controlDefinition is not null)
                     {
                         control = this.GetControl(controlDefinition);
                     }
-                    else if (controlGroupDefinition != null)
+                    else if (controlGroupDefinition is not null)
                     {
                         control = this.GetControlGroup(controlGroupDefinition);
                     }

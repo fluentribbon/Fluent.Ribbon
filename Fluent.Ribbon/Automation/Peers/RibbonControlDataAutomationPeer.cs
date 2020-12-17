@@ -56,7 +56,7 @@
             }
 
             var wrapperPeer = UIElementAutomationPeer.CreatePeerForElement(wrapper);
-            if (!(wrapperPeer is null))
+            if (wrapperPeer is not null)
             {
                 return wrapperPeer;
             }

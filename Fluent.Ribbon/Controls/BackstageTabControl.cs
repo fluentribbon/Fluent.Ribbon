@@ -339,7 +339,7 @@ namespace Fluent
                 }
 
                 var item = this.FindNextTabItem(startIndex, -1);
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -376,7 +376,7 @@ namespace Fluent
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
 
-                if (container != null)
+                if (container is not null)
                 {
                     this.SelectedItem = this.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
                 }
@@ -408,7 +408,7 @@ namespace Fluent
                 }
 
                 var container = this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<BackstageTabItem>(index);
-                if (container != null
+                if (container is not null
                     && container.IsEnabled
                     && container.Visibility == Visibility.Visible)
                 {
@@ -436,9 +436,9 @@ namespace Fluent
 
                 this.SelectedContent = selectedTabItem.Content;
 
-                if (selectedTabItem.ContentTemplate != null
-                    || selectedTabItem.ContentTemplateSelector != null
-                    || selectedTabItem.ContentStringFormat != null)
+                if (selectedTabItem.ContentTemplate is not null
+                    || selectedTabItem.ContentTemplateSelector is not null
+                    || selectedTabItem.ContentStringFormat is not null)
                 {
                     this.SelectedContentTemplate = selectedTabItem.ContentTemplate;
                     this.SelectedContentTemplateSelector = selectedTabItem.ContentTemplateSelector;
@@ -504,7 +504,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.SelectedContent != null)
+                if (this.SelectedContent is not null)
                 {
                     yield return this.SelectedContent;
                 }

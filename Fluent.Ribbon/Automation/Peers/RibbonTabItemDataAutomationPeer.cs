@@ -55,10 +55,10 @@
         void IExpandCollapseProvider.Collapse()
         {
             var wrapperTab = this.GetWrapper() as RibbonTabItem;
-            if (wrapperTab != null)
+            if (wrapperTab is not null)
             {
                 var tabControl = wrapperTab.TabControlParent;
-                if (tabControl != null &&
+                if (tabControl is not null &&
                     tabControl.IsMinimized)
                 {
                     tabControl.IsDropDownOpen = false;
@@ -74,10 +74,10 @@
             var wrapperTab = this.GetWrapper() as RibbonTabItem;
 
             // Select the tab and display popup
-            if (wrapperTab != null)
+            if (wrapperTab is not null)
             {
                 var tabControl = wrapperTab.TabControlParent;
-                if (tabControl != null &&
+                if (tabControl is not null &&
                     tabControl.IsMinimized)
                 {
                     wrapperTab.IsSelected = true;
@@ -94,10 +94,10 @@
             get
             {
                 var wrapperTab = this.GetWrapper() as RibbonTabItem;
-                if (wrapperTab != null)
+                if (wrapperTab is not null)
                 {
                     var tabControl = wrapperTab.TabControlParent;
-                    if (tabControl != null &&
+                    if (tabControl is not null &&
                         tabControl.IsMinimized)
                     {
                         if (wrapperTab.IsSelected && tabControl.IsDropDownOpen)
@@ -123,7 +123,7 @@
         void IScrollItemProvider.ScrollIntoView()
         {
             var wrapperTab = this.GetWrapper() as RibbonTabItem;
-            if (wrapperTab != null)
+            if (wrapperTab is not null)
             {
                 wrapperTab.BringIntoView();
             }

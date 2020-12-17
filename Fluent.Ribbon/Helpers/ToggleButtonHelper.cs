@@ -158,7 +158,7 @@ namespace Fluent
             //    {
             //        var childAsToggleButton = child as IToggleButton;
 
-            //        if (childAsToggleButton != null
+            //        if (childAsToggleButton is not null
             //            && childAsToggleButton != toggleButton
             //            && string.IsNullOrEmpty(childAsToggleButton.GroupName))
             //        {

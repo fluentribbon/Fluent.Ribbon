@@ -66,7 +66,7 @@
                 }
 
                 var childOfChild = FindVisualChild<TChildItem>(child);
-                if (childOfChild != null)
+                if (childOfChild is not null)
                 {
                     return childOfChild;
                 }
@@ -108,7 +108,7 @@
             {
                 var item = GetVisualParent(element);
 
-                while (item != null)
+                while (item is not null)
                 {
                     if (item is T variable
                         && (filter?.Invoke(variable) ?? true))
@@ -123,7 +123,7 @@
             {
                 var item = LogicalTreeHelper.GetParent(element);
 
-                while (item != null)
+                while (item is not null)
                 {
                     if (item is T variable
                         && (filter?.Invoke(variable) ?? true))
@@ -162,7 +162,7 @@
             {
                 var parent = ContentOperations.GetParent(contentElement);
 
-                if (parent != null)
+                if (parent is not null)
                 {
                     return parent;
                 }

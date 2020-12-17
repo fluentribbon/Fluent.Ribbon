@@ -198,11 +198,11 @@ namespace Fluent
             this.headerHolder = this.GetTemplateChild("PART_HeaderHolder") as FrameworkElement;
             this.itemsContainer = this.GetTemplateChild("PART_ItemsContainer") as Panel;
 
-            this.isAtLeastOneRequiredControlPresent = this.quickAccessToolbarHolder != null
-                                     || this.headerHolder != null
-                                     || this.itemsContainer != null;
+            this.isAtLeastOneRequiredControlPresent = this.quickAccessToolbarHolder is not null
+                                     || this.headerHolder is not null
+                                     || this.itemsContainer is not null;
 
-            if (this.quickAccessToolbarHolder != null)
+            if (this.quickAccessToolbarHolder is not null)
             {
                 WindowChrome.SetIsHitTestVisibleInChrome(this.quickAccessToolbarHolder, true);
             }

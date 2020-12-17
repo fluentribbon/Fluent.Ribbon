@@ -33,13 +33,13 @@ namespace Fluent.Automation.Peers
                 {
                     if (this.OwningGroup.State == RibbonGroupBoxState.Collapsed)
                     {
-                        if (this.OwningGroup.CollapsedHeaderContentControl != null)
+                        if (this.OwningGroup.CollapsedHeaderContentControl is not null)
                         {
                             this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.CollapsedHeaderContentControl);
                         }
                     }
-                    else if (this.OwningGroup.Header != null
-                            && this.OwningGroup.HeaderContentControl != null)
+                    else if (this.OwningGroup.Header is not null
+                            && this.OwningGroup.HeaderContentControl is not null)
                     {
                         this.headerPeer = new RibbonGroupHeaderAutomationPeer(this.OwningGroup.HeaderContentControl);
                     }
@@ -54,7 +54,7 @@ namespace Fluent.Automation.Peers
         {
             var list = base.GetChildrenCore();
 
-            if (this.HeaderPeer != null)
+            if (this.HeaderPeer is not null)
             {
                 if (list is null)
                 {

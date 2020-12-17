@@ -421,7 +421,7 @@ namespace Fluent
         private Ribbon? FindParentRibbon()
         {
             var element = this.Parent;
-            while (element != null)
+            while (element is not null)
             {
                 if (element is Ribbon ribbon)
                 {
@@ -470,7 +470,7 @@ namespace Fluent
             if (item.IsSelected
                 && (Visibility)e.NewValue == Visibility.Collapsed)
             {
-                if (item.TabControlParent != null)
+                if (item.TabControlParent is not null)
                 {
                     if (item.TabControlParent.IsMinimized)
                     {
@@ -546,7 +546,7 @@ namespace Fluent
 
             if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false
                 && this.IsContextual
-                && this.Group != null)
+                && this.Group is not null)
             {
                 this.cachedWidth = baseConstraint.Width;
 
@@ -589,7 +589,7 @@ namespace Fluent
             {
                 e.Handled = true;
 
-                if (this.TabControlParent != null)
+                if (this.TabControlParent is not null)
                 {
                     var canMinimize = this.TabControlParent.CanMinimize;
                     if (canMinimize)
@@ -603,7 +603,7 @@ namespace Fluent
             {
                 if (this.Visibility == Visibility.Visible)
                 {
-                    if (this.TabControlParent != null)
+                    if (this.TabControlParent is not null)
                     {
                         var newItem = this.TabControlParent.ItemContainerGenerator.ItemFromContainerOrContainerContent(this);
 
@@ -643,7 +643,7 @@ namespace Fluent
 
             if (newValue)
             {
-                if (container.TabControlParent?.SelectedTabItem != null
+                if (container.TabControlParent?.SelectedTabItem is not null
                     && ReferenceEquals(container.TabControlParent.SelectedTabItem, container) == false)
                 {
                     container.TabControlParent.SelectedTabItem.IsSelected = false;
@@ -709,7 +709,7 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (this.groups != null)
+            if (this.groups is not null)
             {
                 this.groups.CollectionChanged += this.OnGroupsCollectionChanged;
             }
@@ -717,7 +717,7 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            if (this.groups != null)
+            if (this.groups is not null)
             {
                 this.groups.CollectionChanged -= this.OnGroupsCollectionChanged;
             }
@@ -744,7 +744,7 @@ namespace Fluent
         /// <inheritdoc />
         public void OnKeyTipBack()
         {
-            if (this.TabControlParent != null
+            if (this.TabControlParent is not null
                 && this.TabControlParent.IsMinimized)
             {
                 this.TabControlParent.IsDropDownOpen = false;
@@ -776,7 +776,7 @@ namespace Fluent
 
                 yield return this.GroupsContainer;
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

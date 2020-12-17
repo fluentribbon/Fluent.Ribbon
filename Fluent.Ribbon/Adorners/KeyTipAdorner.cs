@@ -133,7 +133,7 @@ namespace Fluent
 
                 var keys = KeyTip.GetKeys(child);
 
-                if (keys is null == false
+                if (keys is not null
                     || child is IKeyTipInformationProvider)
                 {
                     if (groupBox is null)
@@ -144,7 +144,7 @@ namespace Fluent
                         continue;
                     }
 
-                    if (keys is null == false)
+                    if (keys is not null)
                     {
                         this.GenerateAndAddGroupBoxKeyTipInformation(hide, keys, child, groupBox);
                     }
@@ -173,12 +173,12 @@ namespace Fluent
             {
                 informations = keyTipInformationProvider.GetKeyTipInformations(hide);
             }
-            else if (keys is null == false)
+            else if (keys is not null)
             {
                 informations = new[] { new KeyTipInformation(keys, child, hide) };
             }
 
-            if (informations is null == false)
+            if (informations is not null)
             {
                 foreach (var keyTipInformation in informations)
                 {
@@ -393,7 +393,7 @@ namespace Fluent
             var control = this.keyTipElementContainer as IKeyTipedControl;
             control?.OnKeyTipBack();
 
-            if (this.parentAdorner is null == false)
+            if (this.parentAdorner is not null)
             {
                 this.LogDebug("Back");
                 this.Detach();
@@ -597,8 +597,8 @@ namespace Fluent
             var groupBox = this.oneOfAssociatedElements as RibbonGroupBox ?? UIHelper.GetParent<RibbonGroupBox>(this.oneOfAssociatedElements);
             var panel = groupBox?.GetPanel();
 
-            if (panel is null == false
-                && groupBox is null == false)
+            if (panel is not null
+                && groupBox is not null)
             {
                 var layoutRoot = groupBox.GetLayoutRoot();
 
@@ -625,7 +625,7 @@ namespace Fluent
 
                 // Update KeyTip Visibility
                 var visualTargetIsVisible = keyTipInformation.VisualTarget.IsVisible;
-                var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) is null == false;
+                var visualTargetInVisualTree = VisualTreeHelper.GetParent(keyTipInformation.VisualTarget) is not null;
                 keyTipInformation.Visibility = visualTargetIsVisible && visualTargetInVisualTree ? Visibility.Visible : Visibility.Collapsed;
 
                 keyTipInformation.KeyTip.Margin = KeyTip.GetMargin(keyTipInformation.AssociatedElement);
@@ -806,7 +806,7 @@ namespace Fluent
         // Determines whether the element is children to quick access toolbar
         private static bool IsWithinQuickAccessToolbar(DependencyObject element)
         {
-            return UIHelper.GetParent<QuickAccessToolBar>(element) is null == false;
+            return UIHelper.GetParent<QuickAccessToolBar>(element) is not null;
         }
 
         private static void SnapToRowsIfPresent(double[]? rows, KeyTipInformation keyTipInformation, Point translatedPoint)

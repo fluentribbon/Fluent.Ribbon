@@ -193,7 +193,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var filter = (GalleryGroupFilter?)e.NewItems[i];
                             var menuItem = new MenuItem
@@ -216,7 +216,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var item in e.OldItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var menuItem = this.GetFilterMenuItem(item);
                             if (menuItem is not null)
@@ -232,7 +232,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var item in e.OldItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var menuItem = this.GetFilterMenuItem(item);
 
@@ -246,7 +246,7 @@ namespace Fluent
 
                     foreach (var item in e.NewItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var filter = item;
                             var menuItem = new MenuItem
@@ -463,8 +463,8 @@ namespace Fluent
             {
                 var galleryItem = gallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(basevalue);
 
-                if (basevalue != null
-                    && galleryItem != null)
+                if (basevalue is not null
+                    && galleryItem is not null)
                 {
                     galleryItem.IsSelected = false;
                 }
@@ -520,7 +520,7 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
-            if (this.groupsMenuButton != null)
+            if (this.groupsMenuButton is not null)
             {
                 foreach (var menuItem in this.groupsMenuButton.Items.Cast<MenuItem>())
                 {
@@ -532,7 +532,7 @@ namespace Fluent
 
             this.groupsMenuButton = this.GetTemplateChild("PART_DropDownButton") as DropDownButton;
 
-            if (this.groupsMenuButton != null)
+            if (this.groupsMenuButton is not null)
             {
                 for (var i = 0; i < this.Filters.Count; i++)
                 {

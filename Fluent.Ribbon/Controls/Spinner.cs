@@ -367,19 +367,19 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (this.buttonUp != null)
+            if (this.buttonUp is not null)
             {
                 this.buttonUp.Click -= this.OnButtonUpClick;
                 BindingOperations.ClearAllBindings(this.buttonUp);
             }
 
-            if (this.buttonDown != null)
+            if (this.buttonDown is not null)
             {
                 this.buttonDown.Click -= this.OnButtonDownClick;
                 BindingOperations.ClearAllBindings(this.buttonDown);
             }
 
-            if (this.textBox != null)
+            if (this.textBox is not null)
             {
                 this.textBox.LostKeyboardFocus -= this.OnTextBoxLostKeyboardFocus;
                 this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;

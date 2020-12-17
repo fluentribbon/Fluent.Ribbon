@@ -173,7 +173,7 @@ namespace Fluent
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null
+            var canExecute = this.Command is not null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -299,7 +299,7 @@ namespace Fluent
                     Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
                 }
 
-                if (source.ToolTip != null
+                if (source.ToolTip is not null
                     || BindingOperations.IsDataBound(source, ToolTipProperty))
                 {
                     Bind(source, element, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
@@ -311,7 +311,7 @@ namespace Fluent
             }
 
             var ribbonControl = source as IRibbonControl;
-            if (ribbonControl?.Icon != null)
+            if (ribbonControl?.Icon is not null)
             {
                 if (ribbonControl.Icon is Visual iconVisual)
                 {
@@ -488,12 +488,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

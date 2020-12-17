@@ -282,7 +282,7 @@ namespace Fluent
             var combo = (ComboBox)d;
             if (combo.isQuickAccessOpened == false
                 && combo.isQuickAccessFocused == false
-                && combo.quickAccessCombo != null)
+                && combo.quickAccessCombo is not null)
             {
                 combo.UpdateQuickAccessCombo();
             }
@@ -488,8 +488,8 @@ namespace Fluent
                                           {
                                               this.quickAccessCombo.IsSnapped = true;
                                               this.IsSnapped = true;
-                                              if (this.snappedImage != null &&
-                                                  this.quickAccessCombo.snappedImage != null)
+                                              if (this.snappedImage is not null &&
+                                                  this.quickAccessCombo.snappedImage is not null)
                                               {
                                                   this.quickAccessCombo.snappedImage.Source = this.snappedImage.Source;
                                                   this.quickAccessCombo.snappedImage.Visibility = Visibility.Visible;
@@ -529,24 +529,24 @@ namespace Fluent
         {
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
 
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
@@ -556,13 +556,13 @@ namespace Fluent
             this.snappedImage = this.GetTemplateChild("PART_SelectedImage") as Image;
             this.contentSite = this.GetTemplateChild("PART_ContentSite") as ContentPresenter;
 
-            if (this.contentBorder != null)
+            if (this.contentBorder is not null)
             {
                 this.contentBorder.PreviewMouseDown -= this.OnContentBorderPreviewMouseDown;
             }
 
             this.contentBorder = this.GetTemplateChild("PART_ContentBorder") as Border;
-            if (this.contentBorder != null)
+            if (this.contentBorder is not null)
             {
                 this.contentBorder.PreviewMouseDown += this.OnContentBorderPreviewMouseDown;
             }
@@ -581,14 +581,14 @@ namespace Fluent
 
             Mouse.Capture(this, CaptureMode.SubTree);
 
-            if (this.SelectedItem != null)
+            if (this.SelectedItem is not null)
             {
                 Keyboard.Focus(this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IInputElement>(this.SelectedItem));
             }
 
             this.focusedElement = Keyboard.FocusedElement;
 
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
             }
@@ -628,7 +628,7 @@ namespace Fluent
                 Mouse.Capture(null);
             }
 
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
             }
@@ -644,14 +644,14 @@ namespace Fluent
 
         private void OnFocusedElementLostKeyboardFocus(object? sender, KeyboardFocusChangedEventArgs e)
         {
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
             }
 
             this.focusedElement = Keyboard.FocusedElement;
 
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
 
@@ -683,7 +683,7 @@ namespace Fluent
         {
             var baseKeyDownCalled = false;
 
-            if ((this.Menu != null && this.Menu.IsKeyboardFocusWithin == false)
+            if ((this.Menu is not null && this.Menu.IsKeyboardFocusWithin == false)
                 && e.Key != Key.Tab)
             {
                 base.OnKeyDown(e);
@@ -696,7 +696,7 @@ namespace Fluent
                 }
             }
 
-            if (this.Menu != null
+            if (this.Menu is not null
                 && this.Menu.Items.IsEmpty == false)
             {
                 if (e.Key == Key.Tab)
@@ -890,12 +890,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

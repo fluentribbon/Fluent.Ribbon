@@ -51,7 +51,7 @@ namespace Fluent
         {
             get
             {
-                if (this.activeAdornerChain != null)
+                if (this.activeAdornerChain is not null)
                 {
                     return this.activeAdornerChain.AreAnyKeyTipsVisible;
                 }
@@ -153,7 +153,7 @@ namespace Fluent
             // prevent delay show
             this.timer.Stop();
 
-            if (this.window != null)
+            if (this.window is not null)
             {
                 this.window.PreviewKeyDown -= this.OnWindowPreviewKeyDown;
                 this.window.KeyUp -= this.OnWindowKeyUp;
@@ -246,7 +246,7 @@ namespace Fluent
                 }
             }
             else if (e.Key == Key.Escape
-                && this.activeAdornerChain != null)
+                && this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 this.ClearUserInput();
@@ -348,7 +348,7 @@ namespace Fluent
                     this.ShowImmediatly();
                 }
 
-                if (this.activeAdornerChain != null)
+                if (this.activeAdornerChain is not null)
                 {
                     e.Handled = true;
                 }
@@ -403,7 +403,7 @@ namespace Fluent
 
         private void OnAdornerChainTerminated(object? sender, KeyTipPressedResult e)
         {
-            if (this.activeAdornerChain != null)
+            if (this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             }
@@ -488,7 +488,7 @@ namespace Fluent
             if (keyTipsTarget is Ribbon targetRibbon
                 && targetRibbon.IsMinimized == false
                 && targetRibbon.SelectedTabIndex >= 0
-                && targetRibbon.TabControl != null)
+                && targetRibbon.TabControl is not null)
             {
                 // Focus ribbon
                 (this.ribbon.TabControl?.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
@@ -496,7 +496,7 @@ namespace Fluent
 
             this.ClearUserInput();
 
-            if (this.activeAdornerChain != null)
+            if (this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             }

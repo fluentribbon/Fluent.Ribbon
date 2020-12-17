@@ -437,7 +437,7 @@ namespace Fluent
         {
             get
             {
-                if (this.Parent != null)
+                if (this.Parent is not null)
                 {
                     return this.Parent;
                 }
@@ -572,7 +572,7 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened -= this.OnDropDownOpened;
                 this.DropDownPopup.Closed -= this.OnDropDownClosed;
@@ -580,7 +580,7 @@ namespace Fluent
 
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.Opened += this.OnDropDownOpened;
                 this.DropDownPopup.Closed += this.OnDropDownClosed;
@@ -590,24 +590,24 @@ namespace Fluent
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
 
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
@@ -653,7 +653,7 @@ namespace Fluent
                     }
 
                     if (key == Key.Right
-                        && this.menuPanel != null)
+                        && this.menuPanel is not null)
                     {
                         this.IsSubmenuOpen = true;
                         this.menuPanel.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
@@ -668,7 +668,7 @@ namespace Fluent
                         else
                         {
                             var parentMenuItem = UIHelper.GetParent<System.Windows.Controls.MenuItem>(this);
-                            if (parentMenuItem != null)
+                            if (parentMenuItem is not null)
                             {
                                 parentMenuItem.IsSubmenuOpen = false;
                             }
@@ -715,12 +715,12 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer != null)
+            if (this.scrollViewer is not null)
             {
                 this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             }
 
-            if (this.menuPanel != null)
+            if (this.menuPanel is not null)
             {
                 if (double.IsNaN(this.menuPanel.Width))
                 {
@@ -740,12 +740,12 @@ namespace Fluent
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer != null)
+            if (this.scrollViewer is not null)
             {
                 this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             }
 
-            if (this.menuPanel != null)
+            if (this.menuPanel is not null)
             {
                 if (double.IsNaN(this.menuPanel.Height))
                 {
@@ -765,13 +765,13 @@ namespace Fluent
         // Handles drop down closed
         private void OnDropDownOpened(object? sender, EventArgs e)
         {
-            if (this.scrollViewer != null
+            if (this.scrollViewer is not null
                 && this.ResizeMode != ContextMenuResizeMode.None)
             {
                 this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             }
 
-            if (this.menuPanel != null)
+            if (this.menuPanel is not null)
             {
                 this.menuPanel.Width = double.NaN;
                 this.menuPanel.Height = double.NaN;
@@ -805,7 +805,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }

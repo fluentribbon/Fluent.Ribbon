@@ -393,7 +393,7 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (this.button != null)
+            if (this.button is not null)
             {
                 this.button.Click += this.OnButtonClick;
             }
@@ -401,7 +401,7 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            if (this.button != null)
+            if (this.button is not null)
             {
                 this.button.Click -= this.OnButtonClick;
             }
@@ -537,7 +537,7 @@ namespace Fluent
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
             if (string.IsNullOrEmpty(this.KeyTip) == false
-                && this.button is null == false)
+                && this.button is not null)
             {
                 if (string.IsNullOrEmpty(this.SecondaryKeyTip))
                 {
@@ -580,7 +580,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.button != null)
+                if (this.button is not null)
                 {
                     yield return this.button;
                 }

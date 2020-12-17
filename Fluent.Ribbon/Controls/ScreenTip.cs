@@ -76,7 +76,7 @@ namespace Fluent
 
             if (notQuickAccessItem
                 && this.IsRibbonAligned
-                && ribbon != null)
+                && ribbon is not null)
             {
                 var belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), this.PlacementTarget).Y;
                 var aboveY = ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
@@ -89,7 +89,7 @@ namespace Fluent
                 && this.IsRibbonAligned
                 && notContextMenuChild
                 && topLevelElement is Window == false
-                && decoratorChild != null)
+                && decoratorChild is not null)
             {
                 // Placed on Popup?
                 var belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), this.PlacementTarget).Y;
@@ -150,7 +150,7 @@ namespace Fluent
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
             {
                 var element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
-                if (element != null)
+                if (element is not null)
                 {
                     return element;
                 }
@@ -360,7 +360,7 @@ namespace Fluent
             }
 
             this.focusedElement = Keyboard.FocusedElement;
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
             }
@@ -406,7 +406,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.HelpTopic != null)
+                if (this.HelpTopic is not null)
                 {
                     yield return this.HelpTopic;
                 }

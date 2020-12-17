@@ -47,7 +47,7 @@ namespace Fluent
 
             this.background = new Rectangle();
 
-            if (this.backstageTabControl != null)
+            if (this.backstageTabControl is not null)
             {
                 BindingOperations.SetBinding(this.background, Shape.FillProperty, new Binding
                                                                                   {

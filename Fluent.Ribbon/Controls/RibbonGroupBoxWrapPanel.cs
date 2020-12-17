@@ -303,7 +303,7 @@ namespace Fluent
         {
             var parentRibbonGroupBox = UIHelper.GetParent<RibbonGroupBox>(this);
 
-            var isParentRibbonGroupBoxSharedSizeScope = parentRibbonGroupBox != null && Grid.GetIsSharedSizeScope(parentRibbonGroupBox);
+            var isParentRibbonGroupBoxSharedSizeScope = parentRibbonGroupBox is not null && Grid.GetIsSharedSizeScope(parentRibbonGroupBox);
 
             var firstInLine = 0;
             var itemWidth = this.ItemWidth;
@@ -388,7 +388,7 @@ namespace Fluent
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
+                if (child is not null)
                 {
                     var childSize = new UvSize(this.Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
                     var layoutSlotU = useItemU ? itemU : childSize.U;

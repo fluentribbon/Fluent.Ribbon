@@ -282,7 +282,7 @@ namespace Fluent
         {
             this.MaintainIsCollapsed();
 
-            if (this.iconImage != null
+            if (this.iconImage is not null
                 && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands?.ItemsControl).GetZeroIfInfinityOrNaN())
             {
                 this.SetCurrentValue(IsIconVisibleProperty, false);
@@ -354,7 +354,7 @@ namespace Fluent
 
             this.TitleBar = this.GetTemplateChild(PART_RibbonTitleBar) as RibbonTitleBar;
 
-            if (this.iconImage != null)
+            if (this.iconImage is not null)
             {
                 this.iconImage.MouseDown -= this.HandleIconMouseDown;
             }
@@ -366,7 +366,7 @@ namespace Fluent
 
             this.iconImage = this.GetPart<FrameworkElement>(PART_Icon);
 
-            if (this.iconImage != null)
+            if (this.iconImage is not null)
             {
                 this.iconImage.MouseDown += this.HandleIconMouseDown;
             }
