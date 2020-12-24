@@ -8,6 +8,7 @@
   - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
   - [#883](../../issues/883) - GroupBy not working anymore on Fluent:Gallery?  
   Added `IsGrouped` to `Gallery`.
+  - [#885](../../issues/885) - When a window is maximized its 'Restore down' icon gets distorted
 
 ## 8.0.2
 
