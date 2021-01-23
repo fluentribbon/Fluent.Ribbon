@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 8.0.4
+
+- ### Bug fixes
+
+  - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
+
 ## 8.0.3
 
 - ### Bug fixes
