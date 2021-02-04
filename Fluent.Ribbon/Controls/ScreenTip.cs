@@ -54,7 +54,7 @@ namespace Fluent
         {
             if (this.PlacementTarget is null)
             {
-#if NETCOREAPP3_0
+#if NETCOREAPP
                 return Array.Empty<CustomPopupPlacement>();
 #else
                 return new CustomPopupPlacement[] { };
