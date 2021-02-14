@@ -21,6 +21,6 @@
 
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="3.8.0" />
         <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.261" />
-        <PackageVersion Include="WpfAnalyzers" version="3.5.2" />
+        <PackageVersion Include="WpfAnalyzers" version="3.5.4" />
     </ItemGroup>
 </Project>
