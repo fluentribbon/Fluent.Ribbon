@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters"
@@ -236,10 +236,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="PART_ItemsPanelGrid"
+            <Grid x:Name="PART_ItemsPanelContainer"
                   VerticalAlignment="Stretch"
                   Background="{DynamicResource WhiteBrush}">
-                <Grid Background="{TemplateBinding ItemsPanelBackground}">
+                <Grid Background="{TemplateBinding ItemsPanelBackground}"
+                      KeyboardNavigation.DirectionalNavigation="Cycle">
                     <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
                                                         VerticalAlignment="Top"
                                                         IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />

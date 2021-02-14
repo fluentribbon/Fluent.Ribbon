@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Helpers;
@@ -19,11 +20,14 @@ namespace Fluent
     /// Represents Backstage tab control.
     /// </summary>
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = "PART_ItemsPanelContainer", Type = typeof(UIElement))]
     public class BackstageTabControl : Selector, ILogicalChildSupport
     {
         #region Properties
 
         internal ContentPresenter? SelectedContentHost { get; private set; }
+
+        internal UIElement ItemsPanelContainer { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -258,6 +262,10 @@ namespace Fluent
         static BackstageTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(typeof(BackstageTabControl)));
+
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         /// <summary>
@@ -306,6 +314,7 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
+            this.ItemsPanelContainer = this.GetTemplateChild("PART_ItemsPanelContainer") as UIElement;
             this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
         }
 
@@ -354,6 +363,45 @@ namespace Fluent
             if (e.AddedItems.Count > 0)
             {
                 this.UpdateSelectedContent();
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Handled)
+            {
+                base.OnKeyDown(e);
+                return;
+            }
+
+            // Handle [Ctrl][Shift]Tab
+
+            switch (e.Key)
+            {
+                case Key.F6:
+                case Key.Tab when (e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+                    {
+                        var focusNavigationDirection = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift
+                            ? FocusNavigationDirection.Last
+                            : FocusNavigationDirection.First;
+
+                        if (this.SelectedContentHost?.IsKeyboardFocusWithin == true)
+                        {
+                            e.Handled = this.ItemsPanelContainer?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                        }
+                        else
+                        {
+                            e.Handled = this.SelectedContentHost?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                        }
+                    }
+
+                    break;
+            }
+
+            if (!e.Handled)
+            {
+                base.OnKeyDown(e);
             }
         }
 
