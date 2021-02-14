@@ -540,7 +540,7 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             //base.OnPreviewMouseWheel(e);
 

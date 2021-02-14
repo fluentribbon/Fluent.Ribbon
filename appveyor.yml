@@ -16,7 +16,7 @@ install:
   - ps: ./dotnet-install.ps1 -Version 5.0.100 -InstallDir "C:\Program Files\dotnet"
 
 build_script:
-  - ps: dotnet --list-sdks
+  - ps: dotnet --info
   - ps: .\build.ps1 -Target CI -Verbosity Verbose
 
 after_build:

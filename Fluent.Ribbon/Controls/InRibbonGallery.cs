@@ -1082,7 +1082,13 @@ namespace Fluent
         {
             var groupBox = UIHelper.GetParent<RibbonGroupBox>(this);
 
-            groupBox?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            // Only notify the parent groupbox if we are not currently being shown in the collapsed popup.
+            // Otherwise we will cause application freezes as we would be constantly flipped between being visible and not visible.
+            // See https://github.com/fluentribbon/Fluent.Ribbon/issues/900 for reference
+            if (groupBox?.IsDropDownOpen == false)
+            {
+                groupBox?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            }
         }
 
         private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)

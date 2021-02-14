@@ -7,6 +7,13 @@
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
 
+## 8.0.4
+
+- ### Bug fixes
+
+  - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
+  - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
+
 ## 8.0.3
 
 - ### Bug fixes
@@ -15,6 +22,7 @@
   - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
   - [#883](../../issues/883) - GroupBy not working anymore on Fluent:Gallery?  
   Added `IsGrouped` to `Gallery`.
+  - [#885](../../issues/885) - When a window is maximized its 'Restore down' icon gets distorted
 
 ## 8.0.2
 

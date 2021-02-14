@@ -247,14 +247,15 @@ namespace Fluent
         public MenuItem()
         {
             ContextMenuService.Coerce(this);
-
-            this.MouseWheel += this.OnMenuItemMouseWheel;
         }
 
-        // Fix to raise MouseWhele event
-        private void OnMenuItemMouseWheel(object sender, MouseWheelEventArgs e)
+        /// <inheritdoc />
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
-            (((MenuItem)sender).Parent as ListBox)?.RaiseEvent(e);
+            base.OnMouseWheel(e);
+
+            // Fix to raise MouseWhele event
+            (this.Parent as ListBox)?.RaiseEvent(e);
         }
 
         #endregion
