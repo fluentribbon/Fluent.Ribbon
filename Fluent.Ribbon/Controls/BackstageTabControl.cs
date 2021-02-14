@@ -27,7 +27,7 @@ namespace Fluent
 
         internal ContentPresenter? SelectedContentHost { get; private set; }
 
-        internal UIElement ItemsPanelContainer { get; private set; }
+        internal UIElement? ItemsPanelContainer { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
