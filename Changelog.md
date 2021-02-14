@@ -5,6 +5,7 @@
 - ### Bug fixes
 
   - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
+  - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
 
 ## 8.0.3
 
