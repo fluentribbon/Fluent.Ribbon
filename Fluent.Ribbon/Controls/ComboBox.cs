@@ -96,10 +96,7 @@ namespace Fluent
             set { this.SetValue(KeyTipProperty, value); }
         }
 
-        /// <summary>
-        ///     Using a DependencyProperty as the backing store for Keys.
-        ///     This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="KeyTip"/> dependency property.</summary>
         public static readonly DependencyProperty KeyTipProperty = Fluent.KeyTip.KeysProperty.AddOwner(typeof(ComboBox));
 
         #endregion
