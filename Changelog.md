@@ -58,9 +58,12 @@
 
   - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
   - [#811](../../issues/811) - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
-    Because of this you now got more automatic and manual sync options.
-    Syncing now, optionally, includes the current accent color from Windows.
-    You can now generate themes at runtime more easily.
+    You now have to use `ThemeManager.Current` instead of the static class `ThemeManager`.  
+    Because of this you now got more automatic and manual sync options.  
+    Syncing now, optionally, includes the current accent color from Windows.  
+    You can now generate themes at runtime more easily.  
+    The documentation for Fluent.Ribbon can be found at https://fluentribbon.github.io/documentation/styles_since_8  
+    The documentation for `ThemeManager` can be found at https://github.com/ControlzEx/ControlzEx/blob/develop/Wiki/ThemeManager.md
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
   - The built in state storage will no longer persist the state of quick access items.  
