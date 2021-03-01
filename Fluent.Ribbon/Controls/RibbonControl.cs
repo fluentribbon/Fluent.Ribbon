@@ -355,6 +355,12 @@ namespace Fluent
 
         #region Binding
 
+        internal static void Bind(object source, FrameworkElement target, DependencyProperty property, BindingMode mode)
+        {
+            // todo: implement
+            Bind(source, target, string.Empty, property, mode);
+        }
+
         internal static void Bind(object source, FrameworkElement target, string path, DependencyProperty property, BindingMode mode)
         {
             Bind(source, target, new PropertyPath(path), property, mode);

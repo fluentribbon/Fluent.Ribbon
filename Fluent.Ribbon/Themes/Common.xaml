@@ -47,4 +47,6 @@
     <Style TargetType="{x:Type Fluent:QuickAccessToolBar}" BasedOn="{StaticResource QuickAccessToolbarStyle}" />
     
     <Style TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}" BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer}" />
+    <Style TargetType="{x:Type Fluent:RibbonSlider}" BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonSlider}" />
+    <Style TargetType="{x:Type Fluent:RibbonToggleSwitch}" BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonToggleSwitch}" />
 </ResourceDictionary>

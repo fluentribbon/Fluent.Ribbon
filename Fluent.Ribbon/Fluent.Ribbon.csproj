@@ -24,6 +24,8 @@
     <EmbeddedResource Include="**/*.Template.xaml" />
     <EmbeddedResource Include="**/GeneratorParameters.json" />
     <UpToDateCheckInput Include="**/*.xaml" />
+    <!-- Todo -->
+<!--    <UpToDateCheckInput Include="**/Styles.txt" />-->
   </ItemGroup>
   <ItemGroup>
     <None Include="../License.txt" Pack="true" PackagePath="license/License.txt" />

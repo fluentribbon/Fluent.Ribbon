@@ -1,0 +1,86 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonToggleSwitch"
+                     TargetType="{x:Type Fluent:RibbonToggleSwitch}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="32" />
+            </Grid.ColumnDefinitions>
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1">
+                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Height="13" Width="26" CornerRadius="6">
+                    <Grid ClipToBounds="True" x:Name="gridBase">
+                        <TextBlock x:Name="OffLabel" Text="Off" FontSize="8" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Margin="10,0,0,0" HorizontalAlignment="Left">
+                            <TextBlock.RenderTransform>
+                                <TranslateTransform x:Name="OffLabelMover" X="0" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <TextBlock x:Name="OnLabel" Text="On" FontSize="8" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" Margin="-12,0,0,0" HorizontalAlignment="Left">
+                            <TextBlock.RenderTransform>
+                                <TranslateTransform x:Name="OnLabelMover" X="0" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                        <Path x:Name="SliderIcon" Fill="{TemplateBinding Foreground}" RenderTransformOrigin="0.5,0.5">
+                            <Path.RenderTransform>
+                                <TranslateTransform x:Name="SliderIconMover" X="0" />
+                            </Path.RenderTransform>
+                            <Path.Data>
+                                <EllipseGeometry Center="4.5,5.5" RadiusX="3" RadiusY="3" />
+                            </Path.Data>
+                        </Path>
+                    </Grid>
+                </Border>
+            </Grid>
+            <ContentControl Grid.Column="0" Foreground="{TemplateBinding Foreground}" IsTabStop="False" Margin="2,0,2,0">
+                <ContentPresenter x:Name="contentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </ContentControl>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" TargetName="border" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" TargetName="border" Value="{Binding Foreground, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.55" />
+            </Trigger>
+            <EventTrigger RoutedEvent="CheckBox.Checked">
+                <BeginStoryboard>
+                    <Storyboard FillBehavior="HoldEnd">
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="SliderIconMover" To="15" />
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="OffLabelMover" To="15" />
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="OnLabelMover" To="15" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="CheckBox.Unchecked">
+                <BeginStoryboard>
+                    <Storyboard FillBehavior="HoldEnd">
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="SliderIconMover" To="0" />
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="OffLabelMover" To="0" />
+                        <DoubleAnimation Duration="0:0:0:0.125" Storyboard.TargetProperty="X" Storyboard.TargetName="OnLabelMover" To="0" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonToggleSwitch"
+           TargetType="{x:Type Fluent:RibbonToggleSwitch}">
+        <Setter Property="Template"
+                Value="{DynamicResource Fluent.Ribbon.Templates.RibbonToggleSwitch}" />
+        <Setter Property="ToolTipService.ShowDuration"
+                Value="30000" />
+        <Setter Property="Background"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="BorderThickness"
+                Value="1" />
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
+        <Setter Property="Margin"
+                Value="2,2,2,2" />
+    </Style>
+</ResourceDictionary>

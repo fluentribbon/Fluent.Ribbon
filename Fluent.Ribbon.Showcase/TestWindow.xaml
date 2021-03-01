@@ -21,7 +21,8 @@
     </Fluent:RibbonWindow.LayoutTransform>
     <Fluent:RibbonWindow.WindowCommands>
         <Fluent:WindowCommands>
-            <Button Content="Test" Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.Button}" />
+            <Fluent:RibbonSlider />
+            <Fluent:RibbonToggleSwitch />
         </Fluent:WindowCommands>
     </Fluent:RibbonWindow.WindowCommands>
     <FluentTest:TestContent x:Name="TestContent" />
