@@ -123,14 +123,14 @@
                                                  TabItemMouseOverForeground="Red"
                                                  TabItemSelectedMouseOverForeground="OrangeRed"
                                                  Header="FIRST"
-                                                 Visibility="Visible" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
                                                  BorderBrush="#FF9D00"
                                                  Background="#FF9D00"
                                                  Foreground="#C45300"
                                                  Header="SECOND"
-                                                 Visibility="Visible" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
                                                  BorderBrush="Green"

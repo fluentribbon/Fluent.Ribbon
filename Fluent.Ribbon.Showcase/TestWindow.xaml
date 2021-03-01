@@ -13,7 +13,8 @@
                      Width="1024"
                      MinWidth="80"
                      MinHeight="60"                     
-                     WindowState="Normal">
+                     WindowState="Normal"
+                     DataContext="{Binding DataContext, ElementName=TestContent}">
     <Fluent:RibbonWindow.LayoutTransform>
         <!-- todo: netcore => was using x:Reference before -->
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"

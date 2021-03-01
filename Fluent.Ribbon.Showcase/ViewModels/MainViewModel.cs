@@ -15,6 +15,8 @@
 
     public class MainViewModel : ViewModel
     {
+        private readonly Timer memoryTimer;
+
         private int boundSpinnerValue;
         private ColorViewModel colorViewModel;
         private FontsViewModel fontsViewModel;
@@ -31,7 +33,7 @@
 
         private bool? isCheckedToggleButton3 = true;
 
-        private readonly Timer memoryTimer;
+        private bool areContextGroupsVisible = true;
 
         public MainViewModel()
         {
@@ -71,6 +73,21 @@
                 }
 
                 this.zoom = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool AreContextGroupsVisible
+        {
+            get => this.areContextGroupsVisible;
+            set
+            {
+                if (value == this.areContextGroupsVisible)
+                {
+                    return;
+                }
+
+                this.areContextGroupsVisible = value;
                 this.OnPropertyChanged();
             }
         }
