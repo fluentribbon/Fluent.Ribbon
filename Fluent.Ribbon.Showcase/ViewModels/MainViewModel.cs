@@ -18,6 +18,8 @@
     public class MainViewModel : ViewModel
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
+        private readonly Timer memoryTimer;
+
         private int boundSpinnerValue;
         private ColorViewModel colorViewModel;
         private FontsViewModel fontsViewModel;
@@ -34,7 +36,7 @@
 
         private bool? isCheckedToggleButton3 = true;
 
-        private readonly Timer memoryTimer;
+        private bool areContextGroupsVisible = true;
 
         public MainViewModel()
         {
@@ -74,6 +76,21 @@
                 }
 
                 this.zoom = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool AreContextGroupsVisible
+        {
+            get => this.areContextGroupsVisible;
+            set
+            {
+                if (value == this.areContextGroupsVisible)
+                {
+                    return;
+                }
+
+                this.areContextGroupsVisible = value;
                 this.OnPropertyChanged();
             }
         }
