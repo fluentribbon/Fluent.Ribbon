@@ -426,8 +426,13 @@ namespace Fluent
             return true;
         }
 
-        // Forward to the next element
-        private void Forward(string keys, FrameworkElement element, bool click)
+        /// <summary>
+        /// Forwards to the elements with the given keys to a given element.
+        /// </summary>
+        /// <param name="keys">Keys</param>
+        /// <param name="element">The element to forward to.</param>
+        /// <param name="click">If true the element will be clicked</param>
+        public void Forward(string keys, FrameworkElement element, bool click)
         {
             this.LogTrace("Forwarding keys \"{0}\" to element \"{1}\".", keys, GetControlLogText(element));
 

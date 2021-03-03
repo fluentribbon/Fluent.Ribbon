@@ -197,7 +197,7 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
-        private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnWindowPreviewKeyDown(object? sender, KeyEventArgs e)
         {
             if (this.windowPreviewKeyDownScopeGuard?.IsActive == true)
             {
@@ -304,6 +304,13 @@ namespace Fluent
                 {
                     // Handles access-keys #258
                     if (shownImmediately)
+                    {
+                        this.Terminate();
+                        return;
+                    }
+
+                    // KeyTipService should dismiss keytips if the first key does not match any keytips #908
+                    if (this.activeAdornerChain.AdornedElement is Ribbon)
                     {
                         this.Terminate();
                         return;
@@ -485,10 +492,12 @@ namespace Fluent
                 this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
             }
 
-            if (keyTipsTarget is Ribbon targetRibbon
-                && targetRibbon.IsMinimized == false
-                && targetRibbon.SelectedTabIndex >= 0
-                && targetRibbon.TabControl is not null)
+            if (keyTipsTarget is Ribbon
+                    {
+                        IsMinimized: false,
+                        SelectedTabIndex: >= 0,
+                        TabControl: { }
+                    })
             {
                 // Focus ribbon
                 (this.ribbon.TabControl?.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
@@ -501,9 +510,16 @@ namespace Fluent
                 this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             }
 
-            this.activeAdornerChain = new KeyTipAdorner(keyTipsTarget, keyTipsTarget, null);
+            // to mimik the Office behavior we always attach the adorner to the ribbon
+            this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
             this.activeAdornerChain.Attach();
+
+            // continuation of Office mimik: if the real target wasn't the ribbon we immediately forward to the target control
+            if (keyTipsTarget is not Ribbon)
+            {
+                this.activeAdornerChain.Forward(string.Empty, keyTipsTarget, false);
+            }
         }
 
         private FrameworkElement? GetBackstage()

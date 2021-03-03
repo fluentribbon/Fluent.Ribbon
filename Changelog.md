@@ -1,11 +1,14 @@
 # Changelog for Fluent.Ribbon
 
-## 9.0.0
+## 9.0.0 (preview)
 
 - ### Breaking changes
 
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
+
+- ### Bug fixes
+  - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
 
 ## 8.0.4
 
