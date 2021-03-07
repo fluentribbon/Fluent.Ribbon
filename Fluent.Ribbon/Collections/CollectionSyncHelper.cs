@@ -53,8 +53,7 @@
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        var item = (TItem)e.NewItems[i];
-                        this.Target.Insert(e.NewStartingIndex + i, item);
+                        this.Target.Insert(e.NewStartingIndex + i, (TItem?)e.NewItems[i]);
                     }
 
                     break;
@@ -64,7 +63,7 @@
                     {
                         foreach (var item in e.OldItems)
                         {
-                            this.Target.Remove((TItem)item);
+                            this.Target.Remove((TItem?)item);
                         }
                     }
 
@@ -75,7 +74,7 @@
                     {
                         foreach (var item in e.OldItems)
                         {
-                            this.Target.Remove((TItem)item);
+                            this.Target.Remove((TItem?)item);
                         }
                     }
 
@@ -83,7 +82,7 @@
                     {
                         foreach (var item in e.NewItems)
                         {
-                            this.Target.Add((TItem)item);
+                            this.Target.Add((TItem?)item);
                         }
                     }
 
