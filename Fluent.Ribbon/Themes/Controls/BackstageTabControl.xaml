@@ -241,20 +241,35 @@
                   Background="{DynamicResource WhiteBrush}">
                 <Grid Background="{TemplateBinding ItemsPanelBackground}"
                       KeyboardNavigation.DirectionalNavigation="Cycle">
-                    <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Fluent:WindowSteeringHelperControl Grid.RowSpan="2"
+                                                        Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
                                                         VerticalAlignment="Top"
                                                         IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
 
                     <Button x:Name="backbutton"
                             Style="{DynamicResource BackstageBackButtonStyle}"
+                            Grid.Row="0"
                             Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                             Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
-                            Margin="0,16,0,0"
                             Padding="22,7,0,7"
                             VerticalAlignment="Top">
+                        <Button.Margin>
+                            <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
+                                <Binding Source="0" />
+                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}"
+                                         Path="TitleBar.ActualHeight"
+                                         FallbackValue="0" />
+                                <Binding Source="0" />
+                                <Binding Source="0" />
+                            </MultiBinding>
+                        </Button.Margin>
                     </Button>
 
-                    <ItemsPresenter Margin="0,77,0,0"
+                    <ItemsPresenter Grid.Row="1"
                                     Height="Auto" />
                 </Grid>
             </Grid>
