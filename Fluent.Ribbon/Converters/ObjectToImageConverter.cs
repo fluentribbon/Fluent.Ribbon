@@ -1,4 +1,4 @@
-namespace Fluent.Converters
+﻿namespace Fluent.Converters
 {
     using System;
     using System.ComponentModel;
@@ -430,7 +430,7 @@ namespace Fluent.Converters
 
                 return ExtractImageSource(decoder, targetVisual, desiredSize);
             }
-            catch (IOException exception) when (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            catch (IOException exception) when (DesignerProperties.GetIsInDesignMode(targetVisual ?? new DependencyObject()))
             {
                 Trace.WriteLine(exception);
 
