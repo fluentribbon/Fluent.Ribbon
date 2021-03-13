@@ -400,8 +400,10 @@ namespace Fluent.Converters
 
         private static ImageSource CreateImageSource(string imagePath, Visual? targetVisual, Size desiredSize)
         {
+            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+
             // Allow things like "Images\Green.png"
-            if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
+            if (imageUri.IsAbsoluteUri == false)
             {
                 // If that file does not exist, try to find it using resource notation
                 if (File.Exists(imagePath) == false)
@@ -413,11 +415,9 @@ namespace Fluent.Converters
                         slash = "/";
                     }
 
-                    imagePath = "pack://application:,,," + slash + imagePath;
+                    imageUri = new Uri("pack://application:,,," + slash + imagePath, UriKind.RelativeOrAbsolute);
                 }
             }
-
-            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
 
             return CreateImageSource(imageUri, targetVisual, desiredSize);
         }
