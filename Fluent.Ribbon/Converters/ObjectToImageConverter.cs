@@ -1,4 +1,4 @@
-﻿namespace Fluent.Converters
+namespace Fluent.Converters
 {
     using System;
     using System.ComponentModel;
@@ -447,9 +447,7 @@
 
         private static ImageSource ExtractImageSource(System.Drawing.Icon icon, Visual? targetVisual, Size desiredSize)
         {
-            var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle,
-                                                                  Int32Rect.Empty,
-                                                                  BitmapSizeOptions.FromEmptyOptions());
+            var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
             return ExtractImageSource(imageSource, targetVisual, desiredSize);
         }
