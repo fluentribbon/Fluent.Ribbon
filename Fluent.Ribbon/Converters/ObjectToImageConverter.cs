@@ -167,31 +167,33 @@ namespace Fluent.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var desiredSize = Size.Empty;
+            var valuesLength = values.Length;
 
             // TargetVisual can be at index 1 or index 2, depending on the number of values passed
-            var targetVisual = values.Length == 2
-                                   ? values[1] as Visual
-                                   : null;
+            var targetVisual = valuesLength == 2
+                ? values[1] as Visual
+                : null;
 
             if (targetVisual is null)
             {
-                targetVisual = values.Length == 3
-                                   ? values[2] as Visual
-                                   : null;
+                targetVisual = valuesLength == 3
+                    ? values[2] as Visual
+                    : null;
             }
 
-            if (values.Length >= 2
+            if (valuesLength >= 2
                 && values[1] is Size desiredSizeFromIndex1)
             {
                 desiredSize = desiredSizeFromIndex1;
             }
-            else if (values.Length >= 2
+            else if (valuesLength >= 2
                      && (values[1] is Visual) == false)
             {
                 var possibleDesiredSizeValue = values[1];
-                object convertedValue;
+                object? convertedValue;
 
-                if (sizeConverter.CanConvertFrom(possibleDesiredSizeValue.GetType())
+                if (possibleDesiredSizeValue is not null
+                    && sizeConverter.CanConvertFrom(possibleDesiredSizeValue.GetType())
                     && (convertedValue = sizeConverter.ConvertFrom(possibleDesiredSizeValue)) is not null)
                 {
                     desiredSize = (Size)convertedValue;
@@ -201,15 +203,6 @@ namespace Fluent.Converters
                     desiredSize = Size.Empty;
                 }
             }
-
-            //if (desiredSize.IsEmpty
-            //    && targetVisual is not null
-            //    && targetVisual is FrameworkElement targetFrameworkElement
-            //    && DoubleHelper.IsFinite(targetFrameworkElement.Width)
-            //    && DoubleHelper.IsFinite(targetFrameworkElement.Height))
-            //{
-            //    desiredSize = new Size(targetFrameworkElement.Width, targetFrameworkElement.Height);
-            //}
 
             return this.Convert(values[0], targetVisual, desiredSize, targetType);
         }
