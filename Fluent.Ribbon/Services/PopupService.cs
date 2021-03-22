@@ -434,7 +434,7 @@ namespace Fluent
             }
         }
 
-        private static bool IsPopupRoot(object obj)
+        private static bool IsPopupRoot(object? obj)
         {
             if (obj is null)
             {

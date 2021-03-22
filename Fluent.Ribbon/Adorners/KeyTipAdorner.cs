@@ -341,7 +341,7 @@ namespace Fluent
 
         #region Static Methods
 
-        private static AdornerLayer? GetAdornerLayer(UIElement element)
+        private static AdornerLayer? GetAdornerLayer(UIElement? element)
         {
             var current = element;
 
@@ -352,8 +352,8 @@ namespace Fluent
                     return null;
                 }
 
-                var parent = (UIElement)VisualTreeHelper.GetParent(current)
-                    ?? (UIElement)LogicalTreeHelper.GetParent(current);
+                var parent = (UIElement?)VisualTreeHelper.GetParent(current)
+                    ?? (UIElement?)LogicalTreeHelper.GetParent(current);
 
                 current = parent;
 

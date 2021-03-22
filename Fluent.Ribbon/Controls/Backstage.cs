@@ -568,7 +568,10 @@ namespace Fluent
         private void DestroyAdorner()
         {
             this.AdornerLayer?.CommandBindings.Clear();
-            this.AdornerLayer?.Remove(this.adorner);
+            if (this.adorner is not null)
+            {
+                this.AdornerLayer?.Remove(this.adorner);
+            }
 
             if (this.adorner is not null)
             {
@@ -651,7 +654,7 @@ namespace Fluent
             this.RunInDispatcherAsync(() => this.Show(), DispatcherPriority.Background);
         }
 
-        private void SaveWindowMinSize(Window window)
+        private void SaveWindowMinSize(Window? window)
         {
             if (window is null)
             {
@@ -664,7 +667,7 @@ namespace Fluent
             this.savedWindowMinHeight = window.MinHeight;
         }
 
-        private void SaveWindowSize(Window window)
+        private void SaveWindowSize(Window? window)
         {
             if (window is null
                 || window.WindowState == WindowState.Maximized)
