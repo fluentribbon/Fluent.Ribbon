@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using System.Windows.Media;
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
     using Fluent.Extensions;
@@ -904,6 +905,12 @@ namespace Fluent
             // the popup width is reduced to the maximum visible size of the window on the monitor the selected tab item is on.
             // If we don't reduce the popup width wpf tries to be helpful and moves the popup out of the window to satisfy the width.
             {
+                #if NET452
+                var dpiScaleX = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
+                #else
+                var dpiScaleX = VisualTreeHelper.GetDpi(this).DpiScaleX;
+                #endif
+
                 var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X);
 
                 var actualWidth = this.ActualWidth;
@@ -913,7 +920,7 @@ namespace Fluent
                 }
 
                 // Set width and prevent negative values
-                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth) / dpiScaleX);
             }
 
             return new[]

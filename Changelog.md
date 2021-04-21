@@ -9,6 +9,7 @@
 
 - ### Bug fixes
   - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
+  - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
 
 ## 8.0.4
 
