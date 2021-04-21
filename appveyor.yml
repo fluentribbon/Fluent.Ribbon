@@ -17,13 +17,13 @@ install:
 
 build_script:
   - ps: dotnet --info
-  - ps: .\build.ps1 -Target CI -Verbosity Verbose
+  - ps: .\build.ps1 CI
 
 after_build:
   - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
 
 artifacts:
-  - path: \bin\package\*.*
+  - path: \artifacts\*.*
 
 nuget:
   disable_publish_on_pr: true

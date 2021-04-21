@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -46,12 +46,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon", "Fluent.Rib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Tests", "Fluent.Ribbon.Tests\Fluent.Ribbon.Tests.csproj", "{DCA7EC6D-7356-45DE-9713-495298C4E661}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = ".build", ".build\.build.csproj", "{CAFED543-B3F2-4C29-8A81-95134816BD84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAFED543-B3F2-4C29-8A81-95134816BD84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFED543-B3F2-4C29-8A81-95134816BD84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFFE1910-4918-4710-8F33-86B584D41316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFFE1910-4918-4710-8F33-86B584D41316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFFE1910-4918-4710-8F33-86B584D41316}.Release|Any CPU.ActiveCfg = Release|Any CPU
