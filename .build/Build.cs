@@ -108,6 +108,7 @@ class Build : NukeBuild
     });
 
     Target Test => _ => _
+        .After(Compile)
         .Executes(() =>
     {
         EnsureCleanDirectory(TestResultsDir);
