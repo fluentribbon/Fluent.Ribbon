@@ -6,18 +6,14 @@
 
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
+  - 
 
 - ### Bug fixes
+  - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
+  - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
   - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
   - [#918](../../issues/918) - Custom color does not reset color gallery selection state
   - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
-
-## 8.0.4
-
-- ### Bug fixes
-
-  - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
-  - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
 
 ## 8.0.3
 
