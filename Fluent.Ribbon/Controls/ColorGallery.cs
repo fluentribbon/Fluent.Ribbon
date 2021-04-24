@@ -505,7 +505,7 @@ namespace Fluent
             }
 
             this.isSelectionChanging = true;
-            var isSetted = false;
+            var wasValueSet = false;
 
             if (this.automaticButton is not null
                 && this.noColorButton is not null)
@@ -513,13 +513,13 @@ namespace Fluent
                 // Check menu items
                 if (color.HasValue == false)
                 {
-                    isSetted = true;
+                    wasValueSet = true;
                     this.automaticButton.IsChecked = true;
                     this.noColorButton.IsChecked = false;
                 }
                 else if (color.Value == Colors.Transparent)
                 {
-                    isSetted = true;
+                    wasValueSet = true;
                     this.automaticButton.IsChecked = false;
                     this.noColorButton.IsChecked = true;
                 }
@@ -533,15 +533,13 @@ namespace Fluent
             // Remove selection from others
             foreach (var listBox in this.listBoxes)
             {
-                if (isSetted == false
-                    && listBox.Visibility == Visibility.Visible)
+                if (wasValueSet == false
+                    && color is not null
+                    && listBox.Visibility == Visibility.Visible
+                    && listBox.Items.Contains(color.Value))
                 {
-                    if (color is not null 
-                        && listBox.Items.Contains(color.Value))
-                    {
-                        listBox.SelectedItem = color.Value;
-                        isSetted = true;
-                    }
+                    listBox.SelectedItem = color.Value;
+                    wasValueSet = true;
                 }
                 else
                 {

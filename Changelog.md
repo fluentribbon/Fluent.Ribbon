@@ -9,6 +9,7 @@
 
 - ### Bug fixes
   - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
+  - [#918](../../issues/918) - Custom color does not reset color gallery selection state
   - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
 
 ## 8.0.4
