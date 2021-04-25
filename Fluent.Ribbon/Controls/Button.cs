@@ -103,16 +103,13 @@ namespace Fluent
         /// <summary>
         /// a
         /// </summary>
-        public object MediumIcon
+        public object? MediumIcon
         {
             get { return this.GetValue(MediumIconProperty); }
             set { this.SetValue(MediumIconProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SmallIcon.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
         public static readonly DependencyProperty MediumIconProperty = DependencyProperty.Register(nameof(MediumIcon), typeof(object), typeof(Button), new PropertyMetadata());
 
         #endregion

@@ -620,9 +620,7 @@ namespace Fluent
             set { this.SetValue(IsSimplifiedProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="IsSimplified"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
         public static readonly DependencyProperty IsSimplifiedProperty = DependencyProperty.Register(nameof(IsSimplified), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
