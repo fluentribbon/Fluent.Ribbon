@@ -13,7 +13,7 @@ namespace Fluent
     /// Represents toggle button
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider
     {
         #region Properties
 
@@ -113,6 +113,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
         public static readonly DependencyProperty LargeIconProperty = LargeIconProviderProperties.LargeIconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(ToggleButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 

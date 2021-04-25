@@ -13,7 +13,7 @@ namespace Fluent
     /// Represents Fluent UI specific RadioButton
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
+    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider
     {
         #region Properties
 
@@ -101,6 +101,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
         public static readonly DependencyProperty LargeIconProperty = LargeIconProviderProperties.LargeIconProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 

@@ -12,7 +12,7 @@ namespace Fluent
     /// Represents button
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
+    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider
     {
         #region Properties
 
@@ -100,9 +100,11 @@ namespace Fluent
         /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
         public static readonly DependencyProperty LargeIconProperty = LargeIconProviderProperties.LargeIconProperty.AddOwner(typeof(Button), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
-        /// <summary>
-        /// a
-        /// </summary>
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
         public object? MediumIcon
         {
             get { return this.GetValue(MediumIconProperty); }
@@ -110,7 +112,7 @@ namespace Fluent
         }
 
         /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
-        public static readonly DependencyProperty MediumIconProperty = DependencyProperty.Register(nameof(MediumIcon), typeof(object), typeof(Button), new PropertyMetadata());
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(Button), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 

@@ -602,7 +602,9 @@ namespace FluentTest
 
         private void OpenSimplifiedRibbonWindow_OnClick(object sender, RoutedEventArgs e)
         {
-            new SimplifiedRibbonWindow().Show();
+            var window = new SimplifiedRibbonWindow();
+            window.DataContext = this.viewModel;
+            window.Show();
         }
     }
 

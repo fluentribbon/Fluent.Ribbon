@@ -14,7 +14,7 @@ namespace Fluent
     /// Represents custom Fluent UI TextBox
     /// </summary>
     [TemplatePart(Name = "PART_ContentHost", Type = typeof(UIElement))]
-    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl
+    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl, IMediumIconProvider
     {
         private UIElement? contentHost;
 
@@ -249,6 +249,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(TextBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(TextBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
