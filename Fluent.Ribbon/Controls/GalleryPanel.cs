@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -34,12 +34,6 @@ namespace Fluent
 
         #region Properties
 
-        /// <summary>
-        /// Used to prevent measures which cause the layout to flicker.
-        /// This is needed when the gallery panel has switched owners during InRibbonGallery popup open/close.
-        /// </summary>
-        public bool IgnoreNextMeasureCall { get; set; }
-
         #region IsGrouped
 
         /// <summary>
@@ -52,18 +46,15 @@ namespace Fluent
             set { this.SetValue(IsGroupedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsGrouped.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>
         public static readonly DependencyProperty IsGroupedProperty =
             DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(GalleryPanel),
-            new PropertyMetadata(BooleanBoxes.TrueBox, OnIsGroupedChanged));
+            new PropertyMetadata(BooleanBoxes.FalseBox, OnIsGroupedChanged));
 
         private static void OnIsGroupedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -73,22 +64,19 @@ namespace Fluent
         /// <summary>
         /// Gets or sets property name to group items
         /// </summary>
-        public string GroupBy
+        public string? GroupBy
         {
-            get { return (string)this.GetValue(GroupByProperty); }
+            get { return (string?)this.GetValue(GroupByProperty); }
             set { this.SetValue(GroupByProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
         public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(GalleryPanel), new PropertyMetadata(OnGroupByChanged));
 
         private static void OnGroupByChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -99,22 +87,19 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public Func<object, string> GroupByAdvanced
+        public Func<object?, string>? GroupByAdvanced
         {
-            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            get { return (Func<object?, string>?)this.GetValue(GroupByAdvancedProperty); }
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
+        /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
+        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object?, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
 
         private static void OnGroupByAdvancedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -125,16 +110,13 @@ namespace Fluent
         /// Gets or sets ItemContainerGenerator which generates the
         /// user interface (UI) on behalf of its host, such as an  ItemsControl.
         /// </summary>
-        public ItemContainerGenerator ItemContainerGenerator
+        public ItemContainerGenerator? ItemContainerGenerator
         {
-            get { return (ItemContainerGenerator)this.GetValue(ItemContainerGeneratorProperty); }
+            get { return (ItemContainerGenerator?)this.GetValue(ItemContainerGeneratorProperty); }
             set { this.SetValue(ItemContainerGeneratorProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemContainerGenerator.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemContainerGenerator"/> dependency property.</summary>
         public static readonly DependencyProperty ItemContainerGeneratorProperty =
             DependencyProperty.Register(nameof(ItemContainerGenerator), typeof(ItemContainerGenerator),
             typeof(GalleryPanel), new PropertyMetadata(OnItemContainerGeneratorChanged));
@@ -142,29 +124,8 @@ namespace Fluent
         private static void OnItemContainerGeneratorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
-
-        #endregion
-
-        #region GroupStyle
-
-        /// <summary>
-        /// Gets or sets group style
-        /// </summary>
-        public Style GroupStyle
-        {
-            get { return (Style)this.GetValue(GroupStyleProperty); }
-            set { this.SetValue(GroupStyleProperty, value); }
-        }
-
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupHeaderStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty GroupStyleProperty =
-            DependencyProperty.Register(nameof(GroupStyle), typeof(Style),
-            typeof(GalleryPanel), new PropertyMetadata());
 
         #endregion
 
@@ -180,10 +141,7 @@ namespace Fluent
             set { this.SetValue(ItemWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double),
             typeof(GalleryPanel), new PropertyMetadata(DoubleBoxes.NaN));
@@ -202,10 +160,7 @@ namespace Fluent
             set { this.SetValue(ItemHeightProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double),
             typeof(GalleryPanel), new PropertyMetadata(DoubleBoxes.NaN));
@@ -217,16 +172,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets groups names separated by comma which must be shown
         /// </summary>
-        public string Filter
+        public string? Filter
         {
-            get { return (string)this.GetValue(FilterProperty); }
+            get { return (string?)this.GetValue(FilterProperty); }
             set { this.SetValue(FilterProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Filter.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Filter"/> dependency property.</summary>
         public static readonly DependencyProperty FilterProperty =
             DependencyProperty.Register(nameof(Filter), typeof(string),
             typeof(GalleryPanel), new PropertyMetadata(OnFilterChanged));
@@ -234,7 +186,7 @@ namespace Fluent
         private static void OnFilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var galleryPanel = (GalleryPanel)d;
-            galleryPanel.Invalidate();
+            galleryPanel.RefreshAsync();
         }
 
         #endregion
@@ -250,18 +202,10 @@ namespace Fluent
             set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(1, OnMinItemsInRowChanged));
-
-        private static void OnMinItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+            typeof(GalleryPanel), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -276,18 +220,8 @@ namespace Fluent
             set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemsInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(GalleryPanel), new PropertyMetadata(int.MaxValue, OnMaxItemsInRowChanged));
-
-        private static void OnMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            OnMinOrMaxItemsInRowChanged(d, e);
-        }
+        /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(GalleryPanel), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         #endregion
 
@@ -301,6 +235,14 @@ namespace Fluent
         public GalleryPanel()
         {
             this.visualCollection = new VisualCollection(this);
+
+            this.Loaded += this.HandleGalleryPanel_Loaded;
+        }
+
+        private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= this.HandleGalleryPanel_Loaded;
+            this.Refresh();
         }
 
         #endregion
@@ -325,103 +267,63 @@ namespace Fluent
 
         #endregion
 
-        #region GetActualMinWidth
-
-        /// <summary>
-        /// Updates MinWidth and MaxWidth of the gallery panel (based on MinItemsInRow and MaxItemsInRow)
-        /// </summary>
-        public void UpdateMinAndMaxWidth()
-        {
-            // Calculate actual min width
-            double actualMinWidth = 0;
-            var actualMaxWidth = double.PositiveInfinity;
-
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                var backupMinItemsInRow = galleryGroupContainer.MinItemsInRow;
-                var backupMaxItemsInRow = galleryGroupContainer.MaxItemsInRow;
-                galleryGroupContainer.MinItemsInRow = this.MinItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = this.MaxItemsInRow;
-
-                InvalidateMeasureRecursive(galleryGroupContainer);
-                galleryGroupContainer.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-
-                galleryGroupContainer.InvalidateMeasure();
-
-                actualMinWidth = Math.Max(actualMinWidth, galleryGroupContainer.MinWidth);
-                actualMaxWidth = Math.Min(actualMaxWidth, galleryGroupContainer.MaxWidth);
-
-                galleryGroupContainer.MinItemsInRow = backupMinItemsInRow;
-                galleryGroupContainer.MaxItemsInRow = backupMaxItemsInRow;
-            }
-
-            this.MinWidth = actualMinWidth;
-            this.MaxWidth = actualMaxWidth;
-        }
-
-        private static void InvalidateMeasureRecursive(UIElement visual)
-        {
-            visual.InvalidateMeasure();
-
-            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
-            {
-                if (VisualTreeHelper.GetChild(visual, i) is UIElement element)
-                {
-                    InvalidateMeasureRecursive(element);
-                }
-            }
-        }
-
-        #endregion
-
-        #region GetItemSize
-
-        /// <summary>
-        /// Determinates item's size (return Size.Empty in case of it is not possible)
-        /// </summary>
-        /// <returns></returns>
-        public Size GetItemSize()
-        {
-            foreach (var galleryGroupContainer in this.galleryGroupContainers)
-            {
-                var size = galleryGroupContainer.GetItemSize();
-                if (size.IsEmpty == false)
-                {
-                    return size;
-                }
-            }
-
-            return Size.Empty;
-        }
-
-        #endregion
-
         #region Refresh
 
-        private void Invalidate()
+        private bool areUpdatesSuspsended;
+
+        /// <summary>
+        /// Suspends updates.
+        /// </summary>
+        public void SuspendUpdates()
         {
-            if (this.needsRefresh)
+            this.areUpdatesSuspsended = true;
+        }
+
+        /// <summary>
+        /// Resumes updates.
+        /// </summary>
+        public void ResumeUpdates()
+        {
+            this.areUpdatesSuspsended = false;
+        }
+
+        /// <summary>
+        /// Resumes updates and calls <see cref="Refresh"/>.
+        /// </summary>
+        public void ResumeUpdatesRefresh()
+        {
+            this.ResumeUpdates();
+            this.Refresh();
+        }
+
+        private void RefreshAsync()
+        {
+            if (this.needsRefresh
+                || this.areUpdatesSuspsended)
             {
                 return;
             }
 
             this.needsRefresh = true;
-            this.RunInDispatcherAsync(this.RefreshDispatchered, DispatcherPriority.Send);
-        }
+            this.RunInDispatcherAsync(() =>
+                                      {
+                                          if (this.needsRefresh == false)
+                                          {
+                                              return;
+                                          }
 
-        private void RefreshDispatchered()
-        {
-            if (this.needsRefresh == false)
-            {
-                return;
-            }
-
-            this.Refresh();
-            this.needsRefresh = false;
+                                          this.Refresh();
+                                          this.needsRefresh = false;
+                                      }, DispatcherPriority.Send);
         }
 
         private void Refresh()
         {
+            if (this.areUpdatesSuspsended)
+            {
+                return;
+            }
+
             // Clear currently used group containers
             // and supply with new generated ones
             foreach (var galleryGroupContainer in this.galleryGroupContainers)
@@ -437,44 +339,44 @@ namespace Fluent
 
             var dictionary = new Dictionary<string, GalleryGroupContainer>();
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
-                if (item == null)
+                if (item is null)
                 {
                     continue;
                 }
 
                 // Resolve group name
-                string propertyValue;
+                string? propertyValue = null;
 
-                if (this.GroupByAdvanced == null)
+                if (this.GroupByAdvanced is not null)
                 {
-                    propertyValue = this.ItemContainerGenerator == null
-                                        ? this.GetPropertyValueAsString(item)
-                                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainer(item));
+                    propertyValue = this.ItemContainerGenerator is null
+                        ? this.GroupByAdvanced(item)
+                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
-                else
+                else if (string.IsNullOrEmpty(this.GroupBy) == false)
                 {
-                    propertyValue = this.ItemContainerGenerator == null
-                                        ? this.GroupByAdvanced(item)
-                                        : this.GroupByAdvanced(this.ItemContainerGenerator.ItemFromContainer(item));
+                    propertyValue = this.ItemContainerGenerator is null
+                        ? this.GetPropertyValueAsString(item)
+                        : this.GetPropertyValueAsString(this.ItemContainerGenerator.ItemFromContainerOrContainerContent(item));
                 }
 
-                if (propertyValue == null)
+                if (propertyValue is null)
                 {
                     propertyValue = Undefined;
                 }
 
                 // Make invisible if it is not in filter (or is not grouped)
                 if (this.IsGrouped == false
-                    || (filter != null && filter.Contains(propertyValue) == false))
+                    || (filter is not null && filter.Contains(propertyValue) == false))
                 {
                     item.Measure(new Size(0, 0));
                     item.Arrange(new Rect(0, 0, 0, 0));
                 }
 
                 // Skip if it is not in filter
-                if (filter != null
+                if (filter is not null
                     && filter.Contains(propertyValue) == false)
                 {
                     continue;
@@ -492,7 +394,6 @@ namespace Fluent
                     {
                         Header = propertyValue
                     };
-                    RibbonControl.Bind(this, galleryGroupContainer, nameof(this.GroupStyle), GroupStyleProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.Orientation), GalleryGroupContainer.OrientationProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemWidth), GalleryGroupContainer.ItemWidthProperty, BindingMode.OneWay);
                     RibbonControl.Bind(this, galleryGroupContainer, nameof(this.ItemHeight), GalleryGroupContainer.ItemHeightProperty, BindingMode.OneWay);
@@ -504,17 +405,17 @@ namespace Fluent
                     this.visualCollection.Add(galleryGroupContainer);
                 }
 
-                dictionary[propertyValue].Items.Add(new GalleryItemPlaceholder(item));
+                var galleryItemPlaceholder = new GalleryItemPlaceholder(item);
+                dictionary[propertyValue].Items.Add(galleryItemPlaceholder);
             }
 
-            if ((this.IsGrouped == false || (this.GroupBy == null && this.GroupByAdvanced == null))
+            if ((this.IsGrouped == false || (this.GroupBy is null && this.GroupByAdvanced is null))
                 && this.galleryGroupContainers.Count != 0)
             {
-                // Make it without headers if there is only one group and we are not supposed to group
+                // Make it without headers if there is only one group or if we are not supposed to group
                 this.galleryGroupContainers[0].IsHeadered = false;
             }
 
-            this.UpdateMinAndMaxWidth();
             this.InvalidateMeasure();
         }
 
@@ -533,7 +434,7 @@ namespace Fluent
                 return;
             }
 
-            this.Invalidate();
+            this.RefreshAsync();
         }
 
         #endregion
@@ -543,12 +444,6 @@ namespace Fluent
         /// <inheritdoc />
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (this.IgnoreNextMeasureCall)
-            {
-                this.IgnoreNextMeasureCall = false;
-                return this.DesiredSize;
-            }
-
             double width = 0;
             double height = 0;
             foreach (var child in this.galleryGroupContainers)
@@ -558,7 +453,9 @@ namespace Fluent
                 width = Math.Max(width, child.DesiredSize.Width);
             }
 
-            return new Size(width, height);
+            var size = new Size(width, height);
+
+            return size;
         }
 
         /// <inheritdoc />
@@ -577,8 +474,13 @@ namespace Fluent
                 finalRect.Y += item.DesiredSize.Height;
 
                 // Now arrange our actual items using arranged size of placeholders
-                foreach (GalleryItemPlaceholder placeholder in item.Items)
+                foreach (GalleryItemPlaceholder? placeholder in item.Items)
                 {
+                    if (placeholder is null)
+                    {
+                        continue;
+                    }
+
                     var leftTop = placeholder.TranslatePoint(default, this);
 
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.ArrangedSize.Width, placeholder.ArrangedSize.Height));
@@ -592,16 +494,10 @@ namespace Fluent
 
         #region Private Methods
 
-        private static void OnMinOrMaxItemsInRowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private string? GetPropertyValueAsString(object? item)
         {
-            var galleryPanel = (GalleryPanel)d;
-            galleryPanel.UpdateMinAndMaxWidth();
-        }
-
-        private string GetPropertyValueAsString(object item)
-        {
-            if (item == null ||
-                this.GroupBy == null)
+            if (item is null
+                || this.GroupBy is null)
             {
                 return Undefined;
             }
@@ -609,7 +505,7 @@ namespace Fluent
             var property = item.GetType().GetProperty(this.GroupBy, BindingFlags.Public | BindingFlags.Instance);
 
             var result = property?.GetValue(item, null);
-            if (result == null)
+            if (result is null)
             {
                 return Undefined;
             }

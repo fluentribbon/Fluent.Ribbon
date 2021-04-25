@@ -12,7 +12,7 @@
     <Rule Id="CA1026" Action="Warning" />
     <Rule Id="CA1028" Action="Warning" />
     <Rule Id="CA1032" Action="Warning" />
-    <Rule Id="CA1033" Action="Warning" />
+    <Rule Id="CA1033" Action="None" />
     <Rule Id="CA1040" Action="Warning" />
     <Rule Id="CA1041" Action="Warning" />
     <Rule Id="CA1044" Action="Warning" />
@@ -66,7 +66,7 @@
     <Rule Id="CA2101" Action="Warning" />
     <Rule Id="CA2103" Action="Warning" />
     <Rule Id="CA2108" Action="Warning" />
-    <Rule Id="CA2109" Action="Warning" />
+    <Rule Id="CA2109" Action="None" />
     <Rule Id="CA2111" Action="Warning" />
     <Rule Id="CA2112" Action="Warning" />
     <Rule Id="CA2114" Action="Warning" />
@@ -137,6 +137,7 @@
     <Rule Id="SA1118" Action="None" />
     <Rule Id="SA1123" Action="None" />
     <Rule Id="SA1124" Action="None" />
+    <Rule Id="SA1137" Action="None" />
     <Rule Id="SA1201" Action="None" />
     <Rule Id="SA1202" Action="None" />
     <Rule Id="SA1203" Action="None" />
@@ -145,6 +146,7 @@
     <Rule Id="SA1214" Action="None" />
     <Rule Id="SA1311" Action="None" />
     <Rule Id="SA1402" Action="None" />
+    <Rule Id="SA1413" Action="None" />
     <Rule Id="SA1504" Action="None" />
     <Rule Id="SA1509" Action="None" />
     <Rule Id="SA1512" Action="None" />
@@ -157,6 +159,7 @@
     <Rule Id="SA1623" Action="None" />
     <Rule Id="SA1624" Action="None" />
     <Rule Id="SA1625" Action="None" />
+    <Rule Id="SA1629" Action="None" />
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1634" Action="None" />
     <Rule Id="SA1635" Action="None" />
@@ -168,12 +171,12 @@
     <Rule Id="SA1642" Action="None" />
     <Rule Id="SA1649" Action="None" />
   </Rules>
-  <Rules AnalyzerId="WpfAnalyzers.Analyzers" RuleNamespace="WpfAnalyzers.Analyzers">
-    <Rule Id="WPF0006" Action="None" />
+  <Rules AnalyzerId="WpfAnalyzers" RuleNamespace="WpfAnalyzers.Analyzers">
+    <Rule Id="WPF0010" Action="Info" />
+    <Rule Id="WPF0012" Action="Error" />
+    <Rule Id="WPF0022" Action="Error" />
     <Rule Id="WPF0033" Action="Info" />
-    <Rule Id="WPF0041" Action="None" />
-    <Rule Id="WPF0052" Action="None" />
-    <Rule Id="WPF0060" Action="Info" />
-    <Rule Id="WPF0072" Action="None" />
+    <Rule Id="WPF0041" Action="Info" />
+    <Rule Id="WPF0060" Action="Warning" />
   </Rules>
 </RuleSet>

@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets or sets the header.
         /// </summary>
-        object Header { get; set; }
+        object? Header { get; set; }
     }
 }

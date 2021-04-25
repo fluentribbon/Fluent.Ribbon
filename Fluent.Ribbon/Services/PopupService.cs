@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -118,12 +117,12 @@ namespace Fluent
         {
             var element = sender as UIElement;
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
+            WriteDebug($"Dismissing Popup async (Mode = {mode}, Sender = {sender})");
 
             element.RunInDispatcherAsync(() => RaiseDismissPopupEvent(sender, mode, reason));
         }
@@ -135,12 +134,12 @@ namespace Fluent
         {
             var element = sender as UIElement;
 
-            if (element == null)
+            if (element is null)
             {
                 return;
             }
 
-            Debug.WriteLine($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
+            WriteDebug($"Dismissing Popup (Mode = {mode}, Sender = {sender})");
 
             element.RaiseEvent(new DismissPopupEventArgs(mode, reason));
         }
@@ -163,12 +162,12 @@ namespace Fluent
         /// <summary>
         /// Handles PreviewMouseDownOutsideCapturedElementEvent event
         /// </summary>
-        public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
+        private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine(nameof(OnClickThroughThunk));
-            Debug.WriteLine($"Sender         - {sender}");
-            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
-            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
+            WriteDebug(nameof(OnClickThroughThunk));
+            WriteDebug($"Sender         - {sender}");
+            WriteDebug($"OriginalSource - {e.OriginalSource}");
+            WriteDebug($"Mouse.Captured - {Mouse.Captured}");
 
             if (e.ChangedButton == MouseButton.Left
                 || e.ChangedButton == MouseButton.Right)
@@ -202,16 +201,16 @@ namespace Fluent
         /// <summary>
         /// Handles lost mouse capture event
         /// </summary>
-        public static void OnLostMouseCapture(object sender, MouseEventArgs e)
+        private static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
-            Debug.WriteLine(nameof(OnLostMouseCapture));
-            Debug.WriteLine($"Sender         - {sender}");
-            Debug.WriteLine($"OriginalSource - {e.OriginalSource}");
-            Debug.WriteLine($"Mouse.Captured - {Mouse.Captured}");
+            WriteDebug(nameof(OnLostMouseCapture));
+            WriteDebug($"Sender         - {sender}");
+            WriteDebug($"OriginalSource - {e.OriginalSource}");
+            WriteDebug($"Mouse.Captured - {Mouse.Captured}");
 
             var control = sender as IDropDownControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -220,13 +219,13 @@ namespace Fluent
                 || control.IsDropDownOpen == false
                 || control.IsContextMenuOpened)
             {
-                Debug.WriteLine($"OnLostMouseCapture => Taking no action");
+                WriteDebug($"OnLostMouseCapture => Taking no action");
                 return;
             }
 
             var popup = control.DropDownPopup;
 
-            if (popup?.Child == null)
+            if (popup?.Child is null)
             {
                 RaiseDismissPopupEvent(sender, DismissPopupMode.MouseNotOver);
                 return;
@@ -237,7 +236,7 @@ namespace Fluent
                 // If Ribbon loses capture because something outside popup is clicked - close the popup
                 if (popup.PlacementTarget is RibbonTabItem)
                 {
-                    if (Mouse.Captured == null
+                    if (Mouse.Captured is null
                         || IsAncestorOf(popup, Mouse.Captured as DependencyObject) == false)
                     {
                         RaiseDismissPopupEvent(sender, DismissPopupMode.Always);
@@ -257,11 +256,11 @@ namespace Fluent
 
             // This code is needed to keep some popus open.
             // One of these is the ribbon popup when it's minimized.
-            if (e.OriginalSource != null
-                && Mouse.Captured == null
+            if (e.OriginalSource is not null
+                && Mouse.Captured is null
                 && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
             {
-                Debug.WriteLine($"Setting mouse capture to: {sender}");
+                WriteDebug($"Setting mouse capture to: {sender}");
                 Mouse.Capture(sender as IInputElement, CaptureMode.SubTree);
                 e.Handled = true;
 
@@ -280,14 +279,14 @@ namespace Fluent
         /// <param name="parent">Parent</param>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether parent is ancestor of element</returns>
-        public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
+        public static bool IsAncestorOf(DependencyObject? parent, DependencyObject? element)
         {
-            if (parent == null)
+            if (parent is null)
             {
                 return false;
             }
 
-            while (element != null)
+            while (element is not null)
             {
                 if (ReferenceEquals(element, parent))
                 {
@@ -303,11 +302,11 @@ namespace Fluent
         /// <summary>
         /// Handles dismiss popup event
         /// </summary>
-        public static void OnDismissPopup(object sender, DismissPopupEventArgs e)
+        private static void OnDismissPopup(object? sender, DismissPopupEventArgs e)
         {
             var control = sender as IDropDownControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -327,7 +326,9 @@ namespace Fluent
             }
         }
 
+#pragma warning disable CA1801 // Review unused parameters
         private static void DismisPopupForAlways(IDropDownControl control, DismissPopupEventArgs e)
+#pragma warning restore CA1801 // Review unused parameters
         {
             control.IsDropDownOpen = false;
         }
@@ -375,9 +376,9 @@ namespace Fluent
         /// </summary>
         /// <param name="popup">Element</param>
         /// <returns>Returns true whether mouse is physically over the popup</returns>
-        public static bool IsMousePhysicallyOver(Popup popup)
+        public static bool IsMousePhysicallyOver(Popup? popup)
         {
-            if (popup?.Child == null)
+            if (popup?.Child is null)
             {
                 return false;
             }
@@ -390,9 +391,9 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether mouse is physically over the element</returns>
-        public static bool IsMousePhysicallyOver(UIElement element)
+        public static bool IsMousePhysicallyOver(UIElement? element)
         {
-            if (element == null)
+            if (element is null)
             {
                 return false;
             }
@@ -407,23 +408,23 @@ namespace Fluent
         /// <summary>
         /// Handles context menu opening event
         /// </summary>
-        public static void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private static void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
                 control.IsContextMenuOpened = true;
-                Debug.WriteLine("Context menu opening");
+                WriteDebug("Context menu opening");
             }
         }
 
         /// <summary>
         /// Handles context menu closing event
         /// </summary>
-        public static void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
+        private static void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
-                Debug.WriteLine("Context menu closing");
+                WriteDebug("Context menu closing");
                 control.IsContextMenuOpened = false;
 
                 if (Mouse.Captured is System.Windows.Controls.ContextMenu == false)
@@ -433,9 +434,9 @@ namespace Fluent
             }
         }
 
-        private static bool IsPopupRoot(object obj)
+        private static bool IsPopupRoot(object? obj)
         {
-            if (obj == null)
+            if (obj is null)
             {
                 return false;
             }
@@ -444,6 +445,13 @@ namespace Fluent
 
             return type.FullName == "System.Windows.Controls.Primitives.PopupRoot"
                    || type.Name == "PopupRoot";
+        }
+
+#pragma warning disable CA1801 // Review unused parameters
+        private static void WriteDebug(string message)
+#pragma warning restore CA1801 // Review unused parameters
+        {
+            //Debug.WriteLine(message);
         }
     }
 }

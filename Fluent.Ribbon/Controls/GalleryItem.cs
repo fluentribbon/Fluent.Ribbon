@@ -8,6 +8,7 @@ namespace Fluent
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -21,9 +22,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -49,25 +50,19 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(IsPressed), typeof(bool),
             typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsPressed.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsPressed"/> dependency property.</summary>
         public static readonly DependencyProperty IsPressedProperty = IsPressedPropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets or sets GalleryItem group
         /// </summary>
-        public string Group
+        public string? Group
         {
-            get { return (string)this.GetValue(GroupProperty); }
+            get { return (string?)this.GetValue(GroupProperty); }
             set { this.SetValue(GroupProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Group.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Group"/> dependency property.</summary>
         public static readonly DependencyProperty GroupProperty =
             DependencyProperty.Register(nameof(Group), typeof(string),
             typeof(GalleryItem), new PropertyMetadata());
@@ -81,9 +76,7 @@ namespace Fluent
             set { this.SetValue(IsDefinitiveProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsDefinitive.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
         public static readonly DependencyProperty IsDefinitiveProperty =
             DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(GalleryItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -95,11 +88,11 @@ namespace Fluent
         [Category("Action")]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Bindable(true)]
-        public ICommand Command
+        public ICommand? Command
         {
             get
             {
-                return (ICommand)this.GetValue(CommandProperty);
+                return (ICommand?)this.GetValue(CommandProperty);
             }
 
             set
@@ -112,7 +105,7 @@ namespace Fluent
         [Bindable(true)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Category("Action")]
-        public object CommandParameter
+        public object? CommandParameter
         {
             get
             {
@@ -128,11 +121,11 @@ namespace Fluent
         /// <inheritdoc />
         [Bindable(true)]
         [Category("Action")]
-        public IInputElement CommandTarget
+        public IInputElement? CommandTarget
         {
             get
             {
-                return (IInputElement)this.GetValue(CommandTargetProperty);
+                return (IInputElement?)this.GetValue(CommandTargetProperty);
             }
 
             set
@@ -141,19 +134,13 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Identifies the CommandParameter dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(nameof(CommandParameter), typeof(object), typeof(GalleryItem), new PropertyMetadata());
 
-        /// <summary>
-        /// Identifies the routed Command dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Command"/> dependency property.</summary>
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(nameof(Command), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata(OnCommandChanged));
 
-        /// <summary>
-        /// Identifies the CommandTarget dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandTarget"/> dependency property.</summary>
         public static readonly DependencyProperty CommandTargetProperty = DependencyProperty.Register(nameof(CommandTarget), typeof(IInputElement), typeof(GalleryItem), new PropertyMetadata());
 
         /// <summary>
@@ -162,15 +149,13 @@ namespace Fluent
         /// </summary>
         [Bindable(true)]
         [Category("Action")]
-        public ICommand PreviewCommand
+        public ICommand? PreviewCommand
         {
-            get { return (ICommand)this.GetValue(PreviewCommandProperty); }
+            get { return (ICommand?)this.GetValue(PreviewCommandProperty); }
             set { this.SetValue(PreviewCommandProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the PreviewCommand dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="PreviewCommand"/> dependency property.</summary>
         public static readonly DependencyProperty PreviewCommandProperty =
             DependencyProperty.Register(nameof(PreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 
@@ -180,15 +165,13 @@ namespace Fluent
         /// </summary>
         [Bindable(true)]
         [Category("Action")]
-        public ICommand CancelPreviewCommand
+        public ICommand? CancelPreviewCommand
         {
-            get { return (ICommand)this.GetValue(CancelPreviewCommandProperty); }
+            get { return (ICommand?)this.GetValue(CancelPreviewCommandProperty); }
             set { this.SetValue(CancelPreviewCommandProperty, value); }
         }
 
-        /// <summary>
-        /// Identifies the PreviewCommand dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CancelPreviewCommand"/> dependency property.</summary>
         public static readonly DependencyProperty CancelPreviewCommandProperty =
             DependencyProperty.Register(nameof(CancelPreviewCommand), typeof(ICommand), typeof(GalleryItem), new PropertyMetadata());
 
@@ -198,7 +181,7 @@ namespace Fluent
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = d as GalleryItem;
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -219,14 +202,14 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null
+            var canExecute = this.Command is not null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -241,7 +224,7 @@ namespace Fluent
         #region IsEnabled
 
         /// <inheritdoc />
-        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command is null);
 
         #endregion
 
@@ -302,9 +285,9 @@ namespace Fluent
             {
                 ((GalleryItem)d).BringIntoView();
 
-                if (ItemsControl.ItemsControlFromItemContainer(d) is Selector parentSelector)
+                if (ItemsControlHelper.ItemsControlFromItemContainer(d) is Selector parentSelector)
                 {
-                    var item = parentSelector.ItemContainerGenerator.ItemFromContainer(d);
+                    var item = parentSelector.ItemContainerGenerator.ItemFromContainerOrContainerContent(d);
 
                     if (ReferenceEquals(parentSelector.SelectedItem, item) == false)
                     {

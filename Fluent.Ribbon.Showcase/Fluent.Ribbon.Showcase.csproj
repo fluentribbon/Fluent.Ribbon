@@ -3,10 +3,12 @@
   <PropertyGroup>
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <!-- <DisableFody Condition="'$(TargetFramework)' == 'netcoreapp3.0'">true</DisableFody> -->
-    <!-- We have to disable fody as costura does not work correctly when using dotnet command to compile -->
-    <DisableFody>true</DisableFody>
+    
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
+    <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
+    <InlcudeMahAppsMetro Condition="$(TargetFramework) == 'net452'">false</InlcudeMahAppsMetro>
+
+    <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -14,19 +16,28 @@
     <ApplicationIcon>Icons\App.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+
   <ItemGroup>
     <None Remove="SimplifiedRibbonWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.manifest" />
   </ItemGroup>
+
+  <ItemGroup Condition="$(InlcudeMahAppsMetro) == false">
+    <Page Remove="MahMetro*" />
+    <Compile Remove="MahMetro*" />
+    <None Include="MahMetro*" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
-    <PackageReference Include="MahApps.Metro" version="2.0.0-alpha*" />
-    <PackageReference Include="Costura.Fody" version="3.3.2" PrivateAssets="All" Condition="'$(DisableFody)' != 'true'" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" />
+    <PackageReference Include="MahApps.Metro" Condition="$(InlcudeMahAppsMetro)" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+
+  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data" />

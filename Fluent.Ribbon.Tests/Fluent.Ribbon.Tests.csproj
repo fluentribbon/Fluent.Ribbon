@@ -3,12 +3,11 @@
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
     <AssemblyName>Fluent.Tests</AssemblyName>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-
-    <TargetFrameworks>net462;net45</TargetFrameworks>
-    <!-- We need to disable tests on netcoreapp3.0 till https://github.com/nunit/nunit/pull/3036 is merged into nunit and a new release is available -->
-    <IsTestProject Condition="'$(TargetFramework)' != 'netcoreapp3.0'">true</IsTestProject>
+    
+    <IsTestProject>true</IsTestProject>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <NoWarn>$(NoWarn);SA0001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
@@ -23,9 +22,9 @@
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.*" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit3TestAdapter" />
 
-    <PackageReference Include="NUnit" version="3.*" />
+    <PackageReference Include="NUnit" />
   </ItemGroup>
 </Project>

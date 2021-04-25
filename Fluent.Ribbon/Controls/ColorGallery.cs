@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -11,8 +11,6 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Markup;
     using System.Windows.Media;
-    using ControlzEx.Native;
-    using ControlzEx.Standard;
     using Fluent.Extensions;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -50,42 +48,42 @@ namespace Fluent
         /// Returns a <see cref="T:System.Windows.DataTemplate"/> or null. The default value is null.
         /// </returns>
         /// <param name="item">The data object for which to select the template.</param><param name="container">The data-bound object.</param>
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
-            if (item == null)
+            if (item is null)
             {
                 return null;
             }
 
-            ListBox listBox = null;
+            ListBox? listBox = null;
             var parent = container;
-            while (parent != null)
+            while (parent is not null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 listBox = parent as ListBox;
-                if (listBox != null)
+                if (listBox is not null)
                 {
                     break;
                 }
             }
 
-            if (listBox == null)
+            if (listBox is null)
             {
                 return null;
             }
 
-            ColorGallery colorGallery = null;
-            while (parent != null)
+            ColorGallery? colorGallery = null;
+            while (parent is not null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
                 colorGallery = parent as ColorGallery;
-                if (colorGallery != null)
+                if (colorGallery is not null)
                 {
                     break;
                 }
             }
 
-            if (colorGallery == null)
+            if (colorGallery is null)
             {
                 return null;
             }
@@ -133,7 +131,9 @@ namespace Fluent
     [TemplatePart(Name = "PART_StandardColorsListBox", Type = typeof(ListBox))]
     [TemplatePart(Name = "PART_StandardGradientColorsListBox", Type = typeof(ListBox))]
     [TemplatePart(Name = "PART_RecentColorsListBox", Type = typeof(ListBox))]
+#pragma warning disable CA1060 // Move pinvokes to native methods class
     public class ColorGallery : Control
+#pragma warning restore CA1060 // Move pinvokes to native methods class
     {
         #region Constants
 
@@ -226,7 +226,7 @@ namespace Fluent
 
         #region RecentItems
 
-        private static ObservableCollection<Color> recentColors;
+        private static ObservableCollection<Color>? recentColors;
 
         /// <summary>
         /// Gets recent colors collection
@@ -240,16 +240,16 @@ namespace Fluent
 
         #region Fields
 
-        private MenuItem noColorButton;
-        private MenuItem automaticButton;
+        private MenuItem? noColorButton;
+        private MenuItem? automaticButton;
 
-        private MenuItem moreColorsButton;
+        private MenuItem? moreColorsButton;
 
-        private ListBox themeColorsListBox;
-        private ListBox themeGradientsListBox;
-        private ListBox standardColorsListBox;
-        private ListBox standardGradientsListBox;
-        private ListBox recentColorsListBox;
+        private ListBox? themeColorsListBox;
+        private ListBox? themeGradientsListBox;
+        private ListBox? standardColorsListBox;
+        private ListBox? standardGradientsListBox;
+        private ListBox? recentColorsListBox;
 
         private readonly List<ListBox> listBoxes = new List<ListBox>();
 
@@ -272,9 +272,7 @@ namespace Fluent
             set { this.SetValue(ModeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Mode.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Mode"/> dependency property.</summary>
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register(nameof(Mode), typeof(ColorGalleryMode), typeof(ColorGallery), new PropertyMetadata(ColorGalleryMode.StandardColors, OnModeChanged));
 
@@ -296,16 +294,14 @@ namespace Fluent
             set { this.SetValue(ChipWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ChipWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ChipWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ChipWidthProperty =
             DependencyProperty.Register(nameof(ChipWidth), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
-        private static object CoerceChipSize(DependencyObject d, object basevalue)
+        private static object? CoerceChipSize(DependencyObject d, object? basevalue)
         {
-            var value = (double)basevalue;
-            if (value < 0)
+            if (basevalue is double value
+                && value < 0)
             {
                 return 0;
             }
@@ -322,9 +318,7 @@ namespace Fluent
             set { this.SetValue(ChipHeightProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ChipHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ChipHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ChipHeightProperty =
             DependencyProperty.Register(nameof(ChipHeight), typeof(double), typeof(ColorGallery), new PropertyMetadata(13.0, null, CoerceChipSize));
 
@@ -341,9 +335,7 @@ namespace Fluent
             set { this.SetValue(IsAutomaticColorButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsAutomaticColorButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsAutomaticColorButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsAutomaticColorButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsAutomaticColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -360,9 +352,7 @@ namespace Fluent
             set { this.SetValue(IsNoColorButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsNoColorButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsNoColorButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsNoColorButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsNoColorButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -379,9 +369,7 @@ namespace Fluent
             set { this.SetValue(IsMoreColorsButtonVisibleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsMoreColorsButtonVisible.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsMoreColorsButtonVisible"/> dependency property.</summary>
         public static readonly DependencyProperty IsMoreColorsButtonVisibleProperty =
             DependencyProperty.Register(nameof(IsMoreColorsButtonVisible), typeof(bool), typeof(ColorGallery), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -398,16 +386,14 @@ namespace Fluent
             set { this.SetValue(ColumnsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Columns.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Columns"/> dependency property.</summary>
         public static readonly DependencyProperty ColumnsProperty =
             DependencyProperty.Register(nameof(Columns), typeof(int), typeof(ColorGallery), new PropertyMetadata(10, OnColumnsChanged, CoerceColumns));
 
-        private static object CoerceColumns(DependencyObject d, object basevalue)
+        private static object CoerceColumns(DependencyObject d, object? basevalue)
         {
-            var value = (int)basevalue;
-            if (value < 1)
+            if (basevalue is not int value
+                || value < 1)
             {
                 return 1;
             }
@@ -433,16 +419,14 @@ namespace Fluent
             set { this.SetValue(StandardColorGridRowsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for StandardColorGridRows.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="StandardColorGridRows"/> dependency property.</summary>
         public static readonly DependencyProperty StandardColorGridRowsProperty =
             DependencyProperty.Register(nameof(StandardColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnStandardColorGridRowsChanged, CoeceGridRows));
 
-        private static object CoeceGridRows(DependencyObject d, object basevalue)
+        private static object CoeceGridRows(DependencyObject d, object? basevalue)
         {
-            var value = (int)basevalue;
-            if (value < 0)
+            if (basevalue is not int value
+                || value < 0)
             {
                 return 0;
             }
@@ -468,9 +452,7 @@ namespace Fluent
             set { this.SetValue(ThemeColorGridRowsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeColorGridRows.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeColorGridRows"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeColorGridRowsProperty =
             DependencyProperty.Register(nameof(ThemeColorGridRows), typeof(int), typeof(ColorGallery), new PropertyMetadata(IntBoxes.Zero, OnThemeColorGridRowsChanged, CoeceGridRows));
 
@@ -492,9 +474,7 @@ namespace Fluent
             set { this.SetValue(SelectedColorProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedColor"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register(nameof(SelectedColor), typeof(Color?), typeof(ColorGallery), new PropertyMetadata(OnSelectedColorChanged));
 
@@ -503,7 +483,7 @@ namespace Fluent
         {
             var gallery = d as ColorGallery;
 
-            if (gallery == null)
+            if (gallery is null)
             {
                 return;
             }
@@ -525,38 +505,41 @@ namespace Fluent
             }
 
             this.isSelectionChanging = true;
-            var isSetted = false;
+            var wasValueSet = false;
 
-            // Check menu items
-            if (color.HasValue == false)
+            if (this.automaticButton is not null
+                && this.noColorButton is not null)
             {
-                isSetted = true;
-                this.automaticButton.IsChecked = true;
-                this.noColorButton.IsChecked = false;
-            }
-            else if (color.Value == Colors.Transparent)
-            {
-                isSetted = true;
-                this.automaticButton.IsChecked = false;
-                this.noColorButton.IsChecked = true;
-            }
-            else
-            {
-                this.automaticButton.IsChecked = false;
-                this.noColorButton.IsChecked = false;
+                // Check menu items
+                if (color.HasValue == false)
+                {
+                    wasValueSet = true;
+                    this.automaticButton.IsChecked = true;
+                    this.noColorButton.IsChecked = false;
+                }
+                else if (color.Value == Colors.Transparent)
+                {
+                    wasValueSet = true;
+                    this.automaticButton.IsChecked = false;
+                    this.noColorButton.IsChecked = true;
+                }
+                else
+                {
+                    this.automaticButton.IsChecked = false;
+                    this.noColorButton.IsChecked = false;
+                }
             }
 
             // Remove selection from others
             foreach (var listBox in this.listBoxes)
             {
-                if (isSetted == false
-                    && listBox.Visibility == Visibility.Visible)
+                if (wasValueSet == false
+                    && color is not null
+                    && listBox.Visibility == Visibility.Visible
+                    && listBox.Items.Contains(color.Value))
                 {
-                    if (listBox.Items.Contains(color.Value))
-                    {
-                        listBox.SelectedItem = color.Value;
-                        isSetted = true;
-                    }
+                    listBox.SelectedItem = color.Value;
+                    wasValueSet = true;
                 }
                 else
                 {
@@ -571,7 +554,7 @@ namespace Fluent
 
         #region ThemeColors
 
-        private ObservableCollection<Color> themeColors;
+        private ObservableCollection<Color>? themeColors;
 
         /// <summary>
         /// Gets collection of theme colors
@@ -580,7 +563,7 @@ namespace Fluent
         {
             get
             {
-                if (this.themeColors == null)
+                if (this.themeColors is null)
                 {
                     this.themeColors = new ObservableCollection<Color>();
                     this.themeColors.CollectionChanged += this.OnThemeColorsChanged;
@@ -590,7 +573,7 @@ namespace Fluent
             }
         }
 
-        private void OnThemeColorsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnThemeColorsChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.UpdateGradients();
         }
@@ -598,15 +581,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets theme colors source
         /// </summary>
-        public IEnumerable<Color> ThemeColorsSource
+        public IEnumerable<Color>? ThemeColorsSource
         {
-            get { return (IEnumerable<Color>)this.GetValue(ThemeColorsSourceProperty); }
+            get { return (IEnumerable<Color>?)this.GetValue(ThemeColorsSourceProperty); }
             set { this.SetValue(ThemeColorsSourceProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeColorsSource.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeColorsSource"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeColorsSourceProperty =
             DependencyProperty.Register(nameof(ThemeColorsSource), typeof(IEnumerable<Color>), typeof(ColorGallery), new PropertyMetadata(OnThemeColorsSourceChanged));
 
@@ -632,18 +613,16 @@ namespace Fluent
         /// Gets theme gradients collection
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
-        public Color[] ThemeGradients
+        public Color[]? ThemeGradients
         {
-            get { return (Color[])this.GetValue(ThemeGradientsProperty); }
+            get { return (Color[]?)this.GetValue(ThemeGradientsProperty); }
             private set { this.SetValue(ThemeGradientsPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(ThemeGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ThemeGradients"/> dependency property.</summary>
         public static readonly DependencyProperty ThemeGradientsProperty = ThemeGradientsPropertyKey.DependencyProperty;
 
         #endregion
@@ -654,18 +633,16 @@ namespace Fluent
         /// Gets standart gradients collection
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
-        public Color[] StandardGradients
+        public Color[]? StandardGradients
         {
-            get { return (Color[])this.GetValue(StandardGradientsProperty); }
+            get { return (Color[]?)this.GetValue(StandardGradientsProperty); }
             private set { this.SetValue(StandardGradientsPropertyKey, value); }
         }
 
         private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
             DependencyProperty.RegisterReadOnly(nameof(StandardGradients), typeof(Color[]), typeof(ColorGallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ThemeGradients.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="StandardGradients"/> dependency property.</summary>
         public static readonly DependencyProperty StandardGradientsProperty = StandardGradientsPropertyKey.DependencyProperty;
 
         #endregion
@@ -698,7 +675,7 @@ namespace Fluent
         /// <summary>
         /// Occurs whether more colors menu item is clicked
         /// </summary>
-        public event EventHandler<MoreColorsExecutingEventArgs> MoreColorsExecuting;
+        public event EventHandler<MoreColorsExecutingEventArgs>? MoreColorsExecuting;
 
         #endregion
 
@@ -723,35 +700,35 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
-            if (this.moreColorsButton != null)
+            if (this.moreColorsButton is not null)
             {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
             }
 
             this.moreColorsButton = this.GetTemplateChild("PART_MoreColors") as MenuItem;
-            if (this.moreColorsButton != null)
+            if (this.moreColorsButton is not null)
             {
                 this.moreColorsButton.Click += this.OnMoreColorsClick;
             }
 
-            if (this.noColorButton != null)
+            if (this.noColorButton is not null)
             {
                 this.noColorButton.Click -= this.OnNoColorClick;
             }
 
             this.noColorButton = this.GetTemplateChild("PART_NoColor") as MenuItem;
-            if (this.noColorButton != null)
+            if (this.noColorButton is not null)
             {
                 this.noColorButton.Click += this.OnNoColorClick;
             }
 
-            if (this.automaticButton != null)
+            if (this.automaticButton is not null)
             {
                 this.automaticButton.Click -= this.OnAutomaticClick;
             }
 
             this.automaticButton = this.GetTemplateChild("PART_AutomaticColor") as MenuItem;
-            if (this.automaticButton != null)
+            if (this.automaticButton is not null)
             {
                 this.automaticButton.Click += this.OnAutomaticClick;
             }
@@ -759,63 +736,68 @@ namespace Fluent
             // List boxes
             this.listBoxes.Clear();
 
-            if (this.themeColorsListBox != null)
+            if (this.themeColorsListBox is not null)
             {
                 this.themeColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.themeColorsListBox = this.GetTemplateChild("PART_ThemeColorsListBox") as ListBox;
-            this.listBoxes.Add(this.themeColorsListBox);
-            if (this.themeColorsListBox != null)
+
+            if (this.themeColorsListBox is not null)
             {
+                this.listBoxes.Add(this.themeColorsListBox);
                 this.themeColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.themeGradientsListBox != null)
+            if (this.themeGradientsListBox is not null)
             {
                 this.themeGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.themeGradientsListBox = this.GetTemplateChild("PART_ThemeGradientColorsListBox") as ListBox;
-            this.listBoxes.Add(this.themeGradientsListBox);
-            if (this.themeGradientsListBox != null)
+            
+            if (this.themeGradientsListBox is not null)
             {
+                this.listBoxes.Add(this.themeGradientsListBox);
                 this.themeGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.standardColorsListBox != null)
+            if (this.standardColorsListBox is not null)
             {
                 this.standardColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.standardColorsListBox = this.GetTemplateChild("PART_StandardColorsListBox") as ListBox;
-            this.listBoxes.Add(this.standardColorsListBox);
-            if (this.standardColorsListBox != null)
+
+            if (this.standardColorsListBox is not null)
             {
+                this.listBoxes.Add(this.standardColorsListBox);
                 this.standardColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.standardGradientsListBox != null)
+            if (this.standardGradientsListBox is not null)
             {
                 this.standardGradientsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.standardGradientsListBox = this.GetTemplateChild("PART_StandardGradientColorsListBox") as ListBox;
-            this.listBoxes.Add(this.standardGradientsListBox);
-            if (this.standardGradientsListBox != null)
+
+            if (this.standardGradientsListBox is not null)
             {
+                this.listBoxes.Add(this.standardGradientsListBox);
                 this.standardGradientsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
-            if (this.recentColorsListBox != null)
+            if (this.recentColorsListBox is not null)
             {
                 this.recentColorsListBox.SelectionChanged -= this.OnListBoxSelectedChanged;
             }
 
             this.recentColorsListBox = this.GetTemplateChild("PART_RecentColorsListBox") as ListBox;
-            this.listBoxes.Add(this.recentColorsListBox);
-            if (this.recentColorsListBox != null)
+
+            if (this.recentColorsListBox is not null)
             {
+                this.listBoxes.Add(this.recentColorsListBox);
                 this.recentColorsListBox.SelectionChanged += this.OnListBoxSelectedChanged;
             }
 
@@ -833,7 +815,7 @@ namespace Fluent
 
         private void OnMoreColorsClick(object sender, RoutedEventArgs e)
         {
-            if (this.MoreColorsExecuting != null)
+            if (this.MoreColorsExecuting is not null)
             {
                 var args = new MoreColorsExecutingEventArgs();
                 this.MoreColorsExecuting(this, args);
@@ -846,20 +828,24 @@ namespace Fluent
                     }
 
                     RecentColors.Insert(0, color);
-                    this.recentColorsListBox.SelectedIndex = 0;
+
+                    if (this.recentColorsListBox is not null)
+                    {
+                        this.recentColorsListBox.SelectedIndex = 0;
+                    }
                 }
             }
             else
             {
 #pragma warning disable 618
-                var chooseColor = new NativeMethods.CHOOSECOLOR();
+                var chooseColor = new CHOOSECOLOR();
                 var wnd = Window.GetWindow(this);
-                if (wnd != null)
+                if (wnd is not null)
                 {
                     chooseColor.hwndOwner = new WindowInteropHelper(wnd).Handle;
                 }
 
-                chooseColor.Flags = Constants.CC_ANYCOLOR;
+                chooseColor.Flags = CC_ANYCOLOR;
                 if (customColors == IntPtr.Zero)
                 {
                     // Set custom colors)
@@ -872,7 +858,7 @@ namespace Fluent
                 }
 
                 chooseColor.lpCustColors = customColors;
-                if (NativeMethods.ChooseColor(chooseColor))
+                if (ChooseColor(chooseColor))
                 {
                     var color = ConvertFromWin32Color(chooseColor.rgbResult);
                     if (RecentColors.Contains(color))
@@ -881,7 +867,11 @@ namespace Fluent
                     }
 
                     RecentColors.Insert(0, color);
-                    this.recentColorsListBox.SelectedIndex = 0;
+
+                    if (this.recentColorsListBox is not null)
+                    {
+                        this.recentColorsListBox.SelectedIndex = 0;
+                    }
                 }
 #pragma warning restore 618
             }
@@ -898,8 +888,17 @@ namespace Fluent
         private void OnAutomaticClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            this.noColorButton.IsChecked = false;
-            this.automaticButton.IsChecked = true;
+
+            if (this.noColorButton is not null)
+            {
+                this.noColorButton.IsChecked = false;
+            }
+
+            if (this.automaticButton is not null)
+            {
+                this.automaticButton.IsChecked = true;
+            }
+
             // Remove selection from listboxes
             foreach (var listBox in this.listBoxes)
             {
@@ -913,8 +912,17 @@ namespace Fluent
         private void OnNoColorClick(object sender, RoutedEventArgs e)
         {
             this.isSelectionChanging = true;
-            this.noColorButton.IsChecked = true;
-            this.automaticButton.IsChecked = false;
+
+            if (this.noColorButton is not null)
+            {
+                this.noColorButton.IsChecked = true;
+            }
+
+            if (this.automaticButton is not null)
+            {
+                this.automaticButton.IsChecked = false;
+            }
+
             // Remove selection from listboxes
             foreach (var listBox in this.listBoxes)
             {
@@ -934,12 +942,19 @@ namespace Fluent
 
             this.isSelectionChanging = true;
 
-            if (e.AddedItems != null
+            if (e.AddedItems is not null
                 && e.AddedItems.Count > 0)
             {
                 // Remove selection from others
-                this.noColorButton.IsChecked = false;
-                this.automaticButton.IsChecked = false;
+                if (this.noColorButton is not null)
+                {
+                    this.noColorButton.IsChecked = false;
+                }
+
+                if (this.automaticButton is not null)
+                {
+                    this.automaticButton.IsChecked = false;
+                }
 
                 foreach (var listBox in this.listBoxes)
                 {
@@ -949,7 +964,7 @@ namespace Fluent
                     }
                 }
 
-                this.SelectedColor = (Color)e.AddedItems[0];
+                this.SelectedColor = (Color)e.AddedItems[0]!;
                 PopupService.RaiseDismissPopupEvent(this, DismissPopupMode.Always);
             }
 
@@ -1122,6 +1137,80 @@ namespace Fluent
 
             return result;
         }
+
+        #endregion
+
+        #region native
+
+#pragma warning disable SA1307, SA1310, SA1401
+
+        /// <summary>
+        /// Creates a Color dialog box that enables the user to select a color.
+        /// </summary>
+        /// <param name="lpcc">A pointer to a CHOOSECOLOR structure that contains information used to initialize the dialog box. When ChooseColor returns, this structure contains information about the user's color selection.</param>
+        /// <returns>If the user clicks the OK button of the dialog box, the return value is nonzero. The rgbResult member of the CHOOSECOLOR structure contains the RGB color value of the color selected by the user.If the user cancels or closes the Color dialog box or an error occurs, the return value is zero. </returns>
+        [DllImport("comdlg32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ChooseColor(CHOOSECOLOR lpcc);
+
+#pragma warning disable 649
+        /// <summary>
+        /// Contains information the ChooseColor function uses to initialize the Color dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure. 
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        private class CHOOSECOLOR
+        {
+            /// <summary>
+            /// The length, in bytes, of the structure. 
+            /// </summary>
+            public int lStructSize = Marshal.SizeOf(typeof(CHOOSECOLOR));
+
+            /// <summary>
+            /// A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be NULL if the dialog box has no owner. 
+            /// </summary>
+            public IntPtr hwndOwner;
+
+            /// <summary>
+            /// If the CC_ENABLETEMPLATEHANDLE flag is set in the Flags member, hInstance is a handle to a memory object containing a dialog box template. If the CC_ENABLETEMPLATE flag is set, hInstance is a handle to a module that contains a dialog box template named by the lpTemplateName member. If neither CC_ENABLETEMPLATEHANDLE nor CC_ENABLETEMPLATE is set, this member is ignored. 
+            /// </summary>
+            public IntPtr hInstance = IntPtr.Zero;
+
+            /// <summary>
+            /// If the CC_RGBINIT flag is set, rgbResult specifies the color initially selected when the dialog box is created. If the specified color value is not among the available colors, the system selects the nearest solid color available. If rgbResult is zero or CC_RGBINIT is not set, the initially selected color is black. If the user clicks the OK button, rgbResult specifies the user's color selection. To create a COLORREF color value, use the RGB macro. 
+            /// </summary>
+            public int rgbResult;
+
+            /// <summary>
+            /// A pointer to an array of 16 values that contain red, green, blue (RGB) values for the custom color boxes in the dialog box. If the user modifies these colors, the system updates the array with the new RGB values. To preserve new custom colors between calls to the ChooseColor function, you should allocate static memory for the array. To create a COLORREF color value, use the RGB macro. 
+            /// </summary>
+            public IntPtr lpCustColors = IntPtr.Zero;
+
+            /// <summary>
+            /// A set of bit flags that you can use to initialize the Color dialog box. When the dialog box returns, it sets these flags to indicate the user's input. 
+            /// </summary>
+            public int Flags;
+
+            /// <summary>
+            /// Application-defined data that the system passes to the hook procedure identified by the lpfnHook member. When the system sends the WM_INITDIALOG message to the hook procedure, the message's lParam parameter is a pointer to the CHOOSECOLOR structure specified when the dialog was created. The hook procedure can use this pointer to get the lCustData value. 
+            /// </summary>
+            public IntPtr lCustData = IntPtr.Zero;
+
+            /// <summary>
+            /// A pointer to a CCHookProc hook procedure that can process messages intended for the dialog box. This member is ignored unless the CC_ENABLEHOOK flag is set in the Flags member. 
+            /// </summary>
+            public IntPtr lpfnHook = IntPtr.Zero;
+
+            /// <summary>
+            /// The name of the dialog box template resource in the module identified by the hInstance member. This template is substituted for the standard dialog box template. For numbered dialog box resources, lpTemplateName can be a value returned by the MAKEINTRESOURCE macro. This member is ignored unless the CC_ENABLETEMPLATE flag is set in the Flags member. 
+            /// </summary>
+            public IntPtr lpTemplateName = IntPtr.Zero;
+        }
+#pragma warning restore 649
+
+        /// <summary>
+        /// Causes the dialog box to display all available colors in the set of basic colors.
+        /// </summary>
+        private const int CC_ANYCOLOR = 256;
 
         #endregion
     }

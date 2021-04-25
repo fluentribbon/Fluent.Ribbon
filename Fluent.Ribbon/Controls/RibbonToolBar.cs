@@ -13,12 +13,14 @@ namespace Fluent
     using System.Windows.Markup;
     using System.Windows.Media;
     using Fluent.Extensibility;
+    using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represent panel for group box panel
     /// </summary>
     [ContentProperty(nameof(Children))]
+    [StyleTypedProperty(Property = nameof(SeparatorStyle), StyleTargetType = typeof(Separator))]
     public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink
     {
         #region Fields
@@ -40,16 +42,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets style for the separator
         /// </summary>
-        public Style SeparatorStyle
+        public Style? SeparatorStyle
         {
-            get { return (Style)this.GetValue(SeparatorStyleProperty); }
+            get { return (Style?)this.GetValue(SeparatorStyleProperty); }
             set { this.SetValue(SeparatorStyleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SeparatorStyle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SeparatorStyle"/> dependency property.</summary>
         public static readonly DependencyProperty SeparatorStyleProperty =
             DependencyProperty.Register(nameof(SeparatorStyle), typeof(Style),
             typeof(RibbonToolBar), new PropertyMetadata(OnSeparatorStyleChanged));
@@ -122,7 +121,21 @@ namespace Fluent
         {
             get
             {
-                return this.Children.GetEnumerator();
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Icon is not null)
+                {
+                    yield return this.Icon;
+                }
+
+                foreach (var child in this.Children)
+                {
+                    yield return child;
+                }
             }
         }
 
@@ -150,13 +163,13 @@ namespace Fluent
             this.LayoutDefinitions.CollectionChanged += this.OnLayoutDefinitionsChanged;
         }
 
-        private void OnLayoutDefinitionsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnLayoutDefinitionsChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.rebuildVisualAndLogicalChildren = true;
             this.InvalidateMeasure();
         }
 
-        private void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             // Children have changed, reset layouts
             this.rebuildVisualAndLogicalChildren = true;
@@ -171,7 +184,7 @@ namespace Fluent
         /// Gets current used layout definition (or null if no present definitions)
         /// </summary>
         /// <returns>Layout definition or null</returns>
-        internal RibbonToolBarLayoutDefinition GetCurrentLayoutDefinition()
+        internal RibbonToolBarLayoutDefinition? GetCurrentLayoutDefinition()
         {
             if (this.LayoutDefinitions.Count == 0)
             {
@@ -237,7 +250,7 @@ namespace Fluent
                 this.cachedControlGroups.Clear();
             }
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 if (this.rebuildVisualAndLogicalChildren)
                 {
@@ -267,7 +280,7 @@ namespace Fluent
         {
             var layoutDefinition = this.GetCurrentLayoutDefinition();
 
-            if (layoutDefinition == null)
+            if (layoutDefinition is null)
             {
                 return this.WrapPanelLayuot(finalSize, false);
             }
@@ -296,14 +309,12 @@ namespace Fluent
             double resultWidth = 0;
             double resultHeight = 0;
 
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
-
             foreach (var child in this.Children)
             {
                 // Measuring
                 if (measure)
                 {
-                    child.Measure(infinity);
+                    child.Measure(SizeConstants.Infinite);
                 }
 
                 if (currentheight + child.DesiredSize.Height > availableHeight)
@@ -332,7 +343,7 @@ namespace Fluent
 
         #region Control and Group Creation from a Definition
 
-        private FrameworkElement GetControl(RibbonToolBarControlDefinition controlDefinition)
+        private FrameworkElement? GetControl(RibbonToolBarControlDefinition controlDefinition)
         {
             var name = controlDefinition.Target;
             return this.Children.FirstOrDefault(x => x.Name == name);
@@ -459,7 +470,7 @@ namespace Fluent
                     {
                         var control = this.GetControl(ribbonToolBarControlDefinition);
 
-                        if (control == null)
+                        if (control is null)
                         {
                             continue;
                         }
@@ -545,23 +556,23 @@ namespace Fluent
                 {
                     var controlDefinition = item as RibbonToolBarControlDefinition;
                     var controlGroupDefinition = item as RibbonToolBarControlGroupDefinition;
-                    FrameworkElement control = null;
+                    FrameworkElement? control = null;
 
-                    if (controlDefinition != null)
+                    if (controlDefinition is not null)
                     {
                         control = this.GetControl(controlDefinition);
                     }
-                    else if (controlGroupDefinition != null)
+                    else if (controlGroupDefinition is not null)
                     {
                         control = this.GetControlGroup(controlGroupDefinition);
                     }
 
-                    if (control == null)
+                    if (control is null)
                     {
                         return defaultRowHeight;
                     }
 
-                    control.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                    control.Measure(SizeConstants.Infinite);
 
                     return control.DesiredSize.Height;
                 }

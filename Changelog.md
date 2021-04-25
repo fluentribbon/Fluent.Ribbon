@@ -1,7 +1,130 @@
 # Changelog for Fluent.Ribbon
 
-## 7.0.0 (preview)
+## 9.0.0 (preview)
+
 - ### Breaking changes
+
+  - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
+  Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
+
+- ### Bug fixes
+  - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
+  - [#918](../../issues/918) - Custom color does not reset color gallery selection state
+  - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
+
+## 8.0.4
+
+- ### Bug fixes
+
+  - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
+  - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
+
+## 8.0.3
+
+- ### Bug fixes
+
+  - [#877](../../issues/877) - Titlebar and Quick-Access broken when using StartScreen
+  - [#881](../../issues/881) - Quick Access Toolbar: Drop Down Arrow not Visible
+  - [#883](../../issues/883) - GroupBy not working anymore on Fluent:Gallery?  
+  Added `IsGrouped` to `Gallery`.
+  - [#885](../../issues/885) - When a window is maximized its 'Restore down' icon gets distorted
+
+## 8.0.2
+
+- ### Bug fixes
+
+  - Fixing window button layout when DPI != 100%
+  - [#860](../../issues/860) - Quick access buttons do not show when first item is added
+  - [#862](../../issues/862) - Hover effects on minimize/maximize icons (colorful theme)
+  - [#868](../../issues/868) - App crashes When pressing alt multiple times..
+  - [#869](../../issues/869) - Crash if Ribbon is collapsed (after Update to Version 8.0.1)
+
+## 8.0.1
+
+- ### Bug fixes
+
+  - [#821](../../issues/821) - Different visual of menu item and submenu item
+  - [#823](../../issues/823) - Gallery item content hidden when mouse pressed
+  - [#825](../../issues/825) - CLS compliance
+  - [#830](../../issues/830) - When a window is set to automatically resize to its content, when its title is set in code, it disappears
+  - [#834](../../issues/834) - InRibbonGallery resizing issue when changing `Visibility`
+  - [#837](../../issues/837) - InRibbonGallery Property MinItemsInDropDownRow not considered
+  - [#838](../../issues/838) - InRibbonGallery changes into DropDownButton after DropDown is opened and closed
+  - [#840](../../issues/840) - Ribbon does not scroll anymore
+  - [#848](../../issues/848) - Colorful-Theme and Fullscreen Issue
+  - [#849](../../issues/849) - QuickAccessToolBar not editable anymore (thanks @chrfin)
+  - [#851](../../issues/851) - Tab KeyTips Are Shown Together With Tab-Item KeyTips (different to 7.0.0)
+  - [#855](../../issues/855) - Method Fluent.StartScreen.Show lacks documentation return value
+  - [#856](../../issues/856) - RibbonTabItem.IsSelected is briefly set to true for a tab that's not selected anymore, when a modal dialog is closed.
+
+## 8.0.0
+
+- ### Breaking changes
+
+  - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
+  - [#811](../../issues/811) - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
+    You now have to use `ThemeManager.Current` instead of the static class `ThemeManager`.  
+    Because of this you now got more automatic and manual sync options.  
+    Syncing now, optionally, includes the current accent color from Windows.  
+    You can now generate themes at runtime more easily.  
+    The documentation for Fluent.Ribbon can be found at https://fluentribbon.github.io/documentation/styles_since_8  
+    The documentation for `ThemeManager` can be found at https://github.com/ControlzEx/ControlzEx/blob/develop/Wiki/ThemeManager.md
+  - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
+    Due to this change you now have a lot more themes to choose from.
+  - The built in state storage will no longer persist the state of quick access items.  
+    Details can be found in [#810](../../issues/810)
+
+- ### Bug fixes
+
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#772](../../issues/772) - Backstage & Keyboard navigation
+  - [#782](../../issues/782) - Using MahApps IconPacks for BackstageTabItem's icon
+  - [#786](../../issues/786) - InRibbonGallery: Dynamic ItemWidth / use translated Text in items
+  - [#788](../../issues/788) - Maximize icon is incorrectly drawn on high-dpi displays
+  - [#789](../../issues/789) - Opening gallery messes up InRibbonGallery resizing.
+  - [#791](../../issues/791) - Problem with dynamic items in InRibbonGallery
+  - [#795](../../issues/795) - Check mark of menuitem not visible
+  - [#798](../../issues/798) - The elements in the ribbon use ElementName = xxx to bind the data and cannot find the xxx element
+  - [#819](../../issues/819) - Is there a way to disable default tooltip when RibbonGroupBox is disabled?
+
+- ### Enhancements/Features
+
+  - [#804](../../issues/804) - Ribbon Window's Icon Not Centered  
+  Added `VerticalIconAlignment` to `RibbonWindow`
+
+## 7.1.0
+
+- ### Bug fixes
+
+  - [#745](../../issues/745) - SplitButton.IsEnabled based on Command.CanExecute?
+  - [#755](../../issues/755) - ComboBox.Height fixed at 22  
+  The height setting was moved from the template to the style.
+  - [#758](../../issues/758) - Auto menu expanding not working for MenuItems with ItemSource binding
+  - [#765](../../issues/765) - InRibbonGallery Resizing Issues
+  - [#766](../../issues/766) - Resizing of InRibbonGallery in a DataTemplate does not work
+  - [#768](../../issues/768) - Accessibility Insights: "An onscreen element must not have a null"
+  - [#769](../../issues/769) - GalleryPanel does not resize properly on apply of filter
+  - [#770](../../issues/770) - Cannot left align the content in InRibbonGallery
+
+- ### Enhancements/Features
+
+  - Many automation peers have been added and improved
+  - [#775](../../issues/775) - First underscore missing in drop down menu header text  
+  You can now control whether the ribbon `MenuItem` handles access keys or not by setting `RecognizesAccessKey`
+
+## 7.0.1
+
+- ### Bug fixes
+
+  - [#746](../../issues/746) - NullReferenceException after upgrading to 7.0.0
+  - [#751](../../issues/751) - QuickAccessMenuItem - IsChecked doesn't work for Target
+  - [#756](../../issues/756) - RibbonWindow.IsIconVisible does not seem to work
+  - [#757](../../issues/757) - Ribbon right-click menu offsetted for DPI=150% (or more)
+
+## 7.0.0
+
+- ### Breaking changes
+  
   - [#471](../../issues/471) - **Drop support for .Net 4.0**
   - Reverted [#466](../../issues/466) - **StrongName signed assembly?**  
   **Assemblies are strong named again**, but `AssemblyVersion` is now fixed for every major release.  
@@ -34,6 +157,7 @@
   - [#650](../../issues/650) - Create XAML icons and replace the shipped pngs with these (thanks @DenZuck for creating the xaml icons)  
     Due to this change all shipped images are now of type `DrawingImage` instead of `BitmapImage`.
   - The filename inside `IsolatedStorageFile` for the default `RibbonStateStorage` is now "Fluent.Ribbon.State." + Hex value of MD5 instead of "Fluent.Ribbon.State.2.0." + hex value of `GetHashCode`. This was done because `GetHashCode` does not return a stable value, especially on .NET core 3.0.
+  - `RibbonTabItem.Indent` was replaced by `RibbonTabItem.HeaderPadding`
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
@@ -41,6 +165,8 @@
 
 |Old|New|
 |---|---|
+| ApplicationMenuStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItem |
+| ApplicationMenuSecondLevelStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel |
 | BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
 | FluentDefaultSystemMenuItemStyle | Fluent.Ribbon.Styles.MenuItem |
 | BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |
@@ -77,9 +203,15 @@
 | --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
 | --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
 | --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
+| --- | Fluent.Ribbon.Templates.WindowCommands |
+| WindowCommandsControlTemplate | Fluent.Ribbon.Templates.WindowCommands.Button |
+| --- | Fluent.Ribbon.Styles.WindowCommands.Button |
+| CaptionButtonStyle | Fluent.Ribbon.Styles.WindowCommands.CaptionButton |
+| --- | Fluent.Ribbon.Templates.WindowCommands.CaptionButton |
 </p></details>
 
 - ### Bug fixes
+
   - [#165](../../issues/165) - Save As menu is added to QAT but does not have child items
   - [#307](../../issues/307) - Black flicker on complete window-area when resizing
   - [#319](../../issues/319) - How to make window resizable with Win32 content?
@@ -118,9 +250,15 @@
   - [#673](../../issues/673) - RibbonContextualTabGroup not shown
   - [#677](../../issues/677) - Alt Codes no longer working in alpha version v7.0.0
   - [#688](../../issues/688) - Backstage and StartScreen closing when pressing Alt
-  - [#698](../../issues/698) - Submenus in the application menu are not opened each time 
+  - [#698](../../issues/698) - Submenus in the application menu are not opened each time
+  - [#704](../../issues/704) - CheckBox.Header - InvalidCastException
+  - [#705](../../issues/705) - ApplicationMenu header can't be set to text
+  - [#714](../../issues/714) - ResizeMode="NoResize" and ShowInTaskbar="False" causes crash on startup
+  - [#722](../../issues/722) - NullReferenceException in KeyTipService.OnAdornerChainTerminated
+  - [#730](../../issues/730) - Add null check for Application.Current to ThemeManager (thanks @Evangelink)
 
 - ### Enhancements/Features
+
   - [#516](../../issues/516) - Add options to hide the row containing RibbonTabItems  
     You can achieve this by:
     - Setting `Ribbon.Menu` to `null` (or never assigning anything)

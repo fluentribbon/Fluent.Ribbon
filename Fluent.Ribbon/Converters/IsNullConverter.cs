@@ -9,17 +9,15 @@
     /// </summary>
     public sealed class IsNullConverter : IValueConverter
     {
-        private static IsNullConverter instance;
-
         /// <summary>
         ///     A singleton instance for <see cref="IsNullConverter" />.
         /// </summary>
-        public static IsNullConverter Instance => instance ?? (instance = new IsNullConverter());
+        public static readonly IsNullConverter Instance = new IsNullConverter();
 
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null;
+            return value is null;
         }
 
         /// <inheritdoc />

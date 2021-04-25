@@ -83,7 +83,7 @@
                                          Style="{DynamicResource InnerButtonStyle}"
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
-                                         IsEnabled="{TemplateBinding IsButtonEnabled}"
+                                         IsEnabled="{Binding IsButtonEnabled, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          Header="{TemplateBinding Header}"
                                          ToolTip="{TemplateBinding ToolTip}"
                                          GroupName="{Binding GroupName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"

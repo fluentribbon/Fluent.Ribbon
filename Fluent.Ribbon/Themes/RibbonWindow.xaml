@@ -30,10 +30,10 @@
                                Height="16"
                                Width="16"
                                Margin="4,2,0,0"
-                               VerticalAlignment="Top"
+                               VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
                                Stretch="Uniform"
                                Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, {Binding RelativeSource={RelativeSource Self}}}"
                                SnapsToDevicePixels="True" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"
@@ -112,7 +112,7 @@
                         Value="0" />
                 <Setter Property="Margin"
                         TargetName="PART_Icon"
-                        Value="2,0,0,0" />
+                        Value="2,2,0,0" />
                 <Setter Property="Visibility"
                         TargetName="PART_Border"
                         Value="Collapsed" />

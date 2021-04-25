@@ -5,7 +5,7 @@
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      xmlns:fluent="urn:fluent-ribbon"
                      x:Name="window"
-                     Title="{Binding DataContext.Title, ElementName=TestContent}"
+                     Title="{Binding WindowTitle, ElementName=TestContent}"        
                      FlowDirection="LeftToRight"
                      Height="768"
                      Width="1024"

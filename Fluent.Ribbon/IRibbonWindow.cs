@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets the titlebar
         /// </summary>
-        RibbonTitleBar TitleBar { get; }
+        RibbonTitleBar? TitleBar { get; }
     }
 }

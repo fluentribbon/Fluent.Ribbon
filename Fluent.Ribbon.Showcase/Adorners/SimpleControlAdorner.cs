@@ -32,14 +32,14 @@
 
             set
             {
-                if (this.child != null)
+                if (this.child is not null)
                 {
                     this.RemoveVisualChild(this.child);
                 }
 
                 this.child = value;
 
-                if (this.child != null)
+                if (this.child is not null)
                 {
                     this.AddVisualChild(this.child);
                 }

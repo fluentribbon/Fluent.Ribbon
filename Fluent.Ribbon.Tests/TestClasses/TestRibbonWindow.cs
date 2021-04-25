@@ -12,8 +12,6 @@
 
         public TestRibbonWindow(object content)
         {
-            this.Content = content;
-
             this.Width = 800;
             this.Height = 600;
 
@@ -26,13 +24,16 @@
                 this.Top = int.MinValue;
             }
 
+            // As Ribbon uses layout rounding we should use it here too
+            FrameworkHelper.SetUseLayoutRounding(this, true);
+
+            this.Content = content;
+
             this.Show();
         }
 
         public void Dispose()
         {
-            GC.SuppressFinalize(this);
-
             this.Close();
         }
     }

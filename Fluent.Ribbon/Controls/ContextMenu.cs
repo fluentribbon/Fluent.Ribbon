@@ -37,9 +37,9 @@ namespace Fluent
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        private Thumb? resizeBothThumb;
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        private Thumb? resizeVerticalThumb;
 
         #endregion
 
@@ -54,10 +54,7 @@ namespace Fluent
             set { this.SetValue(ResizeModeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ResizeMode.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
         public static readonly DependencyProperty ResizeModeProperty =
             DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
             typeof(ContextMenu), new PropertyMetadata(ContextMenuResizeMode.None));
@@ -82,24 +79,24 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
             this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
 
             this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }

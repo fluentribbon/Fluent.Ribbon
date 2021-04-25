@@ -7,17 +7,23 @@
                      mc:Ignorable="d"
                      x:Name="window"
                      x:Class="FluentTest.TestWindow"
-                     Title="{Binding DataContext.Title, ElementName=TestContent}"
+                     Title="{Binding WindowTitle, ElementName=TestContent}"
                      FlowDirection="LeftToRight"
                      Height="768"
                      Width="1024"
                      MinWidth="80"
                      MinHeight="60"                     
-                     WindowState="Normal">
+                     WindowState="Normal"
+                     DataContext="{Binding DataContext, ElementName=TestContent}">
     <Fluent:RibbonWindow.LayoutTransform>
         <!-- todo: netcore => was using x:Reference before -->
         <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"
                         ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
     </Fluent:RibbonWindow.LayoutTransform>
+    <Fluent:RibbonWindow.WindowCommands>
+        <Fluent:WindowCommands>
+            <Button Content="Test" Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.Button}" />
+        </Fluent:WindowCommands>
+    </Fluent:RibbonWindow.WindowCommands>
     <FluentTest:TestContent x:Name="TestContent" />
 </Fluent:RibbonWindow>

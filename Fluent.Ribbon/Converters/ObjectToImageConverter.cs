@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
@@ -13,11 +14,13 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-#if NET45 // for DpiScale
+#if NET452 // for DpiScale
     using ControlzEx.Standard;
 #endif
     using Fluent.Internal;
 
+    #pragma warning disable WPF0072
+    
     /// <summary>
     /// Converts <see cref="string"/>, <see cref="Uri"/>, <see cref="System.Drawing.Icon"/> or <see cref="ImageSource"/> to <see cref="System.Windows.Controls.Image"/> or <see cref="ImageSource"/> (dependent upon target type).
     /// When converting you can pass a desired size as the converter parameter.
@@ -43,6 +46,7 @@
     public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiValueConverter
     {
         private static readonly ImageSource imageNotFoundImageSource = (ImageSource)CreateImageNotFoundImageSource().GetAsFrozen();
+        private static readonly SizeConverter sizeConverter = new SizeConverter();
 
         /// <summary>
         /// Creates a new instance.
@@ -54,70 +58,77 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
-        public ObjectToImageConverter(Binding iconBinding)
-            : this(iconBinding, Size.Empty)
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
+        public ObjectToImageConverter(object input)
+            : this(input, Size.Empty, null)
         {
         }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
-        public ObjectToImageConverter(Binding iconBinding, Size desiredSize)
-            : this(desiredSize)
+        public ObjectToImageConverter(object input, Size desiredSize)
+            : this(input, desiredSize, null)
         {
-            this.IconBinding = iconBinding;
         }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
+        /// <param name="desiredSize">The desired size for the image.</param>
+        public ObjectToImageConverter(object input, object desiredSize)
+            : this(input, desiredSize, null)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="input">The object or binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
         /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
-        public ObjectToImageConverter(Binding iconBinding, Size desiredSize, Binding targetVisualBinding)
-            : this(desiredSize)
+        public ObjectToImageConverter(object input, object desiredSize, Binding? targetVisualBinding)
         {
-            this.IconBinding = iconBinding;
-            this.TargetVisualBinding = targetVisualBinding;
-        }
+            if (desiredSize is Size desiredSizeValue
+                && (desiredSizeValue.IsEmpty
+                    || DoubleUtil.AreClose(desiredSizeValue.Width, 0)
+                    || DoubleUtil.AreClose(desiredSizeValue.Height, 0)))
+            {
+                throw new ArgumentException("DesiredSize must not be empty and width/height must be greater than 0.", nameof(desiredSize));
+            }
 
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="desiredSize">The desired size for the image.</param>
-        public ObjectToImageConverter(Size desiredSize)
-            : this()
-        {
-            this.DesiredSize = desiredSize;
+            this.IconBinding = input as Binding ?? new Binding { Source = input };
+            this.DesiredSizeBinding = desiredSize as Binding ?? new Binding { Source = desiredSize };
+            this.TargetVisualBinding = targetVisualBinding;
         }
 
         /// <summary>
         /// The target visual on which the image/icon should be shown.
         /// </summary>
         [ConstructorArgument("targetVisualBinding")]
-        public Binding TargetVisualBinding { get; set; }
+        public Binding? TargetVisualBinding { get; set; }
 
         /// <summary>
         /// The binding to which the converter should be applied to.
         /// </summary>
         [ConstructorArgument("iconBinding")]
-        public Binding IconBinding { get; set; }
+        public Binding? IconBinding { get; set; }
 
         /// <summary>
-        /// The desired size for the image.
+        /// The binding for the desired size for the image.
         /// </summary>
         [ConstructorArgument("desiredSize")]
-        public Size DesiredSize { get; set; } = Size.Empty;
+        public Binding? DesiredSizeBinding { get; set; }
 
         #region Implementation of IValueConverter
 
         /// <inheritdoc />
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = this.DesiredSize;
+            var desiredSize = Size.Empty;
 
             if (parameter is double
                 || parameter is int
@@ -143,7 +154,7 @@
         /// <summary>
         /// Returns the value to convert.
         /// </summary>
-        protected virtual object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
+        protected virtual object? GetValueToConvert(object? value, Size desiredSize, Visual? targetVisual)
         {
             return value;
         }
@@ -155,21 +166,42 @@
         /// <inheritdoc />
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var desiredSize = this.DesiredSize;
+            var desiredSize = Size.Empty;
+            var valuesLength = values.Length;
 
-            var targetVisual = values.Length >= 2
-                                   ? values[1] as Visual
-                                   : null;
+            // TargetVisual can be at index 1 or index 2, depending on the number of values passed
+            var targetVisual = valuesLength == 2
+                ? values[1] as Visual
+                : null;
 
-            if (values.Length == 2
+            if (targetVisual is null)
+            {
+                targetVisual = valuesLength == 3
+                    ? values[2] as Visual
+                    : null;
+            }
+
+            if (valuesLength >= 2
                 && values[1] is Size desiredSizeFromIndex1)
             {
                 desiredSize = desiredSizeFromIndex1;
             }
-            else if (values.Length == 3
-                && values[2] is Size desiredSizeFromIndex2)
+            else if (valuesLength >= 2
+                     && (values[1] is Visual) == false)
             {
-                desiredSize = desiredSizeFromIndex2;
+                var possibleDesiredSizeValue = values[1];
+                object? convertedValue;
+
+                if (possibleDesiredSizeValue is not null
+                    && sizeConverter.CanConvertFrom(possibleDesiredSizeValue.GetType())
+                    && (convertedValue = sizeConverter.ConvertFrom(possibleDesiredSizeValue)) is not null)
+                {
+                    desiredSize = (Size)convertedValue;
+                }
+                else
+                {
+                    desiredSize = Size.Empty;
+                }
             }
 
             return this.Convert(values[0], targetVisual, desiredSize, targetType);
@@ -188,22 +220,6 @@
         /// <inheritdoc />
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            // Get the target of the extension from the IServiceProvider interface
-            var provideValueTarget = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
-
-            // Setters don't accept anything else than DynamicResourceExtension and everything inherited from BindingBase.
-            // So we cheat and create a new MultiBinding.
-            if (provideValueTarget.TargetObject is Setter)
-            {
-                return this.CreateMultiBinding(serviceProvider);
-            }
-
-            // If we are inside a ControlTemplate there is no suitable target object so we return ourself and so we are being called again when the real control is created
-            if (provideValueTarget.TargetObject is DependencyObject)
-            {
-                return this;
-            }
-
             return this.CreateMultiBinding(serviceProvider);
         }
 
@@ -215,8 +231,15 @@
             {
                 Converter = this
             };
+
             multiBinding.Bindings.Add(this.IconBinding);
-            if (this.TargetVisualBinding != null)
+
+            if (this.DesiredSizeBinding is not null)
+            {
+                multiBinding.Bindings.Add(this.DesiredSizeBinding);
+            }
+
+            if (this.TargetVisualBinding is not null)
             {
                 multiBinding.Bindings.Add(this.TargetVisualBinding);
             }
@@ -224,11 +247,11 @@
             return multiBinding.ProvideValue(serviceProvider);
         }
 
-        private object Convert(object value, Visual targetVisual, Size desiredSize, Type targetType)
+        private object Convert(object value, Visual? targetVisual, Size desiredSize, Type targetType)
         {
             var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 
-            if (imageSource == null)
+            if (imageSource is null)
             {
                 return value;
             }
@@ -259,7 +282,7 @@
         /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An frozen <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateFrozenImageSource(object value, Size desiredSize)
+        public static ImageSource? CreateFrozenImageSource(object? value, Size desiredSize)
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
@@ -273,7 +296,7 @@
         /// <param name="targetVisual">The target on which the <see cref="ImageSource"/> will be used.</param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An frozen <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateFrozenImageSource(object value, Visual targetVisual, Size desiredSize)
+        public static ImageSource? CreateFrozenImageSource(object? value, Visual? targetVisual, Size desiredSize)
         {
             // We have to use a frozen instance. Otherwise we run into trouble if the same instance is used in multiple locations.
             // In case of BitmapImage it even gets worse when using the same Uri...
@@ -286,7 +309,7 @@
         /// <param name="value">Value from which the <see cref="ImageSource"/> should be extracted. It can be of type <see cref="ImageSource"/></param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateImageSource(object value, Size desiredSize)
+        public static ImageSource? CreateImageSource(object? value, Size desiredSize)
         {
             return CreateImageSource(value, null, desiredSize);
         }
@@ -298,7 +321,7 @@
         /// /// <param name="targetVisual">The target on which the <see cref="ImageSource"/> will be used.</param>
         /// <param name="desiredSize">The desired size to extract from <paramref name="value"/> .</param>
         /// <returns>An <see cref="ImageSource"/> which closest matches <paramref name="desiredSize"/></returns>
-        public static ImageSource CreateImageSource(object value, Visual targetVisual, Size desiredSize)
+        public static ImageSource? CreateImageSource(object? value, Visual? targetVisual, Size desiredSize)
         {
             if (value is null)
             {
@@ -332,13 +355,55 @@
                 return ExtractImageSource(icon, targetVisual, desiredSize);
             }
 
+            // !!! Danger zone ahead !!!
+            // !!! Please do not copy that code somewhere and blame me for failures !!!
+            // Hack to get the value from resource expressions
+            {
+                if (targetVisual is not null // to get values for resource expressions we need a DependencyObject
+                    && value is Expression expression)
+                {
+                    var type = expression.GetType();
+                    var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                    if (method is not null)
+                    {
+                        var valueFromExpression = method.Invoke(expression, new object[]
+                                                                            {
+                                                                                targetVisual,
+                                                                                // to get values from resource expressions we need a DependencyProperty, so just pass a random one
+                                                                                RibbonProperties.SizeProperty
+                                                                            });
+
+                        return CreateImageSource(valueFromExpression, targetVisual, desiredSize);
+                    }
+                }
+
+                if (value.GetType().InheritsFrom("DeferredReference"))
+                {
+                    var type = value.GetType();
+                    var method = type.GetMethod("GetValue", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+                    if (method is not null)
+                    {
+                        var valueFromDeferredReference = method.Invoke(value, new object?[]
+                                                                              {
+                                                                                  null
+                                                                              });
+
+                        return CreateImageSource(valueFromDeferredReference, targetVisual, desiredSize);
+                    }
+                }
+            }
+
             return null;
         }
 
-        private static ImageSource CreateImageSource(string imagePath, Visual targetVisual, Size desiredSize)
+        private static ImageSource CreateImageSource(string imagePath, Visual? targetVisual, Size desiredSize)
         {
+            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
+
             // Allow things like "Images\Green.png"
-            if (imagePath.StartsWith("pack:", StringComparison.OrdinalIgnoreCase) == false)
+            if (imageUri.IsAbsoluteUri == false)
             {
                 // If that file does not exist, try to find it using resource notation
                 if (File.Exists(imagePath) == false)
@@ -350,16 +415,14 @@
                         slash = "/";
                     }
 
-                    imagePath = "pack://application:,,," + slash + imagePath;
+                    imageUri = new Uri("pack://application:,,," + slash + imagePath, UriKind.RelativeOrAbsolute);
                 }
             }
-
-            var imageUri = new Uri(imagePath, UriKind.RelativeOrAbsolute);
 
             return CreateImageSource(imageUri, targetVisual, desiredSize);
         }
 
-        private static ImageSource CreateImageSource(Uri imageUri, Visual targetVisual, Size desiredSize)
+        private static ImageSource CreateImageSource(Uri imageUri, Visual? targetVisual, Size desiredSize)
         {
             try
             {
@@ -367,7 +430,7 @@
 
                 return ExtractImageSource(decoder, targetVisual, desiredSize);
             }
-            catch (IOException exception) when (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            catch (IOException exception) when (DesignerProperties.GetIsInDesignMode(targetVisual ?? new DependencyObject()))
             {
                 Trace.WriteLine(exception);
 
@@ -375,16 +438,14 @@
             }
         }
 
-        private static ImageSource ExtractImageSource(System.Drawing.Icon icon, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(System.Drawing.Icon icon, Visual? targetVisual, Size desiredSize)
         {
-            var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle,
-                                                                  Int32Rect.Empty,
-                                                                  BitmapSizeOptions.FromEmptyOptions());
+            var imageSource = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
             return ExtractImageSource(imageSource, targetVisual, desiredSize);
         }
 
-        private static ImageSource ExtractImageSource(ImageSource imageSource, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(ImageSource imageSource, Visual? targetVisual, Size desiredSize)
         {
             if (desiredSize.IsEmpty)
             {
@@ -395,7 +456,7 @@
 
             // We may have some other type of ImageSource
             // that doesn't have a notion of frames or decoder
-            if (bitmapFrame?.Decoder == null)
+            if (bitmapFrame?.Decoder is null)
             {
                 return imageSource;
             }
@@ -403,7 +464,7 @@
             return ExtractImageSource(bitmapFrame.Decoder, targetVisual, desiredSize);
         }
 
-        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Visual targetVisual, Size desiredSize)
+        private static ImageSource ExtractImageSource(BitmapDecoder decoder, Visual? targetVisual, Size desiredSize)
         {
             var scaledDesiredSize = GetScaledDesiredSize(desiredSize, targetVisual);
 
@@ -422,7 +483,7 @@
         /// <summary>
         /// Get the scaled desired size.
         /// </summary>
-        protected static Size GetScaledDesiredSize(Size desiredSize, Visual targetVisual)
+        protected static Size GetScaledDesiredSize(Size desiredSize, Visual? targetVisual)
         {
             return GetScaledDesiredSize(desiredSize, GetDpiScale(targetVisual));
         }
@@ -440,10 +501,10 @@
             return new Size(desiredSize.Width * dpiScale.DpiScaleX, desiredSize.Height * dpiScale.DpiScaleY);
         }
 
-        private static DpiScale GetDpiScale(Visual targetVisual)
+        private static DpiScale GetDpiScale(Visual? targetVisual)
         {
-#if !NET45 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
-            if (targetVisual != null)
+#if !NET452 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
+            if (targetVisual is not null)
             {
                 return VisualTreeHelper.GetDpi(targetVisual);
             }
@@ -454,7 +515,7 @@
             {
                 var presentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
 
-                if (presentationSource?.CompositionTarget != null)
+                if (presentationSource?.CompositionTarget is not null)
                 {
                     // dpi.M11 = dpiX, dpi.M22 = dpiY
                     return new DpiScale(presentationSource.CompositionTarget.TransformToDevice.M11, presentationSource.CompositionTarget.TransformToDevice.M22);
@@ -484,7 +545,7 @@
             return image;
         }
 
-        private static ImageSource GetAsFrozenIfPossible(ImageSource imageSource)
+        private static ImageSource? GetAsFrozenIfPossible(ImageSource? imageSource)
         {
             if (imageSource is null)
             {

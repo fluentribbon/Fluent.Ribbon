@@ -108,7 +108,7 @@
         </ControlTemplate.Resources>
 
         <Grid Width="Auto"
-              Height="22"
+              Height="Auto"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -574,6 +574,8 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ComboBox}">
+        <Setter Property="Height"
+                Value="22" />
         <Setter Property="Template"
                 Value="{DynamicResource ComboboxControlTemplate}" />
         <Setter Property="Foreground"

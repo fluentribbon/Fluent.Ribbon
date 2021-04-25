@@ -15,13 +15,13 @@
                     Visibility="Collapsed"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}" />
             
-            <ContentPresenter x:Name="contentPresenter"
-                              Margin="1"
-                              Opacity="1" />
-            
             <Border x:Name="pressedBorder"
                     Visibility="Collapsed"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}" />
+
+            <ContentPresenter x:Name="contentPresenter"
+                              Margin="1"
+                              Opacity="1" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled"

@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
 
@@ -84,6 +84,16 @@
         <Setter Property="ContentGapHeight"
                 Value="{Binding ContentGapHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}}" />
     </Style>
+
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip"
+                      x:Shared="False"
+                      Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
+
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip"
+                      x:Shared="False"
+                      Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
 
     <ControlTemplate x:Key="RibbonTabControlControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTabControl}">
@@ -204,7 +214,6 @@
                     BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             
             <Border HorizontalAlignment="Stretch"
-                    Margin="1,0,1,0"
                     Grid.Row="1"
                     Grid.RowSpan="1"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
@@ -289,26 +298,21 @@
                 </StackPanel>
             </Grid>
 
+            <!-- Placement target must be the selected item. Otherwise things like DPI and monitor are selected wrong if the tabcontrol 0,0 is on a different screen than the selected tabs 0,0 -->
             <Popup x:Name="PART_Popup"
                    PlacementTarget="{Binding Path=SelectedTabItem, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                    Placement="Custom"
                    AllowsTransparency="True"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
-                   IsOpen="{TemplateBinding IsDropDownOpen}"
-                   HorizontalOffset="0"
-                   VerticalOffset="-10">
+                   IsOpen="{TemplateBinding IsDropDownOpen}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition MinHeight="20"
-                                       MaxHeight="20" /> <!-- Needed for overlapping Keytips -->
+                        <RowDefinition Height="{x:Static Fluent:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" /> <!-- Needed for overlapping Keytips -->
                         <RowDefinition MinHeight="{TemplateBinding ContentHeight}"
                                        MaxHeight="{TemplateBinding ContentHeight}" />
-                        <RowDefinition MinHeight="{TemplateBinding ContentGapHeight}"
-                                       MaxHeight="{TemplateBinding ContentGapHeight}" />
-                        <RowDefinition Height="20" /> <!-- Needed for overlapping Keytips -->
+                        <RowDefinition Height="{x:Static Fluent:RibbonTabControl.AdditionalPopupSpaceForKeyTipsGridLength}" /> <!-- Needed for overlapping Keytips -->
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1" 
-                            Grid.RowSpan="2"
                             BorderThickness="0,0,0,1"
                             Margin="1,0"
                             BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
@@ -329,12 +333,9 @@
                 <Setter TargetName="PART_MinimizeButton"
                         Property="Icon" 
                         Value="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}" />
-                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
-                    <Setter.Value>
-                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipTitle, Mode=OneWay}"
-                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeButtonScreenTipText, Mode=OneWay}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter TargetName="PART_MinimizeButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip}" />
             </Trigger>
             <Trigger Property="IsMinimized"
                      Value="True">
@@ -355,12 +356,9 @@
                 <Setter TargetName="PART_MinimizeButton" 
                         Property="Icon"
                         Value="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}" />
-                <Setter TargetName="PART_MinimizeButton" Property="ToolTip">
-                    <Setter.Value>
-                        <Fluent:ScreenTip Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
-                                          Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
-                    </Setter.Value>
-                </Setter>
+                <Setter TargetName="PART_MinimizeButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

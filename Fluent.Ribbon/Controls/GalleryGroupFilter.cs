@@ -18,10 +18,7 @@ namespace Fluent
             set { this.SetValue(TitleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string),
             typeof(GalleryGroupFilter), new PropertyMetadata("GalleryGroupFilter"));
@@ -35,10 +32,7 @@ namespace Fluent
             set { this.SetValue(GroupsProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Groups.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Groups"/> dependency property.</summary>
         public static readonly DependencyProperty GroupsProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Groups), typeof(string), typeof(GalleryGroupFilter), new PropertyMetadata(StringBoxes.Empty));

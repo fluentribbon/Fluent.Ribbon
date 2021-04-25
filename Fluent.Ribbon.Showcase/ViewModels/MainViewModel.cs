@@ -2,23 +2,30 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Timers;
     using System.Windows;
     using System.Windows.Input;
     using Fluent;
     using FluentTest.Commanding;
+#if MahApps_Metro
 
+#endif
+
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
     public class MainViewModel : ViewModel
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
+        private readonly Timer memoryTimer;
+
         private int boundSpinnerValue;
         private ColorViewModel colorViewModel;
         private FontsViewModel fontsViewModel;
         private GalleryViewModel galleryViewModel;
 
-        private GallerySampleDataItemViewModel[] dataItems;
+        private ReadOnlyObservableCollection<GallerySampleDataItemViewModel> dataItems;
 
         private RelayCommand exitCommand;
         private double zoom;
@@ -29,11 +36,10 @@
 
         private bool? isCheckedToggleButton3 = true;
 
-        private readonly Timer memoryTimer;
+        private bool areContextGroupsVisible = true;
 
         public MainViewModel()
         {
-            this.Title = $"Fluent.Ribbon {GetVersionText()}";
             this.Zoom = 1.0;
 
             this.BoundSpinnerValue = 1;
@@ -56,8 +62,6 @@
 
         #region Properties
 
-        public string Title { get; private set; }
-
         public long UsedMemory => GC.GetTotalMemory(true) / 1014;
 
         public double Zoom
@@ -72,6 +76,21 @@
                 }
 
                 this.zoom = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool AreContextGroupsVisible
+        {
+            get => this.areContextGroupsVisible;
+            set
+            {
+                if (value == this.areContextGroupsVisible)
+                {
+                    return;
+                }
+
+                this.areContextGroupsVisible = value;
                 this.OnPropertyChanged();
             }
         }
@@ -129,11 +148,11 @@
         /// <summary>
         /// Gets data items (uses as DataContext)
         /// </summary>
-        public GallerySampleDataItemViewModel[] DataItems
+        public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems
         {
             get
             {
-                return this.dataItems ?? (this.dataItems = new[]
+                return this.dataItems ?? (this.dataItems = new ReadOnlyObservableCollection<GallerySampleDataItemViewModel>(new ObservableCollection<GallerySampleDataItemViewModel>
                 {
                     GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
                     GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
@@ -143,7 +162,7 @@
                     GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
                     GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
                     GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
-                });
+                }));
             }
         }
 
@@ -204,7 +223,7 @@
         {
             get
             {
-                if (this.exitCommand == null)
+                if (this.exitCommand is null)
                 {
                     this.exitCommand = new RelayCommand(Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
                 }
@@ -221,19 +240,6 @@
         }
 
         #endregion Properties
-
-        private static string GetVersionText()
-        {
-            var version = typeof(Ribbon).Assembly.GetName().Version;
-
-            var attributes = typeof(Ribbon).Assembly
-                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
-                    as AssemblyInformationalVersionAttribute[];
-
-            var attrib = attributes.FirstOrDefault();
-
-            return $"{version} ({attrib.InformationalVersion})";
-        }
 
         private static void Preview(GalleryItem galleryItem)
         {

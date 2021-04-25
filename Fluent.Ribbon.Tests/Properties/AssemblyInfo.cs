@@ -1,7 +1,5 @@
-using System.Reflection;
+using System;
 
-[assembly: AssemblyDescription("")]
+[assembly: CLSCompliant(false)]
 
-#if !NETCOREAPP3_0
 [assembly: NUnit.Framework.Apartment(System.Threading.ApartmentState.STA)]
-#endif

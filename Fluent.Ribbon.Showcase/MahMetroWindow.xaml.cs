@@ -1,13 +1,12 @@
 ﻿namespace FluentTest
 {
     using System;
-    using System.Linq;
     using System.Windows;
+    using ControlzEx.Theming;
     using Fluent;
     using MahApps.Metro.Controls;
 
-    [CLSCompliant(false)] // Because MetroWindow is not CLSCompliant
-    public partial class MahMetroWindow : MetroWindow, IRibbonWindow
+    public partial class MahMetroWindow : IRibbonWindow
     {
         public MahMetroWindow()
         {
@@ -25,21 +24,25 @@
             this.TitleBar.InvalidateArrange();
             this.TitleBar.UpdateLayout();
 
-            this.SyncThemeManagers(null, null);
+            // We need this inside this window because MahApps.Metro is not loaded globally inside the Fluent.Ribbon Showcase application.
+            // This code is not required in an application that loads the MahApps.Metro styles globally.
+            ThemeManager.Current.ChangeTheme(this, ThemeManager.Current.DetectTheme(Application.Current));
+            ThemeManager.Current.ThemeChanged += this.SyncThemes;
+        }
 
-            ThemeManager.IsThemeChanged += this.SyncThemeManagers;
+        private void SyncThemes(object sender, ThemeChangedEventArgs e)
+        {
+            if (e.Target == this)
+            {
+                return;
+            }
+
+            ThemeManager.Current.ChangeTheme(this, e.NewTheme);
         }
 
         private void MahMetroWindow_Closed(object sender, EventArgs e)
         {
-            ThemeManager.IsThemeChanged -= this.SyncThemeManagers;
-        }
-
-        private void SyncThemeManagers(object sender, OnThemeChangedEventArgs args)
-        {
-            // Sync Fluent and MahApps ThemeManager
-            var fluentRibbonTheme = args?.Theme ?? ThemeManager.DetectTheme();
-            MahApps.Metro.ThemeManager.ChangeTheme(this, fluentRibbonTheme.Name);
+            ThemeManager.Current.ThemeChanged -= this.SyncThemes;
         }
 
         #region TitelBar
@@ -56,10 +59,10 @@
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly(nameof(TitleBar), typeof(RibbonTitleBar), typeof(MahMetroWindow), new PropertyMetadata());
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
-        /// </summary>
+#pragma warning disable WPF0060
+        /// <summary>Identifies the <see cref="TitleBar"/> dependency property.</summary>
         public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
+#pragma warning restore WPF0060
 
         #endregion
     }

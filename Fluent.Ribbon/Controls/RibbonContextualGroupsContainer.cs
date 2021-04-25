@@ -22,11 +22,11 @@ namespace Fluent
             var finalRect = new Rect(finalSize);
             var index = 0;
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
                 finalRect.Width = this.sizes[index].Width; //item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, this.sizes[index].Height); //Math.Max(finalSize.Height, item.DesiredSize.Height);
-                item.Arrange(finalRect);
+                item?.Arrange(finalRect);
                 finalRect.X += this.sizes[index].Width; // item.DesiredSize.Width;
                 index++;
             }
@@ -39,7 +39,6 @@ namespace Fluent
         {
             var allGroupsWidth = 0D;
             this.sizes.Clear();
-            var infinity = new Size(double.PositiveInfinity, double.PositiveInfinity);
 
             var availableSizeHeight = availableSize.Height;
 
@@ -48,8 +47,13 @@ namespace Fluent
                 availableSizeHeight = 0;
             }
 
-            foreach (RibbonContextualTabGroup contextualGroup in this.InternalChildren)
+            foreach (RibbonContextualTabGroup? contextualGroup in this.InternalChildren)
             {
+                if (contextualGroup is null)
+                {
+                    continue;
+                }
+
                 // Calculate width of tab items of the group
                 var tabsWidth = 0D;
 
@@ -61,7 +65,7 @@ namespace Fluent
                     tabsWidth += item.DesiredSize.Width;
                 }
 
-                contextualGroup.Measure(infinity);
+                contextualGroup.Measure(SizeConstants.Infinite);
                 var groupWidth = contextualGroup.DesiredSize.Width;
 
                 var tabWasChanged = false;
@@ -91,7 +95,7 @@ namespace Fluent
                     // to invalidate down to RibbonTabsContainer
                     var visual = visibleItems[0] as Visual;
 
-                    while (visual != null)
+                    while (visual is not null)
                     {
                         if (visual is UIElement uiElement)
                         {

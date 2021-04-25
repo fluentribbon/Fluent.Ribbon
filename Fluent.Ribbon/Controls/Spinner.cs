@@ -27,12 +27,12 @@ namespace Fluent
         /// <summary>
         /// Occurs when value has been changed
         /// </summary>
-        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+        public event RoutedPropertyChangedEventHandler<double>? ValueChanged;
 
         // Parts of the control (must be in control template)
-        private System.Windows.Controls.TextBox textBox;
-        private RepeatButton buttonUp;
-        private RepeatButton buttonDown;
+        private System.Windows.Controls.TextBox? textBox;
+        private RepeatButton? buttonUp;
+        private RepeatButton? buttonDown;
 
         #region Properties
 
@@ -53,8 +53,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ValueProperty;
 
-        private static object CoerceValue(DependencyObject d, object basevalue)
+        private static object CoerceValue(DependencyObject d, object? basevalue)
         {
+            if (basevalue is null)
+            {
+                return double.NaN;
+            }
+
             var spinner = (Spinner)d;
             var value = (double)basevalue;
             value = GetLimitedValue(spinner, value);
@@ -78,7 +83,7 @@ namespace Fluent
 
         private void ValueToTextBoxText()
         {
-            if (this.textBox == null)
+            if (this.textBox is null)
             {
                 return;
             }
@@ -95,19 +100,16 @@ namespace Fluent
         /// <summary>
         /// Gets current text from the spinner
         /// </summary>
-        public string Text
+        public string? Text
         {
-            get { return (string)this.GetValue(TextProperty); }
+            get { return (string?)this.GetValue(TextProperty); }
             private set { this.SetValue(TextPropertyKey, value); }
         }
 
         // ReSharper disable once InconsistentNaming
         private static readonly DependencyPropertyKey TextPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Text), typeof(string), typeof(Spinner), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         public static readonly DependencyProperty TextProperty = TextPropertyKey.DependencyProperty;
 
         #endregion
@@ -123,12 +125,9 @@ namespace Fluent
             set { this.SetValue(IncrementProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Increment.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Increment"/> dependency property.</summary>
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(1.0d));
+            DependencyProperty.Register(nameof(Increment), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.One));
 
         #endregion
 
@@ -149,10 +148,10 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinimumProperty;
 
-        private static object CoerceMinimum(DependencyObject d, object basevalue)
+        private static object CoerceMinimum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
+            var value = (double)basevalue!;
 
             if (spinner.Maximum < value)
             {
@@ -192,17 +191,17 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaximumProperty;
 
-        private static object CoerceMaximum(DependencyObject d, object basevalue)
+        private static object? CoerceMaximum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
 
-            if (spinner.Minimum > value)
+            if (basevalue is double value
+                && spinner.Minimum > value)
             {
                 return spinner.Minimum;
             }
 
-            return value;
+            return basevalue;
         }
 
         private static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -229,10 +228,7 @@ namespace Fluent
             set { this.SetValue(FormatProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Format.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Format"/> dependency property.</summary>
         public static readonly DependencyProperty FormatProperty =
             DependencyProperty.Register(nameof(Format), typeof(string), typeof(Spinner), new PropertyMetadata("F1", OnFormatChanged));
 
@@ -257,10 +253,7 @@ namespace Fluent
             set { this.SetValue(DelayProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Delay.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Delay"/> dependency property.</summary>
         public static readonly DependencyProperty DelayProperty =
             DependencyProperty.Register(nameof(Delay), typeof(int), typeof(Spinner),
             new PropertyMetadata(400));
@@ -280,10 +273,7 @@ namespace Fluent
             set { this.SetValue(IntervalProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Interval.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Interval"/> dependency property.</summary>
         public static readonly DependencyProperty IntervalProperty =
             DependencyProperty.Register(nameof(Interval), typeof(int), typeof(Spinner), new PropertyMetadata(80));
 
@@ -300,9 +290,7 @@ namespace Fluent
             set { this.SetValue(InputWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for InputWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
         public static readonly DependencyProperty InputWidthProperty =
             DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -319,12 +307,10 @@ namespace Fluent
             set { this.SetValue(TextToValueConverterProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for TextToValueConverter.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="TextToValueConverter"/> dependency property.</summary>
         public static readonly DependencyProperty TextToValueConverterProperty =
 #pragma warning disable WPF0016 // Default value is shared reference type.
-            DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(new SpinnerTextToValueConverter()));
+            DependencyProperty.Register(nameof(TextToValueConverter), typeof(IValueConverter), typeof(Spinner), new PropertyMetadata(SpinnerTextToValueConverter.DefaultInstance));
 #pragma warning restore WPF0016 // Default value is shared reference type.
 
         #endregion TextToValueConverter
@@ -338,9 +324,7 @@ namespace Fluent
             set { this.SetValue(SelectAllTextOnFocusProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="SelectAllTextOnFocus"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectAllTextOnFocus"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
 
@@ -371,7 +355,7 @@ namespace Fluent
         /// </summary>
         public void SelectAll()
         {
-            this.textBox.SelectAll();
+            this.textBox?.SelectAll();
         }
 
         #endregion
@@ -383,19 +367,19 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (this.buttonUp != null)
+            if (this.buttonUp is not null)
             {
                 this.buttonUp.Click -= this.OnButtonUpClick;
                 BindingOperations.ClearAllBindings(this.buttonUp);
             }
 
-            if (this.buttonDown != null)
+            if (this.buttonDown is not null)
             {
                 this.buttonDown.Click -= this.OnButtonDownClick;
                 BindingOperations.ClearAllBindings(this.buttonDown);
             }
 
-            if (this.textBox != null)
+            if (this.textBox is not null)
             {
                 this.textBox.LostKeyboardFocus -= this.OnTextBoxLostKeyboardFocus;
                 this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
@@ -407,7 +391,9 @@ namespace Fluent
             this.buttonDown = this.GetTemplateChild("PART_ButtonDown") as RepeatButton;
 
             // Check template
-            if (this.IsTemplateValid() == false)
+            if (this.textBox is null
+                || this.buttonUp is null
+                || this.buttonDown is null)
             {
                 Debug.WriteLine("Template for Spinner control is invalid");
                 return;
@@ -429,13 +415,6 @@ namespace Fluent
             this.ValueToTextBoxText();
         }
 
-        private bool IsTemplateValid()
-        {
-            return this.textBox != null
-                && this.buttonUp != null
-                && this.buttonDown != null;
-        }
-
         #endregion
 
         #region Event Handling
@@ -443,7 +422,7 @@ namespace Fluent
         /// <inheritdoc />
         public override KeyTipPressedResult OnKeyTipPressed()
         {
-            if (this.textBox == null)
+            if (this.textBox is null)
             {
                 return KeyTipPressedResult.Empty;
             }
@@ -456,7 +435,8 @@ namespace Fluent
 
         private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
-            if (this.SelectAllTextOnFocus)
+            if (this.SelectAllTextOnFocus
+                && this.textBox is not null)
             {
                 // Async because setting the carret happens after focus.
                 this.RunInDispatcherAsync(() =>
@@ -514,18 +494,20 @@ namespace Fluent
                 || e.Key == Key.Escape)
             {
                 // Move Focus
-                this.textBox.Focusable = false;
+                this.textBox!.Focusable = false;
                 this.Focus();
-                this.textBox.Focusable = true;
+                this.textBox!.Focusable = true;
                 e.Handled = true;
             }
 
-            if (e.Key == Key.Up)
+            if (e.Key == Key.Up
+                && this.buttonUp is not null)
             {
                 this.buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
 
-            if (e.Key == Key.Down)
+            if (e.Key == Key.Down
+                && this.buttonDown is not null)
             {
                 this.buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
@@ -534,7 +516,7 @@ namespace Fluent
         private void TextBoxTextToValue()
         {
             var converterParam = new Tuple<string, double>(this.Format, this.Value);
-            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
+            var newValue = (double)this.TextToValueConverter.Convert(this.textBox!.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
 
             this.Value = GetLimitedValue(this, newValue);
 

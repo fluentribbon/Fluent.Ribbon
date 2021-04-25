@@ -21,15 +21,15 @@
         /// <summary>
         /// Gets the behaviors associated with <paramref name="dpo"/>
         /// </summary>
-        public static StylizedBehaviorCollection GetBehaviors(DependencyObject dpo)
+        public static StylizedBehaviorCollection? GetBehaviors(DependencyObject dpo)
         {
-            return (StylizedBehaviorCollection)dpo.GetValue(BehaviorsProperty);
+            return (StylizedBehaviorCollection?)dpo.GetValue(BehaviorsProperty);
         }
 
         /// <summary>
         /// Sets the behaviors associated with <paramref name="dpo"/>
         /// </summary>
-        public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection value)
+        public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection? value)
         {
             dpo.SetValue(BehaviorsProperty, value);
         }
@@ -37,7 +37,7 @@
         private static void OnBehaviorsChanged(DependencyObject dpo, DependencyPropertyChangedEventArgs e)
         {
             var frameworkElement = dpo as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -85,7 +85,7 @@
             frameworkElement.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
         }
 
-        private static void Dispatcher_ShutdownStarted(object sender, System.EventArgs e)
+        private static void Dispatcher_ShutdownStarted(object? sender, System.EventArgs e)
         {
             Debug.WriteLine("Dispatcher.ShutdownStarted");
         }
@@ -94,7 +94,7 @@
         {
             // BehaviorCollection doesn't call Detach, so we do this
             var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -112,7 +112,7 @@
         private static void FrameworkElementLoaded(object sender, RoutedEventArgs e)
         {
             var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement == null)
+            if (frameworkElement is null)
             {
                 return;
             }
@@ -161,12 +161,12 @@
                                                   typeof(StylizedBehaviors),
                                                   new UIPropertyMetadata(null));
 
-        private static Behavior GetOriginalBehavior(DependencyObject obj)
+        private static Behavior? GetOriginalBehavior(DependencyObject obj)
         {
-            return obj.GetValue(OriginalBehaviorProperty) as Behavior;
+            return (Behavior)obj.GetValue(OriginalBehaviorProperty);
         }
 
-        private static void SetOriginalBehavior(DependencyObject obj, Behavior value)
+        private static void SetOriginalBehavior(DependencyObject obj, Behavior? value)
         {
             obj.SetValue(OriginalBehaviorProperty, value);
         }

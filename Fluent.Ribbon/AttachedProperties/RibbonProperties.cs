@@ -4,10 +4,13 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Media;
     using Fluent.Extensibility;
+    using Fluent.Internal.KnownBoxes;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
+    [PublicAPI]
     public static class RibbonProperties
     {
         #region Size Property
@@ -96,17 +99,17 @@ namespace Fluent
         }
 
         // Finds parent group box
-        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject element)
+        internal static RibbonGroupBox? FindParentRibbonGroupBox(DependencyObject element)
         {
             var currentElement = element;
-            RibbonGroupBox groupBox;
+            RibbonGroupBox? groupBox;
 
-            while ((groupBox = currentElement as RibbonGroupBox) == null)
+            while ((groupBox = currentElement as RibbonGroupBox) is null)
             {
                 currentElement = VisualTreeHelper.GetParent(currentElement)
                     ?? LogicalTreeHelper.GetParent(currentElement);
 
-                if (currentElement == null)
+                if (currentElement is null)
                 {
                     break;
                 }
@@ -138,7 +141,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverBackground(DependencyObject element, Brush value)
+        public static void SetMouseOverBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverBackgroundProperty, value);
         }
@@ -147,7 +150,7 @@ namespace Fluent
         /// Gets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverBackground(DependencyObject element)
+        public static Brush? GetMouseOverBackground(DependencyObject element)
         {
             return (Brush)element.GetValue(MouseOverBackgroundProperty);
         }
@@ -164,7 +167,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverForeground(DependencyObject element, Brush value)
+        public static void SetMouseOverForeground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverForegroundProperty, value);
         }
@@ -173,9 +176,9 @@ namespace Fluent
         /// Gets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverForeground(DependencyObject element)
+        public static Brush? GetMouseOverForeground(DependencyObject element)
         {
-            return (Brush)element.GetValue(MouseOverForegroundProperty);
+            return (Brush?)element.GetValue(MouseOverForegroundProperty);
         }
 
         #endregion
@@ -190,7 +193,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetIsSelectedBackground(DependencyObject element, Brush value)
+        public static void SetIsSelectedBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(IsSelectedBackgroundProperty, value);
         }
@@ -199,11 +202,62 @@ namespace Fluent
         /// Gets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetIsSelectedBackground(DependencyObject element)
+        public static Brush? GetIsSelectedBackground(DependencyObject element)
         {
-            return (Brush)element.GetValue(IsSelectedBackgroundProperty);
+            return (Brush?)element.GetValue(IsSelectedBackgroundProperty);
         }
 
         #endregion
+
+        #region LastVisibleWidthProperty
+
+        /// <summary>
+        /// Stores the last visible width of an element.
+        /// </summary>
+        public static readonly DependencyProperty LastVisibleWidthProperty = DependencyProperty.RegisterAttached(
+            "LastVisibleWidth", typeof(double), typeof(RibbonProperties), new PropertyMetadata(DoubleBoxes.Zero));
+
+        /// <summary>Helper for setting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetLastVisibleWidth(DependencyObject element, double value)
+        {
+            element.SetValue(LastVisibleWidthProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
+        public static double GetLastVisibleWidth(DependencyObject? element)
+        {
+#pragma warning disable WPF0042 // Avoid side effects in CLR accessors.
+            if (element is null)
+            {
+                return 0;
+            }
+#pragma warning restore WPF0042 // Avoid side effects in CLR accessors.
+
+            return (double)element.GetValue(LastVisibleWidthProperty);
+        }
+
+        #endregion LastVisibleWidthProperty
+
+        #region IsElementInQuickAccessToolBarProperty
+
+        /// <summary>
+        /// Defines if the element is part of the <see cref="QuickAccessToolBar"/>.
+        /// </summary>
+        public static readonly DependencyProperty IsElementInQuickAccessToolBarProperty = DependencyProperty.RegisterAttached(
+            "IsElementInQuickAccessToolBar", typeof(bool), typeof(RibbonProperties), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Helper for setting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetIsElementInQuickAccessToolBar(DependencyObject element, bool value)
+        {
+            element.SetValue(IsElementInQuickAccessToolBarProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
+        public static bool GetIsElementInQuickAccessToolBar(DependencyObject element)
+        {
+            return (bool)element.GetValue(IsElementInQuickAccessToolBarProperty);
+        }
+
+        #endregion IsElementInQuickAccessToolBarProperty
     }
 }

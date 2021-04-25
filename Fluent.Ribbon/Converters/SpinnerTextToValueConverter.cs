@@ -10,6 +10,11 @@
     /// </summary>
     public class SpinnerTextToValueConverter : IValueConverter
     {
+        /// <summary>
+        /// Gets a default instance of <see cref="SpinnerTextToValueConverter"/>.
+        /// </summary>
+        public static readonly SpinnerTextToValueConverter DefaultInstance = new SpinnerTextToValueConverter();
+
         /// <inheritdoc />
         public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

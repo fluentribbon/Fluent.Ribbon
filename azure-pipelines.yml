@@ -1,9 +1,10 @@
-﻿trigger:
+trigger:
   branches:
     include: 
-      - '*'
-    exclude: 
+      - 'master'
+      - 'develop'
       - 'refs/tags/*'
+
   paths:
     include:
       - '*'
@@ -16,11 +17,19 @@ pool:
   vmImage: 'windows-2019'
 
 steps:
-- task: DotNetCoreInstaller@0
-  inputs: 
-    version: '3.0.100-preview4-010569'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK 3.1'
+  inputs:
+    packageType: sdk
+    version: 3.1.404
 
-- powershell: .\build.ps1 -target CI -Verbosity Verbose -artifact-dir='$(Build.ArtifactStagingDirectory)'
+- task: UseDotNet@2
+  displayName: 'Use .NET Core SDK (json)'
+  inputs:
+    packageType: sdk
+    useGlobalJson: true
+
+- powershell: .\build.ps1 CI --ArtifactsDirectory '$(Build.ArtifactStagingDirectory)'
   displayName: CI-Build
 
 - task: PublishTestResults@2

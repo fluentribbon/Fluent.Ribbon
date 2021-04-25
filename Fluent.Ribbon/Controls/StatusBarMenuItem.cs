@@ -13,15 +13,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets Ribbon Status Bar menu item
         /// </summary>
-        public StatusBarItem StatusBarItem
+        public StatusBarItem? StatusBarItem
         {
-            get { return (StatusBarItem)this.GetValue(StatusBarItemProperty); }
+            get { return (StatusBarItem?)this.GetValue(StatusBarItemProperty); }
             set { this.SetValue(StatusBarItemProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for StatusBarItem.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="StatusBarItem"/> dependency property.</summary>
         public static readonly DependencyProperty StatusBarItemProperty =
             DependencyProperty.Register(nameof(StatusBarItem), typeof(StatusBarItem), typeof(StatusBarMenuItem), new PropertyMetadata());
 
@@ -44,6 +42,10 @@ namespace Fluent
         public StatusBarMenuItem(StatusBarItem item)
         {
             this.StatusBarItem = item;
+        }
+
+        internal StatusBarMenuItem()
+        {
         }
 
         #endregion

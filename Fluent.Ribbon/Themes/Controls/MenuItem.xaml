@@ -171,16 +171,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
-            <Image x:Name="checkedImage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Width="16"
-                   Height="16"
-                   Stretch="Uniform"
-                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Visibility="Collapsed"
-                   SnapsToDevicePixels="True" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
                 <ContentPresenter x:Name="iconImage"
@@ -192,6 +183,15 @@
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
             </Border>
+            <Image x:Name="checkedImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
+                   Visibility="Collapsed"
+                   SnapsToDevicePixels="True" />
             <TextBlock x:Name="gestureTextBlock"
                        Text="{TemplateBinding InputGestureText}"
                        Width="Auto"
@@ -304,16 +304,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
-            <Image x:Name="checkedImage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Width="16"
-                   Height="16"
-                   Stretch="Uniform"
-                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Visibility="Collapsed"
-                   SnapsToDevicePixels="True" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
                 <ContentPresenter x:Name="iconImage"
@@ -325,6 +316,15 @@
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
             </Border>
+            <Image x:Name="checkedImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
+                   Visibility="Collapsed"
+                   SnapsToDevicePixels="True" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -371,16 +371,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
                                               Margin="1"
@@ -565,16 +555,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
-            <Image x:Name="checkedImage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Width="16"
-                   Height="16"
-                   Stretch="Uniform"
-                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Visibility="Collapsed"
-                   SnapsToDevicePixels="True" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
                 <ContentPresenter x:Name="iconImage"
@@ -586,6 +567,15 @@
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
             </Border>
+            <Image x:Name="checkedImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
+                   Visibility="Collapsed"
+                   SnapsToDevicePixels="True" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -631,16 +621,6 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Path Fill="{x:Null}"
-                                      Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                      HorizontalAlignment="Left"
-                                      Margin="24,0,0,0"
-                                      Width="1"
-                                      Height="Auto"
-                                      Data="M0,0L0,1"
-                                      Grid.RowSpan="2"
-                                      Visibility="Visible" />
                                 <ScrollViewer Margin="1"
                                               x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource MenuScrollViewer}"
@@ -826,16 +806,7 @@
                               VerticalAlignment="Center"
                               Grid.Column="1"
                               d:LayoutOverrides="Width"
-                              RecognizesAccessKey="True" />
-            <Image x:Name="checkedImage"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Width="16"
-                   Height="16"
-                   Stretch="Uniform"
-                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Visibility="Collapsed"
-                   SnapsToDevicePixels="True" />
+                              RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
                 <ContentPresenter x:Name="iconImage"
@@ -847,6 +818,15 @@
                                   Margin="3,2,2,2"
                                   SnapsToDevicePixels="True" />
             </Border>
+            <Image x:Name="checkedImage"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Width="16"
+                   Height="16"
+                   Stretch="Uniform"
+                   Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
+                   Visibility="Collapsed"
+                   SnapsToDevicePixels="True" />
             <TextBlock x:Name="gestureTextBlock"
                        Text="{TemplateBinding InputGestureText}"
                        Width="Auto"

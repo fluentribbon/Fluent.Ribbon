@@ -13,9 +13,9 @@
         /// This method is <c>null</c> safe.
         /// </summary>
         /// <returns><c>true</c> if the command can be executed, otherwise <c>false</c>.</returns>
-        public static bool CanExecute(ICommand command, object commandParameter, IInputElement commandTarget)
+        public static bool CanExecute(ICommand? command, object? commandParameter, IInputElement? commandTarget)
         {
-            if (command == null)
+            if (command is null)
             {
                 return false;
             }
@@ -32,9 +32,9 @@
         /// Executes <paramref name="command"/>.
         /// This method is <c>null</c> safe.
         /// </summary>
-        public static void Execute(ICommand command, object commandParameter, IInputElement commandTarget)
+        public static void Execute(ICommand? command, object? commandParameter, IInputElement? commandTarget)
         {
-            if (command == null)
+            if (command is null)
             {
                 return;
             }

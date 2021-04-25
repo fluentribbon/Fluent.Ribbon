@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Markup;
+    using Fluent.Extensions;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -21,9 +22,9 @@ namespace Fluent
     {
         #region Fields
 
-        private ObservableCollection<GalleryGroupFilter> filters;
+        private ObservableCollection<GalleryGroupFilter>? filters;
 
-        private DropDownButton groupsMenuButton;
+        private DropDownButton? groupsMenuButton;
 
         #endregion
 
@@ -40,10 +41,7 @@ namespace Fluent
             set { this.SetValue(MinItemsInRowProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for MinItemsInRow.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
         public static readonly DependencyProperty MinItemsInRowProperty =
             DependencyProperty.Register(nameof(MinItemsInRow), typeof(int),
             typeof(Gallery), new PropertyMetadata(1));
@@ -61,13 +59,25 @@ namespace Fluent
             set { this.SetValue(MaxItemsInRowProperty, value); }
         }
 
+        /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>
+        public static readonly DependencyProperty MaxItemsInRowProperty = DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int), typeof(Gallery), new PropertyMetadata(IntBoxes.Zero));
+
+        #endregion
+
+        #region IsGrouped
+
+        /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>
+        public static readonly DependencyProperty IsGroupedProperty = DependencyProperty.Register(nameof(IsGrouped), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
+
         /// <summary>
-        /// Using a DependencyProperty as the backing store for MaxItemsInRow.
-        /// This enables animation, styling, binding, etc...
+        /// Gets or sets whether the inner gallery panel shows groups
+        /// (Filter property still works as usual)
         /// </summary>
-        public static readonly DependencyProperty MaxItemsInRowProperty =
-            DependencyProperty.Register(nameof(MaxItemsInRow), typeof(int),
-            typeof(Gallery), new PropertyMetadata(int.MaxValue));
+        public bool IsGrouped
+        {
+            get { return (bool)this.GetValue(IsGroupedProperty); }
+            set { this.SetValue(IsGroupedProperty, value); }
+        }
 
         #endregion
 
@@ -77,16 +87,13 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public string GroupBy
+        public string? GroupBy
         {
-            get { return (string)this.GetValue(GroupByProperty); }
+            get { return (string?)this.GetValue(GroupByProperty); }
             set { this.SetValue(GroupByProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
         public static readonly DependencyProperty GroupByProperty = DependencyProperty.Register(nameof(GroupBy), typeof(string), typeof(Gallery), new PropertyMetadata());
 
         #endregion
@@ -97,16 +104,13 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public Func<object, string> GroupByAdvanced
+        public Func<object, string>? GroupByAdvanced
         {
-            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            get { return (Func<object, string>?)this.GetValue(GroupByAdvancedProperty); }
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for GroupBy.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
         public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(Gallery), new PropertyMetadata());
 
         #endregion
@@ -122,10 +126,7 @@ namespace Fluent
             set { this.SetValue(OrientationProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Orientation.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register(nameof(Orientation), typeof(Orientation),
             typeof(Gallery), new PropertyMetadata(Orientation.Horizontal));
@@ -143,9 +144,7 @@ namespace Fluent
             set { this.SetValue(ItemWidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemWidth.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
         public static readonly DependencyProperty ItemWidthProperty =
             DependencyProperty.Register(nameof(ItemWidth), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -158,9 +157,7 @@ namespace Fluent
             set { this.SetValue(ItemHeightProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ItemHeight.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
         public static readonly DependencyProperty ItemHeightProperty =
             DependencyProperty.Register(nameof(ItemHeight), typeof(double), typeof(Gallery), new PropertyMetadata(DoubleBoxes.NaN));
 
@@ -175,7 +172,7 @@ namespace Fluent
         {
             get
             {
-                if (this.filters == null)
+                if (this.filters is null)
                 {
                     this.filters = new ObservableCollection<GalleryGroupFilter>();
                     this.filters.CollectionChanged += this.OnFilterCollectionChanged;
@@ -186,7 +183,7 @@ namespace Fluent
         }
 
         // Handle toolbar items changes
-        private void OnFilterCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnFilterCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             this.HasFilter = this.Filters.Count > 0;
             this.InvalidateProperty(SelectedFilterProperty);
@@ -194,14 +191,14 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
-                            var filter = (GalleryGroupFilter)e.NewItems[i];
+                            var filter = (GalleryGroupFilter?)e.NewItems[i];
                             var menuItem = new MenuItem
                                            {
-                                               Header = filter.Title,
+                                               Header = filter?.Title,
                                                Tag = filter
                                            };
 
@@ -217,28 +214,39 @@ namespace Fluent
 
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
+                    foreach (var item in e.OldItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item);
+                            if (menuItem is not null)
+                            {
+                                menuItem.Click -= this.OnFilterMenuItemClick;
+                                this.groupsMenuButton.Items.Remove(menuItem);
+                            }
                         }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
+                    foreach (var item in e.OldItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
-                            this.groupsMenuButton.Items.Remove(this.GetFilterMenuItem(item as GalleryGroupFilter));
+                            var menuItem = this.GetFilterMenuItem(item);
+
+                            if (menuItem is not null)
+                            {
+                                menuItem.Click -= this.OnFilterMenuItemClick;
+                                this.groupsMenuButton.Items.Remove(menuItem);
+                            }
                         }
                     }
 
-                    foreach (var item in e.NewItems.OfType<GalleryGroupFilter>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<GalleryGroupFilter>())
                     {
-                        if (this.groupsMenuButton != null)
+                        if (this.groupsMenuButton is not null)
                         {
                             var filter = item;
                             var menuItem = new MenuItem
@@ -264,25 +272,22 @@ namespace Fluent
         /// <summary>
         /// Gets or sets selected filter
         /// </summary>
-        public GalleryGroupFilter SelectedFilter
+        public GalleryGroupFilter? SelectedFilter
         {
-            get { return (GalleryGroupFilter)this.GetValue(SelectedFilterProperty); }
+            get { return (GalleryGroupFilter?)this.GetValue(SelectedFilterProperty); }
             set { this.SetValue(SelectedFilterProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilter.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilter"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterProperty =
             DependencyProperty.Register(nameof(SelectedFilter), typeof(GalleryGroupFilter),
             typeof(Gallery), new PropertyMetadata(null, OnSelectedFilterChanged, CoerceSelectedFilter));
 
         // Coerce selected filter
-        private static object CoerceSelectedFilter(DependencyObject d, object basevalue)
+        private static object? CoerceSelectedFilter(DependencyObject d, object? basevalue)
         {
             var gallery = (Gallery)d;
-            if (basevalue == null
+            if (basevalue is null
                 && gallery.Filters.Count > 0)
             {
                 return gallery.Filters[0];
@@ -312,9 +317,9 @@ namespace Fluent
         /// <summary>
         /// Gets selected filter title
         /// </summary>
-        public string SelectedFilterTitle
+        public string? SelectedFilterTitle
         {
-            get { return (string)this.GetValue(SelectedFilterTitleProperty); }
+            get { return (string?)this.GetValue(SelectedFilterTitleProperty); }
             private set { this.SetValue(SelectedFilterTitlePropertyKey, value); }
         }
 
@@ -322,18 +327,15 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterTitle), typeof(string),
             typeof(Gallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterTitle.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilterTitle"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterTitleProperty = SelectedFilterTitlePropertyKey.DependencyProperty;
 
         /// <summary>
         /// Gets selected filter groups
         /// </summary>
-        public string SelectedFilterGroups
+        public string? SelectedFilterGroups
         {
-            get { return (string)this.GetValue(SelectedFilterGroupsProperty); }
+            get { return (string?)this.GetValue(SelectedFilterGroupsProperty); }
             private set { this.SetValue(SelectedFilterGroupsPropertyKey, value); }
         }
 
@@ -341,10 +343,7 @@ namespace Fluent
             DependencyProperty.RegisterReadOnly(nameof(SelectedFilterGroups), typeof(string),
             typeof(Gallery), new PropertyMetadata());
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SelectedFilterGroups.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SelectedFilterGroups"/> dependency property.</summary>
         public static readonly DependencyProperty SelectedFilterGroupsProperty = SelectedFilterGroupsPropertyKey.DependencyProperty;
 
         /// <summary>
@@ -358,31 +357,37 @@ namespace Fluent
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HasFilter.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HasFilter"/> dependency property.</summary>
         public static readonly DependencyProperty HasFilterProperty = HasFilterPropertyKey.DependencyProperty;
 
         private void OnFilterMenuItemClick(object sender, RoutedEventArgs e)
         {
             var senderItem = (MenuItem)sender;
             var item = this.GetFilterMenuItem(this.SelectedFilter);
-            item.IsChecked = false;
+            if (item is not null)
+            {
+                item.IsChecked = false;
+            }
+
             senderItem.IsChecked = true;
             this.SelectedFilter = senderItem.Tag as GalleryGroupFilter;
-            this.groupsMenuButton.IsDropDownOpen = false;
+
+            if (this.groupsMenuButton is not null)
+            {
+                this.groupsMenuButton.IsDropDownOpen = false;
+            }
+
             e.Handled = true;
         }
 
-        private MenuItem GetFilterMenuItem(GalleryGroupFilter filter)
+        private MenuItem? GetFilterMenuItem(GalleryGroupFilter? filter)
         {
-            if (filter == null)
+            if (filter is null)
             {
                 return null;
             }
 
-            return this.groupsMenuButton.Items.Cast<MenuItem>().FirstOrDefault(item => (item != null) && (item.Header.ToString() == filter.Title));
+            return this.groupsMenuButton?.Items.Cast<MenuItem>().FirstOrDefault(item => (item is not null) && (item.Header.ToString() == filter.Title));
             /*foreach (MenuItem item in groupsMenuButton.Items)
             {
                 if ((item!=null)&&(item.Header == filter.Title)) return item;
@@ -403,10 +408,7 @@ namespace Fluent
             set { this.SetValue(SelectableProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Selectable.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
         public static readonly DependencyProperty SelectableProperty =
             DependencyProperty.Register(nameof(Selectable), typeof(bool),
             typeof(Gallery), new PropertyMetadata(BooleanBoxes.TrueBox, OnSelectableChanged));
@@ -429,14 +431,10 @@ namespace Fluent
             private set { this.SetValue(IsLastItemPropertyKey, value); }
         }
 
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>
         public static readonly DependencyPropertyKey IsLastItemPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsLastItem), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
 
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for IsLastItem.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>
         public static readonly DependencyProperty IsLastItemProperty = IsLastItemPropertyKey.DependencyProperty;
 
         #endregion
@@ -457,16 +455,16 @@ namespace Fluent
         }
 
         // Coerce selected item
-        private static object CoerceSelectedItem(DependencyObject d, object basevalue)
+        private static object? CoerceSelectedItem(DependencyObject d, object? basevalue)
         {
             var gallery = (Gallery)d;
 
             if (gallery.Selectable == false)
             {
-                var galleryItem = (GalleryItem)gallery.ItemContainerGenerator.ContainerFromItem(basevalue);
+                var galleryItem = gallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(basevalue);
 
-                if (basevalue != null
-                    && galleryItem != null)
+                if (basevalue is not null
+                    && galleryItem is not null)
                 {
                     galleryItem.IsSelected = false;
                 }
@@ -522,11 +520,19 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            if (this.groupsMenuButton is not null)
+            {
+                foreach (var menuItem in this.groupsMenuButton.Items.Cast<MenuItem>())
+                {
+                    menuItem.Click -= this.OnFilterMenuItemClick;
+                }
+            }
+
             this.groupsMenuButton?.Items.Clear();
 
             this.groupsMenuButton = this.GetTemplateChild("PART_DropDownButton") as DropDownButton;
 
-            if (this.groupsMenuButton != null)
+            if (this.groupsMenuButton is not null)
             {
                 for (var i = 0; i < this.Filters.Count; i++)
                 {

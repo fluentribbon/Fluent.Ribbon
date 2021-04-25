@@ -2,10 +2,11 @@
 
 namespace FluentTest.ViewModels
 {
+    using System.Collections.ObjectModel;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Media;
-    using Fluent;
+    using ControlzEx.Theming;
 
     public class ColorViewModel : ViewModel
     {
@@ -17,7 +18,7 @@ namespace FluentTest.ViewModels
             this.StandardColor = Colors.Black;
             this.HighlightColor = Colors.Yellow;
 
-            CollectionViewSource.GetDefaultView(ThemeManager.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
+            CollectionViewSource.GetDefaultView(ThemeManager.Current.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
         }
 
         public Color StandardColor
@@ -52,7 +53,7 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public Color[] ThemeColors { get; } = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple };
+        public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new ReadOnlyObservableCollection<Color>(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
 
 #pragma warning disable INPC010 // The property sets a different field than it returns.
         public Color ThemeColor
@@ -75,7 +76,12 @@ namespace FluentTest.ViewModels
 
             set
             {
-                ThemeManager.ChangeThemeBaseColor(Application.Current, value);
+                if (value is null)
+                {
+                    return;
+                }
+
+                ThemeManager.Current.ChangeThemeBaseColor(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentTheme));
             }
@@ -83,11 +89,16 @@ namespace FluentTest.ViewModels
 
         public Theme CurrentTheme
         {
-            get => ThemeManager.DetectTheme(Application.Current);
+            get => ThemeManager.Current.DetectTheme(Application.Current);
 
             set
             {
-                ThemeManager.ChangeTheme(Application.Current, value);
+                if (value is null)
+                {
+                    return;
+                }
+
+                ThemeManager.Current.ChangeTheme(Application.Current, value);
                 this.OnPropertyChanged();
                 this.OnPropertyChanged(nameof(this.CurrentBaseColor));
             }

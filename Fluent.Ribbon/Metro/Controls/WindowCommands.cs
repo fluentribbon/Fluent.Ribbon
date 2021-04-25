@@ -10,6 +10,7 @@ namespace Fluent
     using System.Windows.Media;
     using ControlzEx.Native;
     using Fluent.Helpers;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Contains commands for <see cref="RibbonWindow"/>
@@ -18,18 +19,21 @@ namespace Fluent
     [TemplatePart(Name = "PART_Max", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Restore", Type = typeof(Button))]
     [TemplatePart(Name = "PART_Close", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_Items", Type = typeof(ItemsControl))]
     public class WindowCommands : ItemsControl, IDisposable
     {
-        private static string minimize;
-        private static string maximize;
-        private static string closeText;
-        private static string restore;
-        private System.Windows.Controls.Button minimizeButton;
-        private System.Windows.Controls.Button maximizeButton;
-        private System.Windows.Controls.Button restoreButton;
-        private System.Windows.Controls.Button closeButton;
+        private static string? minimize;
+        private static string? maximize;
+        private static string? closeText;
+        private static string? restore;
+
+        private System.Windows.Controls.Button? minimizeButton;
+        private System.Windows.Controls.Button? maximizeButton;
+        private System.Windows.Controls.Button? restoreButton;
+        private System.Windows.Controls.Button? closeButton;
+
 #pragma warning disable 618
-        private SafeLibraryHandle user32;
+        private SafeLibraryHandle? user32;
 #pragma warning restore 618
         private bool disposed;
 
@@ -82,7 +86,7 @@ namespace Fluent
             // unmanaged resources here.
             // If disposing is false,
             // only the following code is executed.
-            if (this.user32 != null)
+            if (this.user32 is not null)
             {
                 this.user32.Close();
                 this.user32 = null;
@@ -95,7 +99,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Minimize
         /// </summary>
-        public string Minimize
+        public string? Minimize
         {
             get
             {
@@ -111,7 +115,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Maximize
         /// </summary>
-        public string Maximize
+        public string? Maximize
         {
             get
             {
@@ -127,7 +131,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Restore
         /// </summary>
-        public string Restore
+        public string? Restore
         {
             get
             {
@@ -143,7 +147,7 @@ namespace Fluent
         /// <summary>
         /// Retrieves the translated string for Close
         /// </summary>
-        public string Close
+        public string? Close
         {
             get
             {
@@ -157,6 +161,23 @@ namespace Fluent
         }
 
         /// <summary>
+        /// Gets the <see cref="System.Windows.Controls.ItemsControl"/> responsible for showing <see cref="System.Windows.Controls.ItemsControl.Items"/>.
+        /// </summary>
+        public ItemsControl? ItemsControl { get; private set; }
+
+        /// <summary>Identifies the <see cref="ItemsPanelVisibility"/> dependency property.</summary>
+        public static readonly DependencyProperty ItemsPanelVisibilityProperty = DependencyProperty.Register(nameof(ItemsPanelVisibility), typeof(Visibility), typeof(WindowCommands), new PropertyMetadata(VisibilityBoxes.Visible));
+
+        /// <summary>
+        /// Gets or sets the <see cref="Visibility"/> of the panel which contains <see cref="System.Windows.Controls.ItemsControl.Items"/>.
+        /// </summary>
+        public Visibility ItemsPanelVisibility
+        {
+            get { return (Visibility)this.GetValue(ItemsPanelVisibilityProperty); }
+            set { this.SetValue(ItemsPanelVisibilityProperty, value); }
+        }
+
+        /// <summary>
         /// Gets or sets the button brush
         /// </summary>
         public Brush ButtonBrush
@@ -165,15 +186,13 @@ namespace Fluent
             set { this.SetValue(ButtonBrushProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ButtonBrush.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
         public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
         private string GetCaption(uint id)
         {
 #pragma warning disable 618
-            if (this.user32 == null)
+            if (this.user32 is null)
             {
                 this.user32 = UnsafeNativeMethods.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
             }
@@ -185,7 +204,9 @@ namespace Fluent
                 sb.AppendFormat("String with id '{0}' could not be found.", id);
             }
 #pragma warning restore 618
+#pragma warning disable CA1307 // Specify StringComparison for clarity
             return sb.ToString().Replace("&", string.Empty);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
         }
 
         /// <inheritdoc />
@@ -194,28 +215,30 @@ namespace Fluent
             base.OnApplyTemplate();
 
             this.minimizeButton = this.Template.FindName("PART_Min", this) as System.Windows.Controls.Button;
-            if (this.minimizeButton != null)
+            if (this.minimizeButton is not null)
             {
                 this.minimizeButton.Click += this.MinimizeClick;
             }
 
             this.maximizeButton = this.Template.FindName("PART_Max", this) as System.Windows.Controls.Button;
-            if (this.maximizeButton != null)
+            if (this.maximizeButton is not null)
             {
                 this.maximizeButton.Click += this.MaximiseClick;
             }
 
             this.restoreButton = this.Template.FindName("PART_Restore", this) as System.Windows.Controls.Button;
-            if (this.restoreButton != null)
+            if (this.restoreButton is not null)
             {
                 this.restoreButton.Click += this.RestoreClick;
             }
 
             this.closeButton = this.GetTemplateChild("PART_Close") as System.Windows.Controls.Button;
-            if (this.closeButton != null)
+            if (this.closeButton is not null)
             {
                 this.closeButton.Click += this.CloseClick;
             }
+
+            this.ItemsControl = this.Template.FindName("PART_Items", this) as ItemsControl;
         }
 
         /// <inheritdoc />
@@ -229,7 +252,7 @@ namespace Fluent
         private void MinimizeClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.MinimizeWindow(parentWindow);
@@ -240,7 +263,7 @@ namespace Fluent
         private void MaximiseClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(parentWindow);
@@ -251,7 +274,7 @@ namespace Fluent
         private void RestoreClick(object sender, RoutedEventArgs e)
         {
             var parentWindow = this.GetParentWindow();
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(parentWindow);
@@ -263,7 +286,7 @@ namespace Fluent
         {
             var parentWindow = this.GetParentWindow();
 
-            if (parentWindow != null)
+            if (parentWindow is not null)
             {
 #pragma warning disable 618
                 ControlzEx.Windows.Shell.SystemCommands.CloseWindow(parentWindow);
@@ -271,20 +294,20 @@ namespace Fluent
             }
         }
 
-        private Window GetParentWindow()
+        private Window? GetParentWindow()
         {
             var window = Window.GetWindow(this);
 
-            if (window != null)
+            if (window is not null)
             {
                 return window;
             }
 
             var parent = VisualTreeHelper.GetParent(this);
-            Window parentWindow = null;
+            Window? parentWindow = null;
 
-            while (parent != null
-                && (parentWindow = parent as Window) == null)
+            while (parent is not null
+                && (parentWindow = parent as Window) is null)
             {
                 parent = VisualTreeHelper.GetParent(parent);
             }

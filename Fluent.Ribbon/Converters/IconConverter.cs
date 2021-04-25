@@ -11,7 +11,6 @@ namespace Fluent
     using System.Windows.Media.Imaging;
     using ControlzEx.Standard;
     using Fluent.Converters;
-    using Fluent.Internal;
 
     /// <summary>
     /// Icon converter provides window or application default icon if user-defined is not present.
@@ -51,34 +50,19 @@ namespace Fluent
         /// <param name="iconBinding">The binding to which the converter should be applied to.</param>
         /// <param name="desiredSize">The desired size for the image.</param>
         /// <param name="targetVisualBinding">The target visual on which the image/icon should be shown.</param>
-        public IconConverter(Binding iconBinding, Size desiredSize, Binding targetVisualBinding)
+        public IconConverter(Binding iconBinding, object desiredSize, Binding targetVisualBinding)
             : base(iconBinding, desiredSize, targetVisualBinding)
         {
         }
 
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="desiredSize">The desired size for the image.</param>
-        public IconConverter(Size desiredSize)
-            : base(desiredSize)
-        {
-            if (desiredSize.IsEmpty
-                || DoubleUtil.AreClose(desiredSize.Width, 0)
-                || DoubleUtil.AreClose(desiredSize.Height, 0))
-            {
-                throw new ArgumentException("DesiredSize must not be empty and width/height must be greater than 0.", nameof(desiredSize));
-            }
-        }
-
         /// <inheritdoc />
-        protected override object GetValueToConvert(object value, Size desiredSize, Visual targetVisual)
+        protected override object? GetValueToConvert(object? value, Size desiredSize, Visual? targetVisual)
         {
-            if (value == null)
+            if (value is null)
             {
                 var defaultIcon = GetDefaultIcon(targetVisual, desiredSize);
 
-                if (defaultIcon != null)
+                if (defaultIcon is not null)
                 {
                     return defaultIcon;
                 }
@@ -87,24 +71,24 @@ namespace Fluent
             return base.GetValueToConvert(value, desiredSize, targetVisual);
         }
 
-        private static ImageSource GetDefaultIcon(DependencyObject targetVisual, Size desiredSize)
+        private static ImageSource? GetDefaultIcon(DependencyObject? targetVisual, Size desiredSize)
         {
             IntPtr windowHandle;
 
-            if (targetVisual != null)
+            if (targetVisual is not null)
             {
                 var window = Window.GetWindow(targetVisual);
 
-                if (window != null
+                if (window is not null
                     && (windowHandle = new WindowInteropHelper(window).Handle) != IntPtr.Zero)
                 {
                     return GetDefaultIcon(windowHandle, desiredSize);
                 }
             }
 
-            if (Application.Current != null
+            if (Application.Current is not null
                 && Application.Current.CheckAccess()
-                && Application.Current.MainWindow != null
+                && Application.Current.MainWindow is not null
                 && Application.Current.MainWindow.CheckAccess()
                 && (windowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle) != IntPtr.Zero)
             {
@@ -122,7 +106,7 @@ namespace Fluent
             return null;
         }
 
-        private static ImageSource GetDefaultIcon(IntPtr hwnd, Size desiredSize)
+        private static ImageSource? GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
 

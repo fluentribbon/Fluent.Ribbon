@@ -74,15 +74,16 @@ Setup(context =>
 
     Information(Figlet("Fluent.Ribbon"));
 
-    Information("Informational   Version: {0}", gitVersion.InformationalVersion);
-    Information("SemVer          Version: {0}", gitVersion.SemVer);
-    Information("AssemblySemVer  Version: {0}", gitVersion.AssemblySemVer);
-    Information("MajorMinorPatch Version: {0}", gitVersion.MajorMinorPatch);
-    Information("NuGet           Version: {0}", gitVersion.NuGetVersion);
-    Information("IsLocalBuild           : {0}", local);
-    Information("Branch                 : {0}", branchName);
-    Information("Configuration          : {0}", configuration);
-    Information("MSBuildPath            : {0}", msBuildPath);
+    Information("Informational   Version   : {0}", gitVersion.InformationalVersion);
+    Information("SemVer          Version   : {0}", gitVersion.SemVer);
+    Information("AssemblySemVer  Version   : {0}", gitVersion.AssemblySemVer);
+    Information("AssemblySemFileVer Version: {0}", gitVersion.AssemblySemFileVer);
+    Information("MajorMinorPatch Version   : {0}", gitVersion.MajorMinorPatch);
+    Information("NuGet           Version   : {0}", gitVersion.NuGetVersion);
+    Information("IsLocalBuild              : {0}", local);
+    Information("Branch                    : {0}", branchName);
+    Information("Configuration             : {0}", configuration);
+    Information("MSBuildPath               : {0}", msBuildPath);
 });
 
 Teardown(ctx =>
@@ -117,7 +118,7 @@ Task("Build")
             .SetConfiguration(configuration)
             .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
-            .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
+            .WithProperty("FileVersion", gitVersion.AssemblySemFileVer)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
     };
 
@@ -144,9 +145,9 @@ Task("Pack")
             .WithProperty("PackageOutputPath", MakeAbsolute(PACKAGE_DIR).ToString())
             .WithProperty("RepositoryBranch", branchName)
             .WithProperty("RepositoryCommit", gitVersion.Sha)
-            .WithProperty("Version", isReleaseBranch ? gitVersion.MajorMinorPatch : gitVersion.NuGetVersion)
+            .WithProperty("Version", gitVersion.NuGetVersion)
             .WithProperty("AssemblyVersion", gitVersion.AssemblySemVer)
-            .WithProperty("FileVersion", gitVersion.MajorMinorPatch)
+            .WithProperty("FileVersion", gitVersion.AssemblySemFileVer)
             .WithProperty("InformationalVersion", gitVersion.InformationalVersion)
     };
 

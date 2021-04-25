@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
 
@@ -19,7 +19,13 @@
                            TextTrimming="CharacterEllipsis" />
             </Grid>
 
-            <ItemsPresenter />
+            <Fluent:UniformGridWithItemSize IsItemsHost="True"
+                                            HorizontalAlignment="Left"
+                                            Orientation="{TemplateBinding Orientation}"
+                                            MinColumns="{TemplateBinding MinItemsInRow}"
+                                            MaxColumns="{TemplateBinding MaxItemsInRow}"
+                                            ItemWidth="{TemplateBinding ItemWidth}"
+                                            ItemHeight="{TemplateBinding ItemHeight}" />
         </DockPanel>
         <ControlTemplate.Triggers>
             <Trigger Property="IsHeadered"
@@ -35,30 +41,15 @@
            TargetType="{x:Type Fluent:GalleryGroupContainer}">
         <Setter Property="Template"
                 Value="{DynamicResource GalleryGroupContainerTemplate}" />
+        <Setter Property="HorizontalAlignment"
+                Value="Stretch" />
         <Setter Property="Focusable"
                 Value="False" />
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Left"
-                               IsItemsHost="True"
-                               Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}"
-                               ItemWidth="{Binding ItemWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}"
-                               ItemHeight="{Binding ItemHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:GalleryGroupContainer}}}" />
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
         <Style.Triggers>
-            <Trigger Property="Orientation"
-                     Value="Vertical">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <StackPanel IsItemsHost="True"
-                                        Orientation="{Binding Orientation, RelativeSource={RelativeSource Self}}" />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
+            <Trigger Property="IsHeadered"
+                     Value="False">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
             </Trigger>
         </Style.Triggers>
     </Style>

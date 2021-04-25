@@ -48,6 +48,8 @@ Fluent.Ribbon/Themes/**/Styles.xaml
 Fluent.Ribbon/Themes/Themes/*.xaml
 packages/
 .tmp
+temp
+artifacts
 *_wpftmp.csproj
 
 # Result files

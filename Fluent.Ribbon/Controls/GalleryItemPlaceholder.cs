@@ -59,7 +59,7 @@ namespace Fluent
         /* FOR DEGUG */
         //protected override void OnRender(DrawingContext drawingContext)
         //{
-        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(RenderSize));
+        //    drawingContext.DrawRectangle(null, new Pen(Brushes.Red, 1), new Rect(this.RenderSize));
         //}
 
         #endregion

@@ -1,13 +1,43 @@
 ﻿namespace Fluent.Localization
 {
+    using System;
     using System.ComponentModel;
+    using System.Reflection;
     using Fluent.Localization.Languages;
 
     /// <summary>
     /// Base class for localizations.
     /// </summary>
-    public abstract class RibbonLocalizationBase : INotifyPropertyChanged
+    public abstract class RibbonLocalizationBase : INotifyPropertyChanged, IEquatable<RibbonLocalizationBase>
     {
+        /// <summary>
+        /// Creates a new instance and initializes <see cref="CultureName"/> and <see cref="DisplayName"/> from <see cref="RibbonLocalizationAttribute"/>.
+        /// </summary>
+        protected RibbonLocalizationBase()
+        {
+            this.CultureName = this.GetType().GetCustomAttribute<RibbonLocalizationAttribute>()?.CultureName;
+            this.DisplayName = this.GetType().GetCustomAttribute<RibbonLocalizationAttribute>()?.DisplayName;
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        protected RibbonLocalizationBase(string cultureName, string displayName)
+        {
+            this.CultureName = cultureName;
+            this.DisplayName = displayName;
+        }
+
+        /// <summary>
+        /// Gets or sets the culture name.
+        /// </summary>
+        public string? CultureName { get; }
+
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        public string? DisplayName { get; }
+
         /// <summary>
         /// Fallback instance of <see cref="English"/> for localization.
         /// </summary>
@@ -153,7 +183,66 @@
         /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
         /// </summary>
 #pragma warning disable 67
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 #pragma warning restore 67
+
+        /// <inheritdoc />
+        public bool Equals(RibbonLocalizationBase? other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.CultureName == other.CultureName;
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
+        {
+            if (obj is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            return obj is RibbonLocalizationBase localizationBase
+                   && this.Equals(localizationBase);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return this.CultureName is not null
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+                ? this.CultureName.GetHashCode()
+#pragma warning restore CA1307 // Specify StringComparison for clarity
+                : 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator ==(RibbonLocalizationBase left, RibbonLocalizationBase right)
+        {
+            return Equals(left, right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static bool operator !=(RibbonLocalizationBase left, RibbonLocalizationBase right)
+        {
+            return !Equals(left, right);
+        }
     }
 }

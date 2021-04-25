@@ -1,0 +1,26 @@
+<Project>
+    <ItemGroup>
+        <PackageVersion Include="ControlzEx" version="5.0.0" />
+        <PackageVersion Include="XamlColorSchemeGenerator" version="4.0.0-rc0140" />
+    </ItemGroup>
+
+    <ItemGroup Label="Showcase">
+        <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="4.8" />
+        <PackageVersion Include="MahApps.Metro" version="2.4.4" />
+    </ItemGroup>
+
+    <ItemGroup Label="Test">
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        <PackageVersion Include="NUnit3TestAdapter" Version="3.17" />
+
+        <PackageVersion Include="NUnit" version="3.13.1" />
+    </ItemGroup>
+
+    <ItemGroup Label="Build">
+        <PackageVersion Include="JetBrains.Annotations" version="2020.3.0" />
+
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="3.9.0" />
+        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.261" />
+        <PackageVersion Include="WpfAnalyzers" version="3.5.4" />
+    </ItemGroup>
+</Project>

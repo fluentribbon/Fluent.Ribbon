@@ -1,5 +1,7 @@
 ﻿namespace Fluent.Internal.KnownBoxes
 {
+    using System;
+
     /// <summary>
     /// Class containing boxed values for <see cref="bool"/>.
     /// </summary>
@@ -21,12 +23,25 @@
         /// <returns>A boxed <see cref="bool"/> value.</returns>
         internal static object Box(bool value)
         {
-            if (value)
+            return value
+                ? TrueBox
+                : FalseBox;
+        }
+
+        /// <summary>
+        /// Gets a boxed value for <paramref name="value"/>.
+        /// </summary>
+        /// <returns>A boxed nullable <see cref="bool"/> value.</returns>
+        internal static object? Box(bool? value)
+        {
+            if (value.HasValue)
             {
-                return TrueBox;
+                return value.Value
+                    ? TrueBox
+                    : FalseBox;
             }
 
-            return FalseBox;
+            return null;
         }
     }
 }

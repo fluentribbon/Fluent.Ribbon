@@ -18,8 +18,6 @@ namespace Fluent
     /// </summary>
     public class RibbonLocalization : INotifyPropertyChanged
     {
-        private readonly Dictionary<string, Type> localizationMap;
-
         private CultureInfo culture;
 
         private RibbonLocalizationBase localization;
@@ -27,12 +25,12 @@ namespace Fluent
         #region Implementation of INotifyPropertyChanged
 
         /// <inheritdoc />
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>
         /// Raises the <see cref="PropertyChanged"/> event.
         /// </summary>
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -43,6 +41,14 @@ namespace Fluent
         /// Static instance of <see cref="RibbonLocalization"/> to ease it's usage in XAML.
         /// </summary>
         public static RibbonLocalization Current { get; } = new RibbonLocalization();
+
+        /// <summary>
+        /// Gets a map of all registered localization classes.
+        /// </summary>
+        /// <remarks>
+        /// The key of items in this dictionary should be the CultureName.
+        /// </remarks>
+        public Dictionary<string, Type> LocalizationMap { get; }
 
         /// <summary>
         /// Gets or sets current culture used for localization.
@@ -82,26 +88,28 @@ namespace Fluent
         /// <summary>
         /// Default constructor
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public RibbonLocalization()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             var localizationClasses = GetTypesInNamespace(Assembly.GetExecutingAssembly(), "Fluent.Localization.Languages");
 
-            this.localizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>().CultureName, x => x);
+            this.LocalizationMap = localizationClasses.ToDictionary(x => x.GetCustomAttribute<RibbonLocalizationAttribute>()!.CultureName, x => x);
 
             this.Culture = CultureInfo.CurrentUICulture;
         }
 
         private void LoadCulture(CultureInfo requestedCulture)
         {
-            if (this.localizationMap.TryGetValue(requestedCulture.Name, out var localizationClass))
+            if (this.LocalizationMap.TryGetValue(requestedCulture.Name, out var localizationClass))
             {
-                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
+                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass)!;
                 return;
             }
 
-            if (this.localizationMap.TryGetValue(requestedCulture.TwoLetterISOLanguageName, out localizationClass))
+            if (this.LocalizationMap.TryGetValue(requestedCulture.TwoLetterISOLanguageName, out localizationClass))
             {
-                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass);
+                this.Localization = (RibbonLocalizationBase)Activator.CreateInstance(localizationClass)!;
                 return;
             }
 

@@ -31,10 +31,7 @@ namespace Fluent
             set { this.SetValue(SizeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonToolBarLayoutDefinition));
 
         #endregion
@@ -50,10 +47,7 @@ namespace Fluent
             set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonToolBarLayoutDefinition));
 
         #endregion
@@ -69,10 +63,7 @@ namespace Fluent
             set { this.SetValue(RowCountProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for RowCount.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="RowCount"/> dependency property.</summary>
         public static readonly DependencyProperty RowCountProperty =
             DependencyProperty.Register(nameof(RowCount), typeof(int), typeof(RibbonToolBarLayoutDefinition), new PropertyMetadata(3));
 

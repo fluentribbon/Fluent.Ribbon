@@ -20,15 +20,16 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center">
                 <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Width="16"
-                              Height="16"
-                              Margin="0 0 8 0"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
-                              SnapsToDevicePixels="True" />
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Width="16"
+                                  Height="16"
+                                  Margin="0 0 8 0"
+                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
+                                  SnapsToDevicePixels="True" />
 
                 <ContentControl x:Name="PART_Header"
+                                Focusable="False"
                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}"
                                 Content="{TemplateBinding Header}">
                     <ContentControl.Resources>
@@ -64,6 +65,12 @@
             <Trigger Property="Selector.IsSelected"
                      Value="True">
                 <Setter TargetName="selectedBorder"
+                        Property="Visibility"
+                        Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused"
+                     Value="True">
+                <Setter TargetName="hoverBorder"
                         Property="Visibility"
                         Value="Visible" />
             </Trigger>

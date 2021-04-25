@@ -2,8 +2,10 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Data;
@@ -12,6 +14,7 @@ namespace Fluent
     using System.Windows.Shapes;
     using ControlzEx.Standard;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -23,9 +26,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -40,58 +43,29 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
-            get { return (string)this.GetValue(HeaderProperty); }
+            get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Header.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderProperty =
-            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata());
+            DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(OnIconChanged));
-
-        /// <summary>
-        /// Called when <see cref="IconProperty"/> changes.
-        /// </summary>
-        public static void OnIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var element = d as ILogicalChildSupport;
-
-            if (element == null)
-            {
-                throw new ArgumentException("Argument musst be of type ILogicalChildSupport.", nameof(d));
-            }
-
-            if (e.OldValue is FrameworkElement oldElement)
-            {
-                element.RemoveLogicalChild(oldElement);
-            }
-
-            if (e.NewValue is FrameworkElement newElement
-                && LogicalTreeHelper.GetParent(newElement) == null)
-            {
-                element.AddLogicalChild(newElement);
-            }
-        }
+        /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(nameof(Icon), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -149,19 +123,13 @@ namespace Fluent
             }
         }
 
-        /// <summary>
-        /// Identifies the CommandParameter dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
         public static readonly DependencyProperty CommandParameterProperty = ButtonBase.CommandParameterProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
 
-        /// <summary>
-        /// Identifies the routed Command dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="Command"/> dependency property.</summary>
         public static readonly DependencyProperty CommandProperty = ButtonBase.CommandProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata(OnCommandChanged));
 
-        /// <summary>
-        /// Identifies the CommandTarget dependency property.
-        /// </summary>
+        /// <summary>Identifies the <see cref="CommandTarget"/> dependency property.</summary>
         public static readonly DependencyProperty CommandTargetProperty = ButtonBase.CommandTargetProperty.AddOwner(typeof(RibbonControl), new PropertyMetadata());
 
         /// <summary>
@@ -171,7 +139,7 @@ namespace Fluent
         {
             var control = d as RibbonControl;
 
-            if (control == null)
+            if (control is null)
             {
                 return;
             }
@@ -186,7 +154,7 @@ namespace Fluent
                 newCommand.CanExecuteChanged += control.OnCommandCanExecuteChanged;
 
                 if (e.NewValue is RoutedUICommand routedUiCommand
-                    && control.Header == null)
+                    && control.Header is null)
                 {
                     control.Header = routedUiCommand.Text;
                 }
@@ -198,14 +166,14 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null
+            var canExecute = this.Command is not null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -220,7 +188,7 @@ namespace Fluent
         #region IsEnabled
 
         /// <inheritdoc />
-        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command == null);
+        protected override bool IsEnabledCore => base.IsEnabledCore && (this.currentCanExecute || this.Command is null);
 
         #endregion
 
@@ -233,10 +201,7 @@ namespace Fluent
             set { this.SetValue(SizeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonControl));
 
         #endregion
@@ -250,10 +215,7 @@ namespace Fluent
             set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonControl));
 
         #endregion
@@ -337,7 +299,7 @@ namespace Fluent
                     Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
                 }
 
-                if (source.ToolTip != null
+                if (source.ToolTip is not null
                     || BindingOperations.IsDataBound(source, ToolTipProperty))
                 {
                     Bind(source, element, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
@@ -349,7 +311,7 @@ namespace Fluent
             }
 
             var ribbonControl = source as IRibbonControl;
-            if (ribbonControl?.Icon != null)
+            if (ribbonControl?.Icon is not null)
             {
                 if (ribbonControl.Icon is Visual iconVisual)
                 {
@@ -377,9 +339,7 @@ namespace Fluent
             set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CanAddToQuickAccessToolBar.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
         public static readonly DependencyProperty CanAddToQuickAccessToolBarProperty =
             DependencyProperty.Register(nameof(CanAddToQuickAccessToolBar), typeof(bool), typeof(RibbonControl), new PropertyMetadata(BooleanBoxes.TrueBox, OnCanAddToQuickAccessToolBarChanged));
 
@@ -498,7 +458,7 @@ namespace Fluent
         /// Get the parent <see cref="Ribbon"/>.
         /// </summary>
         /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
-        public static Ribbon GetParentRibbon(DependencyObject obj)
+        public static Ribbon? GetParentRibbon(DependencyObject obj)
         {
             return UIHelper.GetParent<Ribbon>(obj);
         }
@@ -516,5 +476,31 @@ namespace Fluent
         {
             this.RemoveLogicalChild(child);
         }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Icon is not null)
+                {
+                    yield return this.Icon;
+                }
+
+                if (this.Header is not null)
+                {
+                    yield return this.Header;
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonControlAutomationPeer(this);
     }
 }

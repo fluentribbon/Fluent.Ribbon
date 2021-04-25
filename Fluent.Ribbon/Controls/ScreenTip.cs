@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace Fluent
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Media;
-    using Fluent.Automation.Peers;
+    using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
 
     /// <summary>
@@ -20,7 +21,7 @@ namespace Fluent
     /// help topic for the control whose ScreenTip was
     /// displayed when the F1 button was pressed
     /// </summary>
-    public class ScreenTip : ToolTip
+    public class ScreenTip : ToolTip, ILogicalChildSupport
     {
         #region Initialization
 
@@ -51,17 +52,17 @@ namespace Fluent
         // Calculate two variants: below and upper ribbon
         private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupSize, Size targetSize, Point offset)
         {
-            if (this.PlacementTarget == null)
+            if (this.PlacementTarget is null)
             {
-#if NETCOREAPP3_0
+#if NETCOREAPP
                 return Array.Empty<CustomPopupPlacement>();
 #else
                 return new CustomPopupPlacement[] { };
 #endif
             }
 
-            Ribbon ribbon = null;
-            UIElement topLevelElement = null;
+            Ribbon? ribbon = null;
+            UIElement? topLevelElement = null;
             FindControls(this.PlacementTarget, ref ribbon, ref topLevelElement);
 
             // Exclude QAT items
@@ -75,7 +76,7 @@ namespace Fluent
 
             if (notQuickAccessItem
                 && this.IsRibbonAligned
-                && ribbon != null)
+                && ribbon is not null)
             {
                 var belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), this.PlacementTarget).Y;
                 var aboveY = ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
@@ -88,7 +89,7 @@ namespace Fluent
                 && this.IsRibbonAligned
                 && notContextMenuChild
                 && topLevelElement is Window == false
-                && decoratorChild != null)
+                && decoratorChild is not null)
             {
                 // Placed on Popup?
                 var belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), this.PlacementTarget).Y;
@@ -111,9 +112,9 @@ namespace Fluent
             {
                 var parent = VisualTreeHelper.GetParent(element) as UIElement;
                 //if (parent is ContextMenuBar) return true;
-                element = parent;
+                element = parent!;
             }
-            while (element != null);
+            while (element is not null);
 
             return false;
         }
@@ -128,14 +129,14 @@ namespace Fluent
                     return true;
                 }
 
-                element = parent;
+                element = parent!;
             }
-            while (element != null);
+            while (element is not null);
 
             return false;
         }
 
-        private static UIElement GetDecoratorChild(UIElement popupRoot)
+        private static UIElement? GetDecoratorChild(UIElement? popupRoot)
         {
             switch (popupRoot)
             {
@@ -149,7 +150,7 @@ namespace Fluent
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
             {
                 var element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
-                if (element != null)
+                if (element is not null)
                 {
                     return element;
                 }
@@ -158,7 +159,7 @@ namespace Fluent
             return null;
         }
 
-        private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
+        private static void FindControls(UIElement obj, ref Ribbon? ribbon, ref UIElement? topLevelElement)
         {
             switch (obj)
             {
@@ -171,7 +172,7 @@ namespace Fluent
             }
 
             var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
-            if (parentVisual == null)
+            if (parentVisual is null)
             {
                 topLevelElement = obj;
             }
@@ -197,10 +198,7 @@ namespace Fluent
             set { this.SetValue(TitleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
         public static readonly DependencyProperty TitleProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -222,10 +220,7 @@ namespace Fluent
             set { this.SetValue(TextProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Text.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
         public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -247,10 +242,7 @@ namespace Fluent
             set { this.SetValue(DisableReasonProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for DisableReason.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="DisableReason"/> dependency property.</summary>
         public static readonly DependencyProperty DisableReasonProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
             DependencyProperty.Register(nameof(DisableReason), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
@@ -266,18 +258,15 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Help Topic")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Help topic (it will be used to execute help)")]
-        public object HelpTopic
+        public object? HelpTopic
         {
             get { return this.GetValue(HelpTopicProperty); }
             set { this.SetValue(HelpTopicProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HelpTopic.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HelpTopic"/> dependency property.</summary>
         public static readonly DependencyProperty HelpTopicProperty =
-            DependencyProperty.Register(nameof(HelpTopic), typeof(object), typeof(ScreenTip), new PropertyMetadata());
+            DependencyProperty.Register(nameof(HelpTopic), typeof(object), typeof(ScreenTip), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -289,16 +278,13 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Image")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Image of the screen tip")]
-        public ImageSource Image
+        public ImageSource? Image
         {
-            get { return (ImageSource)this.GetValue(ImageProperty); }
+            get { return (ImageSource?)this.GetValue(ImageProperty); }
             set { this.SetValue(ImageProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Image.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Image"/> dependency property.</summary>
         public static readonly DependencyProperty ImageProperty =
             DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new PropertyMetadata());
 
@@ -318,10 +304,7 @@ namespace Fluent
             set { this.SetValue(HelpLabelVisibilityProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store the boolean.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HelpLabelVisibility"/> dependency property.</summary>
         public static readonly DependencyProperty HelpLabelVisibilityProperty =
             DependencyProperty.Register(nameof(HelpLabelVisibility), typeof(Visibility), typeof(ScreenTip), new PropertyMetadata(VisibilityBoxes.Visible));
         #endregion
@@ -331,7 +314,7 @@ namespace Fluent
         /// <summary>
         /// Occurs when user press F1 on ScreenTip with HelpTopic filled
         /// </summary>
-        public static event EventHandler<ScreenTipHelpEventArgs> HelpPressed;
+        public static event EventHandler<ScreenTipHelpEventArgs>? HelpPressed;
 
         #endregion
 
@@ -346,10 +329,7 @@ namespace Fluent
             set { this.SetValue(IsRibbonAlignedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for BelowRibbon.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsRibbonAligned"/> dependency property.</summary>
         public static readonly DependencyProperty IsRibbonAlignedProperty =
             DependencyProperty.Register(nameof(IsRibbonAligned), typeof(bool), typeof(ScreenTip),
             new PropertyMetadata(BooleanBoxes.TrueBox));
@@ -359,11 +339,11 @@ namespace Fluent
         #region F1 Help Handling
 
         // Currently focused element
-        private IInputElement focusedElement;
+        private IInputElement? focusedElement;
 
         private void OnToolTipClosed(object sender, RoutedEventArgs e)
         {
-            if (this.focusedElement == null)
+            if (this.focusedElement is null)
             {
                 return;
             }
@@ -374,13 +354,13 @@ namespace Fluent
 
         private void OnToolTipOpened(object sender, RoutedEventArgs e)
         {
-            if (this.HelpTopic == null)
+            if (this.HelpTopic is null)
             {
                 return;
             }
 
             this.focusedElement = Keyboard.FocusedElement;
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
             }
@@ -401,9 +381,36 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer()
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonScreenTipAutomationPeer(this);
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.AddLogicalChild(object child)
         {
-            return new ScreenTipAutomationPeer(this);
+            this.AddLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        void ILogicalChildSupport.RemoveLogicalChild(object child)
+        {
+            this.RemoveLogicalChild(child);
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.HelpTopic is not null)
+                {
+                    yield return this.HelpTopic;
+                }
+            }
         }
     }
 
@@ -416,7 +423,7 @@ namespace Fluent
         /// Constructor
         /// </summary>
         /// <param name="helpTopic">Help topic</param>
-        public ScreenTipHelpEventArgs(object helpTopic)
+        public ScreenTipHelpEventArgs(object? helpTopic)
         {
             this.HelpTopic = helpTopic;
         }
@@ -424,6 +431,6 @@ namespace Fluent
         /// <summary>
         /// Gets help topic associated with screen tip
         /// </summary>
-        public object HelpTopic { get; }
+        public object? HelpTopic { get; }
     }
 }

@@ -14,11 +14,11 @@ namespace Fluent
     /// </summary>
     public static class ToggleButtonHelper
     {
-        private static readonly MethodInfo getVisualRootMethodInfo = typeof(KeyboardNavigation).GetMethod("GetVisualRoot", BindingFlags.NonPublic | BindingFlags.Static);
+        private static readonly MethodInfo? getVisualRootMethodInfo = typeof(KeyboardNavigation).GetMethod("GetVisualRoot", BindingFlags.NonPublic | BindingFlags.Static);
 
         // Grouped buttons
         [ThreadStatic]
-        private static Hashtable groupNameToElements;
+        private static Hashtable? groupNameToElements;
 
         /// <summary>
         ///     Handles changes to <see cref="IToggleButton.GroupName" />
@@ -36,7 +36,7 @@ namespace Fluent
 
             if (string.IsNullOrEmpty(oldValue) == false)
             {
-                Unregister(oldValue, toggleButton);
+                Unregister(oldValue!, toggleButton);
             }
 
             if (string.IsNullOrEmpty(newValue))
@@ -44,18 +44,18 @@ namespace Fluent
                 return;
             }
 
-            Register(newValue, toggleButton);
+            Register(newValue!, toggleButton);
         }
 
         private static void Register(string groupName, IToggleButton toggleButton)
         {
-            if (groupNameToElements == null)
+            if (groupNameToElements is null)
             {
                 groupNameToElements = new Hashtable(1);
             }
 
-            var elements = (ArrayList)groupNameToElements[groupName];
-            if (elements == null)
+            var elements = (ArrayList?)groupNameToElements[groupName];
+            if (elements is null)
             {
                 elements = new ArrayList(1);
                 groupNameToElements[groupName] = elements;
@@ -70,13 +70,13 @@ namespace Fluent
 
         private static void Unregister(string groupName, IToggleButton toggleButton)
         {
-            if (groupNameToElements == null)
+            if (groupNameToElements is null)
             {
                 return;
             }
 
-            var groupNameToElement = (ArrayList)groupNameToElements[groupName];
-            if (groupNameToElement != null)
+            var groupNameToElement = (ArrayList?)groupNameToElements[groupName];
+            if (groupNameToElement is not null)
             {
                 PurgeDead(groupNameToElement, toggleButton);
                 if (groupNameToElement.Count == 0)
@@ -86,13 +86,13 @@ namespace Fluent
             }
         }
 
-        private static void PurgeDead(ArrayList elements, object elementToRemove)
+        private static void PurgeDead(ArrayList elements, object? elementToRemove)
         {
             var index = 0;
             while (index < elements.Count)
             {
-                var target = ((WeakReference)elements[index]).Target;
-                if (target == null
+                var target = ((WeakReference?)elements[index])?.Target;
+                if (target is null
                     || target == elementToRemove)
                 {
                     elements.RemoveAt(index);
@@ -113,18 +113,18 @@ namespace Fluent
 
             if (string.IsNullOrEmpty(groupName) == false)
             {
-                var visualRoot = getVisualRootMethodInfo.Invoke(null, new object[] { (DependencyObject)toggleButton });
-                if (groupNameToElements == null)
+                var visualRoot = getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)toggleButton });
+                if (groupNameToElements is null)
                 {
                     groupNameToElements = new Hashtable(1);
                 }
 
-                var groupNameToElement = (ArrayList)groupNameToElements[groupName];
+                var groupNameToElement = (ArrayList?)groupNameToElements[groupName];
                 var index = 0;
-                while (index < groupNameToElement.Count)
+                while (index < groupNameToElement?.Count)
                 {
-                    var target = ((WeakReference)groupNameToElement[index]).Target as IToggleButton;
-                    if (target == null)
+                    var target = ((WeakReference?)groupNameToElement[index])?.Target as IToggleButton;
+                    if (target is null)
                     {
                         groupNameToElement.RemoveAt(index);
                     }
@@ -135,7 +135,7 @@ namespace Fluent
                             var isCheckedValue = GetIsCheckedValue(target);
 
                             if (isCheckedValue != 0
-                                && visualRoot == getVisualRootMethodInfo.Invoke(null, new object[] { (DependencyObject)target }))
+                                && visualRoot == getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)target }))
                             {
                                 UncheckToggleButton(target);
                             }
@@ -149,7 +149,7 @@ namespace Fluent
             //else
             //{
             //    var parent = toggleButton.Parent;
-            //    if (parent == null)
+            //    if (parent is null)
             //    {
             //        return;
             //    }
@@ -158,7 +158,7 @@ namespace Fluent
             //    {
             //        var childAsToggleButton = child as IToggleButton;
 
-            //        if (childAsToggleButton != null
+            //        if (childAsToggleButton is not null
             //            && childAsToggleButton != toggleButton
             //            && string.IsNullOrEmpty(childAsToggleButton.GroupName))
             //        {
@@ -177,7 +177,7 @@ namespace Fluent
         {
             var dependencyObject = toggleButton as DependencyObject;
 
-            if (dependencyObject == null)
+            if (dependencyObject is null)
             {
                 return;
             }

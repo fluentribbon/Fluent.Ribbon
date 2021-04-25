@@ -7,10 +7,15 @@
                     mc:Ignorable="options d">
     <!-- Matadata -->
     <system:String x:Key="Theme.Name">{{ThemeName}}</system:String>
+    <system:String x:Key="Theme.Origin">Fluent.Ribbon</system:String>
     <system:String x:Key="Theme.DisplayName">{{ThemeDisplayName}}</system:String>
     <system:String x:Key="Theme.BaseColorScheme">{{BaseColorScheme}}</system:String>
     <system:String x:Key="Theme.ColorScheme">{{ColorScheme}}</system:String>
+    <system:String x:Key="Theme.AlternativeColorScheme">{{AlternativeColorScheme}}</system:String>
+    
+    <Color x:Key="Theme.PrimaryAccentColor">{{Fluent.Ribbon.Colors.AccentBaseColor}}</Color>
     <SolidColorBrush x:Key="Theme.ShowcaseBrush" Color="{{Fluent.Ribbon.Colors.AccentBaseColor}}" options:Freeze="True" />
+    <system:Boolean x:Key="Theme.IsHighContrast">{{IsHighContrast}}</system:Boolean>
 
     <!-- COLORS -->
 
@@ -156,7 +161,9 @@
 
     <!-- Images -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown.BelowRibbon" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender.BelowRibbon" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonCollapse" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonExpand" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonPin" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
@@ -252,11 +259,11 @@
     <!-- WindowCommands -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="{{Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background" Color="{StaticResource TransparentWhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor20}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="{{Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="{{Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="#E81123" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="#A92C38" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="#A92831" options:Freeze="True" />
 
     <!-- END BRUSHES -->
 </ResourceDictionary>

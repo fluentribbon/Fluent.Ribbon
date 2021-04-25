@@ -28,7 +28,7 @@ namespace Fluent
         /// <summary>
         /// Creates a new instance
         /// </summary>
-        public RibbonControlSizeDefinition(string sizeDefinition)
+        public RibbonControlSizeDefinition(string? sizeDefinition)
             : this()
         {
             if (string.IsNullOrEmpty(sizeDefinition))
@@ -39,7 +39,7 @@ namespace Fluent
                 return;
             }
 
-            var splitted = sizeDefinition.Split(new[] { ' ', ',', ';', '-', '>' }, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var splitted = sizeDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if (splitted.Count == 0)
             {
@@ -78,9 +78,17 @@ namespace Fluent
         /// <summary>
         /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
         /// </summary>
-        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        public static RibbonControlSizeDefinition FromString(string sizeDefinition)
         {
             return new RibbonControlSizeDefinition(sizeDefinition);
+        }
+
+        /// <summary>
+        /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
+        /// </summary>
+        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        {
+            return FromString(sizeDefinition);
         }
 
         /// <summary>
@@ -129,7 +137,7 @@ namespace Fluent
         #region Overrides of ValueType
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
             {

@@ -15,12 +15,12 @@
         public static HeaderApplicationMenuItemItemContainerStyleSelector Instance { get; } = new HeaderApplicationMenuItemItemContainerStyleSelector();
 
         /// <inheritdoc />
-        public override Style SelectStyle(object item, DependencyObject container)
+        public override Style? SelectStyle(object item, DependencyObject container)
         {
             switch (item)
             {
                 case MenuItem _:
-                    return (container as FrameworkElement)?.TryFindResource("ApplicationMenuSecondLevelStyle") as Style;
+                    return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel") as Style;
             }
 
             return base.SelectStyle(item, container);

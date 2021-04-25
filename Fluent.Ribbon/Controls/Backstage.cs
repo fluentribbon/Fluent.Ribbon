@@ -6,6 +6,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Data;
     using System.Windows.Documents;
     using System.Windows.Input;
@@ -29,9 +30,9 @@ namespace Fluent
         /// <summary>
         /// Occurs when IsOpen has been changed
         /// </summary>
-        public event DependencyPropertyChangedEventHandler IsOpenChanged;
+        public event DependencyPropertyChangedEventHandler? IsOpenChanged;
 
-        private BackstageAdorner adorner;
+        private BackstageAdorner? adorner;
 
         #region Properties
 
@@ -39,7 +40,7 @@ namespace Fluent
         /// Gets the <see cref="AdornerLayer"/> for the <see cref="Backstage"/>.
         /// </summary>
         /// <remarks>This is exposed to make it possible to show content on the same <see cref="AdornerLayer"/> as the backstage is shown on.</remarks>
-        public AdornerLayer AdornerLayer { get; private set; }
+        public AdornerLayer? AdornerLayer { get; private set; }
 
         /// <summary>
         /// Gets or sets whether backstage is shown
@@ -50,10 +51,7 @@ namespace Fluent
             set { this.SetValue(IsOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpen.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsOpenProperty =
             DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
 
@@ -66,9 +64,7 @@ namespace Fluent
             set { this.SetValue(CanChangeIsOpenProperty, value); }
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="CanChangeIsOpen"/>
-        /// </summary>
+        /// <summary>Identifies the <see cref="CanChangeIsOpen"/> dependency property.</summary>
         public static readonly DependencyProperty CanChangeIsOpenProperty =
             DependencyProperty.Register(nameof(CanChangeIsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -81,10 +77,7 @@ namespace Fluent
             set { this.SetValue(HideContextTabsOnOpenProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HideContextTabsOnOpen.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="HideContextTabsOnOpen"/> dependency property.</summary>
         public static readonly DependencyProperty HideContextTabsOnOpenProperty =
             DependencyProperty.Register(nameof(HideContextTabsOnOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -97,9 +90,7 @@ namespace Fluent
             set { this.SetValue(AreAnimationsEnabledProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsOpenAnimationEnabled.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="AreAnimationsEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty AreAnimationsEnabledProperty =
             DependencyProperty.Register(nameof(AreAnimationsEnabled), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -112,14 +103,11 @@ namespace Fluent
             set { this.SetValue(CloseOnEscProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for CloseOnEsc.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="CloseOnEsc"/> dependency property.</summary>
         public static readonly DependencyProperty CloseOnEscProperty =
             DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        private static object CoerceIsOpen(DependencyObject d, object baseValue)
+        private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
         {
             var backstage = (Backstage)d;
 
@@ -133,27 +121,30 @@ namespace Fluent
 
         private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var backstage = (Backstage)d;
+            var control = (Backstage)d;
+
+            var oldValue = (bool)e.OldValue;
+            var newValue = (bool)e.NewValue;
 
             lock (syncIsOpen)
             {
                 if ((bool)e.NewValue)
                 {
-                    backstage.Show();
+                    control.Show();
                 }
                 else
                 {
-                    backstage.Hide();
+                    control.Hide();
                 }
 
                 // Invoke the event
-                backstage.IsOpenChanged?.Invoke(backstage, e);
+                control.IsOpenChanged?.Invoke(control, e);
             }
+
+            (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
         }
 
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="UseHighestAvailableAdornerLayer"/>.
-        /// </summary>
+        /// <summary>Identifies the <see cref="UseHighestAvailableAdornerLayer"/> dependency property.</summary>
         public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
 
         /// <summary>
@@ -171,16 +162,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets content of the backstage
         /// </summary>
-        public UIElement Content
+        public UIElement? Content
         {
-            get { return (UIElement)this.GetValue(ContentProperty); }
+            get { return (UIElement?)this.GetValue(ContentProperty); }
             set { this.SetValue(ContentProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Content.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Content"/> dependency property.</summary>
         public static readonly DependencyProperty ContentProperty =
             DependencyProperty.Register(nameof(Content), typeof(UIElement), typeof(Backstage), new PropertyMetadata(OnContentChanged));
 
@@ -188,7 +176,7 @@ namespace Fluent
         {
             var backstage = (Backstage)d;
 
-            if (e.OldValue != null)
+            if (e.OldValue is not null)
             {
                 if (e.NewValue is DependencyObject dependencyObject)
                 {
@@ -198,7 +186,7 @@ namespace Fluent
                 backstage.RemoveLogicalChild(e.OldValue);
             }
 
-            if (e.NewValue != null)
+            if (e.NewValue is not null)
             {
                 backstage.AddLogicalChild(e.NewValue);
 
@@ -218,9 +206,20 @@ namespace Fluent
         {
             get
             {
-                if (this.Content != null)
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.Content is not null)
                 {
                     yield return this.Content;
+                }
+
+                if (this.Icon is not null)
+                {
+                    yield return this.Icon;
                 }
             }
         }
@@ -255,7 +254,7 @@ namespace Fluent
 
         private void Handle_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 this.adorner.DataContext = e.NewValue;
             }
@@ -264,7 +263,7 @@ namespace Fluent
         /// <summary>
         /// Called when this control receives the <see cref="PopupService.DismissPopupEvent"/>.
         /// </summary>
-        protected virtual void OnDismissPopup(object sender, DismissPopupEventArgs e)
+        protected virtual void OnDismissPopup(object? sender, DismissPopupEventArgs e)
         {
             // Don't close on dismiss popup event if application lost focus
             // or keytips should be shown.
@@ -304,12 +303,16 @@ namespace Fluent
         private double savedWindowMinHeight = double.NaN;
         private double savedWindowWidth = double.NaN;
         private double savedWindowHeight = double.NaN;
-        private Window ownerWindow;
-        private Ribbon parentRibbon;
+        private Window? ownerWindow;
+        private Ribbon? parentRibbon;
 
         /// <summary>
         /// Shows the <see cref="Backstage"/>
         /// </summary>
+        /// <returns>
+        /// <c>true</c> if the <see cref="Backstage"/> was made visible.
+        /// <c>false</c> if the <see cref="Backstage"/> was not made visible.
+        /// </returns>
         protected virtual bool Show()
         {
             // don't open the backstage while in design mode
@@ -324,7 +327,7 @@ namespace Fluent
                 return false;
             }
 
-            if (this.Content == null)
+            if (this.Content is null)
             {
                 return false;
             }
@@ -334,21 +337,21 @@ namespace Fluent
             this.ShowAdorner();
 
             this.parentRibbon = GetParentRibbon(this);
-            if (this.parentRibbon != null)
+            if (this.parentRibbon is not null)
             {
-                if (this.parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl is not null)
                 {
                     this.parentRibbon.TabControl.IsDropDownOpen = false;
                     this.parentRibbon.TabControl.HighlightSelectedItem = false;
                     this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (this.parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar is not null)
                 {
                     this.parentRibbon.QuickAccessToolBar.IsEnabled = false;
                 }
 
-                if (this.parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar is not null)
                 {
                     this.parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
                 }
@@ -356,16 +359,19 @@ namespace Fluent
 
             this.ownerWindow = Window.GetWindow(this);
 
-            if (this.ownerWindow == null
-                && this.Parent != null)
+            if (this.ownerWindow is null
+                && this.Parent is not null)
             {
                 this.ownerWindow = Window.GetWindow(this.Parent);
             }
 
-            this.SaveWindowSize(this.ownerWindow);
-            this.SaveWindowMinSize(this.ownerWindow);
+            if (this.ownerWindow is not null)
+            {
+                this.SaveWindowSize(this.ownerWindow);
+                this.SaveWindowMinSize(this.ownerWindow);
+            }
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.KeyDown += this.HandleOwnerWindowKeyDown;
 
@@ -405,13 +411,13 @@ namespace Fluent
 
             this.Loaded -= this.OnDelayedShow;
 
-            if (this.Content == null)
+            if (this.Content is null)
             {
                 return;
             }
 
             if (!this.IsLoaded
-                || this.adorner == null)
+                || this.adorner is null)
             {
                 return;
             }
@@ -421,7 +427,7 @@ namespace Fluent
 
         private void ShowAdorner()
         {
-            if (this.adorner == null)
+            if (this.adorner is null)
             {
                 return;
             }
@@ -431,7 +437,7 @@ namespace Fluent
             {
                 storyboard = storyboard.Clone();
 
-                storyboard.CurrentStateInvalidated += HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated += HandleStoryboardCurrentStateInvalidated;
                 storyboard.Completed += HandleStoryboardOnCompleted;
 
                 storyboard.Begin(this.adorner);
@@ -441,13 +447,13 @@ namespace Fluent
                 this.adorner.Visibility = Visibility.Visible;
             }
 
-            void HanldeStoryboardCurrentStateInvalidated(object sender, EventArgs e)
+            void HandleStoryboardCurrentStateInvalidated(object? sender, EventArgs e)
             {
                 this.adorner.Visibility = Visibility.Visible;
-                storyboard.CurrentStateInvalidated -= HanldeStoryboardCurrentStateInvalidated;
+                storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
             }
 
-            void HandleStoryboardOnCompleted(object sender, EventArgs args)
+            void HandleStoryboardOnCompleted(object? sender, EventArgs args)
             {
                 this.AdornerLayer?.Update();
 
@@ -457,7 +463,7 @@ namespace Fluent
 
         private void HideAdornerAndRestoreParentProperties()
         {
-            if (this.adorner == null)
+            if (this.adorner is null)
             {
                 return;
             }
@@ -465,11 +471,6 @@ namespace Fluent
             if (this.AreAnimationsEnabled
                 && this.TryFindResource("Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard") is Storyboard storyboard)
             {
-                if (this.AdornerLayer != null)
-                {
-                    this.AdornerLayer.Visibility = Visibility.Collapsed;
-                }
-
                 storyboard = storyboard.Clone();
 
                 storyboard.Completed += HandleStoryboardOnCompleted;
@@ -482,14 +483,14 @@ namespace Fluent
                 this.RestoreParentProperties();
             }
 
-            void HandleStoryboardOnCompleted(object sender, EventArgs args)
+            void HandleStoryboardOnCompleted(object? sender, EventArgs args)
             {
-                if (this.adorner != null)
+                if (this.adorner is not null)
                 {
                     this.adorner.Visibility = Visibility.Collapsed;
                 }
 
-                if (this.AdornerLayer != null)
+                if (this.AdornerLayer is not null)
                 {
                     this.AdornerLayer.Visibility = Visibility.Visible;
                 }
@@ -517,28 +518,28 @@ namespace Fluent
             // It's possible that we created an adorner but it's parent AdornerLayer got destroyed.
             // If that's the case we have to destroy our adorner.
             // This fixes #228 Backstage disappears when changing DontUseDwm
-            if (this.adorner?.Parent == null)
+            if (this.adorner?.Parent is null)
             {
                 this.DestroyAdorner();
             }
 
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 return;
             }
 
-            FrameworkElement elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
+            FrameworkElement? elementToAdorn = UIHelper.GetParent<AdornerDecorator>(this)
                                               ?? UIHelper.GetParent<AdornerDecorator>(this.Parent);
 
-            if (elementToAdorn == null)
+            if (elementToAdorn is null)
             {
                 return;
             }
 
             if (this.UseHighestAvailableAdornerLayer)
             {
-                AdornerDecorator currentAdornerDecorator;
-                while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) != null)
+                AdornerDecorator? currentAdornerDecorator;
+                while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) is not null)
                 {
                     elementToAdorn = currentAdornerDecorator;
                 }
@@ -546,7 +547,7 @@ namespace Fluent
 
             this.AdornerLayer = UIHelper.GetAdornerLayer(elementToAdorn);
 
-            if (this.AdornerLayer == null)
+            if (this.AdornerLayer is null)
             {
                 throw new Exception($"AdornerLayer could not be found for {this}.");
             }
@@ -567,9 +568,12 @@ namespace Fluent
         private void DestroyAdorner()
         {
             this.AdornerLayer?.CommandBindings.Clear();
-            this.AdornerLayer?.Remove(this.adorner);
+            if (this.adorner is not null)
+            {
+                this.AdornerLayer?.Remove(this.adorner);
+            }
 
-            if (this.adorner != null)
+            if (this.adorner is not null)
             {
                 BindingOperations.ClearAllBindings(this.adorner);
             }
@@ -582,21 +586,21 @@ namespace Fluent
 
         private void RestoreParentProperties()
         {
-            if (this.parentRibbon != null)
+            if (this.parentRibbon is not null)
             {
-                if (this.parentRibbon.TabControl != null)
+                if (this.parentRibbon.TabControl is not null)
                 {
                     this.parentRibbon.TabControl.HighlightSelectedItem = true;
                     this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
                 }
 
-                if (this.parentRibbon.QuickAccessToolBar != null)
+                if (this.parentRibbon.QuickAccessToolBar is not null)
                 {
                     this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
                     this.parentRibbon.QuickAccessToolBar.Refresh();
                 }
 
-                if (this.parentRibbon.TitleBar != null)
+                if (this.parentRibbon.TitleBar is not null)
                 {
                     this.parentRibbon.TitleBar.HideContextTabs = false;
                 }
@@ -604,7 +608,7 @@ namespace Fluent
                 this.parentRibbon = null;
             }
 
-            if (this.ownerWindow != null)
+            if (this.ownerWindow is not null)
             {
                 this.ownerWindow.PreviewKeyDown -= this.HandleOwnerWindowKeyDown;
                 this.ownerWindow.SizeChanged -= this.HandleOwnerWindowSizeChanged;
@@ -628,7 +632,7 @@ namespace Fluent
 
                 this.savedWindowWidth = double.NaN;
                 this.savedWindowHeight = double.NaN;
-                
+
                 this.ownerWindow = null;
             }
 
@@ -650,9 +654,9 @@ namespace Fluent
             this.RunInDispatcherAsync(() => this.Show(), DispatcherPriority.Background);
         }
 
-        private void SaveWindowMinSize(Window window)
+        private void SaveWindowMinSize(Window? window)
         {
-            if (window == null)
+            if (window is null)
             {
                 this.savedWindowMinWidth = double.NaN;
                 this.savedWindowMinHeight = double.NaN;
@@ -663,9 +667,9 @@ namespace Fluent
             this.savedWindowMinHeight = window.MinHeight;
         }
 
-        private void SaveWindowSize(Window window)
+        private void SaveWindowSize(Window? window)
         {
-            if (window == null
+            if (window is null
                 || window.WindowState == WindowState.Maximized)
             {
                 this.savedWindowWidth = double.NaN;
@@ -682,7 +686,7 @@ namespace Fluent
             this.SaveWindowSize(Window.GetWindow(this));
         }
 
-        private void HandleTabControlRequestBackstageClose(object sender, EventArgs e)
+        private void HandleTabControlRequestBackstageClose(object? sender, EventArgs e)
         {
             this.IsOpen = false;
         }
@@ -822,5 +826,8 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonBackstageAutomationPeer(this);
     }
 }

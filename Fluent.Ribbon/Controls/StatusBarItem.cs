@@ -16,15 +16,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets ribbon status bar item
         /// </summary>
-        public string Title
+        public string? Title
         {
-            get { return (string)this.GetValue(TitleProperty); }
+            get { return (string?)this.GetValue(TitleProperty); }
             set { this.SetValue(TitleProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Title.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata());
 
@@ -35,16 +33,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets ribbon status bar value
         /// </summary>
-        public string Value
+        public string? Value
         {
-            get { return (string)this.GetValue(ValueProperty); }
+            get { return (string?)this.GetValue(ValueProperty); }
             set { this.SetValue(ValueProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Value.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
             new PropertyMetadata(OnValueChanged));
@@ -68,9 +63,7 @@ namespace Fluent
             set { this.SetValue(IsCheckedProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for IsChecked.  This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
         public static readonly DependencyProperty IsCheckedProperty =
             DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsCheckedChanged));
 
@@ -99,12 +92,12 @@ namespace Fluent
         /// <summary>
         /// Occurs when status bar item checks
         /// </summary>
-        public event RoutedEventHandler Checked;
+        public event RoutedEventHandler? Checked;
 
         /// <summary>
         /// Occurs when status bar item unchecks
         /// </summary>
-        public event RoutedEventHandler Unchecked;
+        public event RoutedEventHandler? Unchecked;
 
         // Raises checked event
 #pragma warning disable WPF0005 // Name of PropertyChangedCallback should match registered name.
@@ -142,12 +135,12 @@ namespace Fluent
         }
 
         // Coerce content
-        private static object CoerceContent(DependencyObject d, object basevalue)
+        private static object? CoerceContent(DependencyObject d, object? basevalue)
         {
             var item = (StatusBarItem)d;
             // if content is null returns value
-            if (basevalue == null
-                && item.Value != null)
+            if (basevalue is null
+                && item.Value is not null)
             {
                 return item.Value;
             }
@@ -156,7 +149,7 @@ namespace Fluent
         }
 
         // Coerce visibility
-        private static object CoerceVisibility(DependencyObject d, object basevalue)
+        private static object? CoerceVisibility(DependencyObject d, object? basevalue)
         {
             // If unchecked when not visible in status bar
             if (((StatusBarItem)d).IsChecked == false)

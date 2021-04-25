@@ -31,10 +31,7 @@ namespace Fluent
             set { this.SetValue(SizeProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Size.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
         public static readonly DependencyProperty SizeProperty = RibbonProperties.SizeProperty.AddOwner(typeof(RibbonToolBarControlDefinition));
 
         #endregion
@@ -50,10 +47,7 @@ namespace Fluent
             set { this.SetValue(SizeDefinitionProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for SizeDefinition.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(RibbonToolBarControlDefinition));
 
         #endregion
@@ -63,16 +57,13 @@ namespace Fluent
         /// <summary>
         /// Gets or sets name of the target control
         /// </summary>
-        public string Target
+        public string? Target
         {
-            get { return (string)this.GetValue(TargetProperty); }
+            get { return (string?)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for ControlName.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
         public static readonly DependencyProperty TargetProperty =
             DependencyProperty.Register(nameof(Target), typeof(string),
             typeof(RibbonToolBarControlDefinition), new PropertyMetadata(OnTargetChanged));
@@ -96,10 +87,7 @@ namespace Fluent
             set { this.SetValue(WidthProperty, value); }
         }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Width.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
+        /// <summary>Identifies the <see cref="Width"/> dependency property.</summary>
         public static readonly DependencyProperty WidthProperty =
             DependencyProperty.Register(nameof(Width), typeof(double), typeof(RibbonToolBarControlDefinition), new PropertyMetadata(DoubleBoxes.NaN, OnWidthChanged));
 
@@ -114,9 +102,9 @@ namespace Fluent
         #region Invalidating
 
         /// <inheritdoc />
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

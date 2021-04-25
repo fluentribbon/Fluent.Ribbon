@@ -4,8 +4,8 @@
     <RootNamespace>Fluent</RootNamespace>
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NoWarn>$(NoWarn);NU5125</NoWarn>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <Description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</Description>
@@ -26,59 +26,60 @@
     <UpToDateCheckInput Include="**/*.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\License.txt" Pack="true" PackagePath="" />
+    <None Include="../License.txt" Pack="true" PackagePath="license/License.txt" />
+    <None Include="../Images/Logo/Logo_128x128.png" Pack="true" PackagePath="Logo.png" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp3.0'">
+  <ItemGroup Condition="$(DefineConstants.Contains(NETCOREAPP)) == false">
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" version="[4.0-alpha*, 5.0)" />
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="XamlColorSchemeGenerator" PrivateAssets="all" IncludeAssets="build" />
   </ItemGroup>
-
-  <!-- Sign assembly -->
-  <PropertyGroup>
-    <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/../Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-  </PropertyGroup>
 
   <!-- NuGet -->
   <PropertyGroup>
     <PackageId>Fluent.Ribbon</PackageId>
     <Authors>Bastian Schmidt</Authors>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/License.txt</PackageLicenseUrl>
-    <!-- <PackageLicenseFile>License.txt</PackageLicenseFile> -->
+    <PackageLicenseFile>license/License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/fluentribbon/Fluent.Ribbon</PackageProjectUrl>
-    <PackageIcon>../Images/Logo/Logo_32x32.png</PackageIcon>
-    <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_32x32.png</PackageIconUrl>
-    <PackageTags>fluent;office;ribbon;ribbonwindow;backstage;UI;XAML;Toolkit;Library;.NET;OSS;OpenSource</PackageTags>
+    <PackageIcon>Logo.png</PackageIcon>
+    <PackageIconUrl>https://raw.githubusercontent.com/fluentribbon/Fluent.Ribbon/master/Images/Logo/Logo_128x128.png</PackageIconUrl>
+    <PackageTags>fluent;office;ribbon;ribbonwindow;backstage;UI;XAML;Toolkit;Library;.NET;OSS;OpenSource;fluentribbon</PackageTags>
     <PackageReleaseNotes>https://github.com/fluentribbon/Fluent.Ribbon/blob/develop/Changelog.md</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/fluentribbon/Fluent.Ribbon.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
 
- <Target Name="GenerateXamlFilesInner">
+  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;PrepareResources;MarkupCompilePass1;MarkupCompilePass2">
     <PropertyGroup>
-      <XamlColorSchemeGeneratorPath>$(NuGetPackageRoot)/xamlcolorschemegenerator/$(XamlColorSchemeGeneratorVersion)/tools/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath>
-      <!-- <XamlColorSchemeGeneratorPath>C:/DEV/OSS_Own/XamlColorSchemeGenerator/bin/Debug/XamlColorSchemeGenerator.exe</XamlColorSchemeGeneratorPath> -->
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
-      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/XamlCombine.exe</XamlCombinePath> -->
+      <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
     </PropertyGroup>
+    <Message Text="Generating XAML files ($(TargetFramework))" Importance="high" />
     <!-- Generate theme files -->
-    <Exec Command="&quot;$(XamlColorSchemeGeneratorPath)&quot; &quot;$(MSBuildProjectDirectory)/Themes/Themes/GeneratorParameters.json&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
+    <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
   </Target>
 
-  <!-- Key to generating the xaml files at the right point in time is to do this before DispatchToInnerBuilds -->
-  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;BeforeBuild">
-    <!--TargetFramework=once is critical here, as it will not execute task from same project with same properties multiple times. 
-    We need to unify TargetFramework between empty, net45, netcoreapp3.0 etc.-->
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" />
+  <!-- 
+  Delete generated color scheme XAML files when user explicitly executes Build>Clean
+  command in Visual Studio.
+  
+  https://stackoverflow.com/questions/5102661/need-a-post-clean-event-in-visual-studio 
+  -->
+  <Target Name="MyDistClean" AfterTargets="Clean">
+    <ItemGroup>
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Dark.*" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Light.*" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Colorful.*" />
+    </ItemGroup>
+    <Message Text="Deleting XAML Color Scheme files..." Importance="high" />
+    <Delete Files="$(ThemeFiles)" ContinueOnError="true" />
   </Target>
 </Project>

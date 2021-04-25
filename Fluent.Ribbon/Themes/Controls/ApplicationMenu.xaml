@@ -19,7 +19,7 @@
                         Height="23"
                         Background="{TemplateBinding Background}">
                     <ContentControl x:Name="contentPresenter"
-                                    Content="{converters:ObjectToImageConverter {Binding Header, RelativeSource={RelativeSource TemplatedParent}}, '32,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                    Content="{TemplateBinding Header}"
                                     Margin="10,0,10,0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center" />
@@ -129,7 +129,7 @@
         <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
-        <Setter Property="Header" Value="{DynamicResource Fluent.Ribbon.Images.ApplicationMenu}" />
+        <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
     </Style>
 </ResourceDictionary>
