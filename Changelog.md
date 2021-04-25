@@ -9,6 +9,7 @@
   - Increasing ControlzEx dependency version to >= 5
 
 - ### Bug fixes
+  - [#845](../../issues/845) - QuickAccessToolBar issues in Colorful variant
   - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
   - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
   - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
