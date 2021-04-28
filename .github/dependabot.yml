@@ -1,0 +1,20 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Microsoft.CodeAnalysis.CSharp
+    versions:
+    - 3.9.0
+  - dependency-name: MahApps.Metro
+    versions:
+    - 2.4.4
+  - dependency-name: ControlzEx
+    versions:
+    - 5.0.0
+  - dependency-name: NUnit
+    versions:
+    - 3.13.0
