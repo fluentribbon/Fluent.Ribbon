@@ -29,7 +29,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty(nameof(Groups))]
     [DefaultProperty(nameof(Groups))]
-    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport
+    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedControl
     {
         #region Fields
 
@@ -322,6 +322,11 @@ namespace Fluent
                         {
                             this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, element);
                         }
+
+                        if (element is ISimplifiedControl control)
+                        {
+                            control.UpdateSimplifiedState(this.IsSimplified);
+                        }
                     }
 
                     break;
@@ -343,6 +348,11 @@ namespace Fluent
                     foreach (var item in e.NewItems.NullSafe().OfType<UIElement>())
                     {
                         this.groupsInnerContainer.Children.Add(item);
+
+                        if (item is ISimplifiedControl control)
+                        {
+                            control.UpdateSimplifiedState(this.IsSimplified);
+                        }
                     }
 
                     break;
@@ -353,6 +363,11 @@ namespace Fluent
                     foreach (var group in this.Groups)
                     {
                         this.groupsInnerContainer.Children.Add(group);
+
+                        if (group is ISimplifiedControl control)
+                        {
+                            control.UpdateSimplifiedState(this.IsSimplified);
+                        }
                     }
 
                     break;
@@ -436,7 +451,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Initialize
 
@@ -748,6 +782,16 @@ namespace Fluent
                 && this.TabControlParent.IsMinimized)
             {
                 this.TabControlParent.IsDropDownOpen = false;
+            }
+        }
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+            foreach (var item in this.Groups.OfType<ISimplifiedControl>())
+            {
+                item.UpdateSimplifiedState(isSimplified);
             }
         }
 

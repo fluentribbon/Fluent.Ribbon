@@ -426,6 +426,10 @@ namespace Fluent
             this.UnSubscribeEvents();
 
             this.button = this.GetTemplateChild("PART_Button") as ToggleButton;
+            if (this.button is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(this.IsSimplified);
+            }
 
             base.OnApplyTemplate();
 
@@ -568,6 +572,16 @@ namespace Fluent
         #endregion
 
         #endregion
+
+        /// <inheritdoc />
+        protected override void UpdateSimplifiedState(bool isSimplified)
+        {
+            base.UpdateSimplifiedState(isSimplified);
+            if (this.button is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(isSimplified);
+            }
+        }
 
         /// <inheritdoc />
         protected override IEnumerator LogicalChildren

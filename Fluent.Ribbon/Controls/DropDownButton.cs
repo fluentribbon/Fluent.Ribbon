@@ -27,7 +27,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider
+    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider, ISimplifiedControl
     {
         #region Fields
 
@@ -275,7 +275,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Events
 
@@ -843,6 +862,20 @@ namespace Fluent
         }
 
         #endregion MenuItem workarounds
+
+        /// <summary>
+        /// Update the Simplified state
+        /// </summary>
+        protected virtual void UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.UpdateSimplifiedState(isSimplified);
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

@@ -6,6 +6,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport
+    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedControl
     {
         #region Fields
 
@@ -61,8 +62,6 @@ namespace Fluent
         /// Get the <see cref="ContentControl"/> responsible for rendering the header when <see cref="State"/> is equal to <see cref="RibbonGroupBoxState.Collapsed"/>.
         /// </summary>
         public ContentControl? CollapsedHeaderContentControl { get; private set; }
-
-        #endregion
 
         #region KeyTip
 
@@ -558,6 +557,27 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        #endregion
+
+        #endregion Properties
+
         #region Events
 
         /// <summary>
@@ -952,6 +972,26 @@ namespace Fluent
             base.OnItemsChanged(e);
 
             this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Reset:
+                    foreach (var item in this.Items.OfType<ISimplifiedControl>())
+                    {
+                        item.UpdateSimplifiedState(this.IsSimplified);
+                    }
+
+                    break;
+
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedControl>())
+                    {
+                        item.UpdateSimplifiedState(this.IsSimplified);
+                    }
+
+                    break;
+            }
         }
 
         /// <inheritdoc />
@@ -1193,6 +1233,16 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+            foreach (var item in this.Items.OfType<ISimplifiedControl>())
+            {
+                item.UpdateSimplifiedState(isSimplified);
+            }
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

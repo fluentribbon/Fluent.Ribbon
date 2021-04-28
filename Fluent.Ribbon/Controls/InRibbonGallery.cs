@@ -45,7 +45,7 @@ namespace Fluent
 
     [TemplatePart(Name = "PART_PopupMenuPresenter", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_PopupResizeBorder", Type = typeof(FrameworkElement))]
-    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider, IMediumIconProvider
+    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider, IMediumIconProvider, ISimplifiedControl
     {
         #region Fields
 
@@ -861,7 +861,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Events
 
@@ -989,6 +1008,10 @@ namespace Fluent
             }
 
             this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
+            if (this.dropDownButton is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(this.IsSimplified);
+            }
 
             if (this.DropDownPopup is not null)
             {
@@ -1633,6 +1656,16 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+            if (this.dropDownButton is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(isSimplified);
+            }
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

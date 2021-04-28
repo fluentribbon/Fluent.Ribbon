@@ -611,6 +611,8 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
         /// <summary>
         /// Gets or sets whether or not the ribbon is in Simplified mode
         /// </summary>
@@ -621,7 +623,20 @@ namespace Fluent
         }
 
         /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
-        public static readonly DependencyProperty IsSimplifiedProperty = DependencyProperty.Register(nameof(IsSimplified), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
+        public static readonly DependencyProperty IsSimplifiedProperty = DependencyProperty.Register(nameof(IsSimplified), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is Ribbon ribbon)
+            {
+                var isSimplified = ribbon.IsSimplified;
+                foreach (var item in ribbon.Tabs.OfType<ISimplifiedControl>())
+                {
+                    item.UpdateSimplifiedState(isSimplified);
+                }
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Gets or sets selected tab item
@@ -819,11 +834,55 @@ namespace Fluent
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ObservableCollection<RibbonContextualTabGroup> ContextualGroups => this.contextualGroups ??= new ObservableCollection<RibbonContextualTabGroup>();
 
+        #region Tabs
+
         /// <summary>
         /// gets collection of ribbon tabs
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonTabItem> Tabs => this.tabs ??= new ObservableCollection<RibbonTabItem>();
+        public ObservableCollection<RibbonTabItem> Tabs
+        {
+            get
+            {
+                if (this.tabs is null)
+                {
+                    this.tabs = new ObservableCollection<RibbonTabItem>();
+                    this.tabs.CollectionChanged += this.OnTabItemsCollectionChanged;
+                }
+
+                return this.tabs;
+            }
+        }
+
+        /// <summary>
+        /// Handles collection of ribbon tab items changes
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">The event data</param>
+        private void OnTabItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            var isSimplified = this.IsSimplified;
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Replace:
+                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedControl>())
+                    {
+                        item.UpdateSimplifiedState(isSimplified);
+                    }
+
+                    break;
+
+                case NotifyCollectionChangedAction.Reset:
+                    foreach (var item in this.Tabs.OfType<ISimplifiedControl>())
+                    {
+                        item.UpdateSimplifiedState(isSimplified);
+                    }
+
+                    break;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Gets collection of toolbar items

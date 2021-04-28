@@ -153,8 +153,8 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="13" />
                     </Grid.ColumnDefinitions>
-                    <Fluent:ToggleButton IsDefinitive="False"
-                                            x:Name="ToggleButton"
+                    <Fluent:ToggleButton x:Name="PART_ToggleButton"
+                                            IsDefinitive="False"
                                             Focusable="false"
                                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                             BorderThickness="0"

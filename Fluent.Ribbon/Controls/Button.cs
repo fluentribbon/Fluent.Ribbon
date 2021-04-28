@@ -12,7 +12,7 @@ namespace Fluent
     /// Represents button
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider
+    public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedControl
     {
         #region Properties
 
@@ -133,7 +133,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(Button), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -213,6 +232,12 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

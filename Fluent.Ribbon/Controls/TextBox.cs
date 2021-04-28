@@ -14,7 +14,7 @@ namespace Fluent
     /// Represents custom Fluent UI TextBox
     /// </summary>
     [TemplatePart(Name = "PART_ContentHost", Type = typeof(UIElement))]
-    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl, IMediumIconProvider
+    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl, IMediumIconProvider, ISimplifiedControl
     {
         private UIElement? contentHost;
 
@@ -37,7 +37,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(TextBox), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -267,6 +286,12 @@ namespace Fluent
         #endregion
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)

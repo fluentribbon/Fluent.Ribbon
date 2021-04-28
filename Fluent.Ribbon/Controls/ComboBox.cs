@@ -19,6 +19,7 @@ namespace Fluent
     /// <summary>
     ///     Represents custom Fluent UI ComboBox
     /// </summary>
+    [TemplatePart(Name = "PART_ToggleButton", Type = typeof(ToggleButton))]
     [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
@@ -27,9 +28,10 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentBorder", Type = typeof(Border))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
-    public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider
+    public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider, ISimplifiedControl
     {
         #region Fields
+        private ToggleButton? dropDownButton;
 
         // Thumb to resize in both directions
         private Thumb? resizeBothThumb;
@@ -269,7 +271,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(ComboBox), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -538,6 +559,12 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
+            this.dropDownButton = this.GetTemplateChild("PART_ToggleButton") as ToggleButton;
+            if (this.dropDownButton is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(this.IsSimplified);
+            }
+
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
             if (this.resizeVerticalThumb is not null)
@@ -877,6 +904,16 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+            if (this.dropDownButton is ISimplifiedControl control)
+            {
+                control.UpdateSimplifiedState(isSimplified);
+            }
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
