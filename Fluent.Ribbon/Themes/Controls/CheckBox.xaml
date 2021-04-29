@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"                    
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <ControlTemplate x:Key="CheckBoxControlTemplate"
+    <ControlTemplate x:Key="RibbonCheckBoxControlTemplate"
                      TargetType="{x:Type Fluent:CheckBox}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -122,12 +123,228 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="RibbonSimplifiedCheckBoxControlTemplate"
+                     TargetType="{x:Type Fluent:CheckBox}">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="Transparent"
+                BorderBrush="Transparent">
+            <StackPanel x:Name="stackPanel"
+                        Margin="{TemplateBinding Padding}"
+                        Orientation="Horizontal">
+                <Border Width="13"
+                        Height="13"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <Grid>
+                        <Path x:Name="CheckIcon"
+                            Width="7.5"
+                            Height="6.9"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
+                            Fluent:FrameworkHelper.UseLayoutRounding="False"
+                            Opacity="0"
+                            Stretch="Fill"
+                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                            StrokeEndLineCap="Triangle"
+                            StrokeStartLineCap="Triangle"
+                            StrokeThickness="1.5" />
+                        <Rectangle x:Name="IndeterminateIcon"
+                                Width="7"
+                                Height="7"
+                                Opacity="0"
+                                Fill="{DynamicResource GrayBrush2}" />
+                        <Rectangle x:Name="DisabledVisualElement"
+                                Fill="{DynamicResource WhiteBrush}"
+                                Opacity="0"
+                                RadiusX="1"
+                                RadiusY="1" />
+                    </Grid>
+                </Border>
+                <ContentControl IsTabStop="False"
+                                Margin="2,0,0,0"
+                                Foreground="{TemplateBinding Foreground}">
+                    <StackPanel Width="Auto"
+                                Orientation="Horizontal">
+                        <Grid x:Name="iconImageGrid"
+                              Margin="0,0,2,0"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Visibility="Collapsed">
+                            <ContentControl x:Name="iconImage"
+                                            Width="24"
+                                            Height="24"
+                                            Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
+                            <Border x:Name="iconImageBorder24"
+                                    Width="24"
+                                    Height="24"
+                                    BorderThickness="1"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                    Visibility="Collapsed"/>
+                            <Border x:Name="iconImageBorder16"
+                                    Width="16"
+                                    Height="16"
+                                    BorderThickness="1"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                    Visibility="Collapsed"/>
+                        </Grid>
+                        <ContentPresenter x:Name="contentPresenter"
+                                      Margin="1,0,0,0"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      RecognizesAccessKey="True" />
+                    </StackPanel>
+                </ContentControl>
+            </StackPanel>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="Icon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder16"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder24"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Large"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Margin"
+                        TargetName="stackPanel"
+                        Value="4,0" />
+                <Setter TargetName="iconImageGrid"
+                        Property="Visibility"
+                        Value="Visible"/>
+                <Setter TargetName="iconImageGrid"
+                        Property="Margin"
+                        Value="0"/>
+                <Setter TargetName="iconImage"
+                        Property="Width"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Height"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Content"
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
+                <Setter TargetName="contentPresenter"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter TargetName="iconImageGrid"
+                        Property="Visibility"
+                        Value="Visible"/>
+                <Setter TargetName="iconImageGrid"
+                        Property="Margin"
+                        Value="0"/>
+                <Setter TargetName="contentPresenter"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+            </Trigger>
+            
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="CheckIcon"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Fill"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+                <Setter TargetName="CheckIcon"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Fill"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter TargetName="stackPanel"
+                        Property="Opacity"
+                        Value=".5" />
+                <Setter Property="Effect"
+                        TargetName="iconImageGrid">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter TargetName="CheckIcon"
+                        Property="Opacity"
+                        Value="1" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="{x:Null}">
+                <Setter TargetName="IndeterminateIcon"
+                        Property="Opacity"
+                        Value="1" />
+            </Trigger>
+            <Trigger Property="FlowDirection"
+                     Value="RightToLeft">
+                <Setter TargetName="CheckIcon"
+                        Property="LayoutTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="-1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style x:Key="RibbonCheckBoxStyle"
            TargetType="{x:Type Fluent:CheckBox}">
         <Setter Property="ToolTipService.ShowDuration"
                 Value="30000" />
         <Setter Property="Template"
-                Value="{DynamicResource CheckBoxControlTemplate}" />
+                Value="{DynamicResource RibbonCheckBoxControlTemplate}" />
         <Setter Property="Background"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
         <Setter Property="Foreground"
@@ -138,5 +355,18 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
         <Setter Property="Margin"
                 Value="2,2,2,2" />
+        <Style.Triggers>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource RibbonSimplifiedCheckBoxControlTemplate}"/>
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center"/>
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="Padding"
+                        Value="6,0"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

@@ -3,8 +3,8 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <ControlTemplate TargetType="{x:Type Fluent:TextBox}"
-                     x:Key="Fluent.Ribbon.ControlTemplates.TextBox">
+    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.TextBox"
+                     TargetType="{x:Type Fluent:TextBox}">
         <Grid Width="Auto"
               Height="22"
               Background="Transparent">
@@ -127,6 +127,179 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.SimplifiedTextBox"
+                     TargetType="{x:Type Fluent:TextBox}">
+        <Border x:Name="border"
+                Padding="{TemplateBinding Padding}"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="1">
+            <Grid Width="Auto"
+                  Height="Auto"
+                  Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="PART_HeaderAndIconPanel"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                    <ContentPresenter x:Name="iconImage"
+                                      Width="24"
+                                      Height="24"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,4,0"
+                                      Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="headerTextBlock"
+                                   Text="{TemplateBinding Header}"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,4,0"/>
+                    </Grid>
+                </StackPanel>
+
+                <Border x:Name="PART_ContentBorder"
+                        Height="Auto"
+                        BorderThickness="1,1,1,1"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="1"
+                        Width="{TemplateBinding InputWidth}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right">
+                    <ScrollViewer x:Name="PART_ContentHost"
+                                  Margin="1"
+                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="InputWidth"
+                     Value="NaN">
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="Icon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Large"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter TargetName="border"
+                        Property="Padding"
+                        Value="4,0" />
+                <Setter Property="Visibility"
+                        TargetName="headerTextBlock"
+                        Value="Collapsed" />
+                <Setter TargetName="iconImage"
+                        Property="Width"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Height"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Margin"
+                        Value="0,0,2,0"/>
+                <Setter TargetName="iconImage"
+                        Property="Content"
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Visibility"
+                        TargetName="headerTextBlock"
+                        Value="Collapsed" />
+            </Trigger>
+            
+            <Trigger Property="IsEnabled"
+                        Value="False">
+                <Setter Property="Background"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentHost"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="headerTextBlock"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                        Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentHost"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin"
+                        Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentHost"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
     <Style TargetType="{x:Type Fluent:TextBox}"
            BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="Template"
@@ -141,5 +314,16 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}" />
         <Setter Property="SelectionBrush" 
                 Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource Fluent.Ribbon.ControlTemplates.SimplifiedTextBox}"/>
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center"/>
+                <Setter Property="Padding"
+                        Value="6,0" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

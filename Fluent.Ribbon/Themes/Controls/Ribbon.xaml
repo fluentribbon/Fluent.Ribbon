@@ -79,8 +79,11 @@
                         TargetName="quickAccessToolBarHolder"
                         Value="Collapsed" />
             </Trigger>
-            <Trigger Property="IsSimplified" Value="True">
-                <Setter TargetName="PART_RibbonTabControl" Property="ContentHeight" Value="42"/>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter TargetName="PART_RibbonTabControl"
+                        Property="ContentHeight"
+                        Value="42"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

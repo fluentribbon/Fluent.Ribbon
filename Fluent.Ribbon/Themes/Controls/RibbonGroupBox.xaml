@@ -20,8 +20,11 @@
                             Margin="2,5,2,10"
                             Background="{TemplateBinding Background}" />
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, FallbackValue=False}" Value="False">
-                            <Setter TargetName="SeparatorBorder" Property="Height" Value="55"/>
+                        <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:RibbonGroupBox}}, FallbackValue=False}"
+                                     Value="False">
+                            <Setter TargetName="SeparatorBorder"
+                                    Property="Height"
+                                    Value="55"/>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -390,13 +393,24 @@
                    Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, FallbackValue=False}" Value="True">
-                <Setter TargetName="PART_UpPanel" Property="IsItemsHost" Value="False"/>
-                <Setter TargetName="PART_UpPanel" Property="Visibility" Value="Collapsed"/>
-                <Setter TargetName="SimplifiedUpPanel" Property="IsItemsHost" Value="True"/>
-                <Setter TargetName="SimplifiedUpPanel" Property="Visibility" Value="Visible"/>
-                <Setter TargetName="PART_DownGrid" Property="Visibility" Value="Collapsed"/>
-            </DataTrigger>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter TargetName="PART_UpPanel"
+                        Property="IsItemsHost"
+                        Value="False"/>
+                <Setter TargetName="PART_UpPanel"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+                <Setter TargetName="SimplifiedUpPanel"
+                        Property="IsItemsHost"
+                        Value="True"/>
+                <Setter TargetName="SimplifiedUpPanel"
+                        Property="Visibility"
+                        Value="Visible"/>
+                <Setter TargetName="PART_DownGrid"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+            </Trigger>
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"

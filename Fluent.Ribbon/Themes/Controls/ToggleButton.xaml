@@ -40,6 +40,19 @@
                 <Setter Property="HorizontalAlignment"
                         Value="Left" />
             </Trigger>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource RibbonSimplifiedToggleButtonControlTemplate}"/>
+                <Setter Property="Width"
+                        Value="Auto"/>
+                <Setter Property="Height"
+                        Value="Auto"/>
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch"/>
+                <Setter Property="Padding"
+                        Value="6 0"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -154,6 +167,183 @@
                         Value="0.5" />
                 <Setter Property="Effect"
                         TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsPressed"
+                               Value="False" />
+                    <Condition Property="IsChecked"
+                               Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver"
+                               Value="True" />
+                    <Condition Property="IsPressed"
+                               Value="False" />
+                    <Condition Property="IsChecked"
+                               Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.BorderBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="RibbonSimplifiedToggleButtonControlTemplate"
+                     TargetType="{x:Type Fluent:ToggleButton}">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"                
+                HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                Height="Auto">
+            <StackPanel x:Name="stackPanel"
+                        Width="Auto"
+                        Height="Auto"
+                        Margin="{TemplateBinding Padding}"
+                        VerticalAlignment="Stretch"
+                        Orientation="Horizontal">
+                <Grid x:Name="iconImageGrid"
+                      Margin="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <ContentPresenter x:Name="iconImage"
+                                      Width="24"
+                                      Height="24"
+                                      Margin="0"
+                                      Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                      SnapsToDevicePixels="True" />
+                    <Border x:Name="iconImageBorder24"
+                            Width="24"
+                            Height="24"
+                            BorderThickness="1"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                            Visibility="Collapsed"/>
+                    <Border x:Name="iconImageBorder16"
+                            Width="16"
+                            Height="16"
+                            BorderThickness="1"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                            Visibility="Collapsed"/>
+                </Grid>
+                <Fluent:TwoLineLabel x:Name="controlLabel"
+                                     Text="{TemplateBinding Header}"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Margin="2,0,0,0"
+                                     HasTwoLines="False"/>
+            </StackPanel>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="Icon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder16"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder24"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Large"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+                <Setter Property="Margin"
+                        TargetName="controlLabel"
+                        Value="0" />
+            </MultiTrigger>
+
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Margin"
+                        TargetName="stackPanel"
+                        Value="4 0" />
+                <Setter Property="Width"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Height"
+                        TargetName="iconImage"
+                        Value="16" />
+                <Setter Property="Content"
+                        TargetName="iconImage"
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
+                <Setter Property="Visibility"
+                        TargetName="controlLabel"
+                        Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Visibility"
+                        TargetName="controlLabel"
+                        Value="Collapsed" />
+            </Trigger>
+            
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Background"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="border"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImageGrid"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImageGrid">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
