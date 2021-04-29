@@ -56,14 +56,17 @@
                                    KeyTip="1">
                         <fluent:Button.Icon>
                             <local:TestIcon IconSize="16"
+                                            Foreground="White"
                                             IconBrush="Red"/>
                         </fluent:Button.Icon>
                         <fluent:Button.MediumIcon>
                             <local:TestIcon IconSize="24"
+                                            Foreground="White"
                                             IconBrush="Red"/>
                         </fluent:Button.MediumIcon>
                         <fluent:Button.LargeIcon>
                             <local:TestIcon IconSize="32"
+                                            Foreground="White"
                                             IconBrush="Red"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
@@ -72,17 +75,17 @@
                         <fluent:Button.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="Red"/>
                         </fluent:Button.Icon>
                         <fluent:Button.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="Red"/>
                         </fluent:Button.MediumIcon>
                         <fluent:Button.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="Red"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                     <fluent:Button Header="3rd button (no icon)"
@@ -92,18 +95,18 @@
                                    KeyTip="TB1">
                         <fluent:ToggleButton.Icon>
                             <local:TestIcon IconSize="16"
-                                            Foreground="White"
-                                            IconBrush="Green"/>
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
                         </fluent:ToggleButton.Icon>
                         <fluent:ToggleButton.MediumIcon>
                             <local:TestIcon IconSize="24"
-                                            Foreground="White"
-                                            IconBrush="Green"/>
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
                         </fluent:ToggleButton.MediumIcon>
                         <fluent:ToggleButton.LargeIcon>
                             <local:TestIcon IconSize="32"
-                                            Foreground="White"
-                                            IconBrush="Green"/>
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
                         </fluent:ToggleButton.LargeIcon>
                     </fluent:ToggleButton>
 
@@ -117,17 +120,17 @@
                         <fluent:SplitButton.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateGray"/>
                         </fluent:SplitButton.Icon>
                         <fluent:SplitButton.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateGray"/>
                         </fluent:SplitButton.MediumIcon>
                         <fluent:SplitButton.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateGray"/>
                         </fluent:SplitButton.LargeIcon>
                     </fluent:SplitButton>
                     <fluent:SplitButton Header="Split button (no icon)"
@@ -141,17 +144,17 @@
                         <fluent:DropDownButton.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateBlue"/>
                         </fluent:DropDownButton.Icon>
                         <fluent:DropDownButton.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateBlue"/>
                         </fluent:DropDownButton.MediumIcon>
                         <fluent:DropDownButton.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkSlateBlue"/>
                         </fluent:DropDownButton.LargeIcon>
                     </fluent:DropDownButton>
                     <fluent:DropDownButton Header="Drop down button (no icon)"
@@ -165,12 +168,12 @@
                         <fluent:ComboBox.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOrange"/>
                         </fluent:ComboBox.Icon>
                         <fluent:ComboBox.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOrange"/>
                         </fluent:ComboBox.MediumIcon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon24)"
@@ -179,7 +182,7 @@
                         <fluent:ComboBox.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOrange"/>
                         </fluent:ComboBox.Icon>
                     </fluent:ComboBox>
                 </fluent:RibbonGroupBox>
@@ -223,6 +226,7 @@
 
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
+
             <fluent:RibbonTabItem x:Name="RibbonTab2"
                                   Header="Second"
                                   KeyTip="2">
@@ -233,17 +237,17 @@
                         <fluent:CheckBox.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkBlue"/>
                         </fluent:CheckBox.Icon>
                         <fluent:CheckBox.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkBlue"/>
                         </fluent:CheckBox.MediumIcon>
                         <fluent:CheckBox.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkBlue"/>
                         </fluent:CheckBox.LargeIcon>
                     </fluent:CheckBox>
                     <fluent:CheckBox Header="Check box (no icon)"
@@ -255,17 +259,17 @@
                         <fluent:RadioButton.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOliveGreen"/>
                         </fluent:RadioButton.Icon>
                         <fluent:RadioButton.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOliveGreen"/>
                         </fluent:RadioButton.MediumIcon>
                         <fluent:RadioButton.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkOliveGreen"/>
                         </fluent:RadioButton.LargeIcon>
                     </fluent:RadioButton>
                     <fluent:RadioButton Header="Radio button (no icon)"
@@ -273,8 +277,14 @@
                     </fluent:RadioButton>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_2"
-                                       Header="Ribbon group box 2-2">
+            </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem x:Name="RibbonTab3"
+                                  Header="Third"
+                                  KeyTip="3">
+                
+                <fluent:RibbonGroupBox x:Name="RibbonGroupBox3_1"
+                                       Header="Ribbon group box 3-1">
                     <fluent:TextBox Header="Text box"
                                     Text="test" 
                                     KeyTip="TE">
@@ -298,10 +308,34 @@
                                             IconBrush="Green"/>
                         </fluent:TextBox.Icon>
                     </fluent:TextBox>
+
+                    <fluent:Spinner Header="Spinner"
+                                    Value="100" 
+                                    KeyTip="SP1">
+                        <fluent:Spinner.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.Icon>
+                        <fluent:Spinner.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.MediumIcon>
+                    </fluent:Spinner>
+                    <fluent:Spinner Header="Spinner (no icon24)"
+                                    Value="100" 
+                                    KeyTip="SP2">
+                        <fluent:Spinner.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.Icon>
+                    </fluent:Spinner>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_3"
-                                       Header="Ribbon group box 2-3">
+                <fluent:RibbonGroupBox x:Name="RibbonGroupBox3_2"
+                                       Header="Ribbon group box 3-2">
                     <fluent:InRibbonGallery Header="In ribbon gallery"
                                             ItemsSource="{Binding StringItems}"
                                             IsCollapsed="True"
@@ -309,17 +343,17 @@
                         <fluent:InRibbonGallery.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.Icon>
                         <fluent:InRibbonGallery.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.MediumIcon>
                         <fluent:InRibbonGallery.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.LargeIcon>
                     </fluent:InRibbonGallery>
                     <fluent:InRibbonGallery Header="In ribbon gallery (no icon)"
@@ -335,17 +369,17 @@
                         <fluent:InRibbonGallery.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.Icon>
                         <fluent:InRibbonGallery.MediumIcon>
                             <local:TestIcon IconSize="24"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.MediumIcon>
                         <fluent:InRibbonGallery.LargeIcon>
                             <local:TestIcon IconSize="32"
                                             Foreground="White"
-                                            IconBrush="Green"/>
+                                            IconBrush="DarkGoldenrod"/>
                         </fluent:InRibbonGallery.LargeIcon>
                     </fluent:InRibbonGallery>
                 </fluent:RibbonGroupBox>
@@ -355,14 +389,17 @@
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
                     Margin="4">
-            <CheckBox IsChecked="{Binding IsSimplified, ElementName=ribbon}">
+            <CheckBox Margin="4,5" IsChecked="{Binding IsSimplified, ElementName=ribbon}">
                 Ribbon.IsSimplified
             </CheckBox>
-            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonTab1}">
+            <CheckBox Margin="4,2" IsChecked="{Binding IsEnabled, ElementName=RibbonTab1}">
                 RibbonTabItem.IsEnabled (First tab)
             </CheckBox>
-            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonTab2}">
+            <CheckBox Margin="4,2" IsChecked="{Binding IsEnabled, ElementName=RibbonTab2}">
                 RibbonTabItem.IsEnabled (Second tab)
+            </CheckBox>
+            <CheckBox Margin="4,2" IsChecked="{Binding IsEnabled, ElementName=RibbonTab3}">
+                RibbonTabItem.IsEnabled (Third tab)
             </CheckBox>
             <GroupBox Header="First tab"
                       Margin="0,4">
@@ -390,6 +427,7 @@
                                      SelectedItem="{Binding Size,ElementName=FirstButton}" />
                 </StackPanel>
             </GroupBox>
+
             <GroupBox Header="Second tab"
                       Margin="0,4">
                 <StackPanel Orientation="Vertical">
@@ -404,7 +442,24 @@
                                      SelectedIndex="0"
                                      SelectedItem="{Binding State,ElementName=RibbonGroupBox2_1}">
                     </fluent:ComboBox>
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_2}">
+                </StackPanel>
+            </GroupBox>
+            
+            <GroupBox Header="Third tab"
+                      Margin="0,4">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_1}">
+                        RibbonGroupBox.IsEnabled (for the 1st group box)
+                    </CheckBox>
+                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                     HorizontalAlignment="Left"
+                                     InputWidth="100"
+                                     IsEditable="False"
+                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                     SelectedIndex="0"
+                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3_1}">
+                    </fluent:ComboBox>
+                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_2}">
                         RibbonGroupBox.IsEnabled (for the 2nd group box)
                     </CheckBox>
                     <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
@@ -413,18 +468,7 @@
                                      IsEditable="False"
                                      ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                      SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox2_2}">
-                    </fluent:ComboBox>
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_3}">
-                        RibbonGroupBox.IsEnabled (for the 3rd group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox2_3}">
+                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3_2}">
                     </fluent:ComboBox>
                 </StackPanel>
             </GroupBox>

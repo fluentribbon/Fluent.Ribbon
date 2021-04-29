@@ -64,8 +64,8 @@
     </Style>
 
     <!--Spinner Style-->
-    <ControlTemplate TargetType="{x:Type Fluent:Spinner}"
-                     x:Key="Fluent.Ribbon.ControlTemplates.Spinner">
+    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.Spinner"
+                     TargetType="{x:Type Fluent:Spinner}">
         <Grid Width="Auto"
               Height="22"
               Background="Transparent">
@@ -275,6 +275,259 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.SimplifiedSpinner"
+                     TargetType="{x:Type Fluent:Spinner}">
+        <Border x:Name="border"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Padding="{TemplateBinding Padding}">
+            <Grid Width="Auto"
+                  Height="Auto"
+                  Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="headerAndIconPanel"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Left">
+                    <ContentPresenter x:Name="iconImage"
+                                      Width="24"
+                                      Height="24"
+                                      VerticalAlignment="Center"
+                                      Margin="0,0,4,0"
+                                      Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="headerTextBlock"
+                                   Text="{TemplateBinding Header}"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,4,0"/>
+                    </Grid>
+                </StackPanel>
+
+                <Border x:Name="PART_ContentBorder"
+                        Grid.Column="1"
+                        Width="{TemplateBinding InputWidth}"
+                        Height="22"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="17" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox x:Name="PART_TextBox"
+                                 Style="{x:Null}"
+                                 BorderThickness="0"
+                                 Grid.RowSpan="2"
+                                 Grid.Column="0"
+                                 Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                 Foreground="{TemplateBinding Foreground}"
+                                 CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                                 Padding="2,0,2,0"
+                                 Margin="0"
+                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+                        <Path x:Name="path"
+                              Grid.Column="1"
+                              Grid.RowSpan="2"
+                              Visibility="Collapsed"
+                              HorizontalAlignment="Left"
+                              Margin="0,-1"
+                              Width="1"
+                              Fill="{DynamicResource BlackBrush}"
+                              Stretch="Fill"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                              StrokeThickness="1"
+                              Data="M0,0L0,1" />
+
+                        <Path x:Name="path1"
+                              HorizontalAlignment="Left"
+                              Grid.Column="1"
+                              Visibility="Collapsed"
+                              Margin="-1,0,-1,-0.5"
+                              Width="Auto"
+                              Height="1"
+                              VerticalAlignment="Bottom"
+                              Fill="{DynamicResource BlackBrush}"
+                              Stretch="Fill"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                              StrokeThickness="1"
+                              Data="M0,0L1,0" />
+
+                        <RepeatButton x:Name="PART_ButtonUp"
+                                      Grid.Column="1"
+                                      Grid.Row="0"
+                                      Style="{DynamicResource SpinnerButtonStyle}"
+                                      RenderTransformOrigin="0,0.5"
+                                      HorizontalAlignment="Stretch">
+                            <Path Width="5"
+                                  Height="3"
+                                  Fill="{DynamicResource BlackBrush}"
+                                  Stretch="Fill"
+                                  Stroke="{DynamicResource BlackBrush}"
+                                  Data="M0,0L1,-1 2,0"
+                                  HorizontalAlignment="Center"
+                                  StrokeThickness="0"
+                                  VerticalAlignment="Center"
+                                  Margin="1,2,0,1"
+                                  RenderOptions.EdgeMode="Aliased" />
+                        </RepeatButton>
+                        <RepeatButton x:Name="PART_ButtonDown"
+                                      Grid.Column="1"
+                                      Grid.Row="1"
+                                      Style="{DynamicResource SpinnerButtonStyle}">
+                            <Path Width="5"
+                                  Height="3"
+                                  Fill="{DynamicResource BlackBrush}"
+                                  Stretch="Fill"
+                                  Stroke="{DynamicResource BlackBrush}"
+                                  Data="M0,0L1,1 2,0"
+                                  StrokeThickness="0"
+                                  HorizontalAlignment="Center"
+                                  Margin="1,-1,0,0"
+                                  VerticalAlignment="Center"
+                                  RenderOptions.EdgeMode="Aliased" />
+                        </RepeatButton>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <ControlTemplate.Triggers>
+            <Trigger Property="InputWidth"
+                     Value="NaN">
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
+            </Trigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="Icon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Large"/>
+                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter TargetName="border"
+                        Property="Padding"
+                        Value="4,0" />
+                <Setter Property="Visibility"
+                        TargetName="headerTextBlock"
+                        Value="Collapsed" />
+                <Setter TargetName="iconImage"
+                        Property="Width"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Height"
+                        Value="16"/>
+                <Setter TargetName="iconImage"
+                        Property="Margin"
+                        Value="0,0,2,0"/>
+                <Setter TargetName="iconImage"
+                        Property="Content"
+                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter Property="Visibility"
+                        TargetName="headerTextBlock"
+                        Value="Collapsed" />
+            </Trigger>
+
+            <Trigger Property="IsEnabled"
+                        Value="False">
+                <Setter Property="IsEnabled"
+                        TargetName="PART_TextBox"
+                        Value="False" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_TextBox"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
+                <Setter Property="Opacity"
+                        TargetName="iconImage"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="headerTextBlock"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImage">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger Property="IsMouseOver"
+                        Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter Property="Visibility"
+                        TargetName="path"
+                        Value="Visible" />
+                <Setter Property="Visibility"
+                        TargetName="path1"
+                        Value="Visible" />
+                <Setter Property="BorderBrush"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
+                <Setter Property="Background"
+                        TargetName="PART_ContentBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+                <Setter Property="Background"
+                        TargetName="PART_TextBox"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style x:Key="SpinnerStyle"
            TargetType="{x:Type Fluent:Spinner}">
         <Setter Property="FocusVisualStyle"
@@ -287,5 +540,22 @@
                 Value="Center" />
         <Setter Property="Template"
                 Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
+        <Style.Triggers>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource Fluent.Ribbon.ControlTemplates.SimplifiedSpinner}"/>
+                <Setter Property="Width"
+                        Value="Auto"/>
+                <Setter Property="Height"
+                        Value="Auto"/>
+                <Setter Property="VerticalAlignment"
+                        Value="Stretch"/>
+                <Setter Property="Padding"
+                        Value="6 0"/>
+                <Setter Property="BorderThickness"
+                        Value="1"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

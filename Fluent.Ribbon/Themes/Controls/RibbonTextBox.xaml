@@ -130,10 +130,10 @@
     <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.SimplifiedTextBox"
                      TargetType="{x:Type Fluent:TextBox}">
         <Border x:Name="border"
-                Padding="{TemplateBinding Padding}"
+                BorderThickness="{TemplateBinding BorderThickness}"
                 Background="Transparent"
                 BorderBrush="Transparent"
-                BorderThickness="1">
+                Padding="{TemplateBinding Padding}">
             <Grid Width="Auto"
                   Height="Auto"
                   Background="Transparent">
@@ -164,15 +164,14 @@
                 </StackPanel>
 
                 <Border x:Name="PART_ContentBorder"
+                        Grid.Column="1"
+                        Width="{TemplateBinding InputWidth}"
                         Height="Auto"
-                        BorderThickness="1,1,1,1"
+                        BorderThickness="1"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="1"
-                        Width="{TemplateBinding InputWidth}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right">
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
                     <ScrollViewer x:Name="PART_ContentHost"
                                   Margin="1"
                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -187,6 +186,7 @@
                         TargetName="PART_ContentBorder"
                         Value="Stretch" />
             </Trigger>
+            
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Size" Value="Small"/>
@@ -214,7 +214,7 @@
                         TargetName="iconImage"
                         Value="Collapsed" />
             </MultiTrigger>
-            
+
             <Trigger Property="Size"
                      Value="Small">
                 <Setter TargetName="border"
