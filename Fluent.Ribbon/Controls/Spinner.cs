@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
@@ -604,6 +605,24 @@ namespace Fluent
         void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+            }
         }
     }
 }

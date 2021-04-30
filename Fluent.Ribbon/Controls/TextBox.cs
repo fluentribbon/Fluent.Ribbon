@@ -321,6 +321,11 @@ namespace Fluent
                     yield return this.Icon;
                 }
 
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+
                 if (this.Header is not null)
                 {
                     yield return this.Header;

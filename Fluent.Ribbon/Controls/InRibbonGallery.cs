@@ -1695,6 +1695,11 @@ namespace Fluent
                     yield return this.Icon;
                 }
 
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+
                 if (this.LargeIcon is not null)
                 {
                     yield return this.LargeIcon;
