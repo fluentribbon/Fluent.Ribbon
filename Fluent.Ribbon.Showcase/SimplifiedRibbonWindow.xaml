@@ -47,7 +47,7 @@
             </fluent:Ribbon.Menu>
 
             <fluent:RibbonTabItem x:Name="RibbonTab1"
-                                  Header="First"
+                                  Header="State test 1"
                                   KeyTip="1">
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox1"
                                        Header="Ribbon group box 1"
@@ -281,7 +281,7 @@
             </fluent:RibbonTabItem>
 
             <fluent:RibbonTabItem x:Name="RibbonTab2"
-                                  Header="Second"
+                                  Header="State test 2"
                                   KeyTip="2">
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_1"
                                        Header="Ribbon group box 2-1">
@@ -338,7 +338,7 @@
             </fluent:RibbonTabItem>
 
             <fluent:RibbonTabItem x:Name="RibbonTab3"
-                                  Header="Third"
+                                  Header="State test 3"
                                   KeyTip="3">
                 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox3_1"
@@ -452,6 +452,463 @@
                     </fluent:InRibbonGallery>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem x:Name="RibbonTab4"
+                                  Header="Resizing test"
+                                  ReduceOrder="ResizeTab1,ResizeTab1,ResizeTab1,ResizeTab2"
+                                  KeyTip="1">
+                <fluent:RibbonGroupBox x:Name="ResizeTab1"
+                                       Header="Ribbon group box 1"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <fluent:Button Header="1st button"
+                                   KeyTip="1">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="2nd button"
+                                   KeyTip="2">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:ToggleButton Header="Toggle button"
+                                   KeyTip="TB1">
+                        <fluent:ToggleButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.Icon>
+                        <fluent:ToggleButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.MediumIcon>
+                        <fluent:ToggleButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.LargeIcon>
+                    </fluent:ToggleButton>
+
+                    <fluent:SplitButton Header="Split button"
+                                        ItemsSource="{Binding StringItems}"
+                                        KeyTip="S1">
+                        <fluent:SplitButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.Icon>
+                        <fluent:SplitButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.MediumIcon>
+                        <fluent:SplitButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.LargeIcon>
+                    </fluent:SplitButton>
+
+                    <fluent:DropDownButton Header="Drop down button"
+                                           ItemsSource="{Binding StringItems}"
+                                           KeyTip="D">
+                        <fluent:DropDownButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.Icon>
+                        <fluent:DropDownButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.MediumIcon>
+                        <fluent:DropDownButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.LargeIcon>
+                    </fluent:DropDownButton>
+
+                    <fluent:ComboBox Header="Combo box"
+                                     InputWidth="50"
+                                     KeyTip="CO1">
+                        <fluent:ComboBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.Icon>
+                        <fluent:ComboBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.MediumIcon>
+                    </fluent:ComboBox>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="ResizeTab2"
+                                       Header="Ribbon group box 2">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="4th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="5th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="ResizeTab3"
+                                       Header="Ribbon group box 3">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="6th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="7th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem x:Name="RibbonTab5"
+                                  Header="Visible test that depend on IsSimplified"
+                                  ReduceOrder="ResizeTab1,ResizeTab1,ResizeTab1,ResizeTab2"
+                                  KeyTip="1">
+                <fluent:RibbonTabItem.Resources>
+                    <Style x:Key="RibbonButtonFullModeOnlyStyle"  TargetType="fluent:Button" BasedOn="{StaticResource {x:Type fluent:Button}}">
+                        <Style.Triggers>
+                            <Trigger Property="IsSimplified" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="RibbonButtonSimplifiedModeOnlyStyle"  TargetType="fluent:Button" BasedOn="{StaticResource {x:Type fluent:Button}}">
+                        <Style.Triggers>
+                            <Trigger Property="IsSimplified" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </fluent:RibbonTabItem.Resources>
+                
+                <fluent:RibbonGroupBox x:Name="VisibleTab1"
+                                       Header="Ribbon group box 1"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                        Foreground="Black"
+                                        IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                        Foreground="Black"
+                                        IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <fluent:Button Header="1st button (Full)"
+                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}"
+                                   KeyTip="1">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="MediumPurple"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="MediumPurple"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="MediumPurple"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="2nd button (Simplified)"
+                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}"
+                                   KeyTip="2">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:ToggleButton Header="Toggle button (Both)"
+                                   KeyTip="TB1">
+                        <fluent:ToggleButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.Icon>
+                        <fluent:ToggleButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.MediumIcon>
+                        <fluent:ToggleButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="Black"
+                                            IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.LargeIcon>
+                    </fluent:ToggleButton>
+
+                    <fluent:SplitButton Header="Split button (Full)"
+                                        ItemsSource="{Binding StringItems}"
+                                        KeyTip="S1">
+                        <fluent:SplitButton.Style>
+                            <Style TargetType="fluent:SplitButton" BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsSimplified" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </fluent:SplitButton.Style>
+                        <fluent:SplitButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.Icon>
+                        <fluent:SplitButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.MediumIcon>
+                        <fluent:SplitButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.LargeIcon>
+                    </fluent:SplitButton>
+
+                    <fluent:DropDownButton Header="Drop down button (Simplified)"
+                                           ItemsSource="{Binding StringItems}"
+                                           Visibility="{Binding IsSimplified,RelativeSource={RelativeSource Self},Converter={StaticResource boolToVisibilityConverter}}"
+                                           KeyTip="D">
+                        <fluent:DropDownButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.Icon>
+                        <fluent:DropDownButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.MediumIcon>
+                        <fluent:DropDownButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.LargeIcon>
+                    </fluent:DropDownButton>
+
+                    <fluent:ComboBox Header="Combo box (Both)"
+                                     InputWidth="50"
+                                     KeyTip="CO1">
+                        <fluent:ComboBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.Icon>
+                        <fluent:ComboBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.MediumIcon>
+                    </fluent:ComboBox>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="VisibleTab2"
+                                       Header="Ribbon group box 2">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="4th button"
+                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="5th button"
+                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="VisibleTab3"
+                                       Header="Ribbon group box 3">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="6th button"
+                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="7th button"
+                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
         <StackPanel Grid.Row="1"
@@ -469,103 +926,107 @@
             <CheckBox Margin="4,2" IsChecked="{Binding IsEnabled, ElementName=RibbonTab3}">
                 RibbonTabItem.IsEnabled (Third tab)
             </CheckBox>
-            <GroupBox Header="First tab"
-                      Margin="0,4">
+            <GroupBox Header="Test for the behavior of each control by changing the Size property">
                 <StackPanel Orientation="Vertical">
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox1}">
-                        RibbonGroupBox.IsEnabled (for the 1st group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox1}">
-                    </fluent:ComboBox>
-                    <CheckBox Margin="10,0,0,0"
-                              IsChecked="{Binding IsEnabled, ElementName=FirstButton}">
-                        Button.IsEnabled (for the first button)
-                    </CheckBox>
-                    <fluent:ComboBox x:Name="RibbonControlSize"
-                                     Margin="10,0,0,0"
-                                     Header="RibbonControl.Size (for the first button): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonControlSizeEnumValues}}"
-                                     SelectedItem="{Binding Size,ElementName=FirstButton}" />
+                    <GroupBox Header="{Binding Header,ElementName=RibbonTab1}"
+                              Margin="0,4">
+                        <StackPanel Orientation="Vertical">
+                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox1}">
+                                RibbonGroupBox.IsEnabled (for the 1st group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox1}">
+                            </fluent:ComboBox>
+                            <CheckBox Margin="10,0,0,0"
+                                      IsChecked="{Binding IsEnabled, ElementName=FirstButton}">
+                                Button.IsEnabled (for the first button)
+                            </CheckBox>
+                            <fluent:ComboBox x:Name="RibbonControlSize"
+                                             Margin="10,0,0,0"
+                                             Header="RibbonControl.Size (for the first button): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonControlSizeEnumValues}}"
+                                             SelectedItem="{Binding Size,ElementName=FirstButton}" />
 
-                    <CheckBox Margin="0,10,0,0"
-                              IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2}">
-                        RibbonGroupBox.IsEnabled (for the 2nd group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox2}">
-                    </fluent:ComboBox>
+                            <CheckBox Margin="0,10,0,0"
+                                      IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2}">
+                                RibbonGroupBox.IsEnabled (for the 2nd group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox2}">
+                            </fluent:ComboBox>
 
-                    <CheckBox Margin="0,10,0,0"
-                              IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3}">
-                        RibbonGroupBox.IsEnabled (for the 3rd group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3}">
-                    </fluent:ComboBox>
-                </StackPanel>
-            </GroupBox>
+                            <CheckBox Margin="0,10,0,0"
+                                      IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3}">
+                                RibbonGroupBox.IsEnabled (for the 3rd group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox3}">
+                            </fluent:ComboBox>
+                        </StackPanel>
+                    </GroupBox>
 
-            <GroupBox Header="Second tab"
-                      Margin="0,4">
-                <StackPanel Orientation="Vertical">
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_1}">
-                        RibbonGroupBox.IsEnabled (for the 1st group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox2_1}">
-                    </fluent:ComboBox>
-                </StackPanel>
-            </GroupBox>
-            
-            <GroupBox Header="Third tab"
-                      Margin="0,4">
-                <StackPanel Orientation="Vertical">
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_1}">
-                        RibbonGroupBox.IsEnabled (for the 1st group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3_1}">
-                    </fluent:ComboBox>
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_2}">
-                        RibbonGroupBox.IsEnabled (for the 2nd group box)
-                    </CheckBox>
-                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
-                                     HorizontalAlignment="Left"
-                                     InputWidth="100"
-                                     IsEditable="False"
-                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
-                                     SelectedIndex="0"
-                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3_2}">
-                    </fluent:ComboBox>
+                    <GroupBox Header="{Binding Header,ElementName=RibbonTab2}"
+                              Margin="0,4">
+                        <StackPanel Orientation="Vertical">
+                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_1}">
+                                RibbonGroupBox.IsEnabled (for the 1st group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox2_1}">
+                            </fluent:ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="{Binding Header,ElementName=RibbonTab3}"
+                              Margin="0,4">
+                        <StackPanel Orientation="Vertical">
+                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_1}">
+                                RibbonGroupBox.IsEnabled (for the 1st group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox3_1}">
+                            </fluent:ComboBox>
+                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_2}">
+                                RibbonGroupBox.IsEnabled (for the 2nd group box)
+                            </CheckBox>
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
+                                             HorizontalAlignment="Left"
+                                             InputWidth="100"
+                                             IsEditable="False"
+                                             ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                             SelectedIndex="0"
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox3_2}">
+                            </fluent:ComboBox>
+                        </StackPanel>
+                    </GroupBox>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
