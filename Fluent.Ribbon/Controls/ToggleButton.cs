@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System.Collections;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Data;
@@ -13,7 +14,8 @@ namespace Fluent
     /// Represents toggle button
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedControl
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, IsChecked = {IsChecked}, Size = {Size}, IsSimplified = {IsSimplified}")]
+    public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Properties
 
@@ -42,6 +44,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(ToggleButton));
+
+        #endregion
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(ToggleButton));
 
         #endregion
 
@@ -279,7 +295,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
         }

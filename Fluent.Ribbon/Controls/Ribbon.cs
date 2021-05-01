@@ -630,7 +630,7 @@ namespace Fluent
             if (d is Ribbon ribbon)
             {
                 var isSimplified = ribbon.IsSimplified;
-                foreach (var item in ribbon.Tabs.OfType<ISimplifiedControl>())
+                foreach (var item in ribbon.Tabs.OfType<ISimplifiedStateControl>())
                 {
                     item.UpdateSimplifiedState(isSimplified);
                 }
@@ -866,7 +866,7 @@ namespace Fluent
             {
                 case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedControl>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedStateControl>())
                     {
                         item.UpdateSimplifiedState(isSimplified);
                     }
@@ -874,7 +874,7 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    foreach (var item in this.Tabs.OfType<ISimplifiedControl>())
+                    foreach (var item in this.Tabs.OfType<ISimplifiedStateControl>())
                     {
                         item.UpdateSimplifiedState(isSimplified);
                     }

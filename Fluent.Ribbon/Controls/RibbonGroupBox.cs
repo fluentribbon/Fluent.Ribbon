@@ -6,6 +6,7 @@ namespace Fluent
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Linq;
     using System.Windows;
     using System.Windows.Automation.Peers;
@@ -32,7 +33,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedControl
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
+    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedStateControl
     {
         #region Fields
 
@@ -990,7 +992,7 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Reset:
-                    foreach (var item in this.Items.OfType<ISimplifiedControl>())
+                    foreach (var item in this.Items.OfType<ISimplifiedStateControl>())
                     {
                         item.UpdateSimplifiedState(this.IsSimplified);
                     }
@@ -999,7 +1001,7 @@ namespace Fluent
 
                 case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedControl>())
+                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedStateControl>())
                     {
                         item.UpdateSimplifiedState(this.IsSimplified);
                     }
@@ -1249,11 +1251,11 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
-            this.TryClearCache();
+            this.TryClearCacheAndResetStateAndScale();
             this.IsSimplified = isSimplified;
-            foreach (var item in this.Items.OfType<ISimplifiedControl>())
+            foreach (var item in this.Items.OfType<ISimplifiedStateControl>())
             {
                 item.UpdateSimplifiedState(isSimplified);
             }

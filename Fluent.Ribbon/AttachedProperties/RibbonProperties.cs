@@ -126,7 +126,62 @@ namespace Fluent
         /// <param name="state">Group box state</param>
         public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
         {
-            SetSize(element, GetSizeDefinition(element).GetSize(state));
+            RibbonControlSizeDefinition sizeDefinition;
+            if (element is ISimplifiedRibbonControl control)
+            {
+                sizeDefinition = control.IsSimplified ? GetSimplifiedSizeDefinition(element) : GetSizeDefinition(element);
+            }
+            else
+            {
+                sizeDefinition = GetSizeDefinition(element);
+            }
+
+            SetSize(element, sizeDefinition.GetSize(state));
+        }
+
+        #endregion
+
+        #region SimplifiedSizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SimplifiedSizeDefinition.
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty =
+            DependencyProperty.RegisterAttached(nameof(ISimplifiedRibbonControl.SimplifiedSizeDefinition), typeof(RibbonControlSizeDefinition), typeof(RibbonProperties),
+                new FrameworkPropertyMetadata(new RibbonControlSizeDefinition(RibbonControlSize.Large, RibbonControlSize.Middle, RibbonControlSize.Small),
+                                              FrameworkPropertyMetadataOptions.AffectsArrange |
+                                              FrameworkPropertyMetadataOptions.AffectsMeasure |
+                                              FrameworkPropertyMetadataOptions.AffectsRender |
+                                              FrameworkPropertyMetadataOptions.AffectsParentArrange |
+                                              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+                                              OnSimplifiedSizeDefinitionChanged));
+
+        /// <summary>
+        /// Sets <see cref="SimplifiedSizeDefinitionProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetSimplifiedSizeDefinition(DependencyObject element, RibbonControlSizeDefinition value)
+        {
+            element.SetValue(SimplifiedSizeDefinitionProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="SimplifiedSizeDefinitionProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        //[AttachedPropertyBrowsableForType(typeof(ISimplifiedRibbonControl))]
+        public static RibbonControlSizeDefinition GetSimplifiedSizeDefinition(DependencyObject element)
+        {
+            return (RibbonControlSizeDefinition)element.GetValue(SimplifiedSizeDefinitionProperty);
+        }
+
+        // Handles RibbonSizeDefinitionProperty changes
+        internal static void OnSimplifiedSizeDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Find parent group box
+            var groupBox = FindParentRibbonGroupBox(d);
+            var element = (UIElement)d;
+
+            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
         }
 
         #endregion

@@ -3,6 +3,7 @@ namespace Fluent
 {
     using System;
     using System.Collections;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
@@ -28,7 +29,8 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentBorder", Type = typeof(Border))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
-    public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider, ISimplifiedControl
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
+    public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Fields
         private ToggleButton? dropDownButton;
@@ -86,6 +88,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(ComboBox));
+
+        #endregion
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(ComboBox));
 
         #endregion
 
@@ -560,7 +576,7 @@ namespace Fluent
         public override void OnApplyTemplate()
         {
             this.dropDownButton = this.GetTemplateChild("PART_ToggleButton") as ToggleButton;
-            if (this.dropDownButton is ISimplifiedControl control)
+            if (this.dropDownButton is ISimplifiedStateControl control)
             {
                 control.UpdateSimplifiedState(this.IsSimplified);
             }
@@ -906,10 +922,10 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
-            if (this.dropDownButton is ISimplifiedControl control)
+            if (this.dropDownButton is ISimplifiedStateControl control)
             {
                 control.UpdateSimplifiedState(isSimplified);
             }

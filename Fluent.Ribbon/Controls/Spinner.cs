@@ -24,7 +24,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
-    public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedControl
+    public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         /// <summary>
         /// Occurs when value has been changed
@@ -37,6 +37,20 @@ namespace Fluent
         private RepeatButton? buttonDown;
 
         #region Properties
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(Spinner));
+
+        #endregion
 
         #region MediumIcon
 
@@ -602,7 +616,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
         }

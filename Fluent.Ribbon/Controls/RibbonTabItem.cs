@@ -29,7 +29,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
     [ContentProperty(nameof(Groups))]
     [DefaultProperty(nameof(Groups))]
-    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedControl
+    public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedStateControl
     {
         #region Fields
 
@@ -323,7 +323,7 @@ namespace Fluent
                             this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, element);
                         }
 
-                        if (element is ISimplifiedControl control)
+                        if (element is ISimplifiedStateControl control)
                         {
                             control.UpdateSimplifiedState(this.IsSimplified);
                         }
@@ -349,7 +349,7 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Add(item);
 
-                        if (item is ISimplifiedControl control)
+                        if (item is ISimplifiedStateControl control)
                         {
                             control.UpdateSimplifiedState(this.IsSimplified);
                         }
@@ -364,7 +364,7 @@ namespace Fluent
                     {
                         this.groupsInnerContainer.Children.Add(group);
 
-                        if (group is ISimplifiedControl control)
+                        if (group is ISimplifiedStateControl control)
                         {
                             control.UpdateSimplifiedState(this.IsSimplified);
                         }
@@ -786,10 +786,10 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
-            foreach (var item in this.Groups.OfType<ISimplifiedControl>())
+            foreach (var item in this.Groups.OfType<ISimplifiedStateControl>())
             {
                 item.UpdateSimplifiedState(isSimplified);
             }

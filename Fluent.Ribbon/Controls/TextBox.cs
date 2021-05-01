@@ -14,7 +14,7 @@ namespace Fluent
     /// Represents custom Fluent UI TextBox
     /// </summary>
     [TemplatePart(Name = "PART_ContentHost", Type = typeof(UIElement))]
-    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl, IMediumIconProvider, ISimplifiedControl
+    public class TextBox : System.Windows.Controls.TextBox, IQuickAccessItemProvider, IRibbonControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         private UIElement? contentHost;
 
@@ -229,6 +229,20 @@ namespace Fluent
 
         #endregion
 
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(TextBox));
+
+        #endregion
+
         #region KeyTip
 
         /// <inheritdoc />
@@ -288,7 +302,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
         }

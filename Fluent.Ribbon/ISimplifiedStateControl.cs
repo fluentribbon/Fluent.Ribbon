@@ -1,9 +1,9 @@
 ﻿namespace Fluent
 {
     /// <summary>
-    /// Base interface for controls supports simplified state
+    /// Base interface for controls requiring simplified state
     /// </summary>
-    public interface ISimplifiedControl
+    public interface ISimplifiedStateControl
     {
         /// <summary>
         /// Update simplified state.

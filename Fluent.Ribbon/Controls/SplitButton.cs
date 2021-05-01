@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls.Primitives;
@@ -18,6 +19,7 @@ namespace Fluent
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTipInformationProvider
     {
         #region Fields
@@ -426,7 +428,7 @@ namespace Fluent
             this.UnSubscribeEvents();
 
             this.button = this.GetTemplateChild("PART_Button") as ToggleButton;
-            if (this.button is ISimplifiedControl control)
+            if (this.button is ISimplifiedStateControl control)
             {
                 control.UpdateSimplifiedState(this.IsSimplified);
             }
@@ -577,7 +579,7 @@ namespace Fluent
         protected override void UpdateSimplifiedState(bool isSimplified)
         {
             base.UpdateSimplifiedState(isSimplified);
-            if (this.button is ISimplifiedControl control)
+            if (this.button is ISimplifiedStateControl control)
             {
                 control.UpdateSimplifiedState(isSimplified);
             }

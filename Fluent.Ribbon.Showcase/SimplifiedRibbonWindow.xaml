@@ -473,6 +473,8 @@
                                             IconBrush="Yellow"/>
                     </fluent:RibbonGroupBox.MediumIcon>
                     <fluent:Button Header="1st button"
+                                   SizeDefinition="Large,Large,Small"
+                                   SimplifiedSizeDefinition="Middle,Middle,Small"
                                    KeyTip="1">
                         <fluent:Button.Icon>
                             <local:TestIcon IconSize="16"
