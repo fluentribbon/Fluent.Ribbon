@@ -32,7 +32,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedControl
+    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedControl
     {
         #region Fields
 
@@ -535,6 +535,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -1237,6 +1251,7 @@ namespace Fluent
         /// <inheritdoc />
         void ISimplifiedControl.UpdateSimplifiedState(bool isSimplified)
         {
+            this.TryClearCache();
             this.IsSimplified = isSimplified;
             foreach (var item in this.Items.OfType<ISimplifiedControl>())
             {
@@ -1270,6 +1285,11 @@ namespace Fluent
                 if (this.Icon is not null)
                 {
                     yield return this.Icon;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
                 }
 
                 if (this.LauncherIcon is not null)

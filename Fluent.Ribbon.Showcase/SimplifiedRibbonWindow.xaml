@@ -50,7 +50,20 @@
                                   Header="First"
                                   KeyTip="1">
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox1"
-                                       Header="Ribbon group box 1">
+                                       Header="Ribbon group box 1"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
                     <fluent:Button Name="FirstButton"
                                    Header="1st button"
                                    KeyTip="1">
@@ -189,10 +202,12 @@
                 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox2"
                                        Header="Ribbon group box 2">
-                </fluent:RibbonGroupBox>
-                
-                <fluent:RibbonGroupBox Header="Ribbon group box 3">
-                    <fluent:Button Header="3rd button">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="4th button">
                         <fluent:Button.Icon>
                             <local:TestIcon IconSize="16"
                                             Foreground="White"
@@ -222,8 +237,46 @@
                             <local:TestIcon IconSize="32"
                                             IconBrush="Yellow"/>
                         </fluent:Button.LargeIcon>
-                    </fluent:Button>
+                    </fluent:Button>                </fluent:RibbonGroupBox>
 
+                <fluent:RibbonGroupBox x:Name="RibbonGroupBox3"
+                                       Header="Ribbon group box 3">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="6th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="7th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
 
@@ -232,6 +285,11 @@
                                   KeyTip="2">
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_1"
                                        Header="Ribbon group box 2-1">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
                     <fluent:CheckBox Header="Check box"
                                      KeyTip="CH1">
                         <fluent:CheckBox.Icon>
@@ -285,6 +343,11 @@
                 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox3_1"
                                        Header="Ribbon group box 3-1">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
                     <fluent:TextBox Header="Text box"
                                     Text="test" 
                                     KeyTip="TE">
@@ -336,6 +399,11 @@
 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox3_2"
                                        Header="Ribbon group box 3-2">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
                     <fluent:InRibbonGallery Header="In ribbon gallery"
                                             ItemsSource="{Binding StringItems}"
                                             IsCollapsed="True"
@@ -415,16 +483,44 @@
                                      SelectedIndex="0"
                                      SelectedItem="{Binding State,ElementName=RibbonGroupBox1}">
                     </fluent:ComboBox>
-                    <CheckBox IsChecked="{Binding IsEnabled, ElementName=FirstButton}">
+                    <CheckBox Margin="10,0,0,0"
+                              IsChecked="{Binding IsEnabled, ElementName=FirstButton}">
                         Button.IsEnabled (for the first button)
                     </CheckBox>
                     <fluent:ComboBox x:Name="RibbonControlSize"
+                                     Margin="10,0,0,0"
                                      Header="RibbonControl.Size (for the first button): "
                                      HorizontalAlignment="Left"
                                      InputWidth="100"
                                      IsEditable="False"
                                      ItemsSource="{Binding Source={StaticResource RibbonControlSizeEnumValues}}"
                                      SelectedItem="{Binding Size,ElementName=FirstButton}" />
+
+                    <CheckBox Margin="0,10,0,0"
+                              IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2}">
+                        RibbonGroupBox.IsEnabled (for the 2nd group box)
+                    </CheckBox>
+                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
+                                     HorizontalAlignment="Left"
+                                     InputWidth="100"
+                                     IsEditable="False"
+                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                     SelectedIndex="0"
+                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox2}">
+                    </fluent:ComboBox>
+
+                    <CheckBox Margin="0,10,0,0"
+                              IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3}">
+                        RibbonGroupBox.IsEnabled (for the 3rd group box)
+                    </CheckBox>
+                    <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
+                                     HorizontalAlignment="Left"
+                                     InputWidth="100"
+                                     IsEditable="False"
+                                     ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
+                                     SelectedIndex="0"
+                                     SelectedItem="{Binding State,ElementName=RibbonGroupBox3}">
+                    </fluent:ComboBox>
                 </StackPanel>
             </GroupBox>
 
