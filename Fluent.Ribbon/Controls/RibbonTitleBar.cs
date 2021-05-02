@@ -8,6 +8,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
+    using System.Windows.Threading;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -60,7 +61,7 @@ namespace Fluent
         private static void OnQuickAccessToolBarChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var titleBar = (RibbonTitleBar)d;
-            titleBar.ForceMeasureAndArrange();
+            titleBar.ScheduleForceMeasureAndArrange();
         }
 
         /// <summary>
@@ -507,6 +508,27 @@ namespace Fluent
         }
 
         #endregion
+
+        private DispatcherOperation? forceMeasureAndArrangeOperation;
+
+        /// <summary>
+        /// Schedules a call to <see cref="FrameworkElementExtensions.ForceMeasureAndArrange"/>.
+        /// </summary>
+        public void ScheduleForceMeasureAndArrange()
+        {
+            if (this.forceMeasureAndArrangeOperation is not null)
+            {
+                return;
+            }
+
+            this.forceMeasureAndArrangeOperation = this.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(this.PrivateForceMeasureAndArrange));
+        }
+
+        private void PrivateForceMeasureAndArrange()
+        {
+            this.forceMeasureAndArrangeOperation = null;
+            this.ForceMeasureAndArrange();
+        }
 
         /// <inheritdoc />
         protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTitleBarAutomationPeer(this);

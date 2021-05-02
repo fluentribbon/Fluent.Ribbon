@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -325,7 +325,7 @@ namespace Fluent
                                           // Fix for #454 while also keeping #473
                                           var availableSize = new Size(this.TitleBar.ActualWidth, this.TitleBar.ActualHeight);
                                           this.TitleBar.Measure(availableSize);
-                                          this.TitleBar.ForceMeasureAndArrange();
+                                          this.TitleBar.ScheduleForceMeasureAndArrange();
                                       }, DispatcherPriority.ApplicationIdle);
         }
 
@@ -387,7 +387,7 @@ namespace Fluent
                 this.SizeToContent = SizeToContent.Manual;
             }
 
-            this.RunInDispatcherAsync(() => this.TitleBar?.ForceMeasureAndArrange(), DispatcherPriority.Background);
+            this.TitleBar?.ScheduleForceMeasureAndArrange();
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
