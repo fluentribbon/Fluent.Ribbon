@@ -1755,7 +1755,7 @@ namespace Fluent
 
             this.LoadInitialState();
 
-            this.TitleBar?.ForceMeasureAndArrange();
+            this.TitleBar?.ScheduleForceMeasureAndArrange();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)

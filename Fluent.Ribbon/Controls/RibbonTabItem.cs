@@ -608,7 +608,7 @@ namespace Fluent
                 contextualTabGroupContainer?.InvalidateMeasure();
 
                 var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
-                ribbonTitleBar?.ForceMeasureAndArrange();
+                ribbonTitleBar?.ScheduleForceMeasureAndArrange();
             }
 
             return baseConstraint;
@@ -620,7 +620,7 @@ namespace Fluent
             var result = base.ArrangeOverride(arrangeBounds);
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(this.Group);
-            ribbonTitleBar?.ForceMeasureAndArrange();
+            ribbonTitleBar?.ScheduleForceMeasureAndArrange();
 
             return result;
         }

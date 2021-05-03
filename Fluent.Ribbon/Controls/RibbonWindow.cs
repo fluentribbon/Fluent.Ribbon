@@ -113,7 +113,19 @@ namespace Fluent
         }
 
         /// <summary>Identifies the <see cref="ResizeBorderThickness"/> dependency property.</summary>
-        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(new Thickness(6D)));
+        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue));
+
+        // /// <summary>Identifies the <see cref="GlowDepth"/> dependency property.</summary>
+        // public static readonly DependencyProperty GlowDepthProperty = DependencyProperty.Register(nameof(GlowDepth), typeof(int), typeof(RibbonWindow), new PropertyMetadata(GlowWindowBehavior.GlowDepthProperty.DefaultMetadata.DefaultValue));
+        //
+        // /// <summary>
+        // /// Gets or sets the <see cref="GlowWindowBehavior.GlowDepth"/>.
+        // /// </summary>
+        // public int GlowDepth
+        // {
+        //     get => (int)this.GetValue(GlowDepthProperty);
+        //     set => this.SetValue(GlowDepthProperty, value);
+        // }
 
         /// <summary>Identifies the <see cref="GlowBrush"/> dependency property.</summary>
         public static readonly DependencyProperty GlowBrushProperty = DependencyProperty.Register(nameof(GlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
@@ -268,6 +280,7 @@ namespace Fluent
         private void InitializeGlowWindowBehavior()
         {
             var behavior = new GlowWindowBehavior();
+            // BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowDepthProperty, new Binding { Path = new PropertyPath(GlowDepthProperty), Source = this });
             BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
             BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding { Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this });
@@ -325,7 +338,7 @@ namespace Fluent
                                           // Fix for #454 while also keeping #473
                                           var availableSize = new Size(this.TitleBar.ActualWidth, this.TitleBar.ActualHeight);
                                           this.TitleBar.Measure(availableSize);
-                                          this.TitleBar.ForceMeasureAndArrange();
+                                          this.TitleBar.ScheduleForceMeasureAndArrange();
                                       }, DispatcherPriority.ApplicationIdle);
         }
 
@@ -387,7 +400,7 @@ namespace Fluent
                 this.SizeToContent = SizeToContent.Manual;
             }
 
-            this.RunInDispatcherAsync(() => this.TitleBar?.ForceMeasureAndArrange(), DispatcherPriority.Background);
+            this.TitleBar?.ScheduleForceMeasureAndArrange();
         }
 
         private void HandleIconMouseDown(object sender, MouseButtonEventArgs e)
