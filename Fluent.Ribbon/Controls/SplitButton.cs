@@ -576,12 +576,12 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        protected override void UpdateSimplifiedState(bool isSimplified)
+        protected override void OnIsSimplifiedChanged(bool oldValue, bool newValue)
         {
-            base.UpdateSimplifiedState(isSimplified);
+            base.OnIsSimplifiedChanged(oldValue, newValue);
             if (this.button is ISimplifiedStateControl control)
             {
-                control.UpdateSimplifiedState(isSimplified);
+                control.UpdateSimplifiedState(newValue);
             }
         }
 

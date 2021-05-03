@@ -302,10 +302,27 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox));
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
         /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
         public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is DropDownButton dropDownButton)
+            {
+                dropDownButton.OnIsSimplifiedChanged((bool)e.OldValue, (bool)e.NewValue);
+            }
+        }
+
+        /// <summary>
+        /// Handles IsSimplified changed event for overide
+        /// </summary>
+        /// <param name="oldValue">old value</param>
+        /// <param name="newValue">new value</param>
+        protected virtual void OnIsSimplifiedChanged(bool oldValue, bool newValue)
+        {
+        }
 
         #endregion
 
@@ -878,18 +895,10 @@ namespace Fluent
 
         #endregion MenuItem workarounds
 
-        /// <summary>
-        /// Update the Simplified state
-        /// </summary>
-        protected virtual void UpdateSimplifiedState(bool isSimplified)
-        {
-            this.IsSimplified = isSimplified;
-        }
-
         /// <inheritdoc />
         void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
-            this.UpdateSimplifiedState(isSimplified);
+            this.IsSimplified = isSimplified;
         }
 
         /// <inheritdoc />

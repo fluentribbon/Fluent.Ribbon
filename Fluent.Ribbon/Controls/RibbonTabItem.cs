@@ -314,18 +314,21 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        var element = (UIElement?)e.NewItems[i];
-
-                        if (element is not null)
+                        var isSimplified = this.IsSimplified;
+                        for (var i = 0; i < e.NewItems?.Count; i++)
                         {
-                            this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, element);
-                        }
+                            var element = (UIElement?)e.NewItems[i];
 
-                        if (element is ISimplifiedStateControl control)
-                        {
-                            control.UpdateSimplifiedState(this.IsSimplified);
+                            if (element is not null)
+                            {
+                                this.groupsInnerContainer.Children.Insert(e.NewStartingIndex + i, element);
+                            }
+
+                            if (element is ISimplifiedStateControl control)
+                            {
+                                control.UpdateSimplifiedState(isSimplified);
+                            }
                         }
                     }
 
@@ -345,13 +348,16 @@ namespace Fluent
                         this.groupsInnerContainer.Children.Remove(item);
                     }
 
-                    foreach (var item in e.NewItems.NullSafe().OfType<UIElement>())
                     {
-                        this.groupsInnerContainer.Children.Add(item);
-
-                        if (item is ISimplifiedStateControl control)
+                        var isSimplified = this.IsSimplified;
+                        foreach (var item in e.NewItems.NullSafe().OfType<UIElement>())
                         {
-                            control.UpdateSimplifiedState(this.IsSimplified);
+                            this.groupsInnerContainer.Children.Add(item);
+
+                            if (item is ISimplifiedStateControl control)
+                            {
+                                control.UpdateSimplifiedState(isSimplified);
+                            }
                         }
                     }
 
@@ -360,13 +366,16 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Reset:
                     this.groupsInnerContainer.Children.Clear();
 
-                    foreach (var group in this.Groups)
                     {
-                        this.groupsInnerContainer.Children.Add(group);
-
-                        if (group is ISimplifiedStateControl control)
+                        var isSimplified = this.IsSimplified;
+                        foreach (var group in this.Groups)
                         {
-                            control.UpdateSimplifiedState(this.IsSimplified);
+                            this.groupsInnerContainer.Children.Add(group);
+
+                            if (group is ISimplifiedStateControl control)
+                            {
+                                control.UpdateSimplifiedState(isSimplified);
+                            }
                         }
                     }
 
@@ -463,11 +472,22 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
         /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
         public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
 
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RibbonTabItem ribbonTabItem)
+            {
+                var isSimplified = (bool)e.NewValue;
+                foreach (var item in ribbonTabItem.Groups.OfType<ISimplifiedStateControl>())
+                {
+                    item.UpdateSimplifiedState(isSimplified);
+                }
+            }
+        }
         #endregion
 
         #endregion Properties
@@ -789,10 +809,6 @@ namespace Fluent
         void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
             this.IsSimplified = isSimplified;
-            foreach (var item in this.Groups.OfType<ISimplifiedStateControl>())
-            {
-                item.UpdateSimplifiedState(isSimplified);
-            }
         }
 
         /// <inheritdoc />

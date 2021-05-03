@@ -861,22 +861,27 @@ namespace Fluent
         /// <param name="e">The event data</param>
         private void OnTabItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            var isSimplified = this.IsSimplified;
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedStateControl>())
                     {
-                        item.UpdateSimplifiedState(isSimplified);
+                        var isSimplified = this.IsSimplified;
+                        foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedStateControl>())
+                        {
+                            item.UpdateSimplifiedState(isSimplified);
+                        }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
-                    foreach (var item in this.Tabs.OfType<ISimplifiedStateControl>())
                     {
-                        item.UpdateSimplifiedState(isSimplified);
+                        var isSimplified = this.IsSimplified;
+                        foreach (var item in this.Tabs.OfType<ISimplifiedStateControl>())
+                        {
+                            item.UpdateSimplifiedState(isSimplified);
+                        }
                     }
 
                     break;

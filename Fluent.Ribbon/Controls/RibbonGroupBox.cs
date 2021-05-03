@@ -145,6 +145,7 @@ namespace Fluent
             var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess
                             ? RibbonGroupBoxState.Collapsed
                             : this.State;
+            var isSimplified = this.IsSimplified;
 
             foreach (var item in this.Items)
             {
@@ -162,7 +163,7 @@ namespace Fluent
                     targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
                 }
 
-                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState);
+                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState, isSimplified);
             }
         }
 
@@ -585,10 +586,51 @@ namespace Fluent
         }
 
         private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox));
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
         /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
         public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Called when <see cref="IsSimplified"/> changes.
+        /// </summary>
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RibbonGroupBox ribbonGroupBox)
+            {
+                var isSimplified = (bool)e.NewValue;
+                ribbonGroupBox.UpdateChildIsSimplified(isSimplified);
+
+                // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
+                ribbonGroupBox.UpdateChildSizes();
+
+                ribbonGroupBox.TryClearCacheAndResetStateAndScale();
+            }
+        }
+
+        private void UpdateChildIsSimplified(bool isSimplified)
+        {
+            foreach (var item in this.Items)
+            {
+                var element = this.ItemContainerGenerator.ContainerFromItem(item);
+                if (element is null)
+                {
+                    return;
+                }
+
+                var targetElement = element;
+
+                if (targetElement is ContentPresenter)
+                {
+                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
+                }
+
+                if (targetElement is ISimplifiedStateControl simplifiedStateControl)
+                {
+                    simplifiedStateControl.UpdateSimplifiedState(isSimplified);
+                }
+            }
+        }
 
         #endregion
 
@@ -659,6 +701,24 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
+
+            // When initializing at first,
+            //   1.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers)
+            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated)
+            //   3.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated)
+            //   4.OnLoaded(Status = GeneratorStatus.ContainersGenerated)
+            //   or
+            //   1.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers)
+            //   2.OnApplyTemplate(Status = GeneratorStatus.GeneratingContainers)
+            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated)
+            //   4.OnLoaded(Status = GeneratorStatus.ContainersGenerated)
+            // When changing template after OnLoaded(),
+            //   1.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated (old items))
+            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (new items))
+            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (new items))
+            // So, we always have to handle StatusChanged(Status = GeneratorStatus.ContainersGenerated)
+            // This event handler must receive event notifications prior to OnLoaded()
+            this.ItemContainerGenerator.StatusChanged += this.ItemContainerGenerator_StatusChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -972,42 +1032,12 @@ namespace Fluent
             this.SubscribeEvents();
         }
 
-        private void OnPopupOpened(object? sender, EventArgs e)
-        {
-            this.DropDownOpened?.Invoke(this, e);
-        }
-
-        private void OnPopupClosed(object? sender, EventArgs e)
-        {
-            this.DropDownClosed?.Invoke(this, e);
-        }
-
         /// <inheritdoc />
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
         {
             base.OnItemsChanged(e);
 
             this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Reset:
-                    foreach (var item in this.Items.OfType<ISimplifiedStateControl>())
-                    {
-                        item.UpdateSimplifiedState(this.IsSimplified);
-                    }
-
-                    break;
-
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.NewItems.NullSafe().OfType<ISimplifiedStateControl>())
-                    {
-                        item.UpdateSimplifiedState(this.IsSimplified);
-                    }
-
-                    break;
-            }
         }
 
         /// <inheritdoc />
@@ -1057,6 +1087,24 @@ namespace Fluent
         #endregion
 
         #region Event Handling
+
+        private void ItemContainerGenerator_StatusChanged(object? sender, EventArgs e)
+        {
+            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {
+                this.UpdateChildIsSimplified(this.IsSimplified);
+            }
+        }
+
+        private void OnPopupOpened(object? sender, EventArgs e)
+        {
+            this.DropDownOpened?.Invoke(this, e);
+        }
+
+        private void OnPopupClosed(object? sender, EventArgs e)
+        {
+            this.DropDownClosed?.Invoke(this, e);
+        }
 
         /// <summary>
         /// Dialog launcher button click handler
@@ -1253,12 +1301,7 @@ namespace Fluent
         /// <inheritdoc />
         void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
         {
-            this.TryClearCacheAndResetStateAndScale();
             this.IsSimplified = isSimplified;
-            foreach (var item in this.Items.OfType<ISimplifiedStateControl>())
-            {
-                item.UpdateSimplifiedState(isSimplified);
-            }
         }
 
         /// <inheritdoc />

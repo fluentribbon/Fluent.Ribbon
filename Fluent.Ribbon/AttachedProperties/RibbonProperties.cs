@@ -94,8 +94,12 @@ namespace Fluent
             // Find parent group box
             var groupBox = FindParentRibbonGroupBox(d);
             var element = (UIElement)d;
+            var isSimplified = groupBox?.IsSimplified ?? false;
 
-            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
+            if (!isSimplified)
+            {
+                SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large, isSimplified);
+            }
         }
 
         // Finds parent group box
@@ -124,18 +128,10 @@ namespace Fluent
         /// </summary>
         /// <param name="element">UI Element</param>
         /// <param name="state">Group box state</param>
-        public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
+        /// <param name="isSimplified">Group box isSimplified state</param>
+        public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state, bool isSimplified)
         {
-            RibbonControlSizeDefinition sizeDefinition;
-            if (element is ISimplifiedRibbonControl control)
-            {
-                sizeDefinition = control.IsSimplified ? GetSimplifiedSizeDefinition(element) : GetSizeDefinition(element);
-            }
-            else
-            {
-                sizeDefinition = GetSizeDefinition(element);
-            }
-
+            var sizeDefinition = isSimplified ? GetSimplifiedSizeDefinition(element) : GetSizeDefinition(element);
             SetSize(element, sizeDefinition.GetSize(state));
         }
 
@@ -180,8 +176,12 @@ namespace Fluent
             // Find parent group box
             var groupBox = FindParentRibbonGroupBox(d);
             var element = (UIElement)d;
+            var isSimplified = groupBox?.IsSimplified ?? false;
 
-            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
+            if (isSimplified)
+            {
+                SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large, isSimplified);
+            }
         }
 
         #endregion
