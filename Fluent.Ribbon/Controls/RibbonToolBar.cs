@@ -334,6 +334,7 @@ namespace Fluent
 
                 columnWidth = Math.Max(columnWidth, child.DesiredSize.Width);
                 currentheight += child.DesiredSize.Height;
+                resultHeight = Math.Max(resultHeight, currentheight);
             }
 
             return new Size(resultWidth + columnWidth, resultHeight);
