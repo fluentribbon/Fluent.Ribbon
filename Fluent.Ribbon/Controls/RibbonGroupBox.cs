@@ -148,21 +148,31 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
-
-                if (element is null)
-                {
-                    continue;
-                }
-
-                var targetElement = element;
-
-                if (targetElement is ContentPresenter)
-                {
-                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
-                }
-
-                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState);
+                this.UpdateChildSizesOfUIElement(element, groupBoxState);
             }
+        }
+
+        private void UpdateChildSizesOfUIElement(DependencyObject? element, RibbonGroupBoxState groupBoxState)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
+            if (element is Panel panel)
+            {
+                for (int i = 0; i < panel.Children.Count; i++)
+                {
+                    this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState);
+                }
+            }
+
+            if (element is ContentPresenter)
+            {
+                element = UIHelper.GetFirstVisualChild(element) ?? element;
+            }
+
+            RibbonProperties.SetAppropriateSize(element, groupBoxState);
         }
 
         #endregion
