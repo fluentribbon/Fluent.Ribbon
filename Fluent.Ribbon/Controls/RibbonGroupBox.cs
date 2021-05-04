@@ -51,6 +51,10 @@ namespace Fluent
 
         private readonly ItemContainerGeneratorAction updateChildSizesItemContainerGeneratorAction;
 
+        private bool isDeferredClearCache;
+        private bool isDeferredClearCacheAndResetStateAndScale;
+        private bool isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer;
+
         #endregion
 
         #region Properties
@@ -600,11 +604,6 @@ namespace Fluent
             {
                 var isSimplified = (bool)e.NewValue;
                 ribbonGroupBox.UpdateChildIsSimplified(isSimplified);
-
-                // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
-                ribbonGroupBox.UpdateChildSizes();
-
-                ribbonGroupBox.TryClearCacheAndResetStateAndScale();
             }
         }
 
@@ -630,6 +629,10 @@ namespace Fluent
                     simplifiedStateControl.UpdateSimplifiedState(isSimplified);
                 }
             }
+
+            // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
+            this.UpdateChildSizes();
+            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
         }
 
         #endregion
@@ -703,27 +706,29 @@ namespace Fluent
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
 
             // When initializing at first,
-            //   1.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers)
-            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated)
-            //   3.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated)
-            //   4.OnLoaded(Status = GeneratorStatus.ContainersGenerated)
-            //   or
-            //   1.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers)
-            //   2.OnApplyTemplate(Status = GeneratorStatus.GeneratingContainers)
-            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated)
+            //   1.OnApplyTemplate(Status = GeneratorStatus.NotStarted(UIElements are invalid))
+            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers(UIElements are invalid))
+            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated(UIElements are valid))
             //   4.OnLoaded(Status = GeneratorStatus.ContainersGenerated)
             // When changing template after OnLoaded(),
-            //   1.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated (old items))
-            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (new items))
-            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (new items))
+            //   1.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated (but UIElements are invalid)))
+            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (UIElements are invalid))
+            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (UIElements are valid))
+            // When changing count of Items template after OnLoaded(),
+            //   1.ItemContainerGenerator_ItemsChanged(Status = GeneratorStatus.ContainersGenerated (but UIElements for new items are invalid))
+            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (UIElements for new items are invalid))
+            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (UIElements for all items are valid))
             // So, we always have to handle StatusChanged(Status = GeneratorStatus.ContainersGenerated)
             // This event handler must receive event notifications prior to OnLoaded()
             this.ItemContainerGenerator.StatusChanged += this.ItemContainerGenerator_StatusChanged;
+            this.ItemContainerGenerator.ItemsChanged += this.ItemContainerGenerator_ItemsChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             this.SubscribeEvents();
+
+            this.TryDoDeferredCacheProcess();
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -911,9 +916,12 @@ namespace Fluent
         {
             if (this.CacheResetGuard.IsActive == false)
             {
+                this.isDeferredClearCache = false;
                 this.ClearCache();
                 return true;
             }
+
+            this.isDeferredClearCache = true;
 
             return false;
         }
@@ -923,8 +931,11 @@ namespace Fluent
             if (this.CacheResetGuard.IsActive
                 || this.IsLoaded == false)
             {
+                this.isDeferredClearCacheAndResetStateAndScale = true;
                 return false;
             }
+
+            this.isDeferredClearCacheAndResetStateAndScale = false;
 
             this.UpdateScalableControlSubscritions(false);
 
@@ -953,10 +964,37 @@ namespace Fluent
             if (this.TryClearCacheAndResetStateAndScale())
             {
                 UIHelper.GetParent<RibbonGroupsContainer>(this)?.GroupBoxCacheClearedAndStateAndScaleResetted(this);
+                this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = false;
                 return true;
+            }
+            else
+            {
+                this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = true;
             }
 
             return false;
+        }
+
+        private bool TryDoDeferredCacheProcess()
+        {
+            if (this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer)
+            {
+                this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            }
+
+            if (this.isDeferredClearCacheAndResetStateAndScale)
+            {
+                this.TryClearCacheAndResetStateAndScale();
+            }
+
+            if (this.isDeferredClearCache)
+            {
+                this.TryClearCache();
+            }
+
+            return !this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer
+                && !this.isDeferredClearCacheAndResetStateAndScale
+                && !this.isDeferredClearCache;
         }
 
         /// <summary>
@@ -1008,6 +1046,7 @@ namespace Fluent
 
             // Clear cache
             this.ClearCache();
+            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
 
             this.HeaderContentControl = this.GetTemplateChild("PART_HeaderContentControl") as ContentControl;
             this.CollapsedHeaderContentControl = this.GetTemplateChild("PART_CollapsedHeaderContentControl") as ContentControl;
@@ -1094,6 +1133,10 @@ namespace Fluent
             {
                 this.UpdateChildIsSimplified(this.IsSimplified);
             }
+        }
+
+        private void ItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
+        {
         }
 
         private void OnPopupOpened(object? sender, EventArgs e)

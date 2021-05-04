@@ -454,10 +454,10 @@
             </fluent:RibbonTabItem>
 
             <fluent:RibbonTabItem x:Name="RibbonTab4"
-                                  Header="Resizing test"
-                                  ReduceOrder="ResizeTab1,ResizeTab1,ResizeTab1,ResizeTab2"
+                                  Header="Resizing test 1"
+                                  ReduceOrder="ResizeTab11,ResizeTab11,ResizeTab11,ResizeTab12"
                                   KeyTip="1">
-                <fluent:RibbonGroupBox x:Name="ResizeTab1"
+                <fluent:RibbonGroupBox x:Name="ResizeTab11"
                                        Header="Ribbon group box 1"
                                        LauncherText="launcher"
                                        IsSeparatorVisible="True"
@@ -472,9 +472,150 @@
                                             Foreground="Black"
                                             IconBrush="Yellow"/>
                     </fluent:RibbonGroupBox.MediumIcon>
-                    <fluent:Button Header="1st button"
+                    <fluent:Button Header="Add toggle button"
                                    SizeDefinition="Large,Large,Small"
                                    SimplifiedSizeDefinition="Middle,Middle,Small"
+                                   Click="Click_AddToggleButton1"
+                                   KeyTip="1">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="2nd button"
+                                   KeyTip="2">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="ResizeTab12"
+                                       Header="Ribbon group box 2">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="4th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="5th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="ResizeTab13"
+                                       Header="Ribbon group box 3">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:Button Header="6th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="Blue"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="7th button">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            IconBrush="Yellow"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+            <fluent:RibbonTabItem x:Name="RibbonTab5"
+                                  Header="Resizing test 2"
+                                  ReduceOrder="ResizeTab21,ResizeTab21,ResizeTab21,ResizeTab22"
+                                  KeyTip="1">
+                <fluent:RibbonGroupBox x:Name="ResizeTab21"
+                                       Header="Ribbon group box 1"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <fluent:Button Header="Add toggle button"
+                                   SizeDefinition="Large,Large,Small"
+                                   SimplifiedSizeDefinition="Middle,Middle,Small"
+                                   Click="Click_AddToggleButton2"
                                    KeyTip="1">
                         <fluent:Button.Icon>
                             <local:TestIcon IconSize="16"
@@ -586,7 +727,7 @@
                     </fluent:ComboBox>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="ResizeTab2"
+                <fluent:RibbonGroupBox x:Name="ResizeTab22"
                                        Header="Ribbon group box 2">
                     <fluent:RibbonGroupBox.Icon>
                         <local:TestIcon IconSize="16"
@@ -626,7 +767,7 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="ResizeTab3"
+                <fluent:RibbonGroupBox x:Name="ResizeTab23"
                                        Header="Ribbon group box 3">
                     <fluent:RibbonGroupBox.Icon>
                         <local:TestIcon IconSize="16"
@@ -666,10 +807,9 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
-
-            <fluent:RibbonTabItem x:Name="RibbonTab5"
+            
+            <fluent:RibbonTabItem x:Name="RibbonTab6"
                                   Header="Visible test that depend on IsSimplified"
-                                  ReduceOrder="ResizeTab1,ResizeTab1,ResizeTab1,ResizeTab2"
                                   KeyTip="1">
                 <fluent:RibbonTabItem.Resources>
                     <Style x:Key="RibbonButtonFullModeOnlyStyle"  TargetType="fluent:Button" BasedOn="{StaticResource {x:Type fluent:Button}}">
