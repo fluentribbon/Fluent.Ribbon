@@ -214,9 +214,7 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Large
-                    ? groupBox.StateIntermediate - 1
-                    : RibbonGroupBoxState.Large;
+                groupBox.StateIntermediate = groupBox.StateDefinition.EnlargeState(groupBox.StateIntermediate);
             }
         }
 
@@ -237,9 +235,7 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed
-                    ? groupBox.StateIntermediate + 1
-                    : groupBox.StateIntermediate;
+                groupBox.StateIntermediate = groupBox.StateDefinition.ReduceState(groupBox.StateIntermediate);
             }
         }
 
