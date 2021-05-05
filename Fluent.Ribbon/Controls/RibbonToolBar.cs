@@ -215,11 +215,6 @@ namespace Fluent
         /// <inheritdoc />
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
-            foreach (var frameworkElement in this.actualChildren)
-            {
-                RibbonProperties.SetSize(frameworkElement, current);
-            }
-
             this.rebuildVisualAndLogicalChildren = true;
             this.InvalidateMeasure();
         }
@@ -309,11 +304,14 @@ namespace Fluent
             double resultWidth = 0;
             double resultHeight = 0;
 
+            var ribbonToolBarSize = RibbonProperties.GetSize(this);
             foreach (var child in this.Children)
             {
                 // Measuring
                 if (measure)
                 {
+                    // Apply Control Definition Properties
+                    RibbonProperties.SetAppropriateSize(child, ribbonToolBarSize);
                     child.Measure(SizeConstants.Infinite);
                 }
 
@@ -487,7 +485,7 @@ namespace Fluent
                         if (measure)
                         {
                             // Apply Control Definition Properties
-                            RibbonProperties.SetSize(control, RibbonProperties.GetSize(ribbonToolBarControlDefinition));
+                            RibbonProperties.SetAppropriateSize(control, RibbonProperties.GetSize(ribbonToolBarControlDefinition));
                             control.Width = ribbonToolBarControlDefinition.Width;
                             control.Measure(availableSize);
                         }

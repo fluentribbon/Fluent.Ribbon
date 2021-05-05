@@ -129,6 +129,17 @@ namespace Fluent
             SetSize(element, GetSizeDefinition(element).GetSize(state));
         }
 
+        /// <summary>
+        /// Sets appropriate size of the control according to the
+        /// given ribbon control size and control's size definition
+        /// </summary>
+        /// <param name="element">UI Element</param>
+        /// <param name="size">Ribbon control size before applying SizeDefinition</param>
+        public static void SetAppropriateSize(DependencyObject element, RibbonControlSize size)
+        {
+            SetSize(element, GetSizeDefinition(element).GetSize(size));
+        }
+
         #endregion
 
         #region MouseOverBackgroundProperty
