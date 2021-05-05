@@ -557,7 +557,7 @@ namespace Fluent
             var titleBar = RibbonControl.GetParentRibbon(this)?.TitleBar
                            ?? UIHelper.GetParent<RibbonTitleBar>(this);
 
-            titleBar?.ForceMeasureAndArrange();
+            titleBar?.ScheduleForceMeasureAndArrange();
         }
 
         /// <summary>

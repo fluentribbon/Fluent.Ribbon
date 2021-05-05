@@ -318,7 +318,7 @@ namespace Fluent
             }
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
-            ribbonTitleBar?.ForceMeasureAndArrange();
+            ribbonTitleBar?.ScheduleForceMeasureAndArrange();
         }
     }
 }

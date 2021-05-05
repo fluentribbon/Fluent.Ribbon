@@ -134,6 +134,27 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets the appropriate <see cref="RibbonControlSize"/> from <see cref="Large"/>, <see cref="Middle"/> or <see cref="Small"/> depending on <paramref name="ribbonControlSize"/>
+        /// </summary>
+        public RibbonControlSize GetSize(RibbonControlSize ribbonControlSize)
+        {
+            switch (ribbonControlSize)
+            {
+                case RibbonControlSize.Large:
+                    return this.Large;
+
+                case RibbonControlSize.Middle:
+                    return this.Middle;
+
+                case RibbonControlSize.Small:
+                    return this.Small;
+
+                default:
+                    return RibbonControlSize.Large;
+            }
+        }
+
         #region Overrides of ValueType
 
         /// <inheritdoc />

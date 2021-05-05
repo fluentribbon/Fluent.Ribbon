@@ -15,6 +15,8 @@
   - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
   - [#918](../../issues/918) - Custom color does not reset color gallery selection state
   - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
+  - [#925](../../issues/925) - Controls might not be shown when using default layout of RibbonToolbar (thanks @nishy2000)
+  - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
 
 ## 8.0.3
 
