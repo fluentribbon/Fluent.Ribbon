@@ -119,12 +119,29 @@ namespace Fluent
         public RibbonGroupBoxState EnlargeState(RibbonGroupBoxState ribbonGroupBoxState)
         {
             var index = this.states.IndexOf(ribbonGroupBoxState);
-            if (index > 0 && index < this.states.Count)
+            if (index >= 0)
             {
-                return this.states[index - 1];
+                if (index > 0)
+                {
+                    return this.states[index - 1];
+                }
+                else
+                {
+                    return this.states.First();
+                }
             }
             else
             {
+                //  If not found current state, find the closest state that exists in the state list
+                while (--ribbonGroupBoxState >= RibbonGroupBoxState.Large)
+                {
+                    index = this.states.IndexOf(ribbonGroupBoxState);
+                    if (index >= 0)
+                    {
+                        return this.states[index];
+                    }
+                }
+
                 return this.states.First();
             }
         }
@@ -135,12 +152,29 @@ namespace Fluent
         public RibbonGroupBoxState ReduceState(RibbonGroupBoxState ribbonGroupBoxState)
         {
             var index = this.states.IndexOf(ribbonGroupBoxState);
-            if (index >= 0 && index < this.states.Count - 1)
+            if (index >= 0)
             {
-                return this.states[index + 1];
+                if (index < this.states.Count - 1)
+                {
+                    return this.states[index + 1];
+                }
+                else
+                {
+                    return this.states.Last();
+                }
             }
             else
             {
+                // If not found current state, find the closest state that exists in the state list
+                while (++ribbonGroupBoxState <= RibbonGroupBoxState.Collapsed)
+                {
+                    index = this.states.IndexOf(ribbonGroupBoxState);
+                    if (index >= 0)
+                    {
+                        return this.states[index];
+                    }
+                }
+
                 return this.states.Last();
             }
         }
