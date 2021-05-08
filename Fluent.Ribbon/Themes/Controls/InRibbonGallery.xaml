@@ -43,10 +43,14 @@
                         Value="Auto"/>
                 <Setter Property="Height"
                         Value="Auto"/>
+                <Setter Property="MinHeight"
+                        Value="30"/>
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch"/>
                 <Setter Property="VerticalAlignment"
                         Value="Stretch"/>
                 <Setter Property="Padding"
-                        Value="6,0,2,0"/>
+                        Value="6,2,2,2"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -192,19 +196,25 @@
     <ControlTemplate x:Key="InRibbonGallerySimplifiedToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                Background="Transparent"
-                BorderBrush="Transparent"
+                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                Height="Auto">
-            <StackPanel x:Name="stackPanel"
-                        Width="Auto"
-                        Height="Auto"
-                        Margin="{TemplateBinding Padding}"
-                        VerticalAlignment="Stretch"
-                        Orientation="Horizontal">
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="Transparent"
+                BorderBrush="Transparent">
+            <Grid x:Name="stackPanel"
+                  Width="Auto"
+                  Height="Auto"
+                  Margin="{TemplateBinding Padding}"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 <Grid x:Name="iconImageGrid"
+                      Grid.Column="0"
                       Margin="0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center">
@@ -227,13 +237,22 @@
                             Visibility="Collapsed"/>
                 </Grid>
                 <Fluent:TwoLineLabel x:Name="controlLabel"
+                                     Grid.Column="1"
                                      Text="{TemplateBinding Header}"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
                                      Margin="2,0,0,0"
                                      HasTwoLines="False"
+                                     HasGlyph="False" />
+                <Fluent:TwoLineLabel x:Name="controlLabel2"
+                                     Grid.Column="2"
+                                     Text=""
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Margin="0"
+                                     HasTwoLines="False"
                                      HasGlyph="True" />
-            </StackPanel>
+            </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>
@@ -320,6 +339,9 @@
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="controlLabel"
+                        Value="0.5" />
+                <Setter Property="Opacity"
+                        TargetName="controlLabel2"
                         Value="0.5" />
                 <Setter Property="Effect"
                         TargetName="iconImageGrid">
@@ -791,6 +813,9 @@
                     <Condition Property="IsCollapsed"
                                Value="True"/>
                 </MultiTrigger.Conditions>
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_LayoutRoot"
+                        Value="Stretch" />
                 <Setter Property="VerticalAlignment"
                         TargetName="PART_LayoutRoot"
                         Value="Stretch" />

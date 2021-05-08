@@ -641,7 +641,7 @@
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
-                           Height="{Binding ActualHeight, RelativeSource={RelativeSource TemplatedParent}}"
+                           Height="Auto"
                            AllowsTransparency="True"
                            PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}"
                            IsOpen="{TemplateBinding IsDropDownOpen}">
@@ -697,6 +697,9 @@
                 <Setter Property="Content"
                         TargetName="popupContent"
                         Value="{Binding ElementName=PART_ParentPanel}" />
+                <Setter Property="Orientation"
+                        TargetName="PART_UpPanel"
+                        Value="Vertical" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

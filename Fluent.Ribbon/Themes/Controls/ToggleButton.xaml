@@ -16,6 +16,10 @@
                 Value="Auto" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderBrush"
+                Value="Transparent" />
         <Setter Property="BorderThickness"
                 Value="1" />
         <Style.Triggers>
@@ -48,10 +52,14 @@
                         Value="Auto"/>
                 <Setter Property="Height"
                         Value="Auto"/>
+                <Setter Property="MinHeight"
+                        Value="30"/>
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch"/>
                 <Setter Property="VerticalAlignment"
                         Value="Stretch"/>
                 <Setter Property="Padding"
-                        Value="6 0"/>
+                        Value="6,2"/>
             </Trigger>
         </Style.Triggers>
     </Style>

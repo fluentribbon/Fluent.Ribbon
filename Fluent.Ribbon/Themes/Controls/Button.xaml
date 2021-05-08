@@ -403,10 +403,14 @@
                         Value="Auto"/>
                 <Setter Property="Height"
                         Value="Auto"/>
+                <Setter Property="MinHeight"
+                        Value="30"/>
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch"/>
                 <Setter Property="VerticalAlignment"
                         Value="Stretch"/>
                 <Setter Property="Padding"
-                        Value="6 0"/>
+                        Value="6,2"/>
             </Trigger>
         </Style.Triggers>
     </Style>

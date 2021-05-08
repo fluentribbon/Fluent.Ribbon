@@ -280,7 +280,7 @@
                 <Setter Property="Margin"
                         Value="0" />
                 <Setter Property="Padding"
-                        Value="6,0"/>
+                        Value="6,2"/>
                 <Setter Property="BorderThickness"
                         Value="1" />
             </Trigger>

@@ -623,14 +623,14 @@
                 <Border x:Name="PART_ContentBorder"
                         Grid.Column="1"
                         Height="Auto"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
                         BorderThickness="1,1,1,1"
                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                         Width="{TemplateBinding InputWidth}"
-                        d:LayoutOverrides="GridBox"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right">
-                    <Grid>
+                        d:LayoutOverrides="GridBox">
+                    <Grid VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="13" />
@@ -638,6 +638,7 @@
                         <Fluent:ToggleButton x:Name="PART_ToggleButton"
                                              Grid.ColumnSpan="2"
                                              Height="Auto"
+                                             MinHeight="0"
                                              Margin="0"
                                              VerticalAlignment="Stretch"
                                              IsDefinitive="False"
@@ -649,23 +650,24 @@
                                              CanAddToQuickAccessToolBar="False" />
                         <ContentPresenter x:Name="PART_ContentSite"
                                           Margin="3,0,3,0"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
                                           IsHitTestVisible="False"
                                           Content="{TemplateBinding SelectionBoxItem}"
                                           ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Left" />
+                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"/>
                         <Image x:Name="PART_SelectedImage"
-                               Margin="0"
-                               Stretch="None"
-                               IsHitTestVisible="False"
-                               VerticalAlignment="Top"
-                               HorizontalAlignment="Left"
                                Visibility="Collapsed"
                                Width="Auto"
-                               Height="Auto" />
+                               Height="Auto"
+                               Margin="0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Stretch="None"
+                               IsHitTestVisible="False"/>
                         <TextBox x:Name="PART_EditableTextBox"
+                                 Visibility="Hidden" 
                                  Padding="1"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch"
@@ -673,13 +675,12 @@
                                  Focusable="True"                             
                                  Style="{x:Null}"
                                  TextWrapping="NoWrap"
-                                 BorderThickness="0,0,0,0"
+                                 BorderThickness="0"
                                  IsReadOnly="{TemplateBinding IsReadOnly}"                                 
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                  Foreground="{TemplateBinding Foreground}"
                                  CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
-                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                                 Visibility="Hidden" />
+                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"/>
                     </Grid>
                 </Border>
                 <Popup x:Name="PART_Popup"
@@ -1130,8 +1131,12 @@
                      Value="True">
                 <Setter Property="Height"
                         Value="Auto" />
+                <Setter Property="MinHeight"
+                        Value="30"/>
                 <Setter Property="Template"
                         Value="{DynamicResource RibbonSimplifiedComboboxControlTemplate}" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Stretch"/>
                 <Setter Property="VerticalAlignment"
                         Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment"

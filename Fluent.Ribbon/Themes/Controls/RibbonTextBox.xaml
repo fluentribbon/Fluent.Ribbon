@@ -319,10 +319,12 @@
                      Value="True">
                 <Setter Property="Template"
                         Value="{DynamicResource Fluent.Ribbon.ControlTemplates.SimplifiedTextBox}"/>
+                <Setter Property="MinHeight"
+                        Value="30"/>
                 <Setter Property="VerticalContentAlignment"
                         Value="Center"/>
                 <Setter Property="Padding"
-                        Value="6,0" />
+                        Value="6,2" />
             </Trigger>
         </Style.Triggers>
     </Style>

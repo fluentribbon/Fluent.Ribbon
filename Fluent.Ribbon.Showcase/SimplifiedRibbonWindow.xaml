@@ -237,7 +237,8 @@
                             <local:TestIcon IconSize="32"
                                             IconBrush="Yellow"/>
                         </fluent:Button.LargeIcon>
-                    </fluent:Button>                </fluent:RibbonGroupBox>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox3"
                                        Header="Ribbon group box 3">
@@ -278,11 +279,312 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
+
             </fluent:RibbonTabItem>
 
             <fluent:RibbonTabItem x:Name="RibbonTab2"
                                   Header="State test 2"
+                                  ReduceOrder="All1,All1,All1,All2,All2,All2"
                                   KeyTip="2">
+
+                <fluent:RibbonGroupBox x:Name="All1"
+                                       Header="All Ribbon controls"
+                                       State="Collapsed"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                        Foreground="Black"
+                                        IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                        Foreground="Black"
+                                        IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <fluent:Button Header=""
+                                    KeyTip="1">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="button"
+                                KeyTip="2">
+                        <fluent:Button.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.Icon>
+                        <fluent:Button.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.MediumIcon>
+                        <fluent:Button.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                        Foreground="White"
+                                        IconBrush="Red"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    <fluent:Button Header="button (no icon)"
+                                KeyTip="3"/>
+
+                    <fluent:ToggleButton Header="Toggle button"
+                                KeyTip="TB1">
+                        <fluent:ToggleButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="Black"
+                                        IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.Icon>
+                        <fluent:ToggleButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="Black"
+                                        IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.MediumIcon>
+                        <fluent:ToggleButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                        Foreground="Black"
+                                        IconBrush="LightCyan"/>
+                        </fluent:ToggleButton.LargeIcon>
+                    </fluent:ToggleButton>
+
+                    <fluent:ToggleButton Header="Toggle button (no icon)"
+                                KeyTip="TB2">
+                    </fluent:ToggleButton>
+
+                    <fluent:SplitButton Header="Split button"
+                                    ItemsSource="{Binding StringItems}"
+                                    KeyTip="S1">
+                        <fluent:SplitButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.Icon>
+                        <fluent:SplitButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.MediumIcon>
+                        <fluent:SplitButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateGray"/>
+                        </fluent:SplitButton.LargeIcon>
+                    </fluent:SplitButton>
+                    <fluent:SplitButton Header="Split button (no icon)"
+                                    ItemsSource="{Binding StringItems}"
+                                    KeyTip="S2">
+                    </fluent:SplitButton>
+
+                    <fluent:DropDownButton Header="Drop down button"
+                                        ItemsSource="{Binding StringItems}"
+                                        KeyTip="D">
+                        <fluent:DropDownButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.Icon>
+                        <fluent:DropDownButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.MediumIcon>
+                        <fluent:DropDownButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                        Foreground="White"
+                                        IconBrush="DarkSlateBlue"/>
+                        </fluent:DropDownButton.LargeIcon>
+                    </fluent:DropDownButton>
+                    <fluent:DropDownButton Header="Drop down button (no icon)"
+                                        ItemsSource="{Binding StringItems}"
+                                        KeyTip="D">
+                    </fluent:DropDownButton>
+
+                    <fluent:ComboBox Header="Combo box"
+                                    InputWidth="50"
+                                    KeyTip="CO1">
+                        <fluent:ComboBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.Icon>
+                        <fluent:ComboBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                        Foreground="White"
+                                        IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.MediumIcon>
+                    </fluent:ComboBox>
+                    <fluent:ComboBox Header="Combo box (no icon24)"
+                                    InputWidth="50"
+                                    KeyTip="CO2">
+                        <fluent:ComboBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                        Foreground="White"
+                                        IconBrush="DarkOrange"/>
+                        </fluent:ComboBox.Icon>
+                    </fluent:ComboBox>
+                    <fluent:CheckBox Header="Check box"
+                                     KeyTip="CH1">
+                        <fluent:CheckBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkBlue"/>
+                        </fluent:CheckBox.Icon>
+                        <fluent:CheckBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkBlue"/>
+                        </fluent:CheckBox.MediumIcon>
+                        <fluent:CheckBox.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkBlue"/>
+                        </fluent:CheckBox.LargeIcon>
+                    </fluent:CheckBox>
+                    <fluent:CheckBox Header="Check box (no icon)"
+                                     KeyTip="CH2">
+                    </fluent:CheckBox>
+
+                    <fluent:RadioButton Header="Radio button"
+                                        KeyTip="R1">
+                        <fluent:RadioButton.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkOliveGreen"/>
+                        </fluent:RadioButton.Icon>
+                        <fluent:RadioButton.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkOliveGreen"/>
+                        </fluent:RadioButton.MediumIcon>
+                        <fluent:RadioButton.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkOliveGreen"/>
+                        </fluent:RadioButton.LargeIcon>
+                    </fluent:RadioButton>
+                    <fluent:RadioButton Header="Radio button (no icon)"
+                                        KeyTip="R2">
+                    </fluent:RadioButton>
+
+                    <fluent:TextBox Header="Text box"
+                                    Text="test" 
+                                    KeyTip="TE">
+                        <fluent:TextBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Green"/>
+                        </fluent:TextBox.Icon>
+                        <fluent:TextBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Green"/>
+                        </fluent:TextBox.MediumIcon>
+                    </fluent:TextBox>
+                    <fluent:TextBox Header="Text box (no icon24)"
+                                    Text="test" 
+                                    KeyTip="TE">
+                        <fluent:TextBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Green"/>
+                        </fluent:TextBox.Icon>
+                    </fluent:TextBox>
+
+                    <fluent:Spinner Header="Spinner"
+                                    Value="100" 
+                                    KeyTip="SP1">
+                        <fluent:Spinner.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.Icon>
+                        <fluent:Spinner.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.MediumIcon>
+                    </fluent:Spinner>
+                    <fluent:Spinner Header="Spinner (no icon24)"
+                                    Value="100" 
+                                    KeyTip="SP2">
+                        <fluent:Spinner.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Purple"/>
+                        </fluent:Spinner.Icon>
+                    </fluent:Spinner>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="All2"
+                                       Header="Ribbon group box 3-2"
+                                       State="Collapsed">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:InRibbonGallery Header="In ribbon gallery"
+                                            ItemsSource="{Binding StringItems}"
+                                            IsCollapsed="True"
+                                            KeyTip="G1">
+                        <fluent:InRibbonGallery.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.Icon>
+                        <fluent:InRibbonGallery.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.MediumIcon>
+                        <fluent:InRibbonGallery.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.LargeIcon>
+                    </fluent:InRibbonGallery>
+                    <fluent:InRibbonGallery Header="In ribbon gallery (no icon)"
+                                            ItemsSource="{Binding StringItems}"
+                                            IsCollapsed="True"
+                                            KeyTip="G2">
+                    </fluent:InRibbonGallery>
+                    <fluent:InRibbonGallery Header="In ribbon gallery"
+                                            Width="150"
+                                            CanCollapseToButton="False"
+                                            ItemsSource="{Binding StringItems}"
+                                            KeyTip="G3">
+                        <fluent:InRibbonGallery.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.Icon>
+                        <fluent:InRibbonGallery.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.MediumIcon>
+                        <fluent:InRibbonGallery.LargeIcon>
+                            <local:TestIcon IconSize="32"
+                                            Foreground="White"
+                                            IconBrush="DarkGoldenrod"/>
+                        </fluent:InRibbonGallery.LargeIcon>
+                    </fluent:InRibbonGallery>
+                </fluent:RibbonGroupBox>
+
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_1"
                                        Header="Ribbon group box 2-1">
                     <fluent:RibbonGroupBox.Icon>
@@ -593,6 +895,7 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
+            
             <fluent:RibbonTabItem x:Name="RibbonTab5"
                                   Header="Resizing test 2"
                                   ReduceOrder="ResizeTab21,ResizeTab21,ResizeTab21,ResizeTab22"
@@ -807,7 +1110,7 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
-            
+
             <fluent:RibbonTabItem x:Name="RibbonTab6"
                                   Header="Visible test that depend on IsSimplified"
                                   KeyTip="1">
@@ -827,7 +1130,7 @@
                         </Style.Triggers>
                     </Style>
                 </fluent:RibbonTabItem.Resources>
-                
+
                 <fluent:RibbonGroupBox x:Name="VisibleTab1"
                                        Header="Ribbon group box 1"
                                        LauncherText="launcher"
