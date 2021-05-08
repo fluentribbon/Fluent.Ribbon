@@ -23,7 +23,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
             <converters:UniqueGroupNameConverter x:Key="UniqueGroupNameConverter" />
 
@@ -90,7 +90,7 @@
                     </StackPanel>
                 </Border>
             </DataTemplate>
-            
+
             <DataTemplate x:Key="GallerySampleDataItemCommandTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
                 <Fluent:Button Header="{Binding Text}"
@@ -168,7 +168,7 @@
                     <!--Backstage items can be keytipped-->
                     <Fluent:Backstage x:Name="Backstage"
                                       Visibility="Collapsed">
-                        
+
                         <!--<Fluent:Backstage.Style>
                             <Style TargetType="Fluent:Backstage">
                                 <Style.Triggers>
@@ -204,17 +204,17 @@
                                         <Fluent:Button Header="Button with bound command"
                                                        Width="120"
                                                        Command="{Binding TestCommand}" />
-                                    
+
                                         <Fluent:Button Header="Button"
                                                        IsDefinitive="False"
                                                        Click="HandleShowMetroMessage"
                                                        Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                        LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
-                                    
+
                                         <Fluent:ToggleButton Header="Toggle"
                                                              Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                              LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
-                                    
+
                                         <Fluent:DropDownButton Header="DropDownButton"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
@@ -229,14 +229,14 @@
                                             <TextBlock Text="4" />
                                             <TextBlock Text="5" />
                                         </Fluent:ComboBox>
-                                    
+
                                         <Fluent:Spinner Value="1"
                                                         Format="0"
                                                         InputWidth="50"
                                                         Header="Spinner"
                                                         ValueChanged="OnSpinnerValueChanged" />
                                     </WrapPanel>
-                                    
+
                                     <TextBlock TextWrapping="Wrap">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mi elit, efficitur a sapien sit amet, euismod tempus quam. Aenean porta nisl id erat eleifend, vehicula convallis orci posuere. Maecenas id eleifend magna. Aenean quis nunc id odio tristique scelerisque et eu felis. Donec vestibulum augue sit amet dignissim feugiat. Pellentesque dignissim maximus lacinia. Maecenas dictum velit ut dui tempor imperdiet.
 
@@ -1029,7 +1029,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
                     </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
-                
+
                 <Fluent:RibbonGroupBox Header="Group">
                     <Fluent:RibbonToolBar>
                         <!--ToolBar Layout Definitions-->
@@ -1104,10 +1104,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
-                                       KeyTip="ZXB"
-                                       x:Name="B"
+                <Fluent:RibbonGroupBox x:Name="B"
                                        Header="Spinners"
+                                       KeyTip="ZXB"
+                                       Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
+                                       MediumIcon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick">
                     <Fluent:Spinner KeyTip="KA"
@@ -1131,7 +1132,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
-            
+
             <Fluent:RibbonTabItem Header="Insert"
                                   KeyTip="I"
                                   IsSeparatorVisible="true"
@@ -1188,7 +1189,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <System:String>Read-only</System:String>
                         <System:String>Writeable</System:String>
                     </Fluent:ComboBox>
-                    
+
                     <Fluent:ComboBox Header="KeyboardNavigation" 
                                      IsEditable="False"
                                      IsReadOnly="True"
@@ -1880,7 +1881,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                         IsCheckable="True"
                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter},ConverterParameter=Group2}" />
                 </Fluent:RibbonGroupBox>
-               
+
                 <Fluent:RibbonGroupBox Header="Grouped ToggleButton">
                     <Fluent:ToggleButton Header="Toggle 1"
                                          KeyTip="T1"
@@ -2640,7 +2641,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                    Fluent:KeyTip.HorizontalAlignment="Left"
                                    Fluent:KeyTip.VerticalAlignment="Top"
                                    Fluent:KeyTip.Margin="40,0,0,0"
-                                   Fluent:KeyTip.Keys="LTM" />                    
+                                   Fluent:KeyTip.Keys="LTM" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2725,7 +2726,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     <Setter Property="BorderThickness"
                             Value="1" />
                 </Style>
-                
+
                 <Style x:Key="TabItemFocusVisual">
                     <Setter Property="Control.Template">
                         <Setter.Value>
@@ -2739,10 +2740,10 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         </Setter.Value>
                     </Setter>
                 </Style>
-                
+
                 <SolidColorBrush x:Key="TabControlNormalBorderBrush"
                                  Color="#8C8E94"/>
-                
+
                 <SolidColorBrush x:Key="TabItemHotBackground"
                                  Color="{DynamicResource Fluent.Ribbon.Colors.AccentColor60}"/>
                 <SolidColorBrush x:Key="TabItemSelectedBackground"
@@ -2900,11 +2901,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     </Setter>
                 </Style>
             </TabControl.Resources>
-            
+
             <TabItem Header="Home">
                 <ScrollViewer>
-                <StackPanel>
-                    <TextBlock TextWrapping="Wrap">
+                    <StackPanel>
+                        <TextBlock TextWrapping="Wrap">
                         <Run FontWeight="ExtraBold"
                              FontSize="18">Fluent.Ribbon</Run>
                         <LineBreak />
@@ -2913,42 +2914,42 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.
                         <LineBreak />
                         <LineBreak />
-                    </TextBlock>
+                        </TextBlock>
 
-                    <GroupBox Header="Options">
-                        <WrapPanel>
-                            <GroupBox Header="Theme">
-                                <WrapPanel>
-                                    <WrapPanel.Resources>
-                                        <ObjectDataProvider MethodName="GetValues"
+                        <GroupBox Header="Options">
+                            <WrapPanel>
+                                <GroupBox Header="Theme">
+                                    <WrapPanel>
+                                        <WrapPanel.Resources>
+                                            <ObjectDataProvider MethodName="GetValues"
                                                             ObjectType="{x:Type controlzEx:ThemeSyncMode}"
                                                             x:Key="SyncModePreferenceEnumValues">
-                                            <ObjectDataProvider.MethodParameters>
-                                                <x:Type TypeName="controlzEx:ThemeSyncMode" />
-                                            </ObjectDataProvider.MethodParameters>
-                                        </ObjectDataProvider>
-                                    </WrapPanel.Resources>
-                                    <Fluent:ComboBox Header="BaseColors"
+                                                <ObjectDataProvider.MethodParameters>
+                                                    <x:Type TypeName="controlzEx:ThemeSyncMode" />
+                                                </ObjectDataProvider.MethodParameters>
+                                            </ObjectDataProvider>
+                                        </WrapPanel.Resources>
+                                        <Fluent:ComboBox Header="BaseColors"
                                                      MinWidth="140"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=BaseColors}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
-                                    <Fluent:ComboBox Header="Theme"
+                                        <Fluent:ComboBox Header="Theme"
                                                      MinWidth="150"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                      SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
-                                        <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type controlzEx:Theme}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Ellipse Width="16"
+                                            <Fluent:ComboBox.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type controlzEx:Theme}">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Ellipse Width="16"
                                                              Height="16"
                                                              Fill="{Binding ShowcaseBrush, Mode=OneWay}" />
-                                                    <TextBlock Text="{Binding DisplayName}" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </Fluent:ComboBox.ItemTemplate>
-                                        <!--<Fluent:ComboBox.GroupStyle>
+                                                        <TextBlock Text="{Binding DisplayName}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Fluent:ComboBox.ItemTemplate>
+                                            <!--<Fluent:ComboBox.GroupStyle>
                                             <GroupStyle>
                                                 <GroupStyle.HeaderTemplate>
                                                     <DataTemplate>
@@ -2961,198 +2962,198 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                                 </GroupStyle.HeaderTemplate>
                                             </GroupStyle>
                                         </Fluent:ComboBox.GroupStyle>-->
-                                    </Fluent:ComboBox>
+                                        </Fluent:ComboBox>
 
-                                    <Fluent:ComboBox Header="SyncMode"
+                                        <Fluent:ComboBox Header="SyncMode"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Source={StaticResource SyncModePreferenceEnumValues}}"
                                                      SelectedItem="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=ThemeSyncMode}" />
-                                    <Fluent:CheckBox IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
+                                        <Fluent:CheckBox IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}"
                                                      Header="Use HSL color" />
-                                    <Button Click="SyncThemeNow_OnClick">Sync now</Button>
-                                </WrapPanel>
-                            </GroupBox>
+                                        <Button Click="SyncThemeNow_OnClick">Sync now</Button>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="WindowGlow">
-                                <WrapPanel>
-                                    <Fluent:ComboBox Header="GlowBrush"
+                                <GroupBox Header="WindowGlow">
+                                    <WrapPanel>
+                                        <Fluent:ComboBox Header="GlowBrush"
                                                      MinWidth="140"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
                                                      SelectedValuePath="Value"
                                                      SelectedValue="{Binding Path=GlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                        <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="0"
+                                            <Fluent:ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid Grid.Column="0"
                                                           Margin="4 0"
                                                           Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                           VerticalAlignment="Stretch"
                                                           Background="{Binding Value}" />
-                                                    <TextBlock Grid.Column="1"
+                                                        <TextBlock Grid.Column="1"
                                                                Margin="4 0"
                                                                Text="{Binding}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </Fluent:ComboBox.ItemTemplate>
-                                    </Fluent:ComboBox>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </Fluent:ComboBox.ItemTemplate>
+                                        </Fluent:ComboBox>
 
-                                    <Fluent:ComboBox Header="NonActiveGlowBrush"
+                                        <Fluent:ComboBox Header="NonActiveGlowBrush"
                                                      MinWidth="150"
                                                      IsEditable="False"
                                                      ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
                                                      SelectedValuePath="Value"
                                                      SelectedValue="{Binding Path=NonActiveGlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                        <Fluent:ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="0"
+                                            <Fluent:ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid Grid.Column="0"
                                                           Margin="4 0"
                                                           Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                           VerticalAlignment="Stretch"
                                                           Background="{Binding Value}" />
-                                                    <TextBlock Grid.Column="1"
+                                                        <TextBlock Grid.Column="1"
                                                                Margin="4 0"
                                                                Text="{Binding}" />
-                                                </Grid>
-                                            </DataTemplate>
-                                        </Fluent:ComboBox.ItemTemplate>
-                                    </Fluent:ComboBox>
-                                </WrapPanel>
-                            </GroupBox>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </Fluent:ComboBox.ItemTemplate>
+                                        </Fluent:ComboBox>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="Menu">
-                                <WrapPanel>
-                                    <Fluent:ComboBox Header="Menu" 
+                                <GroupBox Header="Menu">
+                                    <WrapPanel>
+                                        <Fluent:ComboBox Header="Menu" 
                                                      IsEditable="False"
                                                      SizeDefinition="Middle" 
                                                      SelectedItem="{Binding SelectedMenu, ElementName=TestContentControl}">
-                                        <System:String>ApplicationMenu</System:String>
-                                        <System:String>Backstage</System:String>
-                                        <System:String>Empty menu</System:String>
-                                    </Fluent:ComboBox>
+                                            <System:String>ApplicationMenu</System:String>
+                                            <System:String>Backstage</System:String>
+                                            <System:String>Empty menu</System:String>
+                                        </Fluent:ComboBox>
 
-                                    <Fluent:Button Name="ShowStartScreen"
+                                        <Fluent:Button Name="ShowStartScreen"
                                                    Size="Middle"
                                                    Click="ShowStartScreen_OnClick">
-                                        Show start screen
-                                    </Fluent:Button>
-                                </WrapPanel>
-                            </GroupBox>
+                                            Show start screen
+                                        </Fluent:Button>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="Localization">
-                                <WrapPanel>
-                                    <Fluent:ComboBox Header="Localization" 
+                                <GroupBox Header="Localization">
+                                    <WrapPanel>
+                                        <Fluent:ComboBox Header="Localization" 
                                                      IsEditable="False"
                                                      SizeDefinition="Middle"
                                                      DisplayMemberPath="DisplayName"
                                                      ItemsSource="{Binding Localizations, ElementName=TestContentControl}"
                                                      SelectedItem="{Binding Path=Localization, Source={x:Static Fluent:RibbonLocalization.Current}}" />
-                                </WrapPanel>
-                            </GroupBox>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="Window options">
-                                <WrapPanel>
-                                    <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
-                                        IsIconVisible
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
-                                        IsCollapsed
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
-                                        IsAutomaticCollapseEnabled
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
+                                <GroupBox Header="Window options">
+                                    <WrapPanel>
+                                        <Fluent:CheckBox IsChecked="{Binding IsIconVisible, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                            IsIconVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsCollapsed, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                            IsCollapsed
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=false}">
+                                            IsAutomaticCollapseEnabled
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox x:Name="IsStatusBarVisibleCheckBox"
                                                      IsChecked="True">
-                                        IsStatusBarVisible
-                                    </Fluent:CheckBox>
-                                    <ComboBox x:Name="ResizeModeComboBox"
+                                            IsStatusBarVisible
+                                        </Fluent:CheckBox>
+                                        <ComboBox x:Name="ResizeModeComboBox"
                                               AutomationProperties.Name="Window resize mode"
                                               ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
                                               SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
-                                    <ComboBox x:Name="FlowDirectionComboBox"
+                                        <ComboBox x:Name="FlowDirectionComboBox"
                                               AutomationProperties.Name="Window flow direction"
                                               ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
                                               SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
                                         <Fluent:CheckBox IsChecked="{Binding Path=IgnoreTaskbarOnMaximize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=False}">
-                                        IgnoreTaskbarOnMaximize
-                                    </Fluent:CheckBox>
-                                </WrapPanel>
-                            </GroupBox>
+                                            IgnoreTaskbarOnMaximize
+                                        </Fluent:CheckBox>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="Ribbon options">
-                                <WrapPanel>
-                                    <Fluent:CheckBox IsChecked="{Binding ShowQuickAccessToolBarAboveRibbon, ElementName=ribbon}">
-                                        ShowQuickAccessToolBarAboveRibbon
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBar, ElementName=ribbon}">
-                                        CanCustomizeQuickAccessToolBar
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBarItems, ElementName=ribbon}">
-                                        CanCustomizeQuickAccessToolBarItems
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding CanCustomizeRibbon, ElementName=ribbon}">
-                                        CanCustomizeRibbon
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsMinimized, ElementName=ribbon}">
-                                        IsMinimized
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding CanMinimize, ElementName=ribbon}">
-                                        CanMinimize
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsCollapsed, ElementName=ribbon}">
-                                        IsCollapsed
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, ElementName=ribbon}">
-                                        IsAutomaticCollapseEnabled
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, ElementName=ribbon}">
-                                        IsQuickAccessToolBarVisible
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarMenuDropDownVisible , ElementName=ribbon}">
-                                        IsQuickAccessToolBarMenuDropDownVisible
-                                    </Fluent:CheckBox>                    
-                                    <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, ElementName=ribbon}">
-                                        CanQuickAccessLocationChanging
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, ElementName=ribbon}">
-                                        AutomaticStateManagement
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding AreTabHeadersVisible, ElementName=ribbon}">
-                                        AreTabHeadersVisible
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsToolBarVisible, ElementName=ribbon}">
-                                        IsToolBarVisible
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
-                                        IsMouseWheelScrollingEnabled
-                                    </Fluent:CheckBox>
-                                    <Fluent:CheckBox IsChecked="{Binding IsDefaultContextMenuEnabled, ElementName=ribbon}">
-                                        IsDefaultContextMenuEnabled
-                                    </Fluent:CheckBox>
-                                </WrapPanel>
-                            </GroupBox>
+                                <GroupBox Header="Ribbon options">
+                                    <WrapPanel>
+                                        <Fluent:CheckBox IsChecked="{Binding ShowQuickAccessToolBarAboveRibbon, ElementName=ribbon}">
+                                            ShowQuickAccessToolBarAboveRibbon
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBar, ElementName=ribbon}">
+                                            CanCustomizeQuickAccessToolBar
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding CanCustomizeQuickAccessToolBarItems, ElementName=ribbon}">
+                                            CanCustomizeQuickAccessToolBarItems
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding CanCustomizeRibbon, ElementName=ribbon}">
+                                            CanCustomizeRibbon
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsMinimized, ElementName=ribbon}">
+                                            IsMinimized
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding CanMinimize, ElementName=ribbon}">
+                                            CanMinimize
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsCollapsed, ElementName=ribbon}">
+                                            IsCollapsed
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsAutomaticCollapseEnabled, ElementName=ribbon}">
+                                            IsAutomaticCollapseEnabled
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarVisible, ElementName=ribbon}">
+                                            IsQuickAccessToolBarVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsQuickAccessToolBarMenuDropDownVisible , ElementName=ribbon}">
+                                            IsQuickAccessToolBarMenuDropDownVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding CanQuickAccessLocationChanging, ElementName=ribbon}">
+                                            CanQuickAccessLocationChanging
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding AutomaticStateManagement, ElementName=ribbon}">
+                                            AutomaticStateManagement
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding AreTabHeadersVisible, ElementName=ribbon}">
+                                            AreTabHeadersVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsToolBarVisible, ElementName=ribbon}">
+                                            IsToolBarVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
+                                            IsMouseWheelScrollingEnabled
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsDefaultContextMenuEnabled, ElementName=ribbon}">
+                                            IsDefaultContextMenuEnabled
+                                        </Fluent:CheckBox>
+                                    </WrapPanel>
+                                </GroupBox>
 
-                            <GroupBox Header="Commands">
-                                <Button Content="Reset saved state &amp; restart" 
+                                <GroupBox Header="Commands">
+                                    <Button Content="Reset saved state &amp; restart" 
                                         Click="HandleResetSavedState_OnClick" />
-                            </GroupBox>
-                        </WrapPanel>
-                    </GroupBox>
-                </StackPanel>
+                                </GroupBox>
+                            </WrapPanel>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
-            
+
             <TabItem Header="Developer">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -3244,7 +3245,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                               MouseDoubleClick="OnTreeDoubleClick" />
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="ViewboxTest"
                      Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
@@ -3326,80 +3327,80 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     </Viewbox>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="Tests">
                 <ScrollViewer>
-                <StackPanel Orientation="Vertical">
-                    <GroupBox Header="Tabs">
-                        <WrapPanel>
-                            <Fluent:Button x:Name="AddRibbonTab"
+                    <StackPanel Orientation="Vertical">
+                        <GroupBox Header="Tabs">
+                            <WrapPanel>
+                                <Fluent:Button x:Name="AddRibbonTab"
                                            Size="Middle"
                                            Click="AddRibbonTab_OnClick">Add tab</Fluent:Button>
-                        </WrapPanel>
-                    </GroupBox>
-                    <GroupBox Header="Interop">
-                        <WrapPanel>
-                            <Fluent:Button x:Name="OpenMahMetroWindow"
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Interop">
+                            <WrapPanel>
+                                <Fluent:Button x:Name="OpenMahMetroWindow"
                                            Size="Middle"
                                            Click="OpenMahMetroWindow_OnClick">Open MahMetro-Window</Fluent:Button>
-                        </WrapPanel>
-                    </GroupBox>
-                    <GroupBox Header="Windows">
-                        <WrapPanel>
-                            <Fluent:Button x:Name="OpenRegularWindow"
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Windows">
+                            <WrapPanel>
+                                <Fluent:Button x:Name="OpenRegularWindow"
                                            Size="Middle"
                                            Click="OpenRegularWindow_OnClick">Open Regular-Window</Fluent:Button>
-                            <Fluent:Button x:Name="OpenMinimalRibbonWindowSample"
+                                <Fluent:Button x:Name="OpenMinimalRibbonWindowSample"
                                            Size="Middle"
                                            Click="OpenMinimalRibbonWindowSample_OnClick">Open Minimal Ribbon-Window Sample</Fluent:Button>
-                            <Fluent:Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
+                                <Fluent:Button x:Name="OpenRibbonWindowWithoutVisibileRibbon"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithoutVisibileRibbon_OnClick">Open Ribbon-Window without visible Ribbon</Fluent:Button>
-                            <Fluent:Button x:Name="OpenRibbonWindowWithoutRibbon"
+                                <Fluent:Button x:Name="OpenRibbonWindowWithoutRibbon"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithoutRibbon_OnClick">Open Ribbon-Window without Ribbon</Fluent:Button>
-                            <Fluent:Button x:Name="OpenModalRibbonWindow"
+                                <Fluent:Button x:Name="OpenModalRibbonWindow"
                                            Size="Middle"
                                            Click="OpenModalRibbonWindow_OnClick">Open Ribbon-Window (ShowDialog)</Fluent:Button>
-                            <Fluent:Button x:Name="OpenRibbonWindowOnNewThread"
+                                <Fluent:Button x:Name="OpenRibbonWindowOnNewThread"
                                            Size="Middle"
                                            Click="OpenRibbonWindowOnNewThread_OnClick">Open Ribbon-Window (new Thread)</Fluent:Button>
-                            <Fluent:Button x:Name="OpenRibbonWindowColorized"
+                                <Fluent:Button x:Name="OpenRibbonWindowColorized"
                                            Size="Middle"
                                            Click="OpenRibbonWindowColorized_OnClick">Open Ribbon-Window (colorized)</Fluent:Button>
-                            <Fluent:Button x:Name="OpenRibbonWindowWithBackgroundImage"
+                                <Fluent:Button x:Name="OpenRibbonWindowWithBackgroundImage"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithBackgroundImage_OnClick">Open Ribbon-Window (with background image)</Fluent:Button>
-                        </WrapPanel>
-                    </GroupBox>
-                    <GroupBox Header="Issue repros">
-                        <WrapPanel>
-                            <Fluent:Button x:Name="SleepButton"
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Issue repros">
+                            <WrapPanel>
+                                <Fluent:Button x:Name="SleepButton"
                                            Size="Middle"
                                            VerticalAlignment="Top"
                                            Click="SleepButton_OnClick">Sleep for issues #80 and #159</Fluent:Button>
-                            
-                            <Fluent:Button Size="Middle"
+
+                                <Fluent:Button Size="Middle"
                                            VerticalAlignment="Top"
                                            ToolTip="Theme should change every 2 seconds."
-                                           Command="{Binding IssueReprosViewModel.ThemeManagerFromThread.StartStopCommand}">Change theme from thread</Fluent:Button>                            
-                            
-                            <GroupBox Header="KeyTip issues #254">
-                                <StackPanel Orientation="Vertical">
-                                    <formsInterop:WindowsFormsHost>
-                                        <forms:TextBox Height="30"
-                                                       Text="Test Windows.Forms.TextBox" />
-                                    </formsInterop:WindowsFormsHost>
+                                           Command="{Binding IssueReprosViewModel.ThemeManagerFromThread.StartStopCommand}">Change theme from thread</Fluent:Button>
 
-                                    <StackPanel>
-                                        <Label Target="{Binding ElementName=targetTextBox}">Label with _Access Key A</Label>
-                                        <TextBox x:Name="targetTextBox">Test System.Windows.Controls.TextBox</TextBox>
+                                <GroupBox Header="KeyTip issues #254">
+                                    <StackPanel Orientation="Vertical">
+                                        <formsInterop:WindowsFormsHost>
+                                            <forms:TextBox Height="30"
+                                                       Text="Test Windows.Forms.TextBox" />
+                                        </formsInterop:WindowsFormsHost>
+
+                                        <StackPanel>
+                                            <Label Target="{Binding ElementName=targetTextBox}">Label with _Access Key A</Label>
+                                            <TextBox x:Name="targetTextBox">Test System.Windows.Controls.TextBox</TextBox>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </GroupBox>
-                        </WrapPanel>
-                    </GroupBox>
-                </StackPanel>
+                                </GroupBox>
+                            </WrapPanel>
+                        </GroupBox>
+                    </StackPanel>
                 </ScrollViewer>
             </TabItem>
 
@@ -3439,7 +3440,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                         <Button x:Name="CreateThemeResourceDictionaryButton"
                                 Click="CreateThemeResourceDictionaryButton_OnClick">Create theme</Button>
                     </StackPanel>
-                    
+
                     <TextBox x:Name="ThemeResourceDictionaryTextBox" 
                              Grid.Row="1"
                              IsReadOnly="True"
@@ -3471,15 +3472,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                   HorizontalAlignment="Left">
                 <TextBlock Text="150 px" />
             </Fluent:StatusBarItem>
-            
+
             <Separator HorizontalAlignment="Left" />
-            
+
             <Fluent:StatusBarItem Title="Selected Words"
                                   Value="15"
                                   ToolTip="This is Selected Words"
                                   Content="15 words"
                                   HorizontalAlignment="Left" />
-            
+
             <Separator HorizontalAlignment="Left" />
 
             <Fluent:StatusBarItem Title="Used memory"

@@ -330,18 +330,28 @@
                                     Margin="5,38,5,0"
                                     KeyboardNavigation.IsTabStop="False" />
 
-                    <Border HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
+                    <Border x:Name="iconImageBorder"
                             Width="31"
                             Height="31"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                            Margin="5,3,8,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
                             BorderThickness="1"
-                            Margin="5,3,8,0">
-                        <ContentPresenter x:Name="iconImage"
-                                          Height="16"
-                                          Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                          Width="16"
-                                          SnapsToDevicePixels="True" />
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}">
+                        <Grid>
+                            <ContentPresenter x:Name="iconImage16"
+                                              Visibility="Collapsed"
+                                              Width="16"
+                                              Height="16"
+                                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                              SnapsToDevicePixels="True" />
+                            <ContentPresenter x:Name="iconImage24"
+                                              Visibility="Visible"
+                                              Width="24"
+                                              Height="24"
+                                              Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
+                                              SnapsToDevicePixels="True" />
+                        </Grid>
                     </Border>
 
                     <Popup x:Name="PART_Popup"
@@ -377,6 +387,16 @@
                    Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
+            <Trigger Property="MediumIcon"
+                     Value="{x:Null}">
+                <Setter Property="Visibility"
+                        TargetName="iconImage24"
+                        Value="Collapsed" />
+                <Setter Property="Visibility"
+                        TargetName="iconImage16"
+                        Value="Visible" />
+            </Trigger>
+
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"
@@ -394,6 +414,18 @@
                 <Setter Property="Content"
                         TargetName="popupContent"
                         Value="{Binding ElementName=PART_ParentPanel}" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="False">
+                <Setter Property="Opacity"
+                        TargetName="iconImageBorder"
+                        Value="0.5" />
+                <Setter Property="Effect"
+                        TargetName="iconImageBorder">
+                    <Setter.Value>
+                        <Fluent:GrayscaleEffect />
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
