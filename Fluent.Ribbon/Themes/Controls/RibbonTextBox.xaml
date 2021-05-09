@@ -127,7 +127,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.SimplifiedTextBox"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTextBox.Simplified"
                      TargetType="{x:Type Fluent:TextBox}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -318,7 +318,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource Fluent.Ribbon.ControlTemplates.SimplifiedTextBox}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTextBox.Simplified}"/>
                 <Setter Property="MinHeight"
                         Value="30"/>
                 <Setter Property="VerticalContentAlignment"

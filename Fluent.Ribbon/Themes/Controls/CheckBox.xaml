@@ -359,7 +359,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedCheckBoxControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.CheckBox.Simplified}"/>
                 <Setter Property="VerticalContentAlignment"
                         Value="Center"/>
                 <Setter Property="Margin"

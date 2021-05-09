@@ -84,7 +84,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedGroupBoxControlTemplate}" />
+                        Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox.Simplified}" />
                 <Setter Property="Padding"
                         Value="6,0" />
             </Trigger>
@@ -531,7 +531,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedGroupBoxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.Simplified"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>

@@ -275,7 +275,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.SimplifiedSpinner"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner.Simplified"
                      TargetType="{x:Type Fluent:Spinner}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -544,7 +544,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource Fluent.Ribbon.ControlTemplates.SimplifiedSpinner}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.Spinner.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"

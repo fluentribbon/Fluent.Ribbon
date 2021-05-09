@@ -55,7 +55,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedDropDownButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.DropDownButton.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"
@@ -326,7 +326,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedDropDownButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.DropDownButton.Simplified"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"

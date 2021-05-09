@@ -204,7 +204,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button.Simplified"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -398,7 +398,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.Button.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"

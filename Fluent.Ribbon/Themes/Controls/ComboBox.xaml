@@ -573,7 +573,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedComboboxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ComboBox.Simplified"
                      TargetType="{x:Type Fluent:ComboBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -1134,7 +1134,7 @@
                 <Setter Property="MinHeight"
                         Value="30"/>
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedComboboxControlTemplate}" />
+                        Value="{DynamicResource Fluent.Ribbon.Templates.ComboBox.Simplified}" />
                 <Setter Property="HorizontalAlignment"
                         Value="Stretch"/>
                 <Setter Property="VerticalAlignment"

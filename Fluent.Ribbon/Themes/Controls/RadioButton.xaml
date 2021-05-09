@@ -62,7 +62,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedRadioButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RadioButton.Simplified"
                      TargetType="{x:Type Fluent:RadioButton}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -274,7 +274,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                    Value="{DynamicResource RibbonSimplifiedRadioButtonControlTemplate}" />
+                    Value="{DynamicResource Fluent.Ribbon.Templates.RadioButton.Simplified}" />
                 <Setter Property="VerticalContentAlignment"
                         Value="Center"/>
                 <Setter Property="Margin"

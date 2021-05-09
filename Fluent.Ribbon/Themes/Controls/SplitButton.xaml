@@ -60,7 +60,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedSplitButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.SplitButton.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"
@@ -352,7 +352,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedSplitButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitButton.Simplified"
                      TargetType="{x:Type Fluent:SplitButton}">
         <ControlTemplate.Resources>
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"
@@ -648,7 +648,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedInnerButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"
@@ -814,7 +814,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedInnerButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="0"

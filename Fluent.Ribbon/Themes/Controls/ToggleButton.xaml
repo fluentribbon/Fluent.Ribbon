@@ -47,7 +47,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource RibbonSimplifiedToggleButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.ToggleButton.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"
@@ -224,7 +224,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="{TemplateBinding BorderThickness}"

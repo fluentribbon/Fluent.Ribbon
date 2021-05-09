@@ -38,7 +38,7 @@
             <Trigger Property="IsSimplified"
                      Value="True">
                 <Setter Property="Template"
-                        Value="{DynamicResource InRibbonGallerySimplifiedToggleButtonControlTemplate}"/>
+                        Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified}"/>
                 <Setter Property="Width"
                         Value="Auto"/>
                 <Setter Property="Height"
@@ -193,7 +193,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="InRibbonGallerySimplifiedToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"
