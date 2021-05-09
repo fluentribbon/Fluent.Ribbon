@@ -1110,7 +1110,7 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
-
+            
             <fluent:RibbonTabItem x:Name="RibbonTab6"
                                   Header="Visible test that depend on IsSimplified"
                                   KeyTip="1">
@@ -1130,7 +1130,7 @@
                         </Style.Triggers>
                     </Style>
                 </fluent:RibbonTabItem.Resources>
-
+                
                 <fluent:RibbonGroupBox x:Name="VisibleTab1"
                                        Header="Ribbon group box 1"
                                        LauncherText="launcher"
@@ -1354,6 +1354,296 @@
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
+
+            <fluent:RibbonTabItem x:Name="RibbonTab7"
+                                  Header="Ribbon controls in panel"
+                                  ReduceOrder="PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13"
+                                  KeyTip="1">
+                <fluent:RibbonGroupBox x:Name="PanelGroup11"
+                                       Header="In RibbonToolBar"
+                                       LauncherText="launcher"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+
+                    <fluent:RibbonToolBar>
+                        <fluent:Button Header="Full(L/L/S), Simplified(M/M/S) button"
+                                       SizeDefinition="Large,Large,Small"
+                                       SimplifiedSizeDefinition="Middle,Middle,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(M/M/S), Simplified(L/L/S) button"
+                                       SizeDefinition="Middle,Middle,Small"
+                                       SimplifiedSizeDefinition="Large,Large,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(L/L/L), Simplified(L/L/L) button"
+                                       SizeDefinition="Large"
+                                       SimplifiedSizeDefinition="Large">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(default), Simplified(default) button">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                    </fluent:RibbonToolBar>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="PanelGroup12"
+                                       Header="In StackPanel">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <StackPanel Orientation="Horizontal">
+                        <fluent:Button Header="Full(L/L/M), Simplified(M/M/S) button"
+                                       SizeDefinition="Large,Large,Small"
+                                       SimplifiedSizeDefinition="Middle,Middle,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(M/M/S), Simplified(L/L/S) button"
+                                       SizeDefinition="Middle,Middle,Small"
+                                       SimplifiedSizeDefinition="Large,Large,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(L/L/L), Simplified(L/L/L) button"
+                                       SizeDefinition="Large"
+                                       SimplifiedSizeDefinition="Large">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(default), Simplified(default) button">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                    </StackPanel>
+                </fluent:RibbonGroupBox>
+
+                <fluent:RibbonGroupBox x:Name="PanelGroup13"
+                                       Header="In Grid">
+                    <fluent:RibbonGroupBox.Icon>
+                        <local:TestIcon IconSize="16"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.Icon>
+                    <fluent:RibbonGroupBox.MediumIcon>
+                        <local:TestIcon IconSize="24"
+                                            Foreground="Black"
+                                            IconBrush="Yellow"/>
+                    </fluent:RibbonGroupBox.MediumIcon>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <fluent:Button Header="Full(L/L/S), Simplified(M/M/S) button"
+                                       Grid.Column="0"
+                                       SizeDefinition="Large,Large,Small"
+                                       SimplifiedSizeDefinition="Middle,Middle,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="Red"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(M/M/S), Simplified(L/L/S) button"
+                                       Grid.Column="1"
+                                       SizeDefinition="Middle,Middle,Small"
+                                       SimplifiedSizeDefinition="Large,Large,Small">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="YellowGreen"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(L/L/L), Simplified(L/L/L) button"
+                                       Grid.Column="2"
+                                       SizeDefinition="Large"
+                                       SimplifiedSizeDefinition="Large">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="Black"
+                                                IconBrush="Orange"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                        <fluent:Button Header="Full(default), Simplified(default) button"
+                                       Grid.Column="3">
+                            <fluent:Button.Icon>
+                                <local:TestIcon IconSize="16"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.Icon>
+                            <fluent:Button.MediumIcon>
+                                <local:TestIcon IconSize="24"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.MediumIcon>
+                            <fluent:Button.LargeIcon>
+                                <local:TestIcon IconSize="32"
+                                                Foreground="White"
+                                                IconBrush="BlueViolet"/>
+                            </fluent:Button.LargeIcon>
+                        </fluent:Button>
+                    </Grid>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
         </fluent:Ribbon>
 
         <StackPanel Grid.Row="1"

@@ -154,21 +154,31 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
-
-                if (element is null)
-                {
-                    continue;
-                }
-
-                var targetElement = element;
-
-                if (targetElement is ContentPresenter)
-                {
-                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
-                }
-
-                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState, isSimplified);
+                this.UpdateChildSizesOfUIElement(element, groupBoxState, isSimplified);
             }
+        }
+
+        private void UpdateChildSizesOfUIElement(DependencyObject? element, RibbonGroupBoxState groupBoxState, bool isSimplified)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
+            if (element is Panel panel)
+            {
+                for (int i = 0; i < panel.Children.Count; i++)
+                {
+                    this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState, isSimplified);
+                }
+            }
+
+            if (element is ContentPresenter)
+            {
+                element = UIHelper.GetFirstVisualChild(element) ?? element;
+            }
+
+            RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
         }
 
         #endregion
@@ -612,27 +622,46 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
-                if (element is null)
-                {
-                    return;
-                }
-
-                var targetElement = element;
-
-                if (targetElement is ContentPresenter)
-                {
-                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
-                }
-
-                if (targetElement is ISimplifiedStateControl simplifiedStateControl)
-                {
-                    simplifiedStateControl.UpdateSimplifiedState(isSimplified);
-                }
+                this.UpdateIsSimplifiedOfUIElement(element, isSimplified);
             }
 
             // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
             this.UpdateChildSizes();
             this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        }
+
+        private void UpdateIsSimplifiedOfUIElement(DependencyObject? element, bool isSimplified)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
+            if (element is ISimplifiedStateControl simplifiedStateControl)
+            {
+                simplifiedStateControl.UpdateSimplifiedState(isSimplified);
+                return;
+            }
+
+            if (element is Panel panel)
+            {
+                for (int i = 0; i < panel.Children.Count; i++)
+                {
+                    this.UpdateIsSimplifiedOfUIElement(panel.Children[i], isSimplified);
+                }
+
+                return;
+            }
+
+            if (element is ContentPresenter)
+            {
+                element = UIHelper.GetFirstVisualChild(element) ?? element;
+
+                if (element is ISimplifiedStateControl simplifiedStateControl2)
+                {
+                    simplifiedStateControl2.UpdateSimplifiedState(isSimplified);
+                }
+            }
         }
 
         #endregion

@@ -21,7 +21,7 @@ namespace Fluent
     /// </summary>
     [ContentProperty(nameof(Children))]
     [StyleTypedProperty(Property = nameof(SeparatorStyle), StyleTargetType = typeof(Separator))]
-    public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink
+    public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedStateControl
     {
         #region Fields
 
@@ -60,6 +60,73 @@ namespace Fluent
             toolBar.InvalidateMeasure();
         }
 
+        #endregion
+
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonToolBar), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        /// <summary>
+        /// Called when <see cref="IsSimplified"/> changes.
+        /// </summary>
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is RibbonToolBar ribbonToolBar)
+            {
+                var isSimplified = (bool)e.NewValue;
+                ribbonToolBar.UpdateChildIsSimplified(isSimplified);
+            }
+        }
+
+        private void UpdateChildIsSimplified(bool isSimplified)
+        {
+            foreach (var element in this.Children)
+            {
+                this.UpdateIsSimplifiedOfUIElement(element, isSimplified);
+            }
+
+            // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
+            this.InvalidateMeasure();
+        }
+
+        private void UpdateIsSimplifiedOfUIElement(DependencyObject? element, bool isSimplified)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
+            if (element is Panel panel)
+            {
+                for (int i = 0; i < panel.Children.Count; i++)
+                {
+                    this.UpdateIsSimplifiedOfUIElement(panel.Children[i], isSimplified);
+                }
+            }
+
+            if (element is ContentPresenter)
+            {
+                element = UIHelper.GetFirstVisualChild(element) ?? element;
+            }
+
+            if (element is ISimplifiedStateControl simplifiedStateControl)
+            {
+                simplifiedStateControl.UpdateSimplifiedState(isSimplified);
+            }
+        }
         #endregion
 
         /// <summary>
@@ -217,6 +284,16 @@ namespace Fluent
         {
             this.rebuildVisualAndLogicalChildren = true;
             this.InvalidateMeasure();
+        }
+
+        #endregion
+
+        #region Implementation of ISimplifiedStateControl
+
+        /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
         }
 
         #endregion
