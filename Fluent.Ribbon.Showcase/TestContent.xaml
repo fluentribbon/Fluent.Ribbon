@@ -1017,8 +1017,20 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Header="Group"
-                                       Name="Group">
+                <Fluent:RibbonGroupBox Header="WrapPanelLayuot">
+                    <Fluent:RibbonToolBar>
+                        <Fluent:Button Header="Green"
+                                       SizeDefinition="Middle,Middle,Small"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
+                        <Fluent:Button Header="Gray"
+                                       SizeDefinition="Middle,Middle,Small"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
+                    </Fluent:RibbonToolBar>
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox Header="Group">
                     <Fluent:RibbonToolBar>
                         <!--ToolBar Layout Definitions-->
                         <Fluent:RibbonToolBar.LayoutDefinitions>
@@ -2699,6 +2711,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                        IsLauncherVisible="False"
                                        Visibility="Collapsed" />
             </Fluent:RibbonTabItem>
+
         </Fluent:Ribbon>
 
         <TabControl Grid.Row="1"
