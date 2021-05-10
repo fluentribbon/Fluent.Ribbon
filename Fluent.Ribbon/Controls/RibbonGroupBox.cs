@@ -370,7 +370,7 @@ namespace Fluent
 
         #endregion
 
-        #region LauncherIcon
+        #region LauncherText
 
         /// <summary>
         /// Gets or sets launcher button text
