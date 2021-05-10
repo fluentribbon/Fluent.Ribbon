@@ -172,14 +172,45 @@
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center">
-                    <ScrollViewer x:Name="PART_ContentHost"
-                                  Margin="1"
-                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    <Grid>
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="1"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <TextBlock x:Name="PART_Watermark"
+                                   Grid.Column="1"
+                                   Width="{Binding ActualWidth,ElementName=PART_ContentHost}"
+                                   Visibility="Collapsed"
+                                   Padding="2,0"
+                                   Opacity="0.5"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Text="{TemplateBinding Header}"/>
+                    </Grid>
                 </Border>
             </Grid>
         </Border>
 
         <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="Text" Value=""/>
+                    <Condition Property="IsFocused" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="PART_Watermark"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="Text" Value=""/>
+                    <Condition Property="IsFocused" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="PART_Watermark"
+                        Value="Visible" />
+            </MultiTrigger>
+
             <Trigger Property="InputWidth"
                      Value="NaN">
                 <Setter Property="HorizontalAlignment"

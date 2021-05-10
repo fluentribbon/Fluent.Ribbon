@@ -813,6 +813,21 @@
                                             IconBrush="Red"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
+                    <fluent:TextBox Header="Text box"
+                                    Text=""
+                                    InputWidth="40"
+                                    KeyTip="TE">
+                        <fluent:TextBox.Icon>
+                            <local:TestIcon IconSize="16"
+                                            Foreground="White"
+                                            IconBrush="Green"/>
+                        </fluent:TextBox.Icon>
+                        <fluent:TextBox.MediumIcon>
+                            <local:TestIcon IconSize="24"
+                                            Foreground="White"
+                                            IconBrush="Green"/>
+                        </fluent:TextBox.MediumIcon>
+                    </fluent:TextBox>
                 </fluent:RibbonGroupBox>
 
                 <fluent:RibbonGroupBox x:Name="ResizeTab12"
