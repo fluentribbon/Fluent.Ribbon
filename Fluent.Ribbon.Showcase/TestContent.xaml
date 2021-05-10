@@ -434,11 +434,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <Fluent:RibbonTabItem Header="Toolbars"
                                   KeyTip="TO"
-                                  ReduceOrder="Group2, Group2, Group2, Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
-                <Fluent:RibbonGroupBox Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
-                                       KeyTip="C"
-                                       x:Name="Clipboard"
+                                  ReduceOrder="Clipboard,Clipboard,Group, Group, Group, Font, Font, Font, Font,B,A,A,A,(A),(A),(A),Clipboard,Font,B,B,(A),C,(A),(A)">
+                <Fluent:RibbonGroupBox x:Name="Clipboard"
                                        Header="Clipboard"
+                                       KeyTip="C"
+                                       Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
                                        LauncherKeys="ZB">
@@ -741,14 +741,15 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                     </Fluent:DropDownButton>
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox KeyTip="F"
-                                       x:Name="Font"
+                <Fluent:RibbonGroupBox x:Name="Font"
                                        Header="Font"
+                                       StateDefinition="Large,Middle,Small"
+                                       KeyTip="F"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
-                                       LauncherIcon="/Images/FontColor.png"
-                                       LauncherKeys="NF">
+                                       LauncherKeys="NF"
+                                       LauncherIcon="/Images/FontColor.png">
                     <Fluent:RibbonToolBar>
                         <!--ToolBar Layout Definitions-->
                         <Fluent:RibbonToolBar.LayoutDefinitions>
@@ -1029,8 +1030,9 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
                     </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="Group">
+                
+                <Fluent:RibbonGroupBox x:Name="Group"
+                                       Header="Group">
                     <Fluent:RibbonToolBar>
                         <!--ToolBar Layout Definitions-->
                         <Fluent:RibbonToolBar.LayoutDefinitions>

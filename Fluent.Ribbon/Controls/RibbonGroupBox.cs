@@ -118,6 +118,31 @@ namespace Fluent
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
 
+        #region StateDefinition
+
+        /// <summary>
+        /// Gets or sets whether ribbon control click must close backstage
+        /// </summary>
+        public RibbonGroupBoxStateDefinition StateDefinition
+        {
+            get { return (RibbonGroupBoxStateDefinition)this.GetValue(StateDefinitionProperty); }
+            set { this.SetValue(StateDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="StateDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty StateDefinitionProperty =
+            DependencyProperty.Register(nameof(StateDefinition), typeof(RibbonGroupBoxStateDefinition), typeof(RibbonGroupBox),
+                new PropertyMetadata(new RibbonGroupBoxStateDefinition(null), OnStateDefinitionChanged));
+
+        // Handles StateDefinitionProperty changes
+        internal static void OnStateDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (RibbonGroupBox)d;
+            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        }
+
+        #endregion
+
         #region State
 
         /// <summary>
