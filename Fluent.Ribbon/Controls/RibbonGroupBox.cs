@@ -121,7 +121,7 @@ namespace Fluent
         #region StateDefinition
 
         /// <summary>
-        /// Gets or sets whether ribbon control click must close backstage
+        /// Gets or sets the state transition for full mode
         /// </summary>
         public RibbonGroupBoxStateDefinition StateDefinition
         {
@@ -138,7 +138,38 @@ namespace Fluent
         internal static void OnStateDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var box = (RibbonGroupBox)d;
-            box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            if (!box.IsSimplified)
+            {
+                box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            }
+        }
+
+        #endregion
+
+        #region SimplifiedStateDefinition
+
+        /// <summary>
+        /// Gets or sets the state transition for simplified mode
+        /// </summary>
+        public RibbonGroupBoxStateDefinition SimplifiedStateDefinition
+        {
+            get { return (RibbonGroupBoxStateDefinition)this.GetValue(SimplifiedStateDefinitionProperty); }
+            set { this.SetValue(SimplifiedStateDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedStateDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedStateDefinitionProperty =
+            DependencyProperty.Register(nameof(SimplifiedStateDefinition), typeof(RibbonGroupBoxStateDefinition), typeof(RibbonGroupBox),
+                new PropertyMetadata(new RibbonGroupBoxStateDefinition("Large,Middle,Collapsed"), OnSimplifiedStateDefinitionChanged));
+
+        // Handles SimplifiedStateDefinitionProperty changes
+        internal static void OnSimplifiedStateDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var box = (RibbonGroupBox)d;
+            if (box.IsSimplified)
+            {
+                box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+            }
         }
 
         #endregion

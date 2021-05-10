@@ -214,7 +214,14 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateDefinition.EnlargeState(groupBox.StateIntermediate);
+                if (groupBox.IsSimplified)
+                {
+                    groupBox.StateIntermediate = groupBox.SimplifiedStateDefinition.EnlargeState(groupBox.StateIntermediate);
+                }
+                else
+                {
+                    groupBox.StateIntermediate = groupBox.StateDefinition.EnlargeState(groupBox.StateIntermediate);
+                }
             }
         }
 
@@ -235,7 +242,14 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateDefinition.ReduceState(groupBox.StateIntermediate);
+                if (groupBox.IsSimplified)
+                {
+                    groupBox.StateIntermediate = groupBox.SimplifiedStateDefinition.ReduceState(groupBox.StateIntermediate);
+                }
+                else
+                {
+                    groupBox.StateIntermediate = groupBox.StateDefinition.ReduceState(groupBox.StateIntermediate);
+                }
             }
         }
 
