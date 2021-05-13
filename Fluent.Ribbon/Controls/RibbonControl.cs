@@ -408,16 +408,21 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlWorkArea(FrameworkElement control)
         {
-            var tabItemPos = control.PointToScreen(new Point(0, 0));
+            if (PresentationSource.FromVisual(control) is null)
+            {
+                return default;
+            }
+
+            var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
-            var tabItemRect = new RECT
-                              {
-                                  Left = (int)tabItemPos.X,
-                                  Top = (int)tabItemPos.Y,
-                                  Right = (int)tabItemPos.X + (int)control.ActualWidth,
-                                  Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
-                              };
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var controlRect = new RECT
+            {
+                Left = (int)controlPosOnScreen.X,
+                Top = (int)controlPosOnScreen.Y,
+                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+            };
+            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
@@ -434,17 +439,22 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlMonitor(FrameworkElement control)
         {
-            var tabItemPos = control.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
-            var tabItemRect = new RECT
+            if (PresentationSource.FromVisual(control) is null)
             {
-                Left = (int)tabItemPos.X,
-                Top = (int)tabItemPos.Y,
-                Right = (int)tabItemPos.X + (int)control.ActualWidth,
-                Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
+                return default;
+            }
+
+            var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
+#pragma warning disable 618
+            var controlRect = new RECT
+            {
+                Left = (int)controlPosOnScreen.X,
+                Top = (int)controlPosOnScreen.Y,
+                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
             };
 
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
