@@ -20,6 +20,7 @@
   - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
 
 - ### Enhancements/Features
+  - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
   - Added automation peers for `InRibbonGallery` and `GalleryItem`
   - Improved keyboard navigation for `InRibbonGallery`
 
