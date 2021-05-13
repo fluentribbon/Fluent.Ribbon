@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -914,17 +914,28 @@ namespace Fluent
         #region Overrides
 
         /// <inheritdoc />
-        public KeyTipPressedResult OnKeyTipPressed()
+        protected override void OnKeyUp(KeyEventArgs e)
         {
-            this.IsDropDownOpen = true;
+            base.OnKeyUp(e);
 
-            if (this.DropDownPopup?.Child is not null)
+            if (e.Handled)
             {
-                Keyboard.Focus(this.DropDownPopup.Child);
-                this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
-                return new KeyTipPressedResult(false, true);
+                return;
             }
+
+            if (e.Key == Key.F4
+                && (e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == 0)
+            {
+                this.IsDropDownOpen = !this.IsDropDownOpen;
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape
+                    && this.IsDropDownOpen)
+            {
+                this.IsDropDownOpen = false;
+                e.Handled = true;
+            }
+        }
 
             return new KeyTipPressedResult(false, true);
         }
