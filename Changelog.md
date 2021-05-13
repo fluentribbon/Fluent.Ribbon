@@ -19,6 +19,10 @@
   - [#927](../../issues/927) - Size value calculated by RibbonGroupBox is not reflected in RibbonControls in Panel control (thanks @nishy2000)
   - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
 
+- ### Enhancements/Features
+  - Added automation peers for `InRibbonGallery` and `GalleryItem`
+  - Improved keyboard navigation for `InRibbonGallery`
+
 ## 8.0.3
 
 - ### Bug fixes
