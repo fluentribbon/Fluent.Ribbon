@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -874,7 +874,8 @@ namespace Fluent
         internal bool TryClearCacheAndResetStateAndScale()
         {
             if (this.CacheResetGuard.IsActive
-                || this.IsLoaded == false)
+                || this.IsLoaded == false
+                || this.State == RibbonGroupBoxState.QuickAccess)
             {
                 return false;
             }
