@@ -4,17 +4,22 @@ namespace Fluent
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Fluent.Converters;
 
     /// <summary>
     /// This class holds the Holds transitionable states when the <see cref="RibbonGroupsContainer"/> automatically resizes the <see cref="RibbonGroupBox"/>.
     /// </summary>
     [TypeConverter(typeof(RibbonGroupBoxStateDefinitionConverter))]
-    public struct RibbonGroupBoxStateDefinition : IEquatable<RibbonGroupBoxStateDefinition>
+    public readonly struct RibbonGroupBoxStateDefinition : IEquatable<RibbonGroupBoxStateDefinition>
     {
+        private static readonly RibbonGroupBoxState[] defaultStates =
+        {
+            RibbonGroupBoxState.Large,
+            RibbonGroupBoxState.Middle,
+            RibbonGroupBoxState.Small,
+            RibbonGroupBoxState.Collapsed,
+        };
+
         private const int MaxStateDefinitionParts = 4;
 
         /// <summary>
@@ -23,14 +28,16 @@ namespace Fluent
         public RibbonGroupBoxStateDefinition(string? stateDefinition)
             : this()
         {
+            this.states = defaultStates;
+
             if (string.IsNullOrEmpty(stateDefinition))
             {
                 return;
             }
 
-            var splitted = stateDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxStateDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var splitted = stateDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxStateDefinitionParts, StringSplitOptions.RemoveEmptyEntries);
 
-            if (splitted.Count == 0)
+            if (splitted.Length == 0)
             {
                 return;
             }
@@ -63,15 +70,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the transitionable states
         /// </summary>
-        public RibbonGroupBoxState[] States => this.states ??= new[]
-        {
-            RibbonGroupBoxState.Large,
-            RibbonGroupBoxState.Middle,
-            RibbonGroupBoxState.Small,
-            RibbonGroupBoxState.Collapsed,
-        };
+        public IReadOnlyList<RibbonGroupBoxState> States => this.GetStates();
 
-        private RibbonGroupBoxState[]? states;
+        private readonly RibbonGroupBoxState[]? states;
 
         /// <summary>
         /// Converts from <see cref="string"/> to <see cref="RibbonGroupBoxStateDefinition"/>
@@ -112,7 +113,8 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBoxState EnlargeState(RibbonGroupBoxState ribbonGroupBoxState)
         {
-            var index = Array.IndexOf(this.States, ribbonGroupBoxState);
+            var currentStates = this.GetStates();
+            var index = Array.IndexOf(currentStates, ribbonGroupBoxState);
             if (index >= 0)
             {
                 if (index > 0)
@@ -129,7 +131,7 @@ namespace Fluent
                 //  If not found current state, find the closest state that exists in the state list
                 while (--ribbonGroupBoxState >= RibbonGroupBoxState.Large)
                 {
-                    index = Array.IndexOf(this.States, ribbonGroupBoxState);
+                    index = Array.IndexOf(currentStates, ribbonGroupBoxState);
                     if (index >= 0)
                     {
                         return this.States[index];
@@ -145,16 +147,17 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBoxState ReduceState(RibbonGroupBoxState ribbonGroupBoxState)
         {
-            var index = Array.IndexOf(this.States, ribbonGroupBoxState);
+            var currentStates = this.GetStates();
+            var index = Array.IndexOf(currentStates, ribbonGroupBoxState);
             if (index >= 0)
             {
-                if (index < this.States.Length - 1)
+                if (index < currentStates.Length - 1)
                 {
-                    return this.States[index + 1];
+                    return currentStates[index + 1];
                 }
                 else
                 {
-                    return this.States.Last();
+                    return currentStates[currentStates.Length - 1];
                 }
             }
             else
@@ -162,15 +165,20 @@ namespace Fluent
                 // If not found current state, find the closest state that exists in the state list
                 while (++ribbonGroupBoxState <= RibbonGroupBoxState.Collapsed)
                 {
-                    index = Array.IndexOf(this.States, ribbonGroupBoxState);
+                    index = Array.IndexOf(currentStates, ribbonGroupBoxState);
                     if (index >= 0)
                     {
-                        return this.States[index];
+                        return currentStates[index];
                     }
                 }
 
-                return this.States.Last();
+                return currentStates[currentStates.Length - 1];
             }
+        }
+
+        private RibbonGroupBoxState[] GetStates()
+        {
+            return this.states ?? defaultStates;
         }
 
         #region Overrides of ValueType
@@ -192,14 +200,15 @@ namespace Fluent
         /// <inheritdoc />
         public bool Equals(RibbonGroupBoxStateDefinition other)
         {
-            if (this.States.Length != other.States.Length)
+            var currentStates = this.GetStates();
+            if (currentStates.Length != other.States.Count)
             {
                 return false;
             }
 
-            for (var i = 0; i < this.States.Length; i++)
+            for (var i = 0; i < currentStates.Length; i++)
             {
-                if (this.States[i] != other.States[i])
+                if (currentStates[i] != other.States[i])
                 {
                     return false;
                 }
@@ -213,9 +222,9 @@ namespace Fluent
         {
             unchecked
             {
-                var states = this.States;
-                var hashCode = states.Length;
-                foreach (var state in states)
+                var currentStates = this.GetStates();
+                var hashCode = currentStates.Length;
+                foreach (var state in currentStates)
                 {
                     hashCode = (hashCode * 397) ^ (int)state;
                 }
