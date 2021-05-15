@@ -1303,21 +1303,26 @@ namespace Fluent
         /// <inheritdoc />
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+            if (this.ReadLocalValue(IsCollapsedProperty) != DependencyProperty.UnsetValue)
+            {
+                return;
+            }
+
             if (this.CanCollapseToButton)
             {
                 if (current == RibbonControlSize.Large
                     && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
                 {
-                    this.IsCollapsed = false;
+                    this.SetCurrentValue(IsCollapsedProperty, false);
                 }
                 else
                 {
-                    this.IsCollapsed = true;
+                    this.SetCurrentValue(IsCollapsedProperty, true);
                 }
             }
             else
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
         }
 
@@ -1591,9 +1596,10 @@ namespace Fluent
         public void ResetScale()
         {
             if (this.IsCollapsed
+                && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
 
             if (this.galleryPanel is not null
@@ -1609,9 +1615,10 @@ namespace Fluent
         public void Enlarge()
         {
             if (this.IsCollapsed
+                && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
             else if (this.galleryPanel is not null
                      && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
@@ -1637,9 +1644,10 @@ namespace Fluent
                 this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
             }
             else if (this.CanCollapseToButton
+                     && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                      && this.IsCollapsed == false)
             {
-                this.IsCollapsed = true;
+                this.SetCurrentValue(IsCollapsedProperty, true);
             }
             else
             {
