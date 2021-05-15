@@ -4,9 +4,11 @@ namespace Fluent
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -361,6 +363,23 @@ namespace Fluent
             CommandHelper.Execute(this.CancelPreviewCommand, this, null);
         }
 
+        /// <inheritdoc />
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            if (e.Key == Key.Enter)
+            {
+                this.RaiseClick();
+                e.Handled = true;
+            }
+        }
+
         #endregion
 
         #region Protected methods
@@ -397,5 +416,8 @@ namespace Fluent
         public void OnKeyTipBack()
         {
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new GalleryItemWrapperAutomationPeer(this);
     }
 }

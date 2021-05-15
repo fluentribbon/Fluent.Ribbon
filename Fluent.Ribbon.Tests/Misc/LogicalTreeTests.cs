@@ -127,7 +127,8 @@
         {
             typeof(MediumIconProviderProperties),
             typeof(LargeIconProviderProperties),
-            typeof(GalleryItem)
+            typeof(GalleryItem),
+            typeof(IconPresenter)
         };
 
         private static readonly DependencyProperty[] excludedPropertiesForLogicalChildSupportTest =

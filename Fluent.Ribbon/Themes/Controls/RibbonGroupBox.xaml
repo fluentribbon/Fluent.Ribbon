@@ -80,6 +80,8 @@
                 Value="0,15,0,0" />
         <Setter Property="HeaderTemplateSelector"
                 Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Small" />
         <Style.Triggers>
             <Trigger Property="IsSimplified"
                      Value="True">
@@ -114,15 +116,9 @@
                     Height="Auto"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Stretch">
-                <ContentPresenter x:Name="iconImage"
-                                  Width="16"
-                                  Height="16"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Margin="1,1,0,0"
-                                  IsHitTestVisible="False"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      IconSize="Small"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
 
             <Popup x:Name="PART_Popup"
@@ -270,18 +266,6 @@
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver"
@@ -393,8 +377,6 @@
                                            VerticalAlignment="Bottom"
                                            Background="Transparent"
                                            BorderBrush="Transparent"
-                                           Focusable="False"
-                                           IsTabStop="False"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            Header="{TemplateBinding LauncherText}"
@@ -413,33 +395,27 @@
                       Width="Auto"
                       Height="Auto"
                       Margin="0">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <Border x:Name="iconImageBorder"
-                            Width="31"
-                            Height="31"
-                            Margin="5,3,8,0"
+                    <Border Grid.Row="0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
                             BorderThickness="1"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}">
-                        <Grid>
-                            <ContentPresenter x:Name="iconImage16"
-                                              Visibility="Collapsed"
-                                              Width="16"
-                                              Height="16"
-                                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                              SnapsToDevicePixels="True" />
-                            <ContentPresenter x:Name="iconImage24"
-                                              Visibility="Visible"
-                                              Width="24"
-                                              Height="24"
-                                              Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                              SnapsToDevicePixels="True" />
-                        </Grid>
+                            Margin="5,3,5,0"
+                            Padding="4">
+                        <Fluent:IconPresenter x:Name="iconImage"
+                                              IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
-
+                    
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
-                                    Margin="5,38,5,0"
+                                    Grid.Row="1"
+                                    Margin="5,0,5,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
@@ -485,16 +461,6 @@
         </Grid>
         
         <ControlTemplate.Triggers>
-            <Trigger Property="MediumIcon"
-                     Value="{x:Null}">
-                <Setter Property="Visibility"
-                        TargetName="iconImage24"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="iconImage16"
-                        Value="Visible" />
-            </Trigger>
-
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"
@@ -512,18 +478,6 @@
                 <Setter Property="Content"
                         TargetName="popupContent"
                         Value="{Binding ElementName=PART_ParentPanel}" />
-            </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="iconImageBorder"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImageBorder">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

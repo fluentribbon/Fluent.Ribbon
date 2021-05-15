@@ -16,6 +16,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Threading;
+    using Fluent.Automation.Peers;
     using Fluent.Extensibility;
     using Fluent.Extensions;
     using Fluent.Helpers;
@@ -76,8 +77,6 @@ namespace Fluent
         private ContentControl? popupControlPresenter;
 
         private ScrollViewer? scrollViewer;
-
-        private IInputElement? focusedElement;
 
         private bool isButtonClicked;
 
@@ -568,7 +567,176 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
+            DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged));
+
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var inRibbonGallery = (InRibbonGallery)d;
+
+            var newValue = (bool)e.NewValue;
+            var oldValue = !newValue;
+
+            // Fire accessibility event
+            if (UIElementAutomationPeer.FromElement(inRibbonGallery) is RibbonInRibbonGalleryAutomationPeer peer)
+            {
+                peer.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
+            }
+
+            if (newValue)
+            {
+                inRibbonGallery.IsSnapped = true;
+
+                if (inRibbonGallery.controlPresenter is not null)
+                {
+                    inRibbonGallery.controlPresenter.Content = inRibbonGallery.snappedImage;
+                }
+
+                if (inRibbonGallery.galleryPanel is not null)
+                {
+                    using (new ScopeGuard(inRibbonGallery.galleryPanel.SuspendUpdates, inRibbonGallery.galleryPanel.ResumeUpdatesRefresh).Start())
+                    {
+                        inRibbonGallery.CurrentGalleryPanelState?.Save();
+
+                        inRibbonGallery.galleryPanel.MinItemsInRow = inRibbonGallery.MinItemsInDropDownRow;
+                        inRibbonGallery.galleryPanel.MaxItemsInRow = inRibbonGallery.MaxItemsInDropDownRow;
+                        inRibbonGallery.galleryPanel.IsGrouped = true;
+
+                        if (inRibbonGallery.menuPanel is not null)
+                        {
+                            inRibbonGallery.CurrentPopupState.Restore(inRibbonGallery.galleryPanel, inRibbonGallery.menuPanel);
+                        }
+                    }
+                }
+
+                if (inRibbonGallery.popupControlPresenter is not null)
+                {
+                    inRibbonGallery.popupControlPresenter.Content = inRibbonGallery.galleryPanel;
+                }
+
+                inRibbonGallery.DropDownOpened?.Invoke(inRibbonGallery, EventArgs.Empty);
+
+                //if (ResizeMode != ContextMenuResizeMode.None)
+                {
+                    inRibbonGallery.scrollViewer?.Measure(SizeConstants.Infinite);
+
+                    var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(inRibbonGallery).Height, inRibbonGallery.MaxDropDownHeight);
+
+                    if (double.IsNaN(inRibbonGallery.DropDownHeight) == false)
+                    {
+                        initialHeight = Math.Min(inRibbonGallery.DropDownHeight, inRibbonGallery.MaxDropDownHeight);
+                    }
+
+                    var initialWidth = Math.Min(RibbonControl.GetControlWorkArea(inRibbonGallery).Height, inRibbonGallery.MaxDropDownWidth);
+
+                    if (double.IsNaN(inRibbonGallery.DropDownWidth) == false)
+                    {
+                        initialWidth = Math.Min(inRibbonGallery.DropDownWidth, inRibbonGallery.MaxDropDownWidth);
+                    }
+
+                    double menuHeight = 0;
+                    double menuWidth = 0;
+
+                    if (inRibbonGallery.Menu is not null)
+                    {
+                        inRibbonGallery.Menu.Measure(SizeConstants.Infinite);
+                        menuHeight = inRibbonGallery.Menu.DesiredSize.Height;
+                        menuWidth = inRibbonGallery.Menu.DesiredSize.Width;
+                    }
+
+                    if (inRibbonGallery.scrollViewer is not null)
+                    {
+                        if (inRibbonGallery.scrollViewer.DesiredSize.Height > initialHeight)
+                        {
+                            inRibbonGallery.scrollViewer.Height = initialHeight - menuHeight;
+                        }
+
+                        if (inRibbonGallery.scrollViewer.DesiredSize.Width > initialWidth)
+                        {
+                            inRibbonGallery.scrollViewer.Width = initialWidth - menuWidth;
+                        }
+                    }
+                }
+
+                Mouse.Capture(inRibbonGallery, CaptureMode.SubTree);
+
+                if (inRibbonGallery.DropDownPopup?.Child is not null)
+                {
+                    inRibbonGallery.RunInDispatcherAsync(() =>
+                    {
+                        Keyboard.Focus(inRibbonGallery.DropDownPopup.Child);
+                        inRibbonGallery.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                    });
+                }
+            }
+            else
+            {
+                if (inRibbonGallery.popupControlPresenter is not null)
+                {
+                    inRibbonGallery.popupControlPresenter.Content = null;
+                }
+
+                if (inRibbonGallery.menuPanel is not null)
+                {
+                    inRibbonGallery.menuPanel.ClearValue(HeightProperty);
+                }
+
+                if (inRibbonGallery.galleryPanel is not null)
+                {
+                    using (new ScopeGuard(inRibbonGallery.galleryPanel.SuspendUpdates, inRibbonGallery.galleryPanel.ResumeUpdatesRefresh).Start())
+                    {
+                        inRibbonGallery.CurrentGalleryPanelState?.Restore();
+
+                        inRibbonGallery.galleryPanel.IsGrouped = false;
+
+                        inRibbonGallery.galleryPanel.ClearValue(WidthProperty);
+                    }
+                }
+
+                if (inRibbonGallery.IsSnapped
+                    && inRibbonGallery.IsFrozen == false)
+                {
+                    inRibbonGallery.IsSnapped = false;
+                }
+
+                if (inRibbonGallery.controlPresenter is not null)
+                {
+                    inRibbonGallery.controlPresenter.Content = inRibbonGallery.galleryPanel;
+                }
+
+                inRibbonGallery.DropDownClosed?.Invoke(inRibbonGallery, EventArgs.Empty);
+
+                inRibbonGallery.RunInDispatcherAsync(() =>
+                {
+                    var selectedContainer = inRibbonGallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(inRibbonGallery.SelectedItem);
+                    selectedContainer?.BringIntoView();
+                }, DispatcherPriority.SystemIdle);
+
+                // If focus is within the subtree, make sure we have the focus so that focus isn't in the disposed hwnd
+                if (inRibbonGallery.IsKeyboardFocusWithin)
+                {
+                    // make sure the inRibbonGallery has focus
+                    inRibbonGallery.Focus();
+
+                    inRibbonGallery.RunInDispatcherAsync(() =>
+                    {
+                        var selectedContainer = inRibbonGallery.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(inRibbonGallery.SelectedItem);
+                        if (selectedContainer is not null)
+                        {
+                            selectedContainer.Focus();
+                        }
+                        else
+                        {
+                            inRibbonGallery.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+                        }
+                    }, DispatcherPriority.SystemIdle);
+                }
+
+                if (Mouse.Captured == inRibbonGallery)
+                {
+                    Mouse.Capture(null);
+                }
+            }
+        }
 
         #endregion
 
@@ -961,17 +1129,33 @@ namespace Fluent
         #region Overrides
 
         /// <inheritdoc />
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            if (e.Key == Key.F4
+                && (e.KeyboardDevice.Modifiers & ModifierKeys.Alt) == 0)
+            {
+                this.IsDropDownOpen = !this.IsDropDownOpen;
+                e.Handled = true;
+            }
+            else if (e.Key == Key.Escape
+                    && this.IsDropDownOpen)
+            {
+                this.IsDropDownOpen = false;
+                e.Handled = true;
+            }
+        }
+
+        /// <inheritdoc />
         public KeyTipPressedResult OnKeyTipPressed()
         {
             this.IsDropDownOpen = true;
-
-            if (this.DropDownPopup?.Child is not null)
-            {
-                Keyboard.Focus(this.DropDownPopup.Child);
-                this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
-                return new KeyTipPressedResult(false, true);
-            }
 
             return new KeyTipPressedResult(false, true);
         }
@@ -1002,6 +1186,17 @@ namespace Fluent
             }
 
             base.OnSelectionChanged(e);
+
+            if ((!AutomationPeer.ListenerExists(AutomationEvents.SelectionPatternOnInvalidated)
+                && !AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementSelected)
+                && (!AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementAddedToSelection)
+                    && !AutomationPeer.ListenerExists(AutomationEvents.SelectionItemPatternOnElementRemovedFromSelection)))
+                || UIElementAutomationPeer.CreatePeerForElement(this) is not RibbonInRibbonGalleryAutomationPeer peerForElement)
+            {
+                return;
+            }
+
+            peerForElement.RaiseSelectionEvents(e);
         }
 
         /// <inheritdoc />
@@ -1029,9 +1224,6 @@ namespace Fluent
 
             if (this.DropDownPopup is not null)
             {
-                this.DropDownPopup.Opened -= this.OnDropDownOpened;
-                this.DropDownPopup.Closed -= this.OnDropDownClosed;
-
                 this.DropDownPopup.PreviewMouseLeftButtonUp -= this.OnPopupPreviewMouseUp;
                 this.DropDownPopup.PreviewMouseLeftButtonDown -= this.OnPopupPreviewMouseDown;
             }
@@ -1040,9 +1232,6 @@ namespace Fluent
 
             if (this.DropDownPopup is not null)
             {
-                this.DropDownPopup.Opened += this.OnDropDownOpened;
-                this.DropDownPopup.Closed += this.OnDropDownClosed;
-
                 this.DropDownPopup.PreviewMouseLeftButtonUp += this.OnPopupPreviewMouseUp;
                 this.DropDownPopup.PreviewMouseLeftButtonDown += this.OnPopupPreviewMouseDown;
 
@@ -1162,161 +1351,29 @@ namespace Fluent
             this.isButtonClicked = true;
         }
 
-        // Handles drop down closed
-        private void OnDropDownClosed(object? sender, EventArgs e)
-        {
-            if (this.popupControlPresenter is not null)
-            {
-                this.popupControlPresenter.Content = null;
-            }
-
-            if (this.menuPanel is not null)
-            {
-                this.menuPanel.ClearValue(HeightProperty);
-            }
-
-            if (this.galleryPanel is not null)
-            {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
-                {
-                    this.CurrentGalleryPanelState?.Restore();
-
-                    this.galleryPanel.IsGrouped = false;
-
-                    this.galleryPanel.ClearValue(WidthProperty);
-                }
-            }
-
-            if (this.IsSnapped
-                && this.IsFrozen == false)
-            {
-                this.IsSnapped = false;
-            }
-
-            if (this.controlPresenter is not null)
-            {
-                this.controlPresenter.Content = this.galleryPanel;
-            }
-
-            this.DropDownClosed?.Invoke(this, e);
-
-            if (ReferenceEquals(Mouse.Captured, this))
-            {
-                Mouse.Capture(null);
-            }
-
-            this.RunInDispatcherAsync(() =>
-                                      {
-                                          var selectedContainer = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(this.SelectedItem);
-                                          selectedContainer?.BringIntoView();
-                                      }, DispatcherPriority.SystemIdle);
-        }
-
-        // Handles drop down opened
-        private void OnDropDownOpened(object? sender, EventArgs e)
-        {
-            this.IsSnapped = true;
-
-            if (this.controlPresenter is not null)
-            {
-                this.controlPresenter.Content = this.snappedImage;
-            }
-
-            if (this.galleryPanel is not null)
-            {
-                using (new ScopeGuard(this.galleryPanel.SuspendUpdates, this.galleryPanel.ResumeUpdatesRefresh).Start())
-                {
-                    this.CurrentGalleryPanelState?.Save();
-
-                    this.galleryPanel.MinItemsInRow = this.MinItemsInDropDownRow;
-                    this.galleryPanel.MaxItemsInRow = this.MaxItemsInDropDownRow;
-                    this.galleryPanel.IsGrouped = true;
-
-                    if (this.menuPanel is not null)
-                    {
-                        this.CurrentPopupState.Restore(this.galleryPanel, this.menuPanel);
-                    }
-                }
-            }
-
-            if (this.popupControlPresenter is not null)
-            {
-                this.popupControlPresenter.Content = this.galleryPanel;
-            }
-
-            this.DropDownOpened?.Invoke(this, e);
-
-            Mouse.Capture(this, CaptureMode.SubTree);
-
-            this.focusedElement = Keyboard.FocusedElement;
-
-            if (this.focusedElement is not null)
-            {
-                this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
-                this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
-            }
-
-            //if (ResizeMode != ContextMenuResizeMode.None)
-            {
-                this.scrollViewer?.Measure(SizeConstants.Infinite);
-
-                var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownHeight);
-
-                if (double.IsNaN(this.DropDownHeight) == false)
-                {
-                    initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
-                }
-
-                var initialWidth = Math.Min(RibbonControl.GetControlWorkArea(this).Height, this.MaxDropDownWidth);
-
-                if (double.IsNaN(this.DropDownWidth) == false)
-                {
-                    initialWidth = Math.Min(this.DropDownWidth, this.MaxDropDownWidth);
-                }
-
-                double menuHeight = 0;
-                double menuWidth = 0;
-
-                if (this.Menu is not null)
-                {
-                    this.Menu.Measure(SizeConstants.Infinite);
-                    menuHeight = this.Menu.DesiredSize.Height;
-                    menuWidth = this.Menu.DesiredSize.Width;
-                }
-
-                if (this.scrollViewer is not null)
-                {
-                    if (this.scrollViewer.DesiredSize.Height > initialHeight)
-                    {
-                        this.scrollViewer.Height = initialHeight - menuHeight;
-                    }
-
-                    if (this.scrollViewer.DesiredSize.Width > initialWidth)
-                    {
-                        this.scrollViewer.Width = initialWidth - menuWidth;
-                    }
-                }
-            }
-        }
-
         /// <inheritdoc />
         public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
         {
+            if (this.ReadLocalValue(IsCollapsedProperty) != DependencyProperty.UnsetValue)
+            {
+                return;
+            }
+
             if (this.CanCollapseToButton)
             {
                 if (current == RibbonControlSize.Large
                     && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
                 {
-                    this.IsCollapsed = false;
+                    this.SetCurrentValue(IsCollapsedProperty, false);
                 }
                 else
                 {
-                    this.IsCollapsed = true;
+                    this.SetCurrentValue(IsCollapsedProperty, true);
                 }
             }
             else
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
         }
 
@@ -1354,25 +1411,6 @@ namespace Fluent
             }
 
             base.OnKeyDown(e);
-        }
-
-        private void OnFocusedElementPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-            {
-                this.IsDropDownOpen = false;
-            }
-        }
-
-        private void OnFocusedElementLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-        {
-            if (this.focusedElement is null)
-            {
-                return;
-            }
-
-            this.focusedElement.LostKeyboardFocus -= this.OnFocusedElementLostKeyboardFocus;
-            this.focusedElement.PreviewKeyDown -= this.OnFocusedElementPreviewKeyDown;
         }
 
         #endregion
@@ -1609,9 +1647,10 @@ namespace Fluent
         public void ResetScale()
         {
             if (this.IsCollapsed
+                && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
 
             if (this.galleryPanel is not null
@@ -1627,9 +1666,10 @@ namespace Fluent
         public void Enlarge()
         {
             if (this.IsCollapsed
+                && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, false);
             }
             else if (this.galleryPanel is not null
                      && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
@@ -1655,9 +1695,10 @@ namespace Fluent
                 this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
             }
             else if (this.CanCollapseToButton
+                     && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                      && this.IsCollapsed == false)
             {
-                this.IsCollapsed = true;
+                this.SetCurrentValue(IsCollapsedProperty, true);
             }
             else
             {
@@ -1727,7 +1768,7 @@ namespace Fluent
         }
 
         /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonInRibbonGalleryAutomationPeer(this);
+        protected override AutomationPeer OnCreateAutomationPeer() => new RibbonInRibbonGalleryAutomationPeer(this);
 
         internal class GalleryPanelState
         {
@@ -1780,6 +1821,29 @@ namespace Fluent
                     heightControl.SetCurrentValue(HeightProperty, this.Height);
                 }
             }
+        }
+
+        /// <summary>
+        /// Causes the object to scroll into view.  If it is not visible, it is aligned either at the top or bottom of the viewport.
+        /// </summary>
+        public void ScrollIntoView(object item)
+        {
+            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
+            {
+                this.OnBringItemIntoView(item);
+            }
+            else
+            {
+                // The items aren't generated, try at a later time
+                this.Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new DispatcherOperationCallback(this.OnBringItemIntoView), item);
+            }
+        }
+
+        private object? OnBringItemIntoView(object item)
+        {
+            var selectedContainer = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(item);
+            selectedContainer?.BringIntoView();
+            return null;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Fluent
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using System.Windows.Shapes;
+    using System.Windows.Threading;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -223,7 +224,7 @@ namespace Fluent
 
             if (element is Panel panel)
             {
-                for (int i = 0; i < panel.Children.Count; i++)
+                for (var i = 0; i < panel.Children.Count; i++)
                 {
                     this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState, isSimplified);
                 }
@@ -1014,7 +1015,8 @@ namespace Fluent
         internal bool TryClearCacheAndResetStateAndScale()
         {
             if (this.CacheResetGuard.IsActive
-                || this.IsLoaded == false)
+                || this.IsLoaded == false
+                || this.State == RibbonGroupBoxState.QuickAccess)
             {
                 this.isDeferredClearCacheAndResetStateAndScale = true;
                 return false;
@@ -1287,7 +1289,7 @@ namespace Fluent
         private void OnRibbonGroupBoxPopupOpening()
         {
             //IsHitTestVisible = false;
-            Mouse.Capture(this, CaptureMode.SubTree);
+            this.RunInDispatcherAsync(() => Mouse.Capture(this, CaptureMode.SubTree), DispatcherPriority.Loaded);
         }
 
         #endregion

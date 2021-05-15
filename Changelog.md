@@ -16,7 +16,13 @@
   - [#918](../../issues/918) - Custom color does not reset color gallery selection state
   - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
   - [#925](../../issues/925) - Controls might not be shown when using default layout of RibbonToolbar (thanks @nishy2000)
+  - [#927](../../issues/927) - Size value calculated by RibbonGroupBox is not reflected in RibbonControls in Panel control (thanks @nishy2000)
   - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
+
+- ### Enhancements/Features
+  - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
+  - Added automation peers for `InRibbonGallery` and `GalleryItem`
+  - Improved keyboard navigation for `InRibbonGallery`
 
 ## 8.0.3
 

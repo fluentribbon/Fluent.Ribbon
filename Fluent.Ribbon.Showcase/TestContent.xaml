@@ -2066,7 +2066,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource largeDataItemTemplate}"
                                             ResizeMode="Both"
-                                            Selectable="False">
+                                            Selectable="False"
+                                            KeyTip="G">
                         <!--You can also add items to context menu-->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
@@ -2091,7 +2092,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
                                             GroupBy="Group"
-                                            ResizeMode="Both">
+                                            ResizeMode="Both"
+                                            KeyTip="GG">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
                                                        Groups="Group A,Group B"
@@ -2713,6 +2715,90 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                 <Fluent:RibbonGroupBox Header="MUST BE HIDDEN"
                                        IsLauncherVisible="False"
                                        Visibility="Collapsed" />
+            </Fluent:RibbonTabItem>
+
+            <Fluent:RibbonTabItem Header="Ribbon controls in panel"
+                                  ReduceOrder="PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13,PanelGroup11,PanelGroup12,PanelGroup13"
+                                  KeyTip="P">
+                <Fluent:RibbonGroupBox x:Name="PanelGroup11"
+                                       Header="In RibbonToolBar"
+                                       LauncherText="launcher"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
+                                       IsSeparatorVisible="True"
+                                       IsLauncherVisible="True">
+
+                    <Fluent:RibbonToolBar>
+                        <Fluent:Button Header="Full(L/L/S) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
+                                       SizeDefinition="Large,Large,Small"/>
+                        <Fluent:Button Header="Full(M/M/S) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
+                                       SizeDefinition="Middle,Middle,Small"/>
+                        <Fluent:Button Header="Full(L/L/L) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
+                                       SizeDefinition="Large"/>
+                        <Fluent:Button Header="Full(default) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
+                    </Fluent:RibbonToolBar>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox x:Name="PanelGroup12"
+                                       Header="In StackPanel"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png">
+                    <StackPanel Orientation="Horizontal">
+                        <Fluent:Button Header="Full(L/L/S) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
+                                       SizeDefinition="Large,Large,Small"/>
+                        <Fluent:Button Header="Full(M/M/S) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
+                                       SizeDefinition="Middle,Middle,Small"/>
+                        <Fluent:Button Header="Full(L/L/L) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
+                                       SizeDefinition="Large"/>
+                        <Fluent:Button Header="Full(default) button"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
+                    </StackPanel>
+                </Fluent:RibbonGroupBox>
+
+                <Fluent:RibbonGroupBox x:Name="PanelGroup13"
+                                       Header="In Grid"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Fluent:Button Header="Full(L/L/S) button"
+                                       Grid.Column="0"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
+                                       SizeDefinition="Large,Large,Small"/>
+                        <Fluent:Button Header="Full(M/M/S) button"
+                                       Grid.Column="1"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
+                                       SizeDefinition="Middle,Middle,Small"/>
+                        <Fluent:Button Header="Full(L/L/L) button"
+                                       Grid.Column="2"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
+                                       SizeDefinition="Large"/>
+                        <Fluent:Button Header="Full(default) button"
+                                       Grid.Column="3"
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
+                                       LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
+                    </Grid>
+                </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
         </Fluent:Ribbon>

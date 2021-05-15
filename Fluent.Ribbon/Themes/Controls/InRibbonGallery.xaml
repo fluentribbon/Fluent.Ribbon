@@ -712,6 +712,7 @@
                                                                   BorderThickness="0,0,0,1"
                                                                   Margin="1">
                                                         <ContentControl x:Name="PART_PopupContentPresenter"
+                                                                        Focusable="False"
                                                                         Content="{x:Null}" />
                                                     </ScrollViewer>
                                                 </Grid>

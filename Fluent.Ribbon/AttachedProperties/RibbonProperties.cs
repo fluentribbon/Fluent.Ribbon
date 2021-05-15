@@ -325,5 +325,30 @@ namespace Fluent
         }
 
         #endregion IsElementInQuickAccessToolBarProperty
+
+        #region DesiredIconSize
+
+        /// <summary>
+        /// Defines the desired icon size for the element.
+        /// </summary>
+        public static readonly DependencyProperty IconSizeProperty = DependencyProperty.RegisterAttached(
+            "IconSize", typeof(IconSize), typeof(RibbonProperties), new PropertyMetadata(IconSize.Small));
+
+        /// <summary>Helper for setting <see cref="IconSizeProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetIconSize(DependencyObject element, IconSize value)
+        {
+            element.SetValue(IconSizeProperty, value);
+        }
+
+        /// <summary>Helper for getting <see cref="IconSizeProperty"/> from <paramref name="element"/>.</summary>
+        [AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
+        [AttachedPropertyBrowsableForType(typeof(IMediumIconProvider))]
+        [AttachedPropertyBrowsableForType(typeof(ILargeIconProvider))]
+        public static IconSize GetIconSize(DependencyObject element)
+        {
+            return (IconSize)element.GetValue(IconSizeProperty);
+        }
+
+        #endregion
     }
 }
