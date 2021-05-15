@@ -7,7 +7,7 @@
     /// <summary>
     /// Class which enables conversion from <see cref="string"/> to <see cref="RibbonGroupBoxStateDefinition"/>
     /// </summary>
-    public class StateDefinitionConverter : TypeConverter
+    public class RibbonGroupBoxStateDefinitionConverter : TypeConverter
     {
         /// <inheritdoc />
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)

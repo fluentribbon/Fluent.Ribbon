@@ -12,7 +12,7 @@ namespace Fluent
     /// <summary>
     /// This class holds the Holds transitionable states when the <see cref="RibbonGroupsContainer"/> automatically resizes the <see cref="RibbonGroupBox"/>.
     /// </summary>
-    [TypeConverter(typeof(StateDefinitionConverter))]
+    [TypeConverter(typeof(RibbonGroupBoxStateDefinitionConverter))]
     public struct RibbonGroupBoxStateDefinition : IEquatable<RibbonGroupBoxStateDefinition>
     {
         private const int MaxStateDefinitionParts = 4;
@@ -23,14 +23,6 @@ namespace Fluent
         public RibbonGroupBoxStateDefinition(string? stateDefinition)
             : this()
         {
-            this.states = new List<RibbonGroupBoxState>
-                {
-                    RibbonGroupBoxState.Large,
-                    RibbonGroupBoxState.Middle,
-                    RibbonGroupBoxState.Small,
-                    RibbonGroupBoxState.Collapsed,
-                };
-
             if (string.IsNullOrEmpty(stateDefinition))
             {
                 return;
@@ -64,20 +56,22 @@ namespace Fluent
             if (states.Count > 0)
             {
                 states.Sort();  // sort large to small
-                this.states = states;
+                this.states = states.ToArray();
             }
         }
 
         /// <summary>
         /// Gets or sets the transitionable states
         /// </summary>
-        /// 
-        public IReadOnlyList<RibbonGroupBoxState> States
+        public RibbonGroupBoxState[] States => this.states ??= new[]
         {
-            get { return this.states; }
-        }
+            RibbonGroupBoxState.Large,
+            RibbonGroupBoxState.Middle,
+            RibbonGroupBoxState.Small,
+            RibbonGroupBoxState.Collapsed,
+        };
 
-        private readonly List<RibbonGroupBoxState> states;
+        private RibbonGroupBoxState[]? states;
 
         /// <summary>
         /// Converts from <see cref="string"/> to <see cref="RibbonGroupBoxStateDefinition"/>
@@ -118,16 +112,16 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBoxState EnlargeState(RibbonGroupBoxState ribbonGroupBoxState)
         {
-            var index = this.states.IndexOf(ribbonGroupBoxState);
+            var index = Array.IndexOf(this.States, ribbonGroupBoxState);
             if (index >= 0)
             {
                 if (index > 0)
                 {
-                    return this.states[index - 1];
+                    return this.States[index - 1];
                 }
                 else
                 {
-                    return this.states.First();
+                    return this.States[0];
                 }
             }
             else
@@ -135,14 +129,14 @@ namespace Fluent
                 //  If not found current state, find the closest state that exists in the state list
                 while (--ribbonGroupBoxState >= RibbonGroupBoxState.Large)
                 {
-                    index = this.states.IndexOf(ribbonGroupBoxState);
+                    index = Array.IndexOf(this.States, ribbonGroupBoxState);
                     if (index >= 0)
                     {
-                        return this.states[index];
+                        return this.States[index];
                     }
                 }
 
-                return this.states.First();
+                return this.States[0];
             }
         }
 
@@ -151,16 +145,16 @@ namespace Fluent
         /// </summary>
         public RibbonGroupBoxState ReduceState(RibbonGroupBoxState ribbonGroupBoxState)
         {
-            var index = this.states.IndexOf(ribbonGroupBoxState);
+            var index = Array.IndexOf(this.States, ribbonGroupBoxState);
             if (index >= 0)
             {
-                if (index < this.states.Count - 1)
+                if (index < this.States.Length - 1)
                 {
-                    return this.states[index + 1];
+                    return this.States[index + 1];
                 }
                 else
                 {
-                    return this.states.Last();
+                    return this.States.Last();
                 }
             }
             else
@@ -168,14 +162,14 @@ namespace Fluent
                 // If not found current state, find the closest state that exists in the state list
                 while (++ribbonGroupBoxState <= RibbonGroupBoxState.Collapsed)
                 {
-                    index = this.states.IndexOf(ribbonGroupBoxState);
+                    index = Array.IndexOf(this.States, ribbonGroupBoxState);
                     if (index >= 0)
                     {
-                        return this.states[index];
+                        return this.States[index];
                     }
                 }
 
-                return this.states.Last();
+                return this.States.Last();
             }
         }
 
@@ -198,14 +192,14 @@ namespace Fluent
         /// <inheritdoc />
         public bool Equals(RibbonGroupBoxStateDefinition other)
         {
-            if (this.states.Count != other.states.Count)
+            if (this.States.Length != other.States.Length)
             {
                 return false;
             }
 
-            for (int i = 0; i < this.states.Count; i++)
+            for (var i = 0; i < this.States.Length; i++)
             {
-                if (this.states[i] != other.states[i])
+                if (this.States[i] != other.States[i])
                 {
                     return false;
                 }
@@ -219,8 +213,13 @@ namespace Fluent
         {
             unchecked
             {
-                var hashCode = (int)this.states.Count;
-                this.states.ForEach(i => hashCode = (hashCode * 397) ^ (int)i);
+                var states = this.States;
+                var hashCode = states.Length;
+                foreach (var state in states)
+                {
+                    hashCode = (hashCode * 397) ^ (int)state;
+                }
+
                 return hashCode;
             }
         }
@@ -255,7 +254,7 @@ namespace Fluent
         /// </returns>
         public override string ToString()
         {
-            return string.Join(",", this.states);
+            return string.Join(",", this.States);
         }
     }
 }
