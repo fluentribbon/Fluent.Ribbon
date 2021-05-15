@@ -2065,7 +2065,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource largeDataItemTemplate}"
                                             ResizeMode="Both"
-                                            Selectable="False">
+                                            Selectable="False"
+                                            KeyTip="G">
                         <!--You can also add items to context menu-->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
@@ -2090,7 +2091,8 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                             ItemsSource="{Binding DataItems}"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
                                             GroupBy="Group"
-                                            ResizeMode="Both">
+                                            ResizeMode="Both"
+                                            KeyTip="GG">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter Title="All"
                                                        Groups="Group A,Group B"
