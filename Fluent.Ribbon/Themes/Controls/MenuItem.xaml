@@ -174,14 +174,12 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
-                <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
-                                  Height="16"
-                                  VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  Width="16"
-                                  Margin="3,2,2,2"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="3,2,2,2"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
@@ -247,9 +245,6 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
@@ -258,12 +253,6 @@
                 <Setter Property="Opacity"
                         TargetName="gestureTextBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="checkedImage">
                     <Setter.Value>
@@ -307,14 +296,12 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
-                <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
-                                  Height="16"
-                                  VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  Width="16"
-                                  Margin="3,2,2,2"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="3,2,2,2"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
@@ -478,20 +465,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="checkedImage">
                     <Setter.Value>
@@ -558,14 +536,12 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
-                <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
-                                  Height="16"
-                                  VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  Width="16"
-                                  Margin="3,2,2,2"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="3,2,2,2"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
@@ -737,20 +713,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="checkedImage">
                     <Setter.Value>
@@ -809,14 +776,12 @@
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
             <Border x:Name="iconImageBorder"
                     BorderThickness="1">
-                <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
-                                  Height="16"
-                                  VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  Width="16"
-                                  Margin="3,2,2,2"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="3,2,2,2"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
                    HorizontalAlignment="Center"
@@ -882,20 +847,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="checkedImage"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="checkedImage">
                     <Setter.Value>

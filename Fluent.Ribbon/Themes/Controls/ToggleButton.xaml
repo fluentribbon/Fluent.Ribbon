@@ -21,11 +21,15 @@
         <Style.Triggers>
             <Trigger Property="Size"
                      Value="Large">
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Large" />
                 <Setter Property="Height"
                         Value="68" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Small" />
                 <Setter Property="Height"
                         Value="22" />
                 <Setter Property="HorizontalAlignment"
@@ -33,6 +37,8 @@
             </Trigger>
             <Trigger Property="Size"
                      Value="Small">
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Small" />
                 <Setter Property="Height"
                         Value="22" />
                 <Setter Property="Width"
@@ -56,14 +62,14 @@
                         Width="Auto"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
-                <ContentPresenter x:Name="iconImage"
-                                  Width="32"
-                                  Height="32"
-                                  Margin="0 2 0 0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Content="{converters:ObjectToImageConverter {Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                  SnapsToDevicePixels="True" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      Margin="0 2 0 0"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
+                
                 <Fluent:TwoLineLabel x:Name="controlLabel"
                                      Text="{TemplateBinding Header}"
                                      HorizontalAlignment="Stretch"
@@ -83,18 +89,9 @@
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="1,0,2,0" />
-                <Setter Property="Content"
-                        TargetName="iconImage"
-                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,-2,2,2" />
@@ -119,21 +116,12 @@
                 <Setter Property="VerticalAlignment"
                         TargetName="border"
                         Value="Stretch" />
-                <Setter Property="Width"
-                        TargetName="iconImage"
-                        Value="16" />
-                <Setter Property="Height"
-                        TargetName="iconImage"
-                        Value="16" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="1,0,2,0" />
                 <Setter Property="VerticalAlignment"
                         TargetName="controlLabel"
                         Value="Center" />
-                <Setter Property="Content"
-                        TargetName="iconImage"
-                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
@@ -147,17 +135,8 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="controlLabel"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

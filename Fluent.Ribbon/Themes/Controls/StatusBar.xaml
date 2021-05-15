@@ -131,14 +131,11 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <Image x:Name="iconImage"
-                   HorizontalAlignment="Center"
-                   Margin="3,2,2,2"
-                   VerticalAlignment="Center"
-                   Width="Auto"
-                   Stretch="Uniform"
-                   Source="{TemplateBinding Icon}"
-                   SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Margin="3,2,2,2"
+                                  SmallIcon="{TemplateBinding Icon}" />
             <TextBlock Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"

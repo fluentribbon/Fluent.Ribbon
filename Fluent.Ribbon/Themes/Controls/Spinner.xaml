@@ -78,12 +78,11 @@
                         x:Name="headerAndIconPanel"
                         HorizontalAlignment="Left"
                         Margin="0,0,4,0">
-                <ContentPresenter x:Name="iconImage"
-                                  Width="16"
-                                  Height="16"
-                                  VerticalAlignment="Center"
-                                  Margin="4,0,0,0"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}" />
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      VerticalAlignment="Center"
+                                      Margin="4,0,0,0"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -224,17 +223,8 @@
                         TargetName="PART_TextBox"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="headerTextBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
             </Trigger>
             <Trigger Property="Size"
                         Value="Middle">
