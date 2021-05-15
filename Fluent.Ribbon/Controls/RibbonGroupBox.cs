@@ -31,7 +31,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport
+    public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider
     {
         #region Fields
 
@@ -173,21 +173,31 @@ namespace Fluent
             foreach (var item in this.Items)
             {
                 var element = this.ItemContainerGenerator.ContainerFromItem(item);
-
-                if (element is null)
-                {
-                    continue;
-                }
-
-                var targetElement = element;
-
-                if (targetElement is ContentPresenter)
-                {
-                    targetElement = UIHelper.GetFirstVisualChild(targetElement) ?? targetElement;
-                }
-
-                RibbonProperties.SetAppropriateSize(targetElement, groupBoxState);
+                this.UpdateChildSizesOfUIElement(element, groupBoxState);
             }
+        }
+
+        private void UpdateChildSizesOfUIElement(DependencyObject? element, RibbonGroupBoxState groupBoxState)
+        {
+            if (element is null)
+            {
+                return;
+            }
+
+            if (element is Panel panel)
+            {
+                for (int i = 0; i < panel.Children.Count; i++)
+                {
+                    this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState);
+                }
+            }
+
+            if (element is ContentPresenter)
+            {
+                element = UIHelper.GetFirstVisualChild(element) ?? element;
+            }
+
+            RibbonProperties.SetAppropriateSize(element, groupBoxState);
         }
 
         #endregion
@@ -379,7 +389,7 @@ namespace Fluent
 
         #endregion
 
-        #region LauncherIcon
+        #region LauncherText
 
         /// <summary>
         /// Gets or sets launcher button text
@@ -561,6 +571,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
         public static readonly DependencyProperty IconProperty = RibbonControl.IconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -1245,6 +1269,11 @@ namespace Fluent
                 if (this.Icon is not null)
                 {
                     yield return this.Icon;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
                 }
 
                 if (this.LauncherIcon is not null)
