@@ -71,6 +71,8 @@ namespace Fluent
                 }
             };
             this.SetBinding(ContentProperty, binding);
+
+            this.UpdateSize();
         }
 
         public Size SmallSize
@@ -148,6 +150,18 @@ namespace Fluent
 
         private void Update()
         {
+            this.UpdateSize();
+
+            var optimalIcon = this.GetOptimalIcon();
+
+            if (this.OptimalIcon != optimalIcon)
+            {
+                this.SetCurrentValue(OptimalIconProperty, optimalIcon);
+            }
+        }
+
+        private void UpdateSize()
+        {
             var size = this.IconSize switch
             {
                 IconSize.Small => this.SmallSize,
@@ -166,22 +180,15 @@ namespace Fluent
             {
                 this.SetCurrentValue(HeightProperty, size.Height);
             }
-
-            var optimalIcon = this.GetOptimalIcon();
-
-            if (this.OptimalIcon != optimalIcon)
-            {
-                this.SetCurrentValue(OptimalIconProperty, optimalIcon);
-            }
         }
 
         public object? GetOptimalIcon()
         {
             return this.IconSize switch
             {
-                IconSize.Large => this.LargeIcon ?? this.MediumIcon ?? this.SmallIcon,
-                IconSize.Medium => this.MediumIcon ?? this.LargeIcon ?? this.SmallIcon,
                 IconSize.Small => this.SmallIcon ?? this.MediumIcon ?? this.LargeIcon,
+                IconSize.Medium => this.MediumIcon ?? this.LargeIcon ?? this.SmallIcon,
+                IconSize.Large => this.LargeIcon ?? this.MediumIcon ?? this.SmallIcon,
                 _ => this.LargeIcon ?? this.MediumIcon ?? this.SmallIcon
             };
         }
