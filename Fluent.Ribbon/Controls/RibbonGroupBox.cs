@@ -1000,23 +1000,30 @@ namespace Fluent
 
         private bool TryClearCache()
         {
-            if (this.CacheResetGuard.IsActive == false)
+            if (this.CacheResetGuard.IsActive)
             {
-                this.isDeferredClearCache = false;
-                this.ClearCache();
-                return true;
+                return false;
+            }
+            else if (!this.IsLoaded)
+            {
+                this.isDeferredClearCache = true;
+                return false;
             }
 
-            this.isDeferredClearCache = true;
+            this.isDeferredClearCache = false;
 
-            return false;
+            this.ClearCache();
+            return true;
         }
 
         internal bool TryClearCacheAndResetStateAndScale()
         {
             if (this.CacheResetGuard.IsActive
-                || this.IsLoaded == false
                 || this.State == RibbonGroupBoxState.QuickAccess)
+            {
+                return false;
+            }
+            else if (!this.IsLoaded)
             {
                 this.isDeferredClearCacheAndResetStateAndScale = true;
                 return false;
@@ -1056,7 +1063,10 @@ namespace Fluent
             }
             else
             {
-                this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = true;
+                if (!this.IsLoaded)
+                {
+                    this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = true;
+                }
             }
 
             return false;
