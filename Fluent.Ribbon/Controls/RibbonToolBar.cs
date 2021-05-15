@@ -196,16 +196,33 @@ namespace Fluent
                 return this.LayoutDefinitions[0];
             }
 
+            var size = this.Size;
+            var map = new Dictionary<RibbonControlSize, RibbonToolBarLayoutDefinition>();
             foreach (var definition in this.LayoutDefinitions)
             {
-                if (RibbonProperties.GetSize(definition) == RibbonProperties.GetSize(this))
+                var definitionSize = definition.Size;
+                if (definitionSize == size)
                 {
                     return definition;
                 }
+
+                map[definitionSize] = definition;
             }
 
-            // TODO: try to find a better definition
-            return this.LayoutDefinitions[0];
+            // find the closest definition if no matching definition exists
+            switch (size)
+            {
+                case RibbonControlSize.Large:
+                    return map.ContainsKey(RibbonControlSize.Middle) ? map[RibbonControlSize.Middle] : (map.ContainsKey(RibbonControlSize.Small) ? map[RibbonControlSize.Small] : this.LayoutDefinitions[0]);
+
+                case RibbonControlSize.Middle:
+                    return map.ContainsKey(RibbonControlSize.Small) ? map[RibbonControlSize.Small] : (map.ContainsKey(RibbonControlSize.Large) ? map[RibbonControlSize.Large] : this.LayoutDefinitions[0]);
+
+                case RibbonControlSize.Small:
+                    return map.ContainsKey(RibbonControlSize.Middle) ? map[RibbonControlSize.Middle] : (map.ContainsKey(RibbonControlSize.Large) ? map[RibbonControlSize.Large] : this.LayoutDefinitions[0]);
+                default:
+                    return this.LayoutDefinitions[0];
+            }
         }
 
         #endregion
