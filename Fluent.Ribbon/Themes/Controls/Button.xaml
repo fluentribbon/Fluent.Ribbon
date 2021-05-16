@@ -84,6 +84,7 @@
                         Orientation="Vertical">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="0 2 0 0"
+                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
 
