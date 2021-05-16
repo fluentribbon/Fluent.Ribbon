@@ -89,13 +89,62 @@
                                       LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <Fluent:TwoLineLabel x:Name="controlLabel"
-                                     Text="{TemplateBinding Header}"
+                                     Margin="2 0 2 0" 
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
-                                     Margin="2 0 2 0" />
+                                     Text="{TemplateBinding Header}" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size"
+                               Value="Small"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>                
+                <Setter Property="BorderThickness"
+                        TargetName="iconImage"
+                        Value="1" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImage"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size"
+                               Value="Middle"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size"
+                               Value="Middle"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                    <Condition Property="Text"
+                               SourceName="controlLabel"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Visible" />
+                <Setter Property="BorderThickness"
+                        TargetName="iconImage"
+                        Value="1" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImage"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}" />
+            </MultiTrigger>
+
             <Trigger Property="Size"
                      Value="Small">
                 <Setter Property="Orientation"
@@ -109,9 +158,6 @@
                         Value="False" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
-                        Value="2,0,2,0" />
-                <Setter Property="Margin"
-                        TargetName="controlLabel"
                         Value="2,0,2,0" />
             </Trigger>
             <Trigger Property="Size"
@@ -128,9 +174,6 @@
                 <Setter Property="HasTwoLines"
                         TargetName="controlLabel"
                         Value="False" />
-                <Setter Property="Margin"
-                        TargetName="controlLabel"
-                        Value="2,0,2,0" />
                 <Setter Property="VerticalAlignment"
                         TargetName="border"
                         Value="Stretch" />

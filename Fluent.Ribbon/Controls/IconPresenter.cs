@@ -5,6 +5,7 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
+    using System.Windows.Media;
     using Fluent.Converters;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
@@ -43,6 +44,14 @@ namespace Fluent
         public static readonly DependencyProperty LargeIconProperty = DependencyProperty.Register(
             nameof(LargeIcon), typeof(object), typeof(IconPresenter), new PropertyMetadata(default, PropertyChangedCallback));
 
+        /// <summary>Identifies the <see cref="BorderThickness"/> dependency property.</summary>
+        public static readonly DependencyProperty BorderThicknessProperty = DependencyProperty.Register(
+            nameof(BorderThickness), typeof(Thickness), typeof(IconPresenter), new PropertyMetadata(default(Thickness), PropertyChangedCallback));
+
+        /// <summary>Identifies the <see cref="BorderBrush"/> dependency property.</summary>
+        public static readonly DependencyProperty BorderBrushProperty = DependencyProperty.Register(
+            nameof(BorderBrush), typeof(Brush), typeof(IconPresenter), new PropertyMetadata(default(Brush), PropertyChangedCallback));
+
         /// <summary>Identifies the <see cref="OptimalIcon"/> dependency property.</summary>
         public static readonly DependencyProperty OptimalIconProperty = DependencyProperty.Register(
             nameof(OptimalIcon), typeof(object), typeof(IconPresenter), new PropertyMetadata(default));
@@ -61,7 +70,14 @@ namespace Fluent
         {
             grayscaleEffect ??= new();
 
-            var binding = new Binding(nameof(this.OptimalIcon))
+            var grid = new Grid();
+            var icon = new ContentPresenter();
+            var border = new Border();
+
+            grid.Children.Add(icon);
+            grid.Children.Add(border);
+
+            var iconBinding = new Binding(nameof(this.OptimalIcon))
             {
                 Source = this,
                 Converter = new ObjectToImageConverter
@@ -70,7 +86,21 @@ namespace Fluent
                     TargetVisualBinding = new Binding { Source = this }
                 }
             };
-            this.SetBinding(ContentProperty, binding);
+            icon.SetBinding(ContentProperty, iconBinding);
+
+            var borderBrushBinding = new Binding(nameof(this.BorderBrush))
+            {
+                Source = this
+            };
+            border.SetBinding(Border.BorderBrushProperty, borderBrushBinding);
+
+            var borderThicknessBinding = new Binding(nameof(this.BorderThickness))
+            {
+                Source = this
+            };
+            border.SetBinding(Border.BorderThicknessProperty, borderThicknessBinding);
+
+            this.Content = grid;
 
             this.UpdateSize();
         }
@@ -121,6 +151,18 @@ namespace Fluent
         {
             get => this.GetValue(LargeIconProperty);
             set => this.SetValue(LargeIconProperty, value);
+        }
+
+        public Thickness BorderThickness
+        {
+            get => (Thickness)this.GetValue(BorderThicknessProperty);
+            set => this.SetValue(BorderThicknessProperty, value);
+        }
+
+        public Brush? BorderBrush
+        {
+            get => (Brush)this.GetValue(BorderBrushProperty);
+            set => this.SetValue(BorderBrushProperty, value);
         }
 
         public object? OptimalIcon

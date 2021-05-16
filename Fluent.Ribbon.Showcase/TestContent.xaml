@@ -2363,7 +2363,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
             <Fluent:RibbonTabItem Header="Resizing &amp; Screentips"
                                   KeyTip="RS"
-                                  ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other">
+                                  ReduceOrder="Default,Default,Default,Large,Large,Large,Other,Other,Other,Icon,Icon,Icon">
 
                 <!--All group can be in four state: Large->Middle->Small->Collapsed
                     By default group in Large state. When group changes its state it 
@@ -2469,6 +2469,22 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                    Header="Grey"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
+                </Fluent:RibbonGroupBox>
+                
+                <Fluent:RibbonGroupBox Name="Icon"
+                                       Header="Icon">
+                    <Fluent:Button Header="Small icon only"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"/>
+                    <Fluent:Button Header="Large icon only"
+                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"/>
+                    <Fluent:Button Header="Both icon"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
+                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"/>
+                    <Fluent:Button Header="Both icon"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
+                                   LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png"/>
+                    <Fluent:Button Header="No icon"/>
+                    <Fluent:Button/> <!-- no icon, no header text-->
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
