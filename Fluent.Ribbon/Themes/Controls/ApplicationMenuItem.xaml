@@ -82,14 +82,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Top"
-                              Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,4,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked"
@@ -123,20 +121,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -218,14 +207,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Top"
-                              Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,4,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -439,20 +426,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -558,14 +536,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Top"
-                              Margin="3,4,2,2"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,4,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -681,20 +657,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -720,6 +687,8 @@
                 Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Large" />
         <Setter Property="Template"
                 Value="{DynamicResource ApplicationMenuSecondLevelItemTemplate}" />
         <Style.Triggers>
@@ -815,14 +784,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,2,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsChecked"
@@ -855,21 +822,13 @@
             </MultiTrigger>
             <Trigger Property="IsEnabled"
                      Value="False">
-                <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
+
                 <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -938,14 +897,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,2,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -1154,20 +1111,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -1260,14 +1208,12 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Visibility="Collapsed"
                    SnapsToDevicePixels="True" />
-            <ContentPresenter x:Name="iconImage"
-                              HorizontalAlignment="Center"
-                              Height="32"
-                              VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '32,32', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                              Width="32"
-                              Margin="3,2,2,2"
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="3,2,2,2"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
                   Stroke="{x:Null}"
@@ -1485,20 +1431,11 @@
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Opacity"
                         TargetName="image"
                         Value="0.5" />
                 <Setter Property="Opacity"
                         TargetName="textBlock"
                         Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
                 <Setter Property="Effect"
                         TargetName="image">
                     <Setter.Value>
@@ -1524,6 +1461,8 @@
                 Value="True" />
         <Setter Property="OverridesDefaultStyle"
                 Value="True" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Large" />
         <Setter Property="Template"
                 Value="{DynamicResource ApplicationMenuItemTemplate}" />
         <Style.Triggers>

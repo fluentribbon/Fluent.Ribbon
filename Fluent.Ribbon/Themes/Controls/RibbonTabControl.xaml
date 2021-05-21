@@ -15,14 +15,13 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Stretch"
                 Width="22">
-            <ContentPresenter x:Name="iconImage"
-                              Width="16"
-                              Height="16"
-                              Margin="2"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                                                            
-                              SnapsToDevicePixels="True" />
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  Margin="2"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+            
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed"
