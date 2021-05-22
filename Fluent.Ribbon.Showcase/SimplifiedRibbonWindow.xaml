@@ -198,6 +198,10 @@
                                             IconBrush="DarkOrange"/>
                         </fluent:ComboBox.Icon>
                     </fluent:ComboBox>
+                    <fluent:ComboBox Header="Combo box (no icon)"
+                                     InputWidth="50"
+                                     KeyTip="CO3">
+                    </fluent:ComboBox>
                 </fluent:RibbonGroupBox>
                 
                 <fluent:RibbonGroupBox x:Name="RibbonGroupBox2"
@@ -585,8 +589,8 @@
                     </fluent:InRibbonGallery>
                 </fluent:RibbonGroupBox>
 
-                <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_1"
-                                       Header="Ribbon group box 2-1">
+                <fluent:RibbonGroupBox x:Name="RibbonGroupBox2_3"
+                                       Header="Ribbon group box 2-3">
                     <fluent:RibbonGroupBox.Icon>
                         <local:TestIcon IconSize="16"
                                             Foreground="Black"
@@ -1736,16 +1740,16 @@
                     <GroupBox Header="{Binding Header,ElementName=RibbonTab2}"
                               Margin="0,4">
                         <StackPanel Orientation="Vertical">
-                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_1}">
-                                RibbonGroupBox.IsEnabled (for the 1st group box)
+                            <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_3}">
+                                RibbonGroupBox.IsEnabled (for the 3rd group box)
                             </CheckBox>
-                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
                                              HorizontalAlignment="Left"
                                              InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
-                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox2_1}">
+                                             SelectedItem="{Binding State,ElementName=RibbonGroupBox2_3}">
                             </fluent:ComboBox>
                         </StackPanel>
                     </GroupBox>

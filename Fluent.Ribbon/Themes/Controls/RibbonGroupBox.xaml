@@ -89,6 +89,8 @@
                         Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox.Simplified}" />
                 <Setter Property="Padding"
                         Value="6,0" />
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Medium" />
             </Trigger>
             <Trigger Property="State"
                      Value="QuickAccess">
@@ -102,6 +104,8 @@
                         Value="False" />
                 <Setter Property="SnapsToDevicePixels"
                         Value="False" />
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Small" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -118,7 +122,9 @@
                     VerticalAlignment="Stretch">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       IconSize="Small"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
 
             <Popup x:Name="PART_Popup"
@@ -201,6 +207,7 @@
                                                Focusable="False"
                                                IsTabStop="False"
                                                Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                               Fluent:RibbonProperties.IconSize="Small"
                                                Icon="{TemplateBinding LauncherIcon}"
                                                Header="{TemplateBinding LauncherText}"
                                                Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -222,6 +229,7 @@
                                            Focusable="False"
                                            IsTabStop="False"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           Fluent:RibbonProperties.IconSize="Small"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            Header="{TemplateBinding LauncherText}"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -378,6 +386,7 @@
                                            Background="Transparent"
                                            BorderBrush="Transparent"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           Fluent:RibbonProperties.IconSize="Small"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            Header="{TemplateBinding LauncherText}"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -401,12 +410,12 @@
                     </Grid.RowDefinitions>
 
                     <Border Grid.Row="0"
+                            Margin="5,3,5,0"
+                            Padding="4"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
-                            BorderThickness="1"
-                            Margin="5,3,5,0"
-                            Padding="4">
+                            BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
                                               IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
@@ -445,14 +454,14 @@
                 </Grid>
 
                 <Rectangle x:Name="separator"
-                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Stretch"
+                           Grid.RowSpan="2"
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" 
                            Width="1"
                            Height="Auto"
-                           Grid.RowSpan="2"
                            Margin="0,4"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Stretch"
+                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"/>
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -557,6 +566,7 @@
                                        Focusable="False"
                                        IsTabStop="False"
                                        Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                       Fluent:RibbonProperties.IconSize="Small"
                                        Icon="{TemplateBinding LauncherIcon}"
                                        Header="{TemplateBinding LauncherText}"
                                        Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
@@ -572,45 +582,42 @@
                       Visibility="Collapsed"
                       Width="Auto"
                       Height="Auto"
-                      Margin="0">
+                      Margin="{TemplateBinding Padding}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel x:Name="stackPanel"
-                        Width="Auto"
-                        Height="Auto"
-                        Margin="{TemplateBinding Padding}"
-                        VerticalAlignment="Stretch"
-                        Orientation="Horizontal">
-
-                        <Grid x:Name="iconImageGrid"
-                              Margin="0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              IsHitTestVisible="False">
-                            <ContentPresenter x:Name="iconImage"
-                                                Width="24"
-                                                Height="24"
-                                                Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"
-                                                SnapsToDevicePixels="True" />
-                            <Border x:Name="iconImageBorder24"
-                                    Width="24"
-                                    Height="24"
-                                    BorderThickness="1"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"/>
-                        </Grid>
-
-                        <ContentControl x:Name="PART_CollapsedHeaderContentControl"
-                                        Margin="2,0,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Center"
-                                        Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                        Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
-                                        Content="{TemplateBinding Header}"
-                                        ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                        Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
-                                        KeyboardNavigation.IsTabStop="False" />
-                    </StackPanel>
+                    <Grid x:Name="iconImageGrid"
+                            Grid.Column="0"
+                            Margin="0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsHitTestVisible="False">
+                        <Fluent:IconPresenter x:Name="iconImage"
+                                              IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Border Width="24"
+                                Height="24"
+                                Margin="0"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                                BorderThickness="1"/>
+                    </Grid>
+                    
+                    <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Grid.Column="1"
+                                    Margin="2,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
+                                    Content="{TemplateBinding Header}"
+                                    ContentStringFormat="{TemplateBinding HeaderStringFormat}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
@@ -630,14 +637,14 @@
                 </Grid>
 
                 <Rectangle x:Name="separator"
-                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Stretch"
+                           Grid.RowSpan="2"
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Width="1"
                            Height="Auto"
-                           Grid.RowSpan="2"
                            Margin="0,4"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Stretch"
+                           Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"/>
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -646,13 +653,6 @@
         </Grid>
         
         <ControlTemplate.Triggers>
-            <Trigger Property="MediumIcon"
-                     Value="{x:Null}">
-                <Setter Property="Visibility"
-                        TargetName="iconImage"
-                        Value="Collapsed" />
-            </Trigger>
-
             <Trigger Property="State"
                      Value="Collapsed">
                 <Setter Property="Visibility"
@@ -689,18 +689,6 @@
                 <Setter Property="Background"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background}" />
             </Trigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="iconImageGrid"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImageGrid">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
 
             <Trigger Property="IsLauncherVisible"
                      Value="False">
@@ -714,9 +702,9 @@
     <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="outerBorder"
-                BorderThickness="1"
                 Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}">
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="1">
             <Image x:Name="image"
                    Width="8"
                    Height="8"

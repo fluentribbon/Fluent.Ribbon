@@ -123,12 +123,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonSimplifiedCheckBoxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.CheckBox.Simplified"
                      TargetType="{x:Type Fluent:CheckBox}">
         <Border x:Name="border"
-                BorderThickness="{TemplateBinding BorderThickness}"
                 Background="Transparent"
-                BorderBrush="Transparent">
+                BorderBrush="Transparent"
+                BorderThickness="{TemplateBinding BorderThickness}">
             <StackPanel x:Name="stackPanel"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Horizontal">
@@ -139,28 +139,28 @@
                         BorderThickness="{TemplateBinding BorderThickness}">
                     <Grid>
                         <Path x:Name="CheckIcon"
-                            Width="7.5"
-                            Height="6.9"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
-                            Fluent:FrameworkHelper.UseLayoutRounding="False"
-                            Opacity="0"
-                            Stretch="Fill"
-                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
-                            StrokeEndLineCap="Triangle"
-                            StrokeStartLineCap="Triangle"
-                            StrokeThickness="1.5" />
+                              Width="7.5"
+                              Height="6.9"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
+                              Fluent:FrameworkHelper.UseLayoutRounding="False"
+                              Opacity="0"
+                              Stretch="Fill"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                              StrokeEndLineCap="Triangle"
+                              StrokeStartLineCap="Triangle"
+                              StrokeThickness="1.5" />
                         <Rectangle x:Name="IndeterminateIcon"
-                                Width="7"
-                                Height="7"
-                                Opacity="0"
-                                Fill="{DynamicResource GrayBrush2}" />
+                                   Width="7"
+                                   Height="7"
+                                   Opacity="0"
+                                   Fill="{DynamicResource GrayBrush2}" />
                         <Rectangle x:Name="DisabledVisualElement"
-                                Fill="{DynamicResource WhiteBrush}"
-                                Opacity="0"
-                                RadiusX="1"
-                                RadiusY="1" />
+                                   Fill="{DynamicResource WhiteBrush}"
+                                   Opacity="0"
+                                   RadiusX="1"
+                                   RadiusY="1" />
                     </Grid>
                 </Border>
                 <ContentControl IsTabStop="False"
@@ -169,34 +169,29 @@
                     <StackPanel Width="Auto"
                                 Orientation="Horizontal">
                         <Grid x:Name="iconImageGrid"
+                              Visibility="Collapsed"
                               Margin="0,0,2,0"
                               HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Visibility="Collapsed">
-                            <ContentControl x:Name="iconImage"
-                                            Width="24"
-                                            Height="24"
-                                            Content="{converters:ObjectToImageConverter {Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}, '24,24', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
-                            <Border x:Name="iconImageBorder24"
-                                    Width="24"
-                                    Height="24"
-                                    BorderThickness="1"
+                              VerticalAlignment="Center">
+                            <Fluent:IconPresenter x:Name="iconImage"
+                                                  IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
+                                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <Border x:Name="iconImageBorder"
+                                    Visibility="Collapsed"
+                                    Width="{Binding ActualWidth,ElementName=iconImage}"
+                                    Height="{Binding ActualHeight,ElementName=iconImage}"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                    Visibility="Collapsed"/>
-                            <Border x:Name="iconImageBorder16"
-                                    Width="16"
-                                    Height="16"
-                                    BorderThickness="1"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                    Visibility="Collapsed"/>
+                                    BorderThickness="1"/>
                         </Grid>
                         <ContentPresenter x:Name="contentPresenter"
-                                      Margin="1,0,0,0"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Content="{TemplateBinding Header}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      RecognizesAccessKey="True" />
+                                          Margin="1,0,0,0"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Header}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          RecognizesAccessKey="True" />
                     </StackPanel>
                 </ContentControl>
             </StackPanel>
@@ -205,31 +200,31 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Size" Value="Small"/>
-                    <Condition Property="Icon" Value="{x:Null}"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="iconImage"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="iconImageBorder16"
+                        TargetName="iconImageBorder"
                         Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Size" Value="Middle"/>
-                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
-                        TargetName="iconImage"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="iconImageBorder24"
+                        TargetName="iconImageBorder"
                         Value="Visible" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Size" Value="Large"/>
-                    <Condition Property="MediumIcon" Value="{x:Null}"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Visibility"
                         TargetName="iconImage"
@@ -247,15 +242,6 @@
                 <Setter TargetName="iconImageGrid"
                         Property="Margin"
                         Value="0"/>
-                <Setter TargetName="iconImage"
-                        Property="Width"
-                        Value="16"/>
-                <Setter TargetName="iconImage"
-                        Property="Height"
-                        Value="16"/>
-                <Setter TargetName="iconImage"
-                        Property="Content"
-                        Value="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"/>
                 <Setter TargetName="contentPresenter"
                         Property="Visibility"
                         Value="Collapsed"/>
@@ -308,12 +294,9 @@
                 <Setter TargetName="stackPanel"
                         Property="Opacity"
                         Value=".5" />
-                <Setter Property="Effect"
-                        TargetName="iconImageGrid">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}"/>
             </Trigger>
             <Trigger Property="IsChecked"
                      Value="True">
@@ -355,6 +338,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
         <Setter Property="Margin"
                 Value="2,2,2,2" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Small" />
         <Style.Triggers>
             <Trigger Property="IsSimplified"
                      Value="True">
@@ -366,7 +351,19 @@
                         Value="0" />
                 <Setter Property="Padding"
                         Value="6,2"/>
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Medium" />
             </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSimplified"
+                               Value="True"/>
+                    <Condition Property="Size"
+                               Value="Small"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Small" />
+            </MultiTrigger>
         </Style.Triggers>
     </Style>
 </ResourceDictionary>
