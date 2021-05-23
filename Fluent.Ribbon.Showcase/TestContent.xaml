@@ -2721,10 +2721,11 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                   KeyTip="P">
                 <Fluent:RibbonGroupBox x:Name="PanelGroup11"
                                        Header="In RibbonToolBar"
-                                       LauncherText="launcher"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
                                        IsSeparatorVisible="True"
-                                       IsLauncherVisible="True">
+                                       IsLauncherVisible="True"
+                                       LauncherIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
+                                       LauncherText="Launcher">
 
                     <Fluent:RibbonToolBar>
                         <Fluent:Button Header="Full(L/L/S) button"
@@ -2747,7 +2748,9 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                 <Fluent:RibbonGroupBox x:Name="PanelGroup12"
                                        Header="In StackPanel"
-                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png">
+                                       Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
+                                       IsLauncherVisible="True"
+                                       LauncherText="Launcher">
                     <StackPanel Orientation="Horizontal">
                         <Fluent:Button Header="Full(L/L/S) button"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
