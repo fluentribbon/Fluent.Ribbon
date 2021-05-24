@@ -208,7 +208,13 @@
                         TargetName="PART_ButtonBorder"
                         Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
-            
+
+            <Trigger Property="IsLauncherVisible"
+                     Value="False">
+                <Setter Property="Visibility"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="Collapsed" />
+            </Trigger>
             <Trigger Property="LauncherToolTip"
                      Value="{x:Null}">
                 <Setter Property="ToolTip"
