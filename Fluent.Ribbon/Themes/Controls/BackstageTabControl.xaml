@@ -22,7 +22,8 @@
 
                 <ContentControl x:Name="controlLabel"
                                 Focusable="False"
-                                Content="{TemplateBinding Header}">
+                                Content="{TemplateBinding Header}"
+                                VerticalAlignment="Center">
                     <ContentControl.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping"
@@ -80,6 +81,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Small" />
     </Style>
 
     <ControlTemplate x:Key="BackstageBackButtonTemplate"
