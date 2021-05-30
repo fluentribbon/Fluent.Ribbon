@@ -269,10 +269,19 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
 
                             <Fluent:SeparatorTabItem />
 
+                            <Fluent:Button Header="Exit"
+                                           Icon="{iconPacks:Material Kind=ExitToApp}"
+                                           KeyTip="X"
+                                           Command="{Binding ExitCommand}"
+                                           VerticalAlignment="Bottom"
+                                           DockPanel.Dock="Bottom" />
+                            
                             <Fluent:BackstageTabItem Header="Extra wide content"
                                                      KeyTip="W"
                                                      DataContext="{Binding ColorViewModel}"
-                                                     Content="The template used to display this is extremely wide. Width = 6000">
+                                                     Content="The template used to display this is extremely wide. Width = 6000"
+                                                     VerticalAlignment="Bottom"
+                                                     DockPanel.Dock="Bottom">
                                 <Fluent:BackstageTabItem.Icon>
                                     <Rectangle>
                                         <Rectangle.Fill>
@@ -289,12 +298,6 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                     </DataTemplate>
                                 </Fluent:BackstageTabItem.ContentTemplate>
                             </Fluent:BackstageTabItem>
-
-                            <Fluent:Button Header="Exit"
-                                           Icon="{iconPacks:Material Kind=ExitToApp}"
-                                           KeyTip="X"
-                                           Command="{Binding ExitCommand}"
-                                           VerticalAlignment="Bottom" />
                         </Fluent:BackstageTabControl>
                     </Fluent:Backstage>
 

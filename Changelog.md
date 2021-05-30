@@ -23,7 +23,8 @@
 
 - ### Enhancements/Features
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
-  - [#936](../../issues/936) - Add ability to vertically align items in Backstage
+  - [#936](../../issues/936) - Add ability to vertically align items in Backstage  
+    You have to set `VerticalAlignment="Bottom"`, `DockPanel.Dock="Bottom"` and if you want to align multiple items at the bottom invert their order (because of how `DockPanel` works).
   - Added automation peers for `InRibbonGallery` and `GalleryItem`
   - Improved keyboard navigation for `InRibbonGallery`
 
