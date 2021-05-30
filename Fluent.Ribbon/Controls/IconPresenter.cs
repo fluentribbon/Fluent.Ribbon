@@ -9,7 +9,7 @@ namespace Fluent
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
-    public class IconPresenter : ContentPresenter
+    public class IconPresenter : ContentControl
     {
         /// <summary>Identifies the <see cref="IconSize"/> dependency property.</summary>
         public static readonly DependencyProperty IconSizeProperty = DependencyProperty.Register(
@@ -47,6 +47,10 @@ namespace Fluent
         public static readonly DependencyProperty OptimalIconProperty = DependencyProperty.Register(
             nameof(OptimalIcon), typeof(object), typeof(IconPresenter), new PropertyMetadata(default));
 
+        /// <summary>Identifies the <see cref="CurrentIconSizeSize"/> dependency property.</summary>
+        public static readonly DependencyProperty CurrentIconSizeSizeProperty = DependencyProperty.Register(
+            nameof(CurrentIconSizeSize), typeof(Size), typeof(IconPresenter), new PropertyMetadata(new Size(16, 16)));
+
         [ThreadStatic]
         private static GrayscaleEffect? grayscaleEffect;
 
@@ -59,20 +63,22 @@ namespace Fluent
 
         public IconPresenter()
         {
-            grayscaleEffect ??= new();
+            grayscaleEffect ??= new GrayscaleEffect();
 
-            var binding = new Binding(nameof(this.OptimalIcon))
-            {
-                Source = this,
-                Converter = new ObjectToImageConverter
-                {
-                    DesiredSizeBinding = new Binding(nameof(this.IconSize)) { Source = this },
-                    TargetVisualBinding = new Binding { Source = this }
-                }
-            };
-            this.SetBinding(ContentProperty, binding);
+            var multiBinding = new MultiBinding { Converter = StaticConverters.ObjectToImageConverter };
+            multiBinding.Bindings.Add(new Binding(nameof(this.OptimalIcon)) { Source = this });
+            multiBinding.Bindings.Add(new Binding(nameof(this.CurrentIconSizeSize)) { Source = this });
+            multiBinding.Bindings.Add(new Binding { Source = this });
+
+            this.SetBinding(ContentProperty, multiBinding);
 
             this.UpdateSize();
+        }
+
+        public Size CurrentIconSizeSize
+        {
+            get => (Size)this.GetValue(CurrentIconSizeSizeProperty);
+            set => this.SetValue(CurrentIconSizeSizeProperty, value);
         }
 
         public Size SmallSize
@@ -180,6 +186,8 @@ namespace Fluent
             {
                 this.SetCurrentValue(HeightProperty, size.Height);
             }
+
+            this.SetCurrentValue(CurrentIconSizeSizeProperty, size);
         }
 
         public object? GetOptimalIcon()
