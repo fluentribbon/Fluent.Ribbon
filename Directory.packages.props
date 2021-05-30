@@ -1,7 +1,7 @@
 <Project>
     <ItemGroup>
         <PackageVersion Include="ControlzEx" version="5.0.0" />
-        <PackageVersion Include="XamlColorSchemeGenerator" version="4.0.0-rc0140" />
+        <PackageVersion Include="XamlColorSchemeGenerator" version="4.0.0-rc0155" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
