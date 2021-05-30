@@ -18,9 +18,13 @@
   - [#925](../../issues/925) - Controls might not be shown when using default layout of RibbonToolbar (thanks @nishy2000)
   - [#927](../../issues/927) - Size value calculated by RibbonGroupBox is not reflected in RibbonControls in Panel control (thanks @nishy2000)
   - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
+  - [#941](../../issues/941) - LauncherIcon and LauncherText of RibbonGroupBox are not applied to the appearance (thanks @nishy2000)
+  - [#943](../../issues/943) - The LauncherIcon in the RibbonGroupBox added to QuickAccess will always be shown (thanks @nishy2000)
 
 - ### Enhancements/Features
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
+  - [#936](../../issues/936) - Add ability to vertically align items in Backstage  
+    You have to set `VerticalAlignment="Bottom"`, `DockPanel.Dock="Bottom"` and if you want to align multiple items at the bottom invert their order (because of how `DockPanel` works).
   - Added automation peers for `InRibbonGallery` and `GalleryItem`
   - Improved keyboard navigation for `InRibbonGallery`
 

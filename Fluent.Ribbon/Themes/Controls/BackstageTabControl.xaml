@@ -22,7 +22,8 @@
 
                 <ContentControl x:Name="controlLabel"
                                 Focusable="False"
-                                Content="{TemplateBinding Header}">
+                                Content="{TemplateBinding Header}"
+                                VerticalAlignment="Center">
                     <ContentControl.Resources>
                         <Style TargetType="TextBlock">
                             <Setter Property="TextWrapping"
@@ -80,6 +81,10 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Small" />
+        <Setter Property="DockPanel.Dock"
+                Value="Top" />
     </Style>
 
     <ControlTemplate x:Key="BackstageBackButtonTemplate"
@@ -156,6 +161,8 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Background}" />
         <Setter Property="Foreground"
                 Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground}" />
+        <Setter Property="DockPanel.Dock"
+                Value="Top" />
     </Style>
 
     <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
@@ -164,6 +171,8 @@
                 Value="25,10,20,10" />
         <Setter Property="Focusable"
                 Value="False" />
+        <Setter Property="DockPanel.Dock"
+                Value="Top" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
@@ -232,7 +241,7 @@
                       KeyboardNavigation.DirectionalNavigation="Cycle">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Fluent:WindowSteeringHelperControl Grid.RowSpan="2"
                                                         Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
@@ -293,6 +302,13 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground}" />
         <Setter Property="ItemContainerStyleSelector"
                 Value="{x:Static styleSelectors:BackstageTabControlItemContainerStyleSelector.Instance}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <DockPanel />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="SelectedContentMargin">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">

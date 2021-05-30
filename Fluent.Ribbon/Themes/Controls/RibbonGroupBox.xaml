@@ -311,6 +311,16 @@
                         TargetName="PART_SimplifiedDialogLauncherButton"
                         Value="Visible" />
             </MultiTrigger>
+
+            <Trigger Property="LauncherToolTip"
+                     Value="{x:Null}">
+                <Setter Property="ToolTip"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="ToolTip"
+                        TargetName="PART_SimplifiedDialogLauncherButton"
+                        Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -510,6 +520,12 @@
                         TargetName="PART_DialogLauncherButton"
                         Value="Collapsed" />
             </Trigger>
+            <Trigger Property="LauncherToolTip"
+                     Value="{x:Null}">
+                <Setter Property="ToolTip"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -696,6 +712,12 @@
                         TargetName="PART_DialogLauncherButton"
                         Value="Collapsed" />
             </Trigger>
+            <Trigger Property="LauncherToolTip"
+                     Value="{x:Null}">
+                <Setter Property="ToolTip"
+                        TargetName="PART_DialogLauncherButton"
+                        Value="{Binding LauncherText, RelativeSource={RelativeSource TemplatedParent}}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -703,23 +725,32 @@
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="outerBorder"
                 Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="1">
-            <Image x:Name="image"
-                   Width="8"
-                   Height="8"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Stretch="Uniform"
-                   Source="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}"
-                   SnapsToDevicePixels="True">
-            </Image>
+                BorderBrush="{TemplateBinding BorderBrush}">
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  IconSize="Custom"
+                                  CustomSize="8,8"
+                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                  LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
         </Border>
         <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Icon"
+                               Value="{x:Null}" />
+                    <Condition Property="LargeIcon"
+                               Value="{x:Null}" />
+                </MultiTrigger.Conditions>
+                <Setter Property="SmallIcon"
+                        TargetName="iconImage"
+                        Value="{DynamicResource Fluent.Ribbon.Images.DialogLauncher}" />
+            </MultiTrigger>
+
             <Trigger Property="FlowDirection"
                      Value="RightToLeft">
                 <Setter Property="RenderTransform"
-                        TargetName="image">
+                        TargetName="iconImage">
                     <Setter.Value>
                         <ScaleTransform ScaleX="-1" />
                     </Setter.Value>

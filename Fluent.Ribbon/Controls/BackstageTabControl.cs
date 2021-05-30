@@ -328,9 +328,9 @@ namespace Fluent
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is BackstageTabItem
-                || item is Button
-                || item is SeparatorTabItem
-                || item is Separator;
+                or Button
+                or SeparatorTabItem
+                or Separator;
         }
 
         /// <inheritdoc />

@@ -91,5 +91,7 @@
                 Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Margin"
                 Value="0" />
+        <Setter Property="DockPanel.Dock"
+                Value="Top" />
     </Style>
 </ResourceDictionary>
