@@ -15,7 +15,7 @@
         #region Implementation of IValueConverter
 
         /// <inheritdoc />
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             if (value == parameter
                 || (value is not null && value.Equals(parameter)))
@@ -27,7 +27,7 @@
         }
 
         /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             return Binding.DoNothing;
         }
