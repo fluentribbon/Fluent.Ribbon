@@ -94,7 +94,7 @@ namespace Fluent
         /// </summary>
         public static void SetIsCollapsedHeaderContentPresenter(DependencyObject element, bool value)
         {
-            element.SetValue(IsCollapsedHeaderContentPresenterProperty, value);
+            element.SetValue(IsCollapsedHeaderContentPresenterProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace Fluent
         public bool IsLauncherVisible
         {
             get { return (bool)this.GetValue(IsLauncherVisibleProperty); }
-            set { this.SetValue(IsLauncherVisibleProperty, value); }
+            set { this.SetValue(IsLauncherVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsLauncherVisible"/> dependency property.</summary>
@@ -501,7 +501,7 @@ namespace Fluent
         public bool IsLauncherEnabled
         {
             get { return (bool)this.GetValue(IsLauncherEnabledProperty); }
-            set { this.SetValue(IsLauncherEnabledProperty, value); }
+            set { this.SetValue(IsLauncherEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsLauncherEnabled"/> dependency property.</summary>
@@ -536,7 +536,7 @@ namespace Fluent
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -549,7 +549,7 @@ namespace Fluent
             if ((box.State != RibbonGroupBoxState.Collapsed)
                 && (box.State != RibbonGroupBoxState.QuickAccess))
             {
-                return false;
+                return BooleanBoxes.Box(false);
             }
 
             return basevalue;
@@ -597,7 +597,7 @@ namespace Fluent
         public bool IsSeparatorVisible
         {
             get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
-            set { this.SetValue(IsSeparatorVisibleProperty, value); }
+            set { this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
@@ -1204,7 +1204,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

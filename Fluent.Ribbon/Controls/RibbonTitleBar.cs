@@ -83,7 +83,7 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)this.GetValue(IsCollapsedProperty); }
-            set { this.SetValue(IsCollapsedProperty, value); }
+            set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -102,7 +102,7 @@ namespace Fluent
         public bool HideContextTabs
         {
             get { return (bool)this.GetValue(HideContextTabsProperty); }
-            set { this.SetValue(HideContextTabsProperty, value); }
+            set { this.SetValue(HideContextTabsProperty, BooleanBoxes.Box(value)); }
         }
 
         #endregion

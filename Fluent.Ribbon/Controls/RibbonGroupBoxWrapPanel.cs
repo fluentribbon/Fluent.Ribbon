@@ -67,7 +67,7 @@ namespace Fluent
         /// </summary>
         public static void SetExcludeFromSharedSize(DependencyObject element, bool value)
         {
-            element.SetValue(ExcludeFromSharedSizeProperty, value);
+            element.SetValue(ExcludeFromSharedSizeProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>

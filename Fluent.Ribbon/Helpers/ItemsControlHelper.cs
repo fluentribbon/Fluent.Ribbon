@@ -12,7 +12,7 @@
 
         public static void SetIsMovingItemsToDifferentControl(DependencyObject element, bool value)
         {
-            element.SetValue(IsMovingItemsToDifferentControlProperty, value);
+            element.SetValue(IsMovingItemsToDifferentControlProperty, BooleanBoxes.Box(value));
         }
 
         public static bool GetIsMovingItemsToDifferentControl(DependencyObject element)

@@ -130,7 +130,7 @@ namespace Fluent
         public bool IsDefinitive
         {
             get { return (bool)this.GetValue(IsDefinitiveProperty); }
-            set { this.SetValue(IsDefinitiveProperty, value); }
+            set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -182,7 +182,7 @@ namespace Fluent
         public bool IsSplited
         {
             get { return (bool)this.GetValue(IsSplitedProperty); }
-            set { this.SetValue(IsSplitedProperty, value); }
+            set { this.SetValue(IsSplitedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsSplited"/> dependency property.</summary>
@@ -269,7 +269,7 @@ namespace Fluent
         /// <param name="value">RecognizesAccessKey property value.</param>
         public static void SetRecognizesAccessKey(DependencyObject element, bool value)
         {
-            element.SetValue(RecognizesAccessKeyProperty, value);
+            element.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>Helper for getting <see cref="RecognizesAccessKeyProperty"/> from <paramref name="element"/>.</summary>
@@ -286,7 +286,7 @@ namespace Fluent
         public bool RecognizesAccessKey
         {
             get { return (bool)this.GetValue(RecognizesAccessKeyProperty); }
-            set { this.SetValue(RecognizesAccessKeyProperty, value); }
+            set { this.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value)); }
         }
 
         #region QuickAccess
@@ -374,7 +374,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

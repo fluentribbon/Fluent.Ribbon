@@ -49,7 +49,7 @@ namespace Fluent
 
         private static object CoerceIsEnabledAndTabStop(DependencyObject d, object? basevalue)
         {
-            return false;
+            return BooleanBoxes.FalseBox;
         }
 
         #endregion

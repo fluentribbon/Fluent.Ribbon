@@ -112,7 +112,7 @@ namespace Fluent
         public bool IsMinimized
         {
             get { return (bool)this.GetValue(IsMinimizedProperty); }
-            set { this.SetValue(IsMinimizedProperty, value); }
+            set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -124,7 +124,7 @@ namespace Fluent
         public bool IsOpen
         {
             get { return (bool)this.GetValue(IsOpenProperty); }
-            set { this.SetValue(IsOpenProperty, value); }
+            set { this.SetValue(IsOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
@@ -147,7 +147,7 @@ namespace Fluent
         public bool IsContextual
         {
             get { return (bool)this.GetValue(IsContextualProperty); }
-            private set { this.SetValue(IsContextualPropertyKey, value); }
+            private set { this.SetValue(IsContextualPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey IsContextualPropertyKey =
@@ -172,7 +172,7 @@ namespace Fluent
 
             set
             {
-                this.SetValue(IsSelectedProperty, value);
+                this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
             }
         }
 
@@ -206,7 +206,7 @@ namespace Fluent
         public bool IsSeparatorVisible
         {
             get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
-            set { this.SetValue(IsSeparatorVisibleProperty, value); }
+            set { this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
@@ -265,7 +265,7 @@ namespace Fluent
         public bool HasLeftGroupBorder
         {
             get { return (bool)this.GetValue(HasLeftGroupBorderProperty); }
-            set { this.SetValue(HasLeftGroupBorderProperty, value); }
+            set { this.SetValue(HasLeftGroupBorderProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasLeftGroupBorder"/> dependency property.</summary>
@@ -278,7 +278,7 @@ namespace Fluent
         public bool HasRightGroupBorder
         {
             get { return (bool)this.GetValue(HasRightGroupBorderProperty); }
-            set { this.SetValue(HasRightGroupBorderProperty, value); }
+            set { this.SetValue(HasRightGroupBorderProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasRightGroupBorder"/> dependency property.</summary>
@@ -410,8 +410,7 @@ namespace Fluent
             if (ribbon is not null
                 && basevalue is bool boolValue)
             {
-                return boolValue
-                       && ribbon.Focusable;
+                return BooleanBoxes.Box(boolValue && ribbon.Focusable);
             }
 
             return basevalue;

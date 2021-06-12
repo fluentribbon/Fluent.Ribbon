@@ -21,7 +21,7 @@ namespace Fluent
         public bool IsHeadered
         {
             get { return (bool)this.GetValue(IsHeaderedProperty); }
-            set { this.SetValue(IsHeaderedProperty, value); }
+            set { this.SetValue(IsHeaderedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsHeadered"/> dependency property.</summary>

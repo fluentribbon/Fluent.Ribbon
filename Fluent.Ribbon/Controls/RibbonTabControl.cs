@@ -143,7 +143,7 @@ namespace Fluent
         public bool IsMinimized
         {
             get { return (bool)this.GetValue(IsMinimizedProperty); }
-            set { this.SetValue(IsMinimizedProperty, value); }
+            set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -155,7 +155,7 @@ namespace Fluent
         public bool CanMinimize
         {
             get { return (bool)this.GetValue(CanMinimizeProperty); }
-            set { this.SetValue(CanMinimizeProperty, value); }
+            set { this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
@@ -165,7 +165,7 @@ namespace Fluent
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -182,7 +182,7 @@ namespace Fluent
 
             if (!tabControl.IsMinimized)
             {
-                return false;
+                return BooleanBoxes.Box(false);
             }
 
             return basevalue;
@@ -194,7 +194,7 @@ namespace Fluent
         public bool HighlightSelectedItem
         {
             get { return (bool)this.GetValue(HighlightSelectedItemProperty); }
-            set { this.SetValue(HighlightSelectedItemProperty, value); }
+            set { this.SetValue(HighlightSelectedItemProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HighlightSelectedItem"/> dependency property.</summary>
@@ -340,7 +340,7 @@ namespace Fluent
         public bool AreTabHeadersVisible
         {
             get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
-            set { this.SetValue(AreTabHeadersVisibleProperty, value); }
+            set { this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
@@ -352,7 +352,7 @@ namespace Fluent
         public bool IsToolBarVisible
         {
             get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
-            set { this.SetValue(IsToolBarVisibleProperty, value); }
+            set { this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
@@ -364,7 +364,7 @@ namespace Fluent
         public bool IsMouseWheelScrollingEnabled
         {
             get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
-            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         #endregion

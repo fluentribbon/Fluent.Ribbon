@@ -472,7 +472,7 @@ namespace Fluent
         public bool HasFilter
         {
             get { return (bool)this.GetValue(HasFilterProperty); }
-            private set { this.SetValue(HasFilterPropertyKey, value); }
+            private set { this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -521,7 +521,7 @@ namespace Fluent
         public bool Selectable
         {
             get { return (bool)this.GetValue(SelectableProperty); }
-            set { this.SetValue(SelectableProperty, value); }
+            set { this.SetValue(SelectableProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
@@ -548,7 +548,7 @@ namespace Fluent
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -751,7 +751,7 @@ namespace Fluent
         public bool CanCollapseToButton
         {
             get { return (bool)this.GetValue(CanCollapseToButtonProperty); }
-            set { this.SetValue(CanCollapseToButtonProperty, value); }
+            set { this.SetValue(CanCollapseToButtonProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanCollapseToButton"/> dependency property.</summary>
@@ -768,7 +768,7 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)this.GetValue(IsCollapsedProperty); }
-            set { this.SetValue(IsCollapsedProperty, value); }
+            set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -1313,16 +1313,16 @@ namespace Fluent
                 if (current == RibbonControlSize.Large
                     && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
                 {
-                    this.SetCurrentValue(IsCollapsedProperty, false);
+                    this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
                 }
                 else
                 {
-                    this.SetCurrentValue(IsCollapsedProperty, true);
+                    this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
                 }
             }
             else
             {
-                this.SetCurrentValue(IsCollapsedProperty, false);
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
             }
         }
 
@@ -1582,7 +1582,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -1599,7 +1599,7 @@ namespace Fluent
                 && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.SetCurrentValue(IsCollapsedProperty, false);
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
             }
 
             if (this.galleryPanel is not null
@@ -1618,7 +1618,7 @@ namespace Fluent
                 && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                 && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
             {
-                this.SetCurrentValue(IsCollapsedProperty, false);
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
             }
             else if (this.galleryPanel is not null
                      && this.galleryPanel.MaxItemsInRow < this.MaxItemsInRow)
@@ -1647,7 +1647,7 @@ namespace Fluent
                      && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                      && this.IsCollapsed == false)
             {
-                this.SetCurrentValue(IsCollapsedProperty, true);
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
             else
             {

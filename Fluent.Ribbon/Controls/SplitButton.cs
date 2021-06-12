@@ -119,7 +119,7 @@ namespace Fluent
         public bool? IsChecked
         {
             get { return (bool?)this.GetValue(IsCheckedProperty); }
-            set { this.SetValue(IsCheckedProperty, value); }
+            set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
@@ -168,7 +168,7 @@ namespace Fluent
         public bool IsCheckable
         {
             get { return (bool)this.GetValue(IsCheckableProperty); }
-            set { this.SetValue(IsCheckableProperty, value); }
+            set { this.SetValue(IsCheckableProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCheckable"/> dependency property.</summary>
@@ -203,7 +203,7 @@ namespace Fluent
         public bool IsButtonEnabled
         {
             get { return (bool)this.GetValue(IsButtonEnabledProperty); }
-            set { this.SetValue(IsButtonEnabledProperty, value); }
+            set { this.SetValue(IsButtonEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsButtonEnabled"/> dependency property.</summary>
@@ -220,7 +220,7 @@ namespace Fluent
         public bool IsDefinitive
         {
             get { return (bool)this.GetValue(IsDefinitiveProperty); }
-            set { this.SetValue(IsDefinitiveProperty, value); }
+            set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -525,7 +525,7 @@ namespace Fluent
         public bool CanAddButtonToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddButtonToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddButtonToQuickAccessToolBar"/> dependency property.</summary>

@@ -150,7 +150,7 @@ namespace Fluent
         public bool HasTriangle
         {
             get { return (bool)this.GetValue(HasTriangleProperty); }
-            set { this.SetValue(HasTriangleProperty, value); }
+            set { this.SetValue(HasTriangleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasTriangle"/> dependency property.</summary>
@@ -165,7 +165,7 @@ namespace Fluent
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -235,7 +235,7 @@ namespace Fluent
         public bool ClosePopupOnMouseDown
         {
             get { return (bool)this.GetValue(ClosePopupOnMouseDownProperty); }
-            set { this.SetValue(ClosePopupOnMouseDownProperty, value); }
+            set { this.SetValue(ClosePopupOnMouseDownProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="ClosePopupOnMouseDown"/> dependency property.</summary>
@@ -549,7 +549,7 @@ namespace Fluent
         {
             var control = (DropDownButton)d;
 
-            return !control.IsDropDownOpen;
+            return BooleanBoxes.Box(!control.IsDropDownOpen);
         }
 
         #endregion
@@ -626,9 +626,9 @@ namespace Fluent
 
         private void OnIsDropDownOpenChanged(bool newValue)
         {
-            this.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
+            this.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, BooleanBoxes.Box(!newValue));
 
-            Debug.WriteLine($"{this.Header} IsDropDownOpen: {newValue}");
+            Debug.WriteLine($"{this.Header} IsDropDownOpen: {newValue.ToString()}");
 
             if (newValue)
             {
@@ -798,7 +798,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

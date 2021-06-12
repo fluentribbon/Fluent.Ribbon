@@ -45,7 +45,7 @@ namespace Fluent
         public bool IsPressed
         {
             get { return (bool)this.GetValue(IsPressedProperty); }
-            private set { this.SetValue(IsPressedPropertyKey, value); }
+            private set { this.SetValue(IsPressedPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
@@ -75,7 +75,7 @@ namespace Fluent
         public bool IsDefinitive
         {
             get { return (bool)this.GetValue(IsDefinitiveProperty); }
-            set { this.SetValue(IsDefinitiveProperty, value); }
+            set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>

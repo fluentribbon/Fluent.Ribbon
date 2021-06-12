@@ -48,7 +48,7 @@ namespace Fluent
         public bool IsOpen
         {
             get { return (bool)this.GetValue(IsOpenProperty); }
-            set { this.SetValue(IsOpenProperty, value); }
+            set { this.SetValue(IsOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
@@ -61,7 +61,7 @@ namespace Fluent
         public bool CanChangeIsOpen
         {
             get { return (bool)this.GetValue(CanChangeIsOpenProperty); }
-            set { this.SetValue(CanChangeIsOpenProperty, value); }
+            set { this.SetValue(CanChangeIsOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanChangeIsOpen"/> dependency property.</summary>
@@ -74,7 +74,7 @@ namespace Fluent
         public bool HideContextTabsOnOpen
         {
             get { return (bool)this.GetValue(HideContextTabsOnOpenProperty); }
-            set { this.SetValue(HideContextTabsOnOpenProperty, value); }
+            set { this.SetValue(HideContextTabsOnOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HideContextTabsOnOpen"/> dependency property.</summary>
@@ -87,7 +87,7 @@ namespace Fluent
         public bool AreAnimationsEnabled
         {
             get { return (bool)this.GetValue(AreAnimationsEnabledProperty); }
-            set { this.SetValue(AreAnimationsEnabledProperty, value); }
+            set { this.SetValue(AreAnimationsEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="AreAnimationsEnabled"/> dependency property.</summary>
@@ -100,7 +100,7 @@ namespace Fluent
         public bool CloseOnEsc
         {
             get { return (bool)this.GetValue(CloseOnEscProperty); }
-            set { this.SetValue(CloseOnEscProperty, value); }
+            set { this.SetValue(CloseOnEscProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CloseOnEsc"/> dependency property.</summary>
@@ -113,7 +113,7 @@ namespace Fluent
 
             if (backstage.CanChangeIsOpen == false)
             {
-                return backstage.IsOpen;
+                return BooleanBoxes.Box(backstage.IsOpen);
             }
 
             return baseValue;
@@ -154,7 +154,7 @@ namespace Fluent
         public bool UseHighestAvailableAdornerLayer
         {
             get { return (bool)this.GetValue(UseHighestAvailableAdornerLayerProperty); }
-            set { this.SetValue(UseHighestAvailableAdornerLayerProperty, value); }
+            set { this.SetValue(UseHighestAvailableAdornerLayerProperty, BooleanBoxes.Box(value)); }
         }
 
         #region Content

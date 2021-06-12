@@ -37,7 +37,7 @@ namespace Fluent
         public bool HasTwoLines
         {
             get { return (bool)this.GetValue(HasTwoLinesProperty); }
-            set { this.SetValue(HasTwoLinesProperty, value); }
+            set { this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
@@ -60,7 +60,7 @@ namespace Fluent
         public bool HasGlyph
         {
             get { return (bool)this.GetValue(HasGlyphProperty); }
-            set { this.SetValue(HasGlyphProperty, value); }
+            set { this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>
