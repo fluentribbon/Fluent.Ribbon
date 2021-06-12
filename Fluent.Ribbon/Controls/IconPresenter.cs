@@ -11,9 +11,11 @@ namespace Fluent
 
     public class IconPresenter : ContentControl
     {
+#pragma warning disable WPF0010
         /// <summary>Identifies the <see cref="IconSize"/> dependency property.</summary>
         public static readonly DependencyProperty IconSizeProperty = DependencyProperty.Register(
-            nameof(IconSize), typeof(IconSize), typeof(IconPresenter), new PropertyMetadata(IconSize.Small, PropertyChangedCallback));
+            nameof(IconSize), typeof(IconSize), typeof(IconPresenter), new PropertyMetadata(IconSizeBoxes.Small, PropertyChangedCallback));
+#pragma warning restore WPF0010
 
         /// <summary>Identifies the <see cref="SmallSize"/> dependency property.</summary>
         public static readonly DependencyProperty SmallSizeProperty = DependencyProperty.Register(
@@ -108,7 +110,7 @@ namespace Fluent
         public IconSize IconSize
         {
             get => (IconSize)this.GetValue(IconSizeProperty);
-            set => this.SetValue(IconSizeProperty, value);
+            set => this.SetValue(IconSizeProperty, IconSizeBoxes.Box(value));
         }
 
         public object? SmallIcon
