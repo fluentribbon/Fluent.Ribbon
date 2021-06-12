@@ -17,9 +17,11 @@
     <!-- We also have to exclude controls in release mode to reduce binary size -->
     <DefaultItemExcludes>$(DefaultItemExcludes);**/Controls/*.xaml</DefaultItemExcludes>
   </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <None Include="**/Controls/*.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="**/*.fx;**/*.json" Exclude="$(BaseIntermediateOutputPath)/**/*" />
-    <None Include="**/Controls/*.xaml" />
     <None Include="**/Styles.txt" />
     <EmbeddedResource Include="**/*.Template.xaml" />
     <EmbeddedResource Include="**/GeneratorParameters.json" />
