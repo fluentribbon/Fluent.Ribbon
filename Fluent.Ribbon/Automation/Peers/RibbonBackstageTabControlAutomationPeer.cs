@@ -23,7 +23,7 @@
         /// <inheritdoc />
         protected override AutomationControlType GetAutomationControlTypeCore()
         {
-            return AutomationControlType.Tab;
+            return AutomationControlType.Custom;
         }
 
         /// <inheritdoc />
