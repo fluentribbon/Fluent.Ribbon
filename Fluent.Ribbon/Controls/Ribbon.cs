@@ -619,7 +619,7 @@ namespace Fluent
         public bool IsSimplified
         {
             get { return (bool)this.GetValue(IsSimplifiedProperty); }
-            set { this.SetValue(IsSimplifiedProperty, value); }
+            set { this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>

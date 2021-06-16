@@ -70,7 +70,7 @@ namespace Fluent
         public bool IsSimplified
         {
             get { return (bool)this.GetValue(IsSimplifiedProperty); }
-            private set { this.SetValue(IsSimplifiedPropertyKey, value); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
