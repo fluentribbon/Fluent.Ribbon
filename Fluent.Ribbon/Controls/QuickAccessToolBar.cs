@@ -161,7 +161,7 @@ namespace Fluent
         public bool HasOverflowItems
         {
             get { return (bool)this.GetValue(HasOverflowItemsProperty); }
-            private set { this.SetValue(HasOverflowItemsPropertyKey, value); }
+            private set { this.SetValue(HasOverflowItemsPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         // ReSharper disable once InconsistentNaming
@@ -253,7 +253,7 @@ namespace Fluent
         public bool ShowAboveRibbon
         {
             get { return (bool)this.GetValue(ShowAboveRibbonProperty); }
-            set { this.SetValue(ShowAboveRibbonProperty, value); }
+            set { this.SetValue(ShowAboveRibbonProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="ShowAboveRibbon"/> dependency property.</summary>
@@ -271,7 +271,7 @@ namespace Fluent
         public bool CanQuickAccessLocationChanging
         {
             get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
-            set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
+            set { this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
@@ -288,7 +288,7 @@ namespace Fluent
         public bool IsMenuDropDownVisible
         {
             get { return (bool)this.GetValue(IsMenuDropDownVisibleProperty); }
-            set { this.SetValue(IsMenuDropDownVisibleProperty, value); }
+            set { this.SetValue(IsMenuDropDownVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMenuDropDownVisible"/> dependency property.</summary>

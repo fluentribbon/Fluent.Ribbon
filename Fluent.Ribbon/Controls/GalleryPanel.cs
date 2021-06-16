@@ -43,7 +43,7 @@ namespace Fluent
         public bool IsGrouped
         {
             get { return (bool)this.GetValue(IsGroupedProperty); }
-            set { this.SetValue(IsGroupedProperty, value); }
+            set { this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>

@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.Windows.Data;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     ///     Converts <c>null</c> to <c>true</c> and not <c>null</c> to <c>false</c>.
@@ -12,12 +13,12 @@
         /// <summary>
         ///     A singleton instance for <see cref="IsNullConverter" />.
         /// </summary>
-        public static readonly IsNullConverter Instance = new IsNullConverter();
+        public static readonly IsNullConverter Instance = new();
 
         /// <inheritdoc />
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is null;
+            return BooleanBoxes.Box(value is null);
         }
 
         /// <inheritdoc />

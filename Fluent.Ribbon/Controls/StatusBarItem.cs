@@ -60,7 +60,7 @@ namespace Fluent
         public bool IsChecked
         {
             get { return (bool)this.GetValue(IsCheckedProperty); }
-            set { this.SetValue(IsCheckedProperty, value); }
+            set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>

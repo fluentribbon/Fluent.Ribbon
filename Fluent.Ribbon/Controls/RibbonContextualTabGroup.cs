@@ -88,7 +88,7 @@ namespace Fluent
         public Visibility InnerVisibility
         {
             get { return (Visibility)this.GetValue(InnerVisibilityProperty); }
-            private set { this.SetValue(InnerVisibilityPropertyKey, value); }
+            private set { this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =

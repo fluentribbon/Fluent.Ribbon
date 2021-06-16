@@ -351,7 +351,7 @@ namespace Fluent
         public bool SelectAllTextOnFocus
         {
             get { return (bool)this.GetValue(SelectAllTextOnFocusProperty); }
-            set { this.SetValue(SelectAllTextOnFocusProperty, value); }
+            set { this.SetValue(SelectAllTextOnFocusProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="SelectAllTextOnFocus"/> dependency property.</summary>

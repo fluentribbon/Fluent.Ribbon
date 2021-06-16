@@ -79,7 +79,7 @@ namespace Fluent
         public bool IsDefaultContextMenuEnabled
         {
             get { return (bool)this.GetValue(IsDefaultContextMenuEnabledProperty); }
-            set { this.SetValue(IsDefaultContextMenuEnabledProperty, value); }
+            set { this.SetValue(IsDefaultContextMenuEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
@@ -782,7 +782,7 @@ namespace Fluent
         public bool ShowQuickAccessToolBarAboveRibbon
         {
             get { return (bool)this.GetValue(ShowQuickAccessToolBarAboveRibbonProperty); }
-            set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, value); }
+            set { this.SetValue(ShowQuickAccessToolBarAboveRibbonProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="ShowQuickAccessToolBarAboveRibbon"/> dependency property.</summary>
@@ -959,7 +959,7 @@ namespace Fluent
         public bool CanCustomizeQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarProperty); }
-            set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBar"/> dependency property.</summary>
@@ -973,7 +973,7 @@ namespace Fluent
         public bool CanCustomizeQuickAccessToolBarItems
         {
             get { return (bool)this.GetValue(CanCustomizeQuickAccessToolBarItemsProperty); }
-            set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, value); }
+            set { this.SetValue(CanCustomizeQuickAccessToolBarItemsProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanCustomizeQuickAccessToolBarItems"/> dependency property.</summary>
@@ -986,7 +986,7 @@ namespace Fluent
         public bool IsQuickAccessToolBarMenuDropDownVisible
         {
             get { return (bool)this.GetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty); }
-            set { this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, value); }
+            set { this.SetValue(IsQuickAccessToolBarMenuDropDownVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsQuickAccessToolBarMenuDropDownVisible"/> dependency property.</summary>
@@ -999,7 +999,7 @@ namespace Fluent
         public bool CanCustomizeRibbon
         {
             get { return (bool)this.GetValue(CanCustomizeRibbonProperty); }
-            set { this.SetValue(CanCustomizeRibbonProperty, value); }
+            set { this.SetValue(CanCustomizeRibbonProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanCustomizeRibbon"/> dependency property.</summary>
@@ -1013,7 +1013,7 @@ namespace Fluent
         public bool CanMinimize
         {
             get { return (bool)this.GetValue(CanMinimizeProperty); }
-            set { this.SetValue(CanMinimizeProperty, value); }
+            set { this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>
@@ -1022,7 +1022,7 @@ namespace Fluent
         public bool IsMinimized
         {
             get { return (bool)this.GetValue(IsMinimizedProperty); }
-            set { this.SetValue(IsMinimizedProperty, value); }
+            set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -1081,7 +1081,7 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)this.GetValue(IsCollapsedProperty); }
-            set { this.SetValue(IsCollapsedProperty, value); }
+            set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -1101,7 +1101,7 @@ namespace Fluent
         public bool IsAutomaticCollapseEnabled
         {
             get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
-            set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
+            set { this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
@@ -1114,7 +1114,7 @@ namespace Fluent
         public bool IsQuickAccessToolBarVisible
         {
             get { return (bool)this.GetValue(IsQuickAccessToolBarVisibleProperty); }
-            set { this.SetValue(IsQuickAccessToolBarVisibleProperty, value); }
+            set { this.SetValue(IsQuickAccessToolBarVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsQuickAccessToolBarVisible"/> dependency property.</summary>
@@ -1127,7 +1127,7 @@ namespace Fluent
         public bool CanQuickAccessLocationChanging
         {
             get { return (bool)this.GetValue(CanQuickAccessLocationChangingProperty); }
-            set { this.SetValue(CanQuickAccessLocationChangingProperty, value); }
+            set { this.SetValue(CanQuickAccessLocationChangingProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanQuickAccessLocationChanging"/> dependency property.</summary>
@@ -1143,7 +1143,7 @@ namespace Fluent
         public bool AreTabHeadersVisible
         {
             get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
-            set { this.SetValue(AreTabHeadersVisibleProperty, value); }
+            set { this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
@@ -1155,7 +1155,7 @@ namespace Fluent
         public bool IsToolBarVisible
         {
             get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
-            set { this.SetValue(IsToolBarVisibleProperty, value); }
+            set { this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
@@ -1167,7 +1167,7 @@ namespace Fluent
         public bool IsMouseWheelScrollingEnabled
         {
             get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
-            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>
@@ -1184,7 +1184,7 @@ namespace Fluent
         public bool IsKeyTipHandlingEnabled
         {
             get { return (bool)this.GetValue(IsKeyTipHandlingEnabledProperty); }
-            set { this.SetValue(IsKeyTipHandlingEnabledProperty, value); }
+            set { this.SetValue(IsKeyTipHandlingEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         private static void OnIsKeyTipHandlingEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -1827,7 +1827,7 @@ namespace Fluent
         public bool AutomaticStateManagement
         {
             get { return (bool)this.GetValue(AutomaticStateManagementProperty); }
-            set { this.SetValue(AutomaticStateManagementProperty, value); }
+            set { this.SetValue(AutomaticStateManagementProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="AutomaticStateManagement"/> dependency property.</summary>
@@ -1839,7 +1839,7 @@ namespace Fluent
             var ribbon = (Ribbon)d;
             if (ribbon.RibbonStateStorage.IsLoading)
             {
-                return false;
+                return BooleanBoxes.FalseBox;
             }
 
             return basevalue;

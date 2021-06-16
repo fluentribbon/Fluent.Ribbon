@@ -171,7 +171,7 @@ namespace Fluent
         public bool IsIconVisible
         {
             get { return (bool)this.GetValue(IsIconVisibleProperty); }
-            set { this.SetValue(IsIconVisibleProperty, value); }
+            set { this.SetValue(IsIconVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsIconVisible"/> dependency property.</summary>
@@ -197,7 +197,7 @@ namespace Fluent
         public bool IsCollapsed
         {
             get { return (bool)this.GetValue(IsCollapsedProperty); }
-            set { this.SetValue(IsCollapsedProperty, value); }
+            set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -209,7 +209,7 @@ namespace Fluent
         public bool IsAutomaticCollapseEnabled
         {
             get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
-            set { this.SetValue(IsAutomaticCollapseEnabledProperty, value); }
+            set { this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
@@ -221,11 +221,11 @@ namespace Fluent
         public bool IgnoreTaskbarOnMaximize
         {
             get { return (bool)this.GetValue(IgnoreTaskbarOnMaximizeProperty); }
-            set { this.SetValue(IgnoreTaskbarOnMaximizeProperty, value); }
+            set { this.SetValue(IgnoreTaskbarOnMaximizeProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IgnoreTaskbarOnMaximize"/> dependency property.</summary>
-        public static readonly DependencyProperty IgnoreTaskbarOnMaximizeProperty = DependencyProperty.Register(nameof(IgnoreTaskbarOnMaximize), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty IgnoreTaskbarOnMaximizeProperty = DependencyProperty.Register(nameof(IgnoreTaskbarOnMaximize), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         #endregion
 
@@ -298,19 +298,19 @@ namespace Fluent
             if (this.iconImage is not null
                 && this.ActualWidth <= 140D + RibbonProperties.GetLastVisibleWidth(this.iconImage).GetZeroIfInfinityOrNaN() + RibbonProperties.GetLastVisibleWidth(this.WindowCommands?.ItemsControl).GetZeroIfInfinityOrNaN())
             {
-                this.SetCurrentValue(IsIconVisibleProperty, false);
-                this.TitleBar?.SetCurrentValue(VisibilityProperty, Visibility.Collapsed);
-                this.WindowCommands?.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, Visibility.Collapsed);
+                this.SetCurrentValue(IsIconVisibleProperty, BooleanBoxes.FalseBox);
+                this.TitleBar?.SetCurrentValue(VisibilityProperty, VisibilityBoxes.Collapsed);
+                this.WindowCommands?.SetCurrentValue(WindowCommands.ItemsPanelVisibilityProperty, VisibilityBoxes.Collapsed);
             }
             else
             {
                 this.InvalidateProperty(IsIconVisibleProperty);
-                this.iconImage?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
+                this.iconImage?.SetCurrentValue(RibbonProperties.LastVisibleWidthProperty, this.iconImage.ActualWidth);
 
                 this.TitleBar?.InvalidateProperty(VisibilityProperty);
 
                 this.WindowCommands?.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
-                this.WindowCommands?.ItemsControl?.SetValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
+                this.WindowCommands?.ItemsControl?.SetCurrentValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
             }
         }
 
@@ -384,8 +384,8 @@ namespace Fluent
                 this.iconImage.MouseDown += this.HandleIconMouseDown;
             }
 
-            this.GetPart<UIElement>(PART_Icon)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
-            this.GetPart<UIElement>(PART_WindowCommands)?.SetValue(WindowChrome.IsHitTestVisibleInChromeProperty, true);
+            this.GetPart<UIElement>(PART_Icon)?.SetCurrentValue(WindowChrome.IsHitTestVisibleInChromeProperty, BooleanBoxes.TrueBox);
+            this.GetPart<UIElement>(PART_WindowCommands)?.SetCurrentValue(WindowChrome.IsHitTestVisibleInChromeProperty, BooleanBoxes.TrueBox);
         }
 
         /// <inheritdoc />

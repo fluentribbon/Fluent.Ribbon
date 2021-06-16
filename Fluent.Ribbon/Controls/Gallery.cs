@@ -76,7 +76,7 @@ namespace Fluent
         public bool IsGrouped
         {
             get { return (bool)this.GetValue(IsGroupedProperty); }
-            set { this.SetValue(IsGroupedProperty, value); }
+            set { this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value)); }
         }
 
         #endregion
@@ -352,7 +352,7 @@ namespace Fluent
         public bool HasFilter
         {
             get { return (bool)this.GetValue(HasFilterProperty); }
-            private set { this.SetValue(HasFilterPropertyKey, value); }
+            private set { this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(Gallery), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -405,7 +405,7 @@ namespace Fluent
         public bool Selectable
         {
             get { return (bool)this.GetValue(SelectableProperty); }
-            set { this.SetValue(SelectableProperty, value); }
+            set { this.SetValue(SelectableProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
@@ -428,7 +428,7 @@ namespace Fluent
         public bool IsLastItem
         {
             get { return (bool)this.GetValue(IsLastItemProperty); }
-            private set { this.SetValue(IsLastItemPropertyKey, value); }
+            private set { this.SetValue(IsLastItemPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsLastItem"/> dependency property.</summary>

@@ -56,7 +56,7 @@ namespace Fluent
         public bool IsSelected
         {
             get { return (bool)this.GetValue(IsSelectedProperty); }
-            set { this.SetValue(IsSelectedProperty, value); }
+            set { this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>

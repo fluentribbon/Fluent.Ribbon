@@ -332,7 +332,7 @@ namespace Fluent
         public bool IsAutomaticColorButtonVisible
         {
             get { return (bool)this.GetValue(IsAutomaticColorButtonVisibleProperty); }
-            set { this.SetValue(IsAutomaticColorButtonVisibleProperty, value); }
+            set { this.SetValue(IsAutomaticColorButtonVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsAutomaticColorButtonVisible"/> dependency property.</summary>
@@ -349,7 +349,7 @@ namespace Fluent
         public bool IsNoColorButtonVisible
         {
             get { return (bool)this.GetValue(IsNoColorButtonVisibleProperty); }
-            set { this.SetValue(IsNoColorButtonVisibleProperty, value); }
+            set { this.SetValue(IsNoColorButtonVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsNoColorButtonVisible"/> dependency property.</summary>
@@ -366,7 +366,7 @@ namespace Fluent
         public bool IsMoreColorsButtonVisible
         {
             get { return (bool)this.GetValue(IsMoreColorsButtonVisibleProperty); }
-            set { this.SetValue(IsMoreColorsButtonVisibleProperty, value); }
+            set { this.SetValue(IsMoreColorsButtonVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMoreColorsButtonVisible"/> dependency property.</summary>

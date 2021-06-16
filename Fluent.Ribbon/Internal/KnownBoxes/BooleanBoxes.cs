@@ -1,7 +1,5 @@
 ﻿namespace Fluent.Internal.KnownBoxes
 {
-    using System;
-
     /// <summary>
     /// Class containing boxed values for <see cref="bool"/>.
     /// </summary>

@@ -315,7 +315,7 @@ namespace Fluent
         /// <summary>Helper for setting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
         public static void SetIsElementInQuickAccessToolBar(DependencyObject element, bool value)
         {
-            element.SetValue(IsElementInQuickAccessToolBarProperty, value);
+            element.SetValue(IsElementInQuickAccessToolBarProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>Helper for getting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>

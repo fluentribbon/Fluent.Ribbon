@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Windows;
     using System.Windows.Data;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Checks equality of value and the converter parameter.
@@ -20,10 +21,10 @@
             if (value == parameter
                 || (value is not null && value.Equals(parameter)))
             {
-                return Visibility.Visible;
+                return VisibilityBoxes.Visible;
             }
 
-            return Visibility.Collapsed;
+            return VisibilityBoxes.Collapsed;
         }
 
         /// <inheritdoc />

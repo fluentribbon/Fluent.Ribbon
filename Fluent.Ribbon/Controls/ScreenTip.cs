@@ -301,7 +301,7 @@ namespace Fluent
         public Visibility HelpLabelVisibility
         {
             get { return (Visibility)this.GetValue(HelpLabelVisibilityProperty); }
-            set { this.SetValue(HelpLabelVisibilityProperty, value); }
+            set { this.SetValue(HelpLabelVisibilityProperty, VisibilityBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HelpLabelVisibility"/> dependency property.</summary>
@@ -326,7 +326,7 @@ namespace Fluent
         public bool IsRibbonAligned
         {
             get { return (bool)this.GetValue(IsRibbonAlignedProperty); }
-            set { this.SetValue(IsRibbonAlignedProperty, value); }
+            set { this.SetValue(IsRibbonAlignedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsRibbonAligned"/> dependency property.</summary>
