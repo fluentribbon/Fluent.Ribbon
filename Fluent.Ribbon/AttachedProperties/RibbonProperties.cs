@@ -328,16 +328,18 @@ namespace Fluent
 
         #region DesiredIconSize
 
+#pragma warning disable WPF0010
         /// <summary>
         /// Defines the desired icon size for the element.
         /// </summary>
         public static readonly DependencyProperty IconSizeProperty = DependencyProperty.RegisterAttached(
-            "IconSize", typeof(IconSize), typeof(RibbonProperties), new PropertyMetadata(IconSize.Small));
+            "IconSize", typeof(IconSize), typeof(RibbonProperties), new PropertyMetadata(IconSizeBoxes.Small));
+#pragma warning restore WPF0010
 
         /// <summary>Helper for setting <see cref="IconSizeProperty"/> on <paramref name="element"/>.</summary>
         public static void SetIconSize(DependencyObject element, IconSize value)
         {
-            element.SetValue(IconSizeProperty, value);
+            element.SetValue(IconSizeProperty, IconSizeBoxes.Box(value));
         }
 
         /// <summary>Helper for getting <see cref="IconSizeProperty"/> from <paramref name="element"/>.</summary>

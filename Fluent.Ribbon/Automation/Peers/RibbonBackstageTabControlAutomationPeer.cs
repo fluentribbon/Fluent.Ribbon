@@ -32,7 +32,7 @@
             return new RibbonControlDataAutomationPeer(item, this);
         }
 
-        bool ISelectionProvider.IsSelectionRequired => false;
+        bool ISelectionProvider.IsSelectionRequired => true;
 
         bool ISelectionProvider.CanSelectMultiple => false;
     }
