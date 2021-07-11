@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ControlzEx" version="5.0.0" />
+        <PackageVersion Include="ControlzEx" version="5.0.1" />
         <PackageVersion Include="XamlColorSchemeGenerator" version="4.0.0-rc0155" />
     </ItemGroup>
 

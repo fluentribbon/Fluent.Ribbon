@@ -261,7 +261,7 @@ namespace Fluent
             else
             {
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
-                // we need to get the real string input for the key because of keys like �,�,� #258
+                // we need to get the real string input for the key because of keys like ä,ö,ü #258
                 var key = KeyEventUtility.GetStringFromKey(actualKey);
                 var isKeyRealInput = string.IsNullOrEmpty(key) == false
                     && key != "\t";

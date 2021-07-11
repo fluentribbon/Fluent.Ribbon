@@ -18,7 +18,7 @@
             var scanCode = NativeMethods.MapVirtualKey((uint)virtualKey, NativeMethods.MapType.MAPVK_VK_TO_VSC);
             var chars = new char[1];
 
-            var result = NativeMethods.ToUnicode((uint)virtualKey, scanCode, keyboardState, chars, chars.Length, 0);
+            var result = NativeMethods.ToUnicode((uint)virtualKey, scanCode, keyboardState, chars, chars.Length, 1);
             switch (result)
             {
                 case -1:
