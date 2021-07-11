@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Remove from Quick Access Toolbar";
         public override string RibbonContextMenuShowAbove { get; } = "Show Quick Access Toolbar Above the Ribbon";
         public override string RibbonContextMenuShowBelow { get; } = "Show Quick Access Toolbar Below the Ribbon";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Use Classic Ribbon";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Use Simplified Ribbon";
+        public override string SwitchButtonScreenTipText { get; } = "Switch between the Simplified Ribbon and the Classic Ribbon.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Switch Ribbons";
         public override string ScreenTipDisableReasonHeader { get; } = "This command is currently disabled.";
         public override string ScreenTipF1LabelHeader { get; } = "Press F1 for help";
     }

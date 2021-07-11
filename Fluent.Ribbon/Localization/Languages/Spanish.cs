@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Quitar de la barra de herramientas de acceso rápido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostrar barra de herramientas de acceso rápido sobre la cinta";
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar barra de herramientas de acceso rápido bajo la cinta";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Usar cinta clásica";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Usar cinta simplificada";
+        public override string SwitchButtonScreenTipText { get; } = "Cambia entre la cinta simplificada y la cinta clásica.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Cambiar las cintas de opciones";
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente";
         public override string ScreenTipF1LabelHeader { get; } = "Pulse F1 para obtener más ayuda";
     }

@@ -80,6 +80,10 @@
                 Value="{Binding CanMinimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
         <Setter Property="IsMinimized"
                 Value="{Binding IsMinimized, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="CanUseSimplified"
+                Value="{Binding CanUseSimplified, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
+        <Setter Property="IsSimplified"
+                Value="{Binding IsSimplified, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
         <Setter Property="ContentGapHeight"
                 Value="{Binding ContentGapHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}}" />
     </Style>
@@ -93,6 +97,11 @@
                       x:Shared="False"
                       Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipTitle, Mode=OneWay}"
                       Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandButtonScreenTipText, Mode=OneWay}" />
+
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip"
+                      x:Shared="False"
+                      Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.SwitchButtonScreenTipTitle, Mode=OneWay}"
+                      Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.SwitchButtonScreenTipText, Mode=OneWay}" />
 
     <ControlTemplate x:Key="RibbonTabControlControlTemplate"
                      TargetType="{x:Type Fluent:RibbonTabControl}">
@@ -291,6 +300,15 @@
                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
 
+                    <Fluent:ToggleButton x:Name="PART_SwitchButton"
+                                         Margin="0"
+                                         Width="22"
+                                         Height="22"
+                                         Size="Small"
+                                         Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
+                                         IsChecked="{Binding Path=IsSimplified, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Visibility="{TemplateBinding CanUseSimplified, Converter={StaticResource boolToVisibilityConverter}}" />
+
                     <StackPanel x:Name="PART_ToolbarPanel"
                                 Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
                                 Orientation="Horizontal" />
@@ -370,6 +388,30 @@
                         Property="Icon" 
                         Value="{DynamicResource Fluent.Ribbon.Images.RibbonPin}" />
             </MultiTrigger>
+            <Trigger Property="CanUseSimplified"
+                     Value="True">
+                <Setter TargetName="PART_MinimizeButton"
+                        Property="Visibility" 
+                        Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsSimplified"
+                     Value="False">
+                <Setter TargetName="PART_SwitchButton"
+                        Property="Icon" 
+                        Value="{DynamicResource Fluent.Ribbon.Images.RibbonCollapse}" />
+                <Setter TargetName="PART_SwitchButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip}" />
+            </Trigger>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter TargetName="PART_SwitchButton" 
+                        Property="Icon"
+                        Value="{DynamicResource Fluent.Ribbon.Images.RibbonExpand}" />
+                <Setter TargetName="PART_SwitchButton" 
+                        Property="ToolTip"
+                        Value="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip}" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

@@ -144,12 +144,12 @@
         public abstract string RibbonContextMenuCustomizeQuickAccessToolBar { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Customize Quick Access Toolbar
+        /// Ribbon Context Menu Customize the ribbon
         /// </summary>
         public abstract string RibbonContextMenuCustomizeRibbon { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Minimize Quick Access Toolbar
+        /// Ribbon Context Menu Minimize the ribbon
         /// </summary>
         public abstract string RibbonContextMenuMinimizeRibbon { get; }
 
@@ -167,6 +167,26 @@
         /// Ribbon Context Menu Minimize Quick Access Toolbar
         /// </summary>
         public abstract string RibbonContextMenuShowBelow { get; }
+
+        /// <summary>
+        /// Ribbon Context Menu Switch the classic ribbon
+        /// </summary>
+        public abstract string RibbonContextMenuUseClassicRibbon { get; }
+
+        /// <summary>
+        /// Ribbon Context Menu Switch the simplified ribbon
+        /// </summary>
+        public abstract string RibbonContextMenuUseSimplifiedRibbon { get; }
+
+        /// <summary>
+        /// Switch Button ScreenTip Text
+        /// </summary>
+        public abstract string SwitchButtonScreenTipText { get; }
+
+        /// <summary>
+        /// Switch Button ScreenTip Title
+        /// </summary>
+        public abstract string SwitchButtonScreenTipTitle { get; }
 
         /// <summary>
         /// Gets ScreenTip's disable reason header

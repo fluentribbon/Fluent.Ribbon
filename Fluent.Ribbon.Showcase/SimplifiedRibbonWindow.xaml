@@ -36,6 +36,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <fluent:Ribbon x:Name="ribbon"
+                       CanUseSimplified="True"
                        IsSimplified="True">
             <fluent:Ribbon.Resources>
                 <Style TargetType="fluent:Button">
@@ -1668,6 +1669,12 @@
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
                     Margin="4">
+            <CheckBox Margin="4,5" IsChecked="{Binding CanMinimize, ElementName=ribbon}">
+                Ribbon.CanMinimize (for context menu and switch button in RibbonTabControl)
+            </CheckBox>
+            <CheckBox Margin="4,5" IsChecked="{Binding CanUseSimplified, ElementName=ribbon}">
+                Ribbon.CanUseSimplified (for context menu and switch button in RibbonTabControl)
+            </CheckBox>
             <CheckBox Margin="4,5" IsChecked="{Binding IsSimplified, ElementName=ribbon}">
                 Ribbon.IsSimplified
             </CheckBox>

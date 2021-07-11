@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Fjern verktøylinjen for hurtigtilgang";
         public override string RibbonContextMenuShowAbove { get; } = "Vis verktøylinjen for hurtigtilgang over båndet";
         public override string RibbonContextMenuShowBelow { get; } = "Vis verktøylinjen for hurtigtilgang under båndet";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Bruk klassisk bånd";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Bruk forenklet bånd";
+        public override string SwitchButtonScreenTipText { get; } = "Bytt mellom det forenklede båndet og det klassiske båndet.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Bytt bånd";
         public override string ScreenTipDisableReasonHeader { get; } = "Denne kommandoen er for øyeblikket deaktivert.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

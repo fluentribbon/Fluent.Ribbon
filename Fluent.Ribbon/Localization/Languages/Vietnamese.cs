@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Loại";
         public override string RibbonContextMenuShowAbove { get; } = "Hiện thanh công cụ truy cập nhanh trên thanh Ruy băng";
         public override string RibbonContextMenuShowBelow { get; } = "Hiện thanh công cụ truy cập nhanh dưới thanh Ruy băng";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Sử dụng Dải băng cổ điển";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Sử dụng Dải băng đơn giản";
+        public override string SwitchButtonScreenTipText { get; } = "Chuyển đổi giữa Dải băng đơn giản và Dải băng cổ điển.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Chuyển đổi dải băng";
         public override string ScreenTipDisableReasonHeader { get; } = "Lệnh này hiện bị tắt.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

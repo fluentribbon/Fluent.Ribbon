@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Премахване от панела за Бърз достъп";
         public override string RibbonContextMenuShowAbove { get; } = "Показване на Бързия достъп над лентата";
         public override string RibbonContextMenuShowBelow { get; } = "Показване на Бързия достъп под лентата";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Използване на класическата лента";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Използване на опростената лента";
+        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
+        public override string SwitchButtonScreenTipTitle { get; } = "Превключване на лентата";
         public override string ScreenTipDisableReasonHeader { get; } = "Тази команда е забранена.";
         public override string ScreenTipF1LabelHeader { get; } = "Натиснете F1 за помощ";
     }

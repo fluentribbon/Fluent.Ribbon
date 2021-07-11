@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Видалити з Панелі Інструментів Швидкого Доступу";
         public override string RibbonContextMenuShowAbove { get; } = "Показати Панель Інструментів Швидкого Доступу Поверх Стрічки";
         public override string RibbonContextMenuShowBelow { get; } = "Показати Панель Інструментів Швидкого Доступу Знизу Стрічки";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Використовувати класичну стрічку";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Використовувати спрощену стрічку";
+        public override string SwitchButtonScreenTipText { get; } = "Перемикайтеся між спрощеною та класичною стрічками.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Перемкнути стрічку";
         public override string ScreenTipDisableReasonHeader { get; } = "Ця команда на даний момент недоступна.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

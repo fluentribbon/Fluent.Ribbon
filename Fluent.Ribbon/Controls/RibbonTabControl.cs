@@ -161,6 +161,30 @@ namespace Fluent
         /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
         public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
+        /// <summary>
+        /// Gets or sets whether ribbon is simplified
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            set { this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value)); }
+        }
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = DependencyProperty.Register(nameof(IsSimplified), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>
+        /// Gets or sets whether ribbon can be switched simplified
+        /// </summary>
+        public bool CanUseSimplified
+        {
+            get { return (bool)this.GetValue(CanUseSimplifiedProperty); }
+            set { this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value)); }
+        }
+
+        /// <summary>Identifies the <see cref="CanUseSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty CanUseSimplifiedProperty = DependencyProperty.Register(nameof(CanUseSimplified), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox));
+
         /// <inheritdoc />
         public bool IsDropDownOpen
         {

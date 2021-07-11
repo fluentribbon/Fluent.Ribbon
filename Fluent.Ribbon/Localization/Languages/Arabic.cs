@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "إزالة إلى شريط أدوات الوصول السريع";
         public override string RibbonContextMenuShowAbove { get; } = "إظهار شريط أدوات الوصول السريع أعلى الشريط";
         public override string RibbonContextMenuShowBelow { get; } = "إظهار شريط أدوات الوصول السريع أسفل الشريط";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_استخدام الشريط التقليدي";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_استخدام الشريط المبسط";
+        public override string SwitchButtonScreenTipText { get; } = "التبديل بين \"الشريط المبسط\" و \"الشريط الكلاسيكي\".";
+        public override string SwitchButtonScreenTipTitle { get; } = "تبديل الأشرطة";
         public override string ScreenTipDisableReasonHeader { get; } = "تم حالياً تعطيل هذا الأمر.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }
