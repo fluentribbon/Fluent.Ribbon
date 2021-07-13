@@ -7,6 +7,9 @@
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
   - Increasing ControlzEx dependency version to >= 5
+  - [#948](../../issues/948) - Minimize button misplaced  
+    Minimize button is moved to the right hand side of it's parent container.  
+    That means custom toolbar items are not moving the button further left anymore.
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 

@@ -283,6 +283,10 @@
                             Grid.Column="3"
                             Orientation="Horizontal"
                             Margin="0,0,0,1">
+                    <StackPanel x:Name="PART_ToolbarPanel"
+                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                                Orientation="Horizontal" />
+                    
                     <Fluent:ToggleButton x:Name="PART_MinimizeButton"
                                          Margin="0"
                                          Width="22"
@@ -291,10 +295,6 @@
                                          Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton}"
                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
-
-                    <StackPanel x:Name="PART_ToolbarPanel"
-                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
-                                Orientation="Horizontal" />
                 </StackPanel>
             </Grid>
 
