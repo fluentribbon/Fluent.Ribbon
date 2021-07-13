@@ -62,7 +62,7 @@
                                           LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
                     
                     <Fluent:TwoLineLabel x:Name="controlLabel"
-                                         Text="{TemplateBinding Header}"
+                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Stretch"
                                          Margin="2,-2,2,2"

@@ -49,7 +49,7 @@
                                Width="Auto"
                                Height="4" />
                     <Grid Margin="0,4,0,0">
-                        <TextBlock Text="{TemplateBinding Header}"
+                        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Margin="6,0"

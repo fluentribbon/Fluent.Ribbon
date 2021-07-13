@@ -57,7 +57,7 @@
                                          Opacity="0" />
                             </Grid>
                         </BulletDecorator.Bullet>
-                        <TextBlock Text="{TemplateBinding Header}"
+                        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    Margin="8,3,4,0" />
                     </BulletDecorator>
                     <ControlTemplate.Triggers>

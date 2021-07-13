@@ -88,7 +88,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{TemplateBinding Header}"
+                    <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"
                                Margin="5,0,0,0"

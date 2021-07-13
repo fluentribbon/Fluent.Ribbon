@@ -22,6 +22,7 @@
   - [#943](../../issues/943) - The LauncherIcon in the RibbonGroupBox added to QuickAccess will always be shown (thanks @nishy2000)
   - [#952](../../issues/952) - Help with IsSelectionRequired property setting on "File" tab for accessibility purposes
   - [#954](../../issues/954) - Adding an InputBinding for Alt+Up or Alt+Down results in extra character (thanks @dgosbell)
+  - [#961](../../issues/961) - Fluent.Button Header Binding not visible
 
 - ### Enhancements/Features
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)

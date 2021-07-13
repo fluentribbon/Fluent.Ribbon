@@ -28,7 +28,7 @@
                     Padding="{TemplateBinding HeaderPadding}">
                 <ContentControl x:Name="PART_HeaderContentHost"
                                 Focusable="False"
-                                AutomationProperties.Name="{TemplateBinding Header}"
+                                AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                 AutomationProperties.AutomationId="{TemplateBinding Name}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}" />

@@ -43,7 +43,7 @@
                     Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,5,3,3"
@@ -168,7 +168,7 @@
                     Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,5,3,3"
@@ -497,7 +497,7 @@
             </Grid>
             <TextBlock x:Name="textBlock"
                        FontWeight="Bold"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,5,3,3"
@@ -746,7 +746,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,3,3,3"
@@ -869,7 +869,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3" />
             <TextBlock x:Name="textBlock"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,3,3,3"
@@ -1180,7 +1180,7 @@
                         Grid.Column="1" />
             </Grid>
             <TextBlock x:Name="textBlock"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Width="Auto"
                        Height="Auto"
                        Margin="9,3,3,3"
