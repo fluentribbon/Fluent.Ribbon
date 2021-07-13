@@ -8,6 +8,16 @@
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
   - Increasing ControlzEx dependency version to >= 5
 
+**The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+| RibbonTabControlToggleButtonStyle | Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton |
+| RibbonTabControlToggleButtonControlTemplate | Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton |
+</details>
+
 - ### Bug fixes
   - [#845](../../issues/845) - QuickAccessToolBar issues in Colorful variant
   - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7

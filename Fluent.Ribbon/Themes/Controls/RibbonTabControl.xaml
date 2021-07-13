@@ -5,7 +5,7 @@
     <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
 
-    <ControlTemplate x:Key="RibbonTabControlToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 BorderThickness="1"
@@ -50,10 +50,10 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonTabControlToggleButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template"
-                Value="{DynamicResource RibbonTabControlToggleButtonControlTemplate}" />
+                Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton}" />
         <Setter Property="Height"
                 Value="22" />
         <Setter Property="Width"
@@ -190,6 +190,7 @@
                         Value="HorizontalOnly" />
             </Style>
         </ControlTemplate.Resources>
+
         <Grid x:Name="ContentGrid"
               Background="{TemplateBinding Background}"
               KeyboardNavigation.TabNavigation="Local"
@@ -287,7 +288,7 @@
                                          Width="22"
                                          Height="22"
                                          Size="Small"
-                                         Style="{DynamicResource RibbonTabControlToggleButtonStyle}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton}"
                                          IsChecked="{Binding Path=IsMinimized, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          Visibility="{TemplateBinding CanMinimize, Converter={StaticResource boolToVisibilityConverter}}" />
 
