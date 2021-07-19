@@ -180,7 +180,7 @@
                         <TextBlock x:Name="header"
                                    Margin="10,5"
                                    TextWrapping="Wrap"
-                                   Text="{TemplateBinding Header}"
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="SemiBold"

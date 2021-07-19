@@ -73,7 +73,7 @@
                     <Grid Margin="0,0,10,0">
                         <TextBlock Margin="0,5"
                                    TextWrapping="Wrap"
-                                   Text="{TemplateBinding Header}"
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    VerticalAlignment="Center"
                                    FontSize="17"
                                    FontFamily="Segoe UI Light, Lucida Sans Unicode, Verdana" />

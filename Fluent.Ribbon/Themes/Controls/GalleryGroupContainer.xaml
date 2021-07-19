@@ -11,7 +11,7 @@
                   Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryGroupContainer.Header.Background}"
                   VerticalAlignment="Top">
                 <TextBlock Margin="7,0"
-                           Text="{TemplateBinding Header}"
+                           Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
                            FontWeight="Bold"

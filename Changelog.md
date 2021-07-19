@@ -7,6 +7,19 @@
   - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
   Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
   - Increasing ControlzEx dependency version to >= 5
+  - [#948](../../issues/948) - Minimize button misplaced  
+    Minimize button is moved to the right hand side of it's parent container.  
+    That means custom toolbar items are not moving the button further left anymore.
+
+**The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+| RibbonTabControlToggleButtonStyle | Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton |
+| RibbonTabControlToggleButtonControlTemplate | Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton |
+</details>
 
 - ### Bug fixes
   - [#845](../../issues/845) - QuickAccessToolBar issues in Colorful variant
@@ -22,6 +35,7 @@
   - [#943](../../issues/943) - The LauncherIcon in the RibbonGroupBox added to QuickAccess will always be shown (thanks @nishy2000)
   - [#952](../../issues/952) - Help with IsSelectionRequired property setting on "File" tab for accessibility purposes
   - [#954](../../issues/954) - Adding an InputBinding for Alt+Up or Alt+Down results in extra character (thanks @dgosbell)
+  - [#961](../../issues/961) - Fluent.Button Header Binding not visible
 
 - ### Enhancements/Features
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)

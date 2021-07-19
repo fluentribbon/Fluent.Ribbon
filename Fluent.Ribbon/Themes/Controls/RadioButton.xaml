@@ -31,7 +31,7 @@
                              Opacity="0" />
                 </Grid>
             </BulletDecorator.Bullet>
-            <TextBlock Text="{TemplateBinding Header}"
+            <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        Margin="8,3,4,0" />
         </BulletDecorator>
         <ControlTemplate.Triggers>
@@ -119,7 +119,7 @@
                                       Margin="1,0,0,0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Content="{TemplateBinding Header}"
+                                      Content="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                       ContentTemplate="{TemplateBinding ContentTemplate}"
                                       RecognizesAccessKey="True" />
                 </StackPanel>

@@ -35,7 +35,7 @@
         <Grid Height="Auto"              
               Background="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}">
             <TextBlock Margin="7,0"
-                       Text="{TemplateBinding Header}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                        TextWrapping="Wrap"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"

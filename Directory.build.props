@@ -6,6 +6,7 @@
     <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) == 'true'">true</IsBuildingWpfTempProj>
+    <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
   </PropertyGroup>
 
   <PropertyGroup>

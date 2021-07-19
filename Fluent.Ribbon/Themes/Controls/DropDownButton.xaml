@@ -120,7 +120,7 @@
                                          Margin="2 0 2 2"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
-                                         Text="{TemplateBinding Header}"
+                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                          HasGlyph="{TemplateBinding HasTriangle}" />
                 </StackPanel>
             </Border>
@@ -364,7 +364,7 @@
                                          Margin="2,0,0,0"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
-                                         Text="{TemplateBinding Header}"
+                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                          HasTwoLines="False"
                                          HasGlyph="False" />
                     <Fluent:TwoLineLabel x:Name="controlLabel2"

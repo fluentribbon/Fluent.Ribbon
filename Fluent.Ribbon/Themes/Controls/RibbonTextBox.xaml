@@ -31,7 +31,7 @@
                     <TextBlock x:Name="headerTextBlock"
                                Margin="5,0,0,0" 
                                VerticalAlignment="Center"
-                               Text="{TemplateBinding Header}"
+                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                TextWrapping="Wrap" />
                 </Grid>
             </StackPanel>
@@ -150,7 +150,7 @@
                         <TextBlock x:Name="headerTextBlock"
                                    Margin="0,0,4,0"
                                    VerticalAlignment="Center"
-                                   Text="{TemplateBinding Header}"
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    TextWrapping="Wrap" />
                     </Grid>
                 </StackPanel>
@@ -175,7 +175,7 @@
                                    Padding="2,0"
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                    Opacity="0.5"
-                                   Text="{TemplateBinding Header}"/>
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"/>
                     </Grid>
                 </Border>
             </Grid>
