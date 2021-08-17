@@ -118,7 +118,7 @@ class Build : NukeBuild
             .SetProjectFile(Solution.Fluent_Ribbon_Tests)
             .SetNoBuild(true)
             .SetNoRestore(true)
-            .SetLogger("trx")
+            .AddLoggers("trx")
             .SetResultsDirectory(TestResultsDir)
             .SetVerbosity(DotNetVerbosity.Normal));
     });
