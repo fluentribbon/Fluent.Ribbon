@@ -13,12 +13,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel x:Name="PART_HeaderAndIconPanel"
-                        Grid.ColumnSpan="1"
                         Orientation="Horizontal"
                         Margin="0,0,4,0"
                         HorizontalAlignment="Left">
                 <Fluent:IconPresenter x:Name="iconImage"
-                                      Margin="3 0 0 0"
+                                      Margin="3,0,0,0"
                                       VerticalAlignment="Center"
                                       IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
@@ -38,7 +37,6 @@
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Grid.ColumnSpan="1"
                     Width="{TemplateBinding InputWidth}"
                     Height="Auto"
                     HorizontalAlignment="Right"
@@ -52,6 +50,13 @@
         </Grid>
 
         <ControlTemplate.Triggers>
+            <Trigger Property="InputWidth"
+                        Value="NaN">
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
+            </Trigger>
+
             <Trigger Property="OptimalIcon"
                      SourceName="iconImage"
                      Value="{x:Null}">
@@ -59,11 +64,12 @@
                         TargetName="iconImage"
                         Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth"
-                        Value="NaN">
-                <Setter Property="HorizontalAlignment"
-                        TargetName="PART_ContentBorder"
-                        Value="Stretch" />
+
+            <Trigger Property="Size"
+                        Value="Small">
+                <Setter Property="Visibility"
+                        TargetName="PART_HeaderAndIconPanel"
+                        Value="Collapsed" />
             </Trigger>
             <Trigger Property="Size"
                         Value="Middle">
@@ -71,12 +77,7 @@
                         TargetName="headerTextBlock"
                         Value="Collapsed" />
             </Trigger>
-            <Trigger Property="Size"
-                        Value="Small">
-                <Setter Property="Visibility"
-                        TargetName="PART_HeaderAndIconPanel"
-                        Value="Collapsed" />
-            </Trigger>
+
             <Trigger Property="IsEnabled"
                         Value="False">
                 <Setter Property="Background"
@@ -118,7 +119,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTextBox.Simplified"
                      TargetType="{x:Type Fluent:TextBox}">
         <Border x:Name="border"

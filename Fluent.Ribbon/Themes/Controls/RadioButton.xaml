@@ -5,16 +5,16 @@
 
     <ControlTemplate x:Key="RibbonRadioButtonControlTemplate"
                      TargetType="{x:Type Fluent:RadioButton}">
-        <BulletDecorator SnapsToDevicePixels="true"
+        <BulletDecorator x:Name="bulletDecorator"
+                         Height="22"
                          Background="Transparent"
-                         x:Name="bulletDecorator"
-                         Height="22">
+                         SnapsToDevicePixels="true">
             <BulletDecorator.Bullet>
                 <Grid Width="12"
                       Height="12"
+                      Margin="4,4,0,0"
                       HorizontalAlignment="Left"
-                      VerticalAlignment="Center"
-                      Margin="4,4,0,0">
+                      VerticalAlignment="Center">
                     <Rectangle Margin="-6,0"
                                Fill="{DynamicResource TransparentWhiteBrush}" />
                     <Ellipse x:Name="normal"
@@ -31,8 +31,8 @@
                              Opacity="0" />
                 </Grid>
             </BulletDecorator.Bullet>
-            <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                       Margin="8,3,4,0" />
+            <TextBlock Margin="8,3,4,0"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"/>
         </BulletDecorator>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
@@ -61,7 +61,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RadioButton.Simplified"
                      TargetType="{x:Type Fluent:RadioButton}">
         <Border x:Name="border"

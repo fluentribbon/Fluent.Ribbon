@@ -76,30 +76,30 @@
     <ControlTemplate x:Key="InRibbonGalleryToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                BorderThickness="1"
-                Background="Transparent"
-                BorderBrush="Transparent"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                BorderThickness="1"
+                Background="Transparent"
+                BorderBrush="Transparent">
             <Grid Height="Auto">
                 <StackPanel x:Name="stackPanel"
                             Width="Auto"
                             Orientation="Vertical">
                     <Fluent:IconPresenter x:Name="iconImage"
+                                          Margin="2"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          Margin="2"
                                           IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
-                    
+
                     <Fluent:TwoLineLabel x:Name="controlLabel"
-                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                         Margin="2,-2,2,2"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Stretch"
-                                         Margin="2,-2,2,2"
+                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                          HasGlyph="True" />
                 </StackPanel>
             </Grid>
@@ -110,21 +110,21 @@
                 <Setter Property="Orientation"
                         TargetName="stackPanel"
                         Value="Horizontal" />
-                <Setter Property="HasTwoLines"
-                        TargetName="controlLabel"
-                        Value="False" />
-                <Setter Property="Text"
-                        TargetName="controlLabel"
-                        Value="" />
                 <Setter Property="Margin"
                         TargetName="iconImage"
                         Value="1,2,0,2" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="-2,0,2,2" />
+                <Setter Property="Text"
+                        TargetName="controlLabel"
+                        Value="" />
                 <Setter Property="Width"
                         TargetName="controlLabel"
                         Value="10" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
             </Trigger>
             <Trigger Property="Size"
                      Value="Middle">
@@ -135,24 +135,25 @@
                         TargetName="stackPanel"
                         Value="Auto" />
                 <Setter Property="VerticalAlignment"
+                        TargetName="border"
+                        Value="Stretch" />
+                <Setter Property="VerticalAlignment"
                         TargetName="iconImage"
                         Value="Center" />
-                <Setter Property="HasTwoLines"
-                        TargetName="controlLabel"
-                        Value="False" />
+                <Setter Property="Margin"
+                        TargetName="iconImage"
+                        Value="1,2,2,2" />
                 <Setter Property="Margin"
                         TargetName="controlLabel"
                         Value="2,-2,2,2" />
                 <Setter Property="VerticalAlignment"
-                        TargetName="border"
-                        Value="Stretch" />
-                <Setter Property="Margin"
-                        TargetName="iconImage"
-                        Value="1,2,2,2" />
-                <Setter Property="VerticalAlignment"
                         TargetName="controlLabel"
                         Value="Top" />
+                <Setter Property="HasTwoLines"
+                        TargetName="controlLabel"
+                        Value="False" />
             </Trigger>
+
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="BorderBrush"
@@ -184,7 +185,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"

@@ -414,7 +414,7 @@
                       Width="Auto"
                       Height="Auto"
                       Margin="0">
-                     <Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -431,7 +431,7 @@
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
-                    
+
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
                                     Grid.Row="1"
                                     Margin="5,0,5,0"
@@ -478,7 +478,7 @@
                    Stretch="Uniform"
                    Visibility="Collapsed" />
         </Grid>
-        
+
         <ControlTemplate.Triggers>
             <Trigger Property="State"
                      Value="Collapsed">
@@ -528,7 +528,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.Simplified"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>

@@ -74,7 +74,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel x:Name="headerAndIconPanel"
-                        Grid.ColumnSpan="1"
                         Orientation="Horizontal"
                         Margin="0,0,4,0"
                         HorizontalAlignment="Left">
@@ -98,7 +97,6 @@
             </StackPanel>
 
             <Border x:Name="PART_ContentBorder"
-                    Grid.ColumnSpan="1"
                     Grid.Column="1"
                     Width="{TemplateBinding InputWidth}"
                     Height="22"
@@ -106,8 +104,7 @@
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                     BorderThickness="1">
-                <Grid Grid.ColumnSpan="1"
-                        Grid.Column="1">
+                <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="17" />
@@ -146,9 +143,8 @@
                     <Path x:Name="path1"
                           Visibility="Collapsed"
                           Grid.Column="1"
-                          Grid.RowSpan="1"
-                          Height="1"
                           Width="Auto"
+                          Height="1"
                           Margin="0,0,-1,0"
                           HorizontalAlignment="Left"
                           VerticalAlignment="Bottom"
@@ -197,6 +193,13 @@
         </Grid>
 
         <ControlTemplate.Triggers>
+            <Trigger Property="InputWidth"
+                     Value="NaN">
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
+            </Trigger>
+
             <Trigger Property="OptimalIcon"
                      SourceName="iconImage"
                      Value="{x:Null}">
@@ -204,12 +207,26 @@
                         TargetName="iconImage"
                         Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth"
-                     Value="NaN">
+
+            <Trigger Property="Size"
+                        Value="Small">
+                <Setter Property="Visibility"
+                        TargetName="headerAndIconPanel"
+                        Value="Collapsed" />
                 <Setter Property="HorizontalAlignment"
                         TargetName="PART_ContentBorder"
                         Value="Stretch" />
             </Trigger>
+            <Trigger Property="Size"
+                        Value="Middle">
+                <Setter Property="Visibility"
+                        TargetName="headerTextBlock"
+                        Value="Collapsed" />
+                <Setter Property="HorizontalAlignment"
+                        TargetName="PART_ContentBorder"
+                        Value="Stretch" />
+            </Trigger>
+
             <Trigger Property="IsEnabled"
                      Value="False">
                 <Setter Property="IsEnabled"
@@ -228,24 +245,7 @@
                         TargetName="headerTextBlock"
                         Value="0.5" />
             </Trigger>
-            <Trigger Property="Size"
-                        Value="Middle">
-                <Setter Property="Visibility"
-                        TargetName="headerTextBlock"
-                        Value="Collapsed" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="PART_ContentBorder"
-                        Value="Stretch" />
-            </Trigger>
-            <Trigger Property="Size"
-                        Value="Small">
-                <Setter Property="Visibility"
-                        TargetName="headerAndIconPanel"
-                        Value="Collapsed" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="PART_ContentBorder"
-                        Value="Stretch" />
-            </Trigger>
+
             <Trigger Property="IsMouseOver"
                         Value="True">
                 <Setter Property="Visibility"
@@ -266,7 +266,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner.Simplified"
                      TargetType="{x:Type Fluent:Spinner}">
         <Border x:Name="border"

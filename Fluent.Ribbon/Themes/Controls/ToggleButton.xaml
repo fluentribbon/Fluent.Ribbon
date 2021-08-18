@@ -103,12 +103,12 @@
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
-                
+
                 <Fluent:TwoLineLabel x:Name="controlLabel"
-                                     Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                     Margin="2,0,2,0" 
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
-                                     Margin="2 0 2 0" />
+                                     Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"/>
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
@@ -157,6 +157,7 @@
                         TargetName="controlLabel"
                         Value="Center" />
             </Trigger>
+
             <Trigger Property="IsChecked"
                      Value="True">
                 <Setter Property="Background"
@@ -215,7 +216,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"

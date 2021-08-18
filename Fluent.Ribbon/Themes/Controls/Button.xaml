@@ -93,7 +93,7 @@
                                      Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
-                                     Margin="2 0 2 0" />
+                                     Margin="2,0,2,0" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
@@ -142,6 +142,7 @@
                         TargetName="controlLabel"
                         Value="Center" />
             </Trigger>
+
             <Trigger Property="IsPressed"
                      Value="True">
                 <Setter Property="BorderBrush"
@@ -175,7 +176,7 @@
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button.Simplified"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
