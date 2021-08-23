@@ -178,7 +178,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Margin="3,2,2,2"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -300,7 +300,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Margin="3,2,2,2"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -540,7 +540,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Margin="3,2,2,2"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -780,7 +780,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Margin="3,2,2,2"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"

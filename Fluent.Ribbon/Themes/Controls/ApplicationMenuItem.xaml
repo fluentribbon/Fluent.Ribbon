@@ -86,7 +86,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,4,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -211,7 +211,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,4,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
@@ -540,7 +540,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,4,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
@@ -788,7 +788,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,2,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -901,7 +901,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,2,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
@@ -1212,7 +1212,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Margin="3,2,2,2"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             <Path x:Name="path"
                   Stretch="Fill"
