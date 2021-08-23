@@ -305,7 +305,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <DockPanel />
+                    <DockPanel LastChildFill="False" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
