@@ -67,6 +67,8 @@ class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
+            DotNetToolRestore();
+            
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
         });
@@ -75,6 +77,8 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
     {
+        DotNet($"xstyler -r -d \"{RootDirectory}\"");
+        
         DotNetBuild(s => s
             .SetProjectFile(Solution)
             .SetConfiguration(Configuration)
