@@ -4,24 +4,23 @@
                    xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                    xmlns:Metro="http://metro.mahapps.com/winfx/xaml/controls"
                    xmlns:fluentTest="clr-namespace:FluentTest"
-                   WindowStartupLocation="CenterScreen"
-                   Title="{Binding WindowTitle, ElementName=TestContent}"
-                   Height="768"
-                   Width="1024"
                    x:Name="window"
-                   WindowState="Normal"
-                   TitleCharacterCasing="Normal"
-                   WindowTransitionsEnabled="False"
+                   Title="{Binding WindowTitle, ElementName=TestContent}"
+                   Width="1024"
+                   Height="768"
                    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                    ShowIconOnTitleBar="False"
+                   ShowSystemMenuOnRightClick="False"
                    ShowTitleBar="True"
-                   ShowSystemMenuOnRightClick="False">
+                   TitleCharacterCasing="Normal"
+                   WindowStartupLocation="CenterScreen"
+                   WindowState="Normal"
+                   WindowTransitionsEnabled="False">
     <Metro:MetroWindow.LayoutTransform>
         <!-- todo: netcore => was using x:Reference before -->
-        <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"
-                        ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
+        <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}" ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
     </Metro:MetroWindow.LayoutTransform>
-    
+
     <Metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,33 +30,32 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="{x:Type Fluent:BackstageTabControl}"
-                   TargetType="{x:Type Fluent:BackstageTabControl}"
-                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
-                <Setter Property="SelectedContentMargin"
-                        Value="0" />
+                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}"
+                   TargetType="{x:Type Fluent:BackstageTabControl}">
+                <Setter Property="SelectedContentMargin" Value="0" />
             </Style>
         </ResourceDictionary>
     </Metro:MetroWindow.Resources>
-       
+
     <Metro:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"                                   
-                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}"
-                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}" />
+            <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"
+                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}"
+                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}" />
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>
-    
+
     <Metro:MetroWindow.LeftWindowCommands>
         <Metro:WindowCommands>
             <Button>Left</Button>
         </Metro:WindowCommands>
     </Metro:MetroWindow.LeftWindowCommands>
-    
+
     <Metro:MetroWindow.RightWindowCommands>
         <Metro:WindowCommands>
             <Button>Right</Button>
         </Metro:WindowCommands>
-    </Metro:MetroWindow.RightWindowCommands>    
-    
+    </Metro:MetroWindow.RightWindowCommands>
+
     <fluentTest:TestContent x:Name="TestContent" />
 </Metro:MetroWindow>

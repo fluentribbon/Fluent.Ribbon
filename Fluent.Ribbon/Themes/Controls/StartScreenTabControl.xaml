@@ -7,67 +7,64 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                       BasedOn="{StaticResource ScrollBarWhite}"
+                       TargetType="{x:Type ScrollBar}" />
                 <Style x:Key="{x:Type Fluent:Button}"
-                       TargetType="{x:Type Fluent:Button}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}"
+                       TargetType="{x:Type Fluent:Button}" />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
-                       TargetType="{x:Type Fluent:DropDownButton}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}"
+                       TargetType="{x:Type Fluent:DropDownButton}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
-                       TargetType="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}"
+                       TargetType="{x:Type Fluent:ComboBox}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="{TemplateBinding ItemsPanelMinWidth}"
-                                  Width="Auto" />
+                <ColumnDefinition Width="Auto"
+                                  MinWidth="{TemplateBinding ItemsPanelMinWidth}" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid x:Name="PART_LeftContentGrid"
-                  VerticalAlignment="Stretch"                  
-                  Background="{TemplateBinding ItemsPanelBackground}"
-                  Margin="{TemplateBinding LeftContentMargin}">
-                <Border Padding="15,25">
-                    <ContentPresenter HorizontalAlignment="Stretch"
+                  Margin="{TemplateBinding LeftContentMargin}"
+                  VerticalAlignment="Stretch"
+                  Background="{TemplateBinding ItemsPanelBackground}">
+                <Border Padding="15 25">
+                    <ContentPresenter Height="Auto"
+                                      HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Height="Auto"
                                       Content="{TemplateBinding LeftContent}" />
                 </Border>
-                
+
                 <Fluent:WindowSteeringHelperControl Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
                                                     VerticalAlignment="Top"
                                                     IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
             </Grid>
 
             <Grid x:Name="PART_SelectedContentGrid"
-                  Height="Auto"
                   Grid.Column="1"
-                  Background="{DynamicResource WhiteBrush}"
-                  Margin="{TemplateBinding SelectedContentMargin}">
-                <Border Padding="33,16"
+                  Height="Auto"
+                  Margin="{TemplateBinding SelectedContentMargin}"
+                  Background="{DynamicResource WhiteBrush}">
+                <Border Padding="33 16"
                         Background="{DynamicResource WhiteBrush}">
                     <ContentPresenter x:Name="PART_SelectedContentHost"
+                                      Height="Auto"
                                       HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch"
-                                      Height="Auto"
                                       Content="{TemplateBinding RightContent}" />
                 </Border>
             </Grid>
         </Grid>
-    </ControlTemplate>    
-    
+    </ControlTemplate>
+
     <Style x:Key="StartScreenTabControlStyle"
-           TargetType="{x:Type Fluent:StartScreenTabControl}"
-           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
-        <Setter Property="Template"
-                Value="{DynamicResource StartScreenTabControlTemplate}" />
-        <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
-        <Setter Property="Margin"
-                Value="0" />
+           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}"
+           TargetType="{x:Type Fluent:StartScreenTabControl}">
+        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template" Value="{DynamicResource StartScreenTabControlTemplate}" />
     </Style>
 </ResourceDictionary>

@@ -13,67 +13,67 @@
                         <Border x:Name="PART_ButtonBorder"
                                 Background="Transparent">
                             <Fluent:TwoLineLabel x:Name="twoLineLabel"
-                                                 Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                                 HasTwoLines="False"
-                                                 HasGlyph="True"
-                                                 Foreground="{DynamicResource WhiteBrush}"
+                                                 Margin="6 -2 0 0"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
-                                                 Margin="6,-2,0,0" />
+                                                 Foreground="{DynamicResource WhiteBrush}"
+                                                 HasGlyph="True"
+                                                 HasTwoLines="False"
+                                                 Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
                         </Border>
                         <Popup x:Name="PART_Popup"
-                               Placement="Bottom"
-                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Grid.ColumnSpan="2"
+                               Margin="0 0 -4 0"
+                               VerticalAlignment="Top"
                                AllowsTransparency="True"
                                Focusable="False"
-                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
-                               Margin="0,0,-4,0"
-                               VerticalAlignment="Top"
-                               Grid.ColumnSpan="2">
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Placement="Bottom"
+                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                             <Grid Name="DropDown"
-                                  SnapsToDevicePixels="True"
                                   Margin="0"
-                                  VerticalAlignment="Top">
+                                  VerticalAlignment="Top"
+                                  SnapsToDevicePixels="True">
                                 <Border x:Name="PART_DropDownBorder"
+                                        Grid.ColumnSpan="1"
                                         MinWidth="{TemplateBinding ActualWidth}"
-                                        SnapsToDevicePixels="True"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Top"
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                                         BorderThickness="1"
-                                        Grid.ColumnSpan="1"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Top">
+                                        SnapsToDevicePixels="True">
                                     <Grid Width="Auto"
                                           Height="Auto"
                                           HorizontalAlignment="Stretch"
                                           VerticalAlignment="Top">
-                                        <Border VerticalAlignment="Top"
-                                                Width="Auto"
+                                        <Border Width="Auto"
                                                 Height="Auto"
+                                                VerticalAlignment="Top"
                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
                                               HorizontalAlignment="Stretch"
                                               VerticalAlignment="Top">
-                                            <Rectangle Fill="{x:Null}"
-                                                       Stretch="Fill"
-                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                                       HorizontalAlignment="Left"
-                                                       Margin="24,0,0,0"
+                                            <Rectangle Grid.RowSpan="2"
                                                        Width="1"
                                                        Height="Auto"
-                                                       Grid.RowSpan="2"
-                                                       Visibility="Visible"
-                                                       VerticalAlignment="Stretch" />
-                                            <ScrollViewer Margin="1"
-                                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                          SnapsToDevicePixels="True"
+                                                       Margin="24 0 0 0"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Fill="{x:Null}"
+                                                       Stretch="Fill"
+                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                                       Visibility="Visible" />
+                                            <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                          Margin="1"
+                                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                                                          SnapsToDevicePixels="True">
                                                 <StackPanel x:Name="PART_MenuPanel"
-                                                            Orientation="Vertical"
                                                             IsItemsHost="True"
-                                                            KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                            Orientation="Vertical" />
                                             </ScrollViewer>
                                         </Grid>
                                     </Grid>
@@ -82,11 +82,8 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="Foreground"
-                                    TargetName="twoLineLabel"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="twoLineLabel" Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -94,88 +91,77 @@
         </Setter>
     </Style>
 
-    <ControlTemplate TargetType="{x:Type Fluent:Gallery}"
-                     x:Key="GalleryControlTemplate">
+    <ControlTemplate x:Key="GalleryControlTemplate"
+                     TargetType="{x:Type Fluent:Gallery}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}" />
+                       BasedOn="{StaticResource ScrollViewerStyle}"
+                       TargetType="{x:Type ScrollViewer}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                       BasedOn="{StaticResource ScrollBarWhite}"
+                       TargetType="{x:Type ScrollBar}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
-        <Border BorderThickness="{TemplateBinding BorderThickness}"
+        <Border x:Name="layoutRoot"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                x:Name="layoutRoot">
+                BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Border x:Name="border"
-                        BorderBrush="{x:Null}"
-                        BorderThickness="0"
                         Height="13"
-                        Background="{DynamicResource Fluent.Ribbon.Brushes.Gallery.Header.Background}">
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.Gallery.Header.Background}"
+                        BorderBrush="{x:Null}"
+                        BorderThickness="0">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
-                                           Style="{DynamicResource GalleryDropDownButtonStyle}"
                                            Height="Auto"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
-                                           Header="{TemplateBinding SelectedFilterTitle}" />
+                                           Header="{TemplateBinding SelectedFilterTitle}"
+                                           Style="{DynamicResource GalleryDropDownButtonStyle}" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
-                              Grid.RowSpan="1"
                               Grid.Row="1"
+                              Grid.RowSpan="1"
                               Margin="1"
                               Focusable="False">
                     <Fluent:GalleryPanel Background="{DynamicResource WhiteBrush}"
-                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
-                                         MinItemsInRow="{TemplateBinding MinItemsInRow}"
-                                         MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
-                                         IsGrouped="{TemplateBinding IsGrouped}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
+                                         IsGrouped="{TemplateBinding IsGrouped}"
                                          IsItemsHost="True"
+                                         ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          ItemHeight="{TemplateBinding ItemHeight}"
                                          ItemWidth="{TemplateBinding ItemWidth}"
+                                         MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
+                                         MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          Orientation="{TemplateBinding Orientation}" />
                 </ScrollViewer>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="HasFilter"
-                     Value="False">
-                <Setter Property="Visibility"
-                        TargetName="border"
-                        Value="Collapsed" />
+            <Trigger Property="HasFilter" Value="False">
+                <Setter TargetName="border" Property="Visibility" Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="GalleryStyle"
            TargetType="{x:Type Fluent:Gallery}">
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-                Value="Hidden" />
-        <Setter Property="Template"
-                Value="{DynamicResource GalleryControlTemplate}" />
-        <Setter Property="Margin"
-                Value="0" />
-        <Setter Property="BorderThickness"
-                Value="0,0,0,1" />
+        <Setter Property="BorderThickness" Value="0 0 0 1" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Template" Value="{DynamicResource GalleryControlTemplate}" />
         <Style.Triggers>
-            <Trigger Property="IsLastItem"
-                     Value="True">
-                <Setter Property="BorderThickness"
-                        Value="0" />
+            <Trigger Property="IsLastItem" Value="True">
+                <Setter Property="BorderThickness" Value="0" />
             </Trigger>
-            <Trigger Property="Orientation"
-                     Value="Vertical">
+            <Trigger Property="Orientation" Value="Vertical">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>
@@ -184,8 +170,7 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="Orientation"
-                     Value="Horizontal">
+            <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="ItemsPanel">
                     <Setter.Value>
                         <ItemsPanelTemplate>

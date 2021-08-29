@@ -7,14 +7,14 @@
                      TargetType="Fluent:WindowCommands">
         <StackPanel Orientation="Horizontal">
             <ItemsControl x:Name="PART_Items"
-                          ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                          ItemTemplate="{TemplateBinding ItemTemplate}"
-                          ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                          Margin="0 0 2 0"
+                          Focusable="False"
                           ItemContainerStyle="{TemplateBinding ItemContainerStyle}"
                           ItemContainerStyleSelector="{TemplateBinding ItemContainerStyleSelector}"
-                          Visibility="{TemplateBinding ItemsPanelVisibility}"
-                          Focusable="False"
-                          Margin="0 0 2 0">
+                          ItemTemplate="{TemplateBinding ItemTemplate}"
+                          ItemTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                          ItemsSource="{Binding Items, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                          Visibility="{TemplateBinding ItemsPanelVisibility}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -23,178 +23,138 @@
             </ItemsControl>
 
             <Button x:Name="PART_Min"
-                    Focusable="False"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    Padding="0"
-                    ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    SnapsToDevicePixels="True">
-                <Path Data="F1M3,8L13,8 13,7 3,7z"
-                      Width="16"
+                    Padding="0"
+                    Focusable="False"
+                    SnapsToDevicePixels="True"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
+                    ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
+                      Data="F1M3,8L13,8 13,7 3,7z"
                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
             </Button>
 
             <Button x:Name="PART_Max"
-                    Focusable="False"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    Padding="0"
-                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
-                    ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    SnapsToDevicePixels="True">
-                <Path Data="F1M12,12L4,12 4,4 12,4z M3,13L13,13 13,3 3,3z"
-                      Width="16"
+                    Padding="0"
+                    Focusable="False"
+                    SnapsToDevicePixels="True"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
+                    ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}">
+                <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
+                      Data="F1M12,12L4,12 4,4 12,4z M3,13L13,13 13,3 3,3z"
                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
             </Button>
 
             <Button x:Name="PART_Restore"
-                    Focusable="False"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    Padding="0"
-                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
-                    ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    SnapsToDevicePixels="True">
-                <Path Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z"
-                      Width="16"
+                    Padding="0"
+                    Focusable="False"
+                    SnapsToDevicePixels="True"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
+                    ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
+                <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
+                      Data="F1M11.999,10.002L10.998,10.002 10.998,5.002 5.998,5.002 5.998,4.001 11.999,4.001z M10.002,11.999L4.001,11.999 4.001,5.998 10.002,5.998z M5.002,3L5.002,5.002 3,5.002 3,13 10.998,13 10.998,10.998 13,10.998 13,3z"
                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
             </Button>
 
             <Button x:Name="PART_Close"
-                    Focusable="False"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    Padding="0"
-                    ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    SnapsToDevicePixels="True">
-                <Path Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
-                      Width="16"
+                    Padding="0"
+                    Focusable="False"
+                    SnapsToDevicePixels="True"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
+                    ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
+                      Data="F1M8.583,8L13,12.424 12.424,13 8,8.583 3.576,13 3,12.424 7.417,8 3,3.576 3.576,3 8,7.417 12.424,3 13,3.576z"
                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType={x:Type Button}}}" />
             </Button>
         </StackPanel>
         <ControlTemplate.Triggers>
-            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                         Value="NoResize">
-                <Setter Property="Visibility"
-                        TargetName="PART_Min"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="PART_Max"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="PART_Restore"
-                        Value="Collapsed" />
+            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Value="NoResize">
+                <Setter TargetName="PART_Max" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Min" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Restore" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                         Value="CanMinimize">
-                <Setter Property="Visibility"
-                        TargetName="PART_Max"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="PART_Restore"
-                        Value="Collapsed" />
+            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Value="CanMinimize">
+                <Setter TargetName="PART_Max" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Restore" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Close}"
-                         Value="True">
-                <Setter TargetName="PART_Close"
-                        Property="Background"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" />
+            <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Close}" Value="True">
+                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}"
-                         Value="True">
-                <Setter TargetName="PART_Close"
-                        Property="Background"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" />
+            <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}" Value="True">
+                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" />
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:WindowCommands}">
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Focusable"
-                Value="False" />
-        <Setter Property="Template"
-                Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands}" />
     </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands.Button"
                      TargetType="{x:Type Button}">
         <Grid Background="{TemplateBinding Background}">
             <ContentPresenter x:Name="contentPresenter"
+                              Margin="11 1 11 1"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                               RecognizesAccessKey="True"
-                              Margin="11,1,11,1" />
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
 
             <Rectangle x:Name="border"
-                       SnapsToDevicePixels="True"
-                       IsHitTestVisible="False"
-                       Opacity="0.25"
                        Width="0"
                        Height="15"
-                       VerticalAlignment="Stretch"
+                       Margin="10 0 0 0"
                        HorizontalAlignment="Right"
+                       VerticalAlignment="Stretch"
                        Fill="{TemplateBinding Foreground}"
-                       Margin="10,0,0,0" />
+                       IsHitTestVisible="False"
+                       SnapsToDevicePixels="True"
+                       Opacity="0.25" />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter TargetName="contentPresenter"
-                        Property="Opacity"
-                        Value="1" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="False">
-                <Setter TargetName="contentPresenter"
-                        Property="Opacity"
-                        Value=".75" />
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value=".75" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused"
-                     Value="True" />
-            <Trigger Property="ToggleButton.IsChecked"
-                     Value="True" />
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Foreground"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
+            <Trigger Property="IsKeyboardFocused" Value="True" />
+            <Trigger Property="ToggleButton.IsChecked" Value="True" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
             </Trigger>
-            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}"
-                         Value="{x:Null}">
-                <Setter TargetName="border"
-                        Property="Rectangle.Width"
-                        Value="1" />
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                <Setter TargetName="border" Property="Rectangle.Width" Value="1" />
             </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.Button"
            TargetType="{x:Type Button}">
-        <Setter Property="Background"
-                Value="{DynamicResource TransparentWhiteBrush}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Center" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="Padding"
-                Value="1" />
-        <Setter Property="Template"
-                Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.Button}" />
+        <Setter Property="Background" Value="{DynamicResource TransparentWhiteBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.Button}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
     </Style>
 </ResourceDictionary>

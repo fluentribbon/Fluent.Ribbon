@@ -3,24 +3,28 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="{x:Type Fluent:StatusBar}"
            TargetType="{x:Type Fluent:StatusBar}">
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
-        <Setter Property="Height"
-                Value="Auto" />
-        <Setter Property="MinHeight" 
-                Value="23"/>
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <Fluent:StatusBarPanel Height="Auto"
+                                           Margin="0"
+                                           VerticalAlignment="Stretch"
+                                           IsItemsHost="True" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MinHeight" Value="23" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:StatusBar}">
                     <ControlTemplate.Resources>
                         <Style x:Key="{x:Static StatusBar.SeparatorStyleKey}"
                                TargetType="{x:Type Separator}">
-                            <Setter Property="OverridesDefaultStyle"
-                                    Value="True" />
-                            <Setter Property="SnapsToDevicePixels"
-                                    Value="True" />
+                            <Setter Property="OverridesDefaultStyle" Value="True" />
+                            <Setter Property="SnapsToDevicePixels" Value="True" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Separator}">
@@ -31,39 +35,25 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </ControlTemplate.Resources>                    
+                    </ControlTemplate.Resources>
                     <Border Height="Auto"
-                            BorderThickness="0"
-                            Background="{TemplateBinding Background}">
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0">
                         <ItemsPresenter x:Name="itemsPresenter"
                                         Height="Auto" />
                     </Border>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                     Value="CanResizeWithGrip">
-                            <Setter Property="Margin"
-                                    TargetName="itemsPresenter"
-                                    Value="0,0,16,0" />
+                        <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="CanResizeWithGrip">
+                            <Setter TargetName="itemsPresenter" Property="Margin" Value="0 0 16 0" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <Fluent:StatusBarPanel IsItemsHost="True"
-                                             Height="Auto"
-                                             Margin="0"
-                                             VerticalAlignment="Stretch" />
-                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <Style x:Key="RibbonStatusBarItemStyle"
            TargetType="{x:Type Fluent:StatusBarItem}">
-        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Margin" Value="0 0 2 0" />
         <Setter Property="Template">
@@ -73,27 +63,23 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Style.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
+            <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundDisabledBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <!--Menu Item Style-->
+    <!-- Menu Item Style -->
     <Style TargetType="{x:Type Fluent:StatusBarMenuItem}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="IsCheckable"
-                Value="True" />
-        <Setter Property="IsChecked"
-                Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="IsCheckable" Value="True" />
+        <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="Template" Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
     </Style>
 
-    <!--Menu Item Template-->
+    <!-- Menu Item Template -->
     <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
                      TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Grid Width="Auto"
@@ -105,83 +91,72 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border x:Name="border"
-                    HorizontalAlignment="Stretch"
-                    Margin="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
                     Width="Auto"
-                    Visibility="Collapsed"
+                    Margin="0"
+                    HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
                     BorderThickness="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3" />
-                <TextBlock x:Name="textBlock"
-                       Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
+                    Visibility="Collapsed" />
+            <TextBlock x:Name="textBlock"
+                       Grid.Column="1"
                        Width="Auto"
                        Height="Auto"
-                       Margin="5,3,3,3"
+                       Margin="5 3 3 3"
                        VerticalAlignment="Center"
-                       Grid.Column="1"
+                       Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        TextTrimming="CharacterEllipsis" />
             <Image x:Name="image"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
                    Width="16"
                    Height="16"
-                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   SnapsToDevicePixels="True"
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
-                   Visibility="Collapsed"
-                   SnapsToDevicePixels="True" />
+                   Stretch="Uniform"
+                   Visibility="Collapsed" />
             <Fluent:IconPresenter x:Name="iconImage"
+                                  Margin="3 2 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  Margin="3,2,2,2"
                                   SmallIcon="{TemplateBinding Icon}" />
-            <TextBlock Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}"
+            <TextBlock Grid.Column="3"
                        Width="Auto"
                        Height="Auto"
-                       Margin="9,3,3,3"
+                       Margin="9 3 3 3"
                        VerticalAlignment="Center"
-                       Grid.Column="3"
+                       Text="{Binding StatusBarItem.Value, RelativeSource={RelativeSource TemplatedParent}}"
                        TextTrimming="CharacterEllipsis" />
             <Path x:Name="path"
-                  Stretch="Fill"
-                  Stroke="{x:Null}"
-                  HorizontalAlignment="Right"
-                  Margin="1,0,4,0"
-                  Width="4"
-                  Data="M0,0L1,1 0,2z"
-                  Height="6"
                   Grid.Column="3"
-                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}" />
+                  Width="4"
+                  Height="6"
+                  Margin="1 0 4 0"
+                  HorizontalAlignment="Right"
+                  Data="M0,0L1,1 0,2z"
+                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}"
+                  Stretch="Fill"
+                  Stroke="{x:Null}" />
         </Grid>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Icon"
-                               Value="{x:Null}" />
-                    <Condition Property="IsChecked"
-                               Value="True" />
+                    <Condition Property="Icon" Value="{x:Null}" />
+                    <Condition Property="IsChecked" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="image"
-                        Value="Visible" />
+                <Setter TargetName="image" Property="Visibility" Value="Visible" />
             </MultiTrigger>
-            <Trigger Property="HasItems"
-                     Value="False">
-                <Setter Property="Visibility"
-                        TargetName="path"
-                        Value="Collapsed" />
+            <Trigger Property="HasItems" Value="False">
+                <Setter TargetName="path" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsHighlighted"
-                               Value="True" />
-                    <Condition Property="IsEnabled"
-                               Value="True" />
+                    <Condition Property="IsHighlighted" Value="True" />
+                    <Condition Property="IsEnabled" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="border"
-                        Value="Visible" />
+                <Setter TargetName="border" Property="Visibility" Value="Visible" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

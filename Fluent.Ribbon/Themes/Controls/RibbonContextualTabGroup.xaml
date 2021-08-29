@@ -4,57 +4,49 @@
                     xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="RibbonContextualTabGroupStyle"
            TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonContextualTabGroupControlTemplate}" />
-        <Setter Property="Width"
-                Value="Auto" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="Focusable"
-                Value="False" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
-        <Setter Property="TabItemSelectedForeground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
-        <Setter Property="TabItemMouseOverForeground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
-        <Setter Property="TabItemSelectedMouseOverForeground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="TabItemMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
+        <Setter Property="TabItemSelectedForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
+        <Setter Property="TabItemSelectedMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
+        <Setter Property="Template" Value="{DynamicResource RibbonContextualTabGroupControlTemplate}" />
+        <Setter Property="Width" Value="Auto" />
     </Style>
-    
+
     <ControlTemplate x:Key="RibbonContextualTabGroupControlTemplate"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
         <Border x:Name="rootBorder"
-                Visibility="{TemplateBinding InnerVisibility}"
+                Width="Auto"
                 Margin="0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Width="Auto">
-            <Border BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="0,0"
+                Visibility="{TemplateBinding InnerVisibility}">
+            <Border Height="Auto"
                     VerticalAlignment="Stretch"
-                    Height="Auto">
-                <Grid Margin="0"
-                      VerticalAlignment="Stretch"
-                      Height="Auto">
-                    <Rectangle Fill="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="0 0">
+                <Grid Height="Auto"
+                      Margin="0"
+                      VerticalAlignment="Stretch">
+                    <Rectangle Width="Auto"
+                               Height="Auto"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Stretch"
-                               Width="Auto"
-                               Height="Auto"
+                               Fill="{TemplateBinding Background}"
                                OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
-                    <Rectangle Fill="{TemplateBinding BorderBrush}"
+                    <Rectangle Width="Auto"
+                               Height="4"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
-                               Width="Auto"
-                               Height="4" />
-                    <Grid Margin="0,4,0,0">
-                        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                               Fill="{TemplateBinding BorderBrush}" />
+                    <Grid Margin="0 4 0 0">
+                        <TextBlock Margin="6 0"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Margin="6,0"
-                                   TextTrimming="CharacterEllipsis"
-                                   Foreground="{TemplateBinding Foreground}" />
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                   TextTrimming="CharacterEllipsis" />
                     </Grid>
                 </Grid>
             </Border>

@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style TargetType="{x:Type Fluent:RibbonMenu}">
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonMenu}">
@@ -12,19 +11,19 @@
                                TargetType="{x:Type Separator}" />
                     </ControlTemplate.Resources>
                     <Grid>
-                        <Rectangle Fill="{x:Null}"
-                                   Stretch="Fill"
-                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                   HorizontalAlignment="Left"
-                                   Margin="24,0,0,0"
+                        <Rectangle Grid.RowSpan="2"
                                    Width="1"
                                    Height="Auto"
-                                   Grid.RowSpan="2"
+                                   Margin="24 0 0 0"
+                                   HorizontalAlignment="Left"
+                                   Fill="{x:Null}"
+                                   Stretch="Fill"
+                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                    Visibility="Visible" />
                         <StackPanel x:Name="menuPanel"
-                                    Orientation="Vertical"
                                     IsItemsHost="True"
-                                    KeyboardNavigation.DirectionalNavigation="Continue" />
+                                    KeyboardNavigation.DirectionalNavigation="Continue"
+                                    Orientation="Vertical" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

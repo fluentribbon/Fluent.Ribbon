@@ -1,343 +1,315 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:fluent="clr-namespace:Fluent">
-    <!--Button in Scroll Control Style-->
+    <!-- Button in Scroll Control Style -->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
         <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
             <Border x:Name="OuterBorder"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush}"
                     Height="Auto"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush}"
+                    BorderThickness="1">
                 <ContentPresenter HorizontalAlignment="Center"
-                                    VerticalAlignment="Center" />
+                                  VerticalAlignment="Center" />
             </Border>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter Property="Background"
-                        TargetName="OuterBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter Property="BorderBrush"
-                        TargetName="OuterBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocusWithin"
-                     Value="True">
-                <Setter Property="Background"
-                        TargetName="OuterBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter Property="BorderBrush"
-                        TargetName="OuterBorder"
-                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="ScrollButtonStyle"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="Template"
-                Value="{DynamicResource ScrollButtonControlTemplate}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Template" Value="{DynamicResource ScrollButtonControlTemplate}" />
     </Style>
 
     <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
 
     <Style x:Key="RibbonScrollViewer"
            TargetType="{x:Type ScrollViewer}">
+        <Setter Property="CanContentScroll" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
                     <Grid x:Name="Grid"
                           Background="{TemplateBinding Background}"
                           IsHitTestVisible="True">
-                        <ScrollContentPresenter  Margin="{TemplateBinding Padding}"
-                                                 x:Name="PART_ScrollContentPresenter"
-                                                 Content="{TemplateBinding Content}"
-                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
-                                                 IsHitTestVisible="True" />
-                        <RepeatButton Command="{x:Static ScrollBar.LineLeftCommand}"
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                Margin="{TemplateBinding Padding}"
+                                                CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                Content="{TemplateBinding Content}"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                IsHitTestVisible="True" />
+                        <RepeatButton Width="13"
+                                      Height="Auto"
                                       HorizontalAlignment="Left"
-                                      Width="13"
-                                      Height="Auto"
                                       VerticalAlignment="Stretch"
-                                      Style="{DynamicResource ScrollButtonStyle}">
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="0">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedHorizontalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="HorizontalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentWidth" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportWidth" />
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            <Path Fill="{DynamicResource BlackBrush}"
-                                  Stretch="Fill"
-                                  Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="3"
-                                  Height="5"
-                                  Data="M0,0L1,1 1,-1z" />
-                        </RepeatButton>
-                        <RepeatButton Command="{x:Static ScrollBar.LineRightCommand}"
+                                      Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      HorizontalAlignment="Right"
-                                      Width="13"
-                                      Height="Auto"
-                                      VerticalAlignment="Stretch"
                                       Style="{DynamicResource ScrollButtonStyle}">
                             <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="100">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedHorizontalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="HorizontalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentWidth" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportWidth" />
+                                <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                              ConverterParameter="0"
+                                              FallbackValue="Visibility.Collapsed">
+                                    <Binding Path="ComputedHorizontalScrollBarVisibility"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="HorizontalOffset"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ExtentWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ViewportWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="{DynamicResource BlackBrush}"
+                            <Path Width="3"
+                                  Height="5"
+                                  Margin="0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M0,0L1,1 1,-1z"
+                                  Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="3"
+                                  StrokeThickness="0" />
+                        </RepeatButton>
+                        <RepeatButton Width="13"
+                                      Height="Auto"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Stretch"
+                                      Command="{x:Static ScrollBar.LineRightCommand}"
+                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                      Focusable="false"
+                                      Style="{DynamicResource ScrollButtonStyle}">
+                            <RepeatButton.Visibility>
+                                <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                              ConverterParameter="100"
+                                              FallbackValue="Visibility.Collapsed">
+                                    <Binding Path="ComputedHorizontalScrollBarVisibility"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="HorizontalOffset"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ExtentWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ViewportWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </RepeatButton.Visibility>
+                            <Path Width="3"
                                   Height="5"
-                                  Data="M1,0L0,1 0,-1z" />
+                                  Margin="0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M1,0L0,1 0,-1z"
+                                  Fill="{DynamicResource BlackBrush}"
+                                  Stretch="Fill"
+                                  Stroke="{x:Null}"
+                                  StrokeThickness="0" />
                         </RepeatButton>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="CanContentScroll"
-                Value="True" />
-        <Setter Property="HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="VerticalScrollBarVisibility"
-                Value="Disabled" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
     </Style>
 
     <Style x:Key="RibbonTabScrollViewer"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
+        <Setter Property="CanContentScroll" Value="True" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
                     <Grid x:Name="Grid"
                           Background="{TemplateBinding Background}"
                           IsHitTestVisible="True">
-                        <ScrollContentPresenter  Margin="{TemplateBinding Padding}"
-                                                 x:Name="PART_ScrollContentPresenter"
-                                                 Content="{TemplateBinding Content}"
-                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
-                                                 IsHitTestVisible="True" />
-                        <RepeatButton Command="{x:Static ScrollBar.LineLeftCommand}"
-                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                Margin="{TemplateBinding Padding}"
+                                                CanContentScroll="{TemplateBinding CanContentScroll}"
+                                                Content="{TemplateBinding Content}"
+                                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                IsHitTestVisible="True" />
+                        <RepeatButton Width="13"
+                                      Height="Auto"
+                                      Margin="0"
                                       HorizontalAlignment="Left"
-                                      Width="13"
-                                      Height="Auto"
                                       VerticalAlignment="Stretch"
-                                      Style="{DynamicResource ScrollButtonStyle}"
-                                      Margin="0">
-                            <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="0">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedHorizontalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="HorizontalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentWidth" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportWidth" />
-                                </MultiBinding>
-                            </RepeatButton.Visibility>
-                            <Path Fill="{DynamicResource BlackBrush}"
-                                  Stretch="Fill"
-                                  Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="3"
-                                  Height="5"
-                                  Data="M0,0L1,1 1,-1z" />
-                        </RepeatButton>
-                        <RepeatButton Command="{x:Static ScrollBar.LineRightCommand}"
+                                      Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      HorizontalAlignment="Right"
-                                      Width="13"
-                                      Height="Auto"
-                                      VerticalAlignment="Stretch"
-                                      Style="{DynamicResource ScrollButtonStyle}"
-                                      Margin="0">
+                                      Style="{DynamicResource ScrollButtonStyle}">
                             <RepeatButton.Visibility>
-                                <MultiBinding FallbackValue="Visibility.Collapsed"
-                                              Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                              ConverterParameter="100">
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ComputedHorizontalScrollBarVisibility" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="HorizontalOffset" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ExtentWidth" />
-                                    <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                             Path="ViewportWidth" />
+                                <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                              ConverterParameter="0"
+                                              FallbackValue="Visibility.Collapsed">
+                                    <Binding Path="ComputedHorizontalScrollBarVisibility"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="HorizontalOffset"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ExtentWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ViewportWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Fill="{DynamicResource BlackBrush}"
+                            <Path Width="3"
+                                  Height="5"
+                                  Margin="0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M0,0L1,1 1,-1z"
+                                  Fill="{DynamicResource BlackBrush}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
-                                  StrokeThickness="0"
-                                  HorizontalAlignment="Center"
-                                  Margin="0"
-                                  VerticalAlignment="Center"
-                                  Width="3"
+                                  StrokeThickness="0" />
+                        </RepeatButton>
+                        <RepeatButton Width="13"
+                                      Height="Auto"
+                                      Margin="0"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Stretch"
+                                      Command="{x:Static ScrollBar.LineRightCommand}"
+                                      CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                      Focusable="false"
+                                      Style="{DynamicResource ScrollButtonStyle}">
+                            <RepeatButton.Visibility>
+                                <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                              ConverterParameter="100"
+                                              FallbackValue="Visibility.Collapsed">
+                                    <Binding Path="ComputedHorizontalScrollBarVisibility"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="HorizontalOffset"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ExtentWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Path="ViewportWidth"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </RepeatButton.Visibility>
+                            <Path Width="3"
                                   Height="5"
-                                  Data="M1,0L0,1 0,-1z" />
+                                  Margin="0"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M1,0L0,1 0,-1z"
+                                  Fill="{DynamicResource BlackBrush}"
+                                  Stretch="Fill"
+                                  Stroke="{x:Null}"
+                                  StrokeThickness="0" />
                         </RepeatButton>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="CanContentScroll"
-                Value="True" />
-        <Setter Property="HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="VerticalScrollBarVisibility"
-                Value="Disabled" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
 
     </Style>
 
     <Style x:Key="MenuScrollViewer"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="OverridesDefaultStyle"
-                Value="True" />
-        <Setter Property="Template"
-                Value="{StaticResource MenuScrollViewerControlTemplate}" />
-        <Setter Property="CanContentScroll"
-                Value="False" />
-        <Setter Property="HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="VerticalScrollBarVisibility"
-                Value="Disabled" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="CanContentScroll" Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template" Value="{StaticResource MenuScrollViewerControlTemplate}" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
     </Style>
 
-    <ControlTemplate TargetType="{x:Type ScrollViewer}"
-                     x:Key="MenuScrollViewerControlTemplate">
+    <ControlTemplate x:Key="MenuScrollViewerControlTemplate"
+                     TargetType="{x:Type ScrollViewer}">
         <Grid x:Name="Grid"
               Background="{TemplateBinding Background}"
               IsHitTestVisible="True">
-            <ScrollContentPresenter  Margin="{TemplateBinding Padding}"
-                                     x:Name="PART_ScrollContentPresenter"
-                                     Content="{TemplateBinding Content}"
-                                     ContentTemplate="{TemplateBinding ContentTemplate}"
-                                     CanContentScroll="{TemplateBinding CanContentScroll}"
-                                     IsHitTestVisible="True" />
-            <RepeatButton ClickMode="Hover"
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                    Margin="{TemplateBinding Padding}"
+                                    CanContentScroll="{TemplateBinding CanContentScroll}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    IsHitTestVisible="True" />
+            <RepeatButton Width="Auto"
+                          Height="12"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          ClickMode="Hover"
                           Command="{x:Static ScrollBar.LineUpCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                           Focusable="false"
-                          HorizontalAlignment="Stretch"
-                          Width="Auto"
-                          Height="12"
-                          VerticalAlignment="Top"
                           Style="{DynamicResource ScrollButtonStyle}">
                 <RepeatButton.Visibility>
-                    <MultiBinding FallbackValue="Visibility.Collapsed"
-                                  Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                  ConverterParameter="0">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ComputedVerticalScrollBarVisibility" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="VerticalOffset" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ExtentHeight" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ViewportHeight" />
+                    <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                  ConverterParameter="0"
+                                  FallbackValue="Visibility.Collapsed">
+                        <Binding Path="ComputedVerticalScrollBarVisibility"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="VerticalOffset"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="ExtentHeight"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="ViewportHeight"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Stretch="Fill"
-                      Stroke="{x:Null}"
-                      StrokeThickness="0"
-                      HorizontalAlignment="Center"
-                      Margin="0"
-                      VerticalAlignment="Center"
-                      Width="5"
+                <Path Width="5"
                       Height="3"
+                      Margin="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       Data="M0,0L1,-1 2,0z"
-                      Fill="{DynamicResource BlackBrush}" />
+                      Fill="{DynamicResource BlackBrush}"
+                      Stretch="Fill"
+                      Stroke="{x:Null}"
+                      StrokeThickness="0" />
 
             </RepeatButton>
-            <RepeatButton ClickMode="Hover"
+            <RepeatButton Width="Auto"
+                          Height="12"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Bottom"
+                          ClickMode="Hover"
                           Command="{x:Static ScrollBar.LineDownCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                           Focusable="false"
-                          HorizontalAlignment="Stretch"
-                          Width="Auto"
-                          Height="12"
-                          VerticalAlignment="Bottom"
                           Style="{DynamicResource ScrollButtonStyle}">
                 <RepeatButton.Visibility>
-                    <MultiBinding FallbackValue="Visibility.Collapsed"
-                                  Converter="{StaticResource MenuScrollingVisibilityConverter}"
-                                  ConverterParameter="100">
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ComputedVerticalScrollBarVisibility" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="VerticalOffset" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ExtentHeight" />
-                        <Binding RelativeSource="{RelativeSource TemplatedParent}"
-                                 Path="ViewportHeight" />
+                    <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                  ConverterParameter="100"
+                                  FallbackValue="Visibility.Collapsed">
+                        <Binding Path="ComputedVerticalScrollBarVisibility"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="VerticalOffset"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="ExtentHeight"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="ViewportHeight"
+                                 RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Stretch="Fill"
-                      Stroke="{x:Null}"
-                      StrokeThickness="0"
-                      HorizontalAlignment="Center"
-                      Margin="0"
-                      VerticalAlignment="Center"
-                      Width="5"
+                <Path Width="5"
                       Height="3"
+                      Margin="0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
                       Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource BlackBrush}" />
+                      Fill="{DynamicResource BlackBrush}"
+                      Stretch="Fill"
+                      Stroke="{x:Null}"
+                      StrokeThickness="0" />
             </RepeatButton>
         </Grid>
     </ControlTemplate>
@@ -346,26 +318,22 @@
            TargetType="{x:Type ScrollViewer}">
         <Style.Resources>
             <Style x:Key="{x:Type ScrollBar}"
-                   TargetType="{x:Type ScrollBar}"
-                   BasedOn="{StaticResource ScrollBarWhite}" />
+                   BasedOn="{StaticResource ScrollBarWhite}"
+                   TargetType="{x:Type ScrollBar}" />
         </Style.Resources>
 
-        <Setter Property="Template"
-                Value="{DynamicResource ScrollViewerControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource ScrollViewerControlTemplate}" />
 
         <Style.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="false">
-                <Setter Property="Foreground"
-                        Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
-           TargetType="{x:Type fluent:RibbonGroupsContainerScrollViewer}"
-           BasedOn="{StaticResource RibbonScrollViewer}">
-    </Style>
+           BasedOn="{StaticResource RibbonScrollViewer}"
+           TargetType="{x:Type fluent:RibbonGroupsContainerScrollViewer}" />
 
     <ControlTemplate x:Key="ScrollViewerControlTemplate"
                      TargetType="{x:Type ScrollViewer}">
@@ -382,39 +350,39 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Rectangle x:Name="Corner"
+                           Grid.Row="1"
                            Grid.Column="1"
-                           Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-                           Grid.Row="1" />
+                           Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
                 <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="{TemplateBinding Padding}"
                                         CanContentScroll="{TemplateBinding CanContentScroll}"
                                         CanHorizontallyScroll="False"
                                         CanVerticallyScroll="False"
-                                        ContentTemplate="{TemplateBinding ContentTemplate}"
                                         Content="{TemplateBinding Content}"
-                                        Grid.Column="0"
-                                        Margin="{TemplateBinding Padding}"
-                                        Grid.Row="0" />
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" />
                 <ScrollBar x:Name="PART_VerticalScrollBar"
+                           Grid.Row="0"
+                           Grid.Column="1"
                            AutomationProperties.AutomationId="VerticalScrollBar"
                            Cursor="Arrow"
-                           Grid.Column="1"
                            Maximum="{TemplateBinding ScrollableHeight}"
                            Minimum="0"
-                           Grid.Row="0"
+                           ViewportSize="{TemplateBinding ViewportHeight}"
                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                           Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                           ViewportSize="{TemplateBinding ViewportHeight}" />
+                           Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
                 <ScrollBar x:Name="PART_HorizontalScrollBar"
+                           Grid.Row="1"
+                           Grid.Column="0"
                            AutomationProperties.AutomationId="HorizontalScrollBar"
                            Cursor="Arrow"
-                           Grid.Column="0"
                            Maximum="{TemplateBinding ScrollableWidth}"
                            Minimum="0"
                            Orientation="Horizontal"
-                           Grid.Row="1"
+                           ViewportSize="{TemplateBinding ViewportWidth}"
                            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                           Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
-                           ViewportSize="{TemplateBinding ViewportWidth}" />
+                           Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
             </Grid>
         </Border>
     </ControlTemplate>

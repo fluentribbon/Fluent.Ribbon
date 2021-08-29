@@ -7,31 +7,29 @@
 
     <Style x:Key="KeyTipStyle"
            TargetType="{x:Type Fluent:KeyTip}">
-        <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.KeyTip.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.KeyTip.BorderBrush}" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:KeyTip}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Foreground="{TemplateBinding Foreground}"
-                                   Text="{TemplateBinding Content}"
-                                   TextWrapping="Wrap"
+                        <TextBlock Margin="4 -1 4 1"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
-                                   Margin="4,-1,4,1" />
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{TemplateBinding Content}"
+                                   TextWrapping="Wrap" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        Value="0.5" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
             </Trigger>
         </Style.Triggers>
     </Style>

@@ -1,31 +1,31 @@
 ﻿<UserControl x:Class="FluentTest.TestIcon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:FluentTest"
-             mc:Ignorable="d" 
-             d:DesignHeight="{Binding Tag,RelativeSource={RelativeSource Mode=Self}}" d:DesignWidth="{Binding Tag,RelativeSource={RelativeSource Mode=Self}}"
-             Width="{Binding IconSize,RelativeSource={RelativeSource Mode=Self}}"
-             Height="{Binding IconSize,RelativeSource={RelativeSource Mode=Self}}"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Width="{Binding IconSize, RelativeSource={RelativeSource Mode=Self}}"
+             Height="{Binding IconSize, RelativeSource={RelativeSource Mode=Self}}"
+             d:DesignHeight="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}"
+             d:DesignWidth="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}"
              BorderThickness="0"
-             >
+             mc:Ignorable="d">
     <UserControl.Style>
         <Style TargetType="UserControl">
-            <Setter Property="Tag" Value="24"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Tag" Value="24" />
         </Style>
     </UserControl.Style>
-    <Grid >
-        <Border BorderThickness="{Binding IconBorderThickness,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                BorderBrush="{Binding BorderBrush,RelativeSource={RelativeSource AncestorType=UserControl}}"
-                Background="{Binding IconBrush,RelativeSource={RelativeSource AncestorType=UserControl}}">
+    <Grid>
+        <Border Background="{Binding IconBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                BorderThickness="{Binding IconBorderThickness, RelativeSource={RelativeSource AncestorType=UserControl}}">
             <TextBlock HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="{Binding IconSize,RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                       VerticalAlignment="Center"
+                       Text="{Binding IconSize, RelativeSource={RelativeSource AncestorType=UserControl}}" />
         </Border>
     </Grid>
 </UserControl>

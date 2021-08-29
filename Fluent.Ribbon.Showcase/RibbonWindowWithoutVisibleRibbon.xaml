@@ -3,16 +3,16 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:fluent="urn:fluent-ribbon"
                      Title="RibbonWindowWithoutRibbon"
-                     Height="300"
-                     Width="300">
+                     Width="300"
+                     Height="300">
     <Grid>
-        <fluent:Ribbon IsMinimized="True"
-                       IsAutomaticCollapseEnabled="False"
-                       IsCollapsed="True"
-                       IsQuickAccessToolBarVisible="False"
-                       CanCustomizeQuickAccessToolBar="False"
+        <fluent:Ribbon CanCustomizeQuickAccessToolBar="False"
                        CanCustomizeRibbon="False"
                        CanQuickAccessLocationChanging="False"
-                       ContentGapHeight="2" />
+                       ContentGapHeight="2"
+                       IsAutomaticCollapseEnabled="False"
+                       IsCollapsed="True"
+                       IsMinimized="True"
+                       IsQuickAccessToolBarVisible="False" />
     </Grid>
 </fluent:RibbonWindow>

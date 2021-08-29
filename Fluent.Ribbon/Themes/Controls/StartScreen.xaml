@@ -2,15 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonStartScreenStyle"
-           TargetType="{x:Type Fluent:StartScreen}"
-           BasedOn="{StaticResource RibbonBackstageStyle}">
-        <Setter Property="Template"
-                Value="{x:Null}" />
-        <Setter Property="HideContextTabsOnOpen"
-                Value="True" />
-        <Setter Property="AreAnimationsEnabled"
-                Value="False" />
-        <Setter Property="Fluent:KeyTip.Keys"
-                Value="{x:Null}" />
+           BasedOn="{StaticResource RibbonBackstageStyle}"
+           TargetType="{x:Type Fluent:StartScreen}">
+        <Setter Property="AreAnimationsEnabled" Value="False" />
+        <Setter Property="Fluent:KeyTip.Keys" Value="{x:Null}" />
+        <Setter Property="HideContextTabsOnOpen" Value="True" />
+        <Setter Property="Template" Value="{x:Null}" />
     </Style>
 </ResourceDictionary>
