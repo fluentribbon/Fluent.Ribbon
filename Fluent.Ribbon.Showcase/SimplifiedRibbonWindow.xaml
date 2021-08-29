@@ -10,7 +10,6 @@
                      Width="800"
                      Height="600"
                      TitleBackground="Transparent"
-                     TitleForeground="Black"
                      mc:Ignorable="d">
     <Grid>
         <Grid.Resources>
