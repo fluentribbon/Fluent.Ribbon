@@ -90,7 +90,6 @@
                                           Margin="2"
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          Margin="2"
                                           IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
