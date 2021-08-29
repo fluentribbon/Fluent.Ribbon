@@ -1122,6 +1122,12 @@ namespace Fluent
             ContextMenuService.Coerce(this);
 
             this.IsVisibleChanged += this.OnIsVisibleChanged;
+            this.Unloaded += this.OnUnloaded;
+        }
+
+        private void OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            this.SetCurrentValue(IsDropDownOpenProperty, false);
         }
 
         #endregion

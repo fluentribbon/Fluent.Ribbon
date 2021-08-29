@@ -379,6 +379,8 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            this.SetCurrentValue(IsDropDownOpenProperty, false);
+
             this.UnSubscribeEvents();
         }
 

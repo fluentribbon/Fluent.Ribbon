@@ -794,6 +794,7 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            this.SetCurrentValue(IsDropDownOpenProperty, false);
         }
 
         // Handles GeneratorStatus changed
