@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
@@ -12,6 +13,7 @@ namespace Fluent
     using System.Windows.Threading;
     using Fluent.Converters;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -22,7 +24,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
-    public class Spinner : RibbonControl
+    public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         /// <summary>
         /// Occurs when value has been changed
@@ -35,6 +37,34 @@ namespace Fluent
         private RepeatButton? buttonDown;
 
         #region Properties
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(Spinner));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(Spinner), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
 
         #region Value
 
@@ -328,7 +358,26 @@ namespace Fluent
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -565,5 +614,29 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+            }
+        }
     }
 }

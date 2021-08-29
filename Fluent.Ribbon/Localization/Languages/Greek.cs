@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Κατάργηση από τη Γραμμή εργαλείων γρήγορης πρόσβασης";
         public override string RibbonContextMenuShowAbove { get; } = "Εμφάνιση Γραμμής εργαλείων γρήγορης πρόσβασης επάνω από την Κορδέλα";
         public override string RibbonContextMenuShowBelow { get; } = "Εμφάνιση Γραμμής εργαλείων γρήγορης πρόσβασης κάτω από την Κορδέλα";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Χρήση κλασικής κορδέλας";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Χρήση απλοποιημένης κορδέλας";
+        public override string SwitchButtonScreenTipText { get; } = "Εναλλαγή μεταξύ της απλοποιημένης κορδέλας και της κλασικής κορδέλας.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Εναλλαγή κορδελών";
         public override string ScreenTipDisableReasonHeader { get; } = "Αυτή η εντολή είναι απενεργοποιημένη αυτήν τη στιγμή.";
         public override string ScreenTipF1LabelHeader { get; } = "Πατήστε F1 για βοήθεια";
     }

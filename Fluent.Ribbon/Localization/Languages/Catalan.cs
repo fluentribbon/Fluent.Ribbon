@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Elimina la barra d'eines d'accés ràpid";
         public override string RibbonContextMenuShowAbove { get; } = "Mostra la barra d'eines d'accés ràpid sobre la cinta";
         public override string RibbonContextMenuShowBelow { get; } = "Mostra la barra d'eines d'accés ràpid sota la cinta";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Fes servir la franja clàssica";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Fes servir la franja simplificada";
+        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
+        public override string SwitchButtonScreenTipTitle { get; } = "Canvia la Franja";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

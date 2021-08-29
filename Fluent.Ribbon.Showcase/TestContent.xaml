@@ -1034,6 +1034,7 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
                     </Fluent:RibbonToolBar>
                 </Fluent:RibbonGroupBox>
+                
                 <Fluent:RibbonGroupBox x:Name="Group"
                                        Header="Group">
                     <Fluent:RibbonToolBar>
@@ -3465,11 +3466,14 @@ Pellentesque nec dolor sed lacus tristique rutrum sed vitae urna. Sed eu pharetr
                                 <Fluent:Button x:Name="OpenRibbonWindowWithBackgroundImage"
                                            Size="Middle"
                                            Click="OpenRibbonWindowWithBackgroundImage_OnClick">Open Ribbon-Window (with background image)</Fluent:Button>
-                            </WrapPanel>
-                        </GroupBox>
-                        <GroupBox Header="Issue repros">
-                            <WrapPanel>
-                                <Fluent:Button x:Name="SleepButton"
+                            <Fluent:Button x:Name="OpenSimplifiedRibbonWindow"
+                                           Size="Middle"
+                                           Click="OpenSimplifiedRibbonWindow_OnClick">Open Simplified Ribbon-Window</Fluent:Button>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Issue repros">
+                        <WrapPanel>
+                            <Fluent:Button x:Name="SleepButton"
                                            Size="Middle"
                                            VerticalAlignment="Top"
                                            Click="SleepButton_OnClick">Sleep for issues #80 and #159</Fluent:Button>

@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Poista pikatyökaluriviltä";
         public override string RibbonContextMenuShowAbove { get; } = "Näytä pikatyökalurivi valintanauhan yläpuolella";
         public override string RibbonContextMenuShowBelow { get; } = "Näytä pikatyökalurivi valintanauhan alapuolella";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Käytä perinteistä valintanauhaa";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Käytä yksinkertaistettua valintanauhaa";
+        public override string SwitchButtonScreenTipText { get; } = "Vaihda yksinkertaistetun valintanauhan ja perinteisen valintanauhan välillä.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Vaihda valintanauhaa";
         public override string ScreenTipDisableReasonHeader { get; } = "Tämä komento on tällä hetkellä poissa käytöstä";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

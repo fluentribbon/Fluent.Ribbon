@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Supprimer de la barre d'outils Accès Rapide";
         public override string RibbonContextMenuShowAbove { get; } = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
         public override string RibbonContextMenuShowBelow { get; } = "Afficher la barre d'outils Accès Rapide en dessous du Ruban";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Utiliser le ruban classique";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Utiliser le ruban simplifié";
+        public override string SwitchButtonScreenTipText { get; } = "Basculer entre le ruban simplifié et le ruban classique.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Changer de ruban";
         public override string ScreenTipDisableReasonHeader { get; } = "Cette commande est actuellement désactivée.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

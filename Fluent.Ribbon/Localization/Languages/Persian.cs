@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "حذف از میله ابزار دسترسی سریع";
         public override string RibbonContextMenuShowAbove { get; } = "نمایش میله ابزار دسترسی سریع در بالای نوار";
         public override string RibbonContextMenuShowBelow { get; } = "نمایش میله ابزار دسترسی سریع در پایین نوار";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_از نوار کلاسیک استفاده کنید";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_از نوارهای ساده استفاده کنید";
+        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
+        public override string SwitchButtonScreenTipTitle { get; } = "تغییر وضعیت روبان";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

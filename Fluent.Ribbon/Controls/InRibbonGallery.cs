@@ -46,7 +46,7 @@ namespace Fluent
 
     [TemplatePart(Name = "PART_PopupMenuPresenter", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_PopupResizeBorder", Type = typeof(FrameworkElement))]
-    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider
+    public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Fields
 
@@ -118,6 +118,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
         public static readonly DependencyProperty SizeDefinitionProperty = RibbonProperties.SizeDefinitionProperty.AddOwner(typeof(InRibbonGallery));
+
+        #endregion
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(InRibbonGallery));
 
         #endregion
 
@@ -791,6 +805,20 @@ namespace Fluent
 
         #endregion
 
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(InRibbonGallery), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
         #region Snapping
 
         /// <summary>
@@ -1015,7 +1043,26 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Events
 
@@ -1170,6 +1217,10 @@ namespace Fluent
             }
 
             this.dropDownButton = this.GetTemplateChild("PART_DropDownButton") as ToggleButton;
+            if (this.dropDownButton is ISimplifiedStateControl control)
+            {
+                control.UpdateSimplifiedState(this.IsSimplified);
+            }
 
             if (this.DropDownPopup is not null)
             {
@@ -1662,6 +1713,16 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+            if (this.dropDownButton is ISimplifiedStateControl control)
+            {
+                control.UpdateSimplifiedState(isSimplified);
+            }
+        }
+
+        /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
         {
             this.AddLogicalChild(child);
@@ -1687,6 +1748,11 @@ namespace Fluent
                 if (this.Icon is not null)
                 {
                     yield return this.Icon;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
                 }
 
                 if (this.LargeIcon is not null)

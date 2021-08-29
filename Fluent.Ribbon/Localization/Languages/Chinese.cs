@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "在快速访问工具栏中移除";
         public override string RibbonContextMenuShowAbove { get; } = "在功能区上方显示快速访问工具栏";
         public override string RibbonContextMenuShowBelow { get; } = "在功能区下方显示快速访问工具栏";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "使用经典功能区(_U)";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "使用简化功能区(_U)";
+        public override string SwitchButtonScreenTipText { get; } = "在简化功能区和经典功能区之间切换。";
+        public override string SwitchButtonScreenTipTitle { get; } = "切换功能区";
         public override string ScreenTipDisableReasonHeader { get; } = "此命令当前已被禁用。";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

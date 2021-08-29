@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eimină din Bara de Acess Rapid";
         public override string RibbonContextMenuShowAbove { get; } = "Afișează Bara de Acces Rapid peste Ribbon";
         public override string RibbonContextMenuShowBelow { get; } = "Afișează Bara de Acces Rapid sub Ribbon";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Utilizați panglica clasică";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Utilizați panglica simplificată";
+        public override string SwitchButtonScreenTipText { get; } = "Comutați între panglica simplificată și panglica clasică.";
+        public override string SwitchButtonScreenTipTitle { get; } = "Comutare panglică";
         public override string ScreenTipDisableReasonHeader { get; } = "Această comandă nu este disponibilă momentan.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

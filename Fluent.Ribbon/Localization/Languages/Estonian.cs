@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eemalda kiirpääsuribalt";
         public override string RibbonContextMenuShowAbove { get; } = "Kuva kiirpääsuriba lindi kohal";
         public override string RibbonContextMenuShowBelow { get; } = "Kuva kiirpääsuriba lindi all";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Kasuta klassikalist linti";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
+        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
+        public override string SwitchButtonScreenTipTitle { get; } = "Lindi vahetamine";
         public override string ScreenTipDisableReasonHeader { get; } = "See käsk on praegu keelatud.";
         public override string ScreenTipF1LabelHeader { get; } = "Spikri kuvamiseks vajutage klahvi F1";
     }

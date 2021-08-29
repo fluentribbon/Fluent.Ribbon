@@ -30,6 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "빠른 실행 도구 모음에서 단추 제거";
         public override string RibbonContextMenuShowAbove { get; } = "리본 메뉴 위에 빠른 실행 도구 모음 표시";
         public override string RibbonContextMenuShowBelow { get; } = "리본 메뉴 아래에 빠른 실행 도구 모음 표시";
+        public override string RibbonContextMenuUseClassicRibbon { get; } = "클래식 리본 사용(_U)";
+        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "간소화된 리본 사용(_U)";
+        public override string SwitchButtonScreenTipText { get; } = "간단 리본과 클래식 리본 간에 전환합니다.";
+        public override string SwitchButtonScreenTipTitle { get; } = "리본 전환";
         public override string ScreenTipDisableReasonHeader { get; } = "이 명령은 현재 사용할 수 없습니다.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

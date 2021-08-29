@@ -1,6 +1,229 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:converters="clr-namespace:Fluent.Converters">
+
+    <ControlTemplate x:Key="RibbonRadioButtonControlTemplate"
+                     TargetType="{x:Type Fluent:RadioButton}">
+        <BulletDecorator x:Name="bulletDecorator"
+                         Height="22"
+                         Background="Transparent"
+                         SnapsToDevicePixels="true">
+            <BulletDecorator.Bullet>
+                <Grid Width="12"
+                      Height="12"
+                      Margin="4,4,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center">
+                    <Rectangle Margin="-6,0"
+                               Fill="{DynamicResource TransparentWhiteBrush}" />
+                    <Ellipse x:Name="normal"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Fill="{TemplateBinding Background}"
+                             Stroke="{TemplateBinding BorderBrush}"
+                             StrokeThickness="{TemplateBinding BorderThickness}" />
+                    <Ellipse x:Name="Checked1"
+                             Margin="3"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                             Opacity="0" />
+                </Grid>
+            </BulletDecorator.Bullet>
+            <TextBlock Margin="8,3,4,0"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"/>
+        </BulletDecorator>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="normal"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter TargetName="normal"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Opacity"
+                        TargetName="Checked1"
+                        Value="1" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="false">
+                <Setter Property="Opacity"
+                        TargetName="bulletDecorator"
+                        Value="0.3" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RadioButton.Simplified"
+                     TargetType="{x:Type Fluent:RadioButton}">
+        <Border x:Name="border"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <BulletDecorator x:Name="bulletDecorator"
+                             Height="Auto"
+                             Margin="{TemplateBinding Padding}"
+                             Background="Transparent"
+                             SnapsToDevicePixels="true">
+                <BulletDecorator.Bullet>
+                    <Grid Width="12"
+                          Height="12"
+                          Margin="0"
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Center">
+                        <Rectangle Margin="-6,0"
+                                   Fill="{DynamicResource TransparentWhiteBrush}" />
+                        <Ellipse x:Name="normal"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Fill="{TemplateBinding Background}"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 StrokeThickness="{TemplateBinding BorderThickness}" />
+                        <Ellipse x:Name="Checked1"
+                                 Margin="3"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                                 Opacity="0" />
+                    </Grid>
+                </BulletDecorator.Bullet>
+                <StackPanel Width="Auto"
+                            Margin="2,0,0,0"
+                            Orientation="Horizontal">
+                    <Grid x:Name="iconImageGrid"
+                          Visibility="Collapsed"
+                          Margin="0,0,2,0"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Fluent:IconPresenter x:Name="iconImage"
+                                              IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                              LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        <Border x:Name="iconImageBorder"
+                                Visibility="Collapsed"
+                                Width="{Binding ActualWidth,ElementName=iconImage}"
+                                Height="{Binding ActualHeight,ElementName=iconImage}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                BorderThickness="1"/>
+                    </Grid>
+                    <ContentPresenter x:Name="contentPresenter"
+                                      Margin="1,0,0,0"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Content="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      RecognizesAccessKey="True" />
+                </StackPanel>
+            </BulletDecorator>
+        </Border>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Small"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Middle"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImageBorder"
+                        Value="Visible" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Size" Value="Large"/>
+                    <Condition Property="OptimalIcon"
+                               SourceName="iconImage"
+                               Value="{x:Null}"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility"
+                        TargetName="iconImage"
+                        Value="Collapsed" />
+            </MultiTrigger>
+
+            <Trigger Property="Size"
+                     Value="Small">
+                <Setter Property="Margin"
+                        TargetName="bulletDecorator"
+                        Value="4,0" />
+                <Setter TargetName="iconImageGrid"
+                        Property="Visibility"
+                        Value="Visible"/>
+                <Setter TargetName="iconImageGrid"
+                        Property="Margin"
+                        Value="0"/>
+                <Setter TargetName="contentPresenter"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Size"
+                     Value="Middle">
+                <Setter TargetName="iconImageGrid"
+                        Property="Visibility"
+                        Value="Visible"/>
+                <Setter TargetName="iconImageGrid"
+                        Property="Margin"
+                        Value="0"/>
+                <Setter TargetName="contentPresenter"
+                        Property="Visibility"
+                        Value="Collapsed"/>
+            </Trigger>
+
+            <Trigger Property="IsMouseOver"
+                     Value="True">
+                <Setter TargetName="border"
+                        Property="BorderBrush"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border"
+                        Property="Background"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="normal"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Setter TargetName="normal"
+                        Property="Stroke"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+            </Trigger>
+            <Trigger Property="IsChecked"
+                     Value="True">
+                <Setter Property="Opacity"
+                        TargetName="Checked1"
+                        Value="1" />
+            </Trigger>
+            <Trigger Property="IsEnabled"
+                     Value="false">
+                <Setter Property="Opacity"
+                        TargetName="bulletDecorator"
+                        Value="0.5" />
+                <Setter Property="BorderBrush"
+                        TargetName="iconImageBorder"
+                        Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
     <Style x:Key="{x:Type Fluent:RadioButton}"
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="ToolTipService.ShowDuration"
@@ -28,66 +251,36 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Fluent:RadioButton}">
-                    <BulletDecorator SnapsToDevicePixels="true"
-                                     Background="Transparent"
-                                     x:Name="bulletDecorator"
-                                     Height="22">
-                        <BulletDecorator.Bullet>
-                            <Grid Width="12"
-                                  Height="12"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  Margin="4,4,0,0">
-                                <Rectangle Margin="-6,0"
-                                           Fill="{DynamicResource TransparentWhiteBrush}" />
-                                <Ellipse x:Name="normal"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch"
-                                         Fill="{TemplateBinding Background}"
-                                         Stroke="{TemplateBinding BorderBrush}"
-                                         StrokeThickness="{TemplateBinding BorderThickness}" />
-                                <Ellipse x:Name="Checked1"
-                                         Margin="3"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Stretch"
-                                         Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
-                                         Opacity="0" />
-                            </Grid>
-                        </BulletDecorator.Bullet>
-                        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   Margin="8,3,4,0" />
-                    </BulletDecorator>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter TargetName="normal"
-                                    Property="Stroke"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsPressed"
-                                 Value="True">
-                            <Setter TargetName="normal"
-                                    Property="Stroke"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsChecked"
-                                 Value="True">
-                            <Setter Property="Opacity"
-                                    TargetName="Checked1"
-                                    Value="1" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="false">
-                            <Setter Property="Opacity"
-                                    TargetName="bulletDecorator"
-                                    Value="0.3" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template"
+                Value="{DynamicResource RibbonRadioButtonControlTemplate}"/>
+        <Setter Property="Fluent:RibbonProperties.IconSize"
+                Value="Small" />
+        <Style.Triggers>
+            <Trigger Property="IsSimplified"
+                     Value="True">
+                <Setter Property="Template"
+                        Value="{DynamicResource Fluent.Ribbon.Templates.RadioButton.Simplified}" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center"/>
+                <Setter Property="Margin"
+                        Value="0" />
+                <Setter Property="Padding"
+                        Value="6,2"/>
+                <Setter Property="BorderThickness"
+                        Value="1" />
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Medium" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSimplified"
+                               Value="True"/>
+                    <Condition Property="Size"
+                               Value="Small"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Fluent:RibbonProperties.IconSize"
+                        Value="Small" />
+            </MultiTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
