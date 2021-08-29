@@ -163,7 +163,7 @@
                                        Size="Small"
                                        Style="{DynamicResource ToolbarDropDownButtonStyle}"
                                        ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
-                                       Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                       Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
                     <Fluent:GroupSeparatorMenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuHeader, Mode=OneWay}"
                                                    Style="{DynamicResource MenuGroupSeparatorStyle}" />
                     <StackPanel x:Name="PART_MenuPanel" />

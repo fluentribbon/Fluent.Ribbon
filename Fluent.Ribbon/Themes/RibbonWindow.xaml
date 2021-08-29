@@ -6,7 +6,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
@@ -35,7 +35,7 @@
                                Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},
                                                              {Binding RelativeSource={RelativeSource Self}}}"
                                Stretch="Uniform"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource boolToVisibilityConverter}}" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"
                                           Grid.Row="0"

@@ -409,7 +409,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -576,7 +576,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
