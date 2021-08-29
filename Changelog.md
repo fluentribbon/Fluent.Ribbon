@@ -38,6 +38,7 @@
   - [#961](../../issues/961) - Fluent.Button Header Binding not visible
 
 - ### Enhancements/Features
+  - [#924](../../issues/924) - Feature simplified ribbon (thanks @nishy2000) 
   - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
   - [#936](../../issues/936) - Add ability to vertically align items in Backstage  
     You have to set `VerticalAlignment="Bottom"`, `DockPanel.Dock="Bottom"` and if you want to align multiple items at the bottom invert their order (because of how `DockPanel` works).
