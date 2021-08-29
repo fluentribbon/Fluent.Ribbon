@@ -19,10 +19,9 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3,0,0,0"
                                       VerticalAlignment="Center"
-                                      IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}" />
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />

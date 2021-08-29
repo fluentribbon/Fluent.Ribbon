@@ -19,7 +19,7 @@
                                   Margin="2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                  IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                   SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             
         </Border>

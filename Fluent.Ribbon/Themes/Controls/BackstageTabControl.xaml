@@ -17,7 +17,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       Margin="0 0 8 0"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <ContentControl x:Name="controlLabel"
@@ -305,7 +305,7 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <DockPanel />
+                    <DockPanel LastChildFill="False" />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>

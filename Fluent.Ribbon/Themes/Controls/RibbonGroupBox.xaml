@@ -427,7 +427,7 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
                             BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>

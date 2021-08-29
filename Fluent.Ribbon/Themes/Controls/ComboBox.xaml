@@ -121,7 +121,7 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"/>
 
