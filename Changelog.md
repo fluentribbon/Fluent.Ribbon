@@ -36,6 +36,7 @@
   - [#952](../../issues/952) - Help with IsSelectionRequired property setting on "File" tab for accessibility purposes
   - [#954](../../issues/954) - Adding an InputBinding for Alt+Up or Alt+Down results in extra character (thanks @dgosbell)
   - [#961](../../issues/961) - Fluent.Button Header Binding not visible
+  - [#973](../../issues/973) - Wrong reference to ControlzEx
 
 - ### Enhancements/Features
   - [#924](../../issues/924) - Feature simplified ribbon (thanks @nishy2000) 
