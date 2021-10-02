@@ -56,12 +56,12 @@ class Build : NukeBuild
     // Define directories.
     AbsolutePath BuildBinDirectory => RootDirectory / "bin";
 
-    AbsolutePath TestResultsDir => RootDirectory / "TestResults";
-
     AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
 
     [Parameter]
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "artifacts";
+
+    AbsolutePath TestResultsDir => ArtifactsDirectory / "TestResults";
 
     Target CleanOutput => _ => _
         .Executes(() =>
