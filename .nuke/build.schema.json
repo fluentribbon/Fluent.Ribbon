@@ -78,6 +78,7 @@
               "CleanOutput",
               "Compile",
               "Pack",
+              "ResourceKeys",
               "Restore",
               "Test"
             ]
@@ -97,6 +98,7 @@
               "CleanOutput",
               "Compile",
               "Pack",
+              "ResourceKeys",
               "Restore",
               "Test"
             ]

@@ -48,6 +48,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Tests", "Flue
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = ".build", ".build\.build.csproj", "{CAFED543-B3F2-4C29-8A81-95134816BD84}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceData", "ReferenceData", "{5F43C1FA-AAE4-4D80-94A9-C36BF85367A8}"
+ProjectSection(SolutionItems) = preProject
+	ReferenceData\vCurrentResourceKeys.txt = ReferenceData\vCurrentResourceKeys.txt
+	ReferenceData\vNextResourceKeys.txt = ReferenceData\vNextResourceKeys.txt
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
