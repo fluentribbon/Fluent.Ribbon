@@ -78,6 +78,6 @@
       <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Styles.xaml" />
     </ItemGroup>
     <Message Text="Deleting XAML Color Scheme files..." Importance="high" />
-    <Delete Files="$(ThemeFiles)" ContinueOnError="true" />
+    <Delete Files="@(ThemeFiles)" ContinueOnError="true" />
   </Target>
 </Project>
