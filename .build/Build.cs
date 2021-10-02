@@ -1,11 +1,14 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Xml.Linq;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
-using Nuke.Common.CI;
 using static Nuke.Common.IO.CompressionTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -52,9 +55,11 @@ class Build : NukeBuild
     
     // Define directories.
     AbsolutePath BuildBinDirectory => RootDirectory / "bin";
-    
+
     AbsolutePath TestResultsDir => RootDirectory / "TestResults";
-    
+
+    AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
+
     [Parameter]
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "artifacts";
 
@@ -125,6 +130,49 @@ class Build : NukeBuild
             .AddLoggers("trx")
             .SetResultsDirectory(TestResultsDir)
             .SetVerbosity(DotNetVerbosity.Normal));
+    });
+
+    Target ResourceKeys => _ => _
+        .After(Compile)
+        .Executes(() =>
+    {
+        var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
+            .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
+            .ToList();
+        Console.WriteLine($"Peeked: {xmlPeekElements.Count}");
+
+        var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
+
+        var vNextResourceKeys = xmlPeekElements
+            .Where(x => x.HasAttributes && x.Attribute(xKey) is not null)
+            .Select(x => x.Attribute(xKey)!.Value)
+            // Exclude type-keyed styles like x:Key="{x:Type Button}" etc.
+            .Where(x => x.StartsWith("{") == false)
+            .Distinct()
+            .OrderBy(x => x)
+            .ToList();
+    
+        Console.WriteLine($"Distinct keys: {vNextResourceKeys.Count}");
+    
+        File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
+    
+        var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
+
+        var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
+        var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
+    
+        Console.WriteLine("|Old|New|");
+        Console.WriteLine("|---|---|");
+
+        foreach (var removedKey in removedKeys)
+        {
+            Console.WriteLine($"|{removedKey}|---|");
+        }
+    
+        foreach (var addedKey in addedKeys)
+        {
+            Console.WriteLine($"|---|{addedKey}|");
+        }
     });
 
     Target CI => _ => _
