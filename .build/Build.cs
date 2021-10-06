@@ -61,7 +61,7 @@ class Build : NukeBuild
     [Parameter]
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "artifacts";
 
-    AbsolutePath TestResultsDir => ArtifactsDirectory / "TestResults";
+    AbsolutePath TestResultsDir => RootDirectory / "TestResults";
 
     Target CleanOutput => _ => _
         .Executes(() =>
