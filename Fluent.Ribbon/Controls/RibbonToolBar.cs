@@ -267,6 +267,11 @@ namespace Fluent
             var map = new Dictionary<RibbonControlSize, RibbonToolBarLayoutDefinition>();
             foreach (var definition in this.LayoutDefinitions)
             {
+                if (definition.ForSimplified != this.IsSimplified)
+                {
+                    continue;
+                }
+
                 var definitionSize = definition.Size;
                 if (definitionSize == size)
                 {
@@ -276,20 +281,34 @@ namespace Fluent
                 map[definitionSize] = definition;
             }
 
-            // find the closest definition if no matching definition exists
-            switch (size)
+            if (map.Count == 0)
             {
-                case RibbonControlSize.Large:
-                    return map.ContainsKey(RibbonControlSize.Middle) ? map[RibbonControlSize.Middle] : (map.ContainsKey(RibbonControlSize.Small) ? map[RibbonControlSize.Small] : this.LayoutDefinitions[0]);
-
-                case RibbonControlSize.Middle:
-                    return map.ContainsKey(RibbonControlSize.Small) ? map[RibbonControlSize.Small] : (map.ContainsKey(RibbonControlSize.Large) ? map[RibbonControlSize.Large] : this.LayoutDefinitions[0]);
-
-                case RibbonControlSize.Small:
-                    return map.ContainsKey(RibbonControlSize.Middle) ? map[RibbonControlSize.Middle] : (map.ContainsKey(RibbonControlSize.Large) ? map[RibbonControlSize.Large] : this.LayoutDefinitions[0]);
-                default:
-                    return this.LayoutDefinitions[0];
+                return null;
             }
+
+            // find the closest definition if no matching definition exists
+            return size switch
+            {
+                RibbonControlSize.Large => map.ContainsKey(RibbonControlSize.Middle)
+                    ? map[RibbonControlSize.Middle]
+                    : (map.ContainsKey(RibbonControlSize.Small)
+                        ? map[RibbonControlSize.Small]
+                        : this.LayoutDefinitions[0]),
+
+                RibbonControlSize.Middle => map.ContainsKey(RibbonControlSize.Small)
+                    ? map[RibbonControlSize.Small]
+                    : (map.ContainsKey(RibbonControlSize.Large)
+                        ? map[RibbonControlSize.Large]
+                        : this.LayoutDefinitions[0]),
+
+                RibbonControlSize.Small => map.ContainsKey(RibbonControlSize.Middle)
+                    ? map[RibbonControlSize.Middle]
+                    : (map.ContainsKey(RibbonControlSize.Large)
+                        ? map[RibbonControlSize.Large]
+                        : this.LayoutDefinitions[0]),
+
+                _ => this.LayoutDefinitions[0]
+            };
         }
 
         #endregion
