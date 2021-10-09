@@ -86,6 +86,8 @@ namespace Fluent
         {
             if (d is RibbonToolBar ribbonToolBar)
             {
+                ribbonToolBar.rebuildVisualAndLogicalChildren = true;
+
                 var isSimplified = (bool)e.NewValue;
                 ribbonToolBar.UpdateChildIsSimplified(isSimplified);
             }
@@ -111,7 +113,7 @@ namespace Fluent
 
             if (element is Panel panel)
             {
-                for (int i = 0; i < panel.Children.Count; i++)
+                for (var i = 0; i < panel.Children.Count; i++)
                 {
                     this.UpdateIsSimplifiedOfUIElement(panel.Children[i], isSimplified);
                 }
