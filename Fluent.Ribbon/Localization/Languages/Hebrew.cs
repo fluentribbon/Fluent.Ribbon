@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "הצג את סרגל הכלים לגישה מהירה מתחת לרצועת הכלים";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_השתמש ברצועת הכלים הקלאסית";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_השתמש ברצועת הכלים הפשוטה יותר";
-        public override string SwitchButtonScreenTipText { get; } = "עבור בין הסרט הפשוט יותר לסרט הקלאסי.";
-        public override string SwitchButtonScreenTipTitle { get; } = "עבור בין סרטים";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "עבור בין הסרט הפשוט יותר לסרט הקלאסי.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "עבור בין סרטים";
         public override string ScreenTipDisableReasonHeader { get; } = "פקודה זו אינה זמינה כעת.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

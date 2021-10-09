@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Pokaż pasek Szybki dostęp poniżej Wstążki";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Użyj wstążki klasycznej";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Użyj wstążki uproszczonej";
-        public override string SwitchButtonScreenTipText { get; } = "Przełącz między wstążką uproszczoną i klasyczną.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Przełącz wstążki";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Przełącz między wstążką uproszczoną i klasyczną.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Przełącz wstążki";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

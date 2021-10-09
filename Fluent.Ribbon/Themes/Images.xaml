@@ -322,6 +322,40 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="Fluent.Ribbon.Images.RibbonUseClassic"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF"
+                                     Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z " />
+                    <GeometryDrawing Geometry="F1 M 76.9987,28.7507L 49.1667,56.584L 21.3333,28.7507">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonUseClassic}" MiterLimit="2.75" Thickness="10.6667" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Fluent.Ribbon.Images.RibbonUseSimplified"
+                  x:Shared="False">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Children>
+                    <GeometryDrawing Brush="#00FFFFFF"
+                                     Geometry="F1 M 6.50001,85.3333L 91.8333,85.3333L 91.8333,0L 6.50001,0L 6.50001,85.3333 Z " />
+                    <GeometryDrawing Geometry="F1 M 76.9987,56.5833L 49.1667,28.75L 21.3333,56.5833">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Fluent.Ribbon.Brushes.Images.RibbonUseSimplified}" MiterLimit="2.75" Thickness="10.6667" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup.Children>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="Fluent.Ribbon.Images.Warning"
                   x:Shared="False">
         <DrawingImage.Drawing>

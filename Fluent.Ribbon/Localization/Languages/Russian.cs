@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Разместить панель быстрого доступа под лентой";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Использовать классическую ленту";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Использовать упрощенную ленту";
-        public override string SwitchButtonScreenTipText { get; } = "Переключение между упрощенной и классической лентами.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Переключить ленты";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Переключение между упрощенной и классической лентами.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Переключить ленты";
         public override string ScreenTipDisableReasonHeader { get; } = "В настоящее время эта команда отключена.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

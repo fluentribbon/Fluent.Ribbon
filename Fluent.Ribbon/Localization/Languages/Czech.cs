@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Zobrazit panel nástrojů Rychlý přístup pod pásem karet";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "Po_užívat klasický pás karet";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "Po_užívat zjednodušený pás karet";
-        public override string SwitchButtonScreenTipText { get; } = "Umožňuje přepínat mezi zjednodušeným a klasickým pásem karet.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Přepnout pás karet";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Umožňuje přepínat mezi zjednodušeným a klasickým pásem karet.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Přepnout pás karet";
         public override string ScreenTipDisableReasonHeader { get; } = "Tento příkaz je aktuálně zakázán.";
         public override string ScreenTipF1LabelHeader { get; } = "Stiskni F1 pro nápovědu";
     }

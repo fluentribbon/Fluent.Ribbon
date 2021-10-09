@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Symbolleiste für den Schnellzugriff unter dem Menüband anzeigen";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klassisches Menüband verwenden";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Vereinfachtes Menüband verwenden";
-        public override string SwitchButtonScreenTipText { get; } = "Zwischen dem vereinfachten und dem klassischen Menüband wechseln.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Menübänder wechseln";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Zwischen dem vereinfachten und dem klassischen Menüband wechseln.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Menübänder wechseln";
         public override string ScreenTipDisableReasonHeader { get; } = "Diese Funktion ist momentan deaktiviert.";
         public override string ScreenTipF1LabelHeader { get; } = "Drücken Sie F1 für die Hilfe";
     }

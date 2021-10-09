@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar Barra de Ferramentas de Acesso Rápido Abaixo do Friso";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Utilizar o Friso Clássico";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Utilizar o Friso Simplificado";
-        public override string SwitchButtonScreenTipText { get; } = "Alternar entre o Friso Simplificado e o Friso Clássico.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Mudar de Friso";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Alternar entre o Friso Simplificado e o Friso Clássico.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Mudar de Friso";
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

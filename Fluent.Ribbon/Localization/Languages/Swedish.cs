@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = " Visa verktygsfältet Snabbåtkomst under menyfliksområdet";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Använd klassiska menyfliksområdet";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Använd förenklade menyfliksområdet";
-        public override string SwitchButtonScreenTipText { get; } = "Växla mellan det förenklade och det klassiska menyfliksområdet.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Växla menyfliksområde";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Växla mellan det förenklade och det klassiska menyfliksområdet.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Växla menyfliksområde";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

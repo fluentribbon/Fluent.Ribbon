@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Pokaži orodno vrstico za hitri dostop pod trakom";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Uporabite klasičen trak";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Uporabite poenostavljen trak";
-        public override string SwitchButtonScreenTipText { get; } = "Preklopite med poenostavljenim in klasičnim trakom.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Preklopi trak";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Preklopite med poenostavljenim in klasičnim trakom.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Preklopi trak";
         public override string ScreenTipDisableReasonHeader { get; } = "Ta ukaz je trenutno onemogočen.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

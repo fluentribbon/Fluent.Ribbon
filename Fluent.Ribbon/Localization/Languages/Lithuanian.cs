@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Rodyti po juostele";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Naudoti klasikinę juostelę";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Naudoti supaprastintą juostelę";
-        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
-        public override string SwitchButtonScreenTipTitle { get; } = "Perjungti juosteles";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Perjungti juosteles";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

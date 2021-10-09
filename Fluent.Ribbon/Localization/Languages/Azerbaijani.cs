@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin altında göstər ";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
-        public override string SwitchButtonScreenTipText { get; } = FallbackLocalization.SwitchButtonScreenTipText;
-        public override string SwitchButtonScreenTipTitle { get; } = "Lenti Dəyişdirin";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Lenti Dəyişdirin";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

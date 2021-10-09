@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Altında Göster";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
-        public override string SwitchButtonScreenTipText { get; } = "Basitleştirilmiş Şerit ile Klasik Şerit arasında geçiş yapın.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Şeridi Değiştir";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Basitleştirilmiş Şerit ile Klasik Şerit arasında geçiş yapın.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Şeridi Değiştir";
         public override string ScreenTipDisableReasonHeader { get; } = "Bu komut şu anda devre dışı";
         public override string ScreenTipF1LabelHeader { get; } = "Yardım için F1'e basın.";
     }

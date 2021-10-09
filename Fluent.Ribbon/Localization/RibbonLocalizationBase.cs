@@ -179,14 +179,14 @@
         public abstract string RibbonContextMenuUseSimplifiedRibbon { get; }
 
         /// <summary>
-        /// Switch Button ScreenTip Text
+        /// Switch Ribbon Mode Button ScreenTip Text
         /// </summary>
-        public abstract string SwitchButtonScreenTipText { get; }
+        public abstract string SwitchRibbonModeButtonScreenTipText { get; }
 
         /// <summary>
-        /// Switch Button ScreenTip Title
+        /// Switch Ribbon Mode Button ScreenTip Title
         /// </summary>
-        public abstract string SwitchButtonScreenTipTitle { get; }
+        public abstract string SwitchRibbonModeButtonScreenTipTitle { get; }
 
         /// <summary>
         /// Gets ScreenTip's disable reason header

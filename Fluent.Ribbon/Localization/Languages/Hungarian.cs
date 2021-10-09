@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "A gyorselérési eszköztár megjelenítése a menüszalag alatt";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klasszikus menüszalag használata";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "Egys_zerűsített menüszalag használata";
-        public override string SwitchButtonScreenTipText { get; } = "Váltás az Egyszerűsített menüszalag és a Klasszikus menüszalag között.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Váltás a másik menüszalagra";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Váltás az Egyszerűsített menüszalag és a Klasszikus menüszalag között.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Váltás a másik menüszalagra";
         public override string ScreenTipDisableReasonHeader { get; } = "Ez a parancs jelenleg nem használható.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

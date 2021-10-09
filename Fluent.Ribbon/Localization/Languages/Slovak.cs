@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "Panel s nástrojmi Rýchly prístup zobraziť pod panelom s nástrojmi";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Použiť klasický pás s nástrojmi";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Použiť zjednodušený pás s nástrojmi";
-        public override string SwitchButtonScreenTipText { get; } = "Prepínanie medzi zjednodušeným pásom s nástrojmi a klasickým pásom s nástrojmi.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Prepnúť pás s nástrojmi";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Prepínanie medzi zjednodušeným pásom s nástrojmi a klasickým pásom s nástrojmi.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Prepnúť pás s nástrojmi";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

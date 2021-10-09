@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = " Werkbalk snelle toegang onder het lint weergeven";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klassieke lint gebruiken";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Vereenvoudigd lint gebruiken";
-        public override string SwitchButtonScreenTipText { get; } = "Schakelen tussen het vereenvoudigde lint en het klassieke lint.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Schakelen tussen versies van het lint";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Schakelen tussen het vereenvoudigde lint en het klassieke lint.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Schakelen tussen versies van het lint";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

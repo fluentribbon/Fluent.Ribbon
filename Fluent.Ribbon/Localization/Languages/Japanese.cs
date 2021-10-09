@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "クイック アクセス ツール バーをリボンの下に表示";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
-        public override string SwitchButtonScreenTipText { get; } = "シンプル リボンとクラシック リボンを切り替えます。";
-        public override string SwitchButtonScreenTipTitle { get; } = "リボンを切り替える";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "シンプル リボンとクラシック リボンを切り替えます。";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "リボンを切り替える";
         public override string ScreenTipDisableReasonHeader { get; } = "このコマンドは現在無効になっています";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

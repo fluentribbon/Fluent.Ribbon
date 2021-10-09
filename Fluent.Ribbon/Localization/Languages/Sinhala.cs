@@ -32,8 +32,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuShowBelow { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට පහලින් පෙන්වන්න";
         public override string RibbonContextMenuUseClassicRibbon { get; } = "_පැරණි රිබනය භාවිතා කරන්න";
         public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_සරල කළ රිබනය භාවිතා කරන්න";
-        public override string SwitchButtonScreenTipText { get; } = "සරල කළ රිබනය සහ පැරණි රිබනය අතර මාරු කරන්න.";
-        public override string SwitchButtonScreenTipTitle { get; } = "රිබනය මාරු කරන්න";
+        public override string SwitchRibbonModeButtonScreenTipText { get; } = "සරල කළ රිබනය සහ පැරණි රිබනය අතර මාරු කරන්න.";
+        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "රිබනය මාරු කරන්න";
         public override string ScreenTipDisableReasonHeader { get; } = "මෙම විධානය දැනට භාවිතා කළ නොහැක";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }
