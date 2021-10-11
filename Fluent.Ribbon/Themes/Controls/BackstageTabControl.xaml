@@ -212,8 +212,7 @@
                                 <Binding Source="0" />
                                 <Binding FallbackValue="0"
                                          Path="TitleBar.ActualHeight"
-                                         RelativeSource="{RelativeSource FindAncestor,
-                                                                         AncestorType={x:Type Fluent:IRibbonWindow}}" />
+                                         RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}" />
                                 <Binding Source="0" />
                                 <Binding Source="0" />
                             </MultiBinding>
@@ -261,8 +260,7 @@
                     <Binding Source="0" />
                     <Binding FallbackValue="0"
                              Path="TitleBar.ActualHeight"
-                             RelativeSource="{RelativeSource FindAncestor,
-                                                             AncestorType={x:Type Fluent:IRibbonWindow}}" />
+                             RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}" />
                     <Binding Source="0" />
                     <Binding Source="0" />
                 </MultiBinding>
