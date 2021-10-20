@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <RootNamespace>Fluent.Tests</RootNamespace>
@@ -26,5 +26,7 @@
     <PackageReference Include="NUnit3TestAdapter" />
 
     <PackageReference Include="NUnit" />
+
+    <PackageReference Include="Google.Cloud.Translate.V3" Condition="$(TargetFramework) != 'net452'" />
   </ItemGroup>
 </Project>
