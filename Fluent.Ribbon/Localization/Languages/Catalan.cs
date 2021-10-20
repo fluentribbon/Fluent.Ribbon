@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fitxer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només s'ensenyen els noms de les pestanyes";
-        public override string ExpandButtonScreenTipTitle { get; } = "Expandeix la cinta (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Ensenya o amaga la cinta\n\nQuan la cinta no es mostri, només s'ensenyen els noms de les pestanyes";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimitza la cinta (Ctrl + F1)";
         public override string MoreColors { get; } = "Més colors...";
         public override string NoColor { get; } = "Cap color";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalitza la barra d'eines d'accés ràpid";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Elimina la barra d'eines d'accés ràpid";
         public override string RibbonContextMenuShowAbove { get; } = "Mostra la barra d'eines d'accés ràpid sobre la cinta";
         public override string RibbonContextMenuShowBelow { get; } = "Mostra la barra d'eines d'accés ràpid sota la cinta";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Fes servir la franja clàssica";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Fes servir la franja simplificada";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Canvia la Franja";
+        public override string UseClassicRibbon { get; } = "_Fes servir la franja clàssica";
+        public override string UseSimplifiedRibbon { get; } = "_Fes servir la franja simplificada";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

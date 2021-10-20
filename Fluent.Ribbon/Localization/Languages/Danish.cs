@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Filer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Vis båndet, så det altid er udvidet, selv når du klikker på en kommando.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Udvid båndet (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Vis kun fanenavnene på båndet.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimer båndet (Ctrl + F1)";
         public override string MoreColors { get; } = "Flere farver...";
         public override string NoColor { get; } = "Ingen farve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tilpas værktøjslinjen Hurtig adgang";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Fjern fra værktøjslinjen Hurtig adgang";
         public override string RibbonContextMenuShowAbove { get; } = "Vis værktøjslinjen Hurtig adgang ovenover båndet";
         public override string RibbonContextMenuShowBelow { get; } = "Vis værktøjslinjen Hurtig adgang under båndet";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Brug Klassisk bånd";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Brug Forenklet bånd";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Skift mellem det forenklede bånd og det klassiske bånd.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Skift bånd";
+        public override string UseClassicRibbon { get; } = "_Brug Klassisk bånd";
+        public override string UseSimplifiedRibbon { get; } = "_Brug Forenklet bånd";
         public override string ScreenTipDisableReasonHeader { get; } = "Denne kommando er aktuelt deaktiveret.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

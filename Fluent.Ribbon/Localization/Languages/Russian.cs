@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Настройка строки состояния";
-        public override string ExpandButtonScreenTipText { get; } = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только имена вкладок.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Развернуть ленту (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Отображение или скрытие ленты\n\nКогда лента скрыта, отображаются только имена вкладок.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Свернуть ленту (Ctrl + F1)";
         public override string MoreColors { get; } = "Больше цветов...";
         public override string NoColor { get; } = "Без цвета";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Настройка панели быстрого доступа";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Удалить с панели быстрого доступа";
         public override string RibbonContextMenuShowAbove { get; } = "Разместить панель быстрого доступа над лентой";
         public override string RibbonContextMenuShowBelow { get; } = "Разместить панель быстрого доступа под лентой";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Использовать классическую ленту";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Использовать упрощенную ленту";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Переключение между упрощенной и классической лентами.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Переключить ленты";
+        public override string UseClassicRibbon { get; } = "_Использовать классическую ленту";
+        public override string UseSimplifiedRibbon { get; } = "_Использовать упрощенную ленту";
         public override string ScreenTipDisableReasonHeader { get; } = "В настоящее время эта команда отключена.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fail";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";
-        public override string ExpandButtonScreenTipText { get; } = "Kas soovite, et lint oleks kuvatud? Saate selle töötamise \najal avatuna hoida.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Kinnita lint (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Kas vajate rohkem ruumi? Ahendage lint, siis kuvatakse \nainult menüünimed.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Ahenda menüülint (Ctrl+F1)";
         public override string MoreColors { get; } = "Rohkem värve...";
         public override string NoColor { get; } = "Ei värvi";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Kohanda kiirpääsuriba";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eemalda kiirpääsuribalt";
         public override string RibbonContextMenuShowAbove { get; } = "Kuva kiirpääsuriba lindi kohal";
         public override string RibbonContextMenuShowBelow { get; } = "Kuva kiirpääsuriba lindi all";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Kasuta klassikalist linti";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Lindi vahetamine";
+        public override string UseClassicRibbon { get; } = "_Kasuta klassikalist linti";
+        public override string UseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
         public override string ScreenTipDisableReasonHeader { get; } = "See käsk on praegu keelatud.";
         public override string ScreenTipF1LabelHeader { get; } = "Spikri kuvamiseks vajutage klahvi F1";
     }

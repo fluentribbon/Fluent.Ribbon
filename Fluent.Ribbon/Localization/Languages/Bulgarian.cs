@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Персонализиране на статус линията";
-        public override string ExpandButtonScreenTipText { get; } = "Искате да виждате лентата? Оставете я отворена по време на работа.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Отворяне на лентата (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Нуждаете се от повече място? Свийте лентата така, че само разделите да се показват.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Свиване на лентата (Ctrl+F1)";
         public override string MoreColors { get; } = "Повече цветове...";
         public override string NoColor { get; } = "Без цвят";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Персонализиране Бързия достъп";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Премахване от панела за Бърз достъп";
         public override string RibbonContextMenuShowAbove { get; } = "Показване на Бързия достъп над лентата";
         public override string RibbonContextMenuShowBelow { get; } = "Показване на Бързия достъп под лентата";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Използване на класическата лента";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Използване на опростената лента";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Превключване на лентата";
+        public override string UseClassicRibbon { get; } = "_Използване на класическата лента";
+        public override string UseSimplifiedRibbon { get; } = "_Използване на опростената лента";
         public override string ScreenTipDisableReasonHeader { get; } = "Тази команда е забранена.";
         public override string ScreenTipF1LabelHeader { get; } = "Натиснете F1 за помощ";
     }

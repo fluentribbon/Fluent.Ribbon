@@ -1,4 +1,5 @@
-﻿namespace Fluent.Localization
+﻿#pragma warning disable 8618
+namespace Fluent.Localization
 {
     using System;
     using System.ComponentModel;
@@ -62,26 +63,6 @@
         /// Gets customize Status Bar
         /// </summary>
         public abstract string CustomizeStatusBar { get; }
-
-        /// <summary>
-        /// Expand Button ScreenTip Text
-        /// </summary>
-        public abstract string ExpandButtonScreenTipText { get; }
-
-        /// <summary>
-        /// Expand Button ScreenTip Title
-        /// </summary>
-        public abstract string ExpandButtonScreenTipTitle { get; }
-
-        /// <summary>
-        /// Minimize Button ScreenTip Text
-        /// </summary>
-        public abstract string MinimizeButtonScreenTipText { get; }
-
-        /// <summary>
-        /// Minimize Button ScreenTip Title
-        /// </summary>
-        public abstract string MinimizeButtonScreenTipTitle { get; }
 
         /// <summary>
         /// Gets text for representing "More colors..."
@@ -169,24 +150,44 @@
         public abstract string RibbonContextMenuShowBelow { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Switch the classic ribbon
+        /// Show Ribbon
         /// </summary>
-        public abstract string RibbonContextMenuUseClassicRibbon { get; }
+        public virtual string ShowRibbon { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Switch the simplified ribbon
+        /// Expand Ribbon
         /// </summary>
-        public abstract string RibbonContextMenuUseSimplifiedRibbon { get; }
+        public virtual string ExpandRibbon { get; }
 
         /// <summary>
-        /// Switch Ribbon Mode Button ScreenTip Text
+        /// Minimize Ribbon
         /// </summary>
-        public abstract string SwitchRibbonModeButtonScreenTipText { get; }
+        public virtual string MinimizeRibbon { get; }
 
         /// <summary>
-        /// Switch Ribbon Mode Button ScreenTip Title
+        /// Ribbon Layout
         /// </summary>
-        public abstract string SwitchRibbonModeButtonScreenTipTitle { get; }
+        public virtual string RibbonLayout { get; }
+
+        /// <summary>
+        /// Use classic Ribbon
+        /// </summary>
+        public abstract string UseClassicRibbon { get; }
+
+        /// <summary>
+        /// Use simplified Ribbon
+        /// </summary>
+        public abstract string UseSimplifiedRibbon { get; }
+
+        /// <summary>
+        /// DisplayOptions Button ScreenTip Title
+        /// </summary>
+        public virtual string DisplayOptionsButtonScreenTipTitle { get; }
+
+        /// <summary>
+        /// DisplayOptions Button ScreenTip Text
+        /// </summary>
+        public virtual string DisplayOptionsButtonScreenTipText { get; }
 
         /// <summary>
         /// Gets ScreenTip's disable reason header

@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "ファイル";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";
-        public override string ExpandButtonScreenTipText { get; } = "リボンの表示/非表示を切り替えます。\n\nリボンを非表示にすると、タブ名のみが表示されます。";
-        public override string ExpandButtonScreenTipTitle { get; } = "リボンの展開 (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "リボンの表示/非表示を切り替えます。\n\nリボンを非表示にすると、タブ名のみが表示されます。";
-        public override string MinimizeButtonScreenTipTitle { get; } = "リボンの最小化 (Ctrl + F1)";
         public override string MoreColors { get; } = "他の色.";
         public override string NoColor { get; } = "色なし";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "クイック アクセス ツール バーのユーザー設定";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "クイック アクセス ツール バーから削除";
         public override string RibbonContextMenuShowAbove { get; } = "クイック アクセス ツール バーをリボンの上に表示";
         public override string RibbonContextMenuShowBelow { get; } = "クイック アクセス ツール バーをリボンの下に表示";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "シンプル リボンとクラシック リボンを切り替えます。";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "リボンを切り替える";
+        public override string UseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
+        public override string UseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
         public override string ScreenTipDisableReasonHeader { get; } = "このコマンドは現在無効になっています";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

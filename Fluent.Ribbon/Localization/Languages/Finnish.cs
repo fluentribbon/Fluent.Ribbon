@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "T";
         public override string BackstageButtonText { get; } = "Tiedosto";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Näytä valintanauha aina laajennettuna silloinkin, kun valitset komennon";
-        public override string ExpandButtonScreenTipTitle { get; } = "Laajenna valintanauha (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Näytä valintanauhassa vain välilehtien nimet";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Pienennä valintanauha (Ctrl + F1)";
         public override string MoreColors { get; } = "Lisää värejä...";
         public override string NoColor { get; } = "Ei väri";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Mukauta pikatyökaluriviä";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Poista pikatyökaluriviltä";
         public override string RibbonContextMenuShowAbove { get; } = "Näytä pikatyökalurivi valintanauhan yläpuolella";
         public override string RibbonContextMenuShowBelow { get; } = "Näytä pikatyökalurivi valintanauhan alapuolella";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Käytä perinteistä valintanauhaa";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Käytä yksinkertaistettua valintanauhaa";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Vaihda yksinkertaistetun valintanauhan ja perinteisen valintanauhan välillä.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Vaihda valintanauhaa";
+        public override string UseClassicRibbon { get; } = "_Käytä perinteistä valintanauhaa";
+        public override string UseSimplifiedRibbon { get; } = "_Käytä yksinkertaistettua valintanauhaa";
         public override string ScreenTipDisableReasonHeader { get; } = "Tämä komento on tällä hetkellä poissa käytöstä";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

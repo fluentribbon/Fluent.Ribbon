@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Tệp";
         public override string CustomizeStatusBar { get; } = "Tùy biến thanh Trạng thái";
-        public override string ExpandButtonScreenTipText { get; } = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ có tên thẻ được hiện";
-        public override string ExpandButtonScreenTipTitle { get; } = "Mở rộng Ruy băng (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Hiện hoặc ẩn Ruy băng\n\nKhi Ruy băng ẩn, chỉ có tên thẻ được hiện";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Thu gọn Ruy băng (Ctrl + F1)";
         public override string MoreColors { get; } = "Nhiều màu sắc...";
         public override string NoColor { get; } = "Không có màu";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tùy chỉnh thanh công cụ Truy cập nhanh";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Loại";
         public override string RibbonContextMenuShowAbove { get; } = "Hiện thanh công cụ truy cập nhanh trên thanh Ruy băng";
         public override string RibbonContextMenuShowBelow { get; } = "Hiện thanh công cụ truy cập nhanh dưới thanh Ruy băng";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Sử dụng Dải băng cổ điển";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Sử dụng Dải băng đơn giản";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Chuyển đổi giữa Dải băng đơn giản và Dải băng cổ điển.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Chuyển đổi dải băng";
+        public override string UseClassicRibbon { get; } = "_Sử dụng Dải băng cổ điển";
+        public override string UseSimplifiedRibbon { get; } = "_Sử dụng Dải băng đơn giản";
         public override string ScreenTipDisableReasonHeader { get; } = "Lệnh này hiện bị tắt.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

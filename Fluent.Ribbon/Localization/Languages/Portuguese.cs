@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Ficheiro";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Mostrar o Friso de modo a aparecer sempre expandido mesmo depois de clicar num comando.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Expandir o Friso (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Mostrar apenas os nomes dos separadores no Frisos.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimizar o Friso (Ctrl + F1)";
         public override string MoreColors { get; } = "Mais cores...";
         public override string NoColor { get; } = "Nenhuma cor";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizar Barra de Ferramentas de Acesso Rápido";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Remover da Barra de Ferramentas de Acesso Rápido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostrar Barra de Ferramentas de Acesso Rápido Acima do Friso";
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar Barra de Ferramentas de Acesso Rápido Abaixo do Friso";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Utilizar o Friso Clássico";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Utilizar o Friso Simplificado";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Alternar entre o Friso Simplificado e o Friso Clássico.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Mudar de Friso";
+        public override string UseClassicRibbon { get; } = "_Utilizar o Friso Clássico";
+        public override string UseSimplifiedRibbon { get; } = "_Utilizar o Friso Simplificado";
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

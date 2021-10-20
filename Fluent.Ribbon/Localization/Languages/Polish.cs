@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "P";
         public override string BackstageButtonText { get; } = "Plik";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko nazwy zakładek są widoczne";
-        public override string ExpandButtonScreenTipTitle { get; } = "Rozwiń Wstążkę (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Pokazuje lub ukrywa Wstążkę\n\nGdy Wstążka jest ukryta, tylko nazwy zakładek są widoczne";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimalizuj Wstążkę (Ctrl + F1)";
         public override string MoreColors { get; } = "Więcej kolorów...";
         public override string NoColor { get; } = "Brak koloru";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Dostosuj pasek narzędzi Szybki dostęp";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Usuń z paska narzędzi Szybki dostęp";
         public override string RibbonContextMenuShowAbove { get; } = "Pokaż pasek Szybki dostęp powyżej Wstążki";
         public override string RibbonContextMenuShowBelow { get; } = "Pokaż pasek Szybki dostęp poniżej Wstążki";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Użyj wstążki klasycznej";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Użyj wstążki uproszczonej";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Przełącz między wstążką uproszczoną i klasyczną.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Przełącz wstążki";
+        public override string UseClassicRibbon { get; } = "_Użyj wstążki klasycznej";
+        public override string UseSimplifiedRibbon { get; } = "_Użyj wstążki uproszczonej";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

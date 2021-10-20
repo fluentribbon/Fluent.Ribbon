@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fayl";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = " Menyu lentini göstər və ya gizlət\n\nMenyu lentini gizldəndə, yalnız, tabların adları göstərilir";
-        public override string ExpandButtonScreenTipTitle { get; } = "Menyu lentini böyüt(Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Menyu lentini göstər və ya gizlət\n\nMenyu lentini kiçiləndə, yalnız tabların adları göstərilir";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Menyu lentini kiçilt (Ctrl + F1)";
         public override string MoreColors { get; } = FallbackLocalization.MoreColors;
         public override string NoColor { get; } = "No rəng";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Sürətli Keçidin Alətlərini fərdiləşdir";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = " Sürətli Keçidin Alətlərindən sil";
         public override string RibbonContextMenuShowAbove { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin üstündə göstər ";
         public override string RibbonContextMenuShowBelow { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin altında göstər ";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Lenti Dəyişdirin";
+        public override string UseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
+        public override string UseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

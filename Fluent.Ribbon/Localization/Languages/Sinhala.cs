@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "න1";
         public override string BackstageButtonText { get; } = "ගොනුව";
         public override string CustomizeStatusBar { get; } = "තත්ව තීරුව අභිමත කරණය";
-        public override string ExpandButtonScreenTipText { get; } = "රිබනය පෙන්වන්න, එවිට ඔබ\n\n විධානයක් ක්ලික් කළද එය\n\n සැමවිටම විහිදී පවතී.";
-        public override string ExpandButtonScreenTipTitle { get; } = "රිබනය විහිදන්න (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "රිබනය මත පටිති නාම පමණක් පෙන්වන්න.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "රිබනය හකුළන්න (Ctrl + F1)";
         public override string MoreColors { get; } = FallbackLocalization.MoreColors;
         public override string NoColor { get; } = FallbackLocalization.NoColor;
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය අභිමත කරණය";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරයෙන් ඉවත් කරන්න";
         public override string RibbonContextMenuShowAbove { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට ඉහලින් පෙන්වන්න";
         public override string RibbonContextMenuShowBelow { get; } = "ඉක්මන් ප්‍රෙව්ශ මෙවලම් තීරය රිබනයට පහලින් පෙන්වන්න";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_පැරණි රිබනය භාවිතා කරන්න";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_සරල කළ රිබනය භාවිතා කරන්න";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "සරල කළ රිබනය සහ පැරණි රිබනය අතර මාරු කරන්න.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "රිබනය මාරු කරන්න";
+        public override string UseClassicRibbon { get; } = "_පැරණි රිබනය භාවිතා කරන්න";
+        public override string UseSimplifiedRibbon { get; } = "_සරල කළ රිබනය භාවිතා කරන්න";
         public override string ScreenTipDisableReasonHeader { get; } = "මෙම විධානය දැනට භාවිතා කළ නොහැක";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

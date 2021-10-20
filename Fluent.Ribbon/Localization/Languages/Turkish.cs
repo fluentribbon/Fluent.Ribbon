@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Dosya";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";
-        public override string ExpandButtonScreenTipText { get; } = "Şeridi görmek mi istiyorsunuz? Çalışırken açık tutun.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Şeridi Sabitle (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Daha fazla alana mı\nihtiyacınız var? Şeridi daraltın, yalnızca sekme isimleri görünsün.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Şeridi Daralt (Ctrl+F1)";
         public override string MoreColors { get; } = "Daha fazla renk...";
         public override string NoColor { get; } = "Renk yok";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Hızlı Erişim Araç Çubuğu'ndan Kaldır";
         public override string RibbonContextMenuShowAbove { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Üstünde Göster";
         public override string RibbonContextMenuShowBelow { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Altında Göster";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Basitleştirilmiş Şerit ile Klasik Şerit arasında geçiş yapın.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Şeridi Değiştir";
+        public override string UseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
+        public override string UseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
         public override string ScreenTipDisableReasonHeader { get; } = "Bu komut şu anda devre dışı";
         public override string ScreenTipF1LabelHeader { get; } = "Yardım için F1'e basın.";
     }

@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "ف";
         public override string BackstageButtonText { get; } = "فایل";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "نمایش یا مخفی کردن نوار\n\nهنگامی که نوار مخفی است، تنها\nنام زبانه ها نمایش داده می شود.";
-        public override string ExpandButtonScreenTipTitle { get; } = "بزرگ کردن نوار (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "نمایش یا مخفی کردن نوار\n\nهنگامی که نوار مخفی است، تنها\nنام زبانه ها نمایش داده می شود.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "کوچک کردن نوار (Ctrl + F1)";
         public override string MoreColors { get; } = "رنگهای بیشتر...";
         public override string NoColor { get; } = "بدون رنگ";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "دلخواه سازی میله ابزار دسترسی سریع";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "حذف از میله ابزار دسترسی سریع";
         public override string RibbonContextMenuShowAbove { get; } = "نمایش میله ابزار دسترسی سریع در بالای نوار";
         public override string RibbonContextMenuShowBelow { get; } = "نمایش میله ابزار دسترسی سریع در پایین نوار";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_از نوار کلاسیک استفاده کنید";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_از نوارهای ساده استفاده کنید";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = FallbackLocalization.SwitchRibbonModeButtonScreenTipText;
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "تغییر وضعیت روبان";
+        public override string UseClassicRibbon { get; } = "_از نوار کلاسیک استفاده کنید";
+        public override string UseSimplifiedRibbon { get; } = "_از نوارهای ساده استفاده کنید";
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

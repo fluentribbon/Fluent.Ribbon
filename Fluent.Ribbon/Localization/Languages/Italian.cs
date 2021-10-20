@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = FallbackLocalization.BackstageButtonText;
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Visualizza la barra multifunzione in modo che rimanga sempre espansa, anche se l’utente ha fatto click su un comando.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Espandi la barra multifunzione (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Consente di visualizzare solo i nomi delle schede nella barra multifunzione.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Riduci a icona barra multifunzione (Ctrl + F1)";
         public override string MoreColors { get; } = "Più colori...";
         public override string NoColor { get; } = "Nessun colore";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizza barra di accesso rapido";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Rimuovi dalla barra di accesso rapido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostra la barra di accesso rapido sopra la barra multifunzione";
         public override string RibbonContextMenuShowBelow { get; } = "Mostra la barra di accesso rapido sotto la barra multifunzione";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Usa barra multifunzione classica";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Usa barra multifunzione semplificata";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "Alterna tra la barra multifunzione semplificata e quella classica.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "Cambia barra multifunzione";
+        public override string UseClassicRibbon { get; } = "_Usa barra multifunzione classica";
+        public override string UseSimplifiedRibbon { get; } = "_Usa barra multifunzione semplificata";
         public override string ScreenTipDisableReasonHeader { get; } = "Questo commando è disattivato.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }

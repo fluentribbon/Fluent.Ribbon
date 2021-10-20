@@ -9,10 +9,6 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "ק";
         public override string BackstageButtonText { get; } = "קובץ";
         public override string CustomizeStatusBar { get; } = "התאמה אישית של שורת המצב";
-        public override string ExpandButtonScreenTipText { get; } = "הצג את רצועת הכלים כשהיא\nמורחבת תמיד, גם לאחר\nשתלחץ על הפקודה.";
-        public override string ExpandButtonScreenTipTitle { get; } = "הרחב את רצועת הכלים (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "הצג רק את שמות הכרטיסיות\nברצועת הכלים.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "מזער את רצועת הכלים (Ctrl + F1)";
         public override string MoreColors { get; } = "צבעים יותר...";
         public override string NoColor { get; } = "אין צבע";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "התאמה אישית של סרגל הכלים לגישה מהירה";
@@ -30,10 +26,8 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "הסר מסרגל הכלים לגישה מהירה";
         public override string RibbonContextMenuShowAbove { get; } = "הצג את סרגל הכלים לגישה מהירה מעל לרצועת הכלים";
         public override string RibbonContextMenuShowBelow { get; } = "הצג את סרגל הכלים לגישה מהירה מתחת לרצועת הכלים";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_השתמש ברצועת הכלים הקלאסית";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_השתמש ברצועת הכלים הפשוטה יותר";
-        public override string SwitchRibbonModeButtonScreenTipText { get; } = "עבור בין הסרט הפשוט יותר לסרט הקלאסי.";
-        public override string SwitchRibbonModeButtonScreenTipTitle { get; } = "עבור בין סרטים";
+        public override string UseClassicRibbon { get; } = "_השתמש ברצועת הכלים הקלאסית";
+        public override string UseSimplifiedRibbon { get; } = "_השתמש ברצועת הכלים הפשוטה יותר";
         public override string ScreenTipDisableReasonHeader { get; } = "פקודה זו אינה זמינה כעת.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
     }
