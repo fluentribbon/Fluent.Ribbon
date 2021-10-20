@@ -80,7 +80,8 @@
               "Pack",
               "ResourceKeys",
               "Restore",
-              "Test"
+              "Test",
+              "XamlStyler"
             ]
           }
         },
@@ -100,7 +101,8 @@
               "Pack",
               "ResourceKeys",
               "Restore",
-              "Test"
+              "Test",
+              "XamlStyler"
             ]
           }
         },

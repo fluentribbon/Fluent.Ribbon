@@ -78,12 +78,18 @@ class Build : NukeBuild
                 .SetProjectFile(Solution));
         });
 
-    Target Compile => _ => _
+    Target XamlStyler => _ => _
         .DependsOn(Restore)
         .Executes(() =>
     {
         DotNet($"xstyler -r -d \"{RootDirectory}\"");
-        
+    });
+
+    Target Compile => _ => _
+        .DependsOn(Restore)
+        .DependsOn(XamlStyler)
+        .Executes(() =>
+    {
         DotNetBuild(s => s
             .SetProjectFile(Solution)
             .SetConfiguration(Configuration)
