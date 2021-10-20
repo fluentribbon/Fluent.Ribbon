@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Ficheiro";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Mais cores...";
         public override string NoColor { get; } = "Nenhuma cor";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizar Barra de Ferramentas de Acesso Rápido";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Remover da Barra de Ferramentas de Acesso Rápido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostrar Barra de Ferramentas de Acesso Rápido Acima do Friso";
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar Barra de Ferramentas de Acesso Rápido Abaixo do Friso";
-        public override string UseClassicRibbon { get; } = "_Utilizar o Friso Clássico";
-        public override string UseSimplifiedRibbon { get; } = "_Utilizar o Friso Simplificado";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Utilizar o Friso Clássico";
+        public override string UseSimplifiedRibbon { get; } = "_Utilizar o Friso Simplificado";
     }
 }

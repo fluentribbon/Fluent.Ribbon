@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Настройка строки состояния";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Больше цветов...";
         public override string NoColor { get; } = "Без цвета";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Настройка панели быстрого доступа";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Удалить с панели быстрого доступа";
         public override string RibbonContextMenuShowAbove { get; } = "Разместить панель быстрого доступа над лентой";
         public override string RibbonContextMenuShowBelow { get; } = "Разместить панель быстрого доступа под лентой";
-        public override string UseClassicRibbon { get; } = "_Использовать классическую ленту";
-        public override string UseSimplifiedRibbon { get; } = "_Использовать упрощенную ленту";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "В настоящее время эта команда отключена.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Использовать классическую ленту";
+        public override string UseSimplifiedRibbon { get; } = "_Использовать упрощенную ленту";
     }
 }

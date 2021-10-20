@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fișier";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Mai multe culori...";
         public override string NoColor { get; } = "Nici o culoare";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizează Bara de Acces Rapid";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eimină din Bara de Acess Rapid";
         public override string RibbonContextMenuShowAbove { get; } = "Afișează Bara de Acces Rapid peste Ribbon";
         public override string RibbonContextMenuShowBelow { get; } = "Afișează Bara de Acces Rapid sub Ribbon";
-        public override string UseClassicRibbon { get; } = "_Utilizați panglica clasică";
-        public override string UseSimplifiedRibbon { get; } = "_Utilizați panglica simplificată";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Această comandă nu este disponibilă momentan.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Utilizați panglica clasică";
+        public override string UseSimplifiedRibbon { get; } = "_Utilizați panglica simplificată";
     }
 }

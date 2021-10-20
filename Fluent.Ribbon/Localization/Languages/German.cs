@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Datei";
         public override string CustomizeStatusBar { get; } = "Statusleiste anpassen";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Weitere Farben...";
         public override string NoColor { get; } = "Keine Farbe";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Symbolleiste für den Schnellzugriff anpassen";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Aus Symbolleiste für den Schnellzugriff entfernen";
         public override string RibbonContextMenuShowAbove { get; } = "Symbolleiste für den Schnellzugriff über dem Menüband anzeigen";
         public override string RibbonContextMenuShowBelow { get; } = "Symbolleiste für den Schnellzugriff unter dem Menüband anzeigen";
-        public override string UseClassicRibbon { get; } = "_Klassisches Menüband verwenden";
-        public override string UseSimplifiedRibbon { get; } = "_Vereinfachtes Menüband verwenden";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Diese Funktion ist momentan deaktiviert.";
         public override string ScreenTipF1LabelHeader { get; } = "Drücken Sie F1 für die Hilfe";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Klassisches Menüband verwenden";
+        public override string UseSimplifiedRibbon { get; } = "_Vereinfachtes Menüband verwenden";
     }
 }

@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fayl";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = FallbackLocalization.MoreColors;
         public override string NoColor { get; } = "No rəng";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Sürətli Keçidin Alətlərini fərdiləşdir";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = " Sürətli Keçidin Alətlərindən sil";
         public override string RibbonContextMenuShowAbove { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin üstündə göstər ";
         public override string RibbonContextMenuShowBelow { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin altında göstər ";
-        public override string UseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
-        public override string UseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
+        public override string UseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
     }
 }

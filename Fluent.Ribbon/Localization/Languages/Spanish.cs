@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "A";
         public override string BackstageButtonText { get; } = "Archivo";
         public override string CustomizeStatusBar { get; } = "Personalizar barra de estado";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Más colores...";
         public override string NoColor { get; } = "No hay color";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizar barra de herramientas de acceso rápido";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Quitar de la barra de herramientas de acceso rápido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostrar barra de herramientas de acceso rápido sobre la cinta";
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar barra de herramientas de acceso rápido bajo la cinta";
-        public override string UseClassicRibbon { get; } = "_Usar cinta clásica";
-        public override string UseSimplifiedRibbon { get; } = "_Usar cinta simplificada";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desactivado actualmente";
         public override string ScreenTipF1LabelHeader { get; } = "Pulse F1 para obtener más ayuda";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Usar cinta clásica";
+        public override string UseSimplifiedRibbon { get; } = "_Usar cinta simplificada";
     }
 }

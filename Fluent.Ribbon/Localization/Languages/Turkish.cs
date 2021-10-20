@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Dosya";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Daha fazla renk...";
         public override string NoColor { get; } = "Renk yok";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Hızlı Erişim Araç Çubuğu'ndan Kaldır";
         public override string RibbonContextMenuShowAbove { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Üstünde Göster";
         public override string RibbonContextMenuShowBelow { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Altında Göster";
-        public override string UseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
-        public override string UseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Bu komut şu anda devre dışı";
         public override string ScreenTipF1LabelHeader { get; } = "Yardım için F1'e basın.";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
+        public override string UseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
     }
 }

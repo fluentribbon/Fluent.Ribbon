@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Інші кольори...";
         public override string NoColor { get; } = "Без кольору";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Налаштувати Панель Інструментів Швидкого Доступу";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Видалити з Панелі Інструментів Швидкого Доступу";
         public override string RibbonContextMenuShowAbove { get; } = "Показати Панель Інструментів Швидкого Доступу Поверх Стрічки";
         public override string RibbonContextMenuShowBelow { get; } = "Показати Панель Інструментів Швидкого Доступу Знизу Стрічки";
-        public override string UseClassicRibbon { get; } = "_Використовувати класичну стрічку";
-        public override string UseSimplifiedRibbon { get; } = "_Використовувати спрощену стрічку";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Ця команда на даний момент недоступна.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Використовувати класичну стрічку";
+        public override string UseSimplifiedRibbon { get; } = "_Використовувати спрощену стрічку";
     }
 }

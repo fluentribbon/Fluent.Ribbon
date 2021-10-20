@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "文件";
         public override string CustomizeStatusBar { get; } = "自定义状态栏";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "更多的颜色...";
         public override string NoColor { get; } = "没有颜色";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "自定义快速访问具栏";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "在快速访问工具栏中移除";
         public override string RibbonContextMenuShowAbove { get; } = "在功能区上方显示快速访问工具栏";
         public override string RibbonContextMenuShowBelow { get; } = "在功能区下方显示快速访问工具栏";
-        public override string UseClassicRibbon { get; } = "使用经典功能区(_U)";
-        public override string UseSimplifiedRibbon { get; } = "使用简化功能区(_U)";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "此命令当前已被禁用。";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "使用经典功能区(_U)";
+        public override string UseSimplifiedRibbon { get; } = "使用简化功能区(_U)";
     }
 }

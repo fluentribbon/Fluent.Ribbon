@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Filer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Flere farver...";
         public override string NoColor { get; } = "Ingen farve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tilpas værktøjslinjen Hurtig adgang";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Fjern fra værktøjslinjen Hurtig adgang";
         public override string RibbonContextMenuShowAbove { get; } = "Vis værktøjslinjen Hurtig adgang ovenover båndet";
         public override string RibbonContextMenuShowBelow { get; } = "Vis værktøjslinjen Hurtig adgang under båndet";
-        public override string UseClassicRibbon { get; } = "_Brug Klassisk bånd";
-        public override string UseSimplifiedRibbon { get; } = "_Brug Forenklet bånd";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Denne kommando er aktuelt deaktiveret.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Brug Klassisk bånd";
+        public override string UseSimplifiedRibbon { get; } = "_Brug Forenklet bånd";
     }
 }

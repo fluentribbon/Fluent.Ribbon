@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "ファイル";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "他の色.";
         public override string NoColor { get; } = "色なし";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "クイック アクセス ツール バーのユーザー設定";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "クイック アクセス ツール バーから削除";
         public override string RibbonContextMenuShowAbove { get; } = "クイック アクセス ツール バーをリボンの上に表示";
         public override string RibbonContextMenuShowBelow { get; } = "クイック アクセス ツール バーをリボンの下に表示";
-        public override string UseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
-        public override string UseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "このコマンドは現在無効になっています";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
+        public override string UseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
     }
 }

@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "S";
         public override string BackstageButtonText { get; } = "Súbor";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Ďalšie farby...";
         public override string NoColor { get; } = "Žiadna farba";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Prispôsobenie panela s nástrojmi Rýchly prístup";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Odstrániť z panela s nástrojmi Rýchly prístup ";
         public override string RibbonContextMenuShowAbove { get; } = "Panel s nástrojmi Rýchly prístup zobraziť nad panelom s nástrojmi ";
         public override string RibbonContextMenuShowBelow { get; } = "Panel s nástrojmi Rýchly prístup zobraziť pod panelom s nástrojmi";
-        public override string UseClassicRibbon { get; } = "_Použiť klasický pás s nástrojmi";
-        public override string UseSimplifiedRibbon { get; } = "_Použiť zjednodušený pás s nástrojmi";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Použiť klasický pás s nástrojmi";
+        public override string UseSimplifiedRibbon { get; } = "_Použiť zjednodušený pás s nástrojmi";
     }
 }

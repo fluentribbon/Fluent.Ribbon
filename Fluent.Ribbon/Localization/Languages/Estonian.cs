@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
         public override string BackstageButtonText { get; } = "Fail";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Rohkem värve...";
         public override string NoColor { get; } = "Ei värvi";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Kohanda kiirpääsuriba";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eemalda kiirpääsuribalt";
         public override string RibbonContextMenuShowAbove { get; } = "Kuva kiirpääsuriba lindi kohal";
         public override string RibbonContextMenuShowBelow { get; } = "Kuva kiirpääsuriba lindi all";
-        public override string UseClassicRibbon { get; } = "_Kasuta klassikalist linti";
-        public override string UseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "See käsk on praegu keelatud.";
         public override string ScreenTipF1LabelHeader { get; } = "Spikri kuvamiseks vajutage klahvi F1";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Kasuta klassikalist linti";
+        public override string UseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
     }
 }

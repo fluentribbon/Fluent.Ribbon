@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "B";
         public override string BackstageButtonText { get; } = "Bestand";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Meer kleuren...";
         public override string NoColor { get; } = "Geen kleur";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Werkbalk snelle toegang aanpassen";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = " Verwijder uit werkbalk snelle toegang ";
         public override string RibbonContextMenuShowAbove { get; } = " Werkbalk snelle toegang boven het lint weergeven ";
         public override string RibbonContextMenuShowBelow { get; } = " Werkbalk snelle toegang onder het lint weergeven";
-        public override string UseClassicRibbon { get; } = "_Klassieke lint gebruiken";
-        public override string UseSimplifiedRibbon { get; } = "_Vereenvoudigd lint gebruiken";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Klassieke lint gebruiken";
+        public override string UseSimplifiedRibbon { get; } = "_Vereenvoudigd lint gebruiken";
     }
 }

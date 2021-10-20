@@ -9,6 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "A";
         public override string BackstageButtonText { get; } = "Arquivo";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
         public override string MoreColors { get; } = "Mais cores...";
         public override string NoColor { get; } = "Nenhuma cor";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Customizar Barra de acesso rápido";
@@ -26,9 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Remover da Barra de acesso rápido";
         public override string RibbonContextMenuShowAbove { get; } = "Mostrar Barra de acesso rápido acima do Ribbon";
         public override string RibbonContextMenuShowBelow { get; } = "Mostrar Barra de acesso rápido abaixo do Ribbon";
-        public override string UseClassicRibbon { get; } = "_Usar a Faixa de Opções Clássica";
-        public override string UseSimplifiedRibbon { get; } = "_Usar a Faixa de Opções Simplificada";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
         public override string ScreenTipDisableReasonHeader { get; } = "Este comando está desativado.";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string UseClassicRibbon { get; } = "_Usar a Faixa de Opções Clássica";
+        public override string UseSimplifiedRibbon { get; } = "_Usar a Faixa de Opções Simplificada";
     }
 }
