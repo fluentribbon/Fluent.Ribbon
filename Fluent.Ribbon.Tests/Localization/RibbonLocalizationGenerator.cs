@@ -133,7 +133,7 @@ namespace Fluent.Localization.Languages
                     if (string.IsNullOrEmpty(existingTranslationText)
                         || existingTranslationText == englishText)
                     {
-                        return $"FallbackLocalization.{propertyName}";
+                        return $"FallbackLocalization.{propertyName} /* {englishText} */";
                     }
                     else
                     {

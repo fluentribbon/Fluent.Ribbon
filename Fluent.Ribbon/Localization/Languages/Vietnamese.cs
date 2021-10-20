@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class Vietnamese : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Tự động";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Tệp";
         public override string CustomizeStatusBar { get; } = "Tùy biến thanh Trạng thái";
-        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText;
-        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle;
-        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon;
-        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Nhiều màu sắc...";
         public override string NoColor { get; } = "Không có màu";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tùy chỉnh thanh công cụ Truy cập nhanh";
@@ -30,10 +30,10 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Loại";
         public override string RibbonContextMenuShowAbove { get; } = "Hiện thanh công cụ truy cập nhanh trên thanh Ruy băng";
         public override string RibbonContextMenuShowBelow { get; } = "Hiện thanh công cụ truy cập nhanh dưới thanh Ruy băng";
-        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout;
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Lệnh này hiện bị tắt.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
-        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
         public override string UseClassicRibbon { get; } = "_Sử dụng Dải băng cổ điển";
         public override string UseSimplifiedRibbon { get; } = "_Sử dụng Dải băng đơn giản";
     }
