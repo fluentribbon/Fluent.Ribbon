@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Build">
-        <PackageVersion Include="JetBrains.Annotations" version="2021.2.0" />
+        <PackageVersion Include="JetBrains.Annotations" version="2021.3.0" />
 
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="3.11.0" />
         <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.261" />
