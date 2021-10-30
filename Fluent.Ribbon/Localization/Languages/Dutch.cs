@@ -8,11 +8,11 @@ namespace Fluent.Localization.Languages
         public override string Automatic { get; } = "Automatisch";
         public override string BackstageButtonKeyTip { get; } = "B";
         public override string BackstageButtonText { get; } = "Bestand";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, zijn alleen de tabulatie namen zichtbaar";
-        public override string ExpandButtonScreenTipTitle { get; } = "Het lint Maximaliseren (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Verberg of laat het lint zien\n\nWanneer het lint verborgen is, zijn alleen de tabulatie namen zichtbaar";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Het lint minimaliseren (Ctrl + F1)";
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Meer kleuren...";
         public override string NoColor { get; } = "Geen kleur";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Werkbalk snelle toegang aanpassen";
@@ -24,17 +24,17 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuAddGroup { get; } = "Groep toevoegen aan werkbalk snelle toegang";
         public override string RibbonContextMenuAddItem { get; } = "Menu toevoegen aan werkbalk snelle toegang";
         public override string RibbonContextMenuAddMenu { get; } = " Menu toevoegen aan werkbalk snelle toegang ";
-        public override string RibbonContextMenuCustomizeQuickAccessToolBar { get; } = FallbackLocalization.RibbonContextMenuCustomizeQuickAccessToolBar;
+        public override string RibbonContextMenuCustomizeQuickAccessToolBar { get; } = FallbackLocalization.RibbonContextMenuCustomizeQuickAccessToolBar /* Customize Quick Access Toolbar... */;
         public override string RibbonContextMenuCustomizeRibbon { get; } = "Lint aanpassen...";
         public override string RibbonContextMenuMinimizeRibbon { get; } = " Het lint minimaliseren";
         public override string RibbonContextMenuRemoveItem { get; } = " Verwijder uit werkbalk snelle toegang ";
         public override string RibbonContextMenuShowAbove { get; } = " Werkbalk snelle toegang boven het lint weergeven ";
         public override string RibbonContextMenuShowBelow { get; } = " Werkbalk snelle toegang onder het lint weergeven";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klassieke lint gebruiken";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Vereenvoudigd lint gebruiken";
-        public override string SwitchButtonScreenTipText { get; } = "Schakelen tussen het vereenvoudigde lint en het klassieke lint.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Schakelen tussen versies van het lint";
-        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
+        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader /* This command is currently disabled. */;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Klassieke lint gebruiken";
+        public override string UseSimplifiedRibbon { get; } = "_Vereenvoudigd lint gebruiken";
     }
 }

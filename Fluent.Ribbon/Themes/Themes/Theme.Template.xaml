@@ -164,9 +164,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarDropDown.BelowRibbon" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.QuickAccessToolbarExtender.BelowRibbon" Color="{StaticResource BlackColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonCollapse" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonExpand" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonPin" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions" Color="{{Fluent.Ribbon.Colors.Images.DefaultColor}}" options:Freeze="True" />
 
     <!-- KeyTip -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.KeyTip.Background" Color="{StaticResource Gray1}" options:Freeze="True" />

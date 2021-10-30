@@ -9,10 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "Α";
         public override string BackstageButtonText { get; } = "Αρχείο";
         public override string CustomizeStatusBar { get; } = "Προσαρμογή Γραμμής κατάστασης";
-        public override string ExpandButtonScreenTipText { get; } = "Σας αρέσει να βλέπετε την Κορδέλα; Κρατήστε την ανοιχτή ενώ εργάζεστε.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Καρφίτσωμα της Κορδέλας (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Χρειάζεστε περισσότερο χώρο; Ελαχιστοποιήστε την Κορδέλα, ώστε να εμφανίζονται μόνο τα ονόματα καρτελών.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Ελαχιστοποίηση της Κορδέλας (Ctrl + F1)";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Περισσότερα χρώματα...";
         public override string NoColor { get; } = "Χωρίς χρώμα";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Προσαρμογή γραμμής εργαλείων γρήγορης πρόσβασης";
@@ -30,11 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Κατάργηση από τη Γραμμή εργαλείων γρήγορης πρόσβασης";
         public override string RibbonContextMenuShowAbove { get; } = "Εμφάνιση Γραμμής εργαλείων γρήγορης πρόσβασης επάνω από την Κορδέλα";
         public override string RibbonContextMenuShowBelow { get; } = "Εμφάνιση Γραμμής εργαλείων γρήγορης πρόσβασης κάτω από την Κορδέλα";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Χρήση κλασικής κορδέλας";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Χρήση απλοποιημένης κορδέλας";
-        public override string SwitchButtonScreenTipText { get; } = "Εναλλαγή μεταξύ της απλοποιημένης κορδέλας και της κλασικής κορδέλας.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Εναλλαγή κορδελών";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Αυτή η εντολή είναι απενεργοποιημένη αυτήν τη στιγμή.";
         public override string ScreenTipF1LabelHeader { get; } = "Πατήστε F1 για βοήθεια";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Χρήση κλασικής κορδέλας";
+        public override string UseSimplifiedRibbon { get; } = "_Χρήση απλοποιημένης κορδέλας";
     }
 }

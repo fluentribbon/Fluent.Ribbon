@@ -282,13 +282,13 @@ namespace Fluent
             // Use the classic ribbon
             useTheClassicRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(SwitchToTheClassicRibbonCommand));
             RibbonContextMenu.Items.Add(UseTheClassicRibbonMenuItem);
-            RibbonControl.Bind(RibbonLocalization.Current.Localization, UseTheClassicRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuUseClassicRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonLocalization.Current.Localization, UseTheClassicRibbonMenuItem, nameof(RibbonLocalizationBase.UseClassicRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, UseTheClassicRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
 
             // Use the simplifed ribbon
             useTheSimplifiedRibbonMenuItemDictionary.Add(Thread.CurrentThread.ManagedThreadId, CreateMenuItemForContextMenu(SwitchToTheSimplifiedRibbonCommand));
             RibbonContextMenu.Items.Add(UseTheSimplifiedRibbonMenuItem);
-            RibbonControl.Bind(RibbonLocalization.Current.Localization, UseTheSimplifiedRibbonMenuItem, nameof(RibbonLocalizationBase.RibbonContextMenuUseSimplifiedRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
+            RibbonControl.Bind(RibbonLocalization.Current.Localization, UseTheSimplifiedRibbonMenuItem, nameof(RibbonLocalizationBase.UseSimplifiedRibbon), HeaderedItemsControl.HeaderProperty, BindingMode.OneWay);
             RibbonControl.Bind(RibbonContextMenu, UseTheSimplifiedRibbonMenuItem, nameof(System.Windows.Controls.ContextMenu.PlacementTarget), System.Windows.Controls.MenuItem.CommandParameterProperty, BindingMode.OneWay);
         }
 
@@ -1850,14 +1850,34 @@ namespace Fluent
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F1
-                && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+            if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                if (this.TabControl?.HasItems == true)
+                switch (e.Key)
                 {
-                    if (this.CanMinimize)
+                    case Key.F1:
                     {
-                        this.IsMinimized = !this.IsMinimized;
+                        if (this.TabControl?.HasItems == true)
+                        {
+                            if (this.CanMinimize)
+                            {
+                                this.IsMinimized = !this.IsMinimized;
+                            }
+                        }
+
+                        break;
+                    }
+
+                    case Key.F2:
+                    {
+                        if (this.TabControl?.HasItems == true)
+                        {
+                            if (this.CanUseSimplified)
+                            {
+                                this.IsSimplified = !this.IsSimplified;
+                            }
+                        }
+
+                        break;
                     }
                 }
             }

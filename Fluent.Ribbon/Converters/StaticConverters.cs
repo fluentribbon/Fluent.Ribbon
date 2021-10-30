@@ -29,5 +29,10 @@
         /// Get a static instance of <see cref="EqualsToVisibilityConverter"/>
         /// </summary>
         public static readonly EqualsToVisibilityConverter EqualsToVisibilityConverter = new();
+
+        /// <summary>
+        /// Get a static instance of <see cref="InverseBoolConverter"/>
+        /// </summary>
+        public static readonly InverseBoolConverter InverseBoolConverter = new();
     }
 }

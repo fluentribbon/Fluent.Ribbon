@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class Hungarian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatikus";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fájl";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "A menüszalag megjelenítése úgy, hogy egy parancsra kattintás után is látható maradjon";
-        public override string ExpandButtonScreenTipTitle { get; } = "Menüszalag kibontása (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Csak a lapnevek megjelenítése a menüszalagon";
-        public override string MinimizeButtonScreenTipTitle { get; } = "A menüszalag összecsukása (Ctrl + F1)";
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "További színek...";
         public override string NoColor { get; } = "Nincs szín";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Gyorselérési eszköztár testreszabása";
@@ -30,11 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eltávolítás a gyorselérési eszköztárról";
         public override string RibbonContextMenuShowAbove { get; } = "A gyorselérési eszköztár megjelenítése a menüszalag felett";
         public override string RibbonContextMenuShowBelow { get; } = "A gyorselérési eszköztár megjelenítése a menüszalag alatt";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Klasszikus menüszalag használata";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "Egys_zerűsített menüszalag használata";
-        public override string SwitchButtonScreenTipText { get; } = "Váltás az Egyszerűsített menüszalag és a Klasszikus menüszalag között.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Váltás a másik menüszalagra";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Ez a parancs jelenleg nem használható.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Klasszikus menüszalag használata";
+        public override string UseSimplifiedRibbon { get; } = "Egys_zerűsített menüszalag használata";
     }
 }

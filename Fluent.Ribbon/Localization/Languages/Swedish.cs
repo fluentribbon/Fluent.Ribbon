@@ -8,11 +8,11 @@ namespace Fluent.Localization.Languages
         public override string Automatic { get; } = "Automatisk";
         public override string BackstageButtonKeyTip { get; } = "A";
         public override string BackstageButtonText { get; } = "Arkiv";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas endast flikarna";
-        public override string ExpandButtonScreenTipTitle { get; } = "Expandera menyfliksområdet (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Visa eller göm menyfliksområdet \n\nNär menyfliksområdet är dolt, visas endast flikarna";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimera menyfliksområdet (Ctrl + F1)";
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Fler färger...";
         public override string NoColor { get; } = "Ingen färg";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Anpassa verktygsfältet Snabbåtkomst ";
@@ -30,11 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Ta bort från verktygsfältet Snabbåtkomst";
         public override string RibbonContextMenuShowAbove { get; } = " Visa verktygsfältet Snabbåtkomst ovanför menyfliksområdet ";
         public override string RibbonContextMenuShowBelow { get; } = " Visa verktygsfältet Snabbåtkomst under menyfliksområdet";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Använd klassiska menyfliksområdet";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Använd förenklade menyfliksområdet";
-        public override string SwitchButtonScreenTipText { get; } = "Växla mellan det förenklade och det klassiska menyfliksområdet.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Växla menyfliksområde";
-        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
+        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader /* This command is currently disabled. */;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Använd klassiska menyfliksområdet";
+        public override string UseSimplifiedRibbon { get; } = "_Använd förenklade menyfliksområdet";
     }
 }

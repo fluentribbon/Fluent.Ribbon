@@ -44,7 +44,7 @@ class Build : NukeBuild
     
     [Solution(GenerateProjects = true)] readonly Solution Solution = null!;
     
-    [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion? GitVersion;
+    [GitVersion(Framework = "netcoreapp3.1", NoFetch = true)] readonly GitVersion? GitVersion;
     
     string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
     string SemVer => GitVersion?.SemVer ?? "1.0.0";
@@ -78,12 +78,18 @@ class Build : NukeBuild
                 .SetProjectFile(Solution));
         });
 
-    Target Compile => _ => _
+    Target XamlStyler => _ => _
         .DependsOn(Restore)
         .Executes(() =>
     {
         DotNet($"xstyler -r -d \"{RootDirectory}\"");
-        
+    });
+
+    Target Compile => _ => _
+        .DependsOn(Restore)
+        .DependsOn(XamlStyler)
+        .Executes(() =>
+    {
         DotNetBuild(s => s
             .SetProjectFile(Solution)
             .SetConfiguration(Configuration)

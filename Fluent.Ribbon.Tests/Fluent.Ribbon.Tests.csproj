@@ -7,7 +7,7 @@
     <IsTestProject>true</IsTestProject>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-    <NoWarn>$(NoWarn);SA0001</NoWarn>
+    <NoWarn>$(NoWarn);SA0001;SA1602</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Fluent.Ribbon.Showcase\Commanding\IRelayCommand.cs">
@@ -26,5 +26,7 @@
     <PackageReference Include="NUnit3TestAdapter" />
 
     <PackageReference Include="NUnit" />
+
+    <PackageReference Include="Google.Cloud.Translate.V3" Condition="$(TargetFramework) != 'net452'" />
   </ItemGroup>
 </Project>

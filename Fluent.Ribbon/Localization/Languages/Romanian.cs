@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class Romanian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automată";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fișier";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt afișate doar numele taburilor";
-        public override string ExpandButtonScreenTipTitle { get; } = "Expandează Ribbon-ul (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Afișează sau ascunde Ribbon-ul\nCând Ribbon-ul este ascuns, sunt afișate doar numele taburilor";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimizează Ribbon-ul (Ctrl + F1)";
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Mai multe culori...";
         public override string NoColor { get; } = "Nici o culoare";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personalizează Bara de Acces Rapid";
@@ -30,11 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eimină din Bara de Acess Rapid";
         public override string RibbonContextMenuShowAbove { get; } = "Afișează Bara de Acces Rapid peste Ribbon";
         public override string RibbonContextMenuShowBelow { get; } = "Afișează Bara de Acces Rapid sub Ribbon";
-        public override string RibbonContextMenuUseClassicRibbon { get; } = "_Utilizați panglica clasică";
-        public override string RibbonContextMenuUseSimplifiedRibbon { get; } = "_Utilizați panglica simplificată";
-        public override string SwitchButtonScreenTipText { get; } = "Comutați între panglica simplificată și panglica clasică.";
-        public override string SwitchButtonScreenTipTitle { get; } = "Comutare panglică";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Această comandă nu este disponibilă momentan.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Utilizați panglica clasică";
+        public override string UseSimplifiedRibbon { get; } = "_Utilizați panglica simplificată";
     }
 }

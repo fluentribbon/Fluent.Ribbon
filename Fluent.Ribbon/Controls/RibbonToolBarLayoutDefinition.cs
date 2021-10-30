@@ -5,6 +5,7 @@ namespace Fluent
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Markup;
+    using Fluent.Internal.KnownBoxes;
 
     /// <summary>
     /// Represents size definition for group box
@@ -12,14 +13,6 @@ namespace Fluent
     [ContentProperty(nameof(Rows))]
     public class RibbonToolBarLayoutDefinition : DependencyObject
     {
-        #region Fields
-
-        // User defined rows
-
-        #endregion
-
-        #region Properties
-
         #region Size
 
         /// <summary>
@@ -27,8 +20,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSize Size
         {
-            get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-            set { this.SetValue(SizeProperty, value); }
+            get => (RibbonControlSize)this.GetValue(SizeProperty);
+            set => this.SetValue(SizeProperty, value);
         }
 
         /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -43,8 +36,8 @@ namespace Fluent
         /// </summary>
         public RibbonControlSizeDefinition SizeDefinition
         {
-            get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-            set { this.SetValue(SizeDefinitionProperty, value); }
+            get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+            set => this.SetValue(SizeDefinitionProperty, value);
         }
 
         /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -59,8 +52,8 @@ namespace Fluent
         /// </summary>
         public int RowCount
         {
-            get { return (int)this.GetValue(RowCountProperty); }
-            set { this.SetValue(RowCountProperty, value); }
+            get => (int)this.GetValue(RowCountProperty);
+            set => this.SetValue(RowCountProperty, value);
         }
 
         /// <summary>Identifies the <see cref="RowCount"/> dependency property.</summary>
@@ -69,12 +62,23 @@ namespace Fluent
 
         #endregion
 
+        /// <summary>Identifies the <see cref="ForSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty ForSimplifiedProperty =
+            DependencyProperty.Register(nameof(ForSimplified), typeof(bool), typeof(RibbonToolBarLayoutDefinition), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>
+        /// Gets or sets wether the layout definition should be used in simplified state.
+        /// </summary>
+        public bool ForSimplified
+        {
+            get => (bool)this.GetValue(ForSimplifiedProperty);
+            set => this.SetValue(ForSimplifiedProperty, BooleanBoxes.Box(value));
+        }
+
         /// <summary>
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarRow> Rows { get; } = new ObservableCollection<RibbonToolBarRow>();
-
-        #endregion
+        public ObservableCollection<RibbonToolBarRow> Rows { get; } = new();
     }
 }
