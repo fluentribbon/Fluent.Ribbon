@@ -17,12 +17,12 @@ namespace Fluent
     internal class BackstageAdorner : Adorner
     {
         // Content of Backstage
-        private readonly UIElement backstageContent;
+        private readonly UIElement? backstageContent;
 
         // Collection of visual children
         private readonly VisualCollection visualChildren;
         private readonly Rectangle background;
-        private readonly BackstageTabControl backstageTabControl;
+        private readonly BackstageTabControl? backstageTabControl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.
@@ -38,12 +38,16 @@ namespace Fluent
 
             this.Backstage = backstage;
             this.backstageContent = this.Backstage.Content;
-            this.backstageTabControl = this.backstageContent as BackstageTabControl
-                                       ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+
+            if (this.backstageContent is not null)
+            {
+                this.backstageTabControl = this.backstageContent as BackstageTabControl
+                                           ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+            }
 
             this.background = new Rectangle();
 
-            if (this.backstageTabControl != null)
+            if (this.backstageTabControl is not null)
             {
                 BindingOperations.SetBinding(this.background, Shape.FillProperty, new Binding
                                                                                   {
@@ -87,7 +91,7 @@ namespace Fluent
             // Arrange background and compensate margin used by animation
             this.background.Arrange(new Rect(this.Margin.Left * -1, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
 
-            this.backstageContent.Arrange(new Rect(0, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
+            this.backstageContent?.Arrange(new Rect(0, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
 
             return finalSize;
         }
@@ -98,7 +102,7 @@ namespace Fluent
             var size = new Size(Math.Max(0, this.AdornedElement.RenderSize.Width), Math.Max(0, this.AdornedElement.RenderSize.Height));
 
             this.background.Measure(size);
-            this.backstageContent.Measure(size);
+            this.backstageContent?.Measure(size);
 
             return this.AdornedElement.RenderSize;
         }

@@ -27,19 +27,20 @@ namespace Fluent
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
+    public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Fields
 
         // Thumb to resize in both directions
-        private Thumb resizeBothThumb;
+        private Thumb? resizeBothThumb;
 
         // Thumb to resize vertical
-        private Thumb resizeVerticalThumb;
+        private Thumb? resizeVerticalThumb;
 
-        private ScrollViewer scrollViewer;
+        private ScrollViewer? scrollViewer;
 
-        private UIElement buttonBorder;
+        private UIElement? buttonBorder;
 
         private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
 
@@ -77,12 +78,26 @@ namespace Fluent
 
         #endregion
 
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(DropDownButton));
+
+        #endregion
+
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -95,7 +110,7 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -103,7 +118,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -117,7 +132,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -131,7 +146,7 @@ namespace Fluent
         #region LargeIcon
 
         /// <inheritdoc />
-        public object LargeIcon
+        public object? LargeIcon
         {
             get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
@@ -139,6 +154,20 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
         public static readonly DependencyProperty LargeIconProperty = LargeIconProviderProperties.LargeIconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(DropDownButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         #endregion
 
@@ -150,7 +179,7 @@ namespace Fluent
         public bool HasTriangle
         {
             get { return (bool)this.GetValue(HasTriangleProperty); }
-            set { this.SetValue(HasTriangleProperty, value); }
+            set { this.SetValue(HasTriangleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasTriangle"/> dependency property.</summary>
@@ -165,7 +194,7 @@ namespace Fluent
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -235,7 +264,7 @@ namespace Fluent
         public bool ClosePopupOnMouseDown
         {
             get { return (bool)this.GetValue(ClosePopupOnMouseDownProperty); }
-            set { this.SetValue(ClosePopupOnMouseDownProperty, value); }
+            set { this.SetValue(ClosePopupOnMouseDownProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="ClosePopupOnMouseDown"/> dependency property.</summary>
@@ -261,15 +290,51 @@ namespace Fluent
 
         #endregion
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is DropDownButton dropDownButton)
+            {
+                dropDownButton.OnIsSimplifiedChanged((bool)e.OldValue, (bool)e.NewValue);
+            }
+        }
+
+        /// <summary>
+        /// Handles IsSimplified changed event for overide
+        /// </summary>
+        /// <param name="oldValue">old value</param>
+        /// <param name="newValue">new value</param>
+        protected virtual void OnIsSimplifiedChanged(bool oldValue, bool newValue)
+        {
+        }
+
         #endregion
+
+        #endregion Properties
 
         #region Events
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -314,6 +379,8 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            this.SetCurrentValue(IsDropDownOpenProperty, false);
+
             this.UnSubscribeEvents();
         }
 
@@ -322,22 +389,22 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
             }
 
-            if (this.buttonBorder != null)
+            if (this.buttonBorder is not null)
             {
                 this.buttonBorder.MouseLeftButtonDown += this.HandleButtonBorderMouseLeftButtonDown;
             }
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.KeyDown += this.OnDropDownPopupKeyDown;
                 this.DropDownPopup.AddHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown), true);
@@ -346,22 +413,22 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            if (this.resizeVerticalThumb != null)
+            if (this.resizeVerticalThumb is not null)
             {
                 this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
             }
 
-            if (this.resizeBothThumb != null)
+            if (this.resizeBothThumb is not null)
             {
                 this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
             }
 
-            if (this.buttonBorder != null)
+            if (this.buttonBorder is not null)
             {
                 this.buttonBorder.MouseLeftButtonDown -= this.HandleButtonBorderMouseLeftButtonDown;
             }
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.KeyDown -= this.OnDropDownPopupKeyDown;
                 this.DropDownPopup.RemoveHandler(MouseDownEvent, new RoutedEventHandler(this.OnDropDownPopupMouseDown));
@@ -375,7 +442,7 @@ namespace Fluent
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
@@ -436,8 +503,8 @@ namespace Fluent
         private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
         {
             if (this.ClosePopupOnMouseDown
-                && this.resizeBothThumb.IsMouseOver == false
-                && this.resizeVerticalThumb.IsMouseOver == false)
+                && (this.resizeBothThumb?.IsMouseOver ?? false) == false
+                && (this.resizeVerticalThumb?.IsMouseOver ?? false) == false)
             {
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
                 var timespan = this.ClosePopupOnMouseDownDelay;
@@ -549,7 +616,7 @@ namespace Fluent
         {
             var control = (DropDownButton)d;
 
-            return !control.IsDropDownOpen;
+            return BooleanBoxes.Box(!control.IsDropDownOpen);
         }
 
         #endregion
@@ -626,9 +693,9 @@ namespace Fluent
 
         private void OnIsDropDownOpenChanged(bool newValue)
         {
-            this.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, !newValue);
+            this.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, BooleanBoxes.Box(!newValue));
 
-            Debug.WriteLine($"{this.Header} IsDropDownOpen: {newValue}");
+            Debug.WriteLine($"{this.Header} IsDropDownOpen: {newValue.ToString()}");
 
             if (newValue)
             {
@@ -687,8 +754,8 @@ namespace Fluent
                     continue;
                 }
 
-                var menuItem = (System.Windows.Controls.MenuItem)openMenuItem.Target;
-                if (menuItem.IsSubmenuOpen)
+                var menuItem = (System.Windows.Controls.MenuItem?)openMenuItem.Target;
+                if (menuItem?.IsSubmenuOpen == true)
                 {
                     menuItem.IsSubmenuOpen = false;
                 }
@@ -730,9 +797,14 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu opened
         /// </summary>
-        protected void OnQuickAccessOpened(object sender, EventArgs e)
+        protected void OnQuickAccessOpened(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
+
+            if (buttonInQuickAccess is null)
+            {
+                return;
+            }
 
             buttonInQuickAccess.DropDownClosed += this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded += this.OnQuickAccessMenuClosedOrUnloaded;
@@ -743,9 +815,15 @@ namespace Fluent
         /// <summary>
         /// Handles quick access button drop down menu closed
         /// </summary>
-        protected void OnQuickAccessMenuClosedOrUnloaded(object sender, EventArgs e)
+        protected void OnQuickAccessMenuClosedOrUnloaded(object? sender, EventArgs e)
         {
-            var buttonInQuickAccess = (DropDownButton)sender;
+            var buttonInQuickAccess = (DropDownButton?)sender;
+
+            if (buttonInQuickAccess is null)
+            {
+                return;
+            }
+
             buttonInQuickAccess.DropDownClosed -= this.OnQuickAccessMenuClosedOrUnloaded;
             buttonInQuickAccess.Unloaded -= this.OnQuickAccessMenuClosedOrUnloaded;
             this.RunInDispatcherAsync(() =>
@@ -772,12 +850,12 @@ namespace Fluent
         /// <param name="button">Toolbar item</param>
         protected void BindQuickAccessItemDropDownEvents(DropDownButton button)
         {
-            if (this.DropDownClosed != null)
+            if (this.DropDownClosed is not null)
             {
                 button.DropDownClosed += this.DropDownClosed;
             }
 
-            if (this.DropDownOpened != null)
+            if (this.DropDownOpened is not null)
             {
                 button.DropDownOpened += this.DropDownOpened;
             }
@@ -787,7 +865,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -803,7 +881,7 @@ namespace Fluent
         private void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
             var menuItem = e.OriginalSource as MenuItem;
-            if (menuItem != null)
+            if (menuItem is not null)
             {
                 this.openMenuItems.Push(new WeakReference(menuItem));
             }
@@ -818,6 +896,12 @@ namespace Fluent
         }
 
         #endregion MenuItem workarounds
+
+        /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
 
         /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
@@ -842,17 +926,22 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.LargeIcon != null)
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+
+                if (this.LargeIcon is not null)
                 {
                     yield return this.LargeIcon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

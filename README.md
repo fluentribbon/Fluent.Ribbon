@@ -32,8 +32,8 @@ Fluent.Ribbon is a library that implements an Office-like user interface for the
 ## Documentation
 
 Visit the [documentation](http://fluentribbon.github.io/documentation/).  
-Almost all features are shown in the showcase application.  
-The showcase application is included with every release, so you can just grab it from [releases](../../releases)  
+Almost all features are shown in the [showcase application](./Fluent.Ribbon.Showcase).  
+The showcase application is included with every release, so you can download stable versions from [releases](../../releases) and preview versions from [CI artifacts](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/develop/artifacts).  
 If you think there is something missing in the showcase application feel free to create an issue for that.
 
 To be more familiar with the Ribbon concept see [msdn article](https://docs.microsoft.com/en-us/windows/desktop/uxguide/cmd-ribbons).

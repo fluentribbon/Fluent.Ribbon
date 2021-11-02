@@ -54,9 +54,9 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMinColumns);
 
-        private static bool ValidateMinColumns(object o)
+        private static bool ValidateMinColumns(object? o)
         {
-            return (int)o >= 0;
+            return o is int intValue && intValue >= 0;
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Fluent
                                               FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentMeasure),
                 ValidateMaxColumns);
 
-        private static bool ValidateMaxColumns(object o)
+        private static bool ValidateMaxColumns(object? o)
         {
-            return (int)o >= 0;
+            return o is int intValue && intValue >= 0;
         }
 
         /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
@@ -198,8 +198,13 @@ namespace Fluent
             var xBound = arrangeSize.Width;
 
             // Arrange and Position each child to the same cell size
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
+                if (child is null)
+                {
+                    continue;
+                }
+
                 child.Arrange(childBounds);
 
                 // only advance to the next grid cell if the child was not collapsed

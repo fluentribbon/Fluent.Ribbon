@@ -38,7 +38,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="SharedSizeGroupNameProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetSharedSizeGroupName(DependencyObject element, string value)
+        public static void SetSharedSizeGroupName(DependencyObject element, string? value)
         {
             element.SetValue(SharedSizeGroupNameProperty, value);
         }
@@ -46,7 +46,7 @@ namespace Fluent
         /// <summary>
         /// Gets <see cref="SharedSizeGroupNameProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static string GetSharedSizeGroupName(DependencyObject element)
+        public static string? GetSharedSizeGroupName(DependencyObject element)
         {
             return (string)element.GetValue(SharedSizeGroupNameProperty);
         }
@@ -67,7 +67,7 @@ namespace Fluent
         /// </summary>
         public static void SetExcludeFromSharedSize(DependencyObject element, bool value)
         {
-            element.SetValue(ExcludeFromSharedSizeProperty, value);
+            element.SetValue(ExcludeFromSharedSizeProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>
@@ -78,14 +78,24 @@ namespace Fluent
             return (bool)element.GetValue(ExcludeFromSharedSizeProperty);
         }
 
-        private static bool ValidateItemWidth(object value)
+        private static bool ValidateItemWidth(object? value)
         {
+            if (value is null)
+            {
+                return false;
+            }
+
             var v = (double)value;
             return ValidateWidthOrHeight(v);
         }
 
-        private static bool ValidateItemHeight(object value)
+        private static bool ValidateItemHeight(object? value)
         {
+            if (value is null)
+            {
+                return false;
+            }
+            
             var v = (double)value;
             return ValidateWidthOrHeight(v);
         }
@@ -293,7 +303,7 @@ namespace Fluent
         {
             var parentRibbonGroupBox = UIHelper.GetParent<RibbonGroupBox>(this);
 
-            var isParentRibbonGroupBoxSharedSizeScope = parentRibbonGroupBox != null && Grid.GetIsSharedSizeScope(parentRibbonGroupBox);
+            var isParentRibbonGroupBoxSharedSizeScope = parentRibbonGroupBox is not null && Grid.GetIsSharedSizeScope(parentRibbonGroupBox);
 
             var firstInLine = 0;
             var itemWidth = this.ItemWidth;
@@ -378,7 +388,7 @@ namespace Fluent
             for (var i = start; i < end; i++)
             {
                 var child = children[i];
-                if (child != null)
+                if (child is not null)
                 {
                     var childSize = new UvSize(this.Orientation, child.DesiredSize.Width, child.DesiredSize.Height);
                     var layoutSlotU = useItemU ? itemU : childSize.U;

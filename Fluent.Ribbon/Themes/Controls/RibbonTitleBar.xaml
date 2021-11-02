@@ -3,25 +3,21 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="RibbonTitleBarStyle"
            TargetType="{x:Type Fluent:RibbonTitleBar}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonTitleBarControlTemplate}" />
-        <Setter Property="Focusable"
-                Value="False" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
                                Text="{Binding}"
-                               TextWrapping="NoWrap"
-                               TextTrimming="CharacterEllipsis" />
+                               TextTrimming="CharacterEllipsis"
+                               TextWrapping="NoWrap" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Template" Value="{DynamicResource RibbonTitleBarControlTemplate}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
     <ControlTemplate x:Key="RibbonTitleBarControlTemplate"
@@ -29,35 +25,25 @@
         <Grid>
             <ContentPresenter x:Name="PART_QuickAccessToolbarHolder"
                               ContentSource="QuickAccessToolBar" />
-            
+
             <ContentPresenter x:Name="PART_HeaderHolder"
                               ContentSource="Header"
                               ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                               ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"                              
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               IsHitTestVisible="False" />
-            
-            <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"                                                    
+
+            <Fluent:RibbonContextualGroupsContainer x:Name="PART_ItemsContainer"
                                                     IsItemsHost="True" />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsCollapsed"
-                     Value="True">
-                <Setter Property="Visibility"
-                        Value="Collapsed"
-                        TargetName="PART_QuickAccessToolbarHolder" />
-                <Setter Property="Visibility"
-                        Value="Collapsed"
-                        TargetName="PART_ItemsContainer" />
+            <Trigger Property="IsCollapsed" Value="True">
+                <Setter TargetName="PART_ItemsContainer" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="HideContextTabs"
-                     Value="True">
-                <Setter Property="Visibility"
-                        Value="Hidden"
-                        TargetName="PART_ItemsContainer" />
-                <Setter Property="Visibility"
-                        Value="Hidden"
-                        TargetName="PART_QuickAccessToolbarHolder" />
+            <Trigger Property="HideContextTabs" Value="True">
+                <Setter TargetName="PART_ItemsContainer" Property="Visibility" Value="Hidden" />
+                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Hidden" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

@@ -24,9 +24,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used for a selected <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemSelectedForeground
+        public Brush? TabItemSelectedForeground
         {
-            get { return (Brush)this.GetValue(TabItemSelectedForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemSelectedForegroundProperty); }
             set { this.SetValue(TabItemSelectedForegroundProperty, value); }
         }
 
@@ -36,9 +36,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used when the mouse is over a <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemMouseOverForeground
+        public Brush? TabItemMouseOverForeground
         {
-            get { return (Brush)this.GetValue(TabItemMouseOverForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemMouseOverForegroundProperty); }
             set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
         }
 
@@ -48,9 +48,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the foreground brush to be used when the mouse is over a selected <see cref="RibbonTabItem"/> belonging to this group.
         /// </summary>
-        public Brush TabItemSelectedMouseOverForeground
+        public Brush? TabItemSelectedMouseOverForeground
         {
-            get { return (Brush)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
+            get { return (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
             set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
         }
 
@@ -88,7 +88,7 @@ namespace Fluent
         public Visibility InnerVisibility
         {
             get { return (Visibility)this.GetValue(InnerVisibilityProperty); }
-            private set { this.SetValue(InnerVisibilityPropertyKey, value); }
+            private set { this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =
@@ -113,17 +113,17 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible TabItem in this group
         /// </summary>
-        public RibbonTabItem FirstVisibleItem => this.GetFirstVisibleItem();
+        public RibbonTabItem? FirstVisibleItem => this.GetFirstVisibleItem();
 
         /// <summary>
         /// Gets the first visible TabItem in this group
         /// </summary>
-        public RibbonTabItem FirstVisibleAndEnabledItem => this.GetFirstVisibleAndEnabledItem();
+        public RibbonTabItem? FirstVisibleAndEnabledItem => this.GetFirstVisibleAndEnabledItem();
 
         /// <summary>
         /// Gets the last visible TabItem in this group
         /// </summary>
-        public RibbonTabItem LastVisibleItem => this.GetLastVisibleItem();
+        public RibbonTabItem? LastVisibleItem => this.GetLastVisibleItem();
 
         #endregion
 
@@ -206,17 +206,17 @@ namespace Fluent
             this.UpdateInnerVisiblityAndGroupBorders();
         }
 
-        private RibbonTabItem GetFirstVisibleItem()
+        private RibbonTabItem? GetFirstVisibleItem()
         {
             return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private RibbonTabItem GetLastVisibleItem()
+        private RibbonTabItem? GetLastVisibleItem()
         {
             return this.Items.LastOrDefault(item => item.Visibility == Visibility.Visible);
         }
 
-        private RibbonTabItem GetFirstVisibleAndEnabledItem()
+        private RibbonTabItem? GetFirstVisibleAndEnabledItem()
         {
             return this.Items.FirstOrDefault(item => item.Visibility == Visibility.Visible && item.IsEnabled);
         }
@@ -273,7 +273,7 @@ namespace Fluent
             var firstVisibleItem = this.FirstVisibleAndEnabledItem;
 
             if (e.ClickCount == 1
-                && firstVisibleItem != null)
+                && firstVisibleItem is not null)
             {
                 if (firstVisibleItem.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
                 {
@@ -282,7 +282,7 @@ namespace Fluent
 
                 e.Handled = true;
 
-                if (firstVisibleItem.TabControlParent != null)
+                if (firstVisibleItem.TabControlParent is not null)
                 {
                     if (firstVisibleItem.TabControlParent.IsMinimized)
                     {
@@ -318,7 +318,7 @@ namespace Fluent
             }
 
             var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);
-            ribbonTitleBar?.ForceMeasureAndArrange();
+            ribbonTitleBar?.ScheduleForceMeasureAndArrange();
         }
     }
 }

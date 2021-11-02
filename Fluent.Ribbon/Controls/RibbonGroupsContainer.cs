@@ -38,9 +38,9 @@ namespace Fluent
         /// Enclose in parentheses as (Control.Name) to reduce/enlarge
         /// scalable elements in the given group
         /// </summary>
-        public string ReduceOrder
+        public string? ReduceOrder
         {
-            get { return (string)this.GetValue(ReduceOrderProperty); }
+            get { return (string?)this.GetValue(ReduceOrderProperty); }
             set { this.SetValue(ReduceOrderProperty, value); }
         }
 
@@ -58,7 +58,7 @@ namespace Fluent
                 ribbonPanel.IncreaseGroupBoxSize(ribbonPanel.reduceOrder[i]);
             }
 
-            ribbonPanel.reduceOrder = ((string)e.NewValue).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            ribbonPanel.reduceOrder = (((string?)e.NewValue) ?? string.Empty).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
             ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
 
@@ -181,7 +181,7 @@ namespace Fluent
             double width = 0;
             double height = 0;
 
-            foreach (UIElement child in this.InternalChildren)
+            foreach (UIElement? child in this.InternalChildren)
             {
                 var groupBox = child as RibbonGroupBox;
                 if (groupBox is null)
@@ -214,9 +214,14 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Large
-                    ? groupBox.StateIntermediate - 1
-                    : RibbonGroupBoxState.Large;
+                if (groupBox.IsSimplified)
+                {
+                    groupBox.StateIntermediate = groupBox.SimplifiedStateDefinition.EnlargeState(groupBox.StateIntermediate);
+                }
+                else
+                {
+                    groupBox.StateIntermediate = groupBox.StateDefinition.EnlargeState(groupBox.StateIntermediate);
+                }
             }
         }
 
@@ -237,22 +242,27 @@ namespace Fluent
             }
             else
             {
-                groupBox.StateIntermediate = groupBox.StateIntermediate != RibbonGroupBoxState.Collapsed
-                    ? groupBox.StateIntermediate + 1
-                    : groupBox.StateIntermediate;
+                if (groupBox.IsSimplified)
+                {
+                    groupBox.StateIntermediate = groupBox.SimplifiedStateDefinition.ReduceState(groupBox.StateIntermediate);
+                }
+                else
+                {
+                    groupBox.StateIntermediate = groupBox.StateDefinition.ReduceState(groupBox.StateIntermediate);
+                }
             }
         }
 
-        private RibbonGroupBox FindGroup(string name)
+        private RibbonGroupBox? FindGroup(string name)
         {
             if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase))
             {
                 name = name.Substring(1, name.Length - 2);
             }
 
-            foreach (FrameworkElement child in this.InternalChildren)
+            foreach (FrameworkElement? child in this.InternalChildren)
             {
-                if (child.Name == name)
+                if (child?.Name == name)
                 {
                     return child as RibbonGroupBox;
                 }
@@ -269,8 +279,13 @@ namespace Fluent
                 X = -this.HorizontalOffset
             };
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
+                if (item is null)
+                {
+                    continue;
+                }
+
                 finalRect.Width = item.DesiredSize.Width;
                 finalRect.Height = Math.Max(finalSize.Height, item.DesiredSize.Height);
                 item.Arrange(finalRect);
@@ -285,7 +300,7 @@ namespace Fluent
         #region IScrollInfo Members
 
         /// <inheritdoc />
-        public ScrollViewer ScrollOwner
+        public ScrollViewer? ScrollOwner
         {
             get { return this.ScrollData.ScrollOwner; }
             set { this.ScrollData.ScrollOwner = value; }
@@ -294,11 +309,11 @@ namespace Fluent
         /// <inheritdoc />
         public void SetHorizontalOffset(double offset)
         {
-            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.scrollData.ExtentWidth, this.scrollData.ViewportWidth);
+            var newValue = CoerceOffset(ValidateInputOffset(offset, nameof(this.HorizontalOffset)), this.ScrollData.ExtentWidth, this.ScrollData.ViewportWidth);
 
             if (DoubleUtil.AreClose(this.ScrollData.OffsetX, newValue) == false)
             {
-                this.scrollData.OffsetX = newValue;
+                this.ScrollData.OffsetX = newValue;
                 this.InvalidateArrange();
             }
         }
@@ -536,7 +551,7 @@ namespace Fluent
         }
 
         // Scroll data info
-        private ScrollData scrollData;
+        private ScrollData? scrollData;
 
         // Validates input offset
         private static double ValidateInputOffset(double offset, string parameterName)
@@ -597,7 +612,9 @@ namespace Fluent
         #endregion
 
         // We have to reset the reduce order to it's initial value, clear all caches we keep here and invalidate measure/arrange
+#pragma warning disable CA1801 // Review unused parameters
         internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox ribbonGroupBox)
+#pragma warning restore CA1801 // Review unused parameters
         {
             var ribbonPanel = this;
 

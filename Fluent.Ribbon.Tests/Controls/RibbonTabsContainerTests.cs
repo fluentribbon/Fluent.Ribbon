@@ -11,7 +11,7 @@
         //private static readonly Size zeroSize = default;
         private const double ReferenceWidth = 300;
 
-        private static readonly double ReferenceHeight = 26;
+        private const double ReferenceHeight = 26;
 
         [Test]
         public void Empty()

@@ -8,7 +8,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class RibbonTitleBarTests
+    public sealed class RibbonTitleBarTests
     {
         [TestFixture]
         public class MeasureTests
@@ -139,7 +139,9 @@
                 yield return new RibbonTitleBarSizeData(10, new Size(10, DefaultTitleBarHeight), new Size(0, DefaultTitleBarHeight - 1), new Size(52, DefaultTitleBarHeight), zeroSize);
             }
 
+#pragma warning disable CA1815 // Override equals and operator equals on value types
             public struct RibbonTitleBarSizeData
+#pragma warning restore CA1815 // Override equals and operator equals on value types
             {
                 public RibbonTitleBarSizeData(double constraintWidth, Size desiredSize, Size quickAccessRectSize, Size headerRectSize, Size itemsRectSize)
                 {

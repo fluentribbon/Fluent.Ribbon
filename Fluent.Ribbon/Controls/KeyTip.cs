@@ -66,7 +66,7 @@ namespace Fluent
         /// <param name="value">Value</param>
         public static void SetAutoPlacement(DependencyObject element, bool value)
         {
-            element.SetValue(AutoPlacementProperty, value);
+            element.SetValue(AutoPlacementProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>

@@ -39,7 +39,7 @@
         protected override string GetNameCore()
         {
             var parent = this.GetParent();
-            if (parent != null)
+            if (parent is not null)
             {
                 return parent.GetName();
             }

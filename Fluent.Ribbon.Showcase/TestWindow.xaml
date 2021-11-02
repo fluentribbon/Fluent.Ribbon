@@ -1,28 +1,28 @@
-﻿<Fluent:RibbonWindow xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Fluent:RibbonWindow x:Class="FluentTest.TestWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
                      xmlns:FluentTest="clr-namespace:FluentTest"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     mc:Ignorable="d"
                      x:Name="window"
-                     x:Class="FluentTest.TestWindow"
                      Title="{Binding WindowTitle, ElementName=TestContent}"
-                     FlowDirection="LeftToRight"
-                     Height="768"
                      Width="1024"
+                     Height="768"
                      MinWidth="80"
-                     MinHeight="60"                     
+                     MinHeight="60"
+                     DataContext="{Binding DataContext, ElementName=TestContent}"
+                     FlowDirection="LeftToRight"
                      WindowState="Normal"
-                     DataContext="{Binding DataContext, ElementName=TestContent}">
+                     mc:Ignorable="d">
     <Fluent:RibbonWindow.LayoutTransform>
         <!-- todo: netcore => was using x:Reference before -->
-        <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}"
-                        ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
+        <ScaleTransform ScaleX="{Binding DataContext.Zoom, ElementName=TestContent}" ScaleY="{Binding DataContext.Zoom, ElementName=TestContent}" />
     </Fluent:RibbonWindow.LayoutTransform>
     <Fluent:RibbonWindow.WindowCommands>
         <Fluent:WindowCommands>
-            <Button Content="Test" Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.Button}" />
+            <Button Content="Test"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.Button}" />
         </Fluent:WindowCommands>
     </Fluent:RibbonWindow.WindowCommands>
     <FluentTest:TestContent x:Name="TestContent" />

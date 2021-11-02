@@ -28,7 +28,7 @@ namespace Fluent
         /// <summary>
         /// Creates a new instance
         /// </summary>
-        public RibbonControlSizeDefinition(string sizeDefinition)
+        public RibbonControlSizeDefinition(string? sizeDefinition)
             : this()
         {
             if (string.IsNullOrEmpty(sizeDefinition))
@@ -39,7 +39,7 @@ namespace Fluent
                 return;
             }
 
-            var splitted = sizeDefinition.Split(new[] { ' ', ',', ';', '-', '>' }, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var splitted = sizeDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if (splitted.Count == 0)
             {
@@ -78,9 +78,17 @@ namespace Fluent
         /// <summary>
         /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
         /// </summary>
-        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        public static RibbonControlSizeDefinition FromString(string sizeDefinition)
         {
             return new RibbonControlSizeDefinition(sizeDefinition);
+        }
+
+        /// <summary>
+        /// Converts from <see cref="string"/> to <see cref="RibbonControlSizeDefinition"/>
+        /// </summary>
+        public static implicit operator RibbonControlSizeDefinition(string sizeDefinition)
+        {
+            return FromString(sizeDefinition);
         }
 
         /// <summary>
@@ -126,10 +134,31 @@ namespace Fluent
             }
         }
 
+        /// <summary>
+        /// Gets the appropriate <see cref="RibbonControlSize"/> from <see cref="Large"/>, <see cref="Middle"/> or <see cref="Small"/> depending on <paramref name="ribbonControlSize"/>
+        /// </summary>
+        public RibbonControlSize GetSize(RibbonControlSize ribbonControlSize)
+        {
+            switch (ribbonControlSize)
+            {
+                case RibbonControlSize.Large:
+                    return this.Large;
+
+                case RibbonControlSize.Middle:
+                    return this.Middle;
+
+                case RibbonControlSize.Small:
+                    return this.Small;
+
+                default:
+                    return RibbonControlSize.Large;
+            }
+        }
+
         #region Overrides of ValueType
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
             {

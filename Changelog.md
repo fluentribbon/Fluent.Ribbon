@@ -1,11 +1,50 @@
 # Changelog for Fluent.Ribbon
 
-## 8.0.4
+## 9.0.0 (preview)
+
+- ### Breaking changes
+
+  - [#870](../../issues/870) - Add .NET 5 and .NET Core 3.1 and remove .NET Core 3.0  
+  Support for .NET Core 3.0 was removed and support for .NET Core 3.1 and .NET 5.0 was added
+  - Increasing ControlzEx dependency version to >= 5
+  - [#948](../../issues/948) - Minimize button misplaced  
+    Minimize button is moved to the right hand side of it's parent container.  
+    That means custom toolbar items are not moving the button further left anymore.
+
+**The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+| RibbonTabControlToggleButtonStyle | Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton |
+| RibbonTabControlToggleButtonControlTemplate | Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton |
+</details>
 
 - ### Bug fixes
-
+  - [#845](../../issues/845) - QuickAccessToolBar issues in Colorful variant
   - [#894](../../issues/894) - Cannot use scroll wheel in fluent:ApplicationMenu since Fluent.Ribbon 7
   - [#900](../../issues/900) - Application freezes when opening collapsed groups with galleries
+  - [#908](../../issues/908) - KeyTipService should dismiss keytips if the first key does not match any keytips
+  - [#918](../../issues/918) - Custom color does not reset color gallery selection state
+  - [#919](../../issues/919) - Ribbon content is not confined in Windows dimensions
+  - [#925](../../issues/925) - Controls might not be shown when using default layout of RibbonToolbar (thanks @nishy2000)
+  - [#927](../../issues/927) - Size value calculated by RibbonGroupBox is not reflected in RibbonControls in Panel control (thanks @nishy2000)
+  - [#929](../../issues/929) - SizeDefinition property of RibbonControls in RibbonToolBar is not reflected in layout (thanks @nishy2000)
+  - [#941](../../issues/941) - LauncherIcon and LauncherText of RibbonGroupBox are not applied to the appearance (thanks @nishy2000)
+  - [#943](../../issues/943) - The LauncherIcon in the RibbonGroupBox added to QuickAccess will always be shown (thanks @nishy2000)
+  - [#952](../../issues/952) - Help with IsSelectionRequired property setting on "File" tab for accessibility purposes
+  - [#954](../../issues/954) - Adding an InputBinding for Alt+Up or Alt+Down results in extra character (thanks @dgosbell)
+  - [#961](../../issues/961) - Fluent.Button Header Binding not visible
+  - [#973](../../issues/973) - Wrong reference to ControlzEx
+
+- ### Enhancements/Features
+  - [#924](../../issues/924) - Feature simplified ribbon (thanks @nishy2000) 
+  - [#935](../../issues/935) - Support MediumIcon (24x24) size in RibbonGroupBox (thanks @nishy2000)
+  - [#936](../../issues/936) - Add ability to vertically align items in Backstage  
+    You have to set `VerticalAlignment="Bottom"`, `DockPanel.Dock="Bottom"` and if you want to align multiple items at the bottom invert their order (because of how `DockPanel` works).
+  - Added automation peers for `InRibbonGallery` and `GalleryItem`
+  - Improved keyboard navigation for `InRibbonGallery`
 
 ## 8.0.3
 
@@ -51,9 +90,12 @@
 
   - Support for .NET 4.5 was removed and support for .NET 4.5.2 was added
   - [#811](../../issues/811) - `ThemeManager` was replaced by `ThemeManager` from "ControlzEx".  
-    Because of this you now got more automatic and manual sync options.
-    Syncing now, optionally, includes the current accent color from Windows.
-    You can now generate themes at runtime more easily.
+    You now have to use `ThemeManager.Current` instead of the static class `ThemeManager`.  
+    Because of this you now got more automatic and manual sync options.  
+    Syncing now, optionally, includes the current accent color from Windows.  
+    You can now generate themes at runtime more easily.  
+    The documentation for Fluent.Ribbon can be found at https://fluentribbon.github.io/documentation/styles_since_8  
+    The documentation for `ThemeManager` can be found at https://github.com/ControlzEx/ControlzEx/blob/develop/Wiki/ThemeManager.md
   - `Colorful` was removed from the available base colors for themes and was changed to a theme "variant".  
     Due to this change you now have a lot more themes to choose from.
   - The built in state storage will no longer persist the state of quick access items.  

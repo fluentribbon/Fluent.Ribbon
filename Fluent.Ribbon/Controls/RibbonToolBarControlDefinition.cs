@@ -57,9 +57,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets name of the target control
         /// </summary>
-        public string Target
+        public string? Target
         {
-            get { return (string)this.GetValue(TargetProperty); }
+            get { return (string?)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 
@@ -102,9 +102,9 @@ namespace Fluent
         #region Invalidating
 
         /// <inheritdoc />
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

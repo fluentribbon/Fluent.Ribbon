@@ -24,7 +24,7 @@
 //            get
 //            {
 //                var ribbonGroup = this.GetWrapper() as RibbonGroupBox;
-//                if (ribbonGroup != null
+//                if (ribbonGroup is not null
 //                    && ribbonGroup.State == RibbonGroupBoxState.Collapsed)
 //                {
 //                    if (!ribbonGroup.IsDropDownOpen)
@@ -43,7 +43,7 @@
 //        void IExpandCollapseProvider.Collapse()
 //        {
 //            var ribbonGroup = this.GetWrapper() as RibbonGroupBox;
-//            if (ribbonGroup != null
+//            if (ribbonGroup is not null
 //                && ribbonGroup.State == RibbonGroupBoxState.Collapsed)
 //            {
 //                ribbonGroup.IsDropDownOpen = false;
@@ -54,7 +54,7 @@
 //        void IExpandCollapseProvider.Expand()
 //        {
 //            var ribbonGroup = this.GetWrapper() as RibbonGroupBox;
-//            if (ribbonGroup != null
+//            if (ribbonGroup is not null
 //                && ribbonGroup.State == RibbonGroupBoxState.Collapsed)
 //            {
 //                ribbonGroup.IsDropDownOpen = true;
@@ -79,7 +79,7 @@
 //                case PatternInterface.ExpandCollapse:
 //                {
 //                    var ribbonGroup = this.GetWrapper() as RibbonGroupBox;
-//                    if (ribbonGroup != null
+//                    if (ribbonGroup is not null
 //                        && ribbonGroup.State == RibbonGroupBoxState.Collapsed)
 //                    {
 //                        obj = this;
@@ -92,7 +92,7 @@
 //            if (obj is null)
 //            {
 //                var wrapperPeer = this.GetWrapperPeer();
-//                if (wrapperPeer != null)
+//                if (wrapperPeer is not null)
 //                {
 //                    obj = wrapperPeer.GetPattern(patternInterface);
 //                }
@@ -111,7 +111,7 @@
 //        protected override string GetClassNameCore()
 //        {
 //            var wrapperPeer = this.GetWrapperPeer();
-//            if (wrapperPeer != null)
+//            if (wrapperPeer is not null)
 //            {
 //                return wrapperPeer.GetClassName();
 //            }

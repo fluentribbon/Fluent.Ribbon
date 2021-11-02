@@ -5,15 +5,15 @@ namespace Fluent.Localization.Languages
     [RibbonLocalization("Azerbaijani", "az")]
     public class Azerbaijani : RibbonLocalizationBase
     {
-        public override string Automatic { get; } = FallbackLocalization.Automatic;
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string Automatic { get; } = FallbackLocalization.Automatic /* Automatic */;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fayl";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = " Menyu lentini göstər və ya gizlət\n\nMenyu lentini gizldəndə, yalnız, tabların adları göstərilir";
-        public override string ExpandButtonScreenTipTitle { get; } = "Menyu lentini böyüt(Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Menyu lentini göstər və ya gizlət\n\nMenyu lentini kiçiləndə, yalnız tabların adları göstərilir";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Menyu lentini kiçilt (Ctrl + F1)";
-        public override string MoreColors { get; } = FallbackLocalization.MoreColors;
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
+        public override string MoreColors { get; } = FallbackLocalization.MoreColors /* More colors... */;
         public override string NoColor { get; } = "No rəng";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Sürətli Keçidin Alətlərini fərdiləşdir";
         public override string QuickAccessToolBarMenuHeader { get; } = " Sürətli Keçidin Alətlərini fərdiləşdir ";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = " Sürətli Keçidin Alətlərindən sil";
         public override string RibbonContextMenuShowAbove { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin üstündə göstər ";
         public override string RibbonContextMenuShowBelow { get; } = " Sürətli Keçidin Alətlərini Menyu lentinin altında göstər ";
-        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader;
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
+        public override string ScreenTipDisableReasonHeader { get; } = FallbackLocalization.ScreenTipDisableReasonHeader /* This command is currently disabled. */;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Klassik Lentdən istifadə edin";
+        public override string UseSimplifiedRibbon { get; } = "_Sadələşdirilmiş Lentdən istifadə edin";
     }
 }

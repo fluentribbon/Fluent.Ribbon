@@ -34,7 +34,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        protected override string? GetNameCore()
         {
             var name = AutomationProperties.GetName(this.Owner);
 
@@ -56,12 +56,12 @@
                 return children;
             }
 
-            if (this.OwningBackstageTabItem.TabControlParent?.SelectedContentHost != null)
+            if (this.OwningBackstageTabItem.TabControlParent?.SelectedContentHost is not null)
             {
                 var contentHostPeer = new FrameworkElementAutomationPeer(this.OwningBackstageTabItem.TabControlParent.SelectedContentHost);
                 var contentChildren = contentHostPeer.GetChildren();
 
-                if (contentChildren != null)
+                if (contentChildren is not null)
                 {
                     children.AddRange(contentChildren);
                 }
@@ -69,14 +69,14 @@
 
             return children;
 
-            List<AutomationPeer> GetHeaderChildren()
+            List<AutomationPeer>? GetHeaderChildren()
             {
                 if (this.OwningBackstageTabItem.Header is string)
                 {
                     return null;
                 }
 
-                if (this.OwningBackstageTabItem.HeaderContentHost != null)
+                if (this.OwningBackstageTabItem.HeaderContentHost is not null)
                 {
                     return new FrameworkElementAutomationPeer(this.OwningBackstageTabItem.HeaderContentHost).GetChildren();
                 }

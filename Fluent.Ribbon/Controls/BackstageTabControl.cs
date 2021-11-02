@@ -9,6 +9,7 @@ namespace Fluent
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
     using System.Windows.Media;
     using Fluent.Extensions;
     using Fluent.Helpers;
@@ -19,11 +20,14 @@ namespace Fluent
     /// Represents Backstage tab control.
     /// </summary>
     [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
+    [TemplatePart(Name = "PART_ItemsPanelContainer", Type = typeof(UIElement))]
     public class BackstageTabControl : Selector, ILogicalChildSupport
     {
         #region Properties
 
-        internal ContentPresenter SelectedContentHost { get; private set; }
+        internal ContentPresenter? SelectedContentHost { get; private set; }
+
+        internal UIElement? ItemsPanelContainer { get; private set; }
 
         /// <summary>
         /// Gets or sets the margin which is used to render selected content.
@@ -48,7 +52,7 @@ namespace Fluent
         /// Gets content for selected tab
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public object? SelectedContent
         {
             get { return this.GetValue(SelectedContentProperty); }
             internal set { this.SetValue(SelectedContentPropertyKey, value); }
@@ -81,11 +85,11 @@ namespace Fluent
         /// <summary>
         /// Get or sets the string format for the content.
         /// </summary>
-        public string ContentStringFormat
+        public string? ContentStringFormat
         {
             get
             {
-                return (string)this.GetValue(ContentStringFormatProperty);
+                return (string?)this.GetValue(ContentStringFormatProperty);
             }
 
             set
@@ -97,11 +101,11 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="DataTemplate"/> which should be used for the content
         /// </summary>
-        public DataTemplate ContentTemplate
+        public DataTemplate? ContentTemplate
         {
             get
             {
-                return (DataTemplate)this.GetValue(ContentTemplateProperty);
+                return (DataTemplate?)this.GetValue(ContentTemplateProperty);
             }
 
             set
@@ -113,11 +117,11 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the content
         /// </summary>
-        public DataTemplateSelector ContentTemplateSelector
+        public DataTemplateSelector? ContentTemplateSelector
         {
             get
             {
-                return (DataTemplateSelector)this.GetValue(ContentTemplateSelectorProperty);
+                return (DataTemplateSelector?)this.GetValue(ContentTemplateSelectorProperty);
             }
 
             set
@@ -129,11 +133,11 @@ namespace Fluent
         /// <summary>
         /// Get or sets the string format for the selected content.
         /// </summary>
-        public string SelectedContentStringFormat
+        public string? SelectedContentStringFormat
         {
             get
             {
-                return (string)this.GetValue(SelectedContentStringFormatProperty);
+                return (string?)this.GetValue(SelectedContentStringFormatProperty);
             }
 
             internal set
@@ -146,11 +150,11 @@ namespace Fluent
         /// Gets or sets the <see cref="DataTemplate"/> which should be used for the selected content
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public DataTemplate SelectedContentTemplate
+        public DataTemplate? SelectedContentTemplate
         {
             get
             {
-                return (DataTemplate)this.GetValue(SelectedContentTemplateProperty);
+                return (DataTemplate?)this.GetValue(SelectedContentTemplateProperty);
             }
 
             internal set
@@ -163,11 +167,11 @@ namespace Fluent
         /// Gets or sets the <see cref="ContentTemplateSelector"/> which should be used for the selected content
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public DataTemplateSelector SelectedContentTemplateSelector
+        public DataTemplateSelector? SelectedContentTemplateSelector
         {
             get
             {
-                return (DataTemplateSelector)this.GetValue(SelectedContentTemplateSelectorProperty);
+                return (DataTemplateSelector?)this.GetValue(SelectedContentTemplateSelectorProperty);
             }
 
             internal set
@@ -197,9 +201,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets current Backround of the ItemsPanel
         /// </summary>
-        public Brush ItemsPanelBackground
+        public Brush? ItemsPanelBackground
         {
-            get { return (Brush)this.GetValue(ItemsPanelBackgroundProperty); }
+            get { return (Brush?)this.GetValue(ItemsPanelBackgroundProperty); }
             set { this.SetValue(ItemsPanelBackgroundProperty, value); }
         }
 
@@ -213,9 +217,9 @@ namespace Fluent
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Backstage ParentBackstage
+        public Backstage? ParentBackstage
         {
-            get { return (Backstage)this.GetValue(ParentBackstageProperty); }
+            get { return (Backstage?)this.GetValue(ParentBackstageProperty); }
             set { this.SetValue(ParentBackstageProperty, value); }
         }
 
@@ -229,7 +233,7 @@ namespace Fluent
         public bool IsWindowSteeringHelperEnabled
         {
             get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
-            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, value); }
+            set { this.SetValue(IsWindowSteeringHelperEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsWindowSteeringHelperEnabled"/> dependency property.</summary>
@@ -242,7 +246,7 @@ namespace Fluent
         public bool IsBackButtonVisible
         {
             get { return (bool)this.GetValue(IsBackButtonVisibleProperty); }
-            set { this.SetValue(IsBackButtonVisibleProperty, value); }
+            set { this.SetValue(IsBackButtonVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsBackButtonVisible"/> dependency property.</summary>
@@ -258,6 +262,10 @@ namespace Fluent
         static BackstageTabControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(typeof(BackstageTabControl)));
+
+            KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+            KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(BackstageTabControl), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
         }
 
         /// <summary>
@@ -306,6 +314,7 @@ namespace Fluent
         {
             base.OnApplyTemplate();
 
+            this.ItemsPanelContainer = this.GetTemplateChild("PART_ItemsPanelContainer") as UIElement;
             this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
         }
 
@@ -319,9 +328,9 @@ namespace Fluent
         protected override bool IsItemItsOwnContainerOverride(object item)
         {
             return item is BackstageTabItem
-                || item is Button
-                || item is SeparatorTabItem
-                || item is Separator;
+                or Button
+                or SeparatorTabItem
+                or Separator;
         }
 
         /// <inheritdoc />
@@ -339,7 +348,7 @@ namespace Fluent
                 }
 
                 var item = this.FindNextTabItem(startIndex, -1);
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -357,6 +366,45 @@ namespace Fluent
             }
         }
 
+        /// <inheritdoc />
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Handled)
+            {
+                base.OnKeyDown(e);
+                return;
+            }
+
+            // Handle [Ctrl][Shift]Tab
+
+            switch (e.Key)
+            {
+                case Key.F6:
+                case Key.Tab when (e.KeyboardDevice.Modifiers & ModifierKeys.Control) == ModifierKeys.Control:
+                    {
+                        var focusNavigationDirection = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift
+                            ? FocusNavigationDirection.Last
+                            : FocusNavigationDirection.First;
+
+                        if (this.SelectedContentHost?.IsKeyboardFocusWithin == true)
+                        {
+                            e.Handled = this.ItemsPanelContainer?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                        }
+                        else
+                        {
+                            e.Handled = this.SelectedContentHost?.MoveFocus(new TraversalRequest(focusNavigationDirection)) == true;
+                        }
+                    }
+
+                    break;
+            }
+
+            if (!e.Handled)
+            {
+                base.OnKeyDown(e);
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -366,7 +414,7 @@ namespace Fluent
         /// If there is no item selected, the first found item is selected and it's container (<see cref="BackstageTabItem"/>) is returned.
         /// </summary>
         /// <returns>The currently selected <see cref="BackstageTabItem"/>. Or null of nothing was selected and nothing could be selected.</returns>
-        private BackstageTabItem GetSelectedTabItem()
+        private BackstageTabItem? GetSelectedTabItem()
         {
             var container = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(this.SelectedItem);
 
@@ -376,7 +424,7 @@ namespace Fluent
             {
                 container = this.FindNextTabItem(this.SelectedIndex, 1);
 
-                if (container != null)
+                if (container is not null)
                 {
                     this.SelectedItem = this.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
                 }
@@ -386,7 +434,7 @@ namespace Fluent
         }
 
         // Finds next tab item
-        private BackstageTabItem FindNextTabItem(int startIndex, int direction)
+        private BackstageTabItem? FindNextTabItem(int startIndex, int direction)
         {
             if (direction == 0)
             {
@@ -408,7 +456,7 @@ namespace Fluent
                 }
 
                 var container = this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<BackstageTabItem>(index);
-                if (container != null
+                if (container is not null
                     && container.IsEnabled
                     && container.Visibility == Visibility.Visible)
                 {
@@ -436,9 +484,9 @@ namespace Fluent
 
                 this.SelectedContent = selectedTabItem.Content;
 
-                if (selectedTabItem.ContentTemplate != null
-                    || selectedTabItem.ContentTemplateSelector != null
-                    || selectedTabItem.ContentStringFormat != null)
+                if (selectedTabItem.ContentTemplate is not null
+                    || selectedTabItem.ContentTemplateSelector is not null
+                    || selectedTabItem.ContentStringFormat is not null)
                 {
                     this.SelectedContentTemplate = selectedTabItem.ContentTemplate;
                     this.SelectedContentTemplateSelector = selectedTabItem.ContentTemplateSelector;
@@ -460,7 +508,7 @@ namespace Fluent
         #region Event handling
 
         // Handles GeneratorStatusChange
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        private void OnGeneratorStatusChanged(object? sender, EventArgs e)
         {
             if (this.ItemContainerGenerator.Status != GeneratorStatus.ContainersGenerated)
             {
@@ -504,7 +552,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.SelectedContent != null)
+                if (this.SelectedContent is not null)
                 {
                     yield return this.SelectedContent;
                 }

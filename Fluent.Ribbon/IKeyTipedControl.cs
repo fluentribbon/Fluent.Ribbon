@@ -8,7 +8,7 @@
         /// <summary>
         /// Gets and sets KeyTip for element.
         /// </summary>
-        string KeyTip { get; set; }
+        string? KeyTip { get; set; }
 
         /// <summary>
         /// Handles key tip pressed

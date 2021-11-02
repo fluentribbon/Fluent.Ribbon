@@ -5,6 +5,7 @@ namespace Fluent
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls.Primitives;
@@ -18,6 +19,7 @@ namespace Fluent
     /// you to add menu and handle clicks
     /// </summary>
     [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
+    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTipInformationProvider
     {
         #region Fields
@@ -102,9 +104,9 @@ namespace Fluent
         #region GroupName
 
         /// <inheritdoc />
-        public string GroupName
+        public string? GroupName
         {
-            get { return (string)this.GetValue(GroupNameProperty); }
+            get { return (string?)this.GetValue(GroupNameProperty); }
             set { this.SetValue(GroupNameProperty, value); }
         }
 
@@ -119,7 +121,7 @@ namespace Fluent
         public bool? IsChecked
         {
             get { return (bool?)this.GetValue(IsCheckedProperty); }
-            set { this.SetValue(IsCheckedProperty, value); }
+            set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
@@ -146,7 +148,7 @@ namespace Fluent
             }
         }
 
-        private static object CoerceIsChecked(DependencyObject d, object basevalue)
+        private static object? CoerceIsChecked(DependencyObject d, object? basevalue)
         {
             var button = (SplitButton)d;
 
@@ -168,7 +170,7 @@ namespace Fluent
         public bool IsCheckable
         {
             get { return (bool)this.GetValue(IsCheckableProperty); }
-            set { this.SetValue(IsCheckableProperty, value); }
+            set { this.SetValue(IsCheckableProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsCheckable"/> dependency property.</summary>
@@ -182,7 +184,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets tooltip of dropdown part of split button
         /// </summary>
-        public object DropDownToolTip
+        public object? DropDownToolTip
         {
             get { return this.GetValue(DropDownToolTipProperty); }
             set { this.SetValue(DropDownToolTipProperty, value); }
@@ -203,7 +205,7 @@ namespace Fluent
         public bool IsButtonEnabled
         {
             get { return (bool)this.GetValue(IsButtonEnabledProperty); }
-            set { this.SetValue(IsButtonEnabledProperty, value); }
+            set { this.SetValue(IsButtonEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsButtonEnabled"/> dependency property.</summary>
@@ -220,7 +222,7 @@ namespace Fluent
         public bool IsDefinitive
         {
             get { return (bool)this.GetValue(IsDefinitiveProperty); }
-            set { this.SetValue(IsDefinitiveProperty, value); }
+            set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -393,7 +395,7 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (this.button != null)
+            if (this.button is not null)
             {
                 this.button.Click += this.OnButtonClick;
             }
@@ -401,7 +403,7 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            if (this.button != null)
+            if (this.button is not null)
             {
                 this.button.Click -= this.OnButtonClick;
             }
@@ -426,6 +428,10 @@ namespace Fluent
             this.UnSubscribeEvents();
 
             this.button = this.GetTemplateChild("PART_Button") as ToggleButton;
+            if (this.button is ISimplifiedStateControl control)
+            {
+                control.UpdateSimplifiedState(this.IsSimplified);
+            }
 
             base.OnApplyTemplate();
 
@@ -525,7 +531,7 @@ namespace Fluent
         public bool CanAddButtonToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddButtonToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddButtonToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddButtonToQuickAccessToolBar"/> dependency property.</summary>
@@ -537,7 +543,7 @@ namespace Fluent
         public IEnumerable<KeyTipInformation> GetKeyTipInformations(bool hide)
         {
             if (string.IsNullOrEmpty(this.KeyTip) == false
-                && this.button is null == false)
+                && this.button is not null)
             {
                 if (string.IsNullOrEmpty(this.SecondaryKeyTip))
                 {
@@ -548,7 +554,7 @@ namespace Fluent
                 }
                 else
                 {
-                    yield return new KeyTipInformation(this.KeyTip, this.button, hide)
+                    yield return new KeyTipInformation(this.KeyTip!, this.button, hide)
                     {
                         VisualTarget = this
                     };
@@ -570,6 +576,16 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
+        protected override void OnIsSimplifiedChanged(bool oldValue, bool newValue)
+        {
+            base.OnIsSimplifiedChanged(oldValue, newValue);
+            if (this.button is ISimplifiedStateControl control)
+            {
+                control.UpdateSimplifiedState(newValue);
+            }
+        }
+
+        /// <inheritdoc />
         protected override IEnumerator LogicalChildren
         {
             get
@@ -580,7 +596,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.button != null)
+                if (this.button is not null)
                 {
                     yield return this.button;
                 }

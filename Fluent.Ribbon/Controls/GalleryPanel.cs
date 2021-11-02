@@ -43,7 +43,7 @@ namespace Fluent
         public bool IsGrouped
         {
             get { return (bool)this.GetValue(IsGroupedProperty); }
-            set { this.SetValue(IsGroupedProperty, value); }
+            set { this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>
@@ -64,9 +64,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets property name to group items
         /// </summary>
-        public string GroupBy
+        public string? GroupBy
         {
-            get { return (string)this.GetValue(GroupByProperty); }
+            get { return (string?)this.GetValue(GroupByProperty); }
             set { this.SetValue(GroupByProperty, value); }
         }
 
@@ -87,14 +87,14 @@ namespace Fluent
         /// Gets or sets name of property which
         /// will use to group items in the Gallery.
         /// </summary>
-        public Func<object, string> GroupByAdvanced
+        public Func<object?, string>? GroupByAdvanced
         {
-            get { return (Func<object, string>)this.GetValue(GroupByAdvancedProperty); }
+            get { return (Func<object?, string>?)this.GetValue(GroupByAdvancedProperty); }
             set { this.SetValue(GroupByAdvancedProperty, value); }
         }
 
         /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
-        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
+        public static readonly DependencyProperty GroupByAdvancedProperty = DependencyProperty.Register(nameof(GroupByAdvanced), typeof(Func<object?, string>), typeof(GalleryPanel), new PropertyMetadata(OnGroupByAdvancedChanged));
 
         private static void OnGroupByAdvancedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -110,9 +110,9 @@ namespace Fluent
         /// Gets or sets ItemContainerGenerator which generates the
         /// user interface (UI) on behalf of its host, such as an  ItemsControl.
         /// </summary>
-        public ItemContainerGenerator ItemContainerGenerator
+        public ItemContainerGenerator? ItemContainerGenerator
         {
-            get { return (ItemContainerGenerator)this.GetValue(ItemContainerGeneratorProperty); }
+            get { return (ItemContainerGenerator?)this.GetValue(ItemContainerGeneratorProperty); }
             set { this.SetValue(ItemContainerGeneratorProperty, value); }
         }
 
@@ -172,9 +172,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets groups names separated by comma which must be shown
         /// </summary>
-        public string Filter
+        public string? Filter
         {
-            get { return (string)this.GetValue(FilterProperty); }
+            get { return (string?)this.GetValue(FilterProperty); }
             set { this.SetValue(FilterProperty, value); }
         }
 
@@ -339,7 +339,7 @@ namespace Fluent
 
             var dictionary = new Dictionary<string, GalleryGroupContainer>();
 
-            foreach (UIElement item in this.InternalChildren)
+            foreach (UIElement? item in this.InternalChildren)
             {
                 if (item is null)
                 {
@@ -347,9 +347,9 @@ namespace Fluent
                 }
 
                 // Resolve group name
-                string propertyValue = null;
+                string? propertyValue = null;
 
-                if (this.GroupByAdvanced != null)
+                if (this.GroupByAdvanced is not null)
                 {
                     propertyValue = this.ItemContainerGenerator is null
                         ? this.GroupByAdvanced(item)
@@ -369,14 +369,14 @@ namespace Fluent
 
                 // Make invisible if it is not in filter (or is not grouped)
                 if (this.IsGrouped == false
-                    || (filter != null && filter.Contains(propertyValue) == false))
+                    || (filter is not null && filter.Contains(propertyValue) == false))
                 {
                     item.Measure(new Size(0, 0));
                     item.Arrange(new Rect(0, 0, 0, 0));
                 }
 
                 // Skip if it is not in filter
-                if (filter != null
+                if (filter is not null
                     && filter.Contains(propertyValue) == false)
                 {
                     continue;
@@ -474,8 +474,13 @@ namespace Fluent
                 finalRect.Y += item.DesiredSize.Height;
 
                 // Now arrange our actual items using arranged size of placeholders
-                foreach (GalleryItemPlaceholder placeholder in item.Items)
+                foreach (GalleryItemPlaceholder? placeholder in item.Items)
                 {
+                    if (placeholder is null)
+                    {
+                        continue;
+                    }
+
                     var leftTop = placeholder.TranslatePoint(default, this);
 
                     placeholder.Target.Arrange(new Rect(leftTop.X, leftTop.Y, placeholder.ArrangedSize.Width, placeholder.ArrangedSize.Height));
@@ -489,7 +494,7 @@ namespace Fluent
 
         #region Private Methods
 
-        private string GetPropertyValueAsString(object item)
+        private string? GetPropertyValueAsString(object? item)
         {
             if (item is null
                 || this.GroupBy is null)

@@ -1,4 +1,5 @@
-﻿namespace Fluent.Localization
+﻿#pragma warning disable 8618
+namespace Fluent.Localization
 {
     using System;
     using System.ComponentModel;
@@ -31,12 +32,12 @@
         /// <summary>
         /// Gets or sets the culture name.
         /// </summary>
-        public string CultureName { get; }
+        public string? CultureName { get; }
 
         /// <summary>
         /// Gets or sets the display name.
         /// </summary>
-        public string DisplayName { get; }
+        public string? DisplayName { get; }
 
         /// <summary>
         /// Fallback instance of <see cref="English"/> for localization.
@@ -62,26 +63,6 @@
         /// Gets customize Status Bar
         /// </summary>
         public abstract string CustomizeStatusBar { get; }
-
-        /// <summary>
-        /// Expand Button ScreenTip Text
-        /// </summary>
-        public abstract string ExpandButtonScreenTipText { get; }
-
-        /// <summary>
-        /// Expand Button ScreenTip Title
-        /// </summary>
-        public abstract string ExpandButtonScreenTipTitle { get; }
-
-        /// <summary>
-        /// Minimize Button ScreenTip Text
-        /// </summary>
-        public abstract string MinimizeButtonScreenTipText { get; }
-
-        /// <summary>
-        /// Minimize Button ScreenTip Title
-        /// </summary>
-        public abstract string MinimizeButtonScreenTipTitle { get; }
 
         /// <summary>
         /// Gets text for representing "More colors..."
@@ -144,12 +125,12 @@
         public abstract string RibbonContextMenuCustomizeQuickAccessToolBar { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Customize Quick Access Toolbar
+        /// Ribbon Context Menu Customize the ribbon
         /// </summary>
         public abstract string RibbonContextMenuCustomizeRibbon { get; }
 
         /// <summary>
-        /// Ribbon Context Menu Minimize Quick Access Toolbar
+        /// Ribbon Context Menu Minimize the ribbon
         /// </summary>
         public abstract string RibbonContextMenuMinimizeRibbon { get; }
 
@@ -169,6 +150,46 @@
         public abstract string RibbonContextMenuShowBelow { get; }
 
         /// <summary>
+        /// Show Ribbon
+        /// </summary>
+        public virtual string ShowRibbon { get; }
+
+        /// <summary>
+        /// Expand Ribbon
+        /// </summary>
+        public virtual string ExpandRibbon { get; }
+
+        /// <summary>
+        /// Minimize Ribbon
+        /// </summary>
+        public virtual string MinimizeRibbon { get; }
+
+        /// <summary>
+        /// Ribbon Layout
+        /// </summary>
+        public virtual string RibbonLayout { get; }
+
+        /// <summary>
+        /// Use classic Ribbon
+        /// </summary>
+        public abstract string UseClassicRibbon { get; }
+
+        /// <summary>
+        /// Use simplified Ribbon
+        /// </summary>
+        public abstract string UseSimplifiedRibbon { get; }
+
+        /// <summary>
+        /// DisplayOptions Button ScreenTip Title
+        /// </summary>
+        public virtual string DisplayOptionsButtonScreenTipTitle { get; }
+
+        /// <summary>
+        /// DisplayOptions Button ScreenTip Text
+        /// </summary>
+        public virtual string DisplayOptionsButtonScreenTipText { get; }
+
+        /// <summary>
         /// Gets ScreenTip's disable reason header
         /// </summary>
         public abstract string ScreenTipDisableReasonHeader { get; }
@@ -183,11 +204,11 @@
         /// This class only implements <see cref="INotifyPropertyChanged"/> to prevent WPF from trying to listen to changes by using other ways than listening for this event.
         /// </summary>
 #pragma warning disable 67
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 #pragma warning restore 67
 
         /// <inheritdoc />
-        public bool Equals(RibbonLocalizationBase other)
+        public bool Equals(RibbonLocalizationBase? other)
         {
             if (other is null)
             {
@@ -203,7 +224,7 @@
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
             {
@@ -222,8 +243,10 @@
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.CultureName != null
+            return this.CultureName is not null
+#pragma warning disable CA1307 // Specify StringComparison for clarity
                 ? this.CultureName.GetHashCode()
+#pragma warning restore CA1307 // Specify StringComparison for clarity
                 : 0;
         }
 

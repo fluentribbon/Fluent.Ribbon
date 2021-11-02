@@ -5,11 +5,13 @@
     /// <summary>
     /// Scope guard to prevent reentrancy.
     /// </summary>
+#pragma warning disable CA1063 // Implement IDisposable Correctly
     public class ScopeGuard : IDisposable
+#pragma warning restore CA1063 // Implement IDisposable Correctly
     {
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
-        private readonly Action onEntry;
-        private readonly Action onDispose;
+        private readonly Action? onEntry;
+        private readonly Action? onDispose;
 
         /// <summary>
         /// Creates a new instance.
@@ -52,7 +54,11 @@
         }
 
         /// <inheritdoc />
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
         public void Dispose()
+#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
+#pragma warning restore CA1063 // Implement IDisposable Correctly
         {
             var wasActive = this.IsActive;
             this.IsActive = false;

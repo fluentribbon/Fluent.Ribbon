@@ -16,9 +16,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets ribbon status bar item
         /// </summary>
-        public string Title
+        public string? Title
         {
-            get { return (string)this.GetValue(TitleProperty); }
+            get { return (string?)this.GetValue(TitleProperty); }
             set { this.SetValue(TitleProperty, value); }
         }
 
@@ -33,9 +33,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets ribbon status bar value
         /// </summary>
-        public string Value
+        public string? Value
         {
-            get { return (string)this.GetValue(ValueProperty); }
+            get { return (string?)this.GetValue(ValueProperty); }
             set { this.SetValue(ValueProperty, value); }
         }
 
@@ -60,7 +60,7 @@ namespace Fluent
         public bool IsChecked
         {
             get { return (bool)this.GetValue(IsCheckedProperty); }
-            set { this.SetValue(IsCheckedProperty, value); }
+            set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
@@ -92,12 +92,12 @@ namespace Fluent
         /// <summary>
         /// Occurs when status bar item checks
         /// </summary>
-        public event RoutedEventHandler Checked;
+        public event RoutedEventHandler? Checked;
 
         /// <summary>
         /// Occurs when status bar item unchecks
         /// </summary>
-        public event RoutedEventHandler Unchecked;
+        public event RoutedEventHandler? Unchecked;
 
         // Raises checked event
 #pragma warning disable WPF0005 // Name of PropertyChangedCallback should match registered name.
@@ -135,12 +135,12 @@ namespace Fluent
         }
 
         // Coerce content
-        private static object CoerceContent(DependencyObject d, object basevalue)
+        private static object? CoerceContent(DependencyObject d, object? basevalue)
         {
             var item = (StatusBarItem)d;
             // if content is null returns value
             if (basevalue is null
-                && item.Value != null)
+                && item.Value is not null)
             {
                 return item.Value;
             }
@@ -149,7 +149,7 @@ namespace Fluent
         }
 
         // Coerce visibility
-        private static object CoerceVisibility(DependencyObject d, object basevalue)
+        private static object? CoerceVisibility(DependencyObject d, object? basevalue)
         {
             // If unchecked when not visible in status bar
             if (((StatusBarItem)d).IsChecked == false)

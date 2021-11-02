@@ -1,37 +1,37 @@
 ﻿<fluent:RibbonWindow x:Class="FluentTest.RibbonWindowWithBackgroundImage"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:fluent="urn:fluent-ribbon"
                      xmlns:converters="clr-namespace:FluentTest.Converters"
-                     mc:Ignorable="d"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:fluent="urn:fluent-ribbon"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      Title="RibbonWindowWithBackgroundImage"
-                     Height="600"
                      Width="800"
+                     Height="600"
+                     TitleBackground="Transparent"
                      TitleForeground="Black"
-                     TitleBackground="Transparent">
+                     mc:Ignorable="d">
     <fluent:RibbonWindow.Resources>
         <converters:BackgroundImageViewportConverter x:Key="BackgroundImageViewportConverter" />
 
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="Transparent" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="Black" />
-            
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{DynamicResource WhiteColor}" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="Black" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="Black" />
     </fluent:RibbonWindow.Resources>
-    
+
     <Window.Background>
-        <ImageBrush ImageSource="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/banner.png"
+        <ImageBrush AlignmentX="Right"
+                    AlignmentY="Top"
+                    ImageSource="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/banner.png"
                     Stretch="Fill"
-                    Viewport="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BackgroundImageViewportConverter}}"
-                    ViewportUnits="Absolute"
                     TileMode="None"
-                    AlignmentX="Right"
-                    AlignmentY="Top" />
+                    Viewport="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BackgroundImageViewportConverter}}"
+                    ViewportUnits="Absolute" />
     </Window.Background>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -56,10 +56,10 @@
             </fluent:RibbonTabItem>
         </fluent:Ribbon>
 
-        <Grid Background="{DynamicResource WhiteBrush}"
-              Grid.Row="1">
-            <TextBlock TextWrapping="Wrap"
-                       Margin="5">
+        <Grid Grid.Row="1"
+              Background="{DynamicResource WhiteBrush}">
+            <TextBlock Margin="5"
+                       TextWrapping="Wrap">
                 This sample shows how to use a background image for the titlebar.
             </TextBlock>
         </Grid>

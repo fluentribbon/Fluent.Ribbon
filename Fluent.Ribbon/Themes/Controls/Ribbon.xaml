@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                    
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
@@ -10,97 +10,71 @@
             <Style BasedOn="{StaticResource MenuSeparatorStyle}"
                    TargetType="{x:Type Separator}" />
         </ControlTemplate.Resources>
-        
+
         <Border Background="{TemplateBinding Background}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                BorderBrush="{TemplateBinding BorderBrush}">
-            <Grid x:Name="PART_LayoutRoot" 
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid x:Name="PART_LayoutRoot"
                   Width="Auto"
                   Height="Auto">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                
+
                 <Fluent:RibbonTabControl x:Name="PART_RibbonTabControl"
-                                         Menu="{TemplateBinding Menu}"
+                                         AreTabHeadersVisible="{TemplateBinding AreTabHeadersVisible}"
                                          ContentHeight="{TemplateBinding ContentHeight}"
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
-                                         AreTabHeadersVisible="{TemplateBinding AreTabHeadersVisible}"
+                                         IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
                                          IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
-                                         IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}" />
-                
+                                         Menu="{TemplateBinding Menu}" />
+
                 <ContentControl x:Name="quickAccessToolBarHolder"
-                            Grid.Row="1"
-                            Height="{TemplateBinding QuickAccessToolBarHeight}"
-                            HorizontalAlignment="Left">
+                                Grid.Row="1"
+                                Height="{TemplateBinding QuickAccessToolBarHeight}"
+                                HorizontalAlignment="Left">
                     <Fluent:QuickAccessToolBar x:Name="PART_QuickAccessToolBar"
-                                            ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                            IsMenuDropDownVisible="{TemplateBinding IsQuickAccessToolBarMenuDropDownVisible}"
-                                            HorizontalAlignment="Left"
-                                            Focusable="False" />
+                                               HorizontalAlignment="Left"
+                                               Focusable="False"
+                                               IsMenuDropDownVisible="{TemplateBinding IsQuickAccessToolBarMenuDropDownVisible}"
+                                               ShowAboveRibbon="{Binding ShowQuickAccessToolBarAboveRibbon, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
                 </ContentControl>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsQuickAccessToolBarVisible"
-                     Value="False">
-                <Setter Property="Visibility"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="PART_QuickAccessToolBar"
-                        Value="Collapsed" />
+            <Trigger Property="IsQuickAccessToolBarVisible" Value="False">
+                <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="IsCollapsed"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="PART_RibbonTabControl"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="Collapsed" />
+            <Trigger Property="IsCollapsed" Value="True">
+                <Setter TargetName="PART_RibbonTabControl" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="QuickAccessToolBar"
-                     Value="{x:Null}">
-                <Setter Property="Content"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="{x:Null}" />
-                <Setter Property="Visibility"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="Collapsed" />
+            <Trigger Property="QuickAccessToolBar" Value="{x:Null}">
+                <Setter TargetName="quickAccessToolBarHolder" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="ShowQuickAccessToolBarAboveRibbon"
-                     Value="True">
-                <Setter Property="Content"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="{x:Null}" />
-                <Setter Property="Visibility"
-                        TargetName="quickAccessToolBarHolder"
-                        Value="Collapsed" />
+            <Trigger Property="ShowQuickAccessToolBarAboveRibbon" Value="True">
+                <Setter TargetName="quickAccessToolBarHolder" Property="Content" Value="{x:Null}" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsSimplified" Value="True">
+                <Setter TargetName="PART_RibbonTabControl" Property="ContentHeight" Value="42" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="RibbonStyle"
            TargetType="{x:Type Fluent:Ribbon}">
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonControlTemplate}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="IsTabStop"
-                Value="False" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding"
-                Value="True" />
-        <Setter Property="TitleBar"
-                Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue={x:Null}}" />
-        <Setter Property="QuickAccessToolBarHeight"
-                Value="{Binding TitleBar.ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}" />
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="QuickAccessToolBarHeight" Value="{Binding TitleBar.ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
+        <Setter Property="Template" Value="{DynamicResource RibbonControlTemplate}" />
+        <Setter Property="TitleBar" Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue={x:Null}}" />
+        <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 </ResourceDictionary>

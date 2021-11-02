@@ -46,36 +46,44 @@
             }
         }
 
-        private void SourceOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void SourceOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        var item = (TItem)e.NewItems[i];
-                        this.Target.Insert(e.NewStartingIndex + i, item);
+                        this.Target.Insert(e.NewStartingIndex + i, e.NewItems[i]);
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var item in e.OldItems)
+                    if (e.OldItems is not null)
                     {
-                        this.Target.Remove((TItem)item);
+                        foreach (var item in e.OldItems)
+                        {
+                            this.Target.Remove(item);
+                        }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var item in e.OldItems)
+                    if (e.OldItems is not null)
                     {
-                        this.Target.Remove((TItem)item);
+                        foreach (var item in e.OldItems)
+                        {
+                            this.Target.Remove(item);
+                        }
                     }
 
-                    foreach (var item in e.NewItems)
+                    if (e.NewItems is not null)
                     {
-                        this.Target.Add((TItem)item);
+                        foreach (var item in e.NewItems)
+                        {
+                            this.Target.Add(item);
+                        }
                     }
 
                     break;

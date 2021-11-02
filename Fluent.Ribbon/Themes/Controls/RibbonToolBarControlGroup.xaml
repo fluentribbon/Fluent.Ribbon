@@ -6,30 +6,25 @@
                     mc:Ignorable="d">
     <Style x:Key="RibbonToolBarControlGroupStyle"
            TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
-        <Setter Property="Template"
-                Value="{DynamicResource RibbonToolBarControlGroupTemplate}" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template" Value="{DynamicResource RibbonToolBarControlGroupTemplate}" />
     </Style>
 
     <ControlTemplate x:Key="RibbonToolBarControlGroupTemplate"
                      TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
         <StackPanel Orientation="Horizontal">
             <Separator x:Name="separatorLeft"
-                       Visibility="Collapsed"
-                       Style="{DynamicResource RibbonSeparatorStyle}" />
-            <StackPanel Orientation="Horizontal"
-                        IsItemsHost="true" />
-            <Separator  x:Name="separatorRight"
-                        Visibility="Collapsed"
-                        Style="{DynamicResource RibbonSeparatorStyle}" />
+                       Style="{DynamicResource RibbonSeparatorStyle}"
+                       Visibility="Collapsed" />
+            <StackPanel IsItemsHost="true"
+                        Orientation="Horizontal" />
+            <Separator x:Name="separatorRight"
+                       Style="{DynamicResource RibbonSeparatorStyle}"
+                       Visibility="Collapsed" />
         </StackPanel>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsLastInRow"
-                     Value="False">
-                <Setter Property="Visibility"
-                        TargetName="separatorRight"
-                        Value="Visible" />
+            <Trigger Property="IsLastInRow" Value="False">
+                <Setter TargetName="separatorRight" Property="Visibility" Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

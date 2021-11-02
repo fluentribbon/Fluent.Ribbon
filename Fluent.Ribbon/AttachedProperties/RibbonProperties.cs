@@ -94,15 +94,19 @@ namespace Fluent
             // Find parent group box
             var groupBox = FindParentRibbonGroupBox(d);
             var element = (UIElement)d;
+            var isSimplified = groupBox?.IsSimplified ?? false;
 
-            SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large);
+            if (!isSimplified)
+            {
+                SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large, isSimplified);
+            }
         }
 
         // Finds parent group box
-        internal static RibbonGroupBox FindParentRibbonGroupBox(DependencyObject element)
+        internal static RibbonGroupBox? FindParentRibbonGroupBox(DependencyObject element)
         {
             var currentElement = element;
-            RibbonGroupBox groupBox;
+            RibbonGroupBox? groupBox;
 
             while ((groupBox = currentElement as RibbonGroupBox) is null)
             {
@@ -124,9 +128,71 @@ namespace Fluent
         /// </summary>
         /// <param name="element">UI Element</param>
         /// <param name="state">Group box state</param>
-        public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state)
+        /// <param name="isSimplified">Group box isSimplified state</param>
+        public static void SetAppropriateSize(DependencyObject element, RibbonGroupBoxState state, bool isSimplified)
         {
-            SetSize(element, GetSizeDefinition(element).GetSize(state));
+            var sizeDefinition = isSimplified ? GetSimplifiedSizeDefinition(element) : GetSizeDefinition(element);
+            SetSize(element, sizeDefinition.GetSize(state));
+        }
+
+        #endregion
+
+        #region SimplifiedSizeDefinition Property
+
+        /// <summary>
+        /// Using a DependencyProperty as the backing store for SimplifiedSizeDefinition.
+        /// This enables animation, styling, binding, etc...
+        /// </summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty =
+            DependencyProperty.RegisterAttached(nameof(ISimplifiedRibbonControl.SimplifiedSizeDefinition), typeof(RibbonControlSizeDefinition), typeof(RibbonProperties),
+                new FrameworkPropertyMetadata(new RibbonControlSizeDefinition(RibbonControlSize.Large, RibbonControlSize.Middle, RibbonControlSize.Small),
+                                              FrameworkPropertyMetadataOptions.AffectsArrange |
+                                              FrameworkPropertyMetadataOptions.AffectsMeasure |
+                                              FrameworkPropertyMetadataOptions.AffectsRender |
+                                              FrameworkPropertyMetadataOptions.AffectsParentArrange |
+                                              FrameworkPropertyMetadataOptions.AffectsParentMeasure,
+                                              OnSimplifiedSizeDefinitionChanged));
+
+        /// <summary>
+        /// Sets <see cref="SimplifiedSizeDefinitionProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        public static void SetSimplifiedSizeDefinition(DependencyObject element, RibbonControlSizeDefinition value)
+        {
+            element.SetValue(SimplifiedSizeDefinitionProperty, value);
+        }
+
+        /// <summary>
+        /// Gets <see cref="SimplifiedSizeDefinitionProperty"/> for <paramref name="element"/>.
+        /// </summary>
+        //[AttachedPropertyBrowsableForType(typeof(ISimplifiedRibbonControl))]
+        public static RibbonControlSizeDefinition GetSimplifiedSizeDefinition(DependencyObject element)
+        {
+            return (RibbonControlSizeDefinition)element.GetValue(SimplifiedSizeDefinitionProperty);
+        }
+
+        // Handles RibbonSizeDefinitionProperty changes
+        internal static void OnSimplifiedSizeDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Find parent group box
+            var groupBox = FindParentRibbonGroupBox(d);
+            var element = (UIElement)d;
+            var isSimplified = groupBox?.IsSimplified ?? false;
+
+            if (isSimplified)
+            {
+                SetAppropriateSize(element, groupBox?.State ?? RibbonGroupBoxState.Large, isSimplified);
+            }
+        }
+
+        /// <summary>
+        /// Sets appropriate size of the control according to the
+        /// given ribbon control size and control's size definition
+        /// </summary>
+        /// <param name="element">UI Element</param>
+        /// <param name="size">Ribbon control size before applying SizeDefinition</param>
+        public static void SetAppropriateSize(DependencyObject element, RibbonControlSize size)
+        {
+            SetSize(element, GetSizeDefinition(element).GetSize(size));
         }
 
         #endregion
@@ -141,7 +207,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverBackground(DependencyObject element, Brush value)
+        public static void SetMouseOverBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverBackgroundProperty, value);
         }
@@ -150,7 +216,7 @@ namespace Fluent
         /// Gets <see cref="MouseOverBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverBackground(DependencyObject element)
+        public static Brush? GetMouseOverBackground(DependencyObject element)
         {
             return (Brush)element.GetValue(MouseOverBackgroundProperty);
         }
@@ -167,7 +233,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetMouseOverForeground(DependencyObject element, Brush value)
+        public static void SetMouseOverForeground(DependencyObject element, Brush? value)
         {
             element.SetValue(MouseOverForegroundProperty, value);
         }
@@ -176,9 +242,9 @@ namespace Fluent
         /// Gets <see cref="MouseOverForegroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetMouseOverForeground(DependencyObject element)
+        public static Brush? GetMouseOverForeground(DependencyObject element)
         {
-            return (Brush)element.GetValue(MouseOverForegroundProperty);
+            return (Brush?)element.GetValue(MouseOverForegroundProperty);
         }
 
         #endregion
@@ -193,7 +259,7 @@ namespace Fluent
         /// <summary>
         /// Sets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
-        public static void SetIsSelectedBackground(DependencyObject element, Brush value)
+        public static void SetIsSelectedBackground(DependencyObject element, Brush? value)
         {
             element.SetValue(IsSelectedBackgroundProperty, value);
         }
@@ -202,9 +268,9 @@ namespace Fluent
         /// Gets <see cref="IsSelectedBackgroundProperty"/> for <paramref name="element"/>.
         /// </summary>
         //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
-        public static Brush GetIsSelectedBackground(DependencyObject element)
+        public static Brush? GetIsSelectedBackground(DependencyObject element)
         {
-            return (Brush)element.GetValue(IsSelectedBackgroundProperty);
+            return (Brush?)element.GetValue(IsSelectedBackgroundProperty);
         }
 
         #endregion
@@ -224,8 +290,15 @@ namespace Fluent
         }
 
         /// <summary>Helper for getting <see cref="LastVisibleWidthProperty"/> on <paramref name="element"/>.</summary>
-        public static double GetLastVisibleWidth(DependencyObject element)
+        public static double GetLastVisibleWidth(DependencyObject? element)
         {
+#pragma warning disable WPF0042 // Avoid side effects in CLR accessors.
+            if (element is null)
+            {
+                return 0;
+            }
+#pragma warning restore WPF0042 // Avoid side effects in CLR accessors.
+
             return (double)element.GetValue(LastVisibleWidthProperty);
         }
 
@@ -242,7 +315,7 @@ namespace Fluent
         /// <summary>Helper for setting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
         public static void SetIsElementInQuickAccessToolBar(DependencyObject element, bool value)
         {
-            element.SetValue(IsElementInQuickAccessToolBarProperty, value);
+            element.SetValue(IsElementInQuickAccessToolBarProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>Helper for getting <see cref="IsElementInQuickAccessToolBarProperty"/> on <paramref name="element"/>.</summary>
@@ -252,5 +325,32 @@ namespace Fluent
         }
 
         #endregion IsElementInQuickAccessToolBarProperty
+
+        #region DesiredIconSize
+
+#pragma warning disable WPF0010
+        /// <summary>
+        /// Defines the desired icon size for the element.
+        /// </summary>
+        public static readonly DependencyProperty IconSizeProperty = DependencyProperty.RegisterAttached(
+            "IconSize", typeof(IconSize), typeof(RibbonProperties), new PropertyMetadata(IconSizeBoxes.Small));
+#pragma warning restore WPF0010
+
+        /// <summary>Helper for setting <see cref="IconSizeProperty"/> on <paramref name="element"/>.</summary>
+        public static void SetIconSize(DependencyObject element, IconSize value)
+        {
+            element.SetValue(IconSizeProperty, IconSizeBoxes.Box(value));
+        }
+
+        /// <summary>Helper for getting <see cref="IconSizeProperty"/> from <paramref name="element"/>.</summary>
+        [AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
+        [AttachedPropertyBrowsableForType(typeof(IMediumIconProvider))]
+        [AttachedPropertyBrowsableForType(typeof(ILargeIconProvider))]
+        public static IconSize GetIconSize(DependencyObject element)
+        {
+            return (IconSize)element.GetValue(IconSizeProperty);
+        }
+
+        #endregion
     }
 }

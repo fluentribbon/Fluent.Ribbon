@@ -18,7 +18,7 @@
         /// If there are no visual children <c>null</c> is returned.
         /// </summary>
         /// <returns>The first visual child of <paramref name="parent"/> or <c>null</c> if there are no children.</returns>
-        public static DependencyObject GetFirstVisualChild(DependencyObject parent)
+        public static DependencyObject? GetFirstVisualChild(DependencyObject parent)
         {
             var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
 
@@ -34,7 +34,7 @@
         /// The visual child of type <typeparamref name="T"/> that matches <paramref name="predicate"/>.
         /// Returns <c>null</c> if no child matches.
         /// </returns>
-        public static T FindImmediateVisualChild<T>(DependencyObject parent, Predicate<T> predicate)
+        public static T? FindImmediateVisualChild<T>(DependencyObject parent, Predicate<T> predicate)
             where T : DependencyObject
         {
             foreach (var child in GetVisualChildren(parent))
@@ -55,7 +55,7 @@
         /// <typeparam name="TChildItem">The type of visual child to find.</typeparam>
         /// <param name="parent">The parent element whose visual tree shall be walked down.</param>
         /// <returns>The first element of type TChildItem found in the visual tree is returned. If none is found, null is returned.</returns>
-        public static TChildItem FindVisualChild<TChildItem>(DependencyObject parent)
+        public static TChildItem? FindVisualChild<TChildItem>(DependencyObject parent)
             where TChildItem : DependencyObject
         {
             foreach (var child in GetVisualChildren(parent))
@@ -66,7 +66,7 @@
                 }
 
                 var childOfChild = FindVisualChild<TChildItem>(child);
-                if (childOfChild != null)
+                if (childOfChild is not null)
                 {
                     return childOfChild;
                 }
@@ -97,7 +97,7 @@
         /// </summary>
         /// <returns>The found visual/logical parent or null.</returns>
         /// <remarks>This method searches further up the parent chain instead of just using the immediate parent.</remarks>
-        public static T GetParent<T>(DependencyObject element, Predicate<T> filter = null)
+        public static T? GetParent<T>(DependencyObject? element, Predicate<T>? filter = null)
             where T : DependencyObject
         {
             if (element is null)
@@ -108,7 +108,7 @@
             {
                 var item = GetVisualParent(element);
 
-                while (item != null)
+                while (item is not null)
                 {
                     if (item is T variable
                         && (filter?.Invoke(variable) ?? true))
@@ -123,7 +123,7 @@
             {
                 var item = LogicalTreeHelper.GetParent(element);
 
-                while (item != null)
+                while (item is not null)
                 {
                     if (item is T variable
                         && (filter?.Invoke(variable) ?? true))
@@ -151,7 +151,7 @@
         /// Returns the visual parent of <paramref name="element"/>.
         /// This also works for <see cref="ContentElement"/> and <see cref="FrameworkContentElement"/>.
         /// </summary>
-        public static DependencyObject GetVisualParent(DependencyObject element)
+        public static DependencyObject? GetVisualParent(DependencyObject? element)
         {
             if (element is null)
             {
@@ -162,7 +162,7 @@
             {
                 var parent = ContentOperations.GetParent(contentElement);
 
-                if (parent != null)
+                if (parent is not null)
                 {
                     return parent;
                 }

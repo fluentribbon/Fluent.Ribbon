@@ -2,6 +2,7 @@
 namespace Fluent
 {
     using System;
+    using System.Collections;
     using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
@@ -12,6 +13,7 @@ namespace Fluent
     using System.Windows.Threading;
     using Fluent.Converters;
     using Fluent.Extensions;
+    using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
 
@@ -22,19 +24,47 @@ namespace Fluent
     [TemplatePart(Name = "PART_TextBox", Type = typeof(System.Windows.Controls.TextBox))]
     [TemplatePart(Name = "PART_ButtonUp", Type = typeof(RepeatButton))]
     [TemplatePart(Name = "PART_ButtonDown", Type = typeof(RepeatButton))]
-    public class Spinner : RibbonControl
+    public class Spinner : RibbonControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         /// <summary>
         /// Occurs when value has been changed
         /// </summary>
-        public event RoutedPropertyChangedEventHandler<double> ValueChanged;
+        public event RoutedPropertyChangedEventHandler<double>? ValueChanged;
 
         // Parts of the control (must be in control template)
-        private System.Windows.Controls.TextBox textBox;
-        private RepeatButton buttonUp;
-        private RepeatButton buttonDown;
+        private System.Windows.Controls.TextBox? textBox;
+        private RepeatButton? buttonUp;
+        private RepeatButton? buttonDown;
 
         #region Properties
+
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(Spinner));
+
+        #endregion
+
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(Spinner), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        #endregion
 
         #region Value
 
@@ -53,8 +83,13 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty ValueProperty;
 
-        private static object CoerceValue(DependencyObject d, object basevalue)
+        private static object CoerceValue(DependencyObject d, object? basevalue)
         {
+            if (basevalue is null)
+            {
+                return double.NaN;
+            }
+
             var spinner = (Spinner)d;
             var value = (double)basevalue;
             value = GetLimitedValue(spinner, value);
@@ -95,9 +130,9 @@ namespace Fluent
         /// <summary>
         /// Gets current text from the spinner
         /// </summary>
-        public string Text
+        public string? Text
         {
-            get { return (string)this.GetValue(TextProperty); }
+            get { return (string?)this.GetValue(TextProperty); }
             private set { this.SetValue(TextPropertyKey, value); }
         }
 
@@ -143,10 +178,10 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MinimumProperty;
 
-        private static object CoerceMinimum(DependencyObject d, object basevalue)
+        private static object CoerceMinimum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
+            var value = (double)basevalue!;
 
             if (spinner.Maximum < value)
             {
@@ -186,17 +221,17 @@ namespace Fluent
         /// </summary>
         public static readonly DependencyProperty MaximumProperty;
 
-        private static object CoerceMaximum(DependencyObject d, object basevalue)
+        private static object? CoerceMaximum(DependencyObject d, object? basevalue)
         {
             var spinner = (Spinner)d;
-            var value = (double)basevalue;
 
-            if (spinner.Minimum > value)
+            if (basevalue is double value
+                && spinner.Minimum > value)
             {
                 return spinner.Minimum;
             }
 
-            return value;
+            return basevalue;
         }
 
         private static void OnMaximumChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -316,14 +351,33 @@ namespace Fluent
         public bool SelectAllTextOnFocus
         {
             get { return (bool)this.GetValue(SelectAllTextOnFocusProperty); }
-            set { this.SetValue(SelectAllTextOnFocusProperty, value); }
+            set { this.SetValue(SelectAllTextOnFocusProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="SelectAllTextOnFocus"/> dependency property.</summary>
         public static readonly DependencyProperty SelectAllTextOnFocusProperty =
             DependencyProperty.Register(nameof(SelectAllTextOnFocus), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
 
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(Spinner), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
         #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -350,7 +404,7 @@ namespace Fluent
         /// </summary>
         public void SelectAll()
         {
-            this.textBox.SelectAll();
+            this.textBox?.SelectAll();
         }
 
         #endregion
@@ -362,19 +416,19 @@ namespace Fluent
         /// </summary>
         public override void OnApplyTemplate()
         {
-            if (this.buttonUp != null)
+            if (this.buttonUp is not null)
             {
                 this.buttonUp.Click -= this.OnButtonUpClick;
                 BindingOperations.ClearAllBindings(this.buttonUp);
             }
 
-            if (this.buttonDown != null)
+            if (this.buttonDown is not null)
             {
                 this.buttonDown.Click -= this.OnButtonDownClick;
                 BindingOperations.ClearAllBindings(this.buttonDown);
             }
 
-            if (this.textBox != null)
+            if (this.textBox is not null)
             {
                 this.textBox.LostKeyboardFocus -= this.OnTextBoxLostKeyboardFocus;
                 this.textBox.PreviewKeyDown -= this.OnTextBoxPreviewKeyDown;
@@ -386,7 +440,9 @@ namespace Fluent
             this.buttonDown = this.GetTemplateChild("PART_ButtonDown") as RepeatButton;
 
             // Check template
-            if (this.IsTemplateValid() == false)
+            if (this.textBox is null
+                || this.buttonUp is null
+                || this.buttonDown is null)
             {
                 Debug.WriteLine("Template for Spinner control is invalid");
                 return;
@@ -406,13 +462,6 @@ namespace Fluent
             this.textBox.PreviewKeyDown += this.OnTextBoxPreviewKeyDown;
 
             this.ValueToTextBoxText();
-        }
-
-        private bool IsTemplateValid()
-        {
-            return this.textBox != null
-                && this.buttonUp != null
-                && this.buttonDown != null;
         }
 
         #endregion
@@ -435,7 +484,8 @@ namespace Fluent
 
         private void HandleTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
-            if (this.SelectAllTextOnFocus)
+            if (this.SelectAllTextOnFocus
+                && this.textBox is not null)
             {
                 // Async because setting the carret happens after focus.
                 this.RunInDispatcherAsync(() =>
@@ -493,18 +543,20 @@ namespace Fluent
                 || e.Key == Key.Escape)
             {
                 // Move Focus
-                this.textBox.Focusable = false;
+                this.textBox!.Focusable = false;
                 this.Focus();
-                this.textBox.Focusable = true;
+                this.textBox!.Focusable = true;
                 e.Handled = true;
             }
 
-            if (e.Key == Key.Up)
+            if (e.Key == Key.Up
+                && this.buttonUp is not null)
             {
                 this.buttonUp.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
 
-            if (e.Key == Key.Down)
+            if (e.Key == Key.Down
+                && this.buttonDown is not null)
             {
                 this.buttonDown.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
             }
@@ -513,7 +565,7 @@ namespace Fluent
         private void TextBoxTextToValue()
         {
             var converterParam = new Tuple<string, double>(this.Format, this.Value);
-            var newValue = (double)this.TextToValueConverter.Convert(this.textBox.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
+            var newValue = (double)this.TextToValueConverter.Convert(this.textBox!.Text, typeof(double), converterParam, CultureInfo.CurrentCulture);
 
             this.Value = GetLimitedValue(this, newValue);
 
@@ -562,5 +614,29 @@ namespace Fluent
         }
 
         #endregion
+
+        /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
+
+        /// <inheritdoc />
+        protected override IEnumerator LogicalChildren
+        {
+            get
+            {
+                var baseEnumerator = base.LogicalChildren;
+                while (baseEnumerator?.MoveNext() == true)
+                {
+                    yield return baseEnumerator.Current;
+                }
+
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+            }
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace Fluent
         private readonly Ribbon ribbon;
 
         // Name of the isolated storage file
-        private string isolatedStorageFileName;
+        private string? isolatedStorageFileName;
 
         private readonly Stream memoryStream;
 
@@ -61,7 +61,7 @@ namespace Fluent
         {
             get
             {
-                if (this.isolatedStorageFileName != null)
+                if (this.isolatedStorageFileName is not null)
                 {
                     return this.isolatedStorageFileName;
                 }
@@ -69,7 +69,7 @@ namespace Fluent
                 var stringForHash = string.Empty;
                 var window = Window.GetWindow(this.ribbon);
 
-                if (window != null)
+                if (window is not null)
                 {
                     stringForHash += "." + window.GetType().FullName;
 

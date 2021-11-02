@@ -15,7 +15,7 @@
         /// options. When this property is set, only one ToggleButton in the specified
         /// group can be selected at a time.
         /// </summary>
-        string GroupName { get; set; }
+        string? GroupName { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether SplitButton is checked

@@ -45,11 +45,11 @@
         {
             var children = new List<AutomationPeer>();
 
-            if (this.OwningBackstage.Content != null)
+            if (this.OwningBackstage.Content is not null)
             {
                 var automationPeer = CreatePeerForElement(this.OwningBackstage.Content);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }

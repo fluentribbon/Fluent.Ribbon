@@ -3,100 +3,69 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="TwoLineLabelStyle"
            TargetType="{x:Type Fluent:TwoLineLabel}">
-        <Setter Property="Template"
-                Value="{DynamicResource TwoLineLabelControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource TwoLineLabelControlTemplate}" />
     </Style>
 
     <ControlTemplate x:Key="TwoLineLabelControlTemplate"
                      TargetType="{x:Type Fluent:TwoLineLabel}">
         <StackPanel x:Name="stackPanel"
-                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-            <AccessText TextWrapping="Wrap"
-                        x:Name="PART_TextRun"
-                        TextAlignment="Center"
+                    Orientation="Vertical">
+            <AccessText x:Name="PART_TextRun"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
 
             <StackPanel x:Name="stackPanel1"
-                        Orientation="Horizontal"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                <AccessText TextWrapping="Wrap"
-                            x:Name="PART_TextRun2"
-                            TextAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <AccessText x:Name="PART_TextRun2"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center" />
+                            VerticalAlignment="Center"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
 
                 <Border x:Name="border"
-                        Height="Auto"
                         Width="5"
-                        HorizontalAlignment="Center"
-                        Margin="0">
+                        Height="Auto"
+                        Margin="0"
+                        HorizontalAlignment="Center">
                     <Path x:Name="path"
                           Width="5"
                           Height="3"
-                          StrokeThickness="0"
-                          Data="M0,0L5,0 2.5,3z"
+                          Margin="0 2 0 0"
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
-                          Margin="0,2,0,0"
+                          Data="M0,0L5,0 2.5,3z"
+                          Fill="{TemplateBinding Foreground}"
                           SnapsToDevicePixels="True"
-                          Fill="{TemplateBinding Foreground}" />
+                          StrokeThickness="0" />
                 </Border>
             </StackPanel>
         </StackPanel>
         <ControlTemplate.Triggers>
-            <Trigger Property="HasTwoLines"
-                     Value="False">
-                <Setter Property="Orientation"
-                        TargetName="stackPanel"
-                        Value="Horizontal" />
-                <Setter Property="HorizontalAlignment"
-                        TargetName="stackPanel"
-                        Value="Left" />
-                <Setter Property="Margin"
-                        TargetName="border"
-                        Value="0" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="stackPanel"
-                        Value="Center" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="border"
-                        Value="Center" />
-                <Setter Property="Margin"
-                        TargetName="stackPanel1"
-                        Value="3,0,0,0" />
-                <Setter Property="VerticalAlignment"
-                        TargetName="stackPanel1"
-                        Value="Center" />
-                <Setter Property="Visibility"
-                        TargetName="PART_TextRun2"
-                        Value="Collapsed" />
+            <Trigger Property="HasTwoLines" Value="False">
+                <Setter TargetName="PART_TextRun2" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="border" Property="Margin" Value="0" />
+                <Setter TargetName="border" Property="VerticalAlignment" Value="Center" />
+                <Setter TargetName="stackPanel" Property="HorizontalAlignment" Value="Left" />
+                <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
+                <Setter TargetName="stackPanel" Property="VerticalAlignment" Value="Center" />
+                <Setter TargetName="stackPanel1" Property="Margin" Value="3 0 0 0" />
+                <Setter TargetName="stackPanel1" Property="VerticalAlignment" Value="Center" />
             </Trigger>
-            <Trigger Property="HasGlyph"
-                     Value="False">
-                <Setter Property="Visibility"
-                        TargetName="path"
-                        Value="Collapsed" />
-                <Setter Property="Width"
-                        TargetName="border"
-                        Value="0.1" />
+            <Trigger Property="HasGlyph" Value="False">
+                <Setter TargetName="border" Property="Width" Value="0.1" />
+                <Setter TargetName="path" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="Text"
-                     SourceName="PART_TextRun2"
-                     Value="">
-                <Setter Property="Visibility"
-                        TargetName="PART_TextRun2"
-                        Value="Hidden" />
+            <Trigger SourceName="PART_TextRun2" Property="Text" Value="">
+                <Setter TargetName="PART_TextRun2" Property="Visibility" Value="Hidden" />
             </Trigger>
-            <Trigger Property="Text"
-                     SourceName="PART_TextRun2"
-                     Value="{x:Null}">
-                <Setter Property="Visibility"
-                        TargetName="PART_TextRun2"
-                        Value="Hidden" />
+            <Trigger SourceName="PART_TextRun2" Property="Text" Value="{x:Null}">
+                <Setter TargetName="PART_TextRun2" Property="Visibility" Value="Hidden" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

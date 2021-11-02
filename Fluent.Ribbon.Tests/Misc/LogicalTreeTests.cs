@@ -34,6 +34,16 @@
         [Test]
         [TestCaseSource(nameof(GetTypesWithImplementedInterface), new object[]
         {
+            typeof(IMediumIconProvider)
+        })]
+        public void LogicalTreeShouldWorkForMediumIcon(Type controlType)
+        {
+            TestLogicalTree(controlType, MediumIconProviderProperties.MediumIconProperty);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetTypesWithImplementedInterface), new object[]
+        {
             typeof(ILargeIconProvider)
         })]
         public void LogicalTreeShouldWorkForLargeIcon(Type controlType)
@@ -115,8 +125,10 @@
 
         private static readonly Type[] excludedTypesForLogicalChildSupportTest =
         {
+            typeof(MediumIconProviderProperties),
             typeof(LargeIconProviderProperties),
-            typeof(GalleryItem)
+            typeof(GalleryItem),
+            typeof(IconPresenter)
         };
 
         private static readonly DependencyProperty[] excludedPropertiesForLogicalChildSupportTest =

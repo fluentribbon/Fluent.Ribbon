@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class Estonian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automaatne";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fail";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";
-        public override string ExpandButtonScreenTipText { get; } = "Kas soovite, et lint oleks kuvatud? Saate selle töötamise \najal avatuna hoida.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Kinnita lint (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Kas vajate rohkem ruumi? Ahendage lint, siis kuvatakse \nainult menüünimed.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Ahenda menüülint (Ctrl+F1)";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Rohkem värve...";
         public override string NoColor { get; } = "Ei värvi";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Kohanda kiirpääsuriba";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Eemalda kiirpääsuribalt";
         public override string RibbonContextMenuShowAbove { get; } = "Kuva kiirpääsuriba lindi kohal";
         public override string RibbonContextMenuShowBelow { get; } = "Kuva kiirpääsuriba lindi all";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "See käsk on praegu keelatud.";
         public override string ScreenTipF1LabelHeader { get; } = "Spikri kuvamiseks vajutage klahvi F1";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Kasuta klassikalist linti";
+        public override string UseSimplifiedRibbon { get; } = "_Kasuta üherealist linti";
     }
 }

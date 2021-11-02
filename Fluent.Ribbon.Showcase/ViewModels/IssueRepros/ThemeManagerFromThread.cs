@@ -9,7 +9,9 @@ namespace FluentTest.ViewModels.IssueRepros
     using Fluent.Extensions;
     using FluentTest.Commanding;
 
+#pragma warning disable CA1001 // Types that own disposable fields should be disposable
     public class ThemeManagerFromThread
+#pragma warning restore CA1001 // Types that own disposable fields should be disposable
     {
         private int currentTheme;
         private CancellationTokenSource cancellationTokenSource;
@@ -35,7 +37,7 @@ namespace FluentTest.ViewModels.IssueRepros
 
         private void StartStop()
         {
-            if (this.cancellationTokenSource != null)
+            if (this.cancellationTokenSource is not null)
             {
                 ThemeManager.Current.ThemeChanged -= this.ThemeManagerThemeChangedHandler;
 
@@ -84,7 +86,7 @@ namespace FluentTest.ViewModels.IssueRepros
             else
             {
                 var newTheme = ThemeManager.Current.GetTheme("Light." + themeColor.ToString());
-                if (newTheme != null)
+                if (newTheme is not null)
                 {
                     ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
 

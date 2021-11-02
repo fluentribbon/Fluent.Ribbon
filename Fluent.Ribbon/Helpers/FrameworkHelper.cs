@@ -15,7 +15,7 @@ namespace Fluent
         /// <summary>
         /// Version of WPF
         /// </summary>
-        public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window)).GetName().Version;
+        public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window))!.GetName()!.Version!;
 
         /// <summary>
         /// Gets UseLayoutRounding attached property value
@@ -31,7 +31,7 @@ namespace Fluent
         /// </summary>
         public static void SetUseLayoutRounding(DependencyObject obj, bool value)
         {
-            obj.SetValue(UseLayoutRoundingProperty, value);
+            obj.SetValue(UseLayoutRoundingProperty, BooleanBoxes.Box(value));
         }
 
         /// <summary>
@@ -42,9 +42,9 @@ namespace Fluent
 
         private static void OnUseLayoutRoundingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            d.SetValue(UIElement.SnapsToDevicePixelsProperty, true);
+            d.SetCurrentValue(UIElement.SnapsToDevicePixelsProperty, BooleanBoxes.TrueBox);
             RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
-            d.SetValue(FrameworkElement.UseLayoutRoundingProperty, true);
+            d.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, BooleanBoxes.TrueBox);
         }
     }
 }

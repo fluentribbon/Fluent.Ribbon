@@ -599,6 +599,13 @@ namespace FluentTest
                 MessageBox.Show($"Error: {ex.Message}\n\nCommandline: {startInfo.FileName} {startInfo.Arguments}");
             }
         }
+
+        private void OpenSimplifiedRibbonWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            var window = new SimplifiedRibbonWindow();
+            window.DataContext = this.viewModel;
+            window.Show();
+        }
     }
 
     public class TestRoutedCommand

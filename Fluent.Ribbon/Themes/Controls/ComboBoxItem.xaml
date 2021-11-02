@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <ControlTemplate TargetType="{x:Type ComboBoxItem}"
-                     x:Key="ComboBoxItemTemplate">
+    <ControlTemplate x:Key="ComboBoxItemTemplate"
+                     TargetType="{x:Type ComboBoxItem}">
         <Grid Background="Transparent">
             <Grid Margin="0 0.5"
                   Background="{TemplateBinding Background}">
@@ -34,9 +34,7 @@
 
     <Style x:Key="ComboBoxItemStyle"
            TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Padding"
-                Value="3" />
-        <Setter Property="Template"
-                Value="{DynamicResource ComboBoxItemTemplate}" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="Template" Value="{DynamicResource ComboBoxItemTemplate}" />
     </Style>
 </ResourceDictionary>

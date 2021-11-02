@@ -2,41 +2,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <Style x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle" TargetType="{x:Type ListBoxItem}">
-        <Setter Property="Padding"
-                Value="{Binding Padding, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, FallbackValue='2,0,2,0'}" />
+    <Style x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle"
+           TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Padding" Value="{Binding Padding, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, FallbackValue='2,0,2,0'}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                     <Grid Background="Transparent">
-                        <ContentPresenter Margin="{TemplateBinding Padding}"
-                                          Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
-                                          Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}" />
+                        <ContentPresenter Width="{Binding ChipWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
+                                          Height="{Binding ChipHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}, FallbackValue=13}"
+                                          Margin="{TemplateBinding Padding}" />
                         <Border x:Name="outerBorder"
-                                BorderThickness="1"
-                                Margin="{TemplateBinding Padding}">
+                                Margin="{TemplateBinding Padding}"
+                                BorderThickness="1">
                             <Border x:Name="innerBorder"
                                     BorderThickness="1" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected"
-                                 Value="True">
-                            <Setter Property="BorderBrush"
-                                    TargetName="outerBorder"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="innerBorder"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
                         </Trigger>
-                        <Trigger Property="IsMouseOver"
-                                 Value="True">
-                            <Setter Property="BorderBrush"
-                                    TargetName="outerBorder"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="innerBorder"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -47,99 +37,85 @@
                 <Trigger.Value>
                     <Color />
                 </Trigger.Value>
-                <Setter Property="Opacity"
-                        Value="0" />
-                <Setter Property="IsHitTestVisible"
-                        Value="False" />
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="Opacity" Value="0" />
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <DataTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate">
-        <Rectangle Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                   Fill="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+        <Rectangle Fill="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
+                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
     </DataTemplate>
-    
-    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row0" TargetType="{x:Type ListBox}">
-        <Border Background="{TemplateBinding Background}"
-                HorizontalAlignment="Stretch">
+
+    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row0"
+                     TargetType="{x:Type ListBox}">
+        <Border HorizontalAlignment="Stretch"
+                Background="{TemplateBinding Background}">
             <UniformGrid HorizontalAlignment="Left"
-                         IsItemsHost="True"
-                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
+                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}"
+                         IsItemsHost="True" />
         </Border>
     </ControlTemplate>
-    
-    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row1" TargetType="{x:Type ListBox}">
-        <Border Background="{TemplateBinding Background}"
-                HorizontalAlignment="Stretch">
-            <UniformGrid Rows="1"
-                         HorizontalAlignment="Left"
+
+    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row1"
+                     TargetType="{x:Type ListBox}">
+        <Border HorizontalAlignment="Stretch"
+                Background="{TemplateBinding Background}">
+            <UniformGrid HorizontalAlignment="Left"
+                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}"
                          IsItemsHost="True"
-                         Columns="{Binding Columns, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:ColorGallery}}}" />
+                         Rows="1" />
         </Border>
     </ControlTemplate>
-    
+
     <Style x:Key="ColorGalleryListBox"
            TargetType="{x:Type ListBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemTemplate"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
-        <Setter Property="Template"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row1}" />
-        <Setter Property="ItemContainerStyle"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row1}" />
     </Style>
 
     <Style x:Key="HightlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemTemplate"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
-        <Setter Property="Template"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
-        <Setter Property="ItemContainerStyle"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
     <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
 
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
-        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                BorderThickness="1,0,1,0"
-                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+        <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderThickness="1 0 1 0" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorTopDataTemplate">
-        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                BorderThickness="1,1,1,0"
-                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+        <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderThickness="1 1 1 0" />
     </DataTemplate>
 
     <DataTemplate x:Key="GradientColorBottomDataTemplate">
-        <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
-                BorderThickness="1,0,1,1"
-                Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}" />
+        <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderThickness="1 0 1 1" />
     </DataTemplate>
 
     <Style x:Key="ColorGalleryGradientListBox"
            TargetType="{x:Type ListBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemTemplateSelector"
-                Value="{DynamicResource ColorGradientItemTemplateSelect}" />
-        <Setter Property="Template"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
-        <Setter Property="ItemContainerStyle"
-                Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
+        <Setter Property="ItemTemplateSelector" Value="{DynamicResource ColorGradientItemTemplateSelect}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
     <Style TargetType="{x:Type Fluent:ColorGallery}">
-        <Setter Property="ChipWidth"
-                Value="13" />
-        <Setter Property="ChipHeight"
-                Value="13" />
+        <Setter Property="ChipHeight" Value="13" />
+        <Setter Property="ChipWidth" Value="13" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:ColorGallery}">
@@ -149,48 +125,48 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                                           Margin="-2 0 0 0"
                                            Fill="{DynamicResource BlackBrush}"
-                                           Margin="-2,0,0,0" />
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
-                            <StackPanel Background="{TemplateBinding Background}"
+                            <StackPanel Margin="0 1 0 1"
+                                        Background="{TemplateBinding Background}"
                                         ClipToBounds="True"
-                                        Margin="0,1,0,1"
                                         KeyboardNavigation.DirectionalNavigation="Contained">
-                                <Fluent:GroupSeparatorMenuItem Header="Theme Colors"
-                                                               x:Name="themeColorsSeparator" />
-                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
-                                         x:Name="PART_ThemeColorsListBox"
+                                <Fluent:GroupSeparatorMenuItem x:Name="themeColorsSeparator"
+                                                               Header="Theme Colors" />
+                                <ListBox x:Name="PART_ThemeColorsListBox"
+                                         Padding="2"
                                          ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryListBox}"
-                                         Padding="2" />
-                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
-                                         x:Name="PART_ThemeGradientColorsListBox"
+                                         KeyboardNavigation.DirectionalNavigation="Contained"
+                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                <ListBox x:Name="PART_ThemeGradientColorsListBox"
+                                         Padding="2 0 2 0"
                                          ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}"
-                                         Padding="2,0,2,0" />
-                                <Fluent:GroupSeparatorMenuItem Header="Standard Colors"
-                                                               x:Name="standardColorsSeparator" />
-                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
-                                         x:Name="PART_StandardColorsListBox"
+                                         KeyboardNavigation.DirectionalNavigation="Contained"
+                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                <Fluent:GroupSeparatorMenuItem x:Name="standardColorsSeparator"
+                                                               Header="Standard Colors" />
+                                <ListBox x:Name="PART_StandardColorsListBox"
+                                         Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}"
-                                         Style="{DynamicResource ColorGalleryListBox}"
-                                         Padding="2" />
-                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
-                                         x:Name="PART_StandardGradientColorsListBox"
+                                         KeyboardNavigation.DirectionalNavigation="Contained"
+                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                <ListBox x:Name="PART_StandardGradientColorsListBox"
+                                         Padding="2 0 2 0"
                                          ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}"
-                                         Padding="2,0,2,0" />
-                                <Fluent:GroupSeparatorMenuItem Header="Recent Colors"
-                                                               x:Name="recentColorsSeparator" />
-                                <ListBox KeyboardNavigation.DirectionalNavigation="Contained"
-                                         x:Name="PART_RecentColorsListBox"
+                                         KeyboardNavigation.DirectionalNavigation="Contained"
+                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                <Fluent:GroupSeparatorMenuItem x:Name="recentColorsSeparator"
+                                                               Header="Recent Colors" />
+                                <ListBox x:Name="PART_RecentColorsListBox"
+                                         Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}"
-                                         Style="{DynamicResource ColorGalleryListBox}"
-                                         Padding="2" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained"
+                                         Style="{DynamicResource ColorGalleryListBox}" />
                             </StackPanel>
                         </ScrollViewer>
                         <Fluent:MenuItem x:Name="PART_NoColor"
@@ -198,9 +174,9 @@
                             <Fluent:MenuItem.Icon>
                                 <Rectangle Width="16"
                                            Height="16"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                                           Margin="-2 0 0 0"
                                            Fill="Transparent"
-                                           Margin="-2,0,0,0" />
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
                         <Separator x:Name="separator">
@@ -217,109 +193,49 @@
                                          Icon="{DynamicResource Fluent.Ribbon.Images.MoreColors}" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsAutomaticColorButtonVisible"
-                                 Value="False">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_AutomaticColor" />
+                        <Trigger Property="IsAutomaticColorButtonVisible" Value="False">
+                            <Setter TargetName="PART_AutomaticColor" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="IsNoColorButtonVisible"
-                                 Value="False">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_NoColor" />
+                        <Trigger Property="IsNoColorButtonVisible" Value="False">
+                            <Setter TargetName="PART_NoColor" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="IsMoreColorsButtonVisible"
-                                 Value="False">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_MoreColors" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="separator" />
+                        <Trigger Property="IsMoreColorsButtonVisible" Value="False">
+                            <Setter TargetName="PART_MoreColors" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="separator" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="Mode"
-                                 Value="HighlightColors">
-                            <Setter Property="ChipWidth"
-                                    Value="26" />
-                            <Setter Property="ChipHeight"
-                                    Value="26" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="themeColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="standardColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="recentColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_ThemeColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_RecentColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_StandardGradientColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_ThemeGradientColorsListBox" />
-                            <Setter Property="Columns"
-                                    Value="5" />
-                            <Setter Property="Style"
-                                    Value="{DynamicResource HightlightColorGalleryListBox}"
-                                    TargetName="PART_StandardColorsListBox" />
-                            <Setter Property="ItemsSource"
-                                    Value="{x:Static Fluent:ColorGallery.HighlightColors}"
-                                    TargetName="PART_StandardColorsListBox" />
+                        <Trigger Property="Mode" Value="HighlightColors">
+                            <Setter Property="ChipHeight" Value="26" />
+                            <Setter Property="ChipWidth" Value="26" />
+                            <Setter Property="Columns" Value="5" />
+                            <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource HightlightColorGalleryListBox}" />
+                            <Setter TargetName="PART_StandardGradientColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_ThemeGradientColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="recentColorsSeparator" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="standardColorsSeparator" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="themeColorsSeparator" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="Mode"
-                                 Value="StandardColors">
-                            <Setter Property="ChipWidth"
-                                    Value="20" />
-                            <Setter Property="ChipHeight"
-                                    Value="20" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="themeColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="standardColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="recentColorsSeparator" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_ThemeColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_RecentColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_StandardColorsListBox" />
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="PART_ThemeGradientColorsListBox" />
-                            <Setter Property="Columns"
-                                    Value="5" />
-                            <Setter Property="StandardColorGridRows"
-                                    Value="6" />
-                            <Setter Property="ItemsSource"
-                                    Value="{x:Static Fluent:ColorGallery.StandardColors}"
-                                    TargetName="PART_StandardGradientColorsListBox" />
+                        <Trigger Property="Mode" Value="StandardColors">
+                            <Setter Property="ChipHeight" Value="20" />
+                            <Setter Property="ChipWidth" Value="20" />
+                            <Setter Property="Columns" Value="5" />
+                            <Setter Property="StandardColorGridRows" Value="6" />
+                            <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_StandardGradientColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.StandardColors}" />
+                            <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="PART_ThemeGradientColorsListBox" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="recentColorsSeparator" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="standardColorsSeparator" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="themeColorsSeparator" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <DataTrigger Binding="{Binding ThemeColors.Count, RelativeSource={RelativeSource Self}}"
-                                     Value="0">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="themeColorsSeparator" />
+                        <DataTrigger Binding="{Binding ThemeColors.Count, RelativeSource={RelativeSource Self}}" Value="0">
+                            <Setter TargetName="themeColorsSeparator" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding Count, Source={x:Static Fluent:ColorGallery.RecentColors}}"
-                                     Value="0">
-                            <Setter Property="Visibility"
-                                    Value="Collapsed"
-                                    TargetName="recentColorsSeparator" />
+                        <DataTrigger Binding="{Binding Count, Source={x:Static Fluent:ColorGallery.RecentColors}}" Value="0">
+                            <Setter TargetName="recentColorsSeparator" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

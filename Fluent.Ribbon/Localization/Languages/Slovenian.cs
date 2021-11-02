@@ -9,10 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Datoteka";
         public override string CustomizeStatusBar { get; } = "Prilagodi vrstico stanja";
-        public override string ExpandButtonScreenTipText { get; } = "Pokaži ali skrij trak\n\nKo je trak skrit, so prikazani samo zavihki";
-        public override string ExpandButtonScreenTipTitle { get; } = "Razširi trak (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Pokaži ali skrij trak\n\nKo je trak skrit, so prikazani samo zavihki";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimiraj trak (Ctrl + F1)";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Več barv...";
         public override string NoColor { get; } = "Brez barve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Prilagodi orodno vrstico za hitri dostop";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Odstrani iz orodne vrstice za hitri dostop";
         public override string RibbonContextMenuShowAbove { get; } = "Pokaži orodno vrstico za hitri dostop nad trakom";
         public override string RibbonContextMenuShowBelow { get; } = "Pokaži orodno vrstico za hitri dostop pod trakom";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Ta ukaz je trenutno onemogočen.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Uporabite klasičen trak";
+        public override string UseSimplifiedRibbon { get; } = "_Uporabite poenostavljen trak";
     }
 }

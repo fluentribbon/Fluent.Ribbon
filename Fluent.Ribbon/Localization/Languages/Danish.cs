@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class Danish : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatisk";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Filer";
-        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar;
-        public override string ExpandButtonScreenTipText { get; } = "Vis båndet, så det altid er udvidet, selv når du klikker på en kommando.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Udvid båndet (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Vis kun fanenavnene på båndet.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimer båndet (Ctrl + F1)";
+        public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Flere farver...";
         public override string NoColor { get; } = "Ingen farve";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Tilpas værktøjslinjen Hurtig adgang";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Fjern fra værktøjslinjen Hurtig adgang";
         public override string RibbonContextMenuShowAbove { get; } = "Vis værktøjslinjen Hurtig adgang ovenover båndet";
         public override string RibbonContextMenuShowBelow { get; } = "Vis værktøjslinjen Hurtig adgang under båndet";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Denne kommando er aktuelt deaktiveret.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Brug Klassisk bånd";
+        public override string UseSimplifiedRibbon { get; } = "_Brug Forenklet bånd";
     }
 }

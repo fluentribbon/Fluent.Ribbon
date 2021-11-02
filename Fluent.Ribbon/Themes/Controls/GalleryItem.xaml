@@ -4,56 +4,52 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate TargetType="{x:Type Fluent:GalleryItem}"
-                     x:Key="GalleryItemControlTemplate">
+    <ControlTemplate x:Key="GalleryItemControlTemplate"
+                     TargetType="{x:Type Fluent:GalleryItem}">
         <Grid Background="Transparent">
+            <Border x:Name="keyboardFocusBorder"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}"
+                    BorderThickness="1"
+                    Visibility="Collapsed" />
+
             <Border x:Name="hoverBorder"
-                    Visibility="Collapsed"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}" />
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}"
+                    Visibility="Collapsed" />
 
             <Border x:Name="selectedBorder"
-                    Visibility="Collapsed"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}" />
-            
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}"
+                    Visibility="Collapsed" />
+
             <Border x:Name="pressedBorder"
-                    Visibility="Collapsed"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}" />
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}"
+                    Visibility="Collapsed" />
 
             <ContentPresenter x:Name="contentPresenter"
                               Margin="1"
                               Opacity="1" />
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="contentPresenter"
-                        Value="0.5" />
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
             </Trigger>
-            <Trigger Property="IsSelected"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="selectedBorder"
-                        Value="Visible" />
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="hoverBorder"
-                        Value="Visible" />
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsPressed"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="pressedBorder"
-                        Value="Visible" />
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="keyboardFocusBorder" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="pressedBorder" Property="Visibility" Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="GalleryItemStyle"
            TargetType="{x:Type Fluent:GalleryItem}">
-        <Setter Property="Template"
-                Value="{DynamicResource GalleryItemControlTemplate}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Template" Value="{DynamicResource GalleryItemControlTemplate}" />
     </Style>
 </ResourceDictionary>

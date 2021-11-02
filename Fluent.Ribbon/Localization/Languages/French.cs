@@ -6,13 +6,13 @@ namespace Fluent.Localization.Languages
     public class French : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatique";
-        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip;
+        public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fichier";
         public override string CustomizeStatusBar { get; } = "Personnaliser la barre de statut";
-        public override string ExpandButtonScreenTipText { get; } = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul les noms sont affichés";
-        public override string ExpandButtonScreenTipTitle { get; } = "Agrandir le Ruban (Ctrl + F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Afficher ou masquer le Ruban \n\nQuand le Ruban est masqué, seul les noms sont affichés";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Minimiser le Ruban (Ctrl + F1)";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Plus de couleurs...";
         public override string NoColor { get; } = "Pas de couleur";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Personnaliser la barre d'outils Accès Rapide";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Supprimer de la barre d'outils Accès Rapide";
         public override string RibbonContextMenuShowAbove { get; } = "Afficher la barre d'outils Accès Rapide au dessus du Ruban";
         public override string RibbonContextMenuShowBelow { get; } = "Afficher la barre d'outils Accès Rapide en dessous du Ruban";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Cette commande est actuellement désactivée.";
-        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader;
+        public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Utiliser le ruban classique";
+        public override string UseSimplifiedRibbon { get; } = "_Utiliser le ruban simplifié";
     }
 }

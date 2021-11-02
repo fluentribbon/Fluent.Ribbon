@@ -1,55 +1,47 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
 
     <ControlTemplate x:Key="GalleryGroupContainerTemplate"
                      TargetType="{x:Type Fluent:GalleryGroupContainer}">
         <DockPanel LastChildFill="True">
-            <Grid DockPanel.Dock="Top"
+            <Grid x:Name="headerGrid"
                   Height="21"
-                  x:Name="headerGrid"
+                  VerticalAlignment="Top"
                   Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryGroupContainer.Header.Background}"
-                  VerticalAlignment="Top">
-                <TextBlock Margin="7,0"
-                           Text="{TemplateBinding Header}"
-                           VerticalAlignment="Center"
+                  DockPanel.Dock="Top">
+                <TextBlock Margin="7 0"
                            HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
                            FontWeight="Bold"
-                           TextWrapping="NoWrap"
-                           TextTrimming="CharacterEllipsis" />
+                           Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap" />
             </Grid>
 
-            <Fluent:UniformGridWithItemSize IsItemsHost="True"
-                                            HorizontalAlignment="Left"
-                                            Orientation="{TemplateBinding Orientation}"
-                                            MinColumns="{TemplateBinding MinItemsInRow}"
-                                            MaxColumns="{TemplateBinding MaxItemsInRow}"
+            <Fluent:UniformGridWithItemSize HorizontalAlignment="Left"
+                                            IsItemsHost="True"
+                                            ItemHeight="{TemplateBinding ItemHeight}"
                                             ItemWidth="{TemplateBinding ItemWidth}"
-                                            ItemHeight="{TemplateBinding ItemHeight}" />
+                                            MaxColumns="{TemplateBinding MaxItemsInRow}"
+                                            MinColumns="{TemplateBinding MinItemsInRow}"
+                                            Orientation="{TemplateBinding Orientation}" />
         </DockPanel>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsHeadered"
-                     Value="False">
-                <Setter TargetName="headerGrid"
-                        Property="Visibility"
-                        Value="Collapsed" />
+            <Trigger Property="IsHeadered" Value="False">
+                <Setter TargetName="headerGrid" Property="Visibility" Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="GalleryGroupContainerStyle"
            TargetType="{x:Type Fluent:GalleryGroupContainer}">
-        <Setter Property="Template"
-                Value="{DynamicResource GalleryGroupContainerTemplate}" />
-        <Setter Property="HorizontalAlignment"
-                Value="Stretch" />
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Template" Value="{DynamicResource GalleryGroupContainerTemplate}" />
         <Style.Triggers>
-            <Trigger Property="IsHeadered"
-                     Value="False">
-                <Setter Property="HorizontalAlignment"
-                        Value="Left" />
+            <Trigger Property="IsHeadered" Value="False">
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Trigger>
         </Style.Triggers>
     </Style>

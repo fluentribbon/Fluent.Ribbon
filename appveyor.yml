@@ -12,17 +12,18 @@ pull_requests:
   do_not_increment_build_number: false
 
 install:
-  - cinst dotnetcore-sdk --version 3.1.300
+  - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
+  - ps: ./dotnet-install.ps1 -Version 5.0.400 -InstallDir "C:\Program Files\dotnet"
 
 build_script:
-  - ps: dotnet --info
-  - ps: .\build.ps1 -Target CI -Verbosity Verbose
+  - cmd: dotnet --info
+  - cmd: build.cmd CI
 
 after_build:
   - ps: gci -Filter *.trx -Path .\TestResults\ | % { (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/mstest/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_.FullName)) }
 
 artifacts:
-  - path: \bin\package\*.*
+  - path: \artifacts\*.*
 
 nuget:
   disable_publish_on_pr: true

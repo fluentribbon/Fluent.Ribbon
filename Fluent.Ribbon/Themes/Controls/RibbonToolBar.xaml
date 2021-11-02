@@ -6,14 +6,12 @@
                     mc:Ignorable="d">
     <Style x:Key="RibbonToolBarStyle"
            TargetType="{x:Type Fluent:RibbonToolBar}">
-        <Setter Property="Focusable"
-                Value="False" />
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="SeparatorStyle">
             <Setter.Value>
-                <Style TargetType="{x:Type Separator}"
-                       BasedOn="{StaticResource RibbonSeparatorStyle}">
-                    <Setter Property="Margin"
-                            Value="4" />
+                <Style BasedOn="{StaticResource RibbonSeparatorStyle}"
+                       TargetType="{x:Type Separator}">
+                    <Setter Property="Margin" Value="4" />
                 </Style>
             </Setter.Value>
         </Setter>

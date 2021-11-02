@@ -51,21 +51,21 @@
             {
                 case PatternInterface.Scroll:
                     var ribbonTabsContainerPanel = this.OwningRibbonTabControl.TabsContainer;
-                    if (ribbonTabsContainerPanel != null)
+                    if (ribbonTabsContainerPanel is not null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabsContainerPanel);
-                        if (automationPeer != null)
+                        if (automationPeer is not null)
                         {
                             return automationPeer.GetPattern(patternInterface);
                         }
                     }
 
                     var ribbonTabsContainer = this.OwningRibbonTabControl.TabsContainer as RibbonTabsContainer;
-                    if (ribbonTabsContainer != null
-                        && ribbonTabsContainer.ScrollOwner != null)
+                    if (ribbonTabsContainer is not null
+                        && ribbonTabsContainer.ScrollOwner is not null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabsContainer.ScrollOwner);
-                        if (automationPeer != null)
+                        if (automationPeer is not null)
                         {
                             automationPeer.EventsSource = this;
                             return automationPeer.GetPattern(patternInterface);
@@ -85,18 +85,18 @@
 
             var minimizeButton = this.OwningRibbonTabControl.MinimizeButton;
 
-            if (minimizeButton != null)
+            if (minimizeButton is not null)
             {
                 var automationPeer = CreatePeerForElement(minimizeButton);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
             }
 
             var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
-            if (toolbarPanel != null)
+            if (toolbarPanel is not null)
             {
                 var automationPeer = new RibbonToolbarPanelAutomationPeer(toolbarPanel);
                 children.Add(automationPeer);

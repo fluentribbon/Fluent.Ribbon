@@ -47,9 +47,9 @@ namespace Fluent
                 : tabControl.SelectedIndex + 1;
         }
 
-        private static object CoerceIsEnabledAndTabStop(DependencyObject d, object basevalue)
+        private static object CoerceIsEnabledAndTabStop(DependencyObject d, object? basevalue)
         {
-            return false;
+            return BooleanBoxes.FalseBox;
         }
 
         #endregion

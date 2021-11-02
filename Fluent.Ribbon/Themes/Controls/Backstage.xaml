@@ -33,71 +33,56 @@
     <ControlTemplate x:Key="BackstageToggleButtonControlTemplate"
                      TargetType="{x:Type Fluent:Backstage}">
         <Border x:Name="border2"
-                MinWidth="60"
                 Height="Auto"
-                Background="{TemplateBinding Background}"
-                Margin="0,0,0,0">
+                MinWidth="60"
+                Margin="0 0 0 0"
+                Background="{TemplateBinding Background}">
             <Grid>
                 <Rectangle x:Name="rectangle" />
                 <ContentPresenter x:Name="contentPresenter"
-                                  ContentSource="Header"
-                                  Margin="10,0,10,0"
+                                  Margin="10 0 10 0"
+                                  HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Center" />
+                                  ContentSource="Header" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Fill"
-                        TargetName="rectangle"
-                        Value="{DynamicResource HighTransparentWhiteBrush}" />
+                <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource HighTransparentWhiteBrush}" />
             </MultiTrigger>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="border2"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="contentPresenter">
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="border2" Property="Opacity" Value="0.5" />
+                <Setter TargetName="contentPresenter" Property="Effect">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
                 </Setter>
             </Trigger>
-            <Trigger Property="IsOpen"
-                     Value="True">
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Collapsed" />
+            <Trigger Property="IsOpen" Value="True">
+                <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver"
-                               Value="True"
-                               SourceName="border2" />
-                    <Condition Property="IsOpen"
-                               Value="True" />
+                    <Condition SourceName="border2" Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsOpen" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="rectangle"
-                        Value="Collapsed" />
+                <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="RibbonBackstageStyle"
            TargetType="{x:Type Fluent:Backstage}">
-        <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
-        <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
-        <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
         <Setter Property="AreAnimationsEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Background}" />
+        <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
+        <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Foreground}" />
+        <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
     </Style>
 </ResourceDictionary>

@@ -2,128 +2,93 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <Style TargetType="{x:Type Fluent:Button}"
-           x:Key="Fluent.Ribbon.Styles.Backstage.Button">
-        <Setter Property="Size" 
-                Value="Large" />
-        <Setter Property="BorderThickness" 
-                Value="1" />
-        <Setter Property="BorderBrush" 
-                Value="{DynamicResource GrayBrush6}" />
-        <Setter Property="Padding" 
-                Value="0 9 0 0" />
-        <Setter Property="Height"
-                Value="81" />
-        <Setter Property="Width"
-                Value="85" />
-    </Style>
-       
-    <Style TargetType="{x:Type Fluent:ToggleButton}"
-           x:Key="Fluent.Ribbon.Styles.Backstage.ToggleButton">
-        <Setter Property="Size" 
-                Value="Large" />
-        <Setter Property="BorderThickness" 
-                Value="1" />
-        <Setter Property="BorderBrush" 
-                Value="{DynamicResource GrayBrush6}" />
-        <Setter Property="Padding" 
-                Value="0 9 0 0" />
-        <Setter Property="Height"
-                Value="81" />
-        <Setter Property="Width"
-                Value="85" />
+    <Style x:Key="Fluent.Ribbon.Styles.Backstage.Button"
+           TargetType="{x:Type Fluent:Button}">
+        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Height" Value="81" />
+        <Setter Property="Padding" Value="0 9 0 0" />
+        <Setter Property="Size" Value="Large" />
+        <Setter Property="Width" Value="85" />
     </Style>
 
-    <Style TargetType="{x:Type Fluent:DropDownButton}"
-           x:Key="Fluent.Ribbon.Styles.Backstage.DropDownButton">
-        <Setter Property="Size" 
-                Value="Large" />
-        <Setter Property="BorderThickness" 
-                Value="1" />
-        <Setter Property="BorderBrush" 
-                Value="{DynamicResource GrayBrush6}" />
-        <Setter Property="Padding" 
-                Value="0 9 0 0" />
-        <Setter Property="Height"
-                Value="81" />
-        <Setter Property="Width"
-                Value="85" />
+    <Style x:Key="Fluent.Ribbon.Styles.Backstage.ToggleButton"
+           TargetType="{x:Type Fluent:ToggleButton}">
+        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Height" Value="81" />
+        <Setter Property="Padding" Value="0 9 0 0" />
+        <Setter Property="Size" Value="Large" />
+        <Setter Property="Width" Value="85" />
     </Style>
 
-    <Style TargetType="{x:Type Fluent:ComboBox}"
-           x:Key="Fluent.Ribbon.Styles.Backstage.ComboBox">
-        <Setter Property="Height"
-                Value="42" />
-        <Setter Property="Width"
-                Value="229" />
-        <Setter Property="IsReadOnly"
-                Value="True" />
-        <Setter Property="IsEditable"
-                Value="False" />
+    <Style x:Key="Fluent.Ribbon.Styles.Backstage.DropDownButton"
+           TargetType="{x:Type Fluent:DropDownButton}">
+        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Height" Value="81" />
+        <Setter Property="Padding" Value="0 9 0 0" />
+        <Setter Property="Size" Value="Large" />
+        <Setter Property="Width" Value="85" />
     </Style>
 
-    <!--Inner Backstage TabControl Style-->
-    <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
-           x:Key="InnerBackstageSeparatorTabItemStyle">
-        <Setter Property="Foreground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+    <Style x:Key="Fluent.Ribbon.Styles.Backstage.ComboBox"
+           TargetType="{x:Type Fluent:ComboBox}">
+        <Setter Property="Height" Value="42" />
+        <Setter Property="IsEditable" Value="False" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="Width" Value="229" />
+    </Style>
+
+    <!-- Inner Backstage TabControl Style -->
+    <Style x:Key="InnerBackstageSeparatorTabItemStyle"
+           TargetType="{x:Type Fluent:SeparatorTabItem}">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
-                    <Grid Margin="0,0,10,0">
-                        <TextBlock Margin="0,5"
-                                   TextWrapping="Wrap"
-                                   Text="{TemplateBinding Header}"
+                    <Grid Margin="0 0 10 0">
+                        <TextBlock Margin="0 5"
                                    VerticalAlignment="Center"
+                                   FontFamily="Segoe UI Light, Lucida Sans Unicode, Verdana"
                                    FontSize="17"
-                                   FontFamily="Segoe UI Light, Lucida Sans Unicode, Verdana" />
+                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                                   TextWrapping="Wrap" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="InnerBackstageTabControlItem"
            TargetType="{x:Type TabItem}">
-        <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
-                    <Grid Background="Transparent"
-                          Margin="0,3">
+                    <Grid Margin="0 3"
+                          Background="Transparent">
                         <Border x:Name="border"
-                                BorderBrush="Transparent"
-                                BorderThickness="1"
                                 Margin="0"
-                                Background="Transparent">
-                            <ContentPresenter Margin="5,5,50,5"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                BorderThickness="1">
+                            <ContentPresenter Margin="5 5 50 5"
                                               ContentSource="Header" />
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Selector.IsSelected"
-                                 Value="True">
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                        <Trigger Property="Selector.IsSelected" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver"
-                                           Value="True" />
-                                <Condition Property="Selector.IsSelected"
-                                           Value="False" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                                <Condition Property="Selector.IsSelected" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                            <Setter Property="BorderBrush"
-                                    TargetName="border"
-                                    Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -137,24 +102,24 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
                     <ControlTemplate.Resources>
-                        <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
-                               BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}" />
-                        <Style TargetType="{x:Type TabItem}"
-                               BasedOn="{StaticResource InnerBackstageTabControlItem}" />
+                        <Style BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}"
+                               TargetType="{x:Type Fluent:SeparatorTabItem}" />
+                        <Style BasedOn="{StaticResource InnerBackstageTabControlItem}"
+                               TargetType="{x:Type TabItem}" />
                     </ControlTemplate.Resources>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border BorderThickness="0,0,1,0"
+                        <Border Margin="0"
                                 HorizontalAlignment="Stretch"
-                                Margin="0"
                                 VerticalAlignment="Stretch"
-                                BorderBrush="{DynamicResource GrayBrush7}" />
+                                BorderBrush="{DynamicResource GrayBrush7}"
+                                BorderThickness="0 0 1 0" />
                         <StackPanel Grid.Column="0"
-                                    HorizontalAlignment="Left"
                                     Margin="0"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     IsItemsHost="True" />
                         <ContentPresenter x:Name="PART_SelectedContentHost"

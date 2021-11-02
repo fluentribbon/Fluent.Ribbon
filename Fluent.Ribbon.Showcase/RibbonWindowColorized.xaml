@@ -2,33 +2,33 @@
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:local="clr-namespace:FluentTest"
                      xmlns:fluent="urn:fluent-ribbon"
-                     mc:Ignorable="d"
+                     xmlns:local="clr-namespace:FluentTest"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      Title="RibbonWindowColorized"
-                     Height="600"
                      Width="800"
+                     Height="600"
+                     TitleBackground="Transparent"
                      TitleForeground="White"
-                     TitleBackground="Transparent">
+                     mc:Ignorable="d">
     <fluent:RibbonWindow.Resources>
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabItem.Foreground" Color="Red" />
-        
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="LightBlue" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="Black" />
-        
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="LightGreen" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="Black" />
-        
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background" Color="LightCyan" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground" Color="Black" />
-        
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="White" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background" Color="DarkSlateGray" />
-        
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background" Color="Green" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background" Color="DarkGray" />
-    
+
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background" Color="Blue" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background" Color="DarkBlue" />
 
@@ -44,7 +44,9 @@
 
         <fluent:Ribbon Background="Transparent">
             <fluent:Ribbon.Menu>
-                <fluent:Backstage />
+                <fluent:Backstage>
+                    <fluent:BackstageTabControl />
+                </fluent:Backstage>
             </fluent:Ribbon.Menu>
 
             <fluent:RibbonTabItem Header="First">
@@ -61,14 +63,11 @@
         </fluent:Ribbon>
 
         <Grid Grid.Row="1">
-            <TextBlock TextWrapping="Wrap"
-                       Margin="5">
-                This sample shows how to use custom colors for various parts of the RibbonWindow, Ribbon, RibbonTitleBar and caption buttons inside WindowCommands.
-                <LineBreak />
-                The colors are chosen to be extreme by purpose.
-                <LineBreak />
-                Have a look at ColorizedRibbonWindow.xaml for details.
-                </TextBlock>
+            <TextBlock Margin="5"
+                       TextWrapping="Wrap">
+                This sample shows how to use custom colors for various parts of the RibbonWindow, Ribbon, RibbonTitleBar and caption buttons inside WindowCommands.<LineBreak />
+                The colors are chosen to be extreme by purpose.<LineBreak />
+                Have a look at ColorizedRibbonWindow.xaml for details.</TextBlock>
         </Grid>
     </Grid>
 </fluent:RibbonWindow>

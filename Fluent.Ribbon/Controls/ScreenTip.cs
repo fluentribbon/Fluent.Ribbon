@@ -54,15 +54,15 @@ namespace Fluent
         {
             if (this.PlacementTarget is null)
             {
-#if NETCOREAPP3_0
+#if NETCOREAPP
                 return Array.Empty<CustomPopupPlacement>();
 #else
                 return new CustomPopupPlacement[] { };
 #endif
             }
 
-            Ribbon ribbon = null;
-            UIElement topLevelElement = null;
+            Ribbon? ribbon = null;
+            UIElement? topLevelElement = null;
             FindControls(this.PlacementTarget, ref ribbon, ref topLevelElement);
 
             // Exclude QAT items
@@ -76,7 +76,7 @@ namespace Fluent
 
             if (notQuickAccessItem
                 && this.IsRibbonAligned
-                && ribbon != null)
+                && ribbon is not null)
             {
                 var belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), this.PlacementTarget).Y;
                 var aboveY = ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
@@ -89,7 +89,7 @@ namespace Fluent
                 && this.IsRibbonAligned
                 && notContextMenuChild
                 && topLevelElement is Window == false
-                && decoratorChild != null)
+                && decoratorChild is not null)
             {
                 // Placed on Popup?
                 var belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), this.PlacementTarget).Y;
@@ -108,35 +108,42 @@ namespace Fluent
 
         private static bool IsContextMenuChild(UIElement element)
         {
+            var currentElement = element;
             do
             {
-                var parent = VisualTreeHelper.GetParent(element) as UIElement;
-                //if (parent is ContextMenuBar) return true;
-                element = parent;
+                var parent = VisualTreeHelper.GetParent(currentElement) as UIElement;
+
+                if (parent is System.Windows.Controls.ContextMenu)
+                {
+                    return true;
+                }
+
+                currentElement = parent;
             }
-            while (element != null);
+            while (currentElement is not null);
 
             return false;
         }
 
         private static bool IsQuickAccessItem(UIElement element)
         {
+            var currentElement = element;
             do
             {
-                var parent = VisualTreeHelper.GetParent(element) as UIElement;
+                var parent = VisualTreeHelper.GetParent(currentElement) as UIElement;
                 if (parent is QuickAccessToolBar)
                 {
                     return true;
                 }
 
-                element = parent;
+                currentElement = parent;
             }
-            while (element != null);
+            while (currentElement is not null);
 
             return false;
         }
 
-        private static UIElement GetDecoratorChild(UIElement popupRoot)
+        private static UIElement? GetDecoratorChild(UIElement? popupRoot)
         {
             switch (popupRoot)
             {
@@ -150,7 +157,7 @@ namespace Fluent
             for (var i = 0; i < VisualTreeHelper.GetChildrenCount(popupRoot); i++)
             {
                 var element = GetDecoratorChild(VisualTreeHelper.GetChild(popupRoot, i) as UIElement);
-                if (element != null)
+                if (element is not null)
                 {
                     return element;
                 }
@@ -159,17 +166,14 @@ namespace Fluent
             return null;
         }
 
-        private static void FindControls(UIElement obj, ref Ribbon ribbon, ref UIElement topLevelElement)
+        private static void FindControls(UIElement? obj, ref Ribbon? ribbon, ref UIElement? topLevelElement)
         {
-            switch (obj)
+            if (obj is null)
             {
-                case null:
-                    return;
-
-                case Ribbon objRibbon:
-                    ribbon = objRibbon;
-                    break;
+                return;
             }
+
+            ribbon ??= obj as Ribbon;
 
             var parentVisual = VisualTreeHelper.GetParent(obj) as UIElement;
             if (parentVisual is null)
@@ -258,7 +262,7 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Help Topic")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Help topic (it will be used to execute help)")]
-        public object HelpTopic
+        public object? HelpTopic
         {
             get { return this.GetValue(HelpTopicProperty); }
             set { this.SetValue(HelpTopicProperty, value); }
@@ -278,9 +282,9 @@ namespace Fluent
         [System.ComponentModel.DisplayName("Image")]
         [System.ComponentModel.Category("Screen Tip")]
         [System.ComponentModel.Description("Image of the screen tip")]
-        public ImageSource Image
+        public ImageSource? Image
         {
-            get { return (ImageSource)this.GetValue(ImageProperty); }
+            get { return (ImageSource?)this.GetValue(ImageProperty); }
             set { this.SetValue(ImageProperty, value); }
         }
 
@@ -301,7 +305,7 @@ namespace Fluent
         public Visibility HelpLabelVisibility
         {
             get { return (Visibility)this.GetValue(HelpLabelVisibilityProperty); }
-            set { this.SetValue(HelpLabelVisibilityProperty, value); }
+            set { this.SetValue(HelpLabelVisibilityProperty, VisibilityBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HelpLabelVisibility"/> dependency property.</summary>
@@ -314,7 +318,7 @@ namespace Fluent
         /// <summary>
         /// Occurs when user press F1 on ScreenTip with HelpTopic filled
         /// </summary>
-        public static event EventHandler<ScreenTipHelpEventArgs> HelpPressed;
+        public static event EventHandler<ScreenTipHelpEventArgs>? HelpPressed;
 
         #endregion
 
@@ -326,7 +330,7 @@ namespace Fluent
         public bool IsRibbonAligned
         {
             get { return (bool)this.GetValue(IsRibbonAlignedProperty); }
-            set { this.SetValue(IsRibbonAlignedProperty, value); }
+            set { this.SetValue(IsRibbonAlignedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsRibbonAligned"/> dependency property.</summary>
@@ -339,7 +343,7 @@ namespace Fluent
         #region F1 Help Handling
 
         // Currently focused element
-        private IInputElement focusedElement;
+        private IInputElement? focusedElement;
 
         private void OnToolTipClosed(object sender, RoutedEventArgs e)
         {
@@ -360,7 +364,7 @@ namespace Fluent
             }
 
             this.focusedElement = Keyboard.FocusedElement;
-            if (this.focusedElement != null)
+            if (this.focusedElement is not null)
             {
                 this.focusedElement.PreviewKeyDown += this.OnFocusedElementPreviewKeyDown;
             }
@@ -406,7 +410,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.HelpTopic != null)
+                if (this.HelpTopic is not null)
                 {
                     yield return this.HelpTopic;
                 }
@@ -423,7 +427,7 @@ namespace Fluent
         /// Constructor
         /// </summary>
         /// <param name="helpTopic">Help topic</param>
-        public ScreenTipHelpEventArgs(object helpTopic)
+        public ScreenTipHelpEventArgs(object? helpTopic)
         {
             this.HelpTopic = helpTopic;
         }
@@ -431,6 +435,6 @@ namespace Fluent
         /// <summary>
         /// Gets help topic associated with screen tip
         /// </summary>
-        public object HelpTopic { get; }
+        public object? HelpTopic { get; }
     }
 }

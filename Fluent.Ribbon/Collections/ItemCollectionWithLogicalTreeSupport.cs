@@ -100,14 +100,14 @@
         {
             var oldItem = this[index];
 
-            if (oldItem != null)
+            if (oldItem is not null)
             {
                 this.RemoveLogicalChild(oldItem);
             }
 
             base.SetItem(index, item);
 
-            if (item != null)
+            if (item is not null)
             {
                 this.AddLogicalChild(item);
             }
@@ -126,7 +126,8 @@
 
         private void AddLogicalChild(TItem item)
         {
-            if (this.IsOwningItems == false)
+            if (this.IsOwningItems == false
+                || item is null)
             {
                 return;
             }
@@ -136,7 +137,8 @@
 
         private void RemoveLogicalChild(TItem item)
         {
-            if (this.IsOwningItems == false)
+            if (this.IsOwningItems == false
+                || item is null)
             {
                 return;
             }

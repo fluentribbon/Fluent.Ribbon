@@ -23,9 +23,9 @@ namespace Fluent
         /// <summary>
         /// Run with text
         /// </summary>
-        private AccessText textRun;
+        private AccessText? textRun;
 
-        private AccessText textRun2;
+        private AccessText? textRun2;
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace Fluent
         public bool HasTwoLines
         {
             get { return (bool)this.GetValue(HasTwoLinesProperty); }
-            set { this.SetValue(HasTwoLinesProperty, value); }
+            set { this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
@@ -60,7 +60,7 @@ namespace Fluent
         public bool HasGlyph
         {
             get { return (bool)this.GetValue(HasGlyphProperty); }
-            set { this.SetValue(HasGlyphProperty, value); }
+            set { this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>
@@ -163,7 +163,9 @@ namespace Fluent
             }
 
             // Find soft hyphen, break at its position and display a normal hyphen.
-            var hyphenIndex = text.IndexOf((char)173);
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+            var hyphenIndex = text!.IndexOf((char)173);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
             if (hyphenIndex >= 0)
             {

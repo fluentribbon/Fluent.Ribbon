@@ -38,7 +38,7 @@ namespace Fluent
     {
         #region Fields
 
-        internal Ribbon Ribbon { get; set; }
+        internal Ribbon? Ribbon { get; set; }
 
         #endregion
 
@@ -67,9 +67,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets shortcut to the target control
         /// </summary>
-        public UIElement Target
+        public UIElement? Target
         {
-            get { return (UIElement)this.GetValue(TargetProperty); }
+            get { return (UIElement?)this.GetValue(TargetProperty); }
             set { this.SetValue(TargetProperty, value); }
         }
 
@@ -83,13 +83,13 @@ namespace Fluent
             var ribbonControl = e.NewValue as IRibbonControl;
 
             if (quickAccessMenuItem.Header is null
-                && ribbonControl != null)
+                && ribbonControl is not null)
             {
                 // Set Default Text Value
                 RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
             }
 
-            if (ribbonControl != null)
+            if (ribbonControl is not null)
             {
                 var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
                 if (parent is null)
@@ -123,7 +123,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Target != null)
+                if (this.Target is not null)
                 {
                     var parent = LogicalTreeHelper.GetParent(this.Target);
                     if (ReferenceEquals(parent, this))
@@ -160,7 +160,7 @@ namespace Fluent
                 return;
             }
 
-            if (this.Ribbon != null)
+            if (this.Ribbon is not null)
             {
                 this.IsChecked = this.Ribbon.IsInQuickAccessToolBar(this.Target);
             }
@@ -192,7 +192,7 @@ namespace Fluent
         /// <param name="element">Control</param>
         /// <returns>True if this control is able to provide
         /// a quick access toolbar item, false otherwise</returns>
-        public static bool IsSupported(UIElement element)
+        public static bool IsSupported(UIElement? element)
         {
             if (element is IQuickAccessItemProvider provider
                 && provider.CanAddToQuickAccessToolBar)
@@ -208,9 +208,9 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Host control</param>
         /// <returns>Control which represents quick access toolbar item</returns>
-        public static FrameworkElement GetQuickAccessItem(UIElement element)
+        public static FrameworkElement? GetQuickAccessItem(UIElement element)
         {
-            FrameworkElement result = null;
+            FrameworkElement? result = null;
 
             // If control supports the interface just return what it provides
             if (element is IQuickAccessItemProvider provider
@@ -243,7 +243,7 @@ namespace Fluent
         /// <summary>
         /// Finds the top supported control
         /// </summary>
-        public static FrameworkElement FindSupportedControl(Visual visual, Point point)
+        public static FrameworkElement? FindSupportedControl(Visual visual, Point point)
         {
             var result = VisualTreeHelper.HitTest(visual, point);
             if (result is null)
@@ -253,7 +253,7 @@ namespace Fluent
 
             // Try to find in visual (or logical) tree
             var element = result.VisualHit as FrameworkElement;
-            while (element != null)
+            while (element is not null)
             {
                 if (IsSupported(element))
                 {

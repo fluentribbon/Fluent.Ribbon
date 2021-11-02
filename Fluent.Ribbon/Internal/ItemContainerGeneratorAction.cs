@@ -58,7 +58,7 @@
             this.Action();
         }
 
-        private void HandleItemContainerGenerator_StatusChanged(object sender, EventArgs e)
+        private void HandleItemContainerGenerator_StatusChanged(object? sender, EventArgs e)
         {
             this.QueueAction();
         }

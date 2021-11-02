@@ -5,6 +5,7 @@
     <AssemblyName>Fluent</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);NU5125</NoWarn>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <Description>Fluent.Ribbon is a library that implements an Office-like user interface for the Windows Presentation Foundation (WPF). It provides controls such as RibbonTabControl, Backstage, Gallery, QuickAccessToolbar, ScreenTip and so on.</Description>
@@ -16,9 +17,11 @@
     <!-- We also have to exclude controls in release mode to reduce binary size -->
     <DefaultItemExcludes>$(DefaultItemExcludes);**/Controls/*.xaml</DefaultItemExcludes>
   </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <None Include="**/Controls/*.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="**/*.fx;**/*.json" Exclude="$(BaseIntermediateOutputPath)/**/*" />
-    <None Include="**/Controls/*.xaml" />
     <None Include="**/Styles.txt" />
     <EmbeddedResource Include="**/*.Template.xaml" />
     <EmbeddedResource Include="**/GeneratorParameters.json" />
@@ -36,7 +39,7 @@
 
   <ItemGroup>
     <PackageReference Include="ControlzEx" />
-    <PackageReference Include="XamlColorSchemeGenerator" privateAssets="all" includeAssets="build" />
+    <PackageReference Include="XamlColorSchemeGenerator" PrivateAssets="all" IncludeAssets="build" />
   </ItemGroup>
 
   <!-- NuGet -->
@@ -54,31 +57,27 @@
     <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
 
- <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;PrepareResources;MarkupCompilePass1;MarkupCompilePass2">
+  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;PrepareForBuild" Condition="'$(IsBuildingWpfTempProj)' != 'true'">
     <PropertyGroup>
       <XamlCombinePath>$(MSBuildProjectDirectory)/Themes/XamlCombine.exe</XamlCombinePath>
       <!-- <XamlCombinePath>C:/DEV/OSS_Own/FluentRibbon/XamlCombine/bin/Debug/netcoreapp3.0/XamlCombine.exe</XamlCombinePath> -->
-    </PropertyGroup>       
+    </PropertyGroup>
+    <Message Text="Generating XAML files ($(TargetFramework))" Importance="high" />
     <!-- Generate theme files -->
-    <Message Text="$(XamlColorSchemeGeneratorExecutable)" />
     <Exec Command="&quot;$(XamlColorSchemeGeneratorExecutable)&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes/Themes" />
     <!-- Combine xaml files -->
     <Exec Command="&quot;$(XamlCombinePath)&quot; &quot;Styles.txt&quot; &quot;Styles.xaml&quot;" WorkingDirectory="$(MSBuildProjectDirectory)/Themes" />
   </Target>
 
-  <!-- 
-  Delete generated color scheme XAML files when user explicitly executes Build>Clean
-  command in Visual Studio.
-  
-  https://stackoverflow.com/questions/5102661/need-a-post-clean-event-in-visual-studio 
-  -->
-  <Target Name="MyDistClean" AfterTargets="Clean">
+  <!-- Delete generated XAML files when user explicitly executes Clean build. -->
+  <Target Name="CleanGenerateXamlFiles" AfterTargets="Clean">
     <ItemGroup>
-      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Dark.*" />
-      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Light.*" />
-      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Colorful.*" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Dark.*.xaml" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Light.*.xaml" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Themes/Colorful.*.xaml" />
+      <ThemeFiles Include="$(MSBuildProjectDirectory)/Themes/Styles.xaml" />
     </ItemGroup>
     <Message Text="Deleting XAML Color Scheme files..." Importance="high" />
-    <Delete Files="$(ThemeFiles)" ContinueOnError="true" />
+    <Delete Files="@(ThemeFiles)" ContinueOnError="true" />
   </Target>
 </Project>

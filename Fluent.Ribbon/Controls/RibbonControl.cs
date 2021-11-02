@@ -26,9 +26,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -43,7 +43,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -58,7 +58,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -166,14 +166,14 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null
+            var canExecute = this.Command is not null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -299,7 +299,7 @@ namespace Fluent
                     Bind(source, element, nameof(IHeaderedControl.Header), HeaderProperty, BindingMode.OneWay);
                 }
 
-                if (source.ToolTip != null
+                if (source.ToolTip is not null
                     || BindingOperations.IsDataBound(source, ToolTipProperty))
                 {
                     Bind(source, element, nameof(ToolTip), ToolTipProperty, BindingMode.OneWay);
@@ -311,7 +311,7 @@ namespace Fluent
             }
 
             var ribbonControl = source as IRibbonControl;
-            if (ribbonControl?.Icon != null)
+            if (ribbonControl?.Icon is not null)
             {
                 if (ribbonControl.Icon is Visual iconVisual)
                 {
@@ -336,7 +336,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -408,16 +408,21 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlWorkArea(FrameworkElement control)
         {
-            var tabItemPos = control.PointToScreen(new Point(0, 0));
+            if (PresentationSource.FromVisual(control) is null)
+            {
+                return default;
+            }
+
+            var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
 #pragma warning disable 618
-            var tabItemRect = new RECT
-                              {
-                                  Left = (int)tabItemPos.X,
-                                  Top = (int)tabItemPos.Y,
-                                  Right = (int)tabItemPos.X + (int)control.ActualWidth,
-                                  Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
-                              };
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var controlRect = new RECT
+            {
+                Left = (int)controlPosOnScreen.X,
+                Top = (int)controlPosOnScreen.Y,
+                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+            };
+            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
@@ -434,17 +439,22 @@ namespace Fluent
         /// <returns>Workarea in witch control is placed</returns>
         public static Rect GetControlMonitor(FrameworkElement control)
         {
-            var tabItemPos = control.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
-            var tabItemRect = new RECT
+            if (PresentationSource.FromVisual(control) is null)
             {
-                Left = (int)tabItemPos.X,
-                Top = (int)tabItemPos.Y,
-                Right = (int)tabItemPos.X + (int)control.ActualWidth,
-                Bottom = (int)tabItemPos.Y + (int)control.ActualHeight
+                return default;
+            }
+
+            var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
+#pragma warning disable 618
+            var controlRect = new RECT
+            {
+                Left = (int)controlPosOnScreen.X,
+                Top = (int)controlPosOnScreen.Y,
+                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
             };
 
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
                 var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
@@ -458,7 +468,7 @@ namespace Fluent
         /// Get the parent <see cref="Ribbon"/>.
         /// </summary>
         /// <returns>The found <see cref="Ribbon"/> or <c>null</c> of no parent <see cref="Ribbon"/> could be found.</returns>
-        public static Ribbon GetParentRibbon(DependencyObject obj)
+        public static Ribbon? GetParentRibbon(DependencyObject obj)
         {
             return UIHelper.GetParent<Ribbon>(obj);
         }
@@ -488,12 +498,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

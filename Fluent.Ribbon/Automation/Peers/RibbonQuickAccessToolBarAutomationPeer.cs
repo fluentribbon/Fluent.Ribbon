@@ -46,18 +46,18 @@
 
                 var automationPeer = CreatePeerForElement(quickAccessMenuItem);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
             }
 
             var customizeMenuButton = this.OwningQuickAccessToolBar.MenuDownButton;
-            if (customizeMenuButton != null)
+            if (customizeMenuButton is not null)
             {
                 var automationPeer = CreatePeerForElement(customizeMenuButton);
 
-                if (automationPeer != null)
+                if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }

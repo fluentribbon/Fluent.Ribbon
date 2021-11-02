@@ -162,7 +162,7 @@ namespace Fluent
         /// <summary>
         /// Handles PreviewMouseDownOutsideCapturedElementEvent event
         /// </summary>
-        public static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
+        private static void OnClickThroughThunk(object sender, MouseButtonEventArgs e)
         {
             WriteDebug(nameof(OnClickThroughThunk));
             WriteDebug($"Sender         - {sender}");
@@ -201,7 +201,7 @@ namespace Fluent
         /// <summary>
         /// Handles lost mouse capture event
         /// </summary>
-        public static void OnLostMouseCapture(object sender, MouseEventArgs e)
+        private static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
             WriteDebug(nameof(OnLostMouseCapture));
             WriteDebug($"Sender         - {sender}");
@@ -256,7 +256,7 @@ namespace Fluent
 
             // This code is needed to keep some popus open.
             // One of these is the ribbon popup when it's minimized.
-            if (e.OriginalSource != null
+            if (e.OriginalSource is not null
                 && Mouse.Captured is null
                 && (IsPopupRoot(e.OriginalSource) || IsAncestorOf(popup.Child, e.OriginalSource as DependencyObject)))
             {
@@ -279,14 +279,14 @@ namespace Fluent
         /// <param name="parent">Parent</param>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether parent is ancestor of element</returns>
-        public static bool IsAncestorOf(DependencyObject parent, DependencyObject element)
+        public static bool IsAncestorOf(DependencyObject? parent, DependencyObject? element)
         {
             if (parent is null)
             {
                 return false;
             }
 
-            while (element != null)
+            while (element is not null)
             {
                 if (ReferenceEquals(element, parent))
                 {
@@ -302,7 +302,7 @@ namespace Fluent
         /// <summary>
         /// Handles dismiss popup event
         /// </summary>
-        public static void OnDismissPopup(object sender, DismissPopupEventArgs e)
+        private static void OnDismissPopup(object? sender, DismissPopupEventArgs e)
         {
             var control = sender as IDropDownControl;
 
@@ -326,7 +326,9 @@ namespace Fluent
             }
         }
 
+#pragma warning disable CA1801 // Review unused parameters
         private static void DismisPopupForAlways(IDropDownControl control, DismissPopupEventArgs e)
+#pragma warning restore CA1801 // Review unused parameters
         {
             control.IsDropDownOpen = false;
         }
@@ -374,7 +376,7 @@ namespace Fluent
         /// </summary>
         /// <param name="popup">Element</param>
         /// <returns>Returns true whether mouse is physically over the popup</returns>
-        public static bool IsMousePhysicallyOver(Popup popup)
+        public static bool IsMousePhysicallyOver(Popup? popup)
         {
             if (popup?.Child is null)
             {
@@ -389,7 +391,7 @@ namespace Fluent
         /// </summary>
         /// <param name="element">Element</param>
         /// <returns>Returns true whether mouse is physically over the element</returns>
-        public static bool IsMousePhysicallyOver(UIElement element)
+        public static bool IsMousePhysicallyOver(UIElement? element)
         {
             if (element is null)
             {
@@ -406,7 +408,7 @@ namespace Fluent
         /// <summary>
         /// Handles context menu opening event
         /// </summary>
-        public static void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+        private static void OnContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
@@ -418,7 +420,7 @@ namespace Fluent
         /// <summary>
         /// Handles context menu closing event
         /// </summary>
-        public static void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
+        private static void OnContextMenuClosing(object sender, ContextMenuEventArgs e)
         {
             if (sender is IDropDownControl control)
             {
@@ -432,7 +434,7 @@ namespace Fluent
             }
         }
 
-        private static bool IsPopupRoot(object obj)
+        private static bool IsPopupRoot(object? obj)
         {
             if (obj is null)
             {
@@ -445,7 +447,9 @@ namespace Fluent
                    || type.Name == "PopupRoot";
         }
 
+#pragma warning disable CA1801 // Review unused parameters
         private static void WriteDebug(string message)
+#pragma warning restore CA1801 // Review unused parameters
         {
             //Debug.WriteLine(message);
         }

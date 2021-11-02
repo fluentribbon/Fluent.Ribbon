@@ -4,9 +4,11 @@ namespace Fluent
     using System;
     using System.ComponentModel;
     using System.Windows;
+    using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
@@ -22,9 +24,9 @@ namespace Fluent
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -43,7 +45,7 @@ namespace Fluent
         public bool IsPressed
         {
             get { return (bool)this.GetValue(IsPressedProperty); }
-            private set { this.SetValue(IsPressedPropertyKey, value); }
+            private set { this.SetValue(IsPressedPropertyKey, BooleanBoxes.Box(value)); }
         }
 
         private static readonly DependencyPropertyKey IsPressedPropertyKey =
@@ -56,9 +58,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets GalleryItem group
         /// </summary>
-        public string Group
+        public string? Group
         {
-            get { return (string)this.GetValue(GroupProperty); }
+            get { return (string?)this.GetValue(GroupProperty); }
             set { this.SetValue(GroupProperty, value); }
         }
 
@@ -73,7 +75,7 @@ namespace Fluent
         public bool IsDefinitive
         {
             get { return (bool)this.GetValue(IsDefinitiveProperty); }
-            set { this.SetValue(IsDefinitiveProperty, value); }
+            set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -88,11 +90,11 @@ namespace Fluent
         [Category("Action")]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Bindable(true)]
-        public ICommand Command
+        public ICommand? Command
         {
             get
             {
-                return (ICommand)this.GetValue(CommandProperty);
+                return (ICommand?)this.GetValue(CommandProperty);
             }
 
             set
@@ -105,7 +107,7 @@ namespace Fluent
         [Bindable(true)]
         [Localizability(LocalizationCategory.NeverLocalize)]
         [Category("Action")]
-        public object CommandParameter
+        public object? CommandParameter
         {
             get
             {
@@ -121,11 +123,11 @@ namespace Fluent
         /// <inheritdoc />
         [Bindable(true)]
         [Category("Action")]
-        public IInputElement CommandTarget
+        public IInputElement? CommandTarget
         {
             get
             {
-                return (IInputElement)this.GetValue(CommandTargetProperty);
+                return (IInputElement?)this.GetValue(CommandTargetProperty);
             }
 
             set
@@ -149,9 +151,9 @@ namespace Fluent
         /// </summary>
         [Bindable(true)]
         [Category("Action")]
-        public ICommand PreviewCommand
+        public ICommand? PreviewCommand
         {
-            get { return (ICommand)this.GetValue(PreviewCommandProperty); }
+            get { return (ICommand?)this.GetValue(PreviewCommandProperty); }
             set { this.SetValue(PreviewCommandProperty, value); }
         }
 
@@ -165,9 +167,9 @@ namespace Fluent
         /// </summary>
         [Bindable(true)]
         [Category("Action")]
-        public ICommand CancelPreviewCommand
+        public ICommand? CancelPreviewCommand
         {
-            get { return (ICommand)this.GetValue(CancelPreviewCommandProperty); }
+            get { return (ICommand?)this.GetValue(CancelPreviewCommandProperty); }
             set { this.SetValue(CancelPreviewCommandProperty, value); }
         }
 
@@ -202,14 +204,14 @@ namespace Fluent
         /// <summary>
         /// Handles Command CanExecute changed
         /// </summary>
-        private void OnCommandCanExecuteChanged(object sender, EventArgs e)
+        private void OnCommandCanExecuteChanged(object? sender, EventArgs e)
         {
             this.UpdateCanExecute();
         }
 
         private void UpdateCanExecute()
         {
-            var canExecute = this.Command != null
+            var canExecute = this.Command is not null
                 && this.CanExecuteCommand();
 
             if (this.currentCanExecute != canExecute)
@@ -361,6 +363,23 @@ namespace Fluent
             CommandHelper.Execute(this.CancelPreviewCommand, this, null);
         }
 
+        /// <inheritdoc />
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (e.Handled)
+            {
+                return;
+            }
+
+            if (e.Key == Key.Enter)
+            {
+                this.RaiseClick();
+                e.Handled = true;
+            }
+        }
+
         #endregion
 
         #region Protected methods
@@ -397,5 +416,8 @@ namespace Fluent
         public void OnKeyTipBack()
         {
         }
+
+        /// <inheritdoc />
+        protected override AutomationPeer OnCreateAutomationPeer() => new GalleryItemWrapperAutomationPeer(this);
     }
 }

@@ -21,7 +21,7 @@
         /// <summary>
         /// <see cref="AutomationPeer.GetChildrenCore"/>
         /// </summary>
-        protected override List<AutomationPeer> GetChildrenCore()
+        protected override List<AutomationPeer>? GetChildrenCore()
         {
             return null;
         }

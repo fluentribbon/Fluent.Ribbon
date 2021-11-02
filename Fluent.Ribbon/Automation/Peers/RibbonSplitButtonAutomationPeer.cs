@@ -68,7 +68,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        protected override string? GetNameCore()
         {
             var name = base.GetNameCore();
 

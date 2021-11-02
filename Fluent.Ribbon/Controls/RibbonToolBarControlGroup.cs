@@ -20,7 +20,7 @@ namespace Fluent
         public bool IsFirstInRow
         {
             get { return (bool)this.GetValue(IsFirstInRowProperty); }
-            set { this.SetValue(IsFirstInRowProperty, value); }
+            set { this.SetValue(IsFirstInRowProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsFirstInRow"/> dependency property.</summary>
@@ -33,7 +33,7 @@ namespace Fluent
         public bool IsLastInRow
         {
             get { return (bool)this.GetValue(IsLastInRowProperty); }
-            set { this.SetValue(IsLastInRowProperty, value); }
+            set { this.SetValue(IsLastInRowProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsLastInRow"/> dependency property.</summary>

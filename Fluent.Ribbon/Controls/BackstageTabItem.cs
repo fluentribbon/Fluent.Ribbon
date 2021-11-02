@@ -18,14 +18,14 @@ namespace Fluent
     [TemplatePart(Name = "PART_Header", Type = typeof(FrameworkElement))]
     public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedControl, ILogicalChildSupport
     {
-        internal FrameworkElement HeaderContentHost { get; private set; }
+        internal FrameworkElement? HeaderContentHost { get; private set; }
 
         #region Icon
 
         /// <summary>
         /// Gets or sets Icon for the element
         /// </summary>
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -37,9 +37,9 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -56,7 +56,7 @@ namespace Fluent
         public bool IsSelected
         {
             get { return (bool)this.GetValue(IsSelectedProperty); }
-            set { this.SetValue(IsSelectedProperty, value); }
+            set { this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Fluent
         /// <summary>
         /// Gets parent tab control
         /// </summary>
-        internal BackstageTabControl TabControlParent
+        internal BackstageTabControl? TabControlParent
         {
             get
             {
@@ -84,7 +84,7 @@ namespace Fluent
         /// <summary>
         /// Gets or sets tab items text
         /// </summary>
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -120,7 +120,7 @@ namespace Fluent
             base.OnContentChanged(oldContent, newContent);
 
             if (this.IsSelected
-                && this.TabControlParent != null)
+                && this.TabControlParent is not null)
             {
                 this.TabControlParent.SelectedContent = newContent;
             }
@@ -162,7 +162,7 @@ namespace Fluent
 
             if (newValue)
             {
-                if (container.TabControlParent != null
+                if (container.TabControlParent is not null
                     && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(container.TabControlParent.SelectedItem), container) == false)
                 {
                     UnselectSelectedItem(container.TabControlParent);
@@ -178,7 +178,7 @@ namespace Fluent
             }
         }
 
-        private static void UnselectSelectedItem(BackstageTabControl backstageTabControl)
+        private static void UnselectSelectedItem(BackstageTabControl? backstageTabControl)
         {
             if (backstageTabControl?.SelectedItem is null)
             {
@@ -262,12 +262,12 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }

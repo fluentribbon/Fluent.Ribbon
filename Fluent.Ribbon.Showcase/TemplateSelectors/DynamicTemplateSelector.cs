@@ -49,11 +49,11 @@ namespace FluentTest.TemplateSelectors
         {
             //This should ensure that the item we are getting is in fact capable of holding our property
             //before we attempt to retrieve it.
-            if (container != null)
+            if (container is not null)
             {
                 var templates = GetTemplatesCollection(container);
 
-                if (templates != null
+                if (templates is not null
                     && templates.Count != 0)
                 {
                     foreach (var template in templates)
@@ -61,7 +61,7 @@ namespace FluentTest.TemplateSelectors
                         //In this case, we are checking whether the type of the item
                         //is the same as the type supported by our DataTemplate
                         var dataType = template.DataType as Type;
-                        if (dataType != null
+                        if (dataType is not null
                             && dataType.IsInstanceOfType(item))
                         {
                             //And if it is, then we return that DataTemplate

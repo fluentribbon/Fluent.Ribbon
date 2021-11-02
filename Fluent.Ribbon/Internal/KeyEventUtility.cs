@@ -5,7 +5,7 @@
 
     internal static class KeyEventUtility
     {
-        public static string GetStringFromKey(Key key)
+        public static string? GetStringFromKey(Key key)
         {
             var keyboardState = new byte[256];
 #pragma warning disable 618
@@ -18,7 +18,7 @@
             var scanCode = NativeMethods.MapVirtualKey((uint)virtualKey, NativeMethods.MapType.MAPVK_VK_TO_VSC);
             var chars = new char[1];
 
-            var result = NativeMethods.ToUnicode((uint)virtualKey, scanCode, keyboardState, chars, chars.Length, 0);
+            var result = NativeMethods.ToUnicode((uint)virtualKey, scanCode, keyboardState, chars, chars.Length, 1);
             switch (result)
             {
                 case -1:

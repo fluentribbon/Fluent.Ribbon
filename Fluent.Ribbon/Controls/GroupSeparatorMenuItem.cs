@@ -19,9 +19,9 @@ namespace Fluent
             IsTabStopProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, null, CoerceIsEnabledAndTabStop));
         }
 
-        private static object CoerceIsEnabledAndTabStop(DependencyObject d, object basevalue)
+        private static object CoerceIsEnabledAndTabStop(DependencyObject d, object? basevalue)
         {
-            return false;
+            return BooleanBoxes.FalseBox;
         }
     }
 }

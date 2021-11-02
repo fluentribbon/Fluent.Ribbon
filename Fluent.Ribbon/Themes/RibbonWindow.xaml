@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:Fluent="clr-namespace:Fluent"                    
-                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
 
-    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
@@ -21,61 +21,59 @@
 
                     <DockPanel Grid.Row="0"
                                Height="{TemplateBinding TitleBarHeight}"
-                               VerticalAlignment="Top"
                                HorizontalAlignment="Stretch"
+                               VerticalAlignment="Top"
                                Background="{TemplateBinding TitleBackground}"
                                LastChildFill="True">
                         <Image x:Name="PART_Icon"
-                               DockPanel.Dock="Left"
-                               Height="16"
                                Width="16"
-                               Margin="4,2,0,0"
+                               Height="16"
+                               Margin="4 2 0 0"
                                VerticalAlignment="{TemplateBinding VerticalIconAlignment}"
+                               DockPanel.Dock="Left"
+                               SnapsToDevicePixels="True"
+                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},
+                                                             {Binding RelativeSource={RelativeSource Self}}}"
                                Stretch="Uniform"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
-                               Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, {Binding RelativeSource={RelativeSource Self}}}"
-                               SnapsToDevicePixels="True" />
+                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource boolToVisibilityConverter}}" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"
-                                          DockPanel.Dock="Right"
-                                          Content="{TemplateBinding WindowCommands}"                                          
                                           Grid.Row="0"
+                                          HorizontalAlignment="Right"
                                           Panel.ZIndex="1"
-                                          HorizontalAlignment="Right" />
+                                          Content="{TemplateBinding WindowCommands}"
+                                          DockPanel.Dock="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
+                                               Foreground="{TemplateBinding TitleForeground}"
                                                Header="{TemplateBinding Title}"
-                                               IsCollapsed="{TemplateBinding IsCollapsed}"
-                                               Foreground="{TemplateBinding TitleForeground}" />
+                                               IsCollapsed="{TemplateBinding IsCollapsed}" />
                     </DockPanel>
 
-                    <ContentPresenter x:Name="PART_ContentPresenter" 
+                    <ContentPresenter x:Name="PART_ContentPresenter"
                                       Grid.Row="1" />
                 </Grid>
             </AdornerDecorator>
 
             <Border x:Name="PART_Border"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
                     Background="{x:Null}"
                     BorderBrush="{TemplateBinding GlowBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    UseLayoutRounding="True"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" />
+                    UseLayoutRounding="True" />
 
             <ResizeGrip x:Name="WindowResizeGrip"
                         HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
                         IsTabStop="false"
-                        Visibility="Collapsed"
-                        VerticalAlignment="Bottom" />
+                        Visibility="Collapsed" />
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="IsActive"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="PART_WindowCommands"
-                        Value="0.5" />
+            <Trigger Property="IsActive" Value="False">
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveGlowBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="PART_WindowCommands" Property="Opacity" Value="0.5" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -93,59 +91,33 @@
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="ResizeMode"
-                               Value="CanResizeWithGrip" />
-                    <Condition Property="WindowState"
-                               Value="Normal" />
+                    <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                    <Condition Property="WindowState" Value="Normal" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility"
-                        TargetName="PART_Border"
-                        Value="Visible" />
-                <Setter Property="Visibility"
-                        TargetName="WindowResizeGrip"
-                        Value="Visible" />
+                <Setter TargetName="PART_Border" Property="Visibility" Value="Visible" />
+                <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible" />
             </MultiTrigger>
-            <Trigger Property="WindowState"
-                     Value="Maximized">
-                <Setter Property="Margin"
-                        TargetName="Adorner"
-                        Value="0" />
-                <Setter Property="Margin"
-                        TargetName="PART_Icon"
-                        Value="2,2,0,0" />
-                <Setter Property="Visibility"
-                        TargetName="PART_Border"
-                        Value="Collapsed" />
-                <Setter Property="Visibility"
-                        TargetName="WindowResizeGrip"
-                        Value="Collapsed" />
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter TargetName="Adorner" Property="Margin" Value="0" />
+                <Setter TargetName="PART_Border" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_Icon" Property="Margin" Value="2 2 0 0" />
+                <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="RibbonWindowStyle"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="NonActiveBorderBrush"
-                Value="#434346" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="GlowBrush"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="NonActiveGlowBrush"
-                Value="#434346" />
-        <Setter Property="Background"
-                Value="{DynamicResource WhiteBrush}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="TitleBackground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
-        <Setter Property="TitleForeground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
-        <Setter Property="Template"
-                Value="{StaticResource RibbonWindowControlTemplate}" />
-        <Setter Property="TitleBarHeight"
-                Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
+        <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="GlowBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="NonActiveBorderBrush" Value="#434346" />
+        <Setter Property="NonActiveGlowBrush" Value="#434346" />
+        <Setter Property="Template" Value="{StaticResource RibbonWindowControlTemplate}" />
+        <Setter Property="TitleBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
+        <Setter Property="TitleBarHeight" Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
+        <Setter Property="TitleForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
     </Style>
 </ResourceDictionary>

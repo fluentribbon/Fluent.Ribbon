@@ -20,7 +20,7 @@ namespace Fluent
     {
         #region Fields
 
-        private ScopeGuard windowPreviewKeyDownScopeGuard;
+        private ScopeGuard? windowPreviewKeyDownScopeGuard;
 
         // Host element, usually this is Ribbon
         private readonly Ribbon ribbon;
@@ -29,20 +29,20 @@ namespace Fluent
         private readonly DispatcherTimer timer;
 
         // Is KeyTips Actived now
-        private KeyTipAdorner activeAdornerChain;
+        private KeyTipAdorner? activeAdornerChain;
         // This element must be remembered to restore focus
-        private FocusWrapper backUpFocusedControl;
+        private FocusWrapper? backUpFocusedControl;
 
         // Window where we attached
-        private Window window;
+        private Window? window;
 
         // Whether we attached to window
         private bool attached;
 
         // Attached HWND source
-        private HwndSource attachedHwndSource;
+        private HwndSource? attachedHwndSource;
 
-        private string currentUserInput;
+        private string? currentUserInput;
 
         /// <summary>
         /// Checks if any keytips are visible.
@@ -51,7 +51,7 @@ namespace Fluent
         {
             get
             {
-                if (this.activeAdornerChain != null)
+                if (this.activeAdornerChain is not null)
                 {
                     return this.activeAdornerChain.AreAnyKeyTipsVisible;
                 }
@@ -153,7 +153,7 @@ namespace Fluent
             // prevent delay show
             this.timer.Stop();
 
-            if (this.window != null)
+            if (this.window is not null)
             {
                 this.window.PreviewKeyDown -= this.OnWindowPreviewKeyDown;
                 this.window.KeyUp -= this.OnWindowKeyUp;
@@ -197,7 +197,7 @@ namespace Fluent
             return IntPtr.Zero;
         }
 
-        private void OnWindowPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnWindowPreviewKeyDown(object? sender, KeyEventArgs e)
         {
             if (this.windowPreviewKeyDownScopeGuard?.IsActive == true)
             {
@@ -216,6 +216,7 @@ namespace Fluent
 
             if (this.ribbon.IsCollapsed
                 || this.ribbon.IsEnabled == false
+                || this.window is null
                 || this.window.IsActive == false)
             {
                 return;
@@ -245,7 +246,7 @@ namespace Fluent
                 }
             }
             else if (e.Key == Key.Escape
-                && this.activeAdornerChain != null)
+                && this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.ActiveKeyTipAdorner.Back();
                 this.ClearUserInput();
@@ -260,7 +261,7 @@ namespace Fluent
             else
             {
                 var actualKey = e.Key == Key.System ? e.SystemKey : e.Key;
-                // we need to get the real string input for the key because of keys like �,�,� #258
+                // we need to get the real string input for the key because of keys like ä,ö,ü #258
                 var key = KeyEventUtility.GetStringFromKey(actualKey);
                 var isKeyRealInput = string.IsNullOrEmpty(key) == false
                     && key != "\t";
@@ -308,6 +309,13 @@ namespace Fluent
                         return;
                     }
 
+                    // KeyTipService should dismiss keytips if the first key does not match any keytips #908
+                    if (this.activeAdornerChain.AdornedElement is Ribbon)
+                    {
+                        this.Terminate();
+                        return;
+                    }
+
                     // If no key tips match the current input, continue with the previously entered and still correct keys.
                     this.currentUserInput = previousInput;
                     System.Media.SystemSounds.Beep.Play();
@@ -331,6 +339,7 @@ namespace Fluent
         {
             if (this.ribbon.IsCollapsed
                 || this.ribbon.IsEnabled == false
+                || this.window is null
                 || this.window.IsActive == false)
             {
                 this.Terminate();
@@ -346,7 +355,7 @@ namespace Fluent
                     this.ShowImmediatly();
                 }
 
-                if (this.activeAdornerChain != null)
+                if (this.activeAdornerChain is not null)
                 {
                     e.Handled = true;
                 }
@@ -399,9 +408,9 @@ namespace Fluent
             this.backUpFocusedControl = null;
         }
 
-        private void OnAdornerChainTerminated(object sender, KeyTipPressedResult e)
+        private void OnAdornerChainTerminated(object? sender, KeyTipPressedResult e)
         {
-            if (this.activeAdornerChain != null)
+            if (this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             }
@@ -420,7 +429,7 @@ namespace Fluent
             }
         }
 
-        private void OnDelayedShow(object sender, EventArgs e)
+        private void OnDelayedShow(object? sender, EventArgs e)
         {
             if (this.activeAdornerChain is null)
             {
@@ -483,28 +492,37 @@ namespace Fluent
                 this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
             }
 
-            if (keyTipsTarget is Ribbon targetRibbon
-                && targetRibbon.IsMinimized == false
-                && targetRibbon.SelectedTabIndex >= 0
-                && targetRibbon.TabControl != null)
+            if (keyTipsTarget is Ribbon
+                    {
+                        IsMinimized: false,
+                        SelectedTabIndex: >= 0,
+                        TabControl: { }
+                    })
             {
                 // Focus ribbon
-                (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+                (this.ribbon.TabControl?.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
             }
 
             this.ClearUserInput();
 
-            if (this.activeAdornerChain != null)
+            if (this.activeAdornerChain is not null)
             {
                 this.activeAdornerChain.Terminated -= this.OnAdornerChainTerminated;
             }
 
-            this.activeAdornerChain = new KeyTipAdorner(keyTipsTarget, keyTipsTarget, null);
+            // to mimik the Office behavior we always attach the adorner to the ribbon
+            this.activeAdornerChain = new KeyTipAdorner(this.ribbon, this.ribbon, null);
             this.activeAdornerChain.Terminated += this.OnAdornerChainTerminated;
             this.activeAdornerChain.Attach();
+
+            // continuation of Office mimik: if the real target wasn't the ribbon we immediately forward to the target control
+            if (keyTipsTarget is not Ribbon)
+            {
+                this.activeAdornerChain.Forward(string.Empty, keyTipsTarget, false);
+            }
         }
 
-        private FrameworkElement GetBackstage()
+        private FrameworkElement? GetBackstage()
         {
             if (this.ribbon.Menu is null)
             {
@@ -523,7 +541,7 @@ namespace Fluent
                 : null;
         }
 
-        private FrameworkElement GetApplicationMenu()
+        private FrameworkElement? GetApplicationMenu()
         {
             if (this.ribbon.Menu is null)
             {
@@ -542,7 +560,7 @@ namespace Fluent
                 : null;
         }
 
-        private FrameworkElement GetStartScreen()
+        private FrameworkElement? GetStartScreen()
         {
             var control = this.ribbon.StartScreen;
 

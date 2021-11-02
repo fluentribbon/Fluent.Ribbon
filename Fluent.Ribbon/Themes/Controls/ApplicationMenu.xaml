@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
@@ -15,40 +15,40 @@
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
                             Margin="0">
                 <Border x:Name="PART_ButtonBorder"
-                        MinWidth="60"
                         Height="23"
+                        MinWidth="60"
                         Background="{TemplateBinding Background}">
                     <ContentControl x:Name="contentPresenter"
-                                    Content="{TemplateBinding Header}"
-                                    Margin="10,0,10,0"
+                                    Margin="10 0 10 0"
+                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    HorizontalAlignment="Center" />
+                                    Content="{TemplateBinding Header}" />
                 </Border>
             </ContentControl>
             <Popup x:Name="PART_Popup"
-                   Placement="Custom"
-                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
-                   PlacementTarget="{Binding ElementName=buttonContent}"
-                   VerticalOffset="{Binding ElementName=buttonContent, Path=ActualHeight}"
-                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   Grid.ColumnSpan="2"
                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                   AllowsTransparency="True"
-                   Focusable="False"
-                   Margin="0,0,-4,0"
+                   Margin="0 0 -4 0"
                    VerticalAlignment="Top"
-                   Grid.ColumnSpan="2">
+                   AllowsTransparency="True"
+                   CustomPopupPlacementCallback="{x:Static FluentHelpers:PopupHelper.SimplePlacementCallback}"
+                   Focusable="False"
+                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                   Placement="Custom"
+                   PlacementTarget="{Binding ElementName=buttonContent}"
+                   VerticalOffset="{Binding ElementName=buttonContent, Path=ActualHeight}">
                 <Grid Name="DropDown"
-                      SnapsToDevicePixels="True"
                       Margin="0"
-                      VerticalAlignment="Top">
+                      VerticalAlignment="Top"
+                      SnapsToDevicePixels="True">
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
-                            SnapsToDevicePixels="True"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
                             BorderThickness="1"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top">
+                            SnapsToDevicePixels="True">
                         <Grid Width="Auto"
                               Height="Auto"
                               HorizontalAlignment="Stretch"
@@ -66,40 +66,40 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <ScrollViewer Style="{DynamicResource MenuScrollViewer}"
-                                              Grid.Row="0"
+                                <ScrollViewer Grid.Row="0"
                                               Grid.Column="0"
                                               IsTabStop="False"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                                    <StackPanel Orientation="Vertical"
-                                                ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Cycle" />
+                                              Style="{DynamicResource MenuScrollViewer}">
+                                    <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                Orientation="Vertical"
+                                                ScrollViewer.VerticalScrollBarVisibility="Auto" />
                                 </ScrollViewer>
 
                                 <Border Grid.Row="0"
                                         Grid.Column="1"
-                                        BorderThickness="1,0,0,0"
+                                        Width="{TemplateBinding RightPaneWidth}"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                        Width="{TemplateBinding RightPaneWidth}">
+                                        BorderThickness="1 0 0 0">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
-                                                  Style="{DynamicResource MenuScrollViewer}"
+                                                  Margin="1"
                                                   IsTabStop="False"
-                                                  Margin="1"                                                  
-                                                  SnapsToDevicePixels="True"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                                        <ContentPresenter ContentSource="RightPaneContent"
-                                                          x:Name="PART_RightContentPresenter" />
+                                                  SnapsToDevicePixels="True"
+                                                  Style="{DynamicResource MenuScrollViewer}">
+                                        <ContentPresenter x:Name="PART_RightContentPresenter"
+                                                          ContentSource="RightPaneContent" />
                                     </ScrollViewer>
                                 </Border>
                                 <Border Grid.Row="1"
                                         Grid.ColumnSpan="2"
-                                        BorderThickness="0,1,0,0"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        Margin="0"
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                        Margin="0">
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        BorderThickness="0 1 0 0">
                                     <ContentPresenter ContentSource="FooterPaneContent" />
                                 </Border>
                             </Grid>
@@ -110,13 +110,9 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter Property="Opacity"
-                        TargetName="PART_ButtonBorder"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="contentPresenter">
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PART_ButtonBorder" Property="Opacity" Value="0.5" />
+                <Setter TargetName="contentPresenter" Property="Effect">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
@@ -126,10 +122,10 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
+        <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
     </Style>
 </ResourceDictionary>

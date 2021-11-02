@@ -2,7 +2,6 @@
 namespace Fluent
 {
     using System;
-    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Effects;
@@ -36,30 +35,18 @@ namespace Fluent
 
         private PixelShader CreatePixelShader()
         {
-            var pixelShader = new PixelShader();
-
-            if (DesignerProperties.GetIsInDesignMode(this) == false)
-            {
-                pixelShader.UriSource = new Uri("/Fluent;component/Themes/Effects/Grayscale.ps", UriKind.Relative);
-            }
+            var pixelShader = new PixelShader { UriSource = new Uri("pack://application:,,,/Fluent;component/Themes/Effects/Grayscale.ps", UriKind.RelativeOrAbsolute) };
 
             return pixelShader;
         }
 
         /// <summary>
-        /// Impicit input
+        /// Implicit input
         /// </summary>
         public Brush Input
         {
-            get
-            {
-                return (Brush)this.GetValue(InputProperty);
-            }
-
-            set
-            {
-                this.SetValue(InputProperty, value);
-            }
+            get => (Brush)this.GetValue(InputProperty);
+            set => this.SetValue(InputProperty, value);
         }
 
         /// <summary>
@@ -67,15 +54,8 @@ namespace Fluent
         /// </summary>
         public Color FilterColor
         {
-            get
-            {
-                return (Color)this.GetValue(FilterColorProperty);
-            }
-
-            set
-            {
-                this.SetValue(FilterColorProperty, value);
-            }
+            get => (Color)this.GetValue(FilterColorProperty);
+            set => this.SetValue(FilterColorProperty, value);
         }
     }
 }

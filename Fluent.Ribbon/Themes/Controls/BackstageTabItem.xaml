@@ -4,103 +4,68 @@
                     xmlns:converters="clr-namespace:Fluent.Converters">
     <ControlTemplate x:Key="BackstageTabItemControlTemplate"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
-        <Grid x:Name="rootGrid" 
+        <Grid x:Name="rootGrid"
               Background="Transparent">
             <Border x:Name="selectedBorder"
                     Margin="0"
-                    Visibility="Collapsed"
-                    Background="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}" />
+                    Background="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}"
+                    Visibility="Collapsed" />
             <Border x:Name="hoverBorder"
-                    Margin="0,0,0,0"
-                    Visibility="Collapsed"
-                    Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}" />
+                    Margin="0 0 0 0"
+                    Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}"
+                    Visibility="Collapsed" />
 
-            <StackPanel Orientation="Horizontal"
-                        Margin="25,0,15,0"
+            <StackPanel Margin="25 0 15 0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
-                <ContentPresenter x:Name="iconImage"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Width="16"
-                                  Height="16"
-                                  Margin="0 0 8 0"
-                                  Content="{converters:ObjectToImageConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}}, '16,16', {Binding RelativeSource={RelativeSource TemplatedParent}}}"                              
-                                  SnapsToDevicePixels="True" />
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Fluent:IconPresenter x:Name="iconImage"
+                                      Margin="0 0 8 0"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <ContentControl x:Name="PART_Header"
+                                Content="{TemplateBinding Header}"
                                 Focusable="False"
-                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}"
-                                Content="{TemplateBinding Header}">
+                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}">
                     <ContentControl.Resources>
                         <Style TargetType="TextBlock">
-                            <Setter Property="TextWrapping"
-                                    Value="NoWrap" />
-                            <Setter Property="TextTrimming"
-                                    Value="CharacterEllipsis" />
+                            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                            <Setter Property="TextWrapping" Value="NoWrap" />
                         </Style>
                     </ContentControl.Resources>
                 </ContentControl>
             </StackPanel>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled"
-                     Value="False">
-                <Setter TargetName="hoverBorder"
-                        Property="Visibility"
-                        Value="Hidden" />
-                <Setter TargetName="PART_Header"
-                        Property="Opacity"
-                        Value="0.5" />
-                <Setter Property="Opacity"
-                        TargetName="iconImage"
-                        Value="0.5" />
-                <Setter Property="Effect"
-                        TargetName="iconImage">
-                    <Setter.Value>
-                        <Fluent:GrayscaleEffect />
-                    </Setter.Value>
-                </Setter>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="PART_Header" Property="Opacity" Value="0.5" />
+                <Setter TargetName="hoverBorder" Property="Visibility" Value="Hidden" />
             </Trigger>
-            <Trigger Property="Selector.IsSelected"
-                     Value="True">
-                <Setter TargetName="selectedBorder"
-                        Property="Visibility"
-                        Value="Visible" />
+            <Trigger Property="Selector.IsSelected" Value="True">
+                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsKeyboardFocused"
-                     Value="True">
-                <Setter TargetName="hoverBorder"
-                        Property="Visibility"
-                        Value="Visible" />
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
-            <Trigger Property="IsMouseOver"
-                     SourceName="rootGrid"
-                     Value="True">
-                <Setter TargetName="hoverBorder"
-                        Property="Visibility"
-                        Value="Visible" />
+            <Trigger SourceName="rootGrid" Property="IsMouseOver" Value="True">
+                <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="BackstageTabItemStyle"
            TargetType="{x:Type Fluent:BackstageTabItem}">
-        <Setter Property="Template"
-                Value="{DynamicResource BackstageTabItemControlTemplate}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Height"
-                Value="38" />
-        <Setter Property="Background"
-                Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="Fluent:RibbonProperties.MouseOverBackground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
-        <Setter Property="Fluent:RibbonProperties.IsSelectedBackground"
-                Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
-        <Setter Property="Margin"
-                Value="0" />
+        <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
+        <Setter Property="DockPanel.Dock" Value="Top" />
+        <Setter Property="Fluent:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Height" Value="38" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Template" Value="{DynamicResource BackstageTabItemControlTemplate}" />
     </Style>
 </ResourceDictionary>

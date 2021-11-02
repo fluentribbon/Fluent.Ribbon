@@ -9,10 +9,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Dosya";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";
-        public override string ExpandButtonScreenTipText { get; } = "Şeridi görmek mi istiyorsunuz? Çalışırken açık tutun.";
-        public override string ExpandButtonScreenTipTitle { get; } = "Şeridi Sabitle (Ctrl+F1)";
-        public override string MinimizeButtonScreenTipText { get; } = "Daha fazla alana mı\nihtiyacınız var? Şeridi daraltın, yalnızca sekme isimleri görünsün.";
-        public override string MinimizeButtonScreenTipTitle { get; } = "Şeridi Daralt (Ctrl+F1)";
+        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
+        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
+        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
         public override string MoreColors { get; } = "Daha fazla renk...";
         public override string NoColor { get; } = "Renk yok";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "Hızlı Erişim Araç Çubuğu'nu Özelleştir";
@@ -30,7 +30,11 @@ namespace Fluent.Localization.Languages
         public override string RibbonContextMenuRemoveItem { get; } = "Hızlı Erişim Araç Çubuğu'ndan Kaldır";
         public override string RibbonContextMenuShowAbove { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Üstünde Göster";
         public override string RibbonContextMenuShowBelow { get; } = "Hızlı Erişim Araç Çubuğu'nu Şeridin Altında Göster";
+        public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "Bu komut şu anda devre dışı";
         public override string ScreenTipF1LabelHeader { get; } = "Yardım için F1'e basın.";
+        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string UseClassicRibbon { get; } = "_Klasik Şeridi Kullan";
+        public override string UseSimplifiedRibbon { get; } = "_Basitleştirilmiş Şeridi Kullan";
     }
 }

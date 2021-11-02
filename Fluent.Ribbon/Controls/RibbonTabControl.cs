@@ -13,6 +13,7 @@ namespace Fluent
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using System.Windows.Media;
     using ControlzEx.Standard;
     using Fluent.Automation.Peers;
     using Fluent.Extensions;
@@ -54,7 +55,7 @@ namespace Fluent
         #region Fields
 
         // Collection of toolbar items
-        private ObservableCollection<UIElement> toolBarItems;
+        private ObservableCollection<UIElement>? toolBarItems;
 
         // ToolBar panel
 
@@ -65,13 +66,13 @@ namespace Fluent
         /// <summary>
         /// Event which is fired when the, maybe listening, <see cref="Backstage"/> should be closed
         /// </summary>
-        public event EventHandler RequestBackstageClose;
+        public event EventHandler? RequestBackstageClose;
 
         /// <inheritdoc />
-        public event EventHandler DropDownOpened;
+        public event EventHandler? DropDownOpened;
 
         /// <inheritdoc />
-        public event EventHandler DropDownClosed;
+        public event EventHandler? DropDownClosed;
 
         #endregion
 
@@ -82,9 +83,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets file menu control (can be application menu button, backstage button and so on)
         /// </summary>
-        public UIElement Menu
+        public UIElement? Menu
         {
-            get { return (UIElement)this.GetValue(MenuProperty); }
+            get { return (UIElement?)this.GetValue(MenuProperty); }
             set { this.SetValue(MenuProperty, value); }
         }
 
@@ -96,19 +97,19 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
-        public Popup DropDownPopup { get; private set; }
+        public Popup? DropDownPopup { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="Panel"/> responsible for displaying the selected tabs content.
         /// </summary>
-        public Panel TabsContainer { get; private set; }
+        public Panel? TabsContainer { get; private set; }
 
-        internal ButtonBase MinimizeButton { get; private set; }
+        internal ButtonBase? MinimizeButton { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
         /// </summary>
-        public ContentPresenter SelectedContentPresenter { get; private set; }
+        public ContentPresenter? SelectedContentPresenter { get; private set; }
 
         /// <inheritdoc />
         public bool IsContextMenuOpened { get; set; }
@@ -117,7 +118,7 @@ namespace Fluent
         /// Gets content of selected tab item
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public object SelectedContent
+        public object? SelectedContent
         {
             get
             {
@@ -142,7 +143,7 @@ namespace Fluent
         public bool IsMinimized
         {
             get { return (bool)this.GetValue(IsMinimizedProperty); }
-            set { this.SetValue(IsMinimizedProperty, value); }
+            set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -154,23 +155,47 @@ namespace Fluent
         public bool CanMinimize
         {
             get { return (bool)this.GetValue(CanMinimizeProperty); }
-            set { this.SetValue(CanMinimizeProperty, value); }
+            set { this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
         public static readonly DependencyProperty CanMinimizeProperty = DependencyProperty.Register(nameof(CanMinimize), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
+        /// <summary>
+        /// Gets or sets whether ribbon is simplified
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            set { this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value)); }
+        }
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = DependencyProperty.Register(nameof(IsSimplified), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>
+        /// Gets or sets whether ribbon can be switched simplified
+        /// </summary>
+        public bool CanUseSimplified
+        {
+            get { return (bool)this.GetValue(CanUseSimplifiedProperty); }
+            set { this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value)); }
+        }
+
+        /// <summary>Identifies the <see cref="CanUseSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty CanUseSimplifiedProperty = DependencyProperty.Register(nameof(CanUseSimplified), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox));
+
         /// <inheritdoc />
         public bool IsDropDownOpen
         {
             get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-            set { this.SetValue(IsDropDownOpenProperty, value); }
+            set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
         public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged, CoerceIsDropDownOpen));
 
-        private static object CoerceIsDropDownOpen(DependencyObject d, object basevalue)
+        private static object? CoerceIsDropDownOpen(DependencyObject d, object? basevalue)
         {
             var tabControl = d as RibbonTabControl;
 
@@ -181,7 +206,7 @@ namespace Fluent
 
             if (!tabControl.IsMinimized)
             {
-                return false;
+                return BooleanBoxes.Box(false);
             }
 
             return basevalue;
@@ -193,7 +218,7 @@ namespace Fluent
         public bool HighlightSelectedItem
         {
             get { return (bool)this.GetValue(HighlightSelectedItemProperty); }
-            set { this.SetValue(HighlightSelectedItemProperty, value); }
+            set { this.SetValue(HighlightSelectedItemProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="HighlightSelectedItem"/> dependency property.</summary>
@@ -219,9 +244,9 @@ namespace Fluent
         /// <summary>
         /// Gets or sets selected tab item
         /// </summary>
-        internal RibbonTabItem SelectedTabItem
+        internal RibbonTabItem? SelectedTabItem
         {
-            get { return (RibbonTabItem)this.GetValue(SelectedTabItemProperty); }
+            get { return (RibbonTabItem?)this.GetValue(SelectedTabItemProperty); }
             private set { this.SetValue(SelectedTabItemProperty, value); }
         }
 
@@ -247,10 +272,10 @@ namespace Fluent
             }
         }
 
-        internal Panel ToolbarPanel { get; private set; }
+        internal Panel? ToolbarPanel { get; private set; }
 
         // Handle toolbar iitems changes
-        private void OnToolbarItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnToolbarItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (this.ToolbarPanel is null)
             {
@@ -260,15 +285,20 @@ namespace Fluent
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems.Count; i++)
+                    for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, (UIElement)e.NewItems[i]);
+                        var element = (UIElement?)e.NewItems[i];
+
+                        if (element is not null)
+                        {
+                            this.ToolbarPanel.Children.Insert(e.NewStartingIndex + i, element);
+                        }
                     }
 
                     break;
 
                 case NotifyCollectionChangedAction.Remove:
-                    foreach (var obj3 in e.OldItems.OfType<UIElement>())
+                    foreach (var obj3 in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Remove(obj3);
                     }
@@ -276,12 +306,12 @@ namespace Fluent
                     break;
 
                 case NotifyCollectionChangedAction.Replace:
-                    foreach (var obj4 in e.OldItems.OfType<UIElement>())
+                    foreach (var obj4 in e.OldItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Remove(obj4);
                     }
 
-                    foreach (var obj5 in e.NewItems.OfType<UIElement>())
+                    foreach (var obj5 in e.NewItems.NullSafe().OfType<UIElement>())
                     {
                         this.ToolbarPanel.Children.Add(obj5);
                     }
@@ -334,7 +364,7 @@ namespace Fluent
         public bool AreTabHeadersVisible
         {
             get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
-            set { this.SetValue(AreTabHeadersVisibleProperty, value); }
+            set { this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
@@ -346,7 +376,7 @@ namespace Fluent
         public bool IsToolBarVisible
         {
             get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
-            set { this.SetValue(IsToolBarVisibleProperty, value); }
+            set { this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
@@ -358,7 +388,7 @@ namespace Fluent
         public bool IsMouseWheelScrollingEnabled
         {
             get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
-            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, value); }
+            set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
         #endregion
@@ -426,13 +456,13 @@ namespace Fluent
 
             this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
-            if (this.DropDownPopup != null)
+            if (this.DropDownPopup is not null)
             {
                 this.DropDownPopup.CustomPopupPlacementCallback = this.CustomPopupPlacementMethod;
             }
 
-            if (this.ToolbarPanel != null
-                && this.toolBarItems != null)
+            if (this.ToolbarPanel is not null
+                && this.toolBarItems is not null)
             {
                 foreach (var item in this.toolBarItems)
                 {
@@ -443,8 +473,8 @@ namespace Fluent
 
             this.ToolbarPanel = this.Template.FindName("PART_ToolbarPanel", this) as Panel;
 
-            if (this.ToolbarPanel != null
-                && this.toolBarItems != null)
+            if (this.ToolbarPanel is not null
+                && this.toolBarItems is not null)
             {
                 foreach (var item in this.toolBarItems)
                 {
@@ -475,7 +505,7 @@ namespace Fluent
                 }
 
                 var item = this.FindNextTabItem(startIndex, -1);
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -505,7 +535,12 @@ namespace Fluent
                 {
                     this.IsDropDownOpen = true;
 
-                    ((RibbonTabItem)e.AddedItems[0]).IsHitTestVisible = false;
+                    var ribbonTabItem = (RibbonTabItem?)e.AddedItems[0];
+
+                    if (ribbonTabItem is not null)
+                    {
+                        ribbonTabItem.IsHitTestVisible = false;
+                    }
                 }
             }
             else
@@ -518,7 +553,12 @@ namespace Fluent
 
             if (e.RemovedItems.Count > 0)
             {
-                ((RibbonTabItem)e.RemovedItems[0]).IsHitTestVisible = true;
+                var ribbonTabItem = (RibbonTabItem?)e.RemovedItems[0];
+
+                if (ribbonTabItem is not null)
+                {
+                    ribbonTabItem.IsHitTestVisible = true;
+                }
             }
 
             base.OnSelectionChanged(e);
@@ -588,7 +628,7 @@ namespace Fluent
 
             var nextTabItem = this.FindNextTabItem(startIndex, direction);
 
-            if (nextTabItem != null
+            if (nextTabItem is not null
                 && ReferenceEquals(nextTabItem, this.SelectedItem) == false)
             {
                 e.Handled = true;
@@ -621,7 +661,7 @@ namespace Fluent
             // - any control inside a RibbonGroupBox has focus
             // - any control outside this RibbonTabControl caused the mouse wheel event
             if ((Keyboard.FocusedElement is DependencyObject focusedElement
-                && UIHelper.GetParent<RibbonGroupBox>(focusedElement) != null)
+                && UIHelper.GetParent<RibbonGroupBox>(focusedElement) is not null)
                 ||
                 (e.OriginalSource is DependencyObject originalSource
                 && UIHelper.GetParent<RibbonTabControl>(originalSource) is null))
@@ -633,7 +673,7 @@ namespace Fluent
             var selectedIndex = -1;
 
             var tabs = this.ItemContainerGenerator.Items.OfType<RibbonTabItem>()
-                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group.Visibility == Visibility.Visible)))
+                .Where(x => x.Visibility == Visibility.Visible && x.IsEnabled && (x.IsContextual == false || (x.IsContextual && x.Group?.Visibility == Visibility.Visible)))
                 .OrderBy(x => x.IsContextual);
 
             foreach (var ribbonTabItem in tabs)
@@ -680,7 +720,7 @@ namespace Fluent
         }
 
         // Get selected ribbon tab item
-        private RibbonTabItem GetSelectedTabItem()
+        private RibbonTabItem? GetSelectedTabItem()
         {
             var selectedItem = this.SelectedItem;
             if (selectedItem is null)
@@ -695,7 +735,7 @@ namespace Fluent
         }
 
         // Find next tab item
-        private RibbonTabItem FindNextTabItem(int startIndex, int direction)
+        private RibbonTabItem? FindNextTabItem(int startIndex, int direction)
         {
             if (direction != 0)
             {
@@ -736,7 +776,7 @@ namespace Fluent
             else
             {
                 var selectedTabItem = this.GetSelectedTabItem();
-                if (selectedTabItem != null)
+                if (selectedTabItem is not null)
                 {
                     this.SelectedContent = selectedTabItem.GroupsContainer;
                     this.SelectedTabItem = selectedTabItem;
@@ -754,10 +794,11 @@ namespace Fluent
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
+            this.SetCurrentValue(IsDropDownOpenProperty, false);
         }
 
         // Handles GeneratorStatus changed
-        private void OnGeneratorStatusChanged(object sender, EventArgs e)
+        private void OnGeneratorStatusChanged(object? sender, EventArgs e)
         {
             if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
             {
@@ -801,7 +842,7 @@ namespace Fluent
             {
                 var item = tabControl.FindNextTabItem(-1, 1);
 
-                if (item != null)
+                if (item is not null)
                 {
                     item.IsSelected = true;
                 }
@@ -840,7 +881,7 @@ namespace Fluent
         /// <summary>
         /// Implements custom placement for ribbon popup
         /// </summary>
-        private CustomPopupPlacement[] CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
+        private CustomPopupPlacement[]? CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
             if (this.DropDownPopup is null
                 || this.SelectedTabItem is null)
@@ -889,6 +930,12 @@ namespace Fluent
             // the popup width is reduced to the maximum visible size of the window on the monitor the selected tab item is on.
             // If we don't reduce the popup width wpf tries to be helpful and moves the popup out of the window to satisfy the width.
             {
+                #if NET452
+                var dpiScaleX = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
+                #else
+                var dpiScaleX = VisualTreeHelper.GetDpi(this).DpiScaleX;
+                #endif
+
                 var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X);
 
                 var actualWidth = this.ActualWidth;
@@ -898,7 +945,7 @@ namespace Fluent
                 }
 
                 // Set width and prevent negative values
-                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
+                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth) / dpiScaleX);
             }
 
             return new[]
@@ -924,7 +971,7 @@ namespace Fluent
                 ribbonTabControl.OnRibbonTabPopupClosing();
             }
 
-            if (ribbonTabControl.SelectedTabItem != null)
+            if (ribbonTabControl.SelectedTabItem is not null)
             {
                 var peer = UIElementAutomationPeer.CreatePeerForElement(ribbonTabControl.SelectedTabItem) as RibbonTabItemAutomationPeer;
                 peer?.RaiseTabExpandCollapseAutomationEvent((bool)e.OldValue, (bool)e.NewValue);
@@ -944,7 +991,7 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible item
         /// </summary>
-        public object GetFirstVisibleItem()
+        public object? GetFirstVisibleItem()
         {
             foreach (var item in this.Items)
             {
@@ -961,7 +1008,7 @@ namespace Fluent
         /// <summary>
         /// Gets the first visible and enabled item
         /// </summary>
-        public object GetFirstVisibleAndEnabledItem()
+        public object? GetFirstVisibleAndEnabledItem()
         {
             foreach (var item in this.Items)
             {
@@ -999,7 +1046,7 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.SelectedContent != null)
+                if (this.SelectedContent is not null)
                 {
                     yield return this.SelectedContent;
                 }

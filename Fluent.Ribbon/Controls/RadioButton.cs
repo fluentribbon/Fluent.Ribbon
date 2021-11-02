@@ -13,7 +13,7 @@ namespace Fluent
     /// Represents Fluent UI specific RadioButton
     /// </summary>
     [ContentProperty(nameof(Header))]
-    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider
+    public class RadioButton : System.Windows.Controls.RadioButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Properties
 
@@ -45,12 +45,26 @@ namespace Fluent
 
         #endregion
 
+        #region SimplifiedSizeDefinition
+
+        /// <inheritdoc />
+        public RibbonControlSizeDefinition SimplifiedSizeDefinition
+        {
+            get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
+            set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
+        public static readonly DependencyProperty SimplifiedSizeDefinitionProperty = RibbonProperties.SimplifiedSizeDefinitionProperty.AddOwner(typeof(RadioButton));
+
+        #endregion
+
         #region KeyTip
 
         /// <inheritdoc />
-        public string KeyTip
+        public string? KeyTip
         {
-            get { return (string)this.GetValue(KeyTipProperty); }
+            get { return (string?)this.GetValue(KeyTipProperty); }
             set { this.SetValue(KeyTipProperty, value); }
         }
 
@@ -65,7 +79,7 @@ namespace Fluent
         #region Header
 
         /// <inheritdoc />
-        public object Header
+        public object? Header
         {
             get { return this.GetValue(HeaderProperty); }
             set { this.SetValue(HeaderProperty, value); }
@@ -79,7 +93,7 @@ namespace Fluent
         #region Icon
 
         /// <inheritdoc />
-        public object Icon
+        public object? Icon
         {
             get { return this.GetValue(IconProperty); }
             set { this.SetValue(IconProperty, value); }
@@ -93,7 +107,7 @@ namespace Fluent
         #region LargeIcon
 
         /// <inheritdoc />
-        public object LargeIcon
+        public object? LargeIcon
         {
             get { return this.GetValue(LargeIconProperty); }
             set { this.SetValue(LargeIconProperty, value); }
@@ -104,7 +118,40 @@ namespace Fluent
 
         #endregion
 
+        #region MediumIcon
+
+        /// <inheritdoc />
+        public object? MediumIcon
+        {
+            get { return this.GetValue(MediumIconProperty); }
+            set { this.SetValue(MediumIconProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
+        public static readonly DependencyProperty MediumIconProperty = MediumIconProviderProperties.MediumIconProperty.AddOwner(typeof(RadioButton), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
         #endregion
+
+        #region IsSimplified
+
+        /// <summary>
+        /// Gets or sets whether or not the ribbon is in Simplified mode
+        /// </summary>
+        public bool IsSimplified
+        {
+            get { return (bool)this.GetValue(IsSimplifiedProperty); }
+            private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        }
+
+        private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
+            DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RadioButton), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+        /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
+        public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+        #endregion
+
+        #endregion Properties
 
         #region Constructors
 
@@ -147,7 +194,7 @@ namespace Fluent
         public bool CanAddToQuickAccessToolBar
         {
             get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-            set { this.SetValue(CanAddToQuickAccessToolBarProperty, value); }
+            set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
         }
 
         /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>
@@ -173,6 +220,12 @@ namespace Fluent
         #endregion
 
         /// <inheritdoc />
+        void ISimplifiedStateControl.UpdateSimplifiedState(bool isSimplified)
+        {
+            this.IsSimplified = isSimplified;
+        }
+
+        /// <inheritdoc />
         void ILogicalChildSupport.AddLogicalChild(object child)
         {
             this.AddLogicalChild(child);
@@ -195,17 +248,22 @@ namespace Fluent
                     yield return baseEnumerator.Current;
                 }
 
-                if (this.Icon != null)
+                if (this.Icon is not null)
                 {
                     yield return this.Icon;
                 }
 
-                if (this.LargeIcon != null)
+                if (this.MediumIcon is not null)
+                {
+                    yield return this.MediumIcon;
+                }
+
+                if (this.LargeIcon is not null)
                 {
                     yield return this.LargeIcon;
                 }
 
-                if (this.Header != null)
+                if (this.Header is not null)
                 {
                     yield return this.Header;
                 }
