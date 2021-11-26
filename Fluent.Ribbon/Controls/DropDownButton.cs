@@ -367,9 +367,16 @@ namespace Fluent
 
             this.Loaded += this.OnLoaded;
             this.Unloaded += this.OnUnloaded;
+            this.IsVisibleChanged += this.OnIsVisibleChanged;
 
             this.AddHandler(System.Windows.Controls.MenuItem.SubmenuOpenedEvent, new RoutedEventHandler(this.OnSubmenuOpened));
             this.AddHandler(System.Windows.Controls.MenuItem.SubmenuClosedEvent, new RoutedEventHandler(this.OnSubmenuClosed));
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            // We should better use code similar to ComboBox.OnLostMouseCapture, but most of the methods called there are internal to WPF...
+            this.SetCurrentValue(IsDropDownOpenProperty, BooleanBoxes.FalseBox);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
