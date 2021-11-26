@@ -5,7 +5,6 @@ namespace Fluent
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
-    using Fluent.Internal;
 
     /// <summary>
     /// Represents a <see cref="ScrollViewer" /> specific to <see cref="RibbonGroupsContainer" />.
@@ -27,20 +26,16 @@ namespace Fluent
 
             if (this.ScrollInfo != null)
             {
-                var horizontalOffsetBefore = this.ScrollInfo.HorizontalOffset;
-                var verticalOffsetBefore = this.ScrollInfo.VerticalOffset;
-
                 if (e.Delta < 0)
                 {
-                    this.ScrollInfo.MouseWheelDown();
+                    this.LineRight();
                 }
                 else
                 {
-                    this.ScrollInfo.MouseWheelUp();
+                    this.LineLeft();
                 }
 
-                e.Handled = DoubleUtil.AreClose(horizontalOffsetBefore, this.ScrollInfo.HorizontalOffset) == false
-                            || DoubleUtil.AreClose(verticalOffsetBefore, this.ScrollInfo.VerticalOffset) == false;
+                e.Handled = true;
             }
         }
     }
