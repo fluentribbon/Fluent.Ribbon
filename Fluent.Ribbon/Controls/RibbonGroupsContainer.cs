@@ -433,18 +433,16 @@ namespace Fluent
         {
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void MouseWheelLeft()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset - 16);
         }
 
-        /// <summary>
-        /// Not implemented
-        /// </summary>
+        /// <inheritdoc />
         public void MouseWheelRight()
         {
+            this.SetHorizontalOffset(this.HorizontalOffset + 16);
         }
 
         /// <summary>
