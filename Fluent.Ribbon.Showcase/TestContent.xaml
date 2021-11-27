@@ -1908,7 +1908,7 @@
                                          Header="Toggle 2"
                                          KeyTip="T2" />
                     <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
-                                         Header="Toggle 3"
+                                         Header="Toggle&#xA0;3"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}"
                                          KeyTip="T3" />
 
