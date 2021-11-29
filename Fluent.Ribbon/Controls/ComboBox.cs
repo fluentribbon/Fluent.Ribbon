@@ -858,9 +858,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object? sender, DragDeltaEventArgs e)
         {
-            if (this.menuPanel is null
-                || this.scrollViewer is null
-                || this.dropDownBorder is null)
+            if (this.dropDownBorder is null)
             {
                 return;
             }
@@ -869,32 +867,12 @@ namespace Fluent
             this.SetDragHeight(e);
 
             // Set width
-            this.menuPanel.Width = double.NaN;
-            if (double.IsNaN(this.scrollViewer.Width))
+            if (double.IsNaN(this.dropDownBorder.Width))
             {
-                this.scrollViewer.Width = this.scrollViewer.ActualWidth;
+                this.dropDownBorder.Width = this.dropDownBorder.ActualWidth;
             }
 
-            var monitorRight = RibbonControl.GetControlMonitor(this).Right;
-            var popupChild = this.DropDownPopup?.Child as FrameworkElement;
-
-            if (popupChild is null)
-            {
-                return;
-            }
-
-            var delta = monitorRight - this.PointToScreen(default).X - popupChild.ActualWidth - e.HorizontalChange;
-            var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
-            var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
-
-            if (delta > 0)
-            {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(this.scrollViewer.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
-            }
-            else
-            {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(default).X - deltaX, this.ActualWidth - deltaBorders));
-            }
+            this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
         }
 
         // Handles resize vertical drag
@@ -916,7 +894,20 @@ namespace Fluent
                 this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.dropDownBorder.Height = Math.Max(0, this.dropDownBorder.Height + e.VerticalChange);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
+        }
+
+        private double GetResizeThumbHeight()
+        {
+            var height = this.ResizeMode switch
+            {
+                ContextMenuResizeMode.None => 0,
+                ContextMenuResizeMode.Vertical => this.resizeVerticalThumb?.ActualHeight,
+                ContextMenuResizeMode.Both => this.resizeBothThumb?.ActualHeight,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return height ?? 0;
         }
 
         #endregion

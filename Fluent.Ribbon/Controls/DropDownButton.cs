@@ -672,7 +672,7 @@ namespace Fluent
             }
 
             this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
-            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight, this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
@@ -688,7 +688,20 @@ namespace Fluent
                 this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight, this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
+        }
+
+        private double GetResizeThumbHeight()
+        {
+            var height = this.ResizeMode switch
+            {
+                ContextMenuResizeMode.None => 0,
+                ContextMenuResizeMode.Vertical => this.resizeVerticalThumb?.ActualHeight,
+                ContextMenuResizeMode.Both => this.resizeBothThumb?.ActualHeight,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return height ?? 0;
         }
 
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
