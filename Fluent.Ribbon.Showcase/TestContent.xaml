@@ -845,14 +845,15 @@
                             </Fluent:ComboBox.ItemsPanel>
                             <Fluent:ComboBox.TopPopupContentTemplate>
                                 <DataTemplate>
-                                    <Grid ToolTip="You can place content on top of the ComboBox items."
-                                          Background="Transparent">
+                                    <Grid Background="Transparent"
+                                          ToolTip="You can place content on top of the ComboBox items.">
                                         <ContentControl Content="{Binding}" />
                                     </Grid>
                                 </DataTemplate>
                             </Fluent:ComboBox.TopPopupContentTemplate>
                             <Fluent:ComboBox.TopPopupContent>
-                                <iconPacks:PackIconMaterial Kind="FontAwesome" ToolTip="You can place content on top of the ComboBox items." />
+                                <iconPacks:PackIconMaterial Kind="FontAwesome"
+                                                            ToolTip="You can place content on top of the ComboBox items." />
                             </Fluent:ComboBox.TopPopupContent>
                             <TextBlock HorizontalAlignment="Stretch"
                                        Tag="Theme Fonts"
@@ -887,8 +888,8 @@
                                          Text="12">
                             <Fluent:ComboBox.TopPopupContentTemplate>
                                 <DataTemplate>
-                                    <Grid ToolTip="You can place content on top of the ComboBox items."
-                                          Background="Transparent">
+                                    <Grid Background="Transparent"
+                                          ToolTip="You can place content on top of the ComboBox items.">
                                         <ContentControl Content="{Binding}" />
                                     </Grid>
                                 </DataTemplate>

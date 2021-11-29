@@ -68,8 +68,8 @@
                                                        Visibility="Visible" />
                                             <ScrollViewer Margin="1"
                                                           HorizontalScrollBarVisibility="Hidden"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          SnapsToDevicePixels="True">
+                                                          SnapsToDevicePixels="True"
+                                                          VerticalScrollBarVisibility="Auto">
                                                 <StackPanel x:Name="PART_MenuPanel"
                                                             IsItemsHost="True"
                                                             KeyboardNavigation.DirectionalNavigation="Cycle"
