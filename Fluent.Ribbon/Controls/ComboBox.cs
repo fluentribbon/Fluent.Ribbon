@@ -906,17 +906,17 @@ namespace Fluent
         private void SetDragHeight(DragDeltaEventArgs e)
         {
             if (this.canSizeY == false
-                || this.scrollViewer is null)
+                || this.dropDownBorder is null)
             {
                 return;
             }
 
-            if (double.IsNaN(this.scrollViewer.Height))
+            if (double.IsNaN(this.dropDownBorder.Height))
             {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.scrollViewer.Height = Math.Max(0, this.scrollViewer.Height + e.VerticalChange);
+            this.dropDownBorder.Height = Math.Max(0, this.dropDownBorder.Height + e.VerticalChange);
         }
 
         #endregion

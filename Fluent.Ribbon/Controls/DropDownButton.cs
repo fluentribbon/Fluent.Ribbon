@@ -27,6 +27,7 @@ namespace Fluent
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
+    [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
     [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
@@ -41,6 +42,8 @@ namespace Fluent
         private ScrollViewer? scrollViewer;
 
         private UIElement? buttonBorder;
+
+        private Border? dropDownBorder;
 
         private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
 
@@ -447,7 +450,7 @@ namespace Fluent
         {
             this.UnSubscribeEvents();
 
-            this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
+            this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
             if (this.DropDownPopup is not null)
             {
@@ -455,13 +458,15 @@ namespace Fluent
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
             }
 
-            this.resizeVerticalThumb = this.Template.FindName("PART_ResizeVerticalThumb", this) as Thumb;
+            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
 
-            this.resizeBothThumb = this.Template.FindName("PART_ResizeBothThumb", this) as Thumb;
+            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
 
-            this.scrollViewer = this.Template.FindName("PART_ScrollViewer", this) as ScrollViewer;
+            this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
 
-            this.buttonBorder = this.Template.FindName("PART_ButtonBorder", this) as UIElement;
+            this.buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as UIElement;
+
+            this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
 
             base.OnApplyTemplate();
 
@@ -651,39 +656,39 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer is null)
+            if (this.dropDownBorder is null)
             {
                 return;
             }
 
-            if (double.IsNaN(this.scrollViewer.Width))
+            if (double.IsNaN(this.dropDownBorder.Width))
             {
-                this.scrollViewer.Width = this.scrollViewer.ActualWidth;
+                this.dropDownBorder.Width = this.dropDownBorder.ActualWidth;
             }
 
-            if (double.IsNaN(this.scrollViewer.Height))
+            if (double.IsNaN(this.dropDownBorder.Height))
             {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.scrollViewer.Width = Math.Max(this.ActualWidth, this.scrollViewer.Width + e.HorizontalChange);
-            this.scrollViewer.Height = Math.Min(Math.Max(this.ActualHeight, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight);
+            this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight, this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
         }
 
         // Handles resize vertical drag
         private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
         {
-            if (this.scrollViewer is null)
+            if (this.dropDownBorder is null)
             {
                 return;
             }
 
-            if (double.IsNaN(this.scrollViewer.Height))
+            if (double.IsNaN(this.dropDownBorder.Height))
             {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.scrollViewer.Height = Math.Min(Math.Max(this.ActualHeight, this.scrollViewer.Height + e.VerticalChange), this.MaxDropDownHeight);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight, this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
         }
 
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
