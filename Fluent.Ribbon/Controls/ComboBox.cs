@@ -180,7 +180,7 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="TopPopupContent"/> dependency property.</summary>
         public static readonly DependencyProperty TopPopupContentProperty =
-            DependencyProperty.Register(nameof(TopPopupContent), typeof(object), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+            DependencyProperty.Register(nameof(TopPopupContent), typeof(object), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
         /// <summary>
         /// Gets or sets top content template.
@@ -1014,6 +1014,11 @@ namespace Fluent
                 if (this.Header is not null)
                 {
                     yield return this.Header;
+                }
+
+                if (this.TopPopupContent is not null)
+                {
+                    yield return this.TopPopupContent;
                 }
             }
         }
