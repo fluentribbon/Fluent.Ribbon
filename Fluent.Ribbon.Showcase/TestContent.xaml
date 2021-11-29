@@ -1,4 +1,4 @@
-<UserControl x:Class="FluentTest.TestContent"
+﻿<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -109,7 +109,8 @@
         </Grid.RowDefinitions>
 
         <Fluent:Ribbon x:Name="ribbon"
-                       AutomaticStateManagement="True">
+                       AutomaticStateManagement="True"
+                       CanUseSimplified="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
