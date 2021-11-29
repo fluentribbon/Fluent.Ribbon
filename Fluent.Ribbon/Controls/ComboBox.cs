@@ -167,6 +167,62 @@ namespace Fluent
 
         #endregion
 
+        #region TopPopupContent
+
+        /// <summary>
+        /// Gets or sets content to show on the top side of the Popup.
+        /// </summary>
+        public object? TopPopupContent
+        {
+            get { return (object?)this.GetValue(TopPopupContentProperty); }
+            set { this.SetValue(TopPopupContentProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContent"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentProperty =
+            DependencyProperty.Register(nameof(TopPopupContent), typeof(object), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// Gets or sets top content template.
+        /// </summary>
+        public DataTemplate? TopPopupContentTemplate
+        {
+            get { return (DataTemplate?)this.GetValue(TopPopupContentTemplateProperty); }
+            set { this.SetValue(TopPopupContentTemplateProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentTemplate"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentTemplateProperty =
+            DependencyProperty.Register(nameof(TopPopupContentTemplate), typeof(DataTemplate), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// Gets or sets top content template selector.
+        /// </summary>
+        public DataTemplateSelector? TopPopupContentTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(TopPopupContentTemplateSelectorProperty); }
+            set { this.SetValue(TopPopupContentTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(TopPopupContentTemplateSelector), typeof(DataTemplateSelector), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// Gets or sets top content template string format.
+        /// </summary>
+        public string? TopPopupContentStringFormat
+        {
+            get { return (string?)this.GetValue(TopPopupContentStringFormatProperty); }
+            set { this.SetValue(TopPopupContentStringFormatProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentStringFormat"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentStringFormatProperty =
+            DependencyProperty.Register(nameof(TopPopupContentStringFormat), typeof(string), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        #endregion
+
         #region Menu
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FluentTest.TestContent"
+<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -842,6 +842,17 @@
                                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
                                 </ItemsPanelTemplate>
                             </Fluent:ComboBox.ItemsPanel>
+                            <Fluent:ComboBox.TopPopupContentTemplate>
+                                <DataTemplate>
+                                    <Grid ToolTip="You can place content on top of the ComboBox items."
+                                          Background="Transparent">
+                                        <ContentControl Content="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Fluent:ComboBox.TopPopupContentTemplate>
+                            <Fluent:ComboBox.TopPopupContent>
+                                <iconPacks:PackIconMaterial Kind="FontAwesome" ToolTip="You can place content on top of the ComboBox items." />
+                            </Fluent:ComboBox.TopPopupContent>
                             <TextBlock HorizontalAlignment="Stretch"
                                        Tag="Theme Fonts"
                                        Text="Arial" />
@@ -869,10 +880,22 @@
                                          DisplayMemberPath="Text"
                                          IsEditable="False"
                                          KeyTip="FS"
-                                         ResizeMode="Vertical"
+                                         ResizeMode="Both"
                                          SelectedIndex="1"
                                          SizeDefinition="Small"
                                          Text="12">
+                            <Fluent:ComboBox.TopPopupContentTemplate>
+                                <DataTemplate>
+                                    <Grid ToolTip="You can place content on top of the ComboBox items."
+                                          Background="Transparent">
+                                        <ContentControl Content="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Fluent:ComboBox.TopPopupContentTemplate>
+                            <Fluent:ComboBox.TopPopupContent>
+                                <iconPacks:PackIconMaterial Kind="Numeric" />
+                            </Fluent:ComboBox.TopPopupContent>
+
                             <TextBlock Text="7" />
                             <TextBlock Text="8" />
                             <TextBlock Text="9" />
