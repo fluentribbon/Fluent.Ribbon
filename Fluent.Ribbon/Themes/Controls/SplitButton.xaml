@@ -126,6 +126,7 @@
                       SnapsToDevicePixels="True">
                     <Border x:Name="PART_DropDownBorder"
                             MinWidth="{TemplateBinding ActualWidth}"
+                            MaxHeight="{TemplateBinding MaxDropDownHeight}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
@@ -149,7 +150,6 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <ScrollViewer x:Name="PART_ScrollViewer"
-                                              MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               Margin="1"
                                               HorizontalScrollBarVisibility="Hidden"
                                               SnapsToDevicePixels="True"
