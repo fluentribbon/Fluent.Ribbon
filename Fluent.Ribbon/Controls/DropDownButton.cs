@@ -379,7 +379,10 @@ namespace Fluent
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             // We should better use code similar to ComboBox.OnLostMouseCapture, but most of the methods called there are internal to WPF...
-            this.SetCurrentValue(IsDropDownOpenProperty, BooleanBoxes.FalseBox);
+            if ((bool)e.NewValue == false)
+            {
+                this.SetCurrentValue(IsDropDownOpenProperty, BooleanBoxes.FalseBox);
+            }
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
