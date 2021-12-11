@@ -2,7 +2,6 @@
 {
     using System.Windows;
     using System.Windows.Automation.Peers;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Base automation peer for <see cref="IHeaderedControl"/>.
@@ -12,7 +11,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        protected RibbonHeaderedControlAutomationPeer([NotNull] FrameworkElement owner)
+        protected RibbonHeaderedControlAutomationPeer(FrameworkElement owner)
             : base(owner)
         {
         }

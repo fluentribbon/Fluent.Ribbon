@@ -22,7 +22,6 @@ namespace Fluent
     using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Represents the In-Ribbon Gallery, a gallery-based control that exposes

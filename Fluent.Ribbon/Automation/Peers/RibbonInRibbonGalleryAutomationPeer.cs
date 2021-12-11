@@ -3,9 +3,7 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using System.Windows.Controls;
     using Fluent.Internal.KnownBoxes;
-    using JetBrains.Annotations;
 
     /// <summary>
     ///     Automation peer for <see cref="InRibbonGallery" />
@@ -18,7 +16,7 @@
         /// <summary>
         ///     Creates a new instance.
         /// </summary>
-        public RibbonInRibbonGalleryAutomationPeer([NotNull] InRibbonGallery owner)
+        public RibbonInRibbonGalleryAutomationPeer(InRibbonGallery owner)
             : base(owner)
         {
             this.owner = owner;

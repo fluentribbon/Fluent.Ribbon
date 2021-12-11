@@ -1,6 +1,5 @@
 namespace Fluent.Automation.Peers
 {
-    using System.Windows;
     using System.Windows.Automation.Peers;
 
     /// <inheritdoc />

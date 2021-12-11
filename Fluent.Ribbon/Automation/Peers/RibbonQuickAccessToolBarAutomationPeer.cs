@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Windows.Automation.Peers;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="QuickAccessToolBar"/>.
@@ -12,7 +11,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonQuickAccessToolBarAutomationPeer([NotNull] QuickAccessToolBar owner)
+        public RibbonQuickAccessToolBarAutomationPeer(QuickAccessToolBar owner)
             : base(owner)
         {
             this.OwningQuickAccessToolBar = owner;

@@ -3,7 +3,6 @@
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="DropDownButton"/>.
@@ -13,7 +12,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonDropDownButtonAutomationPeer([NotNull] DropDownButton owner)
+        public RibbonDropDownButtonAutomationPeer(DropDownButton owner)
             : base(owner)
         {
             this.OwnerDropDownButton = owner;

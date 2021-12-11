@@ -1,13 +1,11 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using JetBrains.Annotations;
-
     /// <inheritdoc />
     public class RibbonComboBoxAutomationPeer : System.Windows.Automation.Peers.ComboBoxAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:ComboBoxAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public RibbonComboBoxAutomationPeer([NotNull] ComboBox owner)
+        public RibbonComboBoxAutomationPeer(ComboBox owner)
             : base(owner)
         {
         }

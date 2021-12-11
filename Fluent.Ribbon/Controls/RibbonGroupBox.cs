@@ -7,7 +7,6 @@ namespace Fluent
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Diagnostics;
-    using System.Linq;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;

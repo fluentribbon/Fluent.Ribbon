@@ -1,10 +1,9 @@
-﻿namespace Fluent.Automation.Peers
+namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonTabControl"/>.
@@ -14,7 +13,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonTabControlAutomationPeer([NotNull] RibbonTabControl owner)
+        public RibbonTabControlAutomationPeer(RibbonTabControl owner)
             : base(owner)
         {
             this.OwningRibbonTabControl = owner;
@@ -45,7 +44,7 @@
         bool ISelectionProvider.CanSelectMultiple => false;
 
         /// <inheritdoc />
-        public override object GetPattern(PatternInterface patternInterface)
+        public override object? GetPattern(PatternInterface patternInterface)
         {
             switch (patternInterface)
             {
@@ -60,8 +59,7 @@
                         }
                     }
 
-                    var ribbonTabsContainer = this.OwningRibbonTabControl.TabsContainer as RibbonTabsContainer;
-                    if (ribbonTabsContainer is not null
+                    if (this.OwningRibbonTabControl.TabsContainer is RibbonTabsContainer ribbonTabsContainer
                         && ribbonTabsContainer.ScrollOwner is not null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabsContainer.ScrollOwner);
