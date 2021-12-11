@@ -1,4 +1,4 @@
-namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers
 {
     using System.Collections.Generic;
     using System.Windows;
@@ -81,23 +81,36 @@ namespace Fluent.Automation.Peers
         {
             var children = base.GetChildrenCore() ?? new List<AutomationPeer>();
 
-            var minimizeButton = this.OwningRibbonTabControl.MinimizeButton;
+            var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
 
-            if (minimizeButton is not null)
+            if (toolbarPanel is not null)
             {
-                var automationPeer = CreatePeerForElement(minimizeButton);
+                foreach (UIElement? child in toolbarPanel.Children)
+                {
+                    if (child is null)
+                    {
+                        continue;
+                    }
+
+                    var automationPeer = CreatePeerForElement(child);
+
+                    if (automationPeer is not null)
+                    {
+                        children.Add(automationPeer);
+                    }
+                }
+            }
+
+            var displayOptionsButton = this.OwningRibbonTabControl.DisplayOptionsControl;
+
+            if (displayOptionsButton is not null)
+            {
+                var automationPeer = CreatePeerForElement(displayOptionsButton);
 
                 if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
-            }
-
-            var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
-            if (toolbarPanel is not null)
-            {
-                var automationPeer = new RibbonToolbarPanelAutomationPeer(toolbarPanel);
-                children.Add(automationPeer);
             }
 
             return children;
