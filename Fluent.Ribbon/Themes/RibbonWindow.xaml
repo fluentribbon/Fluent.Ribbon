@@ -59,7 +59,6 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{x:Null}"
-                    BorderBrush="{TemplateBinding GlowBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
                     UseLayoutRounding="True" />
 
@@ -72,22 +71,11 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="IsActive" Value="False">
-                <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveGlowBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsActive" Value="False" />
-                    <Condition Property="NonActiveGlowBrush" Value="{x:Null}" />
-                </MultiTrigger.Conditions>
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveBorderBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsActive" Value="True" />
-                    <Condition Property="GlowBrush" Value="{x:Null}" />
-                </MultiTrigger.Conditions>
+            </Trigger>
+            <Trigger Property="IsActive" Value="True">
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=BorderBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-            </MultiTrigger>
+            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
@@ -111,9 +99,9 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
-        <Setter Property="GlowBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBaseColor}" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
-        <Setter Property="NonActiveGlowBrush" Value="#434346" />
+        <Setter Property="NonActiveGlowColor" Value="#434346" />
         <Setter Property="Template" Value="{StaticResource RibbonWindowControlTemplate}" />
         <Setter Property="TitleBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleBarHeight" Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />

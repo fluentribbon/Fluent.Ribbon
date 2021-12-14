@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:converters="clr-namespace:Fluent.Converters">
+                    xmlns:converters="clr-namespace:Fluent.Converters"
+                    xmlns:controlzex="urn:controlzex">
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands"
                      TargetType="Fluent:WindowCommands">
@@ -28,7 +29,9 @@
                     Focusable="False"
                     SnapsToDevicePixels="True"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    controlzex:NonClientControlProperties.HitTestResult="MINBUTTON"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent">
                 <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
@@ -44,7 +47,9 @@
                     SnapsToDevicePixels="True"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}">
+                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}"
+                    controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent">
                 <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
@@ -60,7 +65,9 @@
                     SnapsToDevicePixels="True"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
-                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
+                    Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}"
+                    controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent">
                 <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"
@@ -75,7 +82,9 @@
                     Focusable="False"
                     SnapsToDevicePixels="True"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
-                    ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
+                    ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    controlzex:NonClientControlProperties.HitTestResult="CLOSE"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent">
                 <Path Width="16"
                       Height="16"
                       HorizontalAlignment="Center"

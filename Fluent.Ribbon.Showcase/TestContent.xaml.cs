@@ -55,14 +55,14 @@ namespace FluentTest
         public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
 
 #pragma warning disable WPF0060
-        /// <summary>Identifies the <see cref="Brushes"/> dependency property.</summary>
-        public static readonly DependencyProperty BrushesProperty = DependencyProperty.Register(nameof(Brushes), typeof(List<KeyValuePair<string, Brush>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Brush>>)));
+        /// <summary>Identifies the <see cref="Colors"/> dependency property.</summary>
+        public static readonly DependencyProperty ColorsProperty = DependencyProperty.Register(nameof(Colors), typeof(List<KeyValuePair<string, Color?>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Color>>)));
 #pragma warning restore WPF0060
 
-        public List<KeyValuePair<string, Brush>> Brushes
+        public List<KeyValuePair<string, Color?>> Colors
         {
-            get { return (List<KeyValuePair<string, Brush>>)this.GetValue(BrushesProperty); }
-            set { this.SetValue(BrushesProperty, value); }
+            get { return (List<KeyValuePair<string, Color?>>)this.GetValue(ColorsProperty); }
+            set { this.SetValue(ColorsProperty, value); }
         }
 
         public List<RibbonLocalizationBase> Localizations { get; } = GetLocalizations();
@@ -74,18 +74,18 @@ namespace FluentTest
                 .ToList();
         }
 
-        private static IEnumerable<KeyValuePair<string, Brush>> GetBrushes()
+        private static IEnumerable<KeyValuePair<string, Color?>> GetColors()
         {
-            var brushes = typeof(Brushes)
+            var colors = typeof(Colors)
                           .GetProperties()
                           .Where(prop =>
                                      typeof(Brush).IsAssignableFrom(prop.PropertyType))
                           .Select(prop =>
-                                      new KeyValuePair<string, Brush>(prop.Name, (Brush)prop.GetValue(null, null)));
+                                      new KeyValuePair<string, Color?>(prop.Name, (Color)prop.GetValue(null, null)));
             return ThemeManager.Current.Themes.GroupBy(x => x.ColorScheme)
                                .Select(x => x.First())
-                               .Select(x => new KeyValuePair<string, Brush>(x.ColorScheme, x.ShowcaseBrush))
-                               .Concat(brushes)
+                               .Select(x => new KeyValuePair<string, Color?>(x.ColorScheme, ((SolidColorBrush)x.ShowcaseBrush).Color))
+                               .Concat(colors)
                                .OrderBy(x => x.Key);
         }
 
@@ -143,44 +143,44 @@ namespace FluentTest
         {
             this.Loaded -= this.TestContent_Loaded;
 
-            this.InitializeBrushes();
+            this.InitializeColors();
         }
 
-        private void InitializeBrushes()
+        private void InitializeColors()
         {
-            var currentBrushes = new[]
+            var currentColors = new[]
                                  {
-                                     new KeyValuePair<string, Brush>("None", null),
-                                     new KeyValuePair<string, Brush>("Initial glow", GetCurrentGlowBrush()),
-                                     new KeyValuePair<string, Brush>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
+                                     new KeyValuePair<string, Color?>("None", null),
+                                     new KeyValuePair<string, Color?>("Initial glow", GetCurrentGlowColor()),
+                                     new KeyValuePair<string, Color?>("Initial non active glow", GetCurrentNonActiveGlowBrush()),
                                  };
 
-            this.Brushes = currentBrushes.Concat(GetBrushes()).ToList();
+            this.Colors = currentColors.Concat(GetColors()).ToList();
 
-            Brush GetCurrentGlowBrush()
+            Color? GetCurrentGlowColor()
             {
                 switch (Window.GetWindow(this))
                 {
                     case RibbonWindow x:
-                        return x.GlowBrush;
+                        return x.GlowColor;
 #if MahApps_Metro
                     case MetroWindow x:
-                        return x.GlowBrush;
+                        return ((SolidColorBrush)x.GlowBrush).Color;
 #endif
                 }
 
                 return null;
             }
 
-            Brush GetCurrentNonActiveGlowBrush()
+            Color? GetCurrentNonActiveGlowBrush()
             {
                 switch (Window.GetWindow(this))
                 {
                     case RibbonWindow x:
-                        return x.NonActiveGlowBrush;
+                        return x.NonActiveGlowColor;
 #if MahApps_Metro
                     case MetroWindow x:
-                        return x.NonActiveGlowBrush;
+                        return ((SolidColorBrush)x.NonActiveGlowBrush).Color;
 #endif
                 }
 
@@ -402,7 +402,7 @@ namespace FluentTest
             {
                 VerticalAlignment = VerticalAlignment.Stretch,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
-                Background = new SolidColorBrush(Colors.Black) { Opacity = 0.25 },
+                Background = new SolidColorBrush(System.Windows.Media.Colors.Black) { Opacity = 0.25 },
                 IsHitTestVisible = true,
                 Child = new ProgressBar
                 {

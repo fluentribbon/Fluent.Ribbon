@@ -4,6 +4,7 @@
                     xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:controlzex="urn:controlzex"
                     mc:Ignorable="d">
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands.CaptionButton"
@@ -44,6 +45,12 @@
                 <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
+            </Trigger>
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="true">
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCPressed" Value="true">
                 <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
             </Trigger>
         </Style.Triggers>

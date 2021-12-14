@@ -3085,10 +3085,10 @@
                                 <GroupBox Header="WindowGlow">
                                     <WrapPanel>
                                         <Fluent:ComboBox MinWidth="140"
-                                                         Header="GlowBrush"
+                                                         Header="GlowColor"
                                                          IsEditable="False"
-                                                         ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=GlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         ItemsSource="{Binding Colors, ElementName=TestContentControl}"
+                                                         SelectedValue="{Binding Path=GlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>
@@ -3111,10 +3111,10 @@
                                         </Fluent:ComboBox>
 
                                         <Fluent:ComboBox MinWidth="150"
-                                                         Header="NonActiveGlowBrush"
+                                                         Header="NonActiveGlowColor"
                                                          IsEditable="False"
-                                                         ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=NonActiveGlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         ItemsSource="{Binding Colors, ElementName=TestContentControl}"
+                                                         SelectedValue="{Binding Path=NonActiveGlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>

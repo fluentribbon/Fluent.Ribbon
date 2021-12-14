@@ -1,4 +1,6 @@
-﻿// ReSharper disable once CheckNamespace
+﻿#pragma warning disable WPF0015
+
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -7,6 +9,7 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using ControlzEx;
     using ControlzEx.Behaviors;
     using Fluent.Extensions;
     using Fluent.Helpers;
@@ -21,7 +24,7 @@ namespace Fluent
     [TemplatePart(Name = PART_ContentPresenter, Type = typeof(UIElement))]
     [TemplatePart(Name = PART_RibbonTitleBar, Type = typeof(RibbonTitleBar))]
     [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
-    public class RibbonWindow : Window, IRibbonWindow
+    public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     {
         // ReSharper disable InconsistentNaming
 #pragma warning disable SA1310 // Field names must not contain underscore
@@ -103,54 +106,6 @@ namespace Fluent
 
         #region Window-Border-Properties
 
-        /// <summary>
-        /// Gets or sets resize border thickness.
-        /// </summary>
-        public Thickness ResizeBorderThickness
-        {
-            get { return (Thickness)this.GetValue(ResizeBorderThicknessProperty); }
-            set { this.SetValue(ResizeBorderThicknessProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="ResizeBorderThickness"/> dependency property.</summary>
-        public static readonly DependencyProperty ResizeBorderThicknessProperty = DependencyProperty.Register(nameof(ResizeBorderThickness), typeof(Thickness), typeof(RibbonWindow), new PropertyMetadata(WindowChromeBehavior.ResizeBorderThicknessProperty.DefaultMetadata.DefaultValue));
-
-        // /// <summary>Identifies the <see cref="GlowDepth"/> dependency property.</summary>
-        // public static readonly DependencyProperty GlowDepthProperty = DependencyProperty.Register(nameof(GlowDepth), typeof(int), typeof(RibbonWindow), new PropertyMetadata(GlowWindowBehavior.GlowDepthProperty.DefaultMetadata.DefaultValue));
-        //
-        // /// <summary>
-        // /// Gets or sets the <see cref="GlowWindowBehavior.GlowDepth"/>.
-        // /// </summary>
-        // public int GlowDepth
-        // {
-        //     get => (int)this.GetValue(GlowDepthProperty);
-        //     set => this.SetValue(GlowDepthProperty, value);
-        // }
-
-        /// <summary>Identifies the <see cref="GlowBrush"/> dependency property.</summary>
-        public static readonly DependencyProperty GlowBrushProperty = DependencyProperty.Register(nameof(GlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
-
-        /// <summary>
-        /// Gets or sets a brush which is used as the glow when the window is active.
-        /// </summary>
-        public Brush? GlowBrush
-        {
-            get { return (Brush?)this.GetValue(GlowBrushProperty); }
-            set { this.SetValue(GlowBrushProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="NonActiveGlowBrush"/> dependency property.</summary>
-        public static readonly DependencyProperty NonActiveGlowBrushProperty = DependencyProperty.Register(nameof(NonActiveGlowBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
-
-        /// <summary>
-        /// Gets or sets a brush which is used as the glow when the window is not active.
-        /// </summary>
-        public Brush? NonActiveGlowBrush
-        {
-            get { return (Brush?)this.GetValue(NonActiveGlowBrushProperty); }
-            set { this.SetValue(NonActiveGlowBrushProperty, value); }
-        }
-
         /// <summary>Identifies the <see cref="NonActiveBorderBrush"/> dependency property.</summary>
         public static readonly DependencyProperty NonActiveBorderBrushProperty = DependencyProperty.Register(nameof(NonActiveBorderBrush), typeof(Brush), typeof(RibbonWindow), new PropertyMetadata(default(Brush)));
 
@@ -215,18 +170,6 @@ namespace Fluent
         /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
         public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        /// <summary>
-        /// Defines if the taskbar should be ignored and hidden while the window is maximized.
-        /// </summary>
-        public bool IgnoreTaskbarOnMaximize
-        {
-            get { return (bool)this.GetValue(IgnoreTaskbarOnMaximizeProperty); }
-            set { this.SetValue(IgnoreTaskbarOnMaximizeProperty, BooleanBoxes.Box(value)); }
-        }
-
-        /// <summary>Identifies the <see cref="IgnoreTaskbarOnMaximize"/> dependency property.</summary>
-        public static readonly DependencyProperty IgnoreTaskbarOnMaximizeProperty = DependencyProperty.Register(nameof(IgnoreTaskbarOnMaximize), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.FalseBox));
-
         #endregion
 
         #region Constructors
@@ -237,11 +180,6 @@ namespace Fluent
         static RibbonWindow()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-
-            BorderThicknessProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(new Thickness(1)));
-            WindowStyleProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(WindowStyle.None));
-
-            AllowsTransparencyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         /// <summary>
@@ -251,10 +189,6 @@ namespace Fluent
         {
             this.SizeChanged += this.OnSizeChanged;
             this.Loaded += this.OnLoaded;
-            this.ContentRendered += this.OnContentRendered;
-
-            // WindowChromeBehavior initialization has to occur in constructor. Otherwise the load event is fired early and performance of the window is degraded.
-            this.InitializeWindowChromeBehavior();
         }
 
         #endregion
@@ -269,7 +203,7 @@ namespace Fluent
             var behavior = new WindowChromeBehavior();
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
             BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowColorProperty, new Binding { Path = new PropertyPath(GlowColorProperty), Source = this });
 
             Interaction.GetBehaviors(this).Add(behavior);
         }
@@ -280,10 +214,9 @@ namespace Fluent
         private void InitializeGlowWindowBehavior()
         {
             var behavior = new GlowWindowBehavior();
-            // BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowDepthProperty, new Binding { Path = new PropertyPath(GlowDepthProperty), Source = this });
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowBrushProperty, new Binding { Path = new PropertyPath(GlowBrushProperty), Source = this });
-            BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowBrushProperty, new Binding { Path = new PropertyPath(NonActiveGlowBrushProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowDepthProperty, new Binding { Path = new PropertyPath(GlowDepthProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowColorProperty, new Binding { Path = new PropertyPath(GlowColorProperty), Source = this });
+            BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowColorProperty, new Binding { Path = new PropertyPath(NonActiveGlowColorProperty), Source = this });
 
             Interaction.GetBehaviors(this).Add(behavior);
         }
@@ -312,13 +245,6 @@ namespace Fluent
                 this.WindowCommands?.InvalidateProperty(WindowCommands.ItemsPanelVisibilityProperty);
                 this.WindowCommands?.ItemsControl?.SetCurrentValue(RibbonProperties.LastVisibleWidthProperty, this.WindowCommands.ItemsControl.ActualWidth);
             }
-        }
-
-        private void OnContentRendered(object? sender, EventArgs e)
-        {
-            this.ContentRendered -= this.OnContentRendered;
-
-            this.InitializeGlowWindowBehavior();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
