@@ -2,7 +2,6 @@
 {
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using JetBrains.Annotations;
 
     /// <summary>
     ///     Automation peer for <see cref="BackstageTabControl" />.
@@ -12,7 +11,7 @@
         /// <summary>
         ///     Creates a new instance.
         /// </summary>
-        public RibbonBackstageTabControlAutomationPeer([NotNull] BackstageTabControl owner)
+        public RibbonBackstageTabControlAutomationPeer(BackstageTabControl owner)
             : base(owner)
         {
             this.OwningBackstageTabControl = owner;

@@ -4,7 +4,6 @@
     using System.Runtime.CompilerServices;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer wrapper for <see cref="RibbonTabItem"/>.
@@ -14,7 +13,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonTabItemAutomationPeer([NotNull] RibbonTabItem owner)
+        public RibbonTabItemAutomationPeer(RibbonTabItem owner)
             : base(owner)
         {
             this.OwningTab = owner;

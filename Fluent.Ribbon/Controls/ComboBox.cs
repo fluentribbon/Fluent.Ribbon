@@ -167,6 +167,62 @@ namespace Fluent
 
         #endregion
 
+        #region TopPopupContent
+
+        /// <summary>
+        /// Gets or sets content to show on the top side of the Popup.
+        /// </summary>
+        public object? TopPopupContent
+        {
+            get { return (object?)this.GetValue(TopPopupContentProperty); }
+            set { this.SetValue(TopPopupContentProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContent"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentProperty =
+            DependencyProperty.Register(nameof(TopPopupContent), typeof(object), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+        /// <summary>
+        /// Gets or sets top content template.
+        /// </summary>
+        public DataTemplate? TopPopupContentTemplate
+        {
+            get { return (DataTemplate?)this.GetValue(TopPopupContentTemplateProperty); }
+            set { this.SetValue(TopPopupContentTemplateProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentTemplate"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentTemplateProperty =
+            DependencyProperty.Register(nameof(TopPopupContentTemplate), typeof(DataTemplate), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// Gets or sets top content template selector.
+        /// </summary>
+        public DataTemplateSelector? TopPopupContentTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(TopPopupContentTemplateSelectorProperty); }
+            set { this.SetValue(TopPopupContentTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(TopPopupContentTemplateSelector), typeof(DataTemplateSelector), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        /// <summary>
+        /// Gets or sets top content template string format.
+        /// </summary>
+        public string? TopPopupContentStringFormat
+        {
+            get { return (string?)this.GetValue(TopPopupContentStringFormatProperty); }
+            set { this.SetValue(TopPopupContentStringFormatProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="TopPopupContentStringFormat"/> dependency property.</summary>
+        public static readonly DependencyProperty TopPopupContentStringFormatProperty =
+            DependencyProperty.Register(nameof(TopPopupContentStringFormat), typeof(string), typeof(ComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+
+        #endregion
+
         #region Menu
 
         /// <summary>
@@ -858,9 +914,7 @@ namespace Fluent
         // Handles resize both drag
         private void OnResizeBothDelta(object? sender, DragDeltaEventArgs e)
         {
-            if (this.menuPanel is null
-                || this.scrollViewer is null
-                || this.dropDownBorder is null)
+            if (this.dropDownBorder is null)
             {
                 return;
             }
@@ -869,32 +923,12 @@ namespace Fluent
             this.SetDragHeight(e);
 
             // Set width
-            this.menuPanel.Width = double.NaN;
-            if (double.IsNaN(this.scrollViewer.Width))
+            if (double.IsNaN(this.dropDownBorder.Width))
             {
-                this.scrollViewer.Width = this.scrollViewer.ActualWidth;
+                this.dropDownBorder.Width = this.dropDownBorder.ActualWidth;
             }
 
-            var monitorRight = RibbonControl.GetControlMonitor(this).Right;
-            var popupChild = this.DropDownPopup?.Child as FrameworkElement;
-
-            if (popupChild is null)
-            {
-                return;
-            }
-
-            var delta = monitorRight - this.PointToScreen(default).X - popupChild.ActualWidth - e.HorizontalChange;
-            var deltaX = popupChild.ActualWidth - this.scrollViewer.ActualWidth;
-            var deltaBorders = this.dropDownBorder.ActualWidth - this.scrollViewer.ActualWidth;
-
-            if (delta > 0)
-            {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(this.scrollViewer.Width + e.HorizontalChange, this.ActualWidth - deltaBorders));
-            }
-            else
-            {
-                this.scrollViewer.Width = Math.Max(0, Math.Max(monitorRight - this.PointToScreen(default).X - deltaX, this.ActualWidth - deltaBorders));
-            }
+            this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
         }
 
         // Handles resize vertical drag
@@ -906,17 +940,30 @@ namespace Fluent
         private void SetDragHeight(DragDeltaEventArgs e)
         {
             if (this.canSizeY == false
-                || this.scrollViewer is null)
+                || this.dropDownBorder is null)
             {
                 return;
             }
 
-            if (double.IsNaN(this.scrollViewer.Height))
+            if (double.IsNaN(this.dropDownBorder.Height))
             {
-                this.scrollViewer.Height = this.scrollViewer.ActualHeight;
+                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
             }
 
-            this.scrollViewer.Height = Math.Max(0, this.scrollViewer.Height + e.VerticalChange);
+            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
+        }
+
+        private double GetResizeThumbHeight()
+        {
+            var height = this.ResizeMode switch
+            {
+                ContextMenuResizeMode.None => 0,
+                ContextMenuResizeMode.Vertical => this.resizeVerticalThumb?.ActualHeight,
+                ContextMenuResizeMode.Both => this.resizeBothThumb?.ActualHeight,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            return height ?? 0;
         }
 
         #endregion
@@ -967,6 +1014,11 @@ namespace Fluent
                 if (this.Header is not null)
                 {
                     yield return this.Header;
+                }
+
+                if (this.TopPopupContent is not null)
+                {
+                    yield return this.TopPopupContent;
                 }
             }
         }

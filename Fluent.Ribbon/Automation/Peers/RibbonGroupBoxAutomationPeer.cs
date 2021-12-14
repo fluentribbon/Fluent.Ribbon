@@ -4,7 +4,6 @@ namespace Fluent.Automation.Peers
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonGroupBox"/>.
@@ -16,7 +15,7 @@ namespace Fluent.Automation.Peers
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonGroupBoxAutomationPeer([NotNull] RibbonGroupBox owner)
+        public RibbonGroupBoxAutomationPeer(RibbonGroupBox owner)
             : base(owner)
         {
             this.OwningGroup = owner;

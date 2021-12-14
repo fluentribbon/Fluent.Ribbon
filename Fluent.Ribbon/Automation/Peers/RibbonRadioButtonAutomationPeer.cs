@@ -1,13 +1,11 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using JetBrains.Annotations;
-
     /// <inheritdoc />
     public class RibbonRadioButtonAutomationPeer : System.Windows.Automation.Peers.RadioButtonAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:RadioButtonAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public RibbonRadioButtonAutomationPeer([NotNull] RadioButton owner)
+        public RibbonRadioButtonAutomationPeer(RadioButton owner)
             : base(owner)
         {
         }

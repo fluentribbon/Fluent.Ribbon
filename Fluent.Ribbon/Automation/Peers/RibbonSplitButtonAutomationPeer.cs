@@ -7,7 +7,6 @@
     using System.Windows.Threading;
     using Fluent.Extensions;
     using Fluent.Internal;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="SplitButton"/>.
@@ -17,7 +16,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonSplitButtonAutomationPeer([NotNull] SplitButton owner)
+        public RibbonSplitButtonAutomationPeer(SplitButton owner)
             : base(owner)
         {
             this.SplitButtonOnwer = owner;

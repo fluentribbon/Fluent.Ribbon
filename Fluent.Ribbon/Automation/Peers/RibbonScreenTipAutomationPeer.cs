@@ -1,7 +1,6 @@
 ﻿namespace Fluent.Automation.Peers
 {
     using System.Windows.Automation.Peers;
-    using JetBrains.Annotations;
 
     /// <summary>
     ///     Automation peer for <see cref="ScreenTip" />.
@@ -11,7 +10,7 @@
         /// <summary>
         ///     Creates a new instance.
         /// </summary>
-        public RibbonScreenTipAutomationPeer([NotNull] ScreenTip owner)
+        public RibbonScreenTipAutomationPeer(ScreenTip owner)
             : base(owner)
         {
         }

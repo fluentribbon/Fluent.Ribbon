@@ -1,13 +1,11 @@
 ﻿namespace Fluent.Automation.Peers
 {
-    using JetBrains.Annotations;
-
     /// <inheritdoc />
     public class RibbonCheckBoxAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
-        public RibbonCheckBoxAutomationPeer([NotNull] CheckBox owner)
+        public RibbonCheckBoxAutomationPeer(CheckBox owner)
             : base(owner)
         {
         }

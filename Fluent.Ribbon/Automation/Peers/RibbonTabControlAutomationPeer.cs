@@ -4,7 +4,6 @@
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Automation.Provider;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="RibbonTabControl"/>.
@@ -14,7 +13,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonTabControlAutomationPeer([NotNull] RibbonTabControl owner)
+        public RibbonTabControlAutomationPeer(RibbonTabControl owner)
             : base(owner)
         {
             this.OwningRibbonTabControl = owner;
@@ -45,7 +44,7 @@
         bool ISelectionProvider.CanSelectMultiple => false;
 
         /// <inheritdoc />
-        public override object GetPattern(PatternInterface patternInterface)
+        public override object? GetPattern(PatternInterface patternInterface)
         {
             switch (patternInterface)
             {
@@ -60,8 +59,7 @@
                         }
                     }
 
-                    var ribbonTabsContainer = this.OwningRibbonTabControl.TabsContainer as RibbonTabsContainer;
-                    if (ribbonTabsContainer is not null
+                    if (this.OwningRibbonTabControl.TabsContainer is RibbonTabsContainer ribbonTabsContainer
                         && ribbonTabsContainer.ScrollOwner is not null)
                     {
                         var automationPeer = CreatePeerForElement(ribbonTabsContainer.ScrollOwner);
@@ -83,23 +81,36 @@
         {
             var children = base.GetChildrenCore() ?? new List<AutomationPeer>();
 
-            var minimizeButton = this.OwningRibbonTabControl.MinimizeButton;
+            var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
 
-            if (minimizeButton is not null)
+            if (toolbarPanel is not null)
             {
-                var automationPeer = CreatePeerForElement(minimizeButton);
+                foreach (UIElement? child in toolbarPanel.Children)
+                {
+                    if (child is null)
+                    {
+                        continue;
+                    }
+
+                    var automationPeer = CreatePeerForElement(child);
+
+                    if (automationPeer is not null)
+                    {
+                        children.Add(automationPeer);
+                    }
+                }
+            }
+
+            var displayOptionsButton = this.OwningRibbonTabControl.DisplayOptionsControl;
+
+            if (displayOptionsButton is not null)
+            {
+                var automationPeer = CreatePeerForElement(displayOptionsButton);
 
                 if (automationPeer is not null)
                 {
                     children.Add(automationPeer);
                 }
-            }
-
-            var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
-            if (toolbarPanel is not null)
-            {
-                var automationPeer = new RibbonToolbarPanelAutomationPeer(toolbarPanel);
-                children.Add(automationPeer);
             }
 
             return children;

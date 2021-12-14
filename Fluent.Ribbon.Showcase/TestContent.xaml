@@ -109,7 +109,8 @@
         </Grid.RowDefinitions>
 
         <Fluent:Ribbon x:Name="ribbon"
-                       AutomaticStateManagement="True">
+                       AutomaticStateManagement="True"
+                       CanUseSimplified="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
@@ -842,6 +843,18 @@
                                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource FindAncestor, AncestorType=ComboBox}}" />
                                 </ItemsPanelTemplate>
                             </Fluent:ComboBox.ItemsPanel>
+                            <Fluent:ComboBox.TopPopupContentTemplate>
+                                <DataTemplate>
+                                    <Grid Background="Transparent"
+                                          ToolTip="You can place content on top of the ComboBox items.">
+                                        <ContentControl Content="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Fluent:ComboBox.TopPopupContentTemplate>
+                            <Fluent:ComboBox.TopPopupContent>
+                                <iconPacks:PackIconMaterial Kind="FontAwesome"
+                                                            ToolTip="You can place content on top of the ComboBox items." />
+                            </Fluent:ComboBox.TopPopupContent>
                             <TextBlock HorizontalAlignment="Stretch"
                                        Tag="Theme Fonts"
                                        Text="Arial" />
@@ -869,10 +882,22 @@
                                          DisplayMemberPath="Text"
                                          IsEditable="False"
                                          KeyTip="FS"
-                                         ResizeMode="Vertical"
+                                         ResizeMode="Both"
                                          SelectedIndex="1"
                                          SizeDefinition="Small"
                                          Text="12">
+                            <Fluent:ComboBox.TopPopupContentTemplate>
+                                <DataTemplate>
+                                    <Grid Background="Transparent"
+                                          ToolTip="You can place content on top of the ComboBox items.">
+                                        <ContentControl Content="{Binding}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </Fluent:ComboBox.TopPopupContentTemplate>
+                            <Fluent:ComboBox.TopPopupContent>
+                                <iconPacks:PackIconMaterial Kind="Numeric" />
+                            </Fluent:ComboBox.TopPopupContent>
+
                             <TextBlock Text="7" />
                             <TextBlock Text="8" />
                             <TextBlock Text="9" />
@@ -1908,7 +1933,7 @@
                                          Header="Toggle 2"
                                          KeyTip="T2" />
                     <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
-                                         Header="Toggle 3"
+                                         Header="Toggle&#xA0;3"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}"
                                          KeyTip="T3" />
 

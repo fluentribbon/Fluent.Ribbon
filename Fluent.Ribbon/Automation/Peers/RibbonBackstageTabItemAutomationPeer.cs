@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Windows.Automation;
     using System.Windows.Automation.Peers;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="BackstageTabItem"/>.
@@ -13,7 +12,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonBackstageTabItemAutomationPeer([NotNull] BackstageTabItem owner)
+        public RibbonBackstageTabItemAutomationPeer(BackstageTabItem owner)
             : base(owner)
         {
             this.OwningBackstageTabItem = owner;

@@ -21,7 +21,6 @@ namespace Fluent
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
     using Fluent.Localization;
-    using JetBrains.Annotations;
     using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
 
     // TODO: improve style parts naming & using
@@ -632,7 +631,6 @@ namespace Fluent
         /// <summary>
         /// Property for defining the TabControl.
         /// </summary>
-        [CanBeNull]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RibbonTabControl? TabControl
         {

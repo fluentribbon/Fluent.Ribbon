@@ -7,7 +7,6 @@
     using System.Windows.Automation.Provider;
     using System.Windows.Controls;
     using Fluent.Internal;
-    using JetBrains.Annotations;
 
     /// <summary>
     /// Automation peer for <see cref="Ribbon"/>.
@@ -17,7 +16,7 @@
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public RibbonAutomationPeer([NotNull] Ribbon owner)
+        public RibbonAutomationPeer(Ribbon owner)
             : base(owner)
         {
             this.OwningRibbon = owner;

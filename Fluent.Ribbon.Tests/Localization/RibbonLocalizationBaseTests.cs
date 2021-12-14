@@ -1,7 +1,5 @@
 ﻿namespace Fluent.Tests.Localization
 {
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting;
     using Fluent.Localization.Languages;
     using NUnit.Framework;
 

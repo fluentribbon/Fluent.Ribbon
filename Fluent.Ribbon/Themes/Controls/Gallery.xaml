@@ -37,6 +37,7 @@
                                 <Border x:Name="PART_DropDownBorder"
                                         Grid.ColumnSpan="1"
                                         MinWidth="{TemplateBinding ActualWidth}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
@@ -65,11 +66,10 @@
                                                        Stretch="Fill"
                                                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                        Visibility="Visible" />
-                                            <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                          Margin="1"
-                                                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                          SnapsToDevicePixels="True">
+                                            <ScrollViewer Margin="1"
+                                                          HorizontalScrollBarVisibility="Hidden"
+                                                          SnapsToDevicePixels="True"
+                                                          VerticalScrollBarVisibility="Auto">
                                                 <StackPanel x:Name="PART_MenuPanel"
                                                             IsItemsHost="True"
                                                             KeyboardNavigation.DirectionalNavigation="Cycle"

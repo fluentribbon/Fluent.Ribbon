@@ -44,7 +44,7 @@
         }
 
         /// <inheritdoc />
-        protected override string GetNameCore()
+        protected override string? GetNameCore()
         {
             return ((TwoLineLabel)this.Owner).Text;
         }

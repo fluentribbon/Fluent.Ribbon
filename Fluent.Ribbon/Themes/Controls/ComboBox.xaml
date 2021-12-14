@@ -186,192 +186,96 @@
                                TargetType="{x:Type ScrollBar}" />
                     </ResourceDictionary>
                 </Popup.Resources>
-                <Grid Name="DropDown"
-                      Margin="0"
-                      VerticalAlignment="Top"
-                      SnapsToDevicePixels="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="4" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="4" />
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Row="1"
-                               Grid.Column="1"
-                               Width="4"
-                               Height="4"
-                               Margin="-1 -1 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               StrokeThickness="0">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusX="0.984" RadiusY="1">
-                                <GradientStop Color="#3F000000" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Rectangle Grid.Row="0"
-                               Grid.Column="1"
-                               Width="4"
-                               Height="4"
-                               Margin="-1 3 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               StrokeThickness="0">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
-                                <GradientStop Color="#3F000000" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Rectangle Grid.Row="1"
-                               Grid.Column="0"
-                               Width="4"
-                               Height="4"
-                               Margin="3 -1 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               StrokeThickness="0">
-                        <Rectangle.Fill>
-                            <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
-                                <GradientStop Color="#3F000000" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="1" />
-                            </RadialGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Rectangle Grid.Row="1"
-                               Grid.Column="0"
-                               Width="Auto"
-                               Height="4"
-                               Margin="7 -1 1 0"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Top"
-                               StrokeThickness="0">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Color="#3F000000" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="1" />
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Rectangle Grid.Row="0"
-                               Grid.Column="1"
-                               Width="4"
-                               Height="Auto"
-                               Margin="-1 7 0 1"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Stretch"
-                               StrokeThickness="0">
-                        <Rectangle.Fill>
-                            <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0.5" EndPoint="1,0.5">
-                                <GradientStop Color="#3F000000" Offset="0" />
-                                <GradientStop Color="Transparent" Offset="1" />
-                            </LinearGradientBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
-                    <Border x:Name="PART_DropDownBorder"
-                            Grid.ColumnSpan="1"
-                            MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
-                            Margin="0"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                            BorderThickness="1"
-                            SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
+                <Border x:Name="PART_DropDownBorder"
+                        MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
+                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                        BorderThickness="1"
+                        SnapsToDevicePixels="True">
+                    <Grid Width="Auto"
+                          Height="Auto"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          KeyboardNavigation.DirectionalNavigation="Cycle">
+                        <Grid Margin="1"
                               HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top"
-                              KeyboardNavigation.DirectionalNavigation="Cycle">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    BorderThickness="1" />
-                            <Grid Margin="1"
-                                  HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid x:Name="PART_MenuPanel"
+                                  Grid.Row="1"
                                   VerticalAlignment="Top">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Rectangle Grid.RowSpan="3"
-                                           Width="1"
-                                           Height="Auto"
-                                           Margin="24 0 0 0"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Stretch"
-                                           Fill="{x:Null}"
-                                           Stretch="Fill"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                           Visibility="Visible" />
-                                <ContentControl x:Name="upResizeContent" />
-                                <Grid x:Name="PART_MenuPanel"
-                                      Grid.Row="1"
-                                      MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                      VerticalAlignment="Top">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <ScrollViewer x:Name="PART_ScrollViewer"
-                                                  Margin="1"
-                                                  VerticalAlignment="Stretch"
-                                                  Background="{DynamicResource WhiteBrush}"
-                                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                                  BorderThickness="0 0 0 1"
-                                                  Focusable="False"
-                                                  KeyboardNavigation.DirectionalNavigation="None"
-                                                  SnapsToDevicePixels="True">
-                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    </ScrollViewer>
-                                    <ContentPresenter x:Name="menuPresenter"
-                                                      Grid.Row="1"
-                                                      VerticalAlignment="Top"
-                                                      ContentSource="Menu"
-                                                      KeyboardNavigation.DirectionalNavigation="None" />
-                                </Grid>
-                                <ContentControl x:Name="downResizeContent"
-                                                Grid.Row="2">
-                                    <Border x:Name="resizeBorder"
-                                            Height="11"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Top"
-                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                            BorderThickness="0 1 0 0"
-                                            RenderTransformOrigin="0.5, 0.5">
-                                        <Grid>
-                                            <Thumb x:Name="PART_ResizeVerticalThumb"
-                                                   Width="Auto"
-                                                   Height="10"
-                                                   Margin="0 0 0 -90"
-                                                   HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Top"
-                                                   Cursor="SizeNS"
-                                                   Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                            <Thumb x:Name="PART_ResizeBothThumb"
-                                                   Width="10"
-                                                   Height="10"
-                                                   Margin="0 0 0 -90"
-                                                   HorizontalAlignment="Right"
-                                                   VerticalAlignment="Top"
-                                                   Cursor="SizeNWSE"
-                                                   Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                        </Grid>
-                                    </Border>
-                                </ContentControl>
+
+                                <ContentPresenter Grid.Row="0"
+                                                  ContentSource="TopPopupContent" />
+
+                                <ScrollViewer x:Name="PART_ScrollViewer"
+                                              Grid.Row="1"
+                                              Margin="1"
+                                              VerticalAlignment="Stretch"
+                                              Background="{DynamicResource WhiteBrush}"
+                                              BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                              BorderThickness="0 0 0 1"
+                                              Focusable="False"
+                                              KeyboardNavigation.DirectionalNavigation="None"
+                                              SnapsToDevicePixels="True">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </ScrollViewer>
+
+                                <ContentPresenter x:Name="menuPresenter"
+                                                  Grid.Row="2"
+                                                  VerticalAlignment="Top"
+                                                  ContentSource="Menu"
+                                                  KeyboardNavigation.DirectionalNavigation="None" />
                             </Grid>
+
+                            <ContentControl x:Name="downResizeContent"
+                                            Grid.Row="2">
+                                <Border x:Name="resizeBorder"
+                                        Height="11"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Top"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                                        BorderThickness="0 1 0 0"
+                                        RenderTransformOrigin="0.5, 0.5">
+                                    <Grid>
+                                        <Thumb x:Name="PART_ResizeVerticalThumb"
+                                               Width="Auto"
+                                               Height="10"
+                                               Margin="0 0 0 -90"
+                                               HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Top"
+                                               Cursor="SizeNS"
+                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                        <Thumb x:Name="PART_ResizeBothThumb"
+                                               Width="10"
+                                               Height="10"
+                                               Margin="0 0 0 -90"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Top"
+                                               Cursor="SizeNWSE"
+                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                    </Grid>
+                                </Border>
+                            </ContentControl>
                         </Grid>
-                    </Border>
-                </Grid>
+                    </Grid>
+                </Border>
             </Popup>
         </Grid>
 
@@ -551,6 +455,7 @@
                                  Visibility="Hidden" />
                     </Grid>
                 </Border>
+
                 <Popup x:Name="PART_Popup"
                        Grid.ColumnSpan="2"
                        Margin="0 0 -4 0"
@@ -568,192 +473,93 @@
                                    TargetType="{x:Type ScrollBar}" />
                         </ResourceDictionary>
                     </Popup.Resources>
-                    <Grid Name="DropDown"
-                          Margin="0"
-                          VerticalAlignment="Top"
-                          SnapsToDevicePixels="True">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="4" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="4" />
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="1"
-                                   Grid.Column="1"
-                                   Width="4"
-                                   Height="4"
-                                   Margin="-1 -1 0 0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="0">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.017,0.002" GradientOrigin="0.017,0.002" RadiusX="0.984" RadiusY="1">
-                                    <GradientStop Color="#3F000000" Offset="0" />
-                                    <GradientStop Color="Transparent" Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="0"
-                                   Grid.Column="1"
-                                   Width="4"
-                                   Height="4"
-                                   Margin="-1 3 0 0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="0">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.032,1.01" GradientOrigin="0.032,1.01" RadiusX="0.984" RadiusY="1">
-                                    <GradientStop Color="#3F000000" Offset="0" />
-                                    <GradientStop Color="Transparent" Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="1"
-                                   Grid.Column="0"
-                                   Width="4"
-                                   Height="4"
-                                   Margin="3 -1 0 0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="0">
-                            <Rectangle.Fill>
-                                <RadialGradientBrush Center="0.996,0.027" GradientOrigin="0.996,0.027" RadiusX="0.984" RadiusY="1">
-                                    <GradientStop Color="#3F000000" Offset="0" />
-                                    <GradientStop Color="Transparent" Offset="1" />
-                                </RadialGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="1"
-                                   Grid.Column="0"
-                                   Width="Auto"
-                                   Height="4"
-                                   Margin="7 -1 1 0"
-                                   HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Top"
-                                   StrokeThickness="0">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#3F000000" Offset="0" />
-                                    <GradientStop Color="Transparent" Offset="1" />
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Rectangle Grid.Row="0"
-                                   Grid.Column="1"
-                                   Width="4"
-                                   Height="Auto"
-                                   Margin="-1 7 0 1"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Stretch"
-                                   StrokeThickness="0">
-                            <Rectangle.Fill>
-                                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0.5" EndPoint="1,0.5">
-                                    <GradientStop Color="#3F000000" Offset="0" />
-                                    <GradientStop Color="Transparent" Offset="1" />
-                                </LinearGradientBrush>
-                            </Rectangle.Fill>
-                        </Rectangle>
-                        <Border x:Name="PART_DropDownBorder"
-                                Grid.ColumnSpan="1"
-                                MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
-                                Margin="0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Top"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True">
-                            <Grid Width="Auto"
-                                  Height="Auto"
+                    <Border x:Name="PART_DropDownBorder"
+                            MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
+                            Margin="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            BorderThickness="1"
+                            SnapsToDevicePixels="True">
+                        <Grid Width="Auto"
+                              Height="Auto"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top"
+                              KeyboardNavigation.DirectionalNavigation="Cycle">
+                            <Grid Margin="1"
                                   HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Top"
-                                  KeyboardNavigation.DirectionalNavigation="Cycle">
-                                <Border Width="Auto"
-                                        Height="Auto"
-                                        VerticalAlignment="Stretch"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                        BorderThickness="1" />
-                                <Grid Margin="1"
-                                      HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ContentPresenter Grid.Row="0"
+                                                  ContentSource="TopPopupContent" />
+
+                                <Grid x:Name="PART_MenuPanel"
+                                      Grid.Row="1"
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                       VerticalAlignment="Top">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <Rectangle Grid.RowSpan="3"
-                                               Width="1"
-                                               Height="Auto"
-                                               Margin="24 0 0 0"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Stretch"
-                                               Fill="{x:Null}"
-                                               Stretch="Fill"
-                                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
-                                               Visibility="Visible" />
-                                    <ContentControl x:Name="upResizeContent" />
-                                    <Grid x:Name="PART_MenuPanel"
-                                          Grid.Row="1"
-                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                          VerticalAlignment="Top">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <ScrollViewer x:Name="PART_ScrollViewer"
-                                                      Margin="1"
-                                                      VerticalAlignment="Stretch"
-                                                      Background="{DynamicResource WhiteBrush}"
-                                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                                      BorderThickness="0 0 0 1"
-                                                      Focusable="False"
-                                                      KeyboardNavigation.DirectionalNavigation="None"
-                                                      SnapsToDevicePixels="True">
-                                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
-                                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                        </ScrollViewer>
-                                        <ContentPresenter x:Name="menuPresenter"
-                                                          Grid.Row="1"
-                                                          VerticalAlignment="Top"
-                                                          ContentSource="Menu"
-                                                          KeyboardNavigation.DirectionalNavigation="None" />
-                                    </Grid>
-                                    <ContentControl x:Name="downResizeContent"
-                                                    Grid.Row="2">
-                                        <Border x:Name="resizeBorder"
-                                                Height="11"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Top"
-                                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                                BorderThickness="0 1 0 0"
-                                                RenderTransformOrigin="0.5, 0.5">
-                                            <Grid>
-                                                <Thumb x:Name="PART_ResizeVerticalThumb"
-                                                       Width="Auto"
-                                                       Height="10"
-                                                       Margin="0 0 0 -90"
-                                                       HorizontalAlignment="Stretch"
-                                                       VerticalAlignment="Top"
-                                                       Cursor="SizeNS"
-                                                       Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                                <Thumb x:Name="PART_ResizeBothThumb"
-                                                       Width="10"
-                                                       Height="10"
-                                                       Margin="0 0 0 -90"
-                                                       HorizontalAlignment="Right"
-                                                       VerticalAlignment="Top"
-                                                       Cursor="SizeNWSE"
-                                                       Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                            </Grid>
-                                        </Border>
-                                    </ContentControl>
+                                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Margin="1"
+                                                  VerticalAlignment="Stretch"
+                                                  Background="{DynamicResource WhiteBrush}"
+                                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                                  BorderThickness="0 0 0 1"
+                                                  Focusable="False"
+                                                  KeyboardNavigation.DirectionalNavigation="None"
+                                                  SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </ScrollViewer>
+
+                                    <ContentPresenter x:Name="menuPresenter"
+                                                      Grid.Row="1"
+                                                      VerticalAlignment="Top"
+                                                      ContentSource="Menu"
+                                                      KeyboardNavigation.DirectionalNavigation="None" />
                                 </Grid>
+
+                                <ContentControl x:Name="downResizeContent"
+                                                Grid.Row="2">
+                                    <Border x:Name="resizeBorder"
+                                            Height="11"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Top"
+                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
+                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                                            BorderThickness="0 1 0 0"
+                                            RenderTransformOrigin="0.5, 0.5">
+                                        <Grid>
+                                            <Thumb x:Name="PART_ResizeVerticalThumb"
+                                                   Width="Auto"
+                                                   Height="10"
+                                                   Margin="0 0 0 -90"
+                                                   HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Top"
+                                                   Cursor="SizeNS"
+                                                   Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                            <Thumb x:Name="PART_ResizeBothThumb"
+                                                   Width="10"
+                                                   Height="10"
+                                                   Margin="0 0 0 -90"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Top"
+                                                   Cursor="SizeNWSE"
+                                                   Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                        </Grid>
+                                    </Border>
+                                </ContentControl>
                             </Grid>
-                        </Border>
-                    </Grid>
+                        </Grid>
+                    </Border>
                 </Popup>
             </Grid>
         </Border>
@@ -851,7 +657,6 @@
                 <Setter Property="Padding" Value="6 0" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBox.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

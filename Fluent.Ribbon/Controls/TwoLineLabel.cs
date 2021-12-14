@@ -80,9 +80,11 @@ namespace Fluent
         /// <summary>
         /// Gets or sets the text
         /// </summary>
-        public string Text
+#pragma warning disable WPF0012
+        public string? Text
+#pragma warning restore WPF0012
         {
-            get { return (string)this.GetValue(TextProperty); }
+            get { return (string?)this.GetValue(TextProperty); }
             set { this.SetValue(TextProperty, value); }
         }
 
