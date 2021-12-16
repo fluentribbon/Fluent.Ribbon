@@ -1,6 +1,6 @@
 # Changelog for Fluent.Ribbon
 
-## 9.0.0 (preview)
+## 9.0.0
 
 - ### Breaking changes
 
@@ -17,8 +17,35 @@
 
 |Old|New|
 |---|---|
-| RibbonTabControlToggleButtonStyle | Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton |
-| RibbonTabControlToggleButtonControlTemplate | Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton |
+|Fluent.Ribbon.Brushes.Images.RibbonCollapse|---|
+|Fluent.Ribbon.Brushes.Images.RibbonExpand|---|
+|Fluent.Ribbon.Brushes.Images.RibbonPin|---|
+|Fluent.Ribbon.Images.RibbonCollapse|---|
+|Fluent.Ribbon.Images.RibbonExpand|---|
+|Fluent.Ribbon.Images.RibbonPin|---|
+|Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip|---|
+|Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip|---|
+|Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip|---|
+|Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton|---|
+|Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton|---|
+|---|Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions|
+|---|Fluent.Ribbon.Images.RibbonDisplayOptions|
+|---|Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip|
+|---|Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton|
+|---|Fluent.Ribbon.Templates.Button.Simplified|
+|---|Fluent.Ribbon.Templates.CheckBox.Simplified|
+|---|Fluent.Ribbon.Templates.ComboBox.Simplified|
+|---|Fluent.Ribbon.Templates.DropDownButton.Simplified|
+|---|Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified|
+|---|Fluent.Ribbon.Templates.MenuItem.HeaderOnly|
+|---|Fluent.Ribbon.Templates.RadioButton.Simplified|
+|---|Fluent.Ribbon.Templates.RibbonGroupBox.Simplified|
+|---|Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton|
+|---|Fluent.Ribbon.Templates.RibbonTextBox.Simplified|
+|---|Fluent.Ribbon.Templates.Spinner.Simplified|
+|---|Fluent.Ribbon.Templates.SplitButton.Simplified|
+|---|Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified|
+|---|Fluent.Ribbon.Templates.ToggleButton.Simplified|
 </details>
 
 - ### Bug fixes
