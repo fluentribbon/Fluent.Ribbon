@@ -161,6 +161,8 @@ namespace Fluent
             builder.Append(this.ribbon.IsMinimized.ToString(CultureInfo.InvariantCulture));
             builder.Append(',');
             builder.Append(this.ribbon.ShowQuickAccessToolBarAboveRibbon.ToString(CultureInfo.InvariantCulture));
+            builder.Append(',');
+            builder.Append(this.ribbon.IsSimplified.ToString(CultureInfo.InvariantCulture));
 
             return builder;
         }
@@ -253,9 +255,37 @@ namespace Fluent
             // Load Ribbon State
             var ribbonProperties = data.Split(',');
 
-            this.ribbon.IsMinimized = bool.Parse(ribbonProperties[0]);
+            if (ribbonProperties.Length <= 0)
+            {
+                return;
+            }
 
-            this.ribbon.ShowQuickAccessToolBarAboveRibbon = bool.Parse(ribbonProperties[1]);
+            if (this.ribbon.CanMinimize
+                && bool.TryParse(ribbonProperties[0], out var isMinimized))
+            {
+                this.ribbon.IsMinimized = isMinimized;
+            }
+
+            if (ribbonProperties.Length <= 1)
+            {
+                return;
+            }
+
+            if (bool.TryParse(ribbonProperties[1], out var showQuickAccessToolBarAboveRibbon))
+            {
+                this.ribbon.ShowQuickAccessToolBarAboveRibbon = showQuickAccessToolBarAboveRibbon;
+            }
+
+            if (ribbonProperties.Length <= 2)
+            {
+                return;
+            }
+
+            if (this.ribbon.CanUseSimplified
+                && bool.TryParse(ribbonProperties[2], out var isSimplified))
+            {
+                this.ribbon.IsSimplified = isSimplified;
+            }
         }
 
         /// <summary>
