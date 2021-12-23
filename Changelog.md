@@ -4,6 +4,7 @@
 
 - ### Bug fixes
 
+- [#970](../../issues/970) - Title bar not fully hidden on start screen
 - [#993](../../issues/993) - Layout issues in simplified ribbon
 - [#995](../../issues/995) - Window initialization slows down after upgrade to 9.0
 
