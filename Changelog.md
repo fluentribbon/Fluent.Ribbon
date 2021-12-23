@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 9.0.1
+
+- ### Bug fixes
+
+- [#995](../../issues/995) - Window initialization slows down after upgrade to 9.0
+
 ## 9.0.0
 
 - ### Breaking changes
