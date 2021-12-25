@@ -1,5 +1,13 @@
 # Changelog for Fluent.Ribbon
 
+## 9.0.1
+
+- ### Bug fixes
+
+- [#970](../../issues/970) - Window title drawn at wrong position if TitleBar is collapsed
+- [#993](../../issues/993) - Layout issues in simplified ribbon
+- [#995](../../issues/995) - Window initialization slows down after upgrade to 9.0
+
 ## 9.0.0
 
 - ### Breaking changes

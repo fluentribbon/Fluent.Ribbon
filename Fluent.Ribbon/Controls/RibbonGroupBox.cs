@@ -234,6 +234,7 @@ namespace Fluent
                 element = UIHelper.GetFirstVisualChild(element) ?? element;
             }
 
+            UpdateIsSimplifiedOfUIElement(element, isSimplified);
             RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
         }
 
@@ -668,55 +669,20 @@ namespace Fluent
         {
             if (d is RibbonGroupBox ribbonGroupBox)
             {
-                var isSimplified = (bool)e.NewValue;
-                ribbonGroupBox.UpdateChildIsSimplified(isSimplified);
+                // We have to run this async in the dispatcher as the panel containing all controls is re-created
+                ribbonGroupBox.RunInDispatcherAsync(() =>
+                {
+                    ribbonGroupBox.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+                    ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
+                }, DispatcherPriority.Background);
             }
         }
 
-        private void UpdateChildIsSimplified(bool isSimplified)
+        private static void UpdateIsSimplifiedOfUIElement(DependencyObject? element, bool isSimplified)
         {
-            foreach (var item in this.Items)
-            {
-                var element = this.ItemContainerGenerator.ContainerFromItem(item);
-                this.UpdateIsSimplifiedOfUIElement(element, isSimplified);
-            }
-
-            // Use SizeDefinition or SimplifiedSizeDefinition depending on IsSimplified property to determine the child size.
-            this.UpdateChildSizes();
-            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-        }
-
-        private void UpdateIsSimplifiedOfUIElement(DependencyObject? element, bool isSimplified)
-        {
-            if (element is null)
-            {
-                return;
-            }
-
             if (element is ISimplifiedStateControl simplifiedStateControl)
             {
                 simplifiedStateControl.UpdateSimplifiedState(isSimplified);
-                return;
-            }
-
-            if (element is Panel panel)
-            {
-                for (int i = 0; i < panel.Children.Count; i++)
-                {
-                    this.UpdateIsSimplifiedOfUIElement(panel.Children[i], isSimplified);
-                }
-
-                return;
-            }
-
-            if (element is ContentPresenter)
-            {
-                element = UIHelper.GetFirstVisualChild(element) ?? element;
-
-                if (element is ISimplifiedStateControl simplifiedStateControl2)
-                {
-                    simplifiedStateControl2.UpdateSimplifiedState(isSimplified);
-                }
             }
         }
 
@@ -789,24 +755,6 @@ namespace Fluent
             this.Unloaded += this.OnUnloaded;
 
             this.updateChildSizesItemContainerGeneratorAction = new ItemContainerGeneratorAction(this.ItemContainerGenerator, this.UpdateChildSizes);
-
-            // When initializing at first,
-            //   1.OnApplyTemplate(Status = GeneratorStatus.NotStarted(UIElements are invalid))
-            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers(UIElements are invalid))
-            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated(UIElements are valid))
-            //   4.OnLoaded(Status = GeneratorStatus.ContainersGenerated)
-            // When changing template after OnLoaded(),
-            //   1.OnApplyTemplate(Status = GeneratorStatus.ContainersGenerated (but UIElements are invalid)))
-            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (UIElements are invalid))
-            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (UIElements are valid))
-            // When changing count of Items template after OnLoaded(),
-            //   1.ItemContainerGenerator_ItemsChanged(Status = GeneratorStatus.ContainersGenerated (but UIElements for new items are invalid))
-            //   2.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.GeneratingContainers (UIElements for new items are invalid))
-            //   3.ItemContainerGenerator_StatusChanged(Status = GeneratorStatus.ContainersGenerated (UIElements for all items are valid))
-            // So, we always have to handle StatusChanged(Status = GeneratorStatus.ContainersGenerated)
-            // This event handler must receive event notifications prior to OnLoaded()
-            this.ItemContainerGenerator.StatusChanged += this.ItemContainerGenerator_StatusChanged;
-            this.ItemContainerGenerator.ItemsChanged += this.ItemContainerGenerator_ItemsChanged;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -1224,18 +1172,6 @@ namespace Fluent
         #endregion
 
         #region Event Handling
-
-        private void ItemContainerGenerator_StatusChanged(object? sender, EventArgs e)
-        {
-            if (this.ItemContainerGenerator.Status == GeneratorStatus.ContainersGenerated)
-            {
-                this.UpdateChildIsSimplified(this.IsSimplified);
-            }
-        }
-
-        private void ItemContainerGenerator_ItemsChanged(object sender, ItemsChangedEventArgs e)
-        {
-        }
 
         private void OnPopupOpened(object? sender, EventArgs e)
         {

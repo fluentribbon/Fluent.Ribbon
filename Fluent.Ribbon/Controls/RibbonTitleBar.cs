@@ -330,7 +330,12 @@ namespace Fluent
                 this.itemsRect = new Rect(0, 0, 0, 0);
 
                 this.headerHolder?.Measure(new Size(constraint.Width, constraint.Height));
-                this.headerRect = new Rect(0, 0, this.headerHolder?.DesiredSize.Width ?? default, constraint.Height);
+
+                var allTextWidth = constraint.Width;
+                const int left = 0;
+                var headerHolderWidth = this.headerHolder?.DesiredSize.Width ?? default;
+
+                this.headerRect = this.GetHeaderRect(constraint, left, allTextWidth, headerHolderWidth);
             }
             else if (visibleGroups.Count == 0
                 || canRibbonTabControlScroll)
@@ -354,24 +359,12 @@ namespace Fluent
                 {
                     this.quickAccessToolbarRect = new Rect(0, 0, this.quickAccessToolbarHolder.DesiredSize.Width, this.quickAccessToolbarHolder.DesiredSize.Height);
                     this.headerHolder.Measure(SizeConstants.Infinite);
-                    var allTextWidth = constraint.Width - this.quickAccessToolbarHolder.DesiredSize.Width;
 
-                    if (this.HeaderAlignment == HorizontalAlignment.Left)
-                    {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width, 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
-                    }
-                    else if (this.HeaderAlignment == HorizontalAlignment.Center)
-                    {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, (allTextWidth / 2) - (this.headerHolder.DesiredSize.Width / 2)), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
-                    }
-                    else if (this.HeaderAlignment == HorizontalAlignment.Right)
-                    {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width + Math.Max(0, allTextWidth - this.headerHolder.DesiredSize.Width), 0, Math.Min(allTextWidth, this.headerHolder.DesiredSize.Width), constraint.Height);
-                    }
-                    else if (this.HeaderAlignment == HorizontalAlignment.Stretch)
-                    {
-                        this.headerRect = new Rect(this.quickAccessToolbarHolder.DesiredSize.Width, 0, allTextWidth, constraint.Height);
-                    }
+                    var left = this.quickAccessToolbarHolder.DesiredSize.Width;
+                    var allTextWidth = constraint.Width - this.quickAccessToolbarHolder.DesiredSize.Width;
+                    var headerHolderWidth = this.headerHolder.DesiredSize.Width;
+
+                    this.headerRect = this.GetHeaderRect(constraint, left, allTextWidth, headerHolderWidth);
                 }
                 else
                 {
@@ -505,6 +498,18 @@ namespace Fluent
             }
 
             this.headerRect.Width += 2;
+        }
+
+        private Rect GetHeaderRect(Size constraint, double left, double allTextWidth, double headerHolderWidth)
+        {
+            return this.HeaderAlignment switch
+            {
+                HorizontalAlignment.Left => new Rect(left, 0, Math.Min(allTextWidth, headerHolderWidth), constraint.Height),
+                HorizontalAlignment.Center => new Rect(left + Math.Max(0, (allTextWidth / 2) - (headerHolderWidth / 2)), 0, Math.Min(allTextWidth, headerHolderWidth), constraint.Height),
+                HorizontalAlignment.Right => new Rect(left + Math.Max(0, allTextWidth - headerHolderWidth), 0, Math.Min(allTextWidth, headerHolderWidth), constraint.Height),
+                HorizontalAlignment.Stretch => new Rect(left, 0, allTextWidth, constraint.Height),
+                _ => Rect.Empty
+            };
         }
 
         #endregion

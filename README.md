@@ -9,9 +9,9 @@ Fluent.Ribbon is a library that implements an Office-like user interface for the
 [![Join the chat at https://gitter.im/fluentribbon/Fluent.Ribbon](https://img.shields.io/badge/GITTER-join%20chat-green.svg?style=flat-square)](https://gitter.im/fluentribbon/Fluent.Ribbon?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter](https://img.shields.io/badge/twitter-%40batzendev-blue.svg?style=flat-square)](https://twitter.com/batzendev)
 
-[![Build status (master)](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon.svg?style=flat-square&&label=master)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/master)
-[![Build status (develop)](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon.svg?style=flat-square&&label=develop)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/develop)
-[![Tests (develop)](https://img.shields.io/appveyor/tests/batzen/fluent-ribbon.svg?style=flat-square)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/develop)
+[![Build status (master)](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon/master.svg?style=flat-square&&label=master)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/master)
+[![Build status (develop)](https://img.shields.io/appveyor/ci/batzen/fluent-ribbon/develop.svg?style=flat-square&&label=develop)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/develop)
+[![Tests (develop)](https://img.shields.io/appveyor/tests/batzen/fluent-ribbon/develop.svg?style=flat-square)](https://ci.appveyor.com/project/batzen/fluent-ribbon/branch/develop)
 
 [![Downloads](https://img.shields.io/nuget/dt/Fluent.Ribbon.svg?style=flat-square)](http://www.nuget.org/packages/Fluent.Ribbon/)
 [![Nuget](https://img.shields.io/nuget/v/Fluent.Ribbon.svg?style=flat-square)](http://nuget.org/packages/Fluent.Ribbon)
