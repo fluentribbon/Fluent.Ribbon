@@ -125,7 +125,7 @@
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <ScrollViewer Margin="1"
-                                  HorizontalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
                                   Style="{DynamicResource MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
@@ -255,94 +255,27 @@
                    IsOpen="{TemplateBinding IsDropDownOpen}"
                    Placement="Bottom"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Grid Name="DropDown"
-                      Margin="0"
-                      VerticalAlignment="Top"
-                      IsEnabled="{TemplateBinding IsEnabled}"
-                      SnapsToDevicePixels="True">
-                    <Border x:Name="PART_DropDownBorder"
-                            MinWidth="{TemplateBinding ActualWidth}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                            BorderThickness="1"
-                            SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Top"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    BorderThickness="1" />
-                            <Grid Margin="1"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Top">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <ScrollViewer x:Name="PART_ScrollViewer"
-                                              MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                              Margin="1"
-                                              HorizontalScrollBarVisibility="Hidden"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource MenuScrollViewer}"
-                                              VerticalScrollBarVisibility="Auto">
-                                    <StackPanel x:Name="PART_MenuPanel"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Cycle"
-                                                Orientation="Vertical" />
-                                </ScrollViewer>
-                                <Border x:Name="resizeBorder"
-                                        Grid.Row="1"
-                                        Height="11"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                        BorderThickness="0 1 0 0">
-                                    <Grid>
-                                        <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNS"
-                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                        <Thumb x:Name="PART_ResizeBothThumb"
-                                               Width="10"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNWSE"
-                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Grid>
+                <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
+                                                 MinWidth="{TemplateBinding ActualWidth}"
+                                                 MinHeight="{TemplateBinding ActualHeight}"
+                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                 ResizeMode="{TemplateBinding ResizeMode}">
+                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                  Margin="1"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  SnapsToDevicePixels="True"
+                                  Style="{DynamicResource MenuScrollViewer}"
+                                  VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="PART_MenuPanel"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Cycle"
+                                    Orientation="Vertical" />
+                    </ScrollViewer>
+                </Fluent:ResizeableContentControl>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="ResizeMode" Value="None">
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Both">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Vertical">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
                 <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />

@@ -326,7 +326,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Visible">
                         <ScrollViewer.Resources>
                             <Style TargetType="{x:Type ScrollBar}">

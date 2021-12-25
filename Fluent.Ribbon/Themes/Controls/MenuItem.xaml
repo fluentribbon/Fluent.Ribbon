@@ -465,7 +465,7 @@
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource MenuItemTemplate}" />
         <Style.Triggers>

@@ -69,7 +69,7 @@
                                 <ScrollViewer Grid.Row="0"
                                               Grid.Column="0"
                                               IsTabStop="False"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               Style="{DynamicResource MenuScrollViewer}">
                                     <StackPanel IsItemsHost="True"
@@ -86,7 +86,7 @@
                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                   Margin="1"
                                                   IsTabStop="False"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                   SnapsToDevicePixels="True"
                                                   Style="{DynamicResource MenuScrollViewer}">

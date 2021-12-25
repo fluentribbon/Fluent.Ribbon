@@ -106,7 +106,7 @@
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <ScrollViewer Margin="1"
-                                  HorizontalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
                                   Style="{DynamicResource MenuScrollViewer}"
@@ -231,7 +231,7 @@
                     <ScrollViewer x:Name="PART_ScrollViewer"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"
-                                  HorizontalScrollBarVisibility="Hidden"
+                                  HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
                                   Style="{DynamicResource MenuScrollViewer}"
