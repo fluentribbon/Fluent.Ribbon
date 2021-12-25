@@ -21,30 +21,19 @@ namespace Fluent
     ///     Represents custom Fluent UI ComboBox
     /// </summary>
     [TemplatePart(Name = "PART_ToggleButton", Type = typeof(ToggleButton))]
-    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     [TemplatePart(Name = "PART_SelectedImage", Type = typeof(Image))]
     [TemplatePart(Name = "PART_ContentSite", Type = typeof(ContentPresenter))]
     [TemplatePart(Name = "PART_ContentBorder", Type = typeof(Border))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
-    [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
     [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Fields
         private ToggleButton? dropDownButton;
 
-        // Thumb to resize in both directions
-        private Thumb? resizeBothThumb;
-        // Thumb to resize vertical
-        private Thumb? resizeVerticalThumb;
-
         private IInputElement? focusedElement;
 
-        private Panel? menuPanel;
-
-        private Border? dropDownBorder;
         private Border? contentBorder;
 
         private ContentPresenter? contentSite;
@@ -56,8 +45,6 @@ namespace Fluent
         private bool isSnapped;
 
         private ScrollViewer? scrollViewer;
-
-        private bool canSizeY;
 
         #endregion
 
@@ -639,30 +626,6 @@ namespace Fluent
 
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
-            }
-
-            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
-            }
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
-            }
-
-            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
-            }
-
-            this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
-
             this.snappedImage = this.GetTemplateChild("PART_SelectedImage") as Image;
             this.contentSite = this.GetTemplateChild("PART_ContentSite") as ContentPresenter;
 
@@ -678,8 +641,6 @@ namespace Fluent
             }
 
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-
-            this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
 
             base.OnApplyTemplate();
         }
@@ -702,8 +663,6 @@ namespace Fluent
             {
                 this.focusedElement.LostKeyboardFocus += this.OnFocusedElementLostKeyboardFocus;
             }
-
-            this.canSizeY = true;
 
             if (this.scrollViewer is not null)
             {
@@ -909,61 +868,6 @@ namespace Fluent
                 this.IsDropDownOpen = false;
                 e.Handled = true;
             }
-        }
-
-        // Handles resize both drag
-        private void OnResizeBothDelta(object? sender, DragDeltaEventArgs e)
-        {
-            if (this.dropDownBorder is null)
-            {
-                return;
-            }
-
-            // Set height
-            this.SetDragHeight(e);
-
-            // Set width
-            if (double.IsNaN(this.dropDownBorder.Width))
-            {
-                this.dropDownBorder.Width = this.dropDownBorder.ActualWidth;
-            }
-
-            this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
-        }
-
-        // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object? sender, DragDeltaEventArgs e)
-        {
-            this.SetDragHeight(e);
-        }
-
-        private void SetDragHeight(DragDeltaEventArgs e)
-        {
-            if (this.canSizeY == false
-                || this.dropDownBorder is null)
-            {
-                return;
-            }
-
-            if (double.IsNaN(this.dropDownBorder.Height))
-            {
-                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
-            }
-
-            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
-        }
-
-        private double GetResizeThumbHeight()
-        {
-            var height = this.ResizeMode switch
-            {
-                ContextMenuResizeMode.None => 0,
-                ContextMenuResizeMode.Vertical => this.resizeVerticalThumb?.ActualHeight,
-                ContextMenuResizeMode.Both => this.resizeBothThumb?.ActualHeight,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return height ?? 0;
         }
 
         #endregion

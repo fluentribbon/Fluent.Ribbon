@@ -29,21 +29,15 @@ namespace Fluent
     /// are displayed when a drop-down menu button is clicked
     /// </summary>
     [ContentProperty(nameof(Items))]
-    [TemplatePart(Name = "PART_LayoutRoot", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_ExpandButton", Type = typeof(ToggleButton))]
     [TemplatePart(Name = "PART_DropDownButton", Type = typeof(ToggleButton))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
-    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
+    [TemplatePart(Name = "PART_PopupContentControl", Type = typeof(ResizeableContentControl))]
     [TemplatePart(Name = "PART_FilterDropDownButton", Type = typeof(DropDownButton))]
     [TemplatePart(Name = "PART_GalleryPanel", Type = typeof(GalleryPanel))]
     [TemplatePart(Name = "PART_FakeImage", Type = typeof(Image))]
     [TemplatePart(Name = "PART_ContentPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_PopupContentPresenter", Type = typeof(ContentControl))]
-    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
-
-    [TemplatePart(Name = "PART_PopupMenuPresenter", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_PopupResizeBorder", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
     public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownControl, IRibbonControl, IQuickAccessItemProvider, IRibbonSizeChangedSink, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
@@ -55,19 +49,11 @@ namespace Fluent
         private ToggleButton? expandButton;
         private ToggleButton? dropDownButton;
 
-        private Panel? menuPanel;
-
         // Freezed image (created during snapping)
         private Image snappedImage = new Image();
 
         // Is visual currently snapped
         private bool isSnapped;
-
-        // Thumb to resize in both directions
-        private Thumb? resizeBothThumb;
-
-        // Thumb to resize vertical
-        private Thumb? resizeVerticalThumb;
 
         private DropDownButton? groupsMenuButton;
 
@@ -76,19 +62,11 @@ namespace Fluent
         private ContentControl? controlPresenter;
         private ContentControl? popupControlPresenter;
 
-        private ScrollViewer? scrollViewer;
-        private Border? dropDownBorder;
-
         private bool isButtonClicked;
 
-        private FrameworkElement? layoutRoot;
-
-        private FrameworkElement? popupMenuPresenter;
-        private FrameworkElement? popupResizeBorder;
+        private ResizeableContentControl? popupContentControl;
 
         internal GalleryPanelState? CurrentGalleryPanelState { get; private set; }
-
-        internal PopupState CurrentPopupState { get; } = new PopupState();
 
         #endregion
 
@@ -601,11 +579,6 @@ namespace Fluent
                         inRibbonGallery.galleryPanel.MinItemsInRow = inRibbonGallery.MinItemsInDropDownRow;
                         inRibbonGallery.galleryPanel.MaxItemsInRow = inRibbonGallery.MaxItemsInDropDownRow;
                         inRibbonGallery.galleryPanel.IsGrouped = true;
-
-                        if (inRibbonGallery.menuPanel is not null)
-                        {
-                            inRibbonGallery.CurrentPopupState.Restore(inRibbonGallery.galleryPanel, inRibbonGallery.menuPanel);
-                        }
                     }
                 }
 
@@ -615,48 +588,6 @@ namespace Fluent
                 }
 
                 inRibbonGallery.DropDownOpened?.Invoke(inRibbonGallery, EventArgs.Empty);
-
-                //if (ResizeMode != ContextMenuResizeMode.None)
-                {
-                    inRibbonGallery.scrollViewer?.Measure(SizeConstants.Infinite);
-
-                    var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(inRibbonGallery).Height, inRibbonGallery.MaxDropDownHeight);
-
-                    if (double.IsNaN(inRibbonGallery.DropDownHeight) == false)
-                    {
-                        initialHeight = Math.Min(inRibbonGallery.DropDownHeight, inRibbonGallery.MaxDropDownHeight);
-                    }
-
-                    var initialWidth = Math.Min(RibbonControl.GetControlWorkArea(inRibbonGallery).Height, inRibbonGallery.MaxDropDownWidth);
-
-                    if (double.IsNaN(inRibbonGallery.DropDownWidth) == false)
-                    {
-                        initialWidth = Math.Min(inRibbonGallery.DropDownWidth, inRibbonGallery.MaxDropDownWidth);
-                    }
-
-                    double menuHeight = 0;
-                    double menuWidth = 0;
-
-                    if (inRibbonGallery.Menu is not null)
-                    {
-                        inRibbonGallery.Menu.Measure(SizeConstants.Infinite);
-                        menuHeight = inRibbonGallery.Menu.DesiredSize.Height;
-                        menuWidth = inRibbonGallery.Menu.DesiredSize.Width;
-                    }
-
-                    if (inRibbonGallery.scrollViewer is not null)
-                    {
-                        if (inRibbonGallery.scrollViewer.DesiredSize.Height > initialHeight)
-                        {
-                            inRibbonGallery.scrollViewer.Height = initialHeight - menuHeight;
-                        }
-
-                        if (inRibbonGallery.scrollViewer.DesiredSize.Width > initialWidth)
-                        {
-                            inRibbonGallery.scrollViewer.Width = initialWidth - menuWidth;
-                        }
-                    }
-                }
 
                 Mouse.Capture(inRibbonGallery, CaptureMode.SubTree);
 
@@ -674,11 +605,6 @@ namespace Fluent
                 if (inRibbonGallery.popupControlPresenter is not null)
                 {
                     inRibbonGallery.popupControlPresenter.Content = null;
-                }
-
-                if (inRibbonGallery.menuPanel is not null)
-                {
-                    inRibbonGallery.menuPanel.ClearValue(HeightProperty);
                 }
 
                 if (inRibbonGallery.galleryPanel is not null)
@@ -1209,8 +1135,6 @@ namespace Fluent
         /// <inheritdoc />
         public override void OnApplyTemplate()
         {
-            this.layoutRoot = this.GetTemplateChild("PART_LayoutRoot") as FrameworkElement;
-
             if (this.expandButton is not null)
             {
                 this.expandButton.Click -= this.OnExpandClick;
@@ -1247,31 +1171,7 @@ namespace Fluent
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
-            }
-
-            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
-            }
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
-            }
-
-            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
-            }
-
-            this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
+            this.popupContentControl = this.GetTemplateChild("PART_PopupContentControl") as ResizeableContentControl;
 
             this.groupsMenuButton?.Items.Clear();
 
@@ -1316,15 +1216,7 @@ namespace Fluent
             }
 
             this.controlPresenter = this.GetTemplateChild("PART_ContentPresenter") as ContentControl;
-
             this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
-
-            this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-
-            this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
-
-            this.popupMenuPresenter = this.GetTemplateChild("PART_PopupMenuPresenter") as FrameworkElement;
-            this.popupResizeBorder = this.GetTemplateChild("PART_PopupResizeBorder") as FrameworkElement;
         }
 
         private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -1336,7 +1228,7 @@ namespace Fluent
             // See https://github.com/fluentribbon/Fluent.Ribbon/issues/900 for reference
             if (groupBox?.IsDropDownOpen == false)
             {
-                groupBox?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+                groupBox.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
             }
         }
 
@@ -1420,67 +1312,6 @@ namespace Fluent
             }
 
             base.OnKeyDown(e);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        // Handles resize both drag
-        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
-        {
-            this.OnResizeVerticalDelta(sender, e);
-
-            if (DoubleUtil.AreClose(e.HorizontalChange, 0))
-            {
-                return;
-            }
-
-            if (this.galleryPanel is not null)
-            {
-                if (double.IsNaN(this.galleryPanel.Width))
-                {
-                    this.galleryPanel.SetCurrentValue(WidthProperty, this.galleryPanel.ActualWidth);
-                }
-
-                var minimumWidth = this.snappedImage.ActualWidth;
-                this.galleryPanel.SetCurrentValue(WidthProperty, Math.Max(minimumWidth, this.galleryPanel.Width + e.HorizontalChange));
-
-                if (this.menuPanel is not null)
-                {
-                    this.CurrentPopupState.Save(this.galleryPanel, this.menuPanel);
-                }
-            }
-        }
-
-        // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (DoubleUtil.AreClose(e.VerticalChange, 0))
-            {
-                return;
-            }
-
-            if (this.menuPanel is not null)
-            {
-                if (double.IsNaN(this.menuPanel.Height))
-                {
-                    this.menuPanel.SetCurrentValue(HeightProperty, this.menuPanel.ActualHeight);
-                }
-
-                if (this.layoutRoot is not null
-                    && this.popupMenuPresenter is not null
-                    && this.popupResizeBorder is not null)
-                {
-                    var minimumHeight = this.layoutRoot.ActualHeight + this.popupMenuPresenter.ActualHeight + this.popupResizeBorder.ActualHeight + 10;
-                    this.menuPanel.SetCurrentValue(HeightProperty, Math.Max(minimumHeight, Math.Min(this.menuPanel.Height + e.VerticalChange, this.MaxDropDownHeight)));
-                }
-
-                if (this.galleryPanel is not null)
-                {
-                    this.CurrentPopupState.Save(this.galleryPanel, this.menuPanel);
-                }
-            }
         }
 
         #endregion
@@ -1803,32 +1634,6 @@ namespace Fluent
             {
                 this.GalleryPanel.MinItemsInRow = this.MinItemsInRow;
                 this.GalleryPanel.MaxItemsInRow = this.MaxItemsInRow;
-            }
-        }
-
-        internal class PopupState
-        {
-            public double Width { get; private set; } = double.NaN;
-
-            public double Height { get; private set; } = double.NaN;
-
-            public void Save(FrameworkElement widthControl, FrameworkElement heightControl)
-            {
-                this.Width = widthControl.Width;
-                this.Height = heightControl.Height;
-            }
-
-            public void Restore(FrameworkElement widthControl, FrameworkElement heightControl)
-            {
-                if (double.IsNaN(this.Width) == false)
-                {
-                    widthControl.SetCurrentValue(WidthProperty, this.Width);
-                }
-
-                if (double.IsNaN(this.Height) == false)
-                {
-                    heightControl.SetCurrentValue(HeightProperty, this.Height);
-                }
             }
         }
 

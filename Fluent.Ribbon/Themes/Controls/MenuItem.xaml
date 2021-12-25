@@ -5,142 +5,6 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="ResizeBothThumbControlTemplate"
-                     TargetType="{x:Type Thumb}">
-        <Grid Background="Transparent">
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 2 1"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource WhiteBrush}"
-                       StrokeThickness="0" />
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 2 5"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource WhiteBrush}"
-                       StrokeThickness="0" />
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 6 1"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource WhiteBrush}"
-                       StrokeThickness="0" />
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 3 2"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource BlackBrush}"
-                       StrokeThickness="0" />
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 3 6"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource BlackBrush}"
-                       StrokeThickness="0" />
-            <Rectangle Width="2"
-                       Height="2"
-                       Margin="0 0 7 2"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Bottom"
-                       Fill="{DynamicResource BlackBrush}"
-                       StrokeThickness="0" />
-        </Grid>
-    </ControlTemplate>
-
-    <ControlTemplate x:Key="ResizeVerticalThumbControlTemplate"
-                     TargetType="{x:Type Thumb}">
-        <Grid Background="Transparent">
-            <StackPanel Margin="0 1 0 0"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        d:LayoutOverrides="Height">
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
-                      HorizontalAlignment="Left">
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource WhiteBrush}"
-                               StrokeThickness="0" />
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0 0 1 1"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource BlackBrush}"
-                               StrokeThickness="0" />
-                </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
-                      HorizontalAlignment="Left">
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource WhiteBrush}"
-                               StrokeThickness="0" />
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0 0 1 1"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource BlackBrush}"
-                               StrokeThickness="0" />
-                </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
-                      HorizontalAlignment="Left">
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource WhiteBrush}"
-                               StrokeThickness="0" />
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0 0 1 1"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource BlackBrush}"
-                               StrokeThickness="0" />
-                </Grid>
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Margin="1 0 0 0"
-                      HorizontalAlignment="Left">
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource WhiteBrush}"
-                               StrokeThickness="0" />
-                    <Rectangle Width="2"
-                               Height="2"
-                               Margin="0 0 1 1"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Fill="{DynamicResource BlackBrush}"
-                               StrokeThickness="0" />
-                </Grid>
-            </StackPanel>
-        </Grid>
-    </ControlTemplate>
-
     <!-- Menu Item Template -->
     <ControlTemplate x:Key="MenuItemTemplate"
                      TargetType="{x:Type MenuItem}">
@@ -302,89 +166,22 @@
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    Placement="Right"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
-                <Grid Name="DropDown"
-                      Margin="0"
-                      VerticalAlignment="Stretch"
-                      SnapsToDevicePixels="True">
-                    <Border x:Name="DropDownBorder"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                            BorderThickness="1"
-                            SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                    BorderThickness="1" />
-                            <Grid Margin="1"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <ScrollViewer x:Name="PART_ScrollViewer"
-                                              Margin="1"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource MenuScrollViewer}">
-                                    <StackPanel x:Name="PART_MenuPanel"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                                Orientation="Vertical" />
-                                </ScrollViewer>
-                                <Border x:Name="resizeBorder"
-                                        Grid.Row="1"
-                                        Height="11"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                        BorderThickness="0 1 0 0">
-                                    <Grid>
-                                        <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNS"
-                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                        <Thumb x:Name="PART_ResizeBothThumb"
-                                               Width="10"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNWSE"
-                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Grid>
+                <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
+                                                 MinWidth="{TemplateBinding ActualWidth}"
+                                                 MinHeight="{TemplateBinding ActualHeight}">
+                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Margin="1"
+                                  SnapsToDevicePixels="True"
+                                  Style="{DynamicResource MenuScrollViewer}">
+                        <StackPanel x:Name="PART_MenuPanel"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    Orientation="Vertical" />
+                    </ScrollViewer>
+                </Fluent:ResizeableContentControl>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="None">
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="Both">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="Vertical">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="iconImageBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
                 <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
@@ -505,88 +302,22 @@
                    IsOpen="{TemplateBinding IsSubmenuOpen}"
                    Placement="Right"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}">
-                <Grid x:Name="DropDown"
-                      Margin="0"
-                      VerticalAlignment="Stretch"
-                      SnapsToDevicePixels="True">
-                    <Border x:Name="DropDownBorder"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                            BorderThickness="1"
-                            SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}" />
-                            <Grid Margin="1"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <ScrollViewer x:Name="PART_ScrollViewer"
-                                              Margin="1"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource MenuScrollViewer}">
-                                    <StackPanel x:Name="PART_MenuPanel"
-                                                IsItemsHost="True"
-                                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                                Orientation="Vertical" />
-                                </ScrollViewer>
-                                <Border x:Name="resizeBorder"
-                                        Grid.Row="1"
-                                        Height="11"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                        BorderThickness="0 1 0 0">
-                                    <Grid>
-                                        <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNS"
-                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                        <Thumb x:Name="PART_ResizeBothThumb"
-                                               Width="10"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNWSE"
-                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Grid>
+                <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
+                                                 MinWidth="{TemplateBinding ActualWidth}"
+                                                 MinHeight="{TemplateBinding ActualHeight}">
+                    <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Margin="1"
+                                  SnapsToDevicePixels="True"
+                                  Style="{DynamicResource MenuScrollViewer}">
+                        <StackPanel x:Name="PART_MenuPanel"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    Orientation="Vertical" />
+                    </ScrollViewer>
+                </Fluent:ResizeableContentControl>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="None">
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="Both">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="Fluent:MenuItem.ResizeMode" Value="Vertical">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="iconImageBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Background}" />
                 <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />

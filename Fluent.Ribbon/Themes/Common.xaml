@@ -81,4 +81,7 @@
 
     <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer}"
            TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}" />
+
+    <Style BasedOn="{StaticResource Fluent.Ribbon.Styles.ResizeableContentControl}"
+           TargetType="{x:Type Fluent:ResizeableContentControl}" />
 </ResourceDictionary>
