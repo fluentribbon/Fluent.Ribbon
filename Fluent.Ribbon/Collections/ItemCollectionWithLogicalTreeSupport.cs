@@ -21,7 +21,7 @@
         }
 
         /// <summary>
-        /// Gets wether this collections parent has logical ownership of the items.
+        /// Gets whether this collections parent has logical ownership of the items.
         /// </summary>
         public bool IsOwningItems { get; private set; } = true;
 
