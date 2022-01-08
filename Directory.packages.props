@@ -2,6 +2,7 @@
     <ItemGroup>
         <PackageVersion Include="ControlzEx" version="[5.0.1, 6)" />
         <PackageVersion Include="XamlColorSchemeGenerator" version="4.0.0-rc0155" />
+        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0041" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">

@@ -73,7 +73,6 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsActive" Value="False">
                 <Setter TargetName="PART_Border" Property="BorderBrush" Value="{Binding Path=NonActiveGlowBrush, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="PART_WindowCommands" Property="Opacity" Value="0.5" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

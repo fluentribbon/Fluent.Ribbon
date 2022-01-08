@@ -113,10 +113,10 @@ class Build : NukeBuild
             .When(GitVersion is not null, x => x
                 .SetProperty("RepositoryBranch", GitVersion?.BranchName)
                 .SetProperty("RepositoryCommit", GitVersion?.Sha))
-            .SetProperty("Version", NuGetVersion)
-            .SetProperty("AssemblyVersion", AssemblySemVer)
-            .SetProperty("FileVersion", AssemblySemFileVer)
-            .SetProperty("InformationalVersion", InformationalVersion));
+            .SetVersion(NuGetVersion)
+            .SetAssemblyVersion(AssemblySemVer)
+            .SetFileVersion(AssemblySemFileVer)
+            .SetInformationalVersion(InformationalVersion));
         
         Compress(BuildBinDirectory / "Fluent.Ribbon" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon-v{NuGetVersion}.zip");
         Compress(BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{NuGetVersion}.zip");
