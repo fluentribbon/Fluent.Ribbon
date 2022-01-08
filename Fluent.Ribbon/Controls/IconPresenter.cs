@@ -1,4 +1,5 @@
 #pragma warning disable 1591, WPF0012, WPF0023
+// ReSharper disable once CheckNamespace
 namespace Fluent
 {
     using System;
@@ -53,8 +54,7 @@ namespace Fluent
         public static readonly DependencyProperty CurrentIconSizeSizeProperty = DependencyProperty.Register(
             nameof(CurrentIconSizeSize), typeof(Size), typeof(IconPresenter), new PropertyMetadata(new Size(16, 16)));
 
-        [ThreadStatic]
-        private static GrayscaleEffect? grayscaleEffect;
+        private GrayscaleEffect? grayscaleEffect;
 
         static IconPresenter()
         {
@@ -65,8 +65,6 @@ namespace Fluent
 
         public IconPresenter()
         {
-            grayscaleEffect ??= new GrayscaleEffect();
-
             var multiBinding = new MultiBinding { Converter = StaticConverters.ObjectToImageConverter };
             multiBinding.Bindings.Add(new Binding(nameof(this.OptimalIcon)) { Source = this });
             multiBinding.Bindings.Add(new Binding(nameof(this.CurrentIconSizeSize)) { Source = this });
@@ -144,7 +142,7 @@ namespace Fluent
 
             control.Effect = newValue
                 ? null
-                : grayscaleEffect;
+                : control.grayscaleEffect ??= new GrayscaleEffect();
             control.Opacity = newValue
                 ? 1
                 : 0.5;

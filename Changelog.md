@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 9.0.2
+
+- ### Bug fixes
+
+  - [#999](../../issues/999) - Window object not being recycled after ribbon window is closed
+
 ## 9.0.1
 
 - ### Bug fixes
