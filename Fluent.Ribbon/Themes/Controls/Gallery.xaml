@@ -67,7 +67,7 @@
                                                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                                        Visibility="Visible" />
                                             <ScrollViewer Margin="1"
-                                                          HorizontalScrollBarVisibility="Hidden"
+                                                          HorizontalScrollBarVisibility="Disabled"
                                                           SnapsToDevicePixels="True"
                                                           VerticalScrollBarVisibility="Auto">
                                                 <StackPanel x:Name="PART_MenuPanel"
@@ -154,7 +154,7 @@
            TargetType="{x:Type Fluent:Gallery}">
         <Setter Property="BorderThickness" Value="0 0 0 1" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource GalleryControlTemplate}" />
         <Style.Triggers>

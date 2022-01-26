@@ -38,12 +38,12 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsCollapsed" Value="True">
-                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="PART_ItemsContainer" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="HideContextTabs" Value="True">
-                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Hidden" />
                 <Setter TargetName="PART_ItemsContainer" Property="Visibility" Value="Hidden" />
+                <Setter TargetName="PART_QuickAccessToolbarHolder" Property="Visibility" Value="Hidden" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

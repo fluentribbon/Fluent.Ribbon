@@ -65,7 +65,7 @@
                                 </Grid.RowDefinitions>
                                 <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               Margin="1"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"

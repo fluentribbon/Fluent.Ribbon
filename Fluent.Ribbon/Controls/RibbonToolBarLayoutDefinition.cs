@@ -67,7 +67,7 @@ namespace Fluent
             DependencyProperty.Register(nameof(ForSimplified), typeof(bool), typeof(RibbonToolBarLayoutDefinition), new PropertyMetadata(BooleanBoxes.FalseBox));
 
         /// <summary>
-        /// Gets or sets wether the layout definition should be used in simplified state.
+        /// Gets or sets whether the layout definition should be used in simplified state.
         /// </summary>
         public bool ForSimplified
         {

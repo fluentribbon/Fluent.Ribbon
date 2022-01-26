@@ -60,7 +60,7 @@
                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                   Margin="1"
-                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  HorizontalScrollBarVisibility="Disabled"
                                                   IsTabStop="False"
                                                   SnapsToDevicePixels="True"
                                                   Style="{DynamicResource MenuScrollViewer}"

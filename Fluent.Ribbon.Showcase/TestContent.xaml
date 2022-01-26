@@ -560,7 +560,8 @@
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
                                            IsEnabled="True"
                                            KeyTip="W"
-                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png">
+                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           ResizeMode="Both">
                         <Fluent:Gallery x:Name="WatermarkGallery"
                                         GroupBy="Tag"
                                         IsGrouped="True"

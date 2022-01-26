@@ -22,28 +22,17 @@ namespace Fluent
     /// Represents drop down button
     /// </summary>
     [ContentProperty(nameof(Items))]
-    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
+    [TemplatePart(Name = "PART_PopupContentControl", Type = typeof(ResizeableContentControl))]
     [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-    [TemplatePart(Name = "PART_DropDownBorder", Type = typeof(Border))]
     [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Fields
 
-        // Thumb to resize in both directions
-        private Thumb? resizeBothThumb;
-
-        // Thumb to resize vertical
-        private Thumb? resizeVerticalThumb;
-
-        private ScrollViewer? scrollViewer;
-
         private UIElement? buttonBorder;
 
-        private Border? dropDownBorder;
+        private ResizeableContentControl? popupContentControl;
 
         private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
 
@@ -402,16 +391,6 @@ namespace Fluent
             // Always unsubscribe events to ensure we don't subscribe twice
             this.UnSubscribeEvents();
 
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
-            }
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
-            }
-
             if (this.buttonBorder is not null)
             {
                 this.buttonBorder.MouseLeftButtonDown += this.HandleButtonBorderMouseLeftButtonDown;
@@ -426,16 +405,6 @@ namespace Fluent
 
         private void UnSubscribeEvents()
         {
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
-            }
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
-            }
-
             if (this.buttonBorder is not null)
             {
                 this.buttonBorder.MouseLeftButtonDown -= this.HandleButtonBorderMouseLeftButtonDown;
@@ -455,21 +424,15 @@ namespace Fluent
 
             this.DropDownPopup = this.GetTemplateChild("PART_Popup") as Popup;
 
+            this.popupContentControl = this.GetTemplateChild("PART_PopupContentControl") as ResizeableContentControl;
+
             if (this.DropDownPopup is not null)
             {
                 KeyboardNavigation.SetDirectionalNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Continue);
             }
 
-            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-
-            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-
-            this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
-
             this.buttonBorder = this.GetTemplateChild("PART_ButtonBorder") as UIElement;
-
-            this.dropDownBorder = this.GetTemplateChild("PART_DropDownBorder") as Border;
 
             base.OnApplyTemplate();
 
@@ -518,8 +481,7 @@ namespace Fluent
         private void OnDropDownPopupMouseDown(object sender, RoutedEventArgs e)
         {
             if (this.ClosePopupOnMouseDown
-                && (this.resizeBothThumb?.IsMouseOver ?? false) == false
-                && (this.resizeVerticalThumb?.IsMouseOver ?? false) == false)
+                && (this.popupContentControl?.IsMouseOverResizeThumbs ?? false) == false)
             {
                 // Note: get outside thread to prevent exceptions (it's a dependency property after all)
                 var timespan = this.ClosePopupOnMouseDownDelay;
@@ -655,57 +617,6 @@ namespace Fluent
         #endregion
 
         #region Private methods
-
-        // Handles resize both drag
-        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.dropDownBorder is null)
-            {
-                return;
-            }
-
-            if (double.IsNaN(this.dropDownBorder.Width))
-            {
-                this.dropDownBorder.Width = this.dropDownBorder.ActualWidth;
-            }
-
-            if (double.IsNaN(this.dropDownBorder.Height))
-            {
-                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
-            }
-
-            this.dropDownBorder.Width = Math.Max(this.ActualWidth, this.dropDownBorder.Width + e.HorizontalChange);
-            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
-        }
-
-        // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.dropDownBorder is null)
-            {
-                return;
-            }
-
-            if (double.IsNaN(this.dropDownBorder.Height))
-            {
-                this.dropDownBorder.Height = this.dropDownBorder.ActualHeight;
-            }
-
-            this.dropDownBorder.Height = Math.Min(Math.Max(this.ActualHeight + this.GetResizeThumbHeight(), this.dropDownBorder.Height + e.VerticalChange), this.MaxDropDownHeight);
-        }
-
-        private double GetResizeThumbHeight()
-        {
-            var height = this.ResizeMode switch
-            {
-                ContextMenuResizeMode.None => 0,
-                ContextMenuResizeMode.Vertical => this.resizeVerticalThumb?.ActualHeight,
-                ContextMenuResizeMode.Both => this.resizeBothThumb?.ActualHeight,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            return height ?? 0;
-        }
 
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

@@ -20,18 +20,11 @@ namespace Fluent
     /// Represents menu item
     /// </summary>
     [ContentProperty(nameof(Items))]
-    [TemplatePart(Name = "PART_ResizeVerticalThumb", Type = typeof(Thumb))]
-    [TemplatePart(Name = "PART_ResizeBothThumb", Type = typeof(Thumb))]
     [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
     [TemplatePart(Name = "PART_MenuPanel", Type = typeof(Panel))]
     public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IToggleButton
     {
         #region Fields
-
-        // Thumb to resize in both directions
-        private Thumb? resizeBothThumb;
-        // Thumb to resize vertical
-        private Thumb? resizeVerticalThumb;
 
         private Panel? menuPanel;
 
@@ -591,28 +584,6 @@ namespace Fluent
                 KeyboardNavigation.SetTabNavigation(this.DropDownPopup, KeyboardNavigationMode.Cycle);
             }
 
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta -= this.OnResizeVerticalDelta;
-            }
-
-            this.resizeVerticalThumb = this.GetTemplateChild("PART_ResizeVerticalThumb") as Thumb;
-            if (this.resizeVerticalThumb is not null)
-            {
-                this.resizeVerticalThumb.DragDelta += this.OnResizeVerticalDelta;
-            }
-
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta -= this.OnResizeBothDelta;
-            }
-
-            this.resizeBothThumb = this.GetTemplateChild("PART_ResizeBothThumb") as Thumb;
-            if (this.resizeBothThumb is not null)
-            {
-                this.resizeBothThumb.DragDelta += this.OnResizeBothDelta;
-            }
-
             this.scrollViewer = this.GetTemplateChild("PART_ScrollViewer") as ScrollViewer;
             this.menuPanel = this.GetTemplateChild("PART_MenuPanel") as Panel;
         }
@@ -712,50 +683,6 @@ namespace Fluent
         #endregion
 
         #region Methods
-
-        // Handles resize both drag
-        private void OnResizeBothDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.scrollViewer is not null)
-            {
-                this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            }
-
-            if (this.menuPanel is not null)
-            {
-                if (double.IsNaN(this.menuPanel.Width))
-                {
-                    this.menuPanel.Width = this.menuPanel.ActualWidth;
-                }
-
-                if (double.IsNaN(this.menuPanel.Height))
-                {
-                    this.menuPanel.Height = this.menuPanel.ActualHeight;
-                }
-
-                this.menuPanel.Width = Math.Max(this.menuPanel.MinWidth, this.menuPanel.Width + e.HorizontalChange);
-                this.menuPanel.Height = Math.Min(Math.Max(this.menuPanel.MinHeight, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight);
-            }
-        }
-
-        // Handles resize vertical drag
-        private void OnResizeVerticalDelta(object sender, DragDeltaEventArgs e)
-        {
-            if (this.scrollViewer is not null)
-            {
-                this.scrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            }
-
-            if (this.menuPanel is not null)
-            {
-                if (double.IsNaN(this.menuPanel.Height))
-                {
-                    this.menuPanel.Height = this.menuPanel.ActualHeight;
-                }
-
-                this.menuPanel.Height = Math.Min(Math.Max(this.menuPanel.MinHeight, this.menuPanel.Height + e.VerticalChange), this.MaxDropDownHeight);
-            }
-        }
 
         // Handles drop down opened
         private void OnDropDownClosed(object? sender, EventArgs e)
