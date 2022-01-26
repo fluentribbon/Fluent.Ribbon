@@ -104,7 +104,8 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                 ResizeMode="{TemplateBinding ResizeMode}">
+                                                 ResizeMode="{TemplateBinding ResizeMode}"
+                                                 IsEnabled="{TemplateBinding IsEnabled}">
                     <ScrollViewer Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
@@ -227,7 +228,8 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                 ResizeMode="{TemplateBinding ResizeMode}">
+                                                 ResizeMode="{TemplateBinding ResizeMode}"
+                                                 IsEnabled="{TemplateBinding IsEnabled}">
                     <ScrollViewer x:Name="PART_ScrollViewer"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"

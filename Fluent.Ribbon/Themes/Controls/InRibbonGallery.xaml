@@ -468,7 +468,8 @@
                                                          MinWidth="{TemplateBinding ActualWidth}"
                                                          MinHeight="{TemplateBinding ActualHeight}"
                                                          MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                         ResizeMode="{TemplateBinding ResizeMode}">
+                                                         ResizeMode="{TemplateBinding ResizeMode}"
+                                                         IsEnabled="{TemplateBinding IsEnabled}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />

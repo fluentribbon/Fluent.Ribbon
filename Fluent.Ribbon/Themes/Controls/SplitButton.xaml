@@ -123,7 +123,8 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                 ResizeMode="{TemplateBinding ResizeMode}">
+                                                 ResizeMode="{TemplateBinding ResizeMode}"
+                                                 IsEnabled="{TemplateBinding IsEnabled}">
                     <ScrollViewer Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
