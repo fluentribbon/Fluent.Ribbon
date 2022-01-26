@@ -8,6 +8,15 @@
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.
 
+**The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
+
+<details><summary>Click here to show the list of renamed and removed things</summary><p>
+
+|Old|New|
+|---|---|
+|Fluent.Ribbon.Templates.CheckBox.Simplified|---|
+</details>
+
 - ### Bug fixes
 
 - ### Enhancements/Features
