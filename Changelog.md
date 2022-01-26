@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 9.0.3
+
+- ### Bug fixes
+
+  - [#1004](../../issues/1004) - Detach from KeyDown event to match code in Show()
+
 ## 9.0.2
 
 - ### Bug fixes
