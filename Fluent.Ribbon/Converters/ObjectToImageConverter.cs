@@ -14,9 +14,6 @@
     using System.Windows.Markup;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-#if NET452 // for DpiScale
-    using ControlzEx.Standard;
-#endif
     using Fluent.Internal;
 
     #pragma warning disable WPF0072
@@ -503,12 +500,10 @@
 
         private static DpiScale GetDpiScale(Visual? targetVisual)
         {
-#if !NET452 // VisualTreeHelper.GetDpi is not supported on .NET 4.5
             if (targetVisual is not null)
             {
                 return VisualTreeHelper.GetDpi(targetVisual);
             }
-#endif
 
             if (Application.Current?.CheckAccess() == true
                 && Application.Current.MainWindow?.CheckAccess() == true)

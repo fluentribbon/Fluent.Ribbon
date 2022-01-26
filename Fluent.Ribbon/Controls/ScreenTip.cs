@@ -54,11 +54,7 @@ namespace Fluent
         {
             if (this.PlacementTarget is null)
             {
-#if NETCOREAPP
                 return Array.Empty<CustomPopupPlacement>();
-#else
-                return new CustomPopupPlacement[] { };
-#endif
             }
 
             Ribbon? ribbon = null;

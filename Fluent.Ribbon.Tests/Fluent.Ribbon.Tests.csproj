@@ -27,6 +27,6 @@
 
     <PackageReference Include="NUnit" />
 
-    <PackageReference Include="Google.Cloud.Translate.V3" Condition="$(TargetFramework) != 'net452'" />
+    <PackageReference Include="Google.Cloud.Translate.V3" />
   </ItemGroup>
 </Project>

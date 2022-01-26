@@ -1,6 +1,4 @@
-﻿#if NET452
-#else
-namespace Fluent.Tests.Localization
+﻿namespace Fluent.Tests.Localization
 {
     using System.Globalization;
     using System.IO;
@@ -34,4 +32,3 @@ namespace Fluent.Tests.Localization
         }
     }
 }
-#endif

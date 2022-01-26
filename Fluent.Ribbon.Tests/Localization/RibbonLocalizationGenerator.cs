@@ -142,11 +142,9 @@ namespace Fluent.Localization.Languages
 
                     break;
 
-#if !NET452
                 case LocalizationGenerationMode.Translate:
                     translatedText = RibbonLocalizationTranslator.Translate(englishText, new System.Globalization.CultureInfo(localization.CultureName!));
                     break;
-#endif
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(localizationGenerationMode), localizationGenerationMode, null);
