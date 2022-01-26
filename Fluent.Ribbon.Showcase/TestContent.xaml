@@ -1173,6 +1173,7 @@
                     <Fluent:ComboBox Header="Fonts"
                                      InputWidth="120"
                                      IsEditable="False"
+                                     Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
                         <Fluent:ComboBox.ItemTemplate>
