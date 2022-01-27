@@ -44,7 +44,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <FilesForXamlCombine>Themes/Controls/*.xaml;Themes/Images.xaml;Themes/RibbonWindow.xaml;Themes/Common.xaml</FilesForXamlCombine>
+    <FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Images.xaml;Themes\RibbonWindow.xaml;Themes\Common.xaml</FilesForXamlCombine>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
@@ -57,13 +57,13 @@
   
   <ItemGroup>
     <XAMLCombineItems Include="$(FilesForXamlCombine)">
-      <TargetFile>Themes/Generic.xaml</TargetFile>
+      <TargetFile>Themes\Styles.xaml</TargetFile>
       <Visible>False</Visible>
     </XAMLCombineItems>
 
-    <XAMLColorSchemeGeneratorItems Include="Themes/Themes/Theme.Template.xaml">
-      <ParametersFile>Themes/Themes/GeneratorParameters.json</ParametersFile>
-      <OutputPath>Themes/Themes</OutputPath>
+    <XAMLColorSchemeGeneratorItems Include="Themes\Themes\Theme.Template.xaml">
+      <ParametersFile>Themes\Themes\GeneratorParameters.json</ParametersFile>
+      <OutputPath>Themes\Themes</OutputPath>
     </XAMLColorSchemeGeneratorItems>
   </ItemGroup>
 </Project>
