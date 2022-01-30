@@ -55,8 +55,8 @@
                     <Condition Property="IsPressed" Value="False" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -109,10 +109,10 @@
                     Width="{TemplateBinding InputWidth}"
                     Height="Auto"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
                     BorderThickness="1 1 1 1"
-                    VerticalAlignment="Center"
                     d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -186,8 +186,8 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                                 ResizeMode="{TemplateBinding ResizeMode}"
-                                                 IsEnabled="{TemplateBinding IsEnabled}">
+                                                 IsEnabled="{TemplateBinding IsEnabled}"
+                                                 ResizeMode="{TemplateBinding ResizeMode}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />

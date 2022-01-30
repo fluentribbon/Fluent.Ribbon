@@ -82,7 +82,7 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
     {
-        DotNet($"xstyler -r -d \"{RootDirectory}\"");
+        DotNet($"xstyler --recursive --directory \"{RootDirectory}\"");
     });
 
     Target Compile => _ => _
