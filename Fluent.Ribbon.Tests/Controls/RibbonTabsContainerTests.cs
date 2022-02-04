@@ -1,4 +1,4 @@
-﻿namespace Fluent.Tests.Controls
+namespace Fluent.Tests.Controls
 {
     using System.Linq;
     using System.Windows;
@@ -9,7 +9,7 @@
     public class RibbonTabsContainerTests
     {
         //private static readonly Size zeroSize = default;
-        private const double ReferenceWidth = 300;
+        private const double ReferenceWidth = 316;
 
         private const double ReferenceHeight = 26;
 
