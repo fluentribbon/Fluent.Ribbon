@@ -97,7 +97,7 @@
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
         <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBaseColor}" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
