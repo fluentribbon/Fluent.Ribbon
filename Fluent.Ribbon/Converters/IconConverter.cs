@@ -9,8 +9,10 @@ namespace Fluent
     using System.Windows.Interop;
     using System.Windows.Media;
     using System.Windows.Media.Imaging;
-    using ControlzEx.Standard;
     using Fluent.Converters;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
+    using Windows.Win32.UI.WindowsAndMessaging;
 
     /// <summary>
     /// Icon converter provides window or application default icon if user-defined is not present.
@@ -106,7 +108,7 @@ namespace Fluent
             return null;
         }
 
-        private static ImageSource? GetDefaultIcon(IntPtr hwnd, Size desiredSize)
+        private static unsafe ImageSource? GetDefaultIcon(IntPtr hwnd, Size desiredSize)
         {
 #pragma warning disable CS0219 // Variable is assigned but its value is never used
 
@@ -116,9 +118,6 @@ namespace Fluent
             const int ICON_BIG = 1;
             // Retrieves the small icon provided by the application. If the application does not provide one, the system uses the system-generated icon for that window.
             const int ICON_SMALL2 = 2;
-
-            // Shares the image handle if the image is loaded multiple times. If LR_SHARED is not set, a second call to LoadImage for the same resource will load the image again and return a different handle.
-            const int LR_SHARED = 0x00008000;
 
             const int IDI_APPLICATION = 0x7f00;
 
@@ -131,17 +130,18 @@ namespace Fluent
 
                 if (hwnd != IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.SendMessage(hwnd, WM.GETICON, new IntPtr(ICON_SMALL2), IntPtr.Zero);
+                    iconPtr = PInvoke.SendMessage(new HWND(hwnd), 0x007F /*GETICON*/, new(ICON_SMALL2), IntPtr.Zero);
 
                     if (iconPtr == IntPtr.Zero)
                     {
-                        iconPtr = NativeMethods.GetClassLong(hwnd, GCLP.HICONSM);
+                        iconPtr = new IntPtr(PInvoke.GetClassLong(new HWND(hwnd), GET_CLASS_LONG_INDEX.GCLP_HICONSM));
                     }
                 }
 
                 if (iconPtr == IntPtr.Zero)
                 {
-                    iconPtr = NativeMethods.LoadImage(IntPtr.Zero, new IntPtr(IDI_APPLICATION), 1, (int)desiredSize.Width, (int)desiredSize.Height, LR_SHARED);
+                    var lpNameLocal = (char*)IDI_APPLICATION;
+                    iconPtr = PInvoke.LoadImage(default, lpNameLocal, GDI_IMAGE_TYPE.IMAGE_ICON, (int)desiredSize.Width, (int)desiredSize.Height, IMAGE_FLAGS.LR_SHARED);
                 }
 
                 if (iconPtr != IntPtr.Zero)

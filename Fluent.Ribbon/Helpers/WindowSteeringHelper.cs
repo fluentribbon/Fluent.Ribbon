@@ -5,7 +5,8 @@
     using System.Windows;
     using System.Windows.Input;
     using ControlzEx.Native;
-    using ControlzEx.Standard;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
 
     /// <summary>
     /// Class which offers helper methods for steering the window
@@ -14,7 +15,7 @@
     {
         private static readonly PropertyInfo? criticalHandlePropertyInfo = typeof(Window).GetProperty("CriticalHandle", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        private static readonly object[] emptyObjectArray = new object[0];
+        private static readonly object[] emptyObjectArray = Array.Empty<object>();
 
         /// <summary>
         /// Shows the system menu at the current mouse position.
@@ -24,14 +25,12 @@
         /// <param name="handleStateChange">Defines if window state changes should be handled.</param>
         public static void HandleMouseLeftButtonDown(MouseButtonEventArgs e, bool handleDragMove, bool handleStateChange)
         {
-            var dependencyObject = e.Source as DependencyObject;
-
-            if (dependencyObject is null)
+            if (e.Source is not DependencyObject dpo)
             {
                 return;
             }
 
-            HandleMouseLeftButtonDown(dependencyObject, e, handleDragMove, handleStateChange);
+            HandleMouseLeftButtonDown(dpo, e, handleDragMove, handleStateChange);
         }
 
 #pragma warning disable 618
@@ -60,7 +59,7 @@
                 window.VerifyAccess();
 
                 // for the touch usage
-                UnsafeNativeMethods.ReleaseCapture();
+                PInvoke.ReleaseCapture();
 
                 var criticalHandle = (IntPtr)(criticalHandlePropertyInfo?.GetValue(window, emptyObjectArray) ?? IntPtr.Zero);
 
@@ -73,7 +72,7 @@
                     var wpfPoint = window.PointToScreen(Mouse.GetPosition(window));
                     var x = (int)wpfPoint.X;
                     var y = (int)wpfPoint.Y;
-                    NativeMethods.SendMessage(criticalHandle, WM.NCLBUTTONDOWN, (IntPtr)HT.CAPTION, new IntPtr(x | (y << 16)));
+                    PInvoke.SendMessage(new HWND(criticalHandle), 0x00A1 /*NCLBUTTONDOWN*/, new WPARAM((nuint)HT.CAPTION), new LPARAM(x | (y << 16)));
                 }
             }
             else if (handleStateChange
@@ -84,11 +83,11 @@
 
                 if (window.WindowState == WindowState.Normal)
                 {
-                    ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(window);
+                    ControlzEx.SystemCommands.MaximizeWindow(window);
                 }
                 else
                 {
-                    ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(window);
+                    ControlzEx.SystemCommands.RestoreWindow(window);
                 }
             }
         }
@@ -121,7 +120,7 @@
             e.Handled = true;
 
 #pragma warning disable 618
-            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenu(window, e);
+            ControlzEx.SystemCommands.ShowSystemMenu(window, e);
 #pragma warning restore 618
         }
 
@@ -133,7 +132,7 @@
         public static void ShowSystemMenu(Window window, Point screenLocation)
         {
 #pragma warning disable 618
-            ControlzEx.Windows.Shell.SystemCommands.ShowSystemMenuPhysicalCoordinates(window, screenLocation);
+            ControlzEx.SystemCommands.ShowSystemMenuPhysicalCoordinates(window, screenLocation);
 #pragma warning restore 618
         }
     }

@@ -13,7 +13,7 @@ namespace Fluent
     using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
-    using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
+    using WindowChrome = ControlzEx.WindowChrome;
 
     /// <summary>
     /// Represents title bar

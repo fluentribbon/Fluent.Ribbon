@@ -3,14 +3,16 @@ namespace Fluent
 {
     using System;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
-    using ControlzEx.Native;
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
 
     /// <summary>
     /// Contains commands for <see cref="RibbonWindow"/>
@@ -32,9 +34,8 @@ namespace Fluent
         private System.Windows.Controls.Button? restoreButton;
         private System.Windows.Controls.Button? closeButton;
 
-#pragma warning disable 618
-        private SafeLibraryHandle? user32;
-#pragma warning restore 618
+        private SafeHandle? user32;
+
         private bool disposed;
 
         static WindowCommands()
@@ -189,24 +190,24 @@ namespace Fluent
         /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
         public static readonly DependencyProperty ButtonBrushProperty = DependencyProperty.Register(nameof(ButtonBrush), typeof(Brush), typeof(WindowCommands), new PropertyMetadata(Brushes.Black));
 
-        private string GetCaption(uint id)
+        private unsafe string GetCaption(uint id)
         {
-#pragma warning disable 618
             if (this.user32 is null)
             {
-                this.user32 = UnsafeNativeMethods.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
+                this.user32 = PInvoke.LoadLibrary(Path.Combine(Environment.SystemDirectory, "User32.dll"));
             }
 
-            var sb = new StringBuilder(256);
-            if (UnsafeNativeMethods.LoadString(this.user32, id, sb, sb.Capacity) == 0)
+            fixed (char* pchars = new char[256])
             {
-                sb.Clear();
-                sb.AppendFormat("String with id '{0}' could not be found.", id);
-            }
-#pragma warning restore 618
+                //PWSTR str = new PWSTR()
+                if (PInvoke.LoadString(this.user32, id, pchars, 256) == 0)
+                {
+                    return string.Format("String with id '{0}' could not be found.", id);
+                }
 #pragma warning disable CA1307 // Specify StringComparison for clarity
-            return sb.ToString().Replace("&", string.Empty);
+                return new string(pchars).Replace("&", string.Empty);
 #pragma warning restore CA1307 // Specify StringComparison for clarity
+            }
         }
 
         /// <inheritdoc />
@@ -255,7 +256,7 @@ namespace Fluent
             if (parentWindow is not null)
             {
 #pragma warning disable 618
-                ControlzEx.Windows.Shell.SystemCommands.MinimizeWindow(parentWindow);
+                ControlzEx.SystemCommands.MinimizeWindow(parentWindow);
 #pragma warning restore 618
             }
         }
@@ -266,7 +267,7 @@ namespace Fluent
             if (parentWindow is not null)
             {
 #pragma warning disable 618
-                ControlzEx.Windows.Shell.SystemCommands.MaximizeWindow(parentWindow);
+                ControlzEx.SystemCommands.MaximizeWindow(parentWindow);
 #pragma warning restore 618
             }
         }
@@ -277,7 +278,7 @@ namespace Fluent
             if (parentWindow is not null)
             {
 #pragma warning disable 618
-                ControlzEx.Windows.Shell.SystemCommands.RestoreWindow(parentWindow);
+                ControlzEx.SystemCommands.RestoreWindow(parentWindow);
 #pragma warning restore 618
             }
         }
@@ -289,7 +290,7 @@ namespace Fluent
             if (parentWindow is not null)
             {
 #pragma warning disable 618
-                ControlzEx.Windows.Shell.SystemCommands.CloseWindow(parentWindow);
+                ControlzEx.SystemCommands.CloseWindow(parentWindow);
 #pragma warning restore 618
             }
         }

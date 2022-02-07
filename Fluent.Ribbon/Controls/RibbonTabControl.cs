@@ -8,18 +8,21 @@ namespace Fluent
     using System.Collections.Specialized;
     using System.ComponentModel;
     using System.Linq;
+    using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Media;
-    using ControlzEx.Standard;
     using Fluent.Automation.Peers;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
+    using Windows.Win32.Graphics.Gdi;
 
     /// <summary>
     /// Represents ribbon tab control
@@ -881,7 +884,7 @@ namespace Fluent
         /// <summary>
         /// Implements custom placement for ribbon popup
         /// </summary>
-        private CustomPopupPlacement[]? CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
+        private unsafe CustomPopupPlacement[]? CustomPopupPlacementMethod(Size popupsize, Size targetsize, Point offset)
         {
             if (this.DropDownPopup is null
                 || this.SelectedTabItem is null)
@@ -897,24 +900,23 @@ namespace Fluent
 
             // Get current workarea
             var tabItemUpperLeftOnScreen = this.SelectedTabItem.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
+
             var tabItemOriginPointOnScreenRect = new RECT
             {
-                Left = (int)tabItemUpperLeftOnScreen.X,
-                Top = (int)tabItemUpperLeftOnScreen.Y,
-                Right = (int)tabItemUpperLeftOnScreen.X + (int)tabItemDimensionsOnScreen.X,
-                Bottom = (int)tabItemUpperLeftOnScreen.Y + (int)tabItemDimensionsOnScreen.Y
+                left = (int)tabItemUpperLeftOnScreen.X,
+                top = (int)tabItemUpperLeftOnScreen.Y,
+                right = (int)tabItemUpperLeftOnScreen.X + (int)tabItemDimensionsOnScreen.X,
+                bottom = (int)tabItemUpperLeftOnScreen.Y + (int)tabItemDimensionsOnScreen.Y
             };
 
-            var monitor = NativeMethods.MonitorFromRect(ref tabItemOriginPointOnScreenRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = PInvoke.MonitorFromRect(&tabItemOriginPointOnScreenRect, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
             if (monitor == IntPtr.Zero)
             {
                 return null;
             }
 
-            var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
-
-#pragma warning restore 618
+            var monitorInfo = new MONITORINFO { cbSize = (uint)Marshal.SizeOf<MONITORINFO>() };
+            PInvoke.GetMonitorInfo(monitor, &monitorInfo);
 
             var tabControlUpperLeftOnScreen = this.PointToScreen(new Point(0, 0));
             var tabControlDimensionsOnScreen = this.PointToScreen(new Point(this.ActualWidth, this.ActualHeight)) - this.PointToScreen(new Point(0, 0));
@@ -932,12 +934,12 @@ namespace Fluent
             {
                 var dpiScaleX = VisualTreeHelper.GetDpi(this).DpiScaleX;
 
-                var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X);
+                var inWindowRibbonWidth = monitorInfo.rcWork.right - Math.Max(monitorInfo.rcWork.left, tabControlUpperLeftOnScreen.X);
 
                 var actualWidth = this.ActualWidth;
-                if (tabControlUpperLeftOnScreen.X < monitorInfo.rcWork.Left)
+                if (tabControlUpperLeftOnScreen.X < monitorInfo.rcWork.left)
                 {
-                    actualWidth -= (monitorInfo.rcWork.Left - tabControlUpperLeftOnScreen.X) / widthFactor;
+                    actualWidth -= (monitorInfo.rcWork.left - tabControlUpperLeftOnScreen.X) / widthFactor;
                 }
 
                 // Set width and prevent negative values

@@ -3088,7 +3088,7 @@
                                                          Header="GlowColor"
                                                          IsEditable="False"
                                                          ItemsSource="{Binding Colors, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=GlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         SelectedValue="{Binding Path=GlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>
@@ -3100,11 +3100,14 @@
                                                         <Grid Grid.Column="0"
                                                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                               Margin="4 0"
-                                                              VerticalAlignment="Stretch"
-                                                              Background="{Binding Value}" />
+                                                              VerticalAlignment="Stretch">
+                                                            <Grid.Background>
+                                                                <SolidColorBrush Color="{Binding Value}" />
+                                                            </Grid.Background>
+                                                        </Grid>
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="4 0"
-                                                                   Text="{Binding}" />
+                                                                   Text="{Binding Key}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </Fluent:ComboBox.ItemTemplate>
@@ -3114,7 +3117,7 @@
                                                          Header="NonActiveGlowColor"
                                                          IsEditable="False"
                                                          ItemsSource="{Binding Colors, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=NonActiveGlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         SelectedValue="{Binding Path=NonActiveGlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>
@@ -3126,11 +3129,14 @@
                                                         <Grid Grid.Column="0"
                                                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                               Margin="4 0"
-                                                              VerticalAlignment="Stretch"
-                                                              Background="{Binding Value}" />
+                                                              VerticalAlignment="Stretch">
+                                                            <Grid.Background>
+                                                                <SolidColorBrush Color="{Binding Value}" />
+                                                            </Grid.Background>
+                                                        </Grid>
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="4 0"
-                                                                   Text="{Binding}" />
+                                                                   Text="{Binding Key}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </Fluent:ComboBox.ItemTemplate>

@@ -3,7 +3,8 @@
     using System;
     using System.Windows;
     using System.Windows.Input;
-    using ControlzEx.Standard;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
 
     internal class FocusWrapper
     {
@@ -31,7 +32,7 @@
             if (this.handle != IntPtr.Zero)
             {
 #pragma warning disable 618
-                NativeMethods.SetFocus(this.handle);
+                PInvoke.SetFocus(new HWND(this.handle));
 #pragma warning restore 618
             }
         }
@@ -44,7 +45,7 @@
             }
 
 #pragma warning disable 618
-            var handle = NativeMethods.GetFocus();
+            var handle = PInvoke.GetFocus();
 #pragma warning restore 618
 
             if (handle != IntPtr.Zero)

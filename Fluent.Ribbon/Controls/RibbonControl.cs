@@ -4,6 +4,7 @@ namespace Fluent
     using System;
     using System.Collections;
     using System.ComponentModel;
+    using System.Runtime.InteropServices;
     using System.Windows;
     using System.Windows.Automation.Peers;
     using System.Windows.Controls;
@@ -12,11 +13,13 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using ControlzEx.Standard;
     using Fluent.Extensions;
     using Fluent.Helpers;
     using Fluent.Internal;
     using Fluent.Internal.KnownBoxes;
+    using Windows.Win32;
+    using Windows.Win32.Foundation;
+    using Windows.Win32.Graphics.Gdi;
 
     /// <summary>
     /// Represent base class for Fluent controls
@@ -137,9 +140,7 @@ namespace Fluent
         /// </summary>
         private static void OnCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = d as RibbonControl;
-
-            if (control is null)
+            if (d is not RibbonControl control)
             {
                 return;
             }
@@ -406,7 +407,7 @@ namespace Fluent
         /// </summary>
         /// <param name="control">Control</param>
         /// <returns>Workarea in witch control is placed</returns>
-        public static Rect GetControlWorkArea(FrameworkElement control)
+        public static unsafe Rect GetControlWorkArea(FrameworkElement control)
         {
             if (PresentationSource.FromVisual(control) is null)
             {
@@ -414,21 +415,22 @@ namespace Fluent
             }
 
             var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
+
             var controlRect = new RECT
             {
-                Left = (int)controlPosOnScreen.X,
-                Top = (int)controlPosOnScreen.Y,
-                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
-                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+                left = (int)controlPosOnScreen.X,
+                top = (int)controlPosOnScreen.Y,
+                right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
             };
-            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = PInvoke.MonitorFromRect(&controlRect, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
-                var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
-                return new Rect(monitorInfo.rcWork.Left, monitorInfo.rcWork.Top, monitorInfo.rcWork.Right - monitorInfo.rcWork.Left, monitorInfo.rcWork.Bottom - monitorInfo.rcWork.Top);
+                var monitorInfo = new MONITORINFO { cbSize = (uint)Marshal.SizeOf<MONITORINFO>() };
+                PInvoke.GetMonitorInfo(monitor, &monitorInfo);
+                return new Rect(monitorInfo.rcWork.left, monitorInfo.rcWork.top, monitorInfo.rcWork.right - monitorInfo.rcWork.left, monitorInfo.rcWork.bottom - monitorInfo.rcWork.top);
             }
-#pragma warning restore 618
+
             return default;
         }
 
@@ -437,7 +439,7 @@ namespace Fluent
         /// </summary>
         /// <param name="control">Control</param>
         /// <returns>Workarea in witch control is placed</returns>
-        public static Rect GetControlMonitor(FrameworkElement control)
+        public static unsafe Rect GetControlMonitor(FrameworkElement control)
         {
             if (PresentationSource.FromVisual(control) is null)
             {
@@ -445,22 +447,22 @@ namespace Fluent
             }
 
             var controlPosOnScreen = control.PointToScreen(new Point(0, 0));
-#pragma warning disable 618
+
             var controlRect = new RECT
             {
-                Left = (int)controlPosOnScreen.X,
-                Top = (int)controlPosOnScreen.Y,
-                Right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
-                Bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
+                left = (int)controlPosOnScreen.X,
+                top = (int)controlPosOnScreen.Y,
+                right = (int)controlPosOnScreen.X + (int)control.ActualWidth,
+                bottom = (int)controlPosOnScreen.Y + (int)control.ActualHeight
             };
-
-            var monitor = NativeMethods.MonitorFromRect(ref controlRect, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            var monitor = PInvoke.MonitorFromRect(&controlRect, MONITOR_FROM_FLAGS.MONITOR_DEFAULTTONEAREST);
             if (monitor != IntPtr.Zero)
             {
-                var monitorInfo = NativeMethods.GetMonitorInfo(monitor);
-                return new Rect(monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Top, monitorInfo.rcMonitor.Right - monitorInfo.rcMonitor.Left, monitorInfo.rcMonitor.Bottom - monitorInfo.rcMonitor.Top);
+                var monitorInfo = new MONITORINFO { cbSize = (uint)Marshal.SizeOf<MONITORINFO>() };
+                PInvoke.GetMonitorInfo(monitor, &monitorInfo);
+                return new Rect(monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top);
             }
-#pragma warning restore 618
+
             return default;
         }
 

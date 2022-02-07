@@ -15,7 +15,7 @@ namespace Fluent
     using Fluent.Helpers;
     using Fluent.Internal.KnownBoxes;
     using Microsoft.Xaml.Behaviors;
-    using WindowChrome = ControlzEx.Windows.Shell.WindowChrome;
+    using WindowChrome = ControlzEx.WindowChrome;
 
     /// <summary>
     /// Represents basic window for ribbon
@@ -345,7 +345,7 @@ namespace Fluent
                         e.Handled = true;
 
 #pragma warning disable 618
-                        ControlzEx.Windows.Shell.SystemCommands.CloseWindow(this);
+                        ControlzEx.SystemCommands.CloseWindow(this);
 #pragma warning restore 618
                     }
 

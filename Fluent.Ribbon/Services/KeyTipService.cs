@@ -9,8 +9,8 @@ namespace Fluent
     using System.Windows.Input;
     using System.Windows.Interop;
     using System.Windows.Threading;
-    using ControlzEx.Standard;
     using Fluent.Internal;
+    using Windows.Win32;
 
     /// <summary>
     /// Handles Alt, F10 and so on
@@ -168,14 +168,13 @@ namespace Fluent
         // Window's messages hook up
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-#pragma warning disable 618
-            var message = (WM)msg;
+            var message = (uint)msg;
 
             // We must terminate the keytip's adorner chain if:
-            if (message == WM.NCACTIVATE // mouse clicks in non client area
-                || (message == WM.ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
-                || (message >= WM.NCLBUTTONDOWN && message <= WM.NCXBUTTONDBLCLK) // mouse click (non client area)
-                || (message >= WM.LBUTTONDOWN && message <= WM.MBUTTONDBLCLK)) // mouse click
+            if (message == PInvoke.WM_NCACTIVATE // mouse clicks in non client area
+                || (message == PInvoke.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+                || (message >= PInvoke.WM_NCLBUTTONDOWN && message <= PInvoke.WM_NCXBUTTONDBLCLK) // mouse click (non client area)
+                || (message >= PInvoke.WM_LBUTTONDOWN && message <= PInvoke.WM_MBUTTONDBLCLK)) // mouse click
             {
                 if (this.activeAdornerChain?.IsAdornerChainAlive == true)
                 {
@@ -185,14 +184,13 @@ namespace Fluent
 
             // Fix for #632.
             // Yes this looks awkward, calling the PopupService here, but the alternative would be to let the PopupService know about windows.
-            if (message == WM.ACTIVATE
+            if (message == PInvoke.WM_ACTIVATE
                 && wParam == IntPtr.Zero) // the window is deactivated
             {
                 PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
                 PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
                 PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
             }
-#pragma warning restore 618
 
             return IntPtr.Zero;
         }
