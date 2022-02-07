@@ -21,17 +21,20 @@
             var virtualKey = KeyInterop.VirtualKeyFromKey(key);
 
             var scanCode = PInvoke.MapVirtualKey((uint)virtualKey, 0x00 /*MAPVK_VK_TO_VSC*/);
-            PWSTR chars = default;
+            var chars = new char[1];
 
-            fixed (byte* pkeyboardState = keyboardState)
+            fixed (char* pchars = chars)
             {
-                var result = PInvoke.ToUnicode((uint)virtualKey, scanCode, pkeyboardState, chars, chars.Length, 1);
-                return result switch
+                fixed (byte* pkeyboardState = keyboardState)
                 {
-                    -1 or 0 => null,
-                    1 => new string(chars.Value),
-                    _ => null,
-                };
+                    var result = PInvoke.ToUnicode((uint)virtualKey, scanCode, pkeyboardState, pchars, chars.Length, 1);
+                    return result switch
+                    {
+                        -1 or 0 => null,
+                        1 => new string(chars),
+                        _ => null,
+                    };
+                }
             }
         }
     }
