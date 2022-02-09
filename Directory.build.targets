@@ -1,15 +1,2 @@
 ﻿<Project>
-  <!-- AssemblyInfo -->
-  <PropertyGroup>
-    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-
-    <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
-    <Product>Fluent.Ribbon</Product>
-    <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
-
-    <Version Condition="'$(Version)' == ''">10.0.0.0</Version>
-    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">10.0.0.0</AssemblyVersion>
-    <FileVersion Condition="'$(FileVersion)' == ''">10.0.0.0</FileVersion>
-    <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
-  </PropertyGroup>
 </Project>
