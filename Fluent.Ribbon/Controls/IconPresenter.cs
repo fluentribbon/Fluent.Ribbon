@@ -61,6 +61,8 @@ namespace Fluent
             SnapsToDevicePixelsProperty.OverrideMetadata(typeof(IconPresenter), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
 
             IsEnabledProperty.OverrideMetadata(typeof(IconPresenter), new UIPropertyMetadata(OnIsEnabledChanged));
+
+            FocusableProperty.OverrideMetadata(typeof(IconPresenter), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         public IconPresenter()
