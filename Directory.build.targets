@@ -19,8 +19,6 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <!-- Optional: Include PDB in the built .nupkg -->
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <!-- By using EmbedAllSources we don't need SourceLink itself -->
     <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
     <EmbedAllSources>True</EmbedAllSources>
@@ -28,8 +26,6 @@
 
   <!-- PDB-Options -->
   <PropertyGroup>
-    <!-- We should switch "DebugType" to "portable" in the future -->
-    <!-- "Full" and "pdbonly" are the same according to https://github.com/dotnet/roslyn/blob/master/docs/compilers/CSharp/CommandLine.md -->
-    <DebugType>full</DebugType>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 </Project>
