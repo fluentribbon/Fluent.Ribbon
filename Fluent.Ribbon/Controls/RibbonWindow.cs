@@ -278,11 +278,11 @@ namespace Fluent
             if (this.ActualWidth < Ribbon.MinimalVisibleWidth
                 || this.ActualHeight < Ribbon.MinimalVisibleHeight)
             {
-                this.IsCollapsed = true;
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
             else
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
             }
         }
 

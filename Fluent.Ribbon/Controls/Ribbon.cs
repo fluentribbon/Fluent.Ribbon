@@ -1559,11 +1559,11 @@ namespace Fluent
             if (this.ownerWindow.ActualWidth < MinimalVisibleWidth
                 || this.ownerWindow.ActualHeight < MinimalVisibleHeight)
             {
-                this.IsCollapsed = true;
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
             else
             {
-                this.IsCollapsed = false;
+                this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
             }
         }
 
