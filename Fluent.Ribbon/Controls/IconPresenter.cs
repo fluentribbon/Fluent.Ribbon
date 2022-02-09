@@ -62,7 +62,7 @@ namespace Fluent
 
             IsEnabledProperty.OverrideMetadata(typeof(IconPresenter), new UIPropertyMetadata(OnIsEnabledChanged));
 
-            FocusableProperty.OverrideMetadata(typeof(IconPresenter), new UIPropertyMetadata(BooleanBoxes.FalseBox));
+            FocusableProperty.OverrideMetadata(typeof(IconPresenter), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
         }
 
         public IconPresenter()
