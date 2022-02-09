@@ -250,7 +250,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.CaretBrush" Color="{StaticResource BlackColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.SelectionBrush" Color="{x:Static SystemColors.HighlightColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.Background" Color="{StaticResource WhiteColor}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush" Color="{StaticResource Gray5}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush" Color="{StaticResource Fluent.Ribbon.Colors.AccentColor40}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.Background" Color="{StaticResource Gray10}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush" Color="{StaticResource Gray8}" options:Freeze="True" />
 
