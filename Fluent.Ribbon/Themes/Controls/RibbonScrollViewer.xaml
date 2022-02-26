@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent">
     <!-- Button in Scroll Control Style -->
     <ControlTemplate x:Key="ScrollButtonControlTemplate"
                      TargetType="{x:Type RepeatButton}">
@@ -333,7 +333,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
            BasedOn="{StaticResource RibbonScrollViewer}"
-           TargetType="{x:Type fluent:RibbonGroupsContainerScrollViewer}" />
+           TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}" />
 
     <ControlTemplate x:Key="ScrollViewerControlTemplate"
                      TargetType="{x:Type ScrollViewer}">

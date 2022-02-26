@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
     <Style x:Key="ScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="false" />
@@ -191,9 +191,9 @@
                         The Thumb's minimum height is half the
                         value of VerticalScrollBarButtonHeightKey.
                     -->
-                    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                    <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
                         36
-                    </sys:Double>
+                    </System:Double>
                 </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand"
@@ -256,9 +256,9 @@
                         The Thumb's minimum height is half the
                         value of VerticalScrollBarButtonHeightKey.
                     -->
-                    <sys:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
+                    <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
                         36
-                    </sys:Double>
+                    </System:Double>
                 </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageLeftCommand"
