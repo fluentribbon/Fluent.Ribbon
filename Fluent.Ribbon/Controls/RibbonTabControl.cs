@@ -936,16 +936,18 @@ namespace Fluent
                 var dpiScaleX = VisualTreeHelper.GetDpi(this).DpiScaleX;
                 #endif
 
-                var inWindowRibbonWidth = monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X);
+                var inWindowRibbonWidth = (monitorInfo.rcWork.Right - Math.Max(monitorInfo.rcWork.Left, tabControlUpperLeftOnScreen.X)) / dpiScaleX;
 
                 var actualWidth = this.ActualWidth;
+
+                // Constraint when left upper corner is outside the current monitor
                 if (tabControlUpperLeftOnScreen.X < monitorInfo.rcWork.Left)
                 {
-                    actualWidth -= (monitorInfo.rcWork.Left - tabControlUpperLeftOnScreen.X) / widthFactor;
+                    actualWidth -= (monitorInfo.rcWork.Left - tabControlUpperLeftOnScreen.X) / dpiScaleX;
                 }
 
                 // Set width and prevent negative values
-                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth) / dpiScaleX);
+                this.DropDownPopup.Width = Math.Max(0, Math.Min(actualWidth, inWindowRibbonWidth));
             }
 
             return new[]
