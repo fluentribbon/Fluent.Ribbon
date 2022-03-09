@@ -30,13 +30,13 @@ class Build : NukeBuild
             throw new Exception("Could not initialize GitVersion.");
         }
 
-        Console.WriteLine("IsLocalBuild           : {0}", IsLocalBuild.ToString());
+        Serilog.Log.Information("IsLocalBuild           : {0}", IsLocalBuild.ToString());
 
-        Console.WriteLine("Informational   Version: {0}", InformationalVersion);
-        Console.WriteLine("SemVer          Version: {0}", SemVer);
-        Console.WriteLine("AssemblySemVer  Version: {0}", AssemblySemVer);
-        Console.WriteLine("MajorMinorPatch Version: {0}", MajorMinorPatch);
-        Console.WriteLine("NuGet           Version: {0}", NuGetVersion);
+        Serilog.Log.Information("Informational   Version: {0}", InformationalVersion);
+        Serilog.Log.Information("SemVer          Version: {0}", SemVer);
+        Serilog.Log.Information("AssemblySemVer  Version: {0}", AssemblySemVer);
+        Serilog.Log.Information("MajorMinorPatch Version: {0}", MajorMinorPatch);
+        Serilog.Log.Information("NuGet           Version: {0}", NuGetVersion);
     }
     
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -131,13 +131,14 @@ class Build : NukeBuild
         DotNetTest(_ => _
             .SetConfiguration(Configuration)
             .SetProjectFile(Solution.Fluent_Ribbon_Tests)
-            .SetNoBuild(true)
-            .SetNoRestore(true)
+            .EnableNoBuild()
+            .EnableNoRestore()
             .AddLoggers("trx")
             .SetResultsDirectory(TestResultsDir)
             .SetVerbosity(DotNetVerbosity.Normal));
     });
 
+    // ReSharper disable once UnusedMember.Local
     Target ResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
@@ -145,7 +146,7 @@ class Build : NukeBuild
         var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
             .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
             .ToList();
-        Console.WriteLine($"Peeked: {xmlPeekElements.Count}");
+        Serilog.Log.Information($"Peeked: {xmlPeekElements.Count}");
 
         var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
 
@@ -158,7 +159,7 @@ class Build : NukeBuild
             .OrderBy(x => x)
             .ToList();
     
-        Console.WriteLine($"Distinct keys: {vNextResourceKeys.Count}");
+        Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
     
         File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
     
@@ -167,20 +168,22 @@ class Build : NukeBuild
         var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
         var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
     
-        Console.WriteLine("|Old|New|");
-        Console.WriteLine("|---|---|");
+        Serilog.Log.Information("|Old|New|");
+        Serilog.Log.Information("|---|---|");
 
         foreach (var removedKey in removedKeys)
         {
-            Console.WriteLine($"|{removedKey}|---|");
+            Serilog.Log.Information($"|{removedKey}|---|");
         }
     
         foreach (var addedKey in addedKeys)
         {
-            Console.WriteLine($"|---|{addedKey}|");
+            Serilog.Log.Information($"|---|{addedKey}|");
         }
     });
 
+    // ReSharper disable once UnusedMember.Local
+    // ReSharper disable once InconsistentNaming
     Target CI => _ => _
         .DependsOn(Compile)
         .DependsOn(Test)
