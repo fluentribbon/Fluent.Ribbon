@@ -21,6 +21,14 @@
 
 - ### Enhancements/Features
 
+## 9.0.4
+
+- ### Bug fixes
+
+  - [#1014](../../issues/1014) - Ribbon menu not fully displayed after minimized
+  - `IconPresenter` must not be focusable
+  - Fixed mouse over and keyboard focus colors of ComboBox
+
 ## 9.0.3
 
 - ### Bug fixes
