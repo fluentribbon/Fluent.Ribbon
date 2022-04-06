@@ -455,7 +455,7 @@
                         <Fluent:SplitButton.ToolTip>
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Width="190"
-                                              DisableReason="Enable it do use this function"
+                                              DisableReason="Enable it to use this function"
                                               Text="Paste the contents of the Clipboard." />
                         </Fluent:SplitButton.ToolTip>
                         <Fluent:Gallery GroupBy="Tag"
@@ -1016,7 +1016,7 @@
                                                MaxDropDownHeight="500"
                                                SizeDefinition="Small">
                             <Fluent:DropDownButton.ToolTip>
-                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
+                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearance when Popup is open" />
                             </Fluent:DropDownButton.ToolTip>
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
