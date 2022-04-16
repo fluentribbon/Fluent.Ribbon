@@ -18,7 +18,7 @@
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 
-        <PackageVersion Include="NUnit" version="3.13.2" />
+        <PackageVersion Include="NUnit" version="3.13.3" />
       
         <PackageVersion Include="Google.Cloud.Translate.V3" Version="2.4.0" />
     </ItemGroup>
