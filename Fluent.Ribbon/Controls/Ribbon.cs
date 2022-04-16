@@ -1531,8 +1531,6 @@ namespace Fluent
             this.VerticalAlignment = VerticalAlignment.Top;
             KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
 
-            WindowChrome.SetIsHitTestVisibleInChrome(this, true);
-
             this.keyTipService = new KeyTipService(this);
 
             this.Loaded += this.OnLoaded;

@@ -119,14 +119,6 @@ namespace Fluent
             HeaderProperty.OverrideMetadata(typeof(RibbonTitleBar), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
 
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        public RibbonTitleBar()
-        {
-            WindowChrome.SetIsHitTestVisibleInChrome(this, true);
-        }
-
         #endregion
 
         #region Overrides
@@ -202,11 +194,6 @@ namespace Fluent
             this.isAtLeastOneRequiredControlPresent = this.quickAccessToolbarHolder is not null
                                      || this.headerHolder is not null
                                      || this.itemsContainer is not null;
-
-            if (this.quickAccessToolbarHolder is not null)
-            {
-                WindowChrome.SetIsHitTestVisibleInChrome(this.quickAccessToolbarHolder, true);
-            }
         }
 
         /// <inheritdoc />

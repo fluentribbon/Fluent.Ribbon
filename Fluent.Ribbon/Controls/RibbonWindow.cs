@@ -311,7 +311,6 @@ namespace Fluent
             }
 
             this.GetPart<UIElement>(PART_Icon)?.SetCurrentValue(WindowChrome.IsHitTestVisibleInChromeProperty, BooleanBoxes.TrueBox);
-            this.GetPart<UIElement>(PART_WindowCommands)?.SetCurrentValue(WindowChrome.IsHitTestVisibleInChromeProperty, BooleanBoxes.TrueBox);
         }
 
         /// <inheritdoc />
