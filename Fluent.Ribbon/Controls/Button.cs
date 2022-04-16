@@ -13,7 +13,7 @@ namespace Fluent
     /// Represents button
     /// </summary>
     [ContentProperty(nameof(Header))]
-    [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Size = {Size}, IsSimplified = {IsSimplified}")]
+    [DebuggerDisplay("{GetType().FullName}: Header = {Header}, Size = {Size}, IsSimplified = {IsSimplified}")]
     public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
     {
         #region Properties
