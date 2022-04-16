@@ -6,7 +6,7 @@
 
     <ItemGroup>
         <PackageVersion Include="ControlzEx" version="6.0.0-alpha0204" />
-        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0085" />
+        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0097" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
