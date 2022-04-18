@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Build">
-        <PackageVersion Include="JetBrains.Annotations" version="2021.3.0" />
+        <PackageVersion Include="JetBrains.Annotations" version="2022.1.0" />
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.1.635-beta" />
 
