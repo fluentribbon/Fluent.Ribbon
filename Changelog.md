@@ -3,6 +3,7 @@
 ## 10.0.0 (preview)
 
 - ### Breaking changes
+
   - Drop support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
   - Resizing popups should work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
@@ -20,6 +21,8 @@
 - ### Bug fixes
 
 - ### Enhancements/Features
+
+  - [#1026](../../issues/1026) - Translate some Chinese cases (thanks @leixao)
 
 ## 9.0.4
 
