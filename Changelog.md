@@ -8,6 +8,11 @@
   - Resizing popups should work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.
+  - Updated ControlzEx to version 6.
+    - `RibbonWindow` now inherits from `WindowChromeWindow`
+    - `GlowBrush` and `NonActiveGlowBrush` are now named `GlowColor` and `NonActiveGlowColor` and are both of type `Color` instead of `Brush`
+    - Default value for `BorderThickness` changed from `1` to `0`
+  - PDBs are now embedded
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
