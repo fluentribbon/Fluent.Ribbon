@@ -563,7 +563,6 @@
                                    KeyTip="FP"
                                    SizeDefinition="Middle,Small" />
                     <Fluent:DropDownButton Name="buttonWatermark"
-                                           VerticalAlignment="Top"
                                            Header="DropDownButton"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
                                            IsEnabled="True"
