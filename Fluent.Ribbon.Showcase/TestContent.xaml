@@ -54,6 +54,14 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
+            <ObjectDataProvider x:Key="CornerPreferenceEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type controlzEx:WindowCornerPreference}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="controlzEx:WindowCornerPreference" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
             <Style TargetType="Label">
                 <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
             </Style>
@@ -3025,7 +3033,7 @@
                         </TextBlock>
 
                         <GroupBox Header="Options">
-                            <WrapPanel>
+                            <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Theme">
                                     <WrapPanel>
                                         <WrapPanel.Resources>
@@ -3079,6 +3087,19 @@
                                         <Fluent:CheckBox Header="Use HSL color"
                                                          IsChecked="{Binding Path=Options.UseHSL, Source={x:Static controlzEx:RuntimeThemeGenerator.Current}, Mode=TwoWay}" />
                                         <Button Click="SyncThemeNow_OnClick">Sync now</Button>
+                                    </WrapPanel>
+                                </GroupBox>
+
+                                <GroupBox Header="WindowChrome">
+                                    <WrapPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>
+                                                CornerPreference
+                                            </Label>
+                                            <ComboBox VerticalAlignment="Center"
+                                                      ItemsSource="{Binding Source={StaticResource CornerPreferenceEnumValues}}"
+                                                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=CornerPreference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3141,6 +3162,32 @@
                                                 </DataTemplate>
                                             </Fluent:ComboBox.ItemTemplate>
                                         </Fluent:ComboBox>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>
+                                                GlowDepth
+                                            </Label>
+                                            <TextBox MinWidth="30"
+                                                     VerticalAlignment="Center"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=GlowDepth, Mode=TwoWay}" />
+                                        </StackPanel>
+
+                                        <CheckBox Content="IsGlowTransitionEnabled"
+                                                  VerticalAlignment="Center"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=IsGlowTransitionEnabled, Mode=TwoWay}" />
+
+                                        <CheckBox Content="UseRadialGradientForCorners"
+                                                  VerticalAlignment="Center"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=UseRadialGradientForCorners, Mode=TwoWay}" />
+
+                                        <CheckBox Content="PreferDWMBorderColor"
+                                                  VerticalAlignment="Center"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=PreferDWMBorderColor, Mode=TwoWay}" />
+
+                                        <CheckBox Content="DWMSupportsBorderColor"
+                                                  VerticalAlignment="Center"
+                                                  IsEnabled="False"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}" />
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3265,7 +3312,7 @@
                                     <Button Click="HandleResetSavedState_OnClick"
                                             Content="Reset saved state &amp; restart" />
                                 </GroupBox>
-                            </WrapPanel>
+                            </StackPanel>
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
