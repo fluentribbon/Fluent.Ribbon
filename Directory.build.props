@@ -2,12 +2,14 @@
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> -->
     <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) == 'true'">true</IsBuildingWpfTempProj>
     <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
     <!-- <RestoreSources>https://ci.appveyor.com/nuget/xamltools;$(RestoreSources)</RestoreSources> -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup>

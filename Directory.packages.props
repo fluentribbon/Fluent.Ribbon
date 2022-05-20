@@ -1,9 +1,4 @@
 <Project>
-    <PropertyGroup>
-       <!--<RestoreAdditionalProjectSources>$(RestoreAdditionalProjectSources);$(MSBuildThisFileDirectory)/../../ControlzEx/src/bin</RestoreAdditionalProjectSources>-->
-      <!-- <RestoreAdditionalProjectSources>$(RestoreAdditionalProjectSources);$(MSBuildThisFileDirectory)/../../XAMLTools/artifacts</RestoreAdditionalProjectSources> -->
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageVersion Include="ControlzEx" version="6.0.0-alpha0218" />
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0097" />

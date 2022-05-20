@@ -5,7 +5,6 @@
     <AssemblyName>Fluent.Tests</AssemblyName>
     
     <IsTestProject>true</IsTestProject>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
     <NoWarn>$(NoWarn);SA0001;SA1602</NoWarn>
   </PropertyGroup>
