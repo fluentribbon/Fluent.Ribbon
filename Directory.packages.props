@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Test">
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
         <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 
         <PackageVersion Include="NUnit" version="3.13.3" />
@@ -19,12 +19,12 @@
     </ItemGroup>
 
     <ItemGroup Label="Build">
-        <PackageVersion Include="JetBrains.Annotations" version="2021.3.0" />
+        <PackageVersion Include="JetBrains.Annotations" version="2022.1.0" />
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.1.635-beta" />
 
-        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.1.0" />
-        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.406" />
-        <PackageVersion Include="WpfAnalyzers" version="4.0.2" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.2.0" />
+        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.435" />
+        <PackageVersion Include="WpfAnalyzers" version="4.1.1" />
     </ItemGroup>
 </Project>
