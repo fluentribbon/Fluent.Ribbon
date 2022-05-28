@@ -3171,22 +3171,22 @@
                                                      Text="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=GlowDepth, Mode=TwoWay}" />
                                         </StackPanel>
 
-                                        <CheckBox Content="IsGlowTransitionEnabled"
-                                                  VerticalAlignment="Center"
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="IsGlowTransitionEnabled"
                                                   IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=IsGlowTransitionEnabled, Mode=TwoWay}" />
 
-                                        <CheckBox Content="UseRadialGradientForCorners"
-                                                  VerticalAlignment="Center"
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="UseRadialGradientForCorners"
                                                   IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=UseRadialGradientForCorners, Mode=TwoWay}" />
 
-                                        <CheckBox Content="PreferDWMBorderColor"
-                                                  VerticalAlignment="Center"
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="PreferDWMBorderColor"
                                                   IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=PreferDWMBorderColor, Mode=TwoWay}" />
 
-                                        <CheckBox Content="DWMSupportsBorderColor"
-                                                  VerticalAlignment="Center"
-                                                  IsEnabled="False"
-                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}" />
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="DWMSupportsBorderColor"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}"
+                                                  IsEnabled="False" />
                                     </WrapPanel>
                                 </GroupBox>
 
