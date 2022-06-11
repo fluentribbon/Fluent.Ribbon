@@ -1,7 +1,7 @@
 <Project>
     <ItemGroup>
         <PackageVersion Include="ControlzEx" version="6.0.0-alpha0218" />
-        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0097" />
+        <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0100" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
@@ -14,7 +14,7 @@
         <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
 
         <PackageVersion Include="NUnit" version="3.13.3" />
-      
+
         <PackageVersion Include="Google.Cloud.Translate.V3" Version="2.4.0" />
     </ItemGroup>
 
