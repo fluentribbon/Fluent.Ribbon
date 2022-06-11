@@ -26,11 +26,13 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False"
+                                    Margin="5 0 0 0" />
                 </Grid>
             </StackPanel>
 
@@ -61,14 +63,14 @@
                 <Setter TargetName="PART_HeaderAndIconPanel" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_ContentHost" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
@@ -108,14 +110,12 @@
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="headerTextBlock"
-                                   Margin="0 0 4 0"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   TextWrapping="Wrap" />
+                        <ContentControl x:Name="PART_HeaderContentHost"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        Focusable="False"
+                                        Margin="0 0 4 0" />
                     </Grid>
                 </StackPanel>
 
@@ -132,14 +132,17 @@
                         <ScrollViewer x:Name="PART_ContentHost"
                                       Margin="1"
                                       VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                        <TextBlock x:Name="PART_Watermark"
-                                   Grid.Column="1"
-                                   Width="{Binding ActualWidth, ElementName=PART_ContentHost}"
-                                   Padding="2 0"
-                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   Visibility="Collapsed"
-                                   Opacity="0.5" />
+
+                        <ContentControl x:Name="PART_Watermark"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        Focusable="False"
+                                        Width="{Binding ActualWidth, ElementName=PART_ContentHost}"
+                                        Padding="2 0"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Visibility="Collapsed"
+                                        Opacity="0.5" />
                     </Grid>
                 </Border>
             </Grid>
@@ -173,18 +176,23 @@
 
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="border" Property="Padding" Value="4 0" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImage" Property="Margin" Value="0 0 2 0" />
+                <Setter TargetName="PART_ContentBorder" Property="Grid.Column" Value="0" />
+                <Setter TargetName="PART_ContentBorder" Property="Grid.ColumnSpan" Value="2" />
             </Trigger>
+
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_ContentBorder" Property="Grid.Column" Value="0" />
+                <Setter TargetName="PART_ContentBorder" Property="Grid.ColumnSpan" Value="2" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_ContentHost" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
@@ -201,6 +209,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.TextBox.Header">
+        <TextBlock VerticalAlignment="Center"
+                   Text="{Binding}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+    
     <Style TargetType="{x:Type Fluent:TextBox}"
            BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}" />
@@ -209,6 +223,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ControlTemplates.TextBox}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.TextBox.Header}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">

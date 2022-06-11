@@ -124,6 +124,26 @@ namespace Fluent
         /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
+        /// <inheritdoc />
+        public DataTemplate? HeaderTemplate
+        {
+            get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
+            set { this.SetValue(HeaderTemplateProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateProperty = RibbonControl.HeaderTemplateProperty.AddOwner(typeof(ComboBox), new PropertyMetadata());
+
+        /// <inheritdoc />
+        public DataTemplateSelector? HeaderTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
+            set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty = RibbonControl.HeaderTemplateSelectorProperty.AddOwner(typeof(ComboBox), new PropertyMetadata());
+
         #endregion
 
         #region Icon

@@ -14,7 +14,11 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="Template" Value="{DynamicResource RibbonToggleButtonControlTemplate}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Width" Value="Auto" />
+        <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
@@ -66,33 +70,29 @@
                         Orientation="Vertical">
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="0 2 0 0"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                <Fluent:TwoLineLabel x:Name="controlLabel"
-                                     Margin="2 0 2 0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Center"
-                                     Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+                <ContentControl x:Name="PART_HeaderContentHost"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                Focusable="False" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="controlLabel" Property="HasTwoLines" Value="False" />
-                <Setter TargetName="controlLabel" Property="Margin" Value="2 -2 2 2" />
-                <Setter TargetName="controlLabel" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 -2 2 2" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 0 2 0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="controlLabel" Property="HasTwoLines" Value="False" />
-                <Setter TargetName="controlLabel" Property="Margin" Value="2 2 2 2" />
-                <Setter TargetName="controlLabel" Property="VerticalAlignment" Value="Center" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 2 2 2" />
+                <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 0 2 0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
@@ -104,7 +104,7 @@
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -163,12 +163,12 @@
                             BorderThickness="1"
                             Visibility="Collapsed" />
                 </Grid>
-                <Fluent:TwoLineLabel x:Name="controlLabel"
-                                     Margin="2 0 0 0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Center"
-                                     HasTwoLines="False"
-                                     Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                <ContentControl x:Name="PART_HeaderContentHost"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                Focusable="False" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
@@ -191,16 +191,16 @@
                     <Condition Property="Size" Value="Large" />
                     <Condition SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="controlLabel" Property="Margin" Value="0" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="controlLabel" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="stackPanel" Property="Margin" Value="4 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="controlLabel" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsChecked" Value="True">
@@ -208,7 +208,7 @@
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
             </Trigger>
             <MultiTrigger>

@@ -96,11 +96,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+                    
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </Grid>
             </StackPanel>
 
@@ -165,6 +166,7 @@
                              Visibility="Hidden" />
                 </Grid>
             </Border>
+
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
@@ -237,7 +239,7 @@
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
@@ -248,7 +250,7 @@
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_EditableTextBox" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_EditableTextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
@@ -272,6 +274,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.ComboBox.Header">
+        <TextBlock Margin="5 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="{Binding}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+    
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
@@ -282,6 +291,7 @@
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource RibbonComboboxControlTemplate}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">

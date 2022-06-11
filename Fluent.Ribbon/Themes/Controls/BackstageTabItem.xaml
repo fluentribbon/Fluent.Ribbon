@@ -28,6 +28,8 @@
 
                 <ContentControl x:Name="PART_Header"
                                 Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False"
                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground}">
                     <ContentControl.Resources>

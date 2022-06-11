@@ -365,14 +365,8 @@ namespace Fluent
 
         /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
-
-        #endregion
-
-        #region HeaderTemplate Property
-
-        /// <summary>
-        /// Gets or sets header template of tab item.
-        /// </summary>
+        
+        /// <inheritdoc />
         public DataTemplate? HeaderTemplate
         {
             get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
@@ -380,8 +374,17 @@ namespace Fluent
         }
 
         /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
-        public static readonly DependencyProperty HeaderTemplateProperty =
-            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RibbonTabItem), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
+        public static readonly DependencyProperty HeaderTemplateProperty = RibbonControl.HeaderTemplateProperty.AddOwner(typeof(RibbonTabItem), new PropertyMetadata());
+
+        /// <inheritdoc />
+        public DataTemplateSelector? HeaderTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
+            set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty = RibbonControl.HeaderTemplateSelectorProperty.AddOwner(typeof(RibbonTabItem), new PropertyMetadata());
 
         #endregion
 

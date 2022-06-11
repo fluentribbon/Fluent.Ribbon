@@ -70,11 +70,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+                    
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </Grid>
             </StackPanel>
 
@@ -189,7 +190,7 @@
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
@@ -197,7 +198,7 @@
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
@@ -235,14 +236,11 @@
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="headerTextBlock"
-                                   Margin="0 0 4 0"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   TextWrapping="Wrap" />
+                        <ContentControl x:Name="PART_HeaderContentHost"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        Focusable="False" />
                     </Grid>
                 </StackPanel>
 
@@ -355,11 +353,11 @@
 
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="border" Property="Padding" Value="4 0" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImage" Property="Margin" Value="0 0 2 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
@@ -367,7 +365,7 @@
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
@@ -390,6 +388,16 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Margin="5 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="{Binding}"
+                               TextWrapping="Wrap" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="BorderThickness" Value="1" />
@@ -400,6 +408,16 @@
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Margin="0 0 4 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"
+                                       TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

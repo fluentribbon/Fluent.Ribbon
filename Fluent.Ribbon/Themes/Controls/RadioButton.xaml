@@ -8,11 +8,12 @@
         <BulletDecorator x:Name="bulletDecorator"
                          Height="22"
                          Background="Transparent"
-                         SnapsToDevicePixels="true">
+                         SnapsToDevicePixels="true"
+                         VerticalAlignment="Center">
             <BulletDecorator.Bullet>
                 <Grid Width="12"
                       Height="12"
-                      Margin="4 4 0 0"
+                      Margin="4 0 0 0"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center">
                     <Rectangle Margin="-6 0"
@@ -31,8 +32,13 @@
                              Opacity="0" />
                 </Grid>
             </BulletDecorator.Bullet>
-            <TextBlock Margin="8 3 4 0"
-                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+
+            <ContentControl x:Name="PART_HeaderContentHost"
+                            Margin="8 0 0 0"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                            Focusable="False" />
         </BulletDecorator>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -60,7 +66,8 @@
                              Height="Auto"
                              Margin="{TemplateBinding Padding}"
                              Background="Transparent"
-                             SnapsToDevicePixels="true">
+                             SnapsToDevicePixels="true"
+                             VerticalAlignment="Center">
                 <BulletDecorator.Bullet>
                     <Grid Width="12"
                           Height="12"
@@ -103,13 +110,14 @@
                                 BorderThickness="1"
                                 Visibility="Collapsed" />
                     </Grid>
-                    <ContentPresenter x:Name="contentPresenter"
+
+                    <ContentPresenter x:Name="PART_HeaderContentHost"
                                       Margin="1 0 0 0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Content="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      RecognizesAccessKey="True" />
+                                      Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
                 </StackPanel>
             </BulletDecorator>
         </Border>
@@ -138,12 +146,12 @@
 
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="bulletDecorator" Property="Margin" Value="4 0" />
-                <Setter TargetName="contentPresenter" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImageGrid" Property="Margin" Value="0" />
                 <Setter TargetName="iconImageGrid" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="contentPresenter" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImageGrid" Property="Margin" Value="0" />
                 <Setter TargetName="iconImageGrid" Property="Visibility" Value="Visible" />
             </Trigger>
@@ -171,6 +179,12 @@
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
+        <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
+        <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -188,9 +202,6 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
-        <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="BorderThickness" Value="1" />

@@ -2,12 +2,46 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header">
+        <Fluent:TwoLineLabel HorizontalAlignment="Center"
+                             VerticalAlignment="Stretch"
+                             HasGlyph="True"
+                             Text="{Binding}">
+            <Fluent:TwoLineLabel.Style>
+                <Style TargetType="Fluent:TwoLineLabel"
+                       BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
+                    <Setter Property="HasTwoLines" Value="True" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Size, RelativeSource={RelativeSource AncestorType=Fluent:IRibbonControl}}" Value="Middle">
+                            <Setter Property="HasTwoLines" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Size, RelativeSource={RelativeSource AncestorType=Fluent:IRibbonControl}}" Value="Small">
+                            <Setter Property="HasTwoLines" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsSimplified, RelativeSource={RelativeSource AncestorType=Fluent:ISimplifiedRibbonControl}}" Value="True">
+                            <Setter Property="HasTwoLines" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Fluent:TwoLineLabel.Style>
+        </Fluent:TwoLineLabel>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified">
+        <Fluent:TwoLineLabel HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             HasGlyph="False"
+                             HasTwoLines="False"
+                             Text="{Binding}" />
+    </DataTemplate>
+    
     <Style x:Key="InRibbonGalleryToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Template" Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -31,6 +65,7 @@
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified}" />
+                <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
             </Trigger>
@@ -66,29 +101,27 @@
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                    <Fluent:TwoLineLabel x:Name="controlLabel"
-                                         Margin="2 -2 2 2"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Stretch"
-                                         HasGlyph="True"
-                                         Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False"
+                                    Margin="2 -2 2 2" />
                 </StackPanel>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="controlLabel" Property="HasTwoLines" Value="False" />
-                <Setter TargetName="controlLabel" Property="Margin" Value="-2 0 2 2" />
-                <Setter TargetName="controlLabel" Property="Text" Value="" />
-                <Setter TargetName="controlLabel" Property="Width" Value="10" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 2" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 2 0 2" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="controlLabel" Property="HasTwoLines" Value="False" />
-                <Setter TargetName="controlLabel" Property="Margin" Value="2 -2 2 2" />
-                <Setter TargetName="controlLabel" Property="VerticalAlignment" Value="Top" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 -2 2 2" />
+                <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Top" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 2 2 2" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
@@ -100,7 +133,7 @@
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -150,14 +183,15 @@
                             BorderThickness="1"
                             Visibility="Collapsed" />
                 </Grid>
-                <Fluent:TwoLineLabel x:Name="controlLabel"
-                                     Grid.Column="1"
-                                     Margin="2 0 0 0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Center"
-                                     HasGlyph="False"
-                                     HasTwoLines="False"
-                                     Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                <ContentControl x:Name="PART_HeaderContentHost"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                Focusable="False"
+                                Grid.Column="1"
+                                Margin="2 0 0 0" />
+
                 <Fluent:TwoLineLabel x:Name="controlLabel2"
                                      Grid.Column="2"
                                      Margin="0"
@@ -188,18 +222,18 @@
                     <Condition Property="Size" Value="Large" />
                     <Condition SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="controlLabel" Property="Margin" Value="0" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed" />
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="controlLabel" Property="Margin" Value="0" />
-                <Setter TargetName="controlLabel" Property="Text" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
                 <Setter TargetName="stackPanel" Property="Margin" Value="4 0 1 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="controlLabel" Property="Margin" Value="0" />
-                <Setter TargetName="controlLabel" Property="Text" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
             </Trigger>
 
             <Trigger Property="IsChecked" Value="True">
@@ -207,7 +241,7 @@
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="controlLabel2" Property="Opacity" Value="0.5" />
                 <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
             </Trigger>
@@ -569,6 +603,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.Header"></DataTemplate>
+    
     <Style x:Key="{x:Type Fluent:InRibbonGallery}"
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
