@@ -12,8 +12,8 @@
             <Fluent:TwoLineLabel.Style>
                 <Style TargetType="Fluent:TwoLineLabel"
                        BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
-                    <Setter Property="HasTwoLines" Value="True" />
                     <Setter Property="HasGlyph" Value="{Binding HasTriangle, RelativeSource={RelativeSource AncestorType=Fluent:DropDownButton}}" />
+                    <Setter Property="HasTwoLines" Value="True" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Size, RelativeSource={RelativeSource AncestorType=Fluent:IRibbonControl}}" Value="Middle">
                             <Setter Property="HasTwoLines" Value="False" />
@@ -44,6 +44,7 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.DropDownButton.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -54,7 +55,6 @@
         </Setter>
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource RibbonDropDownButtonControlTemplate}" />
-        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.DropDownButton.Header}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -74,12 +74,12 @@
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
+                <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.DropDownButton.Header.Simplified}" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.DropDownButton.Simplified}" />
-                <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.DropDownButton.Header.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
             </Trigger>
@@ -155,8 +155,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 1" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 1" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
                 <Setter TargetName="iconImage" Property="Margin" Value="2 0 0 0" />
@@ -234,12 +234,12 @@
                     </Grid>
 
                     <ContentControl x:Name="PART_HeaderContentHost"
+                                    Grid.Column="1"
+                                    Margin="2 0 0 0"
                                     Content="{TemplateBinding Header}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Focusable="False"
-                                    Grid.Column="1"
-                                    Margin="2 0 0 0" />
+                                    Focusable="False" />
 
                     <Fluent:TwoLineLabel x:Name="controlLabel2"
                                          Grid.Column="2"
@@ -303,13 +303,13 @@
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Margin" Value="4 0 1 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
             </Trigger>
 
             <Trigger Property="IsDropDownOpen" Value="True">

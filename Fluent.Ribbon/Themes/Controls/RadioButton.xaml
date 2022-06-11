@@ -7,9 +7,9 @@
                      TargetType="{x:Type Fluent:RadioButton}">
         <BulletDecorator x:Name="bulletDecorator"
                          Height="22"
+                         VerticalAlignment="Center"
                          Background="Transparent"
-                         SnapsToDevicePixels="true"
-                         VerticalAlignment="Center">
+                         SnapsToDevicePixels="true">
             <BulletDecorator.Bullet>
                 <Grid Width="12"
                       Height="12"
@@ -65,9 +65,9 @@
             <BulletDecorator x:Name="bulletDecorator"
                              Height="Auto"
                              Margin="{TemplateBinding Padding}"
+                             VerticalAlignment="Center"
                              Background="Transparent"
-                             SnapsToDevicePixels="true"
-                             VerticalAlignment="Center">
+                             SnapsToDevicePixels="true">
                 <BulletDecorator.Bullet>
                     <Grid Width="12"
                           Height="12"
@@ -145,8 +145,8 @@
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="bulletDecorator" Property="Margin" Value="4 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="bulletDecorator" Property="Margin" Value="4 0" />
                 <Setter TargetName="iconImageGrid" Property="Margin" Value="0" />
                 <Setter TargetName="iconImageGrid" Property="Visibility" Value="Visible" />
             </Trigger>
@@ -178,13 +178,10 @@
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
-        <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
-        <Setter Property="ToolTipService.ShowDuration" Value="30000" />
+        <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle">
             <Setter.Value>
                 <Style>
@@ -202,6 +199,9 @@
                 </Style>
             </Setter.Value>
         </Setter>
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
+        <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="BorderThickness" Value="1" />

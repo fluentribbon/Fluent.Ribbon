@@ -77,11 +77,11 @@
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <ContentControl x:Name="PART_HeaderContentHost"
+                                Margin="2 0 0 0"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                Focusable="False"
-                                Margin="2 0 0 0" />
+                                Focusable="False" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
@@ -153,11 +153,11 @@
                 </Grid>
 
                 <ContentControl x:Name="PART_HeaderContentHost"
+                                Margin="2 0 0 0"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                Focusable="False"
-                                Margin="2 0 0 0" />
+                                Focusable="False" />
             </StackPanel>
         </Border>
         <ControlTemplate.Triggers>
@@ -235,22 +235,22 @@
             </Fluent:TwoLineLabel.Style>
         </Fluent:TwoLineLabel>
     </DataTemplate>
-    
+
     <Style x:Key="Fluent.Ribbon.Styles.Button"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Height" Value="68" />
-        <Setter Property="SnapsToDevicePixels" Value="False" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
-        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
-        <Setter Property="Width" Value="Auto" />
         <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
+        <Setter Property="Height" Value="68" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
+        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />

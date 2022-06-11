@@ -26,7 +26,7 @@
             </Fluent:TwoLineLabel.Style>
         </Fluent:TwoLineLabel>
     </DataTemplate>
-    
+
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified">
         <Fluent:TwoLineLabel HorizontalAlignment="Stretch"
                              VerticalAlignment="Center"
@@ -34,14 +34,14 @@
                              HasTwoLines="False"
                              Text="{Binding}" />
     </DataTemplate>
-    
+
     <Style x:Key="InRibbonGalleryToggleButtonStyle"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Template" Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
-        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -60,12 +60,12 @@
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
+                <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified}" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified}" />
-                <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
             </Trigger>
@@ -102,26 +102,26 @@
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <ContentControl x:Name="PART_HeaderContentHost"
+                                    Margin="2 -2 2 2"
                                     Content="{TemplateBinding Header}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Focusable="False"
-                                    Margin="2 -2 2 2" />
+                                    Focusable="False" />
                 </StackPanel>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 2" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 2" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 2 0 2" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 -2 2 2" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Top" />
+                <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
                 <Setter TargetName="iconImage" Property="Margin" Value="1 2 2 2" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
@@ -185,12 +185,12 @@
                 </Grid>
 
                 <ContentControl x:Name="PART_HeaderContentHost"
+                                Grid.Column="1"
+                                Margin="2 0 0 0"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                Focusable="False"
-                                Grid.Column="1"
-                                Margin="2 0 0 0" />
+                                Focusable="False" />
 
                 <Fluent:TwoLineLabel x:Name="controlLabel2"
                                      Grid.Column="2"
@@ -227,13 +227,13 @@
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Margin" Value="4 0 1 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
             </Trigger>
 
             <Trigger Property="IsChecked" Value="True">
@@ -603,8 +603,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.Header"></DataTemplate>
-    
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.Header" />
+
     <Style x:Key="{x:Type Fluent:InRibbonGallery}"
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
