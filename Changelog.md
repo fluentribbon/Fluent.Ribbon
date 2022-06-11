@@ -5,7 +5,7 @@
 - ### Breaking changes
 
   - Drop support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
-  - Resizing popups should work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
+  - Resizing popups should now work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.
   - Updated ControlzEx to version 6.
