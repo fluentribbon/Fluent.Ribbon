@@ -123,7 +123,7 @@ namespace Fluent
                 var index = 0;
                 while (index < groupNameToElement?.Count)
                 {
-                    var target = ((WeakReference?)groupNameToElement[index])?.Target as IToggleButton;
+                    var target = ((WeakReference?)groupNameToElement![index])?.Target as IToggleButton;
                     if (target is null)
                     {
                         groupNameToElement.RemoveAt(index);

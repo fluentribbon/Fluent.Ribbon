@@ -290,7 +290,7 @@ namespace Fluent
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        var element = (UIElement?)e.NewItems[i];
+                        var element = (UIElement?)e.NewItems![i];
 
                         if (element is not null)
                         {

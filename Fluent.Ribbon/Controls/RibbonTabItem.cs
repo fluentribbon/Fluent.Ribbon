@@ -282,11 +282,6 @@ namespace Fluent
         // handles ribbon groups collection changes
         private void OnGroupsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (this.groupsInnerContainer is null)
-            {
-                return;
-            }
-
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -294,7 +289,7 @@ namespace Fluent
                         var isSimplified = this.IsSimplified;
                         for (var i = 0; i < e.NewItems?.Count; i++)
                         {
-                            var element = (UIElement?)e.NewItems[i];
+                            var element = (UIElement?)e.NewItems![i];
 
                             if (element is not null)
                             {

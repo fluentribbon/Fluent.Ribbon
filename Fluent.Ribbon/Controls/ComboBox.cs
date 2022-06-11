@@ -679,7 +679,8 @@ namespace Fluent
                 initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
             }
 
-            if (this.scrollViewer?.DesiredSize.Height > initialHeight)
+            if (this.scrollViewer is not null
+                && this.scrollViewer.DesiredSize.Height > initialHeight)
             {
                 this.scrollViewer.Height = initialHeight;
             }
