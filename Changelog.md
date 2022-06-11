@@ -14,6 +14,8 @@
     - Default value for `BorderThickness` changed from `1` to `0`
   - PDBs are now embedded
   - Removed `IsMinimized` and `IsOpen` from `RibbonTabItem`
+  - `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`
+  - Various controls (`Button`, `ComboBox` etc.) now use `HeaderTemplate` to format their header instead of using `TwoLineLabel` directly
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
