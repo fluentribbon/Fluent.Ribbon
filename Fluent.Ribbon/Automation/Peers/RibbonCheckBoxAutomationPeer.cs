@@ -1,19 +1,13 @@
 ﻿namespace Fluent.Automation.Peers
 {
     /// <inheritdoc />
-    public class RibbonCheckBoxAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
+    public class RibbonCheckBoxAutomationPeer : System.Windows.Automation.Peers.CheckBoxAutomationPeer
     {
         /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
         /// <param name="owner">The element associated with this automation peer.</param>
         public RibbonCheckBoxAutomationPeer(CheckBox owner)
             : base(owner)
         {
-        }
-
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return this.Owner.GetType().Name;
         }
 
         /// <inheritdoc />
