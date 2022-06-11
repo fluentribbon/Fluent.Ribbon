@@ -266,14 +266,14 @@
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Style BasedOn="{StaticResource GroupBoxSeparator}"
-                       TargetType="Separator" />
+                <Style TargetType="Separator"
+                       BasedOn="{StaticResource GroupBoxSeparator}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
@@ -449,14 +449,14 @@
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Style BasedOn="{StaticResource GroupBoxSeparator}"
-                       TargetType="Separator" />
+                <Style TargetType="Separator"
+                       BasedOn="{StaticResource GroupBoxSeparator}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 

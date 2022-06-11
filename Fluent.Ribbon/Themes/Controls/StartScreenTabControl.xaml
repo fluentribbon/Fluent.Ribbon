@@ -7,17 +7,17 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
                 <Style x:Key="{x:Type Fluent:Button}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}"
-                       TargetType="{x:Type Fluent:Button}" />
+                       TargetType="{x:Type Fluent:Button}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}"
-                       TargetType="{x:Type Fluent:DropDownButton}" />
+                       TargetType="{x:Type Fluent:DropDownButton}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}"
-                       TargetType="{x:Type Fluent:ComboBox}" />
+                       TargetType="{x:Type Fluent:ComboBox}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid x:Name="grid">
@@ -61,8 +61,8 @@
     </ControlTemplate>
 
     <Style x:Key="StartScreenTabControlStyle"
-           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}"
-           TargetType="{x:Type Fluent:StartScreenTabControl}">
+           TargetType="{x:Type Fluent:StartScreenTabControl}"
+           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource StartScreenTabControlTemplate}" />

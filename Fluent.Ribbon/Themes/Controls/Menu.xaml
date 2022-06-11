@@ -29,10 +29,10 @@
     <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
-            <Style BasedOn="{StaticResource MenuGroupSeparatorStyle}"
-                   TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+            <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
+                   BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"
@@ -121,10 +121,10 @@
     <ControlTemplate x:Key="PopupMenuControlTemplate"
                      TargetType="{x:Type ContextMenu}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
-            <Style BasedOn="{StaticResource MenuGroupSeparatorStyle}"
-                   TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+            <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
+                   BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"

@@ -7,8 +7,8 @@
     <ControlTemplate x:Key="RibbonControlTemplate"
                      TargetType="{x:Type Fluent:Ribbon}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
         </ControlTemplate.Resources>
 
         <Border Background="{TemplateBinding Background}"

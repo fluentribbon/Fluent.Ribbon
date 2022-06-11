@@ -102,10 +102,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
                     <ControlTemplate.Resources>
-                        <Style BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}"
-                               TargetType="{x:Type Fluent:SeparatorTabItem}" />
-                        <Style BasedOn="{StaticResource InnerBackstageTabControlItem}"
-                               TargetType="{x:Type TabItem}" />
+                        <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
+                               BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}" />
+                        <Style TargetType="{x:Type TabItem}"
+                               BasedOn="{StaticResource InnerBackstageTabControlItem}" />
                     </ControlTemplate.Resources>
                     <Grid>
                         <Grid.ColumnDefinitions>

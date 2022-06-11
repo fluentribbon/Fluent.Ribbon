@@ -1122,8 +1122,8 @@
                                   KeyTip="1">
                 <fluent:RibbonTabItem.Resources>
                     <Style x:Key="RibbonButtonFullModeOnlyStyle"
-                           BasedOn="{StaticResource {x:Type fluent:Button}}"
-                           TargetType="fluent:Button">
+                           TargetType="fluent:Button"
+                           BasedOn="{StaticResource {x:Type fluent:Button}}">
                         <Style.Triggers>
                             <Trigger Property="IsSimplified" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1131,8 +1131,8 @@
                         </Style.Triggers>
                     </Style>
                     <Style x:Key="RibbonButtonSimplifiedModeOnlyStyle"
-                           BasedOn="{StaticResource {x:Type fluent:Button}}"
-                           TargetType="fluent:Button">
+                           TargetType="fluent:Button"
+                           BasedOn="{StaticResource {x:Type fluent:Button}}">
                         <Style.Triggers>
                             <Trigger Property="IsSimplified" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1218,8 +1218,8 @@
                                         ItemsSource="{Binding StringItems}"
                                         KeyTip="S1">
                         <fluent:SplitButton.Style>
-                            <Style BasedOn="{StaticResource {x:Type fluent:SplitButton}}"
-                                   TargetType="fluent:SplitButton">
+                            <Style TargetType="fluent:SplitButton"
+                                   BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
                                 <Style.Triggers>
                                     <Trigger Property="IsSimplified" Value="True">
                                         <Setter Property="Visibility" Value="Collapsed" />

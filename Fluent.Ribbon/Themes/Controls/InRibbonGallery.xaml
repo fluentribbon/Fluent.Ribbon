@@ -460,8 +460,8 @@
                         <Popup.Resources>
                             <ResourceDictionary>
                                 <Style x:Key="{x:Type ScrollBar}"
-                                       BasedOn="{StaticResource ScrollBarWhite}"
-                                       TargetType="{x:Type ScrollBar}" />
+                                       TargetType="{x:Type ScrollBar}"
+                                       BasedOn="{StaticResource ScrollBarWhite}" />
                             </ResourceDictionary>
                         </Popup.Resources>
                         <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"

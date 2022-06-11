@@ -201,8 +201,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style BasedOn="{StaticResource {x:Type TextBoxBase}}"
-           TargetType="{x:Type Fluent:TextBox}">
+    <Style TargetType="{x:Type Fluent:TextBox}"
+           BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />

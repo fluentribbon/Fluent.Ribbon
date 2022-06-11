@@ -17,8 +17,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -125,8 +125,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -390,8 +390,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -629,8 +629,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -735,8 +735,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"
@@ -982,8 +982,8 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource MenuScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource MenuScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid Width="Auto"

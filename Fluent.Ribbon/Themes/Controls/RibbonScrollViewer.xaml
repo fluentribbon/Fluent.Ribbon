@@ -318,8 +318,8 @@
            TargetType="{x:Type ScrollViewer}">
         <Style.Resources>
             <Style x:Key="{x:Type ScrollBar}"
-                   BasedOn="{StaticResource ScrollBarWhite}"
-                   TargetType="{x:Type ScrollBar}" />
+                   TargetType="{x:Type ScrollBar}"
+                   BasedOn="{StaticResource ScrollBarWhite}" />
         </Style.Resources>
 
         <Setter Property="Template" Value="{DynamicResource ScrollViewerControlTemplate}" />
@@ -332,8 +332,8 @@
     </Style>
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
-           BasedOn="{StaticResource RibbonScrollViewer}"
-           TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}" />
+           TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}"
+           BasedOn="{StaticResource RibbonScrollViewer}" />
 
     <ControlTemplate x:Key="ScrollViewerControlTemplate"
                      TargetType="{x:Type ScrollViewer}">

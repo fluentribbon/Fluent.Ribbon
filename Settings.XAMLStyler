@@ -15,6 +15,7 @@
         "xmlns, xmlns:x",
         "xmlns:*",
         "x:Key, Key, x:Name, Name, x:Uid, Uid, Title",
+        "TargetType, BasedOn",
         "Grid.Row, Grid.RowSpan, Grid.Column, Grid.ColumnSpan, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
         "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
         "Margin, Padding, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",

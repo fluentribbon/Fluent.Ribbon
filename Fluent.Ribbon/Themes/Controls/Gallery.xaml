@@ -96,11 +96,11 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"

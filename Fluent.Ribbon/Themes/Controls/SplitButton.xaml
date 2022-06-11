@@ -63,8 +63,8 @@
     <ControlTemplate x:Key="RibbonSplitButtonControlTemplate"
                      TargetType="{x:Type Fluent:SplitButton}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border Name="PART_ButtonBorder"
@@ -190,8 +190,8 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitButton.Simplified"
                      TargetType="{x:Type Fluent:SplitButton}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border Name="PART_ButtonBorder"

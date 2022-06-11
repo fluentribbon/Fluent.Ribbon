@@ -162,21 +162,21 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
 
                 <Style x:Key="{x:Type Fluent:Button}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}"
-                       TargetType="{x:Type Fluent:Button}" />
+                       TargetType="{x:Type Fluent:Button}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
                 <Style x:Key="{x:Type Fluent:ToggleButton}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ToggleButton}"
-                       TargetType="{x:Type Fluent:ToggleButton}" />
+                       TargetType="{x:Type Fluent:ToggleButton}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ToggleButton}" />
                 <Style x:Key="{x:Type Fluent:DropDownButton}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}"
-                       TargetType="{x:Type Fluent:DropDownButton}" />
+                       TargetType="{x:Type Fluent:DropDownButton}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.DropDownButton}" />
                 <Style x:Key="{x:Type Fluent:ComboBox}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}"
-                       TargetType="{x:Type Fluent:ComboBox}" />
+                       TargetType="{x:Type Fluent:ComboBox}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.ComboBox}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Grid>

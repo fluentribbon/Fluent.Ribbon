@@ -66,11 +66,11 @@
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource ScrollViewerStyle}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
@@ -178,8 +178,8 @@
                 <Popup.Resources>
                     <ResourceDictionary>
                         <Style x:Key="{x:Type ScrollBar}"
-                               BasedOn="{StaticResource ScrollBarWhite}"
-                               TargetType="{x:Type ScrollBar}" />
+                               TargetType="{x:Type ScrollBar}"
+                               BasedOn="{StaticResource ScrollBarWhite}" />
                     </ResourceDictionary>
                 </Popup.Resources>
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"

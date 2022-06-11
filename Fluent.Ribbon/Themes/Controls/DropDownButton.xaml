@@ -61,8 +61,8 @@
     <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
@@ -159,8 +159,8 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.DropDownButton.Simplified"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource MenuSeparatorStyle}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"

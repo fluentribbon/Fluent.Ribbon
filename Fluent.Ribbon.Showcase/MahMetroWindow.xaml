@@ -30,8 +30,8 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="{x:Type Fluent:BackstageTabControl}"
-                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}"
-                   TargetType="{x:Type Fluent:BackstageTabControl}">
+                   TargetType="{x:Type Fluent:BackstageTabControl}"
+                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
                 <Setter Property="SelectedContentMargin" Value="0" />
             </Style>
         </ResourceDictionary>

@@ -9,8 +9,8 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SeparatorStyle">
             <Setter.Value>
-                <Style BasedOn="{StaticResource RibbonSeparatorStyle}"
-                       TargetType="{x:Type Separator}">
+                <Style TargetType="{x:Type Separator}"
+                       BasedOn="{StaticResource RibbonSeparatorStyle}">
                     <Setter Property="Margin" Value="4" />
                 </Style>
             </Setter.Value>
