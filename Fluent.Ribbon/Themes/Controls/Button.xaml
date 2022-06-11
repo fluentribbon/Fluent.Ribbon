@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:controlzex="urn:controlzex"
@@ -56,7 +56,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Button"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="border"
                 Height="Auto"
@@ -221,7 +221,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
-        <Setter Property="Template" Value="{DynamicResource RibbonButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">

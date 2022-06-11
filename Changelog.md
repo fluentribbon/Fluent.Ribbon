@@ -22,6 +22,7 @@
 |Old|New|
 |---|---|
 |Fluent.Ribbon.Templates.CheckBox.Simplified|---|
+|RibbonButtonControlTemplate|Fluent.Ribbon.Templates.Button|
 </details>
 
 - ### Bug fixes
