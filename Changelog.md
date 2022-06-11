@@ -13,6 +13,7 @@
     - `GlowBrush` and `NonActiveGlowBrush` are now named `GlowColor` and `NonActiveGlowColor` and are both of type `Color` instead of `Brush`
     - Default value for `BorderThickness` changed from `1` to `0`
   - PDBs are now embedded
+  - Removed `IsMinimized` and `IsOpen` from `RibbonTabItem`
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
@@ -24,6 +25,8 @@
 </details>
 
 - ### Bug fixes
+
+  - [#1035](../../issues/1035) - Binding failures from within RibbonTabItem on IsMinimized & IsOpen
 
 - ### Enhancements/Features
 

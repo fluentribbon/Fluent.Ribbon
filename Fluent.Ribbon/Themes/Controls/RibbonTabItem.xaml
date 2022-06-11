@@ -100,25 +100,6 @@
                 <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
-            <!-- Background for Selected, Minimized, IsOpen, with group -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="IsMinimized" Value="True" />
-                    <Condition Property="IsOpen" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="grid" Property="Background" Value="Transparent" />
-            </MultiTrigger>
-            <!-- Background for Selected, Minimized, IsOpen, no group -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="IsMinimized" Value="True" />
-                    <Condition Property="IsOpen" Value="True" />
-                    <Condition Property="Group" Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="grid" Property="Background" Value="Transparent" />
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -144,8 +125,6 @@
         </Setter>
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
-        <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource RibbonTabItemControlTemplate}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />

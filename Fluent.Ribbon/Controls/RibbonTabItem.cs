@@ -107,30 +107,6 @@ namespace Fluent
         public ScrollViewer GroupsContainer { get; } = new RibbonGroupsContainerScrollViewer { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
 
         /// <summary>
-        /// Gets or sets whether ribbon is minimized
-        /// </summary>
-        public bool IsMinimized
-        {
-            get { return (bool)this.GetValue(IsMinimizedProperty); }
-            set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
-        }
-
-        /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
-        public static readonly DependencyProperty IsMinimizedProperty = DependencyProperty.Register(nameof(IsMinimized), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
-
-        /// <summary>
-        /// Gets or sets whether ribbon is opened
-        /// </summary>
-        public bool IsOpen
-        {
-            get { return (bool)this.GetValue(IsOpenProperty); }
-            set { this.SetValue(IsOpenProperty, BooleanBoxes.Box(value)); }
-        }
-
-        /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
-        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
-
-        /// <summary>
         /// Gets or sets reduce order
         /// </summary>
         public string? ReduceOrder
