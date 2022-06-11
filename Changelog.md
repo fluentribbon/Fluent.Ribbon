@@ -19,10 +19,14 @@
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
-|Old|New|
-|---|---|
-|Fluent.Ribbon.Templates.CheckBox.Simplified|---|
-|RibbonButtonControlTemplate|Fluent.Ribbon.Templates.Button|
+| Old                                         | New                                       |
+|---------------------------------------------|-------------------------------------------|
+| Fluent.Ribbon.Templates.CheckBox.Simplified | ---                                       |
+| RibbonButtonControlTemplate                 | Fluent.Ribbon.Templates.Button            |
+| RibbonButtonStyle                           | Fluent.Ribbon.Styles.Button               |
+| ---                                         | Fluent.Ribbon.DataTemplates.Button.Header |
+| TwoLineLabelControlTemplate                 | Fluent.Ribbon.Templates.TwoLineLabel      |
+| TwoLineLabelStyle                           | Fluent.Ribbon.Styles.TwoLineLabel         |
 </details>
 
 - ### Bug fixes
