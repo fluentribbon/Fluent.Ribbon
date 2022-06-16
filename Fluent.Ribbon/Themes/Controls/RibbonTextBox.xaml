@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.TextBox"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox"
                      TargetType="{x:Type Fluent:TextBox}">
         <Grid Width="Auto"
               Height="22"
@@ -223,7 +223,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.TextBox.Header}" />
         <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ControlTemplates.TextBox}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.TextBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">

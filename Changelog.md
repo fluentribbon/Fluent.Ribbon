@@ -35,6 +35,8 @@
 | ---                                         | Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header            |
 | ---                                         | Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified |
 | ---                                         | Fluent.Ribbon.DataTemplates.TextBox.Header                                 |
+| Fluent.Ribbon.ControlTemplates.TextBox      | Fluent.Ribbon.Templates.TextBox                                            |
+| Fluent.Ribbon.ControlTemplates.Spinner      | Fluent.Ribbon.Templates.Spinner                                            |
 </details>
 
 - ### Bug fixes

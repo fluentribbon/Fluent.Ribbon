@@ -47,7 +47,7 @@
     </Style>
 
     <!-- Spinner Style -->
-    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.Spinner"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner"
                      TargetType="{x:Type Fluent:Spinner}">
         <Grid Width="Auto"
               Height="22"
@@ -396,7 +396,7 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
