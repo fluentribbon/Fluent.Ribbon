@@ -3,6 +3,7 @@
     using System.Collections;
     using System.Linq;
     using System.Windows.Controls;
+    using System.Windows.Media;
     using Fluent.Tests.Helper;
     using Fluent.Tests.TestClasses;
     using NUnit.Framework;
@@ -61,7 +62,11 @@
 
         private static TextBlock GetHeaderTextBlock(Control control)
         {
-            return (TextBlock)control.Template.FindName("headerTextBlock", control);
+            var headerContentHost = (Control)control.Template.FindName("PART_HeaderContentHost", control);
+
+            var headerContentPresenter = VisualTreeHelper.GetChild(headerContentHost, 0);
+
+            return (TextBlock)VisualTreeHelper.GetChild(headerContentPresenter, 0);
         }
 
         [Test]
