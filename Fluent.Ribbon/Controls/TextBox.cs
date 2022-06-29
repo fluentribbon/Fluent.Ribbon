@@ -20,23 +20,6 @@ namespace Fluent
 
         #region Properties (Dependency)
 
-        #region InputWidth
-
-        /// <summary>
-        /// Gets or sets width of the value input part of textbox
-        /// </summary>
-        public double InputWidth
-        {
-            get { return (double)this.GetValue(InputWidthProperty); }
-            set { this.SetValue(InputWidthProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
-        public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(TextBox), new PropertyMetadata(DoubleBoxes.NaN));
-
-        #endregion
-
         #region IsSimplified
 
         /// <summary>
@@ -156,31 +139,20 @@ namespace Fluent
         {
             RibbonControl.BindQuickAccessItem(this, element);
 
-            var textBoxQAT = (TextBox)element;
-
-            textBoxQAT.Width = this.Width;
-
-            this.ForwardBindingsForQAT(this, textBoxQAT);
-
             RibbonControl.BindQuickAccessItem(this, element);
-        }
 
-        // ReSharper disable once SuggestBaseTypeForParameter
-        private void ForwardBindingsForQAT(TextBox source, TextBox target)
-        {
-            RibbonControl.Bind(source, target, nameof(this.Text), TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
-            RibbonControl.Bind(source, target, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
-            RibbonControl.Bind(source, target, nameof(this.CharacterCasing), CharacterCasingProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.MaxLength), MaxLengthProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.TextAlignment), TextAlignmentProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.TextDecorations), TextDecorationsProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.IsUndoEnabled), IsUndoEnabledProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.UndoLimit), UndoLimitProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.AutoWordSelection), AutoWordSelectionProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.SelectionBrush), SelectionBrushProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.SelectionOpacity), SelectionOpacityProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.CaretBrush), CaretBrushProperty, BindingMode.TwoWay);
-            RibbonControl.Bind(source, target, nameof(this.InputWidth), InputWidthProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.Text), TextProperty, BindingMode.TwoWay, UpdateSourceTrigger.PropertyChanged);
+            RibbonControl.Bind(this, element, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
+            RibbonControl.Bind(this, element, nameof(this.CharacterCasing), CharacterCasingProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.MaxLength), MaxLengthProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.TextAlignment), TextAlignmentProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.TextDecorations), TextDecorationsProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.IsUndoEnabled), IsUndoEnabledProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.UndoLimit), UndoLimitProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.AutoWordSelection), AutoWordSelectionProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.SelectionBrush), SelectionBrushProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.SelectionOpacity), SelectionOpacityProperty, BindingMode.TwoWay);
+            RibbonControl.Bind(this, element, nameof(this.CaretBrush), CaretBrushProperty, BindingMode.TwoWay);
         }
 
         #endregion

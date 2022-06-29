@@ -107,13 +107,14 @@
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="Auto"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
-                    BorderThickness="1 1 1 1"
+                    BorderThickness="1"
                     d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -124,6 +125,7 @@
                                          Grid.ColumnSpan="2"
                                          Height="Auto"
                                          Margin="0"
+                                         MinHeight="0"
                                          VerticalAlignment="Stretch"
                                          BorderThickness="0"
                                          CanAddToQuickAccessToolBar="False"
@@ -241,7 +243,7 @@
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 

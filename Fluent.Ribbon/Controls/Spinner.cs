@@ -309,23 +309,6 @@ namespace Fluent
 
         #endregion
 
-        #region InputWidth
-
-        /// <summary>
-        /// Gets or sets width of the value input part of spinner
-        /// </summary>
-        public double InputWidth
-        {
-            get { return (double)this.GetValue(InputWidthProperty); }
-            set { this.SetValue(InputWidthProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
-        public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(Spinner), new PropertyMetadata(DoubleBoxes.NaN));
-
-        #endregion
-
         #region TextToValueConverter
 
         /// <summary>
@@ -599,9 +582,6 @@ namespace Fluent
 
             BindQuickAccessItem(this, element);
 
-            spinner.Width = this.Width;
-            spinner.InputWidth = this.InputWidth;
-
             Bind(this, spinner, nameof(this.Value), ValueProperty, BindingMode.TwoWay);
             Bind(this, spinner, nameof(this.Increment), IncrementProperty, BindingMode.OneWay);
             Bind(this, spinner, nameof(this.Minimum), MinimumProperty, BindingMode.OneWay);
@@ -609,8 +589,6 @@ namespace Fluent
             Bind(this, spinner, nameof(this.Format), FormatProperty, BindingMode.OneWay);
             Bind(this, spinner, nameof(this.Delay), DelayProperty, BindingMode.OneWay);
             Bind(this, spinner, nameof(this.Interval), IntervalProperty, BindingMode.OneWay);
-
-            BindQuickAccessItem(this, element);
         }
 
         #endregion

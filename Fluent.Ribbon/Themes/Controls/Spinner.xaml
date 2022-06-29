@@ -81,8 +81,9 @@
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="22"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
                     HorizontalAlignment="Right"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
@@ -176,7 +177,7 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -246,8 +247,9 @@
 
                 <Border x:Name="PART_ContentBorder"
                         Grid.Column="1"
-                        Width="{TemplateBinding InputWidth}"
-                        Height="22"
+                        Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                        Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                        MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
@@ -343,7 +345,7 @@
         </Border>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 

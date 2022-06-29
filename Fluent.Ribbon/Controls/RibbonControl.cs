@@ -308,6 +308,10 @@ namespace Fluent
 
             Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
 
+            Bind(source, element, new PropertyPath(InputControlProperties.InputMinWidthProperty), InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
+            Bind(source, element, new PropertyPath(InputControlProperties.InputWidthProperty), InputControlProperties.InputWidthProperty, BindingMode.OneWay);
+            Bind(source, element, new PropertyPath(InputControlProperties.InputHeightProperty), InputControlProperties.InputHeightProperty, BindingMode.OneWay);
+
             if (source is IHeaderedControl headeredControl)
             {
                 if (headeredControl is HeaderedItemsControl)

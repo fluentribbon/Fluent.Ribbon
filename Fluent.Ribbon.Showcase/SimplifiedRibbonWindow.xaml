@@ -173,7 +173,7 @@
                                            KeyTip="D" />
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -187,7 +187,7 @@
                         </fluent:ComboBox.MediumIcon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon24)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO2">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -196,7 +196,7 @@
                         </fluent:ComboBox.Icon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO3" />
                 </fluent:RibbonGroupBox>
 
@@ -411,7 +411,7 @@
                                            KeyTip="D" />
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -425,7 +425,7 @@
                         </fluent:ComboBox.MediumIcon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon24)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO2">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -805,7 +805,7 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                     <fluent:TextBox Header="Text box"
-                                    InputWidth="40"
+                                    fluent:InputControlProperties.InputWidth="40"
                                     KeyTip="TE"
                                     Text="">
                         <fluent:TextBox.Icon>
@@ -1021,7 +1021,7 @@
                     </fluent:DropDownButton>
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -1266,7 +1266,7 @@
                     </fluent:DropDownButton>
 
                     <fluent:ComboBox Header="Combo box (Both)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -1694,7 +1694,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 1st group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1707,7 +1707,7 @@
                                              Margin="10 0 0 0"
                                              HorizontalAlignment="Left"
                                              Header="RibbonControl.Size (for the first button): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonControlSizeEnumValues}}"
                                              SelectedItem="{Binding Size, ElementName=FirstButton}" />
@@ -1718,7 +1718,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 2nd group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1730,7 +1730,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 3rd group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1746,7 +1746,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 3rd group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1762,7 +1762,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 1st group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1772,7 +1772,7 @@
                             </CheckBox>
                             <fluent:ComboBox HorizontalAlignment="Left"
                                              Header="RibbonGroupBox.State (for the 2nd group box): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"

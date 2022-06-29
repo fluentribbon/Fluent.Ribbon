@@ -247,23 +247,6 @@ namespace Fluent
 
         #endregion
 
-        #region InputWidth
-
-        /// <summary>
-        ///     Gets or sets width of the value input part of combobox
-        /// </summary>
-        public double InputWidth
-        {
-            get { return (double)this.GetValue(InputWidthProperty); }
-            set { this.SetValue(InputWidthProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
-        public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
-
-        #endregion
-
         #region ResizeMode
 
         /// <summary>
@@ -428,8 +411,8 @@ namespace Fluent
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
+
             RibbonControl.Bind(this, combo, nameof(this.ActualWidth), MaxWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, nameof(this.InputWidth), InputWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsEditable), IsEditableProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
@@ -444,6 +427,7 @@ namespace Fluent
             RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += this.OnQuickAccessOpened;
+
             if (this.IsEditable)
             {
                 combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;

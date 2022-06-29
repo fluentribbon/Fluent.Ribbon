@@ -6,12 +6,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox"
                      TargetType="{x:Type Fluent:TextBox}">
         <Grid Width="Auto"
-              Height="22"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+
             <StackPanel x:Name="PART_HeaderAndIconPanel"
                         Margin="0 0 4 0"
                         HorizontalAlignment="Left"
@@ -28,7 +28,6 @@
                     </Grid.ColumnDefinitions>
 
                     <ContentControl x:Name="PART_HeaderContentHost"
-                                    Margin="5 0 0 0"
                                     Content="{TemplateBinding Header}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
@@ -38,8 +37,9 @@
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="Auto"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
                     HorizontalAlignment="Right"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
@@ -51,7 +51,7 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -85,7 +85,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTextBox.Simplified"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox.Simplified"
                      TargetType="{x:Type Fluent:TextBox}">
         <Border x:Name="border"
                 Padding="{TemplateBinding Padding}"
@@ -101,28 +101,27 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel x:Name="PART_HeaderAndIconPanel"
                             HorizontalAlignment="Left"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            Margin="0 0 4 0">
                     <Fluent:IconPresenter x:Name="iconImage"
-                                          Margin="0 0 4 0"
+                                          Margin="0 0 3 0"
                                           VerticalAlignment="Center"
                                           IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
-                    <Grid>
-                        <ContentControl x:Name="PART_HeaderContentHost"
-                                        Margin="0 0 4 0"
-                                        Content="{TemplateBinding Header}"
-                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                        Focusable="False" />
-                    </Grid>
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </StackPanel>
 
                 <Border x:Name="PART_ContentBorder"
                         Grid.Column="1"
-                        Width="{TemplateBinding InputWidth}"
-                        Height="Auto"
+                        Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                        Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
+                        MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:TextBox}}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
@@ -166,7 +165,7 @@
                 <Setter TargetName="PART_Watermark" Property="Visibility" Value="Visible" />
             </MultiTrigger>
 
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -210,7 +209,8 @@
     </ControlTemplate>
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.TextBox.Header">
-        <TextBlock VerticalAlignment="Center"
+        <TextBlock Margin="5 0 0 0"
+                   VerticalAlignment="Center"
                    Text="{Binding}"
                    TextWrapping="Wrap" />
     </DataTemplate>
@@ -225,13 +225,13 @@
         <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.TextBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="Fluent:InputControlProperties.InputMinWidth" Value="30" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="MinHeight" Value="30" />
-                <Setter Property="Padding" Value="6 2" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTextBox.Simplified}" />
-                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.TextBox.Simplified}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

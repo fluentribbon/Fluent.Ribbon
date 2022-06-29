@@ -11,7 +11,7 @@ namespace Fluent
     /// Attached Properties for the Fluent Ribbon library
     /// </summary>
     [PublicAPI]
-    public static class RibbonProperties
+    public class RibbonProperties : DependencyObject
     {
         #region Size Property
 
