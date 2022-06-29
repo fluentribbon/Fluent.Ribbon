@@ -29,16 +29,16 @@
 
         <fluent:Ribbon.ContextualGroups>
             <fluent:RibbonContextualTabGroup x:Name="contextGroup1"
+                                             Header="Generic context"
                                              Background="Magenta"
                                              BorderBrush="Magenta"
                                              Foreground="Purple"
-                                             Header="Generic context"
                                              Visibility="Visible" />
         </fluent:Ribbon.ContextualGroups>
 
         <!-- todo: netcore => was using x:Reference before -->
-        <fluent:RibbonTabItem Group="{Binding ElementName=contextGroup1}"
-                              Header="Generic tab header">
+        <fluent:RibbonTabItem Header="Generic tab header"
+                              Group="{Binding ElementName=contextGroup1}">
             <fluent:RibbonGroupBox Header="First group">
                 <fluent:Button x:Name="button"
                                Header="button"

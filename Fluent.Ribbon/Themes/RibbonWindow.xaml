@@ -45,8 +45,8 @@
                                           DockPanel.Dock="Right" />
 
                         <Fluent:RibbonTitleBar x:Name="PART_RibbonTitleBar"
-                                               Foreground="{TemplateBinding TitleForeground}"
                                                Header="{TemplateBinding Title}"
+                                               Foreground="{TemplateBinding TitleForeground}"
                                                IsCollapsed="{TemplateBinding IsCollapsed}" />
                     </DockPanel>
 

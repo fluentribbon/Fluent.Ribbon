@@ -40,8 +40,8 @@
     <Metro:MetroWindow.TitleTemplate>
         <DataTemplate>
             <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"
-                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}"
-                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}" />
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>
 

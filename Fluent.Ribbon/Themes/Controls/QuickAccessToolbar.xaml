@@ -170,11 +170,11 @@
                     <Separator x:Name="menuSeparator"
                                Style="{DynamicResource MenuSeparatorStyle}" />
                     <Fluent:MenuItem x:Name="PART_ShowBelow"
-                                     CanAddToQuickAccessToolBar="False"
-                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
+                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowBelow, Mode=OneWay}"
+                                     CanAddToQuickAccessToolBar="False" />
                     <Fluent:MenuItem x:Name="PART_ShowAbove"
-                                     CanAddToQuickAccessToolBar="False"
                                      Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
+                                     CanAddToQuickAccessToolBar="False"
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>

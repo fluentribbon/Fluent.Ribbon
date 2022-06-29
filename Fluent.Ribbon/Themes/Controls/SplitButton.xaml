@@ -76,6 +76,7 @@
                             KeyboardNavigation.TabNavigation="Local"
                             Orientation="Vertical">
                     <Fluent:ToggleButton x:Name="PART_Button"
+                                         Header="{TemplateBinding Header}"
                                          Width="Auto"
                                          Height="Auto"
                                          Margin="0 0 0 0"
@@ -84,7 +85,6 @@
                                          CommandParameter="{TemplateBinding CommandParameter}"
                                          CommandTarget="{TemplateBinding CommandTarget}"
                                          GroupName="{Binding GroupName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Header="{TemplateBinding Header}"
                                          Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsDefinitive="{TemplateBinding IsDefinitive}"
@@ -206,6 +206,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_Button"
+                                         Header="{TemplateBinding Header}"
                                          Grid.Column="0"
                                          Width="Auto"
                                          Height="Auto"
@@ -218,7 +219,6 @@
                                          CommandParameter="{TemplateBinding CommandParameter}"
                                          CommandTarget="{TemplateBinding CommandTarget}"
                                          GroupName="{Binding GroupName, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Header="{TemplateBinding Header}"
                                          Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsChecked="{Binding IsChecked, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsDefinitive="{TemplateBinding IsDefinitive}"

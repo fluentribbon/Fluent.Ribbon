@@ -523,10 +523,10 @@
                                                 BorderBrush="{x:Null}"
                                                 BorderThickness="0">
                                             <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
+                                                                   Header="{TemplateBinding SelectedFilterTitle}"
                                                                    Height="Auto"
                                                                    HorizontalAlignment="Left"
                                                                    VerticalAlignment="Top"
-                                                                   Header="{TemplateBinding SelectedFilterTitle}"
                                                                    Style="{DynamicResource GalleryDropDownButtonStyle}" />
                                         </Border>
                                         <ScrollViewer x:Name="PART_ScrollViewer"
@@ -553,10 +553,10 @@
             </Border>
 
             <Fluent:ToggleButton x:Name="PART_DropDownButton"
+                                 Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
                                  Margin="0 0 0 0"
                                  CanAddToQuickAccessToolBar="False"
                                  ClickMode="Press"
-                                 Header="{Binding Path=Header, RelativeSource={RelativeSource TemplatedParent}}"
                                  Icon="{Binding Path=Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                  IsDefinitive="False"

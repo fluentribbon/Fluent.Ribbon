@@ -331,9 +331,9 @@
                                            Size="Small"
                                            Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
                                            ToolTip="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip}">
-                        <Fluent:MenuItem FontWeight="Bold"
+                        <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
+                                         FontWeight="Bold"
                                          Foreground="{DynamicResource BlackBrush}"
-                                         Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
@@ -349,9 +349,9 @@
                         <Separator x:Name="DisplayOptionsButtonMenuSeparator"
                                    Style="{x:Null}"
                                    Visibility="Collapsed" />
-                        <Fluent:MenuItem FontWeight="Bold"
+                        <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
+                                         FontWeight="Bold"
                                          Foreground="{DynamicResource BlackBrush}"
-                                         Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"

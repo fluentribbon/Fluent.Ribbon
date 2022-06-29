@@ -117,10 +117,10 @@
                         BorderBrush="{x:Null}"
                         BorderThickness="0">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
+                                           Header="{TemplateBinding SelectedFilterTitle}"
                                            Height="Auto"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
-                                           Header="{TemplateBinding SelectedFilterTitle}"
                                            Style="{DynamicResource GalleryDropDownButtonStyle}" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"

@@ -170,6 +170,7 @@
                                                 KeyboardNavigation.IsTabStop="False" />
 
                                 <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                               Header="{TemplateBinding LauncherText}"
                                                Grid.Column="1"
                                                Width="15"
                                                Height="14"
@@ -183,7 +184,6 @@
                                                CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                                CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                                Focusable="False"
-                                               Header="{TemplateBinding LauncherText}"
                                                Icon="{TemplateBinding LauncherIcon}"
                                                IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                                IsTabStop="False"
@@ -192,6 +192,7 @@
                                                Visibility="Collapsed" />
                             </Grid>
                             <Fluent:Button x:Name="PART_SimplifiedDialogLauncherButton"
+                                           Header="{TemplateBinding LauncherText}"
                                            Grid.Column="1"
                                            Width="15"
                                            Height="14"
@@ -205,7 +206,6 @@
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                            Focusable="False"
-                                           Header="{TemplateBinding LauncherText}"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                            IsTabStop="False"
@@ -324,6 +324,7 @@
                                             KeyboardNavigation.IsTabStop="False" />
 
                             <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                           Header="{TemplateBinding LauncherText}"
                                            Grid.Column="1"
                                            Width="15"
                                            Height="14"
@@ -336,7 +337,6 @@
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Header="{TemplateBinding LauncherText}"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                            Template="{DynamicResource DialogLauncherButtonControlTemplate}"
@@ -486,6 +486,7 @@
                                     Orientation="Horizontal" />
 
                         <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                       Header="{TemplateBinding LauncherText}"
                                        Grid.Column="1"
                                        Width="15"
                                        Height="14"
@@ -499,7 +500,6 @@
                                        CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                        Focusable="False"
-                                       Header="{TemplateBinding LauncherText}"
                                        Icon="{TemplateBinding LauncherIcon}"
                                        IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                        IsTabStop="False"
