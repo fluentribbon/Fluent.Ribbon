@@ -48,6 +48,8 @@
 - ### Enhancements/Features
 
   - [#1026](../../issues/1026) - Translate some Chinese cases (thanks @leixao)
+  - [#1034](../../issues/1034) - Enable TextTrimming in Button Header  
+    To enable this `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`.
 
 ## 9.0.4
 
