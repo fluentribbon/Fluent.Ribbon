@@ -195,7 +195,7 @@ namespace Fluent
                     {
                         if (this.groupsMenuButton is not null)
                         {
-                            var filter = (GalleryGroupFilter?)e.NewItems[i];
+                            var filter = (GalleryGroupFilter?)e.NewItems![i];
                             var menuItem = new MenuItem
                                            {
                                                Header = filter?.Title,

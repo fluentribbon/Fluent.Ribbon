@@ -43,7 +43,9 @@
                                   Margin="10 0 10 0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  ContentSource="Header" />
+                                  ContentSource="Header"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>

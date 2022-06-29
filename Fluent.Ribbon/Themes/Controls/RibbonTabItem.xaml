@@ -27,10 +27,9 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
                 <ContentControl x:Name="PART_HeaderContentHost"
-                                AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False" />
             </Border>
             <Grid x:Name="separatorGrid"

@@ -11,7 +11,7 @@
     <Style TargetType="{x:Type Fluent:Spinner}"
            BasedOn="{StaticResource SpinnerStyle}" />
     <Style TargetType="{x:Type Fluent:TwoLineLabel}"
-           BasedOn="{StaticResource TwoLineLabelStyle}" />
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.TwoLineLabel}" />
     <Style TargetType="{x:Type Fluent:KeyTip}"
            BasedOn="{StaticResource KeyTipStyle}" />
     <Style TargetType="{x:Type Fluent:ScreenTip}"
@@ -36,7 +36,7 @@
            BasedOn="{StaticResource StartScreenTabControlStyle}" />
 
     <Style TargetType="{x:Type Fluent:Button}"
-           BasedOn="{StaticResource RibbonButtonStyle}" />
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.Button}" />
     <Style TargetType="{x:Type Fluent:CheckBox}"
            BasedOn="{StaticResource RibbonCheckBoxStyle}" />
     <Style TargetType="{x:Type Fluent:DropDownButton}"

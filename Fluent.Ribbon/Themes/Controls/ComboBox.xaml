@@ -96,23 +96,25 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </Grid>
             </StackPanel>
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="Auto"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
-                    BorderThickness="1 1 1 1"
+                    BorderThickness="1"
                     d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -123,6 +125,7 @@
                                          Grid.ColumnSpan="2"
                                          Height="Auto"
                                          Margin="0"
+                                         MinHeight="0"
                                          VerticalAlignment="Stretch"
                                          BorderThickness="0"
                                          CanAddToQuickAccessToolBar="False"
@@ -165,6 +168,7 @@
                              Visibility="Hidden" />
                 </Grid>
             </Border>
+
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
@@ -237,9 +241,9 @@
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -248,7 +252,7 @@
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
                 <Setter TargetName="PART_EditableTextBox" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_EditableTextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
@@ -272,10 +276,18 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.ComboBox.Header">
+        <TextBlock Margin="5 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="{Binding}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="IsEditable" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />

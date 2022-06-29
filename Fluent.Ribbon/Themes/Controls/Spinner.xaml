@@ -47,7 +47,7 @@
     </Style>
 
     <!-- Spinner Style -->
-    <ControlTemplate x:Key="Fluent.Ribbon.ControlTemplates.Spinner"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner"
                      TargetType="{x:Type Fluent:Spinner}">
         <Grid Width="Auto"
               Height="22"
@@ -70,18 +70,20 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </Grid>
             </StackPanel>
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="22"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
                     HorizontalAlignment="Right"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
@@ -175,7 +177,7 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -189,15 +191,15 @@
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
@@ -235,21 +237,19 @@
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="headerTextBlock"
-                                   Margin="0 0 4 0"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   TextWrapping="Wrap" />
+                        <ContentControl x:Name="PART_HeaderContentHost"
+                                        Content="{TemplateBinding Header}"
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                        Focusable="False" />
                     </Grid>
                 </StackPanel>
 
                 <Border x:Name="PART_ContentBorder"
                         Grid.Column="1"
-                        Width="{TemplateBinding InputWidth}"
-                        Height="22"
+                        Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                        Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
+                        MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
@@ -345,7 +345,7 @@
         </Border>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
@@ -354,20 +354,20 @@
             </Trigger>
 
             <Trigger Property="Size" Value="Small">
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="border" Property="Padding" Value="4 0" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImage" Property="Margin" Value="0 0 2 0" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
@@ -388,12 +388,32 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ControlTemplates.Spinner}" />
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Margin="5 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="{Binding}"
+                               TextWrapping="Wrap" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Margin="0 0 4 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}"
+                                       TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="6 2" />

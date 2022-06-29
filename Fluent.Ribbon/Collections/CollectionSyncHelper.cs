@@ -53,7 +53,7 @@
                 case NotifyCollectionChangedAction.Add:
                     for (var i = 0; i < e.NewItems?.Count; i++)
                     {
-                        this.Target.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        this.Target.Insert(e.NewStartingIndex + i, e.NewItems![i]);
                     }
 
                     break;

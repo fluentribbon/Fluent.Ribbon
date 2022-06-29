@@ -56,6 +56,28 @@ namespace Fluent
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register(nameof(Header), typeof(object), typeof(RibbonControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
+        /// <inheritdoc />
+        public DataTemplate? HeaderTemplate
+        {
+            get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
+            set { this.SetValue(HeaderTemplateProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateProperty =
+            DependencyProperty.Register(nameof(HeaderTemplate), typeof(DataTemplate), typeof(RibbonControl), new PropertyMetadata());
+
+        /// <inheritdoc />
+        public DataTemplateSelector? HeaderTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
+            set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty =
+            DependencyProperty.Register(nameof(HeaderTemplateSelector), typeof(DataTemplateSelector), typeof(RibbonControl), new PropertyMetadata());
+
         #endregion
 
         #region Icon
@@ -285,6 +307,10 @@ namespace Fluent
             Bind(source, element, nameof(SnapsToDevicePixels), SnapsToDevicePixelsProperty, BindingMode.OneWay);
 
             Bind(source, element, new PropertyPath(FocusManager.IsFocusScopeProperty), FocusManager.IsFocusScopeProperty, BindingMode.OneWay);
+
+            Bind(source, element, new PropertyPath(InputControlProperties.InputMinWidthProperty), InputControlProperties.InputMinWidthProperty, BindingMode.OneWay);
+            Bind(source, element, new PropertyPath(InputControlProperties.InputWidthProperty), InputControlProperties.InputWidthProperty, BindingMode.OneWay);
+            Bind(source, element, new PropertyPath(InputControlProperties.InputHeightProperty), InputControlProperties.InputHeightProperty, BindingMode.OneWay);
 
             if (source is IHeaderedControl headeredControl)
             {

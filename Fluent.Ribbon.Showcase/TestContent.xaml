@@ -241,7 +241,7 @@
 
                                         <Fluent:Spinner Format="0"
                                                         Header="Spinner"
-                                                        InputWidth="50"
+                                                        Fluent:InputControlProperties.InputWidth="50"
                                                         ValueChanged="OnSpinnerValueChanged"
                                                         Value="1" />
                                     </WrapPanel>
@@ -1150,21 +1150,21 @@
                     <Fluent:Spinner Format="0 px"
                                     Header="Left:"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
+                                    Fluent:InputControlProperties.InputWidth="75"
                                     IsEnabled="False"
                                     KeyTip="KA"
                                     Value="{Binding BoundSpinnerValue}" />
                     <Fluent:Spinner Format="0 px"
                                     Header="Right:"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
+                                    Fluent:InputControlProperties.InputWidth="75"
                                     KeyTip="KB"
                                     SelectAllTextOnFocus="True"
                                     Value="{Binding BoundSpinnerValue}" />
                     <Fluent:Spinner Format="0 px"
                                     Header="Top:"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
+                                    Fluent:InputControlProperties.InputWidth="75"
                                     KeyTip="KC" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
@@ -1179,7 +1179,7 @@
                                        KeyTip="FG">
                     <Fluent:ComboBox Header="Fonts"
                                      Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      IsEditable="False"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
@@ -1192,7 +1192,7 @@
                     </Fluent:ComboBox>
 
                     <Fluent:ComboBox Header="Fonts"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      IsEditable="False"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemsPanel>
@@ -1994,7 +1994,7 @@
                 <Fluent:RibbonGroupBox Grid.IsSharedSizeScope="True"
                                        Header="SharedSizeScope">
                     <Fluent:ComboBox Header="Many items"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      ItemsSource="{Binding Path=ManyItems}"
                                      ResizeMode="Both">
                         <Fluent:ComboBox.ItemsPanel>
@@ -2015,7 +2015,7 @@
                     <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}">
                         <Fluent:ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -2028,32 +2028,32 @@
 
                 <Fluent:RibbonGroupBox>
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
 
                     <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>

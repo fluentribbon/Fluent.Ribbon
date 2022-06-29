@@ -146,16 +146,20 @@ class Build : NukeBuild
         var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
             .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
             .ToList();
-        Serilog.Log.Information($"Peeked: {xmlPeekElements.Count}");
+        Serilog.Log.Information($"Peeked keys  : {xmlPeekElements.Count}");
 
         var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
 
-        var vNextResourceKeys = xmlPeekElements
+        var resourceKeys = xmlPeekElements
             .Where(x => x.HasAttributes && x.Attribute(xKey) is not null)
             .Select(x => x.Attribute(xKey)!.Value)
             // Exclude type-keyed styles like x:Key="{x:Type Button}" etc.
             .Where(x => x.StartsWith("{") == false)
-            .Distinct()
+            .ToList();
+
+        Serilog.Log.Information($"Filtered keys: {resourceKeys.Count}");
+
+        var vNextResourceKeys = resourceKeys.Distinct()
             .OrderBy(x => x)
             .ToList();
     

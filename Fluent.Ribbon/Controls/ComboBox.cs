@@ -124,6 +124,26 @@ namespace Fluent
         /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
         public static readonly DependencyProperty HeaderProperty = RibbonControl.HeaderProperty.AddOwner(typeof(ComboBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
+        /// <inheritdoc />
+        public DataTemplate? HeaderTemplate
+        {
+            get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
+            set { this.SetValue(HeaderTemplateProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateProperty = RibbonControl.HeaderTemplateProperty.AddOwner(typeof(ComboBox), new PropertyMetadata());
+
+        /// <inheritdoc />
+        public DataTemplateSelector? HeaderTemplateSelector
+        {
+            get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
+            set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        }
+
+        /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
+        public static readonly DependencyProperty HeaderTemplateSelectorProperty = RibbonControl.HeaderTemplateSelectorProperty.AddOwner(typeof(ComboBox), new PropertyMetadata());
+
         #endregion
 
         #region Icon
@@ -224,23 +244,6 @@ namespace Fluent
         /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
         public static readonly DependencyProperty MenuProperty =
             DependencyProperty.Register(nameof(Menu), typeof(RibbonMenu), typeof(ComboBox), new PropertyMetadata());
-
-        #endregion
-
-        #region InputWidth
-
-        /// <summary>
-        ///     Gets or sets width of the value input part of combobox
-        /// </summary>
-        public double InputWidth
-        {
-            get { return (double)this.GetValue(InputWidthProperty); }
-            set { this.SetValue(InputWidthProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="InputWidth"/> dependency property.</summary>
-        public static readonly DependencyProperty InputWidthProperty =
-            DependencyProperty.Register(nameof(InputWidth), typeof(double), typeof(ComboBox), new PropertyMetadata(DoubleBoxes.NaN));
 
         #endregion
 
@@ -408,8 +411,8 @@ namespace Fluent
         {
             var combo = new ComboBox();
             RibbonControl.BindQuickAccessItem(this, combo);
+
             RibbonControl.Bind(this, combo, nameof(this.ActualWidth), MaxWidthProperty, BindingMode.OneWay);
-            RibbonControl.Bind(this, combo, nameof(this.InputWidth), InputWidthProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsEditable), IsEditableProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.IsReadOnly), IsReadOnlyProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
@@ -424,6 +427,7 @@ namespace Fluent
             RibbonControl.Bind(this, combo, nameof(this.SelectedValuePath), SelectedValuePathProperty, BindingMode.OneWay);
             RibbonControl.Bind(this, combo, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
             combo.DropDownOpened += this.OnQuickAccessOpened;
+
             if (this.IsEditable)
             {
                 combo.GotFocus += this.OnQuickAccessTextBoxGetFocus;
@@ -679,7 +683,8 @@ namespace Fluent
                 initialHeight = Math.Min(this.DropDownHeight, this.MaxDropDownHeight);
             }
 
-            if (this.scrollViewer?.DesiredSize.Height > initialHeight)
+            if (this.scrollViewer is not null
+                && this.scrollViewer.DesiredSize.Height > initialHeight)
             {
                 this.scrollViewer.Height = initialHeight;
             }

@@ -1316,9 +1316,10 @@ namespace Fluent
         {
             var groupBox = (RibbonGroupBox?)sender;
 
-            if (this.ItemsSource is null)
+            if (this.ItemsSource is null
+                && groupBox is not null)
             {
-                for (var i = 0; i < groupBox?.Items.Count; i++)
+                for (var i = 0; i < groupBox.Items.Count; i++)
                 {
                     var item = groupBox.Items[0];
                     groupBox.Items.Remove(item);

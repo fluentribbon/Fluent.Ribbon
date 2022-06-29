@@ -201,7 +201,7 @@ namespace Fluent
 
                         for (var i = 0; i < e.NewItems?.Count; i++)
                         {
-                            if (this.ItemContainerGenerator.ContainerFromItem(e.NewItems[i]) is StatusBarItem item)
+                            if (this.ItemContainerGenerator.ContainerFromItem(e.NewItems![i]) is StatusBarItem item)
                             {
                                 item.Checked += this.OnItemChecked;
                                 item.Unchecked += this.OnItemUnchecked;

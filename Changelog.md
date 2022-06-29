@@ -14,15 +14,32 @@
     - Default value for `BorderThickness` changed from `1` to `0`
   - PDBs are now embedded
   - Removed `IsMinimized` and `IsOpen` from `RibbonTabItem`
+  - `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`
+  - Various controls (`Button`, `ComboBox` etc.) now use `HeaderTemplate` to format their header instead of using `TwoLineLabel` directly
+  - [#948](../../issues/948) - Minimize button misplaced  
+    Minimize button was moved to the right hand side of the toolbar in the tab item row
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
-|Old|New|
-|---|---|
-|Fluent.Ribbon.Templates.CheckBox.Simplified|---|
-|RibbonButtonControlTemplate|Fluent.Ribbon.Templates.Button|
+| Old                                              | New                                                                        |
+|--------------------------------------------------|----------------------------------------------------------------------------|
+| Fluent.Ribbon.Templates.CheckBox.Simplified      | ---                                                                        |
+| RibbonButtonControlTemplate                      | Fluent.Ribbon.Templates.Button                                             |
+| RibbonButtonStyle                                | Fluent.Ribbon.Styles.Button                                                |
+| TwoLineLabelControlTemplate                      | Fluent.Ribbon.Templates.TwoLineLabel                                       |
+| TwoLineLabelStyle                                | Fluent.Ribbon.Styles.TwoLineLabel                                          |
+| ---                                              | Fluent.Ribbon.DataTemplates.Button.Header                                  |
+| ---                                              | Fluent.Ribbon.DataTemplates.ComboBox.Header                                |
+| ---                                              | Fluent.Ribbon.DataTemplates.DropDownButton.Header                          |
+| ---                                              | Fluent.Ribbon.DataTemplates.DropDownButton.Header.Simplified               |
+| ---                                              | Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header            |
+| ---                                              | Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified |
+| ---                                              | Fluent.Ribbon.DataTemplates.TextBox.Header                                 |
+| Fluent.Ribbon.ControlTemplates.TextBox           | Fluent.Ribbon.Templates.TextBox                                            |
+| Fluent.Ribbon.ControlTemplates.Spinner           | Fluent.Ribbon.Templates.Spinner                                            |
+| Fluent.Ribbon.Templates.RibbonTextBox.Simplified | Fluent.Ribbon.Templates.TextBox.Simplified                                 |
 </details>
 
 - ### Bug fixes
@@ -32,6 +49,8 @@
 - ### Enhancements/Features
 
   - [#1026](../../issues/1026) - Translate some Chinese cases (thanks @leixao)
+  - [#1034](../../issues/1034) - Enable TextTrimming in Button Header  
+    To enable this `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`.
 
 ## 9.0.4
 
