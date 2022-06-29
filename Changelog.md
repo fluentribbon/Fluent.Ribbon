@@ -16,6 +16,8 @@
   - Removed `IsMinimized` and `IsOpen` from `RibbonTabItem`
   - `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`
   - Various controls (`Button`, `ComboBox` etc.) now use `HeaderTemplate` to format their header instead of using `TwoLineLabel` directly
+  - [#948](../../issues/948) - Minimize button misplaced  
+    Minimize button was moved to the right hand side of the toolbar in the tab item row
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
