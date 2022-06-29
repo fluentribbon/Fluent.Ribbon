@@ -15,7 +15,7 @@
 
         <PackageVersion Include="NUnit" version="3.13.3" />
 
-        <PackageVersion Include="Google.Cloud.Translate.V3" Version="2.4.0" />
+        <PackageVersion Include="Google.Cloud.Translate.V3" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup Label="Build">
