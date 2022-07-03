@@ -1247,7 +1247,7 @@
                     <fluent:DropDownButton Header="Drop down button (Simplified)"
                                            ItemsSource="{Binding StringItems}"
                                            KeyTip="D"
-                                           Visibility="{Binding IsSimplified, RelativeSource={RelativeSource Self}, Converter={StaticResource boolToVisibilityConverter}}">
+                                           Visibility="{Binding IsSimplified, RelativeSource={RelativeSource Self}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <fluent:DropDownButton.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="DarkSlateBlue"

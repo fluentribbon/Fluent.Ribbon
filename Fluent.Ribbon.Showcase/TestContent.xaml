@@ -25,7 +25,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+            <BooleanToVisibilityConverter x:Key="Fluent.Ribbon.Converters.BoolToVisibilityConverter" />
             <converters:UniqueGroupNameConverter x:Key="UniqueGroupNameConverter" />
 
             <Canvas x:Key="AppbarUndoIcon"
@@ -128,14 +128,14 @@
                                                  TabItemMouseOverForeground="Red"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
                                                  TabItemSelectedMouseOverForeground="OrangeRed"
-                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
                                                  Header="SECOND"
                                                  Background="#FF9D00"
                                                  BorderBrush="#FF9D00"
                                                  Foreground="#C45300"
-                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
                                                  Header="MUST BE HIDDEN"
@@ -2013,11 +2013,11 @@
                     <Fluent:Spinner Header="My short header" />
                     <Fluent:ComboBox Header="My long long header" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}">
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Fluent:ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -2034,28 +2034,28 @@
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -3653,7 +3653,7 @@
         <Fluent:StatusBar Grid.Row="2"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"
-                          Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}">
+                          Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
             <Fluent:StatusBarItem Title="Words Width"
                                   HorizontalAlignment="Left"
                                   IsEnabled="False"

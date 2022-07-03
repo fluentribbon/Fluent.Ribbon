@@ -3,9 +3,6 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
-    <MenuScrollingVisibilityConverter x:Key="MenuScrollingVisibilityConverter" />
-
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <Border x:Name="PART_ButtonBorder"
@@ -162,7 +159,7 @@
                                               Focusable="false"
                                               Style="{DynamicResource ScrollButtonStyle}">
                                     <RepeatButton.Visibility>
-                                        <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                        <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="0"
                                                       FallbackValue="Visibility.Collapsed">
                                             <Binding Path="ComputedHorizontalScrollBarVisibility"
@@ -195,7 +192,7 @@
                                               Focusable="false"
                                               Style="{DynamicResource ScrollButtonStyle}">
                                     <RepeatButton.Visibility>
-                                        <MultiBinding Converter="{StaticResource MenuScrollingVisibilityConverter}"
+                                        <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="100"
                                                       FallbackValue="Visibility.Collapsed">
                                             <Binding Path="ComputedHorizontalScrollBarVisibility"
@@ -306,7 +303,7 @@
                                            IsTabStop="False"
                                            Style="{DynamicResource RibbonTabScrollViewer}"
                                            VerticalScrollBarVisibility="Disabled"
-                                           Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
+                                           Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                 Height="Auto"
                                                 Margin="0"
@@ -321,7 +318,7 @@
                             Orientation="Horizontal">
                     <StackPanel x:Name="PART_ToolbarPanel"
                                 Orientation="Horizontal"
-                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:DropDownButton x:Name="PART_DisplayOptionsButton"
                                            Width="22"
@@ -336,16 +333,16 @@
                                          Foreground="{DynamicResource BlackBrush}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
-                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"
                                          Opacity="1" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ExpandRibbon, Mode=OneWay}"
                                          IsCheckable="True"
                                          IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:StaticConverters.InverseBoolConverter}}"
-                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.MinimizeRibbon, Mode=OneWay}"
                                          IsCheckable="True"
                                          IsChecked="{Binding IsMinimized, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                         Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                         <Separator x:Name="DisplayOptionsButtonMenuSeparator"
                                    Style="{x:Null}"
                                    Visibility="Collapsed" />
@@ -354,16 +351,16 @@
                                          Foreground="{DynamicResource BlackBrush}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
-                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}"
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"
                                          Opacity="1" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseClassicRibbon, Mode=OneWay}"
                                          IsCheckable="True"
                                          IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:StaticConverters.InverseBoolConverter}}"
-                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.UseSimplifiedRibbon, Mode=OneWay}"
                                          IsCheckable="True"
                                          IsChecked="{Binding IsSimplified, RelativeSource={RelativeSource TemplatedParent}}"
-                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                                         Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                     </Fluent:DropDownButton>
                 </StackPanel>
             </Grid>

@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters"
@@ -409,7 +409,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -576,7 +576,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"

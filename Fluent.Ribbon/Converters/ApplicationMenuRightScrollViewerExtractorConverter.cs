@@ -8,10 +8,8 @@
     /// <summary>
     /// Extracts right content presenter of application menu converter
     /// </summary>
-    public class ApplicationMenuRightScrollViewerExtractorConverter : IValueConverter
+    public sealed class ApplicationMenuRightScrollViewerExtractorConverter : IValueConverter
     {
-        #region Implementation of IValueConverter
-
         /// <inheritdoc />
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -28,7 +26,5 @@
         {
             return value;
         }
-
-        #endregion
     }
 }

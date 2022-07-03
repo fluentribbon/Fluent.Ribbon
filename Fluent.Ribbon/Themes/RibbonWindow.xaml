@@ -1,12 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-
-    <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
 
     <ControlTemplate x:Key="RibbonWindowControlTemplate"
                      TargetType="{x:Type Fluent:RibbonWindow}">
@@ -35,7 +32,7 @@
                                Source="{Fluent:IconConverter {Binding Icon, RelativeSource={RelativeSource TemplatedParent}},
                                                              {Binding RelativeSource={RelativeSource Self}}}"
                                Stretch="Uniform"
-                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource boolToVisibilityConverter}}" />
+                               Visibility="{TemplateBinding IsIconVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                         <ContentPresenter x:Name="PART_WindowCommands"
                                           Grid.Row="0"

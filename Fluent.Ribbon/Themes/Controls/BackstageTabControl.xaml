@@ -206,7 +206,7 @@
                             VerticalAlignment="Top"
                             Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                             Style="{DynamicResource BackstageBackButtonStyle}"
-                            Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
+                            Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Button.Margin>
                             <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
                                 <Binding Source="0" />

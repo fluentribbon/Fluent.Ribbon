@@ -49,7 +49,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Images.xaml;Themes\RibbonWindow.xaml;Themes\Common.xaml</FilesForXamlCombine>
+    <FilesForXamlCombine>Themes\Controls\*.xaml;Themes\Images.xaml;Themes\RibbonWindow.xaml;Themes\Converters.xaml;Themes\Common.xaml</FilesForXamlCombine>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(IsBuildingInsideRider)' == 'True'">
