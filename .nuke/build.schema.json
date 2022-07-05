@@ -80,6 +80,7 @@
               "Compile",
               "Pack",
               "ResourceKeys",
+              "ResourceKeysNew",
               "Restore",
               "Test",
               "XamlStyler"
@@ -101,6 +102,7 @@
               "Compile",
               "Pack",
               "ResourceKeys",
+              "ResourceKeysNew",
               "Restore",
               "Test",
               "XamlStyler"
