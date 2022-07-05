@@ -45,6 +45,8 @@
 - ### Bug fixes
 
   - [#1035](../../issues/1035) - Binding failures from within RibbonTabItem on IsMinimized & IsOpen
+  - #1041 (thanks @andersforsgren)
+
 
 - ### Enhancements/Features
 
