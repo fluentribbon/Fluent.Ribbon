@@ -1914,6 +1914,7 @@
                         <Fluent:MenuItem Header="First (with icon)"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          Icon="Images/Pink.png"
+                                         CanAddToQuickAccessToolBar="True"
                                          IsCheckable="True"
                                          IsChecked="True" />
                         <Fluent:MenuItem Header="Second"

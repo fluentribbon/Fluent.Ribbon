@@ -325,9 +325,19 @@ namespace Fluent
             }
             else
             {
-                var button = new Button();
-                RibbonControl.BindQuickAccessItem(this, button);
-                return button;
+                if (this.IsCheckable)
+                {
+                    var toggleButton = new ToggleButton();
+                    RibbonControl.Bind(this, toggleButton, nameof(this.IsChecked), System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BindingMode.TwoWay);
+                    RibbonControl.BindQuickAccessItem(this, toggleButton);
+                    return toggleButton;
+                }
+                else
+                {
+                    var button = new Button();
+                    RibbonControl.BindQuickAccessItem(this, button);
+                    return button;
+                }
             }
         }
 
