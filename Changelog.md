@@ -45,8 +45,7 @@
 - ### Bug fixes
 
   - [#1035](../../issues/1035) - Binding failures from within RibbonTabItem on IsMinimized & IsOpen
-  - #1041 (thanks @andersforsgren)
-
+  - [#1041](../../issues/1041) - MenuItem CreateQuickAccessItem should create ToggleButton (thanks @andersforsgren)
 
 - ### Enhancements/Features
 
