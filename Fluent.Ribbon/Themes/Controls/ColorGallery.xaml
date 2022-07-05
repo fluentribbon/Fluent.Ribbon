@@ -85,7 +85,7 @@
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
-    <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
+    <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelector" />
 
     <DataTemplate x:Key="GradientColorCenterDataTemplate">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
@@ -109,7 +109,7 @@
            TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
         <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
-        <Setter Property="ItemTemplateSelector" Value="{DynamicResource ColorGradientItemTemplateSelect}" />
+        <Setter Property="ItemTemplateSelector" Value="{DynamicResource ColorGradientItemTemplateSelector}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
