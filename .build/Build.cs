@@ -141,7 +141,7 @@ class Build : NukeBuild
             .SetVerbosity(DotNetVerbosity.Normal));
     });
 
-    Target ResourceKeysNew => _ => _
+    Target FixResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
         {
@@ -154,6 +154,17 @@ class Build : NukeBuild
             //resourceKeys.CheckKeys();
 
             resourceKeys.FixKeys(Glob.Files(FluentRibbonDirectory / "Themes", "**/*.{xaml,json}").Select(x => Path.Combine(FluentRibbonDirectory / "Themes", x)).ToArray());
+        });
+
+    Target ResourceKeys => _ => _
+        .After(Compile)
+        .Executes(() =>
+        {
+            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
+
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
 
             var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
                 .Select(x => x.Key)
@@ -183,64 +194,6 @@ class Build : NukeBuild
                 Serilog.Log.Information($"|---|{addedKey}|");
             }
         });
-
-    // ReSharper disable once UnusedMember.Local
-    Target ResourceKeys => _ => _
-        .After(Compile)
-        .Executes(() =>
-    {
-        var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
-            .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
-            .ToList();
-        Serilog.Log.Information($"Peeked keys  : {xmlPeekElements.Count}");
-
-        var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
-
-        var elementsWithNonTypeKeys = xmlPeekElements
-            .Where(x => x.HasAttributes && x.Attribute(xKey) is not null)
-            .Select(x => new { Element = x, Key = x.Attribute(xKey)!.Value })
-            // Exclude type-keyed styles like x:Key="{x:Type Button}" etc.
-            .Where(x => x.Key.StartsWith("{") == false)
-            .ToList();
-
-        Serilog.Log.Information($"Filtered keys: {elementsWithNonTypeKeys.Count}");
-
-        var grouped = elementsWithNonTypeKeys
-            .GroupBy(x => x.Element.Name.LocalName);
-
-        foreach (var group in grouped)
-        {
-            Serilog.Log.Information(group.Key);
-        }
-
-        var vNextResourceKeys = elementsWithNonTypeKeys
-            .Select(x => x.Key)
-            .Distinct()
-            .OrderBy(x => x)
-            .ToList();
-    
-        Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
-    
-        File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
-    
-        var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
-
-        var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
-        var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
-    
-        Serilog.Log.Information("|Old|New|");
-        Serilog.Log.Information("|---|---|");
-
-        foreach (var removedKey in removedKeys)
-        {
-            Serilog.Log.Information($"|{removedKey}|---|");
-        }
-    
-        foreach (var addedKey in addedKeys)
-        {
-            Serilog.Log.Information($"|---|{addedKey}|");
-        }
-    });
 
     // ReSharper disable once UnusedMember.Local
     // ReSharper disable once InconsistentNaming
