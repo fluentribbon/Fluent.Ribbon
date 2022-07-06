@@ -78,9 +78,9 @@
               "CI",
               "CleanOutput",
               "Compile",
+              "FixResourceKeys",
               "Pack",
               "ResourceKeys",
-              "ResourceKeysNew",
               "Restore",
               "Test",
               "XamlStyler"
@@ -100,9 +100,9 @@
               "CI",
               "CleanOutput",
               "Compile",
+              "FixResourceKeys",
               "Pack",
               "ResourceKeys",
-              "ResourceKeysNew",
               "Restore",
               "Test",
               "XamlStyler"
