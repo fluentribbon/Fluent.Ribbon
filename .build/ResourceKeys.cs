@@ -138,6 +138,7 @@ public class ResourceKeys
                 content = content.Replace($"\"{keyToFix.Key}\"", $"\"{keyToFix.expectedKey}\"");
                 content = content.Replace($" {keyToFix.Key}}}", $" {keyToFix.expectedKey}}}");
                 content = content.Replace($" {keyToFix.Key}, ", $" {keyToFix.expectedKey}, ");
+                content = content.Replace($"{{{keyToFix.Key}}}", $"{{{keyToFix.expectedKey}}}");
             }
 
             if (contentBefore != content)
