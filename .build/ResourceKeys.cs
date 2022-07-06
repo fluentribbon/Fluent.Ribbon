@@ -51,7 +51,7 @@ public class ResourceKeys
 
             var expectedKey = BuildExpectedKey(requiredPrefix, elementWithNonTypeKey.Key);
 
-            Serilog.Log.Warning($"Wrong key.{Environment.NewLine}Current : {elementWithNonTypeKey.Key}{Environment.NewLine}Expected: {expectedKey}");
+            //Serilog.Log.Warning($"Wrong key.{Environment.NewLine}Current : {elementWithNonTypeKey.Key}{Environment.NewLine}Expected: {expectedKey}");
 
             yield return (elementWithNonTypeKey.Key, expectedKey);
         }
@@ -135,7 +135,9 @@ public class ResourceKeys
 
             foreach (var keyToFix in keysToFix)
             {
-                content = content.Replace(keyToFix.Key, keyToFix.expectedKey);
+                content = content.Replace($"\"{keyToFix.Key}\"", $"\"{keyToFix.expectedKey}\"");
+                content = content.Replace($" {keyToFix.Key}}}", $" {keyToFix.expectedKey}}}");
+                content = content.Replace($" {keyToFix.Key}, ", $" {keyToFix.expectedKey}, ");
             }
 
             if (contentBefore != content)

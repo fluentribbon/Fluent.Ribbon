@@ -153,7 +153,7 @@ class Build : NukeBuild
 
             //resourceKeys.CheckKeys();
 
-            resourceKeys.FixKeys(Glob.Files((FluentRibbonDirectory / "Themes"), "**/*.{xaml,json}").ToArray());
+            resourceKeys.FixKeys(Glob.Files(FluentRibbonDirectory / "Themes", "**/*.{xaml,json}").Select(x => Path.Combine(FluentRibbonDirectory / "Themes", x)).ToArray());
 
             var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
                 .Select(x => x.Key)
