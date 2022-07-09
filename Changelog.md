@@ -18,6 +18,8 @@
   - Various controls (`Button`, `ComboBox` etc.) now use `HeaderTemplate` to format their header instead of using `TwoLineLabel` directly
   - [#948](../../issues/948) - Minimize button misplaced  
     Minimize button was moved to the right hand side of the toolbar in the tab item row
+  - All resources now have the prefix `Fluent.Ribbon.`.  
+    This means that nearly all resources got renamed.
 
 **The following resources were added, renamed or removed ("---" indicates added when in column "Old" and removed when in column "New"):**
 
