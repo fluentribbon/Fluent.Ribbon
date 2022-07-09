@@ -98,37 +98,37 @@
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
-|Old|New|
-|---|---|
-|Fluent.Ribbon.Brushes.Images.RibbonCollapse|---|
-|Fluent.Ribbon.Brushes.Images.RibbonExpand|---|
-|Fluent.Ribbon.Brushes.Images.RibbonPin|---|
-|Fluent.Ribbon.Images.RibbonCollapse|---|
-|Fluent.Ribbon.Images.RibbonExpand|---|
-|Fluent.Ribbon.Images.RibbonPin|---|
-|Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip|---|
-|Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip|---|
-|Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip|---|
-|Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton|---|
-|Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton|---|
-|---|Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions|
-|---|Fluent.Ribbon.Images.RibbonDisplayOptions|
-|---|Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip|
-|---|Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton|
-|---|Fluent.Ribbon.Templates.Button.Simplified|
-|---|Fluent.Ribbon.Templates.CheckBox.Simplified|
-|---|Fluent.Ribbon.Templates.ComboBox.Simplified|
-|---|Fluent.Ribbon.Templates.DropDownButton.Simplified|
-|---|Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified|
-|---|Fluent.Ribbon.Templates.MenuItem.HeaderOnly|
-|---|Fluent.Ribbon.Templates.RadioButton.Simplified|
-|---|Fluent.Ribbon.Templates.RibbonGroupBox.Simplified|
-|---|Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton|
-|---|Fluent.Ribbon.Templates.RibbonTextBox.Simplified|
-|---|Fluent.Ribbon.Templates.Spinner.Simplified|
-|---|Fluent.Ribbon.Templates.SplitButton.Simplified|
-|---|Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified|
-|---|Fluent.Ribbon.Templates.ToggleButton.Simplified|
+| Old                                                           | New                                                              |
+|---------------------------------------------------------------|------------------------------------------------------------------|
+| Fluent.Ribbon.Brushes.Images.RibbonCollapse                   | ---                                                              |
+| Fluent.Ribbon.Brushes.Images.RibbonExpand                     | ---                                                              |
+| Fluent.Ribbon.Brushes.Images.RibbonPin                        | ---                                                              |
+| Fluent.Ribbon.Images.RibbonCollapse                           | ---                                                              |
+| Fluent.Ribbon.Images.RibbonExpand                             | ---                                                              |
+| Fluent.Ribbon.Images.RibbonPin                                | ---                                                              |
+| Fluent.Ribbon.Resources.RibbonTabControl.ExpandScreenTip      | ---                                                              |
+| Fluent.Ribbon.Resources.RibbonTabControl.MinimizeScreenTip    | ---                                                              |
+| Fluent.Ribbon.Resources.RibbonTabControl.SwitchScreenTip      | ---                                                              |
+| Fluent.Ribbon.Styles.RibbonTabControl.MinimizeToggleButton    | ---                                                              |
+| Fluent.Ribbon.Templates.RibbonTabControl.MinimizeToggleButton | ---                                                              |
+| ---                                                           | Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions                |
+| ---                                                           | Fluent.Ribbon.Images.RibbonDisplayOptions                        |
+| ---                                                           | Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip |
+| ---                                                           | Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton       |
+| ---                                                           | Fluent.Ribbon.Templates.Button.Simplified                        |
+| ---                                                           | Fluent.Ribbon.Templates.CheckBox.Simplified                      |
+| ---                                                           | Fluent.Ribbon.Templates.ComboBox.Simplified                      |
+| ---                                                           | Fluent.Ribbon.Templates.DropDownButton.Simplified                |
+| ---                                                           | Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified  |
+| ---                                                           | Fluent.Ribbon.Templates.MenuItem.HeaderOnly                      |
+| ---                                                           | Fluent.Ribbon.Templates.RadioButton.Simplified                   |
+| ---                                                           | Fluent.Ribbon.Templates.RibbonGroupBox.Simplified                |
+| ---                                                           | Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton    |
+| ---                                                           | Fluent.Ribbon.Templates.RibbonTextBox.Simplified                 |
+| ---                                                           | Fluent.Ribbon.Templates.Spinner.Simplified                       |
+| ---                                                           | Fluent.Ribbon.Templates.SplitButton.Simplified                   |
+| ---                                                           | Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified      |
+| ---                                                           | Fluent.Ribbon.Templates.ToggleButton.Simplified                  |
 </details>
 
 - ### Bug fixes
@@ -301,51 +301,51 @@
 
 <details><summary>Click here to show the list of renamed and removed things</summary><p>
 
-|Old|New|
-|---|---|
-| ApplicationMenuStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItem |
-| ApplicationMenuSecondLevelStyle | Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel |
-| BackstageButtonStyle | Fluent.Ribbon.Styles.BackstageTabControl.Button |
-| FluentDefaultSystemMenuItemStyle | Fluent.Ribbon.Styles.MenuItem |
-| BackstageButtonControlTemplate | Fluent.Ribbon.Templates.BackstageTabControl.Button |
-| BackstageSeparatorTabItemStyle | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem |
-| ComboBoxBackstageStyle | Fluent.Ribbon.Styles.Backstage.ComboBox |
-| ComboBoxItemBackstageControlTemplate | --- |
-| MetroComboBoxItemBackstageStyle | --- |
-| ComboBoxBackstageControlTemplate | --- |
-| ButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.Button |
-| ButtonBackstageControlTemplate | --- |
-| ToggleButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.ToggleButton |
-| ToggleButtonBackstageControlTemplate | --- |
-| DropDownButtonBackstageStyle | Fluent.Ribbon.Styles.Backstage.DropDownButton |
-| DropDownButtonBackstageControlTemplate | --- |
-| --- | Fluent.Ribbon.Brushes.TextBox.CaretBrush |
-| --- | Fluent.Ribbon.Brushes.TextBox.SelectionBrush |
-| DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty |
-| OnCanAddToQuickAccessToolbarChanged | OnCanAddToQuickAccessToolBarChanged |
-| OnIsOpenTrueStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard |
-| OnIsOpenFalseStoryboard | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard |
-| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground |
-| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground |
-| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground |
-| --- | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground |
-| --- | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground |
-| --- | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground |
-| --- | Fluent.Ribbon.Brushes.Backstage.Background |
-| --- | Fluent.Ribbon.Brushes.Backstage.Foreground |
-| --- | Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background |
-| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground |
-| --- | Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background |
-| --- | Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background |
-| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Background |
-| --- | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground |
-| --- | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground |
-| --- | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground |
-| --- | Fluent.Ribbon.Templates.WindowCommands |
-| WindowCommandsControlTemplate | Fluent.Ribbon.Templates.WindowCommands.Button |
-| --- | Fluent.Ribbon.Styles.WindowCommands.Button |
-| CaptionButtonStyle | Fluent.Ribbon.Styles.WindowCommands.CaptionButton |
-| --- | Fluent.Ribbon.Templates.WindowCommands.CaptionButton |
+| Old                                    | New                                                                               |
+|----------------------------------------|-----------------------------------------------------------------------------------|
+| ApplicationMenuStyle                   | Fluent.Ribbon.Styles.ApplicationMenu.MenuItem                                     |
+| ApplicationMenuSecondLevelStyle        | Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel                          |
+| BackstageButtonStyle                   | Fluent.Ribbon.Styles.BackstageTabControl.Button                                   |
+| FluentDefaultSystemMenuItemStyle       | Fluent.Ribbon.Styles.MenuItem                                                     |
+| BackstageButtonControlTemplate         | Fluent.Ribbon.Templates.BackstageTabControl.Button                                |
+| BackstageSeparatorTabItemStyle         | Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem                         |
+| ComboBoxBackstageStyle                 | Fluent.Ribbon.Styles.Backstage.ComboBox                                           |
+| ComboBoxItemBackstageControlTemplate   | ---                                                                               |
+| MetroComboBoxItemBackstageStyle        | ---                                                                               |
+| ComboBoxBackstageControlTemplate       | ---                                                                               |
+| ButtonBackstageStyle                   | Fluent.Ribbon.Styles.Backstage.Button                                             |
+| ButtonBackstageControlTemplate         | ---                                                                               |
+| ToggleButtonBackstageStyle             | Fluent.Ribbon.Styles.Backstage.ToggleButton                                       |
+| ToggleButtonBackstageControlTemplate   | ---                                                                               |
+| DropDownButtonBackstageStyle           | Fluent.Ribbon.Styles.Backstage.DropDownButton                                     |
+| DropDownButtonBackstageControlTemplate | ---                                                                               |
+| ---                                    | Fluent.Ribbon.Brushes.TextBox.CaretBrush                                          |
+| ---                                    | Fluent.Ribbon.Brushes.TextBox.SelectionBrush                                      |
+| DialogLauncherButtonKeyTipKeysProperty | LauncherKeysProperty                                                              |
+| OnCanAddToQuickAccessToolbarChanged    | OnCanAddToQuickAccessToolBarChanged                                               |
+| OnIsOpenTrueStoryboard                 | Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard                          |
+| OnIsOpenFalseStoryboard                | Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard                         |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground                                |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground          |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground         |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground                          |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground                 |
+| ---                                    | Fluent.Ribbon.Brushes.Backstage.Background                                        |
+| ---                                    | Fluent.Ribbon.Brushes.Backstage.Foreground                                        |
+| ---                                    | Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background             |
+| ---                                    | Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground                          |
+| ---                                    | Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background                       |
+| ---                                    | Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background                        |
+| ---                                    | Fluent.Ribbon.Brushes.Backstage.BackButton.Background                             |
+| ---                                    | Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground                             |
+| ---                                    | Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground                    |
+| ---                                    | Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground                                |
+| ---                                    | Fluent.Ribbon.Templates.WindowCommands                                            |
+| WindowCommandsControlTemplate          | Fluent.Ribbon.Templates.WindowCommands.Button                                     |
+| ---                                    | Fluent.Ribbon.Styles.WindowCommands.Button                                        |
+| CaptionButtonStyle                     | Fluent.Ribbon.Styles.WindowCommands.CaptionButton                                 |
+| ---                                    | Fluent.Ribbon.Templates.WindowCommands.CaptionButton                              |
 </p></details>
 
 - ### Bug fixes
@@ -468,117 +468,117 @@
 
 <details><summary>Click here to show the list of replaced/renamed/removed things</summary><p>
 
-|Old|New|
-|---|---|
-| Fluent:MetroColors.ThemeColorKey | Fluent.Ribbon.Colors.AccentBaseColor |
-| ButtonDisabledBackgroundBrush | --- |
-| ButtonDisabledBorderBrush | --- |
-| SliderShadowBrush | WhiteBrush |
-| SliderLightenBrush | WhiteBrush |
-| BackstageBackgroundBrush | WhiteBrush |
-| BackstageControlHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
-| BackstageControlActiveBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ButtonBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
-| ButtonHoverOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| ButtonHoverOuterBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
-| ButtonPressedOuterBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| ButtonPressedOuterBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ButtonPressedInnerBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ButtonPressedInnerBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| ButtonHoverInnerBackgroundBrush | --- |
-| ButtonHoverInnerBorderBrush | --- |
-| ButtonCheckedBrush | Fluent.Ribbon.Brushes.HighlightBrush & Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| CheckBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| CheckBoxHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
-| CheckBoxPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| CheckBoxPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| CheckBoxOutterBorderBrush | --- |
-| CheckBoxOutterBackgroundBrush | --- |
-| CheckBoxInnerBorderBrush | --- |
-| CheckBoxInnerBackgroundBrush | --- |
-| CheckBoxHoverOutterBorderBrush | --- |
-| CheckBoxHoverOutterBackgroundBrush | --- |
-| CheckBoxHoverInnerBorderBrush | --- |
-| CheckBoxHoverInnerBackgroundBrush | --- |
-| CheckBoxPressedOutterBorderBrush | --- |
-| CheckBoxPressedOutterBackgroundBrush | --- |
-| CheckBoxPressedInnerBorderBrush | --- |
-| CheckBoxPressedInnerBackgroundBrush | --- |
-| ContextMenuLineBrush | --- |
-| ContextMenuBarBackgroundBrush | Fluent.Ribbon.Brushes.DropDown.BackgroundBrush |
-| ContextMenuBarBorderBrush | Fluent.Ribbon.Brushes.DropDown.BorderBrush |
-| ContextMenuBarResizeBorderBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush |
-| ContextMenuBarResizeBackgoundBrush | Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush |
-| GalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
-| InRibbonGalleryBorderBrush | Fluent.Ribbon.Brushes.Control.BorderBrush |
-| BackstageGalleryItemHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| BackstageGalleryItemSelectedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| BackstageToggleButtonCheckedBorderBrush | Fluent.Ribbon.Brushes.HighlightBrush |
-| BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| QuickAccessToolbarPopupBackgrondBrush | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}} |
-| WindowContentBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
-| GroupBoxSeparatorBorderBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
-| GroupBoxSeparatorBackgroundBrush | Fluent.Ribbon.Brushes.Separator.Background |
-| ContextMenuSeparatorBrush | Fluent.Ribbon.Brushes.Separator.BorderBrush |
-| KeyTipBackgroundBrush | Fluent.Ribbon.Brushes.KeyTip.Background |
-| KeyTipBorderBrush | Fluent.Ribbon.Brushes.KeyTip.BorderBrush |
-| GalleryHeaderBackgroundBrush | Fluent.Ribbon.Brushes.Gallery.Header.Background |
-| TextBoxBorderBrush | Fluent.Ribbon.Brushes.TextBox.BorderBrush |
-| TextBoxBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Background |
-| TextBoxHoverBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.Background |
-| TextBoxHoverBorderBrush | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush |
-| TextBoxDisabledBackgroundBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.Background |
-| TextBoxDisabledBorderBrush | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush |
-| RibbonSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
-| GroupSeparatorBrush | Fluent.Ribbon.Brushes.GroupSeparator.Background |
-| CloseButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background |
-| CloseButtonPressedBackgroundBrush| Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background |
-| MenuItemBackground | Fluent.Ribbon.Brushes.MenuItem.Background |
-| MenuItemCheckBoxBackgroundBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background |
-| MenuItemCheckBoxBorderBrush | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush |
-| RibbonThemeColorBrush | Fluent.Ribbon.Brushes.AccentBaseColorBrush |
-| TransparentBrush | --- |
-| BackstageFontBrush | Fluent.Ribbon.Brushes.IdealForegroundColorBrush |
-| TabItemFontBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
-| Fluent.Ribbon.Brushes.LabelTextBrush | Fluent.Ribbon.Brushes.LabelTextBrush |
-| GroupHoverBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background GroupHoverBrush |
-| GroupHighlightBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background |
-| GroupBoxFontBrush | Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground |
-| ActiveTabBackgroundBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background |
-| TabItemSelectedFontBrush | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground |
-| RibbonBackgoundBrush | Fluent.Ribbon.Brushes.Ribbon.Background |
-| RibbonTopBorderBrush | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
-| ScrollButtonDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush |
-| ScrollButtonDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollButton.Default.Background |
-| ScrollButtonHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
-| ScrollButtonHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| ScrollButtonPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ScrollButtonPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| ScrollBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
-| ScrollVerticalBackgroundBrush | Fluent.Ribbon.Brushes.ScrollBar.Background |
-| ScrollThumbDefaultBorderBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush |
-| ScrollThumbDefaultBackgroundBrush | Fluent.Ribbon.Brushes.ScrollThumb.Default.Background |
-| ScrollThumbHoverBorderBrush | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush |
-| ScrollThumbHoverBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background |
-| ScrollThumbPressedBorderBrush | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush |
-| ScrollThumbPressedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background |
-| ScrollViewerButtonBorderBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush |
-| ScrollViewerButtonBackgroundBrush | Fluent.Ribbon.Brushes.ScrollViewer.Button.BackgroundBrush |
-|  |  |
+| Old                                         | New                                                                                                   |
+|---------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| Fluent:MetroColors.ThemeColorKey            | Fluent.Ribbon.Colors.AccentBaseColor                                                                  |
+| ButtonDisabledBackgroundBrush               | ---                                                                                                   |
+| ButtonDisabledBorderBrush                   | ---                                                                                                   |
+| SliderShadowBrush                           | WhiteBrush                                                                                            |
+| SliderLightenBrush                          | WhiteBrush                                                                                            |
+| BackstageBackgroundBrush                    | WhiteBrush                                                                                            |
+| BackstageControlHoverBorderBrush            | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush                                                    |
+| BackstageControlActiveBorderBrush           | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| ButtonBorderBrush                           | Fluent.Ribbon.Brushes.Control.BorderBrush                                                             |
+| ButtonHoverOuterBackgroundBrush             | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| ButtonHoverOuterBorderBrush                 | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush                                                    |
+| ButtonPressedOuterBackgroundBrush           | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| ButtonPressedOuterBorderBrush               | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| ButtonPressedInnerBorderBrush               | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| ButtonPressedInnerBackgroundBrush           | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| ButtonHoverInnerBackgroundBrush             | ---                                                                                                   |
+| ButtonHoverInnerBorderBrush                 | ---                                                                                                   |
+| ButtonCheckedBrush                          | Fluent.Ribbon.Brushes.HighlightBrush & Fluent.Ribbon.Brushes.Button.MouseOver.Background              |
+| CheckBoxHoverBackgroundBrush                | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| CheckBoxHoverBorderBrush                    | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush                                                    |
+| CheckBoxPressedBackgroundBrush              | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| CheckBoxPressedBorderBrush                  | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| CheckBoxOutterBorderBrush                   | ---                                                                                                   |
+| CheckBoxOutterBackgroundBrush               | ---                                                                                                   |
+| CheckBoxInnerBorderBrush                    | ---                                                                                                   |
+| CheckBoxInnerBackgroundBrush                | ---                                                                                                   |
+| CheckBoxHoverOutterBorderBrush              | ---                                                                                                   |
+| CheckBoxHoverOutterBackgroundBrush          | ---                                                                                                   |
+| CheckBoxHoverInnerBorderBrush               | ---                                                                                                   |
+| CheckBoxHoverInnerBackgroundBrush           | ---                                                                                                   |
+| CheckBoxPressedOutterBorderBrush            | ---                                                                                                   |
+| CheckBoxPressedOutterBackgroundBrush        | ---                                                                                                   |
+| CheckBoxPressedInnerBorderBrush             | ---                                                                                                   |
+| CheckBoxPressedInnerBackgroundBrush         | ---                                                                                                   |
+| ContextMenuLineBrush                        | ---                                                                                                   |
+| ContextMenuBarBackgroundBrush               | Fluent.Ribbon.Brushes.DropDown.BackgroundBrush                                                        |
+| ContextMenuBarBorderBrush                   | Fluent.Ribbon.Brushes.DropDown.BorderBrush                                                            |
+| ContextMenuBarResizeBorderBrush             | Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush                                                     |
+| ContextMenuBarResizeBackgoundBrush          | Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush                                                 |
+| GalleryBorderBrush                          | Fluent.Ribbon.Brushes.Control.BorderBrush                                                             |
+| InRibbonGalleryBorderBrush                  | Fluent.Ribbon.Brushes.Control.BorderBrush                                                             |
+| BackstageGalleryItemHoverBackgroundBrush    | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| BackstageGalleryItemSelectedBackgroundBrush | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| BackstageToggleButtonCheckedBorderBrush     | Fluent.Ribbon.Brushes.HighlightBrush                                                                  |
+| BackstageToggleButtonCheckedBackgroundBrush | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| QuickAccessToolbarPopupBackgrondBrush       | {Binding Background, RelativeSource={RelativeSource AncestorType=Window}}                             |
+| WindowContentBorderBrush                    | Fluent.Ribbon.Brushes.Separator.BorderBrush                                                           |
+| GroupBoxSeparatorBorderBrush                | Fluent.Ribbon.Brushes.Separator.BorderBrush                                                           |
+| GroupBoxSeparatorBackgroundBrush            | Fluent.Ribbon.Brushes.Separator.Background                                                            |
+| ContextMenuSeparatorBrush                   | Fluent.Ribbon.Brushes.Separator.BorderBrush                                                           |
+| KeyTipBackgroundBrush                       | Fluent.Ribbon.Brushes.KeyTip.Background                                                               |
+| KeyTipBorderBrush                           | Fluent.Ribbon.Brushes.KeyTip.BorderBrush                                                              |
+| GalleryHeaderBackgroundBrush                | Fluent.Ribbon.Brushes.Gallery.Header.Background                                                       |
+| TextBoxBorderBrush                          | Fluent.Ribbon.Brushes.TextBox.BorderBrush                                                             |
+| TextBoxBackgroundBrush                      | Fluent.Ribbon.Brushes.TextBox.Background                                                              |
+| TextBoxHoverBackgroundBrush                 | Fluent.Ribbon.Brushes.TextBox.MouseOver.Background                                                    |
+| TextBoxHoverBorderBrush                     | Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush                                                   |
+| TextBoxDisabledBackgroundBrush              | Fluent.Ribbon.Brushes.TextBox.Disabled.Background                                                     |
+| TextBoxDisabledBorderBrush                  | Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush                                                    |
+| RibbonSeparatorBrush                        | Fluent.Ribbon.Brushes.GroupSeparator.Background                                                       |
+| GroupSeparatorBrush                         | Fluent.Ribbon.Brushes.GroupSeparator.Background                                                       |
+| CloseButtonHoverBackgroundBrush             | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background                                 |
+| CloseButtonPressedBackgroundBrush           | Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background                                   |
+| MenuItemBackground                          | Fluent.Ribbon.Brushes.MenuItem.Background                                                             |
+| MenuItemCheckBoxBackgroundBrush             | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background                                         |
+| MenuItemCheckBoxBorderBrush                 | Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush                                        |
+| RibbonThemeColorBrush                       | Fluent.Ribbon.Brushes.AccentBaseColorBrush                                                            |
+| TransparentBrush                            | ---                                                                                                   |
+| BackstageFontBrush                          | Fluent.Ribbon.Brushes.IdealForegroundColorBrush                                                       |
+| TabItemFontBrush                            | Fluent.Ribbon.Brushes.LabelTextBrush                                                                  |
+| Fluent.Ribbon.Brushes.LabelTextBrush        | Fluent.Ribbon.Brushes.LabelTextBrush                                                                  |
+| GroupHoverBrush                             | Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background GroupHoverBrush                   |
+| GroupHighlightBrush                         | Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background                                          |
+| GroupBoxFontBrush                           | Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground                                                |
+| ActiveTabBackgroundBrush                    | Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background                                                 |
+| TabItemSelectedFontBrush                    | Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground                                               |
+| RibbonBackgoundBrush                        | Fluent.Ribbon.Brushes.Ribbon.Background                                                               |
+| RibbonTopBorderBrush                        | Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush & Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush |
+| ScrollButtonDefaultBorderBrush              | Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush                                                |
+| ScrollButtonDefaultBackgroundBrush          | Fluent.Ribbon.Brushes.ScrollButton.Default.Background                                                 |
+| ScrollButtonHoverBorderBrush                | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush                                                    |
+| ScrollButtonHoverBackgroundBrush            | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| ScrollButtonPressedBorderBrush              | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| ScrollButtonPressedBackgroundBrush          | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| ScrollBackgroundBrush                       | Fluent.Ribbon.Brushes.ScrollBar.Background                                                            |
+| ScrollVerticalBackgroundBrush               | Fluent.Ribbon.Brushes.ScrollBar.Background                                                            |
+| ScrollThumbDefaultBorderBrush               | Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush                                                 |
+| ScrollThumbDefaultBackgroundBrush           | Fluent.Ribbon.Brushes.ScrollThumb.Default.Background                                                  |
+| ScrollThumbHoverBorderBrush                 | Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush                                                    |
+| ScrollThumbHoverBackgroundBrush             | Fluent.Ribbon.Brushes.Button.MouseOver.Background                                                     |
+| ScrollThumbPressedBorderBrush               | Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush                                                      |
+| ScrollThumbPressedBackgroundBrush           | Fluent.Ribbon.Brushes.Button.Pressed.Background                                                       |
+| ScrollViewerButtonBorderBrush               | Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush                                                 |
+| ScrollViewerButtonBackgroundBrush           | Fluent.Ribbon.Brushes.ScrollViewer.Button.BackgroundBrush                                             |
+|                                             |                                                                                                       |
 
   - The following default values changed:
 
-|Name/Location|Old|New|
-|---|---|---|
-| Button.BorderThickness | 0 | 1 |
-| ContentGapHeight | 5 | 1 |
+| Name/Location          | Old | New |
+|------------------------|-----|-----|
+| Button.BorderThickness | 0   | 1   |
+| ContentGapHeight       | 5   | 1   |
 
   - The following styles got removed/renamed:
 
-|Old|New|
-|---|---|
+| Old                          | New                      |
+|------------------------------|--------------------------|
 | NonEditableComboBoxItemStyle | is now the default style |
-| EditableComboBoxItemStyle | --- |
+| EditableComboBoxItemStyle    | ---                      |
 </p></details>
 
 - ### Bug fixes
