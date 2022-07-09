@@ -895,7 +895,7 @@ namespace Fluent
 #pragma warning restore 414
 
         // Cache
-        private readonly Dictionary<StateScale, Size> cachedMeasures = new Dictionary<StateScale, Size>();
+        private readonly Dictionary<StateScale, Size> cachedMeasures = new();
 
         /// <summary>
         /// Gets or sets intermediate state of the group box

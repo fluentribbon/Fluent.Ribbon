@@ -43,7 +43,7 @@
     public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiValueConverter
     {
         private static readonly ImageSource imageNotFoundImageSource = (ImageSource)CreateImageNotFoundImageSource().GetAsFrozen();
-        private static readonly SizeConverter sizeConverter = new SizeConverter();
+        private static readonly SizeConverter sizeConverter = new();
 
         /// <summary>
         /// Creates a new instance.

@@ -12,7 +12,7 @@
         /// <summary>
         ///     A singleton instance for <see cref="BackstageTabControlItemContainerStyleSelector" />.
         /// </summary>
-        public static BackstageTabControlItemContainerStyleSelector Instance { get; } = new BackstageTabControlItemContainerStyleSelector();
+        public static BackstageTabControlItemContainerStyleSelector Instance { get; } = new();
 
         /// <inheritdoc />
         public override Style? SelectStyle(object item, DependencyObject container)

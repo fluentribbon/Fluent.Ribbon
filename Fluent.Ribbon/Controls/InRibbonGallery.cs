@@ -50,7 +50,7 @@ namespace Fluent
         private ToggleButton? dropDownButton;
 
         // Freezed image (created during snapping)
-        private Image snappedImage = new Image();
+        private Image snappedImage = new();
 
         // Is visual currently snapped
         private bool isSnapped;

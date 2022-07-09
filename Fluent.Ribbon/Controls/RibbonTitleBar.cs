@@ -33,11 +33,11 @@ namespace Fluent
         // Items container
         private Panel? itemsContainer;
         // Quick access toolbar rect
-        private Rect quickAccessToolbarRect = new Rect(0, 0, 0, 0);
+        private Rect quickAccessToolbarRect = new(0, 0, 0, 0);
         // Header rect
-        private Rect headerRect = new Rect(0, 0, 0, 0);
+        private Rect headerRect = new(0, 0, 0, 0);
         // Items rect
-        private Rect itemsRect = new Rect(0, 0, 0, 0);
+        private Rect itemsRect = new(0, 0, 0, 0);
 
         private Size lastMeasureConstraint;
 

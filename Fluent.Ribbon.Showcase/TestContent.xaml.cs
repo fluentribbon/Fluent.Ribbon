@@ -610,11 +610,11 @@ namespace FluentTest
 
     public class TestRoutedCommand
     {
-        public static RoutedCommand TestPresenterCommand { get; } = new RoutedCommand(nameof(TestPresenterCommand), typeof(TestRoutedCommand));
+        public static RoutedCommand TestPresenterCommand { get; } = new(nameof(TestPresenterCommand), typeof(TestRoutedCommand));
 
         public ICommand ItemCommand => TestPresenterCommand;
 
-        public CommandBinding ItemCommandBinding => new CommandBinding(TestPresenterCommand, OnTestCommandExecuted, CanExecuteTestCommand);
+        public CommandBinding ItemCommandBinding => new(TestPresenterCommand, OnTestCommandExecuted, CanExecuteTestCommand);
 
         private static void CanExecuteTestCommand(object sender, CanExecuteRoutedEventArgs e)
         {

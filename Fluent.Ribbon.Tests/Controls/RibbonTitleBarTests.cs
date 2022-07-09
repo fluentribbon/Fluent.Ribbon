@@ -16,7 +16,7 @@
             private static readonly Size zeroSize = default;
             private const double ReferenceWidth = 1024;
             private static readonly double ReferenceHeight = SystemParameters.WindowCaptionHeight;
-            private static readonly Size referenceSize = new Size(ReferenceWidth, SystemParameters.WindowCaptionHeight);
+            private static readonly Size referenceSize = new(ReferenceWidth, SystemParameters.WindowCaptionHeight);
             private const string QuickaccessToolbarRect = "quickAccessToolbarRect";
             private const string HeaderRect = "headerRect";
             private const string ItemsRect = "itemsRect";

@@ -11,7 +11,7 @@ namespace Fluent
         /// <summary>
         /// An empty default instance.
         /// </summary>
-        public static new readonly KeyTipPressedResult Empty = new KeyTipPressedResult();
+        public static new readonly KeyTipPressedResult Empty = new();
 
         private KeyTipPressedResult()
         {

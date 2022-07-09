@@ -11,7 +11,7 @@ namespace Fluent.Theming
         /// <summary>
         /// Gets the default instance of this class.
         /// </summary>
-        public static readonly RibbonLibraryThemeProvider DefaultInstance = new RibbonLibraryThemeProvider();
+        public static readonly RibbonLibraryThemeProvider DefaultInstance = new();
 
         /// <inheritdoc cref="LibraryThemeProvider" />
         public RibbonLibraryThemeProvider()

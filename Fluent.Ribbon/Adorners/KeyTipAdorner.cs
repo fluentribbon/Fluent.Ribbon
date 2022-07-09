@@ -34,7 +34,7 @@ namespace Fluent
 
         // KeyTips that have been
         // found on this element
-        private readonly List<KeyTipInformation> keyTipInformations = new List<KeyTipInformation>();
+        private readonly List<KeyTipInformation> keyTipInformations = new();
 
         private readonly FrameworkElement oneOfAssociatedElements;
 

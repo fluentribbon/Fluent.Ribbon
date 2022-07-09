@@ -40,7 +40,7 @@ namespace Fluent
         /// <summary>
         /// Static instance of <see cref="RibbonLocalization"/> to ease it's usage in XAML.
         /// </summary>
-        public static RibbonLocalization Current { get; } = new RibbonLocalization();
+        public static RibbonLocalization Current { get; } = new();
 
         /// <summary>
         /// Gets a map of all registered localization classes.

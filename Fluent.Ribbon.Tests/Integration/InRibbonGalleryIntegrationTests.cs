@@ -296,28 +296,28 @@
 
         private readonly SampleDataItem[] sampleDataItemsForFixedWidth =
         {
-            new SampleDataItem("A", "Blue"),
-            new SampleDataItem("A", "Brown"),
-            new SampleDataItem("A", "Gray"),
-            new SampleDataItem("A", "Green"),
-            new SampleDataItem("A", "Orange"),
+            new("A", "Blue"),
+            new("A", "Brown"),
+            new("A", "Gray"),
+            new("A", "Green"),
+            new("A", "Orange"),
 
-            new SampleDataItem("B", "Pink"),
-            new SampleDataItem("B", "Red"),
-            new SampleDataItem("B", "Yellow")
+            new("B", "Pink"),
+            new("B", "Red"),
+            new("B", "Yellow")
         };
 
         private readonly SampleDataItem[] sampleDataItemsForDynamicWidth =
         {
-            new SampleDataItem("A", "Blue"),
-            new SampleDataItem("A", "Brown"),
-            new SampleDataItem("A", "Hallo text text"),
-            new SampleDataItem("A", "Green"),
-            new SampleDataItem("A", "Orange"),
+            new("A", "Blue"),
+            new("A", "Brown"),
+            new("A", "Hallo text text"),
+            new("A", "Green"),
+            new("A", "Orange"),
 
-            new SampleDataItem("B", "Pink"),
-            new SampleDataItem("B", "Red"),
-            new SampleDataItem("B", "Yellow")
+            new("B", "Pink"),
+            new("B", "Red"),
+            new("B", "Yellow")
         };
 
         private class SampleDataItem

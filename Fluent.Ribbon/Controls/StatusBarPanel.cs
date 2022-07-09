@@ -14,9 +14,9 @@ namespace Fluent
     {
         #region Attributes
 
-        private readonly List<UIElement> leftChildren = new List<UIElement>();
-        private readonly List<UIElement> rightChildren = new List<UIElement>();
-        private readonly List<UIElement> otherChildren = new List<UIElement>();
+        private readonly List<UIElement> leftChildren = new();
+        private readonly List<UIElement> rightChildren = new();
+        private readonly List<UIElement> otherChildren = new();
 
         private int lastRightIndex;
         private int lastLeftIndex;

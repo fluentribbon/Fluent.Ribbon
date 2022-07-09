@@ -34,7 +34,7 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarControlDefinition> Children { get; } = new ObservableCollection<RibbonToolBarControlDefinition>();
+        public ObservableCollection<RibbonToolBarControlDefinition> Children { get; } = new();
 
         #endregion
 

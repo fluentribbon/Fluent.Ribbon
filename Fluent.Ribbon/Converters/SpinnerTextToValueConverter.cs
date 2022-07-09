@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets a default instance of <see cref="SpinnerTextToValueConverter"/>.
         /// </summary>
-        public static readonly SpinnerTextToValueConverter DefaultInstance = new SpinnerTextToValueConverter();
+        public static readonly SpinnerTextToValueConverter DefaultInstance = new();
 
         /// <inheritdoc />
         public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)

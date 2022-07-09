@@ -16,7 +16,7 @@
         {
             var items = new List<ItemViewModel>
                         {
-                            new ItemViewModel()
+                            new()
                         };
 
             var ribbonGroupBox = new RibbonGroupBox

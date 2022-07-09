@@ -5,6 +5,6 @@
 
     public class FontsViewModel : ViewModel
     {
-        public ObservableCollection<string> FontsData { get; } = new ObservableCollection<string>(System.Windows.Media.Fonts.SystemFontFamilies.Select(fontFamily => fontFamily.ToString()));
+        public ObservableCollection<string> FontsData { get; } = new(System.Windows.Media.Fonts.SystemFontFamilies.Select(fontFamily => fontFamily.ToString()));
     }
 }

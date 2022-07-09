@@ -81,7 +81,7 @@ namespace Fluent
             set { this.SetValue(IsDefaultContextMenuEnabledProperty, BooleanBoxes.Box(value)); }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new Dictionary<int, System.Windows.Controls.ContextMenu>();
+        private static readonly Dictionary<int, System.Windows.Controls.ContextMenu> contextMenus = new();
 
         /// <summary>
         /// Context menu for ribbon in current thread
@@ -103,98 +103,98 @@ namespace Fluent
         private static Ribbon? contextMenuOwner;
 
         // Context menu items
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addToQuickAccessMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem AddToQuickAccessMenuItem
         {
             get { return addToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGroupToQuickAccessMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem AddGroupToQuickAccessMenuItem
         {
             get { return addGroupToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addMenuToQuickAccessMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem AddMenuToQuickAccessMenuItem
         {
             get { return addMenuToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> addGalleryToQuickAccessMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem AddGalleryToQuickAccessMenuItem
         {
             get { return addGalleryToQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> removeFromQuickAccessMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem RemoveFromQuickAccessMenuItem
         {
             get { return removeFromQuickAccessMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarBelowTheRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarBelowTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarBelowTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> showQuickAccessToolbarAboveTheRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem ShowQuickAccessToolbarAboveTheRibbonMenuItem
         {
             get { return showQuickAccessToolbarAboveTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> minimizeTheRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem MinimizeTheRibbonMenuItem
         {
             get { return minimizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheClassicRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheClassicRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem UseTheClassicRibbonMenuItem
         {
             get { return useTheClassicRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheSimplifiedRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> useTheSimplifiedRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem UseTheSimplifiedRibbonMenuItem
         {
             get { return useTheSimplifiedRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeQuickAccessToolbarMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem CustomizeQuickAccessToolbarMenuItem
         {
             get { return customizeQuickAccessToolbarMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new Dictionary<int, System.Windows.Controls.MenuItem>();
+        private static readonly Dictionary<int, System.Windows.Controls.MenuItem> customizeTheRibbonMenuItemDictionary = new();
 
         private static System.Windows.Controls.MenuItem CustomizeTheRibbonMenuItem
         {
             get { return customizeTheRibbonMenuItemDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, Separator> firstSeparatorDictionary = new Dictionary<int, Separator>();
+        private static readonly Dictionary<int, Separator> firstSeparatorDictionary = new();
 
         private static Separator FirstSeparator
         {
             get { return firstSeparatorDictionary[Thread.CurrentThread.ManagedThreadId]; }
         }
 
-        private static readonly Dictionary<int, Separator> secondSeparatorDictionary = new Dictionary<int, Separator>();
+        private static readonly Dictionary<int, Separator> secondSeparatorDictionary = new();
 
         private static Separator SecondSeparator
         {
@@ -767,7 +767,7 @@ namespace Fluent
         /// <summary>
         /// Gets currently active quick access elements.
         /// </summary>
-        protected Dictionary<UIElement, UIElement> QuickAccessElements { get; } = new Dictionary<UIElement, UIElement>();
+        protected Dictionary<UIElement, UIElement> QuickAccessElements { get; } = new();
 
         /// <summary>
         /// Gets a copy of currently active quick access elements.
@@ -1284,47 +1284,47 @@ namespace Fluent
         /// <summary>
         /// Gets add to quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand AddToQuickAccessCommand = new RoutedCommand(nameof(AddToQuickAccessCommand), typeof(Ribbon));
+        public static readonly RoutedCommand AddToQuickAccessCommand = new(nameof(AddToQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets remove from quick access command
         /// </summary>
-        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new RoutedCommand(nameof(RemoveFromQuickAccessCommand), typeof(Ribbon));
+        public static readonly RoutedCommand RemoveFromQuickAccessCommand = new(nameof(RemoveFromQuickAccessCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access above command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new RoutedCommand(nameof(ShowQuickAccessAboveCommand), typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessAboveCommand = new(nameof(ShowQuickAccessAboveCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets show quick access below command
         /// </summary>
-        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new RoutedCommand(nameof(ShowQuickAccessBelowCommand), typeof(Ribbon));
+        public static readonly RoutedCommand ShowQuickAccessBelowCommand = new(nameof(ShowQuickAccessBelowCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets toggle ribbon minimize command
         /// </summary>
-        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new RoutedCommand(nameof(ToggleMinimizeTheRibbonCommand), typeof(Ribbon));
+        public static readonly RoutedCommand ToggleMinimizeTheRibbonCommand = new(nameof(ToggleMinimizeTheRibbonCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets Switch to classic ribbon command
         /// </summary>
-        public static readonly RoutedCommand SwitchToTheClassicRibbonCommand = new RoutedCommand(nameof(SwitchToTheClassicRibbonCommand), typeof(Ribbon));
+        public static readonly RoutedCommand SwitchToTheClassicRibbonCommand = new(nameof(SwitchToTheClassicRibbonCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets Switch to simplified ribbon command
         /// </summary>
-        public static readonly RoutedCommand SwitchToTheSimplifiedRibbonCommand = new RoutedCommand(nameof(SwitchToTheSimplifiedRibbonCommand), typeof(Ribbon));
+        public static readonly RoutedCommand SwitchToTheSimplifiedRibbonCommand = new(nameof(SwitchToTheSimplifiedRibbonCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize quick access toolbar command
         /// </summary>
-        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new RoutedCommand(nameof(CustomizeQuickAccessToolbarCommand), typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeQuickAccessToolbarCommand = new(nameof(CustomizeQuickAccessToolbarCommand), typeof(Ribbon));
 
         /// <summary>
         /// Gets customize the ribbon command
         /// </summary>
-        public static readonly RoutedCommand CustomizeTheRibbonCommand = new RoutedCommand(nameof(CustomizeTheRibbonCommand), typeof(Ribbon));
+        public static readonly RoutedCommand CustomizeTheRibbonCommand = new(nameof(CustomizeTheRibbonCommand), typeof(Ribbon));
 
         // Occurs when customize toggle minimize command can execute handles
         private static void OnToggleMinimizeTheRibbonCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)

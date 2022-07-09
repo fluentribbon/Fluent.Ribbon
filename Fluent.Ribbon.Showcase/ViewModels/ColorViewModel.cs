@@ -53,7 +53,7 @@ namespace FluentTest.ViewModels
             }
         }
 
-        public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new ReadOnlyObservableCollection<Color>(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
+        public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
 
 #pragma warning disable INPC010 // The property sets a different field than it returns.
         public Color ThemeColor

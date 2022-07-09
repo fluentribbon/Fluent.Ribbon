@@ -12,7 +12,7 @@
         /// <summary>
         ///     A singleton instance for <see cref="HeaderApplicationMenuItemItemContainerStyleSelector" />.
         /// </summary>
-        public static SplitedApplicationMenuItemItemContainerStyleSelector Instance { get; } = new SplitedApplicationMenuItemItemContainerStyleSelector();
+        public static SplitedApplicationMenuItemItemContainerStyleSelector Instance { get; } = new();
 
         /// <inheritdoc />
         public override Style? SelectStyle(object item, DependencyObject container)

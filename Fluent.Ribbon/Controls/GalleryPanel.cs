@@ -25,7 +25,7 @@ namespace Fluent
         #region Fields
 
         // Currently used group containers
-        private readonly List<GalleryGroupContainer> galleryGroupContainers = new List<GalleryGroupContainer>();
+        private readonly List<GalleryGroupContainer> galleryGroupContainers = new();
 
         // Designate that gallery panel must be refreshed its groups
         private bool needsRefresh;

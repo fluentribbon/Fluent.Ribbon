@@ -29,7 +29,7 @@ namespace Fluent
         // User defined layout definitions
 
         // Actual children
-        private readonly List<FrameworkElement> actualChildren = new List<FrameworkElement>();
+        private readonly List<FrameworkElement> actualChildren = new();
         // Designates that rebuilding of visual & logical children is required
         private bool rebuildVisualAndLogicalChildren = true;
 
@@ -135,13 +135,13 @@ namespace Fluent
         /// Gets children
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<FrameworkElement> Children { get; } = new ObservableCollection<FrameworkElement>();
+        public ObservableCollection<FrameworkElement> Children { get; } = new();
 
         /// <summary>
         /// Gets particular rules  for layout in this group box panel
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions { get; } = new ObservableCollection<RibbonToolBarLayoutDefinition>();
+        public ObservableCollection<RibbonToolBarLayoutDefinition> LayoutDefinitions { get; } = new();
 
         #endregion
 
@@ -463,7 +463,7 @@ namespace Fluent
             return this.Children.FirstOrDefault(x => x.Name == name);
         }
 
-        private readonly Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new Dictionary<object, RibbonToolBarControlGroup>();
+        private readonly Dictionary<object, RibbonToolBarControlGroup> cachedControlGroups = new();
 
         private RibbonToolBarControlGroup GetControlGroup(RibbonToolBarControlGroupDefinition controlGroupDefinition)
         {
@@ -489,7 +489,7 @@ namespace Fluent
         #region Custom Layout
 
         // Cached separators (clear & set in Measure pass)
-        private readonly Dictionary<int, Separator> separatorCache = new Dictionary<int, Separator>();
+        private readonly Dictionary<int, Separator> separatorCache = new();
 
         /// <summary>
         /// Layout logic for the given layout definition

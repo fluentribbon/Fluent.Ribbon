@@ -34,7 +34,7 @@ namespace Fluent
 
         private ResizeableContentControl? popupContentControl;
 
-        private readonly Stack<WeakReference> openMenuItems = new Stack<WeakReference>();
+        private readonly Stack<WeakReference> openMenuItems = new();
 
         #endregion
 

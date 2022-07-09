@@ -19,7 +19,7 @@ namespace Fluent
         #region Fields
 
         // Context menu
-        private readonly ContextMenu contextMenu = new ContextMenu();
+        private readonly ContextMenu contextMenu = new();
 
         private bool waitingForItemContainerGenerator;
 

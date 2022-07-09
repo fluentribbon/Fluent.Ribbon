@@ -11,7 +11,7 @@
         /// <summary>
         /// Gets a static instance of <see cref="RibbonGroupBoxHeaderTemplateSelector"/>.
         /// </summary>
-        public static readonly RibbonGroupBoxHeaderTemplateSelector Instance = new RibbonGroupBoxHeaderTemplateSelector();
+        public static readonly RibbonGroupBoxHeaderTemplateSelector Instance = new();
 
         /// <inheritdoc />
         public override DataTemplate SelectTemplate(object item, DependencyObject container)

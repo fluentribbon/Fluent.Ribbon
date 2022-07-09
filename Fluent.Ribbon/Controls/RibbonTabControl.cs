@@ -53,7 +53,7 @@ namespace Fluent
         /// <summary>
         /// Provides a value needed to add space to the popup to accomodate for overlapping keytips.
         /// </summary>
-        public static readonly GridLength AdditionalPopupSpaceForKeyTipsGridLength = new GridLength(AdditionalPopupSpaceForKeyTips);
+        public static readonly GridLength AdditionalPopupSpaceForKeyTipsGridLength = new(AdditionalPopupSpaceForKeyTips);
 
         #region Fields
 

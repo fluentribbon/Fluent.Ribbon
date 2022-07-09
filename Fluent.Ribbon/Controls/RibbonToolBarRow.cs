@@ -20,7 +20,7 @@ namespace Fluent
         /// Gets rows
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public ObservableCollection<DependencyObject> Children { get; } = new ObservableCollection<DependencyObject>();
+        public ObservableCollection<DependencyObject> Children { get; } = new();
 
         #endregion
 

@@ -80,7 +80,7 @@ namespace Fluent
         /// <summary>
         /// Gets collection of tab items
         /// </summary>
-        public List<RibbonTabItem> Items { get; } = new List<RibbonTabItem>();
+        public List<RibbonTabItem> Items { get; } = new();
 
         /// <summary>
         /// Gets or sets the visibility this group for internal use (this enables us to hide this group when all items in this group are hidden)

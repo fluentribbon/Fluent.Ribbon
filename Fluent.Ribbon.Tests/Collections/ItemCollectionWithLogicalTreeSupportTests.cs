@@ -229,7 +229,7 @@
 
         private class LogicalChildSupportNoFEStub : ILogicalChildSupport
         {
-            public List<object> LogicalChildren { get; } = new List<object>();
+            public List<object> LogicalChildren { get; } = new();
 
             /// <inheritdoc />
             void ILogicalChildSupport.AddLogicalChild(object child)
@@ -246,7 +246,7 @@
 
         private class LogicalChildSupportFEStub : FrameworkElement, ILogicalChildSupport
         {
-            private List<object> MyLogicalChildren { get; } = new List<object>();
+            private List<object> MyLogicalChildren { get; } = new();
 
             /// <inheritdoc />
             void ILogicalChildSupport.AddLogicalChild(object child)

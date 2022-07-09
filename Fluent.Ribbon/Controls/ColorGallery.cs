@@ -251,7 +251,7 @@ namespace Fluent
         private ListBox? standardGradientsListBox;
         private ListBox? recentColorsListBox;
 
-        private readonly List<ListBox> listBoxes = new List<ListBox>();
+        private readonly List<ListBox> listBoxes = new();
 
         private bool isSelectionChanging;
 

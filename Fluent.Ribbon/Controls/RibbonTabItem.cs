@@ -43,7 +43,7 @@ namespace Fluent
         private ObservableCollection<RibbonGroupBox>? groups;
 
         // Ribbon groups container
-        private readonly RibbonGroupsContainer groupsInnerContainer = new RibbonGroupsContainer();
+        private readonly RibbonGroupsContainer groupsInnerContainer = new();
 
         // Cached width
         private double cachedWidth;

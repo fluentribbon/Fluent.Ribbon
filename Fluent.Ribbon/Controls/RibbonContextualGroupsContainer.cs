@@ -14,7 +14,7 @@ namespace Fluent
     /// </summary>
     public class RibbonContextualGroupsContainer : Panel
     {
-        private readonly List<Size> sizes = new List<Size>();
+        private readonly List<Size> sizes = new();
 
         /// <inheritdoc />
         protected override Size ArrangeOverride(Size finalSize)

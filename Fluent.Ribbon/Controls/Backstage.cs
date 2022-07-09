@@ -25,7 +25,7 @@ namespace Fluent
     [ContentProperty(nameof(Content))]
     public class Backstage : RibbonControl
     {
-        private static readonly object syncIsOpen = new object();
+        private static readonly object syncIsOpen = new();
 
         /// <summary>
         /// Occurs when IsOpen has been changed
@@ -296,7 +296,7 @@ namespace Fluent
         #region Show / Hide
 
         // We have to collapse WindowsFormsHost while Backstate is open
-        private readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new Dictionary<FrameworkElement, Visibility>();
+        private readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new();
 
         // Saved window sizes
         private double savedWindowMinWidth = double.NaN;
