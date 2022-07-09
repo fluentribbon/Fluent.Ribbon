@@ -60,7 +60,7 @@
                                                   HorizontalScrollBarVisibility="Disabled"
                                                   IsTabStop="False"
                                                   SnapsToDevicePixels="True"
-                                                  Style="{DynamicResource MenuScrollViewer}"
+                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                                   VerticalScrollBarVisibility="Auto">
                                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                                     </ScrollViewer>
@@ -112,7 +112,7 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="RibbonTabControlStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonTabControl"
            TargetType="{x:Type Fluent:RibbonTabControl}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Background}" />
         <Setter Property="CanMinimize" Value="{Binding CanMinimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
@@ -122,16 +122,16 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Foreground}" />
         <Setter Property="IsMinimized" Value="{Binding IsMinimized, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
         <Setter Property="IsSimplified" Value="{Binding IsSimplified, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:Ribbon}}, Mode=TwoWay}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonTabControlControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabControl}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
-    <Fluent:ScreenTip x:Key="Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip"
+    <Fluent:ScreenTip x:Key="Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip"
                       Title="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipTitle, Mode=OneWay}"
                       x:Shared="False"
                       Text="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipText, Mode=OneWay}" />
 
-    <ControlTemplate x:Key="RibbonTabControlControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabControl"
                      TargetType="{x:Type Fluent:RibbonTabControl}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type ScrollViewer}">
@@ -157,7 +157,7 @@
                                               Command="{x:Static ScrollBar.LineLeftCommand}"
                                               CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                               Focusable="false"
-                                              Style="{DynamicResource ScrollButtonStyle}">
+                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                                     <RepeatButton.Visibility>
                                         <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="0"
@@ -178,7 +178,7 @@
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           Data="M0,0L1,1 1,-1z"
-                                          Fill="{DynamicResource BlackBrush}"
+                                          Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                           Stretch="Fill"
                                           Stroke="{x:Null}"
                                           StrokeThickness="0" />
@@ -190,7 +190,7 @@
                                               Command="{x:Static ScrollBar.LineRightCommand}"
                                               CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                               Focusable="false"
-                                              Style="{DynamicResource ScrollButtonStyle}">
+                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                                     <RepeatButton.Visibility>
                                         <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="100"
@@ -211,7 +211,7 @@
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           Data="M1,0L0,1 0,-1z"
-                                          Fill="{DynamicResource BlackBrush}"
+                                          Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                           Stretch="Fill"
                                           Stroke="{x:Null}"
                                           StrokeThickness="0" />
@@ -301,7 +301,7 @@
                                            HorizontalScrollBarVisibility="Auto"
                                            IsHitTestVisible="True"
                                            IsTabStop="False"
-                                           Style="{DynamicResource RibbonTabScrollViewer}"
+                                           Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
                                            VerticalScrollBarVisibility="Disabled"
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
@@ -327,10 +327,10 @@
                                            Icon="{DynamicResource Fluent.Ribbon.Images.RibbonDisplayOptions}"
                                            Size="Small"
                                            Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
-                                           ToolTip="{DynamicResource Fluent.Ribbon.Resources.RibbonTabControl.DisplayOptionsScreenTip}">
+                                           ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}">
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
                                          FontWeight="Bold"
-                                         Foreground="{DynamicResource BlackBrush}"
+                                         Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"
@@ -348,7 +348,7 @@
                                    Visibility="Collapsed" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
                                          FontWeight="Bold"
-                                         Foreground="{DynamicResource BlackBrush}"
+                                         Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"

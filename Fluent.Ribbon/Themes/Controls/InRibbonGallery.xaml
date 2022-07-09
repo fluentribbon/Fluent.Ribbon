@@ -35,13 +35,13 @@
                              Text="{Binding}" />
     </DataTemplate>
 
-    <Style x:Key="InRibbonGalleryToggleButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="Template" Value="{DynamicResource InRibbonGalleryToggleButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGalleryToggleButton}" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -79,7 +79,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="InRibbonGalleryToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGalleryToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"
@@ -256,13 +256,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="InRibbonGalleryButton"
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:ToggleButton}">
                     <Border x:Name="border"
-                            Background="{DynamicResource WhiteBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1 1 1 1">
                         <Grid x:Name="grid">
@@ -272,18 +272,18 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Data="M0,0L1,0"
-                                  Fill="{DynamicResource WhiteBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                   Stretch="Fill"
-                                  Stroke="{DynamicResource BlackBrush}" />
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                             <Path Width="5"
                                   Height="3"
                                   Margin="0 8 0 0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Data="M0,0L1,1 2,0z"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
-                                  Stroke="{DynamicResource BlackBrush}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="0" />
                         </Grid>
                     </Border>
@@ -307,13 +307,13 @@
         </Setter>
     </Style>
 
-    <Style x:Key="InRibbonGalleryRepeatButton"
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
                     <Border x:Name="border"
-                            Background="{DynamicResource WhiteBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
                             BorderThickness="1">
                         <ContentPresenter x:Name="contentPresenter" />
@@ -338,7 +338,7 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="InRibbonGalleryControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery"
                      TargetType="{x:Type Fluent:InRibbonGallery}">
         <Grid x:Name="PART_LayoutRoot"
               Width="Auto"
@@ -377,11 +377,11 @@
                                                                   Height="21"
                                                                   Margin="0 0 0 0"
                                                                   Command="ScrollBar.PageUpCommand"
-                                                                  Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}">
                                                         <Path Width="5"
                                                               Height="3"
                                                               Data="M0,0 L1,-1 2,0z"
-                                                              Fill="{DynamicResource BlackBrush}"
+                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                               RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
@@ -390,11 +390,11 @@
                                                                   Height="21"
                                                                   Margin="0 -1 0 0"
                                                                   Command="ScrollBar.PageDownCommand"
-                                                                  Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}">
                                                         <Path Width="5"
                                                               Height="3"
                                                               Data="M0,0 L1,1 2,0z"
-                                                              Fill="{DynamicResource BlackBrush}"
+                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                               RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
@@ -413,11 +413,11 @@
                                                                   Height="Auto"
                                                                   Margin="0 0 0 -0.5"
                                                                   Command="ScrollBar.PageUpCommand"
-                                                                  Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}">
                                                         <Path Width="5"
                                                               Height="3"
                                                               Data="M0,0 L1,-1 2,0z"
-                                                              Fill="{DynamicResource BlackBrush}"
+                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                               RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
@@ -427,11 +427,11 @@
                                                                   Height="Auto"
                                                                   Margin="0 -0.5 0 0"
                                                                   Command="ScrollBar.PageDownCommand"
-                                                                  Style="{DynamicResource InRibbonGalleryRepeatButton}">
+                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}">
                                                         <Path Width="5"
                                                               Height="3"
                                                               Data="M0,0 L1,1 2,0z"
-                                                              Fill="{DynamicResource BlackBrush}"
+                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                               RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
@@ -456,7 +456,7 @@
                         <ContentControl x:Name="PART_ContentPresenter"
                                         Focusable="False">
                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
-                                                 Background="{DynamicResource WhiteBrush}"
+                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                                  Filter="{TemplateBinding SelectedFilterGroups}"
                                                  GroupBy="{TemplateBinding GroupBy}"
                                                  GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
@@ -479,7 +479,7 @@
                                          ClickMode="Press"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                          IsDefinitive="False"
-                                         Style="{DynamicResource InRibbonGalleryButton}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryButton}" />
 
                     <Popup x:Name="PART_Popup"
                            Grid.ColumnSpan="2"
@@ -495,7 +495,7 @@
                             <ResourceDictionary>
                                 <Style x:Key="{x:Type ScrollBar}"
                                        TargetType="{x:Type ScrollBar}"
-                                       BasedOn="{StaticResource ScrollBarWhite}" />
+                                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                             </ResourceDictionary>
                         </Popup.Resources>
                         <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
@@ -527,7 +527,7 @@
                                                                    Height="Auto"
                                                                    HorizontalAlignment="Left"
                                                                    VerticalAlignment="Top"
-                                                                   Style="{DynamicResource GalleryDropDownButtonStyle}" />
+                                                                   Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}" />
                                         </Border>
                                         <ScrollViewer x:Name="PART_ScrollViewer"
                                                       Grid.Row="1"
@@ -564,7 +564,7 @@
                                  MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                  Size="{Binding Path=Size, RelativeSource={RelativeSource TemplatedParent}}"
                                  SizeDefinition="{Binding Path=SizeDefinition, RelativeSource={RelativeSource TemplatedParent}}"
-                                 Style="{DynamicResource InRibbonGalleryToggleButtonStyle}"
+                                 Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryToggleButton}"
                                  Visibility="Collapsed" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -609,7 +609,7 @@
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="2 3 3 0" />
-        <Setter Property="Template" Value="{DynamicResource InRibbonGalleryControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="GalleryPanelContainerHeight" Value="NaN" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using GlobExpressions;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -52,8 +53,10 @@ class Build : NukeBuild
     string NuGetVersion => GitVersion?.NuGetVersion ?? "1.0.0";
     string MajorMinorPatch => GitVersion?.MajorMinorPatch ?? "1.0.0";
     string AssemblySemFileVer => GitVersion?.AssemblySemFileVer ?? "1.0.0";
-    
+
     // Define directories.
+    AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
+
     AbsolutePath BuildBinDirectory => RootDirectory / "bin";
 
     AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
@@ -138,53 +141,59 @@ class Build : NukeBuild
             .SetVerbosity(DotNetVerbosity.Normal));
     });
 
-    // ReSharper disable once UnusedMember.Local
+    Target FixResourceKeys => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
+
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
+
+            //resourceKeys.CheckKeys();
+
+            resourceKeys.FixKeys(Glob.Files(FluentRibbonDirectory / "Themes", "**/*.{xaml,json}").Select(x => Path.Combine(FluentRibbonDirectory / "Themes", x)).ToArray());
+        });
+
     Target ResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
-    {
-        var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
-            .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
-            .ToList();
-        Serilog.Log.Information($"Peeked keys  : {xmlPeekElements.Count}");
-
-        var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
-
-        var resourceKeys = xmlPeekElements
-            .Where(x => x.HasAttributes && x.Attribute(xKey) is not null)
-            .Select(x => x.Attribute(xKey)!.Value)
-            // Exclude type-keyed styles like x:Key="{x:Type Button}" etc.
-            .Where(x => x.StartsWith("{") == false)
-            .ToList();
-
-        Serilog.Log.Information($"Filtered keys: {resourceKeys.Count}");
-
-        var vNextResourceKeys = resourceKeys.Distinct()
-            .OrderBy(x => x)
-            .ToList();
-    
-        Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
-    
-        File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
-    
-        var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
-
-        var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
-        var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
-    
-        Serilog.Log.Information("|Old|New|");
-        Serilog.Log.Information("|---|---|");
-
-        foreach (var removedKey in removedKeys)
         {
-            Serilog.Log.Information($"|{removedKey}|---|");
-        }
+            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
+
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
+
+            var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
+                .Select(x => x.Key)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+
+            Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
+
+            File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
+
+            var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
+
+            var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
+            var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
+
+            Serilog.Log.Information("|Old|New|");
+            Serilog.Log.Information("|---|---|");
+
+            foreach (var removedKey in removedKeys)
+            {
+                Serilog.Log.Information($"|{removedKey}|---|");
+            }
     
-        foreach (var addedKey in addedKeys)
-        {
-            Serilog.Log.Information($"|---|{addedKey}|");
-        }
-    });
+            foreach (var addedKey in addedKeys)
+            {
+                Serilog.Log.Information($"|---|{addedKey}|");
+            }
+        });
 
     // ReSharper disable once UnusedMember.Local
     // ReSharper disable once InconsistentNaming

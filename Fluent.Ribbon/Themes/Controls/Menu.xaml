@@ -10,29 +10,29 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource FluentPopupMenuControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.FluentPopupMenu}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
     <!-- Default menu style for wpf context menu -->
 
-    <Style x:Key="FluentRibbonDefaultContextMenuStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.FluentRibbonDefaultContextMenu"
            TargetType="{x:Type ContextMenu}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource PopupMenuControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.PopupMenu}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
-    <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.FluentPopupMenu"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
             <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
-                   BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuGroupSeparator}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"
@@ -56,7 +56,7 @@
                         <ScrollViewer x:Name="PART_ScrollViewer"
                                       Margin="1"
                                       SnapsToDevicePixels="True"
-                                      Style="{DynamicResource MenuScrollViewer}"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel x:Name="PART_ItemsHost"
                                         Width="Auto"
@@ -83,7 +83,7 @@
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Top"
                                        Cursor="SizeNS"
-                                       Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                       Template="{DynamicResource Fluent.Ribbon.Templates.ResizeVerticalThumb}" />
                                 <Thumb x:Name="PART_ResizeBothThumb"
                                        Width="10"
                                        Height="10"
@@ -91,7 +91,7 @@
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        Cursor="SizeNWSE"
-                                       Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                       Template="{DynamicResource Fluent.Ribbon.Templates.ResizeBothThumb}" />
                             </Grid>
                         </Border>
                     </Grid>
@@ -118,13 +118,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="PopupMenuControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.PopupMenu"
                      TargetType="{x:Type ContextMenu}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
             <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
-                   BasedOn="{StaticResource MenuGroupSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuGroupSeparator}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"
@@ -154,7 +154,7 @@
                                       Margin="1"
                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       SnapsToDevicePixels="True"
-                                      Style="{DynamicResource MenuScrollViewer}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
                             <StackPanel x:Name="PART_ItemsHost"
                                         Grid.RowSpan="1"
                                         Width="Auto"

@@ -52,7 +52,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RibbonStatusBarItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonStatusBarItem"
            TargetType="{x:Type Fluent:StatusBarItem}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
         <Setter Property="Margin" Value="0 0 2 0" />
@@ -76,11 +76,11 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="IsCheckable" Value="True" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonStatusBarContextMenuItemControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem}" />
     </Style>
 
     <!-- Menu Item Template -->
-    <ControlTemplate x:Key="RibbonStatusBarContextMenuItemControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem"
                      TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Grid Width="Auto"
               Height="Auto"
@@ -136,7 +136,7 @@
                   Margin="1 0 4 0"
                   HorizontalAlignment="Right"
                   Data="M0,0L1,1 0,2z"
-                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}"
+                  Fill="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.SubMenu.Arrow.Fill}"
                   Stretch="Fill"
                   Stroke="{x:Null}" />
         </Grid>

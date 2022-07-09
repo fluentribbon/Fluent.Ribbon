@@ -37,7 +37,7 @@
                                      Geometry="F1 M 0,85.3333L 85.3333,85.3333L 85.3333,0L 0,0L 0,85.3333 Z " />
                     <GeometryDrawing Geometry="F1 M 65.1237,26.8028L 38.0797,58.5308L 20.2091,43.5268">
                         <GeometryDrawing.Pen>
-                            <Pen Brush="{DynamicResource BlackBrush}" MiterLimit="2.75" Thickness="6.66667" />
+                            <Pen Brush="{DynamicResource Fluent.Ribbon.Brushes.Black}" MiterLimit="2.75" Thickness="6.66667" />
                         </GeometryDrawing.Pen>
                     </GeometryDrawing>
                 </DrawingGroup.Children>

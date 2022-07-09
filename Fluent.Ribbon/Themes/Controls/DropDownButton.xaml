@@ -38,7 +38,7 @@
                              Text="{Binding}" />
     </DataTemplate>
 
-    <Style x:Key="RibbonDropDownButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -54,7 +54,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="SnapsToDevicePixels" Value="False" />
-        <Setter Property="Template" Value="{DynamicResource RibbonDropDownButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonDropDownButton}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -93,11 +93,11 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonDropDownButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonDropDownButton"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
@@ -146,7 +146,7 @@
                                   HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>
@@ -194,7 +194,7 @@
                      TargetType="{x:Type Fluent:DropDownButton}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
@@ -271,7 +271,7 @@
                                   HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>

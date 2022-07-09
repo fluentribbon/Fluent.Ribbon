@@ -1912,9 +1912,9 @@
                                         IsChecked="True"
                                         LargeIcon="{iconPacks:Material Kind=Cog}">
                         <Fluent:MenuItem Header="First (with icon)"
+                                         CanAddToQuickAccessToolBar="True"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          Icon="Images/Pink.png"
-                                         CanAddToQuickAccessToolBar="True"
                                          IsCheckable="True"
                                          IsChecked="True" />
                         <Fluent:MenuItem Header="Second"

@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="RibbonTabItemControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabItem"
                      TargetType="{x:Type Fluent:RibbonTabItem}">
         <Grid x:Name="grid"
               Height="Auto">
@@ -102,14 +102,14 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonTabItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonTabItem"
            TargetType="{x:Type Fluent:RibbonTabItem}">
         <Setter Property="ActiveTabBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
         <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
@@ -125,7 +125,7 @@
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource RibbonTabItemControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabItem}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
             <Trigger Property="Group" Value="{x:Null}">

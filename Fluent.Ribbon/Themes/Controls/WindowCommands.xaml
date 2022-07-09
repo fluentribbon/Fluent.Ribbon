@@ -159,7 +159,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.Button"
            TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource TransparentWhiteBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />

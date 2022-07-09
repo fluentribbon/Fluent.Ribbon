@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <ControlTemplate x:Key="RibbonRadioButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonRadioButton"
                      TargetType="{x:Type Fluent:RadioButton}">
         <BulletDecorator x:Name="bulletDecorator"
                          Height="22"
@@ -17,7 +17,7 @@
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center">
                     <Rectangle Margin="-6 0"
-                               Fill="{DynamicResource TransparentWhiteBrush}" />
+                               Fill="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
                     <Ellipse x:Name="normal"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
@@ -75,7 +75,7 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Center">
                         <Rectangle Margin="-6 0"
-                                   Fill="{DynamicResource TransparentWhiteBrush}" />
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
                         <Ellipse x:Name="normal"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch"
@@ -190,7 +190,7 @@
                             <ControlTemplate>
                                 <Rectangle Margin="1"
                                            SnapsToDevicePixels="true"
-                                           Stroke="{DynamicResource BlackBrush}"
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                            StrokeDashArray="1 2"
                                            StrokeThickness="1" />
                             </ControlTemplate>
@@ -200,7 +200,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonRadioButton}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">

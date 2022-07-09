@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonMenu}">
                     <ControlTemplate.Resources>
                         <Style TargetType="{x:Type Separator}"
-                               BasedOn="{StaticResource MenuSeparatorStyle}" />
+                               BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
                     </ControlTemplate.Resources>
                     <Grid>
                         <Rectangle Grid.RowSpan="2"

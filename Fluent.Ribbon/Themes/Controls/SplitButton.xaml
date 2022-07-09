@@ -5,7 +5,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="RibbonSplitButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonSplitButton"
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Fluent:KeyTip.AutoPlacement" Value="False" />
@@ -13,7 +13,7 @@
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
-        <Setter Property="Template" Value="{DynamicResource RibbonSplitButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonSplitButton}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -60,11 +60,11 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonSplitButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonSplitButton"
                      TargetType="{x:Type Fluent:SplitButton}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border Name="PART_ButtonBorder"
@@ -92,7 +92,7 @@
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          Size="{TemplateBinding Size}"
-                                         Style="{DynamicResource InnerButtonStyle}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          ToolTip="{TemplateBinding ToolTip}" />
                     <Border Name="downBorder"
                             Margin="0"
@@ -128,7 +128,7 @@
                     <ScrollViewer Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
@@ -191,7 +191,7 @@
                      TargetType="{x:Type Fluent:SplitButton}">
         <ControlTemplate.Resources>
             <Style TargetType="{x:Type Separator}"
-                   BasedOn="{StaticResource MenuSeparatorStyle}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
         <Grid>
             <Border Name="PART_ButtonBorder"
@@ -226,7 +226,7 @@
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          Size="{TemplateBinding Size}"
-                                         Style="{DynamicResource InnerButtonStyle}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          ToolTip="{TemplateBinding ToolTip}" />
                     <Border x:Name="downBorder"
                             Grid.Column="1"
@@ -266,7 +266,7 @@
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
@@ -316,11 +316,11 @@
     </ControlTemplate>
 
     <!-- Inner Button Style (Button in SplitButton) -->
-    <Style x:Key="InnerButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.InnerButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Fluent:KeyTip.AutoPlacement" Value="{Binding Path=(Fluent:KeyTip.AutoPlacement), RelativeSource={RelativeSource AncestorType={x:Type Fluent:SplitButton}}}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Template" Value="{DynamicResource RibbonInnerButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonInnerButton}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -361,7 +361,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonInnerButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonInnerButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"

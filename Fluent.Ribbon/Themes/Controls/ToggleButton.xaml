@@ -6,7 +6,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
-    <Style x:Key="RibbonToggleButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
@@ -17,7 +17,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
-        <Setter Property="Template" Value="{DynamicResource RibbonToggleButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonToggleButton}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -55,7 +55,7 @@
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"

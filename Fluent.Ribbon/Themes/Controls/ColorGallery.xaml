@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <Style x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer"
            TargetType="{x:Type ListBoxItem}">
         <Setter Property="Padding" Value="{Binding Padding, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, FallbackValue='2,0,2,0'}" />
         <Setter Property="Template">
@@ -43,12 +43,12 @@
         </Style.Triggers>
     </Style>
 
-    <DataTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.ColorGallery.ListBox.Item">
         <Rectangle Fill="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
                    Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
     </DataTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row0"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0"
                      TargetType="{x:Type ListBox}">
         <Border HorizontalAlignment="Stretch"
                 Background="{TemplateBinding Background}">
@@ -58,7 +58,7 @@
         </Border>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.ColorGallery.ListBox.Template.Row1"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row1"
                      TargetType="{x:Type ListBox}">
         <Border HorizontalAlignment="Stretch"
                 Background="{TemplateBinding Background}">
@@ -69,48 +69,48 @@
         </Border>
     </ControlTemplate>
 
-    <Style x:Key="ColorGalleryListBox"
+    <Style x:Key="Fluent.Ribbon.Styles.ColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
-        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row1}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer}" />
+        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ColorGallery.ListBox.Item}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row1}" />
     </Style>
 
-    <Style x:Key="HightlightColorGalleryListBox"
+    <Style x:Key="Fluent.Ribbon.Styles.HightlightColorGalleryListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
-        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemTemplate}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer}" />
+        <Setter Property="ItemTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ColorGallery.ListBox.Item}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
-    <Fluent:ColorGradientItemTemplateSelector x:Key="ColorGradientItemTemplateSelect" />
+    <Fluent:ColorGradientItemTemplateSelector x:Key="Fluent.Ribbon.Converters.ColorGradientItemTemplateSelector" />
 
-    <DataTemplate x:Key="GradientColorCenterDataTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorCenterData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1 0 1 0" />
     </DataTemplate>
 
-    <DataTemplate x:Key="GradientColorTopDataTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorTopData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1 1 1 0" />
     </DataTemplate>
 
-    <DataTemplate x:Key="GradientColorBottomDataTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorBottomData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
                 BorderThickness="1 0 1 1" />
     </DataTemplate>
 
-    <Style x:Key="ColorGalleryGradientListBox"
+    <Style x:Key="Fluent.Ribbon.Styles.ColorGalleryGradientListBox"
            TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Background}" />
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.ItemContainerStyle}" />
-        <Setter Property="ItemTemplateSelector" Value="{DynamicResource ColorGradientItemTemplateSelect}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.ColorGallery.ListBox.Template.Row0}" />
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer}" />
+        <Setter Property="ItemTemplateSelector" Value="{DynamicResource Fluent.Ribbon.Converters.ColorGradientItemTemplateSelector}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
     <Style TargetType="{x:Type Fluent:ColorGallery}">
@@ -126,7 +126,7 @@
                                 <Rectangle Width="16"
                                            Height="16"
                                            Margin="-2 0 0 0"
-                                           Fill="{DynamicResource BlackBrush}"
+                                           Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
@@ -142,31 +142,31 @@
                                          Padding="2"
                                          ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}"
                                          KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
                                 <ListBox x:Name="PART_ThemeGradientColorsListBox"
                                          Padding="2 0 2 0"
                                          ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}"
                                          KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}" />
                                 <Fluent:GroupSeparatorMenuItem x:Name="standardColorsSeparator"
                                                                Header="Standard Colors" />
                                 <ListBox x:Name="PART_StandardColorsListBox"
                                          Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}"
                                          KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
                                 <ListBox x:Name="PART_StandardGradientColorsListBox"
                                          Padding="2 0 2 0"
                                          ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}"
                                          KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource ColorGalleryGradientListBox}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}" />
                                 <Fluent:GroupSeparatorMenuItem x:Name="recentColorsSeparator"
                                                                Header="Recent Colors" />
                                 <ListBox x:Name="PART_RecentColorsListBox"
                                          Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}"
                                          KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource ColorGalleryListBox}" />
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
                             </StackPanel>
                         </ScrollViewer>
                         <Fluent:MenuItem x:Name="PART_NoColor"
@@ -209,7 +209,7 @@
                             <Setter Property="Columns" Value="5" />
                             <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" />
-                            <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource HightlightColorGalleryListBox}" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource Fluent.Ribbon.Styles.HightlightColorGalleryListBox}" />
                             <Setter TargetName="PART_StandardGradientColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeGradientColorsListBox" Property="Visibility" Value="Collapsed" />

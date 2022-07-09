@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
-    <Style x:Key="ScrollBarLineButton"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -46,7 +46,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ScrollBarPageButton"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollBarPageButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
@@ -61,7 +61,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ScrollBarThumb"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollBarThumb"
            TargetType="{x:Type Thumb}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
@@ -89,7 +89,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="VerticalScrollBarLineButton"
+    <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
@@ -134,7 +134,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="VerticalScrollBarThumb"
+    <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarThumb"
            TargetType="{x:Type Thumb}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
@@ -162,7 +162,7 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="VerticalScrollBar"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.VerticalScrollBar"
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.RowDefinitions>
@@ -177,10 +177,10 @@
                           Height="17"
                           Margin="1 1 1 0"
                           VerticalAlignment="Top"
-                          Background="{DynamicResource WhiteBrush}"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineUpCommand"
                           Content="M 0 4 L 8 4 L 4 0 Z"
-                          Style="{DynamicResource VerticalScrollBarLineButton}" />
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}" />
             <Track Name="PART_Track"
                    Grid.Row="1"
                    IsDirectionReversed="true"
@@ -197,26 +197,26 @@
                 </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand"
-                                  Style="{DynamicResource ScrollBarPageButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Margin="1 0 1 0"
                            RenderTransformOrigin="0.5,0.5"
-                           Style="{DynamicResource VerticalScrollBarThumb}" />
+                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarThumb}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageDownCommand"
-                                  Style="{DynamicResource ScrollBarPageButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton1"
                           Grid.Row="3"
                           Height="17"
                           Margin="1 0 1 1"
-                          Background="{DynamicResource WhiteBrush}"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineDownCommand"
                           Content="M 0 0 L 4 4 L 8 0 Z"
-                          Style="{DynamicResource VerticalScrollBarLineButton}" />
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -226,7 +226,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="HorizontalScrollBar"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.HorizontalScrollBar"
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -241,10 +241,10 @@
                           Grid.Column="0"
                           Width="17"
                           Margin="1 1 0 1"
-                          Background="{DynamicResource WhiteBrush}"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineLeftCommand"
                           Content="M 4 0 L 4 8 L 0 4 Z"
-                          Style="{DynamicResource ScrollBarLineButton}" />
+                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarLineButton}" />
             <Track Name="PART_Track"
                    Grid.Column="1"
                    Margin="0 1 0 1"
@@ -262,25 +262,25 @@
                 </Track.Resources>
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageLeftCommand"
-                                  Style="{DynamicResource ScrollBarPageButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb Margin="0 0 0 0"
-                           Style="{DynamicResource ScrollBarThumb}" />
+                           Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarThumb}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageRightCommand"
-                                  Style="{DynamicResource ScrollBarPageButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton1"
                           Grid.Column="3"
                           Width="17"
                           Margin="0 1 1 1"
-                          Background="{DynamicResource WhiteBrush}"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineRightCommand"
                           Content="M 0 0 L 4 4 L 0 8 Z"
-                          Style="{DynamicResource ScrollBarLineButton}" />
+                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarLineButton}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -291,35 +291,35 @@
     </ControlTemplate>
 
     <Style TargetType="ScrollBar">
-        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="Height" Value="17" />
-                <Setter Property="Template" Value="{DynamicResource HorizontalScrollBar}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HorizontalScrollBar}" />
                 <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="Orientation" Value="Vertical">
                 <Setter Property="Height" Value="Auto" />
-                <Setter Property="Template" Value="{DynamicResource VerticalScrollBar}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.VerticalScrollBar}" />
                 <Setter Property="Width" Value="17" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="ScrollBarWhite"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollBarWhite"
            TargetType="ScrollBar">
-        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="Height" Value="17" />
-                <Setter Property="Template" Value="{DynamicResource HorizontalScrollBar}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HorizontalScrollBar}" />
                 <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="Orientation" Value="Vertical">
                 <Setter Property="Height" Value="Auto" />
-                <Setter Property="Template" Value="{DynamicResource VerticalScrollBar}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.VerticalScrollBar}" />
                 <Setter Property="Width" Value="17" />
             </Trigger>
         </Style.Triggers>
