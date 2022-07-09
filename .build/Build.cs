@@ -142,7 +142,7 @@ class Build : NukeBuild
     });
 
     Target FixResourceKeys => _ => _
-        .After(Compile)
+        .DependsOn(Compile)
         .Executes(() =>
         {
             var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
