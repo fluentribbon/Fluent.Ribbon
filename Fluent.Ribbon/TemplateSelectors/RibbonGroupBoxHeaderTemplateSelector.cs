@@ -20,10 +20,10 @@
 
             if (RibbonGroupBox.GetIsCollapsedHeaderContentPresenter(element))
             {
-                return (DataTemplate)element.FindResource("Fluent.Ribbon.Templates.RibbonGroupBox.TwoLineHeaderTemplate");
+                return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.TwoLineHeader");
             }
 
-            return (DataTemplate)element.FindResource("Fluent.Ribbon.Templates.RibbonGroupBox.OneLineHeaderTemplate");
+            return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.OneLineHeader");
         }
     }
 }

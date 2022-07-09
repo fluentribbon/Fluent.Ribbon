@@ -29,7 +29,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.Templates.RibbonGroupBox.OneLineHeader">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.RibbonGroupBox.OneLineHeader">
         <TextBlock HorizontalAlignment="Stretch"
                    VerticalAlignment="Center"
                    Text="{Binding}"
@@ -38,7 +38,7 @@
                    TextWrapping="NoWrap" />
     </DataTemplate>
 
-    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.Templates.RibbonGroupBox.TwoLineHeader">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.RibbonGroupBox.TwoLineHeader">
         <Fluent:TwoLineLabel HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              HasGlyph="True"
