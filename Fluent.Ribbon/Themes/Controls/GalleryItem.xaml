@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="GalleryItemControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.GalleryItem"
                      TargetType="{x:Type Fluent:GalleryItem}">
         <Grid Background="Transparent">
             <Border x:Name="keyboardFocusBorder"
@@ -47,9 +47,9 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="GalleryItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.GalleryItem"
            TargetType="{x:Type Fluent:GalleryItem}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Template" Value="{DynamicResource GalleryItemControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.GalleryItem}" />
     </Style>
 </ResourceDictionary>

@@ -220,7 +220,7 @@
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}" />
         <Setter Property="Fluent:InputControlProperties.InputMinWidth" Value="30" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.TextBox.Header}" />
         <Setter Property="MinHeight" Value="22" />

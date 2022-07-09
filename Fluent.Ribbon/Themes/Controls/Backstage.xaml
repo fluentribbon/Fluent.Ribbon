@@ -30,7 +30,7 @@
         </ThicknessAnimationUsingKeyFrames>
     </Storyboard>
 
-    <ControlTemplate x:Key="BackstageToggleButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageToggleButton"
                      TargetType="{x:Type Fluent:Backstage}">
         <Border x:Name="border2"
                 Height="Auto"
@@ -53,7 +53,7 @@
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource HighTransparentWhiteBrush}" />
+                <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.HighTransparentWhite}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="border2" Property="Opacity" Value="0.5" />
@@ -76,7 +76,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonBackstageStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonBackstage"
            TargetType="{x:Type Fluent:Backstage}">
         <Setter Property="AreAnimationsEnabled" Value="{DynamicResource {x:Static SystemParameters.ClientAreaAnimationKey}}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Background}" />
@@ -85,6 +85,6 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Foreground}" />
         <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Template" Value="{DynamicResource BackstageToggleButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageToggleButton}" />
     </Style>
 </ResourceDictionary>

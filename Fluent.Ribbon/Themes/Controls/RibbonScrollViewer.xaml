@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
     <!-- Button in Scroll Control Style -->
-    <ControlTemplate x:Key="ScrollButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ScrollButton"
                      TargetType="{x:Type RepeatButton}">
         <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
             <Border x:Name="OuterBorder"
@@ -28,14 +28,14 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="ScrollButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollButton"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource ScrollButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollButton}" />
     </Style>
 
-    <Style x:Key="RibbonScrollViewer"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="CanContentScroll" Value="True" />
         <Setter Property="Focusable" Value="False" />
@@ -59,7 +59,7 @@
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      Style="{DynamicResource ScrollButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="0"
@@ -80,7 +80,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,1 1,-1z"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
@@ -92,7 +92,7 @@
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      Style="{DynamicResource ScrollButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="100"
@@ -113,7 +113,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M1,0L0,1 0,-1z"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
@@ -125,7 +125,7 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
     </Style>
 
-    <Style x:Key="RibbonTabScrollViewer"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonTabScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="CanContentScroll" Value="True" />
         <Setter Property="Focusable" Value="False" />
@@ -151,7 +151,7 @@
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      Style="{DynamicResource ScrollButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="0"
@@ -172,7 +172,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,1 1,-1z"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
@@ -185,7 +185,7 @@
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false"
-                                      Style="{DynamicResource ScrollButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="100"
@@ -206,7 +206,7 @@
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M1,0L0,1 0,-1z"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
@@ -219,17 +219,17 @@
 
     </Style>
 
-    <Style x:Key="MenuScrollViewer"
+    <Style x:Key="Fluent.Ribbon.Styles.MenuScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Setter Property="CanContentScroll" Value="False" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Template" Value="{StaticResource MenuScrollViewerControlTemplate}" />
+        <Setter Property="Template" Value="{StaticResource Fluent.Ribbon.Templates.MenuScrollViewer}" />
         <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
     </Style>
 
-    <ControlTemplate x:Key="MenuScrollViewerControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuScrollViewer"
                      TargetType="{x:Type ScrollViewer}">
         <Grid x:Name="Grid"
               Background="{TemplateBinding Background}"
@@ -248,7 +248,7 @@
                           Command="{x:Static ScrollBar.LineUpCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                           Focusable="false"
-                          Style="{DynamicResource ScrollButtonStyle}">
+                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                 <RepeatButton.Visibility>
                     <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                   ConverterParameter="0"
@@ -269,7 +269,7 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M0,0L1,-1 2,0z"
-                      Fill="{DynamicResource BlackBrush}"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                       Stretch="Fill"
                       Stroke="{x:Null}"
                       StrokeThickness="0" />
@@ -283,7 +283,7 @@
                           Command="{x:Static ScrollBar.LineDownCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                           Focusable="false"
-                          Style="{DynamicResource ScrollButtonStyle}">
+                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
                 <RepeatButton.Visibility>
                     <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                   ConverterParameter="100"
@@ -304,7 +304,7 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
                       Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource BlackBrush}"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                       Stretch="Fill"
                       Stroke="{x:Null}"
                       StrokeThickness="0" />
@@ -312,15 +312,15 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="ScrollViewerStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollViewer"
            TargetType="{x:Type ScrollViewer}">
         <Style.Resources>
             <Style x:Key="{x:Type ScrollBar}"
                    TargetType="{x:Type ScrollBar}"
-                   BasedOn="{StaticResource ScrollBarWhite}" />
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
         </Style.Resources>
 
-        <Setter Property="Template" Value="{DynamicResource ScrollViewerControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollViewer}" />
 
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
@@ -331,9 +331,9 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
            TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}"
-           BasedOn="{StaticResource RibbonScrollViewer}" />
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonScrollViewer}" />
 
-    <ControlTemplate x:Key="ScrollViewerControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ScrollViewer"
                      TargetType="{x:Type ScrollViewer}">
         <Border BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
@@ -363,7 +363,7 @@
                 <ScrollBar x:Name="PART_VerticalScrollBar"
                            Grid.Row="0"
                            Grid.Column="1"
-                           AutomationProperties.AutomationId="VerticalScrollBar"
+                           AutomationProperties.AutomationId="Fluent.Ribbon.Templates.VerticalScrollBar"
                            Cursor="Arrow"
                            Maximum="{TemplateBinding ScrollableHeight}"
                            Minimum="0"
@@ -373,7 +373,7 @@
                 <ScrollBar x:Name="PART_HorizontalScrollBar"
                            Grid.Row="1"
                            Grid.Column="0"
-                           AutomationProperties.AutomationId="HorizontalScrollBar"
+                           AutomationProperties.AutomationId="Fluent.Ribbon.Templates.HorizontalScrollBar"
                            Cursor="Arrow"
                            Maximum="{TemplateBinding ScrollableWidth}"
                            Minimum="0"

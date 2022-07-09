@@ -6,7 +6,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
     <!-- Menu Item Template -->
-    <ControlTemplate x:Key="MenuItemTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuItem"
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
@@ -100,7 +100,7 @@
     </ControlTemplate>
 
     <!-- Header Menu Item Template -->
-    <ControlTemplate x:Key="HeaderMenuItemTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.HeaderMenuItem"
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
@@ -154,7 +154,7 @@
                   Margin="1 0 9 0"
                   HorizontalAlignment="Right"
                   Data="M0,0L1,1 0,2z"
-                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}"
+                  Fill="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.SubMenu.Arrow.Fill}"
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
@@ -172,7 +172,7 @@
                     <ScrollViewer x:Name="PART_ScrollViewer"
                                   Margin="1"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}">
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
@@ -213,7 +213,7 @@
     </ControlTemplate>
 
     <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="SplitedMenuItemTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedMenuItem"
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
@@ -290,7 +290,7 @@
                   Margin="1 0 9 0"
                   HorizontalAlignment="Right"
                   Data="M0,0L1,1 0,2z"
-                  Fill="{DynamicResource Fluent.Ribbon.MenuItem.SubMenu.Arrow.Fill}"
+                  Fill="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.SubMenu.Arrow.Fill}"
                   Stretch="Fill"
                   Stroke="{x:Null}" />
             <Popup x:Name="PART_Popup"
@@ -308,7 +308,7 @@
                     <ScrollViewer x:Name="PART_ScrollViewer"
                                   Margin="1"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource MenuScrollViewer}">
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
@@ -353,7 +353,7 @@
     </ControlTemplate>
 
     <!-- Menu Item with Description Template -->
-    <ControlTemplate x:Key="MenuItemWithDescriptionTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuItemWithDescription"
                      TargetType="{x:Type Fluent:MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
@@ -467,24 +467,24 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template" Value="{DynamicResource MenuItemTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuItem}" />
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource SplitedMenuItemTemplate}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedMenuItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource HeaderMenuItemTemplate}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HeaderMenuItem}" />
             </MultiTrigger>
             <DataTrigger Binding="{Binding Description, RelativeSource={RelativeSource Self}, Converter={x:Static converters:IsNullConverter.Instance}}" Value="False">
-                <Setter Property="Template" Value="{DynamicResource MenuItemWithDescriptionTemplate}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuItemWithDescription}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="ToolTipStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ToolTip"
            TargetType="{x:Type ToolTip}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.BorderBrush}" />
@@ -33,7 +33,7 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="ScreenTipControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ScreenTip"
                      TargetType="{x:Type Fluent:ScreenTip}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -77,7 +77,7 @@
                                 Height="2"
                                 Margin="5"
                                 HorizontalAlignment="Stretch"
-                                Background="{DynamicResource GrayBrush6}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush6}"
                                 BorderThickness="0 0 0 1"
                                 IsEnabled="{Binding Path=IsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Control, AncestorLevel=2}}"
                                 Visibility="{Binding ElementName=disableReasonSection, Path=Visibility}" />
@@ -123,7 +123,7 @@
                                 Height="2"
                                 Margin="5"
                                 HorizontalAlignment="Stretch"
-                                Background="{DynamicResource GrayBrush6}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush6}"
                                 BorderThickness="0 0 0 1"
                                 Visibility="{TemplateBinding Property=HelpLabelVisibility}" />
                         <Grid x:Name="helpSection"
@@ -188,12 +188,12 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="ScreenTipStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ScreenTip"
            TargetType="{x:Type Fluent:ScreenTip}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.BorderBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource ScreenTipControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScreenTip}" />
         <Setter Property="Width" Value="205" />
     </Style>
 </ResourceDictionary>

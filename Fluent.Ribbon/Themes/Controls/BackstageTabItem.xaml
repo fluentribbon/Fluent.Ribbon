@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <ControlTemplate x:Key="BackstageTabItemControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageTabItem"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
         <Grid x:Name="rootGrid"
               Background="Transparent">
@@ -58,16 +58,16 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="BackstageTabItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.BackstageTabItem"
            TargetType="{x:Type Fluent:BackstageTabItem}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
         <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="Fluent:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource BackstageTabItemControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabItem}" />
     </Style>
 </ResourceDictionary>

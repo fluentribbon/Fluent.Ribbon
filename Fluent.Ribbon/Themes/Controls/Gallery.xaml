@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="GalleryDropDownButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.GalleryDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -16,7 +16,7 @@
                                                  Margin="6 -2 0 0"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
-                                                 Foreground="{DynamicResource WhiteBrush}"
+                                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                                  HasGlyph="True"
                                                  HasTwoLines="False"
                                                  Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -91,16 +91,16 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="GalleryControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
                        TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
@@ -121,14 +121,14 @@
                                            Height="Auto"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
-                                           Style="{DynamicResource GalleryDropDownButtonStyle}" />
+                                           Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
                               Grid.Row="1"
                               Grid.RowSpan="1"
                               Margin="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="{DynamicResource WhiteBrush}"
+                    <Fluent:GalleryPanel Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
@@ -150,13 +150,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="GalleryStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.Gallery"
            TargetType="{x:Type Fluent:Gallery}">
         <Setter Property="BorderThickness" Value="0 0 0 1" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template" Value="{DynamicResource GalleryControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Gallery}" />
         <Style.Triggers>
             <Trigger Property="IsLastItem" Value="True">
                 <Setter Property="BorderThickness" Value="0" />

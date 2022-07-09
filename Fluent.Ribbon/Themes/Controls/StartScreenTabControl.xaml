@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <ControlTemplate x:Key="StartScreenTabControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.StartScreenTab"
                      TargetType="{x:Type Fluent:StartScreenTabControl}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
                        TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}" />
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                 <Style x:Key="{x:Type Fluent:Button}"
                        TargetType="{x:Type Fluent:Button}"
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
@@ -47,9 +47,9 @@
                   Grid.Column="1"
                   Height="Auto"
                   Margin="{TemplateBinding SelectedContentMargin}"
-                  Background="{DynamicResource WhiteBrush}">
+                  Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
                 <Border Padding="33 16"
-                        Background="{DynamicResource WhiteBrush}">
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
                     <ContentPresenter x:Name="PART_SelectedContentHost"
                                       Height="Auto"
                                       HorizontalAlignment="Stretch"
@@ -60,11 +60,11 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="StartScreenTabControlStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.StartScreenTabControl"
            TargetType="{x:Type Fluent:StartScreenTabControl}"
            BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource StartScreenTabControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.StartScreenTab}" />
     </Style>
 </ResourceDictionary>

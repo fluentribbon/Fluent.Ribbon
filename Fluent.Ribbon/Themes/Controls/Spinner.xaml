@@ -7,7 +7,7 @@
                     mc:Ignorable="d">
 
     <!-- Button in Spinner Control Style -->
-    <ControlTemplate x:Key="SpinnerButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SpinnerButton"
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
                 Height="Auto"
@@ -40,10 +40,10 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="SpinnerButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.SpinnerButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource SpinnerButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SpinnerButton}" />
     </Style>
 
     <!-- Spinner Style -->
@@ -118,7 +118,7 @@
                           Margin="0 -1 0 -1"
                           HorizontalAlignment="Left"
                           Data="M0,0L0,1"
-                          Fill="{DynamicResource BlackBrush}"
+                          Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                           Stretch="Fill"
                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
                           StrokeThickness="1"
@@ -132,7 +132,7 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Bottom"
                           Data="M0,0L1,0"
-                          Fill="{DynamicResource BlackBrush}"
+                          Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                           Stretch="Fill"
                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
                           StrokeThickness="1"
@@ -143,33 +143,33 @@
                                   Grid.Column="1"
                                   HorizontalAlignment="Stretch"
                                   RenderTransformOrigin="0,0.5"
-                                  Style="{DynamicResource SpinnerButtonStyle}">
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
                         <Path Width="5"
                               Height="3"
                               Margin="1 2 0 1"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               Data="M0,0L1,-1 2,0"
-                              Fill="{DynamicResource BlackBrush}"
+                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               RenderOptions.EdgeMode="Aliased"
                               Stretch="Fill"
-                              Stroke="{DynamicResource BlackBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               StrokeThickness="0" />
                     </RepeatButton>
                     <RepeatButton x:Name="PART_ButtonDown"
                                   Grid.Row="1"
                                   Grid.Column="1"
-                                  Style="{DynamicResource SpinnerButtonStyle}">
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
                         <Path Width="5"
                               Height="3"
                               Margin="1 -1 0 0"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               Data="M0,0L1,1 2,0"
-                              Fill="{DynamicResource BlackBrush}"
+                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               RenderOptions.EdgeMode="Aliased"
                               Stretch="Fill"
-                              Stroke="{DynamicResource BlackBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               StrokeThickness="0" />
                     </RepeatButton>
                 </Grid>
@@ -285,7 +285,7 @@
                               Margin="0 -1"
                               HorizontalAlignment="Left"
                               Data="M0,0L0,1"
-                              Fill="{DynamicResource BlackBrush}"
+                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               Stretch="Fill"
                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
                               StrokeThickness="1"
@@ -299,7 +299,7 @@
                               HorizontalAlignment="Left"
                               VerticalAlignment="Bottom"
                               Data="M0,0L1,0"
-                              Fill="{DynamicResource BlackBrush}"
+                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               Stretch="Fill"
                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
                               StrokeThickness="1"
@@ -310,33 +310,33 @@
                                       Grid.Column="1"
                                       HorizontalAlignment="Stretch"
                                       RenderTransformOrigin="0,0.5"
-                                      Style="{DynamicResource SpinnerButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
                             <Path Width="5"
                                   Height="3"
                                   Margin="1 2 0 1"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,-1 2,0"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   RenderOptions.EdgeMode="Aliased"
                                   Stretch="Fill"
-                                  Stroke="{DynamicResource BlackBrush}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="0" />
                         </RepeatButton>
                         <RepeatButton x:Name="PART_ButtonDown"
                                       Grid.Row="1"
                                       Grid.Column="1"
-                                      Style="{DynamicResource SpinnerButtonStyle}">
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
                             <Path Width="5"
                                   Height="3"
                                   Margin="1 -1 0 0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
                                   Data="M0,0L1,1 2,0"
-                                  Fill="{DynamicResource BlackBrush}"
+                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   RenderOptions.EdgeMode="Aliased"
                                   Stretch="Fill"
-                                  Stroke="{DynamicResource BlackBrush}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="0" />
                         </RepeatButton>
                     </Grid>
@@ -382,10 +382,10 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="SpinnerStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.Spinner"
            TargetType="{x:Type Fluent:Spinner}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
         <Setter Property="HeaderTemplate">
