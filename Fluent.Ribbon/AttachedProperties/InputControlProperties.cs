@@ -2,6 +2,7 @@
 namespace Fluent;
 
 using System.Windows;
+using Fluent.Internal.KnownBoxes;
 using JetBrains.Annotations;
 
 /// <summary>
@@ -11,7 +12,7 @@ using JetBrains.Annotations;
 public class InputControlProperties : DependencyObject
 {
     public static readonly DependencyProperty InputWidthProperty = DependencyProperty.RegisterAttached(
-        "InputWidth", typeof(double), typeof(InputControlProperties), new PropertyMetadata(double.NaN));
+        "InputWidth", typeof(double), typeof(InputControlProperties), new PropertyMetadata(DoubleBoxes.NaN));
 
     public static void SetInputWidth(DependencyObject element, double value)
     {
@@ -24,7 +25,7 @@ public class InputControlProperties : DependencyObject
     }
 
     public static readonly DependencyProperty InputMinWidthProperty = DependencyProperty.RegisterAttached(
-        "InputMinWidth", typeof(double), typeof(InputControlProperties), new PropertyMetadata(double.NaN));
+        "InputMinWidth", typeof(double), typeof(InputControlProperties), new PropertyMetadata(DoubleBoxes.Zero));
 
     public static void SetInputMinWidth(DependencyObject element, double value)
     {
