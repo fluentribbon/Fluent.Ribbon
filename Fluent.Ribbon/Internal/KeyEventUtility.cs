@@ -2,7 +2,6 @@
 
 using System.Windows.Input;
 using Windows.Win32;
-using Windows.Win32.Foundation;
 
 internal static class KeyEventUtility
 {

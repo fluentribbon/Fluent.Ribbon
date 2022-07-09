@@ -31,9 +31,7 @@ internal class FocusWrapper
 
         if (this.handle != IntPtr.Zero)
         {
-#pragma warning disable 618
             PInvoke.SetFocus(new HWND(this.handle));
-#pragma warning restore 618
         }
     }
 
@@ -44,9 +42,7 @@ internal class FocusWrapper
             return new FocusWrapper(Keyboard.FocusedElement);
         }
 
-#pragma warning disable 618
         var handle = PInvoke.GetFocus();
-#pragma warning restore 618
 
         if (handle != IntPtr.Zero)
         {

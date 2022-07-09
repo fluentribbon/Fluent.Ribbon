@@ -125,7 +125,6 @@ public sealed class IconConverter : ObjectToImageConverter
 
         try
         {
-#pragma warning disable 618
             var iconPtr = IntPtr.Zero;
 
             if (hwnd != IntPtr.Zero)
@@ -149,7 +148,6 @@ public sealed class IconConverter : ObjectToImageConverter
                 var bitmapFrame = BitmapFrame.Create(Imaging.CreateBitmapSourceFromHIcon(iconPtr, Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight((int)desiredSize.Width, (int)desiredSize.Height)));
                 return bitmapFrame;
             }
-#pragma warning restore 618
         }
         catch
         {
