@@ -1,42 +1,41 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace Fluent
-{
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Input;
+namespace Fluent;
 
-    /// <summary>
-    /// Represents a <see cref="ScrollViewer" /> specific to <see cref="RibbonGroupsContainer" />.
-    /// </summary>
-    public class RibbonGroupsContainerScrollViewer : ScrollViewer
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+
+/// <summary>
+/// Represents a <see cref="ScrollViewer" /> specific to <see cref="RibbonGroupsContainer" />.
+/// </summary>
+public class RibbonGroupsContainerScrollViewer : ScrollViewer
+{
+    static RibbonGroupsContainerScrollViewer()
     {
-        static RibbonGroupsContainerScrollViewer()
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(typeof(RibbonGroupsContainerScrollViewer)));
+    }
+
+    /// <inheritdoc />
+    protected override void OnMouseWheel(MouseWheelEventArgs e)
+    {
+        if (e.Handled)
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(typeof(RibbonGroupsContainerScrollViewer)));
+            return;
         }
 
-        /// <inheritdoc />
-        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        if (this.ScrollInfo != null)
         {
-            if (e.Handled)
+            if (e.Delta < 0)
             {
-                return;
+                this.LineRight();
+            }
+            else
+            {
+                this.LineLeft();
             }
 
-            if (this.ScrollInfo != null)
-            {
-                if (e.Delta < 0)
-                {
-                    this.LineRight();
-                }
-                else
-                {
-                    this.LineLeft();
-                }
-
-                e.Handled = true;
-            }
+            e.Handled = true;
         }
     }
 }

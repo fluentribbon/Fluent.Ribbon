@@ -1,30 +1,29 @@
-﻿namespace Fluent.Converters
+﻿namespace Fluent.Converters;
+
+using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+
+/// <summary>
+/// Extracts right content presenter of application menu converter
+/// </summary>
+public sealed class ApplicationMenuRightScrollViewerExtractorConverter : IValueConverter
 {
-    using System;
-    using System.Globalization;
-    using System.Windows;
-    using System.Windows.Data;
-
-    /// <summary>
-    /// Extracts right content presenter of application menu converter
-    /// </summary>
-    public sealed class ApplicationMenuRightScrollViewerExtractorConverter : IValueConverter
+    /// <inheritdoc />
+    public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        /// <inheritdoc />
-        public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is ApplicationMenu menu)
         {
-            if (value is ApplicationMenu menu)
-            {
-                return menu.Template.FindName("PART_ScrollViewer", menu) as UIElement;
-            }
-
-            return value;
+            return menu.Template.FindName("PART_ScrollViewer", menu) as UIElement;
         }
 
-        /// <inheritdoc />
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value;
-        }
+        return value;
+    }
+
+    /// <inheritdoc />
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return value;
     }
 }

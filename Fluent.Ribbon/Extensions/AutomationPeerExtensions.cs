@@ -1,26 +1,25 @@
-﻿namespace Fluent.Extensions
+﻿namespace Fluent.Extensions;
+
+using System.Reflection;
+using System.Windows;
+using System.Windows.Automation.Peers;
+
+/// <summary>
+/// Extension methods for <see cref="AutomationPeer"/>.
+/// </summary>
+internal static class AutomationPeerExtensions
 {
-    using System.Reflection;
-    using System.Windows;
-    using System.Windows.Automation.Peers;
+    private static readonly MethodInfo? getWrapperPeerMethodInfo = typeof(ItemAutomationPeer).GetMethod("GetWrapperPeer", BindingFlags.Instance | BindingFlags.NonPublic);
 
-    /// <summary>
-    /// Extension methods for <see cref="AutomationPeer"/>.
-    /// </summary>
-    internal static class AutomationPeerExtensions
+    private static readonly MethodInfo? getWrapperMethodInfo = typeof(ItemAutomationPeer).GetMethod("GetWrapper", BindingFlags.Instance | BindingFlags.NonPublic);
+
+    internal static AutomationPeer? GetWrapperPeer(this ItemAutomationPeer automationPeer)
     {
-        private static readonly MethodInfo? getWrapperPeerMethodInfo = typeof(ItemAutomationPeer).GetMethod("GetWrapperPeer", BindingFlags.Instance | BindingFlags.NonPublic);
+        return (AutomationPeer?)getWrapperPeerMethodInfo?.Invoke(automationPeer, null);
+    }
 
-        private static readonly MethodInfo? getWrapperMethodInfo = typeof(ItemAutomationPeer).GetMethod("GetWrapper", BindingFlags.Instance | BindingFlags.NonPublic);
-
-        internal static AutomationPeer? GetWrapperPeer(this ItemAutomationPeer automationPeer)
-        {
-            return (AutomationPeer?)getWrapperPeerMethodInfo?.Invoke(automationPeer, null);
-        }
-
-        internal static UIElement? GetWrapper(this ItemAutomationPeer automationPeer)
-        {
-            return (UIElement?)getWrapperMethodInfo?.Invoke(automationPeer, null);
-        }
+    internal static UIElement? GetWrapper(this ItemAutomationPeer automationPeer)
+    {
+        return (UIElement?)getWrapperMethodInfo?.Invoke(automationPeer, null);
     }
 }

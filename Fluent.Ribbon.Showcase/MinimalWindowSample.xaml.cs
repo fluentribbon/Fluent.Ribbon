@@ -1,10 +1,9 @@
-namespace FluentTest
+namespace FluentTest;
+
+public partial class MinimalWindowSample
 {
-    public partial class MinimalWindowSample
+    public MinimalWindowSample()
     {
-        public MinimalWindowSample()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }

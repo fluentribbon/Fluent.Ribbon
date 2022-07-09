@@ -1,29 +1,28 @@
-﻿namespace Fluent.TemplateSelectors
+﻿namespace Fluent.TemplateSelectors;
+
+using System.Windows;
+using System.Windows.Controls;
+
+/// <summary>
+/// <see cref="DataTemplateSelector"/> for the header of <see cref="RibbonGroupBox"/>.
+/// </summary>
+public class RibbonGroupBoxHeaderTemplateSelector : DataTemplateSelector
 {
-    using System.Windows;
-    using System.Windows.Controls;
-
     /// <summary>
-    /// <see cref="DataTemplateSelector"/> for the header of <see cref="RibbonGroupBox"/>.
+    /// Gets a static instance of <see cref="RibbonGroupBoxHeaderTemplateSelector"/>.
     /// </summary>
-    public class RibbonGroupBoxHeaderTemplateSelector : DataTemplateSelector
+    public static readonly RibbonGroupBoxHeaderTemplateSelector Instance = new();
+
+    /// <inheritdoc />
+    public override DataTemplate SelectTemplate(object item, DependencyObject container)
     {
-        /// <summary>
-        /// Gets a static instance of <see cref="RibbonGroupBoxHeaderTemplateSelector"/>.
-        /// </summary>
-        public static readonly RibbonGroupBoxHeaderTemplateSelector Instance = new();
+        var element = (FrameworkElement)container;
 
-        /// <inheritdoc />
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        if (RibbonGroupBox.GetIsCollapsedHeaderContentPresenter(element))
         {
-            var element = (FrameworkElement)container;
-
-            if (RibbonGroupBox.GetIsCollapsedHeaderContentPresenter(element))
-            {
-                return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.TwoLineHeader");
-            }
-
-            return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.OneLineHeader");
+            return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.TwoLineHeader");
         }
+
+        return (DataTemplate)element.FindResource("Fluent.Ribbon.DataTemplates.RibbonGroupBox.OneLineHeader");
     }
 }

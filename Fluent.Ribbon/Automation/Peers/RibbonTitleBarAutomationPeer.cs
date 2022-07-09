@@ -1,50 +1,49 @@
-﻿namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers;
+
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+
+/// <summary>
+/// Automation peer for <see cref="RibbonTitleBar"/>.
+/// </summary>
+public class RibbonTitleBarAutomationPeer : FrameworkElementAutomationPeer
 {
-    using System.Windows.Automation.Peers;
-    using System.Windows.Controls;
-
     /// <summary>
-    /// Automation peer for <see cref="RibbonTitleBar"/>.
+    /// Creates a new instance.
     /// </summary>
-    public class RibbonTitleBarAutomationPeer : FrameworkElementAutomationPeer
+    public RibbonTitleBarAutomationPeer(RibbonTitleBar owner)
+        : base(owner)
     {
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        public RibbonTitleBarAutomationPeer(RibbonTitleBar owner)
-            : base(owner)
+    }
+
+    /// <inheritdoc />
+    protected override AutomationControlType GetAutomationControlTypeCore()
+    {
+        return AutomationControlType.Header;
+    }
+
+    /// <inheritdoc />
+    protected override bool IsContentElementCore()
+    {
+        return false;
+    }
+
+    /// <inheritdoc />
+    protected override string GetClassNameCore()
+    {
+        return this.Owner.GetType().Name;
+    }
+
+    /// <inheritdoc />
+    protected override string? GetNameCore()
+    {
+        var contentPresenter = this.Owner as HeaderedContentControl;
+
+        if (contentPresenter?.Header is not null)
         {
+            return contentPresenter.Header.ToString();
         }
 
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Header;
-        }
-
-        /// <inheritdoc />
-        protected override bool IsContentElementCore()
-        {
-            return false;
-        }
-
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return this.Owner.GetType().Name;
-        }
-
-        /// <inheritdoc />
-        protected override string? GetNameCore()
-        {
-            var contentPresenter = this.Owner as HeaderedContentControl;
-
-            if (contentPresenter?.Header is not null)
-            {
-                return contentPresenter.Header.ToString();
-            }
-
-            return base.GetNameCore();
-        }
+        return base.GetNameCore();
     }
 }

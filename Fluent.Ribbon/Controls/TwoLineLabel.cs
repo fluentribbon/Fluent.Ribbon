@@ -1,222 +1,221 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Automation.Peers;
+using System.Windows.Controls;
+using System.Windows.Markup;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+/// Represents specific label to use in particular ribbon controls
+/// </summary>
+[DefaultProperty(nameof(Text))]
+[ContentProperty(nameof(Text))]
+[TemplatePart(Name = "PART_TextRun", Type = typeof(AccessText))]
+[TemplatePart(Name = "PART_TextRun2", Type = typeof(AccessText))]
+public class TwoLineLabel : Control
 {
-    using System;
-    using System.ComponentModel;
-    using System.Windows;
-    using System.Windows.Automation.Peers;
-    using System.Windows.Controls;
-    using System.Windows.Markup;
-    using Fluent.Internal.KnownBoxes;
+    #region Fields
 
     /// <summary>
-    /// Represents specific label to use in particular ribbon controls
+    /// Run with text
     /// </summary>
-    [DefaultProperty(nameof(Text))]
-    [ContentProperty(nameof(Text))]
-    [TemplatePart(Name = "PART_TextRun", Type = typeof(AccessText))]
-    [TemplatePart(Name = "PART_TextRun2", Type = typeof(AccessText))]
-    public class TwoLineLabel : Control
+    private AccessText? textRun;
+
+    private AccessText? textRun2;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Gets or sets whether label must have two lines
+    /// </summary>
+    public bool HasTwoLines
     {
-        #region Fields
+        get { return (bool)this.GetValue(HasTwoLinesProperty); }
+        set { this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value)); }
+    }
 
-        /// <summary>
-        /// Run with text
-        /// </summary>
-        private AccessText? textRun;
+    /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
+    public static readonly DependencyProperty HasTwoLinesProperty =
+        DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.TrueBox, OnHasTwoLinesChanged));
 
-        private AccessText? textRun2;
+    /// <summary>
+    /// Handles HasTwoLines property changes
+    /// </summary>
+    /// <param name="d">Object</param>
+    /// <param name="e">The event data</param>
+    private static void OnHasTwoLinesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((TwoLineLabel)d).UpdateTextRun();
+    }
 
-        #endregion
+    /// <summary>
+    /// Gets or sets whether label has glyph
+    /// </summary>
+    public bool HasGlyph
+    {
+        get { return (bool)this.GetValue(HasGlyphProperty); }
+        set { this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value)); }
+    }
 
-        #region Properties
+    /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>
+    public static readonly DependencyProperty HasGlyphProperty =
+        DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.FalseBox, OnHasGlyphChanged));
 
-        /// <summary>
-        /// Gets or sets whether label must have two lines
-        /// </summary>
-        public bool HasTwoLines
-        {
-            get { return (bool)this.GetValue(HasTwoLinesProperty); }
-            set { this.SetValue(HasTwoLinesProperty, BooleanBoxes.Box(value)); }
-        }
+    /// <summary>
+    /// Handles HasGlyph property changes
+    /// </summary>
+    /// <param name="d">Object</param>
+    /// <param name="e">The event data</param>
+    private static void OnHasGlyphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((TwoLineLabel)d).UpdateTextRun();
+    }
 
-        /// <summary>Identifies the <see cref="HasTwoLines"/> dependency property.</summary>
-        public static readonly DependencyProperty HasTwoLinesProperty =
-            DependencyProperty.Register(nameof(HasTwoLines), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.TrueBox, OnHasTwoLinesChanged));
-
-        /// <summary>
-        /// Handles HasTwoLines property changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnHasTwoLinesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((TwoLineLabel)d).UpdateTextRun();
-        }
-
-        /// <summary>
-        /// Gets or sets whether label has glyph
-        /// </summary>
-        public bool HasGlyph
-        {
-            get { return (bool)this.GetValue(HasGlyphProperty); }
-            set { this.SetValue(HasGlyphProperty, BooleanBoxes.Box(value)); }
-        }
-
-        /// <summary>Identifies the <see cref="HasGlyph"/> dependency property.</summary>
-        public static readonly DependencyProperty HasGlyphProperty =
-            DependencyProperty.Register(nameof(HasGlyph), typeof(bool), typeof(TwoLineLabel), new PropertyMetadata(BooleanBoxes.FalseBox, OnHasGlyphChanged));
-
-        /// <summary>
-        /// Handles HasGlyph property changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnHasGlyphChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((TwoLineLabel)d).UpdateTextRun();
-        }
-
-        /// <summary>
-        /// Gets or sets the text
-        /// </summary>
+    /// <summary>
+    /// Gets or sets the text
+    /// </summary>
 #pragma warning disable WPF0012
-        public string? Text
+    public string? Text
 #pragma warning restore WPF0012
-        {
-            get { return (string?)this.GetValue(TextProperty); }
-            set { this.SetValue(TextProperty, value); }
-        }
+    {
+        get { return (string?)this.GetValue(TextProperty); }
+        set { this.SetValue(TextProperty, value); }
+    }
 
-        /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
-        public static readonly DependencyProperty TextProperty =
+    /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
+    public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));
+        DependencyProperty.Register(nameof(Text), typeof(string), typeof(TwoLineLabel), new PropertyMetadata(StringBoxes.Empty, OnTextChanged));
 #pragma warning restore WPF0010 // Default value type must match registered type.
 
-        #endregion
+    #endregion
 
-        #region Initialize
+    #region Initialize
 
-        /// <summary>
-        /// Static constructor
-        /// </summary>
-        static TwoLineLabel()
+    /// <summary>
+    /// Static constructor
+    /// </summary>
+    static TwoLineLabel()
+    {
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
+
+        FocusableProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+    }
+
+    #endregion
+
+    #region Overrides
+
+    /// <inheritdoc />
+    public override void OnApplyTemplate()
+    {
+        this.textRun = this.GetTemplateChild("PART_TextRun") as AccessText;
+        this.textRun2 = this.GetTemplateChild("PART_TextRun2") as AccessText;
+
+        this.UpdateTextRun();
+    }
+
+    /// <inheritdoc />
+    protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.TwoLineLabelAutomationPeer(this);
+
+    #endregion
+
+    #region Event handling
+
+    /// <summary>
+    /// Handles text property changes
+    /// </summary>
+    /// <param name="d">Object</param>
+    /// <param name="e">The event data</param>
+    private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var label = (TwoLineLabel)d;
+        label.UpdateTextRun();
+    }
+
+    #endregion
+
+    #region Private methods
+
+    /// <summary>
+    /// Updates text runs and adds newline if HasTwoLines == true
+    /// </summary>
+    private void UpdateTextRun()
+    {
+        if (this.textRun is null
+            || this.textRun2 is null)
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(typeof(TwoLineLabel)));
-
-            FocusableProperty.OverrideMetadata(typeof(TwoLineLabel), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+            return;
         }
 
-        #endregion
+        var text = this.Text?.Trim();
 
-        #region Overrides
-
-        /// <inheritdoc />
-        public override void OnApplyTemplate()
+        if (this.HasTwoLines == false
+            || string.IsNullOrEmpty(text))
         {
-            this.textRun = this.GetTemplateChild("PART_TextRun") as AccessText;
-            this.textRun2 = this.GetTemplateChild("PART_TextRun2") as AccessText;
-
-            this.UpdateTextRun();
+            this.textRun.Text = text;
+            this.textRun2.Text = string.Empty;
+            return;
         }
 
-        /// <inheritdoc />
-        protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.TwoLineLabelAutomationPeer(this);
+        // Find soft hyphen, break at its position and display a normal hyphen.
+#pragma warning disable CA1307 // Specify StringComparison for clarity
+        var hyphenIndex = text!.IndexOf((char)173);
+#pragma warning restore CA1307 // Specify StringComparison for clarity
 
-        #endregion
-
-        #region Event handling
-
-        /// <summary>
-        /// Handles text property changes
-        /// </summary>
-        /// <param name="d">Object</param>
-        /// <param name="e">The event data</param>
-        private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        if (hyphenIndex >= 0)
         {
-            var label = (TwoLineLabel)d;
-            label.UpdateTextRun();
+            this.textRun.Text = text.Substring(0, hyphenIndex) + "-";
+            this.textRun2.Text = text.Substring(hyphenIndex) + " ";
         }
-
-        #endregion
-
-        #region Private methods
-
-        /// <summary>
-        /// Updates text runs and adds newline if HasTwoLines == true
-        /// </summary>
-        private void UpdateTextRun()
+        else
         {
-            if (this.textRun is null
-                || this.textRun2 is null)
-            {
-                return;
-            }
+            var centerIndex = text.Length / 2;
 
-            var text = this.Text?.Trim();
+            // Find spaces nearest to center from left and right
+            var leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex, StringComparison.CurrentCulture);
+            var rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
 
-            if (this.HasTwoLines == false
-                || string.IsNullOrEmpty(text))
+            if (leftSpaceIndex == -1
+                && rightSpaceIndex == -1)
             {
                 this.textRun.Text = text;
                 this.textRun2.Text = string.Empty;
-                return;
             }
-
-            // Find soft hyphen, break at its position and display a normal hyphen.
-#pragma warning disable CA1307 // Specify StringComparison for clarity
-            var hyphenIndex = text!.IndexOf((char)173);
-#pragma warning restore CA1307 // Specify StringComparison for clarity
-
-            if (hyphenIndex >= 0)
+            else if (leftSpaceIndex == -1)
             {
-                this.textRun.Text = text.Substring(0, hyphenIndex) + "-";
-                this.textRun2.Text = text.Substring(hyphenIndex) + " ";
+                // Finds only space from right. New line adds on it
+                this.textRun.Text = text.Substring(0, rightSpaceIndex);
+                this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
+            }
+            else if (rightSpaceIndex == -1)
+            {
+                // Finds only space from left. New line adds on it
+                this.textRun.Text = text.Substring(0, leftSpaceIndex);
+                this.textRun2.Text = text.Substring(leftSpaceIndex) + " ";
             }
             else
             {
-                var centerIndex = text.Length / 2;
-
-                // Find spaces nearest to center from left and right
-                var leftSpaceIndex = text.LastIndexOf(" ", centerIndex, centerIndex, StringComparison.CurrentCulture);
-                var rightSpaceIndex = text.IndexOf(" ", centerIndex, StringComparison.CurrentCulture);
-
-                if (leftSpaceIndex == -1
-                    && rightSpaceIndex == -1)
+                // Find nearest to center space and add new line on it
+                if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
                 {
-                    this.textRun.Text = text;
-                    this.textRun2.Text = string.Empty;
-                }
-                else if (leftSpaceIndex == -1)
-                {
-                    // Finds only space from right. New line adds on it
-                    this.textRun.Text = text.Substring(0, rightSpaceIndex);
-                    this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
-                }
-                else if (rightSpaceIndex == -1)
-                {
-                    // Finds only space from left. New line adds on it
                     this.textRun.Text = text.Substring(0, leftSpaceIndex);
                     this.textRun2.Text = text.Substring(leftSpaceIndex) + " ";
                 }
                 else
                 {
-                    // Find nearest to center space and add new line on it
-                    if (Math.Abs(centerIndex - leftSpaceIndex) < Math.Abs(centerIndex - rightSpaceIndex))
-                    {
-                        this.textRun.Text = text.Substring(0, leftSpaceIndex);
-                        this.textRun2.Text = text.Substring(leftSpaceIndex) + " ";
-                    }
-                    else
-                    {
-                        this.textRun.Text = text.Substring(0, rightSpaceIndex);
-                        this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
-                    }
+                    this.textRun.Text = text.Substring(0, rightSpaceIndex);
+                    this.textRun2.Text = text.Substring(rightSpaceIndex) + " ";
                 }
             }
         }
-
-        #endregion
     }
+
+    #endregion
 }

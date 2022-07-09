@@ -1,38 +1,37 @@
-﻿namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers;
+
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
+
+/// <summary>
+///     Automation peer for <see cref="BackstageTabControl" />.
+/// </summary>
+public class RibbonBackstageTabControlAutomationPeer : SelectorAutomationPeer, ISelectionProvider
 {
-    using System.Windows.Automation.Peers;
-    using System.Windows.Automation.Provider;
-
     /// <summary>
-    ///     Automation peer for <see cref="BackstageTabControl" />.
+    ///     Creates a new instance.
     /// </summary>
-    public class RibbonBackstageTabControlAutomationPeer : SelectorAutomationPeer, ISelectionProvider
+    public RibbonBackstageTabControlAutomationPeer(BackstageTabControl owner)
+        : base(owner)
     {
-        /// <summary>
-        ///     Creates a new instance.
-        /// </summary>
-        public RibbonBackstageTabControlAutomationPeer(BackstageTabControl owner)
-            : base(owner)
-        {
-            this.OwningBackstageTabControl = owner;
-        }
-
-        private BackstageTabControl OwningBackstageTabControl { get; }
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore()
-        {
-            return AutomationControlType.Tab;
-        }
-
-        /// <inheritdoc />
-        protected override ItemAutomationPeer CreateItemAutomationPeer(object item)
-        {
-            return new RibbonControlDataAutomationPeer(item, this);
-        }
-
-        bool ISelectionProvider.IsSelectionRequired => true;
-
-        bool ISelectionProvider.CanSelectMultiple => false;
+        this.OwningBackstageTabControl = owner;
     }
+
+    private BackstageTabControl OwningBackstageTabControl { get; }
+
+    /// <inheritdoc />
+    protected override AutomationControlType GetAutomationControlTypeCore()
+    {
+        return AutomationControlType.Tab;
+    }
+
+    /// <inheritdoc />
+    protected override ItemAutomationPeer CreateItemAutomationPeer(object item)
+    {
+        return new RibbonControlDataAutomationPeer(item, this);
+    }
+
+    bool ISelectionProvider.IsSelectionRequired => true;
+
+    bool ISelectionProvider.CanSelectMultiple => false;
 }

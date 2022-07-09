@@ -1,31 +1,30 @@
-﻿namespace Fluent.Helpers
+﻿namespace Fluent.Helpers;
+
+using System;
+using System.Windows;
+
+/// <summary>
+/// Helper functions for classes implementing <see cref="ILogicalChildSupport"/>.
+/// </summary>
+public static class LogicalChildSupportHelper
 {
-    using System;
-    using System.Windows;
-
     /// <summary>
-    /// Helper functions for classes implementing <see cref="ILogicalChildSupport"/>.
+    /// Called when <see cref="RibbonControl.IconProperty"/> changes.
     /// </summary>
-    public static class LogicalChildSupportHelper
+    public static void OnLogicalChildPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        /// <summary>
-        /// Called when <see cref="RibbonControl.IconProperty"/> changes.
-        /// </summary>
-        public static void OnLogicalChildPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        // ReSharper disable once SuspiciousTypeConversion.Global
+        var logicalChildSupport = d as ILogicalChildSupport ?? throw new ArgumentException("Argument must be of type ILogicalChildSupport.", nameof(d));
+
+        if (e.OldValue is DependencyObject oldValue)
         {
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            var logicalChildSupport = d as ILogicalChildSupport ?? throw new ArgumentException("Argument must be of type ILogicalChildSupport.", nameof(d));
+            logicalChildSupport.RemoveLogicalChild(oldValue);
+        }
 
-            if (e.OldValue is DependencyObject oldValue)
-            {
-                logicalChildSupport.RemoveLogicalChild(oldValue);
-            }
-
-            if (e.NewValue is DependencyObject newValue
-                && LogicalTreeHelper.GetParent(newValue) is null)
-            {
-                logicalChildSupport.AddLogicalChild(newValue);
-            }
+        if (e.NewValue is DependencyObject newValue
+            && LogicalTreeHelper.GetParent(newValue) is null)
+        {
+            logicalChildSupport.AddLogicalChild(newValue);
         }
     }
 }

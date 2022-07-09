@@ -1,41 +1,40 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System;
+
+/// <summary>
+/// Represents the result of <see cref="IKeyTipedControl.OnKeyTipPressed"/>.
+/// </summary>
+public class KeyTipPressedResult : EventArgs
 {
-    using System;
+    /// <summary>
+    /// An empty default instance.
+    /// </summary>
+    public static new readonly KeyTipPressedResult Empty = new();
+
+    private KeyTipPressedResult()
+    {
+    }
 
     /// <summary>
-    /// Represents the result of <see cref="IKeyTipedControl.OnKeyTipPressed"/>.
+    /// Creates a new instance.
     /// </summary>
-    public class KeyTipPressedResult : EventArgs
+    /// <param name="pressedElementAquiredFocus">Defines if the pressed element aquired focus or not.</param>
+    /// <param name="pressedElementOpenedPopup">Defines if the pressed element opened a popup or not.</param>
+    public KeyTipPressedResult(bool pressedElementAquiredFocus, bool pressedElementOpenedPopup)
     {
-        /// <summary>
-        /// An empty default instance.
-        /// </summary>
-        public static new readonly KeyTipPressedResult Empty = new();
-
-        private KeyTipPressedResult()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="pressedElementAquiredFocus">Defines if the pressed element aquired focus or not.</param>
-        /// <param name="pressedElementOpenedPopup">Defines if the pressed element opened a popup or not.</param>
-        public KeyTipPressedResult(bool pressedElementAquiredFocus, bool pressedElementOpenedPopup)
-        {
-            this.PressedElementAquiredFocus = pressedElementAquiredFocus;
-            this.PressedElementOpenedPopup = pressedElementOpenedPopup;
-        }
-
-        /// <summary>
-        /// Defines if the pressed element aquired focus or not.
-        /// </summary>
-        public bool PressedElementAquiredFocus { get; }
-
-        /// <summary>
-        /// Defines if the pressed element opened a popup or not.
-        /// </summary>
-        public bool PressedElementOpenedPopup { get; }
+        this.PressedElementAquiredFocus = pressedElementAquiredFocus;
+        this.PressedElementOpenedPopup = pressedElementOpenedPopup;
     }
+
+    /// <summary>
+    /// Defines if the pressed element aquired focus or not.
+    /// </summary>
+    public bool PressedElementAquiredFocus { get; }
+
+    /// <summary>
+    /// Defines if the pressed element opened a popup or not.
+    /// </summary>
+    public bool PressedElementOpenedPopup { get; }
 }

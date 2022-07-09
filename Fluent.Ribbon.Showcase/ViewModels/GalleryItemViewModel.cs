@@ -1,46 +1,45 @@
-﻿namespace FluentTest.ViewModels
+﻿namespace FluentTest.ViewModels;
+
+public class GalleryItemViewModel : ViewModel
 {
-    public class GalleryItemViewModel : ViewModel
+    private string text;
+    private string group;
+
+    public GalleryItemViewModel(string group, string text)
     {
-        private string text;
-        private string group;
+        this.Group = group;
+        this.Text = text;
+    }
 
-        public GalleryItemViewModel(string group, string text)
+    public string Text
+    {
+        get { return this.text; }
+
+        set
         {
-            this.Group = group;
-            this.Text = text;
-        }
-
-        public string Text
-        {
-            get { return this.text; }
-
-            set
+            if (value == this.text)
             {
-                if (value == this.text)
-                {
-                    return;
-                }
-
-                this.text = value;
-                this.OnPropertyChanged();
+                return;
             }
+
+            this.text = value;
+            this.OnPropertyChanged();
         }
+    }
 
-        public string Group
+    public string Group
+    {
+        get { return this.group; }
+
+        set
         {
-            get { return this.group; }
-
-            set
+            if (value == this.group)
             {
-                if (value == this.group)
-                {
-                    return;
-                }
-
-                this.group = value;
-                this.OnPropertyChanged();
+                return;
             }
+
+            this.group = value;
+            this.OnPropertyChanged();
         }
     }
 }

@@ -1,45 +1,44 @@
-﻿namespace Fluent.Tests.Converters
+﻿namespace Fluent.Tests.Converters;
+
+using System;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Windows.Media;
+using Fluent.Converters;
+using NUnit.Framework;
+
+[TestFixture]
+public class ObjectToImageConverterTests
 {
-    using System;
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Markup;
-    using System.Windows.Media;
-    using Fluent.Converters;
-    using NUnit.Framework;
-
-    [TestFixture]
-    public class ObjectToImageConverterTests
+    [Test]
+    public void TestDynamicResource()
     {
-        [Test]
-        public void TestDynamicResource()
+        var fluentRibbonImagesApplicationmenuResourceKey = (object)"Fluent.Ribbon.Images.ApplicationMenu";
+
+        var expressionType = typeof(ResourceReferenceExpressionConverter).Assembly.GetType("System.Windows.ResourceReferenceExpression");
+
+        var expression = Activator.CreateInstance(expressionType, fluentRibbonImagesApplicationmenuResourceKey);
+
+        var convertedValue = StaticConverters.ObjectToImageConverter.Convert(new object[]
         {
-            var fluentRibbonImagesApplicationmenuResourceKey = (object)"Fluent.Ribbon.Images.ApplicationMenu";
+            expression, // value to convert
+            new ApplicationMenu() // target visual
+        }, null, null, null);
 
-            var expressionType = typeof(ResourceReferenceExpressionConverter).Assembly.GetType("System.Windows.ResourceReferenceExpression");
+        Assert.That(convertedValue, Is.Not.Null);
+        Assert.That(convertedValue, Is.InstanceOf<Image>());
 
-            var expression = Activator.CreateInstance(expressionType, fluentRibbonImagesApplicationmenuResourceKey);
+        var convertedImageValue = (Image)convertedValue;
+        Assert.That(convertedImageValue.Source, Is.InstanceOf<DrawingImage>());
 
-            var convertedValue = StaticConverters.ObjectToImageConverter.Convert(new object[]
-                                                                        {
-                                                                            expression, // value to convert
-                                                                            new ApplicationMenu() // target visual
-                                                                        }, null, null, null);
+        var drawingImage = (DrawingImage)convertedImageValue.Source;
+        Assert.That(drawingImage.Drawing, Is.InstanceOf<DrawingGroup>());
 
-            Assert.That(convertedValue, Is.Not.Null);
-            Assert.That(convertedValue, Is.InstanceOf<Image>());
+        var drawingGroup = (DrawingGroup)drawingImage.Drawing;
 
-            var convertedImageValue = (Image)convertedValue;
-            Assert.That(convertedImageValue.Source, Is.InstanceOf<DrawingImage>());
-
-            var drawingImage = (DrawingImage)convertedImageValue.Source;
-            Assert.That(drawingImage.Drawing, Is.InstanceOf<DrawingGroup>());
-
-            var drawingGroup = (DrawingGroup)drawingImage.Drawing;
-
-            Assert.That(drawingGroup.Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString()),
-                        Is.EquivalentTo(((DrawingGroup)((DrawingImage)Application.Current.FindResource(fluentRibbonImagesApplicationmenuResourceKey)).Drawing).Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString())));
-        }
+        Assert.That(drawingGroup.Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString()),
+            Is.EquivalentTo(((DrawingGroup)((DrawingImage)Application.Current.FindResource(fluentRibbonImagesApplicationmenuResourceKey)).Drawing).Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString())));
     }
 }

@@ -1,218 +1,217 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace Fluent
+namespace Fluent;
+
+using System;
+using System.Collections;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Input;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+///     Helper-Class for switching states in ToggleButton-Groups
+/// </summary>
+public static class ToggleButtonHelper
 {
-    using System;
-    using System.Collections;
-    using System.Reflection;
-    using System.Windows;
-    using System.Windows.Input;
-    using Fluent.Internal.KnownBoxes;
+    private static readonly MethodInfo? getVisualRootMethodInfo = typeof(KeyboardNavigation).GetMethod("GetVisualRoot", BindingFlags.NonPublic | BindingFlags.Static);
+
+    // Grouped buttons
+    [ThreadStatic]
+    private static Hashtable? groupNameToElements;
 
     /// <summary>
-    ///     Helper-Class for switching states in ToggleButton-Groups
+    ///     Handles changes to <see cref="IToggleButton.GroupName" />
     /// </summary>
-    public static class ToggleButtonHelper
+    public static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        private static readonly MethodInfo? getVisualRootMethodInfo = typeof(KeyboardNavigation).GetMethod("GetVisualRoot", BindingFlags.NonPublic | BindingFlags.Static);
+        var toggleButton = (IToggleButton)d;
+        var newValue = e.NewValue as string;
+        var oldValue = e.OldValue as string;
 
-        // Grouped buttons
-        [ThreadStatic]
-        private static Hashtable? groupNameToElements;
-
-        /// <summary>
-        ///     Handles changes to <see cref="IToggleButton.GroupName" />
-        /// </summary>
-        public static void OnGroupNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        if (newValue == oldValue)
         {
-            var toggleButton = (IToggleButton)d;
-            var newValue = e.NewValue as string;
-            var oldValue = e.OldValue as string;
-
-            if (newValue == oldValue)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(oldValue) == false)
-            {
-                Unregister(oldValue!, toggleButton);
-            }
-
-            if (string.IsNullOrEmpty(newValue))
-            {
-                return;
-            }
-
-            Register(newValue!, toggleButton);
+            return;
         }
 
-        private static void Register(string groupName, IToggleButton toggleButton)
+        if (string.IsNullOrEmpty(oldValue) == false)
         {
+            Unregister(oldValue!, toggleButton);
+        }
+
+        if (string.IsNullOrEmpty(newValue))
+        {
+            return;
+        }
+
+        Register(newValue!, toggleButton);
+    }
+
+    private static void Register(string groupName, IToggleButton toggleButton)
+    {
+        if (groupNameToElements is null)
+        {
+            groupNameToElements = new Hashtable(1);
+        }
+
+        var elements = (ArrayList?)groupNameToElements[groupName];
+        if (elements is null)
+        {
+            elements = new ArrayList(1);
+            groupNameToElements[groupName] = elements;
+        }
+        else
+        {
+            PurgeDead(elements, null);
+        }
+
+        elements.Add(new WeakReference(toggleButton));
+    }
+
+    private static void Unregister(string groupName, IToggleButton toggleButton)
+    {
+        if (groupNameToElements is null)
+        {
+            return;
+        }
+
+        var groupNameToElement = (ArrayList?)groupNameToElements[groupName];
+        if (groupNameToElement is not null)
+        {
+            PurgeDead(groupNameToElement, toggleButton);
+            if (groupNameToElement.Count == 0)
+            {
+                groupNameToElements.Remove(groupName);
+            }
+        }
+    }
+
+    private static void PurgeDead(ArrayList elements, object? elementToRemove)
+    {
+        var index = 0;
+        while (index < elements.Count)
+        {
+            var target = ((WeakReference?)elements[index])?.Target;
+            if (target is null
+                || target == elementToRemove)
+            {
+                elements.RemoveAt(index);
+            }
+            else
+            {
+                ++index;
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Updates the states of all buttons inside the group which <paramref name="toggleButton" /> belongs to.
+    /// </summary>
+    public static void UpdateButtonGroup(IToggleButton toggleButton)
+    {
+        var groupName = toggleButton.GroupName;
+
+        if (string.IsNullOrEmpty(groupName) == false)
+        {
+            var visualRoot = getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)toggleButton });
             if (groupNameToElements is null)
             {
                 groupNameToElements = new Hashtable(1);
             }
 
-            var elements = (ArrayList?)groupNameToElements[groupName];
-            if (elements is null)
-            {
-                elements = new ArrayList(1);
-                groupNameToElements[groupName] = elements;
-            }
-            else
-            {
-                PurgeDead(elements, null);
-            }
-
-            elements.Add(new WeakReference(toggleButton));
-        }
-
-        private static void Unregister(string groupName, IToggleButton toggleButton)
-        {
-            if (groupNameToElements is null)
-            {
-                return;
-            }
-
             var groupNameToElement = (ArrayList?)groupNameToElements[groupName];
-            if (groupNameToElement is not null)
-            {
-                PurgeDead(groupNameToElement, toggleButton);
-                if (groupNameToElement.Count == 0)
-                {
-                    groupNameToElements.Remove(groupName);
-                }
-            }
-        }
-
-        private static void PurgeDead(ArrayList elements, object? elementToRemove)
-        {
             var index = 0;
-            while (index < elements.Count)
+            while (index < groupNameToElement?.Count)
             {
-                var target = ((WeakReference?)elements[index])?.Target;
-                if (target is null
-                    || target == elementToRemove)
+                var target = ((WeakReference?)groupNameToElement![index])?.Target as IToggleButton;
+                if (target is null)
                 {
-                    elements.RemoveAt(index);
+                    groupNameToElement.RemoveAt(index);
                 }
                 else
                 {
+                    if (target != toggleButton)
+                    {
+                        var isCheckedValue = GetIsCheckedValue(target);
+
+                        if (isCheckedValue != 0
+                            && visualRoot == getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)target }))
+                        {
+                            UncheckToggleButton(target);
+                        }
+                    }
+
                     ++index;
                 }
             }
         }
 
-        /// <summary>
-        ///     Updates the states of all buttons inside the group which <paramref name="toggleButton" /> belongs to.
-        /// </summary>
-        public static void UpdateButtonGroup(IToggleButton toggleButton)
+        //else
+        //{
+        //    var parent = toggleButton.Parent;
+        //    if (parent is null)
+        //    {
+        //        return;
+        //    }
+
+        //    foreach (var child in LogicalTreeHelper.GetChildren(parent))
+        //    {
+        //        var childAsToggleButton = child as IToggleButton;
+
+        //        if (childAsToggleButton is not null
+        //            && childAsToggleButton != toggleButton
+        //            && string.IsNullOrEmpty(childAsToggleButton.GroupName))
+        //        {
+        //            var isCheckedValue = GetIsCheckedValue(childAsToggleButton);
+
+        //            if (isCheckedValue != 0)
+        //            {
+        //                UncheckToggleButton(childAsToggleButton);
+        //            }
+        //        }
+        //    }
+        //}
+    }
+
+    private static void UncheckToggleButton(IToggleButton toggleButton)
+    {
+        var dependencyObject = toggleButton as DependencyObject;
+
+        if (dependencyObject is null)
         {
-            var groupName = toggleButton.GroupName;
-
-            if (string.IsNullOrEmpty(groupName) == false)
-            {
-                var visualRoot = getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)toggleButton });
-                if (groupNameToElements is null)
-                {
-                    groupNameToElements = new Hashtable(1);
-                }
-
-                var groupNameToElement = (ArrayList?)groupNameToElements[groupName];
-                var index = 0;
-                while (index < groupNameToElement?.Count)
-                {
-                    var target = ((WeakReference?)groupNameToElement![index])?.Target as IToggleButton;
-                    if (target is null)
-                    {
-                        groupNameToElement.RemoveAt(index);
-                    }
-                    else
-                    {
-                        if (target != toggleButton)
-                        {
-                            var isCheckedValue = GetIsCheckedValue(target);
-
-                            if (isCheckedValue != 0
-                                && visualRoot == getVisualRootMethodInfo?.Invoke(null, new object[] { (DependencyObject)target }))
-                            {
-                                UncheckToggleButton(target);
-                            }
-                        }
-
-                        ++index;
-                    }
-                }
-            }
-
-            //else
-            //{
-            //    var parent = toggleButton.Parent;
-            //    if (parent is null)
-            //    {
-            //        return;
-            //    }
-
-            //    foreach (var child in LogicalTreeHelper.GetChildren(parent))
-            //    {
-            //        var childAsToggleButton = child as IToggleButton;
-
-            //        if (childAsToggleButton is not null
-            //            && childAsToggleButton != toggleButton
-            //            && string.IsNullOrEmpty(childAsToggleButton.GroupName))
-            //        {
-            //            var isCheckedValue = GetIsCheckedValue(childAsToggleButton);
-
-            //            if (isCheckedValue != 0)
-            //            {
-            //                UncheckToggleButton(childAsToggleButton);
-            //            }
-            //        }
-            //    }
-            //}
+            return;
         }
 
-        private static void UncheckToggleButton(IToggleButton toggleButton)
+        if (toggleButton is System.Windows.Controls.MenuItem)
         {
-            var dependencyObject = toggleButton as DependencyObject;
-
-            if (dependencyObject is null)
-            {
-                return;
-            }
-
-            if (toggleButton is System.Windows.Controls.MenuItem)
-            {
-                dependencyObject.SetCurrentValue(System.Windows.Controls.MenuItem.IsCheckedProperty, BooleanBoxes.FalseBox);
-            }
-            else
-            {
-                dependencyObject.SetCurrentValue(System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BooleanBoxes.FalseBox);
-            }
+            dependencyObject.SetCurrentValue(System.Windows.Controls.MenuItem.IsCheckedProperty, BooleanBoxes.FalseBox);
         }
-
-        private static int GetIsCheckedValue(IToggleButton childAsToggleButton)
+        else
         {
-            var isChecked = childAsToggleButton.IsChecked;
-
-            var isCheckedValue = isChecked.GetValueOrDefault()
-                                     ? (isChecked.HasValue
-                                            ? 1
-                                            : 0)
-                                     : 0;
-            return isCheckedValue;
+            dependencyObject.SetCurrentValue(System.Windows.Controls.Primitives.ToggleButton.IsCheckedProperty, BooleanBoxes.FalseBox);
         }
+    }
 
-        /// <summary>
-        ///     Handles changes to <see cref="IToggleButton.IsChecked" />
-        /// </summary>
-        public static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static int GetIsCheckedValue(IToggleButton childAsToggleButton)
+    {
+        var isChecked = childAsToggleButton.IsChecked;
+
+        var isCheckedValue = isChecked.GetValueOrDefault()
+            ? (isChecked.HasValue
+                ? 1
+                : 0)
+            : 0;
+        return isCheckedValue;
+    }
+
+    /// <summary>
+    ///     Handles changes to <see cref="IToggleButton.IsChecked" />
+    /// </summary>
+    public static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue)
         {
-            if ((bool)e.NewValue)
-            {
-                UpdateButtonGroup((IToggleButton)d);
-            }
+            UpdateButtonGroup((IToggleButton)d);
         }
     }
 }

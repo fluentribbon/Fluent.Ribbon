@@ -1,14 +1,13 @@
-﻿namespace Fluent.Extensions
+﻿namespace Fluent.Extensions;
+
+using System.Collections;
+
+internal static class IListExtensions
 {
-    using System.Collections;
+    private static readonly IList emptyReadOnlyList = ArrayList.ReadOnly(new ArrayList());
 
-    internal static class IListExtensions
+    public static IList NullSafe(this IList? list)
     {
-        private static readonly IList emptyReadOnlyList = ArrayList.ReadOnly(new ArrayList());
-
-        public static IList NullSafe(this IList? list)
-        {
-            return list ?? emptyReadOnlyList;
-        }
+        return list ?? emptyReadOnlyList;
     }
 }

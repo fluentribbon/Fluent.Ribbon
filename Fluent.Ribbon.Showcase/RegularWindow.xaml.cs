@@ -1,10 +1,9 @@
-﻿namespace FluentTest
+﻿namespace FluentTest;
+
+public partial class RegularWindow
 {
-    public partial class RegularWindow
+    public RegularWindow()
     {
-        public RegularWindow()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }

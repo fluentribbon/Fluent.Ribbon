@@ -1,24 +1,23 @@
-﻿namespace FluentTest.Converters
+﻿namespace FluentTest.Converters;
+
+using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+
+public class BackgroundImageViewportConverter : IValueConverter
 {
-    using System;
-    using System.Globalization;
-    using System.Windows;
-    using System.Windows.Data;
+    #region IValueConverter Members
 
-    public class BackgroundImageViewportConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        #region IValueConverter Members
-
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return new Rect(0, 0, (double)value, 46);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        return new Rect(0, 0, (double)value, 46);
     }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
 }

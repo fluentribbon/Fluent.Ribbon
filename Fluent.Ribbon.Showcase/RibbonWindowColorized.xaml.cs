@@ -1,10 +1,9 @@
-﻿namespace FluentTest
+﻿namespace FluentTest;
+
+public partial class RibbonWindowColorized
 {
-    public partial class RibbonWindowColorized
+    public RibbonWindowColorized()
     {
-        public RibbonWindowColorized()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }

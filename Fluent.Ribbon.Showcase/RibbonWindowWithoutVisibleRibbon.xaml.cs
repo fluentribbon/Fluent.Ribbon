@@ -1,10 +1,9 @@
-﻿namespace FluentTest
+﻿namespace FluentTest;
+
+public partial class RibbonWindowWithoutVisibleRibbon
 {
-    public partial class RibbonWindowWithoutVisibleRibbon
+    public RibbonWindowWithoutVisibleRibbon()
     {
-        public RibbonWindowWithoutVisibleRibbon()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }
