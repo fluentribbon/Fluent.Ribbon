@@ -208,7 +208,7 @@
                             <Setter Property="ChipWidth" Value="26" />
                             <Setter Property="Columns" Value="5" />
                             <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.Highlights}" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" />
                             <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource Fluent.Ribbon.Styles.HightlightColorGalleryListBox}" />
                             <Setter TargetName="PART_StandardGradientColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />
