@@ -3693,7 +3693,7 @@
                         Maximum="2.0"
                         Minimum="0.5"
                         SmallChange="0.1"
-                        Style="{DynamicResource ZoomSliderStyle}"
+                        Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         TickFrequency="0.1"
                         ValueChanged="ZoomSlider_OnValueChanged"
                         Value="{Binding Zoom}" />
