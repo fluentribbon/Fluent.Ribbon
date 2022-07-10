@@ -34,7 +34,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
 [DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
-public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedStateControl
+public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedStateControl, ILargeIconProvider
 {
     #region Fields
 
@@ -626,6 +626,20 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     #endregion
 
+    #region LargeIcon
+
+    /// <inheritdoc />
+    public object? LargeIcon
+    {
+        get { return this.GetValue(LargeIconProperty); }
+        set { this.SetValue(LargeIconProperty, value); }
+    }
+
+    /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
+    public static readonly DependencyProperty LargeIconProperty = LargeIconProviderProperties.LargeIconProperty.AddOwner(typeof(RibbonGroupBox), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
+
+    #endregion
+    
     #region IsSeparatorVisible
 
     /// <summary>
@@ -1413,6 +1427,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
             if (this.MediumIcon is not null)
             {
                 yield return this.MediumIcon;
+            }
+
+            if (this.LargeIcon is not null)
+            {
+                yield return this.LargeIcon;
             }
 
             if (this.LauncherIcon is not null)
