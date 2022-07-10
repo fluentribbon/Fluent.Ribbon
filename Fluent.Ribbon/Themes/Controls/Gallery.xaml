@@ -83,7 +83,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="twoLineLabel" Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                            <Setter TargetName="twoLineLabel" Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlight}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

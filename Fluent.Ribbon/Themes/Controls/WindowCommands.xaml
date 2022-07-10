@@ -114,7 +114,7 @@
 
     <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands}" />
     </Style>
 
@@ -160,7 +160,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.Button"
            TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.Button}" />

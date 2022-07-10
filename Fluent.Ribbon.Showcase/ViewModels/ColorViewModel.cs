@@ -1,4 +1,4 @@
-﻿#pragma warning disable SA1402 // File may only contain a single class
+#pragma warning disable SA1402 // File may only contain a single class
 
 namespace FluentTest.ViewModels;
 
@@ -58,13 +58,13 @@ public class ColorViewModel : ViewModel
 #pragma warning disable INPC010 // The property sets a different field than it returns.
     public Color ThemeColor
     {
-        get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink;
+        get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"])?.Color ?? Colors.Pink;
 
         set
         {
             var solidColorBrush = new SolidColorBrush(value);
             solidColorBrush.Freeze();
-            Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = solidColorBrush;
+            Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"] = solidColorBrush;
             this.OnPropertyChanged();
         }
     }

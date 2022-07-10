@@ -9,7 +9,7 @@
            TargetType="{x:Type Fluent:SplitButton}">
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Fluent:KeyTip.AutoPlacement" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="SnapsToDevicePixels" Value="False" />

@@ -43,7 +43,7 @@
     <!-- Inner Backstage TabControl Style -->
     <Style x:Key="Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem"
            TargetType="{x:Type Fluent:SeparatorTabItem}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">

@@ -8,7 +8,7 @@
            TargetType="{x:Type ToolTip}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.BorderBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToolTip}">
@@ -192,7 +192,7 @@
            TargetType="{x:Type Fluent:ScreenTip}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ScreenTip.BorderBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScreenTip}" />
         <Setter Property="Width" Value="205" />
     </Style>

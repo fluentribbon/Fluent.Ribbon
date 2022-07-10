@@ -5,7 +5,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <Style x:Key="Fluent.Ribbon.Styles.ToolbarDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ToolbarDropDownButton}" />
         <Setter Property="Width" Value="14" />

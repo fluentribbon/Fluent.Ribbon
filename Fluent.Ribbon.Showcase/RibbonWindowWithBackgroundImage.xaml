@@ -17,7 +17,7 @@
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="Transparent" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="Black" />
 
-        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{DynamicResource WhiteColor}" />
+        <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{DynamicResource Fluent.Ribbon.Colors.White}" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="Black" />
         <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground" Color="Black" />
     </fluent:RibbonWindow.Resources>
@@ -57,7 +57,7 @@
         </fluent:Ribbon>
 
         <Grid Grid.Row="1"
-              Background="{DynamicResource WhiteBrush}">
+              Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
             <TextBlock Margin="5"
                        TextWrapping="Wrap">
                 This sample shows how to use a background image for the titlebar.

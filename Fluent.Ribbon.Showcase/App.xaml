@@ -15,7 +15,7 @@
 
             <Style x:Key="{x:Type CheckBox}"
                    TargetType="CheckBox">
-                <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

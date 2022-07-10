@@ -70,7 +70,7 @@
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="QuickAccessToolBarHeight" Value="{Binding TitleBar.ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Ribbon}" />

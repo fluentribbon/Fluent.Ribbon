@@ -93,10 +93,10 @@
     <Style x:Key="Fluent.Ribbon.Styles.RibbonWindow"
            TargetType="{x:Type Fluent:RibbonWindow}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-        <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBaseColor}" />
+        <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBase}" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
         <Setter Property="Template" Value="{StaticResource Fluent.Ribbon.Templates.RibbonWindow}" />

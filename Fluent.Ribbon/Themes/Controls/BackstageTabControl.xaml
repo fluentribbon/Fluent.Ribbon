@@ -60,7 +60,7 @@
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabControl.Button}" />
@@ -137,7 +137,7 @@
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="SemiBold"
-                                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}"
+                                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}"
                                    Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    TextWrapping="Wrap"
                                    Visibility="Visible" />
@@ -244,7 +244,7 @@
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:BackstageTabControlItemContainerStyleSelector.Instance}" />
         <Setter Property="ItemsPanel">
             <Setter.Value>

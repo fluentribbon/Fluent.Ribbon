@@ -22,13 +22,13 @@ public class RibbonLibraryThemeProvider : LibraryThemeProvider
     /// <inheritdoc />
     public override void FillColorSchemeValues(Dictionary<string, string> values, RuntimeThemeColorValues colorValues)
     {
-        values.Add("Fluent.Ribbon.Colors.AccentBaseColor", colorValues.AccentColor.ToString());
-        values.Add("Fluent.Ribbon.Colors.AccentColor80", colorValues.AccentColor80.ToString());
-        values.Add("Fluent.Ribbon.Colors.AccentColor60", colorValues.AccentColor60.ToString());
-        values.Add("Fluent.Ribbon.Colors.AccentColor40", colorValues.AccentColor40.ToString());
-        values.Add("Fluent.Ribbon.Colors.AccentColor20", colorValues.AccentColor20.ToString());
+        values.Add("Fluent.Ribbon.Colors.AccentBase", colorValues.Accent.ToString());
+        values.Add("Fluent.Ribbon.Colors.Accent80", colorValues.Accent80.ToString());
+        values.Add("Fluent.Ribbon.Colors.Accent60", colorValues.Accent60.ToString());
+        values.Add("Fluent.Ribbon.Colors.Accent40", colorValues.Accent40.ToString());
+        values.Add("Fluent.Ribbon.Colors.Accent20", colorValues.Accent20.ToString());
 
-        values.Add("Fluent.Ribbon.Colors.HighlightColor", colorValues.HighlightColor.ToString());
-        values.Add("Fluent.Ribbon.Colors.IdealForegroundColor", colorValues.IdealForegroundColor.ToString());
+        values.Add("Fluent.Ribbon.Colors.Highlight", colorValues.Highlight.ToString());
+        values.Add("Fluent.Ribbon.Colors.IdealForeground", colorValues.IdealForeground.ToString());
     }
 }

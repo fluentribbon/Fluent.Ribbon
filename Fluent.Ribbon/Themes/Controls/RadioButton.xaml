@@ -28,7 +28,7 @@
                              Margin="3"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
-                             Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                             Fill="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                              Opacity="0" />
                 </Grid>
             </BulletDecorator.Bullet>
@@ -45,7 +45,7 @@
                 <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="Checked1" Property="Opacity" Value="1" />
@@ -86,7 +86,7 @@
                                  Margin="3"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch"
-                                 Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                                 Fill="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                                  Opacity="0" />
                     </Grid>
                 </BulletDecorator.Bullet>
@@ -162,7 +162,7 @@
                 <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="Checked1" Property="Opacity" Value="1" />
@@ -199,7 +199,7 @@
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonRadioButton}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>

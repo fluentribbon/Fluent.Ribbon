@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
@@ -21,12 +21,12 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
-                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlight}" />
+                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlight}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
-                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlightBrush}" />
+                            <Setter TargetName="innerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlight}" />
+                            <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkExtremeHighlight}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -208,7 +208,7 @@
                             <Setter Property="ChipWidth" Value="26" />
                             <Setter Property="Columns" Value="5" />
                             <Setter TargetName="PART_RecentColorsListBox" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.HighlightColors}" />
+                            <Setter TargetName="PART_StandardColorsListBox" Property="ItemsSource" Value="{x:Static Fluent:ColorGallery.Highlights}" />
                             <Setter TargetName="PART_StandardColorsListBox" Property="Style" Value="{DynamicResource Fluent.Ribbon.Styles.HightlightColorGalleryListBox}" />
                             <Setter TargetName="PART_StandardGradientColorsListBox" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="PART_ThemeColorsListBox" Property="Visibility" Value="Collapsed" />

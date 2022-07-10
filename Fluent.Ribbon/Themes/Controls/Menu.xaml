@@ -6,7 +6,7 @@
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.ContextMenu"
            TargetType="{x:Type Fluent:ContextMenu}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />
@@ -18,7 +18,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.FluentRibbonDefaultContextMenu"
            TargetType="{x:Type ContextMenu}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />

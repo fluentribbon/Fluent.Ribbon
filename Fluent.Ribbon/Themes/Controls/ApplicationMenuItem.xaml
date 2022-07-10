@@ -597,7 +597,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ResizeMode" Value="None" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
@@ -1255,7 +1255,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu.MenuItem"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="ResizeMode" Value="None" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />

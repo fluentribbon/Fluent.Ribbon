@@ -62,7 +62,7 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Fluent:KeyTip.Margin" Value="0,15,0,0" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplateSelector" Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />

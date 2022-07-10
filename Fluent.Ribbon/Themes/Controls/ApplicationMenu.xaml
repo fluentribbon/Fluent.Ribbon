@@ -122,8 +122,8 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />

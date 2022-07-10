@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FluentTest.TestContent"
+<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -122,8 +122,8 @@
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
                                                  Header="FIRST"
-                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
-                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
+                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
+                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                                  Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                  TabItemMouseOverForeground="Red"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
@@ -151,7 +151,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Content="Fluent.Ribbon"
                                        FontSize="48"
-                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
                             </StackPanel>
                         </Fluent:StartScreenTabControl.LeftContent>
 
@@ -2556,7 +2556,7 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="KeyTips"
-                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
+                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}"
                                   KeyTip="K">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
@@ -2898,7 +2898,7 @@
             <TabControl.Resources>
                 <Style x:Key="{x:Type Fluent:Button}"
                        TargetType="{x:Type Fluent:Button}">
-                    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Accent80}" />
                     <Setter Property="BorderThickness" Value="1" />
                 </Style>
 
@@ -2918,10 +2918,10 @@
 
                 <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94" />
 
-                <SolidColorBrush x:Key="TabItemHotBackground" Color="{DynamicResource Fluent.Ribbon.Colors.AccentColor60}" />
+                <SolidColorBrush x:Key="TabItemHotBackground" Color="{DynamicResource Fluent.Ribbon.Colors.Accent60}" />
                 <SolidColorBrush x:Key="TabItemSelectedBackground" Color="{DynamicResource Gray7}" />
                 <SolidColorBrush x:Key="TabItemDisabledBackground" Color="{DynamicResource Gray9}" />
-                <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="{DynamicResource Fluent.Ribbon.Colors.AccentColor80}" />
+                <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="{DynamicResource Fluent.Ribbon.Colors.Accent80}" />
                 <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="{DynamicResource Gray10}" />
 
                 <Style x:Key="{x:Type TabItem}"

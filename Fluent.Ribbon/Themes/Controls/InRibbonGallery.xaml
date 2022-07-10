@@ -37,7 +37,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />

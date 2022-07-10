@@ -28,7 +28,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -116,7 +116,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -243,7 +243,7 @@
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Margin" Value="2 2 2 2" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCheckBox}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />

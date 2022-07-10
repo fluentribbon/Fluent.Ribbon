@@ -90,7 +90,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="CanAddToQuickAccessToolBar" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="ResizeMode" Value="None" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton}" />

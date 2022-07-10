@@ -42,7 +42,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.SpinnerButton"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SpinnerButton}" />
     </Style>
 
@@ -387,7 +387,7 @@
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>

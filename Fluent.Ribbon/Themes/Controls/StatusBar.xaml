@@ -3,7 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent">
     <Style x:Key="{x:Type Fluent:StatusBar}"
            TargetType="{x:Type Fluent:StatusBar}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -54,7 +54,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonStatusBarItem"
            TargetType="{x:Type Fluent:StatusBarItem}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Margin" Value="0 0 2 0" />
         <Setter Property="Template">
             <Setter.Value>
@@ -73,7 +73,7 @@
 
     <!-- Menu Item Style -->
     <Style TargetType="{x:Type Fluent:StatusBarMenuItem}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="IsCheckable" Value="True" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem}" />

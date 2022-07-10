@@ -25,7 +25,7 @@
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="0.75" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.WhiteBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -245,7 +245,7 @@
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="SnapsToDevicePixels" Value="False" />

@@ -63,7 +63,7 @@ internal class BackstageAdorner : Adorner
         }
         else
         {
-            this.background.SetResourceReference(Shape.FillProperty, "WhiteBrush");
+            this.background.SetResourceReference(Shape.FillProperty, "Fluent.Ribbon.Brushes.White");
         }
 
         this.visualChildren = new VisualCollection(this)

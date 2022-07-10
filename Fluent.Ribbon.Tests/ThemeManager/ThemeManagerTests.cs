@@ -411,8 +411,8 @@
 //                                        "Theme.Name",
 //                                        "Theme.DisplayName",
 //                                        "Theme.ColorScheme",
-//                                        "Fluent.Ribbon.Colors.HighlightColor", // Ignored because it's hand crafted
-//                                        "Fluent.Ribbon.Brushes.HighlightBrush", // Ignored because it's hand crafted
+//                                        "Fluent.Ribbon.Colors.Highlight", // Ignored because it's hand crafted
+//                                        "Fluent.Ribbon.Brushes.Highlight", // Ignored because it's hand crafted
 //                                    };
 //             CompareResourceDictionaries(dic, newTheme.Item2, ignoredKeyValues);
 //             CompareResourceDictionaries(newTheme.Item2, dic, ignoredKeyValues);
