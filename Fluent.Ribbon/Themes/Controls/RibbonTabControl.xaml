@@ -243,7 +243,7 @@
                     Width="Auto"
                     Margin="0 -1 0 0"
                     HorizontalAlignment="Stretch"
-                    BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                    BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
                     BorderThickness="0 1" />
 
             <Border Grid.Row="1"
@@ -269,7 +269,7 @@
             <Border Grid.Row="2"
                     Margin="0"
                     VerticalAlignment="Stretch"
-                    Background="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+                    Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" />
 
             <Grid x:Name="TabsGrid"
                   Grid.Row="0"
@@ -384,7 +384,7 @@
                     <Border Grid.Row="1"
                             Margin="1 0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
-                            BorderBrush="{Binding Path=SelectedItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}}"
+                            BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
                             BorderThickness="0 0 0 1"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabNavigation="Local"
