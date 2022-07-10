@@ -13,7 +13,7 @@
     <system:String x:Key="Theme.ColorScheme">{{ColorScheme}}</system:String>
     <system:String x:Key="Theme.AlternativeColorScheme">{{AlternativeColorScheme}}</system:String>
 
-    <Color x:Key="Theme.PrimaryAccent">{{Fluent.Ribbon.Colors.AccentBase}}</Color>
+    <Color x:Key="Theme.PrimaryAccentColor">{{Fluent.Ribbon.Colors.AccentBase}}</Color>
     <SolidColorBrush x:Key="Theme.ShowcaseBrush" Color="{{Fluent.Ribbon.Colors.AccentBase}}" options:Freeze="True" />
     <system:Boolean x:Key="Theme.IsHighContrast">{{IsHighContrast}}</system:Boolean>
 
