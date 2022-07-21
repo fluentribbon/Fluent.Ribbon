@@ -2756,7 +2756,8 @@
                                        Header="LongLongGroup"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
-                                       LauncherCommand="Paste">
+                                       LauncherCommand="ApplicationCommands.Paste"
+                                       FocusManager.IsFocusScope="True">
                     <Fluent:Button Header="Button"
                                    Command="ApplicationCommands.Paste"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
