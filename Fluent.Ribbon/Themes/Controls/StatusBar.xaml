@@ -108,8 +108,8 @@
                        VerticalAlignment="Center"
                        Text="{Binding StatusBarItem.Title, RelativeSource={RelativeSource TemplatedParent}}"
                        TextTrimming="CharacterEllipsis" />
-            <Image Grid.Column="0"
-                   x:Name="image"
+            <Image x:Name="image"
+                   Grid.Column="0"
                    Width="16"
                    Height="16"
                    HorizontalAlignment="Center"
@@ -118,8 +118,8 @@
                    Source="{DynamicResource Fluent.Ribbon.Images.Checked}"
                    Stretch="Uniform"
                    Visibility="Collapsed" />
-            <Fluent:IconPresenter Grid.Column="0"
-                                  x:Name="iconImage"
+            <Fluent:IconPresenter x:Name="iconImage"
+                                  Grid.Column="0"
                                   Margin="3 2 2 2"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
