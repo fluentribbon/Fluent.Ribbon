@@ -1,4 +1,4 @@
-<UserControl x:Class="FluentTest.TestContent"
+﻿<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -2754,10 +2754,10 @@
 
                 <Fluent:RibbonGroupBox x:Name="xxx"
                                        Header="LongLongGroup"
+                                       FocusManager.IsFocusScope="True"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
-                                       LauncherCommand="ApplicationCommands.Paste"
-                                       FocusManager.IsFocusScope="True">
+                                       LauncherCommand="ApplicationCommands.Paste">
                     <Fluent:Button Header="Button"
                                    Command="ApplicationCommands.Paste"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
