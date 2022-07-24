@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.StartScreenTab"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.StartScreenTabControl"
                      TargetType="{x:Type Fluent:StartScreenTabControl}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -65,6 +65,6 @@
            BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.StartScreenTab}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.StartScreenTabControl}" />
     </Style>
 </ResourceDictionary>

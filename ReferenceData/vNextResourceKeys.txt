@@ -342,7 +342,7 @@ Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified
 Fluent.Ribbon.Templates.SplitedApplicationMenuItem
 Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem
 Fluent.Ribbon.Templates.SplitedMenuItem
-Fluent.Ribbon.Templates.StartScreenTab
+Fluent.Ribbon.Templates.StartScreenTabControl
 Fluent.Ribbon.Templates.TextBox
 Fluent.Ribbon.Templates.TextBox.Simplified
 Fluent.Ribbon.Templates.ToggleButton.Simplified
@@ -361,5 +361,5 @@ Theme.DisplayName
 Theme.IsHighContrast
 Theme.Name
 Theme.Origin
-Theme.PrimaryAccent
+Theme.PrimaryAccentColor
 Theme.ShowcaseBrush
