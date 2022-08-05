@@ -335,7 +335,8 @@ public static class PopupService
 
     private static void DismisPopupForMouseNotOver(IDropDownControl control, DismissPopupEventArgs e)
     {
-        if (control.IsDropDownOpen == false)
+        if (control.IsDropDownOpen == false ||
+            control is DropDownButton { DismissOnClickOutside: false })
         {
             return;
         }

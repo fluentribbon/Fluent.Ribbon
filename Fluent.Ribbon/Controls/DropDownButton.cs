@@ -107,6 +107,25 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public bool IsContextMenuOpened { get; set; }
 
+    #region DismissOnClickOutside
+
+    /// <summary>
+    /// If false: popup will not be dismissed if a mouse click occurred outside the DropDownButon's borders. <para></para>
+    /// <see cref="IsDropDownOpen"/> and <see cref="ClosePopupOnMouseDown"/> will not be affected by this value.<para/>
+    /// Default value is True.
+    /// </summary>
+    public bool DismissOnClickOutside
+    {
+        get => (bool)this.GetValue(DismissOnClickOutsideProperty);
+        set => this.SetValue(DismissOnClickOutsideProperty, BooleanBoxes.Box(value));
+    }
+
+    /// <summary>Identifies the <see cref="DismissOnClickOutside"/> dependency property.</summary>
+    public static readonly DependencyProperty DismissOnClickOutsideProperty =
+        DependencyProperty.Register(nameof(DismissOnClickOutside), typeof(bool), typeof(DropDownButton), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+    #endregion
+
     #region Header
 
     /// <inheritdoc />
