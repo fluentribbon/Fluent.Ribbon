@@ -3306,6 +3306,9 @@
                                         <Fluent:CheckBox IsChecked="{Binding CanUseSimplified, ElementName=ribbon}">
                                             CanUseSimplified
                                         </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsDisplayOptionsButtonVisible, ElementName=ribbon}">
+                                            IsDisplayOptionsButtonVisible
+                                        </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
 

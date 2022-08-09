@@ -1096,6 +1096,19 @@ public class Ribbon : Control, ILogicalChildSupport
     public static readonly DependencyProperty CanUseSimplifiedProperty =
         DependencyProperty.Register(nameof(CanUseSimplified), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
 
+    /// <summary>Identifies the <see cref="IsDisplayOptionsButtonVisible"/> dependency property.</summary>
+    public static readonly DependencyProperty IsDisplayOptionsButtonVisibleProperty =
+        DependencyProperty.Register(nameof(IsDisplayOptionsButtonVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+    /// <summary>
+    /// Defines whether display options button is visible or not.
+    /// </summary>
+    public bool IsDisplayOptionsButtonVisible
+    {
+        get { return (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty); }
+        set { this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value)); }
+    }
+
     /// <summary>
     /// Gets or sets the height of the gap between the ribbon and the regular window content
     /// </summary>
