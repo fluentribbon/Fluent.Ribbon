@@ -393,6 +393,18 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
         get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
         set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
     }
+    
+    /// <summary>Identifies the <see cref="IsDisplayOptionsButtonVisible"/> dependency property.</summary>
+    public static readonly DependencyProperty IsDisplayOptionsButtonVisibleProperty = DependencyProperty.Register(nameof(IsDisplayOptionsButtonVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+    /// <summary>
+    /// Defines whether display options button is visible or not.
+    /// </summary>
+    public bool IsDisplayOptionsButtonVisible
+    {
+        get { return (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty); }
+        set { this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value)); }
+    }
 
     #endregion
 
