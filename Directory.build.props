@@ -27,7 +27,8 @@
 
     <UseWpf>true</UseWpf>
     <UseWindowsForms>true</UseWindowsForms>
-    <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652</NoWarn>
+
+    <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652;WFAC010</NoWarn>
   </PropertyGroup>
 
   <!-- AssemblyInfo -->
