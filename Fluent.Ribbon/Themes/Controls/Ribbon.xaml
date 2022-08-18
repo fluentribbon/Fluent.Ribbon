@@ -28,6 +28,7 @@
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
                                          IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
                                          IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
+                                         IsDisplayOptionsButtonVisible="{TemplateBinding IsDisplayOptionsButtonVisible}"
                                          Menu="{TemplateBinding Menu}" />
 
                 <ContentControl x:Name="quickAccessToolBarHolder"

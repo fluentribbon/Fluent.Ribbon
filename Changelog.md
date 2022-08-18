@@ -4,7 +4,8 @@
 
 - ### Breaking changes
 
-  - Drop support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
+  - Dropped support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
+  - Dropped support for .NET 5.0 and add .NET 6.0 instead.
   - Resizing popups should now work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.
@@ -54,6 +55,7 @@
   - [#1026](../../issues/1026) - Translate some Chinese cases (thanks @leixao)
   - [#1034](../../issues/1034) - Enable TextTrimming in Button Header  
     To enable this `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`.
+  - [#1049](../../issues/1049) - IsDisplayOptionsButtonVisible property is added to RibbonTabControl (thanks @zui-jiu-zhou)
 
 ## 9.0.4
 
