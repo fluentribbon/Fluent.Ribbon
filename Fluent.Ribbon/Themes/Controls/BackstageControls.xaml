@@ -4,7 +4,7 @@
                     xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.Button"
            TargetType="{x:Type Fluent:Button}">
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -14,7 +14,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.ToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -24,7 +24,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.DropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -115,7 +115,7 @@
                         <Border Margin="0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush7}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Gray7}"
                                 BorderThickness="0 0 1 0" />
                         <StackPanel Grid.Column="0"
                                     Margin="0"

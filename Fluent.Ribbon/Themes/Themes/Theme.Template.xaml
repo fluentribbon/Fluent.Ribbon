@@ -81,16 +81,16 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.White20" Color="{StaticResource Fluent.Ribbon.Colors.White20}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Black" Color="{StaticResource Fluent.Ribbon.Colors.Black}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Black20" Color="{StaticResource Fluent.Ribbon.Colors.Black20}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush1" Color="{StaticResource Fluent.Ribbon.Colors.Gray1}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush2" Color="{StaticResource Fluent.Ribbon.Colors.Gray2}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush3" Color="{StaticResource Fluent.Ribbon.Colors.Gray3}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush4" Color="{StaticResource Fluent.Ribbon.Colors.Gray4}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush5" Color="{StaticResource Fluent.Ribbon.Colors.Gray5}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush6" Color="{StaticResource Fluent.Ribbon.Colors.Gray6}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush7" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush8" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush9" Color="{StaticResource Fluent.Ribbon.Colors.Gray9}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GrayBrush10" Color="{StaticResource Fluent.Ribbon.Colors.Gray10}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray1" Color="{StaticResource Fluent.Ribbon.Colors.Gray1}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray2" Color="{StaticResource Fluent.Ribbon.Colors.Gray2}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray3" Color="{StaticResource Fluent.Ribbon.Colors.Gray3}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray4" Color="{StaticResource Fluent.Ribbon.Colors.Gray4}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray5" Color="{StaticResource Fluent.Ribbon.Colors.Gray5}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray6" Color="{StaticResource Fluent.Ribbon.Colors.Gray6}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray7" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray8" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray9" Color="{StaticResource Fluent.Ribbon.Colors.Gray9}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Gray10" Color="{StaticResource Fluent.Ribbon.Colors.Gray10}" options:Freeze="True" />
 
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TransparentWhite" Color="{StaticResource Fluent.Ribbon.Colors.TransparentWhite}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.HighTransparentWhite" Color="{StaticResource Fluent.Ribbon.Colors.HighTransparentWhite}" options:Freeze="True" />
