@@ -104,7 +104,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <summary>
     /// Gets ribbon groups container
     /// </summary>
-    public ScrollViewer GroupsContainer { get; } = new RibbonGroupsContainerScrollViewer { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
+    public ScrollViewer GroupsContainer { get; }
 
     /// <summary>
     /// Gets or sets reduce order
@@ -516,6 +516,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public RibbonTabItem()
     {
+        this.GroupsContainer = new RibbonGroupsContainerScrollViewer() { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
         this.AddLogicalChild(this.GroupsContainer);
         this.GroupsContainer.Content = this.groupsInnerContainer;
 
