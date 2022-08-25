@@ -38,6 +38,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F645176A-E1EC-4CD6-B2E6-DCECB24DC102}"
 	ProjectSection(SolutionItems) = preProject
 		.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
+		.github\dependabot.yml = .github\dependabot.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluent.Ribbon.Showcase", "Fluent.Ribbon.Showcase\Fluent.Ribbon.Showcase.csproj", "{CFFE1910-4918-4710-8F33-86B584D41316}"

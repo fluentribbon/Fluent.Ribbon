@@ -3,5 +3,7 @@ updates:
   - package-ecosystem: nuget
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     open-pull-requests-limit: 10
+    ignore:
+    - dependency-name: Google.Cloud.Translate.V3

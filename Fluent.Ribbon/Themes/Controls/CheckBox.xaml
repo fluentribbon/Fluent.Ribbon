@@ -36,7 +36,7 @@
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
-                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush2}"
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                                    Opacity="0" />
                         <Rectangle x:Name="DisabledVisualElement"
                                    Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
@@ -124,7 +124,7 @@
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
-                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.GrayBrush2}"
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                                    Opacity="0" />
                         <Rectangle x:Name="DisabledVisualElement"
                                    Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
