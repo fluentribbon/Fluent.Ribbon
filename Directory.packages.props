@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ControlzEx" version="6.0.0-alpha0239" />
+        <PackageVersion Include="ControlzEx" version="6.0.0-alpha0241" />
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0121" />
     </ItemGroup>
 
