@@ -28,6 +28,7 @@
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
                                          IsDisplayOptionsButtonVisible="{TemplateBinding IsDisplayOptionsButtonVisible}"
                                          IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
+                                         IsMouseWheelScrollingEnabledEverywhere="{TemplateBinding IsMouseWheelScrollingEnabledEverywhere}"
                                          IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
                                          Menu="{TemplateBinding Menu}" />
 

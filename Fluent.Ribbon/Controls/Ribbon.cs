@@ -1224,12 +1224,24 @@ public class Ribbon : Control, ILogicalChildSupport
     public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>
-    /// Defines whether scrolling by mouse wheel is enabled or not.
+    /// Defines whether scrolling by mouse wheel on the tab container area to cycle tabs is enabled or not.
     /// </summary>
     public bool IsMouseWheelScrollingEnabled
     {
         get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
         set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
+    }
+
+    /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabledEverywhere"/> dependency property.</summary>
+    public static readonly DependencyProperty IsMouseWheelScrollingEnabledEverywhereProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabledEverywhere), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+    /// <summary>
+    /// Defines whether scrolling by mouse wheel always cycles selected tab, also outside the tab container area.
+    /// </summary>
+    public bool IsMouseWheelScrollingEnabledEverywhere
+    {
+        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty); }
+        set { this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value)); }
     }
 
     /// <summary>
