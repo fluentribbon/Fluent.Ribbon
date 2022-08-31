@@ -594,13 +594,27 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <inheritdoc />
     protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
     {
-        // If this option is enabled, any scroll is intercepted and used to cycle selected tab.
-        // The wheel event is then never used to scroll the panel content sideways.
-        // If the option is disabled, the wheel event may be used to scroll content.
-        if (this.IsMouseWheelScrollingEnabledEverywhere)
+        if (!this.IsMouseWheelScrollingEnabledEverywhere || !this.IsMouseOver)
         {
-            this.ProcessMouseWheel(e);
+            return;
         }
+
+        // Prevent wheel events when a popup is open, unless over the popup (to e.g allow scrolling lists)
+        if (Mouse.Captured is IDropDownControl drop && drop.IsDropDownOpen && drop.DropDownPopup is Popup popup)
+        {
+            e.Handled = !popup.IsMouseOver;
+            return;
+        }
+
+        // This wheel event will become a tab shift. Must ensure no control is focused within.
+        if (Keyboard.FocusedElement is DependencyObject focusedElement
+            && UIHelper.GetParent<RibbonGroupBox>(focusedElement) is not null)
+        {
+            this.SelectedTabItem?.Focus();
+        }
+
+        this.ProcessMouseWheel(e);
+        e.Handled = true;
     }
 
     /// <inheritdoc />
