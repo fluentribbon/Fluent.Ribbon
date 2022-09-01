@@ -386,14 +386,26 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabled), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>
-    /// Defines whether scrolling by mouse wheel is enabled or not.
+    /// Defines whether scrolling by mouse wheel on the tab container area to cycle tabs is enabled or not.
     /// </summary>
     public bool IsMouseWheelScrollingEnabled
     {
         get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
         set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
     }
-    
+
+    /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabledEverywhere"/> dependency property.</summary>
+    public static readonly DependencyProperty IsMouseWheelScrollingEnabledEverywhereProperty = DependencyProperty.Register(nameof(IsMouseWheelScrollingEnabledEverywhere), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.FalseBox));
+
+    /// <summary>
+    /// Defines whether scrolling by mouse wheel always cycles selected tab, also outside the tab container area.
+    /// </summary>
+    public bool IsMouseWheelScrollingEnabledEverywhere
+    {
+        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty); }
+        set { this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value)); }
+    }
+
     /// <summary>Identifies the <see cref="IsDisplayOptionsButtonVisible"/> dependency property.</summary>
     public static readonly DependencyProperty IsDisplayOptionsButtonVisibleProperty = DependencyProperty.Register(nameof(IsDisplayOptionsButtonVisible), typeof(bool), typeof(RibbonTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
@@ -580,10 +592,35 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     }
 
     /// <inheritdoc />
+    protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+    {
+        if (!this.IsMouseWheelScrollingEnabledEverywhere || !this.IsMouseOver)
+        {
+            return;
+        }
+
+        // Prevent wheel events when a popup is open, unless over the popup (to e.g allow scrolling lists)
+        if (Mouse.Captured is IDropDownControl drop && drop.IsDropDownOpen && drop.DropDownPopup is Popup popup)
+        {
+            e.Handled = !popup.IsMouseOver;
+            return;
+        }
+
+        // This wheel event will become a tab shift. Must ensure no control is focused within.
+        if (Keyboard.FocusedElement is DependencyObject focusedElement
+            && UIHelper.GetParent<RibbonGroupBox>(focusedElement) is not null)
+        {
+            this.SelectedTabItem?.Focus();
+        }
+
+        this.ProcessMouseWheel(e);
+        e.Handled = true;
+    }
+
+    /// <inheritdoc />
     protected override void OnMouseWheel(MouseWheelEventArgs e)
     {
-        //base.OnPreviewMouseWheel(e);
-
+        // Mouse wheel on tab container may be used to cycle selected tab.
         if (this.IsMouseWheelScrollingEnabled)
         {
             this.ProcessMouseWheel(e);

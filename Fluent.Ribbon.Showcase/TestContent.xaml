@@ -3300,6 +3300,9 @@
                                         <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
                                             IsMouseWheelScrollingEnabled
                                         </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabledEverywhere, ElementName=ribbon}">
+                                            IsMouseWheelScrollingEnabledEverywhere
+                                        </Fluent:CheckBox>
                                         <Fluent:CheckBox IsChecked="{Binding IsDefaultContextMenuEnabled, ElementName=ribbon}">
                                             IsDefaultContextMenuEnabled
                                         </Fluent:CheckBox>
