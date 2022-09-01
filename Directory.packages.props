@@ -23,7 +23,7 @@
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.2.10-beta" />
 
-        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.2.0" />
+        <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.3.0" />
         <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.435" />
         <PackageVersion Include="WpfAnalyzers" version="4.1.1" />
     </ItemGroup>
