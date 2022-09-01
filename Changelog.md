@@ -34,6 +34,7 @@
     To enable this `HeaderTemplate` and `HeaderTemplateSelector` were added to `IHeaderedControl`.
   - [#1048](../../issues/1048) - DismissOnClickOutside property added to DropDownButton (thanks @MuhammadSulaiman001)
   - [#1049](../../issues/1049) - IsDisplayOptionsButtonVisible property is added to RibbonTabControl (thanks @zui-jiu-zhou)
+  - [#1058](../../issues/1058) - Add option to use legacy/office-style mouse wheel tab shifting (thanks @andersforsgren)
 
 ## 9.0.4
 
