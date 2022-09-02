@@ -600,7 +600,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
         }
 
         // Prevent wheel events when a popup is open, unless over the popup (to e.g allow scrolling lists)
-        if (Mouse.Captured is IDropDownControl drop && drop.IsDropDownOpen && drop.DropDownPopup is Popup popup)
+        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: { } popup })
         {
             e.Handled = !popup.IsMouseOver;
             return;
