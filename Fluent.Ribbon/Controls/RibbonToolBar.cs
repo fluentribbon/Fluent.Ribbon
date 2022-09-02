@@ -656,7 +656,7 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
             }
         }
 
-        return new Size(currentMaxX, maxy + whitespace);
+        return new Size(currentMaxX, Math.Max(maxy + whitespace, 0));
     }
 
     // Get the first control and measure, its height accepts as row height
