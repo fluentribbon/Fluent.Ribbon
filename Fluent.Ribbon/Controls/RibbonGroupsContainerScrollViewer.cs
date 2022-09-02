@@ -24,18 +24,26 @@ public class RibbonGroupsContainerScrollViewer : ScrollViewer
             return;
         }
 
-        if (this.ScrollInfo != null)
+        if (this.ScrollInfo is null)
         {
-            if (e.Delta < 0)
-            {
-                this.LineRight();
-            }
-            else
-            {
-                this.LineLeft();
-            }
-
-            e.Handled = true;
+            return;
         }
+
+        // Prevent scrolling when a popup is open
+        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: { } } and not RibbonTabControl)
+        {
+            return;
+        }
+
+        if (e.Delta < 0)
+        {
+            this.LineRight();
+        }
+        else
+        {
+            this.LineLeft();
+        }
+
+        e.Handled = true;
     }
 }
