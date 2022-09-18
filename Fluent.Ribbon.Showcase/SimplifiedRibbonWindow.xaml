@@ -1157,8 +1157,8 @@
                                         IconSize="24" />
                     </fluent:RibbonGroupBox.MediumIcon>
                     <fluent:Button Header="1st button (Full)"
-                                   KeyTip="1"
-                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}">
+                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}"
+                                   KeyTip="1">
                         <fluent:Button.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="MediumPurple"
@@ -1176,8 +1176,8 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                     <fluent:Button Header="2nd button (Simplified)"
-                                   KeyTip="2"
-                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}">
+                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}"
+                                   KeyTip="2">
                         <fluent:Button.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="Red"

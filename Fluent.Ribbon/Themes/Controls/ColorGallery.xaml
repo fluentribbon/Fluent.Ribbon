@@ -139,34 +139,34 @@
                                 <Fluent:GroupSeparatorMenuItem x:Name="themeColorsSeparator"
                                                                Header="Theme Colors" />
                                 <ListBox x:Name="PART_ThemeColorsListBox"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}"
                                          Padding="2"
                                          ItemsSource="{Binding ThemeColors, RelativeSource={RelativeSource TemplatedParent}}"
-                                         KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained" />
                                 <ListBox x:Name="PART_ThemeGradientColorsListBox"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}"
                                          Padding="2 0 2 0"
                                          ItemsSource="{Binding ThemeGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained" />
                                 <Fluent:GroupSeparatorMenuItem x:Name="standardColorsSeparator"
                                                                Header="Standard Colors" />
                                 <ListBox x:Name="PART_StandardColorsListBox"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}"
                                          Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.StandardThemeColors}"
-                                         KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained" />
                                 <ListBox x:Name="PART_StandardGradientColorsListBox"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}"
                                          Padding="2 0 2 0"
                                          ItemsSource="{Binding StandardGradients, RelativeSource={RelativeSource TemplatedParent}}"
-                                         KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryGradientListBox}" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained" />
                                 <Fluent:GroupSeparatorMenuItem x:Name="recentColorsSeparator"
                                                                Header="Recent Colors" />
                                 <ListBox x:Name="PART_RecentColorsListBox"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}"
                                          Padding="2"
                                          ItemsSource="{x:Static Fluent:ColorGallery.RecentColors}"
-                                         KeyboardNavigation.DirectionalNavigation="Contained"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.ColorGalleryListBox}" />
+                                         KeyboardNavigation.DirectionalNavigation="Contained" />
                             </StackPanel>
                         </ScrollViewer>
                         <Fluent:MenuItem x:Name="PART_NoColor"

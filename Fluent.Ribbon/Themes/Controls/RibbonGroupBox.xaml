@@ -371,6 +371,7 @@
                     </Border>
 
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
                                     Grid.Row="1"
                                     Margin="5 0 5 0"
                                     HorizontalAlignment="Center"
@@ -381,8 +382,7 @@
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}" />
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
@@ -536,6 +536,7 @@
                     </Grid>
 
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
                                     Grid.Column="1"
                                     Margin="2 0 0 0"
                                     HorizontalAlignment="Stretch"
@@ -546,8 +547,7 @@
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}" />
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"

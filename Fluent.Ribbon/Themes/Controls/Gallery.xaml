@@ -118,10 +118,10 @@
                         BorderThickness="0">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
                                            Header="{TemplateBinding SelectedFilterTitle}"
+                                           Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}"
                                            Height="Auto"
                                            HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}" />
+                                           VerticalAlignment="Top" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
                               Grid.Row="1"

@@ -170,9 +170,9 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}">
                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   Margin="1"
-                                  SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                  SnapsToDevicePixels="True">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Contained"
@@ -306,9 +306,9 @@
                                                  MinWidth="{TemplateBinding ActualWidth}"
                                                  MinHeight="{TemplateBinding ActualHeight}">
                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   Margin="1"
-                                  SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                  SnapsToDevicePixels="True">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
                                     KeyboardNavigation.DirectionalNavigation="Contained"

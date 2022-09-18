@@ -142,11 +142,11 @@
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
-                    <ScrollViewer Margin="1"
+                    <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
+                                  Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>
@@ -266,12 +266,12 @@
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   IsTabStop="False"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                     </ScrollViewer>

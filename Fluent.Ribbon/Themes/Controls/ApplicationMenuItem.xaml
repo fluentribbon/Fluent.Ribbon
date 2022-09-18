@@ -544,9 +544,9 @@
                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                       Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
+                                              Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                               Margin="1"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                              SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 IsItemsHost="True"
@@ -1201,9 +1201,9 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <ScrollViewer x:Name="PART_ScrollViewer"
+                                              Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                               Margin="1"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                              SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 MaxWidth="{Binding ActualWidth, ElementName=PART_ScrollViewer}"
                                                 IsItemsHost="True"

@@ -122,6 +122,7 @@
                         <ColumnDefinition Width="13" />
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
                                          Grid.ColumnSpan="2"
                                          Height="Auto"
                                          MinHeight="0"
@@ -132,8 +133,7 @@
                                          ClickMode="Press"
                                          Focusable="False"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         IsDefinitive="False"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}" />
+                                         IsDefinitive="False" />
                     <ContentPresenter x:Name="PART_ContentSite"
                                       Margin="3 0 3 0"
                                       HorizontalAlignment="Left"
@@ -153,6 +153,7 @@
                            Stretch="None"
                            Visibility="Collapsed" />
                     <TextBox x:Name="PART_EditableTextBox"
+                             Style="{x:Null}"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -163,7 +164,6 @@
                              Foreground="{TemplateBinding Foreground}"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                             Style="{x:Null}"
                              TextWrapping="NoWrap"
                              Visibility="Hidden" />
                 </Grid>

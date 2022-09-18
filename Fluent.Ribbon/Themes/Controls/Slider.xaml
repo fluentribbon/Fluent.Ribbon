@@ -124,8 +124,8 @@
                    Height="16">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton x:Name="leftButton"
-                                  Command="Slider.DecreaseLarge"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}"
+                                  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb x:Name="thumb"
@@ -133,13 +133,13 @@
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton x:Name="rightButton"
-                                  Command="Slider.IncreaseLarge"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}"
+                                  Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton"
-                          Command="Slider.DecreaseLarge"
-                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}">
+                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}"
+                          Command="Slider.DecreaseLarge">
                 <Grid Margin="0"
                       Background="Transparent"
                       IsHitTestVisible="True">
@@ -156,9 +156,9 @@
                 </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}"
                           Grid.Column="2"
-                          Command="Slider.IncreaseLarge"
-                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}">
+                          Command="Slider.IncreaseLarge">
                 <Grid Margin="0"
                       Background="Transparent"
                       IsHitTestVisible="True">

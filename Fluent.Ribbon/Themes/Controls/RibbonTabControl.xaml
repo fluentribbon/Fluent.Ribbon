@@ -55,12 +55,12 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                   Margin="1"
                                                   HorizontalScrollBarVisibility="Disabled"
                                                   IsTabStop="False"
                                                   SnapsToDevicePixels="True"
-                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                                   VerticalScrollBarVisibility="Auto">
                                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Local" />
                                     </ScrollViewer>
@@ -150,14 +150,14 @@
                                                         Content="{TemplateBinding Content}"
                                                         ContentTemplate="{TemplateBinding ContentTemplate}"
                                                         IsHitTestVisible="True" />
-                                <RepeatButton Width="13"
+                                <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                              Width="13"
                                               Height="Auto"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Stretch"
                                               Command="{x:Static ScrollBar.LineLeftCommand}"
                                               CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                              Focusable="false"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                              Focusable="false">
                                     <RepeatButton.Visibility>
                                         <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="0"
@@ -183,14 +183,14 @@
                                           Stroke="{x:Null}"
                                           StrokeThickness="0" />
                                 </RepeatButton>
-                                <RepeatButton Width="13"
+                                <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                              Width="13"
                                               Height="Auto"
                                               HorizontalAlignment="Right"
                                               VerticalAlignment="Stretch"
                                               Command="{x:Static ScrollBar.LineRightCommand}"
                                               CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                              Focusable="false"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                              Focusable="false">
                                     <RepeatButton.Visibility>
                                         <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                                       ConverterParameter="100"
@@ -294,14 +294,14 @@
                                   VerticalAlignment="Stretch"
                                   ContentSource="Menu" />
 
-                <Fluent:RibbonScrollViewer Grid.Column="1"
+                <Fluent:RibbonScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
+                                           Grid.Column="1"
                                            Width="Auto"
                                            Margin="0"
                                            HorizontalAlignment="Left"
                                            HorizontalScrollBarVisibility="Auto"
                                            IsHitTestVisible="True"
                                            IsTabStop="False"
-                                           Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
                                            VerticalScrollBarVisibility="Disabled"
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
@@ -321,12 +321,12 @@
                                 Visibility="{Binding IsToolBarVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:DropDownButton x:Name="PART_DisplayOptionsButton"
+                                           Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
                                            Width="22"
                                            Height="22"
                                            Margin="0"
                                            Icon="{DynamicResource Fluent.Ribbon.Images.RibbonDisplayOptions}"
                                            Size="Small"
-                                           Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabControl.DisplayOptionsButton}"
                                            ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
                                            Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"

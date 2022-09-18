@@ -77,6 +77,7 @@
                             Orientation="Vertical">
                     <Fluent:ToggleButton x:Name="PART_Button"
                                          Header="{TemplateBinding Header}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          Width="Auto"
                                          Height="Auto"
                                          Margin="0 0 0 0"
@@ -92,7 +93,6 @@
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          Size="{TemplateBinding Size}"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          ToolTip="{TemplateBinding ToolTip}" />
                     <Border Name="downBorder"
                             Margin="0"
@@ -125,10 +125,10 @@
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
-                    <ScrollViewer Margin="1"
+                    <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
+                                  Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"
@@ -207,6 +207,7 @@
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_Button"
                                          Header="{TemplateBinding Header}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          Grid.Column="0"
                                          Width="Auto"
                                          Height="Auto"
@@ -226,7 +227,6 @@
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          Size="{TemplateBinding Size}"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          ToolTip="{TemplateBinding ToolTip}" />
                     <Border x:Name="downBorder"
                             Grid.Column="1"
@@ -262,11 +262,11 @@
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                   Margin="1"
                                   HorizontalScrollBarVisibility="Disabled"
                                   SnapsToDevicePixels="True"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                   VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="PART_MenuPanel"
                                     IsItemsHost="True"

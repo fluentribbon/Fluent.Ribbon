@@ -25,12 +25,12 @@
 
             <Button x:Name="PART_Min"
                     Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="MINBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                 <Path Width="16"
                       Height="16"
@@ -42,12 +42,12 @@
 
             <Button x:Name="PART_Max"
                     Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}">
                 <Path Width="16"
@@ -60,12 +60,12 @@
 
             <Button x:Name="PART_Restore"
                     Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
                 <Path Width="16"
@@ -78,12 +78,12 @@
 
             <Button x:Name="PART_Close"
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="CLOSE"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                 <Path Width="16"
                       Height="16"

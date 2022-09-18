@@ -66,12 +66,12 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <ScrollViewer Grid.Row="0"
+                                <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
+                                              Grid.Row="0"
                                               Grid.Column="0"
                                               IsTabStop="False"
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto">
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle"
                                                 Orientation="Vertical"
@@ -84,12 +84,12 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
                                         BorderThickness="1 0 0 0">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                                   Margin="1"
                                                   IsTabStop="False"
                                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                  SnapsToDevicePixels="True"
-                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}">
+                                                  SnapsToDevicePixels="True">
                                         <ContentPresenter x:Name="PART_RightContentPresenter"
                                                           ContentSource="RightPaneContent" />
                                     </ScrollViewer>

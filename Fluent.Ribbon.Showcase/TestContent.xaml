@@ -261,8 +261,8 @@
                             <Fluent:BackstageTabItem Header="Recent"
                                                      Icon="{iconPacks:Material Kind=History}"
                                                      KeyTip="R">
-                                <TabControl Margin="20 5 20 5"
-                                            Style="{DynamicResource InnerBackstageTabControlStyle}">
+                                <TabControl Style="{DynamicResource InnerBackstageTabControlStyle}"
+                                            Margin="20 5 20 5">
                                     <Fluent:SeparatorTabItem Header="Test1" />
                                     <TabItem Header="1" />
                                     <TabItem Header="2" />
@@ -3694,13 +3694,13 @@
             <Fluent:StatusBarItem Title="Zoom Slider"
                                   HorizontalAlignment="Right">
                 <Slider x:Name="zoomSlider"
+                        Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         IsDirectionReversed="False"
                         IsSnapToTickEnabled="True"
                         LargeChange="0.1"
                         Maximum="2.0"
                         Minimum="0.5"
                         SmallChange="0.1"
-                        Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         TickFrequency="0.1"
                         ValueChanged="ZoomSlider_OnValueChanged"
                         Value="{Binding Zoom}" />

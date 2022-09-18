@@ -99,6 +99,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="PART_TextBox"
+                             Style="{x:Null}"
                              Grid.RowSpan="2"
                              Grid.Column="0"
                              Margin="0"
@@ -108,8 +109,7 @@
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
                              Foreground="{TemplateBinding Foreground}"
-                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                             Style="{x:Null}" />
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
 
                     <Path x:Name="path"
                           Grid.RowSpan="2"
@@ -139,11 +139,11 @@
                           Visibility="Collapsed" />
 
                     <RepeatButton x:Name="PART_ButtonUp"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="0"
                                   Grid.Column="1"
                                   HorizontalAlignment="Stretch"
-                                  RenderTransformOrigin="0,0.5"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
+                                  RenderTransformOrigin="0,0.5">
                         <Path Width="5"
                               Height="3"
                               Margin="1 2 0 1"
@@ -157,9 +157,9 @@
                               StrokeThickness="0" />
                     </RepeatButton>
                     <RepeatButton x:Name="PART_ButtonDown"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="1"
-                                  Grid.Column="1"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
+                                  Grid.Column="1">
                         <Path Width="5"
                               Height="3"
                               Margin="1 -1 0 0"
@@ -266,6 +266,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBox x:Name="PART_TextBox"
+                                 Style="{x:Null}"
                                  Grid.RowSpan="2"
                                  Grid.Column="0"
                                  Margin="0"
@@ -275,8 +276,7 @@
                                  BorderThickness="0"
                                  CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
                                  Foreground="{TemplateBinding Foreground}"
-                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                                 Style="{x:Null}" />
+                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
 
                         <Path x:Name="path"
                               Grid.RowSpan="2"
@@ -306,11 +306,11 @@
                               Visibility="Collapsed" />
 
                         <RepeatButton x:Name="PART_ButtonUp"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                       Grid.Row="0"
                                       Grid.Column="1"
                                       HorizontalAlignment="Stretch"
-                                      RenderTransformOrigin="0,0.5"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
+                                      RenderTransformOrigin="0,0.5">
                             <Path Width="5"
                                   Height="3"
                                   Margin="1 2 0 1"
@@ -324,9 +324,9 @@
                                   StrokeThickness="0" />
                         </RepeatButton>
                         <RepeatButton x:Name="PART_ButtonDown"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                       Grid.Row="1"
-                                      Grid.Column="1"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}">
+                                      Grid.Column="1">
                             <Path Width="5"
                                   Height="3"
                                   Margin="1 -1 0 0"

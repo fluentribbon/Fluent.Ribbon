@@ -52,14 +52,14 @@
                                                 Content="{TemplateBinding Content}"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                                 IsHitTestVisible="True" />
-                        <RepeatButton Width="13"
+                        <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                      Width="13"
                                       Height="Auto"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                      Focusable="false">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="0"
@@ -85,14 +85,14 @@
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
                         </RepeatButton>
-                        <RepeatButton Width="13"
+                        <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                      Width="13"
                                       Height="Auto"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                      Focusable="false">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="100"
@@ -143,15 +143,15 @@
                                                 Content="{TemplateBinding Content}"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                                 IsHitTestVisible="True" />
-                        <RepeatButton Width="13"
+                        <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                      Width="13"
                                       Height="Auto"
                                       Margin="0"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                      Focusable="false">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="0"
@@ -177,15 +177,15 @@
                                   Stroke="{x:Null}"
                                   StrokeThickness="0" />
                         </RepeatButton>
-                        <RepeatButton Width="13"
+                        <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                                      Width="13"
                                       Height="Auto"
                                       Margin="0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                                      Focusable="false"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                                      Focusable="false">
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="100"
@@ -240,15 +240,15 @@
                                     Content="{TemplateBinding Content}"
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     IsHitTestVisible="True" />
-            <RepeatButton Width="Auto"
+            <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                          Width="Auto"
                           Height="12"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Top"
                           ClickMode="Hover"
                           Command="{x:Static ScrollBar.LineUpCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                          Focusable="false"
-                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                          Focusable="false">
                 <RepeatButton.Visibility>
                     <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                   ConverterParameter="0"
@@ -275,15 +275,15 @@
                       StrokeThickness="0" />
 
             </RepeatButton>
-            <RepeatButton Width="Auto"
+            <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
+                          Width="Auto"
                           Height="12"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"
                           ClickMode="Hover"
                           Command="{x:Static ScrollBar.LineDownCommand}"
                           CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
-                          Focusable="false"
-                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}">
+                          Focusable="false">
                 <RepeatButton.Visibility>
                     <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                   ConverterParameter="100"
