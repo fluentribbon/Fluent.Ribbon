@@ -10,7 +10,7 @@
 
     <ItemGroup Label="Test">
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-        <PackageVersion Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageVersion Include="NUnit3TestAdapter" Version="4.3.0-alpha-net7.4" />
 
         <PackageVersion Include="NUnit" version="3.13.3" />
 
