@@ -272,7 +272,7 @@
                                 </TabControl>
                             </Fluent:BackstageTabItem>
 
-                            <Fluent:SeparatorTabItem />
+                            <Separator />
 
                             <Fluent:Button Header="Exit"
                                            VerticalAlignment="Bottom"
