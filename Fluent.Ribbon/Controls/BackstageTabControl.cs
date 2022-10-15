@@ -334,6 +334,17 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     }
 
     /// <inheritdoc />
+    protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
+    {
+        if (element.ReadLocalValue(DockPanel.DockProperty) == DependencyProperty.UnsetValue)
+        {
+            element.SetCurrentValue(DockPanel.DockProperty, Dock.Top);
+        }
+
+        base.PrepareContainerForItemOverride(element, item);
+    }
+
+    /// <inheritdoc />
     protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
     {
         base.OnItemsChanged(e);

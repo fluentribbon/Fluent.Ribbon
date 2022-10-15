@@ -56,7 +56,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.BackstageTabControl.Button"
            TargetType="{x:Type Fluent:Button}">
-        <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
@@ -115,7 +114,6 @@
     <Style x:Key="Fluent.Ribbon.Styles.BackstageBackButton"
            TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Background}" />
-        <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground}" />
         <Setter Property="Height" Value="48" />
@@ -125,7 +123,6 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem"
            TargetType="{x:Type Fluent:SeparatorTabItem}">
-        <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Margin" Value="25 10 20 10" />
         <Setter Property="Template">

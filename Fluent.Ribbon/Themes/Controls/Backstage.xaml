@@ -49,12 +49,10 @@
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsMouseOver" Value="True" />
-                </MultiTrigger.Conditions>
+            <Trigger Property="IsMouseOver"
+                     Value="True">
                 <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.HighTransparentWhite}" />
-            </MultiTrigger>
+            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="border2" Property="Opacity" Value="0.5" />
                 <Setter TargetName="contentPresenter" Property="Effect">

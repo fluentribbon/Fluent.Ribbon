@@ -61,7 +61,6 @@
     <Style x:Key="Fluent.Ribbon.Styles.BackstageTabItem"
            TargetType="{x:Type Fluent:BackstageTabItem}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:BackstageTabControl}}}" />
-        <Setter Property="DockPanel.Dock" Value="Top" />
         <Setter Property="Fluent:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
