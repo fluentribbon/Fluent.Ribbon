@@ -40,8 +40,8 @@
                                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                         BorderThickness="1"
                                         SnapsToDevicePixels="True">
                                     <Grid Width="Auto"
@@ -51,7 +51,7 @@
                                         <Border Width="Auto"
                                                 Height="Auto"
                                                 VerticalAlignment="Top"
-                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
                                               HorizontalAlignment="Stretch"
@@ -64,7 +64,7 @@
                                                        VerticalAlignment="Stretch"
                                                        Fill="{x:Null}"
                                                        Stretch="Fill"
-                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                                        Visibility="Visible" />
                                             <ScrollViewer Margin="1"
                                                           HorizontalScrollBarVisibility="Disabled"
@@ -104,7 +104,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>

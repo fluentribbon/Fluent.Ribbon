@@ -18,7 +18,7 @@
                                    HorizontalAlignment="Left"
                                    Fill="{x:Null}"
                                    Stretch="Fill"
-                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                    Visibility="Visible" />
                         <StackPanel x:Name="menuPanel"
                                     IsItemsHost="True"

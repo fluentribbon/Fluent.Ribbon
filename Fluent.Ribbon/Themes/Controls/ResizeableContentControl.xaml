@@ -14,8 +14,8 @@
         <Border x:Name="PART_DropDownBorder"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                 BorderThickness="1"
                 SnapsToDevicePixels="True">
 
@@ -34,8 +34,8 @@
                         Height="11"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Top"
-                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize..Background}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Border}"
                         BorderThickness="0 1 0 0">
                     <Grid>
                         <Thumb x:Name="PART_ResizeVerticalThumb"

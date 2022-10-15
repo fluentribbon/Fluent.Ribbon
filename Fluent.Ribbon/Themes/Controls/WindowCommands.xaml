@@ -149,7 +149,7 @@
             <Trigger Property="IsKeyboardFocused" Value="True" />
             <Trigger Property="ToggleButton.IsChecked" Value="True" />
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabled}" />
             </Trigger>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
                 <Setter TargetName="border" Property="Rectangle.Width" Value="1" />

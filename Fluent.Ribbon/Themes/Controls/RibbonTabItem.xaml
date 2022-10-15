@@ -105,8 +105,8 @@
     <Style x:Key="Fluent.Ribbon.Styles.RibbonTabItem"
            TargetType="{x:Type Fluent:RibbonTabItem}">
         <Setter Property="ActiveTabBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
-        <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
+        <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
@@ -129,7 +129,7 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
             <Trigger Property="Group" Value="{x:Null}">
-                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />

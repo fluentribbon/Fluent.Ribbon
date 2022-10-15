@@ -24,7 +24,7 @@
             <Trigger Property="IsMouseOver" Value="False" />
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
@@ -35,7 +35,7 @@
                     <Condition Property="IsPressed" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -86,7 +86,7 @@
                     MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:Spinner}}"
                     HorizontalAlignment="Right"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                     BorderThickness="1">
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -107,9 +107,9 @@
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                              BorderThickness="0"
-                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                              Foreground="{TemplateBinding Foreground}"
-                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                     <Path x:Name="path"
                           Grid.RowSpan="2"
@@ -120,7 +120,7 @@
                           Data="M0,0L0,1"
                           Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                           Stretch="Fill"
-                          Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                          Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}"
                           StrokeThickness="1"
                           Visibility="Collapsed" />
 
@@ -134,7 +134,7 @@
                           Data="M0,0L1,0"
                           Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                           Stretch="Fill"
-                          Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                          Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}"
                           StrokeThickness="1"
                           Visibility="Collapsed" />
 
@@ -196,7 +196,7 @@
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Border}" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
@@ -204,7 +204,7 @@
 
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                 <Setter TargetName="path" Property="Visibility" Value="Visible" />
                 <Setter TargetName="path1" Property="Visibility" Value="Visible" />
@@ -253,7 +253,7 @@
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                         BorderThickness="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -274,9 +274,9 @@
                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                                  BorderThickness="0"
-                                 CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                                 CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                                  Foreground="{TemplateBinding Foreground}"
-                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}" />
+                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                         <Path x:Name="path"
                               Grid.RowSpan="2"
@@ -287,7 +287,7 @@
                               Data="M0,0L0,1"
                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}"
                               StrokeThickness="1"
                               Visibility="Collapsed" />
 
@@ -301,7 +301,7 @@
                               Data="M0,0L1,0"
                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}"
                               StrokeThickness="1"
                               Visibility="Collapsed" />
 
@@ -364,7 +364,7 @@
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Border}" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_TextBox" Property="IsEnabled" Value="False" />
@@ -372,10 +372,10 @@
 
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}" />
                 <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="path" Property="Visibility" Value="Visible" />
                 <Setter TargetName="path1" Property="Visibility" Value="Visible" />
             </Trigger>

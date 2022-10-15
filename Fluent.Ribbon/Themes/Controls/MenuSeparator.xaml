@@ -18,7 +18,7 @@
                   Data="M0,0L1,0"
                   Fill="{x:Null}"
                   Stretch="Fill"
-                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                   StrokeDashArray="2 2" />
         </Grid>
     </ControlTemplate>

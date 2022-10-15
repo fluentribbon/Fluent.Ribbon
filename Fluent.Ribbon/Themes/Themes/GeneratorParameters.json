@@ -6,7 +6,7 @@
     "Fluent.Ribbon.Colors.DarkExtremeHighlight": "#FFF29536",
     "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background": "#FFFCF1C2",
-    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush": "#FFF29536",
+    "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border": "#FFF29536",
     "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
     "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "Transparent",
     "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",

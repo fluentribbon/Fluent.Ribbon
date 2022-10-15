@@ -21,7 +21,7 @@
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Height="Auto"
                   HorizontalAlignment="Right">
@@ -40,11 +40,11 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="path" Property="Opacity" Value="0.5" />
@@ -56,7 +56,7 @@
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -113,7 +113,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
                     BorderThickness="1"
                     d:LayoutOverrides="GridBox">
                 <Grid>
@@ -159,11 +159,11 @@
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                              BorderThickness="0"
-                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                              Focusable="True"
                              Foreground="{TemplateBinding Foreground}"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
-                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}"
                              TextWrapping="NoWrap"
                              Visibility="Hidden" />
                 </Grid>
@@ -207,7 +207,7 @@
                                       Margin="1"
                                       VerticalAlignment="Stretch"
                                       Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                       BorderThickness="0 0 0 1"
                                       Focusable="False"
                                       KeyboardNavigation.DirectionalNavigation="None"
@@ -249,20 +249,20 @@
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_EditableTextBox" Property="IsEnabled" Value="False" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
 
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
             <Trigger Property="IsGrouping" Value="true">

@@ -45,8 +45,8 @@
                             MinWidth="{TemplateBinding ActualWidth}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
                         <Grid Width="Auto"
@@ -81,7 +81,7 @@
                                 <Border Grid.Row="0"
                                         Grid.Column="1"
                                         Width="{TemplateBinding RightPaneWidth}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                         BorderThickness="1 0 0 0">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
                                                   Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
@@ -98,7 +98,7 @@
                                         Grid.ColumnSpan="2"
                                         Margin="0"
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                         BorderThickness="0 1 0 0">
                                     <ContentPresenter ContentSource="FooterPaneContent" />
                                 </Border>

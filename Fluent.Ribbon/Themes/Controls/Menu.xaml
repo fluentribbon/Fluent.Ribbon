@@ -39,8 +39,8 @@
               VerticalAlignment="Top">
             <Border HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                     BorderThickness="1"
                     SnapsToDevicePixels="True">
                 <Grid Width="Auto"
@@ -72,8 +72,8 @@
                                 Height="11"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize..Background}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Border}"
                                 BorderThickness="0 1 0 0">
                             <Grid>
                                 <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -131,8 +131,8 @@
               VerticalAlignment="Top">
             <Border HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                     BorderThickness="1"
                     SnapsToDevicePixels="True">
                 <Grid Width="Auto"
@@ -142,7 +142,7 @@
                     <Border Width="Auto"
                             Height="Auto"
                             VerticalAlignment="Stretch"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                             BorderThickness="1" />
                     <Grid HorizontalAlignment="Left"
                           VerticalAlignment="Top">

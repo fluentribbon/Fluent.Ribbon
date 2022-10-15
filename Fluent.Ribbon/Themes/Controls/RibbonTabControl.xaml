@@ -35,8 +35,8 @@
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                 BorderThickness="1"
                                 SnapsToDevicePixels="True">
                             <Grid Width="Auto"
@@ -46,7 +46,7 @@
                                 <Border Width="Auto"
                                         Height="Auto"
                                         VerticalAlignment="Top"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                         BorderThickness="1" />
                                 <Grid Margin="1"
                                       HorizontalAlignment="Stretch"
@@ -74,7 +74,7 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -82,7 +82,7 @@
                     <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -250,7 +250,7 @@
                     Grid.RowSpan="1"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2"

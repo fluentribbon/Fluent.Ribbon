@@ -42,7 +42,7 @@
         </BulletDecorator>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
@@ -106,7 +106,7 @@
                         <Border x:Name="iconImageBorder"
                                 Width="{Binding ActualWidth, ElementName=iconImage}"
                                 Height="{Binding ActualHeight, ElementName=iconImage}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                 BorderThickness="1"
                                 Visibility="Collapsed" />
                     </Grid>
@@ -158,8 +158,8 @@
 
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
@@ -169,7 +169,7 @@
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter TargetName="bulletDecorator" Property="Opacity" Value="0.5" />
-                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
+                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -177,7 +177,7 @@
     <Style x:Key="{x:Type Fluent:RadioButton}"
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Border}" />
         <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />

@@ -117,7 +117,7 @@
                     <Border x:Name="border"
                             Height="Auto"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                             BorderThickness="1"
                             d:LayoutOverrides="Width">
                         <Grid x:Name="PART_ParentPanel"
@@ -229,7 +229,7 @@
 
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -237,7 +237,7 @@
                     <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
 
             <MultiTrigger>
@@ -362,7 +362,7 @@
                             Padding="4"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                             BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
                                               IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
@@ -393,7 +393,7 @@
                         <Border x:Name="border"
                                 Height="Auto"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
                             <ContentControl x:Name="popupContent" />
@@ -531,7 +531,7 @@
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                         <Border Margin="0"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                                 BorderThickness="1" />
                     </Grid>
 
@@ -558,7 +558,7 @@
                         <Border x:Name="border"
                                 Height="Auto"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
                             <ContentControl x:Name="popupContent" />
@@ -642,7 +642,7 @@
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="outerBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -650,7 +650,7 @@
                     <Condition Property="IsPressed" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="outerBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

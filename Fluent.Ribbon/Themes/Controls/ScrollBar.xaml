@@ -12,7 +12,7 @@
                     <Border Name="Border"
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="1">
                         <Path x:Name="path"
                               Width="Auto"
@@ -29,11 +29,11 @@
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.BorderBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Border}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="Border" Property="Background" Value="Transparent" />
@@ -72,16 +72,16 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
                             BorderThickness="1" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -100,7 +100,7 @@
                     <Border Name="Border"
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="1">
                         <Path x:Name="path"
                               Width="Auto"
@@ -117,11 +117,11 @@
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="Border" Property="Background" Value="Transparent" />
@@ -145,16 +145,16 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
                             BorderThickness="1" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

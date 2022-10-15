@@ -37,7 +37,7 @@
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Visibility="Collapsed" />
@@ -70,7 +70,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -145,7 +145,7 @@
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Visibility="Collapsed" />
@@ -178,7 +178,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -306,8 +306,8 @@
                             Grid.ColumnSpan="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             SnapsToDevicePixels="True">
@@ -318,7 +318,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -336,7 +336,7 @@
                                       Data="M0,0L0,1"
                                       Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                       Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Margin="1"
@@ -408,7 +408,7 @@
                        Width="1"
                        Margin="0 4 23 4"
                        HorizontalAlignment="Right"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}" />
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}" />
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
@@ -423,7 +423,7 @@
                 <Border x:Name="PART_ButtonBorder"
                         Margin="0 0 -1 0"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Visibility="Collapsed" />
@@ -433,7 +433,7 @@
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Visibility="Collapsed" />
@@ -467,7 +467,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -511,8 +511,8 @@
                     <Border x:Name="DropDownBorder"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             CornerRadius="1"
                             SnapsToDevicePixels="True">
@@ -523,7 +523,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -541,7 +541,7 @@
                                       Data="M0,0L0,1"
                                       Fill="{x:Null}"
                                       Stretch="Fill"
-                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                       Visibility="Visible" />
                                 <ScrollViewer x:Name="PART_ScrollViewer"
                                               Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
@@ -648,7 +648,7 @@
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Visibility="Collapsed" />
@@ -680,7 +680,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -754,7 +754,7 @@
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                     BorderThickness="1"
                     CornerRadius="2"
                     Visibility="Collapsed" />
@@ -776,7 +776,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -907,8 +907,8 @@
                             Grid.ColumnSpan="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             CornerRadius="2,2,1,1"
                             SnapsToDevicePixels="True">
@@ -919,7 +919,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"
@@ -999,7 +999,7 @@
                        Width="1"
                        Margin="0 4 23 4"
                        HorizontalAlignment="Right"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}" />
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}" />
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
@@ -1014,7 +1014,7 @@
                 <Border x:Name="PART_ButtonBorder"
                         Margin="0 0 -1 0"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Visibility="Collapsed" />
@@ -1024,7 +1024,7 @@
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}"
+                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}"
                         BorderThickness="1"
                         CornerRadius="2"
                         Visibility="Collapsed" />
@@ -1047,7 +1047,7 @@
                        Fill="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background}"
                        RadiusX="1"
                        RadiusY="1"
-                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.BorderBrush}"
+                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border}"
                        Visibility="Collapsed" />
             <Image x:Name="image"
                    Width="32"
@@ -1178,8 +1178,8 @@
                             Grid.ColumnSpan="1"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             CornerRadius="1"
                             SnapsToDevicePixels="True">
@@ -1190,7 +1190,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Stretch"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
                                     BorderThickness="1"
                                     CornerRadius="1" />
                             <Grid Margin="1"

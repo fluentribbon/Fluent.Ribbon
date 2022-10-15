@@ -10,7 +10,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.BorderBrush}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Border}"
                     BorderThickness="1">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center" />
@@ -19,11 +19,11 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
                 <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="OuterBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

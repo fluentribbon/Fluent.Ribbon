@@ -45,7 +45,7 @@
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.ColorGallery.ListBox.Item">
         <Rectangle Fill="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
-                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
+                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}" />
     </DataTemplate>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0"
@@ -89,19 +89,19 @@
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorCenterData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}"
                 BorderThickness="1 0 1 0" />
     </DataTemplate>
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorTopData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}"
                 BorderThickness="1 1 1 0" />
     </DataTemplate>
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.GradientColorBottomData">
         <Border Background="{Binding Converter={x:Static converters:StaticConverters.ColorToSolidColorBrushValueConverter}}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}"
                 BorderThickness="1 0 1 1" />
     </DataTemplate>
 
@@ -127,7 +127,7 @@
                                            Height="16"
                                            Margin="-2 0 0 0"
                                            Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
@@ -176,7 +176,7 @@
                                            Height="16"
                                            Margin="-2 0 0 0"
                                            Fill="Transparent"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.BorderBrush}" />
+                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
                         <Separator x:Name="separator">
