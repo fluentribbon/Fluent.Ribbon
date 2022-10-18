@@ -49,8 +49,7 @@
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver"
-                     Value="True">
+            <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.HighTransparentWhite}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
