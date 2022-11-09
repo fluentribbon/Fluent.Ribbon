@@ -40,7 +40,7 @@
                                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                         BorderThickness="1"
                                         SnapsToDevicePixels="True">
@@ -51,7 +51,7 @@
                                         <Border Width="Auto"
                                                 Height="Auto"
                                                 VerticalAlignment="Top"
-                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
                                               HorizontalAlignment="Stretch"

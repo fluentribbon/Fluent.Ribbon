@@ -44,7 +44,7 @@
                             MinWidth="{TemplateBinding ActualWidth}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
@@ -55,7 +55,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Top"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown..Background}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1" />
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -78,7 +78,7 @@
                                         Height="11"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize..Background}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Background}"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Border}"
                                         BorderThickness="0 1 0 0">
                                     <Grid>
