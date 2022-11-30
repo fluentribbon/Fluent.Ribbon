@@ -1700,9 +1700,10 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False"
                                        IsSeparatorVisible="False">
-                    <Fluent:CheckBox>Text 1</Fluent:CheckBox>
-                    <Fluent:CheckBox>Text 2</Fluent:CheckBox>
-                    <Fluent:CheckBox>Text 3</Fluent:CheckBox>
+                    <Fluent:CheckBox IsThreeState="True">Text 1</Fluent:CheckBox>
+                    <Fluent:CheckBox IsEnabled="False" IsChecked="True">Text 2</Fluent:CheckBox>
+                    <Fluent:CheckBox IsEnabled="False">Text 3</Fluent:CheckBox>
+                    <Fluent:CheckBox IsEnabled="False" IsThreeState="True" IsChecked="{x:Null}">Text 3</Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">

@@ -28,7 +28,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -37,11 +37,6 @@
                                    Width="7"
                                    Height="7"
                                    Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
-                                   Opacity="0" />
-                        <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                                   RadiusX="1"
-                                   RadiusY="1"
                                    Opacity="0" />
                     </Grid>
                 </Border>
@@ -64,7 +59,7 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
                 <Setter TargetName="IndeterminateIcon" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
-                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Background}" />
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
@@ -74,7 +69,8 @@
                 <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="DisabledVisualElement" Property="Opacity" Value=".55" />
+                <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
                 <Setter TargetName="contentPresenter" Property="Opacity" Value=".55" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
@@ -116,7 +112,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -125,11 +121,6 @@
                                    Width="7"
                                    Height="7"
                                    Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
-                                   Opacity="0" />
-                        <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                                   RadiusX="1"
-                                   RadiusY="1"
                                    Opacity="0" />
                     </Grid>
                 </Border>

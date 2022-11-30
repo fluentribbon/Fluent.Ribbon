@@ -133,8 +133,9 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ToggleButton.CheckedMouseOver.Border" Color="{StaticResource Fluent.Ribbon.Colors.Accent60}" options:Freeze="True" />
 
     <!-- CheckBox -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray3}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Border" Color="{StaticResource Fluent.Ribbon.Colors.Black}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray10}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.MouseOver.Background" Color="Transparent" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke" Color="{StaticResource Fluent.Ribbon.Colors.Gray1}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke" Color="{StaticResource Fluent.Ribbon.Colors.Black}" options:Freeze="True" />
 
