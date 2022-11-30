@@ -27,6 +27,7 @@
   - [#1035](../../issues/1035) - Binding failures from within RibbonTabItem on IsMinimized & IsOpen
   - [#1041](../../issues/1041) - MenuItem CreateQuickAccessItem should create ToggleButton (thanks @andersforsgren)
   - [#1070](../../issues/1070) - Separators no longer shown in Backstage (related to #936)
+  - [#1081](../../issues/1081) - Fix InvalidOperationException thrown when switching focus from editable ComboBox to Hyperlink (thanks @orrindeng)
 
 - ### Enhancements/Features
 
