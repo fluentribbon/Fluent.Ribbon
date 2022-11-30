@@ -3,6 +3,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Fluent.Internal;
 
 /// <summary>
 /// Extension-Methods for <see cref="ItemContainerGenerator" />.
@@ -82,7 +83,7 @@ public static class ItemContainerGeneratorExtensions
             return item;
         }
 
-        var visualParent = VisualTreeHelper.GetParent(container);
+        var visualParent = UIHelper.GetVisualParent(container);
         if (visualParent is not null)
         {
             item = @this.ItemFromContainer(visualParent);
