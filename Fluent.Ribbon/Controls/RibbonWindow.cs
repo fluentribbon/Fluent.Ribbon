@@ -168,7 +168,7 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     }
 
     /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
-    public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox));
+    public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty = DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(RibbonWindow), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsAutomaticCollapseEnabledChanged));
 
     #endregion
 
@@ -266,6 +266,11 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
             this.TitleBar.Measure(availableSize);
             this.TitleBar.ScheduleForceMeasureAndArrange();
         }, DispatcherPriority.ApplicationIdle);
+    }
+
+    private static void OnIsAutomaticCollapseEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((RibbonWindow)d).MaintainIsCollapsed();
     }
 
     private void MaintainIsCollapsed()

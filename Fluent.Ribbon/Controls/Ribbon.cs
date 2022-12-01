@@ -1168,7 +1168,7 @@ public class Ribbon : Control, ILogicalChildSupport
 
     /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>
     public static readonly DependencyProperty IsAutomaticCollapseEnabledProperty =
-        DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+        DependencyProperty.Register(nameof(IsAutomaticCollapseEnabled), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsAutomaticCollapseEnabledChanged));
 
     /// <summary>
     /// Gets or sets whether QAT is visible
@@ -1569,6 +1569,11 @@ public class Ribbon : Control, ILogicalChildSupport
     private void OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
         this.MaintainIsCollapsed();
+    }
+
+    private static void OnIsAutomaticCollapseEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((Ribbon)d).MaintainIsCollapsed();
     }
 
     private void MaintainIsCollapsed()
