@@ -18,7 +18,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Build">
-        <PackageVersion Include="JetBrains.Annotations" version="2022.1.0" />
+        <PackageVersion Include="JetBrains.Annotations" version="2022.3.1" />
 
         <PackageVersion Include="Microsoft.Windows.CsWin32" Version="0.2.63-beta" />
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0143" />
