@@ -1275,11 +1275,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
     {
-        if (this.ReadLocalValue(IsCollapsedProperty) != DependencyProperty.UnsetValue)
-        {
-            return;
-        }
-
         if (this.CanCollapseToButton)
         {
             if (current == RibbonControlSize.Large
@@ -1291,10 +1286,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
             {
                 this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
-        }
-        else
-        {
-            this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
         }
     }
 
@@ -1506,8 +1497,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void ResetScale()
     {
-        if (this.IsCollapsed
-            && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
+        if (this.CanCollapseToButton
+            && this.IsCollapsed
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
@@ -1525,8 +1516,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void Enlarge()
     {
-        if (this.IsCollapsed
-            && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
+        if (this.CanCollapseToButton
+            && this.IsCollapsed
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
@@ -1555,7 +1546,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
             this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
         }
         else if (this.CanCollapseToButton
-                 && this.ReadLocalValue(IsCollapsedProperty) == DependencyProperty.UnsetValue
                  && this.IsCollapsed == false)
         {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
