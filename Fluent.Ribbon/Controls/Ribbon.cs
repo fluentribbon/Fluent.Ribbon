@@ -1581,6 +1581,7 @@ public class Ribbon : Control, ILogicalChildSupport
         if (this.IsAutomaticCollapseEnabled == false
             || this.ownerWindow is null)
         {
+            this.ClearValue(IsCollapsedProperty);
             return;
         }
 
