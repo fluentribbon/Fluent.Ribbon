@@ -532,10 +532,6 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
                     this.OnClick();
                 }
             }
-            else if (this.HasItems)
-            {
-                this.IsSubmenuOpen = !this.IsSubmenuOpen;
-            }
         }
 
         base.OnMouseLeftButtonUp(e);
