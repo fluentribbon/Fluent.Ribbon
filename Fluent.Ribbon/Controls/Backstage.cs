@@ -238,8 +238,6 @@ public class Backstage : RibbonControl
         DefaultStyleKeyProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(typeof(Backstage)));
         // Disable QAT for this control
         CanAddToQuickAccessToolBarProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
-
-        KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(Backstage), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
     }
 
     /// <summary>
@@ -391,9 +389,6 @@ public class Backstage : RibbonControl
             this.CollapseWindowsFormsHosts(this.ownerWindow);
         }
 
-        var content = this.Content as IInputElement;
-        content?.Focus();
-
         return true;
     }
 
@@ -457,6 +452,11 @@ public class Backstage : RibbonControl
         {
             this.AdornerLayer?.Update();
 
+            if (this.Content?.IsVisible == true)
+            {
+                this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+            }
+
             storyboard.Completed -= HandleStoryboardOnCompleted;
         }
     }
@@ -498,6 +498,8 @@ public class Backstage : RibbonControl
             this.RestoreParentProperties();
 
             storyboard.Completed -= HandleStoryboardOnCompleted;
+
+            this.Focus();
         }
     }
 
