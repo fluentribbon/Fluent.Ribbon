@@ -212,7 +212,7 @@ public class UniformGridWithItemSize : Panel
             {
                 childBounds.X += xStep;
 
-                if (childBounds.X >= xBound)
+                if (DoubleUtil.GreaterThan(childBounds.X, xBound) || DoubleUtil.AreClose(childBounds.X, xBound))
                 {
                     childBounds.Y += childBounds.Height;
                     childBounds.X = 0;
