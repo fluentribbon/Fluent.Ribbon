@@ -1,4 +1,4 @@
-﻿#pragma warning disable WPF0015
+#pragma warning disable WPF0015
 
 // ReSharper disable once CheckNamespace
 namespace Fluent;
@@ -189,36 +189,6 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     {
         this.SizeChanged += this.OnSizeChanged;
         this.Loaded += this.OnLoaded;
-    }
-
-    #endregion
-
-    #region Behaviors
-
-    /// <summary>
-    /// Initializes the WindowChromeBehavior which is needed to render the custom WindowChrome.
-    /// </summary>
-    private void InitializeWindowChromeBehavior()
-    {
-        var behavior = new WindowChromeBehavior();
-        BindingOperations.SetBinding(behavior, WindowChromeBehavior.ResizeBorderThicknessProperty, new Binding { Path = new PropertyPath(ResizeBorderThicknessProperty), Source = this });
-        BindingOperations.SetBinding(behavior, WindowChromeBehavior.IgnoreTaskbarOnMaximizeProperty, new Binding { Path = new PropertyPath(IgnoreTaskbarOnMaximizeProperty), Source = this });
-        BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowColorProperty, new Binding { Path = new PropertyPath(GlowColorProperty), Source = this });
-
-        Interaction.GetBehaviors(this).Add(behavior);
-    }
-
-    /// <summary>
-    /// Initializes the GlowWindowBehavior which is needed to render the custom resize windows around the current window.
-    /// </summary>
-    private void InitializeGlowWindowBehavior()
-    {
-        var behavior = new GlowWindowBehavior();
-        BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowDepthProperty, new Binding { Path = new PropertyPath(GlowDepthProperty), Source = this });
-        BindingOperations.SetBinding(behavior, GlowWindowBehavior.GlowColorProperty, new Binding { Path = new PropertyPath(GlowColorProperty), Source = this });
-        BindingOperations.SetBinding(behavior, GlowWindowBehavior.NonActiveGlowColorProperty, new Binding { Path = new PropertyPath(NonActiveGlowColorProperty), Source = this });
-
-        Interaction.GetBehaviors(this).Add(behavior);
     }
 
     #endregion
