@@ -8,7 +8,7 @@
                    Title="{Binding WindowTitle, ElementName=TestContent}"
                    Width="1024"
                    Height="768"
-                   GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                   GlowColor="{DynamicResource MahApps.Colors.Accent}"
                    ShowIconOnTitleBar="False"
                    ShowSystemMenuOnRightClick="False"
                    ShowTitleBar="True"

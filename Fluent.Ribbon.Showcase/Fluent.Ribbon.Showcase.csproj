@@ -5,7 +5,7 @@
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     
     <NoWarn>$(NoWarn);SA0001;SA1601;SA1602</NoWarn>
-    <InlcudeMahAppsMetro>false</InlcudeMahAppsMetro>
+    <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
 
     <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
   </PropertyGroup>

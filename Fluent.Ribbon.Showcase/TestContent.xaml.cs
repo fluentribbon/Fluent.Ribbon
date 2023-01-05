@@ -164,10 +164,6 @@ public partial class TestContent
             {
                 case WindowChromeWindow x:
                     return x.GlowColor;
-#if MahApps_Metro
-                    case MetroWindow x:
-                        return ((SolidColorBrush)x.GlowBrush).Color;
-#endif
             }
 
             return null;
@@ -179,10 +175,6 @@ public partial class TestContent
             {
                 case WindowChromeWindow x:
                     return x.NonActiveGlowColor;
-#if MahApps_Metro
-                    case MetroWindow x:
-                        return ((SolidColorBrush)x.NonActiveGlowBrush).Color;
-#endif
             }
 
             return null;
