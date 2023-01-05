@@ -16,6 +16,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ControlzEx;
 using ControlzEx.Theming;
 using Fluent;
 using Fluent.Localization;
@@ -161,7 +162,7 @@ public partial class TestContent
         {
             switch (Window.GetWindow(this))
             {
-                case RibbonWindow x:
+                case WindowChromeWindow x:
                     return x.GlowColor;
 #if MahApps_Metro
                     case MetroWindow x:
@@ -176,7 +177,7 @@ public partial class TestContent
         {
             switch (Window.GetWindow(this))
             {
-                case RibbonWindow x:
+                case WindowChromeWindow x:
                     return x.NonActiveGlowColor;
 #if MahApps_Metro
                     case MetroWindow x:
