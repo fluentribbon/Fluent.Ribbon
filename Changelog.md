@@ -30,6 +30,7 @@
   - [#1081](../../issues/1081) - Fix InvalidOperationException thrown when switching focus from editable ComboBox to Hyperlink (thanks @orrindeng)
   - [#1087](../../issues/1087) - Multiple levels of menu items of DropDownButton behaves not well (thanks @orrindeng)
   - [#1092](../../issues/1092) - Fix on some computers, the gallery layout is not good (thanks @orrindeng)
+  - [#1095](../../issues/1095) - Add missing localizations for the danish language (thanks @cbra-caa)
 
 - ### Enhancements/Features
 
