@@ -31,6 +31,7 @@
   - [#1087](../../issues/1087) - Multiple levels of menu items of DropDownButton behaves not well (thanks @orrindeng)
   - [#1092](../../issues/1092) - Fix on some computers, the gallery layout is not good (thanks @orrindeng)
   - [#1095](../../issues/1095) - Add missing localizations for the danish language (thanks @cbra-caa)
+  - [#1096](../../issues/1096) - BackstageTabItem tooltip shows on content hover (thanks @cbra-caa)
 
 - ### Enhancements/Features
 
