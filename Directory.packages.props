@@ -1,6 +1,6 @@
 <Project>
     <ItemGroup>
-        <PackageVersion Include="ControlzEx" version="6.0.0-alpha0255" />
+        <PackageVersion Include="ControlzEx" version="6.0.0-alpha0272" />
     </ItemGroup>
 
     <ItemGroup Label="Showcase">
