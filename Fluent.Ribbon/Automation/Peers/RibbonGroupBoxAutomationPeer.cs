@@ -106,6 +106,12 @@ public class RibbonGroupBoxAutomationPeer : FrameworkElementAutomationPeer, IExp
     {
     }
 
+    /// <inheritdoc />
+    protected override AutomationControlType GetAutomationControlTypeCore()
+    {
+        return this.IsCollapseOrExpandValid ? AutomationControlType.Button : AutomationControlType.Group;
+    }
+
     #region IExpandCollapseProvider Members
 
     /// <inheritdoc />

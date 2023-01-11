@@ -118,6 +118,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public bool IsContextMenuOpened { get; set; }
 
+    /// <summary>
+    /// Shorthand for whether the GroupBox is in a state where it can act as a button
+    /// </summary>
+    public bool IsInButtonState => this.State == RibbonGroupBoxState.Collapsed || this.State == RibbonGroupBoxState.QuickAccess;
+
     #region StateDefinition
 
     /// <summary>
@@ -198,6 +203,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     {
         var ribbonGroupBox = (RibbonGroupBox)d;
         ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
+        ribbonGroupBox.Focusable = ribbonGroupBox.IsInButtonState;
     }
 
     private void UpdateChildSizes()
@@ -1161,6 +1167,70 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
             {
                 PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.MouseNotOver);
             }
+        }
+    }
+
+    /// <inheritdoc />
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (!this.IsInButtonState || e.Handled)
+        {
+            base.OnKeyDown(e);
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case Key.Space:
+                OpenPopup();
+                break;
+
+            case Key.System:
+                if (e.SystemKey == Key.Down 
+                    && e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
+                {
+                    OpenPopup();
+                }
+
+                break;
+
+            case Key.Escape:
+                ClosePopup();
+                break;
+        }
+
+        base.OnKeyDown(e);
+
+        void OpenPopup()
+        {
+            if (this.IsDropDownOpen || this.DropDownPopup is null)
+            {
+                return;
+            }
+
+            this.IsDropDownOpen = true;
+
+            var focusElement = UIHelper.FindFirstFocusableElement(this.DropDownPopup.Child);
+            if (focusElement is null)
+            {
+                this.IsDropDownOpen = false;
+                return;
+            }
+            
+            Keyboard.Focus(focusElement);
+            e.Handled = true;
+        }
+
+        void ClosePopup()
+        {
+            if (!this.IsDropDownOpen)
+            {
+                return;
+            }
+
+            this.IsDropDownOpen = false;
+            Keyboard.Focus(this);
+            e.Handled = true;
         }
     }
 

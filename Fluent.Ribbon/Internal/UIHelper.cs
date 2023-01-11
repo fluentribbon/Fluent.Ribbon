@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -224,6 +225,41 @@ internal static class UIHelper
             {
                 yield return container;
             }
+        }
+    }
+
+    /// <summary>
+    /// Using a DFS traverse the visual heirarchy of the input for a focusable candidate
+    /// </summary>
+    /// <param name="element">Element from where to start the search</param>
+    /// <returns>An element in a valid state to receive focus, otherwise null</returns>
+    public static UIElement? FindFirstFocusableElement(DependencyObject element)
+    {
+        var children = GetVisualChildren(element);
+        var match = children.FirstOrDefault(IsFocusable);
+        if (match is not null)
+        {
+            return match as UIElement;
+        }
+
+        foreach (var child in children)
+        {
+            match = FindFirstFocusableElement(child);
+
+            if (match is not null)
+            {
+                return match as UIElement;
+            }
+        }
+
+        return null;
+
+        static bool IsFocusable(DependencyObject input)
+        {
+            return input is UIElement candidate
+                && candidate.Focusable
+                && candidate.IsEnabled
+                && candidate.IsVisible;
         }
     }
 }
