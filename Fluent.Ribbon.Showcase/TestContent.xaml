@@ -206,10 +206,6 @@
                             <Fluent:BackstageTabItem Header="Introduction"
                                                      Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                                      KeyTip="T">
-                                <Fluent:BackstageTabItem.ToolTip>
-                                    <Fluent:ScreenTip Title="Introduction"
-                                                      Text="This is a sample for a backstageitem with content" />
-                                </Fluent:BackstageTabItem.ToolTip>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
 

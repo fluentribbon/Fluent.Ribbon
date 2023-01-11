@@ -5,9 +5,7 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageTabItem"
                      TargetType="{x:Type Fluent:BackstageTabItem}">
         <Grid x:Name="rootGrid"
-              Background="Transparent"
-              ToolTip="{TemplateBinding ToolTip}">
-
+              Background="Transparent">
             <Border x:Name="selectedBorder"
                     Margin="0"
                     Background="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}"
@@ -69,7 +67,6 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="ToolTipService.IsEnabled" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabItem}" />
     </Style>
 </ResourceDictionary>
