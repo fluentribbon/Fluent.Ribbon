@@ -36,7 +36,8 @@
                 Height="Auto"
                 MinWidth="60"
                 Margin="0 0 0 0"
-                Background="{TemplateBinding Background}">
+                Background="{TemplateBinding Background}"
+                ToolTip="{TemplateBinding ToolTip}">
             <Grid>
                 <Rectangle x:Name="rectangle" />
                 <ContentPresenter x:Name="contentPresenter"
@@ -83,5 +84,6 @@
         <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageToggleButton}" />
+        <Setter Property="ToolTipService.IsEnabled" Value="False" />
     </Style>
 </ResourceDictionary>
