@@ -540,8 +540,7 @@ public class Backstage : RibbonControl
 
         if (this.UseHighestAvailableAdornerLayer)
         {
-            AdornerDecorator? currentAdornerDecorator;
-            while ((currentAdornerDecorator = UIHelper.GetParent<AdornerDecorator>(elementToAdorn)) is not null)
+            while (UIHelper.GetParent<AdornerDecorator>(elementToAdorn) is { } currentAdornerDecorator)
             {
                 elementToAdorn = currentAdornerDecorator;
             }

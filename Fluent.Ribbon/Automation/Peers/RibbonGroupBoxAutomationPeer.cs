@@ -109,7 +109,9 @@ public class RibbonGroupBoxAutomationPeer : FrameworkElementAutomationPeer, IExp
     /// <inheritdoc />
     protected override AutomationControlType GetAutomationControlTypeCore()
     {
-        return this.IsCollapseOrExpandValid ? AutomationControlType.Button : AutomationControlType.Group;
+        return this.IsCollapseOrExpandValid
+            ? AutomationControlType.Button
+            : AutomationControlType.Group;
     }
 
     #region IExpandCollapseProvider Members
@@ -141,7 +143,7 @@ public class RibbonGroupBoxAutomationPeer : FrameworkElementAutomationPeer, IExp
         ? ExpandCollapseState.Collapsed
         : ExpandCollapseState.Expanded;
 
-    private bool IsCollapseOrExpandValid => this.OwningGroup.State == RibbonGroupBoxState.Collapsed || this.OwningGroup.State == RibbonGroupBoxState.QuickAccess;
+    private bool IsCollapseOrExpandValid => this.OwningGroup.State is RibbonGroupBoxState.Collapsed or RibbonGroupBoxState.QuickAccess;
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
     internal void RaiseExpandCollapseAutomationEvent(bool oldValue, bool newValue)
