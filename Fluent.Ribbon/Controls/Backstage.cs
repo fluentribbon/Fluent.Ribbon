@@ -42,6 +42,8 @@ public class Backstage : RibbonControl
     /// <remarks>This is exposed to make it possible to show content on the same <see cref="AdornerLayer"/> as the backstage is shown on.</remarks>
     public AdornerLayer? AdornerLayer { get; private set; }
 
+    #region IsOpen
+
     /// <summary>
     /// Gets or sets whether backstage is shown
     /// </summary>
@@ -55,10 +57,49 @@ public class Backstage : RibbonControl
     public static readonly DependencyProperty IsOpenProperty =
         DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
 
+    private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
+    {
+        var backstage = (Backstage)d;
+
+        if (backstage.CanChangeIsOpen == false)
+        {
+            return BooleanBoxes.Box(backstage.IsOpen);
+        }
+
+        return baseValue;
+    }
+
+    private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var control = (Backstage)d;
+
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+
+        lock (syncIsOpen)
+        {
+            if ((bool)e.NewValue)
+            {
+                control.Show();
+            }
+            else
+            {
+                control.Hide();
+            }
+
+            // Invoke the event
+            control.IsOpenChanged?.Invoke(control, e);
+        }
+
+        (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
+    }
+
     internal void SetIsOpen(bool isOpen)
     {
         this.SetCurrentValue(IsOpenProperty, BooleanBoxes.Box(isOpen));
     }
+
+    #endregion
 
     /// <summary>
     /// Gets or sets whether backstage can be openend or closed.
@@ -111,43 +152,6 @@ public class Backstage : RibbonControl
     /// <summary>Identifies the <see cref="CloseOnEsc"/> dependency property.</summary>
     public static readonly DependencyProperty CloseOnEscProperty =
         DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-    private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
-    {
-        var backstage = (Backstage)d;
-
-        if (backstage.CanChangeIsOpen == false)
-        {
-            return BooleanBoxes.Box(backstage.IsOpen);
-        }
-
-        return baseValue;
-    }
-
-    private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var control = (Backstage)d;
-
-        var oldValue = (bool)e.OldValue;
-        var newValue = (bool)e.NewValue;
-
-        lock (syncIsOpen)
-        {
-            if ((bool)e.NewValue)
-            {
-                control.Show();
-            }
-            else
-            {
-                control.Hide();
-            }
-
-            // Invoke the event
-            control.IsOpenChanged?.Invoke(control, e);
-        }
-
-        (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
-    }
 
     /// <summary>Identifies the <see cref="UseHighestAvailableAdornerLayer"/> dependency property.</summary>
     public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
