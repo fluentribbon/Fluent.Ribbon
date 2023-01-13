@@ -55,6 +55,11 @@ public class Backstage : RibbonControl
     public static readonly DependencyProperty IsOpenProperty =
         DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
 
+    internal void SetIsOpen(bool isOpen)
+    {
+        this.SetCurrentValue(IsOpenProperty, BooleanBoxes.Box(isOpen));
+    }
+
     /// <summary>
     /// Gets or sets whether backstage can be openend or closed.
     /// </summary>
@@ -278,7 +283,7 @@ public class Backstage : RibbonControl
             return;
         }
 
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     #endregion
@@ -288,7 +293,7 @@ public class Backstage : RibbonControl
     // Handles click event
     private void Click()
     {
-        this.IsOpen = !this.IsOpen;
+        this.SetIsOpen(!this.IsOpen);
     }
 
     #region Show / Hide
@@ -512,7 +517,7 @@ public class Backstage : RibbonControl
     private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)
     {
         var target = ((BackstageAdorner)args.Source).Backstage;
-        target.IsOpen = !target.IsOpen;
+        target.SetIsOpen(!target.IsOpen);
     }
 
     private void CreateAndAttachBackstageAdorner()
@@ -690,7 +695,7 @@ public class Backstage : RibbonControl
 
     private void HandleTabControlRequestBackstageClose(object? sender, EventArgs e)
     {
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     // We have to collapse WindowsFormsHost while Backstage is open
@@ -729,7 +734,7 @@ public class Backstage : RibbonControl
         {
             if (this.IsFocused)
             {
-                this.IsOpen = !this.IsOpen;
+                this.SetIsOpen(!this.IsOpen);
                 e.Handled = true;
             }
         }
@@ -749,7 +754,7 @@ public class Backstage : RibbonControl
         // only handle ESC when the backstage is open
         e.Handled = this.IsOpen;
 
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     private void OnBackstageLoaded(object sender, RoutedEventArgs e)
@@ -786,7 +791,7 @@ public class Backstage : RibbonControl
     /// <inheritdoc />
     public override KeyTipPressedResult OnKeyTipPressed()
     {
-        this.IsOpen = true;
+        this.SetIsOpen(true);
         base.OnKeyTipPressed();
 
         return KeyTipPressedResult.Empty;
@@ -795,7 +800,7 @@ public class Backstage : RibbonControl
     /// <inheritdoc />
     public override void OnKeyTipBack()
     {
-        this.IsOpen = false;
+        this.SetIsOpen(false);
         base.OnKeyTipBack();
     }
 
