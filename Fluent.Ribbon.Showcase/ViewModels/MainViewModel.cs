@@ -37,6 +37,7 @@ public class MainViewModel : ViewModel
     private bool? isCheckedToggleButton3 = true;
 
     private bool areContextGroupsVisible = true;
+    private bool isBackstageOpen = false;
 
     public MainViewModel()
     {
@@ -91,6 +92,21 @@ public class MainViewModel : ViewModel
             }
 
             this.areContextGroupsVisible = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    public bool IsBackstageOpen
+    {
+        get => this.isBackstageOpen;
+        set
+        {
+            if (value == this.isBackstageOpen)
+            {
+                return;
+            }
+
+            this.isBackstageOpen = value;
             this.OnPropertyChanged();
         }
     }

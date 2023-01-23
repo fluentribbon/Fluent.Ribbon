@@ -62,13 +62,13 @@ public class RibbonBackstageAutomationPeer : RibbonControlAutomationPeer, IExpan
     /// <inheritdoc />
     void IExpandCollapseProvider.Collapse()
     {
-        this.OwningBackstage.IsOpen = false;
+        this.OwningBackstage.SetIsOpen(false);
     }
 
     /// <inheritdoc />
     void IExpandCollapseProvider.Expand()
     {
-        this.OwningBackstage.IsOpen = true;
+        this.OwningBackstage.SetIsOpen(true);
     }
 
     /// <inheritdoc />

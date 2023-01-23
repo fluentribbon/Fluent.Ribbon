@@ -42,6 +42,8 @@ public class Backstage : RibbonControl
     /// <remarks>This is exposed to make it possible to show content on the same <see cref="AdornerLayer"/> as the backstage is shown on.</remarks>
     public AdornerLayer? AdornerLayer { get; private set; }
 
+    #region IsOpen
+
     /// <summary>
     /// Gets or sets whether backstage is shown
     /// </summary>
@@ -54,6 +56,50 @@ public class Backstage : RibbonControl
     /// <summary>Identifies the <see cref="IsOpen"/> dependency property.</summary>
     public static readonly DependencyProperty IsOpenProperty =
         DependencyProperty.Register(nameof(IsOpen), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsOpenChanged, CoerceIsOpen));
+
+    private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
+    {
+        var backstage = (Backstage)d;
+
+        if (backstage.CanChangeIsOpen == false)
+        {
+            return BooleanBoxes.Box(backstage.IsOpen);
+        }
+
+        return baseValue;
+    }
+
+    private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var control = (Backstage)d;
+
+        var oldValue = (bool)e.OldValue;
+        var newValue = (bool)e.NewValue;
+
+        lock (syncIsOpen)
+        {
+            if ((bool)e.NewValue)
+            {
+                control.Show();
+            }
+            else
+            {
+                control.Hide();
+            }
+
+            // Invoke the event
+            control.IsOpenChanged?.Invoke(control, e);
+        }
+
+        (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
+    }
+
+    internal void SetIsOpen(bool isOpen)
+    {
+        this.SetCurrentValue(IsOpenProperty, BooleanBoxes.Box(isOpen));
+    }
+
+    #endregion
 
     /// <summary>
     /// Gets or sets whether backstage can be openend or closed.
@@ -106,43 +152,6 @@ public class Backstage : RibbonControl
     /// <summary>Identifies the <see cref="CloseOnEsc"/> dependency property.</summary>
     public static readonly DependencyProperty CloseOnEscProperty =
         DependencyProperty.Register(nameof(CloseOnEsc), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
-
-    private static object? CoerceIsOpen(DependencyObject d, object? baseValue)
-    {
-        var backstage = (Backstage)d;
-
-        if (backstage.CanChangeIsOpen == false)
-        {
-            return BooleanBoxes.Box(backstage.IsOpen);
-        }
-
-        return baseValue;
-    }
-
-    private static void OnIsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-    {
-        var control = (Backstage)d;
-
-        var oldValue = (bool)e.OldValue;
-        var newValue = (bool)e.NewValue;
-
-        lock (syncIsOpen)
-        {
-            if ((bool)e.NewValue)
-            {
-                control.Show();
-            }
-            else
-            {
-                control.Hide();
-            }
-
-            // Invoke the event
-            control.IsOpenChanged?.Invoke(control, e);
-        }
-
-        (UIElementAutomationPeer.FromElement(control) as Fluent.Automation.Peers.RibbonBackstageAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
-    }
 
     /// <summary>Identifies the <see cref="UseHighestAvailableAdornerLayer"/> dependency property.</summary>
     public static readonly DependencyProperty UseHighestAvailableAdornerLayerProperty = DependencyProperty.Register(nameof(UseHighestAvailableAdornerLayer), typeof(bool), typeof(Backstage), new PropertyMetadata(BooleanBoxes.TrueBox));
@@ -278,7 +287,7 @@ public class Backstage : RibbonControl
             return;
         }
 
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     #endregion
@@ -288,7 +297,7 @@ public class Backstage : RibbonControl
     // Handles click event
     private void Click()
     {
-        this.IsOpen = !this.IsOpen;
+        this.SetIsOpen(!this.IsOpen);
     }
 
     #region Show / Hide
@@ -512,7 +521,7 @@ public class Backstage : RibbonControl
     private static void HandleOpenBackstageCommandExecuted(object sender, ExecutedRoutedEventArgs args)
     {
         var target = ((BackstageAdorner)args.Source).Backstage;
-        target.IsOpen = !target.IsOpen;
+        target.SetIsOpen(!target.IsOpen);
     }
 
     private void CreateAndAttachBackstageAdorner()
@@ -689,7 +698,7 @@ public class Backstage : RibbonControl
 
     private void HandleTabControlRequestBackstageClose(object? sender, EventArgs e)
     {
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     // We have to collapse WindowsFormsHost while Backstage is open
@@ -728,7 +737,7 @@ public class Backstage : RibbonControl
         {
             if (this.IsFocused)
             {
-                this.IsOpen = !this.IsOpen;
+                this.SetIsOpen(!this.IsOpen);
                 e.Handled = true;
             }
         }
@@ -748,7 +757,7 @@ public class Backstage : RibbonControl
         // only handle ESC when the backstage is open
         e.Handled = this.IsOpen;
 
-        this.IsOpen = false;
+        this.SetIsOpen(false);
     }
 
     private void OnBackstageLoaded(object sender, RoutedEventArgs e)
@@ -785,7 +794,7 @@ public class Backstage : RibbonControl
     /// <inheritdoc />
     public override KeyTipPressedResult OnKeyTipPressed()
     {
-        this.IsOpen = true;
+        this.SetIsOpen(true);
         base.OnKeyTipPressed();
 
         return KeyTipPressedResult.Empty;
@@ -794,7 +803,7 @@ public class Backstage : RibbonControl
     /// <inheritdoc />
     public override void OnKeyTipBack()
     {
-        this.IsOpen = false;
+        this.SetIsOpen(false);
         base.OnKeyTipBack();
     }
 
