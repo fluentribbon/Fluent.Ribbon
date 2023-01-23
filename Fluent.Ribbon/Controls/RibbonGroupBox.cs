@@ -1173,7 +1173,8 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     protected override void OnKeyDown(KeyEventArgs e)
     {
-        if (!this.IsInButtonState || e.Handled)
+        if (this.IsInButtonState == false
+            || e.Handled)
         {
             base.OnKeyDown(e);
             return;
@@ -1182,56 +1183,28 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         switch (e.Key)
         {
             case Key.Space:
-                OpenPopup();
+                e.Handled = true;
+
+                this.IsDropDownOpen = true;
                 break;
 
             case Key.System:
-                if (e.SystemKey == Key.Down 
+                if (e.SystemKey == Key.Down
                     && e.KeyboardDevice.Modifiers == ModifierKeys.Alt)
                 {
-                    OpenPopup();
+                    e.Handled = true;
+                    this.IsDropDownOpen = true;
                 }
 
                 break;
 
             case Key.Escape:
-                ClosePopup();
+                e.Handled = true;
+                this.IsDropDownOpen = false;
                 break;
         }
 
         base.OnKeyDown(e);
-
-        void OpenPopup()
-        {
-            if (this.IsDropDownOpen || this.DropDownPopup is null)
-            {
-                return;
-            }
-
-            this.IsDropDownOpen = true;
-
-            var focusElement = UIHelper.FindFirstFocusableElement(this.DropDownPopup.Child);
-            if (focusElement is null)
-            {
-                this.IsDropDownOpen = false;
-                return;
-            }
-            
-            Keyboard.Focus(focusElement);
-            e.Handled = true;
-        }
-
-        void ClosePopup()
-        {
-            if (!this.IsDropDownOpen)
-            {
-                return;
-            }
-
-            this.IsDropDownOpen = false;
-            Keyboard.Focus(this);
-            e.Handled = true;
-        }
     }
 
     /// <inheritdoc />
@@ -1289,9 +1262,37 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         var oldValue = (bool)e.OldValue;
         var newValue = (bool)e.NewValue;
 
+        groupBox.SetValue(System.Windows.Controls.ToolTipService.IsEnabledProperty, BooleanBoxes.Box(!newValue));
+
         groupBox.OnIsDropDownOpenChanged();
 
         (UIElementAutomationPeer.FromElement(groupBox) as Fluent.Automation.Peers.RibbonGroupBoxAutomationPeer)?.RaiseExpandCollapseAutomationEvent(oldValue, newValue);
+
+        // todo: code in DropDownButton does nearly the same. Try to unify it.
+        if (newValue)
+        {
+            if (groupBox.DropDownPopup is not null)
+            {
+                Keyboard.Focus(groupBox.DropDownPopup);
+
+                groupBox.RunInDispatcherAsync(
+                    () =>
+                    {
+                        var container = groupBox.ItemContainerGenerator.ContainerFromIndex(0);
+                        DropDownButton.NavigateToContainer(container);
+
+                        // Edge case: Whole dropdown content is disabled
+                        if (groupBox.IsKeyboardFocusWithin == false)
+                        {
+                            Keyboard.Focus(groupBox.DropDownPopup);
+                        }
+                    });
+            }
+        }
+        else
+        {
+            Keyboard.Focus(groupBox);
+        }
     }
 
     private void OnIsDropDownOpenChanged()

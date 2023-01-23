@@ -609,9 +609,9 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
         base.OnKeyDown(e);
     }
 
-    private static void NavigateToContainer(DependencyObject container, FocusNavigationDirection focusNavigationDirection = FocusNavigationDirection.Down)
+    internal static void NavigateToContainer(DependencyObject container, FocusNavigationDirection focusNavigationDirection = FocusNavigationDirection.Down)
     {
-        var element = container as FrameworkElement;
+        var element = container as UIElement;
 
         if (element is null)
         {

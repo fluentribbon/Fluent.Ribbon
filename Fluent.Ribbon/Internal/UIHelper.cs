@@ -227,36 +227,4 @@ internal static class UIHelper
             }
         }
     }
-
-    /// <summary>
-    /// Using a DFS traverse the visual heirarchy of the input for a focusable candidate
-    /// </summary>
-    /// <param name="element">Element from where to start the search</param>
-    /// <returns>An element in a valid state to receive focus, otherwise null</returns>
-    public static UIElement? FindFirstFocusableElement(DependencyObject element)
-    {
-        var children = GetVisualChildren(element).ToList();
-        var match = children.FirstOrDefault(IsFocusable);
-        if (match is not null)
-        {
-            return match as UIElement;
-        }
-
-        foreach (var child in children)
-        {
-            match = FindFirstFocusableElement(child);
-
-            if (match is not null)
-            {
-                return match as UIElement;
-            }
-        }
-
-        return null;
-
-        static bool IsFocusable(DependencyObject input)
-        {
-            return input is UIElement { Focusable: true, IsEnabled: true, IsVisible: true };
-        }
-    }
 }
