@@ -33,6 +33,7 @@
   - [#1095](../../issues/1095) - Add missing localizations for the danish language (thanks @cbra-caa)
   - [#1096](../../issues/1096) - BackstageTabItem tooltip shows on content hover (thanks @cbra-caa)
   - [#1098](../../issues/1098) - Collapsed groupboxes are not keyboard accessible (thanks @cbra-caa)
+  - [#1103](../../issues/1103) - Backstage.IsOpen is not bindable (thanks @cbra-caa)
 
 - ### Enhancements/Features
 
