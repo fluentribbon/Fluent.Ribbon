@@ -5,7 +5,7 @@
 
     <ItemGroup Label="Showcase">
         <PackageVersion Include="MahApps.Metro.IconPacks.Material" version="4.11.0" />
-        <PackageVersion Include="MahApps.Metro" version="3.0.0-alpha0419" />
+        <PackageVersion Include="MahApps.Metro" version="3.0.0-alpha0453" />
     </ItemGroup>
 
     <ItemGroup Label="Test">
