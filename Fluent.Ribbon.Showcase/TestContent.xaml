@@ -176,7 +176,8 @@
                 <Grid>
                     <!-- Backstage items can be keytipped -->
                     <Fluent:Backstage x:Name="Backstage"
-                                      Visibility="Collapsed">
+                                      Visibility="Collapsed"
+                                      IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}">
                         <Fluent:Backstage.ToolTip>
                             <Fluent:ScreenTip Title="Backstage"
                                               Text="A sample backstage with items and actions" />
@@ -3217,6 +3218,12 @@
                                                        Size="Middle">
                                             Show start screen
                                         </Fluent:Button>
+
+                                        <Fluent:CheckBox x:Name="BackstageOpenBinding"
+                                                         IsChecked="{Binding IsBackstageOpen}"
+                                                         Visibility="{Binding ElementName=Backstage, Path=Visibility}">
+                                            Is backstage open binding
+                                        </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
 

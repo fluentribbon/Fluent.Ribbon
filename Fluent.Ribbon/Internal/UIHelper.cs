@@ -182,7 +182,7 @@ internal static class UIHelper
     /// <param name="visual">The visual element for which to find an adorner layer.</param>
     /// <returns>An adorner layer for the specified visual, or null if no adorner layer can be found.</returns>
     /// <exception cref="T:System.ArgumentNullException">Raised when visual is null.</exception>
-    public static AdornerLayer GetAdornerLayer(Visual visual)
+    public static AdornerLayer? GetAdornerLayer(Visual visual)
     {
         if (visual is null)
         {
@@ -225,41 +225,6 @@ internal static class UIHelper
             {
                 yield return container;
             }
-        }
-    }
-
-    /// <summary>
-    /// Using a DFS traverse the visual heirarchy of the input for a focusable candidate
-    /// </summary>
-    /// <param name="element">Element from where to start the search</param>
-    /// <returns>An element in a valid state to receive focus, otherwise null</returns>
-    public static UIElement? FindFirstFocusableElement(DependencyObject element)
-    {
-        var children = GetVisualChildren(element);
-        var match = children.FirstOrDefault(IsFocusable);
-        if (match is not null)
-        {
-            return match as UIElement;
-        }
-
-        foreach (var child in children)
-        {
-            match = FindFirstFocusableElement(child);
-
-            if (match is not null)
-            {
-                return match as UIElement;
-            }
-        }
-
-        return null;
-
-        static bool IsFocusable(DependencyObject input)
-        {
-            return input is UIElement candidate
-                && candidate.Focusable
-                && candidate.IsEnabled
-                && candidate.IsVisible;
         }
     }
 }

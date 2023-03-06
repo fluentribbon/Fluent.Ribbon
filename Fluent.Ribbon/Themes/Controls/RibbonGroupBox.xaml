@@ -396,7 +396,7 @@
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
-                            <ContentControl x:Name="popupContent" />
+                            <ContentControl Focusable="False" x:Name="popupContent" />
                         </Border>
                     </Popup>
                 </Grid>
