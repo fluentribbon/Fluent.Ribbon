@@ -285,7 +285,6 @@
 
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="Height" Value="22" />
@@ -295,6 +294,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCombobox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">
                 <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ComboBoxItem}" />

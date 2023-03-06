@@ -238,6 +238,7 @@
         <Setter Property="Margin" Value="2 2 2 2" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCheckBox}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />

@@ -13,6 +13,7 @@
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonSplitButton}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -320,6 +321,7 @@
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="Fluent:KeyTip.AutoPlacement" Value="{Binding Path=(Fluent:KeyTip.AutoPlacement), RelativeSource={RelativeSource AncestorType={x:Type Fluent:SplitButton}}}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual.Tight}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonInnerButton}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>

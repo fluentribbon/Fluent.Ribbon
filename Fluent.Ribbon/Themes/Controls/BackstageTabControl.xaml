@@ -58,7 +58,7 @@
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual.Tight}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
@@ -114,7 +114,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.BackstageBackButton"
            TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Background}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual.Tight}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground}" />
         <Setter Property="Height" Value="48" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

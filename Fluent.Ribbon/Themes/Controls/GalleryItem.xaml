@@ -49,7 +49,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.GalleryItem"
            TargetType="{x:Type Fluent:GalleryItem}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual.Tight}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.GalleryItem}" />
     </Style>
 </ResourceDictionary>
