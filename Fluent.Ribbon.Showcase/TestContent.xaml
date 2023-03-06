@@ -178,6 +178,10 @@
                     <Fluent:Backstage x:Name="Backstage"
                                       Visibility="Collapsed"
                                       IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}">
+                        <Fluent:Backstage.ToolTip>
+                            <Fluent:ScreenTip Title="Backstage"
+                                              Text="A sample backstage with items and actions" />
+                        </Fluent:Backstage.ToolTip>
 
                         <!--<Fluent:Backstage.Style>
                             <Style TargetType="Fluent:Backstage">
