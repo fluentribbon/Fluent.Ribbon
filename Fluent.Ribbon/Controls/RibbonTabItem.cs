@@ -642,6 +642,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
                     else
                     {
                         this.TabControlParent.SelectedItem = newItem;
+                        this.TabControlParent.IsDropDownOpen = true;
                     }
 
                     this.TabControlParent.RaiseRequestBackstageClose();
@@ -654,6 +655,24 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
                 e.Handled = true;
             }
         }
+    }
+
+    /// <inheritdoc />
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case Key.Enter:
+            case Key.Space:
+                if (this.TabControlParent is not null)
+                {
+                    this.TabControlParent.IsDropDownOpen = true;
+                }
+
+                break;
+        }
+
+        base.OnKeyDown(e);
     }
 
     /// <inheritdoc />

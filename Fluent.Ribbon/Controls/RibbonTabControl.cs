@@ -565,14 +565,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             newSelectedItem?.Focus();
         }
 
-        if (e.AddedItems.Count > 0)
-        {
-            if (this.IsMinimized)
-            {
-                this.IsDropDownOpen = true;
-            }
-        }
-        else
+        if (e.AddedItems.Count == 0)
         {
             if (this.IsDropDownOpen)
             {
