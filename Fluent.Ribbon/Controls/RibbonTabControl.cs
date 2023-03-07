@@ -546,14 +546,23 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <inheritdoc />
     protected override void OnSelectionChanged(SelectionChangedEventArgs e)
     {
+        var newSelectedItem = e.AddedItems.Count > 0
+            ? (RibbonTabItem?)e.AddedItems[0]
+            : null;
+
+        if (this.SelectedTabItem is not null
+            && ReferenceEquals(this.SelectedTabItem, newSelectedItem) == false)
+        {
+            this.SelectedTabItem.IsSelected = false;
+        }
+
         this.UpdateSelectedContent();
 
         if (this.IsKeyboardFocusWithin
             && this.IsMinimized == false)
         {
             // If keyboard focus is within the control, make sure it is going to the correct place
-            var item = this.GetSelectedTabItem();
-            item?.Focus();
+            newSelectedItem?.Focus();
         }
 
         if (e.AddedItems.Count > 0)
@@ -561,13 +570,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             if (this.IsMinimized)
             {
                 this.IsDropDownOpen = true;
-
-                var ribbonTabItem = (RibbonTabItem?)e.AddedItems[0];
-
-                if (ribbonTabItem is not null)
-                {
-                    ribbonTabItem.IsHitTestVisible = false;
-                }
             }
         }
         else
@@ -575,16 +577,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             if (this.IsDropDownOpen)
             {
                 this.IsDropDownOpen = false;
-            }
-        }
-
-        if (e.RemovedItems.Count > 0)
-        {
-            var ribbonTabItem = (RibbonTabItem?)e.RemovedItems[0];
-
-            if (ribbonTabItem is not null)
-            {
-                ribbonTabItem.IsHitTestVisible = true;
             }
         }
 
