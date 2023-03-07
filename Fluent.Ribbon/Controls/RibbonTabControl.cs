@@ -634,6 +634,11 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
                 if (this.IsDropDownOpen)
                 {
                     this.IsDropDownOpen = false;
+
+                    if (this.IsKeyboardFocusWithin)
+                    {
+                        this.GetSelectedTabItem()?.Focus();
+                    }
                 }
 
                 break;

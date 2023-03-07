@@ -667,6 +667,15 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
                 if (this.TabControlParent is not null)
                 {
                     this.TabControlParent.IsDropDownOpen = true;
+
+                    if (this.TabControlParent.DropDownPopup is not null)
+                    {
+                        var focusElement = UIHelper.FindFirstFocusableElement(this.TabControlParent.DropDownPopup.Child);
+                        if (focusElement is not null)
+                        {
+                            Keyboard.Focus(focusElement);
+                        }
+                    }
                 }
 
                 break;
