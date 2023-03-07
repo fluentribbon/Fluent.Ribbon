@@ -657,6 +657,14 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     }
 
     /// <inheritdoc />
+    protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+    {
+        base.OnGotKeyboardFocus(e);
+
+        this.SetCurrentValue(IsSelectedProperty, BooleanBoxes.TrueBox);
+    }
+
+    /// <inheritdoc />
     protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabItemAutomationPeer(this);
 
     #endregion
