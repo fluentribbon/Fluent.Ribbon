@@ -840,7 +840,6 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     public virtual KeyTipPressedResult OnKeyTipPressed()
     {
-        // Edge case: Whole dropdown content is disabled
         if (this.IsKeyboardFocusWithin == false)
         {
             Keyboard.Focus(this);

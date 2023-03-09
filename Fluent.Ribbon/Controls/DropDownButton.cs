@@ -679,21 +679,22 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
         {
             Mouse.Capture(this, CaptureMode.SubTree);
 
-            Keyboard.Focus(this.DropDownPopup);
-
-            this.RunInDispatcherAsync(
-                () =>
-                {
-                    var container = this.ItemContainerGenerator.ContainerFromIndex(0);
-
-                    NavigateToContainer(container);
-
-                    // Edge case: Whole dropdown content is disabled
-                    if (this.IsKeyboardFocusWithin == false)
+            if (this.DropDownPopup is not null)
+            {
+                this.RunInDispatcherAsync(
+                    () =>
                     {
-                        Keyboard.Focus(this.DropDownPopup);
-                    }
-                });
+                        var container = this.ItemContainerGenerator.ContainerFromIndex(0);
+
+                        NavigateToContainer(container);
+
+                        // Edge case: Whole dropdown content is disabled
+                        if (this.IsKeyboardFocusWithin == false)
+                        {
+                            Keyboard.Focus(this.DropDownPopup.Child);
+                        }
+                    });
+            }
 
             this.OnDropDownOpened();
         }

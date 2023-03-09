@@ -664,18 +664,12 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         {
             case Key.Enter:
             case Key.Space:
-                if (this.TabControlParent is not null)
+                if (this.TabControlParent is not null
+                    && this.TabControlParent.IsMinimized)
                 {
                     this.TabControlParent.IsDropDownOpen = true;
 
-                    if (this.TabControlParent.DropDownPopup is not null)
-                    {
-                        var focusElement = UIHelper.FindFirstFocusableElement(this.TabControlParent.DropDownPopup.Child);
-                        if (focusElement is not null)
-                        {
-                            Keyboard.Focus(focusElement);
-                        }
-                    }
+                    e.Handled = true;
                 }
 
                 break;
@@ -795,12 +789,22 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
             currentSelectedItem.IsSelected = false;
         }
 
-        this.IsSelected = true;
+        this.SetCurrentValue(IsSelectedProperty, BooleanBoxes.TrueBox);
+
+        var result = KeyTipPressedResult.Empty;
+
+        if (this.TabControlParent is not null
+            && this.TabControlParent.IsMinimized)
+        {
+            this.TabControlParent.IsDropDownOpen = true;
+
+            result = new KeyTipPressedResult(true, true);
+        }
 
         // This way keytips for delay loaded elements work correctly. Partially fixes #244.
         this.Dispatcher.Invoke(System.Windows.Threading.DispatcherPriority.Background, new Action(() => { }));
 
-        return KeyTipPressedResult.Empty;
+        return result;
     }
 
     /// <inheritdoc />

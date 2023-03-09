@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent;
 
 using System;
@@ -1273,8 +1273,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         {
             if (groupBox.DropDownPopup is not null)
             {
-                Keyboard.Focus(groupBox.DropDownPopup);
-
                 groupBox.RunInDispatcherAsync(
                     () =>
                     {
@@ -1284,7 +1282,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
                         // Edge case: Whole dropdown content is disabled
                         if (groupBox.IsKeyboardFocusWithin == false)
                         {
-                            Keyboard.Focus(groupBox.DropDownPopup);
+                            Keyboard.Focus(groupBox.DropDownPopup.Child);
                         }
                     });
             }
@@ -1434,20 +1432,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <inheritdoc />
     public KeyTipPressedResult OnKeyTipPressed()
     {
-        if (this.State == RibbonGroupBoxState.Collapsed
-            || this.State == RibbonGroupBoxState.QuickAccess)
+        if (this.State is RibbonGroupBoxState.Collapsed or RibbonGroupBoxState.QuickAccess)
         {
             this.IsDropDownOpen = true;
 
-            if (this.DropDownPopup?.Child is not null)
-            {
-                Keyboard.Focus(this.DropDownPopup.Child);
-                this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
-
-                return new KeyTipPressedResult(true, true);
-            }
-
-            return new KeyTipPressedResult(false, true);
+            return new KeyTipPressedResult(true, true);
         }
 
         return KeyTipPressedResult.Empty;

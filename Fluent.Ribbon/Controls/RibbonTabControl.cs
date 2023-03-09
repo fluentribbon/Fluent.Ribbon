@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Fluent.Automation.Peers;
 using Fluent.Extensions;
 using Fluent.Helpers;
@@ -916,6 +917,11 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
         }
 
         Mouse.Capture(this, CaptureMode.SubTree);
+
+        if (this.DropDownPopup is not null)
+        {
+            this.RunInDispatcherAsync(() => this.DropDownPopup.Child.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)), DispatcherPriority.Background);
+        }
 
         this.DropDownOpened?.Invoke(this, EventArgs.Empty);
     }
