@@ -770,59 +770,24 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
             }
         }
 
-        if (this.Menu is not null
+        if (this.IsDropDownOpen
+            && this.scrollViewer is not null
+            && this.Menu is not null
             && this.Menu.Items.IsEmpty == false)
         {
             if (e.Key == Key.Tab)
             {
                 if (this.Menu.IsKeyboardFocusWithin)
                 {
-                    Keyboard.Focus(this.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
+                    this.scrollViewer.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                 }
                 else
                 {
-                    Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
+                    this.Menu.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
                 }
 
                 e.Handled = true;
                 return;
-            }
-
-            if (this.Menu.Items.Contains(this.Menu.ItemContainerGenerator.ItemFromContainerOrContainerContent((DependencyObject)Keyboard.FocusedElement)))
-            {
-                if (e.Key == Key.Down)
-                {
-                    var indexOfMenuSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
-
-                    if (indexOfMenuSelectedItem != this.Menu.Items.Count - 1)
-                    {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(indexOfMenuSelectedItem + 1));
-                    }
-                    else
-                    {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(0));
-                    }
-
-                    e.Handled = true;
-                    return;
-                }
-
-                if (e.Key == Key.Up)
-                {
-                    var indexOfMenuSelectedItem = this.Menu.ItemContainerGenerator.IndexFromContainer((DependencyObject)Keyboard.FocusedElement);
-
-                    if (indexOfMenuSelectedItem != 0)
-                    {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(indexOfMenuSelectedItem - 1));
-                    }
-                    else
-                    {
-                        Keyboard.Focus(this.Menu.ItemContainerGenerator.ContainerOrContainerContentFromIndex<IInputElement>(this.Menu.Items.Count - 1));
-                    }
-
-                    e.Handled = true;
-                    return;
-                }
             }
         }
 
