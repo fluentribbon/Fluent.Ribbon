@@ -490,15 +490,11 @@ public class KeyTipService
             this.backUpFocusedControl = FocusWrapper.GetWrapperForCurrentFocus();
         }
 
-        if (keyTipsTarget is Ribbon
-            {
-                IsMinimized: false,
-                SelectedTabIndex: >= 0,
-                TabControl: { }
-            })
+        if (keyTipsTarget is Ribbon && this.ribbon.TabControl != null)
         {
             // Focus ribbon
-            (this.ribbon.TabControl?.ItemContainerGenerator.ContainerFromIndex(this.ribbon.TabControl.SelectedIndex) as UIElement)?.Focus();
+            int selectedIndex = Math.Max(this.ribbon.TabControl.SelectedIndex, 0);
+            (this.ribbon.TabControl.ItemContainerGenerator.ContainerFromIndex(selectedIndex) as UIElement)?.Focus();
         }
 
         this.ClearUserInput();

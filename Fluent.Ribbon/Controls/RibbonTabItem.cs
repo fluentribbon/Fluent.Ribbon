@@ -642,6 +642,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
                     else
                     {
                         this.TabControlParent.SelectedItem = newItem;
+                        this.TabControlParent.IsDropDownOpen = true;
                     }
 
                     this.TabControlParent.RaiseRequestBackstageClose();
@@ -654,6 +655,41 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
                 e.Handled = true;
             }
         }
+    }
+
+    /// <inheritdoc />
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case Key.Enter:
+            case Key.Space:
+                if (this.TabControlParent is not null)
+                {
+                    this.TabControlParent.IsDropDownOpen = true;
+
+                    if (this.TabControlParent.DropDownPopup is not null)
+                    {
+                        var focusElement = UIHelper.FindFirstFocusableElement(this.TabControlParent.DropDownPopup.Child);
+                        if (focusElement is not null)
+                        {
+                            Keyboard.Focus(focusElement);
+                        }
+                    }
+                }
+
+                break;
+        }
+
+        base.OnKeyDown(e);
+    }
+
+    /// <inheritdoc />
+    protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+    {
+        base.OnGotKeyboardFocus(e);
+
+        this.SetCurrentValue(IsSelectedProperty, BooleanBoxes.TrueBox);
     }
 
     /// <inheritdoc />
@@ -671,17 +707,15 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
 
         if (newValue)
         {
-            if (container.TabControlParent?.SelectedTabItem is not null
-                && ReferenceEquals(container.TabControlParent.SelectedTabItem, container) == false)
-            {
-                container.TabControlParent.SelectedTabItem.IsSelected = false;
-            }
-
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
+
+            container.IsHitTestVisible = false;
         }
         else
         {
             container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
+
+            container.IsHitTestVisible = true;
         }
 
         // Raise UI automation events on this RibbonTabItem
