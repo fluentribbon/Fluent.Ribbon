@@ -237,7 +237,7 @@ internal static class QuickAccessItemsProvider
             RibbonControl.Bind(element, result, nameof(UIElement.IsEnabled), UIElement.IsEnabledProperty, BindingMode.OneWay);
         }
 
-        if (result.TryFindResource("Fluent.Ribbon.Styles.FocusVisual.Tight") is Style tightFocusVisual)
+        if (result.TryFindResource("Fluent.Ribbon.Styles.FocusVisual") is Style tightFocusVisual)
         {
             result.FocusVisualStyle = tightFocusVisual;
         }

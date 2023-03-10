@@ -24,17 +24,6 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="-1 -1 -1 -1"
-                               Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Border}" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Tight">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
                     <Rectangle Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Border}" />
                 </ControlTemplate>
             </Setter.Value>

@@ -36,6 +36,6 @@
            TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Padding" Value="3" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBoxItem}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Tight}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
     </Style>
 </ResourceDictionary>
