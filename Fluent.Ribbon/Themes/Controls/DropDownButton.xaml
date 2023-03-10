@@ -56,7 +56,7 @@
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonDropDownButton}" />
         <Setter Property="Width" Value="Auto" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
