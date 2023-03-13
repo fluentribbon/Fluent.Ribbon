@@ -658,7 +658,11 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
 
         if (this.SelectedItem is not null)
         {
-            Keyboard.Focus(this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IInputElement>(this.SelectedItem));
+            var selectedItemContainser = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IInputElement>(this.SelectedItem);
+            if (selectedItemContainser is not null)
+            {
+                Keyboard.Focus(selectedItemContainser);
+            }
         }
 
         this.focusedElement = Keyboard.FocusedElement;
