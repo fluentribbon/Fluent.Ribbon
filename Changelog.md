@@ -35,6 +35,7 @@
   - [#1098](../../issues/1098) - Collapsed groupboxes are not keyboard accessible (thanks @cbra-caa)
   - [#1101](../../issues/1101) - Backstage button tooltip shows on active backstage (thanks @cbra-caa)
   - [#1103](../../issues/1103) - Backstage.IsOpen is not bindable (thanks @cbra-caa)
+  - [#1114](../../issues/1114) - Fix combobox can't open dropdown when the editable textbox of it has the focus (thanks @orrindeng)
 
 - ### Enhancements/Features
 
