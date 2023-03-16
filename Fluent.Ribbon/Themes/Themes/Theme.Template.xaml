@@ -252,6 +252,8 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Selection" Color="{x:Static SystemColors.HighlightColor}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.White}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.MouseOver.Border" Color="{StaticResource Fluent.Ribbon.Colors.Accent40}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Focus.Background" Color="{StaticResource Fluent.Ribbon.Colors.White}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Focus.Border" Color="{StaticResource Fluent.Ribbon.Colors.AccentBase}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray10}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.TextBox.Disabled.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
 

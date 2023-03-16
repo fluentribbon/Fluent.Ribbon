@@ -78,9 +78,9 @@
                 <Setter TargetName="PART_ContentHost" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Border}" />
-                <Setter TargetName="PART_ContentHost" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
+                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Border}" />
+                <Setter TargetName="PART_ContentHost" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

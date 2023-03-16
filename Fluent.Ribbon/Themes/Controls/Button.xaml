@@ -249,6 +249,7 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>

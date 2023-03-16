@@ -134,6 +134,9 @@
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />
             </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+            </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsContextual, RelativeSource={RelativeSource Self}}" Value="True" />

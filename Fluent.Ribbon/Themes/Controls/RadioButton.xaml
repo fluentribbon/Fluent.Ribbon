@@ -182,23 +182,7 @@
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle">
-            <Setter.Value>
-                <Style>
-                    <Setter Property="Control.Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Rectangle Margin="1"
-                                           SnapsToDevicePixels="true"
-                                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                           StrokeDashArray="1 2"
-                                           StrokeThickness="1" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonRadioButton}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />

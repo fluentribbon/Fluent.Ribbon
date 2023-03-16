@@ -209,6 +209,13 @@
                 <Setter TargetName="path" Property="Visibility" Value="Visible" />
                 <Setter TargetName="path1" Property="Visibility" Value="Visible" />
             </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Border}" />
+                <Setter TargetName="PART_TextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+                <Setter TargetName="path" Property="Visibility" Value="Visible" />
+                <Setter TargetName="path1" Property="Visibility" Value="Visible" />
+            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 

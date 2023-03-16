@@ -4,6 +4,7 @@
            TargetType="{x:Type Control}">
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ControlFocusEmpty}" />
     </Style>
+    
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ControlFocusEmpty"
                      TargetType="{x:Type Control}">
         <Rectangle Stroke="Transparent">
@@ -12,4 +13,20 @@
             </Rectangle.Fill>
         </Rectangle>
     </ControlTemplate>
+
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Border" TargetType="{x:Type Rectangle}">
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
+
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Border}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

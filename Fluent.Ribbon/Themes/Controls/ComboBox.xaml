@@ -260,11 +260,26 @@
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
 
-            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                    <Condition Property="IsEditable" Value="False" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-            </Trigger>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                    <Condition Property="IsEditable" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Border}" />
+                <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+            </MultiTrigger>
+
             <Trigger Property="IsGrouping" Value="true">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
             </Trigger>
@@ -285,7 +300,6 @@
 
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="Height" Value="22" />
@@ -295,6 +309,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCombobox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">
                 <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ComboBoxItem}" />
