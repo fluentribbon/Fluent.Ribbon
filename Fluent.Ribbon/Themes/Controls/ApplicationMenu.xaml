@@ -13,7 +13,8 @@
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0">
+                            Margin="0"
+                            Focusable="False">
                 <Border x:Name="PART_ButtonBorder"
                         Height="23"
                         MinWidth="60"
@@ -22,7 +23,8 @@
                                     Margin="10 0 10 0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Content="{TemplateBinding Header}" />
+                                    Content="{TemplateBinding Header}"
+                                    Focusable="False" />
                 </Border>
             </ContentControl>
             <Popup x:Name="PART_Popup"
@@ -127,5 +129,7 @@
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
     </Style>
 </ResourceDictionary>

@@ -85,5 +85,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageToggleButton}" />
         <Setter Property="ToolTipService.IsEnabled" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
     </Style>
 </ResourceDictionary>
