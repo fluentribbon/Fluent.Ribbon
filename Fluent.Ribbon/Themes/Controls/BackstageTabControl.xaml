@@ -100,13 +100,13 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="arrowpath" Property="Opacity" Value="0.5" />
-                <Setter TargetName="backellipse" Property="Opacity" Value="0.5" />
+                <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
+                <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
-                <Setter TargetName="arrowpath" Property="Opacity" Value="0.5" />
-                <Setter TargetName="backellipse" Property="Opacity" Value="0.5" />
+                <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
+                <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

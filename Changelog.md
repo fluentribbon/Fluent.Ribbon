@@ -38,6 +38,7 @@
   - [#1114](../../issues/1114) - Fix combobox can't open dropdown when the editable textbox of it has the focus (thanks @orrindeng)
   - [#1115](../../issues/1115) - Update Russian translation (thanks @Blueberryy)
   - [#1116](../../issues/1116) - Accessibility: Ribbon Display Options are read as "DropDown Button"
+  - [#1117](../../issues/1117) - Accessibility: BackButton has low contrast
 
 - ### Enhancements/Features
 
