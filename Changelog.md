@@ -46,6 +46,7 @@
   - [#1048](../../issues/1048) - DismissOnClickOutside property added to DropDownButton (thanks @MuhammadSulaiman001)
   - [#1049](../../issues/1049) - IsDisplayOptionsButtonVisible property is added to RibbonTabControl (thanks @zui-jiu-zhou)
   - [#1058](../../issues/1058) - Add option to use legacy/office-style mouse wheel tab shifting (thanks @andersforsgren)
+  - [#1091](../../issues/1091) - Image Resource Viewer (thanks @avalanchus)
   - [#1112](../../issues/1112) - Enhanced FocusVisual for various controls (thanks @cbra-caa)
 
 ## 9.0.4

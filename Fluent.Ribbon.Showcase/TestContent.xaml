@@ -13,6 +13,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
+             xmlns:fluentTest="clr-namespace:FluentTest"
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel,
                                               IsDesignTimeCreatable=True}"
@@ -3670,6 +3671,10 @@
                                        Text="Test Windows.Forms.TextBox" />
                     </formsInterop:WindowsFormsHost>
                 </DockPanel>
+            </TabItem>
+            
+            <TabItem Header="Images">
+                <fluentTest:ImagesViewer />
             </TabItem>
         </TabControl>
 
