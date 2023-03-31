@@ -125,11 +125,11 @@
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
     </Style>
 </ResourceDictionary>

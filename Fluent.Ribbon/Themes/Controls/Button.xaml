@@ -245,11 +245,11 @@
         <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>

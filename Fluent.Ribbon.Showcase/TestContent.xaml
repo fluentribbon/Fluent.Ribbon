@@ -8,12 +8,12 @@
              xmlns:controlzEx="urn:controlzex"
              xmlns:converters="clr-namespace:FluentTest.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluentTest="clr-namespace:FluentTest"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:formsInterop="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:FluentTest.ViewModels"
-             xmlns:fluentTest="clr-namespace:FluentTest"
              x:Name="TestContentControl"
              d:DataContext="{d:DesignInstance viewModels:MainViewModel,
                                               IsDesignTimeCreatable=True}"
@@ -177,8 +177,8 @@
                 <Grid>
                     <!-- Backstage items can be keytipped -->
                     <Fluent:Backstage x:Name="Backstage"
-                                      Visibility="Collapsed"
-                                      IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}">
+                                      IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}"
+                                      Visibility="Collapsed">
                         <Fluent:Backstage.ToolTip>
                             <Fluent:ScreenTip Title="Backstage"
                                               Text="A sample backstage with items and actions" />
@@ -1711,9 +1711,16 @@
                                        IsLauncherVisible="False"
                                        IsSeparatorVisible="False">
                     <Fluent:CheckBox IsThreeState="True">Text 1</Fluent:CheckBox>
-                    <Fluent:CheckBox IsEnabled="False" IsChecked="True">Text 2</Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="True"
+                                     IsEnabled="False">
+                        Text 2
+                    </Fluent:CheckBox>
                     <Fluent:CheckBox IsEnabled="False">Text 3</Fluent:CheckBox>
-                    <Fluent:CheckBox IsEnabled="False" IsThreeState="True" IsChecked="{x:Null}">Text 3</Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{x:Null}"
+                                     IsEnabled="False"
+                                     IsThreeState="True">
+                        Text 3
+                    </Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">
@@ -3672,7 +3679,7 @@
                     </formsInterop:WindowsFormsHost>
                 </DockPanel>
             </TabItem>
-            
+
             <TabItem Header="Images">
                 <fluentTest:ImagesViewer />
             </TabItem>

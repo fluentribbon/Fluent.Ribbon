@@ -464,10 +464,10 @@
     <Style x:Key="Fluent.Ribbon.Styles.MenuItem"
            TargetType="{x:Type Fluent:MenuItem}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.MenuItem.Background}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuItem}" />
         <Style.Triggers>
             <MultiTrigger>

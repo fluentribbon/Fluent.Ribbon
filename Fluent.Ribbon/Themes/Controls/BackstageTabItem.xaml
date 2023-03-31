@@ -69,7 +69,7 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="ToolTipService.IsEnabled" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabItem}" />
+        <Setter Property="ToolTipService.IsEnabled" Value="False" />
     </Style>
 </ResourceDictionary>

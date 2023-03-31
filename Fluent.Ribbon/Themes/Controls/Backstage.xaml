@@ -80,12 +80,12 @@
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Background}" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
         <Setter Property="Fluent:KeyTip.Keys" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonKeyTip, Mode=OneWay}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.Foreground}" />
         <Setter Property="Header" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageButtonText, Mode=OneWay}" />
+        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageToggleButton}" />
         <Setter Property="ToolTipService.IsEnabled" Value="False" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
-        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
     </Style>
 </ResourceDictionary>

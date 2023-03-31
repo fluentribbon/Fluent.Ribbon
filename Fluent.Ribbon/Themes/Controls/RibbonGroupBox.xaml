@@ -62,11 +62,11 @@
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Fluent:KeyTip.Margin" Value="0,15,0,0" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplateSelector" Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -397,7 +397,8 @@
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
-                            <ContentControl Focusable="False" x:Name="popupContent" />
+                            <ContentControl x:Name="popupContent"
+                                            Focusable="False" />
                         </Border>
                     </Popup>
                 </Grid>
