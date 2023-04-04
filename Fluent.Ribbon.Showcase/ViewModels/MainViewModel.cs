@@ -38,6 +38,8 @@ public class MainViewModel : ViewModel
 
     private bool areContextGroupsVisible = true;
     private bool isBackstageOpen = false;
+    private bool isEnabledTest = true;
+    private bool isReadOnlyTest = false;
 
     public MainViewModel()
     {
@@ -107,6 +109,36 @@ public class MainViewModel : ViewModel
             }
 
             this.isBackstageOpen = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    public bool IsEnabledTest
+    {
+        get => this.isEnabledTest;
+        set
+        {
+            if (value == this.isEnabledTest)
+            {
+                return;
+            }
+
+            this.isEnabledTest = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    public bool IsReadOnlyTest
+    {
+        get => this.isReadOnlyTest;
+        set
+        {
+            if (value == this.isReadOnlyTest)
+            {
+                return;
+            }
+
+            this.isReadOnlyTest = value;
             this.OnPropertyChanged();
         }
     }

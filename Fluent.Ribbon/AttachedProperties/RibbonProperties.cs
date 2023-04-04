@@ -2,8 +2,10 @@
 namespace Fluent;
 
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using Fluent.Extensibility;
+using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 using JetBrains.Annotations;
 
@@ -349,6 +351,83 @@ public class RibbonProperties : DependencyObject
     public static IconSize GetIconSize(DependencyObject element)
     {
         return (IconSize)element.GetValue(IconSizeProperty);
+    }
+
+    #endregion
+
+    #region IsReadOnly
+
+    /// <summary>
+    /// Defines the read only property for the element.
+    /// </summary>
+    public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.RegisterAttached("IsReadOnly", typeof(bool), typeof(RibbonProperties), new FrameworkPropertyMetadata(false, OnIsReadOnlyChanged));
+
+    private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is FrameworkElement frameworkElement)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                VisualStateManager.GoToState(frameworkElement, "Disabled", true);
+            }
+            else
+            {
+                VisualStateManager.GoToState(frameworkElement, "Normal", true);
+            }
+        }
+    }
+
+    /// <summary>Helper for setting <see cref="IsReadOnlyProperty"/> on <paramref name="element"/>.</summary>
+    /// <param name="element"><see cref="DependencyObject"/> to set <see cref="IsReadOnlyProperty"/> on.</param>
+    /// <param name="value">IsReadOnly property value.</param>
+    public static void SetIsReadOnly(DependencyObject element, bool value)
+    {
+        element.SetValue(IsReadOnlyProperty, value);
+    }
+
+    /// <summary>Helper for getting <see cref="IsReadOnlyProperty"/> from <paramref name="element"/>.</summary>
+    /// <param name="element"><see cref="DependencyObject"/> to read <see cref="IsReadOnlyProperty"/> from.</param>
+    /// <returns>IsReadOnly property value.</returns>
+    [AttachedPropertyBrowsableForType(typeof(IReadOnlyControl))]
+    public static bool GetIsReadOnly(DependencyObject element)
+    {
+        return (bool)element.GetValue(IsReadOnlyProperty);
+    }
+
+    #endregion
+
+    #region CommandCanExectue
+
+    internal static readonly DependencyProperty CommandCanExectueProperty =
+        DependencyProperty.RegisterAttached("CommandCanExectue", typeof(CommandCanExecuteChangedHelper), typeof(RibbonProperties));
+
+    /// <summary>Helper for setting <see cref="CommandCanExectueProperty"/> on <paramref name="element"/>.</summary>
+    /// <param name="element"><see cref="DependencyObject"/> to set <see cref="CommandCanExectueProperty"/> on.</param>
+    /// <param name="value">CommandCanExectue property value.</param>
+    internal static void SetCommandCanExectue(DependencyObject element, CommandCanExecuteChangedHelper? value)
+    {
+        element.SetValue(CommandCanExectueProperty, value);
+    }
+
+    internal static CommandCanExecuteChangedHelper? GetCommandCanExectue(DependencyObject element)
+    {
+        return element?.GetValue(CommandCanExectueProperty) as CommandCanExecuteChangedHelper;
+    }
+
+    internal static void OnCommandChanged(DependencyObject element, DependencyPropertyChangedEventArgs e)
+    {
+        if (GetCommandCanExectue(element) is CommandCanExecuteChangedHelper oldHelper)
+        {
+            oldHelper.UnRegisterCommand();
+        }
+
+        if (e.NewValue is ICommand newCommand
+          && element is IReadOnlyControl ribbonControl)
+        {
+            var newHelper = new CommandCanExecuteChangedHelper(ribbonControl, newCommand);
+            SetCommandCanExectue(element, newHelper);
+            newHelper.RegisterCommand();
+        }
     }
 
     #endregion

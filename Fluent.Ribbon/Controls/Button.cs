@@ -15,7 +15,7 @@ using Fluent.Internal.KnownBoxes;
 /// </summary>
 [ContentProperty(nameof(Header))]
 [DebuggerDisplay("{GetType().FullName}: Header = {Header}, Size = {Size}, IsSimplified = {IsSimplified}")]
-public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
+public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl, IReadOnlyControl
 {
     #region Properties
 
@@ -189,6 +189,20 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
 
     #endregion
 
+    #region IsReadOnly
+
+    /// <summary> Property that replaces the IsEnabled property to make control accessible while disabled. </summary>
+    public bool IsReadOnly
+    {
+        get { return (bool)this.GetValue(IsReadOnlyProperty); }
+        set { this.SetValue(IsReadOnlyProperty, value); }
+    }
+
+    /// <summary>Identifies the <see cref="IsReadOnly"/> dependency property.</summary>
+    public static readonly DependencyProperty IsReadOnlyProperty = RibbonProperties.IsReadOnlyProperty.AddOwner(typeof(Button));
+
+    #endregion
+
     #endregion Properties
 
     #region Constructors
@@ -200,6 +214,9 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
     {
         var type = typeof(Button);
         DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+
+        CommandProperty.OverrideMetadata(typeof(Button), new FrameworkPropertyMetadata(RibbonProperties.OnCommandChanged));
+
         ContextMenuService.Attach(type);
         ToolTipService.Attach(type);
     }
@@ -219,6 +236,11 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
     /// <inheritdoc />
     protected override void OnClick()
     {
+        if (this.IsReadOnly)
+        {
+            return;
+        }
+
         // Close popup on click
         if (this.IsDefinitive)
         {
@@ -227,6 +249,11 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
 
         base.OnClick();
     }
+
+    /// <summary>
+    /// Force the button to always be available for interaction even when the Command.CanExecute is false (workaround for IsReadOnly)
+    /// </summary>
+    protected override bool IsEnabledCore => base.IsEnabledCore || this.IsReadOnly;
 
     #endregion
 
