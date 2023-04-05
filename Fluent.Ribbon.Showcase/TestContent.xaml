@@ -2074,9 +2074,6 @@
                                   KeyTip="R">
                 <Fluent:RibbonGroupBox Header="Actions"
                                        KeyTip="A">
-                    <Fluent:CheckBox Header="Controls are enabled"
-                                     IsChecked="{Binding IsEnabledTest}" />
-
                     <Fluent:CheckBox Header="Controls are read only"
                                      IsChecked="{Binding IsReadOnlyTest}" />
                 </Fluent:RibbonGroupBox>
@@ -2086,24 +2083,14 @@
 
                     <Fluent:Button Header="IsReadOnly Button"
                                    Size="Middle"
-                                   IsReadOnly="{Binding IsReadOnlyTest}">
+                                   Command="{Binding TestReadOnlyCommand}">
                         <Fluent:Button.ToolTip>
                             <Fluent:ScreenTip Title="Test IsReadOnly" />
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
-                    
-                </Fluent:RibbonGroupBox>
-
-                <Fluent:RibbonGroupBox Header="Enabled"
-                                       KeyTip="E">
-
-                    <Fluent:Button Header="IsEnabled Button"
-                                   Size="Middle"
-                                   IsEnabled="{Binding IsEnabledTest}" />
-
 
                 </Fluent:RibbonGroupBox>
-                
+
             </Fluent:RibbonTabItem>
             
             <!--

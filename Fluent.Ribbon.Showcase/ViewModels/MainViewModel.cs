@@ -38,7 +38,6 @@ public class MainViewModel : ViewModel
 
     private bool areContextGroupsVisible = true;
     private bool isBackstageOpen = false;
-    private bool isEnabledTest = true;
     private bool isReadOnlyTest = false;
 
     public MainViewModel()
@@ -55,6 +54,7 @@ public class MainViewModel : ViewModel
 
         this.PreviewCommand = new RelayCommand<GalleryItem>(Preview);
         this.CancelPreviewCommand = new RelayCommand<GalleryItem>(CancelPreview);
+        this.TestReadOnlyCommand = new RelayCommand(() => { MessageBox.Show("Test-ReadOnly-Command"); }, () => !this.IsReadOnlyTest);
 
         this.GroupByAdvancedSample = x => ((GallerySampleDataItemViewModel)x).Text.Substring(0, 1);
 
@@ -109,21 +109,6 @@ public class MainViewModel : ViewModel
             }
 
             this.isBackstageOpen = value;
-            this.OnPropertyChanged();
-        }
-    }
-
-    public bool IsEnabledTest
-    {
-        get => this.isEnabledTest;
-        set
-        {
-            if (value == this.isEnabledTest)
-            {
-                return;
-            }
-
-            this.isEnabledTest = value;
             this.OnPropertyChanged();
         }
     }
@@ -286,6 +271,8 @@ public class MainViewModel : ViewModel
     {
         get { return this.testCommand ?? (this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"))); }
     }
+    
+    public ICommand TestReadOnlyCommand { get; private set; }
 
     #endregion Properties
 

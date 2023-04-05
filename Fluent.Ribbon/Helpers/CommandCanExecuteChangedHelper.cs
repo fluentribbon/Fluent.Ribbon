@@ -25,7 +25,7 @@
 
         internal void UnRegisterCommand()
         {
-            this.ReadOnlyControl.IsReadOnly = true;
+            this.ReadOnlyControl.IsReadOnly = false;
 
             WeakEventManager<ICommand, EventArgs>.RemoveHandler(this.Command, nameof(ICommand.CanExecuteChanged), this.CanExecuteChanged);
         }
