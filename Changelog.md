@@ -39,6 +39,7 @@
   - [#1115](../../issues/1115) - Update Russian translation (thanks @Blueberryy)
   - [#1116](../../issues/1116) - Accessibility: Ribbon Display Options are read as "DropDown Button"
   - [#1117](../../issues/1117) - Accessibility: BackButton has low contrast
+  - [#1125](../../issues/1125) - BackStage Back Button doesn't have an accessibility text.
 
 - ### Enhancements/Features
 

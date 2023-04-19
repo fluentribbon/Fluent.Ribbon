@@ -29,6 +29,19 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
 
     internal UIElement? ItemsPanelContainer { get; private set; }
 
+    /// <summary>Identifies the <see cref="BackButtonUid"/> dependency property.</summary>
+    public static readonly DependencyProperty BackButtonUidProperty = DependencyProperty.Register(
+        nameof(BackButtonUid), typeof(string), typeof(BackstageTabControl), new PropertyMetadata(default(string)));
+
+    /// <summary>
+    /// Gets or sets the Uid of the back button.
+    /// </summary>
+    public string? BackButtonUid
+    {
+        get { return (string?)this.GetValue(BackButtonUidProperty); }
+        set { this.SetValue(BackButtonUidProperty, value); }
+    }
+
     /// <summary>
     /// Gets or sets the margin which is used to render selected content.
     /// </summary>
