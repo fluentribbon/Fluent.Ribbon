@@ -177,21 +177,19 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-            </Trigger>
-
             <Trigger SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}">
                 <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
                 <Setter TargetName="headerAndIconPanel" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
+                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
@@ -352,21 +350,20 @@
         </Border>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
+            <Trigger Property="Size" Value="Small">
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+
+            <Trigger Property="Size" Value="Middle">
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
             <Trigger SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}">
                 <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed" />
             </Trigger>
 
-            <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="border" Property="Padding" Value="4 0" />
-                <Setter TargetName="iconImage" Property="Margin" Value="0 0 2 0" />
-            </Trigger>
-            <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
+                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
