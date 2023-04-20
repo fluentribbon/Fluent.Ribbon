@@ -687,15 +687,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     private static void OnIsSimplifiedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        if (d is RibbonGroupBox ribbonGroupBox)
-        {
-            // We have to run this async in the dispatcher as the panel containing all controls is re-created
-            ribbonGroupBox.RunInDispatcherAsync(() =>
-            {
-                ribbonGroupBox.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-                ribbonGroupBox.updateChildSizesItemContainerGeneratorAction.QueueAction();
-            }, DispatcherPriority.Background);
-        }
+        var box = (RibbonGroupBox)d;
+        box.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        box.updateChildSizesItemContainerGeneratorAction.QueueAction();
     }
 
     private static void UpdateIsSimplifiedOfUIElement(DependencyObject? element, bool isSimplified)
