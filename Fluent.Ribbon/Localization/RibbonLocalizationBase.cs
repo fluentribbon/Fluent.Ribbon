@@ -52,7 +52,7 @@ public abstract class RibbonLocalizationBase : INotifyPropertyChanged, IEquatabl
     /// <summary>
     /// Gets the Uid of the backstage back button
     /// </summary>
-    public virtual string BackstageBackButtonUid { get; }
+    public abstract string BackstageBackButtonUid { get; }
 
     /// <summary>
     /// Gets KeyTip of backstage button
