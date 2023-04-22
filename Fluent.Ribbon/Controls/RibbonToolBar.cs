@@ -450,6 +450,11 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
             resultHeight = Math.Max(resultHeight, currentheight);
         }
 
+        if (arrange)
+        {
+            return availableSize;
+        }
+
         return new Size(resultWidth + columnWidth, resultHeight);
     }
 
@@ -574,7 +579,10 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
                 }
             }
 
-            y += whitespace;
+            if (rowIndex > 0)
+            {
+                y += whitespace;
+            }
 
             // Measure & arrange new row
             for (var i = 0; i < row.Children.Count; i++)
@@ -654,6 +662,11 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
             {
                 maxy = y;
             }
+        }
+
+        if (arrange)
+        {
+            return availableSize;
         }
 
         return new Size(currentMaxX, Math.Max(maxy + whitespace, 0));
