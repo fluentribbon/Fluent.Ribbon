@@ -61,6 +61,7 @@
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
                 <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="mouseOverBorder" Property="Margin" Value="{Binding BorderThickness, ElementName=selectedBorder}" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
             <Trigger Property="Selector.IsSelected" Value="True">
