@@ -702,14 +702,10 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         if (newValue)
         {
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
-
-            container.IsHitTestVisible = false;
         }
         else
         {
             container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
-
-            container.IsHitTestVisible = true;
         }
 
         // Raise UI automation events on this RibbonTabItem
