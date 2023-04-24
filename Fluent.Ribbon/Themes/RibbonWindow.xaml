@@ -8,8 +8,8 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonWindow"
                      TargetType="{x:Type Fluent:RibbonWindow}">
-        <Grid LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
-              Margin="{TemplateBinding Padding}"
+        <Grid Margin="{TemplateBinding Padding}"
+              LayoutTransform="{Binding LayoutTransform, RelativeSource={RelativeSource TemplatedParent}}"
               RenderTransform="{Binding RenderTransform, RelativeSource={RelativeSource TemplatedParent}}">
             <AdornerDecorator x:Name="Adorner">
                 <Grid Background="{TemplateBinding Background}">

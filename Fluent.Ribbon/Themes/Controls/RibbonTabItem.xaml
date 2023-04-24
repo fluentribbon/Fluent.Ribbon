@@ -60,8 +60,8 @@
                 <Setter TargetName="groupBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
-                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="mouseOverBorder" Property="Margin" Value="{Binding BorderThickness, ElementName=selectedBorder}" />
+                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
             <Trigger Property="Selector.IsSelected" Value="True">

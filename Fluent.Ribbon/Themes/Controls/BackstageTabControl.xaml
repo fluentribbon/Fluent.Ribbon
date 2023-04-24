@@ -198,8 +198,8 @@
                                                         IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
 
                     <Button x:Name="backbutton"
-                            Style="{DynamicResource Fluent.Ribbon.Styles.BackstageBackButton}"
                             Uid="{TemplateBinding BackButtonUid}"
+                            Style="{DynamicResource Fluent.Ribbon.Styles.BackstageBackButton}"
                             Grid.Row="0"
                             Padding="22 7 0 7"
                             VerticalAlignment="Top"
