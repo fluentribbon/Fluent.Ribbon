@@ -42,6 +42,18 @@ public class RibbonTabItemDataAutomationPeer : SelectorItemAutomationPeer, IScro
     }
 
     /// <inheritdoc />
+    protected override string? GetAccessKeyCore()
+    {
+        var text = (this.GetWrapper() as RibbonTabItem)?.KeyTip;
+        if (string.IsNullOrEmpty(text))
+        {
+            text = base.GetAccessKeyCore();
+        }
+
+        return text;
+    }
+
+    /// <inheritdoc />
     protected override AutomationControlType GetAutomationControlTypeCore()
     {
         return AutomationControlType.TabItem;

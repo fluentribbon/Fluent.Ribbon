@@ -87,6 +87,18 @@ public class RibbonTabItemAutomationPeer : FrameworkElementAutomationPeer
         return this.Owner.GetType().Name;
     }
 
+    /// <inheritdoc />
+    protected override string? GetAccessKeyCore()
+    {
+        var text = this.OwningTab.KeyTip;
+        if (string.IsNullOrEmpty(text))
+        {
+            text = base.GetAccessKeyCore();
+        }
+
+        return text;
+    }
+
     [MethodImpl(MethodImplOptions.NoInlining)]
     internal void RaiseTabExpandCollapseAutomationEvent(bool oldValue, bool newValue)
     {
