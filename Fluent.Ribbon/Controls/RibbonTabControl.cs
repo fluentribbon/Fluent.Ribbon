@@ -616,7 +616,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <inheritdoc />
     protected override void OnKeyDown(KeyEventArgs e)
     {
-        this.OnKeyUp(e);
+        base.OnKeyDown(e);
 
         if (e.Handled)
         {
