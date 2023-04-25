@@ -22,6 +22,7 @@ Fluent.Ribbon.Brushes.Button.Pressed.Background
 Fluent.Ribbon.Brushes.Button.Pressed.Border
 Fluent.Ribbon.Brushes.CheckBox.Background
 Fluent.Ribbon.Brushes.CheckBox.Border
+Fluent.Ribbon.Brushes.CheckBox.MouseOver.Background
 Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke
 Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke
 Fluent.Ribbon.Brushes.ColorGallery.Background
@@ -107,6 +108,8 @@ Fluent.Ribbon.Brushes.TextBox.Border
 Fluent.Ribbon.Brushes.TextBox.Caret
 Fluent.Ribbon.Brushes.TextBox.Disabled.Background
 Fluent.Ribbon.Brushes.TextBox.Disabled.Border
+Fluent.Ribbon.Brushes.TextBox.Focus.Background
+Fluent.Ribbon.Brushes.TextBox.Focus.Border
 Fluent.Ribbon.Brushes.TextBox.MouseOver.Background
 Fluent.Ribbon.Brushes.TextBox.MouseOver.Border
 Fluent.Ribbon.Brushes.TextBox.Selection
@@ -187,12 +190,12 @@ Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard
 Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItem
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel
-Fluent.Ribbon.Styles.Backstage
 Fluent.Ribbon.Styles.Backstage.Button
 Fluent.Ribbon.Styles.Backstage.ComboBox
 Fluent.Ribbon.Styles.Backstage.DropDownButton
 Fluent.Ribbon.Styles.Backstage.ToggleButton
 Fluent.Ribbon.Styles.BackstageBackButton
+Fluent.Ribbon.Styles.BackstageTabControl
 Fluent.Ribbon.Styles.BackstageTabControl.Button
 Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem
 Fluent.Ribbon.Styles.BackstageTabItem
@@ -202,8 +205,10 @@ Fluent.Ribbon.Styles.ColorGalleryGradientListBox
 Fluent.Ribbon.Styles.ColorGalleryListBox
 Fluent.Ribbon.Styles.ComboBoxItem
 Fluent.Ribbon.Styles.ContextMenu
-Fluent.Ribbon.Styles.ControlStyleEmptyFocus
 Fluent.Ribbon.Styles.FluentRibbonDefaultContextMenu
+Fluent.Ribbon.Styles.FocusVisual
+Fluent.Ribbon.Styles.FocusVisual.FocusVisual.Empty
+Fluent.Ribbon.Styles.FocusVisual.Rectangle
 Fluent.Ribbon.Styles.Gallery
 Fluent.Ribbon.Styles.GalleryDropDownButton
 Fluent.Ribbon.Styles.GalleryGroupContainer
@@ -272,8 +277,8 @@ Fluent.Ribbon.Styles.ZoomSlider
 Fluent.Ribbon.Templates.ApplicationMenuButton
 Fluent.Ribbon.Templates.ApplicationMenuItem
 Fluent.Ribbon.Templates.ApplicationMenuSecondLevelItem
-Fluent.Ribbon.Templates.Backstage
 Fluent.Ribbon.Templates.BackstageBackButton
+Fluent.Ribbon.Templates.BackstageTabControl
 Fluent.Ribbon.Templates.BackstageTabControl.Button
 Fluent.Ribbon.Templates.BackstageTabItem
 Fluent.Ribbon.Templates.BackstageToggleButton
@@ -283,10 +288,11 @@ Fluent.Ribbon.Templates.CheckBox.Simplified
 Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0
 Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row1
 Fluent.Ribbon.Templates.ComboBoxItem
-Fluent.Ribbon.Templates.ControlFocusEmpty
 Fluent.Ribbon.Templates.DialogLauncherButton
 Fluent.Ribbon.Templates.DropDownButton.Simplified
 Fluent.Ribbon.Templates.FluentPopupMenu
+Fluent.Ribbon.Templates.FocusVisual
+Fluent.Ribbon.Templates.FocusVisual.Empty
 Fluent.Ribbon.Templates.Gallery
 Fluent.Ribbon.Templates.GalleryGroupContainer
 Fluent.Ribbon.Templates.GalleryItem
