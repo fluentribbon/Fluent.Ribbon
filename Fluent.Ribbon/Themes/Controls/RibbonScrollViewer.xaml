@@ -30,7 +30,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollButton"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollButton}" />
     </Style>
