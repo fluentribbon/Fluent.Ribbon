@@ -22,7 +22,7 @@
         <Rectangle Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Rectangle}" />
     </ControlTemplate>
 
-    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.FocusVisual.Empty"
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Empty"
            TargetType="{x:Type Control}">
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.FocusVisual.Empty}" />
     </Style>
