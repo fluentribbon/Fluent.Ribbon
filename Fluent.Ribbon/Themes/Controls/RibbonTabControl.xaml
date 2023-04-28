@@ -95,6 +95,7 @@
         <Setter Property="ResizeMode" Value="None" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabControl.DisplayOptionsButton}" />
         <Setter Property="Uid" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.DisplayOptionsButtonScreenTipTitle, Mode=OneWay}" />
+        <Setter Property="AutomationProperties.Name" Value="{Binding Uid, RelativeSource={RelativeSource Self}}" />
         <Setter Property="Width" Value="22" />
     </Style>
 

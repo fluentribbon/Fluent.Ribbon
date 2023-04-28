@@ -25,6 +25,7 @@
 
             <Button x:Name="PART_Min"
                     Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
@@ -42,6 +43,7 @@
 
             <Button x:Name="PART_Max"
                     Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
@@ -60,6 +62,7 @@
 
             <Button x:Name="PART_Restore"
                     Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
@@ -78,6 +81,7 @@
 
             <Button x:Name="PART_Close"
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
