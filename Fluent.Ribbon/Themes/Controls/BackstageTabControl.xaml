@@ -242,7 +242,7 @@
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="BackButtonUid" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageBackButtonUid, Mode=OneWay}" />
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:BackstageTabControlItemContainerStyleSelector.Instance}" />
         <Setter Property="ItemsPanel">

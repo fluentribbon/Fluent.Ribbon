@@ -7,7 +7,7 @@
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.RibbonComboButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonComboButton}" />

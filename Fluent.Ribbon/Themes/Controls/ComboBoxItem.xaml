@@ -20,11 +20,14 @@
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
