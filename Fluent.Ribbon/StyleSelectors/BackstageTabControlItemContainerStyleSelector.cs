@@ -1,32 +1,31 @@
-﻿namespace Fluent.StyleSelectors
+﻿namespace Fluent.StyleSelectors;
+
+using System.Windows;
+using System.Windows.Controls;
+using Button = Fluent.Button;
+
+/// <summary>
+/// <see cref="StyleSelector"/> for <see cref="ItemsControl.ItemContainerStyle"/> in <see cref="BackstageTabControl"/>.
+/// </summary>
+public class BackstageTabControlItemContainerStyleSelector : StyleSelector
 {
-    using System.Windows;
-    using System.Windows.Controls;
-    using Button = Fluent.Button;
-
     /// <summary>
-    /// <see cref="StyleSelector"/> for <see cref="ItemsControl.ItemContainerStyle"/> in <see cref="BackstageTabControl"/>.
+    ///     A singleton instance for <see cref="BackstageTabControlItemContainerStyleSelector" />.
     /// </summary>
-    public class BackstageTabControlItemContainerStyleSelector : StyleSelector
+    public static BackstageTabControlItemContainerStyleSelector Instance { get; } = new();
+
+    /// <inheritdoc />
+    public override Style? SelectStyle(object item, DependencyObject container)
     {
-        /// <summary>
-        ///     A singleton instance for <see cref="BackstageTabControlItemContainerStyleSelector" />.
-        /// </summary>
-        public static BackstageTabControlItemContainerStyleSelector Instance { get; } = new BackstageTabControlItemContainerStyleSelector();
-
-        /// <inheritdoc />
-        public override Style? SelectStyle(object item, DependencyObject container)
+        switch (item)
         {
-            switch (item)
-            {
-                case Button _:
-                    return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.BackstageTabControl.Button") as Style;
+            case Button _:
+                return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.BackstageTabControl.Button") as Style;
 
-                case SeparatorTabItem _:
-                    return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem") as Style;
-            }
-
-            return base.SelectStyle(item, container);
+            case SeparatorTabItem _:
+                return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem") as Style;
         }
+
+        return base.SelectStyle(item, container);
     }
 }

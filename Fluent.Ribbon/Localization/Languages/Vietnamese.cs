@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Vietnamese : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Tự động";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Tệp";
         public override string CustomizeStatusBar { get; } = "Tùy biến thanh Trạng thái";

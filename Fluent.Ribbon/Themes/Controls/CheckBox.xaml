@@ -4,7 +4,7 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <ControlTemplate x:Key="RibbonCheckBoxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonCheckBox"
                      TargetType="{x:Type Fluent:CheckBox}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -36,12 +36,7 @@
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
-                                   Fill="{DynamicResource GrayBrush2}"
-                                   Opacity="0" />
-                        <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="{DynamicResource WhiteBrush}"
-                                   RadiusX="1"
-                                   RadiusY="1"
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                                    Opacity="0" />
                     </Grid>
                 </Border>
@@ -54,8 +49,9 @@
                                   Margin="{TemplateBinding Padding}"
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Content="{TemplateBinding Header}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                  ContentSource="Header"
+                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                   RecognizesAccessKey="True" />
             </ContentControl>
         </Grid>
@@ -63,17 +59,18 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
                 <Setter TargetName="IndeterminateIcon" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
-                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Background}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
                 <Setter TargetName="IndeterminateIcon" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="DisabledVisualElement" Property="Opacity" Value=".55" />
+                <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
                 <Setter TargetName="contentPresenter" Property="Opacity" Value=".55" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
@@ -115,7 +112,7 @@
                               Fluent:FrameworkHelper.UseLayoutRounding="False"
                               Data="M48.4375,110.4375 L51.4995,112.812 L56.3745,107.24883"
                               Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                               StrokeEndLineCap="Triangle"
                               StrokeStartLineCap="Triangle"
                               StrokeThickness="1.5"
@@ -123,12 +120,7 @@
                         <Rectangle x:Name="IndeterminateIcon"
                                    Width="7"
                                    Height="7"
-                                   Fill="{DynamicResource GrayBrush2}"
-                                   Opacity="0" />
-                        <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="{DynamicResource WhiteBrush}"
-                                   RadiusX="1"
-                                   RadiusY="1"
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                                    Opacity="0" />
                     </Grid>
                 </Border>
@@ -150,7 +142,7 @@
                             <Border x:Name="iconImageBorder"
                                     Width="{Binding ActualWidth, ElementName=iconImage}"
                                     Height="{Binding ActualHeight, ElementName=iconImage}"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                     BorderThickness="1"
                                     Visibility="Collapsed" />
                         </Grid>
@@ -158,8 +150,9 @@
                                           Margin="1 0 0 0"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Content="{TemplateBinding Header}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentSource="Header"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
                 </ContentControl>
@@ -204,16 +197,16 @@
                 <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
                 <Setter TargetName="IndeterminateIcon" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.MouseOver.Stroke}" />
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="CheckIcon" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
                 <Setter TargetName="IndeterminateIcon" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Pressed.Stroke}" />
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
+                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
                 <Setter TargetName="stackPanel" Property="Opacity" Value=".5" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
@@ -232,15 +225,19 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonCheckBoxStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonCheckBox"
            TargetType="{x:Type Fluent:CheckBox}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Border}" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Margin" Value="2 2 2 2" />
-        <Setter Property="Template" Value="{DynamicResource RibbonCheckBoxControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCheckBox}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">

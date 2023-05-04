@@ -7,8 +7,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:RibbonMenu}">
                     <ControlTemplate.Resources>
-                        <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                               TargetType="{x:Type Separator}" />
+                        <Style TargetType="{x:Type Separator}"
+                               BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
                     </ControlTemplate.Resources>
                     <Grid>
                         <Rectangle Grid.RowSpan="2"
@@ -18,7 +18,7 @@
                                    HorizontalAlignment="Left"
                                    Fill="{x:Null}"
                                    Stretch="Fill"
-                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                    Visibility="Visible" />
                         <StackPanel x:Name="menuPanel"
                                     IsItemsHost="True"

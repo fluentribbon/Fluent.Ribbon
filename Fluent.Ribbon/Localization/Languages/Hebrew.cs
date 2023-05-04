@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Hebrew : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "אוטומטי";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "ק";
         public override string BackstageButtonText { get; } = "קובץ";
         public override string CustomizeStatusBar { get; } = "התאמה אישית של שורת המצב";

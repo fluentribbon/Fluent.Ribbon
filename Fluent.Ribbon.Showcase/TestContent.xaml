@@ -8,6 +8,7 @@
              xmlns:controlzEx="urn:controlzex"
              xmlns:converters="clr-namespace:FluentTest.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fluentTest="clr-namespace:FluentTest"
              xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              xmlns:formsInterop="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -25,7 +26,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/VectorIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+            <BooleanToVisibilityConverter x:Key="Fluent.Ribbon.Converters.BoolToVisibilityConverter" />
             <converters:UniqueGroupNameConverter x:Key="UniqueGroupNameConverter" />
 
             <Canvas x:Key="AppbarUndoIcon"
@@ -34,7 +35,7 @@
                 <Path Width="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualWidth}"
                       Height="{Binding RelativeSource={RelativeSource AncestorType=Canvas}, Path=ActualHeight}"
                       Data="F1 M 52.7514,25.076C 53.4111,25.7534 54.0258,26.4933 54.5953,27.296C 55.1649,28.0987 55.6564,28.9607 56.0698,29.8821C 56.4832,30.8035 56.8065,31.7766 57.0396,32.8014C 57.2727,33.8262 57.3892,34.8883 57.3892,35.9878C 57.3892,37.0566 57.276,38.1517 57.0495,39.2733C 56.823,40.3948 56.4491,41.5394 55.928,42.7071C 55.4068,43.8748 54.713,45.07 53.8465,46.2927C 52.9801,47.5154 51.9069,48.7601 50.6271,50.0267C 50.2137,50.4358 49.7431,50.902 49.2153,51.4253C 48.6875,51.9487 48.1278,52.5029 47.5363,53.0878C 46.9447,53.6728 46.34,54.2742 45.722,54.8922C 45.1041,55.5101 44.4983,56.1072 43.9045,56.6833C 42.5323,58.0424 41.1029,59.4586 39.6163,60.9319L 35.3545,56.6239C 36.8235,55.1638 38.2441,53.7542 39.6163,52.3951C 40.1969,51.819 40.7994,51.2252 41.424,50.6139C 42.0485,50.0025 42.6565,49.4011 43.2481,48.8095C 43.8396,48.218 44.3993,47.6605 44.9271,47.1371C 45.4549,46.6138 45.9255,46.1476 46.3389,45.7385C 48.0146,44.0584 49.2758,42.3904 50.1224,40.7345C 50.969,39.0786 51.3924,37.4678 51.3924,35.9021C 51.3924,34.719 51.1516,33.5777 50.67,32.4781C 50.1884,31.3786 49.4528,30.3406 48.4632,29.3642C 48.2169,29.1179 47.9112,28.8848 47.5462,28.6649C 47.1811,28.445 46.7688,28.2526 46.3092,28.0877C 45.8496,27.9227 45.3482,27.7886 44.805,27.6852C 44.2619,27.5819 43.6868,27.5302 43.0799,27.5302C 42.4641,27.5302 41.8198,27.5929 41.1469,27.7182C 40.474,27.8436 39.7933,28.0503 39.105,28.3384C 38.4167,28.6264 37.7218,29.0036 37.0203,29.4698C 36.3188,29.936 35.6316,30.5056 34.9587,31.1785L 30.466,35.6976L 37.4986,42.75L 19,42.75L 19,24.5417L 25.9931,31.4094L 30.5056,26.8705C 31.5083,25.7446 32.5463,24.8275 33.6194,24.1194C 34.6926,23.4113 35.7646,22.8616 36.8356,22.4701C 37.9065,22.0787 38.972,21.8148 40.0319,21.6785C 41.0919,21.5421 42.1079,21.474 43.0799,21.474C 44.087,21.474 45.0579,21.563 45.9925,21.7411C 46.9271,21.9193 47.8068,22.17 48.6314,22.4932C 49.4561,22.8165 50.2148,23.198 50.9075,23.6378C 51.6002,24.0777 52.2148,24.5571 52.7514,25.076 Z "
-                      Fill="{DynamicResource BlackBrush}"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                       Stretch="Fill" />
             </Canvas>
 
@@ -54,8 +55,16 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
+            <ObjectDataProvider x:Key="CornerPreferenceEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type controlzEx:WindowCornerPreference}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="controlzEx:WindowCornerPreference" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
             <Style TargetType="Label">
-                <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -89,9 +98,9 @@
 
             <DataTemplate x:Key="GallerySampleDataItemCommandTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
-                <Fluent:Button Command="{Binding Command}"
+                <Fluent:Button Header="{Binding Text}"
+                               Command="{Binding Command}"
                                CommandParameter="{Binding}"
-                               Header="{Binding Text}"
                                LargeIcon="{Binding IconLarge}" />
             </DataTemplate>
 
@@ -113,26 +122,26 @@
                        CanUseSimplified="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
-                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
-                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
-                                                 Foreground="{DynamicResource BlackBrush}"
                                                  Header="FIRST"
+                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
+                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
+                                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                  TabItemMouseOverForeground="Red"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
                                                  TabItemSelectedMouseOverForeground="OrangeRed"
-                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
+                                                 Header="SECOND"
                                                  Background="#FF9D00"
                                                  BorderBrush="#FF9D00"
                                                  Foreground="#C45300"
-                                                 Header="SECOND"
-                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource boolToVisibilityConverter}}" />
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
+                                                 Header="MUST BE HIDDEN"
                                                  Background="Red"
                                                  BorderBrush="Green"
-                                                 Header="MUST BE HIDDEN"
                                                  Visibility="Visible" />
             </Fluent:Ribbon.ContextualGroups>
 
@@ -143,7 +152,7 @@
                             <StackPanel Orientation="Vertical">
                                 <Label Content="Fluent.Ribbon"
                                        FontSize="48"
-                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
                             </StackPanel>
                         </Fluent:StartScreenTabControl.LeftContent>
 
@@ -168,7 +177,12 @@
                 <Grid>
                     <!-- Backstage items can be keytipped -->
                     <Fluent:Backstage x:Name="Backstage"
+                                      IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}"
                                       Visibility="Collapsed">
+                        <Fluent:Backstage.ToolTip>
+                            <Fluent:ScreenTip Title="Backstage"
+                                              Text="A sample backstage with items and actions" />
+                        </Fluent:Backstage.ToolTip>
 
                         <!--<Fluent:Backstage.Style>
                             <Style TargetType="Fluent:Backstage">
@@ -185,9 +199,9 @@
                             <Fluent:Button Header="Save"
                                            Icon="{iconPacks:Material Kind=ContentSave}"
                                            KeyTip="S" />
-                            <Fluent:Button CanAddToQuickAccessToolBar="False"
+                            <Fluent:Button Header="Save As"
+                                           CanAddToQuickAccessToolBar="False"
                                            Click="HandleSaveAsClick"
-                                           Header="Save As"
                                            Icon="{iconPacks:Material Kind=ContentSaveAll}"
                                            IsDefinitive="False"
                                            KeyTip="A" />
@@ -198,16 +212,20 @@
                             <Fluent:BackstageTabItem Header="Introduction"
                                                      Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                                      KeyTip="T">
+                                <Fluent:BackstageTabItem.ToolTip>
+                                    <Fluent:ScreenTip Title="Introduction"
+                                                      Text="This is a sample for a backstageitem with content" />
+                                </Fluent:BackstageTabItem.ToolTip>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock>This is a BackstageTabItem with some sample content.</TextBlock>
 
                                     <WrapPanel HorizontalAlignment="Stretch">
-                                        <Fluent:Button Width="120"
-                                                       Command="{Binding TestCommand}"
-                                                       Header="Button with bound command" />
+                                        <Fluent:Button Header="Button with bound command"
+                                                       Width="120"
+                                                       Command="{Binding TestCommand}" />
 
-                                        <Fluent:Button Click="HandleShowMetroMessage"
-                                                       Header="Button"
+                                        <Fluent:Button Header="Button"
+                                                       Click="HandleShowMetroMessage"
                                                        Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                        IsDefinitive="False"
                                                        LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
@@ -216,8 +234,8 @@
                                                              Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                              LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
 
-                                        <Fluent:DropDownButton DisplayMemberPath="Name"
-                                                               Header="DropDownButton"
+                                        <Fluent:DropDownButton Header="DropDownButton"
+                                                               DisplayMemberPath="Name"
                                                                Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                                                ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                                LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}" />
@@ -231,9 +249,9 @@
                                             <TextBlock Text="5" />
                                         </Fluent:ComboBox>
 
-                                        <Fluent:Spinner Format="0"
-                                                        Header="Spinner"
-                                                        InputWidth="50"
+                                        <Fluent:Spinner Header="Spinner"
+                                                        Fluent:InputControlProperties.InputWidth="50"
+                                                        Format="0"
                                                         ValueChanged="OnSpinnerValueChanged"
                                                         Value="1" />
                                     </WrapPanel>
@@ -253,8 +271,8 @@
                             <Fluent:BackstageTabItem Header="Recent"
                                                      Icon="{iconPacks:Material Kind=History}"
                                                      KeyTip="R">
-                                <TabControl Margin="20 5 20 5"
-                                            Style="{DynamicResource InnerBackstageTabControlStyle}">
+                                <TabControl Style="{DynamicResource InnerBackstageTabControlStyle}"
+                                            Margin="20 5 20 5">
                                     <Fluent:SeparatorTabItem Header="Test1" />
                                     <TabItem Header="1" />
                                     <TabItem Header="2" />
@@ -264,20 +282,20 @@
                                 </TabControl>
                             </Fluent:BackstageTabItem>
 
-                            <Fluent:SeparatorTabItem />
+                            <Separator />
 
-                            <Fluent:Button VerticalAlignment="Bottom"
+                            <Fluent:Button Header="Exit"
+                                           VerticalAlignment="Bottom"
                                            Command="{Binding ExitCommand}"
                                            DockPanel.Dock="Bottom"
-                                           Header="Exit"
                                            Icon="{iconPacks:Material Kind=ExitToApp}"
                                            KeyTip="X" />
 
-                            <Fluent:BackstageTabItem VerticalAlignment="Bottom"
+                            <Fluent:BackstageTabItem Header="Extra wide content"
+                                                     VerticalAlignment="Bottom"
                                                      Content="The template used to display this is extremely wide. Width = 6000"
                                                      DataContext="{Binding ColorViewModel}"
                                                      DockPanel.Dock="Bottom"
-                                                     Header="Extra wide content"
                                                      KeyTip="W">
                                 <Fluent:BackstageTabItem.Icon>
                                     <Rectangle>
@@ -336,8 +354,8 @@
                                 <ItemsControl ItemsSource="{Binding GalleryViewModel.Items}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <Fluent:MenuItem Description="{Binding Group}"
-                                                             Header="{Binding Text}"
+                                            <Fluent:MenuItem Header="{Binding Text}"
+                                                             Description="{Binding Group}"
                                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
                                                              IsDefinitive="True"
                                                              ToolTip="{Binding Text}" />
@@ -359,8 +377,8 @@
                         <Fluent:MenuItem Header="Save As"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
                                          IsSplited="True">
-                            <Fluent:MenuItem Description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
-                                             Header="Standard format"
+                            <Fluent:MenuItem Header="Standard format"
+                                             Description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
                                              ToolTip="Save something in standard format" />
 
@@ -369,15 +387,15 @@
                                              ToolTip="Export something" />
                         </Fluent:MenuItem>
 
-                        <Fluent:MenuItem Description="CTRL + O"
-                                         Header="Open"
+                        <Fluent:MenuItem Header="Open"
+                                         Description="CTRL + O"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
                                          ToolTip="Open object" />
 
                         <Separator />
 
-                        <Fluent:MenuItem Command="{Binding ExitCommand}"
-                                         Header="Exit"
+                        <Fluent:MenuItem Header="Exit"
+                                         Command="{Binding ExitCommand}"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
                                          KeyTip="X" />
                     </Fluent:ApplicationMenu>
@@ -411,8 +429,8 @@
 
                 <!-- Use Content or Target Property to set QAT item -->
                 <Fluent:QuickAccessMenuItem IsChecked="true">
-                    <Fluent:Button Command="{Binding TestCommand}"
-                                   Header="Pink"
+                    <Fluent:Button Header="Pink"
+                                   Command="{Binding TestCommand}"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png" />
                 </Fluent:QuickAccessMenuItem>
                 <!-- todo: netcore => was using x:Reference before -->
@@ -445,9 +463,9 @@
                                        LauncherClick="OnLauncherButtonClick"
                                        LauncherKeys="ZB">
                     <Fluent:SplitButton x:Name="pasteButton"
+                                        Header="Paste"
                                         Command="ApplicationCommands.Paste"
                                         FocusManager.IsFocusScope="True"
-                                        Header="Paste"
                                         Icon="{DynamicResource Fluent.Ribbon.Images.Paste}"
                                         KeyTip="V"
                                         LargeIcon="{DynamicResource Fluent.Ribbon.Images.Paste}"
@@ -455,7 +473,7 @@
                         <Fluent:SplitButton.ToolTip>
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Width="190"
-                                              DisableReason="Enable it do use this function"
+                                              DisableReason="Enable it to use this function"
                                               Text="Paste the contents of the Clipboard." />
                         </Fluent:SplitButton.ToolTip>
                         <Fluent:Gallery GroupBy="Tag"
@@ -508,22 +526,22 @@
                             </Fluent:MenuItem.ToolTip>
                         </Fluent:MenuItem>
                         <Separator />
-                        <Fluent:MenuItem Command="Paste"
-                                         Header="Set Default Paste..."
+                        <Fluent:MenuItem Header="Set Default Paste..."
+                                         Command="Paste"
                                          IsSplited="True"
                                          KeyTip="A">
-                            <Fluent:MenuItem Click="OnMenuItemClick"
-                                             Header="1" />
-                            <Fluent:MenuItem Command="Paste"
-                                             Header="2" />
+                            <Fluent:MenuItem Header="1"
+                                             Click="OnMenuItemClick" />
+                            <Fluent:MenuItem Header="2"
+                                             Command="Paste" />
                         </Fluent:MenuItem>
-                        <Fluent:MenuItem Command="Paste"
-                                         Header="Paste now" />
+                        <Fluent:MenuItem Header="Paste now"
+                                         Command="Paste" />
                     </Fluent:SplitButton>
                     <Fluent:Button x:Name="cutButton"
+                                   Header="Cut"
                                    Command="Cut"
                                    FocusManager.IsFocusScope="True"
-                                   Header="Cut"
                                    Icon="{DynamicResource Fluent.Ribbon.Images.Cut}"
                                    KeyTip="X"
                                    SizeDefinition="Middle,Small">
@@ -535,9 +553,9 @@
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
                     <Fluent:Button x:Name="copyButton"
+                                   Header="Copy"
                                    Command="Copy"
                                    FocusManager.IsFocusScope="True"
-                                   Header="Copy"
                                    Icon="{DynamicResource Fluent.Ribbon.Images.Copy}"
                                    KeyTip="C">
                         <Fluent:Button.SizeDefinition>
@@ -549,18 +567,18 @@
                                               DisableReason="Disable reason reason." />
                         </Fluent:Button.ToolTip>
                     </Fluent:Button>
-                    <Fluent:Button Click="OnFormatPainterClick"
-                                   Header="Format Painter"
+                    <Fluent:Button Header="Format Painter"
+                                   Click="OnFormatPainterClick"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FormatPainter.png"
                                    KeyTip="FP"
                                    SizeDefinition="Middle,Small" />
                     <Fluent:DropDownButton Name="buttonWatermark"
-                                           VerticalAlignment="Top"
                                            Header="DropDownButton"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
                                            IsEnabled="True"
                                            KeyTip="W"
-                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png">
+                                           LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
+                                           ResizeMode="Both">
                         <Fluent:Gallery x:Name="WatermarkGallery"
                                         GroupBy="Tag"
                                         IsGrouped="True"
@@ -1015,7 +1033,7 @@
                                                MaxDropDownHeight="500"
                                                SizeDefinition="Small">
                             <Fluent:DropDownButton.ToolTip>
-                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearence when Popup is open" />
+                                <Fluent:ScreenTip Text="Test-ScreenTip to test wrong ToolTip appearance when Popup is open" />
                             </Fluent:DropDownButton.ToolTip>
                             <Fluent:DropDownButton.Icon>
                                 <Grid>
@@ -1139,24 +1157,24 @@
                                        KeyTip="ZXB"
                                        LauncherClick="OnLauncherButtonClick"
                                        MediumIcon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}">
-                    <Fluent:Spinner Format="0 px"
-                                    Header="Left:"
+                    <Fluent:Spinner Header="Left:"
+                                    Fluent:InputControlProperties.InputWidth="75"
+                                    Format="0 px"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
                                     IsEnabled="False"
                                     KeyTip="KA"
                                     Value="{Binding BoundSpinnerValue}" />
-                    <Fluent:Spinner Format="0 px"
-                                    Header="Right:"
+                    <Fluent:Spinner Header="Right:"
+                                    Fluent:InputControlProperties.InputWidth="75"
+                                    Format="0 px"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
                                     KeyTip="KB"
                                     SelectAllTextOnFocus="True"
                                     Value="{Binding BoundSpinnerValue}" />
-                    <Fluent:Spinner Format="0 px"
-                                    Header="Top:"
+                    <Fluent:Spinner Header="Top:"
+                                    Fluent:InputControlProperties.InputWidth="75"
+                                    Format="0 px"
                                     Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
-                                    InputWidth="75"
                                     KeyTip="KC" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
@@ -1170,7 +1188,8 @@
                                        IsLauncherVisible="False"
                                        KeyTip="FG">
                     <Fluent:ComboBox Header="Fonts"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
                                      IsEditable="False"
                                      ItemsSource="{Binding FontsViewModel.FontsData}"
                                      KeyTip="FD">
@@ -1183,7 +1202,7 @@
                     </Fluent:ComboBox>
 
                     <Fluent:ComboBox Header="Fonts"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      IsEditable="False"
                                      ItemsSource="{Binding FontsViewModel.FontsData}">
                         <Fluent:ComboBox.ItemsPanel>
@@ -1199,8 +1218,8 @@
                         </Fluent:ComboBox.ItemTemplate>
                     </Fluent:ComboBox>
 
-                    <Fluent:Button Click="HandleAddItemToFontsClick"
-                                   Header="Add item to fonts" />
+                    <Fluent:Button Header="Add item to fonts"
+                                   Click="HandleAddItemToFontsClick" />
 
                     <Fluent:ComboBox Header="KeyboardNavigation"
                                      IsReadOnly="True"
@@ -1238,9 +1257,9 @@
 
                 <Fluent:RibbonGroupBox Header="Gallery">
                     <Fluent:InRibbonGallery x:Name="InRibbonGallery"
+                                            Header="Split"
                                             Width="100"
                                             GroupBy="Tag"
-                                            Header="Split"
                                             Icon="{DynamicResource Fluent.Ribbon.Images.Warning}"
                                             ItemHeight="55"
                                             ItemWidth="40"
@@ -1629,13 +1648,13 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Buttons">
-                    <Fluent:Button Click="OnEnlargeClick"
-                                   Header="Enlarge"
+                    <Fluent:Button Header="Enlarge"
+                                   Click="OnEnlargeClick"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Size="Middle" />
-                    <Fluent:Button Click="OnReduceClick"
-                                   Header="Reduce"
+                    <Fluent:Button Header="Reduce"
+                                   Click="OnReduceClick"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/ShrinkFont.png"
                                    Size="Middle" />
@@ -1657,16 +1676,16 @@
                 <Fluent:RibbonGroupBox Header="Test">
                     <StackPanel Orientation="Horizontal">
                         <Fluent:SplitButton x:Name="UndoButton"
+                                            Header="Undo"
                                             CanAddButtonToQuickAccessToolBar="True"
                                             ClosePopupOnMouseDown="True"
                                             Command="ApplicationCommands.Undo"
                                             FocusManager.IsFocusScope="True"
-                                            Header="Undo"
                                             Icon="{DynamicResource AppbarUndoIcon}"
                                             KeyTip="Ctrl+Z"
                                             SizeDefinition="Middle,Small">
-                            <Fluent:MenuItem Description="Test"
-                                             Header="My header">
+                            <Fluent:MenuItem Header="My header"
+                                             Description="Test">
                                 <Fluent:MenuItem.Icon>
                                     <Rectangle Width="24"
                                                Height="24"
@@ -1691,9 +1710,17 @@
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False"
                                        IsSeparatorVisible="False">
-                    <Fluent:CheckBox>Text 1</Fluent:CheckBox>
-                    <Fluent:CheckBox>Text 2</Fluent:CheckBox>
-                    <Fluent:CheckBox>Text 3</Fluent:CheckBox>
+                    <Fluent:CheckBox IsThreeState="True">Text 1</Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="True"
+                                     IsEnabled="False">
+                        Text 2
+                    </Fluent:CheckBox>
+                    <Fluent:CheckBox IsEnabled="False">Text 3</Fluent:CheckBox>
+                    <Fluent:CheckBox IsChecked="{x:Null}"
+                                     IsEnabled="False"
+                                     IsThreeState="True">
+                        Text 3
+                    </Fluent:CheckBox>
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Split buttons">
@@ -1764,8 +1791,8 @@
                         </ItemsControl.ItemTemplate>
                     </Fluent:DropDownButton>
 
-                    <Fluent:DropDownButton ClosePopupOnMouseDownDelay="250"
-                                           Header="Dropdown (auto close on click) g"
+                    <Fluent:DropDownButton Header="Dropdown (auto close on click) g"
+                                           ClosePopupOnMouseDownDelay="250"
                                            Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Icons/App.ico"
                                            ResizeMode="Both">
@@ -1896,44 +1923,45 @@
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Grouped SplitButton">
-                    <Fluent:SplitButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
-                                        Header="Split 1"
+                    <Fluent:SplitButton Header="Split 1"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
                                         Icon="{iconPacks:Material Kind=Cog}"
                                         IsCheckable="True"
                                         IsChecked="True"
                                         LargeIcon="{iconPacks:Material Kind=Cog}">
-                        <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
-                                         Header="First (with icon)"
+                        <Fluent:MenuItem Header="First (with icon)"
+                                         CanAddToQuickAccessToolBar="True"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          Icon="Images/Pink.png"
                                          IsCheckable="True"
                                          IsChecked="True" />
-                        <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
-                                         Header="Second"
+                        <Fluent:MenuItem Header="Second"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          IsCheckable="True"
                                          IsChecked="True" />
-                        <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
-                                         Header="Third"
+                        <Fluent:MenuItem Header="Third"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          IsCheckable="True" />
                     </Fluent:SplitButton>
-                    <Fluent:SplitButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
-                                        Header="Split 2"
+                    <Fluent:SplitButton Header="Split 2"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
                                         IsCheckable="True" />
-                    <Fluent:SplitButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
-                                        Header="Split 3"
+                    <Fluent:SplitButton Header="Split 3"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group2}"
                                         IsCheckable="True" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox Header="Grouped ToggleButton">
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
-                                         Header="Toggle 1"
+                    <Fluent:ToggleButton Header="Toggle 1"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
                                          Icon="{iconPacks:Material Kind=Cog}"
                                          KeyTip="T1"
                                          LargeIcon="{iconPacks:Material Kind=Cog}" />
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
-                                         Header="Toggle 2"
+                    <Fluent:ToggleButton Header="Toggle 2"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
                                          KeyTip="T2" />
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
-                                         Header="Toggle&#xA0;3"
+                    <Fluent:ToggleButton Header="Toggle&#xA0;3"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group3}"
                                          IsChecked="{Binding Path=IsCheckedToggleButton3}"
                                          KeyTip="T3" />
 
@@ -1982,10 +2010,10 @@
                                          Header="More" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Grid.IsSharedSizeScope="True"
-                                       Header="SharedSizeScope">
+                <Fluent:RibbonGroupBox Header="SharedSizeScope"
+                                       Grid.IsSharedSizeScope="True">
                     <Fluent:ComboBox Header="Many items"
-                                     InputWidth="120"
+                                     Fluent:InputControlProperties.InputWidth="120"
                                      ItemsSource="{Binding Path=ManyItems}"
                                      ResizeMode="Both">
                         <Fluent:ComboBox.ItemsPanel>
@@ -1998,16 +2026,16 @@
                     <Fluent:TextBox Header="My short header" />
                     <Fluent:Spinner Header="My long long header" />
 
-                    <Fluent:ComboBox Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True"
-                                     Header="Excluded from size sharing" />
+                    <Fluent:ComboBox Header="Excluded from size sharing"
+                                     Fluent:RibbonGroupBoxWrapPanel.ExcludeFromSharedSize="True" />
                     <Fluent:Spinner Header="My short header" />
                     <Fluent:ComboBox Header="My long long header" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}">
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Fluent:ComboBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel />
@@ -2019,33 +2047,33 @@
 
                 <Fluent:RibbonGroupBox>
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
 
-                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource boolToVisibilityConverter}}">
+                <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120" />
+                                     Fluent:InputControlProperties.InputWidth="120" />
                     <Separator />
 
                     <Fluent:ComboBox Header="Test"
-                                     InputWidth="120"
-                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource boolToVisibilityConverter}}" />
+                                     Fluent:InputControlProperties.InputWidth="120"
+                                     Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -2078,8 +2106,8 @@
                                          Icon="Images\Pink.png" />
                     </Fluent:DropDownButton>
 
-                    <Fluent:Button Command="{Binding GalleryViewModel.RefreshCommand}"
-                                   Header="Refresh (Galleries)"
+                    <Fluent:Button Header="Refresh (Galleries)"
+                                   Command="{Binding GalleryViewModel.RefreshCommand}"
                                    Icon="Images\Green.png"
                                    LargeIcon="Images\GreenLarge.png" />
 
@@ -2125,8 +2153,8 @@
 
                     <!-- To group items in Gallery (or InRibbonGallery) you can use GroupBy for simplified grouping method or use traditional method as in System.Windows.Controls.ListBox -->
                     <Fluent:InRibbonGallery Name="gallerySampleInRibbonGallery"
-                                            GroupBy="Group"
                                             Header="Grouped"
+                                            GroupBy="Group"
                                             Icon="Images\Gray.png"
                                             ItemHeight="18"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
@@ -2148,8 +2176,8 @@
                     </Fluent:InRibbonGallery>
 
                     <!-- To group items in Gallery (or InRibbonGallery) you can use GroupedByAdvanced as an advanced grouping method -->
-                    <Fluent:InRibbonGallery GroupByAdvanced="{Binding GroupByAdvancedSample}"
-                                            Header="GroupedByAdvanced"
+                    <Fluent:InRibbonGallery Header="GroupedByAdvanced"
+                                            GroupByAdvanced="{Binding GroupByAdvancedSample}"
                                             Icon="Images\Gray.png"
                                             ItemHeight="18"
                                             ItemTemplate="{DynamicResource middleDataItemTemplate}"
@@ -2167,9 +2195,9 @@
                                        KeyTip="A"
                                        LauncherClick="OnLauncherButtonClick"
                                        LauncherKeys="GAL">
-                    <Fluent:InRibbonGallery CanCollapseToButton="True"
+                    <Fluent:InRibbonGallery Header="In-Ribbon Gallery"
+                                            CanCollapseToButton="True"
                                             GroupBy="Group"
-                                            Header="In-Ribbon Gallery"
                                             Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                             IsCollapsed="False"
                                             ItemHeight="56"
@@ -2211,9 +2239,9 @@
                         </Fluent:InRibbonGallery.ItemTemplate>
                     </Fluent:InRibbonGallery>
 
-                    <Fluent:SplitButton Click="OnSplitClick"
+                    <Fluent:SplitButton Header="Split"
+                                        Click="OnSplitClick"
                                         DropDownHeight="300"
-                                        Header="Split"
                                         Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                         KeyTip="S"
                                         LargeIcon="/Images/GalleryLarge.png"
@@ -2378,16 +2406,16 @@
                                                  KeyTip="B" />
                                 <Fluent:MenuItem Header="Item5"
                                                  KeyTip="R">
-                                    <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
-                                                     Header="Itemq"
+                                    <Fluent:MenuItem Header="Itemq"
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
                                                      IsCheckable="True"
                                                      KeyTip="A" />
-                                    <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
-                                                     Header="Itemw"
+                                    <Fluent:MenuItem Header="Itemw"
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
                                                      IsCheckable="True"
                                                      KeyTip="B" />
-                                    <Fluent:MenuItem GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
-                                                     Header="Iteme"
+                                    <Fluent:MenuItem Header="Iteme"
+                                                     GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=ABC}"
                                                      IsCheckable="True"
                                                      IsChecked="True"
                                                      KeyTip="C" />
@@ -2545,27 +2573,27 @@
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}"
+            <Fluent:RibbonTabItem Header="KeyTips"
+                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                   Group="{Binding ElementName=tabGroup1, Mode=OneWay}"
-                                  Header="KeyTips"
                                   KeyTip="K">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
-                    <Fluent:DropDownButton Fluent:KeyTip.Keys="C"
-                                           Header="Test3"
+                    <Fluent:DropDownButton Header="Test3"
+                                           Fluent:KeyTip.Keys="C"
                                            Size="Middle">
-                        <Fluent:Button Fluent:KeyTip.Keys="A"
-                                       Header="Test4"
+                        <Fluent:Button Header="Test4"
+                                       Fluent:KeyTip.Keys="A"
                                        Size="Middle" />
-                        <Fluent:Button Fluent:KeyTip.Keys="B"
-                                       Header="Test5"
+                        <Fluent:Button Header="Test5"
+                                       Fluent:KeyTip.Keys="B"
                                        Size="Middle" />
                     </Fluent:DropDownButton>
-                    <Fluent:RadioButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
-                                        Header="Test-Radio 1"
+                    <Fluent:RadioButton Header="Test-Radio 1"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
                                         IsChecked="True" />
-                    <Fluent:RadioButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
-                                        Header="Test-Radio 2"
+                    <Fluent:RadioButton Header="Test-Radio 2"
+                                        GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Test-Radio}"
                                         IsChecked="False" />
                 </Fluent:RibbonGroupBox>
 
@@ -2594,67 +2622,67 @@
                     Also you need to set keytip for groups to open it while it is collapsed state
                 -->
                 <Fluent:RibbonGroupBox Name="ZC"
-                                       Fluent:KeyTip.Keys="ZC"
-                                       Header="Normal KeyTips">
-                    <Fluent:SplitButton Fluent:KeyTip.Keys="R"
-                                        Header="Red"
+                                       Header="Normal KeyTips"
+                                       Fluent:KeyTip.Keys="ZC">
+                    <Fluent:SplitButton Header="Red"
+                                        Fluent:KeyTip.Keys="R"
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png"
                                         LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/RedLarge.png"
                                         SizeDefinition="Large">
-                        <Fluent:MenuItem Fluent:KeyTip.Keys="P"
-                                         Header="Pink"
+                        <Fluent:MenuItem Header="Pink"
+                                         Fluent:KeyTip.Keys="P"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png" />
-                        <Fluent:MenuItem Fluent:KeyTip.Keys="R"
-                                         Header="Red"
+                        <Fluent:MenuItem Header="Red"
+                                         Fluent:KeyTip.Keys="R"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Red.png">
-                            <Fluent:MenuItem Fluent:KeyTip.Keys="O"
-                                             Header="Orange"
+                            <Fluent:MenuItem Header="Orange"
+                                             Fluent:KeyTip.Keys="O"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png" />
                         </Fluent:MenuItem>
                     </Fluent:SplitButton>
-                    <Fluent:Button Fluent:KeyTip.Keys="G"
-                                   Header="Grey"
+                    <Fluent:Button Header="Grey"
+                                   Fluent:KeyTip.Keys="G"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                    SizeDefinition="Large" />
-                    <Fluent:Button Fluent:KeyTip.Keys="O"
-                                   Header="Orange"
+                    <Fluent:Button Header="Orange"
+                                   Fluent:KeyTip.Keys="O"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
                                    SizeDefinition="Large" />
-                    <Fluent:Button Fluent:KeyTip.Keys="P"
-                                   Header="Pink"
+                    <Fluent:Button Header="Pink"
+                                   Fluent:KeyTip.Keys="P"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Pink.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/PinkLarge.png"
                                    SizeDefinition="Large" />
-                    <Fluent:Button Fluent:KeyTip.Keys="Y"
-                                   Header="Yellow"
+                    <Fluent:Button Header="Yellow"
+                                   Fluent:KeyTip.Keys="Y"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
                                    SizeDefinition="Large" />
-                    <Fluent:Button Fluent:KeyTip.Keys="B"
-                                   Header="Brown"
+                    <Fluent:Button Header="Brown"
+                                   Fluent:KeyTip.Keys="B"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png"
                                    SizeDefinition="Large" />
-                    <Fluent:Button Fluent:KeyTip.Keys="X1"
-                                   Header="Gray"
+                    <Fluent:Button Header="Gray"
+                                   Fluent:KeyTip.Keys="X1"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
-                    <Fluent:Button Fluent:KeyTip.Keys="X2"
-                                   Header="Gray"
+                    <Fluent:Button Header="Gray"
+                                   Fluent:KeyTip.Keys="X2"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
-                    <Fluent:Button Fluent:KeyTip.Keys="X3"
-                                   Header="Gray"
+                    <Fluent:Button Header="Gray"
+                                   Fluent:KeyTip.Keys="X3"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                    SizeDefinition="Middle" />
 
-                    <Fluent:SplitButton Fluent:KeyTip.Keys="X4"
-                                        Header="Always middle"
+                    <Fluent:SplitButton Header="Always middle"
+                                        Fluent:KeyTip.Keys="X4"
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png">
                         <Fluent:SplitButton.SizeDefinition>
                             <Fluent:RibbonControlSizeDefinition Large="Middle"
@@ -2670,8 +2698,8 @@
 
                     </Fluent:SplitButton>
 
-                    <Fluent:SplitButton Fluent:KeyTip.Keys="X4"
-                                        Header="Always small"
+                    <Fluent:SplitButton Header="Always small"
+                                        Fluent:KeyTip.Keys="X4"
                                         Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png">
                         <Fluent:SplitButton.SizeDefinition>
                             <Fluent:RibbonControlSizeDefinition Large="Small"
@@ -2693,49 +2721,49 @@
                     Fluent:KeyTip.Margin
                 -->
                 <Fluent:RibbonGroupBox Header="Custom KeyTip placement">
-                    <Fluent:Button Fluent:KeyTip.AutoPlacement="False"
+                    <Fluent:Button Header="Center"
+                                   Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Center"
                                    Fluent:KeyTip.Keys="C"
                                    Fluent:KeyTip.VerticalAlignment="Center"
-                                   Header="Center"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png" />
-                    <Fluent:Button Fluent:KeyTip.AutoPlacement="False"
+                    <Fluent:Button Header="Left"
+                                   Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Left"
                                    Fluent:KeyTip.Keys="L"
                                    Fluent:KeyTip.VerticalAlignment="Center"
-                                   Header="Left"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png" />
-                    <Fluent:Button Fluent:KeyTip.AutoPlacement="False"
+                    <Fluent:Button Header="Top"
+                                   Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Center"
                                    Fluent:KeyTip.Keys="T"
                                    Fluent:KeyTip.VerticalAlignment="Top"
-                                   Header="Top"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
-                    <Fluent:Button Fluent:KeyTip.AutoPlacement="False"
+                    <Fluent:Button Header="Left, Top, Margin"
+                                   Fluent:KeyTip.AutoPlacement="False"
                                    Fluent:KeyTip.HorizontalAlignment="Left"
                                    Fluent:KeyTip.Keys="LTM"
                                    Fluent:KeyTip.Margin="40,0,0,0"
                                    Fluent:KeyTip.VerticalAlignment="Top"
-                                   Header="Left, Top, Margin"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
                                    LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
-                                  Header="Binding"
+            <Fluent:RibbonTabItem Header="Binding"
+                                  Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
                                   KeyTip="B">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
                                        ItemTemplate="{DynamicResource GallerySampleDataItemCommandTemplate}"
                                        ItemsSource="{Binding DataItems}" />
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem ActiveTabBackground="#FF9D00"
+            <Fluent:RibbonTabItem Header="LAYOUT"
+                                  ActiveTabBackground="#FF9D00"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
-                                  Header="LAYOUT"
                                   KeyTip="L">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -2744,48 +2772,49 @@
 
                 <Fluent:RibbonGroupBox x:Name="xxx"
                                        Header="LongLongGroup"
+                                       FocusManager.IsFocusScope="True"
                                        IsLauncherVisible="True"
                                        LauncherClick="OnLauncherButtonClick"
-                                       LauncherCommand="Paste">
-                    <Fluent:Button Command="ApplicationCommands.Paste"
-                                   Header="Button"
+                                       LauncherCommand="ApplicationCommands.Paste">
+                    <Fluent:Button Header="Button"
+                                   Command="ApplicationCommands.Paste"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
-                    <Fluent:Button Command="ApplicationCommands.Paste"
-                                   Header="Button"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
-                    <Separator />
-                    <Fluent:Button Command="ApplicationCommands.Paste"
-                                   Header="Button"
-                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
-                    <Fluent:Button Command="ApplicationCommands.Paste"
-                                   Header="Button"
+                    <Fluent:Button Header="Button"
+                                   Command="ApplicationCommands.Paste"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
                     <Separator />
-                    <Fluent:Button Command="ApplicationCommands.Paste"
-                                   Header="Button"
+                    <Fluent:Button Header="Button"
+                                   Command="ApplicationCommands.Paste"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
+                    <Fluent:Button Header="Button"
+                                   Command="ApplicationCommands.Paste"
+                                   Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
+                    <Separator />
+                    <Fluent:Button Header="Button"
+                                   Command="ApplicationCommands.Paste"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png" />
                 </Fluent:RibbonGroupBox>
 
                 <Fluent:RibbonGroupBox>
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
-                                         Header="Pause"
+                    <Fluent:ToggleButton Header="Pause"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                          SizeDefinition="Middle" />
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
-                                         Header="Button long text ggggggg gggg"
+                    <Fluent:ToggleButton Header="Button long text ggggggg gggg"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test16.png"
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png"
                                          SizeDefinition="Middle" />
                     <Separator />
-                    <Fluent:ToggleButton GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
-                                         Header="Button long text ggggggg gggg"
+                    <Fluent:ToggleButton Header="Button long text ggggggg gggg"
+                                         GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test16.png"
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png" />
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Group="{Binding ElementName=invisibleTabGroup, Mode=OneWay}"
-                                  Header="MUST BE HIDDEN"
+            <Fluent:RibbonTabItem Header="MUST BE HIDDEN"
+                                  Group="{Binding ElementName=invisibleTabGroup, Mode=OneWay}"
                                   KeyTip="M"
                                   Visibility="Collapsed">
                 <Fluent:RibbonGroupBox Header="MUST BE HIDDEN"
@@ -2857,23 +2886,23 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Fluent:Button Grid.Column="0"
-                                       Header="Full(L/L/S) button"
+                        <Fluent:Button Header="Full(L/L/S) button"
+                                       Grid.Column="0"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Gray.png"
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrayLarge.png"
                                        SizeDefinition="Large,Large,Small" />
-                        <Fluent:Button Grid.Column="1"
-                                       Header="Full(M/M/S) button"
+                        <Fluent:Button Header="Full(M/M/S) button"
+                                       Grid.Column="1"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Yellow.png"
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/YellowLarge.png"
                                        SizeDefinition="Middle,Middle,Small" />
-                        <Fluent:Button Grid.Column="2"
-                                       Header="Full(L/L/L) button"
+                        <Fluent:Button Header="Full(L/L/L) button"
+                                       Grid.Column="2"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Orange.png"
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/OrangeLarge.png"
                                        SizeDefinition="Large" />
-                        <Fluent:Button Grid.Column="3"
-                                       Header="Full(default) button"
+                        <Fluent:Button Header="Full(default) button"
+                                       Grid.Column="3"
                                        Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Brown.png"
                                        LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BrownLarge.png" />
                     </Grid>
@@ -2888,7 +2917,7 @@
             <TabControl.Resources>
                 <Style x:Key="{x:Type Fluent:Button}"
                        TargetType="{x:Type Fluent:Button}">
-                    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentColorBrush80}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Accent80}" />
                     <Setter Property="BorderThickness" Value="1" />
                 </Style>
 
@@ -2908,18 +2937,18 @@
 
                 <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94" />
 
-                <SolidColorBrush x:Key="TabItemHotBackground" Color="{DynamicResource Fluent.Ribbon.Colors.AccentColor60}" />
+                <SolidColorBrush x:Key="TabItemHotBackground" Color="{DynamicResource Fluent.Ribbon.Colors.Accent60}" />
                 <SolidColorBrush x:Key="TabItemSelectedBackground" Color="{DynamicResource Gray7}" />
                 <SolidColorBrush x:Key="TabItemDisabledBackground" Color="{DynamicResource Gray9}" />
-                <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="{DynamicResource Fluent.Ribbon.Colors.AccentColor80}" />
+                <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="{DynamicResource Fluent.Ribbon.Colors.Accent80}" />
                 <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="{DynamicResource Gray10}" />
 
                 <Style x:Key="{x:Type TabItem}"
                        TargetType="{x:Type TabItem}">
-                    <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
+                    <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
                     <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}" />
                     <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}" />
-                    <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+                    <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     <Setter Property="Padding" Value="6 1 6 1" />
                     <Setter Property="Template">
@@ -3023,7 +3052,7 @@
                         </TextBlock>
 
                         <GroupBox Header="Options">
-                            <WrapPanel>
+                            <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Theme">
                                     <WrapPanel>
                                         <WrapPanel.Resources>
@@ -3035,13 +3064,13 @@
                                                 </ObjectDataProvider.MethodParameters>
                                             </ObjectDataProvider>
                                         </WrapPanel.Resources>
-                                        <Fluent:ComboBox MinWidth="140"
-                                                         Header="BaseColors"
+                                        <Fluent:ComboBox Header="BaseColors"
+                                                         MinWidth="140"
                                                          IsEditable="False"
                                                          ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=BaseColors}"
                                                          SelectedItem="{Binding ColorViewModel.CurrentBaseColor, Mode=TwoWay}" />
-                                        <Fluent:ComboBox MinWidth="150"
-                                                         Header="Theme"
+                                        <Fluent:ComboBox Header="Theme"
+                                                         MinWidth="150"
                                                          IsEditable="False"
                                                          ItemsSource="{Binding Source={x:Static controlzEx:ThemeManager.Current}, Path=Themes}"
                                                          SelectedItem="{Binding ColorViewModel.CurrentTheme, Mode=TwoWay}">
@@ -3062,8 +3091,8 @@
                                                         <TextBlock Text="{Binding Name, StringFormat='{}Base color: {0}'}"
                                                                    FontSize="14"
                                                                    FontWeight="DemiBold"
-                                                                   Background="{DynamicResource BlackBrush}"
-                                                                   Foreground="{DynamicResource WhiteBrush}" />
+                                                                   Background="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                                                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.White}" />
                                                     </DataTemplate>
                                                 </GroupStyle.HeaderTemplate>
                                             </GroupStyle>
@@ -3080,13 +3109,26 @@
                                     </WrapPanel>
                                 </GroupBox>
 
+                                <GroupBox Header="WindowChrome">
+                                    <WrapPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>
+                                                CornerPreference
+                                            </Label>
+                                            <ComboBox VerticalAlignment="Center"
+                                                      ItemsSource="{Binding Source={StaticResource CornerPreferenceEnumValues}}"
+                                                      SelectedItem="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=CornerPreference, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </GroupBox>
+
                                 <GroupBox Header="WindowGlow">
                                     <WrapPanel>
-                                        <Fluent:ComboBox MinWidth="140"
-                                                         Header="GlowBrush"
+                                        <Fluent:ComboBox Header="GlowColor"
+                                                         MinWidth="140"
                                                          IsEditable="False"
-                                                         ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=GlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         ItemsSource="{Binding Colors, ElementName=TestContentControl}"
+                                                         SelectedValue="{Binding Path=GlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>
@@ -3098,21 +3140,24 @@
                                                         <Grid Grid.Column="0"
                                                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                               Margin="4 0"
-                                                              VerticalAlignment="Stretch"
-                                                              Background="{Binding Value}" />
+                                                              VerticalAlignment="Stretch">
+                                                            <Grid.Background>
+                                                                <SolidColorBrush Color="{Binding Value}" />
+                                                            </Grid.Background>
+                                                        </Grid>
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="4 0"
-                                                                   Text="{Binding}" />
+                                                                   Text="{Binding Key}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </Fluent:ComboBox.ItemTemplate>
                                         </Fluent:ComboBox>
 
-                                        <Fluent:ComboBox MinWidth="150"
-                                                         Header="NonActiveGlowBrush"
+                                        <Fluent:ComboBox Header="NonActiveGlowColor"
+                                                         MinWidth="150"
                                                          IsEditable="False"
-                                                         ItemsSource="{Binding Brushes, ElementName=TestContentControl}"
-                                                         SelectedValue="{Binding Path=NonActiveGlowBrush, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         ItemsSource="{Binding Colors, ElementName=TestContentControl}"
+                                                         SelectedValue="{Binding Path=NonActiveGlowColor, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controlzEx:WindowChromeWindow}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                          SelectedValuePath="Value">
                                             <Fluent:ComboBox.ItemTemplate>
                                                 <DataTemplate>
@@ -3124,15 +3169,44 @@
                                                         <Grid Grid.Column="0"
                                                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"
                                                               Margin="4 0"
-                                                              VerticalAlignment="Stretch"
-                                                              Background="{Binding Value}" />
+                                                              VerticalAlignment="Stretch">
+                                                            <Grid.Background>
+                                                                <SolidColorBrush Color="{Binding Value}" />
+                                                            </Grid.Background>
+                                                        </Grid>
                                                         <TextBlock Grid.Column="1"
                                                                    Margin="4 0"
-                                                                   Text="{Binding}" />
+                                                                   Text="{Binding Key}" />
                                                     </Grid>
                                                 </DataTemplate>
                                             </Fluent:ComboBox.ItemTemplate>
                                         </Fluent:ComboBox>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>
+                                                GlowDepth
+                                            </Label>
+                                            <TextBox MinWidth="30"
+                                                     VerticalAlignment="Center"
+                                                     Text="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=GlowDepth, Mode=TwoWay}" />
+                                        </StackPanel>
+
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="IsGlowTransitionEnabled"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=IsGlowTransitionEnabled, Mode=TwoWay}" />
+
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="UseRadialGradientForCorners"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=UseRadialGradientForCorners, Mode=TwoWay}" />
+
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="PreferDWMBorderColor"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=PreferDWMBorderColor, Mode=TwoWay}" />
+
+                                        <CheckBox VerticalAlignment="Center"
+                                                  Content="DWMSupportsBorderColor"
+                                                  IsChecked="{Binding RelativeSource={RelativeSource AncestorType=controlzEx:WindowChromeWindow}, Path=DWMSupportsBorderColor, Mode=OneWay}"
+                                                  IsEnabled="False" />
                                     </WrapPanel>
                                 </GroupBox>
 
@@ -3152,13 +3226,19 @@
                                                        Size="Middle">
                                             Show start screen
                                         </Fluent:Button>
+
+                                        <Fluent:CheckBox x:Name="BackstageOpenBinding"
+                                                         IsChecked="{Binding IsBackstageOpen}"
+                                                         Visibility="{Binding ElementName=Backstage, Path=Visibility}">
+                                            Is backstage open binding
+                                        </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
 
                                 <GroupBox Header="Localization">
                                     <WrapPanel>
-                                        <Fluent:ComboBox DisplayMemberPath="DisplayName"
-                                                         Header="Localization"
+                                        <Fluent:ComboBox Header="Localization"
+                                                         DisplayMemberPath="DisplayName"
                                                          IsEditable="False"
                                                          ItemsSource="{Binding Localizations, ElementName=TestContentControl}"
                                                          SelectedItem="{Binding Path=Localization, Source={x:Static Fluent:RibbonLocalization.Current}}"
@@ -3244,11 +3324,17 @@
                                         <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabled, ElementName=ribbon}">
                                             IsMouseWheelScrollingEnabled
                                         </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsMouseWheelScrollingEnabledEverywhere, ElementName=ribbon}">
+                                            IsMouseWheelScrollingEnabledEverywhere
+                                        </Fluent:CheckBox>
                                         <Fluent:CheckBox IsChecked="{Binding IsDefaultContextMenuEnabled, ElementName=ribbon}">
                                             IsDefaultContextMenuEnabled
                                         </Fluent:CheckBox>
                                         <Fluent:CheckBox IsChecked="{Binding CanUseSimplified, ElementName=ribbon}">
                                             CanUseSimplified
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding IsDisplayOptionsButtonVisible, ElementName=ribbon}">
+                                            IsDisplayOptionsButtonVisible
                                         </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
@@ -3257,7 +3343,7 @@
                                     <Button Click="HandleResetSavedState_OnClick"
                                             Content="Reset saved state &amp; restart" />
                                 </GroupBox>
-                            </WrapPanel>
+                            </StackPanel>
                         </GroupBox>
                     </StackPanel>
                 </ScrollViewer>
@@ -3272,10 +3358,10 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Fluent:Button x:Name="showLogicalTree"
+                                       Header="Show logical tree"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Click="OnShowLogicalTreeClick"
-                                       Header="Show logical tree"
                                        Size="Middle">
                             <Button.ContextMenu>
                                 <Fluent:ContextMenu ResizeMode="Both">
@@ -3342,10 +3428,10 @@
                             </Button.ContextMenu>
                         </Fluent:Button>
 
-                        <Fluent:Button HorizontalAlignment="Left"
+                        <Fluent:Button Header="Snoop"
+                                       HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        Click="StartSnoop_OnClick"
-                                       Header="Snoop"
                                        Size="Middle" />
                     </StackPanel>
 
@@ -3355,8 +3441,8 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Fluent:FrameworkHelper.UseLayoutRounding="False"
-                     Header="ViewboxTest">
+            <TabItem Header="ViewboxTest"
+                     Fluent:FrameworkHelper.UseLayoutRounding="False">
                 <Grid>
                     <Viewbox Width="768"
                              Height="576"
@@ -3576,8 +3662,8 @@
 
                     <TextBox x:Name="ThemeResourceDictionaryTextBox"
                              Grid.Row="1"
-                             Background="{DynamicResource WhiteBrush}"
-                             Foreground="{DynamicResource BlackBrush}"
+                             Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                             Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                              IsReadOnly="True"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Visible" />
@@ -3593,12 +3679,16 @@
                     </formsInterop:WindowsFormsHost>
                 </DockPanel>
             </TabItem>
+
+            <TabItem Header="Images">
+                <fluentTest:ImagesViewer />
+            </TabItem>
         </TabControl>
 
         <Fluent:StatusBar Grid.Row="2"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"
-                          Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource boolToVisibilityConverter}}">
+                          Visibility="{Binding IsChecked, ElementName=IsStatusBarVisibleCheckBox, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
             <Fluent:StatusBarItem Title="Words Width"
                                   HorizontalAlignment="Left"
                                   IsEnabled="False"
@@ -3632,13 +3722,13 @@
             <Fluent:StatusBarItem Title="Zoom Slider"
                                   HorizontalAlignment="Right">
                 <Slider x:Name="zoomSlider"
+                        Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         IsDirectionReversed="False"
                         IsSnapToTickEnabled="True"
                         LargeChange="0.1"
                         Maximum="2.0"
                         Minimum="0.5"
                         SmallChange="0.1"
-                        Style="{DynamicResource ZoomSliderStyle}"
                         TickFrequency="0.1"
                         ValueChanged="ZoomSlider_OnValueChanged"
                         Value="{Binding Zoom}" />

@@ -5,12 +5,12 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
-    <Style x:Key="KeyTipStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.KeyTip"
            TargetType="{x:Type Fluent:KeyTip}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.KeyTip.Background}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.KeyTip.BorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.KeyTip.Border}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:KeyTip}">

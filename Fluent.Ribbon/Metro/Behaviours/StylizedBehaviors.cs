@@ -1,174 +1,173 @@
-﻿namespace Fluent.Metro.Behaviours
+﻿namespace Fluent.Metro.Behaviours;
+
+using System.Diagnostics;
+using System.Windows;
+using Microsoft.Xaml.Behaviors;
+
+/// <summary>
+/// Enables the use of behaviors in styles
+/// </summary>
+public static class StylizedBehaviors
 {
-    using System.Diagnostics;
-    using System.Windows;
-    using Microsoft.Xaml.Behaviors;
+    /// <summary>
+    /// <see cref="DependencyProperty"/> for behaviors.
+    /// </summary>
+    public static readonly DependencyProperty BehaviorsProperty
+        = DependencyProperty.RegisterAttached("Behaviors",
+            typeof(StylizedBehaviorCollection),
+            typeof(StylizedBehaviors),
+            new FrameworkPropertyMetadata(null, OnBehaviorsChanged));
 
     /// <summary>
-    /// Enables the use of behaviors in styles
+    /// Gets the behaviors associated with <paramref name="dpo"/>
     /// </summary>
-    public static class StylizedBehaviors
+    public static StylizedBehaviorCollection? GetBehaviors(DependencyObject dpo)
     {
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for behaviors.
-        /// </summary>
-        public static readonly DependencyProperty BehaviorsProperty
-            = DependencyProperty.RegisterAttached("Behaviors",
-                                                  typeof(StylizedBehaviorCollection),
-                                                  typeof(StylizedBehaviors),
-                                                  new FrameworkPropertyMetadata(null, OnBehaviorsChanged));
+        return (StylizedBehaviorCollection?)dpo.GetValue(BehaviorsProperty);
+    }
 
-        /// <summary>
-        /// Gets the behaviors associated with <paramref name="dpo"/>
-        /// </summary>
-        public static StylizedBehaviorCollection? GetBehaviors(DependencyObject dpo)
+    /// <summary>
+    /// Sets the behaviors associated with <paramref name="dpo"/>
+    /// </summary>
+    public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection? value)
+    {
+        dpo.SetValue(BehaviorsProperty, value);
+    }
+
+    private static void OnBehaviorsChanged(DependencyObject dpo, DependencyPropertyChangedEventArgs e)
+    {
+        var frameworkElement = dpo as FrameworkElement;
+        if (frameworkElement is null)
         {
-            return (StylizedBehaviorCollection?)dpo.GetValue(BehaviorsProperty);
+            return;
         }
 
-        /// <summary>
-        /// Sets the behaviors associated with <paramref name="dpo"/>
-        /// </summary>
-        public static void SetBehaviors(DependencyObject dpo, StylizedBehaviorCollection? value)
+        if (e.OldValue == e.NewValue)
         {
-            dpo.SetValue(BehaviorsProperty, value);
+            return;
         }
 
-        private static void OnBehaviorsChanged(DependencyObject dpo, DependencyPropertyChangedEventArgs e)
+        var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
+
+        frameworkElement.Unloaded -= FrameworkElementUnloaded;
+
+        if (e.OldValue is StylizedBehaviorCollection oldBehaviors)
         {
-            var frameworkElement = dpo as FrameworkElement;
-            if (frameworkElement is null)
+            foreach (var behavior in oldBehaviors)
             {
-                return;
-            }
-
-            if (e.OldValue == e.NewValue)
-            {
-                return;
-            }
-
-            var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
-
-            frameworkElement.Unloaded -= FrameworkElementUnloaded;
-
-            if (e.OldValue is StylizedBehaviorCollection oldBehaviors)
-            {
-                foreach (var behavior in oldBehaviors)
+                var index = GetIndexOf(itemBehaviors, behavior);
+                if (index >= 0)
                 {
-                    var index = GetIndexOf(itemBehaviors, behavior);
-                    if (index >= 0)
-                    {
-                        itemBehaviors.RemoveAt(index);
-                    }
+                    itemBehaviors.RemoveAt(index);
                 }
             }
+        }
 
-            if (e.NewValue is StylizedBehaviorCollection newBehaviors)
+        if (e.NewValue is StylizedBehaviorCollection newBehaviors)
+        {
+            foreach (var behavior in newBehaviors)
             {
-                foreach (var behavior in newBehaviors)
+                var index = GetIndexOf(itemBehaviors, behavior);
+                if (index < 0)
                 {
-                    var index = GetIndexOf(itemBehaviors, behavior);
-                    if (index < 0)
-                    {
-                        var clone = (Behavior)behavior.Clone();
-                        SetOriginalBehavior(clone, behavior);
-                        itemBehaviors.Add(clone);
-                    }
+                    var clone = (Behavior)behavior.Clone();
+                    SetOriginalBehavior(clone, behavior);
+                    itemBehaviors.Add(clone);
                 }
             }
+        }
 
-            if (itemBehaviors.Count > 0)
+        if (itemBehaviors.Count > 0)
+        {
+            frameworkElement.Unloaded += FrameworkElementUnloaded;
+        }
+
+        frameworkElement.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
+    }
+
+    private static void Dispatcher_ShutdownStarted(object? sender, System.EventArgs e)
+    {
+        Debug.WriteLine("Dispatcher.ShutdownStarted");
+    }
+
+    private static void FrameworkElementUnloaded(object sender, RoutedEventArgs e)
+    {
+        // BehaviorCollection doesn't call Detach, so we do this
+        var frameworkElement = sender as FrameworkElement;
+        if (frameworkElement is null)
+        {
+            return;
+        }
+
+        var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
+
+        foreach (var behavior in itemBehaviors)
+        {
+            behavior.Detach();
+        }
+
+        frameworkElement.Loaded += FrameworkElementLoaded;
+    }
+
+    private static void FrameworkElementLoaded(object sender, RoutedEventArgs e)
+    {
+        var frameworkElement = sender as FrameworkElement;
+        if (frameworkElement is null)
+        {
+            return;
+        }
+
+        frameworkElement.Loaded -= FrameworkElementLoaded;
+        var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
+
+        foreach (var behavior in itemBehaviors)
+        {
+            behavior.Attach(frameworkElement);
+        }
+    }
+
+    private static int GetIndexOf(BehaviorCollection itemBehaviors, Behavior behavior)
+    {
+        var index = -1;
+
+        var orignalBehavior = GetOriginalBehavior(behavior);
+
+        for (var i = 0; i < itemBehaviors.Count; i++)
+        {
+            var currentBehavior = itemBehaviors[i];
+            if (ReferenceEquals(currentBehavior, behavior)
+                || ReferenceEquals(currentBehavior, orignalBehavior))
             {
-                frameworkElement.Unloaded += FrameworkElementUnloaded;
+                index = i;
+                break;
             }
 
-            frameworkElement.Dispatcher.ShutdownStarted += Dispatcher_ShutdownStarted;
-        }
-
-        private static void Dispatcher_ShutdownStarted(object? sender, System.EventArgs e)
-        {
-            Debug.WriteLine("Dispatcher.ShutdownStarted");
-        }
-
-        private static void FrameworkElementUnloaded(object sender, RoutedEventArgs e)
-        {
-            // BehaviorCollection doesn't call Detach, so we do this
-            var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement is null)
+            var currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
+            if (ReferenceEquals(currentOrignalBehavior, behavior)
+                || ReferenceEquals(currentOrignalBehavior, orignalBehavior))
             {
-                return;
-            }
-
-            var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
-
-            foreach (var behavior in itemBehaviors)
-            {
-                behavior.Detach();
-            }
-
-            frameworkElement.Loaded += FrameworkElementLoaded;
-        }
-
-        private static void FrameworkElementLoaded(object sender, RoutedEventArgs e)
-        {
-            var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement is null)
-            {
-                return;
-            }
-
-            frameworkElement.Loaded -= FrameworkElementLoaded;
-            var itemBehaviors = Interaction.GetBehaviors(frameworkElement);
-
-            foreach (var behavior in itemBehaviors)
-            {
-                behavior.Attach(frameworkElement);
+                index = i;
+                break;
             }
         }
 
-        private static int GetIndexOf(BehaviorCollection itemBehaviors, Behavior behavior)
-        {
-            var index = -1;
+        return index;
+    }
 
-            var orignalBehavior = GetOriginalBehavior(behavior);
+    // ReSharper disable once InconsistentNaming
+    private static readonly DependencyProperty OriginalBehaviorProperty
+        = DependencyProperty.RegisterAttached("OriginalBehavior",
+            typeof(Behavior),
+            typeof(StylizedBehaviors),
+            new UIPropertyMetadata(null));
 
-            for (var i = 0; i < itemBehaviors.Count; i++)
-            {
-                var currentBehavior = itemBehaviors[i];
-                if (ReferenceEquals(currentBehavior, behavior)
-                    || ReferenceEquals(currentBehavior, orignalBehavior))
-                {
-                    index = i;
-                    break;
-                }
+    private static Behavior? GetOriginalBehavior(DependencyObject obj)
+    {
+        return (Behavior)obj.GetValue(OriginalBehaviorProperty);
+    }
 
-                var currentOrignalBehavior = GetOriginalBehavior(currentBehavior);
-                if (ReferenceEquals(currentOrignalBehavior, behavior)
-                    || ReferenceEquals(currentOrignalBehavior, orignalBehavior))
-                {
-                    index = i;
-                    break;
-                }
-            }
-
-            return index;
-        }
-
-        // ReSharper disable once InconsistentNaming
-        private static readonly DependencyProperty OriginalBehaviorProperty
-            = DependencyProperty.RegisterAttached("OriginalBehavior",
-                                                  typeof(Behavior),
-                                                  typeof(StylizedBehaviors),
-                                                  new UIPropertyMetadata(null));
-
-        private static Behavior? GetOriginalBehavior(DependencyObject obj)
-        {
-            return (Behavior)obj.GetValue(OriginalBehaviorProperty);
-        }
-
-        private static void SetOriginalBehavior(DependencyObject obj, Behavior? value)
-        {
-            obj.SetValue(OriginalBehaviorProperty, value);
-        }
+    private static void SetOriginalBehavior(DependencyObject obj, Behavior? value)
+    {
+        obj.SetValue(OriginalBehaviorProperty, value);
     }
 }

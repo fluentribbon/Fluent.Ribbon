@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="SliderButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.SliderButton"
            TargetType="{x:Type RepeatButton}">
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
@@ -19,16 +19,16 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SliderThumbStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.SliderThumb"
            TargetType="{x:Type Thumb}">
         <Setter Property="Height" Value="14" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="Template" Value="{DynamicResource SliderThumbControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SliderThumb}" />
         <Setter Property="Width" Value="14" />
     </Style>
 
-    <ControlTemplate x:Key="SliderThumbControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SliderThumb"
                      TargetType="{x:Type Thumb}">
         <Grid Margin="2.5 0.5">
             <Border Name="path"
@@ -48,15 +48,15 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="SliderRepeatButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.SliderRepeatButton"
            TargetType="{x:Type RepeatButton}">
-        <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
         <Setter Property="Height" Value="16" />
-        <Setter Property="Template" Value="{DynamicResource SliderRepeatButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SliderRepeatButton}" />
         <Setter Property="Width" Value="16" />
     </Style>
 
-    <ControlTemplate x:Key="SliderRepeatButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SliderRepeatButton"
                      TargetType="{x:Type RepeatButton}">
         <Grid>
             <ContentPresenter Width="14"
@@ -67,7 +67,7 @@
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="ZoomSliderStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ZoomSlider"
            TargetType="{x:Type Slider}">
         <Setter Property="Height" Value="16" />
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
@@ -75,12 +75,12 @@
         <Setter Property="Maximum" Value="500" />
         <Setter Property="Minimum" Value="10" />
         <Setter Property="SmallChange" Value="1" />
-        <Setter Property="Template" Value="{DynamicResource ZoomSliderControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ZoomSlider}" />
         <Setter Property="Value" Value="100" />
         <Setter Property="Width" Value="133" />
     </Style>
 
-    <ControlTemplate x:Key="ZoomSliderControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ZoomSlider"
                      TargetType="{x:Type Slider}">
         <Grid Width="133"
               Height="16">
@@ -124,22 +124,22 @@
                    Height="16">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton x:Name="leftButton"
-                                  Command="Slider.DecreaseLarge"
-                                  Style="{DynamicResource SliderButtonStyle}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}"
+                                  Command="Slider.DecreaseLarge" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
                     <Thumb x:Name="thumb"
-                           Style="{DynamicResource SliderThumbStyle}" />
+                           Style="{DynamicResource Fluent.Ribbon.Styles.SliderThumb}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton x:Name="rightButton"
-                                  Command="Slider.IncreaseLarge"
-                                  Style="{DynamicResource SliderButtonStyle}" />
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.SliderButton}"
+                                  Command="Slider.IncreaseLarge" />
                 </Track.IncreaseRepeatButton>
             </Track>
             <RepeatButton x:Name="repeatButton"
-                          Command="Slider.DecreaseLarge"
-                          Style="{DynamicResource SliderRepeatButtonStyle}">
+                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}"
+                          Command="Slider.DecreaseLarge">
                 <Grid Margin="0"
                       Background="Transparent"
                       IsHitTestVisible="True">
@@ -156,9 +156,9 @@
                 </Grid>
             </RepeatButton>
             <RepeatButton x:Name="repeatButton_Copy"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.SliderRepeatButton}"
                           Grid.Column="2"
-                          Command="Slider.IncreaseLarge"
-                          Style="{DynamicResource SliderRepeatButtonStyle}">
+                          Command="Slider.IncreaseLarge">
                 <Grid Margin="0"
                       Background="Transparent"
                       IsHitTestVisible="True">

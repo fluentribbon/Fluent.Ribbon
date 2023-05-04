@@ -3,15 +3,15 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
-    <Style x:Key="ToolbarDropDownButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ToolbarDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="22" />
-        <Setter Property="Template" Value="{DynamicResource ToolbarDropDownButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ToolbarDropDownButton}" />
         <Setter Property="Width" Value="14" />
     </Style>
 
-    <ControlTemplate x:Key="ToolbarDropDownButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ToolbarDropDownButton"
                      TargetType="{x:Type Fluent:DropDownButton}">
         <Grid>
             <Border x:Name="PART_ButtonBorder"
@@ -44,8 +44,8 @@
                             MinWidth="{TemplateBinding ActualWidth}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
                         <Grid Width="Auto"
@@ -55,7 +55,7 @@
                             <Border Width="Auto"
                                     Height="Auto"
                                     VerticalAlignment="Top"
-                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1" />
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
@@ -65,7 +65,7 @@
                                 </Grid.RowDefinitions>
                                 <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               Margin="1"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
                                               SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
@@ -78,8 +78,8 @@
                                         Height="11"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Background}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Border}"
                                         BorderThickness="0 1 0 0">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -89,7 +89,7 @@
                                                HorizontalAlignment="Stretch"
                                                VerticalAlignment="Top"
                                                Cursor="SizeNS"
-                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                               Template="{DynamicResource Fluent.Ribbon.Templates.ResizeVerticalThumb}" />
                                         <Thumb x:Name="PART_ResizeBothThumb"
                                                Width="10"
                                                Height="10"
@@ -97,7 +97,7 @@
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Top"
                                                Cursor="SizeNWSE"
-                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                               Template="{DynamicResource Fluent.Ribbon.Templates.ResizeBothThumb}" />
                                     </Grid>
                                 </Border>
                             </Grid>
@@ -125,7 +125,7 @@
             </Trigger>
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -133,18 +133,18 @@
                     <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="QuickAccessToolbarStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.QuickAccessToolbar"
            TargetType="{x:Type Fluent:QuickAccessToolBar}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType=Window}}" />
-        <Setter Property="Template" Value="{DynamicResource QuickAccessToolbarControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.QuickAccessToolbar}" />
     </Style>
 
-    <ControlTemplate x:Key="QuickAccessToolbarControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.QuickAccessToolbar"
                      TargetType="{x:Type Fluent:QuickAccessToolBar}">
         <DockPanel x:Name="PART_RootPanel"
                    KeyboardNavigation.TabNavigation="Local">
@@ -153,6 +153,7 @@
                             DockPanel.Dock="Right"
                             Focusable="False">
                 <Fluent:DropDownButton x:Name="PART_MenuDownButton"
+                                       Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Stretch"
                                        CanAddToQuickAccessToolBar="False"
@@ -161,25 +162,25 @@
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        KeyboardNavigation.TabIndex="3"
                                        Size="Small"
-                                       Style="{DynamicResource ToolbarDropDownButtonStyle}"
                                        ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarDropDownButtonTooltip, Mode=OneWay}"
-                                       Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}">
+                                       Visibility="{Binding IsMenuDropDownVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:GroupSeparatorMenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuHeader, Mode=OneWay}"
-                                                   Style="{DynamicResource MenuGroupSeparatorStyle}" />
+                                                   Style="{DynamicResource Fluent.Ribbon.Styles.MenuGroupSeparator}" />
                     <StackPanel x:Name="PART_MenuPanel" />
                     <Separator x:Name="menuSeparator"
-                               Style="{DynamicResource MenuSeparatorStyle}" />
+                               Style="{DynamicResource Fluent.Ribbon.Styles.MenuSeparator}" />
                     <Fluent:MenuItem x:Name="PART_ShowBelow"
-                                     CanAddToQuickAccessToolBar="False"
-                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowBelow, Mode=OneWay}" />
+                                     Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowBelow, Mode=OneWay}"
+                                     CanAddToQuickAccessToolBar="False" />
                     <Fluent:MenuItem x:Name="PART_ShowAbove"
-                                     CanAddToQuickAccessToolBar="False"
                                      Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMenuShowAbove, Mode=OneWay}"
+                                     CanAddToQuickAccessToolBar="False"
                                      Visibility="Collapsed" />
                 </Fluent:DropDownButton>
             </ContentControl>
 
             <Fluent:DropDownButton x:Name="PART_ToolbarDownButton"
+                                   Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Stretch"
                                    Fluent:KeyTip.Keys="00"
@@ -189,7 +190,6 @@
                                    KeyboardNavigation.TabIndex="2"
                                    KeyboardNavigation.TabNavigation="Local"
                                    Size="Small"
-                                   Style="{DynamicResource ToolbarDropDownButtonStyle}"
                                    ToolTip="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.QuickAccessToolBarMoreControlsButtonTooltip, Mode=OneWay}"
                                    Visibility="Collapsed">
                 <Fluent:DropDownButton.ContextMenu>

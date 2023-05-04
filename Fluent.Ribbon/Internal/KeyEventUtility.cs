@@ -1,37 +1,39 @@
-﻿namespace Fluent.Internal
-{
-    using System.Windows.Input;
-    using ControlzEx.Standard;
+﻿namespace Fluent.Internal;
 
-    internal static class KeyEventUtility
+using System.Windows.Input;
+using Windows.Win32;
+
+internal static class KeyEventUtility
+{
+    public static unsafe string? GetStringFromKey(Key key)
     {
-        public static string? GetStringFromKey(Key key)
+        var keyboardState = new byte[256];
+
+        fixed (byte* pkeyboardState = keyboardState)
         {
-            var keyboardState = new byte[256];
-#pragma warning disable 618
-            if (NativeMethods.GetKeyboardState(keyboardState) == false)
+            if (PInvoke.GetKeyboardState(pkeyboardState) == false)
             {
                 return null;
             }
+        }
 
-            var virtualKey = KeyInterop.VirtualKeyFromKey(key);
-            var scanCode = NativeMethods.MapVirtualKey((uint)virtualKey, NativeMethods.MapType.MAPVK_VK_TO_VSC);
-            var chars = new char[1];
+        var virtualKey = KeyInterop.VirtualKeyFromKey(key);
 
-            var result = NativeMethods.ToUnicode((uint)virtualKey, scanCode, keyboardState, chars, chars.Length, 1);
-            switch (result)
+        var scanCode = PInvoke.MapVirtualKey((uint)virtualKey, 0x00 /*MAPVK_VK_TO_VSC*/);
+        var chars = new char[1];
+
+        fixed (char* pchars = chars)
+        {
+            fixed (byte* pkeyboardState = keyboardState)
             {
-                case -1:
-                case 0:
-                    return null;
-
-                case 1:
-                    return chars[0].ToString();
-
-                default:
-                    return null;
+                var result = PInvoke.ToUnicode((uint)virtualKey, scanCode, pkeyboardState, pchars, chars.Length, 1);
+                return result switch
+                {
+                    -1 or 0 => null,
+                    1 => new string(chars),
+                    _ => null,
+                };
             }
-#pragma warning restore 618
         }
     }
 }

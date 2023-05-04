@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class French : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatique";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fichier";
         public override string CustomizeStatusBar { get; } = "Personnaliser la barre de statut";

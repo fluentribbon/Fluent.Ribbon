@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Turkish : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Otomatik";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Dosya";
         public override string CustomizeStatusBar { get; } = "Durum Çubuğunu Özelleştir";

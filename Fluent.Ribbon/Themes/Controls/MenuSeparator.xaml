@@ -4,12 +4,12 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="MenuSeparatorStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.MenuSeparator"
            TargetType="{x:Type Separator}">
-        <Setter Property="Template" Value="{DynamicResource MenuSeparatorControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuSeparator}" />
     </Style>
 
-    <ControlTemplate x:Key="MenuSeparatorControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuSeparator"
                      TargetType="{x:Type Separator}">
         <Grid Height="Auto">
             <Path Height="1"
@@ -18,17 +18,17 @@
                   Data="M0,0L1,0"
                   Fill="{x:Null}"
                   Stretch="Fill"
-                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                   StrokeDashArray="2 2" />
         </Grid>
     </ControlTemplate>
 
-    <Style x:Key="MenuGroupSeparatorStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.MenuGroupSeparator"
            TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
-        <Setter Property="Template" Value="{DynamicResource MenuGroupSeparatorControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.MenuGroupSeparator}" />
     </Style>
 
-    <ControlTemplate x:Key="MenuGroupSeparatorControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.MenuGroupSeparator"
                      TargetType="{x:Type Fluent:GroupSeparatorMenuItem}">
         <Grid Height="Auto"
               Background="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}">

@@ -173,7 +173,7 @@
                                            KeyTip="D" />
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -187,7 +187,7 @@
                         </fluent:ComboBox.MediumIcon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon24)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO2">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -196,7 +196,7 @@
                         </fluent:ComboBox.Icon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO3" />
                 </fluent:RibbonGroupBox>
 
@@ -411,7 +411,7 @@
                                            KeyTip="D" />
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -425,7 +425,7 @@
                         </fluent:ComboBox.MediumIcon>
                     </fluent:ComboBox>
                     <fluent:ComboBox Header="Combo box (no icon24)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO2">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -556,9 +556,9 @@
                                             IsCollapsed="True"
                                             ItemsSource="{Binding StringItems}"
                                             KeyTip="G2" />
-                    <fluent:InRibbonGallery Width="150"
+                    <fluent:InRibbonGallery Header="In ribbon gallery"
+                                            Width="150"
                                             CanCollapseToButton="False"
-                                            Header="In ribbon gallery"
                                             ItemsSource="{Binding StringItems}"
                                             KeyTip="G3">
                         <fluent:InRibbonGallery.Icon>
@@ -722,9 +722,9 @@
                                             IsCollapsed="True"
                                             ItemsSource="{Binding StringItems}"
                                             KeyTip="G2" />
-                    <fluent:InRibbonGallery Width="150"
+                    <fluent:InRibbonGallery Header="In ribbon gallery"
+                                            Width="150"
                                             CanCollapseToButton="False"
-                                            Header="In ribbon gallery"
                                             ItemsSource="{Binding StringItems}"
                                             KeyTip="G3">
                         <fluent:InRibbonGallery.Icon>
@@ -765,8 +765,8 @@
                                         IconBrush="Yellow"
                                         IconSize="24" />
                     </fluent:RibbonGroupBox.MediumIcon>
-                    <fluent:Button Click="Click_AddToggleButton1"
-                                   Header="Add toggle button"
+                    <fluent:Button Header="Add toggle button"
+                                   Click="Click_AddToggleButton1"
                                    KeyTip="1"
                                    SimplifiedSizeDefinition="Middle,Middle,Small"
                                    SizeDefinition="Large,Large,Small">
@@ -805,7 +805,7 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                     <fluent:TextBox Header="Text box"
-                                    InputWidth="40"
+                                    fluent:InputControlProperties.InputWidth="40"
                                     KeyTip="TE"
                                     Text="">
                         <fluent:TextBox.Icon>
@@ -921,8 +921,8 @@
                                         IconBrush="Yellow"
                                         IconSize="24" />
                     </fluent:RibbonGroupBox.MediumIcon>
-                    <fluent:Button Click="Click_AddToggleButton2"
-                                   Header="Add toggle button"
+                    <fluent:Button Header="Add toggle button"
+                                   Click="Click_AddToggleButton2"
                                    KeyTip="1"
                                    SimplifiedSizeDefinition="Middle,Middle,Small"
                                    SizeDefinition="Large,Large,Small">
@@ -1021,7 +1021,7 @@
                     </fluent:DropDownButton>
 
                     <fluent:ComboBox Header="Combo box"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -1122,8 +1122,8 @@
                                   KeyTip="1">
                 <fluent:RibbonTabItem.Resources>
                     <Style x:Key="RibbonButtonFullModeOnlyStyle"
-                           BasedOn="{StaticResource {x:Type fluent:Button}}"
-                           TargetType="fluent:Button">
+                           TargetType="fluent:Button"
+                           BasedOn="{StaticResource {x:Type fluent:Button}}">
                         <Style.Triggers>
                             <Trigger Property="IsSimplified" Value="True">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1131,8 +1131,8 @@
                         </Style.Triggers>
                     </Style>
                     <Style x:Key="RibbonButtonSimplifiedModeOnlyStyle"
-                           BasedOn="{StaticResource {x:Type fluent:Button}}"
-                           TargetType="fluent:Button">
+                           TargetType="fluent:Button"
+                           BasedOn="{StaticResource {x:Type fluent:Button}}">
                         <Style.Triggers>
                             <Trigger Property="IsSimplified" Value="False">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -1157,8 +1157,8 @@
                                         IconSize="24" />
                     </fluent:RibbonGroupBox.MediumIcon>
                     <fluent:Button Header="1st button (Full)"
-                                   KeyTip="1"
-                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}">
+                                   Style="{StaticResource RibbonButtonFullModeOnlyStyle}"
+                                   KeyTip="1">
                         <fluent:Button.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="MediumPurple"
@@ -1176,8 +1176,8 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                     <fluent:Button Header="2nd button (Simplified)"
-                                   KeyTip="2"
-                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}">
+                                   Style="{StaticResource RibbonButtonSimplifiedModeOnlyStyle}"
+                                   KeyTip="2">
                         <fluent:Button.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="Red"
@@ -1218,8 +1218,8 @@
                                         ItemsSource="{Binding StringItems}"
                                         KeyTip="S1">
                         <fluent:SplitButton.Style>
-                            <Style BasedOn="{StaticResource {x:Type fluent:SplitButton}}"
-                                   TargetType="fluent:SplitButton">
+                            <Style TargetType="fluent:SplitButton"
+                                   BasedOn="{StaticResource {x:Type fluent:SplitButton}}">
                                 <Style.Triggers>
                                     <Trigger Property="IsSimplified" Value="True">
                                         <Setter Property="Visibility" Value="Collapsed" />
@@ -1247,7 +1247,7 @@
                     <fluent:DropDownButton Header="Drop down button (Simplified)"
                                            ItemsSource="{Binding StringItems}"
                                            KeyTip="D"
-                                           Visibility="{Binding IsSimplified, RelativeSource={RelativeSource Self}, Converter={StaticResource boolToVisibilityConverter}}">
+                                           Visibility="{Binding IsSimplified, RelativeSource={RelativeSource Self}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <fluent:DropDownButton.Icon>
                             <local:TestIcon Foreground="White"
                                             IconBrush="DarkSlateBlue"
@@ -1266,7 +1266,7 @@
                     </fluent:DropDownButton>
 
                     <fluent:ComboBox Header="Combo box (Both)"
-                                     InputWidth="50"
+                                     fluent:InputControlProperties.InputWidth="50"
                                      KeyTip="CO1">
                         <fluent:ComboBox.Icon>
                             <local:TestIcon Foreground="White"
@@ -1573,8 +1573,8 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <fluent:Button Grid.Column="0"
-                                       Header="Full(L/L/S), Simplified(M/M/S) button"
+                        <fluent:Button Header="Full(L/L/S), Simplified(M/M/S) button"
+                                       Grid.Column="0"
                                        SimplifiedSizeDefinition="Middle,Middle,Small"
                                        SizeDefinition="Large,Large,Small">
                             <fluent:Button.Icon>
@@ -1593,8 +1593,8 @@
                                                 IconSize="32" />
                             </fluent:Button.LargeIcon>
                         </fluent:Button>
-                        <fluent:Button Grid.Column="1"
-                                       Header="Full(M/M/S), Simplified(L/L/S) button"
+                        <fluent:Button Header="Full(M/M/S), Simplified(L/L/S) button"
+                                       Grid.Column="1"
                                        SimplifiedSizeDefinition="Large,Large,Small"
                                        SizeDefinition="Middle,Middle,Small">
                             <fluent:Button.Icon>
@@ -1613,8 +1613,8 @@
                                                 IconSize="32" />
                             </fluent:Button.LargeIcon>
                         </fluent:Button>
-                        <fluent:Button Grid.Column="2"
-                                       Header="Full(L/L/L), Simplified(L/L/L) button"
+                        <fluent:Button Header="Full(L/L/L), Simplified(L/L/L) button"
+                                       Grid.Column="2"
                                        SimplifiedSizeDefinition="Large"
                                        SizeDefinition="Large">
                             <fluent:Button.Icon>
@@ -1633,8 +1633,8 @@
                                                 IconSize="32" />
                             </fluent:Button.LargeIcon>
                         </fluent:Button>
-                        <fluent:Button Grid.Column="3"
-                                       Header="Full(default), Simplified(default) button">
+                        <fluent:Button Header="Full(default), Simplified(default) button"
+                                       Grid.Column="3">
                             <fluent:Button.Icon>
                                 <local:TestIcon Foreground="White"
                                                 IconBrush="BlueViolet"
@@ -1686,15 +1686,15 @@
             </CheckBox>
             <GroupBox Header="Test for the behavior of each control by changing the Size property">
                 <StackPanel Orientation="Vertical">
-                    <GroupBox Margin="0 4"
-                              Header="{Binding Header, ElementName=RibbonTab1}">
+                    <GroupBox Header="{Binding Header, ElementName=RibbonTab1}"
+                              Margin="0 4">
                         <StackPanel Orientation="Vertical">
                             <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox1}">
                                 RibbonGroupBox.IsEnabled (for the 1st group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 1st group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1704,10 +1704,10 @@
                                 Button.IsEnabled (for the first button)
                             </CheckBox>
                             <fluent:ComboBox x:Name="RibbonControlSize"
+                                             Header="RibbonControl.Size (for the first button): "
                                              Margin="10 0 0 0"
                                              HorizontalAlignment="Left"
-                                             Header="RibbonControl.Size (for the first button): "
-                                             InputWidth="100"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonControlSizeEnumValues}}"
                                              SelectedItem="{Binding Size, ElementName=FirstButton}" />
@@ -1716,9 +1716,9 @@
                                       IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2}">
                                 RibbonGroupBox.IsEnabled (for the 2nd group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 2nd group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1728,9 +1728,9 @@
                                       IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3}">
                                 RibbonGroupBox.IsEnabled (for the 3rd group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 3rd group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1738,15 +1738,15 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Margin="0 4"
-                              Header="{Binding Header, ElementName=RibbonTab2}">
+                    <GroupBox Header="{Binding Header, ElementName=RibbonTab2}"
+                              Margin="0 4">
                         <StackPanel Orientation="Vertical">
                             <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox2_3}">
                                 RibbonGroupBox.IsEnabled (for the 3rd group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 3rd group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 3rd group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1754,15 +1754,15 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <GroupBox Margin="0 4"
-                              Header="{Binding Header, ElementName=RibbonTab3}">
+                    <GroupBox Header="{Binding Header, ElementName=RibbonTab3}"
+                              Margin="0 4">
                         <StackPanel Orientation="Vertical">
                             <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_1}">
                                 RibbonGroupBox.IsEnabled (for the 1st group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 1st group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 1st group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"
@@ -1770,9 +1770,9 @@
                             <CheckBox IsChecked="{Binding IsEnabled, ElementName=RibbonGroupBox3_2}">
                                 RibbonGroupBox.IsEnabled (for the 2nd group box)
                             </CheckBox>
-                            <fluent:ComboBox HorizontalAlignment="Left"
-                                             Header="RibbonGroupBox.State (for the 2nd group box): "
-                                             InputWidth="100"
+                            <fluent:ComboBox Header="RibbonGroupBox.State (for the 2nd group box): "
+                                             HorizontalAlignment="Left"
+                                             fluent:InputControlProperties.InputWidth="100"
                                              IsEditable="False"
                                              ItemsSource="{Binding Source={StaticResource RibbonGroupBoxStateEnumValues}}"
                                              SelectedIndex="0"

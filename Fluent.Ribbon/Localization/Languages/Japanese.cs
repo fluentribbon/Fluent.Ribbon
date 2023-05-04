@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Japanese : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "自動";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "ファイル";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";

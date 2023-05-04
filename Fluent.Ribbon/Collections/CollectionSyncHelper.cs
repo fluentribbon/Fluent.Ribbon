@@ -1,98 +1,97 @@
-﻿namespace Fluent.Collections
+﻿namespace Fluent.Collections;
+
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+
+/// <summary>
+/// Synchronizes a target collection with a source collection in a one way fashion.
+/// </summary>
+public class CollectionSyncHelper<TItem>
 {
-    using System;
-    using System.Collections;
-    using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
+    /// <summary>
+    /// Creates a new instance with <paramref name="source"/> as <see cref="Source"/> and <paramref name="target"/> as <see cref="Target"/>.
+    /// </summary>
+    public CollectionSyncHelper(ObservableCollection<TItem> source, IList target)
+    {
+        this.Source = source ?? throw new ArgumentNullException(nameof(source));
+        this.Target = target ?? throw new ArgumentNullException(nameof(target));
+
+        this.SyncTarget();
+
+        this.Source.CollectionChanged += this.SourceOnCollectionChanged;
+    }
 
     /// <summary>
-    /// Synchronizes a target collection with a source collection in a one way fashion.
+    /// The source collection.
     /// </summary>
-    public class CollectionSyncHelper<TItem>
+    public ObservableCollection<TItem> Source { get; }
+
+    /// <summary>
+    /// The target collection.
+    /// </summary>
+    public IList Target { get; }
+
+    /// <summary>
+    /// Clears <see cref="Target"/> and then copies all items from <see cref="Source"/> to <see cref="Target"/>.
+    /// </summary>
+    private void SyncTarget()
     {
-        /// <summary>
-        /// Creates a new instance with <paramref name="source"/> as <see cref="Source"/> and <paramref name="target"/> as <see cref="Target"/>.
-        /// </summary>
-        public CollectionSyncHelper(ObservableCollection<TItem> source, IList target)
+        this.Target.Clear();
+
+        foreach (var item in this.Source)
         {
-            this.Source = source ?? throw new ArgumentNullException(nameof(source));
-            this.Target = target ?? throw new ArgumentNullException(nameof(target));
-
-            this.SyncTarget();
-
-            this.Source.CollectionChanged += this.SourceOnCollectionChanged;
+            this.Target.Add(item);
         }
+    }
 
-        /// <summary>
-        /// The source collection.
-        /// </summary>
-        public ObservableCollection<TItem> Source { get; }
-
-        /// <summary>
-        /// The target collection.
-        /// </summary>
-        public IList Target { get; }
-
-        /// <summary>
-        /// Clears <see cref="Target"/> and then copies all items from <see cref="Source"/> to <see cref="Target"/>.
-        /// </summary>
-        private void SyncTarget()
+    private void SourceOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        switch (e.Action)
         {
-            this.Target.Clear();
+            case NotifyCollectionChangedAction.Add:
+                for (var i = 0; i < e.NewItems?.Count; i++)
+                {
+                    this.Target.Insert(e.NewStartingIndex + i, e.NewItems![i]);
+                }
 
-            foreach (var item in this.Source)
-            {
-                this.Target.Add(item);
-            }
-        }
+                break;
 
-        private void SourceOnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    for (var i = 0; i < e.NewItems?.Count; i++)
+            case NotifyCollectionChangedAction.Remove:
+                if (e.OldItems is not null)
+                {
+                    foreach (var item in e.OldItems)
                     {
-                        this.Target.Insert(e.NewStartingIndex + i, e.NewItems[i]);
+                        this.Target.Remove(item);
                     }
+                }
 
-                    break;
+                break;
 
-                case NotifyCollectionChangedAction.Remove:
-                    if (e.OldItems is not null)
+            case NotifyCollectionChangedAction.Replace:
+                if (e.OldItems is not null)
+                {
+                    foreach (var item in e.OldItems)
                     {
-                        foreach (var item in e.OldItems)
-                        {
-                            this.Target.Remove(item);
-                        }
+                        this.Target.Remove(item);
                     }
+                }
 
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    if (e.OldItems is not null)
+                if (e.NewItems is not null)
+                {
+                    foreach (var item in e.NewItems)
                     {
-                        foreach (var item in e.OldItems)
-                        {
-                            this.Target.Remove(item);
-                        }
+                        this.Target.Add(item);
                     }
+                }
 
-                    if (e.NewItems is not null)
-                    {
-                        foreach (var item in e.NewItems)
-                        {
-                            this.Target.Add(item);
-                        }
-                    }
+                break;
 
-                    break;
+            case NotifyCollectionChangedAction.Reset:
+                this.SyncTarget();
 
-                case NotifyCollectionChangedAction.Reset:
-                    this.SyncTarget();
-
-                    break;
-            }
+                break;
         }
     }
 }

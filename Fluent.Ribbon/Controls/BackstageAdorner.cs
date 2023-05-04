@@ -1,119 +1,118 @@
 // ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using Fluent.Internal;
+
+/// <summary>
+/// Represents adorner for Backstage
+/// </summary>
+internal class BackstageAdorner : Adorner
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Shapes;
-    using Fluent.Internal;
+    // Content of Backstage
+    private readonly UIElement? backstageContent;
+
+    // Collection of visual children
+    private readonly VisualCollection visualChildren;
+    private readonly Rectangle background;
+    private readonly BackstageTabControl? backstageTabControl;
 
     /// <summary>
-    /// Represents adorner for Backstage
+    /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.
     /// </summary>
-    internal class BackstageAdorner : Adorner
+    /// <param name="adornedElement">Adorned element</param>
+    /// <param name="backstage">Backstage</param>
+    public BackstageAdorner(FrameworkElement adornedElement, Backstage backstage)
+        : base(adornedElement)
     {
-        // Content of Backstage
-        private readonly UIElement? backstageContent;
+        KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Contained);
+        KeyboardNavigation.SetControlTabNavigation(this, KeyboardNavigationMode.Contained);
+        KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
 
-        // Collection of visual children
-        private readonly VisualCollection visualChildren;
-        private readonly Rectangle background;
-        private readonly BackstageTabControl? backstageTabControl;
+        this.Backstage = backstage;
+        this.backstageContent = this.Backstage.Content;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BackstageAdorner"/> class.
-        /// </summary>
-        /// <param name="adornedElement">Adorned element</param>
-        /// <param name="backstage">Backstage</param>
-        public BackstageAdorner(FrameworkElement adornedElement, Backstage backstage)
-            : base(adornedElement)
+        if (this.backstageContent is not null)
         {
-            KeyboardNavigation.SetTabNavigation(this, KeyboardNavigationMode.Contained);
-            KeyboardNavigation.SetControlTabNavigation(this, KeyboardNavigationMode.Contained);
-            KeyboardNavigation.SetDirectionalNavigation(this, KeyboardNavigationMode.Contained);
+            this.backstageTabControl = this.backstageContent as BackstageTabControl
+                                       ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
+        }
 
-            this.Backstage = backstage;
-            this.backstageContent = this.Backstage.Content;
+        this.background = new Rectangle();
 
-            if (this.backstageContent is not null)
+        if (this.backstageTabControl is not null)
+        {
+            BindingOperations.SetBinding(this.background, Shape.FillProperty, new Binding
             {
-                this.backstageTabControl = this.backstageContent as BackstageTabControl
-                                           ?? UIHelper.FindVisualChild<BackstageTabControl>(this.backstageContent);
-            }
+                Path = new PropertyPath(Control.BackgroundProperty),
+                Source = this.backstageTabControl
+            });
 
-            this.background = new Rectangle();
-
-            if (this.backstageTabControl is not null)
+            BindingOperations.SetBinding(this.background, MarginProperty, new Binding
             {
-                BindingOperations.SetBinding(this.background, Shape.FillProperty, new Binding
-                                                                                  {
-                                                                                      Path = new PropertyPath(Control.BackgroundProperty),
-                                                                                      Source = this.backstageTabControl
-                                                                                  });
-
-                BindingOperations.SetBinding(this.background, MarginProperty, new Binding
-                                                                                  {
-                                                                                      Path = new PropertyPath(BackstageTabControl.SelectedContentMarginProperty),
-                                                                                      Source = this.backstageTabControl
-                                                                                  });
-            }
-            else
-            {
-                this.background.SetResourceReference(Shape.FillProperty, "WhiteBrush");
-            }
-
-            this.visualChildren = new VisualCollection(this)
-                {
-                    this.background,
-                    this.backstageContent
-                };
+                Path = new PropertyPath(BackstageTabControl.SelectedContentMarginProperty),
+                Source = this.backstageTabControl
+            });
         }
-
-        /// <summary>
-        /// Gets the <see cref="Fluent.Backstage"/>.
-        /// </summary>
-        public Backstage Backstage { get; }
-
-        public void Clear()
+        else
         {
-            BindingOperations.ClearAllBindings(this.background);
-
-            this.visualChildren.Clear();
+            this.background.SetResourceReference(Shape.FillProperty, "Fluent.Ribbon.Brushes.White");
         }
 
-        /// <inheritdoc />
-        protected override Size ArrangeOverride(Size finalSize)
+        this.visualChildren = new VisualCollection(this)
         {
-            // Arrange background and compensate margin used by animation
-            this.background.Arrange(new Rect(this.Margin.Left * -1, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
+            this.background,
+            this.backstageContent
+        };
+    }
 
-            this.backstageContent?.Arrange(new Rect(0, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
+    /// <summary>
+    /// Gets the <see cref="Fluent.Backstage"/>.
+    /// </summary>
+    public Backstage Backstage { get; }
 
-            return finalSize;
-        }
+    public void Clear()
+    {
+        BindingOperations.ClearAllBindings(this.background);
 
-        /// <inheritdoc />
-        protected override Size MeasureOverride(Size constraint)
-        {
-            var size = new Size(Math.Max(0, this.AdornedElement.RenderSize.Width), Math.Max(0, this.AdornedElement.RenderSize.Height));
+        this.visualChildren.Clear();
+    }
 
-            this.background.Measure(size);
-            this.backstageContent?.Measure(size);
+    /// <inheritdoc />
+    protected override Size ArrangeOverride(Size finalSize)
+    {
+        // Arrange background and compensate margin used by animation
+        this.background.Arrange(new Rect(this.Margin.Left * -1, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
 
-            return this.AdornedElement.RenderSize;
-        }
+        this.backstageContent?.Arrange(new Rect(0, 0, Math.Max(0, finalSize.Width), Math.Max(0, finalSize.Height)));
 
-        /// <inheritdoc />
-        protected override int VisualChildrenCount => this.visualChildren.Count;
+        return finalSize;
+    }
 
-        /// <inheritdoc />
-        protected override Visual GetVisualChild(int index)
-        {
-            return this.visualChildren[index];
-        }
+    /// <inheritdoc />
+    protected override Size MeasureOverride(Size constraint)
+    {
+        var size = new Size(Math.Max(0, this.AdornedElement.RenderSize.Width), Math.Max(0, this.AdornedElement.RenderSize.Height));
+
+        this.background.Measure(size);
+        this.backstageContent?.Measure(size);
+
+        return this.AdornedElement.RenderSize;
+    }
+
+    /// <inheritdoc />
+    protected override int VisualChildrenCount => this.visualChildren.Count;
+
+    /// <inheritdoc />
+    protected override Visual GetVisualChild(int index)
+    {
+        return this.visualChildren[index];
     }
 }

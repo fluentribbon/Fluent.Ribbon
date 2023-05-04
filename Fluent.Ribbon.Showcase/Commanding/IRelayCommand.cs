@@ -1,12 +1,11 @@
-﻿namespace FluentTest.Commanding
+﻿namespace FluentTest.Commanding;
+
+using System;
+using System.Windows.Input;
+
+public interface IRelayCommand : ICommand
 {
-    using System;
-    using System.Windows.Input;
+    event EventHandler Executed;
 
-    public interface IRelayCommand : ICommand
-    {
-        event EventHandler Executed;
-
-        event EventHandler Executing;
-    }
+    event EventHandler Executing;
 }

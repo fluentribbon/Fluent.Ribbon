@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Korean : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "자동";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "파일";
         public override string CustomizeStatusBar { get; } = "상태 표시줄 사용자 지정";

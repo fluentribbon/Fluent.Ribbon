@@ -1,38 +1,37 @@
-﻿namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers;
+
+using System.Windows;
+using System.Windows.Automation.Peers;
+
+/// <summary>
+/// Base automation peer for <see cref="IHeaderedControl"/>.
+/// </summary>
+public abstract class RibbonHeaderedControlAutomationPeer : FrameworkElementAutomationPeer
 {
-    using System.Windows;
-    using System.Windows.Automation.Peers;
-
     /// <summary>
-    /// Base automation peer for <see cref="IHeaderedControl"/>.
+    /// Creates a new instance.
     /// </summary>
-    public abstract class RibbonHeaderedControlAutomationPeer : FrameworkElementAutomationPeer
+    protected RibbonHeaderedControlAutomationPeer(FrameworkElement owner)
+        : base(owner)
     {
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        protected RibbonHeaderedControlAutomationPeer(FrameworkElement owner)
-            : base(owner)
+    }
+
+    /// <inheritdoc />
+    protected override string GetClassNameCore()
+    {
+        return this.Owner.GetType().Name;
+    }
+
+    /// <inheritdoc />
+    protected override string? GetNameCore()
+    {
+        var name = base.GetNameCore();
+
+        if (string.IsNullOrEmpty(name))
         {
+            name = (this.Owner as IHeaderedControl)?.Header as string;
         }
 
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return this.Owner.GetType().Name;
-        }
-
-        /// <inheritdoc />
-        protected override string? GetNameCore()
-        {
-            var name = base.GetNameCore();
-
-            if (string.IsNullOrEmpty(name))
-            {
-                name = (this.Owner as IHeaderedControl)?.Header as string;
-            }
-
-            return name;
-        }
+        return name;
     }
 }

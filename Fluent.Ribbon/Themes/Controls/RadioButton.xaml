@@ -3,20 +3,21 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
-    <ControlTemplate x:Key="RibbonRadioButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonRadioButton"
                      TargetType="{x:Type Fluent:RadioButton}">
         <BulletDecorator x:Name="bulletDecorator"
                          Height="22"
+                         VerticalAlignment="Center"
                          Background="Transparent"
                          SnapsToDevicePixels="true">
             <BulletDecorator.Bullet>
                 <Grid Width="12"
                       Height="12"
-                      Margin="4 4 0 0"
+                      Margin="4 0 0 0"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center">
                     <Rectangle Margin="-6 0"
-                               Fill="{DynamicResource TransparentWhiteBrush}" />
+                               Fill="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
                     <Ellipse x:Name="normal"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
@@ -27,19 +28,24 @@
                              Margin="3"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
-                             Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                             Fill="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                              Opacity="0" />
                 </Grid>
             </BulletDecorator.Bullet>
-            <TextBlock Margin="8 3 4 0"
-                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
+
+            <ContentControl x:Name="PART_HeaderContentHost"
+                            Margin="8 0 0 0"
+                            Content="{TemplateBinding Header}"
+                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                            Focusable="False" />
         </BulletDecorator>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="Checked1" Property="Opacity" Value="1" />
@@ -59,6 +65,7 @@
             <BulletDecorator x:Name="bulletDecorator"
                              Height="Auto"
                              Margin="{TemplateBinding Padding}"
+                             VerticalAlignment="Center"
                              Background="Transparent"
                              SnapsToDevicePixels="true">
                 <BulletDecorator.Bullet>
@@ -68,7 +75,7 @@
                           HorizontalAlignment="Left"
                           VerticalAlignment="Center">
                         <Rectangle Margin="-6 0"
-                                   Fill="{DynamicResource TransparentWhiteBrush}" />
+                                   Fill="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
                         <Ellipse x:Name="normal"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch"
@@ -79,7 +86,7 @@
                                  Margin="3"
                                  HorizontalAlignment="Stretch"
                                  VerticalAlignment="Stretch"
-                                 Fill="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}"
+                                 Fill="{DynamicResource Fluent.Ribbon.Brushes.Highlight}"
                                  Opacity="0" />
                     </Grid>
                 </BulletDecorator.Bullet>
@@ -99,17 +106,18 @@
                         <Border x:Name="iconImageBorder"
                                 Width="{Binding ActualWidth, ElementName=iconImage}"
                                 Height="{Binding ActualHeight, ElementName=iconImage}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                 BorderThickness="1"
                                 Visibility="Collapsed" />
                     </Grid>
-                    <ContentPresenter x:Name="contentPresenter"
+
+                    <ContentPresenter x:Name="PART_HeaderContentHost"
                                       Margin="1 0 0 0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Content="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      RecognizesAccessKey="True" />
+                                      Content="{TemplateBinding Header}"
+                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
                 </StackPanel>
             </BulletDecorator>
         </Border>
@@ -137,31 +145,31 @@
             </MultiTrigger>
 
             <Trigger Property="Size" Value="Small">
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="bulletDecorator" Property="Margin" Value="4 0" />
-                <Setter TargetName="contentPresenter" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImageGrid" Property="Margin" Value="0" />
                 <Setter TargetName="iconImageGrid" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="contentPresenter" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="iconImageGrid" Property="Margin" Value="0" />
                 <Setter TargetName="iconImageGrid" Property="Visibility" Value="Visible" />
             </Trigger>
 
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.HighlightBrush}" />
+                <Setter TargetName="normal" Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Highlight}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="Checked1" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter TargetName="bulletDecorator" Property="Opacity" Value="0.5" />
-                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.BorderBrush}" />
+                <Setter TargetName="iconImageBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Disabled.Border}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -169,27 +177,14 @@
     <Style x:Key="{x:Type Fluent:RadioButton}"
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.BorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Border}" />
+        <Setter Property="Content" Value="{Binding Path=Header, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplate" Value="{Binding Path=HeaderTemplate, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
+        <Setter Property="ContentTemplateSelector" Value="{Binding Path=HeaderTemplateSelector, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle">
-            <Setter.Value>
-                <Style>
-                    <Setter Property="Control.Template">
-                        <Setter.Value>
-                            <ControlTemplate>
-                                <Rectangle Margin="1"
-                                           SnapsToDevicePixels="true"
-                                           Stroke="{DynamicResource BlackBrush}"
-                                           StrokeDashArray="1 2"
-                                           StrokeThickness="1" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonRadioButtonControlTemplate}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonRadioButton}" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">

@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Persian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "خودکار";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "ف";
         public override string BackstageButtonText { get; } = "فایل";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

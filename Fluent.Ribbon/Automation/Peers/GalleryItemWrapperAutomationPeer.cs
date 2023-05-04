@@ -1,20 +1,19 @@
-namespace Fluent.Automation.Peers
+namespace Fluent.Automation.Peers;
+
+using System.Windows.Automation.Peers;
+
+/// <inheritdoc />
+public class GalleryItemWrapperAutomationPeer : FrameworkElementAutomationPeer
 {
-    using System.Windows.Automation.Peers;
+    /// <inheritdoc cref="FrameworkElementAutomationPeer" />
+    public GalleryItemWrapperAutomationPeer(GalleryItem owner)
+        : base(owner)
+    {
+    }
 
     /// <inheritdoc />
-    public class GalleryItemWrapperAutomationPeer : FrameworkElementAutomationPeer
-    {
-        /// <inheritdoc cref="FrameworkElementAutomationPeer" />
-        public GalleryItemWrapperAutomationPeer(GalleryItem owner)
-            : base(owner)
-        {
-        }
+    protected override string GetClassNameCore() => "ListBoxItem";
 
-        /// <inheritdoc />
-        protected override string GetClassNameCore() => "ListBoxItem";
-
-        /// <inheritdoc />
-        protected override AutomationControlType GetAutomationControlTypeCore() => AutomationControlType.ListItem;
-    }
+    /// <inheritdoc />
+    protected override AutomationControlType GetAutomationControlTypeCore() => AutomationControlType.ListItem;
 }

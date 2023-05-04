@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="GalleryDropDownButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.GalleryDropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
         <Setter Property="Template">
             <Setter.Value>
@@ -16,7 +16,7 @@
                                                  Margin="6 -2 0 0"
                                                  HorizontalAlignment="Left"
                                                  VerticalAlignment="Top"
-                                                 Foreground="{DynamicResource WhiteBrush}"
+                                                 Foreground="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                                  HasGlyph="True"
                                                  HasTwoLines="False"
                                                  Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -40,8 +40,8 @@
                                         MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                         BorderThickness="1"
                                         SnapsToDevicePixels="True">
                                     <Grid Width="Auto"
@@ -51,7 +51,7 @@
                                         <Border Width="Auto"
                                                 Height="Auto"
                                                 VerticalAlignment="Top"
-                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
                                               HorizontalAlignment="Stretch"
@@ -64,10 +64,10 @@
                                                        VerticalAlignment="Stretch"
                                                        Fill="{x:Null}"
                                                        Stretch="Fill"
-                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                                        Visibility="Visible" />
                                             <ScrollViewer Margin="1"
-                                                          HorizontalScrollBarVisibility="Hidden"
+                                                          HorizontalScrollBarVisibility="Disabled"
                                                           SnapsToDevicePixels="True"
                                                           VerticalScrollBarVisibility="Auto">
                                                 <StackPanel x:Name="PART_MenuPanel"
@@ -83,7 +83,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="twoLineLabel" Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlightBrush}" />
+                            <Setter TargetName="twoLineLabel" Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.ExtremeHighlight}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -91,20 +91,20 @@
         </Setter>
     </Style>
 
-    <ControlTemplate x:Key="GalleryControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>
@@ -117,18 +117,18 @@
                         BorderBrush="{x:Null}"
                         BorderThickness="0">
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
+                                           Header="{TemplateBinding SelectedFilterTitle}"
+                                           Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}"
                                            Height="Auto"
                                            HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Header="{TemplateBinding SelectedFilterTitle}"
-                                           Style="{DynamicResource GalleryDropDownButtonStyle}" />
+                                           VerticalAlignment="Top" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
                               Grid.Row="1"
                               Grid.RowSpan="1"
                               Margin="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="{DynamicResource WhiteBrush}"
+                    <Fluent:GalleryPanel Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
@@ -150,13 +150,13 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="GalleryStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.Gallery"
            TargetType="{x:Type Fluent:Gallery}">
         <Setter Property="BorderThickness" Value="0 0 0 1" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template" Value="{DynamicResource GalleryControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Gallery}" />
         <Style.Triggers>
             <Trigger Property="IsLastItem" Value="True">
                 <Setter Property="BorderThickness" Value="0" />

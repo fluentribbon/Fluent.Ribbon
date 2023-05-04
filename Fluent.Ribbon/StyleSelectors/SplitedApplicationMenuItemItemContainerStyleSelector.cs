@@ -1,29 +1,28 @@
-﻿namespace Fluent.StyleSelectors
+﻿namespace Fluent.StyleSelectors;
+
+using System.Windows;
+using System.Windows.Controls;
+using MenuItem = Fluent.MenuItem;
+
+/// <summary>
+/// <see cref="StyleSelector"/> for <see cref="ItemsControl.ItemContainerStyle"/> in <see cref="MenuItem"/> with style SplitedApplicationMenuItem.
+/// </summary>
+public class SplitedApplicationMenuItemItemContainerStyleSelector : StyleSelector
 {
-    using System.Windows;
-    using System.Windows.Controls;
-    using MenuItem = Fluent.MenuItem;
-
     /// <summary>
-    /// <see cref="StyleSelector"/> for <see cref="ItemsControl.ItemContainerStyle"/> in <see cref="MenuItem"/> with style SplitedApplicationMenuItem.
+    ///     A singleton instance for <see cref="HeaderApplicationMenuItemItemContainerStyleSelector" />.
     /// </summary>
-    public class SplitedApplicationMenuItemItemContainerStyleSelector : StyleSelector
+    public static SplitedApplicationMenuItemItemContainerStyleSelector Instance { get; } = new();
+
+    /// <inheritdoc />
+    public override Style? SelectStyle(object item, DependencyObject container)
     {
-        /// <summary>
-        ///     A singleton instance for <see cref="HeaderApplicationMenuItemItemContainerStyleSelector" />.
-        /// </summary>
-        public static SplitedApplicationMenuItemItemContainerStyleSelector Instance { get; } = new SplitedApplicationMenuItemItemContainerStyleSelector();
-
-        /// <inheritdoc />
-        public override Style? SelectStyle(object item, DependencyObject container)
+        switch (item)
         {
-            switch (item)
-            {
-                case MenuItem _:
-                    return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel") as Style;
-            }
-
-            return base.SelectStyle(item, container);
+            case MenuItem _:
+                return (container as FrameworkElement)?.TryFindResource("Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel") as Style;
         }
+
+        return base.SelectStyle(item, container);
     }
 }

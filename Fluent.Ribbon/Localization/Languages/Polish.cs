@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Polish : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatyczne";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "P";
         public override string BackstageButtonText { get; } = "Plik";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

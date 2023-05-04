@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:controlzex="urn:controlzex"
                     xmlns:converters="clr-namespace:Fluent.Converters">
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.WindowCommands"
@@ -24,10 +25,13 @@
 
             <Button x:Name="PART_Min"
                     Uid="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
+                    controlzex:NonClientControlProperties.HitTestResult="MINBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Minimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                 <Path Width="16"
                       Height="16"
@@ -39,10 +43,13 @@
 
             <Button x:Name="PART_Max"
                     Uid="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
+                    controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Maximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Normal}}">
                 <Path Width="16"
@@ -55,10 +62,13 @@
 
             <Button x:Name="PART_Restore"
                     Uid="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
+                    controlzex:NonClientControlProperties.HitTestResult="MAXBUTTON"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Restore, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Visibility="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={x:Static converters:StaticConverters.EqualsToVisibilityConverter}, ConverterParameter={x:Static WindowState.Maximized}}">
                 <Path Width="16"
@@ -71,10 +81,13 @@
 
             <Button x:Name="PART_Close"
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
+                    AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
+                    controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
+                    controlzex:NonClientControlProperties.HitTestResult="CLOSE"
                     Focusable="False"
                     SnapsToDevicePixels="True"
-                    Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
                 <Path Width="16"
                       Height="16"
@@ -105,7 +118,7 @@
 
     <Style TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands}" />
     </Style>
 
@@ -140,7 +153,7 @@
             <Trigger Property="IsKeyboardFocused" Value="True" />
             <Trigger Property="ToggleButton.IsChecked" Value="True" />
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.DarkIdealForegroundDisabled}" />
             </Trigger>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
                 <Setter TargetName="border" Property="Rectangle.Width" Value="1" />
@@ -150,8 +163,8 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.WindowCommands.Button"
            TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource TransparentWhiteBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TransparentWhite}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.Button}" />

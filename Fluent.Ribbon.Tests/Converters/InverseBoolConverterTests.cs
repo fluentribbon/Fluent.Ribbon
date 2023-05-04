@@ -1,30 +1,29 @@
-﻿namespace Fluent.Tests.Converters
+﻿namespace Fluent.Tests.Converters;
+
+using Fluent.Converters;
+using Fluent.Internal.KnownBoxes;
+using NUnit.Framework;
+
+[TestFixture]
+public class InverseBoolConverterTests
 {
-    using Fluent.Converters;
-    using Fluent.Internal.KnownBoxes;
-    using NUnit.Framework;
-
-    [TestFixture]
-    public class InverseBoolConverterTests
+    [Test]
+    public void TestConvert()
     {
-        [Test]
-        public void TestConvert()
-        {
-            var converter = new InverseBoolConverter();
+        var converter = new InverseBoolConverter();
 
-            Assert.That(converter.Convert(BooleanBoxes.TrueBox), Is.False);
-            Assert.That(converter.Convert(BooleanBoxes.FalseBox), Is.True);
-            Assert.That(() => converter.Convert(null), Throws.Exception);
-        }
+        Assert.That(converter.Convert(BooleanBoxes.TrueBox), Is.False);
+        Assert.That(converter.Convert(BooleanBoxes.FalseBox), Is.True);
+        Assert.That(() => converter.Convert(null), Throws.Exception);
+    }
 
-        [Test]
-        public void TestConvertBack()
-        {
-            var converter = new InverseBoolConverter();
+    [Test]
+    public void TestConvertBack()
+    {
+        var converter = new InverseBoolConverter();
 
-            Assert.That(converter.ConvertBack(BooleanBoxes.TrueBox), Is.False);
-            Assert.That(converter.ConvertBack(BooleanBoxes.FalseBox), Is.True);
-            Assert.That(() => converter.ConvertBack(null), Throws.Exception);
-        }
+        Assert.That(converter.ConvertBack(BooleanBoxes.TrueBox), Is.False);
+        Assert.That(converter.ConvertBack(BooleanBoxes.FalseBox), Is.True);
+        Assert.That(() => converter.ConvertBack(null), Throws.Exception);
     }
 }

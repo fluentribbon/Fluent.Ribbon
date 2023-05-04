@@ -1,58 +1,54 @@
-﻿namespace Fluent.Internal
+﻿namespace Fluent.Internal;
+
+using System;
+using System.Windows;
+using System.Windows.Input;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+
+internal class FocusWrapper
 {
-    using System;
-    using System.Windows;
-    using System.Windows.Input;
-    using ControlzEx.Standard;
+    private readonly IInputElement? inputElement;
+    private readonly IntPtr handle;
 
-    internal class FocusWrapper
+    private FocusWrapper(IInputElement inputElement)
     {
-        private readonly IInputElement? inputElement;
-        private readonly IntPtr handle;
+        this.inputElement = inputElement;
+    }
 
-        private FocusWrapper(IInputElement inputElement)
+    private FocusWrapper(IntPtr handle)
+    {
+        this.handle = handle;
+    }
+
+    public void Focus()
+    {
+        if (this.inputElement is not null)
         {
-            this.inputElement = inputElement;
+            this.inputElement.Focus();
+            return;
         }
 
-        private FocusWrapper(IntPtr handle)
+        if (this.handle != IntPtr.Zero)
         {
-            this.handle = handle;
+            PInvoke.SetFocus(new HWND(this.handle));
+        }
+    }
+
+    public static FocusWrapper? GetWrapperForCurrentFocus()
+    {
+        if (Keyboard.FocusedElement is not null)
+        {
+            return new FocusWrapper(Keyboard.FocusedElement);
         }
 
-        public void Focus()
-        {
-            if (this.inputElement is not null)
-            {
-                this.inputElement.Focus();
-                return;
-            }
+        var handle = PInvoke.GetFocus();
 
-            if (this.handle != IntPtr.Zero)
-            {
-#pragma warning disable 618
-                NativeMethods.SetFocus(this.handle);
-#pragma warning restore 618
-            }
+        if (handle != IntPtr.Zero)
+        {
+            return new FocusWrapper(handle);
         }
 
-        public static FocusWrapper? GetWrapperForCurrentFocus()
-        {
-            if (Keyboard.FocusedElement is not null)
-            {
-                return new FocusWrapper(Keyboard.FocusedElement);
-            }
-
-#pragma warning disable 618
-            var handle = NativeMethods.GetFocus();
-#pragma warning restore 618
-
-            if (handle != IntPtr.Zero)
-            {
-                return new FocusWrapper(handle);
-            }
-
-            return null;
-        }
+        return null;
     }
 }

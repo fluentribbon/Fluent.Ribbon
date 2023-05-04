@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Sinhala : RibbonLocalizationBase
     {
         public override string Automatic { get; } = FallbackLocalization.Automatic /* Automatic */;
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "න1";
         public override string BackstageButtonText { get; } = "ගොනුව";
         public override string CustomizeStatusBar { get; } = "තත්ව තීරුව අභිමත කරණය";

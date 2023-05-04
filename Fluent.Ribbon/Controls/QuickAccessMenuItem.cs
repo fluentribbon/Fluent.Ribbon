@@ -1,273 +1,277 @@
 #pragma warning disable SA1402 // File may only contain a single class
 // ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System;
+using System.Collections;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Markup;
+using System.Windows.Media;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+/// This interface must be implemented for controls
+/// which are intended to insert to quick access toolbar
+/// </summary>
+public interface IQuickAccessItemProvider
 {
-    using System;
-    using System.Collections;
-    using System.Windows;
-    using System.Windows.Data;
-    using System.Windows.Markup;
-    using System.Windows.Media;
-    using Fluent.Internal.KnownBoxes;
+    /// <summary>
+    /// Gets control which represents shortcut item.
+    /// This item MUST be syncronized with the original
+    /// and send command to original one control.
+    /// </summary>
+    /// <returns>Control which represents shortcut item</returns>
+    FrameworkElement CreateQuickAccessItem();
 
     /// <summary>
-    /// This interface must be implemented for controls
-    /// which are intended to insert to quick access toolbar
+    /// Gets or sets a value indicating whether control can be added to quick access toolbar
     /// </summary>
-    public interface IQuickAccessItemProvider
-    {
-        /// <summary>
-        /// Gets control which represents shortcut item.
-        /// This item MUST be syncronized with the original
-        /// and send command to original one control.
-        /// </summary>
-        /// <returns>Control which represents shortcut item</returns>
-        FrameworkElement CreateQuickAccessItem();
+    bool CanAddToQuickAccessToolBar { get; set; }
+}
 
-        /// <summary>
-        /// Gets or sets a value indicating whether control can be added to quick access toolbar
-        /// </summary>
-        bool CanAddToQuickAccessToolBar { get; set; }
+/// <summary>
+/// Peresents quick access shortcut to another control
+/// </summary>
+[ContentProperty(nameof(Target))]
+public class QuickAccessMenuItem : MenuItem
+{
+    #region Fields
+
+    internal Ribbon? Ribbon { get; set; }
+
+    #endregion
+
+    #region Initialization
+
+    static QuickAccessMenuItem()
+    {
+        IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
     }
 
     /// <summary>
-    /// Peresents quick access shortcut to another control
+    /// Default constructor
     /// </summary>
-    [ContentProperty(nameof(Target))]
-    public class QuickAccessMenuItem : MenuItem
+    public QuickAccessMenuItem()
     {
-        #region Fields
+        this.Checked += this.OnChecked;
+        this.Unchecked += this.OnUnchecked;
+        this.Loaded += this.OnFirstLoaded;
+        this.Loaded += this.OnItemLoaded;
+    }
 
-        internal Ribbon? Ribbon { get; set; }
+    #endregion
 
-        #endregion
+    #region Target Property
 
-        #region Initialization
+    /// <summary>
+    /// Gets or sets shortcut to the target control
+    /// </summary>
+    public UIElement? Target
+    {
+        get { return (UIElement?)this.GetValue(TargetProperty); }
+        set { this.SetValue(TargetProperty, value); }
+    }
 
-        static QuickAccessMenuItem()
+    /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
+    public static readonly DependencyProperty TargetProperty =
+        DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
+
+    private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var quickAccessMenuItem = (QuickAccessMenuItem)d;
+        var ribbonControl = e.NewValue as IRibbonControl;
+
+        if (quickAccessMenuItem.Header is null
+            && ribbonControl is not null)
         {
-            IsCheckableProperty.AddOwner(typeof(QuickAccessMenuItem), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox));
+            // Set Default Text Value
+            RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
         }
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
-        public QuickAccessMenuItem()
+        if (ribbonControl is not null)
         {
-            this.Checked += this.OnChecked;
-            this.Unchecked += this.OnUnchecked;
-            this.Loaded += this.OnFirstLoaded;
-            this.Loaded += this.OnItemLoaded;
-        }
-
-        #endregion
-
-        #region Target Property
-
-        /// <summary>
-        /// Gets or sets shortcut to the target control
-        /// </summary>
-        public UIElement? Target
-        {
-            get { return (UIElement?)this.GetValue(TargetProperty); }
-            set { this.SetValue(TargetProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>
-        public static readonly DependencyProperty TargetProperty =
-            DependencyProperty.Register(nameof(Target), typeof(UIElement), typeof(QuickAccessMenuItem), new PropertyMetadata(OnTargetChanged));
-
-        private static void OnTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var quickAccessMenuItem = (QuickAccessMenuItem)d;
-            var ribbonControl = e.NewValue as IRibbonControl;
-
-            if (quickAccessMenuItem.Header is null
-                && ribbonControl is not null)
+            var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
+            if (parent is null)
             {
-                // Set Default Text Value
-                RibbonControl.Bind(ribbonControl, quickAccessMenuItem, nameof(IRibbonControl.Header), HeaderProperty, BindingMode.OneWay);
-            }
-
-            if (ribbonControl is not null)
-            {
-                var parent = LogicalTreeHelper.GetParent((DependencyObject)ribbonControl);
-                if (parent is null)
-                {
-                    quickAccessMenuItem.AddLogicalChild(ribbonControl);
-                }
-            }
-
-            if (e.OldValue is IRibbonControl oldRibbonControl)
-            {
-                var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
-                if (ReferenceEquals(parent, quickAccessMenuItem))
-                {
-                    quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
-                }
+                quickAccessMenuItem.AddLogicalChild(ribbonControl);
             }
         }
 
-        #endregion
-
-        #region Overrides
-
-        /// <inheritdoc />
-        protected override IEnumerator LogicalChildren
+        if (e.OldValue is IRibbonControl oldRibbonControl)
         {
-            get
+            var parent = LogicalTreeHelper.GetParent((DependencyObject)oldRibbonControl);
+            if (ReferenceEquals(parent, quickAccessMenuItem))
             {
-                var baseEnumerator = base.LogicalChildren;
-                while (baseEnumerator?.MoveNext() == true)
-                {
-                    yield return baseEnumerator.Current;
-                }
+                quickAccessMenuItem.RemoveLogicalChild(oldRibbonControl);
+            }
+        }
+    }
 
-                if (this.Target is not null)
+    #endregion
+
+    #region Overrides
+
+    /// <inheritdoc />
+    protected override IEnumerator LogicalChildren
+    {
+        get
+        {
+            var baseEnumerator = base.LogicalChildren;
+            while (baseEnumerator?.MoveNext() == true)
+            {
+                yield return baseEnumerator.Current;
+            }
+
+            if (this.Target is not null)
+            {
+                var parent = LogicalTreeHelper.GetParent(this.Target);
+                if (ReferenceEquals(parent, this))
                 {
-                    var parent = LogicalTreeHelper.GetParent(this.Target);
-                    if (ReferenceEquals(parent, this))
-                    {
-                        yield return this.Target;
-                    }
+                    yield return this.Target;
                 }
             }
         }
+    }
 
-        #endregion
+    #endregion
 
-        #region Event Handlers
+    #region Event Handlers
 
-        private void OnChecked(object sender, RoutedEventArgs e)
+    private void OnChecked(object sender, RoutedEventArgs e)
+    {
+        this.Ribbon?.AddToQuickAccessToolBar(this.Target);
+    }
+
+    private void OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        if (this.IsLoaded == false)
+        {
+            return;
+        }
+
+        this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
+    }
+
+    private void OnItemLoaded(object sender, RoutedEventArgs e)
+    {
+        if (this.IsLoaded == false)
+        {
+            return;
+        }
+
+        if (this.Ribbon is not null)
+        {
+            this.IsChecked = this.Ribbon.IsInQuickAccessToolBar(this.Target);
+        }
+    }
+
+    private void OnFirstLoaded(object sender, RoutedEventArgs e)
+    {
+        this.Loaded -= this.OnFirstLoaded;
+
+        if (this.IsChecked)
         {
             this.Ribbon?.AddToQuickAccessToolBar(this.Target);
         }
+    }
 
-        private void OnUnchecked(object sender, RoutedEventArgs e)
+    #endregion
+}
+
+/// <summary>
+/// The class responds to mine controls for QuickAccessToolBar
+/// </summary>
+internal static class QuickAccessItemsProvider
+{
+    #region Public Methods
+
+    /// <summary>
+    /// Determines whether the given control can provide a quick access toolbar item
+    /// </summary>
+    /// <param name="element">Control</param>
+    /// <returns>True if this control is able to provide
+    /// a quick access toolbar item, false otherwise</returns>
+    public static bool IsSupported(UIElement? element)
+    {
+        if (element is IQuickAccessItemProvider provider
+            && provider.CanAddToQuickAccessToolBar)
         {
-            if (this.IsLoaded == false)
-            {
-                return;
-            }
-
-            this.Ribbon?.RemoveFromQuickAccessToolBar(this.Target);
+            return true;
         }
 
-        private void OnItemLoaded(object sender, RoutedEventArgs e)
-        {
-            if (this.IsLoaded == false)
-            {
-                return;
-            }
-
-            if (this.Ribbon is not null)
-            {
-                this.IsChecked = this.Ribbon.IsInQuickAccessToolBar(this.Target);
-            }
-        }
-
-        private void OnFirstLoaded(object sender, RoutedEventArgs e)
-        {
-            this.Loaded -= this.OnFirstLoaded;
-
-            if (this.IsChecked)
-            {
-                this.Ribbon?.AddToQuickAccessToolBar(this.Target);
-            }
-        }
-
-        #endregion
+        return false;
     }
 
     /// <summary>
-    /// The class responds to mine controls for QuickAccessToolBar
+    /// Gets control which represents quick access toolbar item
     /// </summary>
-    internal static class QuickAccessItemsProvider
+    /// <param name="element">Host control</param>
+    /// <returns>Control which represents quick access toolbar item</returns>
+    public static FrameworkElement? GetQuickAccessItem(UIElement element)
     {
-        #region Public Methods
+        FrameworkElement? result = null;
 
-        /// <summary>
-        /// Determines whether the given control can provide a quick access toolbar item
-        /// </summary>
-        /// <param name="element">Control</param>
-        /// <returns>True if this control is able to provide
-        /// a quick access toolbar item, false otherwise</returns>
-        public static bool IsSupported(UIElement? element)
+        // If control supports the interface just return what it provides
+        if (element is IQuickAccessItemProvider provider
+            && provider.CanAddToQuickAccessToolBar)
         {
-            if (element is IQuickAccessItemProvider provider
-                && provider.CanAddToQuickAccessToolBar)
-            {
-                return true;
-            }
-
-            return false;
+            result = provider.CreateQuickAccessItem();
         }
 
-        /// <summary>
-        /// Gets control which represents quick access toolbar item
-        /// </summary>
-        /// <param name="element">Host control</param>
-        /// <returns>Control which represents quick access toolbar item</returns>
-        public static FrameworkElement? GetQuickAccessItem(UIElement element)
+        // The control isn't supported
+        if (result is null)
         {
-            FrameworkElement? result = null;
-
-            // If control supports the interface just return what it provides
-            if (element is IQuickAccessItemProvider provider
-                && provider.CanAddToQuickAccessToolBar)
-            {
-                result = provider.CreateQuickAccessItem();
-            }
-
-            // The control isn't supported
-            if (result is null)
-            {
-                throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
-            }
-
-            RibbonProperties.SetIsElementInQuickAccessToolBar(result, true);
-
-            if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
-            {
-                RibbonControl.Bind(element, result, nameof(UIElement.Visibility), UIElement.VisibilityProperty, BindingMode.OneWay);
-            }
-
-            if (BindingOperations.IsDataBound(result, UIElement.IsEnabledProperty) == false)
-            {
-                RibbonControl.Bind(element, result, nameof(UIElement.IsEnabled), UIElement.IsEnabledProperty, BindingMode.OneWay);
-            }
-
-            return result;
+            throw new ArgumentException("The contol " + element.GetType().Name + " is not able to provide a quick access toolbar item");
         }
 
-        /// <summary>
-        /// Finds the top supported control
-        /// </summary>
-        public static FrameworkElement? FindSupportedControl(Visual visual, Point point)
+        RibbonProperties.SetIsElementInQuickAccessToolBar(result, true);
+
+        if (BindingOperations.IsDataBound(result, UIElement.VisibilityProperty) == false)
         {
-            var result = VisualTreeHelper.HitTest(visual, point);
-            if (result is null)
-            {
-                return null;
-            }
+            RibbonControl.Bind(element, result, nameof(UIElement.Visibility), UIElement.VisibilityProperty, BindingMode.OneWay);
+        }
 
-            // Try to find in visual (or logical) tree
-            var element = result.VisualHit as FrameworkElement;
-            while (element is not null)
-            {
-                if (IsSupported(element))
-                {
-                    return element;
-                }
+        if (BindingOperations.IsDataBound(result, UIElement.IsEnabledProperty) == false)
+        {
+            RibbonControl.Bind(element, result, nameof(UIElement.IsEnabled), UIElement.IsEnabledProperty, BindingMode.OneWay);
+        }
 
-                var visualParent = VisualTreeHelper.GetParent(element) as FrameworkElement;
-                var logicalParent = LogicalTreeHelper.GetParent(element) as FrameworkElement;
-                element = visualParent ?? logicalParent;
-            }
+        if (result.TryFindResource("Fluent.Ribbon.Styles.FocusVisual") is Style tightFocusVisual)
+        {
+            result.FocusVisualStyle = tightFocusVisual;
+        }
 
+        return result;
+    }
+
+    /// <summary>
+    /// Finds the top supported control
+    /// </summary>
+    public static FrameworkElement? FindSupportedControl(Visual visual, Point point)
+    {
+        var result = VisualTreeHelper.HitTest(visual, point);
+        if (result is null)
+        {
             return null;
         }
 
-        #endregion
+        // Try to find in visual (or logical) tree
+        var element = result.VisualHit as FrameworkElement;
+        while (element is not null)
+        {
+            if (IsSupported(element))
+            {
+                return element;
+            }
+
+            var visualParent = VisualTreeHelper.GetParent(element) as FrameworkElement;
+            var logicalParent = LogicalTreeHelper.GetParent(element) as FrameworkElement;
+            element = visualParent ?? logicalParent;
+        }
+
+        return null;
     }
+
+    #endregion
 }

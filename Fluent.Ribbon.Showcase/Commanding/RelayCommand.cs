@@ -1,130 +1,129 @@
 ﻿#pragma warning disable SA1402
 
-namespace FluentTest.Commanding
+namespace FluentTest.Commanding;
+
+using System;
+using System.Diagnostics;
+using System.Windows.Input;
+
+public class RelayCommand : IRelayCommand
 {
-    using System;
-    using System.Diagnostics;
-    using System.Windows.Input;
+    private readonly Action action;
+    private readonly Func<bool> canExecute;
 
-    public class RelayCommand : IRelayCommand
+    protected RelayCommand()
     {
-        private readonly Action action;
-        private readonly Func<bool> canExecute;
+    }
 
-        protected RelayCommand()
-        {
-        }
+    public RelayCommand(Action execute)
+    {
+        this.action = execute;
+    }
 
-        public RelayCommand(Action execute)
-        {
-            this.action = execute;
-        }
+    public RelayCommand(Action execute, Func<bool> canExecute)
+        : this(execute)
+    {
+        this.canExecute = canExecute;
+    }
 
-        public RelayCommand(Action execute, Func<bool> canExecute)
-            : this(execute)
-        {
-            this.canExecute = canExecute;
-        }
+    #region IRelayCommand Members
 
-        #region IRelayCommand Members
+    [DebuggerStepThrough]
+    public virtual bool CanExecute(object parameter)
+    {
+        return this.canExecute is null
+            || this.canExecute();
+    }
 
-        [DebuggerStepThrough]
-        public virtual bool CanExecute(object parameter)
-        {
-            return this.canExecute is null
-                || this.canExecute();
-        }
+    /// <inheritdoc />
+    public event EventHandler CanExecuteChanged
+    {
+        add { CommandManager.RequerySuggested += value; }
+        remove { CommandManager.RequerySuggested -= value; }
+    }
 
-        /// <inheritdoc />
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+    public event EventHandler Executed;
 
-        public event EventHandler Executed;
+    public event EventHandler Executing;
 
-        public event EventHandler Executing;
+    protected void OnExecuted()
+    {
+        this.Executed?.Invoke(this, EventArgs.Empty);
+    }
 
-        protected void OnExecuted()
-        {
-            this.Executed?.Invoke(this, null);
-        }
+    protected void OnExecuting()
+    {
+        this.Executing?.Invoke(this, EventArgs.Empty);
+    }
 
-        protected void OnExecuting()
-        {
-            this.Executing?.Invoke(this, null);
-        }
+    public void Execute(object parameter)
+    {
+        this.OnExecuting();
 
-        public void Execute(object parameter)
-        {
-            this.OnExecuting();
+        this.InvokeAction(parameter);
 
-            this.InvokeAction(parameter);
+        this.OnExecuted();
+    }
 
-            this.OnExecuted();
-        }
+    protected virtual void InvokeAction(object parameter)
+    {
+        this.action();
+    }
 
-        protected virtual void InvokeAction(object parameter)
-        {
-            this.action();
-        }
+    #endregion // IRelayCommand Members
+}
 
-        #endregion // IRelayCommand Members
+/// <summary>
+/// A command whose sole purpose is to
+/// relay its functionality to other
+/// objects by invoking delegates. The
+/// default return value for the CanExecute
+/// method is 'true'.
+/// </summary>
+public class RelayCommand<T> : RelayCommand
+{
+    private readonly Action<T> action;
+    private readonly Func<T, bool> canExecute;
+
+    protected RelayCommand()
+    {
     }
 
     /// <summary>
-    /// A command whose sole purpose is to
-    /// relay its functionality to other
-    /// objects by invoking delegates. The
-    /// default return value for the CanExecute
-    /// method is 'true'.
+    /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
     /// </summary>
-    public class RelayCommand<T> : RelayCommand
+    /// <param name="action">The execution logic.</param>
+    public RelayCommand(Action<T> action)
+        : this(action, null)
     {
-        private readonly Action<T> action;
-        private readonly Func<T, bool> canExecute;
+    }
 
-        protected RelayCommand()
-        {
-        }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
+    /// </summary>
+    /// <param name="action">The execution logic.</param>
+    /// <param name="canExecute">The execution status logic.</param>
+    public RelayCommand(Action<T> action, Func<T, bool> canExecute)
+    {
+        this.action = action;
+        this.canExecute = canExecute;
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
-        /// </summary>
-        /// <param name="action">The execution logic.</param>
-        public RelayCommand(Action<T> action)
-            : this(action, null)
-        {
-        }
+    /// <summary>
+    /// Defines the method that determines whether the command can execute in its current state.
+    /// </summary>
+    /// <returns>
+    /// true if this command can be executed; otherwise, false.
+    /// </returns>
+    /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
+    public override bool CanExecute(object parameter)
+    {
+        return this.canExecute is null
+               || this.canExecute((T)parameter);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RelayCommand{T}"/> class.
-        /// </summary>
-        /// <param name="action">The execution logic.</param>
-        /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand(Action<T> action, Func<T, bool> canExecute)
-        {
-            this.action = action;
-            this.canExecute = canExecute;
-        }
-
-        /// <summary>
-        /// Defines the method that determines whether the command can execute in its current state.
-        /// </summary>
-        /// <returns>
-        /// true if this command can be executed; otherwise, false.
-        /// </returns>
-        /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
-        public override bool CanExecute(object parameter)
-        {
-            return this.canExecute is null
-                   || this.canExecute((T)parameter);
-        }
-
-        protected override void InvokeAction(object parameter)
-        {
-            this.action((T)parameter);
-        }
+    protected override void InvokeAction(object parameter)
+    {
+        this.action((T)parameter);
     }
 }

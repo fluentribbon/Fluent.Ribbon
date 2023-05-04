@@ -4,22 +4,22 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="RibbonToolBarControlGroupStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonToolBarControlGroup"
            TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
         <Setter Property="Focusable" Value="False" />
-        <Setter Property="Template" Value="{DynamicResource RibbonToolBarControlGroupTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonToolBarControlGroup}" />
     </Style>
 
-    <ControlTemplate x:Key="RibbonToolBarControlGroupTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonToolBarControlGroup"
                      TargetType="{x:Type Fluent:RibbonToolBarControlGroup}">
         <StackPanel Orientation="Horizontal">
             <Separator x:Name="separatorLeft"
-                       Style="{DynamicResource RibbonSeparatorStyle}"
+                       Style="{DynamicResource Fluent.Ribbon.Styles.RibbonSeparator}"
                        Visibility="Collapsed" />
             <StackPanel IsItemsHost="true"
                         Orientation="Horizontal" />
             <Separator x:Name="separatorRight"
-                       Style="{DynamicResource RibbonSeparatorStyle}"
+                       Style="{DynamicResource Fluent.Ribbon.Styles.RibbonSeparator}"
                        Visibility="Collapsed" />
         </StackPanel>
         <ControlTemplate.Triggers>

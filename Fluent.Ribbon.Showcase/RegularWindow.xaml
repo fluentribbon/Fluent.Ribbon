@@ -10,7 +10,7 @@
         Height="768"
         MinWidth="80"
         MinHeight="60"
-        Background="{DynamicResource WhiteBrush}"
+        Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
         WindowState="Normal"
         mc:Ignorable="d">
     <fluentTest:TestContent x:Name="TestContent" />

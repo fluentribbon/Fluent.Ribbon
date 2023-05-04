@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Estonian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automaatne";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fail";
         public override string CustomizeStatusBar { get; } = "Kohanda olekuriba";

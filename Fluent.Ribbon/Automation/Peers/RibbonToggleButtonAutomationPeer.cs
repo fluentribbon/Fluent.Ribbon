@@ -1,32 +1,31 @@
-﻿namespace Fluent.Automation.Peers
+﻿namespace Fluent.Automation.Peers;
+
+/// <inheritdoc />
+public class RibbonToggleButtonAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
 {
-    /// <inheritdoc />
-    public class RibbonToggleButtonAutomationPeer : System.Windows.Automation.Peers.ToggleButtonAutomationPeer
+    /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
+    /// <param name="owner">The element associated with this automation peer.</param>
+    public RibbonToggleButtonAutomationPeer(ToggleButton owner)
+        : base(owner)
     {
-        /// <summary>Initializes a new instance of the <see cref="T:ToggleButtonAutomationPeer" /> class.</summary>
-        /// <param name="owner">The element associated with this automation peer.</param>
-        public RibbonToggleButtonAutomationPeer(ToggleButton owner)
-            : base(owner)
+    }
+
+    /// <inheritdoc />
+    protected override string GetClassNameCore()
+    {
+        return "RibbonToggleButton";
+    }
+
+    /// <inheritdoc />
+    protected override string? GetNameCore()
+    {
+        var name = base.GetNameCore();
+
+        if (string.IsNullOrEmpty(name))
         {
+            name = (this.Owner as IHeaderedControl)?.Header as string;
         }
 
-        /// <inheritdoc />
-        protected override string GetClassNameCore()
-        {
-            return "RibbonToggleButton";
-        }
-
-        /// <inheritdoc />
-        protected override string? GetNameCore()
-        {
-            var name = base.GetNameCore();
-
-            if (string.IsNullOrEmpty(name))
-            {
-                name = (this.Owner as IHeaderedControl)?.Header as string;
-            }
-
-            return name;
-        }
+        return name;
     }
 }

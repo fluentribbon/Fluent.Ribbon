@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Catalan : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automàtica";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fitxer";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

@@ -2,15 +2,18 @@
   <PropertyGroup>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <!-- <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile> -->
     <!-- <RestoreLockedMode>true</RestoreLockedMode> -->
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) != 'true'">false</IsBuildingWpfTempProj>
     <IsBuildingWpfTempProj Condition="$(MSBuildProjectName.Contains('_wpftmp')) == 'true'">true</IsBuildingWpfTempProj>
     <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
+    <!-- <RestoreSources>https://ci.appveyor.com/nuget/xamltools;$(RestoreSources)</RestoreSources> -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net462;net452</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net462</TargetFrameworks>
     <LangVersion>latestmajor</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -24,7 +27,22 @@
 
     <UseWpf>true</UseWpf>
     <UseWindowsForms>true</UseWindowsForms>
-    <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652</NoWarn>
+
+    <NoWarn>$(NoWarn);NU1701;NU1603;NU1605;SA1652;WFAC010</NoWarn>
+  </PropertyGroup>
+
+  <!-- AssemblyInfo -->
+  <PropertyGroup>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+
+    <Company>https://github.com/fluentribbon/Fluent.Ribbon</Company>
+    <Product>Fluent.Ribbon</Product>
+    <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) Bastian Schmidt; Copyright © 2009 - 2012 Degtyarev Daniel, Rikker Serg</Copyright>
+
+    <Version Condition="'$(Version)' == ''">10.0.0.0</Version>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">10.0.0.0</AssemblyVersion>
+    <FileVersion Condition="'$(FileVersion)' == ''">10.0.0.0</FileVersion>
+    <InformationalVersion Condition="'$(InformationalVersion)' == ''">SRC</InformationalVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -38,6 +56,22 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Shared/SharedKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+
+  <!-- SourceLink -->
+  <PropertyGroup>
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- By using EmbedAllSources we don't need SourceLink itself -->
+    <!-- https://github.com/dotnet/sourcelink/blob/master/docs/README.md#embedallsources -->
+    <EmbedAllSources>True</EmbedAllSources>
+  </PropertyGroup>
+
+  <!-- PDB-Options -->
+  <PropertyGroup>
+    <DebugType>Embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <ControlTemplate x:Key="ComboBoxItemTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ComboBoxItem"
                      TargetType="{x:Type ComboBoxItem}">
         <Grid Background="Transparent">
             <Grid Margin="0 0.5"
@@ -20,11 +20,14 @@
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-            </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="ItemBackground" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
@@ -32,9 +35,10 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="ComboBoxItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.ComboBoxItem"
            TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Padding" Value="3" />
-        <Setter Property="Template" Value="{DynamicResource ComboBoxItemTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBoxItem}" />
     </Style>
 </ResourceDictionary>

@@ -1,12 +1,11 @@
-namespace FluentTest
-{
-    using Fluent;
+namespace FluentTest;
 
-    public partial class TestWindow : RibbonWindow
+using Fluent;
+
+public partial class TestWindow : RibbonWindow
+{
+    public TestWindow()
     {
-        public TestWindow()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
 }

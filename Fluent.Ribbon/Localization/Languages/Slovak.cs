@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Slovak : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatické";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "S";
         public override string BackstageButtonText { get; } = "Súbor";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

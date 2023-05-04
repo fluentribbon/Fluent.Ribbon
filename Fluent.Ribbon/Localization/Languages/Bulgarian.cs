@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Bulgarian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Автоматично";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Персонализиране на статус линията";

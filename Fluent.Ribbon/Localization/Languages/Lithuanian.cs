@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Lithuanian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatinis";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Failas";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

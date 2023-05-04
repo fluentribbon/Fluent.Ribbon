@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.FocusVisual.Empty"
+                     TargetType="{x:Type Control}">
+        <Rectangle Stroke="Transparent">
+            <Rectangle.Fill>
+                <SolidColorBrush />
+            </Rectangle.Fill>
+        </Rectangle>
+    </ControlTemplate>
+
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Rectangle"
+           TargetType="{x:Type Rectangle}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Stroke" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Margin" Value="-1" />
+    </Style>
+
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.FocusVisual"
+                     TargetType="{x:Type Control}">
+        <Rectangle Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Rectangle}" />
+    </ControlTemplate>
+
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual.Empty"
+           TargetType="{x:Type Control}">
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.FocusVisual.Empty}" />
+    </Style>
+
+    <Style x:Key="Fluent.Ribbon.Styles.FocusVisual"
+           TargetType="{x:Type Control}">
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.FocusVisual}" />
+    </Style>
+</ResourceDictionary>

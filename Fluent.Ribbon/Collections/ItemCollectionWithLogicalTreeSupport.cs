@@ -1,149 +1,148 @@
-﻿namespace Fluent.Collections
+﻿namespace Fluent.Collections;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
+/// <summary>
+/// Special collection with support for logical children of a parent object.
+/// </summary>
+/// <typeparam name="TItem">The type for items.</typeparam>
+public class ItemCollectionWithLogicalTreeSupport<TItem> : ObservableCollection<TItem>
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
+    /// <param name="parent">The parent which supports logical children.</param>
+    public ItemCollectionWithLogicalTreeSupport(ILogicalChildSupport parent)
+    {
+        this.Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+    }
 
     /// <summary>
-    /// Special collection with support for logical children of a parent object.
+    /// Gets whether this collections parent has logical ownership of the items.
     /// </summary>
-    /// <typeparam name="TItem">The type for items.</typeparam>
-    public class ItemCollectionWithLogicalTreeSupport<TItem> : ObservableCollection<TItem>
+    public bool IsOwningItems { get; private set; } = true;
+
+    /// <summary>
+    /// The parent object which support logical children.
+    /// </summary>
+    public ILogicalChildSupport Parent { get; }
+
+    /// <summary>
+    /// Adds all items to the logical tree of <see cref="Parent"/>.
+    /// </summary>
+    public void AquireLogicalOwnership()
     {
-        /// <summary>
-        /// Creates a new instance.
-        /// </summary>
-        /// <param name="parent">The parent which supports logical children.</param>
-        public ItemCollectionWithLogicalTreeSupport(ILogicalChildSupport parent)
+        if (this.IsOwningItems)
         {
-            this.Parent = parent ?? throw new ArgumentNullException(nameof(parent));
+            return;
         }
 
-        /// <summary>
-        /// Gets wether this collections parent has logical ownership of the items.
-        /// </summary>
-        public bool IsOwningItems { get; private set; } = true;
+        this.IsOwningItems = true;
 
-        /// <summary>
-        /// The parent object which support logical children.
-        /// </summary>
-        public ILogicalChildSupport Parent { get; }
-
-        /// <summary>
-        /// Adds all items to the logical tree of <see cref="Parent"/>.
-        /// </summary>
-        public void AquireLogicalOwnership()
+        foreach (var item in this.Items)
         {
-            if (this.IsOwningItems)
-            {
-                return;
-            }
-
-            this.IsOwningItems = true;
-
-            foreach (var item in this.Items)
-            {
-                this.AddLogicalChild(item);
-            }
-        }
-
-        /// <summary>
-        /// Removes all items from the logical tree of <see cref="Parent"/>.
-        /// </summary>
-        public void ReleaseLogicalOwnership()
-        {
-            if (this.IsOwningItems == false)
-            {
-                return;
-            }
-
-            foreach (var item in this.Items)
-            {
-                this.RemoveLogicalChild(item);
-            }
-
-            this.IsOwningItems = false;
-        }
-
-        /// <summary>
-        /// Gets all items where the logical parent is <see cref="Parent"/>.
-        /// </summary>
-        public IEnumerable<TItem> GetLogicalChildren()
-        {
-            if (this.IsOwningItems == false)
-            {
-                return Enumerable.Empty<TItem>();
-            }
-
-            return this.Items;
-        }
-
-        /// <inheritdoc />
-        protected override void InsertItem(int index, TItem item)
-        {
-            base.InsertItem(index, item);
-
             this.AddLogicalChild(item);
         }
+    }
 
-        /// <inheritdoc />
-        protected override void RemoveItem(int index)
+    /// <summary>
+    /// Removes all items from the logical tree of <see cref="Parent"/>.
+    /// </summary>
+    public void ReleaseLogicalOwnership()
+    {
+        if (this.IsOwningItems == false)
         {
-            this.RemoveLogicalChild(this[index]);
-
-            base.RemoveItem(index);
+            return;
         }
 
-        /// <inheritdoc />
-        protected override void SetItem(int index, TItem item)
+        foreach (var item in this.Items)
         {
-            var oldItem = this[index];
-
-            if (oldItem is not null)
-            {
-                this.RemoveLogicalChild(oldItem);
-            }
-
-            base.SetItem(index, item);
-
-            if (item is not null)
-            {
-                this.AddLogicalChild(item);
-            }
+            this.RemoveLogicalChild(item);
         }
 
-        /// <inheritdoc />
-        protected override void ClearItems()
-        {
-            foreach (var item in this.Items)
-            {
-                this.RemoveLogicalChild(item);
-            }
+        this.IsOwningItems = false;
+    }
 
-            base.ClearItems();
+    /// <summary>
+    /// Gets all items where the logical parent is <see cref="Parent"/>.
+    /// </summary>
+    public IEnumerable<TItem> GetLogicalChildren()
+    {
+        if (this.IsOwningItems == false)
+        {
+            return Enumerable.Empty<TItem>();
         }
 
-        private void AddLogicalChild(TItem item)
-        {
-            if (this.IsOwningItems == false
-                || item is null)
-            {
-                return;
-            }
+        return this.Items;
+    }
 
-            this.Parent.AddLogicalChild(item);
+    /// <inheritdoc />
+    protected override void InsertItem(int index, TItem item)
+    {
+        base.InsertItem(index, item);
+
+        this.AddLogicalChild(item);
+    }
+
+    /// <inheritdoc />
+    protected override void RemoveItem(int index)
+    {
+        this.RemoveLogicalChild(this[index]);
+
+        base.RemoveItem(index);
+    }
+
+    /// <inheritdoc />
+    protected override void SetItem(int index, TItem item)
+    {
+        var oldItem = this[index];
+
+        if (oldItem is not null)
+        {
+            this.RemoveLogicalChild(oldItem);
         }
 
-        private void RemoveLogicalChild(TItem item)
-        {
-            if (this.IsOwningItems == false
-                || item is null)
-            {
-                return;
-            }
+        base.SetItem(index, item);
 
-            this.Parent.RemoveLogicalChild(item);
+        if (item is not null)
+        {
+            this.AddLogicalChild(item);
         }
+    }
+
+    /// <inheritdoc />
+    protected override void ClearItems()
+    {
+        foreach (var item in this.Items)
+        {
+            this.RemoveLogicalChild(item);
+        }
+
+        base.ClearItems();
+    }
+
+    private void AddLogicalChild(TItem item)
+    {
+        if (this.IsOwningItems == false
+            || item is null)
+        {
+            return;
+        }
+
+        this.Parent.AddLogicalChild(item);
+    }
+
+    private void RemoveLogicalChild(TItem item)
+    {
+        if (this.IsOwningItems == false
+            || item is null)
+        {
+            return;
+        }
+
+        this.Parent.RemoveLogicalChild(item);
     }
 }

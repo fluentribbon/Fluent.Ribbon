@@ -1,40 +1,39 @@
-﻿namespace Fluent.Tests.TestClasses
+﻿namespace Fluent.Tests.TestClasses;
+
+using System;
+using System.Diagnostics;
+
+public sealed class TestRibbonWindow : RibbonWindow, IDisposable
 {
-    using System;
-    using System.Diagnostics;
-
-    public sealed class TestRibbonWindow : RibbonWindow, IDisposable
+    public TestRibbonWindow()
+        : this(null)
     {
-        public TestRibbonWindow()
-            : this(null)
+    }
+
+    public TestRibbonWindow(object content)
+    {
+        this.Width = 800;
+        this.Height = 600;
+
+        this.ShowActivated = false;
+        this.ShowInTaskbar = false;
+
+        if (Debugger.IsAttached == false)
         {
+            this.Left = int.MinValue;
+            this.Top = int.MinValue;
         }
 
-        public TestRibbonWindow(object content)
-        {
-            this.Width = 800;
-            this.Height = 600;
+        // As Ribbon uses layout rounding we should use it here too
+        FrameworkHelper.SetUseLayoutRounding(this, true);
 
-            this.ShowActivated = false;
-            this.ShowInTaskbar = false;
+        this.Content = content;
 
-            if (Debugger.IsAttached == false)
-            {
-                this.Left = int.MinValue;
-                this.Top = int.MinValue;
-            }
+        this.Show();
+    }
 
-            // As Ribbon uses layout rounding we should use it here too
-            FrameworkHelper.SetUseLayoutRounding(this, true);
-
-            this.Content = content;
-
-            this.Show();
-        }
-
-        public void Dispose()
-        {
-            this.Close();
-        }
+    public void Dispose()
+    {
+        this.Close();
     }
 }

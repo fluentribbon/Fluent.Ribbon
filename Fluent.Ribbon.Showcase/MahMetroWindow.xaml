@@ -8,7 +8,7 @@
                    Title="{Binding WindowTitle, ElementName=TestContent}"
                    Width="1024"
                    Height="768"
-                   GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                   GlowColor="{DynamicResource MahApps.Colors.Accent}"
                    ShowIconOnTitleBar="False"
                    ShowSystemMenuOnRightClick="False"
                    ShowTitleBar="True"
@@ -30,8 +30,8 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="{x:Type Fluent:BackstageTabControl}"
-                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}"
-                   TargetType="{x:Type Fluent:BackstageTabControl}">
+                   TargetType="{x:Type Fluent:BackstageTabControl}"
+                   BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
                 <Setter Property="SelectedContentMargin" Value="0" />
             </Style>
         </ResourceDictionary>
@@ -40,8 +40,8 @@
     <Metro:MetroWindow.TitleTemplate>
         <DataTemplate>
             <Fluent:RibbonTitleBar x:Name="RibbonTitleBar"
-                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}"
-                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                   Header="{Binding Path=Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                                   DataContext="{Binding ElementName=TestContent, Path=DataContext}" />
         </DataTemplate>
     </Metro:MetroWindow.TitleTemplate>
 

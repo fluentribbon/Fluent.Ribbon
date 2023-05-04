@@ -1,107 +1,106 @@
-﻿#pragma warning disable SA1402 // File may only contain a single class
+#pragma warning disable SA1402 // File may only contain a single class
 
-namespace FluentTest.ViewModels
+namespace FluentTest.ViewModels;
+
+using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
+using ControlzEx.Theming;
+
+public class ColorViewModel : ViewModel
 {
-    using System.Collections.ObjectModel;
-    using System.Windows;
-    using System.Windows.Data;
-    using System.Windows.Media;
-    using ControlzEx.Theming;
+    private Color standardColor;
+    private Color highlightColor;
 
-    public class ColorViewModel : ViewModel
+    public ColorViewModel()
     {
-        private Color standardColor;
-        private Color highlightColor;
+        this.StandardColor = Colors.Black;
+        this.HighlightColor = Colors.Yellow;
 
-        public ColorViewModel()
+        CollectionViewSource.GetDefaultView(ThemeManager.Current.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
+    }
+
+    public Color StandardColor
+    {
+        get { return this.standardColor; }
+
+        set
         {
-            this.StandardColor = Colors.Black;
-            this.HighlightColor = Colors.Yellow;
-
-            CollectionViewSource.GetDefaultView(ThemeManager.Current.Themes).GroupDescriptions.Add(new PropertyGroupDescription(nameof(Theme.BaseColorScheme)));
-        }
-
-        public Color StandardColor
-        {
-            get { return this.standardColor; }
-
-            set
+            if (value == this.standardColor)
             {
-                if (value == this.standardColor)
-                {
-                    return;
-                }
-
-                this.standardColor = value;
-                this.OnPropertyChanged();
+                return;
             }
-        }
 
-        public Color HighlightColor
+            this.standardColor = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    public Color HighlightColor
+    {
+        get { return this.highlightColor; }
+
+        set
         {
-            get { return this.highlightColor; }
-
-            set
+            if (value == this.highlightColor)
             {
-                if (value == this.highlightColor)
-                {
-                    return;
-                }
-
-                this.highlightColor = value;
-                this.OnPropertyChanged();
+                return;
             }
-        }
 
-        public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new ReadOnlyObservableCollection<Color>(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
+            this.highlightColor = value;
+            this.OnPropertyChanged();
+        }
+    }
+
+    public ReadOnlyObservableCollection<Color> ThemeColors { get; } = new(new ObservableCollection<Color> { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Black, Colors.Purple });
 
 #pragma warning disable INPC010 // The property sets a different field than it returns.
-        public Color ThemeColor
-        {
-            get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"])?.Color ?? Colors.Pink;
+    public Color ThemeColor
+    {
+        get => ((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"])?.Color ?? Colors.Pink;
 
-            set
-            {
-                var solidColorBrush = new SolidColorBrush(value);
-                solidColorBrush.Freeze();
-                Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBaseColorBrush"] = solidColorBrush;
-                this.OnPropertyChanged();
-            }
+        set
+        {
+            var solidColorBrush = new SolidColorBrush(value);
+            solidColorBrush.Freeze();
+            Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"] = solidColorBrush;
+            this.OnPropertyChanged();
         }
+    }
 #pragma warning restore INPC010 // The property sets a different field than it returns.
 
-        public string CurrentBaseColor
+    public string CurrentBaseColor
+    {
+        get => this.CurrentTheme.BaseColorScheme;
+
+        set
         {
-            get => this.CurrentTheme.BaseColorScheme;
-
-            set
+            if (value is null)
             {
-                if (value is null)
-                {
-                    return;
-                }
-
-                ThemeManager.Current.ChangeThemeBaseColor(Application.Current, value);
-                this.OnPropertyChanged();
-                this.OnPropertyChanged(nameof(this.CurrentTheme));
+                return;
             }
+
+            ThemeManager.Current.ChangeThemeBaseColor(Application.Current, value);
+            this.OnPropertyChanged();
+            this.OnPropertyChanged(nameof(this.CurrentTheme));
         }
+    }
 
-        public Theme CurrentTheme
+    public Theme CurrentTheme
+    {
+        get => ThemeManager.Current.DetectTheme(Application.Current);
+
+        set
         {
-            get => ThemeManager.Current.DetectTheme(Application.Current);
-
-            set
+            if (value is null)
             {
-                if (value is null)
-                {
-                    return;
-                }
-
-                ThemeManager.Current.ChangeTheme(Application.Current, value);
-                this.OnPropertyChanged();
-                this.OnPropertyChanged(nameof(this.CurrentBaseColor));
+                return;
             }
+
+            ThemeManager.Current.ChangeTheme(Application.Current, value);
+            this.OnPropertyChanged();
+            this.OnPropertyChanged(nameof(this.CurrentBaseColor));
         }
     }
 }

@@ -1,165 +1,164 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System.Windows;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+/// Represents ribbon status bar item
+/// </summary>
+public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
 {
-    using System.Windows;
-    using Fluent.Internal.KnownBoxes;
+    #region Properties
+
+    #region Title
 
     /// <summary>
-    /// Represents ribbon status bar item
+    /// Gets or sets ribbon status bar item
     /// </summary>
-    public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
+    public string? Title
     {
-        #region Properties
+        get { return (string?)this.GetValue(TitleProperty); }
+        set { this.SetValue(TitleProperty, value); }
+    }
 
-        #region Title
+    /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
+    public static readonly DependencyProperty TitleProperty =
+        DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata());
 
-        /// <summary>
-        /// Gets or sets ribbon status bar item
-        /// </summary>
-        public string? Title
-        {
-            get { return (string?)this.GetValue(TitleProperty); }
-            set { this.SetValue(TitleProperty, value); }
-        }
+    #endregion
 
-        /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
-        public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(StatusBarItem), new PropertyMetadata());
+    #region Value
 
-        #endregion
+    /// <summary>
+    /// Gets or sets ribbon status bar value
+    /// </summary>
+    public string? Value
+    {
+        get { return (string?)this.GetValue(ValueProperty); }
+        set { this.SetValue(ValueProperty, value); }
+    }
 
-        #region Value
-
-        /// <summary>
-        /// Gets or sets ribbon status bar value
-        /// </summary>
-        public string? Value
-        {
-            get { return (string?)this.GetValue(ValueProperty); }
-            set { this.SetValue(ValueProperty, value); }
-        }
-
-        /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
+    /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
+    public static readonly DependencyProperty ValueProperty =
+        DependencyProperty.Register(nameof(Value), typeof(string), typeof(StatusBarItem),
             new PropertyMetadata(OnValueChanged));
 
-        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var item = (StatusBarItem)d;
+        item.CoerceValue(ContentProperty);
+    }
+
+    #endregion
+
+    #region isChecked
+
+    /// <summary>
+    /// Gets or sets whether status bar item is checked in menu
+    /// </summary>
+    public bool IsChecked
+    {
+        get { return (bool)this.GetValue(IsCheckedProperty); }
+        set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
+    }
+
+    /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
+    public static readonly DependencyProperty IsCheckedProperty =
+        DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsCheckedChanged));
+
+    // Handles IsChecked changed
+    private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var item = (StatusBarItem)d;
+        item.CoerceValue(VisibilityProperty);
+
+        if ((bool)e.NewValue)
         {
-            var item = (StatusBarItem)d;
-            item.CoerceValue(ContentProperty);
+            item.RaiseChecked();
         }
-
-        #endregion
-
-        #region isChecked
-
-        /// <summary>
-        /// Gets or sets whether status bar item is checked in menu
-        /// </summary>
-        public bool IsChecked
+        else
         {
-            get { return (bool)this.GetValue(IsCheckedProperty); }
-            set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
+            item.RaiseUnchecked();
         }
+    }
 
-        /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>
-        public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register(nameof(IsChecked), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsCheckedChanged));
+    #endregion
 
-        // Handles IsChecked changed
-        private static void OnIsCheckedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var item = (StatusBarItem)d;
-            item.CoerceValue(VisibilityProperty);
+    #endregion
 
-            if ((bool)e.NewValue)
-            {
-                item.RaiseChecked();
-            }
-            else
-            {
-                item.RaiseUnchecked();
-            }
-        }
+    #region Events
 
-        #endregion
+    /// <summary>
+    /// Occurs when status bar item checks
+    /// </summary>
+    public event RoutedEventHandler? Checked;
 
-        #endregion
+    /// <summary>
+    /// Occurs when status bar item unchecks
+    /// </summary>
+    public event RoutedEventHandler? Unchecked;
 
-        #region Events
-
-        /// <summary>
-        /// Occurs when status bar item checks
-        /// </summary>
-        public event RoutedEventHandler? Checked;
-
-        /// <summary>
-        /// Occurs when status bar item unchecks
-        /// </summary>
-        public event RoutedEventHandler? Unchecked;
-
-        // Raises checked event
+    // Raises checked event
 #pragma warning disable WPF0005 // Name of PropertyChangedCallback should match registered name.
-        private void RaiseChecked()
-        {
-            this.Checked?.Invoke(this, new RoutedEventArgs());
-        }
+    private void RaiseChecked()
+    {
+        this.Checked?.Invoke(this, new RoutedEventArgs());
+    }
 
-        // Raises unchecked event
-        private void RaiseUnchecked()
-        {
-            this.Unchecked?.Invoke(this, new RoutedEventArgs());
-        }
+    // Raises unchecked event
+    private void RaiseUnchecked()
+    {
+        this.Unchecked?.Invoke(this, new RoutedEventArgs());
+    }
 #pragma warning restore WPF0005 // Name of PropertyChangedCallback should match registered name.
 
-        #endregion
+    #endregion
 
-        #region Constructors
+    #region Constructors
 
-        /// <summary>
-        /// Static constructor
-        /// </summary>
-        static StatusBarItem()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBarItem), new FrameworkPropertyMetadata(typeof(StatusBarItem)));
-            VisibilityProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, CoerceVisibility));
-            ContentProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(OnContentChanged, CoerceContent));
-        }
-
-        // Content changing handler
-        private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var item = (StatusBarItem)d;
-            item.CoerceValue(ValueProperty);
-        }
-
-        // Coerce content
-        private static object? CoerceContent(DependencyObject d, object? basevalue)
-        {
-            var item = (StatusBarItem)d;
-            // if content is null returns value
-            if (basevalue is null
-                && item.Value is not null)
-            {
-                return item.Value;
-            }
-
-            return basevalue;
-        }
-
-        // Coerce visibility
-        private static object? CoerceVisibility(DependencyObject d, object? basevalue)
-        {
-            // If unchecked when not visible in status bar
-            if (((StatusBarItem)d).IsChecked == false)
-            {
-                return Visibility.Collapsed;
-            }
-
-            return basevalue;
-        }
-
-        #endregion
+    /// <summary>
+    /// Static constructor
+    /// </summary>
+    static StatusBarItem()
+    {
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(StatusBarItem), new FrameworkPropertyMetadata(typeof(StatusBarItem)));
+        VisibilityProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(null, CoerceVisibility));
+        ContentProperty.AddOwner(typeof(StatusBarItem), new FrameworkPropertyMetadata(OnContentChanged, CoerceContent));
     }
+
+    // Content changing handler
+    private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var item = (StatusBarItem)d;
+        item.CoerceValue(ValueProperty);
+    }
+
+    // Coerce content
+    private static object? CoerceContent(DependencyObject d, object? basevalue)
+    {
+        var item = (StatusBarItem)d;
+        // if content is null returns value
+        if (basevalue is null
+            && item.Value is not null)
+        {
+            return item.Value;
+        }
+
+        return basevalue;
+    }
+
+    // Coerce visibility
+    private static object? CoerceVisibility(DependencyObject d, object? basevalue)
+    {
+        // If unchecked when not visible in status bar
+        if (((StatusBarItem)d).IsChecked == false)
+        {
+            return Visibility.Collapsed;
+        }
+
+        return basevalue;
+    }
+
+    #endregion
 }

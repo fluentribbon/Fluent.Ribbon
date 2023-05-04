@@ -4,9 +4,8 @@
     <RootNamespace>FluentTest</RootNamespace>
     <AssemblyName>Fluent.Ribbon.Showcase</AssemblyName>
     
-    <NoWarn>$(NoWarn);SA0001;SA1601</NoWarn>
+    <NoWarn>$(NoWarn);SA0001;SA1601;SA1602</NoWarn>
     <InlcudeMahAppsMetro>true</InlcudeMahAppsMetro>
-    <InlcudeMahAppsMetro Condition="$(TargetFramework) == 'net452'">false</InlcudeMahAppsMetro>
 
     <DefineConstants Condition="$(InlcudeMahAppsMetro)">$(DefineConstants);MahApps_Metro</DefineConstants>
   </PropertyGroup>
@@ -30,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Fluent.Ribbon\Fluent.Ribbon.csproj" />
 
+    <PackageReference Include="ControlzEx" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" />
     <PackageReference Include="MahApps.Metro" Condition="$(InlcudeMahAppsMetro)" />
   </ItemGroup>

@@ -6,7 +6,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:templateSelectors="clr-namespace:Fluent.TemplateSelectors"
                     mc:Ignorable="d">
-    <Style x:Key="GroupBoxSeparator"
+    <Style x:Key="Fluent.Ribbon.Styles.GroupBoxSeparator"
            TargetType="Separator">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
         <Setter Property="Template">
@@ -29,7 +29,7 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.OneLineHeaderTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.RibbonGroupBox.OneLineHeader">
         <TextBlock HorizontalAlignment="Stretch"
                    VerticalAlignment="Center"
                    Text="{Binding}"
@@ -38,7 +38,7 @@
                    TextWrapping="NoWrap" />
     </DataTemplate>
 
-    <DataTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox.TwoLineHeaderTemplate">
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.RibbonGroupBox.TwoLineHeader">
         <Fluent:TwoLineLabel HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              HasGlyph="True"
@@ -56,17 +56,18 @@
         </Setter>
     </Style>
 
-    <Style x:Key="RibbonGroupBoxStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupBox"
            TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Fluent:KeyTip.Margin" Value="0,15,0,0" />
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HeaderTemplateSelector" Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
-        <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
@@ -79,13 +80,13 @@
                 <Setter Property="Focusable" Value="False" />
                 <Setter Property="Height" Value="22" />
                 <Setter Property="SnapsToDevicePixels" Value="False" />
-                <Setter Property="Template" Value="{DynamicResource RibbonGroupBoxDropDownButtonControlTemplate}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBoxDropDownButton}" />
                 <Setter Property="Width" Value="22" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <ControlTemplate x:Key="RibbonGroupBoxDropDownButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBoxDropDownButton"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <Grid Width="22">
             <Border x:Name="PART_ButtonBorder"
@@ -117,7 +118,7 @@
                     <Border x:Name="border"
                             Height="Auto"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                             BorderThickness="1"
                             d:LayoutOverrides="Width">
                         <Grid x:Name="PART_ParentPanel"
@@ -170,6 +171,7 @@
                                                 KeyboardNavigation.IsTabStop="False" />
 
                                 <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                               Header="{TemplateBinding LauncherText}"
                                                Grid.Column="1"
                                                Width="15"
                                                Height="14"
@@ -183,15 +185,15 @@
                                                CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                                CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                                Focusable="False"
-                                               Header="{TemplateBinding LauncherText}"
                                                Icon="{TemplateBinding LauncherIcon}"
                                                IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                                IsTabStop="False"
-                                               Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                               Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                                ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                                Visibility="Collapsed" />
                             </Grid>
                             <Fluent:Button x:Name="PART_SimplifiedDialogLauncherButton"
+                                           Header="{TemplateBinding LauncherText}"
                                            Grid.Column="1"
                                            Width="15"
                                            Height="14"
@@ -205,11 +207,10 @@
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                            Focusable="False"
-                                           Header="{TemplateBinding LauncherText}"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                            IsTabStop="False"
-                                           Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                            ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                            Visibility="Collapsed" />
                         </Grid>
@@ -229,7 +230,7 @@
 
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -237,7 +238,7 @@
                     <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ButtonBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
 
             <MultiTrigger>
@@ -262,18 +263,18 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonGroupBoxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonGroupBox"
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Style BasedOn="{StaticResource GroupBoxSeparator}"
-                       TargetType="Separator" />
+                <Style TargetType="Separator"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.GroupBoxSeparator}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
@@ -324,6 +325,7 @@
                                             KeyboardNavigation.IsTabStop="False" />
 
                             <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                           Header="{TemplateBinding LauncherText}"
                                            Grid.Column="1"
                                            Width="15"
                                            Height="14"
@@ -336,10 +338,9 @@
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Header="{TemplateBinding LauncherText}"
                                            Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                           Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                            ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                            Visibility="Visible" />
                         </Grid>
@@ -362,7 +363,7 @@
                             Padding="4"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                             BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
                                               IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
@@ -371,6 +372,7 @@
                     </Border>
 
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
                                     Grid.Row="1"
                                     Margin="5 0 5 0"
                                     HorizontalAlignment="Center"
@@ -381,8 +383,7 @@
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}" />
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
@@ -393,10 +394,11 @@
                         <Border x:Name="border"
                                 Height="Auto"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
-                            <ContentControl x:Name="popupContent" />
+                            <ContentControl x:Name="popupContent"
+                                            Focusable="False" />
                         </Border>
                     </Popup>
                 </Grid>
@@ -409,7 +411,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -449,14 +451,14 @@
                      TargetType="{x:Type Fluent:RibbonGroupBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Style BasedOn="{StaticResource GroupBoxSeparator}"
-                       TargetType="Separator" />
+                <Style TargetType="Separator"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.GroupBoxSeparator}" />
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
@@ -486,6 +488,7 @@
                                     Orientation="Horizontal" />
 
                         <Fluent:Button x:Name="PART_DialogLauncherButton"
+                                       Header="{TemplateBinding LauncherText}"
                                        Grid.Column="1"
                                        Width="15"
                                        Height="14"
@@ -499,11 +502,10 @@
                                        CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                        Focusable="False"
-                                       Header="{TemplateBinding LauncherText}"
                                        Icon="{TemplateBinding LauncherIcon}"
                                        IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                        IsTabStop="False"
-                                       Template="{DynamicResource DialogLauncherButtonControlTemplate}"
+                                       Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                        ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
                                        Visibility="Visible" />
                     </Grid>
@@ -530,14 +532,13 @@
                                               IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-                        <Border Width="24"
-                                Height="24"
-                                Margin="0"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.BorderBrush}"
+                        <Border Margin="0"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                                 BorderThickness="1" />
                     </Grid>
 
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
+                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}"
                                     Grid.Column="1"
                                     Margin="2 0 0 0"
                                     HorizontalAlignment="Stretch"
@@ -548,8 +549,7 @@
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
-                                    KeyboardNavigation.IsTabStop="False"
-                                    Style="{DynamicResource Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl}" />
+                                    KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
                            Width="Auto"
@@ -560,7 +560,7 @@
                         <Border x:Name="border"
                                 Height="Auto"
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
                             <ContentControl x:Name="popupContent" />
@@ -576,7 +576,7 @@
                            HorizontalAlignment="Right"
                            VerticalAlignment="Stretch"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.GroupSeparator.Background}"
-                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource boolToVisibilityConverter}}" />
+                           Visibility="{Binding IsSeparatorVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
             </Grid>
 
             <Image x:Name="PART_SnappedImage"
@@ -613,7 +613,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="DialogLauncherButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.DialogLauncherButton"
                      TargetType="{x:Type Fluent:Button}">
         <Border x:Name="outerBorder"
                 Background="{TemplateBinding Background}"
@@ -644,7 +644,7 @@
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="outerBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -652,7 +652,7 @@
                     <Condition Property="IsPressed" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="outerBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="outerBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

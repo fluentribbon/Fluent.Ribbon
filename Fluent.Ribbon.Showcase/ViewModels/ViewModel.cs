@@ -1,17 +1,16 @@
-﻿namespace FluentTest.ViewModels
+﻿namespace FluentTest.ViewModels;
+
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
+
+public class ViewModel : INotifyPropertyChanged
 {
-    using System.ComponentModel;
-    using System.Runtime.CompilerServices;
-    using JetBrains.Annotations;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    public class ViewModel : INotifyPropertyChanged
+    [NotifyPropertyChangedInvocator]
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

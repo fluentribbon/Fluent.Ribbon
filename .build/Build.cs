@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using GlobExpressions;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
@@ -30,13 +31,13 @@ class Build : NukeBuild
             throw new Exception("Could not initialize GitVersion.");
         }
 
-        Console.WriteLine("IsLocalBuild           : {0}", IsLocalBuild.ToString());
+        Serilog.Log.Information("IsLocalBuild           : {0}", IsLocalBuild.ToString());
 
-        Console.WriteLine("Informational   Version: {0}", InformationalVersion);
-        Console.WriteLine("SemVer          Version: {0}", SemVer);
-        Console.WriteLine("AssemblySemVer  Version: {0}", AssemblySemVer);
-        Console.WriteLine("MajorMinorPatch Version: {0}", MajorMinorPatch);
-        Console.WriteLine("NuGet           Version: {0}", NuGetVersion);
+        Serilog.Log.Information("Informational   Version: {0}", InformationalVersion);
+        Serilog.Log.Information("SemVer          Version: {0}", SemVer);
+        Serilog.Log.Information("AssemblySemVer  Version: {0}", AssemblySemVer);
+        Serilog.Log.Information("MajorMinorPatch Version: {0}", MajorMinorPatch);
+        Serilog.Log.Information("NuGet           Version: {0}", NuGetVersion);
     }
     
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
@@ -52,8 +53,10 @@ class Build : NukeBuild
     string NuGetVersion => GitVersion?.NuGetVersion ?? "1.0.0";
     string MajorMinorPatch => GitVersion?.MajorMinorPatch ?? "1.0.0";
     string AssemblySemFileVer => GitVersion?.AssemblySemFileVer ?? "1.0.0";
-    
+
     // Define directories.
+    AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
+
     AbsolutePath BuildBinDirectory => RootDirectory / "bin";
 
     AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
@@ -82,7 +85,7 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
     {
-        DotNet($"xstyler -r -d \"{RootDirectory}\"");
+        DotNet($"xstyler --recursive --directory \"{RootDirectory}\"");
     });
 
     Target Compile => _ => _
@@ -113,10 +116,10 @@ class Build : NukeBuild
             .When(GitVersion is not null, x => x
                 .SetProperty("RepositoryBranch", GitVersion?.BranchName)
                 .SetProperty("RepositoryCommit", GitVersion?.Sha))
-            .SetProperty("Version", NuGetVersion)
-            .SetProperty("AssemblyVersion", AssemblySemVer)
-            .SetProperty("FileVersion", AssemblySemFileVer)
-            .SetProperty("InformationalVersion", InformationalVersion));
+            .SetVersion(NuGetVersion)
+            .SetAssemblyVersion(AssemblySemVer)
+            .SetFileVersion(AssemblySemFileVer)
+            .SetInformationalVersion(InformationalVersion));
         
         Compress(BuildBinDirectory / "Fluent.Ribbon" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon-v{NuGetVersion}.zip");
         Compress(BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{NuGetVersion}.zip");
@@ -131,56 +134,69 @@ class Build : NukeBuild
         DotNetTest(_ => _
             .SetConfiguration(Configuration)
             .SetProjectFile(Solution.Fluent_Ribbon_Tests)
-            .SetNoBuild(true)
-            .SetNoRestore(true)
+            .EnableNoBuild()
+            .EnableNoRestore()
             .AddLoggers("trx")
             .SetResultsDirectory(TestResultsDir)
             .SetVerbosity(DotNetVerbosity.Normal));
     });
 
+    Target FixResourceKeys => _ => _
+        .DependsOn(Compile)
+        .Executes(() =>
+        {
+            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
+
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
+
+            //resourceKeys.CheckKeys();
+
+            resourceKeys.FixKeys(Glob.Files(FluentRibbonDirectory / "Themes", "**/*.{xaml,json}").Select(x => Path.Combine(FluentRibbonDirectory / "Themes", x)).ToArray());
+        });
+
     Target ResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
-    {
-        var xmlPeekElements = XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Styles.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml"))
-            .Concat(XmlTasks.XmlPeekElements(RootDirectory / @"Fluent.Ribbon" / "Themes" / "Themes" / "Theme.Template.xaml", "//*[@x:Key]", ("x", "http://schemas.microsoft.com/winfx/2006/xaml")))
-            .ToList();
-        Console.WriteLine($"Peeked: {xmlPeekElements.Count}");
-
-        var xKey = XName.Get("Key", "http://schemas.microsoft.com/winfx/2006/xaml");
-
-        var vNextResourceKeys = xmlPeekElements
-            .Where(x => x.HasAttributes && x.Attribute(xKey) is not null)
-            .Select(x => x.Attribute(xKey)!.Value)
-            // Exclude type-keyed styles like x:Key="{x:Type Button}" etc.
-            .Where(x => x.StartsWith("{") == false)
-            .Distinct()
-            .OrderBy(x => x)
-            .ToList();
-    
-        Console.WriteLine($"Distinct keys: {vNextResourceKeys.Count}");
-    
-        File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
-    
-        var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
-
-        var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
-        var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
-    
-        Console.WriteLine("|Old|New|");
-        Console.WriteLine("|---|---|");
-
-        foreach (var removedKey in removedKeys)
         {
-            Console.WriteLine($"|{removedKey}|---|");
-        }
-    
-        foreach (var addedKey in addedKeys)
-        {
-            Console.WriteLine($"|---|{addedKey}|");
-        }
-    });
+            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
 
+            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
+
+            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
+
+            var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
+                .Select(x => x.Key)
+                .Distinct()
+                .OrderBy(x => x)
+                .ToList();
+
+            Serilog.Log.Information($"Distinct keys: {vNextResourceKeys.Count}");
+
+            File.WriteAllLines(ReferenceDataDir / "vNextResourceKeys.txt", vNextResourceKeys, Encoding.UTF8);
+
+            var vCurrentResourceKeys = File.ReadAllLines(ReferenceDataDir / "vCurrentResourceKeys.txt", Encoding.UTF8);
+
+            var removedKeys = vCurrentResourceKeys.Except(vNextResourceKeys);
+            var addedKeys = vNextResourceKeys.Except(vCurrentResourceKeys);
+
+            Serilog.Log.Information("|Old|New|");
+            Serilog.Log.Information("|---|---|");
+
+            foreach (var removedKey in removedKeys)
+            {
+                Serilog.Log.Information($"|{removedKey}|---|");
+            }
+    
+            foreach (var addedKey in addedKeys)
+            {
+                Serilog.Log.Information($"|---|{addedKey}|");
+            }
+        });
+
+    // ReSharper disable once UnusedMember.Local
+    // ReSharper disable once InconsistentNaming
     Target CI => _ => _
         .DependsOn(Compile)
         .DependsOn(Test)

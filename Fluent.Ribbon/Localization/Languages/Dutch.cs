@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Dutch : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatisch";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "B";
         public override string BackstageButtonText { get; } = "Bestand";
         public override string CustomizeStatusBar { get; } = "Statusbalk aanpassen";

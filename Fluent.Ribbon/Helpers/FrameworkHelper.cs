@@ -1,50 +1,49 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Media;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+/// Represents class to determine .NET Framework version difference
+/// </summary>
+public static class FrameworkHelper
 {
-    using System;
-    using System.Reflection;
-    using System.Windows;
-    using System.Windows.Media;
-    using Fluent.Internal.KnownBoxes;
+    /// <summary>
+    /// Version of WPF
+    /// </summary>
+    public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window))!.GetName()!.Version!;
 
     /// <summary>
-    /// Represents class to determine .NET Framework version difference
+    /// Gets UseLayoutRounding attached property value
     /// </summary>
-    public static class FrameworkHelper
+    /// <returns></returns>
+    public static bool GetUseLayoutRounding(DependencyObject obj)
     {
-        /// <summary>
-        /// Version of WPF
-        /// </summary>
-        public static readonly Version PresentationFrameworkVersion = Assembly.GetAssembly(typeof(Window))!.GetName()!.Version!;
+        return (bool)obj.GetValue(UseLayoutRoundingProperty);
+    }
 
-        /// <summary>
-        /// Gets UseLayoutRounding attached property value
-        /// </summary>
-        /// <returns></returns>
-        public static bool GetUseLayoutRounding(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(UseLayoutRoundingProperty);
-        }
+    /// <summary>
+    /// Gets UseLayoutRounding attached property value
+    /// </summary>
+    public static void SetUseLayoutRounding(DependencyObject obj, bool value)
+    {
+        obj.SetValue(UseLayoutRoundingProperty, BooleanBoxes.Box(value));
+    }
 
-        /// <summary>
-        /// Gets UseLayoutRounding attached property value
-        /// </summary>
-        public static void SetUseLayoutRounding(DependencyObject obj, bool value)
-        {
-            obj.SetValue(UseLayoutRoundingProperty, BooleanBoxes.Box(value));
-        }
+    /// <summary>
+    ///  Using a DependencyProperty as the backing store for UseLayoutRounding.  This enables animation, styling, binding, etc...
+    /// </summary>
+    public static readonly DependencyProperty UseLayoutRoundingProperty =
+        DependencyProperty.RegisterAttached("UseLayoutRounding", typeof(bool), typeof(FrameworkHelper), new PropertyMetadata(BooleanBoxes.FalseBox, OnUseLayoutRoundingChanged));
 
-        /// <summary>
-        ///  Using a DependencyProperty as the backing store for UseLayoutRounding.  This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty UseLayoutRoundingProperty =
-            DependencyProperty.RegisterAttached("UseLayoutRounding", typeof(bool), typeof(FrameworkHelper), new PropertyMetadata(BooleanBoxes.FalseBox, OnUseLayoutRoundingChanged));
-
-        private static void OnUseLayoutRoundingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            d.SetCurrentValue(UIElement.SnapsToDevicePixelsProperty, BooleanBoxes.TrueBox);
-            RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
-            d.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, BooleanBoxes.TrueBox);
-        }
+    private static void OnUseLayoutRoundingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        d.SetCurrentValue(UIElement.SnapsToDevicePixelsProperty, BooleanBoxes.TrueBox);
+        RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
+        d.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, BooleanBoxes.TrueBox);
     }
 }

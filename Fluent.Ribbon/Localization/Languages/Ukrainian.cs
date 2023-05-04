@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Ukrainian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Автоматичні";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

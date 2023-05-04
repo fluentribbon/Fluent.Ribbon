@@ -1,30 +1,29 @@
-﻿namespace Fluent
+﻿namespace Fluent;
+
+using System;
+
+/// <summary>
+/// Repesents scalable ribbon contol
+/// </summary>
+public interface IScalableRibbonControl
 {
-    using System;
+    /// <summary>
+    /// Resets the scale.
+    /// </summary>
+    void ResetScale();
 
     /// <summary>
-    /// Repesents scalable ribbon contol
+    /// Enlarge control size.
     /// </summary>
-    public interface IScalableRibbonControl
-    {
-        /// <summary>
-        /// Resets the scale.
-        /// </summary>
-        void ResetScale();
+    void Enlarge();
 
-        /// <summary>
-        /// Enlarge control size.
-        /// </summary>
-        void Enlarge();
+    /// <summary>
+    /// Reduce control size.
+    /// </summary>
+    void Reduce();
 
-        /// <summary>
-        /// Reduce control size.
-        /// </summary>
-        void Reduce();
-
-        /// <summary>
-        /// Occurs when contol is scaled.
-        /// </summary>
-        event EventHandler Scaled;
-    }
+    /// <summary>
+    /// Occurs when contol is scaled.
+    /// </summary>
+    event EventHandler Scaled;
 }

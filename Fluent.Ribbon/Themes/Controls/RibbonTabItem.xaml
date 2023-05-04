@@ -4,7 +4,7 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="RibbonTabItemControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabItem"
                      TargetType="{x:Type Fluent:RibbonTabItem}">
         <Grid x:Name="grid"
               Height="Auto">
@@ -27,10 +27,9 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
                 <ContentControl x:Name="PART_HeaderContentHost"
-                                AutomationProperties.AutomationId="{TemplateBinding Name}"
-                                AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                 Content="{TemplateBinding Header}"
                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                 Focusable="False" />
             </Border>
             <Grid x:Name="separatorGrid"
@@ -61,6 +60,7 @@
                 <Setter TargetName="groupBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
+                <Setter TargetName="mouseOverBorder" Property="Margin" Value="{Binding BorderThickness, ElementName=selectedBorder}" />
                 <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
@@ -100,36 +100,17 @@
                 <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
-            <!-- Background for Selected, Minimized, IsOpen, with group -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="IsMinimized" Value="True" />
-                    <Condition Property="IsOpen" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="grid" Property="Background" Value="Transparent" />
-            </MultiTrigger>
-            <!-- Background for Selected, Minimized, IsOpen, no group -->
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="IsMinimized" Value="True" />
-                    <Condition Property="IsOpen" Value="True" />
-                    <Condition Property="Group" Value="{x:Null}" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="grid" Property="Background" Value="Transparent" />
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonTabItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonTabItem"
            TargetType="{x:Type Fluent:RibbonTabItem}">
         <Setter Property="ActiveTabBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background}" />
-        <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
+        <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
@@ -144,17 +125,18 @@
         </Setter>
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="IsMinimized" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsMinimized, Mode=OneWay, FallbackValue=False}" />
-        <Setter Property="IsOpen" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:RibbonTabControl}}, Path=IsDropDownOpen, Mode=OneWay, FallbackValue=True}" />
         <Setter Property="Margin" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource RibbonTabItemControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabItem}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
             <Trigger Property="Group" Value="{x:Null}">
-                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.BorderBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="ActiveTabBorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>

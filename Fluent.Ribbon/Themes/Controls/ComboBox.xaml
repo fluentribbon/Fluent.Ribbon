@@ -5,38 +5,34 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="RibbonComboButtonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonComboButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="68" />
-        <Setter Property="Template" Value="{DynamicResource RibbonComboButtonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonComboButton}" />
         <Setter Property="Width" Value="Auto" />
     </Style>
 
-    <ControlTemplate x:Key="RibbonComboButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonComboButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                Background="{DynamicResource WhiteBrush}"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
+                Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Height="Auto"
                   HorizontalAlignment="Right">
-                <Rectangle x:Name="rectangle"
-                           Fill="{DynamicResource WhiteBrush}"
-                           StrokeThickness="0"
-                           Visibility="Collapsed" />
                 <Path x:Name="path"
-                      Width="5"
-                      Height="3"
+                      Width="7"
+                      Height="5"
                       Margin="3 0 3 0"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Data="M0,0L1,1 2,0z"
-                      Fill="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}"
+                      Data="M 0 0 L 4 4 L 8 0 Z"
+                      Fill="{DynamicResource Fluent.Ribbon.Brushes.LabelText}"
                       IsHitTestVisible="False"
                       Stretch="Fill" />
             </Grid>
@@ -44,11 +40,11 @@
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="path" Property="Opacity" Value="0.5" />
@@ -59,23 +55,22 @@
                     <Condition Property="IsPressed" Value="False" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="rectangle" Property="Visibility" Value="Visible" />
+                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="RibbonComboboxControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonCombobox"
                      TargetType="{x:Type Fluent:ComboBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
                 <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
+                       TargetType="{x:Type ScrollBar}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                 <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
+                       TargetType="{x:Type ScrollViewer}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
@@ -101,22 +96,25 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="headerTextBlock"
-                               Margin="5 0 0 0"
-                               VerticalAlignment="Center"
-                               Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                               TextWrapping="Wrap" />
+
+                    <ContentControl x:Name="PART_HeaderContentHost"
+                                    Content="{TemplateBinding Header}"
+                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                    ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                    Focusable="False" />
                 </Grid>
             </StackPanel>
 
             <Border x:Name="PART_ContentBorder"
                     Grid.Column="1"
-                    Width="{TemplateBinding InputWidth}"
-                    Height="Auto"
+                    Width="{Binding Path=(Fluent:InputControlProperties.InputWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    Height="{Binding Path=(Fluent:InputControlProperties.InputHeight), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
+                    MinWidth="{Binding Path=(Fluent:InputControlProperties.InputMinWidth), RelativeSource={RelativeSource AncestorType=Fluent:ComboBox}}"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
-                    BorderThickness="1 1 1 1"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Border}"
+                    BorderThickness="1"
                     d:LayoutOverrides="GridBox">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -124,8 +122,10 @@
                         <ColumnDefinition Width="13" />
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
                                          Grid.ColumnSpan="2"
                                          Height="Auto"
+                                         MinHeight="0"
                                          Margin="0"
                                          VerticalAlignment="Stretch"
                                          BorderThickness="0"
@@ -133,8 +133,7 @@
                                          ClickMode="Press"
                                          Focusable="False"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                         IsDefinitive="False"
-                                         Style="{DynamicResource RibbonComboButtonStyle}" />
+                                         IsDefinitive="False" />
                     <ContentPresenter x:Name="PART_ContentSite"
                                       Margin="3 0 3 0"
                                       HorizontalAlignment="Left"
@@ -154,21 +153,22 @@
                            Stretch="None"
                            Visibility="Collapsed" />
                     <TextBox x:Name="PART_EditableTextBox"
+                             Style="{x:Null}"
                              HorizontalAlignment="Stretch"
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
                              BorderThickness="0"
-                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
+                             CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                              Focusable="True"
                              Foreground="{TemplateBinding Foreground}"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
-                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                             Style="{x:Null}"
+                             SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}"
                              TextWrapping="NoWrap"
                              Visibility="Hidden" />
                 </Grid>
             </Border>
+
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
                    Margin="0 0 -4 0"
@@ -182,119 +182,53 @@
                 <Popup.Resources>
                     <ResourceDictionary>
                         <Style x:Key="{x:Type ScrollBar}"
-                               BasedOn="{StaticResource ScrollBarWhite}"
-                               TargetType="{x:Type ScrollBar}" />
+                               TargetType="{x:Type ScrollBar}"
+                               BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
                     </ResourceDictionary>
                 </Popup.Resources>
-                <Border x:Name="PART_DropDownBorder"
-                        MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
-                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                        Margin="0"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                        BorderThickness="1"
-                        SnapsToDevicePixels="True">
-                    <Grid Width="Auto"
-                          Height="Auto"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Top"
-                          KeyboardNavigation.DirectionalNavigation="Cycle">
-                        <Grid Margin="1"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
+                                                 MinWidth="{TemplateBinding ActualWidth}"
+                                                 MinHeight="{TemplateBinding ActualHeight}"
+                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                                 IsEnabled="{TemplateBinding IsEnabled}"
+                                                 ResizeMode="{TemplateBinding ResizeMode}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <Grid x:Name="PART_MenuPanel"
-                                  Grid.Row="1"
-                                  VerticalAlignment="Top">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                        <ContentPresenter Grid.Row="0"
+                                          ContentSource="TopPopupContent" />
 
-                                <ContentPresenter Grid.Row="0"
-                                                  ContentSource="TopPopupContent" />
+                        <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Grid.Row="1"
+                                      Margin="1"
+                                      VerticalAlignment="Stretch"
+                                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                                      BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
+                                      BorderThickness="0 0 0 1"
+                                      Focusable="False"
+                                      KeyboardNavigation.DirectionalNavigation="None"
+                                      SnapsToDevicePixels="True">
+                            <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </ScrollViewer>
 
-                                <ScrollViewer x:Name="PART_ScrollViewer"
-                                              Grid.Row="1"
-                                              Margin="1"
-                                              VerticalAlignment="Stretch"
-                                              Background="{DynamicResource WhiteBrush}"
-                                              BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                              BorderThickness="0 0 0 1"
-                                              Focusable="False"
-                                              KeyboardNavigation.DirectionalNavigation="None"
-                                              SnapsToDevicePixels="True">
-                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
-                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                </ScrollViewer>
-
-                                <ContentPresenter x:Name="menuPresenter"
-                                                  Grid.Row="2"
-                                                  VerticalAlignment="Top"
-                                                  ContentSource="Menu"
-                                                  KeyboardNavigation.DirectionalNavigation="None" />
-                            </Grid>
-
-                            <ContentControl x:Name="downResizeContent"
-                                            Grid.Row="2">
-                                <Border x:Name="resizeBorder"
-                                        Height="11"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Top"
-                                        Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                        BorderThickness="0 1 0 0"
-                                        RenderTransformOrigin="0.5, 0.5">
-                                    <Grid>
-                                        <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Stretch"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNS"
-                                               Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                        <Thumb x:Name="PART_ResizeBothThumb"
-                                               Width="10"
-                                               Height="10"
-                                               Margin="0 0 0 -90"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Top"
-                                               Cursor="SizeNWSE"
-                                               Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                    </Grid>
-                                </Border>
-                            </ContentControl>
-                        </Grid>
+                        <ContentPresenter x:Name="menuPresenter"
+                                          Grid.Row="2"
+                                          VerticalAlignment="Top"
+                                          ContentSource="Menu"
+                                          KeyboardNavigation.DirectionalNavigation="Cycle" />
                     </Grid>
-                </Border>
+                </Fluent:ResizeableContentControl>
             </Popup>
         </Grid>
 
         <ControlTemplate.Triggers>
             <Trigger Property="Menu" Value="{x:Null}">
                 <Setter TargetName="PART_ScrollViewer" Property="BorderThickness" Value="0" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="None">
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Both">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Vertical">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
             </Trigger>
 
             <Trigger SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}">
@@ -307,33 +241,45 @@
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <Trigger Property="InputWidth" Value="NaN">
+            <Trigger Property="Fluent:InputControlProperties.InputWidth" Value="NaN">
                 <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
             </Trigger>
 
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
                 <Setter TargetName="PART_EditableTextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
             </Trigger>
 
-            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                    <Condition Property="IsEditable" Value="False" />
+                </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                 <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-            </Trigger>
-            <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="PART_DropDownBorder" Property="MinHeight" Value="95" />
-            </Trigger>
+            </MultiTrigger>
+
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsKeyboardFocusWithin" Value="True" />
+                    <Condition Property="IsEditable" Value="True" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Border}" />
+                <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Focus.Background}" />
+            </MultiTrigger>
+
             <Trigger Property="IsGrouping" Value="true">
                 <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
             </Trigger>
@@ -345,309 +291,28 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ComboBox.Simplified"
-                     TargetType="{x:Type Fluent:ComboBox}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource ScrollBarWhite}"
-                       TargetType="{x:Type ScrollBar}" />
-                <Style x:Key="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource ScrollViewerStyle}"
-                       TargetType="{x:Type ScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
-
-        <Border x:Name="border"
-                Padding="{TemplateBinding Padding}"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="1">
-            <Grid Width="Auto"
-                  Height="Auto"
-                  Background="Transparent">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel x:Name="headerAndIconPanel"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal">
-                    <Fluent:IconPresenter x:Name="iconImage"
-                                          Margin="0 0 4 0"
-                                          VerticalAlignment="Center"
-                                          IconSize="{Binding (Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="{Binding Path=(Fluent:RibbonGroupBoxWrapPanel.SharedSizeGroupName), RelativeSource={RelativeSource TemplatedParent}}" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="headerTextBlock"
-                                   Margin="0 0 4 0"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   TextWrapping="Wrap" />
-                    </Grid>
-                </StackPanel>
-
-                <Border x:Name="PART_ContentBorder"
-                        Grid.Column="1"
-                        Width="{TemplateBinding InputWidth}"
-                        Height="Auto"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.BorderBrush}"
-                        BorderThickness="1 1 1 1"
-                        d:LayoutOverrides="GridBox">
-                    <Grid VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="13" />
-                        </Grid.ColumnDefinitions>
-                        <Fluent:ToggleButton x:Name="PART_ToggleButton"
-                                             Grid.ColumnSpan="2"
-                                             Height="Auto"
-                                             MinHeight="0"
-                                             Margin="0"
-                                             VerticalAlignment="Stretch"
-                                             BorderThickness="0"
-                                             CanAddToQuickAccessToolBar="False"
-                                             ClickMode="Press"
-                                             Focusable="False"
-                                             IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                             IsDefinitive="False"
-                                             Style="{DynamicResource RibbonComboButtonStyle}" />
-                        <ContentPresenter x:Name="PART_ContentSite"
-                                          Margin="3 0 3 0"
-                                          HorizontalAlignment="Left"
-                                          VerticalAlignment="Center"
-                                          Content="{TemplateBinding SelectionBoxItem}"
-                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
-                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                          IsHitTestVisible="False" />
-                        <Image x:Name="PART_SelectedImage"
-                               Width="Auto"
-                               Height="Auto"
-                               Margin="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               IsHitTestVisible="False"
-                               Stretch="None"
-                               Visibility="Collapsed" />
-                        <TextBox x:Name="PART_EditableTextBox"
-                                 Padding="1"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalAlignment="Stretch"
-                                 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                 Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
-                                 BorderThickness="0"
-                                 CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.CaretBrush}"
-                                 Focusable="True"
-                                 Foreground="{TemplateBinding Foreground}"
-                                 IsReadOnly="{TemplateBinding IsReadOnly}"
-                                 SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.SelectionBrush}"
-                                 Style="{x:Null}"
-                                 TextWrapping="NoWrap"
-                                 Visibility="Hidden" />
-                    </Grid>
-                </Border>
-
-                <Popup x:Name="PART_Popup"
-                       Grid.ColumnSpan="2"
-                       Margin="0 0 -4 0"
-                       VerticalAlignment="Top"
-                       AllowsTransparency="True"
-                       Focusable="False"
-                       IsOpen="{TemplateBinding IsDropDownOpen}"
-                       Placement="Bottom"
-                       PlacementTarget="{Binding ElementName=PART_ContentBorder}"
-                       PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                    <Popup.Resources>
-                        <ResourceDictionary>
-                            <Style x:Key="{x:Type ScrollBar}"
-                                   BasedOn="{StaticResource ScrollBarWhite}"
-                                   TargetType="{x:Type ScrollBar}" />
-                        </ResourceDictionary>
-                    </Popup.Resources>
-                    <Border x:Name="PART_DropDownBorder"
-                            MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
-                            Margin="0"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
-                            BorderThickness="1"
-                            SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top"
-                              KeyboardNavigation.DirectionalNavigation="Cycle">
-                            <Grid Margin="1"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Top">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <ContentPresenter Grid.Row="0"
-                                                  ContentSource="TopPopupContent" />
-
-                                <Grid x:Name="PART_MenuPanel"
-                                      Grid.Row="1"
-                                      MaxHeight="{TemplateBinding MaxDropDownHeight}"
-                                      VerticalAlignment="Top">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <ScrollViewer x:Name="PART_ScrollViewer"
-                                                  Margin="1"
-                                                  VerticalAlignment="Stretch"
-                                                  Background="{DynamicResource WhiteBrush}"
-                                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.BorderBrush}"
-                                                  BorderThickness="0 0 0 1"
-                                                  Focusable="False"
-                                                  KeyboardNavigation.DirectionalNavigation="None"
-                                                  SnapsToDevicePixels="True">
-                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                    </ScrollViewer>
-
-                                    <ContentPresenter x:Name="menuPresenter"
-                                                      Grid.Row="1"
-                                                      VerticalAlignment="Top"
-                                                      ContentSource="Menu"
-                                                      KeyboardNavigation.DirectionalNavigation="None" />
-                                </Grid>
-
-                                <ContentControl x:Name="downResizeContent"
-                                                Grid.Row="2">
-                                    <Border x:Name="resizeBorder"
-                                            Height="11"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Top"
-                                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
-                                            BorderThickness="0 1 0 0"
-                                            RenderTransformOrigin="0.5, 0.5">
-                                        <Grid>
-                                            <Thumb x:Name="PART_ResizeVerticalThumb"
-                                                   Width="Auto"
-                                                   Height="10"
-                                                   Margin="0 0 0 -90"
-                                                   HorizontalAlignment="Stretch"
-                                                   VerticalAlignment="Top"
-                                                   Cursor="SizeNS"
-                                                   Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
-                                            <Thumb x:Name="PART_ResizeBothThumb"
-                                                   Width="10"
-                                                   Height="10"
-                                                   Margin="0 0 0 -90"
-                                                   HorizontalAlignment="Right"
-                                                   VerticalAlignment="Top"
-                                                   Cursor="SizeNWSE"
-                                                   Template="{DynamicResource ResizeBothThumbControlTemplate}" />
-                                        </Grid>
-                                    </Border>
-                                </ContentControl>
-                            </Grid>
-                        </Grid>
-                    </Border>
-                </Popup>
-            </Grid>
-        </Border>
-
-        <ControlTemplate.Triggers>
-            <Trigger Property="Menu" Value="{x:Null}">
-                <Setter TargetName="PART_ScrollViewer" Property="BorderThickness" Value="0" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="None">
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Both">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="ResizeMode" Value="Vertical">
-                <Setter TargetName="PART_ResizeBothThumb" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="PART_ResizeVerticalThumb" Property="Visibility" Value="Visible" />
-                <Setter TargetName="resizeBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-
-            <Trigger SourceName="iconImage" Property="OptimalIcon" Value="{x:Null}">
-                <Setter TargetName="iconImage" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-
-            <Trigger Property="Size" Value="Small">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="border" Property="Padding" Value="4 0" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="iconImage" Property="Margin" Value="0 0 2 0" />
-            </Trigger>
-            <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-                <Setter TargetName="headerTextBlock" Property="Visibility" Value="Collapsed" />
-            </Trigger>
-            <Trigger Property="InputWidth" Value="NaN">
-                <Setter TargetName="PART_ContentBorder" Property="HorizontalAlignment" Value="Stretch" />
-            </Trigger>
-
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.BorderBrush}" />
-                <Setter TargetName="PART_EditableTextBox" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Disabled.Background}" />
-                <Setter TargetName="PART_EditableTextBox" Property="IsEnabled" Value="False" />
-                <Setter TargetName="headerTextBlock" Property="Opacity" Value="0.5" />
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-                <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-            </Trigger>
-
-            <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                <Setter TargetName="PART_ContentBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                <Setter TargetName="PART_ContentBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
-                <Setter TargetName="PART_EditableTextBox" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.MouseOver.Background}" />
-            </Trigger>
-            <Trigger Property="HasItems" Value="false">
-                <Setter TargetName="PART_DropDownBorder" Property="MinHeight" Value="95" />
-            </Trigger>
-            <Trigger Property="IsGrouping" Value="true">
-                <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-            </Trigger>
-            <Trigger Property="IsEditable" Value="true">
-                <Setter Property="IsTabStop" Value="false" />
-                <Setter TargetName="PART_ContentSite" Property="Visibility" Value="Hidden" />
-                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
-            </Trigger>
-        </ControlTemplate.Triggers>
-    </ControlTemplate>
+    <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.ComboBox.Header">
+        <TextBlock Margin="5 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="{Binding}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
 
     <Style TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
+        <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.ComboBox.Header}" />
         <Setter Property="Height" Value="22" />
         <Setter Property="IsEditable" Value="True" />
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template" Value="{DynamicResource RibbonComboboxControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCombobox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">
-                <Setter Property="ItemContainerStyle" Value="{DynamicResource ComboBoxItemStyle}" />
+                <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ComboBoxItem}" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
@@ -655,8 +320,8 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 0" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBox.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

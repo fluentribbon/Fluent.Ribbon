@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Finnish : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automaattinen";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "T";
         public override string BackstageButtonText { get; } = "Tiedosto";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

@@ -4,7 +4,7 @@
                     xmlns:converters="clr-namespace:Fluent.Converters">
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.Button"
            TargetType="{x:Type Fluent:Button}">
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -14,7 +14,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.ToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -24,7 +24,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Backstage.DropDownButton"
            TargetType="{x:Type Fluent:DropDownButton}">
-        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush6}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Height" Value="81" />
         <Setter Property="Padding" Value="0 9 0 0" />
@@ -41,9 +41,9 @@
     </Style>
 
     <!-- Inner Backstage TabControl Style -->
-    <Style x:Key="InnerBackstageSeparatorTabItemStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem"
            TargetType="{x:Type Fluent:SeparatorTabItem}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Fluent:SeparatorTabItem}">
@@ -60,9 +60,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="InnerBackstageTabControlItem"
+    <Style x:Key="Fluent.Ribbon.Styles.InnerBackstageTabControlItem"
            TargetType="{x:Type TabItem}">
-        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
@@ -80,7 +80,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="Selector.IsSelected" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Border}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -88,7 +88,7 @@
                                 <Condition Property="Selector.IsSelected" Value="False" />
                             </MultiTrigger.Conditions>
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.BorderBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -96,16 +96,16 @@
         </Setter>
     </Style>
 
-    <Style x:Key="InnerBackstageTabControlStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.InnerBackstageTabControl"
            TargetType="{x:Type TabControl}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
                     <ControlTemplate.Resources>
-                        <Style BasedOn="{StaticResource InnerBackstageSeparatorTabItemStyle}"
-                               TargetType="{x:Type Fluent:SeparatorTabItem}" />
-                        <Style BasedOn="{StaticResource InnerBackstageTabControlItem}"
-                               TargetType="{x:Type TabItem}" />
+                        <Style TargetType="{x:Type Fluent:SeparatorTabItem}"
+                               BasedOn="{StaticResource Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem}" />
+                        <Style TargetType="{x:Type TabItem}"
+                               BasedOn="{StaticResource Fluent.Ribbon.Styles.InnerBackstageTabControlItem}" />
                     </ControlTemplate.Resources>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -115,7 +115,7 @@
                         <Border Margin="0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
-                                BorderBrush="{DynamicResource GrayBrush7}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Gray7}"
                                 BorderThickness="0 0 1 0" />
                         <StackPanel Grid.Column="0"
                                     Margin="0"

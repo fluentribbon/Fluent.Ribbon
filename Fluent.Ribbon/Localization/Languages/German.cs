@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class German : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automatisch";
+        public override string BackstageBackButtonUid { get; } = "Backstage schließen";
         public override string BackstageButtonKeyTip { get; } = "D";
         public override string BackstageButtonText { get; } = "Datei";
         public override string CustomizeStatusBar { get; } = "Statusleiste anpassen";

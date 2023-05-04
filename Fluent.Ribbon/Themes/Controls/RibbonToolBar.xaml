@@ -4,13 +4,13 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="RibbonToolBarStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.RibbonToolBar"
            TargetType="{x:Type Fluent:RibbonToolBar}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="SeparatorStyle">
             <Setter.Value>
-                <Style BasedOn="{StaticResource RibbonSeparatorStyle}"
-                       TargetType="{x:Type Separator}">
+                <Style TargetType="{x:Type Separator}"
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonSeparator}">
                     <Setter Property="Margin" Value="4" />
                 </Style>
             </Setter.Value>

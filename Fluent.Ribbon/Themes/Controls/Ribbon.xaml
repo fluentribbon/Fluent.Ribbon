@@ -4,11 +4,11 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="RibbonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.Ribbon"
                      TargetType="{x:Type Fluent:Ribbon}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
         </ControlTemplate.Resources>
 
         <Border Background="{TemplateBinding Background}"
@@ -26,7 +26,9 @@
                                          AreTabHeadersVisible="{TemplateBinding AreTabHeadersVisible}"
                                          ContentHeight="{TemplateBinding ContentHeight}"
                                          ContextMenu="{Binding ContextMenu, ElementName=PART_LayoutRoot}"
+                                         IsDisplayOptionsButtonVisible="{TemplateBinding IsDisplayOptionsButtonVisible}"
                                          IsMouseWheelScrollingEnabled="{TemplateBinding IsMouseWheelScrollingEnabled}"
+                                         IsMouseWheelScrollingEnabledEverywhere="{TemplateBinding IsMouseWheelScrollingEnabledEverywhere}"
                                          IsToolBarVisible="{TemplateBinding IsToolBarVisible}"
                                          Menu="{TemplateBinding Menu}" />
 
@@ -65,15 +67,15 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="RibbonStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.Ribbon"
            TargetType="{x:Type Fluent:Ribbon}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}" />
         <Setter Property="Fluent:FrameworkHelper.UseLayoutRounding" Value="True" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource ControlStyleEmptyFocus}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="QuickAccessToolBarHeight" Value="{Binding TitleBar.ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue=23}" />
-        <Setter Property="Template" Value="{DynamicResource RibbonControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Ribbon}" />
         <Setter Property="TitleBar" Value="{Binding TitleBar, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}, FallbackValue={x:Null}}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>

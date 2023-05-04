@@ -1,26 +1,25 @@
-﻿namespace Fluent.Internal
+﻿namespace Fluent.Internal;
+
+using System;
+
+internal static class TypeHelper
 {
-    using System;
-
-    internal static class TypeHelper
+    public static bool InheritsFrom(this Type type, string typeName)
     {
-        public static bool InheritsFrom(this Type type, string typeName)
+        var currentType = type;
+
+        do
         {
-            var currentType = type;
-
-            do
+            if (currentType.Name == typeName)
             {
-                if (currentType.Name == typeName)
-                {
-                    return true;
-                }
-
-                currentType = currentType.BaseType;
+                return true;
             }
-            while (currentType is not null
-                     && currentType != typeof(object));
 
-            return false;
+            currentType = currentType.BaseType;
         }
+        while (currentType is not null
+               && currentType != typeof(object));
+
+        return false;
     }
 }

@@ -1,308 +1,312 @@
-﻿namespace Fluent.Tests.Controls
+﻿namespace Fluent.Tests.Controls;
+
+using System.Collections;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Media;
+using Fluent.Tests.Helper;
+using Fluent.Tests.TestClasses;
+using NUnit.Framework;
+using ComboBox = Fluent.ComboBox;
+using TextBox = Fluent.TextBox;
+
+[TestFixture]
+public class RibbonGroupBoxWrapPanelTests
 {
-    using System.Collections;
-    using System.Linq;
-    using System.Windows.Controls;
-    using Fluent.Tests.Helper;
-    using Fluent.Tests.TestClasses;
-    using NUnit.Framework;
-    using ComboBox = Fluent.ComboBox;
-    using TextBox = Fluent.TextBox;
-
-    [TestFixture]
-    public class RibbonGroupBoxWrapPanelTests
+    private static RibbonGroupBox CreateRibbonGroupBox(bool isSharedSizeScope)
     {
-        private static RibbonGroupBox CreateRibbonGroupBox(bool isSharedSizeScope)
+        var ribbonGroupBox = new RibbonGroupBox
         {
-            var ribbonGroupBox = new RibbonGroupBox
-                                 {
-                                     Header = "Test-Header",
-                                     Height = 94
-                                 };
-            Grid.SetIsSharedSizeScope(ribbonGroupBox, isSharedSizeScope);
+            Header = "Test-Header",
+            Height = 94
+        };
+        Grid.SetIsSharedSizeScope(ribbonGroupBox, isSharedSizeScope);
 
-            AddControls(ribbonGroupBox.Items);
+        AddControls(ribbonGroupBox.Items);
 
-            return ribbonGroupBox;
-        }
+        return ribbonGroupBox;
+    }
 
-        private static void AddControls(IList items)
+    private static void AddControls(IList items)
+    {
+        items.Add(new TextBox
         {
-            items.Add(new TextBox
-                      {
-                          Header = "First Column (1)"
-                      });
+            Header = "First Column (1)"
+        });
 
-            items.Add(new ComboBox
-                      {
-                          Header = "First Column (2)"
-                      });
-
-            items.Add(new Spinner
-                      {
-                          Header = "First Column Long"
-                      });
-
-            items.Add(new ComboBox
-                      {
-                          Header = "Second Column (1)"
-                      });
-
-            items.Add(new ComboBox
-                      {
-                          Header = "Second Column (2) Long Long"
-                      });
-
-            items.Add(new Spinner
-                      {
-                          Header = "Second Column"
-                      });
-        }
-
-        private static TextBlock GetHeaderTextBlock(Control control)
+        items.Add(new ComboBox
         {
-            return (TextBlock)control.Template.FindName("headerTextBlock", control);
-        }
+            Header = "First Column (2)"
+        });
 
-        [Test]
-        public void SharedSizeGroupName_Should_Be_Possible_To_Opt_Out()
+        items.Add(new Spinner
         {
-            var ribbonGroupBox = CreateRibbonGroupBox(true);
+            Header = "First Column Long"
+        });
 
-            using (new TestRibbonWindow(ribbonGroupBox))
+        items.Add(new ComboBox
+        {
+            Header = "Second Column (1)"
+        });
+
+        items.Add(new ComboBox
+        {
+            Header = "Second Column (2) Long Long"
+        });
+
+        items.Add(new Spinner
+        {
+            Header = "Second Column"
+        });
+    }
+
+    private static TextBlock GetHeaderTextBlock(Control control)
+    {
+        var headerContentHost = (Control)control.Template.FindName("PART_HeaderContentHost", control);
+
+        var headerContentPresenter = VisualTreeHelper.GetChild(headerContentHost, 0);
+
+        return (TextBlock)VisualTreeHelper.GetChild(headerContentPresenter, 0);
+    }
+
+    [Test]
+    public void SharedSizeGroupName_Should_Be_Possible_To_Opt_Out()
+    {
+        var ribbonGroupBox = CreateRibbonGroupBox(true);
+
+        using (new TestRibbonWindow(ribbonGroupBox))
+        {
+            var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
+
+            RibbonGroupBoxWrapPanel.SetExcludeFromSharedSize(controls[1], true);
+            RibbonGroupBoxWrapPanel.SetExcludeFromSharedSize(controls[5], true);
+
+            UIHelper.DoEvents();
+
+            // First column
             {
-                var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
+                var columnControls = controls.Take(3).ToList();
 
-                RibbonGroupBoxWrapPanel.SetExcludeFromSharedSize(controls[1], true);
-                RibbonGroupBoxWrapPanel.SetExcludeFromSharedSize(controls[5], true);
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
 
-                UIHelper.DoEvents();
-
-                // First column
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Take(3).ToList();
+                    "SharedSizeGroup_Column_1",
+                    null,
+                    "SharedSizeGroup_Column_1"
+                }));
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
-                                                                                    {
-                                                                                        "SharedSizeGroup_Column_1",
-                                                                                        null,
-                                                                                        "SharedSizeGroup_Column_1"
-                                                                                    }));
-
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
-
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                96,
-                                                                                84,
-                                                                                96
-                                                                            }));
-                }
-
-                // Second column
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Skip(3).Take(3).ToList();
+                    96,
+                    84,
+                    96
+                }));
+            }
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+            // Second column
+            {
+                var columnControls = controls.Skip(3).Take(3).ToList();
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
-                                                                                    {
-                                                                                        "SharedSizeGroup_Column_2",
-                                                                                        "SharedSizeGroup_Column_2",
-                                                                                        null
-                                                                                    }));
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
 
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
+                {
+                    "SharedSizeGroup_Column_2",
+                    "SharedSizeGroup_Column_2",
+                    null
+                }));
 
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                160,
-                                                                                160,
-                                                                                84
-                                                                            }));
-                }
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
+                {
+                    160,
+                    160,
+                    84
+                }));
             }
         }
+    }
 
-        [Test]
-        public void SharedSizeGroupName_Should_Be_Set_If_RibbonGroupBox_Is_SharedSizeScope()
+    [Test]
+    public void SharedSizeGroupName_Should_Be_Set_If_RibbonGroupBox_Is_SharedSizeScope()
+    {
+        var ribbonGroupBox = CreateRibbonGroupBox(true);
+
+        using (new TestRibbonWindow(ribbonGroupBox))
         {
-            var ribbonGroupBox = CreateRibbonGroupBox(true);
+            var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
 
-            using (new TestRibbonWindow(ribbonGroupBox))
+            // First column
             {
-                var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
+                var columnControls = controls.Take(3).ToList();
 
-                // First column
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Take(3).ToList();
+                    "SharedSizeGroup_Column_1",
+                    "SharedSizeGroup_Column_1",
+                    "SharedSizeGroup_Column_1"
+                }));
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
-                                                                                    {
-                                                                                        "SharedSizeGroup_Column_1",
-                                                                                        "SharedSizeGroup_Column_1",
-                                                                                        "SharedSizeGroup_Column_1"
-                                                                                    }));
-
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
-
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                96,
-                                                                                96,
-                                                                                96
-                                                                            }));
-                }
-
-                // Second column
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Skip(3).Take(3).ToList();
+                    96,
+                    96,
+                    96
+                }));
+            }
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+            // Second column
+            {
+                var columnControls = controls.Skip(3).Take(3).ToList();
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
-                                                                                    {
-                                                                                        "SharedSizeGroup_Column_2",
-                                                                                        "SharedSizeGroup_Column_2",
-                                                                                        "SharedSizeGroup_Column_2"
-                                                                                    }));
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
 
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new[]
+                {
+                    "SharedSizeGroup_Column_2",
+                    "SharedSizeGroup_Column_2",
+                    "SharedSizeGroup_Column_2"
+                }));
 
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                160,
-                                                                                160,
-                                                                                160
-                                                                            }));
-                }
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
+                {
+                    160,
+                    160,
+                    160
+                }));
             }
         }
+    }
 
-        [Test]
-        public void SharedSizeGroupName_Should_Not_Be_Set_If_RibbonGroupBox_Is_Not_SharedSizeScope()
+    [Test]
+    public void SharedSizeGroupName_Should_Not_Be_Set_If_RibbonGroupBox_Is_Not_SharedSizeScope()
+    {
+        var ribbonGroupBox = CreateRibbonGroupBox(false);
+
+        using (new TestRibbonWindow(ribbonGroupBox))
         {
-            var ribbonGroupBox = CreateRibbonGroupBox(false);
+            var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
 
-            using (new TestRibbonWindow(ribbonGroupBox))
+            // First column
             {
-                var controls = ribbonGroupBox.Items.Cast<Control>().ToList();
+                var columnControls = controls.Take(3).ToList();
 
-                // First column
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
                 {
-                    var columnControls = controls.Take(3).ToList();
+                    null,
+                    null,
+                    null
+                }));
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
-                                                                                    {
-                                                                                        null,
-                                                                                        null,
-                                                                                        null
-                                                                                    }));
-
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
-
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                84,
-                                                                                84,
-                                                                                96
-                                                                            }));
-                }
-
-                // Second column
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Skip(3).Take(3).ToList();
+                    84,
+                    84,
+                    96
+                }));
+            }
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+            // Second column
+            {
+                var columnControls = controls.Skip(3).Take(3).ToList();
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
-                                                                                    {
-                                                                                        null,
-                                                                                        null,
-                                                                                        null
-                                                                                    }));
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
 
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
+                {
+                    null,
+                    null,
+                    null
+                }));
 
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                101,
-                                                                                160,
-                                                                                84
-                                                                            }));
-                }
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
+                {
+                    101,
+                    160,
+                    84
+                }));
             }
         }
+    }
 
-        /// <summary>
-        ///     Test for not working because we have to test for <see cref="Grid.IsSharedSizeScopeProperty" /> on parent
-        ///     <see cref="RibbonGroupBox" />.
-        /// </summary>
-        [Test]
-        public void SharedSizeGroupName_Should_Not_Work_Without_RibbonGroupBox()
+    /// <summary>
+    ///     Test for not working because we have to test for <see cref="Grid.IsSharedSizeScopeProperty" /> on parent
+    ///     <see cref="RibbonGroupBox" />.
+    /// </summary>
+    [Test]
+    public void SharedSizeGroupName_Should_Not_Work_Without_RibbonGroupBox()
+    {
+        var ribbonGroupBoxWrapPanel = new RibbonGroupBoxWrapPanel
         {
-            var ribbonGroupBoxWrapPanel = new RibbonGroupBoxWrapPanel
-                                          {
-                                              Height = 94
-                                          };
+            Height = 94
+        };
 
-            AddControls(ribbonGroupBoxWrapPanel.Children);
+        AddControls(ribbonGroupBoxWrapPanel.Children);
 
-            using (new TestRibbonWindow(ribbonGroupBoxWrapPanel))
+        using (new TestRibbonWindow(ribbonGroupBoxWrapPanel))
+        {
+            var controls = ribbonGroupBoxWrapPanel.Children.Cast<Control>().ToList();
+
+            // First column
             {
-                var controls = ribbonGroupBoxWrapPanel.Children.Cast<Control>().ToList();
+                var columnControls = controls.Take(3).ToList();
 
-                // First column
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
                 {
-                    var columnControls = controls.Take(3).ToList();
+                    null,
+                    null,
+                    null
+                }));
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
-                                                                                    {
-                                                                                        null,
-                                                                                        null,
-                                                                                        null
-                                                                                    }));
-
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
-
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                84,
-                                                                                84,
-                                                                                96
-                                                                            }));
-                }
-
-                // Second column
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
                 {
-                    var columnControls = controls.Skip(3).Take(3).ToList();
+                    84,
+                    84,
+                    96
+                }));
+            }
 
-                    var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
+            // Second column
+            {
+                var columnControls = controls.Skip(3).Take(3).ToList();
 
-                    Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
-                                                                                    {
-                                                                                        null,
-                                                                                        null,
-                                                                                        null
-                                                                                    }));
+                var columnControlsSharedSizeGroupNames = columnControls.Select(RibbonGroupBoxWrapPanel.GetSharedSizeGroupName);
 
-                    var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+                Assert.That(columnControlsSharedSizeGroupNames, Is.EquivalentTo(new string[]
+                {
+                    null,
+                    null,
+                    null
+                }));
 
-                    Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
-                                                                            {
-                                                                                101,
-                                                                                160,
-                                                                                84
-                                                                            }));
-                }
+                var columnControlsHeaderWidths = columnControls.Select(x => (int)GetHeaderTextBlock(x).ActualWidth);
+
+                Assert.That(columnControlsHeaderWidths, Is.EquivalentTo(new[]
+                {
+                    101,
+                    160,
+                    84
+                }));
             }
         }
     }

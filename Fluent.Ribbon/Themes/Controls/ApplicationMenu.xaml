@@ -7,13 +7,14 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="ApplicationMenuButtonControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ApplicationMenuButton"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
         <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
                             Width="{Binding ActualWidth, ElementName=PART_ButtonBorder}"
                             Height="{Binding ActualHeight, ElementName=PART_ButtonBorder}"
-                            Margin="0">
+                            Margin="0"
+                            Focusable="False">
                 <Border x:Name="PART_ButtonBorder"
                         Height="23"
                         MinWidth="60"
@@ -22,7 +23,8 @@
                                     Margin="10 0 10 0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Content="{TemplateBinding Header}" />
+                                    Content="{TemplateBinding Header}"
+                                    Focusable="False" />
                 </Border>
             </ContentControl>
             <Popup x:Name="PART_Popup"
@@ -45,8 +47,8 @@
                             MinWidth="{TemplateBinding ActualWidth}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
                         <Grid Width="Auto"
@@ -66,12 +68,12 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <ScrollViewer Grid.Row="0"
+                                <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
+                                              Grid.Row="0"
                                               Grid.Column="0"
                                               IsTabStop="False"
-                                              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              Style="{DynamicResource MenuScrollViewer}">
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                              ScrollViewer.VerticalScrollBarVisibility="Auto">
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle"
                                                 Orientation="Vertical"
@@ -81,15 +83,15 @@
                                 <Border Grid.Row="0"
                                         Grid.Column="1"
                                         Width="{TemplateBinding RightPaneWidth}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                         BorderThickness="1 0 0 0">
                                     <ScrollViewer x:Name="PART_ScrollViewer"
+                                                  Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                                   Margin="1"
                                                   IsTabStop="False"
-                                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                  SnapsToDevicePixels="True"
-                                                  Style="{DynamicResource MenuScrollViewer}">
+                                                  SnapsToDevicePixels="True">
                                         <ContentPresenter x:Name="PART_RightContentPresenter"
                                                           ContentSource="RightPaneContent" />
                                     </ScrollViewer>
@@ -98,7 +100,7 @@
                                         Grid.ColumnSpan="2"
                                         Margin="0"
                                         Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
-                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.BorderBrush}"
+                                        BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                         BorderThickness="0 1 0 0">
                                     <ContentPresenter ContentSource="FooterPaneContent" />
                                 </Border>
@@ -122,10 +124,12 @@
     </ControlTemplate>
 
     <Style TargetType="{x:Type Fluent:ApplicationMenu}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBaseColorBrush}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForegroundColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
-        <Setter Property="Template" Value="{DynamicResource ApplicationMenuButtonControlTemplate}" />
+        <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
     </Style>
 </ResourceDictionary>

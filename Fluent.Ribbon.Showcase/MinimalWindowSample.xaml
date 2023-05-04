@@ -14,8 +14,8 @@
                      WindowState="Normal"
                      mc:Ignorable="d">
     <fluent:RibbonWindow.Resources>
-        <Style BasedOn="{StaticResource {x:Type fluent:QuickAccessToolBar}}"
-               TargetType="{x:Type fluent:QuickAccessToolBar}">
+        <Style TargetType="{x:Type fluent:QuickAccessToolBar}"
+               BasedOn="{StaticResource {x:Type fluent:QuickAccessToolBar}}">
             <Setter Property="MinWidth" Value="35" />
         </Style>
     </fluent:RibbonWindow.Resources>
@@ -29,16 +29,16 @@
 
         <fluent:Ribbon.ContextualGroups>
             <fluent:RibbonContextualTabGroup x:Name="contextGroup1"
+                                             Header="Generic context"
                                              Background="Magenta"
                                              BorderBrush="Magenta"
                                              Foreground="Purple"
-                                             Header="Generic context"
                                              Visibility="Visible" />
         </fluent:Ribbon.ContextualGroups>
 
         <!-- todo: netcore => was using x:Reference before -->
-        <fluent:RibbonTabItem Group="{Binding ElementName=contextGroup1}"
-                              Header="Generic tab header">
+        <fluent:RibbonTabItem Header="Generic tab header"
+                              Group="{Binding ElementName=contextGroup1}">
             <fluent:RibbonGroupBox Header="First group">
                 <fluent:Button x:Name="button"
                                Header="button"

@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Norwegian_Nynorsk : RibbonLocalizationBase
     {
         public override string Automatic { get; } = FallbackLocalization.Automatic /* Automatic */;
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fil";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

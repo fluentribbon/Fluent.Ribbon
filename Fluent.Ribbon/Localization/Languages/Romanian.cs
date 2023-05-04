@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Romanian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Automată";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "Fișier";
         public override string CustomizeStatusBar { get; } = FallbackLocalization.CustomizeStatusBar /* Customize Status Bar */;

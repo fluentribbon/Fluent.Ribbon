@@ -6,6 +6,7 @@ namespace Fluent.Localization.Languages
     public class Greek : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Αυτόματα";
+        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
         public override string BackstageButtonKeyTip { get; } = "Α";
         public override string BackstageButtonText { get; } = "Αρχείο";
         public override string CustomizeStatusBar { get; } = "Προσαρμογή Γραμμής κατάστασης";

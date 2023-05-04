@@ -1,197 +1,196 @@
 #nullable enable
 // ReSharper disable once CheckNamespace
-namespace Fluent
+namespace Fluent;
+
+using System.Windows;
+using System.Windows.Controls;
+using Fluent.Internal.KnownBoxes;
+
+/// <summary>
+/// Represents KeyTip control
+/// </summary>
+public class KeyTip : Label
 {
-    using System.Windows;
-    using System.Windows.Controls;
-    using Fluent.Internal.KnownBoxes;
+    #region Keys Attached Property
 
     /// <summary>
-    /// Represents KeyTip control
+    /// Using a DependencyProperty as the backing store for Keys.
+    /// This enables animation, styling, binding, etc...
     /// </summary>
-    public class KeyTip : Label
+    public static readonly DependencyProperty KeysProperty =
+        DependencyProperty.RegisterAttached("Keys", typeof(string), typeof(KeyTip), new PropertyMetadata(OnKeysChanged));
+
+    private static void OnKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        #region Keys Attached Property
+    }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Keys.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty KeysProperty =
-            DependencyProperty.RegisterAttached("Keys", typeof(string), typeof(KeyTip), new PropertyMetadata(OnKeysChanged));
+    /// <summary>
+    /// Sets value of attached property Keys for the given element
+    /// </summary>
+    /// <param name="element">The given element</param>
+    /// <param name="value">Value</param>
+    public static void SetKeys(DependencyObject element, string? value)
+    {
+        element.SetValue(KeysProperty, value);
+    }
 
-        private static void OnKeysChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-        }
+    /// <summary>
+    /// Gets value of the attached property Keys of the given element
+    /// </summary>
+    /// <param name="element">The given element</param>
+    [System.ComponentModel.DisplayName("Keys")]
+    [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+    [System.ComponentModel.Category("KeyTips")]
+    [System.ComponentModel.Description("Key sequence for the given element")]
+    public static string? GetKeys(DependencyObject element)
+    {
+        return (string?)element.GetValue(KeysProperty);
+    }
 
-        /// <summary>
-        /// Sets value of attached property Keys for the given element
-        /// </summary>
-        /// <param name="element">The given element</param>
-        /// <param name="value">Value</param>
-        public static void SetKeys(DependencyObject element, string? value)
-        {
-            element.SetValue(KeysProperty, value);
-        }
+    #endregion
 
-        /// <summary>
-        /// Gets value of the attached property Keys of the given element
-        /// </summary>
-        /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("Keys")]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        [System.ComponentModel.Category("KeyTips")]
-        [System.ComponentModel.Description("Key sequence for the given element")]
-        public static string? GetKeys(DependencyObject element)
-        {
-            return (string?)element.GetValue(KeysProperty);
-        }
+    #region AutoPlacement Attached Property
 
-        #endregion
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for AutoPlacement.
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static readonly DependencyProperty AutoPlacementProperty =
+        DependencyProperty.RegisterAttached("AutoPlacement", typeof(bool), typeof(KeyTip), new PropertyMetadata(BooleanBoxes.TrueBox));
 
-        #region AutoPlacement Attached Property
+    /// <summary>
+    /// Sets whether key tip placement is auto
+    /// or defined by alignment and margin properties
+    /// </summary>
+    /// <param name="element">The given element</param>
+    /// <param name="value">Value</param>
+    public static void SetAutoPlacement(DependencyObject element, bool value)
+    {
+        element.SetValue(AutoPlacementProperty, BooleanBoxes.Box(value));
+    }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for AutoPlacement.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static readonly DependencyProperty AutoPlacementProperty =
-            DependencyProperty.RegisterAttached("AutoPlacement", typeof(bool), typeof(KeyTip), new PropertyMetadata(BooleanBoxes.TrueBox));
+    /// <summary>
+    /// Gets whether key tip placement is auto
+    /// or defined by alignment and margin properties
+    /// </summary>
+    /// <param name="element">The given element</param>
+    [System.ComponentModel.DisplayName("AutoPlacement")]
+    [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+    [System.ComponentModel.Category("KeyTips")]
+    [System.ComponentModel.Description("Whether key tip placement is auto or defined by alignment and margin properties")]
+    public static bool GetAutoPlacement(DependencyObject element)
+    {
+        return (bool)element.GetValue(AutoPlacementProperty);
+    }
 
-        /// <summary>
-        /// Sets whether key tip placement is auto
-        /// or defined by alignment and margin properties
-        /// </summary>
-        /// <param name="element">The given element</param>
-        /// <param name="value">Value</param>
-        public static void SetAutoPlacement(DependencyObject element, bool value)
-        {
-            element.SetValue(AutoPlacementProperty, BooleanBoxes.Box(value));
-        }
+    #endregion
 
-        /// <summary>
-        /// Gets whether key tip placement is auto
-        /// or defined by alignment and margin properties
-        /// </summary>
-        /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("AutoPlacement")]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        [System.ComponentModel.Category("KeyTips")]
-        [System.ComponentModel.Description("Whether key tip placement is auto or defined by alignment and margin properties")]
-        public static bool GetAutoPlacement(DependencyObject element)
-        {
-            return (bool)element.GetValue(AutoPlacementProperty);
-        }
+    #region HorizontalAlignment Attached Property
 
-        #endregion
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for HorizontalAlignment.
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static new readonly DependencyProperty HorizontalAlignmentProperty =
+        DependencyProperty.RegisterAttached(nameof(HorizontalAlignment), typeof(HorizontalAlignment), typeof(KeyTip), new PropertyMetadata(HorizontalAlignment.Center));
 
-        #region HorizontalAlignment Attached Property
+    /// <summary>
+    /// Sets Horizontal Alignment of the key tip
+    /// </summary>
+    /// <param name="element">The given element</param>
+    /// <param name="value">Value</param>
+    public static void SetHorizontalAlignment(DependencyObject element, HorizontalAlignment value)
+    {
+        element.SetValue(HorizontalAlignmentProperty, value);
+    }
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for HorizontalAlignment.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static new readonly DependencyProperty HorizontalAlignmentProperty =
-            DependencyProperty.RegisterAttached(nameof(HorizontalAlignment), typeof(HorizontalAlignment), typeof(KeyTip), new PropertyMetadata(HorizontalAlignment.Center));
+    /// <summary>
+    /// Gets Horizontal alignment of the key tip
+    /// </summary>
+    /// <param name="element">The given element</param>
+    [System.ComponentModel.DisplayName("HorizontalAlignment")]
+    [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+    [System.ComponentModel.Category("KeyTips")]
+    [System.ComponentModel.Description("Horizontal alignment of the key tip")]
+    public static HorizontalAlignment GetHorizontalAlignment(DependencyObject element)
+    {
+        return (HorizontalAlignment)element.GetValue(HorizontalAlignmentProperty);
+    }
 
-        /// <summary>
-        /// Sets Horizontal Alignment of the key tip
-        /// </summary>
-        /// <param name="element">The given element</param>
-        /// <param name="value">Value</param>
-        public static void SetHorizontalAlignment(DependencyObject element, HorizontalAlignment value)
-        {
-            element.SetValue(HorizontalAlignmentProperty, value);
-        }
+    #endregion
 
-        /// <summary>
-        /// Gets Horizontal alignment of the key tip
-        /// </summary>
-        /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("HorizontalAlignment")]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        [System.ComponentModel.Category("KeyTips")]
-        [System.ComponentModel.Description("Horizontal alignment of the key tip")]
-        public static HorizontalAlignment GetHorizontalAlignment(DependencyObject element)
-        {
-            return (HorizontalAlignment)element.GetValue(HorizontalAlignmentProperty);
-        }
+    #region VerticalAlignment Attached Property
 
-        #endregion
+    /// <summary>
+    /// Gets vertical alignment of the key tip
+    /// </summary>
+    /// <param name="element">The given element</param>
+    [System.ComponentModel.DisplayName("VerticalAlignment")]
+    [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+    [System.ComponentModel.Category("KeyTips")]
+    [System.ComponentModel.Description("Vertical alignment of the key tip")]
+    public static VerticalAlignment GetVerticalAlignment(DependencyObject element)
+    {
+        return (VerticalAlignment)element.GetValue(VerticalAlignmentProperty);
+    }
 
-        #region VerticalAlignment Attached Property
+    /// <summary>
+    /// Sets vertical alignment of the key tip
+    /// </summary>
+    /// <param name="obj">The given element</param>
+    /// <param name="value">Value</param>
+    public static void SetVerticalAlignment(DependencyObject obj, VerticalAlignment value)
+    {
+        obj.SetValue(VerticalAlignmentProperty, value);
+    }
 
-        /// <summary>
-        /// Gets vertical alignment of the key tip
-        /// </summary>
-        /// <param name="element">The given element</param>
-        [System.ComponentModel.DisplayName("VerticalAlignment")]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        [System.ComponentModel.Category("KeyTips")]
-        [System.ComponentModel.Description("Vertical alignment of the key tip")]
-        public static VerticalAlignment GetVerticalAlignment(DependencyObject element)
-        {
-            return (VerticalAlignment)element.GetValue(VerticalAlignmentProperty);
-        }
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for VerticalAlignment.
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static new readonly DependencyProperty VerticalAlignmentProperty =
+        DependencyProperty.RegisterAttached(nameof(VerticalAlignment), typeof(VerticalAlignment), typeof(KeyTip), new PropertyMetadata(VerticalAlignment.Center));
 
-        /// <summary>
-        /// Sets vertical alignment of the key tip
-        /// </summary>
-        /// <param name="obj">The given element</param>
-        /// <param name="value">Value</param>
-        public static void SetVerticalAlignment(DependencyObject obj, VerticalAlignment value)
-        {
-            obj.SetValue(VerticalAlignmentProperty, value);
-        }
+    #endregion
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for VerticalAlignment.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static new readonly DependencyProperty VerticalAlignmentProperty =
-            DependencyProperty.RegisterAttached(nameof(VerticalAlignment), typeof(VerticalAlignment), typeof(KeyTip), new PropertyMetadata(VerticalAlignment.Center));
+    #region Margin Attached Property
 
-        #endregion
+    /// <summary>
+    /// Gets margin of the key tip
+    /// </summary>
+    /// <param name="obj">The key tip</param>
+    /// <returns>Margin</returns>
+    [System.ComponentModel.DisplayName("Margin")]
+    [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
+    [System.ComponentModel.Category("KeyTips")]
+    [System.ComponentModel.Description("Margin of the key tip")]
+    public static Thickness GetMargin(DependencyObject obj)
+    {
+        return (Thickness)obj.GetValue(MarginProperty);
+    }
 
-        #region Margin Attached Property
+    /// <summary>
+    /// Sets margin of the key tip
+    /// </summary>
+    /// <param name="obj">The key tip</param>
+    /// <param name="value">Value</param>
+    public static void SetMargin(DependencyObject obj, Thickness value)
+    {
+        obj.SetValue(MarginProperty, value);
+    }
 
-        /// <summary>
-        /// Gets margin of the key tip
-        /// </summary>
-        /// <param name="obj">The key tip</param>
-        /// <returns>Margin</returns>
-        [System.ComponentModel.DisplayName("Margin")]
-        [AttachedPropertyBrowsableForChildren(IncludeDescendants = true)]
-        [System.ComponentModel.Category("KeyTips")]
-        [System.ComponentModel.Description("Margin of the key tip")]
-        public static Thickness GetMargin(DependencyObject obj)
-        {
-            return (Thickness)obj.GetValue(MarginProperty);
-        }
+    /// <summary>
+    /// Using a DependencyProperty as the backing store for Margin.
+    /// This enables animation, styling, binding, etc...
+    /// </summary>
+    public static new readonly DependencyProperty MarginProperty =
+        DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new PropertyMetadata(default(Thickness)));
 
-        /// <summary>
-        /// Sets margin of the key tip
-        /// </summary>
-        /// <param name="obj">The key tip</param>
-        /// <param name="value">Value</param>
-        public static void SetMargin(DependencyObject obj, Thickness value)
-        {
-            obj.SetValue(MarginProperty, value);
-        }
+    #endregion
 
-        /// <summary>
-        /// Using a DependencyProperty as the backing store for Margin.
-        /// This enables animation, styling, binding, etc...
-        /// </summary>
-        public static new readonly DependencyProperty MarginProperty =
-            DependencyProperty.RegisterAttached(nameof(Margin), typeof(Thickness), typeof(KeyTip), new PropertyMetadata(default(Thickness)));
-
-        #endregion
-
-        static KeyTip()
-        {
-            // Override metadata to allow styling
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
-        }
+    static KeyTip()
+    {
+        // Override metadata to allow styling
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(KeyTip), new FrameworkPropertyMetadata(typeof(KeyTip)));
     }
 }

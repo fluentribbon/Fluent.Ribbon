@@ -6,41 +6,41 @@
                     mc:Ignorable="d">
     <Style x:Key="Fluent.Ribbon.Styles.ContextMenu"
            TargetType="{x:Type Fluent:ContextMenu}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource FluentPopupMenuControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.FluentPopupMenu}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
     <!-- Default menu style for wpf context menu -->
 
-    <Style x:Key="FluentRibbonDefaultContextMenuStyle"
+    <Style x:Key="Fluent.Ribbon.Styles.FluentRibbonDefaultContextMenu"
            TargetType="{x:Type ContextMenu}">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelTextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="MinHeight" Value="0" />
         <Setter Property="MinWidth" Value="0" />
-        <Setter Property="Template" Value="{DynamicResource PopupMenuControlTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.PopupMenu}" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
-    <ControlTemplate x:Key="FluentPopupMenuControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.FluentPopupMenu"
                      TargetType="{x:Type Fluent:ContextMenu}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
-            <Style BasedOn="{StaticResource MenuGroupSeparatorStyle}"
-                   TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
+            <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuGroupSeparator}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"
               VerticalAlignment="Top">
             <Border HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                     BorderThickness="1"
                     SnapsToDevicePixels="True">
                 <Grid Width="Auto"
@@ -54,9 +54,9 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                       Margin="1"
                                       SnapsToDevicePixels="True"
-                                      Style="{DynamicResource MenuScrollViewer}"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel x:Name="PART_ItemsHost"
                                         Width="Auto"
@@ -72,8 +72,8 @@
                                 Height="11"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Top"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BackgroundBrush}"
-                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.BorderBrush}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Background}"
+                                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Resize.Border}"
                                 BorderThickness="0 1 0 0">
                             <Grid>
                                 <Thumb x:Name="PART_ResizeVerticalThumb"
@@ -83,7 +83,7 @@
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Top"
                                        Cursor="SizeNS"
-                                       Template="{DynamicResource ResizeVerticalThumbControlTemplate}" />
+                                       Template="{DynamicResource Fluent.Ribbon.Templates.ResizeVerticalThumb}" />
                                 <Thumb x:Name="PART_ResizeBothThumb"
                                        Width="10"
                                        Height="10"
@@ -91,7 +91,7 @@
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        Cursor="SizeNWSE"
-                                       Template="{DynamicResource ResizeBothThumbControlTemplate}" />
+                                       Template="{DynamicResource Fluent.Ribbon.Templates.ResizeBothThumb}" />
                             </Grid>
                         </Border>
                     </Grid>
@@ -118,21 +118,21 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="PopupMenuControlTemplate"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.PopupMenu"
                      TargetType="{x:Type ContextMenu}">
         <ControlTemplate.Resources>
-            <Style BasedOn="{StaticResource MenuSeparatorStyle}"
-                   TargetType="{x:Type Separator}" />
-            <Style BasedOn="{StaticResource MenuGroupSeparatorStyle}"
-                   TargetType="{x:Type Fluent:GroupSeparatorMenuItem}" />
+            <Style TargetType="{x:Type Separator}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuSeparator}" />
+            <Style TargetType="{x:Type Fluent:GroupSeparatorMenuItem}"
+                   BasedOn="{StaticResource Fluent.Ribbon.Styles.MenuGroupSeparator}" />
         </ControlTemplate.Resources>
         <Grid Height="Auto"
               HorizontalAlignment="Left"
               VerticalAlignment="Top">
             <Border HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BorderBrush}"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                     BorderThickness="1"
                     SnapsToDevicePixels="True">
                 <Grid Width="Auto"
@@ -142,7 +142,7 @@
                     <Border Width="Auto"
                             Height="Auto"
                             VerticalAlignment="Stretch"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.BackgroundBrush}"
+                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                             BorderThickness="1" />
                     <Grid HorizontalAlignment="Left"
                           VerticalAlignment="Top">
@@ -151,10 +151,10 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.MenuScrollViewer}"
                                       Margin="1"
                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                      SnapsToDevicePixels="True"
-                                      Style="{DynamicResource MenuScrollViewer}">
+                                      SnapsToDevicePixels="True">
                             <StackPanel x:Name="PART_ItemsHost"
                                         Grid.RowSpan="1"
                                         Width="Auto"
