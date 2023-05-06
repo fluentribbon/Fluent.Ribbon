@@ -110,8 +110,7 @@ public class KeyTipService
     /// </summary>
     public void Attach()
     {
-        if (this.attached
-            || this.ribbon.IsKeyTipHandlingEnabled == false)
+        if (this.attached)
         {
             return;
         }
@@ -134,7 +133,7 @@ public class KeyTipService
         this.window.KeyUp += this.OnWindowKeyUp;
 
         // Hookup non client area messages
-        this.attachedHwndSource = (HwndSource)PresentationSource.FromVisual(this.window);
+        this.attachedHwndSource = (HwndSource?)PresentationSource.FromVisual(this.window);
         this.attachedHwndSource?.AddHook(this.WindowProc);
     }
 
@@ -172,9 +171,9 @@ public class KeyTipService
 
         // We must terminate the keytip's adorner chain if:
         if (message == PInvoke.WM_NCACTIVATE // mouse clicks in non client area
-            || (message == PInvoke.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
-            || (message >= PInvoke.WM_NCLBUTTONDOWN && message <= PInvoke.WM_NCXBUTTONDBLCLK) // mouse click (non client area)
-            || (message >= PInvoke.WM_LBUTTONDOWN && message <= PInvoke.WM_MBUTTONDBLCLK)) // mouse click
+            || (message is PInvoke.WM_ACTIVATE && wParam == IntPtr.Zero) // the window is deactivated
+            || message is >= PInvoke.WM_NCLBUTTONDOWN and <= PInvoke.WM_NCXBUTTONDBLCLK // mouse click (non client area)
+            || message is >= PInvoke.WM_LBUTTONDOWN and <= PInvoke.WM_MBUTTONDBLCLK) // mouse click
         {
             if (this.activeAdornerChain?.IsAdornerChainAlive == true)
             {
@@ -184,8 +183,7 @@ public class KeyTipService
 
         // Fix for #632.
         // Yes this looks awkward, calling the PopupService here, but the alternative would be to let the PopupService know about windows.
-        if (message == PInvoke.WM_ACTIVATE
-            && wParam == IntPtr.Zero) // the window is deactivated
+        if (ShouldDismissAllPopups(message, wParam))
         {
             PopupService.RaiseDismissPopupEvent(this.ribbon, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
             PopupService.RaiseDismissPopupEvent(Mouse.Captured, DismissPopupMode.Always, DismissPopupReason.ApplicationLostFocus);
@@ -193,10 +191,27 @@ public class KeyTipService
         }
 
         return IntPtr.Zero;
+
+        static bool ShouldDismissAllPopups(uint message, IntPtr wParam)
+        {
+            return message switch
+            {
+                PInvoke.WM_ACTIVATE when wParam == IntPtr.Zero => true, // the window is deactivated
+                PInvoke.WM_SIZE => true, // the window state changed (minimize etc.)
+                PInvoke.WM_DESTROY => true, // the window is closed
+                PInvoke.WM_QUIT => true, // the application is exiting
+                _ => false
+            };
+        }
     }
 
     private void OnWindowPreviewKeyDown(object? sender, KeyEventArgs e)
     {
+        if (this.ribbon.IsKeyTipHandlingEnabled == false)
+        {
+            return;
+        }
+
         if (this.windowPreviewKeyDownScopeGuard?.IsActive == true)
         {
             System.Media.SystemSounds.Beep.Play();
@@ -335,6 +350,11 @@ public class KeyTipService
 
     private void OnWindowKeyUp(object sender, KeyEventArgs e)
     {
+        if (this.ribbon.IsKeyTipHandlingEnabled == false)
+        {
+            return;
+        }
+
         if (this.ribbon.IsCollapsed
             || this.ribbon.IsEnabled == false
             || this.window is null
