@@ -41,6 +41,7 @@
   - [#1116](../../issues/1116) - Accessibility: Ribbon Display Options are read as "DropDown Button"
   - [#1117](../../issues/1117) - Accessibility: BackButton has low contrast
   - [#1125](../../issues/1125) - BackStage Back Button doesn't have an accessibility text.
+  - [#1129](../../issues/1129) - Popup has been detached by the parent control
 
 - ### Enhancements/Features
 
