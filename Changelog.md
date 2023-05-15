@@ -4,6 +4,7 @@
 
 - ### Bug fixes
 
+  - [#1133](../../issues/1133) - Fixing binding path to attached property for simplified ControlTemplates (thanks @dcm99)
   - [#1134](../../issues/1134) - Selected Tab on first render has a black border
 
 ## 10.0.0
