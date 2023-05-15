@@ -43,7 +43,6 @@ public static class FrameworkHelper
     private static void OnUseLayoutRoundingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         d.SetCurrentValue(UIElement.SnapsToDevicePixelsProperty, BooleanBoxes.TrueBox);
-        RenderOptions.SetClearTypeHint(d, ClearTypeHint.Enabled);
         d.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, BooleanBoxes.TrueBox);
     }
 }
