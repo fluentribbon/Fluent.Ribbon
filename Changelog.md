@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 10.0.1
+
+- ### Bug fixes
+
+  - [#1134](../../issues/1134) - Selected Tab on first render has a black border
+
 ## 10.0.0
 
 - ### Breaking changes
