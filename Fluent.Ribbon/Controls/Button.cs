@@ -15,7 +15,7 @@ using Fluent.Internal.KnownBoxes;
 /// </summary>
 [ContentProperty(nameof(Header))]
 [DebuggerDisplay("{GetType().FullName}: Header = {Header}, Size = {Size}, IsSimplified = {IsSimplified}")]
-public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
+public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl, ICornerRadiusControl
 {
     #region Properties
 
@@ -186,6 +186,20 @@ public class Button : System.Windows.Controls.Button, IRibbonControl, IQuickAcce
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
     public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
+
+    #endregion
+
+    #region CornerRadius
+
+    /// <inheritdoc />
+    public CornerRadius CornerRadius
+    {
+        get { return (CornerRadius)this.GetValue(CornerRadiusProperty); }
+        set { this.SetValue(CornerRadiusProperty, value); }
+    }
+
+    /// <summary>Identifies the <see cref="CornerRadius"/> dependency property.</summary>
+    public static readonly DependencyProperty CornerRadiusProperty = RibbonControl.CornerRadiusProperty.AddOwner(typeof(Button));
 
     #endregion
 

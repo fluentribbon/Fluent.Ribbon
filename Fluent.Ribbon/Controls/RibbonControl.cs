@@ -243,6 +243,23 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
 
     #endregion
 
+    #region CornerRadius
+
+    /// <summary>
+    /// Gets and sets the Corner radius.
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+        get { return (CornerRadius)this.GetValue(CornerRadiusProperty); }
+        set { this.SetValue(CornerRadiusProperty, value); }
+    }
+
+    /// <summary>Identifies the <see cref="CornerRadius"/> dependency property.</summary>
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(RibbonControl));
+
+    #endregion
+
     #region Constructors
 
     /// <summary>
