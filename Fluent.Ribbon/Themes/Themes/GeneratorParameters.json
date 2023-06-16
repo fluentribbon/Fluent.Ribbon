@@ -20,7 +20,7 @@
       "Values": {
         "Fluent.Ribbon.Colors.Black": "#FFFFFFFF",
         "Fluent.Ribbon.Colors.Black20": "#51FFFFFF",
-        "Fluent.Ribbon.Colors.White": "#FF252525",
+        "Fluent.Ribbon.Colors.White": "#FF000000",
         "Fluent.Ribbon.Colors.White20": "#51252525",
         "Fluent.Ribbon.Colors.Gray1": "#FFF9F9F9",
         "Fluent.Ribbon.Colors.Gray2": "#FF7F7F7F",
@@ -48,7 +48,7 @@
         "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
         "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#363636",
         "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray5}",
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "#363636",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "#444444",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",

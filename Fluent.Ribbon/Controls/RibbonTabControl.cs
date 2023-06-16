@@ -44,7 +44,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <summary>
     /// Default value for <see cref="ContentHeight"/>.
     /// </summary>
-    public const double DefaultContentHeight = 94;
+    public const double DefaultContentHeight = 105;
 
     /// <summary>
     /// Provides a value needed to add space to the popup to accomodate for overlapping keytips.
