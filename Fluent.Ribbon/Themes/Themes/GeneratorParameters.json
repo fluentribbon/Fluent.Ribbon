@@ -46,7 +46,7 @@
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#363636",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FF292929",
         "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "#363636",

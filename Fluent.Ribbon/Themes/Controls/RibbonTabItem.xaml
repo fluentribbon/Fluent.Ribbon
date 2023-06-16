@@ -18,6 +18,7 @@
                     Background="{TemplateBinding ActiveTabBackground}"
                     BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness}"
+                    Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.Border.Margin}"
                     Visibility="Collapsed" />
             <Border x:Name="mouseOverBorder"
                     Background="{TemplateBinding Background}"
@@ -45,8 +46,8 @@
                 <Rectangle x:Name="separatorRectangle1"
                            Width="1"
                            Margin="0"
-                           Fill="{TemplateBinding BorderBrush}"
-                           Stroke="{TemplateBinding BorderBrush}" />
+                           Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}"
+                           Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}" />
             </Grid>
         </Grid>
 
@@ -58,7 +59,6 @@
                 <Setter TargetName="groupBorder" Property="Margin" Value="0" />
             </DataTrigger>
             <Trigger Property="IsSeparatorVisible" Value="True">
-                <Setter TargetName="selectedBorder" Property="Margin" Value="0 0 1 0" />
                 <Setter TargetName="separatorGrid" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="Group" Value="{x:Null}">
@@ -95,6 +95,7 @@
                     <Condition Property="Selector.IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground" Value="{Binding Group.TabItemSelectedMouseOverForeground, RelativeSource={RelativeSource Self}}" />
+                <Setter TargetName="selectedBorder" Property="Margin" Value="0" />
             </MultiTrigger>
             <!-- Background and foreground for MouseOver, no group -->
             <MultiTrigger>

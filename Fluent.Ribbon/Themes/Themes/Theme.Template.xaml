@@ -223,9 +223,9 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}}" options:Freeze="True" />
 
     <!-- Separator -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Separator.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.GroupSeparator.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
 
     <!-- ScreenTip -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ScreenTip.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
