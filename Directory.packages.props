@@ -24,7 +24,7 @@
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0143" />
 
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.6.0" />
-        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.435" />
+        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.507" />
         <PackageVersion Include="WpfAnalyzers" version="4.1.1" />
     </ItemGroup>
 </Project>
