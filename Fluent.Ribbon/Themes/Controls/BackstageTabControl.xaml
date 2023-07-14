@@ -199,6 +199,7 @@
 
                     <Button x:Name="backbutton"
                             Uid="{TemplateBinding BackButtonUid}"
+                            AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                             Style="{DynamicResource Fluent.Ribbon.Styles.BackstageBackButton}"
                             Grid.Row="0"
                             Padding="22 7 0 7"
