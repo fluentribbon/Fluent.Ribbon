@@ -10,7 +10,7 @@
 
     <ItemGroup Label="Test">
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-        <PackageVersion Include="NUnit3TestAdapter" Version="4.4.2" />
+        <PackageVersion Include="NUnit3TestAdapter" Version="4.5.0" />
 
         <PackageVersion Include="NUnit" version="3.13.3" />
 
@@ -24,7 +24,7 @@
         <PackageVersion Include="XAMLTools.MSBuild" version="1.0.0-alpha0143" />
 
         <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" version="4.6.0" />
-        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.435" />
+        <PackageVersion Include="StyleCop.Analyzers" version="1.2.0-beta.507" />
         <PackageVersion Include="WpfAnalyzers" version="4.1.1" />
     </ItemGroup>
 </Project>
