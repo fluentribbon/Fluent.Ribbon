@@ -3,6 +3,7 @@
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabItem"
                      TargetType="{x:Type Fluent:RibbonTabItem}">
@@ -13,16 +14,16 @@
                     Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
                     BorderThickness="0"
                     OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
-            <Border x:Name="selectedBorder"
+            <Border x:Name="mouseOverBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderThickness="0" />
+            <Border x:Name="underlineBorder"
                     VerticalAlignment="Stretch"
                     Background="{TemplateBinding ActiveTabBackground}"
                     BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness}"
-                    Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.Border.Margin}"
+                    Margin="{Binding HeaderPadding, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ExtractLeftRightFromThicknessConverter.Default}}"
                     Visibility="Collapsed" />
-            <Border x:Name="mouseOverBorder"
-                    Background="{TemplateBinding Background}"
-                    BorderThickness="0" />
             <Border x:Name="PART_ContentContainer"
                     Padding="{TemplateBinding HeaderPadding}"
                     HorizontalAlignment="Stretch"
@@ -64,9 +65,13 @@
             <Trigger Property="Group" Value="{x:Null}">
                 <Setter TargetName="groupBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
+            </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
-                <Setter TargetName="mouseOverBorder" Property="Margin" Value="{Binding BorderThickness, ElementName=selectedBorder}" />
-                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding ActiveTabBorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
             <Trigger Property="Selector.IsSelected" Value="True">
@@ -95,7 +100,20 @@
                     <Condition Property="Selector.IsSelected" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground" Value="{Binding Group.TabItemSelectedMouseOverForeground, RelativeSource={RelativeSource Self}}" />
-                <Setter TargetName="selectedBorder" Property="Margin" Value="0" />
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" To="0" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
             </MultiTrigger>
             <!-- Background and foreground for MouseOver, no group -->
             <MultiTrigger>
