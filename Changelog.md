@@ -31,6 +31,7 @@
     Minimize button was moved to the right hand side of the toolbar in the tab item row
   - All resources now have the prefix `Fluent.Ribbon.`.  
     This means that nearly all resources got renamed.
+  - `InputWidth` was converted from an instance proptery to an attached property in `InputControlProperties`
 
 - ### Bug fixes
 
