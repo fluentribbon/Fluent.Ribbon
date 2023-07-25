@@ -8,6 +8,7 @@
   - [#1134](../../issues/1134) - Selected Tab on first render has a black border
   - [#1135](../../issues/1135) - Black line between Ribbon and Window (when using a colorful theme)
   - [#1125](../../issues/1125) - BackStage Back Button doesn't have an accessibility text.
+  - [#1151](../../issues/1151) - ComboBox Popup MinWidth too large
   - [#1152](../../issues/1152) - Using ObjectToImageConverter via StaticResource raises an exception (thanks @nishy2000)
 
 ## 10.0.0
