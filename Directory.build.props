@@ -10,6 +10,8 @@
     <DisableWinExeOutputInference>true</DisableWinExeOutputInference>
     <!-- <RestoreSources>https://ci.appveyor.com/nuget/xamltools;$(RestoreSources)</RestoreSources> -->
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <PropertyGroup>

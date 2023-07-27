@@ -867,7 +867,10 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             this.SelectedItem = this.GetFirstVisibleItem();
         }
 
-        this.SelectedTabItem?.Focus();
+        if (this.IsKeyboardFocusWithin)
+        {
+            this.SelectedTabItem?.Focus();
+        }
     }
 
     // Handles IsMinimized changed

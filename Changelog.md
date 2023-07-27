@@ -1,5 +1,16 @@
 # Changelog for Fluent.Ribbon
 
+## 10.0.1
+
+- ### Bug fixes
+
+  - [#1133](../../issues/1133) - Fixing binding path to attached property for simplified ControlTemplates (thanks @dcm99)
+  - [#1134](../../issues/1134) - Selected Tab on first render has a black border
+  - [#1135](../../issues/1135) - Black line between Ribbon and Window (when using a colorful theme)
+  - [#1125](../../issues/1125) - BackStage Back Button doesn't have an accessibility text.
+  - [#1151](../../issues/1151) - ComboBox Popup MinWidth too large
+  - [#1152](../../issues/1152) - Using ObjectToImageConverter via StaticResource raises an exception (thanks @nishy2000)
+
 ## 10.0.0
 
 - ### Breaking changes
@@ -21,6 +32,7 @@
     Minimize button was moved to the right hand side of the toolbar in the tab item row
   - All resources now have the prefix `Fluent.Ribbon.`.  
     This means that nearly all resources got renamed.
+  - `InputWidth` was converted from an instance proptery to an attached property in `InputControlProperties`
 
 - ### Bug fixes
 

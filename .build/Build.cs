@@ -45,7 +45,7 @@ class Build : NukeBuild
     
     [Solution(GenerateProjects = true)] readonly Solution Solution = null!;
     
-    [GitVersion(Framework = "netcoreapp3.1", NoFetch = true)] readonly GitVersion? GitVersion;
+    [GitVersion(Framework = "net6.0", NoFetch = true)] readonly GitVersion? GitVersion;
     
     string AssemblySemVer => GitVersion?.AssemblySemVer ?? "1.0.0";
     string SemVer => GitVersion?.SemVer ?? "1.0.0";
@@ -69,7 +69,7 @@ class Build : NukeBuild
     Target CleanOutput => _ => _
         .Executes(() =>
         {
-            EnsureCleanDirectory(ArtifactsDirectory);
+            ArtifactsDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _
@@ -121,15 +121,15 @@ class Build : NukeBuild
             .SetFileVersion(AssemblySemFileVer)
             .SetInformationalVersion(InformationalVersion));
         
-        Compress(BuildBinDirectory / "Fluent.Ribbon" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon-v{NuGetVersion}.zip");
-        Compress(BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration, ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{NuGetVersion}.zip");
+        (BuildBinDirectory / "Fluent.Ribbon" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon-v{NuGetVersion}.zip");
+        (BuildBinDirectory / "Fluent.Ribbon.Showcase" / Configuration).CompressTo(ArtifactsDirectory / $"Fluent.Ribbon.Showcase-v{NuGetVersion}.zip");
     });
 
     Target Test => _ => _
         .After(Compile)
         .Executes(() =>
     {
-        EnsureCleanDirectory(TestResultsDir);
+        TestResultsDir.CreateOrCleanDirectory();
 
         DotNetTest(_ => _
             .SetConfiguration(Configuration)

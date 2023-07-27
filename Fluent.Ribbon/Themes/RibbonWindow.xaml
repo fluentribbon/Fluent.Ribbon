@@ -20,6 +20,7 @@
 
                     <DockPanel Grid.Row="0"
                                Height="{TemplateBinding TitleBarHeight}"
+                               Margin="0 0 0 -1"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                Background="{TemplateBinding TitleBackground}"

@@ -41,4 +41,35 @@ public class ObjectToImageConverterTests
         Assert.That(drawingGroup.Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString()),
             Is.EquivalentTo(((DrawingGroup)((DrawingImage)Application.Current.FindResource(fluentRibbonImagesApplicationmenuResourceKey)).Drawing).Children.Cast<GeometryDrawing>().Select(x => x.Geometry.ToString())));
     }
+
+    private class DummyProvider : IServiceProvider
+    {
+        object IServiceProvider.GetService(Type serviceType)
+        {
+            return null;
+        }
+    }
+
+    [Test]
+    public void TestStaticResourceSequnece()
+    {
+        var fluentRibbonImagesApplicationmenuResourceKey = (object)"Fluent.Ribbon.Images.ApplicationMenu";
+
+        var expressionType = typeof(ResourceReferenceExpressionConverter).Assembly.GetType("System.Windows.ResourceReferenceExpression");
+
+        var expression = Activator.CreateInstance(expressionType, fluentRibbonImagesApplicationmenuResourceKey);
+
+        var converter = new ObjectToImageConverter();
+
+        converter.ProvideValue(new DummyProvider());
+
+        var convertedValue = StaticConverters.ObjectToImageConverter.Convert(new object[]
+        {
+            expression, // value to convert
+            new ApplicationMenu() // target visual
+        }, null, null, null);
+
+        Assert.That(convertedValue, Is.Not.Null);
+        Assert.That(convertedValue, Is.InstanceOf<Image>());
+    }
 }

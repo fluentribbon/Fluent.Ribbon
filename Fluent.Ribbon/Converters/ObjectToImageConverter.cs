@@ -224,6 +224,11 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
 
     private object CreateMultiBinding(IServiceProvider serviceProvider)
     {
+        if (this.IconBinding is null)
+        {
+            return this;
+        }
+
         var multiBinding = new MultiBinding
         {
             Converter = this
