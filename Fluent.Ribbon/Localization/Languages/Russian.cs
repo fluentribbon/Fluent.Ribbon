@@ -6,7 +6,7 @@ namespace Fluent.Localization.Languages
     public class Russian : RibbonLocalizationBase
     {
         public override string Automatic { get; } = "Автоматически";
-        public override string BackstageBackButtonUid { get; } = FallbackLocalization.BackstageBackButtonUid /* Close Backstage */;
+        public override string BackstageBackButtonUid { get; } = "Закрыть Backstage";
         public override string BackstageButtonKeyTip { get; } = "Ф";
         public override string BackstageButtonText { get; } = "Файл";
         public override string CustomizeStatusBar { get; } = "Настройка строки состояния";
