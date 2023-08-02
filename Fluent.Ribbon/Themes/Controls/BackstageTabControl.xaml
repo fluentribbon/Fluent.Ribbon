@@ -197,7 +197,7 @@
                                                         VerticalAlignment="Top"
                                                         IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
 
-                    <Button x:Name="backbutton"
+                    <Button x:Name="PART_BackButton"
                             Uid="{TemplateBinding BackButtonUid}"
                             Style="{DynamicResource Fluent.Ribbon.Styles.BackstageBackButton}"
                             Grid.Row="0"

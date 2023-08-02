@@ -1,7 +1,10 @@
 ﻿namespace Fluent.Automation.Peers;
 
+using System.Collections.Generic;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using Fluent.Extensions;
+using Fluent.Internal;
 
 /// <summary>
 ///     Automation peer for <see cref="BackstageTabControl" />.
@@ -34,4 +37,22 @@ public class RibbonBackstageTabControlAutomationPeer : SelectorAutomationPeer, I
     bool ISelectionProvider.IsSelectionRequired => true;
 
     bool ISelectionProvider.CanSelectMultiple => false;
+
+    /// <inheritdoc />
+    protected override List<AutomationPeer> GetChildrenCore()
+    {
+        var baseResult = base.GetChildrenCore() ?? new List<AutomationPeer>();
+
+        if (this.OwningBackstageTabControl.BackButton is { } backButton)
+        {
+            var backButtonAutomationPeer = backButton.GetOrCreateAutomationPeer();
+
+            if (backButtonAutomationPeer is not null)
+            {
+                baseResult.Insert(0, backButtonAutomationPeer);
+            }
+        }
+
+        return baseResult;
+    }
 }

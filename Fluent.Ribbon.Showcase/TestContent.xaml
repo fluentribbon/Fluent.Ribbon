@@ -177,6 +177,7 @@
                 <Grid>
                     <!-- Backstage items can be keytipped -->
                     <Fluent:Backstage x:Name="Backstage"
+                                      AutomationProperties.Name="Backstage"
                                       IsOpen="{Binding IsBackstageOpen, Mode=TwoWay}"
                                       Visibility="Collapsed">
                         <Fluent:Backstage.ToolTip>
@@ -317,6 +318,7 @@
                     </Fluent:Backstage>
 
                     <Fluent:ApplicationMenu x:Name="ApplicationMenu"
+                                            AutomationProperties.Name="Application menu"
                                             Visibility="Collapsed">
                         <Fluent:ApplicationMenu.RightPaneContent>
                             <StackPanel HorizontalAlignment="Stretch"

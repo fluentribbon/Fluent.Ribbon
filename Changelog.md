@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 10.0.2
+
+- ### Bug fixes
+
+  - [#1125](../../issues/1125) - BackStage Back Button doesn't have an accessibility text.
+
 ## 10.0.1
 
 - ### Bug fixes

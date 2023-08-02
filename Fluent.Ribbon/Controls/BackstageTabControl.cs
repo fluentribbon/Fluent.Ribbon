@@ -21,6 +21,7 @@ using Fluent.Internal.KnownBoxes;
 /// </summary>
 [TemplatePart(Name = "PART_SelectedContentHost", Type = typeof(ContentPresenter))]
 [TemplatePart(Name = "PART_ItemsPanelContainer", Type = typeof(UIElement))]
+[TemplatePart(Name = "PART_BackButton", Type = typeof(UIElement))]
 public class BackstageTabControl : Selector, ILogicalChildSupport
 {
     #region Properties
@@ -28,6 +29,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     internal ContentPresenter? SelectedContentHost { get; private set; }
 
     internal UIElement? ItemsPanelContainer { get; private set; }
+
+    internal UIElement? BackButton { get; private set; }
 
     /// <summary>Identifies the <see cref="BackButtonUid"/> dependency property.</summary>
     public static readonly DependencyProperty BackButtonUidProperty = DependencyProperty.Register(
@@ -329,6 +332,7 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
 
         this.ItemsPanelContainer = this.GetTemplateChild("PART_ItemsPanelContainer") as UIElement;
         this.SelectedContentHost = this.GetTemplateChild("PART_SelectedContentHost") as ContentPresenter;
+        this.BackButton = this.GetTemplateChild("PART_BackButton") as UIElement;
     }
 
     /// <inheritdoc />
