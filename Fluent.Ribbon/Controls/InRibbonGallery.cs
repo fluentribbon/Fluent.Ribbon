@@ -50,7 +50,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     private ToggleButton? dropDownButton;
 
     // Freezed image (created during snapping)
-    private Image snappedImage = new();
+    private readonly Image snappedImage = new();
 
     // Is visual currently snapped
     private bool isSnapped;

@@ -199,7 +199,7 @@ public class RibbonGroupBoxWrapPanel : Panel
 
         internal double U;
         internal double V;
-        private Orientation orientation;
+        private readonly Orientation orientation;
 
         internal double Width
         {
