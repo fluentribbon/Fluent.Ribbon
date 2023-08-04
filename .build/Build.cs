@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using GlobExpressions;
 using Nuke.Common;
 using Nuke.Common.IO;
@@ -10,9 +5,11 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
-using static Nuke.Common.IO.CompressionTasks;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
-using static Nuke.Common.IO.FileSystemTasks;
 
 class Build : NukeBuild
 {
@@ -55,16 +52,16 @@ class Build : NukeBuild
     string AssemblySemFileVer => GitVersion?.AssemblySemFileVer ?? "1.0.0";
 
     // Define directories.
-    AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
+    static AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
 
-    AbsolutePath BuildBinDirectory => RootDirectory / "bin";
+    static AbsolutePath BuildBinDirectory => RootDirectory / "bin";
 
-    AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
+    static AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
 
     [Parameter]
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "artifacts";
 
-    AbsolutePath TestResultsDir => RootDirectory / "TestResults";
+    static AbsolutePath TestResultsDir => RootDirectory / "TestResults";
 
     Target CleanOutput => _ => _
         .Executes(() =>

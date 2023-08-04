@@ -27,13 +27,13 @@ public class GrayscaleEffect : ShaderEffect
     /// </summary>
     public GrayscaleEffect()
     {
-        this.PixelShader = this.CreatePixelShader();
+        this.PixelShader = GrayscaleEffect.CreatePixelShader();
 
         this.UpdateShaderValue(InputProperty);
         this.UpdateShaderValue(FilterColorProperty);
     }
 
-    private PixelShader CreatePixelShader()
+    private static PixelShader CreatePixelShader()
     {
         var pixelShader = new PixelShader { UriSource = new Uri("pack://application:,,,/Fluent;component/Themes/Effects/Grayscale.ps", UriKind.RelativeOrAbsolute) };
 

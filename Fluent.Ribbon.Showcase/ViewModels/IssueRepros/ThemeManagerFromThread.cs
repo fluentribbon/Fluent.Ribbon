@@ -30,7 +30,7 @@ public class ThemeManagerFromThread
 
     public RelayCommand StartStopCommand { get; set; }
 
-    private void Info(string info)
+    private static void Info(string info)
     {
         Trace.WriteLine($@"{DateTime.Now} {info}");
     }
@@ -71,7 +71,7 @@ public class ThemeManagerFromThread
 
         var newTheme = (ThemeColors)this.currentTheme;
 
-        this.Info("Changing theme to " + newTheme);
+        ThemeManagerFromThread.Info("Changing theme to " + newTheme);
         this.ChangeTheme(newTheme);
 
         this.currentTheme++;
@@ -90,11 +90,11 @@ public class ThemeManagerFromThread
             {
                 ThemeManager.Current.ChangeTheme(Application.Current, newTheme);
 
-                this.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
+                ThemeManagerFromThread.Info($"Change theme: NewTheme: {newTheme.Name} Theme changed.");
             }
             else
             {
-                this.Info($"Change theme: Theme not found: {themeColor}.");
+                ThemeManagerFromThread.Info($"Change theme: Theme not found: {themeColor}.");
             }
         }
     }
@@ -104,12 +104,12 @@ public class ThemeManagerFromThread
         try
         {
             var theme = ThemeManager.Current.DetectTheme(Application.Current);
-            this.Info($"Current theme from args: {e.NewTheme.Name}");
-            this.Info($"Current theme from detection: {theme.Name}");
+            ThemeManagerFromThread.Info($"Current theme from args: {e.NewTheme.Name}");
+            ThemeManagerFromThread.Info($"Current theme from detection: {theme.Name}");
         }
         catch (Exception ex)
         {
-            this.Info(ex.Message);
+            ThemeManagerFromThread.Info(ex.Message);
         }
     }
 }
