@@ -52,16 +52,16 @@ class Build : NukeBuild
     string AssemblySemFileVer => GitVersion?.AssemblySemFileVer ?? "1.0.0";
 
     // Define directories.
-    static AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
+    AbsolutePath FluentRibbonDirectory => RootDirectory / "Fluent.Ribbon";
 
-    static AbsolutePath BuildBinDirectory => RootDirectory / "bin";
+    AbsolutePath BuildBinDirectory => RootDirectory / "bin";
 
-    static AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
+    AbsolutePath ReferenceDataDir => RootDirectory / "ReferenceData";
 
     [Parameter]
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / "artifacts";
 
-    static AbsolutePath TestResultsDir => RootDirectory / "TestResults";
+    AbsolutePath TestResultsDir => RootDirectory / "TestResults";
 
     Target CleanOutput => _ => _
         .Executes(() =>

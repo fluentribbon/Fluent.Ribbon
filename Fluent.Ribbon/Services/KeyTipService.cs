@@ -415,7 +415,7 @@ public class KeyTipService
         this.currentUserInput = string.Empty;
     }
 
-    private static void ClosePopups()
+    private void ClosePopups()
     {
         PopupService.RaiseDismissPopupEvent(Keyboard.FocusedElement, DismissPopupMode.Always, DismissPopupReason.ShowingKeyTips);
     }
@@ -438,7 +438,7 @@ public class KeyTipService
 
         if (e.PressedElementOpenedPopup == false)
         {
-            KeyTipService.ClosePopups();
+            this.ClosePopups();
         }
 
         if (e.PressedElementAquiredFocus == false)
@@ -500,7 +500,7 @@ public class KeyTipService
             return;
         }
 
-        KeyTipService.ClosePopups();
+        this.ClosePopups();
 
         this.backUpFocusedControl = null;
 

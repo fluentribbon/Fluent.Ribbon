@@ -58,7 +58,7 @@ public class ResourceKeys
         }
     }
 
-    static string BuildExpectedKey(string requiredPrefix, string key)
+    string BuildExpectedKey(string requiredPrefix, string key)
     {
         return requiredPrefix + BuildKey(key).Replace("Fluent.Ribbon.", string.Empty);
 
