@@ -1,9 +1,12 @@
 ﻿namespace Fluent.Automation.Peers;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using Fluent.Extensions;
+using Fluent.Internal;
 
 /// <summary>
 /// Automation peer for <see cref="RibbonTabControl"/>.
@@ -81,9 +84,29 @@ public class RibbonTabControlAutomationPeer : SelectorAutomationPeer, ISelection
     {
         var children = base.GetChildrenCore() ?? new List<AutomationPeer>();
 
-        var toolbarPanel = this.OwningRibbonTabControl.ToolbarPanel;
+        if (this.OwningRibbonTabControl.Menu is { } menu)
+        {
+            var automationPeer = menu.GetOrCreateAutomationPeer();
 
-        if (toolbarPanel is not null)
+            if (automationPeer is null)
+            {
+                var child = UIHelper.GetVisualChildren(menu)
+                    .OfType<UIElement>()
+                    .FirstOrDefault(x => x.IsVisible);
+
+                if (child is not null)
+                {
+                    automationPeer = child.GetOrCreateAutomationPeer();
+                }
+            }
+
+            if (automationPeer is not null)
+            {
+                children.Insert(0, automationPeer);
+            }
+        }
+
+        if (this.OwningRibbonTabControl.ToolbarPanel is { } toolbarPanel)
         {
             foreach (UIElement? child in toolbarPanel.Children)
             {
@@ -92,7 +115,7 @@ public class RibbonTabControlAutomationPeer : SelectorAutomationPeer, ISelection
                     continue;
                 }
 
-                var automationPeer = CreatePeerForElement(child);
+                var automationPeer = child.GetOrCreateAutomationPeer();
 
                 if (automationPeer is not null)
                 {
@@ -101,11 +124,9 @@ public class RibbonTabControlAutomationPeer : SelectorAutomationPeer, ISelection
             }
         }
 
-        var displayOptionsButton = this.OwningRibbonTabControl.DisplayOptionsControl;
-
-        if (displayOptionsButton is not null)
+        if (this.OwningRibbonTabControl.DisplayOptionsControl is { } displayOptionsButton)
         {
-            var automationPeer = CreatePeerForElement(displayOptionsButton);
+            var automationPeer = displayOptionsButton.GetOrCreateAutomationPeer();
 
             if (automationPeer is not null)
             {
