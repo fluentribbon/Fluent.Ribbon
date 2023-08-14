@@ -272,7 +272,7 @@
                             <Fluent:BackstageTabItem Header="Recent"
                                                      Icon="{iconPacks:Material Kind=History}"
                                                      KeyTip="R">
-                                <TabControl Style="{DynamicResource InnerBackstageTabControlStyle}"
+                                <TabControl Style="{DynamicResource Fluent.Ribbon.Styles.InnerBackstageTabControl}"
                                             Margin="20 5 20 5">
                                     <Fluent:SeparatorTabItem Header="Test1" />
                                     <TabItem Header="1" />
