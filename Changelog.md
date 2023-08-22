@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 10.0.3
+
+- ### Bug fixes
+
+  - [#1161](../../issues/1161) - RibbonBackButton - Localization Mix
+
 ## 10.0.2
 
 - ### Bug fixes
