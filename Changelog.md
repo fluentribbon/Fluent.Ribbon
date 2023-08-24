@@ -4,6 +4,7 @@
 
 - ### Bug fixes
 
+  - [#1155](../../issues/1155) - Update Russian translation
   - [#1161](../../issues/1161) - RibbonBackButton - Localization Mix
 
 ## 10.0.2
