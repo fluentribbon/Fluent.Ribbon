@@ -13,18 +13,6 @@ using Fluent.Internal.KnownBoxes;
 /// </summary>
 public class RibbonGroupBoxWrapPanel : Panel
 {
-    private const Orientation DefaultOrientation = Orientation.Vertical;
-
-    private Orientation orientation;
-
-    /// <summary>
-    /// Creates a new instance.
-    /// </summary>
-    public RibbonGroupBoxWrapPanel()
-    {
-        this.orientation = DefaultOrientation;
-    }
-
     /// <summary>
     /// Attached <see cref="DependencyProperty"/> for <c>SharedSizeGroupName</c>.
     /// </summary>
@@ -155,7 +143,7 @@ public class RibbonGroupBoxWrapPanel : Panel
     public static readonly DependencyProperty OrientationProperty =
         StackPanel.OrientationProperty.AddOwner(
             typeof(RibbonGroupBoxWrapPanel),
-            new FrameworkPropertyMetadata(Orientation.Horizontal,
+            new FrameworkPropertyMetadata(Orientation.Vertical,
                 FrameworkPropertyMetadataOptions.AffectsMeasure,
                 OnOrientationChanged));
 
@@ -168,17 +156,20 @@ public class RibbonGroupBoxWrapPanel : Panel
     /// </summary>
     public Orientation Orientation
     {
-        get { return this.orientation; }
+        get { return (Orientation)this.GetValue(OrientationProperty); }
         set { this.SetValue(OrientationProperty, value); }
     }
 
-    /// <summary>
-    /// <see cref="PropertyMetadata.PropertyChangedCallback"/>
-    /// </summary>
     private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var p = (RibbonGroupBoxWrapPanel)d;
-        p.orientation = (Orientation)e.NewValue;
+        var control = (RibbonGroupBoxWrapPanel)d;
+
+        if (control.IsLoaded is false)
+        {
+            return;
+        }
+
+        UIHelper.GetParent<RibbonGroupBox>(control)?.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
     }
 
     private struct UvSize

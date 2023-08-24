@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using GlobExpressions;
 using Nuke.Common;
 using Nuke.Common.IO;
@@ -10,9 +5,11 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
-using static Nuke.Common.IO.CompressionTasks;
+using System;
+using System.IO;
+using System.Linq;
+using System.Text;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
-using static Nuke.Common.IO.FileSystemTasks;
 
 class Build : NukeBuild
 {
