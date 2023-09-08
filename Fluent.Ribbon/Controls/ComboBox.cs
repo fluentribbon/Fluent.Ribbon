@@ -678,8 +678,6 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
             this.scrollViewer.Height = double.NaN;
         }
 
-        var popupChild = this.DropDownPopup?.Child as FrameworkElement;
-
         var initialHeight = Math.Min(RibbonControl.GetControlWorkArea(this).Height * 2 / 3, this.MaxDropDownHeight);
 
         if (double.IsNaN(this.DropDownHeight) == false)
@@ -693,7 +691,7 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
             this.scrollViewer.Height = initialHeight;
         }
 
-        popupChild?.UpdateLayout();
+        this.DropDownPopup?.Child?.UpdateLayout();
     }
 
     /// <inheritdoc />
