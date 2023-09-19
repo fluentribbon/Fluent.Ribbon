@@ -41,8 +41,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public string? BackButtonUid
     {
-        get { return (string?)this.GetValue(BackButtonUidProperty); }
-        set { this.SetValue(BackButtonUidProperty, value); }
+        get => (string?)this.GetValue(BackButtonUidProperty);
+        set => this.SetValue(BackButtonUidProperty, value);
     }
 
     /// <summary>
@@ -50,8 +50,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public Thickness SelectedContentMargin
     {
-        get { return (Thickness)this.GetValue(SelectedContentMarginProperty); }
-        set { this.SetValue(SelectedContentMarginProperty, value); }
+        get => (Thickness)this.GetValue(SelectedContentMarginProperty);
+        set => this.SetValue(SelectedContentMarginProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedContentMargin"/> dependency property.</summary>
@@ -70,8 +70,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public object? SelectedContent
     {
-        get { return this.GetValue(SelectedContentProperty); }
-        internal set { this.SetValue(SelectedContentPropertyKey, value); }
+        get => this.GetValue(SelectedContentProperty);
+        internal set => this.SetValue(SelectedContentPropertyKey, value);
     }
 
     /// <summary>Identifies the <see cref="ContentStringFormat"/> dependency property.</summary>
@@ -103,15 +103,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public string? ContentStringFormat
     {
-        get
-        {
-            return (string?)this.GetValue(ContentStringFormatProperty);
-        }
+        get => (string?)this.GetValue(ContentStringFormatProperty);
 
-        set
-        {
-            this.SetValue(ContentStringFormatProperty, value);
-        }
+        set => this.SetValue(ContentStringFormatProperty, value);
     }
 
     /// <summary>
@@ -119,15 +113,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public DataTemplate? ContentTemplate
     {
-        get
-        {
-            return (DataTemplate?)this.GetValue(ContentTemplateProperty);
-        }
+        get => (DataTemplate?)this.GetValue(ContentTemplateProperty);
 
-        set
-        {
-            this.SetValue(ContentTemplateProperty, value);
-        }
+        set => this.SetValue(ContentTemplateProperty, value);
     }
 
     /// <summary>
@@ -135,15 +123,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public DataTemplateSelector? ContentTemplateSelector
     {
-        get
-        {
-            return (DataTemplateSelector?)this.GetValue(ContentTemplateSelectorProperty);
-        }
+        get => (DataTemplateSelector?)this.GetValue(ContentTemplateSelectorProperty);
 
-        set
-        {
-            this.SetValue(ContentTemplateSelectorProperty, value);
-        }
+        set => this.SetValue(ContentTemplateSelectorProperty, value);
     }
 
     /// <summary>
@@ -151,15 +133,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public string? SelectedContentStringFormat
     {
-        get
-        {
-            return (string?)this.GetValue(SelectedContentStringFormatProperty);
-        }
+        get => (string?)this.GetValue(SelectedContentStringFormatProperty);
 
-        internal set
-        {
-            this.SetValue(SelectedContentStringFormatPropertyKey, value);
-        }
+        internal set => this.SetValue(SelectedContentStringFormatPropertyKey, value);
     }
 
     /// <summary>
@@ -168,15 +144,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DataTemplate? SelectedContentTemplate
     {
-        get
-        {
-            return (DataTemplate?)this.GetValue(SelectedContentTemplateProperty);
-        }
+        get => (DataTemplate?)this.GetValue(SelectedContentTemplateProperty);
 
-        internal set
-        {
-            this.SetValue(SelectedContentTemplatePropertyKey, value);
-        }
+        internal set => this.SetValue(SelectedContentTemplatePropertyKey, value);
     }
 
     /// <summary>
@@ -185,15 +155,9 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public DataTemplateSelector? SelectedContentTemplateSelector
     {
-        get
-        {
-            return (DataTemplateSelector?)this.GetValue(SelectedContentTemplateSelectorProperty);
-        }
+        get => (DataTemplateSelector?)this.GetValue(SelectedContentTemplateSelectorProperty);
 
-        internal set
-        {
-            this.SetValue(SelectedContentTemplateSelectorPropertyKey, value);
-        }
+        internal set => this.SetValue(SelectedContentTemplateSelectorPropertyKey, value);
     }
 
     #region ItemsPanelMinWidth
@@ -206,8 +170,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public double ItemsPanelMinWidth
     {
-        get { return (double)this.GetValue(ItemsPanelMinWidthProperty); }
-        set { this.SetValue(ItemsPanelMinWidthProperty, value); }
+        get => (double)this.GetValue(ItemsPanelMinWidthProperty);
+        set => this.SetValue(ItemsPanelMinWidthProperty, value);
     }
 
     #endregion
@@ -219,8 +183,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public Brush? ItemsPanelBackground
     {
-        get { return (Brush?)this.GetValue(ItemsPanelBackgroundProperty); }
-        set { this.SetValue(ItemsPanelBackgroundProperty, value); }
+        get => (Brush?)this.GetValue(ItemsPanelBackgroundProperty);
+        set => this.SetValue(ItemsPanelBackgroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemsPanelBackground"/> dependency property.</summary>
@@ -235,8 +199,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public Backstage? ParentBackstage
     {
-        get { return (Backstage?)this.GetValue(ParentBackstageProperty); }
-        set { this.SetValue(ParentBackstageProperty, value); }
+        get => (Backstage?)this.GetValue(ParentBackstageProperty);
+        set => this.SetValue(ParentBackstageProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ParentBackstage"/> dependency property.</summary>
@@ -248,8 +212,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public bool IsWindowSteeringHelperEnabled
     {
-        get { return (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty); }
-        set { this.SetValue(IsWindowSteeringHelperEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty);
+        set => this.SetValue(IsWindowSteeringHelperEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsWindowSteeringHelperEnabled"/> dependency property.</summary>
@@ -261,8 +225,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// </summary>
     public bool IsBackButtonVisible
     {
-        get { return (bool)this.GetValue(IsBackButtonVisibleProperty); }
-        set { this.SetValue(IsBackButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsBackButtonVisibleProperty);
+        set => this.SetValue(IsBackButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsBackButtonVisible"/> dependency property.</summary>
