@@ -27,8 +27,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// </summary>
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -39,8 +39,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -55,8 +55,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     [Category("Appearance")]
     public bool IsSelected
     {
-        get { return (bool)this.GetValue(IsSelectedProperty); }
-        set { this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSelectedProperty);
+        set => this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
@@ -86,8 +86,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// </summary>
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -96,8 +96,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -106,8 +106,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>

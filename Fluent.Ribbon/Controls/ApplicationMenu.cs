@@ -23,8 +23,8 @@ public class ApplicationMenu : DropDownButton
     /// </summary>
     public double RightPaneWidth
     {
-        get { return (double)this.GetValue(RightPaneWidthProperty); }
-        set { this.SetValue(RightPaneWidthProperty, value); }
+        get => (double)this.GetValue(RightPaneWidthProperty);
+        set => this.SetValue(RightPaneWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="RightPaneWidth"/> dependency property.</summary>
@@ -35,8 +35,8 @@ public class ApplicationMenu : DropDownButton
     /// </summary>
     public object? RightPaneContent
     {
-        get { return this.GetValue(RightPaneContentProperty); }
-        set { this.SetValue(RightPaneContentProperty, value); }
+        get => this.GetValue(RightPaneContentProperty);
+        set => this.SetValue(RightPaneContentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="RightPaneContent"/> dependency property.</summary>
@@ -47,8 +47,8 @@ public class ApplicationMenu : DropDownButton
     /// </summary>
     public object? FooterPaneContent
     {
-        get { return this.GetValue(FooterPaneContentProperty); }
-        set { this.SetValue(FooterPaneContentProperty, value); }
+        get => this.GetValue(FooterPaneContentProperty);
+        set => this.SetValue(FooterPaneContentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="FooterPaneContent"/> dependency property.</summary>
