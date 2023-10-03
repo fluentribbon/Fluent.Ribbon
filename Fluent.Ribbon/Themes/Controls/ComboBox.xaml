@@ -189,7 +189,7 @@
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
                                                  MinHeight="{Binding ActualHeight, ElementName=PART_ContentBorder}"
-                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <Grid>

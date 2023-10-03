@@ -3591,7 +3591,7 @@
                         <GroupBox Header="Issue repros">
                             <WrapPanel>
                                 <WrapPanel.Resources>
-                                    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
+                                    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
                                 </WrapPanel.Resources>
                                 <Fluent:Button x:Name="SleepButton"
                                                VerticalAlignment="Top"
@@ -3608,9 +3608,9 @@
                                 </Fluent:Button>
 
                                 <Fluent:Button VerticalAlignment="Top"
-                                               Tag="/Images/Blue.png"
-                                               Icon="{Binding Path=Tag,RelativeSource={RelativeSource Self},Converter={StaticResource StringToImageConvert}}"
-                                               Size="Middle">
+                                               Icon="{Binding Path=Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource StringToImageConvert}}"
+                                               Size="Middle"
+                                               Tag="/Images/Blue.png">
                                     ObjectToImageConverter for issue #1152
                                 </Fluent:Button>
 
