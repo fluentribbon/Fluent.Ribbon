@@ -210,7 +210,7 @@
                                                      Visibility="Collapsed" />
                             <Fluent:BackstageTabItem Header="Disabled"
                                                      IsEnabled="False" />
-                            <Fluent:BackstageTabItem Header="Introduction"
+                            <Fluent:BackstageTabItem Header="Home"
                                                      Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                                      KeyTip="T">
                                 <Fluent:BackstageTabItem.ToolTip>
@@ -309,7 +309,9 @@
                                     <DataTemplate>
                                         <Grid>
                                             <TextBox Width="6000"
-                                                     Text="{Binding Mode=OneWay}" />
+                                                     Text="{Binding Mode=OneWay}"
+                                                     Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                                         </Grid>
                                     </DataTemplate>
                                 </Fluent:BackstageTabItem.ContentTemplate>
