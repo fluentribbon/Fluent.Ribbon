@@ -331,7 +331,7 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         base.OnItemsChanged(e);
 
         if (e.Action == NotifyCollectionChangedAction.Remove
-            && this.SelectedIndex == -1)
+            && this.SelectedIndex is -1)
         {
             var startIndex = e.OldStartingIndex + 1;
             if (startIndex > this.Items.Count)
