@@ -5,16 +5,16 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
-    <Style x:Key="Fluent.Ribbon.Styles.RibbonComboButton"
+    <Style x:Key="Fluent.Ribbon.Styles.ComboBox.ToggleButton"
            TargetType="{x:Type Fluent:ToggleButton}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Height" Value="68" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonComboButton}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBox.ToggleButton}" />
         <Setter Property="Width" Value="Auto" />
     </Style>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonComboButton"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ComboBox.ToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
                 Height="Auto"
@@ -61,7 +61,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonCombobox"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ComboBox"
                      TargetType="{x:Type Fluent:ComboBox}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -122,7 +122,7 @@
                         <ColumnDefinition Width="13" />
                     </Grid.ColumnDefinitions>
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
-                                         Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
+                                         Style="{DynamicResource Fluent.Ribbon.Styles.ComboBox.ToggleButton}"
                                          Grid.ColumnSpan="2"
                                          Height="Auto"
                                          MinHeight="0"
@@ -298,7 +298,8 @@
                    TextWrapping="Wrap" />
     </DataTemplate>
 
-    <Style TargetType="{x:Type Fluent:ComboBox}">
+    <Style x:Key="Fluent.Ribbon.Styles.ComboBox"
+           TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
@@ -308,7 +309,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCombobox}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ComboBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">

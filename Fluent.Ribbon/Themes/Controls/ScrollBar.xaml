@@ -290,7 +290,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="ScrollBar">
+    <Style x:Key="Fluent.Ribbon.Styles.ScrollBar"
+           TargetType="ScrollBar">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>

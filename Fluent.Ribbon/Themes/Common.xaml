@@ -84,4 +84,21 @@
 
     <Style TargetType="{x:Type Fluent:ResizeableContentControl}"
            BasedOn="{StaticResource Fluent.Ribbon.Styles.ResizeableContentControl}" />
+
+    <Style TargetType="{x:Type Fluent:ApplicationMenu}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.ApplicationMenu}" />
+    <Style TargetType="{x:Type Fluent:ColorGallery}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.ColorGallery}" />
+    <Style TargetType="{x:Type Fluent:ComboBox}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.ComboBox}" />
+    <Style TargetType="{x:Type Fluent:RibbonMenu}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonMenu}" />
+    <Style TargetType="{x:Type Fluent:TextBox}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.TextBox}" />
+    <Style TargetType="{x:Type ScrollBar}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBar}" />
+    <Style TargetType="{x:Type Fluent:StatusBarMenuItem}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.StatusBarMenuItem}" />
+    <Style TargetType="{x:Type Fluent:WindowCommands}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.WindowCommands}" />
 </ResourceDictionary>

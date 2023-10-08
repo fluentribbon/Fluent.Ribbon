@@ -72,7 +72,8 @@
     </Style>
 
     <!-- Menu Item Style -->
-    <Style TargetType="{x:Type Fluent:StatusBarMenuItem}">
+    <Style x:Key="Fluent.Ribbon.Styles.StatusBarMenuItem"
+           TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="IsCheckable" Value="True" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />

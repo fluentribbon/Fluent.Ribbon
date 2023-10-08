@@ -7,7 +7,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ApplicationMenuButton"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ApplicationMenu"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
         <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
@@ -123,13 +123,14 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Fluent:ApplicationMenu}">
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu"
+           TargetType="{x:Type Fluent:ApplicationMenu}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
         <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenu}" />
     </Style>
 </ResourceDictionary>
