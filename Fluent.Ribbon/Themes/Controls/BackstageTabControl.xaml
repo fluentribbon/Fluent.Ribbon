@@ -5,48 +5,89 @@
                     xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors">
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageTabControl.Button"
                      TargetType="{x:Type Fluent:Button}">
-        <Grid Background="Transparent">
-            <Border x:Name="border"
-                    Background="{TemplateBinding Fluent:RibbonProperties.MouseOverBackground}"
-                    Visibility="Collapsed" />
-            <StackPanel Margin="25 0 15 0"
+        <Border x:Name="rootBorder"
+                BorderThickness="2"
+                ToolTip="{TemplateBinding ToolTip}">
+            <Grid Background="Transparent">
+                <Border x:Name="underlineBorder"
+                        VerticalAlignment="Stretch"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                <Fluent:IconPresenter x:Name="iconImage"
-                                      Margin="0 0 8 0"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                        Background="Transparent"
+                        BorderBrush="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}"
+                        BorderThickness="4 0 0 0"
+                        Margin="4 8 0 8"
+                        Visibility="Collapsed" />
 
-                <ContentControl x:Name="controlLabel"
-                                VerticalAlignment="Center"
-                                Content="{TemplateBinding Header}"
-                                Focusable="False">
-                    <ContentControl.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
-                            <Setter Property="TextWrapping" Value="NoWrap" />
-                        </Style>
-                    </ContentControl.Resources>
-                </ContentControl>
-            </StackPanel>
-        </Grid>
+                <StackPanel Margin="25 0 15 0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Fluent:IconPresenter x:Name="iconImage"
+                                          Margin="0 0 8 0"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                    <ContentControl x:Name="controlLabel"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Header}"
+                                    Focusable="False">
+                        <ContentControl.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                <Setter Property="TextWrapping" Value="NoWrap" />
+                            </Style>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </StackPanel>
+            </Grid>
+        </Border>
         <ControlTemplate.Triggers>
+            <!-- <MultiTrigger> -->
+            <!--     <MultiTrigger.Conditions> -->
+            <!--         <Condition Property="IsMouseOver" Value="True" /> -->
+            <!--         <Condition Property="IsEnabled" Value="True" /> -->
+            <!--     </MultiTrigger.Conditions> -->
+            <!--     <Setter TargetName="border" Property="Visibility" Value="Visible" /> -->
+            <!-- </MultiTrigger> -->
+            <!-- <MultiTrigger> -->
+            <!--     <MultiTrigger.Conditions> -->
+            <!--         <Condition Property="IsKeyboardFocused" Value="True" /> -->
+            <!--         <Condition Property="IsEnabled" Value="True" /> -->
+            <!--     </MultiTrigger.Conditions> -->
+            <!--     <Setter TargetName="border" Property="Visibility" Value="Visible" /> -->
+            <!-- </MultiTrigger> -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding (Fluent:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter TargetName="rootBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+            </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsEnabled" Value="True" />
+                    <Condition Property="IsPressed" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter TargetName="border" Property="Visibility" Value="Visible" />
-            </MultiTrigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="IsKeyboardFocused" Value="True" />
-                    <Condition Property="IsEnabled" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="border" Property="Visibility" Value="Visible" />
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" To="0" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="controlLabel" Property="Opacity" Value="0.5" />
@@ -57,8 +98,9 @@
     <Style x:Key="Fluent.Ribbon.Styles.BackstageTabControl.Button"
            TargetType="{x:Type Fluent:Button}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
+        <Setter Property="Fluent:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />

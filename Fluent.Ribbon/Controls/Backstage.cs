@@ -449,11 +449,13 @@ public class Backstage : RibbonControl
         else
         {
             this.adorner.Visibility = Visibility.Visible;
+            MoveFocusToContent();
         }
 
         void HandleStoryboardCurrentStateInvalidated(object? sender, EventArgs e)
         {
             this.adorner.Visibility = Visibility.Visible;
+            MoveFocusToContent();
             storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
         }
 
@@ -461,12 +463,23 @@ public class Backstage : RibbonControl
         {
             this.AdornerLayer?.Update();
 
-            if (this.Content?.IsVisible == true)
-            {
-                this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-            }
-
             storyboard.Completed -= HandleStoryboardOnCompleted;
+        }
+
+        void MoveFocusToContent()
+        {
+            if (this.Content?.IsVisible is true)
+            {
+                if (this.Content is BackstageTabControl { SelectedIndex: not -1 } tabControl
+                    && tabControl.ItemContainerGenerator.ContainerFromIndex(tabControl.SelectedIndex) is BackstageTabItem backstageTabItem)
+                {
+                    backstageTabItem.Focus();
+                }
+                else
+                {
+                    this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+            }
         }
     }
 
