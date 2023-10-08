@@ -12,6 +12,7 @@
         <Grid Background="{TemplateBinding Background}">
             <ContentPresenter x:Name="contentPresenter"
                               Margin="{TemplateBinding Padding}"
+                              Opacity=".75"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               RecognizesAccessKey="True"
@@ -21,8 +22,8 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
-            <Trigger Property="IsMouseOver" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.75" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
@@ -34,6 +35,8 @@
            TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+        <Setter Property="Fluent:RibbonProperties.PressedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="1" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands.CaptionButton}" />
@@ -42,16 +45,16 @@
         <Setter Property="Width" Value="46" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.PressedBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
-            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background}" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
-            <Trigger Property="controlzex:NonClientControlProperties.IsNCPressed" Value="true">
-                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background}" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCPressed" Value="True">
+                <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.PressedBackground), RelativeSource={RelativeSource Self}}" />
             </Trigger>
         </Style.Triggers>
     </Style>

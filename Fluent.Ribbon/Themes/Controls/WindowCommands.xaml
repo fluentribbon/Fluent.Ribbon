@@ -86,6 +86,8 @@
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="CLOSE"
                     AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
+                    Fluent:RibbonProperties.MouseOverBackground="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}"
+                    Fluent:RibbonProperties.PressedBackground="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}"
                     Focusable="False"
                     SnapsToDevicePixels="True"
                     ToolTip="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}">
@@ -107,12 +109,6 @@
                 <Setter TargetName="PART_Max" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="PART_Restore" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Close}" Value="True">
-                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}" Value="True">
-                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" />
-            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -127,6 +123,7 @@
         <Grid Background="{TemplateBinding Background}">
             <ContentPresenter x:Name="contentPresenter"
                               Margin="11 1 11 1"
+                              Opacity=".75"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               RecognizesAccessKey="True"
@@ -147,8 +144,8 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
-            <Trigger Property="IsMouseOver" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value=".75" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True" />
             <Trigger Property="ToggleButton.IsChecked" Value="True" />
