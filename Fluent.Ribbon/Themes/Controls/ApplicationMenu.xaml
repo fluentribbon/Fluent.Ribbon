@@ -7,7 +7,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:styleSelectors="clr-namespace:Fluent.StyleSelectors"
                     mc:Ignorable="d">
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ApplicationMenu"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.ApplicationMenuButton"
                      TargetType="{x:Type Fluent:ApplicationMenu}">
         <Grid Margin="0">
             <ContentControl x:Name="buttonContent"
@@ -131,6 +131,6 @@
         <Setter Property="Header" Value="{converters:ObjectToImageConverter {DynamicResource Fluent.Ribbon.Images.ApplicationMenu}, '40,16', {Binding RelativeSource={RelativeSource Self}}}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:ApplicationMenuItemContainerStyleSelector.Instance}" />
         <Setter Property="KeyboardNavigation.TabIndex" Value="1" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenu}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ApplicationMenuButton}" />
     </Style>
 </ResourceDictionary>
