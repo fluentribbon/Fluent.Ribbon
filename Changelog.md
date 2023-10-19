@@ -1,5 +1,11 @@
 # Changelog for Fluent.Ribbon
 
+## 10.1.0
+
+- ### Bug fixes
+
+  - [#1165](../../issues/1165) - ScreenTip is not DPI aware
+
 ## 10.0.4
 
 - ### Bug fixes
