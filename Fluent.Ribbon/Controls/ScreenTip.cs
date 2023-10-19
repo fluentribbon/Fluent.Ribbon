@@ -79,8 +79,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
         {
             var belowY = ribbon.TranslatePoint(new Point(0, ribbon.ActualHeight), this.PlacementTarget).Y;
             belowY *= dpiScale.DpiScaleY;
-            var aboveY = ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
-            aboveY *= dpiScale.DpiScaleY;
+            var aboveY = (ribbon.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y * dpiScale.DpiScaleY) - popupSize.Height;
 
             var below = new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, belowY + 1), PopupPrimaryAxis.Horizontal);
             var above = new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, aboveY - 1), PopupPrimaryAxis.Horizontal);
@@ -96,8 +95,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
             // Placed on Popup?
             var belowY = decoratorChild.TranslatePoint(new Point(0, ((FrameworkElement)decoratorChild).ActualHeight), this.PlacementTarget).Y;
             belowY *= dpiScale.DpiScaleY;
-            var aboveY = decoratorChild.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y - popupSize.Height;
-            aboveY *= dpiScale.DpiScaleY;
+            var aboveY = (decoratorChild.TranslatePoint(new Point(0, 0), this.PlacementTarget).Y * dpiScale.DpiScaleY) - popupSize.Height;
 
             var below = new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, belowY + 1), PopupPrimaryAxis.Horizontal);
             var above = new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, aboveY - 1), PopupPrimaryAxis.Horizontal);
@@ -107,7 +105,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
         return new[]
         {
             new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, (this.PlacementTarget.RenderSize.Height + 1) * dpiScale.DpiScaleY), PopupPrimaryAxis.Horizontal),
-            new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, (-popupSize.Height - 1) * dpiScale.DpiScaleY), PopupPrimaryAxis.Horizontal)
+            new CustomPopupPlacement(new Point(rightToLeftOffsetScaled, -popupSize.Height - 1), PopupPrimaryAxis.Horizontal)
         };
     }
 
