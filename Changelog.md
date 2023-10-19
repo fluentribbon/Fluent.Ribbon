@@ -6,6 +6,10 @@
 
   - [#1165](../../issues/1165) - ScreenTip is not DPI aware
 
+- ### Enhancements/Features
+
+  - [#1177](../../issues/1177) - RibbonComboBox cannot be customized based on the original RibbonComboBox style (thanks @nishy2000)
+
 ## 10.0.4
 
 - ### Bug fixes
