@@ -112,7 +112,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Fluent:WindowCommands}">
+    <Style x:Key="Fluent.Ribbon.Styles.WindowCommands"
+           TargetType="{x:Type Fluent:WindowCommands}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.WindowCommands}" />

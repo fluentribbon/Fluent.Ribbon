@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <Style x:Key="{x:Type Fluent:StatusBar}"
+    <Style x:Key="Fluent.Ribbon.Styles.StatusBar"
            TargetType="{x:Type Fluent:StatusBar}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="Height" Value="Auto" />
@@ -72,7 +72,8 @@
     </Style>
 
     <!-- Menu Item Style -->
-    <Style TargetType="{x:Type Fluent:StatusBarMenuItem}">
+    <Style x:Key="Fluent.Ribbon.Styles.StatusBarMenuItem"
+           TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="IsCheckable" Value="True" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />

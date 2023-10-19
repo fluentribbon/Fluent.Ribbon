@@ -215,7 +215,8 @@
                    TextWrapping="Wrap" />
     </DataTemplate>
 
-    <Style TargetType="{x:Type Fluent:TextBox}"
+    <Style x:Key="Fluent.Ribbon.Styles.TextBox"
+           TargetType="{x:Type Fluent:TextBox}"
            BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}" />
         <Setter Property="Fluent:InputControlProperties.InputMinWidth" Value="30" />
