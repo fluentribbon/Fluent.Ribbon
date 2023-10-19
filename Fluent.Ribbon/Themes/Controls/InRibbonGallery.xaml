@@ -605,7 +605,7 @@
 
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.Header" />
 
-    <Style x:Key="{x:Type Fluent:InRibbonGallery}"
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery"
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />

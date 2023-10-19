@@ -174,7 +174,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style x:Key="{x:Type Fluent:RadioButton}"
+    <Style x:Key="Fluent.Ribbon.Styles.RadioButton"
            TargetType="{x:Type Fluent:RadioButton}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.CheckBox.Border}" />

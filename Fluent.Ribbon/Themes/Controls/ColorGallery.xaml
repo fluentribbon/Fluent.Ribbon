@@ -113,7 +113,8 @@
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ColorGallery.ListBox.Template.Row0}" />
     </Style>
 
-    <Style TargetType="{x:Type Fluent:ColorGallery}">
+    <Style x:Key="Fluent.Ribbon.Styles.ColorGallery"
+           TargetType="{x:Type Fluent:ColorGallery}">
         <Setter Property="ChipHeight" Value="13" />
         <Setter Property="ChipWidth" Value="13" />
         <Setter Property="Template">
