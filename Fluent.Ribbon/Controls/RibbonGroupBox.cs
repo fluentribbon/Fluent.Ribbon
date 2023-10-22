@@ -208,7 +208,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     private void UpdateChildSizes()
     {
-        var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess
+        var groupBoxState = this.State is RibbonGroupBoxState.QuickAccess
             ? RibbonGroupBoxState.Collapsed
             : this.State;
         var isSimplified = this.IsSimplified;
@@ -1137,6 +1137,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         base.OnItemsChanged(e);
 
         this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        this.updateChildSizesItemContainerGeneratorAction.QueueAction();
     }
 
     /// <inheritdoc />
