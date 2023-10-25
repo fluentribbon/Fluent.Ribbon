@@ -905,6 +905,12 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     {
         public RibbonGroupBoxState State;
         public int Scale;
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"State: {this.State}; Scale: {this.Scale}";
+        }
     }
 #pragma warning restore 414
 
