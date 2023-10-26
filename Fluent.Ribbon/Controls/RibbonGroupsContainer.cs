@@ -436,13 +436,13 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     public void MouseWheelLeft()
     {
-        this.SetHorizontalOffset(this.HorizontalOffset - 16);
+        this.SetHorizontalOffset(this.HorizontalOffset - 48.0);
     }
 
     /// <inheritdoc />
     public void MouseWheelRight()
     {
-        this.SetHorizontalOffset(this.HorizontalOffset + 16);
+        this.SetHorizontalOffset(this.HorizontalOffset + 48.0);
     }
 
     /// <summary>
