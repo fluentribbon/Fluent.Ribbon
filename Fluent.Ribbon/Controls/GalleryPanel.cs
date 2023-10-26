@@ -237,6 +237,16 @@ public class GalleryPanel : StackPanel
         this.visualCollection = new VisualCollection(this);
 
         this.Loaded += this.HandleGalleryPanel_Loaded;
+        this.IsVisibleChanged += this.OnIsVisibleChanged;
+    }
+
+    private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.NewValue is true)
+        {
+            this.Loaded -= this.HandleGalleryPanel_Loaded;
+            this.Refresh();
+        }
     }
 
     private void HandleGalleryPanel_Loaded(object sender, RoutedEventArgs e)
@@ -299,7 +309,8 @@ public class GalleryPanel : StackPanel
     private void RefreshAsync()
     {
         if (this.needsRefresh
-            || this.areUpdatesSuspsended)
+            || this.areUpdatesSuspsended
+            || this.IsLoaded is false)
         {
             return;
         }
