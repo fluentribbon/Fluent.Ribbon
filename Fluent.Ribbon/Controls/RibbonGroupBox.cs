@@ -775,7 +775,10 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     {
         this.SubscribeEvents();
 
-        this.TryDoDeferredCacheProcess();
+        if (this.IsVisible)
+        {
+            this.TryDoDeferredCacheProcess();
+        }
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
