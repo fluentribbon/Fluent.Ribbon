@@ -339,13 +339,13 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     public void LineLeft()
     {
-        this.SetHorizontalOffset(this.HorizontalOffset - 16.0);
+        this.SetHorizontalOffset(this.HorizontalOffset - 48.0);
     }
 
     /// <inheritdoc />
     public void LineRight()
     {
-        this.SetHorizontalOffset(this.HorizontalOffset + 16.0);
+        this.SetHorizontalOffset(this.HorizontalOffset + 48.0);
     }
 
     /// <inheritdoc />
