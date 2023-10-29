@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using Fluent.Extensions;
 using Fluent.Internal;
 
 /// <summary>
@@ -14,8 +15,10 @@ using Fluent.Internal;
 /// </summary>
 public class RibbonGroupsContainer : Panel, IScrollInfo
 {
-    private struct MeasureCache
+    private readonly struct MeasureCache
     {
+        public static readonly MeasureCache Empty = new MeasureCache(Size.Empty, Size.Empty);
+
         public MeasureCache(Size availableSize, Size desiredSize)
         {
             this.AvailableSize = availableSize;
@@ -25,6 +28,8 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
         public Size AvailableSize { get; }
 
         public Size DesiredSize { get; }
+
+        public bool IsEmpty => this.AvailableSize.IsEmpty;
     }
 
     private MeasureCache measureCache;
@@ -62,8 +67,7 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
         var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
         ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
 
-        ribbonPanel.InvalidateMeasure();
-        ribbonPanel.InvalidateArrange();
+        ribbonPanel.InvalidateMeasureAndArrange();
     }
 
     #endregion
@@ -98,6 +102,8 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     protected override Size MeasureOverride(Size availableSize)
     {
+        // System.Diagnostics.Trace.WriteLine($"MeasureOverride {availableSize}");
+
         var desiredSize = this.GetChildrenDesiredSizeIntermediate();
 
         if (this.reduceOrder.Length == 0
@@ -140,7 +146,8 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
             desiredSize = this.GetChildrenDesiredSizeIntermediate();
         }
 
-        // Set find values
+        // Set found values
+        var anyGroupBoxClearedCache = false;
         foreach (var item in this.InternalChildren)
         {
             var groupBox = item as RibbonGroupBox;
@@ -152,6 +159,9 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
             if (groupBox.State != groupBox.StateIntermediate
                 || groupBox.Scale != groupBox.ScaleIntermediate)
             {
+                // System.Diagnostics.Trace.WriteLine($"{groupBox.State} != {groupBox.StateIntermediate}");
+                // System.Diagnostics.Trace.WriteLine($"{groupBox.Scale} != {groupBox.ScaleIntermediate}");
+
                 using (groupBox.CacheResetGuard.Start())
                 {
                     groupBox.State = groupBox.StateIntermediate;
@@ -166,8 +176,14 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
             {
                 // Reset cache and reinvoke measure
                 groupBox.ClearCache();
-                return this.MeasureOverride(availableSize);
+                anyGroupBoxClearedCache = true;
             }
+        }
+
+        if (anyGroupBoxClearedCache)
+        {
+            // System.Diagnostics.Trace.WriteLine("Recursive Measure");
+            return this.MeasureOverride(availableSize);
         }
 
         this.measureCache = new MeasureCache(availableSize, desiredSize);
@@ -609,22 +625,41 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
 
     #endregion
 
+    /// <inheritdoc />
+    protected override void OnChildDesiredSizeChanged(UIElement child)
+    {
+        // Prevent invalidation for various reasons.
+        // This is done to prevent excessive measuring calls.
+        if (this.IsMeasureValid is false
+            || child is FrameworkElement { IsLoaded: false })
+        {
+            return;
+        }
+
+        base.OnChildDesiredSizeChanged(child);
+    }
+
     // We have to reset the reduce order to it's initial value, clear all caches we keep here and invalidate measure/arrange
 #pragma warning disable CA1801 // Review unused parameters
     internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox ribbonGroupBox)
 #pragma warning restore CA1801 // Review unused parameters
     {
-        var ribbonPanel = this;
+        if (this.IsVisible is false
+            || this.measureCache.IsEmpty)
+        {
+            return;
+        }
 
-        var newReduceOrderIndex = ribbonPanel.reduceOrder.Length - 1;
-        ribbonPanel.reduceOrderIndex = newReduceOrderIndex;
+        var newReduceOrderIndex = this.reduceOrder.Length - 1;
+        this.reduceOrderIndex = newReduceOrderIndex;
 
-        this.measureCache = default;
+        this.measureCache = MeasureCache.Empty;
 
         foreach (var item in this.InternalChildren)
         {
             var groupBox = item as RibbonGroupBox;
-            if (groupBox is null)
+            if (groupBox is null
+                || ReferenceEquals(groupBox, ribbonGroupBox))
             {
                 continue;
             }
@@ -632,7 +667,6 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
             groupBox.TryClearCacheAndResetStateAndScale();
         }
 
-        ribbonPanel.InvalidateMeasure();
-        ribbonPanel.InvalidateArrange();
+        this.InvalidateMeasureAndArrange();
     }
 }
