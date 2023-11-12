@@ -1068,7 +1068,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     {
         ContextMenuService.Coerce(this);
 
-        this.IsVisibleChanged += this.OnIsVisibleChanged;
         this.Unloaded += this.OnUnloaded;
     }
 
@@ -1237,19 +1236,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
 
         this.controlPresenter = this.GetTemplateChild("PART_ContentPresenter") as ContentControl;
         this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
-    }
-
-    private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-    {
-        var groupBox = UIHelper.GetParent<RibbonGroupBox>(this);
-
-        // Only notify the parent groupbox if we are not currently being shown in the collapsed popup.
-        // Otherwise we will cause application freezes as we would be constantly flipped between being visible and not visible.
-        // See https://github.com/fluentribbon/Fluent.Ribbon/issues/900 for reference
-        if (groupBox?.IsDropDownOpen == false)
-        {
-            groupBox.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-        }
     }
 
     private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)

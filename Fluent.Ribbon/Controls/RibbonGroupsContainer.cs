@@ -102,7 +102,7 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     protected override Size MeasureOverride(Size availableSize)
     {
-        // System.Diagnostics.Trace.WriteLine($"MeasureOverride {availableSize}");
+        //System.Diagnostics.Trace.WriteLine($"MeasureOverride {availableSize}");
 
         var desiredSize = this.GetChildrenDesiredSizeIntermediate();
 
@@ -146,46 +146,6 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
             desiredSize = this.GetChildrenDesiredSizeIntermediate();
         }
 
-        // Set found values
-        var anyGroupBoxClearedCache = false;
-        foreach (var item in this.InternalChildren)
-        {
-            var groupBox = item as RibbonGroupBox;
-            if (groupBox is null)
-            {
-                continue;
-            }
-
-            if (groupBox.State != groupBox.StateIntermediate
-                || groupBox.Scale != groupBox.ScaleIntermediate)
-            {
-                // System.Diagnostics.Trace.WriteLine($"{groupBox.State} != {groupBox.StateIntermediate}");
-                // System.Diagnostics.Trace.WriteLine($"{groupBox.Scale} != {groupBox.ScaleIntermediate}");
-
-                using (groupBox.CacheResetGuard.Start())
-                {
-                    groupBox.State = groupBox.StateIntermediate;
-                    groupBox.Scale = groupBox.ScaleIntermediate;
-                    groupBox.InvalidateLayout();
-                    groupBox.Measure(new Size(double.PositiveInfinity, availableSize.Height));
-                }
-            }
-
-            // Something wrong with cache?
-            if (groupBox.DesiredSizeIntermediate != groupBox.DesiredSize)
-            {
-                // Reset cache and reinvoke measure
-                groupBox.ClearCache();
-                anyGroupBoxClearedCache = true;
-            }
-        }
-
-        if (anyGroupBoxClearedCache)
-        {
-            // System.Diagnostics.Trace.WriteLine("Recursive Measure");
-            return this.MeasureOverride(availableSize);
-        }
-
         this.measureCache = new MeasureCache(availableSize, desiredSize);
 
         this.VerifyScrollData(availableSize.Width, desiredSize.Width);
@@ -205,7 +165,7 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
                 continue;
             }
 
-            var desiredSize = groupBox.DesiredSizeIntermediate;
+            var desiredSize = groupBox.GetDesiredSizeIntermediate();
             width += desiredSize.Width;
             height = Math.Max(height, desiredSize.Height);
         }
@@ -217,7 +177,7 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     private void IncreaseGroupBoxSize(string name)
     {
         var groupBox = this.FindGroup(name);
-        var scale = name.StartsWith("(", StringComparison.OrdinalIgnoreCase);
+        var scale = name.StartsWith("(", StringComparison.Ordinal);
 
         if (groupBox is null)
         {
@@ -271,7 +231,7 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
 
     private RibbonGroupBox? FindGroup(string name)
     {
-        if (name.StartsWith("(", StringComparison.OrdinalIgnoreCase))
+        if (name.StartsWith("(", StringComparison.Ordinal))
         {
             name = name.Substring(1, name.Length - 2);
         }
@@ -637,12 +597,11 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
         }
 
         base.OnChildDesiredSizeChanged(child);
+        this.GroupBoxCacheClearedAndStateAndScaleResetted(null);
     }
 
     // We have to reset the reduce order to it's initial value, clear all caches we keep here and invalidate measure/arrange
-#pragma warning disable CA1801 // Review unused parameters
-    internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox ribbonGroupBox)
-#pragma warning restore CA1801 // Review unused parameters
+    internal void GroupBoxCacheClearedAndStateAndScaleResetted(RibbonGroupBox? ribbonGroupBox)
     {
         if (this.IsVisible is false
             || this.measureCache.IsEmpty)
