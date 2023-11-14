@@ -5,7 +5,7 @@
                      xmlns:fluent="urn:fluent-ribbon"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                      x:Name="window"
-                     Title="{Binding WindowTitle, ElementName=TestContent}"
+                     Title="MinimalWindowSample"
                      Width="1024"
                      Height="768"
                      MinWidth="80"

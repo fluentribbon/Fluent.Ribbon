@@ -310,11 +310,11 @@ public class RibbonContextualTabGroup : Control
 
     private static void ForceRedraw(RibbonContextualTabGroup contextGroup)
     {
-        contextGroup.ForceMeasure();
+        contextGroup.ForceMeasureImmediate();
 
         foreach (var ribbonTabItem in contextGroup.Items)
         {
-            ribbonTabItem.ForceMeasure();
+            ribbonTabItem.ForceMeasureImmediate();
         }
 
         var ribbonTitleBar = UIHelper.GetParent<RibbonTitleBar>(contextGroup);

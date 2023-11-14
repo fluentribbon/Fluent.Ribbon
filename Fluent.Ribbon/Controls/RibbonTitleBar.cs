@@ -504,7 +504,7 @@ public class RibbonTitleBar : HeaderedItemsControl
     private DispatcherOperation? forceMeasureAndArrangeOperation;
 
     /// <summary>
-    /// Schedules a call to <see cref="FrameworkElementExtensions.ForceMeasureAndArrange"/>.
+    /// Schedules a call to <see cref="FrameworkElementExtensions.ForceMeasureAndArrangeImmediate"/>.
     /// </summary>
     public void ScheduleForceMeasureAndArrange()
     {
@@ -519,7 +519,7 @@ public class RibbonTitleBar : HeaderedItemsControl
     private void PrivateForceMeasureAndArrange()
     {
         this.forceMeasureAndArrangeOperation = null;
-        this.ForceMeasureAndArrange();
+        this.ForceMeasureAndArrangeImmediate();
     }
 
     /// <inheritdoc />

@@ -4,6 +4,7 @@
 
 - ### Bug fixes
 
+  - Simplified state was not updated when items changed
   - [#1165](../../issues/1165) - ScreenTip is not DPI aware
 
 - ### Enhancements/Features

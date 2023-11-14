@@ -390,6 +390,25 @@ public partial class TestContent
         this.ribbon.Tabs.Add(tab);
     }
 
+    private void AddButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var group = this.ribbon.SelectedTabItem.Groups.Last();
+
+        if (group.ItemsSource is not null)
+        {
+            return;
+        }
+
+        var button = new Button
+        {
+            Header = "Foo",
+            Icon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
+            LargeIcon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
+            SizeDefinition = new RibbonControlSizeDefinition(RibbonControlSize.Middle, RibbonControlSize.Middle, RibbonControlSize.Middle)
+        };
+        group.Items.Add(button);
+    }
+
     private async void HandleSaveAsClick(object sender, RoutedEventArgs e)
     {
         var progressAdornerChild = new Border

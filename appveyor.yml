@@ -27,10 +27,3 @@ artifacts:
 
 nuget:
   disable_publish_on_pr: true
-
-notifications:
-  - provider: Webhook
-    url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
-    on_build_success: true
-    on_build_failure: true
-    on_build_status_changed: false

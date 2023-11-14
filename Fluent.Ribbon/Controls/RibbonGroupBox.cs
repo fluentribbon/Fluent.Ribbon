@@ -3,10 +3,8 @@ namespace Fluent;
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
@@ -33,7 +31,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-[DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
+[System.Diagnostics.DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
 public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedStateControl, ILargeIconProvider
 {
     #region Fields
@@ -50,10 +48,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     private bool isSnapped;
 
     private readonly ItemContainerGeneratorAction updateChildSizesItemContainerGeneratorAction;
-
-    private bool isDeferredClearCache;
-    private bool isDeferredClearCacheAndResetStateAndScale;
-    private bool isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer;
 
     #endregion
 
@@ -208,7 +202,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     private void UpdateChildSizes()
     {
-        var groupBoxState = this.State == RibbonGroupBoxState.QuickAccess
+        var groupBoxState = this.State is RibbonGroupBoxState.QuickAccess
             ? RibbonGroupBoxState.Collapsed
             : this.State;
         var isSimplified = this.IsSimplified;
@@ -336,36 +330,10 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         }
     }
 
-    private void OnScalableControlScaled(object? sender, EventArgs e)
-    {
-        this.TryClearCache();
-    }
-
     /// <summary>
     /// Gets or sets whether to reset cache when scalable control is scaled
     /// </summary>
     internal ScopeGuard CacheResetGuard { get; }
-
-    private void UpdateScalableControlSubscritions(bool registerEvents)
-    {
-        foreach (var item in this.Items)
-        {
-            var scalableRibbonControl = this.ItemContainerGenerator.ContainerOrContainerContentFromItem<IScalableRibbonControl>(item);
-
-            if (scalableRibbonControl is null)
-            {
-                continue;
-            }
-
-            // Always unregister first to ensure that we don't subscribe twice
-            scalableRibbonControl.Scaled -= this.OnScalableControlScaled;
-
-            if (registerEvents)
-            {
-                scalableRibbonControl.Scaled += this.OnScalableControlScaled;
-            }
-        }
-    }
 
     #endregion
 
@@ -676,6 +644,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
     }
 
+    // ReSharper disable once InconsistentNaming
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
         DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
@@ -760,7 +729,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// </summary>
     public RibbonGroupBox()
     {
-        this.CacheResetGuard = new ScopeGuard(() => this.UpdateScalableControlSubscritions(false), () => this.UpdateScalableControlSubscritions(true));
+        this.CacheResetGuard = new ScopeGuard(() => { }, () => { });
 
         this.CoerceValue(ContextMenuProperty);
         this.Focusable = false;
@@ -774,8 +743,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         this.SubscribeEvents();
-
-        this.TryDoDeferredCacheProcess();
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -789,8 +756,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     {
         // Always unsubscribe events to ensure we don't subscribe twice
         this.UnSubscribeEvents();
-
-        this.UpdateScalableControlSubscritions(true);
 
         if (this.LauncherButton is not null)
         {
@@ -806,8 +771,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     private void UnSubscribeEvents()
     {
-        this.UpdateScalableControlSubscritions(false);
-
         if (this.LauncherButton is not null)
         {
             this.LauncherButton.Click -= this.OnDialogLauncherButtonClick;
@@ -899,18 +862,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     #region Caching
 
-#pragma warning disable 414
-    // Pair of chached states
-    private struct StateScale
-    {
-        public RibbonGroupBoxState State;
-        public int Scale;
-    }
-#pragma warning restore 414
-
-    // Cache
-    private readonly Dictionary<StateScale, Size> cachedMeasures = new();
-
     /// <summary>
     /// Gets or sets intermediate state of the group box
     /// </summary>
@@ -924,87 +875,37 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     /// <summary>
     /// Gets intermediate desired size
     /// </summary>
-    internal Size DesiredSizeIntermediate
+    internal Size GetDesiredSizeIntermediate()
     {
-        get
+        var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
+
+        using (this.CacheResetGuard.Start())
         {
-            var stateScale = this.GetCurrentIntermediateStateScale();
-
-            if (this.cachedMeasures.TryGetValue(stateScale, out var result) == false)
-            {
-                var contentHeight = UIHelper.GetParent<RibbonTabControl>(this)?.ContentHeight ?? RibbonTabControl.DefaultContentHeight;
-
-                using (this.CacheResetGuard.Start())
-                {
-                    // Get desired size for these values
-                    var backupState = this.State;
-                    var backupScale = this.Scale;
-                    this.State = this.StateIntermediate;
-                    this.Scale = this.ScaleIntermediate;
-                    this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
-                    this.cachedMeasures.Remove(stateScale);
-                    this.cachedMeasures.Add(stateScale, this.DesiredSize);
-                    result = this.DesiredSize;
-
-                    // Rollback changes
-                    this.State = backupState;
-                    this.Scale = backupScale;
-                    this.InvalidateLayout();
-                    this.Measure(new Size(double.PositiveInfinity, contentHeight));
-
-                    this.UpdateScalableControlSubscritions(true);
-                }
-            }
-
-            return result;
+            // Get desired size for these values
+            this.State = this.StateIntermediate;
+            this.Scale = this.ScaleIntermediate;
+            this.InvalidateLayout();
+            this.Measure(new Size(double.PositiveInfinity, contentHeight));
+            return this.DesiredSize;
         }
-    }
-
-    private bool TryClearCache()
-    {
-        if (this.CacheResetGuard.IsActive)
-        {
-            return false;
-        }
-        else if (!this.IsLoaded)
-        {
-            this.isDeferredClearCache = true;
-            return false;
-        }
-
-        this.isDeferredClearCache = false;
-
-        this.ClearCache();
-        return true;
     }
 
     internal bool TryClearCacheAndResetStateAndScale()
     {
-        if (this.CacheResetGuard.IsActive
+        if (this.IsLoaded is false
+            || this.CacheResetGuard.IsActive
             || this.State == RibbonGroupBoxState.QuickAccess)
         {
             return false;
         }
-        else if (!this.IsLoaded)
-        {
-            this.isDeferredClearCacheAndResetStateAndScale = true;
-            return false;
-        }
-
-        this.isDeferredClearCacheAndResetStateAndScale = false;
-
-        this.UpdateScalableControlSubscritions(false);
 
         this.State = RibbonGroupBoxState.Large;
         this.Scale = 0;
         this.StateIntermediate = RibbonGroupBoxState.Large;
         this.ScaleIntermediate = 0;
-        this.ClearCache();
 
         this.ResetScaleableItems();
 
-        this.UpdateScalableControlSubscritions(true);
         return true;
     }
 
@@ -1021,48 +922,18 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         if (this.TryClearCacheAndResetStateAndScale())
         {
             UIHelper.GetParent<RibbonGroupsContainer>(this)?.GroupBoxCacheClearedAndStateAndScaleResetted(this);
-            this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = false;
             return true;
-        }
-        else
-        {
-            if (!this.IsLoaded)
-            {
-                this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer = true;
-            }
         }
 
         return false;
     }
 
-    private bool TryDoDeferredCacheProcess()
-    {
-        if (this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer)
-        {
-            this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-        }
-
-        if (this.isDeferredClearCacheAndResetStateAndScale)
-        {
-            this.TryClearCacheAndResetStateAndScale();
-        }
-
-        if (this.isDeferredClearCache)
-        {
-            this.TryClearCache();
-        }
-
-        return !this.isDeferredClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer
-               && !this.isDeferredClearCacheAndResetStateAndScale
-               && !this.isDeferredClearCache;
-    }
-
     /// <summary>
     /// Clears cache
     /// </summary>
+    [Obsolete("This method does nothing anymore and will be removed in the next major version.")]
     public void ClearCache()
     {
-        this.cachedMeasures.Clear();
     }
 
     /// <summary>
@@ -1075,12 +946,10 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     private static void InvalidateMeasureRecursive(UIElement element)
     {
-        if (element is null)
+        if (element.IsMeasureValid)
         {
-            return;
+            element.InvalidateMeasure();
         }
-
-        element.InvalidateMeasure();
 
         for (var i = 0; i < VisualTreeHelper.GetChildrenCount(element); i++)
         {
@@ -1105,7 +974,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         this.UnSubscribeEvents();
 
         // Clear cache
-        this.ClearCache();
         this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
 
         this.HeaderContentControl = this.GetTemplateChild("PART_HeaderContentControl") as ContentControl;
@@ -1137,6 +1005,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         base.OnItemsChanged(e);
 
         this.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
+        this.updateChildSizesItemContainerGeneratorAction.QueueAction();
     }
 
     /// <inheritdoc />
@@ -1199,25 +1068,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         }
 
         base.OnKeyDown(e);
-    }
-
-    /// <inheritdoc />
-    protected override void OnChildDesiredSizeChanged(UIElement child)
-    {
-        base.OnChildDesiredSizeChanged(child);
-
-        // We must always clear the current cached measure.
-        this.cachedMeasures.Remove(this.GetCurrentIntermediateStateScale());
-    }
-
-    private StateScale GetCurrentIntermediateStateScale()
-    {
-        var stateScale = new StateScale
-        {
-            Scale = this.ScaleIntermediate,
-            State = this.StateIntermediate
-        };
-        return stateScale;
     }
 
     #endregion
