@@ -1261,7 +1261,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
     {
-        if (this.CanCollapseToButton)
+        if (this.CanAutomaticallyChangeIsCollapsed())
         {
             if (current == RibbonControlSize.Large
                 && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
@@ -1273,6 +1273,18 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
                 this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
         }
+    }
+
+    private bool CanAutomaticallyChangeIsCollapsed()
+    {
+        if (this.CanCollapseToButton is false)
+        {
+            return false;
+        }
+
+        var valueSource = DependencyPropertyHelper.GetValueSource(this, IsCollapsedProperty);
+        return valueSource.BaseValueSource is BaseValueSource.Default
+            || (valueSource.BaseValueSource is BaseValueSource.Local && valueSource.IsCurrent);
     }
 
     /// <inheritdoc />
@@ -1483,11 +1495,10 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void ResetScale()
     {
-        if (this.CanCollapseToButton
-            && this.IsCollapsed
+        if (this.CanAutomaticallyChangeIsCollapsed()
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
-            this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
+            this.ClearValue(IsCollapsedProperty);
         }
 
         if (this.galleryPanel is not null
@@ -1502,7 +1513,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void Enlarge()
     {
-        if (this.CanCollapseToButton
+        if (this.CanAutomaticallyChangeIsCollapsed()
             && this.IsCollapsed
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
@@ -1531,7 +1542,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
         {
             this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
         }
-        else if (this.CanCollapseToButton
+        else if (this.CanAutomaticallyChangeIsCollapsed()
                  && this.IsCollapsed == false)
         {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
