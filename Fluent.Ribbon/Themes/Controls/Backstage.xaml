@@ -32,29 +32,31 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageToggleButton"
                      TargetType="{x:Type Fluent:Backstage}">
-        <Border x:Name="border2"
-                Height="Auto"
-                MinWidth="60"
-                Margin="0 0 0 0"
-                Background="{TemplateBinding Background}"
-                ToolTip="{TemplateBinding ToolTip}">
-            <Grid>
-                <Rectangle x:Name="rectangle" />
-                <ContentPresenter x:Name="contentPresenter"
-                                  Margin="10 0 10 0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  ContentSource="Header"
-                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
-            </Grid>
-        </Border>
+        <Grid x:Name="root"
+              Background="{TemplateBinding Background}"
+              ToolTip="{TemplateBinding ToolTip}">
+            <Border x:Name="underlineBorder"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Stretch"
+                    Background="Transparent"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
+                    BorderThickness="0 0 0 2"
+                    Margin="4 0 4 2"
+                    Visibility="Collapsed" />
+
+            <ContentPresenter x:Name="contentPresenter"
+                              Margin="10 7 10 7"
+                              HorizontalAlignment="Center"
+                              ContentSource="Header"
+                              ContentTemplate="{TemplateBinding HeaderTemplate}"
+                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
+        </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="rectangle" Property="Fill" Value="{DynamicResource Fluent.Ribbon.Brushes.HighTransparentWhite}" />
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="border2" Property="Opacity" Value="0.5" />
+                <Setter TargetName="root" Property="Opacity" Value="0.5" />
                 <Setter TargetName="contentPresenter" Property="Effect">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
@@ -62,15 +64,8 @@
                 </Setter>
             </Trigger>
             <Trigger Property="IsOpen" Value="True">
-                <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition SourceName="border2" Property="IsMouseOver" Value="True" />
-                    <Condition Property="IsOpen" Value="True" />
-                </MultiTrigger.Conditions>
-                <Setter TargetName="rectangle" Property="Visibility" Value="Collapsed" />
-            </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
