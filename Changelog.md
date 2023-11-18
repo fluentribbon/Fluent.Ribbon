@@ -1,5 +1,20 @@
 # Changelog for Fluent.Ribbon
 
+## 11.0.0
+
+- ### Breaking changes
+
+  - Aligned theming with current office versions
+  - Changed default `TextOptions.TextFormattingMode` on `RibbonWindow` from `Display` to `Ideal`
+  - Changed default `TextOptions.TextRenderingMode` on `RibbonWindow` from `Auto` to `Grayscale`
+  - Changed default `HeaderPadding` on `RibbonTabItem` from `8, 5, 8, 5` to `8, 7, 8, 7`
+  - Changed default `Padding` on `RibbonGroupBox` from `0` to `0 4 0 0`
+  - Backstage (the button) does not have a `MinWidth` set anymore
+
+- ### Enhancements/Features
+
+  - Added `TabItemForeground` to `RibbonContextualTabGroup`
+
 ## 10.1.0
 
 - ### Bug fixes
