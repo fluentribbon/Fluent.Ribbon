@@ -122,7 +122,7 @@
                        CanUseSimplified="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
-                                                 Header="FIRST"
+                                                 Header="First"
                                                  Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                                  BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                                  Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
@@ -132,10 +132,14 @@
                                                  Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
-                                                 Header="SECOND"
+                                                 Header="Second"
                                                  Background="#FF9D00"
                                                  BorderBrush="#FF9D00"
                                                  Foreground="#C45300"
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+
+                <Fluent:RibbonContextualTabGroup x:Name="tabGroup3"
+                                                 Header=""
                                                  Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
@@ -2768,15 +2772,15 @@
 
             <Fluent:RibbonTabItem Header="Binding"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
+                                  ActiveTabBackground="{DynamicResource Fluent.Ribbon.Brushes.Gray9}"
                                   KeyTip="B">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
                                        ItemTemplate="{DynamicResource GallerySampleDataItemCommandTemplate}"
                                        ItemsSource="{Binding DataItems}" />
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="LAYOUT"
-                                  ActiveTabBackground="#FF9D00"
-                                  Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
+            <Fluent:RibbonTabItem Header="Layout"
+                                  Group="{Binding ElementName=tabGroup3, Mode=OneWay}"
                                   KeyTip="L">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
