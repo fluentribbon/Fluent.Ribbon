@@ -46,12 +46,11 @@
 
             <Grid x:Name="separatorGrid"
                   Width="1"
-                  Margin="0"
+                  Margin="0 4 0 4"
                   HorizontalAlignment="Right"
                   Visibility="Collapsed">
-                <Rectangle x:Name="separatorRectangle1"
+                <Rectangle x:Name="separatorRectangle"
                            Width="1"
-                           Margin="0"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}"
                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}" />
             </Grid>
