@@ -180,9 +180,6 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     static RibbonWindow()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(typeof(RibbonWindow)));
-
-        TextOptions.TextFormattingModeProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(TextFormattingMode.Ideal));
-        TextOptions.TextRenderingModeProperty.OverrideMetadata(typeof(RibbonWindow), new FrameworkPropertyMetadata(TextRenderingMode.Aliased));
     }
 
     /// <summary>
