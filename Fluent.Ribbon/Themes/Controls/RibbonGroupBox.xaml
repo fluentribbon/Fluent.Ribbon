@@ -69,6 +69,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox}" />
         <Setter Property="Width" Value="Auto" />
+        <Setter Property="Padding" Value="0 4 0 0" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
@@ -279,7 +280,8 @@
         </ControlTemplate.Resources>
 
         <Grid x:Name="grid2"
-              HorizontalAlignment="Stretch">
+              HorizontalAlignment="Stretch"
+              Margin="{TemplateBinding Padding}">
             <Border Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" />
 
