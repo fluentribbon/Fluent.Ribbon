@@ -7,8 +7,9 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="TabItemMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
+        <Setter Property="TabItemForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemForeground}" />
         <Setter Property="TabItemSelectedForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
+        <Setter Property="TabItemMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
         <Setter Property="TabItemSelectedMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonContextualTabGroup}" />
         <Setter Property="Width" Value="Auto" />

@@ -14,16 +14,20 @@
                     Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
                     BorderThickness="0"
                     OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Contextual.Background.OpacityMask}" />
-            <Border x:Name="mouseOverBorder"
+            <Border x:Name="backgroundBorder"
                     Background="{TemplateBinding Background}"
                     BorderThickness="0" />
-            <Border x:Name="underlineBorder"
-                    VerticalAlignment="Stretch"
+            <Border x:Name="underlineContainerBorder"
+                    Margin="0 0 0 3"
                     Background="{TemplateBinding ActiveTabBackground}"
-                    BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
-                    BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness}"
-                    Margin="{Binding HeaderPadding, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ExtractLeftRightFromThicknessConverter.Default}}"
-                    Visibility="Collapsed" />
+                    Visibility="Collapsed">
+                <Border x:Name="underlineBorder"
+                        BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
+                        BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness}"
+                        Margin="{Binding HeaderPadding, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ExtractLeftRightFromThicknessConverter.Default}}"
+                        Visibility="Collapsed" />
+            </Border>
+
             <Border x:Name="PART_ContentContainer"
                     Padding="{TemplateBinding HeaderPadding}"
                     HorizontalAlignment="Stretch"
@@ -37,7 +41,8 @@
 
             <Rectangle x:Name="keyboardFocusMarker"
                        Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Rectangle}"
-                       Visibility="Collapsed" />
+                       Visibility="Collapsed"
+                       Margin="0" />
 
             <Grid x:Name="separatorGrid"
                   Width="1"
@@ -67,10 +72,12 @@
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineContainerBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
+                <Setter TargetName="underlineContainerBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding ActiveTabBorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
@@ -81,7 +88,7 @@
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="Selector.IsSelected" Value="True" />
-                    <Condition Property="Group" Value="{x:Null}" />
+                    <Condition Property="IsContextual" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground}" />
             </MultiTrigger>
@@ -142,11 +149,31 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               Text="{Binding}"
-                               TextTrimming="CharacterEllipsis"
-                               TextWrapping="NoWrap" />
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding}"
+                                   TextTrimming="CharacterEllipsis"
+                                   TextWrapping="NoWrap"
+                                   FontWeight="SemiBold"
+                                   Visibility="Hidden" />
+
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding}"
+                                   TextTrimming="CharacterEllipsis"
+                                   TextWrapping="NoWrap">
+                            <TextBlock.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=Fluent:RibbonTabItem}}" Value="True">
+                                            <Setter Property="TextElement.FontWeight" Value="SemiBold" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -156,8 +183,11 @@
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabItem}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
-            <Trigger Property="Group" Value="{x:Null}">
+            <Trigger Property="IsContextual" Value="False">
                 <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
+            </Trigger>
+            <Trigger Property="IsContextual" Value="True">
+                <Setter Property="Foreground" Value="{Binding Group.TabItemForeground, RelativeSource={RelativeSource Self}}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />

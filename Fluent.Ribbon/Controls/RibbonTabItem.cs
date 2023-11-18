@@ -174,7 +174,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
     public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 5, 8, 5)));
+        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 7, 8, 7)));
 
     /// <summary>
     /// Gets or sets whether separator is visible
