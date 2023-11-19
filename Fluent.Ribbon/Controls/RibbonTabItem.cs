@@ -174,20 +174,19 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
     public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(8, 7, 8, 7)));
+        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(9, 7, 9, 7)));
+
+    /// <summary>Identifies the <see cref="SeparatorOpacity"/> dependency property.</summary>
+    public static readonly DependencyProperty SeparatorOpacityProperty = DependencyProperty.Register(nameof(SeparatorOpacity), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(DoubleBoxes.Zero));
 
     /// <summary>
-    /// Gets or sets whether separator is visible
+    /// Gets or sets the opacity of the separator.
     /// </summary>
-    public bool IsSeparatorVisible
+    public double SeparatorOpacity
     {
-        get { return (bool)this.GetValue(IsSeparatorVisibleProperty); }
-        set { this.SetValue(IsSeparatorVisibleProperty, BooleanBoxes.Box(value)); }
+        get { return (double)this.GetValue(SeparatorOpacityProperty); }
+        set { this.SetValue(SeparatorOpacityProperty, value); }
     }
-
-    /// <summary>Identifies the <see cref="IsSeparatorVisible"/> dependency property.</summary>
-    public static readonly DependencyProperty IsSeparatorVisibleProperty =
-        DependencyProperty.Register(nameof(IsSeparatorVisible), typeof(bool), typeof(RibbonTabItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
     /// <summary>
     /// Gets or sets ribbon contextual tab group
@@ -687,7 +686,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     }
 
     /// <inheritdoc />
-    protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonTabItemAutomationPeer(this);
+    protected override AutomationPeer OnCreateAutomationPeer() => new RibbonTabItemAutomationPeer(this);
 
     #endregion
 

@@ -48,7 +48,7 @@
                   Width="1"
                   Margin="0 4 0 4"
                   HorizontalAlignment="Right"
-                  Visibility="Collapsed">
+                  Opacity="{TemplateBinding SeparatorOpacity}">
                 <Rectangle x:Name="separatorRectangle"
                            Width="1"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}"
@@ -63,9 +63,6 @@
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Fluent:RibbonTabControl}, Path=SelectedItem}" Value="{x:Null}">
                 <Setter TargetName="groupBorder" Property="Margin" Value="0" />
             </DataTrigger>
-            <Trigger Property="IsSeparatorVisible" Value="True">
-                <Setter TargetName="separatorGrid" Property="Visibility" Value="Visible" />
-            </Trigger>
             <Trigger Property="Group" Value="{x:Null}">
                 <Setter TargetName="groupBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
@@ -152,7 +149,6 @@
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Text="{Binding}"
-                                   TextTrimming="CharacterEllipsis"
                                    TextWrapping="NoWrap"
                                    FontWeight="SemiBold"
                                    Visibility="Hidden" />
@@ -160,7 +156,6 @@
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Text="{Binding}"
-                                   TextTrimming="CharacterEllipsis"
                                    TextWrapping="NoWrap">
                             <TextBlock.Style>
                                 <Style>

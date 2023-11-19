@@ -1188,7 +1188,6 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Insert"
-                                  IsSeparatorVisible="true"
                                   KeyTip="I"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
                 <Fluent:RibbonGroupBox x:Name="groupLL"
