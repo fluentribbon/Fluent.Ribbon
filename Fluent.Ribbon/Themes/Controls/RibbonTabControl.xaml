@@ -295,9 +295,7 @@
 
                 <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
 
-                <!-- Margin on bottom is need to keep the border surrounding the content area visible below the menu presenter -->
                 <ContentPresenter Grid.Column="0"
-                                  Margin="0 0 0 1"
                                   VerticalAlignment="Stretch"
                                   ContentSource="Menu" />
 

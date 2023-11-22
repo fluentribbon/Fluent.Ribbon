@@ -41,7 +41,7 @@
                     Background="Transparent"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                     BorderThickness="0 0 0 2"
-                    Margin="4 0 4 2"
+                    Margin="4 0 4 3"
                     Visibility="Collapsed" />
 
             <ContentPresenter x:Name="contentPresenter"
