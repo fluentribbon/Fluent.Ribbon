@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:controlzex="urn:controlzex"
@@ -20,7 +20,6 @@
 
                     <DockPanel Grid.Row="0"
                                Height="{TemplateBinding TitleBarHeight}"
-                               Margin="0 0 0 -1"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                Background="{TemplateBinding TitleBackground}"
