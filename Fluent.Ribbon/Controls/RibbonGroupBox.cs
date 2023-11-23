@@ -31,7 +31,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_UpPanel", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_ParentPanel", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_SnappedImage", Type = typeof(Image))]
-[System.Diagnostics.DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
+[System.Diagnostics.DebuggerDisplay("{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, State = {State}, IsSimplified = {IsSimplified}")]
 public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, IDropDownControl, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, IMediumIconProvider, ISimplifiedStateControl, ILargeIconProvider
 {
     #region Fields

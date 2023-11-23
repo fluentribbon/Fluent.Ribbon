@@ -19,7 +19,7 @@ using Fluent.Internal.KnownBoxes;
 /// you to add menu and handle clicks
 /// </summary>
 [TemplatePart(Name = "PART_Button", Type = typeof(ButtonBase))]
-[DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
+[DebuggerDisplay("{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
 public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTipInformationProvider
 {
     #region Fields

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Automation;
@@ -29,6 +30,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_ContentContainer", Type = typeof(Border))]
 [ContentProperty(nameof(Groups))]
 [DefaultProperty(nameof(Groups))]
+[DebuggerDisplay("{GetType().FullName}: Header = {Header}, Groups.Count = {Groups.Count}, IsSimplified = {IsSimplified}")]
 public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogicalChildSupport, ISimplifiedStateControl
 {
     #region Fields

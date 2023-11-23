@@ -25,7 +25,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
 [TemplatePart(Name = "PART_PopupContentControl", Type = typeof(ResizeableContentControl))]
 [TemplatePart(Name = "PART_ButtonBorder", Type = typeof(UIElement))]
-[DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
+[DebuggerDisplay("{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
 public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
 {
     #region Fields
