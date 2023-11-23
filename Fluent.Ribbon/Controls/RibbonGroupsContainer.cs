@@ -99,6 +99,10 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
         return new UIElementCollection(this, /*Parent as FrameworkElement*/this);
     }
 
+    // The first measure can yield incomplete results, especially if galleries are present.
+    // To compensate those we just schedule another measure.
+    private bool isFirstMeasure = true;
+
     /// <inheritdoc />
     protected override Size MeasureOverride(Size availableSize)
     {
@@ -149,6 +153,13 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
         this.measureCache = new MeasureCache(availableSize, desiredSize);
 
         this.VerifyScrollData(availableSize.Width, desiredSize.Width);
+
+        if (this.isFirstMeasure)
+        {
+            this.isFirstMeasure = false;
+            this.RunInDispatcherAsync(() => this.GroupBoxCacheClearedAndStateAndScaleResetted(null));
+        }
+
         return desiredSize;
     }
 
