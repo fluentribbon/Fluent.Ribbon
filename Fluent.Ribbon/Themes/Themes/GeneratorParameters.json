@@ -1,10 +1,11 @@
-﻿{
+{
   "DefaultValues": {
     "Fluent.Ribbon.Colors.IdealForeground": "White",
     "Fluent.Ribbon.Colors.DarkIdealForegroundDisabled": "#ADADAD",
     "Fluent.Ribbon.Colors.ExtremeHighlight": "#FFFFD232",
     "Fluent.Ribbon.Colors.DarkExtremeHighlight": "#FFF29536",
     "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background": "#FFFCF1C2",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border": "#FFF29536",
     "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
