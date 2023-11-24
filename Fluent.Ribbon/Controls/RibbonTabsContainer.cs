@@ -124,12 +124,15 @@ public class RibbonTabsContainer : Panel, IScrollInfo
         desiredSize.Width += sizeChanges * stepSize;
 
         // Gradually make separators visible between tabs to assist readability
-        var averageHeaderPadding = visibleTabs.Average(x => x.HeaderPadding.Left + x.HeaderPadding.Right);
-        var paddingDiff = averageHeaderPadding - (this.minimumLeftRightHeaderPadding * 2);
         var separatorOpacity = 0D;
-        if (DoubleUtil.GreaterThan(paddingDiff, 7) is false)
+        if (visibleTabs.Any())
         {
-            separatorOpacity = 1D - (paddingDiff / 8);
+            var averageHeaderPadding = visibleTabs.Average(x => x.HeaderPadding.Left + x.HeaderPadding.Right);
+            var paddingDiff = averageHeaderPadding - (this.minimumLeftRightHeaderPadding * 2);
+            if (DoubleUtil.GreaterThan(paddingDiff, 7) is false)
+            {
+                separatorOpacity = 1D - (paddingDiff / 8);
+            }
         }
 
         this.UpdateSeparators(separatorOpacity);
