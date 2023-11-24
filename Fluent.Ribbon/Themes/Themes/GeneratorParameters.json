@@ -1,4 +1,4 @@
-{
+﻿{
   "DefaultValues": {
     "Fluent.Ribbon.Colors.IdealForeground": "White",
     "Fluent.Ribbon.Colors.DarkIdealForegroundDisabled": "#ADADAD",
@@ -54,7 +54,8 @@
         "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "#363636",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}"
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FF252525"
       }
     },
     {
@@ -89,15 +90,14 @@
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
         "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
         "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray2}",
-        "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "#FFE5E3E9",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFE5E3E9",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFEEEEEE",
         "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
         "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Highlight}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Highlight}"
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Highlight}",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "{StaticResource Fluent.Ribbon.Colors.White}"
       }
     }
   ],
@@ -106,14 +106,6 @@
       "Name": "Colorful",
       "Values": {
         "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.Accent80}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "#44FFFFFF",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.White}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
         "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "{StaticResource Fluent.Ribbon.Colors.Accent80}",
         "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
         "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
