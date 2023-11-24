@@ -176,7 +176,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
     public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new PropertyMetadata(new Thickness(9, 7, 9, 7)));
+        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 7, 9, 7), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
     /// <summary>Identifies the <see cref="SeparatorOpacity"/> dependency property.</summary>
     public static readonly DependencyProperty SeparatorOpacityProperty = DependencyProperty.Register(nameof(SeparatorOpacity), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(DoubleBoxes.Zero));
@@ -552,26 +552,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         }
 
         var baseConstraint = base.MeasureOverride(constraint);
-        var totalWidth = this.contentContainer.DesiredSize.Width - (this.contentContainer.Margin.Left - this.contentContainer.Margin.Right);
-        this.contentContainer.Child.Measure(SizeConstants.Infinite);
-        var headerWidth = this.contentContainer.Child.DesiredSize.Width;
-
-        if (totalWidth > headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right))
-        {
-            if (DoubleUtil.AreClose(this.desiredWidth, 0) == false)
-            {
-                // If header width is larger then tab increase tab width
-                if (constraint.Width > this.desiredWidth
-                    && this.desiredWidth > totalWidth)
-                {
-                    baseConstraint.Width = this.desiredWidth;
-                }
-                else
-                {
-                    baseConstraint.Width = headerWidth + (this.HeaderPadding.Left + this.HeaderPadding.Right) + (this.contentContainer.Margin.Left + this.contentContainer.Margin.Right);
-                }
-            }
-        }
 
         if (DoubleUtil.AreClose(this.cachedWidth, baseConstraint.Width) == false
             && this.IsContextual

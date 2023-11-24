@@ -7,8 +7,7 @@
                     mc:Ignorable="d">
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabItem"
                      TargetType="{x:Type Fluent:RibbonTabItem}">
-        <Grid x:Name="grid"
-              Height="Auto">
+        <Grid x:Name="grid">
             <Border x:Name="groupBorder"
                     Margin="0 0 0 1"
                     Background="{Binding Group.Background, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"

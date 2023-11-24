@@ -120,8 +120,11 @@ public class RibbonTabsContainer : Panel, IScrollInfo
             }
         }
 
-        desiredSize = this.GetChildrenDesiredSize();
-        desiredSize.Width += sizeChanges * stepSize;
+        if (sizeChanges is not 0)
+        {
+            desiredSize.Width += sizeChanges * stepSize;
+            desiredSize = this.MeasureChildrenDesiredSize(desiredSize);
+        }
 
         // Gradually make separators visible between tabs to assist readability
         var separatorOpacity = 0D;
@@ -160,25 +163,6 @@ public class RibbonTabsContainer : Panel, IScrollInfo
             child.Measure(availableSize);
             width += child.DesiredSize.Width;
 
-            height = Math.Max(height, child.DesiredSize.Height);
-        }
-
-        return new Size(width, height);
-    }
-
-    private Size GetChildrenDesiredSize()
-    {
-        double width = 0;
-        double height = 0;
-
-        foreach (UIElement? child in this.InternalChildren)
-        {
-            if (child is null)
-            {
-                continue;
-            }
-
-            width += child.DesiredSize.Width;
             height = Math.Max(height, child.DesiredSize.Height);
         }
 
