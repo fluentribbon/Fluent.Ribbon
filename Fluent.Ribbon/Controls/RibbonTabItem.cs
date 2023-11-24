@@ -38,9 +38,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     // Content container
     private Border? contentContainer;
 
-    // Desired width
-    private double desiredWidth;
-
     // Collection of ribbon groups
     private ObservableCollection<RibbonGroupBox>? groups;
 
@@ -218,21 +215,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         else
         {
             tab.IsContextual = false;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets desired width of the tab item.
-    /// </summary>
-    /// <remarks>This is needed in case the width of <see cref="Group"/> is larger than it's tabs.</remarks>
-    internal double DesiredWidth
-    {
-        get { return this.desiredWidth; }
-
-        set
-        {
-            this.desiredWidth = value;
-            this.InvalidateMeasure();
         }
     }
 
