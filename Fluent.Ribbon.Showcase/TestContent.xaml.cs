@@ -475,7 +475,7 @@ public partial class TestContent
     private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         var textFormattingMode = e.NewValue >= 1.0 || DoubleUtil.AreClose(e.NewValue, 1.0) ? TextFormattingMode.Ideal : TextFormattingMode.Display;
-        TextOptions.SetTextFormattingMode(this, textFormattingMode);
+        //TextOptions.SetTextFormattingMode(this, textFormattingMode);
     }
 
     private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
