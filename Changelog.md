@@ -10,6 +10,7 @@
 - ### Enhancements/Features
 
   - [#1177](../../issues/1177) - RibbonComboBox cannot be customized based on the original RibbonComboBox style (thanks @nishy2000)
+  - [#1180](../../issues/1180) - Padding and BorderBrush of the gallery control do not work (thanks @nishy2000)
 
 ## 10.0.4
 
