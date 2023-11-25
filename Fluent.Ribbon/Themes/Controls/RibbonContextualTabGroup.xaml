@@ -8,49 +8,31 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="TabItemForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemForeground}" />
-        <Setter Property="TabItemSelectedForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
         <Setter Property="TabItemMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground}" />
+        <Setter Property="TabItemSelectedForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground}" />
         <Setter Property="TabItemSelectedMouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonContextualTabGroup}" />
-        <Setter Property="Width" Value="Auto" />
     </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonContextualTabGroup"
                      TargetType="{x:Type Fluent:RibbonContextualTabGroup}">
-        <Border x:Name="rootBorder"
-                Width="Auto"
-                Margin="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Visibility="{TemplateBinding InnerVisibility}">
-            <Border Height="Auto"
-                    VerticalAlignment="Stretch"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="0 0">
-                <Grid Height="Auto"
-                      Margin="0"
-                      VerticalAlignment="Stretch">
-                    <Rectangle Width="Auto"
-                               Height="Auto"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch"
-                               Fill="{TemplateBinding Background}"
-                               OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
-                    <Rectangle Width="Auto"
-                               Height="4"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Top"
-                               Fill="{TemplateBinding BorderBrush}" />
-                    <Grid Margin="0 4 0 0">
-                        <TextBlock Margin="6 0"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
-                                   TextTrimming="CharacterEllipsis" />
-                    </Grid>
-                </Grid>
-            </Border>
-        </Border>
+        <Grid HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Visibility="{TemplateBinding InnerVisibility}">
+            <Rectangle HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch"
+                       Fill="{TemplateBinding Background}"
+                       OpacityMask="{DynamicResource Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask}" />
+            <Rectangle Height="4"
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Top"
+                       Fill="{TemplateBinding BorderBrush}" />
+            <TextBlock Margin="6 4 6 0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{TemplateBinding Foreground}"
+                       Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                       TextTrimming="CharacterEllipsis" />
+        </Grid>
     </ControlTemplate>
 </ResourceDictionary>
