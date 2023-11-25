@@ -3,8 +3,8 @@ namespace Windows.Win32;
 
 #pragma warning disable SA1307, SA1310, SA1401, SA1601, CA1060
 
-using System;
-using System.Runtime.InteropServices;
+using global::System;
+using global::System.Runtime.InteropServices;
 
 internal partial class PInvoke
 {

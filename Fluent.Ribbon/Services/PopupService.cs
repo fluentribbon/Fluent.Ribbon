@@ -322,7 +322,9 @@ public static class PopupService
                 break;
 
             default:
+#pragma warning disable CA2208
                 throw new ArgumentOutOfRangeException(nameof(e.DismissMode), e.DismissMode, "Unknown DismissMode.");
+#pragma warning restore CA2208
         }
     }
 
