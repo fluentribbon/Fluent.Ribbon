@@ -313,6 +313,9 @@ public class Backstage : RibbonControl
     private Window? ownerWindow;
     private Ribbon? parentRibbon;
 
+    private bool changedQATVisibility;
+    private bool changedHideContextTabs;
+
     /// <summary>
     /// Shows the <see cref="Backstage"/>
     /// </summary>
@@ -344,6 +347,7 @@ public class Backstage : RibbonControl
         this.ShowAdorner();
 
         this.parentRibbon = GetParentRibbon(this);
+
         if (this.parentRibbon is not null)
         {
             if (this.parentRibbon.TabControl is not null)
@@ -353,14 +357,18 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.QuickAccessToolBar is not null)
+            if (this.parentRibbon.IsQuickAccessToolBarVisible is true)
             {
-                this.parentRibbon.QuickAccessToolBar.IsEnabled = false;
+                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, BooleanBoxes.FalseBox);
+                this.changedQATVisibility = true;
             }
 
-            if (this.parentRibbon.TitleBar is not null)
+            if (this.HideContextTabsOnOpen
+                && this.parentRibbon.TitleBar is not null
+                && this.parentRibbon.TitleBar.HideContextTabs is false)
             {
-                this.parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
+                this.parentRibbon.TitleBar.SetCurrentValue(RibbonTitleBar.HideContextTabsProperty, BooleanBoxes.TrueBox);
+                this.changedHideContextTabs = true;
             }
         }
 
@@ -617,18 +625,20 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.QuickAccessToolBar is not null)
+            if (this.changedQATVisibility)
             {
-                this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
-                this.parentRibbon.QuickAccessToolBar.Refresh();
+                this.parentRibbon.ClearValue(Ribbon.IsQuickAccessToolBarVisibleProperty);
             }
 
-            if (this.parentRibbon.TitleBar is not null)
+            if (this.changedHideContextTabs
+                && this.parentRibbon.TitleBar is not null)
             {
-                this.parentRibbon.TitleBar.HideContextTabs = false;
+                this.parentRibbon.TitleBar.ClearValue(RibbonTitleBar.HideContextTabsProperty);
             }
 
             this.parentRibbon = null;
+            this.changedQATVisibility = false;
+            this.changedHideContextTabs = false;
         }
 
         if (this.ownerWindow is not null)

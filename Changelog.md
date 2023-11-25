@@ -15,6 +15,11 @@
 - ### Enhancements/Features
 
   - Added `TabItemForeground` to `RibbonContextualTabGroup`
+  - Added resource `Fluent.Ribbon.Brushes.RibbonWindow.Background`
+
+- ### Bug fixes
+
+  - Values of `IsQuickAccessToolBarVisible` and `HideContextTabs` are now properly restored when `Backstage` is closed
 
 ## 10.1.0
 
