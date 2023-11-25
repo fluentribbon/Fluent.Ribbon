@@ -4,6 +4,7 @@
 
 - ### Breaking changes
 
+  - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead.
   - Aligned theming with current office versions
   - Changed default `TextOptions.TextFormattingMode` on `RibbonWindow` from `Display` to `Ideal`
   - Changed default `TextOptions.TextRenderingMode` on `RibbonWindow` from `Auto` to `Grayscale`
@@ -67,7 +68,6 @@
 - ### Breaking changes
 
   - Dropped support for .NET 4.5.2. The lowest support .NET version is now 4.6.2.
-  - Dropped support for .NET 5.0 and add .NET 6.0 instead.
   - Resizing popups should now work properly where supported (ComboBox, DropDownButton, InRibbonGallery, MenuItem, SplitButton).  
     Templates now use the new specialized `ResizeableContentControl` to enable this.  
     Resize code was moved from single controls to the new control.

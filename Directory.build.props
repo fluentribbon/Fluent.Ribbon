@@ -15,9 +15,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net462</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows;net6.0-windows;net462</TargetFrameworks>
     <LangVersion>latestmajor</LangVersion>
-    
+
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
