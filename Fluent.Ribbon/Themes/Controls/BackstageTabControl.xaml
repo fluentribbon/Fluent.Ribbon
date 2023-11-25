@@ -10,12 +10,12 @@
                 ToolTip="{TemplateBinding ToolTip}">
             <Grid Background="Transparent">
                 <Border x:Name="underlineBorder"
-                        VerticalAlignment="Stretch"
+                        Margin="4 8 0 8"
                         HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
                         Background="Transparent"
                         BorderBrush="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}"
                         BorderThickness="4 0 0 0"
-                        Margin="4 8 0 8"
                         Visibility="Collapsed" />
 
                 <StackPanel Margin="25 0 15 0"
@@ -59,12 +59,12 @@
             <!--     <Setter TargetName="border" Property="Visibility" Value="Visible" /> -->
             <!-- </MultiTrigger> -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding (Fluent:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter TargetName="rootBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
@@ -77,14 +77,19 @@
                 <MultiTrigger.EnterActions>
                     <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" To="0" Duration="0:0:0.1" />
+                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="0"
+                                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiTrigger.EnterActions>
                 <MultiTrigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" Duration="0:0:0.1" />
+                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
+                                                Storyboard.TargetProperty="Margin"
+                                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiTrigger.ExitActions>

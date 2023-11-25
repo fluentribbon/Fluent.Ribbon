@@ -36,12 +36,12 @@
               Background="{TemplateBinding Background}"
               ToolTip="{TemplateBinding ToolTip}">
             <Border x:Name="underlineBorder"
-                    VerticalAlignment="Bottom"
+                    Margin="4 0 4 3"
                     HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
                     Background="Transparent"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Gray2}"
                     BorderThickness="0 0 0 2"
-                    Margin="4 0 4 3"
                     Visibility="Collapsed" />
 
             <ContentPresenter x:Name="contentPresenter"
@@ -56,12 +56,12 @@
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="root" Property="Opacity" Value="0.5" />
                 <Setter TargetName="contentPresenter" Property="Effect">
                     <Setter.Value>
                         <Fluent:GrayscaleEffect />
                     </Setter.Value>
                 </Setter>
+                <Setter TargetName="root" Property="Opacity" Value="0.5" />
             </Trigger>
             <Trigger Property="IsOpen" Value="True">
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Collapsed" />

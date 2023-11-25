@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="FluentTest.TestContent"
+<UserControl x:Class="FluentTest.TestContent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Fluent="urn:fluent-ribbon"
@@ -313,9 +313,9 @@
                                     <DataTemplate>
                                         <Grid>
                                             <TextBox Width="6000"
-                                                     Text="{Binding Mode=OneWay}"
                                                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+                                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                                     Text="{Binding Mode=OneWay}" />
                                         </Grid>
                                     </DataTemplate>
                                 </Fluent:BackstageTabItem.ContentTemplate>
@@ -2116,15 +2116,15 @@
                     <Fluent:Button Header="Refresh (Galleries)"
                                    Command="{Binding GalleryViewModel.RefreshCommand}"
                                    Icon="Images\Green.png"
-                                   SizeDefinition="Middle"
-                                   LargeIcon="Images\GreenLarge.png" />
-                    
+                                   LargeIcon="Images\GreenLarge.png"
+                                   SizeDefinition="Middle" />
+
                     <Fluent:ToggleButton x:Name="ShowHideGalleries"
                                          Header="Show/Hide (Galleries)"
-                                         IsChecked="True"
                                          Icon="Images\Red.png"
-                                         SizeDefinition="Middle"
-                                         LargeIcon="Images\GreenLarge.png" />
+                                         IsChecked="True"
+                                         LargeIcon="Images\GreenLarge.png"
+                                         SizeDefinition="Middle" />
 
                     <!-- Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
@@ -2770,8 +2770,8 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Binding"
-                                  Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
                                   ActiveTabBackground="{DynamicResource Fluent.Ribbon.Brushes.Gray9}"
+                                  Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
                                   KeyTip="B">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
                                        ItemTemplate="{DynamicResource GallerySampleDataItemCommandTemplate}"

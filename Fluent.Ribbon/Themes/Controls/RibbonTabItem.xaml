@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:converters="clr-namespace:Fluent.Converters"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:converters="clr-namespace:Fluent.Converters"
                     mc:Ignorable="d">
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonTabItem"
                      TargetType="{x:Type Fluent:RibbonTabItem}">
@@ -21,9 +21,9 @@
                     Background="{TemplateBinding ActiveTabBackground}"
                     Visibility="Collapsed">
                 <Border x:Name="underlineBorder"
+                        Margin="{Binding HeaderPadding, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ExtractLeftRightFromThicknessConverter.Default}}"
                         BorderBrush="{TemplateBinding ActiveTabBorderBrush}"
                         BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness}"
-                        Margin="{Binding HeaderPadding, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:ExtractLeftRightFromThicknessConverter.Default}}"
                         Visibility="Collapsed" />
             </Border>
 
@@ -40,8 +40,8 @@
 
             <Rectangle x:Name="keyboardFocusMarker"
                        Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Rectangle}"
-                       Visibility="Collapsed"
-                       Margin="0" />
+                       Margin="0"
+                       Visibility="Collapsed" />
 
             <Grid x:Name="separatorGrid"
                   Width="1"
@@ -66,14 +66,14 @@
                 <Setter TargetName="groupBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineContainerBorder" Property="Visibility" Value="Visible" />
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
             </Trigger>
             <Trigger Property="Selector.IsSelected" Value="True">
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding ActiveTabBorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
                 <Setter TargetName="underlineContainerBorder" Property="Visibility" Value="Visible" />
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding ActiveTabBorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
             </Trigger>
             <!-- Foreground for Selected, with group -->
             <Trigger Property="Selector.IsSelected" Value="True">
@@ -106,14 +106,19 @@
                 <MultiTrigger.EnterActions>
                     <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" To="0" Duration="0:0:0.1" />
+                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
+                                                Storyboard.TargetProperty="Margin"
+                                                To="0"
+                                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiTrigger.EnterActions>
                 <MultiTrigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="underlineBorder" Duration="0:0:0.1" />
+                            <ThicknessAnimation Storyboard.TargetName="underlineBorder"
+                                                Storyboard.TargetProperty="Margin"
+                                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </MultiTrigger.ExitActions>
@@ -148,9 +153,9 @@
                     <Grid>
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
+                                   FontWeight="SemiBold"
                                    Text="{Binding}"
                                    TextWrapping="NoWrap"
-                                   FontWeight="SemiBold"
                                    Visibility="Hidden" />
 
                         <TextBlock HorizontalAlignment="Center"

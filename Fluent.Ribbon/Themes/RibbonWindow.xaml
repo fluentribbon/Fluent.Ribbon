@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:controlzex="urn:controlzex"
@@ -95,7 +95,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonWindow"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background}" /> 
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
@@ -103,10 +103,10 @@
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
         <Setter Property="Template" Value="{StaticResource Fluent.Ribbon.Templates.RibbonWindow}" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="Grayscale" />
         <Setter Property="TitleBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleBarHeight" Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
         <Setter Property="TitleForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-        <Setter Property="TextOptions.TextRenderingMode" Value="Grayscale" />
     </Style>
 </ResourceDictionary>

@@ -243,20 +243,20 @@
 
             <!-- todo: do we really need this? -->
             <!-- <Border x:Name="border" -->
-            <!--         Grid.Row="1" -->
-            <!--         Width="Auto" -->
-            <!--         Margin="0 -1 0 0" -->
-            <!--         HorizontalAlignment="Stretch" -->
-            <!--         BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" -->
-            <!--         BorderThickness="0 1" /> -->
+            <!-- Grid.Row="1" -->
+            <!-- Width="Auto" -->
+            <!-- Margin="0 -1 0 0" -->
+            <!-- HorizontalAlignment="Stretch" -->
+            <!-- BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" -->
+            <!-- BorderThickness="0 1" /> -->
 
             <Border Grid.Row="1"
                     Grid.RowSpan="1"
+                    Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
-                    Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2"
@@ -274,9 +274,9 @@
 
             <!-- todo: do we really need this? -->
             <!-- <Border Grid.Row="2" -->
-            <!--         Margin="0" -->
-            <!--         VerticalAlignment="Stretch" -->
-            <!--         Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" /> -->
+            <!-- Margin="0" -->
+            <!-- VerticalAlignment="Stretch" -->
+            <!-- Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" /> -->
 
             <Grid x:Name="TabsGrid"
                   Grid.Row="0"
@@ -388,9 +388,9 @@
                         <!-- Needed for overlapping Keytips -->
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1"
+                            Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                             BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
-                            Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
                             CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
                             KeyboardNavigation.DirectionalNavigation="Contained"
                             KeyboardNavigation.TabNavigation="Local"
