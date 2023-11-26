@@ -457,13 +457,13 @@ public class Backstage : RibbonControl
         else
         {
             this.adorner.Visibility = Visibility.Visible;
-            MoveFocusToContent();
+            MoveFocusToContentAsync();
         }
 
         void HandleStoryboardCurrentStateInvalidated(object? sender, EventArgs e)
         {
             this.adorner.Visibility = Visibility.Visible;
-            MoveFocusToContent();
+            MoveFocusToContentAsync();
             storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
         }
 
@@ -474,19 +474,34 @@ public class Backstage : RibbonControl
             storyboard.Completed -= HandleStoryboardOnCompleted;
         }
 
+        void MoveFocusToContentAsync()
+        {
+            this.RunInDispatcherAsync(() => MoveFocusToContent(), DispatcherPriority.Background);
+        }
+
         void MoveFocusToContent()
         {
-            if (this.Content?.IsVisible is true)
+            if (this.Content?.IsVisible is not true
+                || this.Content.IsKeyboardFocusWithin)
             {
-                if (this.Content is BackstageTabControl { SelectedIndex: not -1 } tabControl
-                    && tabControl.ItemContainerGenerator.ContainerFromIndex(tabControl.SelectedIndex) is BackstageTabItem backstageTabItem)
-                {
+                return;
+            }
+
+            switch (this.Content)
+            {
+                case StartScreenTabControl { LeftContent: UIElement leftContent } when leftContent.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)):
+                    return;
+                case StartScreenTabControl { RightContent: UIElement rightContent } when rightContent.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)):
+                    return;
+                case BackstageTabControl { SelectedIndex: not -1 } backstageTabControl when backstageTabControl.ItemContainerGenerator.ContainerFromIndex(backstageTabControl.SelectedIndex) is BackstageTabItem backstageTabItem:
                     backstageTabItem.Focus();
-                }
-                else
-                {
+                    return;
+                case BackstageTabControl { SelectedContentHost: { } selectedContentHost }:
+                    selectedContentHost.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    return;
+                default:
                     this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                }
+                    break;
             }
         }
     }
