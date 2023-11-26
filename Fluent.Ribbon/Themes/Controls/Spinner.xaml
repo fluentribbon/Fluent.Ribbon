@@ -106,9 +106,9 @@
                              Padding="2 0 2 0"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                             Foreground="{TemplateBinding Foreground}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                     <Path x:Name="path"
@@ -278,9 +278,9 @@
                                  Padding="2 0 2 0"
                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                 Foreground="{TemplateBinding Foreground}"
                                  BorderThickness="0"
                                  CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                                 Foreground="{TemplateBinding Foreground}"
                                  SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                         <Path x:Name="path"

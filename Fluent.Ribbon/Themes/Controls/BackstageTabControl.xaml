@@ -114,8 +114,8 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.BackstageBackButton"
                      TargetType="Button">
         <Grid x:Name="ContentGrid"
-              Fluent:FrameworkHelper.UseLayoutRounding="False"
-              Background="Transparent">
+              Background="Transparent"
+              Fluent:FrameworkHelper.UseLayoutRounding="False">
             <ContentControl Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="Left"
                             Focusable="False">
