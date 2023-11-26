@@ -106,7 +106,6 @@
         <Setter Property="Fluent:RibbonProperties.IsSelectedBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Height" Value="38" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageTabControl.Button}" />
@@ -181,7 +180,6 @@
                                    VerticalAlignment="Center"
                                    FontSize="14"
                                    FontWeight="SemiBold"
-                                   Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}"
                                    Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
                                    TextWrapping="Wrap"
                                    Visibility="Visible" />
@@ -290,7 +288,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.BackstageTabControl"
            TargetType="{x:Type Fluent:BackstageTabControl}">
         <Setter Property="BackButtonUid" Value="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.BackstageBackButtonUid, Mode=OneWay}" />
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabControl.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:BackstageTabControlItemContainerStyleSelector.Instance}" />
