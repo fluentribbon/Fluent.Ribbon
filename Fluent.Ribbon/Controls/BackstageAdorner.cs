@@ -57,7 +57,7 @@ internal class BackstageAdorner : Adorner
 
             BindingOperations.SetBinding(this.background, MarginProperty, new Binding
             {
-                Path = new PropertyPath(BackstageTabControl.SelectedContentMarginProperty),
+                Path = new PropertyPath(MarginProperty),
                 Source = this.backstageTabControl
             });
         }

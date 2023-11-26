@@ -14,6 +14,7 @@
   - Changed default `Padding` on `RibbonGroupBox` from `0` to `0, 4, 0, 0`
   - Backstage (the button) does not have a `MinWidth` set anymore
   - Replaced `IsSeparatorVisible` on `RibbonTabItem` by `SeparatorOpacity`
+  - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed from `BackstageTabControl`
 
 - ### Enhancements/Features
 

@@ -46,19 +46,6 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
         set => this.SetValue(BackButtonUidProperty, value);
     }
 
-    /// <summary>
-    /// Gets or sets the margin which is used to render selected content.
-    /// </summary>
-    public Thickness SelectedContentMargin
-    {
-        get => (Thickness)this.GetValue(SelectedContentMarginProperty);
-        set => this.SetValue(SelectedContentMarginProperty, value);
-    }
-
-    /// <summary>Identifies the <see cref="SelectedContentMargin"/> dependency property.</summary>
-    public static readonly DependencyProperty SelectedContentMarginProperty =
-        DependencyProperty.Register(nameof(SelectedContentMargin), typeof(Thickness), typeof(BackstageTabControl), new PropertyMetadata(default(Thickness)));
-
     // Dependency property key for SelectedContent
     private static readonly DependencyPropertyKey SelectedContentPropertyKey = DependencyProperty.RegisterReadOnly(nameof(SelectedContent), typeof(object), typeof(BackstageTabControl), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
@@ -207,19 +194,6 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
     /// <summary>Identifies the <see cref="ParentBackstage"/> dependency property.</summary>
     public static readonly DependencyProperty ParentBackstageProperty =
         DependencyProperty.Register(nameof(ParentBackstage), typeof(Backstage), typeof(BackstageTabControl), new PropertyMetadata());
-
-    /// <summary>
-    /// Defines if the <see cref="WindowSteeringHelperControl"/> is enabled in this control
-    /// </summary>
-    public bool IsWindowSteeringHelperEnabled
-    {
-        get => (bool)this.GetValue(IsWindowSteeringHelperEnabledProperty);
-        set => this.SetValue(IsWindowSteeringHelperEnabledProperty, BooleanBoxes.Box(value));
-    }
-
-    /// <summary>Identifies the <see cref="IsWindowSteeringHelperEnabled"/> dependency property.</summary>
-    public static readonly DependencyProperty IsWindowSteeringHelperEnabledProperty =
-        DependencyProperty.Register(nameof(IsWindowSteeringHelperEnabled), typeof(bool), typeof(BackstageTabControl), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>
     /// Defines if the back button is visible or not.

@@ -166,8 +166,7 @@
                                            VerticalAlignment="Center">
                                     You can close the start screen by either clicking the button below or by pressing ESC
                                 </TextBlock>
-                                <Fluent:Button HorizontalAlignment="Center"
-                                               IsDefinitive="True"
+                                <Fluent:Button IsDefinitive="True"
                                                LargeIcon="{iconPacks:Material Kind=ExitToApp}">
                                     Close start screen
                                 </Fluent:Button>

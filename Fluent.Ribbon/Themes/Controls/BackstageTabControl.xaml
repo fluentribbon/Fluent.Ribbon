@@ -145,12 +145,14 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="Foreground" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
                 <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
                 <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="ContentGrid" Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter Property="Foreground" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
                 <Setter TargetName="arrowpath" Property="Opacity" Value="0.8" />
                 <Setter TargetName="backellipse" Property="Opacity" Value="0.8" />
             </Trigger>
@@ -159,9 +161,11 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.BackstageBackButton"
            TargetType="{x:Type Button}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Background}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Background}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background}" />
+        <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
         <Setter Property="Height" Value="48" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.BackstageBackButton}" />
@@ -237,10 +241,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Fluent:WindowSteeringHelperControl Grid.RowSpan="2"
-                                                        Height="{Binding SelectedContentMargin.Top, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        VerticalAlignment="Top"
-                                                        IsEnabled="{TemplateBinding IsWindowSteeringHelperEnabled}" />
 
                     <Button x:Name="PART_BackButton"
                             Uid="{TemplateBinding BackButtonUid}"
@@ -251,18 +251,7 @@
                             AutomationProperties.AcceleratorKey="ESC"
                             AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                             Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
-                            Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
-                        <Button.Margin>
-                            <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
-                                <Binding Source="0" />
-                                <Binding FallbackValue="0"
-                                         Path="TitleBar.ActualHeight"
-                                         RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type Fluent:IRibbonWindow}}" />
-                                <Binding Source="0" />
-                                <Binding Source="0" />
-                            </MultiBinding>
-                        </Button.Margin>
-                    </Button>
+                            Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                     <ItemsPresenter Grid.Row="1"
                                     Height="Auto" />
@@ -271,16 +260,11 @@
 
             <Grid x:Name="PART_SelectedContentGrid"
                   Grid.Column="1"
-                  Height="Auto"
-                  Margin="{TemplateBinding SelectedContentMargin}"
-                  Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
-                <Border Background="{TemplateBinding Background}">
-                    <ContentPresenter x:Name="PART_SelectedContentHost"
-                                      Height="Auto"
-                                      HorizontalAlignment="Stretch"
-                                      VerticalAlignment="Stretch"
-                                      ContentSource="SelectedContent" />
-                </Border>
+                  Background="{TemplateBinding Background}">
+                <ContentPresenter x:Name="PART_SelectedContentHost"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  ContentSource="SelectedContent" />
             </Grid>
         </Grid>
     </ControlTemplate>
@@ -300,7 +284,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="ItemsPanelBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground}" />
-        <Setter Property="SelectedContentMargin">
+        <Setter Property="Margin">
             <Setter.Value>
                 <MultiBinding Converter="{x:Static converters:StaticConverters.ThicknessConverter}">
                     <Binding Source="0" />
