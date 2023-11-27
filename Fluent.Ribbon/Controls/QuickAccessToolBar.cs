@@ -524,9 +524,7 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
     {
         var newValue = this.cachedNonOverflowItemsCount < this.Items.Count;
 
-        // ReSharper disable RedundantCheckBeforeAssignment
         if (this.HasOverflowItems != newValue)
-            // ReSharper restore RedundantCheckBeforeAssignment
         {
             // todo: code runs very often on startup
             this.HasOverflowItems = newValue;
