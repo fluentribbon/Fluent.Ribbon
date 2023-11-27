@@ -3351,6 +3351,9 @@
                                         <Fluent:CheckBox IsChecked="{Binding IsDisplayOptionsButtonVisible, ElementName=ribbon}">
                                             IsDisplayOptionsButtonVisible
                                         </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding TitleBar.HideContextTabs, ElementName=ribbon}">
+                                            HideContextTabs
+                                        </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
 
