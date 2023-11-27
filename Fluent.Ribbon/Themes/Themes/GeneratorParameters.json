@@ -120,9 +120,7 @@
         "Fluent.Ribbon.Colors.Accent60": "#990078D7",
         "Fluent.Ribbon.Colors.Accent40": "#660078D7",
         "Fluent.Ribbon.Colors.Accent20": "#330078D7",
-        "Fluent.Ribbon.Colors.Highlight": "#FF1651AA",
-        "Fluent.Ribbon.Colors.HighlightLight": "#FF086F9E",
-        "Fluent.Ribbon.Colors.HighlightDark": "#FF82ABF1"
+        "Fluent.Ribbon.Colors.Highlight": "#FF1651AA"
       }
     },
     {
