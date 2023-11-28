@@ -344,7 +344,8 @@
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2"
                     KeyboardNavigation.TabNavigation="Local"
-                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
+                    Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}">
                 <ContentControl x:Name="mainContentControl"
                                 Margin="0"
                                 Focusable="False">
@@ -379,7 +380,8 @@
                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 KeyboardNavigation.TabNavigation="Local"
-                                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
+                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}">
                             <ContentControl x:Name="popupContentControl"
                                             Margin="0"
                                             Focusable="False" />

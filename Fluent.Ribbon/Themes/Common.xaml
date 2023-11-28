@@ -10,6 +10,7 @@
     <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
 
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
+    <DropShadowEffect x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect" x:Shared="False" ShadowDepth="0" BlurRadius="3" Color="{DynamicResource Fluent.Ribbon.Colors.Gray6}" />
 
     <!-- Set default styles -->
     <Style TargetType="{x:Type Fluent:Spinner}"

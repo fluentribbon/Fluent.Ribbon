@@ -198,7 +198,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Background" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Foreground" Color="{StaticResource Fluent.Ribbon.Colors.Black}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border" Color="Transparent" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background" Color="Transparent" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Foreground" Color="{StaticResource Fluent.Ribbon.Colors.Black}" options:Freeze="True" />

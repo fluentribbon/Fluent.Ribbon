@@ -39,7 +39,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <summary>
     /// Default value for <see cref="ContentGapHeight"/>.
     /// </summary>
-    public const double DefaultContentGapHeight = 1;
+    public const double DefaultContentGapHeight = 3;
 
     /// <summary>
     /// Default value for <see cref="ContentHeight"/>.

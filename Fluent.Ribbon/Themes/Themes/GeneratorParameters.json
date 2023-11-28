@@ -28,6 +28,7 @@
     "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
     "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
     "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border": "Transparent",
     "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
     "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
@@ -53,11 +54,11 @@
         "Fluent.Ribbon.Colors.Gray8": "#FF454545",
         "Fluent.Ribbon.Colors.Gray9": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.Gray10": "#FF2F2F2F",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FF141414",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FF292929",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FF141414",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FF292929",
-        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FF141414"
+        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FF2B2B2B",
+        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FF202020",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FF2B2B2B",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FF202020",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FF2B2B2B"
       }
     },
     {
@@ -77,11 +78,11 @@
         "Fluent.Ribbon.Colors.Gray8": "#FFE0E0E0",
         "Fluent.Ribbon.Colors.Gray9": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.Gray10": "#FFF7F7F7",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FFFBFBFB",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FFF3F3F3",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFFBFBFB",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFF3F3F3",
-        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FFFBFBFB"
+        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FFF3F3F3",
+        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FFFFFFFF",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFF3F3F3",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFFFFFFF",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FFF3F3F3"
       }
     }
   ],
