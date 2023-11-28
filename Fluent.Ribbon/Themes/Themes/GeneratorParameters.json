@@ -77,11 +77,11 @@
         "Fluent.Ribbon.Colors.Gray8": "#FFE0E0E0",
         "Fluent.Ribbon.Colors.Gray9": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.Gray10": "#FFF7F7F7",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FFF5F5F5",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FFE4E4E4",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFE4E4E4",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFFFFFFF",
-        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FFE4E4E4"
+        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FFFBFBFB",
+        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FFF3F3F3",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFFBFBFB",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFF3F3F3",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FFFBFBFB"
       }
     }
   ],
