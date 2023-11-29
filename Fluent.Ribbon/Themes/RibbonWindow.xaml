@@ -103,8 +103,6 @@
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
         <Setter Property="Template" Value="{StaticResource Fluent.Ribbon.Templates.RibbonWindow}" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-        <Setter Property="TextOptions.TextRenderingMode" Value="Grayscale" />
         <Setter Property="TitleBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}" />
         <Setter Property="TitleBarHeight" Value="{DynamicResource {x:Static SystemParameters.WindowCaptionHeightKey}}" />
         <Setter Property="TitleForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
