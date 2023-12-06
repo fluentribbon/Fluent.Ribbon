@@ -892,8 +892,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
 
     internal bool TryClearCacheAndResetStateAndScale()
     {
-        if (this.IsLoaded is false
-            || this.CacheResetGuard.IsActive
+        if (this.CacheResetGuard.IsActive
             || this.State == RibbonGroupBoxState.QuickAccess)
         {
             return false;
