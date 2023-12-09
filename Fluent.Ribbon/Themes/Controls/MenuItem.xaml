@@ -200,6 +200,9 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="border" Property="Visibility" Value="Visible" />
             </MultiTrigger>
+            <Trigger Property="IsSubmenuOpen" Value="True">
+                <Setter TargetName="border" Property="Visibility" Value="Visible" />
+            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="checkedImage" Property="Effect">
                     <Setter.Value>
