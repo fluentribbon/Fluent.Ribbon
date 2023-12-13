@@ -10,10 +10,10 @@ namespace Fluent.Localization.Languages
         public override string BackstageButtonKeyTip { get; } = FallbackLocalization.BackstageButtonKeyTip /* F */;
         public override string BackstageButtonText { get; } = "ファイル";
         public override string CustomizeStatusBar { get; } = "ステータス バーのユーザー設定";
-        public override string DisplayOptionsButtonScreenTipText { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipText /* Configure Ribbon display options. */;
-        public override string DisplayOptionsButtonScreenTipTitle { get; } = FallbackLocalization.DisplayOptionsButtonScreenTipTitle /* Ribbon Display Options */;
-        public override string ExpandRibbon { get; } = FallbackLocalization.ExpandRibbon /* Expand the Ribbon */;
-        public override string MinimizeRibbon { get; } = FallbackLocalization.MinimizeRibbon /* Minimize the Ribbon */;
+        public override string DisplayOptionsButtonScreenTipText { get; } = "リボンの状態を切り替えます。\r\nリボンを折りたたむ、または展開するには、Ctrl + F1 を押します。";
+        public override string DisplayOptionsButtonScreenTipTitle { get; } = "リボンの表示オプション";
+        public override string ExpandRibbon { get; } = "常にリボンを表示する";
+        public override string MinimizeRibbon { get; } = "タブのみを表示する";
         public override string MoreColors { get; } = "他の色.";
         public override string NoColor { get; } = "色なし";
         public override string QuickAccessToolBarDropDownButtonTooltip { get; } = "クイック アクセス ツール バーのユーザー設定";
@@ -34,7 +34,7 @@ namespace Fluent.Localization.Languages
         public override string RibbonLayout { get; } = FallbackLocalization.RibbonLayout /* Ribbon Layout */;
         public override string ScreenTipDisableReasonHeader { get; } = "このコマンドは現在無効になっています";
         public override string ScreenTipF1LabelHeader { get; } = FallbackLocalization.ScreenTipF1LabelHeader /* Press F1 for help */;
-        public override string ShowRibbon { get; } = FallbackLocalization.ShowRibbon /* Show Ribbon */;
+        public override string ShowRibbon { get; } = "リボンを表示";
         public override string UseClassicRibbon { get; } = "クラシック リボンを使用(_U)";
         public override string UseSimplifiedRibbon { get; } = "シンプル リボンを使用(_U)";
     }
