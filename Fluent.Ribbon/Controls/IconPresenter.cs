@@ -63,6 +63,8 @@ public class IconPresenter : ContentControl
         IsEnabledProperty.OverrideMetadata(typeof(IconPresenter), new UIPropertyMetadata(OnIsEnabledChanged));
 
         FocusableProperty.OverrideMetadata(typeof(IconPresenter), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+
+        IsHitTestVisibleProperty.OverrideMetadata(typeof(IconPresenter), new UIPropertyMetadata(BooleanBoxes.FalseBox));
     }
 
     public IconPresenter()
