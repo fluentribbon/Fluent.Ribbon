@@ -20,6 +20,7 @@
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Grid>
@@ -106,7 +107,8 @@
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 0 3 0"
                                           VerticalAlignment="Center"
-                                          IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
