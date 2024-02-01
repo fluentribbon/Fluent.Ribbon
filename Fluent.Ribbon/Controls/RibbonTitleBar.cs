@@ -13,7 +13,6 @@ using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal;
 using Fluent.Internal.KnownBoxes;
-using WindowChrome = ControlzEx.WindowChrome;
 
 /// <summary>
 /// Represents title bar
@@ -94,7 +93,7 @@ public class RibbonTitleBar : HeaderedItemsControl
 
     /// <summary>Identifies the <see cref="HideContextTabs"/> dependency property.</summary>
     public static readonly DependencyProperty HideContextTabsProperty =
-        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     /// <summary>
     ///  Gets or sets whether context tabs are hidden.

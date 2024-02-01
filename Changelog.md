@@ -10,6 +10,7 @@
     The padding is gradually increased/decreased when the available space changes.
     Down to a minimum of 5 for left/right.
   - Changed default `Padding` on `RibbonGroupBox` from `0` to `0, 4, 0, 0`
+  - Changed default `HideContextTabs` on `RibbonTitleBar` from `false` to `true`
   - Backstage (the button) does not have a `MinWidth` set anymore
   - Replaced `IsSeparatorVisible` on `RibbonTabItem` by `SeparatorOpacity`
   - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed from `BackstageTabControl`
