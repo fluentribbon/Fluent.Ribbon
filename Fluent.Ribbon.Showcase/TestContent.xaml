@@ -1732,7 +1732,8 @@
                 <Fluent:RibbonGroupBox Header="Split buttons">
                     <ToggleButton x:Name="ToggleButton">Open</ToggleButton>
                     <Popup IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked}"
-                           PlacementTarget="{Binding ElementName=ToggleButton}">
+                           PlacementTarget="{Binding ElementName=ToggleButton}"
+                           StaysOpen="False">
                         <Menu>
                             <MenuItem Header="1">
                                 <MenuItem.ContextMenu>
