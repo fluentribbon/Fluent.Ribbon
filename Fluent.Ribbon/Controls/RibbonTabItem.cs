@@ -499,7 +499,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public RibbonTabItem()
     {
-        this.GroupsContainer = new RibbonGroupsContainerScrollViewer() { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
+        this.GroupsContainer = new RibbonGroupsContainerScrollViewer { VerticalScrollBarVisibility = ScrollBarVisibility.Disabled };
         this.AddLogicalChild(this.GroupsContainer);
         this.GroupsContainer.Content = this.groupsInnerContainer;
 
