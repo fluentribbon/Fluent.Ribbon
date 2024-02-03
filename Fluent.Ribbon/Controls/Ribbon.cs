@@ -21,7 +21,6 @@ using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 using Fluent.Localization;
-using WindowChrome = ControlzEx.WindowChrome;
 
 // TODO: improve style parts naming & using
 
@@ -42,7 +41,7 @@ public class Ribbon : Control, ILogicalChildSupport
     /// <summary>
     /// Gets the current instance for storing the state of this control.
     /// </summary>
-    public IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ?? (this.ribbonStateStorage = this.CreateRibbonStateStorage());
+    public IRibbonStateStorage RibbonStateStorage => this.ribbonStateStorage ??= this.CreateRibbonStateStorage();
 
     /// <summary>
     /// Create a new instance for storing the state of this control.
@@ -446,38 +445,43 @@ public class Ribbon : Control, ILogicalChildSupport
                 //Debug.WriteLine("Menu opened on "+control);
                 if (control is not null)
                 {
-                    FirstSeparator.Visibility = Visibility.Visible;
-
                     // Check for value because remove is only possible in the context menu of items in QA which represent the value for QA-items
-                    if (ribbon.QuickAccessElements.ContainsValue(control))
+                    if (ribbon.QuickAccessElements.ContainsValue(control)
+                        && (control is not IDropDownControl dropDownControl || dropDownControl.IsDropDownOpen is false))
                     {
+                        FirstSeparator.Visibility = Visibility.Visible;
+
                         // Control is on quick access
                         RemoveFromQuickAccessMenuItem.Visibility = Visibility.Visible;
                     }
-                    else if (control is System.Windows.Controls.MenuItem)
-                    {
-                        // Control is menu item
-                        AddMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                    }
-                    else if (control is Gallery ||
-                             control is InRibbonGallery)
-                    {
-                        // Control is gallery
-                        AddGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                    }
-                    else if (control is RibbonGroupBox)
-                    {
-                        // Control is group box
-                        AddGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                    }
-                    else if (control is IQuickAccessItemProvider)
-                    {
-                        // Its other control
-                        AddToQuickAccessMenuItem.Visibility = Visibility.Visible;
-                    }
                     else
                     {
-                        FirstSeparator.Visibility = Visibility.Collapsed;
+                        FirstSeparator.Visibility = Visibility.Visible;
+
+                        if (control is System.Windows.Controls.MenuItem)
+                        {
+                            // Control is menu item
+                            AddMenuToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is Gallery or InRibbonGallery)
+                        {
+                            // Control is gallery
+                            AddGalleryToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is RibbonGroupBox)
+                        {
+                            // Control is group box
+                            AddGroupToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else if (control is IQuickAccessItemProvider)
+                        {
+                            // Its other control
+                            AddToQuickAccessMenuItem.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            FirstSeparator.Visibility = Visibility.Collapsed;
+                        }
                     }
                 }
             }
@@ -1507,8 +1511,9 @@ public class Ribbon : Control, ILogicalChildSupport
     {
         if (sender is Ribbon ribbon
             && ribbon.IsQuickAccessToolBarVisible
-            && QuickAccessItemsProvider.IsSupported(e.Parameter as UIElement)
-            && ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false)
+            && e.Parameter is UIElement element
+            && QuickAccessItemsProvider.IsSupported(element)
+            && ribbon.IsInQuickAccessToolBar(element) is false)
         {
             if (e.Parameter is Gallery gallery)
             {
@@ -1516,7 +1521,7 @@ public class Ribbon : Control, ILogicalChildSupport
             }
             else
             {
-                e.CanExecute = ribbon.IsInQuickAccessToolBar(e.Parameter as UIElement) == false;
+                e.CanExecute = ribbon.IsInQuickAccessToolBar(element) == false;
             }
         }
         else

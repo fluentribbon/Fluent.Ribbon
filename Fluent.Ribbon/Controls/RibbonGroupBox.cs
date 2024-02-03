@@ -749,6 +749,12 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     {
         this.SetCurrentValue(IsDropDownOpenProperty, false);
 
+        if (this.IsDropDownOpen
+            && this.State is RibbonGroupBoxState.QuickAccess)
+        {
+            this.OnPopupClosed(this, EventArgs.Empty);
+        }
+
         this.UnSubscribeEvents();
     }
 
@@ -1187,7 +1193,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandParameter), LauncherCommandParameterProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommand), LauncherCommandProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherCommandTarget), LauncherCommandTargetProperty, BindingMode.OneWay);
-        RibbonControl.Bind(this, groupBox, nameof(this.LauncherIcon), LauncherIconProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherText), LauncherTextProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.LauncherToolTip), LauncherToolTipProperty, BindingMode.OneWay);
         RibbonControl.Bind(this, groupBox, nameof(this.IsLauncherEnabled), IsLauncherEnabledProperty, BindingMode.OneWay);
@@ -1210,6 +1215,24 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
             else
             {
                 RibbonControl.Bind(this, groupBox, nameof(this.Icon), RibbonControl.IconProperty, BindingMode.OneWay);
+            }
+        }
+
+        if (this.LauncherIcon is not null)
+        {
+            if (this.LauncherIcon is Visual iconVisual)
+            {
+                var rect = new Rectangle
+                {
+                    Width = 16,
+                    Height = 16,
+                    Fill = new VisualBrush(iconVisual)
+                };
+                groupBox.LauncherIcon = rect;
+            }
+            else
+            {
+                RibbonControl.Bind(this, groupBox, nameof(this.LauncherIcon), RibbonGroupBox.LauncherIconProperty, BindingMode.OneWay);
             }
         }
 

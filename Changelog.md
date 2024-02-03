@@ -7,6 +7,7 @@
   - Simplified state was not updated when items changed
   - [#1165](../../issues/1165) - ScreenTip is not DPI aware
   - [#1183](../../issues/1183) - MenuItems, having a submenu, do not stay highlighted when MenuItem from the submenu is highlighted
+  - [#1185](../../issues/1185) - LauncherIcon not rendered correctly and items in QAT can be removed from QAT in it's popup
   - [#1191](../../issues/1191) - Popup of DropDownButton/SplitButton has unwanted MinHeight
 
 - ### Enhancements/Features
