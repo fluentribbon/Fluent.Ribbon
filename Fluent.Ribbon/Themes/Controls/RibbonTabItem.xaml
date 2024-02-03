@@ -151,6 +151,7 @@
             <Setter.Value>
                 <DataTemplate>
                     <Grid>
+                        <!-- Hidden TextBlock is used to prevent width differences due to FontWeight changes when item is selected -->
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    FontWeight="SemiBold"
