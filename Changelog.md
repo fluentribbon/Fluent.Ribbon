@@ -4,17 +4,17 @@
 
 - ### Breaking changes
 
-  - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead.
+  - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead
   - Aligned theming with current office versions
-  - Changed default `HeaderPadding` on `RibbonTabItem` from `8, 5, 8, 5` to `9, 7, 9, 7`.<br/>
-    The padding is gradually increased/decreased when the available space changes.
-    Down to a minimum of 5 for left/right.
-  - Changed default `Padding` on `RibbonGroupBox` from `0` to `0, 4, 0, 0`
+  - Changed default `HeaderPadding` on `RibbonTabItem` from `8 5 8 5` to `9 7 9 7`.<br/>
+    `Padding` is gradually increased/decreased when the available space changes.<br/>
+    Down to a minimum of `5` for left/right.
+  - Changed default `Padding` on `RibbonGroupBox` from `0` to `0 4 0 0`
   - Changed default `HideContextTabs` on `RibbonTitleBar` from `false` to `true`
-  - Backstage (the button) does not have a `MinWidth` set anymore
+  - `Backstage` (the button) does not have a `MinWidth` set anymore
   - Replaced `IsSeparatorVisible` on `RibbonTabItem` by `SeparatorOpacity`
   - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed from `BackstageTabControl`
-  - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers<br/>
+  - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers.<br/>
     This provides more flexibility and also fixes the nested `MenuItem` issues.
 
 - ### Enhancements/Features
