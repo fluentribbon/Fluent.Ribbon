@@ -30,7 +30,7 @@ public class RibbonGroupsContainerScrollViewer : ScrollViewer
         }
 
         // Prevent scrolling when a popup is open
-        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: { } } and not RibbonTabControl)
+        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: not null } and not RibbonTabControl)
         {
             return;
         }
