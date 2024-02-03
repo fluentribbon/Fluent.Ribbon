@@ -38,6 +38,7 @@
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                     <ContentControl x:Name="PART_Header"
