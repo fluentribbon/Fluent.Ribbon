@@ -482,18 +482,6 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
 
     #region Overrides
 
-    /// <inheritdoc />
-    protected override DependencyObject GetContainerForItemOverride()
-    {
-        return new MenuItem();
-    }
-
-    /// <inheritdoc />
-    protected override bool IsItemItsOwnContainerOverride(object item)
-    {
-        return item is FrameworkElement;
-    }
-
     private void OnDropDownPopupKeyDown(object sender, KeyEventArgs e)
     {
         if (e.Handled)

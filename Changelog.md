@@ -6,7 +6,7 @@
 
   - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead.
   - Aligned theming with current office versions
-  - Changed default `HeaderPadding` on `RibbonTabItem` from `8, 5, 8, 5` to `9, 7, 9, 7`.
+  - Changed default `HeaderPadding` on `RibbonTabItem` from `8, 5, 8, 5` to `9, 7, 9, 7`.<br/>
     The padding is gradually increased/decreased when the available space changes.
     Down to a minimum of 5 for left/right.
   - Changed default `Padding` on `RibbonGroupBox` from `0` to `0, 4, 0, 0`
@@ -14,6 +14,8 @@
   - Backstage (the button) does not have a `MinWidth` set anymore
   - Replaced `IsSeparatorVisible` on `RibbonTabItem` by `SeparatorOpacity`
   - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed from `BackstageTabControl`
+  - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers<br/>
+    This provides more flexibility and also fixes the nested `MenuItem` issues.
 
 - ### Enhancements/Features
 
