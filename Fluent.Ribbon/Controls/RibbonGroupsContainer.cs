@@ -2,6 +2,7 @@
 namespace Fluent;
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -58,9 +59,11 @@ public class RibbonGroupsContainer : Panel, IScrollInfo
     {
         var ribbonPanel = (RibbonGroupsContainer)d;
 
-        for (var i = ribbonPanel.reduceOrderIndex; i < ribbonPanel.reduceOrder.Length - 1; i++)
+        var toIncrease = ribbonPanel.reduceOrder.Skip(ribbonPanel.reduceOrderIndex).ToArray();
+
+        foreach (var reduceOrderItem in toIncrease)
         {
-            ribbonPanel.IncreaseGroupBoxSize(ribbonPanel.reduceOrder[i]);
+            ribbonPanel.IncreaseGroupBoxSize(reduceOrderItem);
         }
 
         ribbonPanel.reduceOrder = (((string?)e.NewValue) ?? string.Empty).Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);

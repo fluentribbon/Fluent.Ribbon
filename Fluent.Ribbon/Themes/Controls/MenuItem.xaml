@@ -42,6 +42,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -136,6 +137,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -200,6 +202,9 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="border" Property="Visibility" Value="Visible" />
             </MultiTrigger>
+            <Trigger Property="IsSubmenuOpen" Value="True">
+                <Setter TargetName="border" Property="Visibility" Value="Visible" />
+            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="checkedImage" Property="Effect">
                     <Setter.Value>
@@ -272,6 +277,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"
@@ -404,6 +410,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
             </Border>
             <Image x:Name="checkedImage"

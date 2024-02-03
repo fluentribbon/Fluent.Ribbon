@@ -117,6 +117,7 @@
                                           HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -139,7 +140,6 @@
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{TemplateBinding ActualWidth}"
-                                                 MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
@@ -223,6 +223,7 @@
                           VerticalAlignment="Center">
                         <Fluent:IconPresenter x:Name="iconImage"
                                               IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
@@ -262,7 +263,6 @@
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{TemplateBinding ActualWidth}"
-                                                 MinHeight="{TemplateBinding ActualHeight}"
                                                  MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">

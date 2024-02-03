@@ -30,9 +30,17 @@
 
   - Simplified state was not updated when items changed
   - [#1165](../../issues/1165) - ScreenTip is not DPI aware
+  - [#1183](../../issues/1183) - MenuItems, having a submenu, do not stay highlighted when MenuItem from the submenu is highlighted
+  - [#1185](../../issues/1185) - LauncherIcon not rendered correctly and items in QAT can be removed from QAT in it's popup
+  - [#1191](../../issues/1191) - Popup of DropDownButton/SplitButton has unwanted MinHeight
 
 - ### Enhancements/Features
 
+  - Performance of measuring (and thus rendering) of `RibbonTabItem` (and it's contents) was improved by reducing the amount of measures required.
+    Most of the time there should only be one or two measure calls when switching tabs, compared to six or eight in case of the showcase application.
+    This is mostly achieved by getting rid of internal caching. The caching turned out to be more expensive than not caching at all.
+  - Added `RibbonProperties.CustomIconSize` as an attached property. This is used inside control templates to set `CustomSize` of `IconPresenter`.
+  - Default value of `IsHitTestVisible` is now `false` on `IconPresenter`.
   - [#1177](../../issues/1177) - RibbonComboBox cannot be customized based on the original RibbonComboBox style (thanks @nishy2000)
   - [#1180](../../issues/1180) - Padding and BorderBrush of the gallery control do not work (thanks @nishy2000)
 

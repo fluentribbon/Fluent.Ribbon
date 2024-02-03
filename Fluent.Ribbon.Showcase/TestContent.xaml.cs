@@ -22,6 +22,7 @@ using Fluent;
 using Fluent.Internal;
 using Fluent.Localization;
 using FluentTest.Adorners;
+using FluentTest.Commanding;
 using FluentTest.Helpers;
 using FluentTest.ViewModels;
 #if MahApps_Metro
@@ -52,6 +53,20 @@ public partial class TestContent
         ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"]).Color);
 
         this.Loaded += this.TestContent_Loaded;
+
+        this.InputBindings.Add(new InputBinding(new RelayCommand(() =>
+        {
+            this.Backstage.IsOpen = !this.Backstage.IsOpen;
+            if (this.Backstage.IsOpen
+                && this.Backstage.Content is BackstageTabControl backstageTabControl)
+            {
+                var recentTabItem = backstageTabControl.Items.OfType<BackstageTabItem>().FirstOrDefault(x => x.Header is "Recent");
+                if (recentTabItem is not null)
+                {
+                    recentTabItem.IsSelected = true;
+                }
+            }
+        }), new KeyGesture(Key.F11, ModifierKeys.Control)));
     }
 
     public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
