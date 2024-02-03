@@ -143,8 +143,8 @@ namespace Fluent.Localization.Languages
                 break;
 
             case LocalizationGenerationMode.Translate:
-                translatedText = RibbonLocalizationTranslator.Translate(englishText, new System.Globalization.CultureInfo(localization.CultureName!));
-                break;
+                //translatedText = RibbonLocalizationTranslator.Translate(englishText, new System.Globalization.CultureInfo(localization.CultureName!));
+                throw new Exception("Google.Cloud.Translate.V3 required");
 
             default:
                 throw new ArgumentOutOfRangeException(nameof(localizationGenerationMode), localizationGenerationMode, null);
