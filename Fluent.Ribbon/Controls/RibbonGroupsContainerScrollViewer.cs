@@ -14,6 +14,7 @@ public class RibbonGroupsContainerScrollViewer : ScrollViewer
     static RibbonGroupsContainerScrollViewer()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(typeof(RibbonGroupsContainerScrollViewer)));
+        VerticalScrollBarVisibilityProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(ScrollBarVisibility.Disabled));
     }
 
     /// <inheritdoc />
