@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
@@ -350,10 +350,13 @@
                 <ContentControl x:Name="mainContentControl"
                                 Margin="0"
                                 Focusable="False">
-                    <ContentPresenter x:Name="PART_SelectedContentPresenter"
-                                      Margin="0"
-                                      HorizontalAlignment="Stretch"
-                                      ContentSource="SelectedContent" />
+                    <Fluent:TransitioningContentControl x:Name="PART_SelectedContent"
+                                                        HorizontalAlignment="Stretch"
+                                                        HorizontalContentAlignment="Stretch"
+                                                        VerticalAlignment="Stretch"
+                                                        VerticalContentAlignment="Stretch"
+                                                        TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}"
+                                                        Content="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}" />
                 </ContentControl>
             </Border>
 

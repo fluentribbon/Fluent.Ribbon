@@ -509,6 +509,11 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
             Source = this
         });
 
+        this.groupsInnerContainer.SetBinding(MarginProperty, new Binding(nameof(this.Padding))
+        {
+            Source = this
+        });
+
         ContextMenuService.Coerce(this);
 
         this.Loaded += this.OnLoaded;

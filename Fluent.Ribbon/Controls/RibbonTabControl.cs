@@ -1,4 +1,4 @@
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 namespace Fluent;
 
 using System;
@@ -33,7 +33,7 @@ using Windows.Win32.Graphics.Gdi;
 [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_DisplayOptionsButton", Type = typeof(Control))]
 [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
-[TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
+[TemplatePart(Name = "PART_SelectedContent", Type = typeof(ContentControl))]
 public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 {
     /// <summary>
@@ -111,9 +111,9 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     internal Control? DisplayOptionsControl { get; private set; }
 
     /// <summary>
-    /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
+    /// Gets the <see cref="ContentControl"/> responsible for displaying the selected tabs content.
     /// </summary>
-    public ContentPresenter? SelectedContentPresenter { get; private set; }
+    public ContentControl? SelectedContentPresenter { get; private set; }
 
     /// <inheritdoc />
     public bool IsContextMenuOpened { get; set; }
@@ -480,7 +480,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 
         this.DisplayOptionsControl = this.GetTemplateChild("PART_DisplayOptionsButton") as Control;
 
-        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
+        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContent", this) as ContentControl;
 
         this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
