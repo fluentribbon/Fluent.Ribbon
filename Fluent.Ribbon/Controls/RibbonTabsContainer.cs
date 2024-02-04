@@ -476,42 +476,23 @@ public class RibbonTabsContainer : Panel, IScrollInfo
 
         this.ScrollData.ViewportWidth = viewportWidth;
 
-        // Prevent flickering by only using extentWidth if it's at least 2 larger than viewportWidth
-        // if (viewportWidth + 2 < extentWidth)
-        // {
-        //     this.ScrollData.ExtentWidth = extentWidth;
-        // }
-        // else
+        // We show show the srollbar if all tabs are at their minimum width or smaller
+        // but do this early (if extent + 2 is equal or larger than the viewport, or they are equal)
+        if (DoubleUtil.GreaterThan(extentWidth + 2, viewportWidth)
+            || DoubleUtil.AreClose(extentWidth + 2, viewportWidth)
+            || DoubleUtil.AreClose(extentWidth, viewportWidth))
         {
-            // Or we show show the srollbar if all tabs are at their minimum width or smaller
-            // but do this early (if extent + 2 is equal or larger than the viewport, or they are equal)
-            if (extentWidth + 2 >= viewportWidth
-                || DoubleUtil.AreClose(extentWidth, viewportWidth))
-            {
-                var visibleTabs = this.InternalChildren.Cast<RibbonTabItem>()
-                    .Where(item => item.Visibility is not Visibility.Collapsed)
-                    .ToList();
+            var visibleTabs = this.InternalChildren.Cast<RibbonTabItem>()
+                .Where(item => item.Visibility is not Visibility.Collapsed)
+                .ToList();
 
-                var newExtentWidth = viewportWidth;
-
-                if (this.AreAnyTabsAboveMinimumSize(visibleTabs) is false)
-                {
-                    if (DoubleUtil.AreClose(newExtentWidth, viewportWidth))
-                    {
-                        newExtentWidth += 1;
-                    }
-
-                    this.ScrollData.ExtentWidth = newExtentWidth;
-                }
-                else
-                {
-                    this.ScrollData.ExtentWidth = viewportWidth;
-                }
-            }
-            else
-            {
-                this.ScrollData.ExtentWidth = viewportWidth;
-            }
+            this.ScrollData.ExtentWidth = this.AreAnyTabsAboveMinimumSize(visibleTabs) is false
+                ? extentWidth
+                : viewportWidth;
+        }
+        else
+        {
+            this.ScrollData.ExtentWidth = viewportWidth;
         }
 
         this.ScrollData.OffsetX = offsetX;
