@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent;
 
 using System;
@@ -743,7 +743,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             {
                 if (selectedIndex > 0)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
                     selectedIndex--;
                     visualItems[selectedIndex].IsSelected = true;
                 }
@@ -752,7 +751,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             {
                 if (selectedIndex < visualItems.Count - 1)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
                     selectedIndex++;
                     visualItems[selectedIndex].IsSelected = true;
                 }
