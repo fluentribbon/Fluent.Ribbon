@@ -665,6 +665,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
         if (newValue)
         {
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
+            container.BringIntoView();
         }
         else
         {
