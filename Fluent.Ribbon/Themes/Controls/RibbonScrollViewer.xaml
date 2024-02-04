@@ -1,17 +1,20 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Fluent="clr-namespace:Fluent">
+                    xmlns:Fluent="clr-namespace:Fluent"
+                    xmlns:converters="clr-namespace:Fluent.Converters">
     <!-- Button in Scroll Control Style -->
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ScrollButton"
                      TargetType="{x:Type RepeatButton}">
-        <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}">
+        <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
+                CornerRadius="{Binding Path=(Fluent:RibbonProperties.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
             <Border x:Name="OuterBorder"
                     Height="Auto"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Border}"
-                    BorderThickness="1">
+                    BorderThickness="1"
+                    CornerRadius="{Binding Path=(Fluent:RibbonProperties.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center" />
             </Border>
@@ -60,6 +63,18 @@
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false">
+                            <Fluent:RibbonProperties.CornerRadius>
+                                <MultiBinding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}">
+                                    <Binding FallbackValue="0"
+                                             Path="(Fluent:RibbonProperties.CornerRadius).TopLeft"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Source="0" />
+                                    <Binding Source="0" />
+                                    <Binding FallbackValue="0"
+                                             Path="(Fluent:RibbonProperties.CornerRadius).BottomLeft"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                </MultiBinding>
+                            </Fluent:RibbonProperties.CornerRadius>
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="0"
@@ -93,6 +108,18 @@
                                       Command="{x:Static ScrollBar.LineRightCommand}"
                                       CommandTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
                                       Focusable="false">
+                            <Fluent:RibbonProperties.CornerRadius>
+                                <MultiBinding Converter="{x:Static converters:StaticConverters.CornerRadiusConverter}">
+                                    <Binding Source="0" />
+                                    <Binding FallbackValue="0"
+                                             Path="(Fluent:RibbonProperties.CornerRadius).TopRight"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding FallbackValue="0"
+                                             Path="(Fluent:RibbonProperties.CornerRadius).BottomRight"
+                                             RelativeSource="{RelativeSource TemplatedParent}" />
+                                    <Binding Source="0" />
+                                </MultiBinding>
+                            </Fluent:RibbonProperties.CornerRadius>
                             <RepeatButton.Visibility>
                                 <MultiBinding Converter="{StaticResource Fluent.Ribbon.Converters.MenuScrollingVisibilityConverter}"
                                               ConverterParameter="100"
@@ -331,7 +358,9 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer"
            TargetType="{x:Type Fluent:RibbonGroupsContainerScrollViewer}"
-           BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonScrollViewer}" />
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.RibbonScrollViewer}">
+        <Setter Property="Fluent:RibbonProperties.CornerRadius" Value="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}" />
+    </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ScrollViewer"
                      TargetType="{x:Type ScrollViewer}">

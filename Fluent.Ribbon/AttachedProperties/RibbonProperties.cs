@@ -405,4 +405,21 @@ public class RibbonProperties : DependencyObject
     }
 
     #endregion
+
+    /// <summary>
+    /// Defines the corner radius used in template parts.
+    /// </summary>
+    public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(RibbonProperties), new PropertyMetadata(default(CornerRadius)));
+
+    /// <summary>Helper for setting <see cref="CornerRadiusProperty"/> on <paramref name="element"/>.</summary>
+    public static void SetCornerRadius(DependencyObject element, CornerRadius value)
+    {
+        element.SetValue(CornerRadiusProperty, value);
+    }
+
+    /// <summary>Helper for getting <see cref="CornerRadiusProperty"/> on <paramref name="element"/>.</summary>
+    public static CornerRadius GetCornerRadius(DependencyObject element)
+    {
+        return (CornerRadius)element.GetValue(CornerRadiusProperty);
+    }
 }
