@@ -31,8 +31,6 @@
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
@@ -126,8 +124,6 @@
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"
@@ -266,8 +262,6 @@
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}"
                               d:LayoutOverrides="Width" />
             <Border x:Name="iconImageBorder"

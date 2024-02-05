@@ -50,8 +50,6 @@
                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                   ContentSource="Header"
-                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                   RecognizesAccessKey="True" />
             </ContentControl>
         </Grid>
@@ -152,8 +150,6 @@
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           ContentSource="Header"
-                                          ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                          ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                                           RecognizesAccessKey="True" />
                     </StackPanel>
                 </ContentControl>

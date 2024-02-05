@@ -109,8 +109,6 @@
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
     </ControlTemplate>

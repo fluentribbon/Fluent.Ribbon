@@ -116,9 +116,7 @@
                                       Margin="1 0 0 0"
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      Content="{TemplateBinding Header}"
-                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
-                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
+                                      Content="{TemplateBinding Header}" />
                 </StackPanel>
             </BulletDecorator>
         </Border>

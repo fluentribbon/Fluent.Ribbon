@@ -47,9 +47,7 @@
             <ContentPresenter x:Name="contentPresenter"
                               Margin="10 7 10 7"
                               HorizontalAlignment="Center"
-                              ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" />
+                              ContentSource="Header" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
