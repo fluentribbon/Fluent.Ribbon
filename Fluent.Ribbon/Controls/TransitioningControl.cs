@@ -1,3 +1,4 @@
+// ReSharper disable once CheckNamespace
 namespace Fluent;
 
 using System;
@@ -10,7 +11,7 @@ using System.Windows.Media.Animation;
 /// </summary>
 [TemplatePart(Name = PreviousContentPartName, Type = typeof(ContentPresenter))]
 [TemplatePart(Name = CurrentContentPartName, Type = typeof(ContentPresenter))]
-public class TransitioningContentControl : ContentControl
+public class TransitioningControl : Control
 {
     private ContentPresenter? previousContentPresenter;
     private ContentPresenter? currentContentPresenter;
@@ -26,17 +27,48 @@ public class TransitioningContentControl : ContentControl
     /// </summary>
     public const string CurrentContentPartName = "PART_CurrentContent";
 
-    static TransitioningContentControl()
+    static TransitioningControl()
     {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitioningContentControl), new FrameworkPropertyMetadata(typeof(TransitioningContentControl)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitioningControl), new FrameworkPropertyMetadata(typeof(TransitioningControl)));
+    }
+
+    /// <summary>Identifies the <see cref="NextContent"/> dependency property.</summary>
+    public static readonly DependencyProperty NextContentProperty = DependencyProperty.Register(nameof(NextContent), typeof(object), typeof(TransitioningControl), new PropertyMetadata(default, OnNextContentChanged));
+
+    /// <summary>
+    /// The next content, which will be the current content.
+    /// </summary>
+    public object? NextContent
+    {
+        get => this.GetValue(NextContentProperty);
+        set => this.SetValue(NextContentProperty, value);
+    }
+
+    private static void OnNextContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var control = (TransitioningControl)d;
+
+        if (ReferenceEquals(e.OldValue, e.NewValue) is false)
+        {
+            control.StartTransition(e.OldValue, e.NewValue);
+        }
     }
 
     /// <summary>Identifies the <see cref="TransitionStoryboard"/> dependency property.</summary>
-    public static readonly DependencyProperty TransitionStoryboardProperty = DependencyProperty.Register(nameof(TransitionStoryboard), typeof(Storyboard), typeof(TransitioningContentControl), new PropertyMetadata(default(Storyboard), OnTransitionStoryboardChanged));
+    public static readonly DependencyProperty TransitionStoryboardProperty = DependencyProperty.Register(nameof(TransitionStoryboard), typeof(Storyboard), typeof(TransitioningControl), new PropertyMetadata(default(Storyboard), OnTransitionStoryboardChanged));
+
+    /// <summary>
+    /// The <see cref="Storyboard"/> being used to animate transitions.
+    /// </summary>
+    public Storyboard? TransitionStoryboard
+    {
+        get => (Storyboard?)this.GetValue(TransitionStoryboardProperty);
+        set => this.SetValue(TransitionStoryboardProperty, value);
+    }
 
     private static void OnTransitionStoryboardChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
-        var control = (TransitioningContentControl)d;
+        var control = (TransitioningControl)d;
 
         if (control.currentStoryBoard?.IsFrozen is false)
         {
@@ -61,15 +93,6 @@ public class TransitioningContentControl : ContentControl
         }
     }
 
-    /// <summary>
-    /// The <see cref="Storyboard"/> being used to animate transitions.
-    /// </summary>
-    public Storyboard? TransitionStoryboard
-    {
-        get => (Storyboard?)this.GetValue(TransitionStoryboardProperty);
-        set => this.SetValue(TransitionStoryboardProperty, value);
-    }
-
     /// <inheritdoc />
     public override void OnApplyTemplate()
     {
@@ -79,21 +102,12 @@ public class TransitioningContentControl : ContentControl
         this.currentContentPresenter = this.GetTemplateChild(CurrentContentPartName) as ContentPresenter;
     }
 
-    /// <inheritdoc />
-    protected override void OnContentChanged(object oldContent, object newContent)
-    {
-        base.OnContentChanged(oldContent, newContent);
-
-        if (oldContent != newContent)
-        {
-            this.StartTransition(oldContent, newContent);
-        }
-    }
-
     /// <summary>
     /// Starts the transtion from old to new content.
     /// </summary>
+#pragma warning disable WPF0005
     protected virtual void StartTransition(object oldContent, object newContent)
+#pragma warning restore WPF0005
     {
         if (this.previousContentPresenter is null
             || this.currentContentPresenter is null)
@@ -115,7 +129,7 @@ public class TransitioningContentControl : ContentControl
     protected virtual void StopTransition()
     {
         this.previousContentPresenter?.SetCurrentValue(ContentPresenter.ContentProperty, null);
-        this.currentStoryBoard?.Stop(this);
+        //this.currentStoryBoard?.Stop(this);
     }
 
     private void TransitionStoryboardCompleted(object? sender, EventArgs e)

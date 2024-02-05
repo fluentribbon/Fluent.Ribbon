@@ -176,8 +176,8 @@
            BasedOn="{StaticResource Fluent.Ribbon.Styles.StatusBar}" />
     <Style TargetType="{x:Type Fluent:StatusBarMenuItem}"
            BasedOn="{StaticResource Fluent.Ribbon.Styles.StatusBarMenuItem}" />
-    <Style TargetType="{x:Type Fluent:TransitioningContentControl}"
-           BasedOn="{StaticResource Fluent.Ribbon.Styles.TransitioningContentControl}" />
+    <Style TargetType="{x:Type Fluent:TransitioningControl}"
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.TransitioningControl}" />
     <Style TargetType="{x:Type Fluent:WindowCommands}"
            BasedOn="{StaticResource Fluent.Ribbon.Styles.WindowCommands}" />
 </ResourceDictionary>

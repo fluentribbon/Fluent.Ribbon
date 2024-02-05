@@ -33,7 +33,7 @@ using Windows.Win32.Graphics.Gdi;
 [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_DisplayOptionsButton", Type = typeof(Control))]
 [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
-[TemplatePart(Name = "PART_SelectedContent", Type = typeof(ContentControl))]
+[TemplatePart(Name = "PART_SelectedContent", Type = typeof(FrameworkElement))]
 public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 {
     /// <summary>
@@ -113,7 +113,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <summary>
     /// Gets the <see cref="ContentControl"/> responsible for displaying the selected tabs content.
     /// </summary>
-    public ContentControl? SelectedContentPresenter { get; private set; }
+    public FrameworkElement? SelectedContentPresenter { get; private set; }
 
     /// <inheritdoc />
     public bool IsContextMenuOpened { get; set; }
@@ -480,7 +480,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 
         this.DisplayOptionsControl = this.GetTemplateChild("PART_DisplayOptionsButton") as Control;
 
-        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContent", this) as ContentControl;
+        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContent", this) as FrameworkElement;
 
         this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 

@@ -1,11 +1,11 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent">
-    <Style x:Key="Fluent.Ribbon.Styles.TransitioningContentControl"
-           TargetType="Fluent:TransitioningContentControl">
+    <Style x:Key="Fluent.Ribbon.Styles.TransitioningControl"
+           TargetType="Fluent:TransitioningControl">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Fluent:TransitioningContentControl">
+                <ControlTemplate TargetType="Fluent:TransitioningControl">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
@@ -13,10 +13,6 @@
                             <ContentPresenter x:Name="PART_PreviousContent"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content="{x:Null}"
-                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <ContentPresenter.RenderTransform>
                                     <TransformGroup>
@@ -30,10 +26,6 @@
                             <ContentPresenter x:Name="PART_CurrentContent"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Content="{TemplateBinding Content}"
-                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"
-                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <ContentPresenter.RenderTransform>
                                     <TransformGroup>

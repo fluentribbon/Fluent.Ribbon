@@ -350,13 +350,13 @@
                 <ContentControl x:Name="mainContentControl"
                                 Margin="0"
                                 Focusable="False">
-                    <Fluent:TransitioningContentControl x:Name="PART_SelectedContent"
+                    <Fluent:TransitioningControl x:Name="PART_SelectedContent"
                                                         HorizontalAlignment="Stretch"
                                                         HorizontalContentAlignment="Stretch"
                                                         VerticalAlignment="Stretch"
                                                         VerticalContentAlignment="Stretch"
                                                         TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}"
-                                                        Content="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                        NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}" />
                 </ContentControl>
             </Border>
 
