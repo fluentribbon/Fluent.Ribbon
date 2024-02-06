@@ -14,7 +14,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Stretch"
                         Background="Transparent"
-                        BorderBrush="{TemplateBinding Fluent:RibbonProperties.IsSelectedBackground}"
+                        BorderBrush="{Binding Path=(Fluent:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}"
                         BorderThickness="4 0 0 0"
                         Visibility="Collapsed" />
 
@@ -64,7 +64,7 @@
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding (Fluent:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
+                <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{Binding Path=(Fluent:RibbonProperties.IsSelectedBackground), RelativeSource={RelativeSource TemplatedParent}}" />
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
