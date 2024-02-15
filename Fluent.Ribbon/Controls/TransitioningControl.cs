@@ -100,6 +100,12 @@ public class TransitioningControl : Control
 
         this.previousContentPresenter = this.GetTemplateChild(PreviousContentPartName) as ContentPresenter;
         this.currentContentPresenter = this.GetTemplateChild(CurrentContentPartName) as ContentPresenter;
+        
+        if (this.NextContent is not null
+            && this.currentContentPresenter is not null)
+        {
+            this.currentContentPresenter.SetCurrentValue(ContentPresenter.ContentProperty, this.NextContent);
+        }
     }
 
     /// <summary>
