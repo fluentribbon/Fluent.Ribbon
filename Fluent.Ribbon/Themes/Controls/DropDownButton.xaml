@@ -11,7 +11,7 @@
                              Text="{Binding}">
             <Fluent:TwoLineLabel.Style>
                 <Style TargetType="Fluent:TwoLineLabel"
-                       BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.TwoLineLabel}">
                     <Setter Property="HasGlyph" Value="{Binding HasTriangle, RelativeSource={RelativeSource AncestorType=Fluent:DropDownButton}}" />
                     <Setter Property="HasTwoLines" Value="True" />
                     <Style.Triggers>

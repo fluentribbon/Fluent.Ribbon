@@ -223,7 +223,7 @@
                              Text="{Binding}">
             <Fluent:TwoLineLabel.Style>
                 <Style TargetType="Fluent:TwoLineLabel"
-                       BasedOn="{StaticResource {x:Type Fluent:TwoLineLabel}}">
+                       BasedOn="{StaticResource Fluent.Ribbon.Styles.TwoLineLabel}">
                     <Setter Property="HasTwoLines" Value="True" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Size, RelativeSource={RelativeSource AncestorType=Fluent:IRibbonControl}}" Value="Middle">
