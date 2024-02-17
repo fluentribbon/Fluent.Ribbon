@@ -313,8 +313,8 @@ public class Backstage : RibbonControl
     private Window? ownerWindow;
     private Ribbon? parentRibbon;
 
-    private bool changedQATVisibility;
-    private bool changedHideContextTabs;
+    private bool? originalQATVisibility;
+    private bool? originalHideContextTabs;
 
     /// <summary>
     /// Shows the <see cref="Backstage"/>
@@ -357,18 +357,18 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.IsQuickAccessToolBarVisible is true)
+            if (this.parentRibbon.IsQuickAccessToolBarVisible)
             {
+                this.originalQATVisibility = this.parentRibbon.IsQuickAccessToolBarVisible;
                 this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, BooleanBoxes.FalseBox);
-                this.changedQATVisibility = true;
             }
 
             if (this.HideContextTabsOnOpen
                 && this.parentRibbon.TitleBar is not null
                 && this.parentRibbon.TitleBar.HideContextTabs is false)
             {
+                this.originalHideContextTabs = this.parentRibbon.TitleBar.HideContextTabs;
                 this.parentRibbon.TitleBar.SetCurrentValue(RibbonTitleBar.HideContextTabsProperty, BooleanBoxes.TrueBox);
-                this.changedHideContextTabs = true;
             }
         }
 
@@ -640,20 +640,20 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.changedQATVisibility)
+            if (this.originalQATVisibility.HasValue)
             {
-                this.parentRibbon.ClearValue(Ribbon.IsQuickAccessToolBarVisibleProperty);
+                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, this.originalQATVisibility.Value);
             }
 
-            if (this.changedHideContextTabs
+            if (this.originalHideContextTabs.HasValue
                 && this.parentRibbon.TitleBar is not null)
             {
-                this.parentRibbon.TitleBar.ClearValue(RibbonTitleBar.HideContextTabsProperty);
+                this.parentRibbon.TitleBar.SetCurrentValue(RibbonTitleBar.HideContextTabsProperty, this.originalHideContextTabs.Value);
             }
 
             this.parentRibbon = null;
-            this.changedQATVisibility = false;
-            this.changedHideContextTabs = false;
+            this.originalQATVisibility = null;
+            this.originalHideContextTabs = null;
         }
 
         if (this.ownerWindow is not null)
