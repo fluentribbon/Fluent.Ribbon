@@ -396,7 +396,7 @@
             <Trigger Property="IsMinimized" Value="True">
                 <!-- Switch content to popup -->
                 <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
-                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
+                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContent, Mode=OneWay}" />
                 <Setter TargetName="contentRow" Property="MinHeight" Value="0" />
                 <Setter TargetName="contentGapRow" Property="MinHeight" Value="0" />
                 <!-- Switch content to popup END -->
