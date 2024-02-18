@@ -45,20 +45,6 @@
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
-            <!-- <MultiTrigger> -->
-            <!--     <MultiTrigger.Conditions> -->
-            <!--         <Condition Property="IsMouseOver" Value="True" /> -->
-            <!--         <Condition Property="IsEnabled" Value="True" /> -->
-            <!--     </MultiTrigger.Conditions> -->
-            <!--     <Setter TargetName="border" Property="Visibility" Value="Visible" /> -->
-            <!-- </MultiTrigger> -->
-            <!-- <MultiTrigger> -->
-            <!--     <MultiTrigger.Conditions> -->
-            <!--         <Condition Property="IsKeyboardFocused" Value="True" /> -->
-            <!--         <Condition Property="IsEnabled" Value="True" /> -->
-            <!--     </MultiTrigger.Conditions> -->
-            <!--     <Setter TargetName="border" Property="Visibility" Value="Visible" /> -->
-            <!-- </MultiTrigger> -->
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="underlineBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Gray2}" />
                 <Setter TargetName="underlineBorder" Property="Visibility" Value="Visible" />

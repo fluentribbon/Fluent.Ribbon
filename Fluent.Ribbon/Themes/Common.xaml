@@ -41,43 +41,6 @@
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 
-    <Storyboard x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Transition3">
-        <DoubleAnimation Storyboard.TargetName="PART_CurrentContent"
-                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)"
-                         From="-4"
-                         To="0"
-                         Duration="0:0:0.3" />
-        <DoubleAnimation Storyboard.TargetName="PART_CurrentContent"
-                         Storyboard.TargetProperty="Opacity"
-                         From="0"
-                         To="1"
-                         Duration="0:0:0.3" />
-
-        <DoubleAnimation Storyboard.TargetName="PART_PreviousContent"
-                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)"
-                         From="0"
-                         To="4"
-                         Duration="0:0:0.2" />
-        <DoubleAnimation Storyboard.TargetName="PART_PreviousContent"
-                         Storyboard.TargetProperty="Opacity"
-                         From="1"
-                         To="0"
-                         Duration="0:0:0.2" />
-
-        <!-- <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" -->
-        <!--                                Storyboard.TargetName="PART_CurrentContent" -->
-        <!--                                Storyboard.TargetProperty="(UIElement.Opacity)"> -->
-        <!--     <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" /> -->
-        <!--     <SplineDoubleKeyFrame KeyTime="00:00:00.300" Value="1" /> -->
-        <!-- </DoubleAnimationUsingKeyFrames> -->
-        <!-- <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" -->
-        <!--                                Storyboard.TargetName="PART_PreviousContent" -->
-        <!--                                Storyboard.TargetProperty="(UIElement.Opacity)"> -->
-        <!--     <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" /> -->
-        <!--     <SplineDoubleKeyFrame KeyTime="00:00:00.300" Value="0" /> -->
-        <!-- </DoubleAnimationUsingKeyFrames> -->
-    </Storyboard>
-
     <!-- Set default styles -->
     <Style TargetType="{x:Type Fluent:Spinner}"
            BasedOn="{StaticResource Fluent.Ribbon.Styles.Spinner}" />
