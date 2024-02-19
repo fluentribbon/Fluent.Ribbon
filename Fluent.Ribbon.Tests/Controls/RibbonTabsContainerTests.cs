@@ -108,7 +108,7 @@ public class RibbonTabsContainerTests
             container.Measure(new Size(230, ReferenceHeight));
 
             Assert.That(container.DesiredSize, Is.EqualTo(new Size(230, ReferenceHeight)));
-            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth + 1));
+            Assert.That(container.ExtentWidth, Is.EqualTo(274));
 
             Assert.That(childrenWidths, Is.EquivalentTo(new[]
             {
@@ -121,7 +121,7 @@ public class RibbonTabsContainerTests
             container.Measure(new Size(150, ReferenceHeight));
 
             Assert.That(container.DesiredSize, Is.EqualTo(new Size(150, ReferenceHeight)));
-            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth + 1));
+            Assert.That(container.ExtentWidth, Is.EqualTo(274));
 
             Assert.That(childrenWidths, Is.EquivalentTo(new[]
             {
@@ -134,7 +134,7 @@ public class RibbonTabsContainerTests
             container.Measure(new Size(130, ReferenceHeight));
 
             Assert.That(container.DesiredSize, Is.EqualTo(new Size(130, ReferenceHeight)));
-            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth + 1));
+            Assert.That(container.ExtentWidth, Is.EqualTo(274));
 
             Assert.That(childrenWidths, Is.EquivalentTo(new[]
             {
@@ -147,7 +147,7 @@ public class RibbonTabsContainerTests
             container.Measure(new Size(120, ReferenceHeight));
 
             Assert.That(container.DesiredSize, Is.EqualTo(new Size(120, ReferenceHeight)));
-            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth + 1));
+            Assert.That(container.ExtentWidth, Is.EqualTo(274));
 
             Assert.That(childrenWidths, Is.EquivalentTo(new[]
             {

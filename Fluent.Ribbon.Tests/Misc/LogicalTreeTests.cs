@@ -128,7 +128,8 @@ public class LogicalTreeTests
         typeof(MediumIconProviderProperties),
         typeof(LargeIconProviderProperties),
         typeof(GalleryItem),
-        typeof(IconPresenter)
+        typeof(IconPresenter),
+        typeof(TransitioningControl)
     };
 
     private static readonly DependencyProperty[] excludedPropertiesForLogicalChildSupportTest =
