@@ -273,7 +273,6 @@
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                 Height="Auto"
-                                                Margin="1 0 0 0"
                                                 HorizontalAlignment="Stretch"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.TabIndex="1" />
