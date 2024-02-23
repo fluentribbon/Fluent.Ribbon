@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using Fluent.Internal.KnownBoxes;
 
 /// <summary>
 /// Enables transitons for content changes.
@@ -30,6 +31,9 @@ public class TransitioningControl : Control
     static TransitioningControl()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(TransitioningControl), new FrameworkPropertyMetadata(typeof(TransitioningControl)));
+
+        IsTabStopProperty.OverrideMetadata(typeof(TransitioningControl), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
+        FocusableProperty.OverrideMetadata(typeof(TransitioningControl), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox));
     }
 
     /// <summary>Identifies the <see cref="NextContent"/> dependency property.</summary>
@@ -100,7 +104,7 @@ public class TransitioningControl : Control
 
         this.previousContentPresenter = this.GetTemplateChild(PreviousContentPartName) as ContentPresenter;
         this.currentContentPresenter = this.GetTemplateChild(CurrentContentPartName) as ContentPresenter;
-        
+
         if (this.NextContent is not null
             && this.currentContentPresenter is not null)
         {
