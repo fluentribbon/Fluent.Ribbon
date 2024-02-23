@@ -3715,6 +3715,10 @@
             <TabItem Header="Images">
                 <fluentTest:ImagesViewer />
             </TabItem>
+
+            <TabItem Header="Theme resources">
+                <fluentTest:ResourcesView />
+            </TabItem>
         </TabControl>
 
         <Fluent:StatusBar Grid.Row="2"
