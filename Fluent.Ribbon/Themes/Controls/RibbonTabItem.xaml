@@ -38,11 +38,6 @@
                                 Focusable="False" />
             </Border>
 
-            <Rectangle x:Name="keyboardFocusMarker"
-                       Style="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Rectangle}"
-                       Margin="0"
-                       Visibility="Collapsed" />
-
             <Grid x:Name="separatorGrid"
                   Width="1"
                   Margin="0 4 0 4"
@@ -132,9 +127,6 @@
                 <Setter Property="Background" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverBackground), RelativeSource={RelativeSource Self}}" />
                 <Setter Property="Foreground" Value="{Binding Path=(Fluent:RibbonProperties.MouseOverForeground), RelativeSource={RelativeSource Self}}" />
             </MultiTrigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="keyboardFocusMarker" Property="Visibility" Value="Visible" />
-            </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -145,7 +137,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverBackground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background}" />
         <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground}" />
-        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}" />
         <Setter Property="Padding" Value="4, 0, 4, 0" />
         <Setter Property="HeaderTemplate">
