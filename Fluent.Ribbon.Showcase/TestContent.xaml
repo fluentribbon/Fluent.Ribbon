@@ -3761,13 +3761,13 @@
                         Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         IsDirectionReversed="False"
                         IsSnapToTickEnabled="True"
+                        Value="{Binding Zoom}"
                         LargeChange="0.1"
                         Maximum="2.0"
                         Minimum="0.5"
                         SmallChange="0.1"
                         TickFrequency="0.1"
-                        ValueChanged="ZoomSlider_OnValueChanged"
-                        Value="{Binding Zoom}" />
+                        ValueChanged="ZoomSlider_OnValueChanged" />
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>
