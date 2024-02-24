@@ -12,12 +12,12 @@
                     BorderThickness="1"
                     Visibility="Collapsed" />
 
-            <Border x:Name="hoverBorder"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}"
-                    Visibility="Collapsed" />
-
             <Border x:Name="selectedBorder"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}"
+                    Visibility="Collapsed" />
+
+            <Border x:Name="hoverBorder"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}"
                     Visibility="Collapsed" />
 
             <Border x:Name="pressedBorder"
