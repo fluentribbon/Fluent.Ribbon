@@ -51,6 +51,15 @@
         </Grid>
 
         <ControlTemplate.Triggers>
+            <Trigger Property="IsContextual" Value="False">
+                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
+            </Trigger>
+            <Trigger Property="IsContextual" Value="True">
+                <Setter Property="Foreground" Value="{Binding Group.TabItemForeground, RelativeSource={RelativeSource Self}}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />
+            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter TargetName="PART_ContentContainer" Property="Opacity" Value="0.5" />
             </Trigger>
@@ -176,15 +185,6 @@
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonTabItem}" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
-            <Trigger Property="IsContextual" Value="False">
-                <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}" />
-            </Trigger>
-            <Trigger Property="IsContextual" Value="True">
-                <Setter Property="Foreground" Value="{Binding Group.TabItemForeground, RelativeSource={RelativeSource Self}}" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Fluent:RibbonProperties.MouseOverForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground}" />
-            </Trigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
                     <Condition Binding="{Binding IsContextual, RelativeSource={RelativeSource Self}}" Value="True" />
