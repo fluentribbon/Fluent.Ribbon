@@ -106,7 +106,7 @@
 
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
-                <Border ToolTip="{Binding Text}">
+                <Border ToolTip="{Binding Text}" Background="Transparent">
                     <Image Source="{Binding IconLarge}" />
                 </Border>
             </DataTemplate>
@@ -2152,7 +2152,8 @@
                                             MaxItemsInRow="5"
                                             MinItemsInRow="3"
                                             ResizeMode="Both"
-                                            Selectable="False">
+                                            Selectable="False"
+                                            ToolTip="Items are not selectable here.">
                         <!-- You can also add items to context menu -->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
