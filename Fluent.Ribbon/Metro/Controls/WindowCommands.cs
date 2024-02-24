@@ -202,7 +202,7 @@ public class WindowCommands : ItemsControl, IDisposable
             //PWSTR str = new PWSTR()
             if (PInvoke.LoadString(this.user32, id, pchars, 256) == 0)
             {
-                return string.Format("String with id '{0}' could not be found.", id);
+                return $"String with id '{id}' could not be found.";
             }
 #pragma warning disable CA1307 // Specify StringComparison for clarity
             return new string(pchars).Replace("&", string.Empty);
