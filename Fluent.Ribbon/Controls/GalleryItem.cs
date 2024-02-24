@@ -316,6 +316,7 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     {
         this.IsPressed = true;
         Mouse.Capture(this);
+        this.Focus();
         e.Handled = true;
     }
 
