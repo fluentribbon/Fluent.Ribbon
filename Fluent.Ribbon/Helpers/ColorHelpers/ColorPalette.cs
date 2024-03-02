@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using Fluent.Internal;
 
+// https://learn.microsoft.com/en-us/windows/apps/design/style/color
 [Obsolete(Constants.InternalUsageWarning)]
 public class ColorPalette
 {
