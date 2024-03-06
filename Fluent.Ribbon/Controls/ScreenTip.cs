@@ -285,15 +285,15 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.DisplayName("Image")]
     [System.ComponentModel.Category("Screen Tip")]
     [System.ComponentModel.Description("Image of the screen tip")]
-    public ImageSource? Image
+    public object? Image
     {
-        get { return (ImageSource?)this.GetValue(ImageProperty); }
+        get { return (object?)this.GetValue(ImageProperty); }
         set { this.SetValue(ImageProperty, value); }
     }
 
     /// <summary>Identifies the <see cref="Image"/> dependency property.</summary>
     public static readonly DependencyProperty ImageProperty =
-        DependencyProperty.Register(nameof(Image), typeof(ImageSource), typeof(ScreenTip), new PropertyMetadata());
+        DependencyProperty.Register(nameof(Image), typeof(object), typeof(ScreenTip), new PropertyMetadata());
 
     #endregion
 
