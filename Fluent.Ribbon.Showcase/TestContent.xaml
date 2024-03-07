@@ -481,7 +481,19 @@
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Width="190"
                                               DisableReason="Enable it to use this function"
-                                              Text="Paste the contents of the Clipboard." />
+                                              Text="Paste the contents of the clipboard.">
+                                <Fluent:ScreenTip.TextTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap">
+                                            <Run Text="Paste the" />
+                                            <Run Text="content" FontWeight="Bold" />
+                                            <Run Text="of the" />
+                                            <Run Text="clipboard" FontWeight="Bold" />
+                                            <Run Text="." />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </Fluent:ScreenTip.TextTemplate>
+                            </Fluent:ScreenTip>
                         </Fluent:SplitButton.ToolTip>
                         <Fluent:Gallery GroupBy="Tag"
                                         ItemHeight="32"

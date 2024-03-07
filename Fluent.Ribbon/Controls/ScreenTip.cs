@@ -221,19 +221,32 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     [System.ComponentModel.DisplayName("Text")]
     [System.ComponentModel.Category("Screen Tip")]
     [System.ComponentModel.Description("Main text of the screen tip")]
-    public string Text
+    public object? Text
     {
-        get { return (string)this.GetValue(TextProperty); }
+        get { return (object?)this.GetValue(TextProperty); }
         set { this.SetValue(TextProperty, value); }
     }
 
     /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
     public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
-        DependencyProperty.Register(nameof(Text), typeof(string), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+        DependencyProperty.Register(nameof(Text), typeof(object), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
 #pragma warning restore WPF0010 // Default value type must match registered type.
 
     #endregion
+
+    /// <summary>Identifies the <see cref="TextTemplate"/> dependency property.</summary>
+    public static readonly DependencyProperty TextTemplateProperty = DependencyProperty.Register(
+        nameof(TextTemplate), typeof(DataTemplate), typeof(ScreenTip), new PropertyMetadata(default(DataTemplate)));
+
+    /// <summary>
+    /// Defines the <see cref="DataTemplate"/> being used to render <see cref="Text"/>.
+    /// </summary>
+    public DataTemplate? TextTemplate
+    {
+        get => (DataTemplate?)this.GetValue(TextTemplateProperty);
+        set => this.SetValue(TextTemplateProperty, value);
+    }
 
     #region DisableReason Property
 
@@ -388,7 +401,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     #endregion
 
     /// <inheritdoc />
-    protected override AutomationPeer OnCreateAutomationPeer() => new Fluent.Automation.Peers.RibbonScreenTipAutomationPeer(this);
+    protected override AutomationPeer OnCreateAutomationPeer() => new Automation.Peers.RibbonScreenTipAutomationPeer(this);
 
     /// <inheritdoc />
     void ILogicalChildSupport.AddLogicalChild(object child)

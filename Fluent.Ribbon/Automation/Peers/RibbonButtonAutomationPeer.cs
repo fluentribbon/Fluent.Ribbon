@@ -35,6 +35,7 @@ public class RibbonButtonAutomationPeer : ButtonAutomationPeer
     protected override string? GetAccessKeyCore()
     {
         var text = ((Button)this.Owner).KeyTip;
+
         if (string.IsNullOrEmpty(text))
         {
             text = base.GetAccessKeyCore();
@@ -52,7 +53,7 @@ public class RibbonButtonAutomationPeer : ButtonAutomationPeer
         {
             if (((Button)this.Owner).ToolTip is ScreenTip ribbonToolTip)
             {
-                text = ribbonToolTip.Text;
+                text = ribbonToolTip.Text as string ?? string.Empty;
             }
         }
 

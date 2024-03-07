@@ -67,10 +67,9 @@
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Top"
                                               Content="{Binding Path=Image, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static converters:StaticConverters.ObjectToImageConverter}}" />
-                            <TextBlock Grid.Column="1"
-                                       Margin="8 0 8 6"
-                                       Text="{TemplateBinding Property=Text}"
-                                       TextWrapping="Wrap" />
+                            <ContentPresenter Grid.Column="1"
+                                              Margin="8 0 8 6"
+                                              ContentSource="Text" />
                         </Grid>
                         <Border x:Name="separator"
                                 Width="Auto"
@@ -195,5 +194,12 @@
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScreenTip}" />
         <Setter Property="Width" Value="205" />
+        <Setter Property="TextTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

@@ -38,6 +38,9 @@
     - Changed default `HideContextTabs`  from `false` to `true`
   - `RibbonWindow`
     - Default `Background` is now `Fluent.Ribbon.Brushes.RibbonWindow.Background`
+  - `ScreenTip`
+    - Type for `Image` was changed from `ImageSource` to `object` to allow any image content
+    - Type for `Text` was changed from `string` to `object` to allow rich content (see #716)
   - `Backstage` (the button) does not have a `MinWidth` set anymore
   - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers.<br/>
     This provides more flexibility and also fixes the nested `MenuItem` issues.
@@ -52,6 +55,8 @@
   - Added `TabItemForeground` to `RibbonContextualTabGroup`
   - Added resource `Fluent.Ribbon.Brushes.RibbonWindow.Background`
   - Added `TransitioningControl` to animate content changes
+  - #716 - Unable to use rich content for ScreenTip
+    - Changed text from `string` to `object` and added `TextTemplate` to `ScreenTip` to support this
   - `RibbonProperties`
     - Added `PressedBackground` (used in `Fluent.Ribbon.Styles.WindowCommands.CaptionButton` etc.)
     - Added `CornerRadius` (used for `RibbonTabControl`, `Fluent.Ribbon.Templates.ScrollButton` etc.)
