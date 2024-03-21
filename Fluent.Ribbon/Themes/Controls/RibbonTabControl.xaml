@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:converters="clr-namespace:Fluent.Converters">
@@ -18,8 +18,8 @@
                                       Margin="2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Popup x:Name="PART_Popup"
                        Margin="0 0 -4 0"
@@ -339,21 +339,21 @@
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
                     BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                     CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                    Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
                     KeyboardNavigation.DirectionalNavigation="Contained"
                     KeyboardNavigation.TabIndex="2"
                     KeyboardNavigation.TabNavigation="Local"
-                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
-                    Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}">
+                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
                 <ContentControl x:Name="mainContentControl"
                                 Margin="0"
                                 Focusable="False">
                     <Fluent:TransitioningControl x:Name="PART_SelectedContent"
-                                                        HorizontalAlignment="Stretch"
-                                                        HorizontalContentAlignment="Stretch"
-                                                        VerticalAlignment="Stretch"
-                                                        VerticalContentAlignment="Stretch"
-                                                        TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}"
-                                                        NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                 HorizontalAlignment="Stretch"
+                                                 VerticalAlignment="Stretch"
+                                                 HorizontalContentAlignment="Stretch"
+                                                 VerticalContentAlignment="Stretch"
+                                                 NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                                 TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}" />
                 </ContentControl>
             </Border>
 
@@ -379,10 +379,10 @@
                                 Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                                 BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
                                 CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 KeyboardNavigation.TabNavigation="Local"
-                                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}"
-                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}">
+                                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
                             <ContentControl x:Name="popupContentControl"
                                             Margin="0"
                                             Focusable="False" />
@@ -393,11 +393,11 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMinimized" Value="True">
+                <Setter TargetName="contentGapRow" Property="MinHeight" Value="0" />
+                <Setter TargetName="contentRow" Property="MinHeight" Value="0" />
                 <!-- Switch content to popup -->
                 <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
                 <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContent, Mode=OneWay}" />
-                <Setter TargetName="contentRow" Property="MinHeight" Value="0" />
-                <Setter TargetName="contentGapRow" Property="MinHeight" Value="0" />
                 <!-- Switch content to popup END -->
             </Trigger>
             <MultiTrigger>

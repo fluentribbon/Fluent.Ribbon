@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:theming="clr-namespace:Fluent.Theming"
-                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+                    xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:theming="clr-namespace:Fluent.Theming">
     <theming:RibbonLibraryThemeProvider x:Key="{x:Static theming:RibbonLibraryThemeProvider.DefaultInstance}" />
 
     <!-- Set default values -->
@@ -20,24 +20,32 @@
     <Storyboard x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Transition">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_CurrentContent"
                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="-10" />
-            <SplineDoubleKeyFrame KeyTime="00:00:00.200" Value="0" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                  Value="-10" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00.200"
+                                  Value="0" />
         </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_CurrentContent"
                                        Storyboard.TargetProperty="Opacity">
-            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
-            <SplineDoubleKeyFrame KeyTime="00:00:00.150" Value="1" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                  Value="0" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00.150"
+                                  Value="1" />
         </DoubleAnimationUsingKeyFrames>
 
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_PreviousContent"
                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
-            <SplineDoubleKeyFrame KeyTime="00:00:00.050" Value="6" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                  Value="0" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00.050"
+                                  Value="6" />
         </DoubleAnimationUsingKeyFrames>
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_PreviousContent"
                                        Storyboard.TargetProperty="Opacity">
-            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
-            <SplineDoubleKeyFrame KeyTime="00:00:00.050" Value="0" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00"
+                                  Value="1" />
+            <SplineDoubleKeyFrame KeyTime="00:00:00.050"
+                                  Value="0" />
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 

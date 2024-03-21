@@ -106,7 +106,8 @@
 
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
-                <Border ToolTip="{Binding Text}" Background="Transparent">
+                <Border Background="Transparent"
+                        ToolTip="{Binding Text}">
                     <Image Source="{Binding IconLarge}" />
                 </Border>
             </DataTemplate>
@@ -486,9 +487,11 @@
                                     <DataTemplate>
                                         <TextBlock TextWrapping="Wrap">
                                             <Run Text="Paste the" />
-                                            <Run Text="content" FontWeight="Bold" />
+                                            <Run FontWeight="Bold"
+                                                 Text="content" />
                                             <Run Text="of the" />
-                                            <Run Text="clipboard" FontWeight="Bold" />
+                                            <Run FontWeight="Bold"
+                                                 Text="clipboard" />
                                             <Run Text="." />
                                         </TextBlock>
                                     </DataTemplate>
@@ -3774,13 +3777,13 @@
                         Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         IsDirectionReversed="False"
                         IsSnapToTickEnabled="True"
-                        Value="{Binding Zoom}"
                         LargeChange="0.1"
                         Maximum="2.0"
                         Minimum="0.5"
                         SmallChange="0.1"
                         TickFrequency="0.1"
-                        ValueChanged="ZoomSlider_OnValueChanged" />
+                        ValueChanged="ZoomSlider_OnValueChanged"
+                        Value="{Binding Zoom}" />
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
     </Grid>

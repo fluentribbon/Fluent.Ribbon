@@ -1,26 +1,27 @@
 ﻿<UserControl x:Class="FluentTest.ResourcesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fluentTest="clr-namespace:FluentTest"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <DataGrid ItemsSource="{Binding Path=ThemeResources, RelativeSource={RelativeSource AncestorType=fluentTest:ResourcesView}}"
-              AutoGenerateColumns="False"
-              VerticalScrollBarVisibility="Visible"
-              HorizontalScrollBarVisibility="Disabled"
-              HeadersVisibility="Column"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <DataGrid AutoGenerateColumns="False"
               EnableRowVirtualization="True"
+              HeadersVisibility="Column"
+              HorizontalScrollBarVisibility="Disabled"
+              ItemsSource="{Binding Path=ThemeResources, RelativeSource={RelativeSource AncestorType=fluentTest:ResourcesView}}"
+              VerticalScrollBarVisibility="Visible"
               VirtualizingPanel.IsVirtualizingWhenGrouping="True">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Key" 
-                                IsReadOnly="True" 
+            <DataGridTextColumn Header="Key"
+                                Width="400"
                                 Binding="{Binding Key}"
-                                Width="400" />
-            <DataGridTemplateColumn Header="Value" 
-                                    IsReadOnly="True"
-                                    Width="100">
+                                IsReadOnly="True" />
+            <DataGridTemplateColumn Header="Value"
+                                    Width="100"
+                                    IsReadOnly="True">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="fluentTest:ThemeResource">
                         <ContentControl Content="{Binding Value}" />
@@ -28,15 +29,15 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
 
-            <DataGridTextColumn Header="StringValue" 
-                                IsReadOnly="True" 
+            <DataGridTextColumn Header="StringValue"
+                                Width="200"
                                 Binding="{Binding StringValue}"
-                                Width="200" />
+                                IsReadOnly="True" />
 
-            <DataGridTextColumn Header="Source" 
-                                IsReadOnly="True" 
+            <DataGridTextColumn Header="Source"
+                                Width="200"
                                 Binding="{Binding Source}"
-                                Width="200" />
+                                IsReadOnly="True" />
         </DataGrid.Columns>
         <DataGrid.GroupStyle>
             <GroupStyle>
@@ -47,9 +48,18 @@
                                 <ControlTemplate TargetType="{x:Type GroupItem}">
                                     <Expander IsExpanded="True">
                                         <Expander.Header>
-                                            <Border Background="#FF959595" BorderBrush="#FF727272" BorderThickness="0,0,0,1" Margin="5,0,0,0">                                            
-                                                <StackPanel Height="23" Orientation="Horizontal" Margin="3,0,0,0" Background="#FFE6E6E6">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                            <Border Margin="5 0 0 0"
+                                                    Background="#FF959595"
+                                                    BorderBrush="#FF727272"
+                                                    BorderThickness="0 0 0 1">
+                                                <StackPanel Height="23"
+                                                            Margin="3 0 0 0"
+                                                            Background="#FFE6E6E6"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Margin="5 0 0 0"
+                                                               VerticalAlignment="Center"
+                                                               FontWeight="Bold"
+                                                               Text="{Binding Path=Name}" />
                                                 </StackPanel>
                                             </Border>
                                         </Expander.Header>
@@ -70,9 +80,18 @@
                                 <ControlTemplate TargetType="{x:Type GroupItem}">
                                     <Expander IsExpanded="True">
                                         <Expander.Header>
-                                            <Border Background="#FF959595" BorderBrush="#FF727272" BorderThickness="0,0,0,1" Margin="5,0,0,0">                                            
-                                                <StackPanel Height="23" Orientation="Horizontal" Margin="3,0,0,0" Background="#FFE6E6E6">
-                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                            <Border Margin="5 0 0 0"
+                                                    Background="#FF959595"
+                                                    BorderBrush="#FF727272"
+                                                    BorderThickness="0 0 0 1">
+                                                <StackPanel Height="23"
+                                                            Margin="3 0 0 0"
+                                                            Background="#FFE6E6E6"
+                                                            Orientation="Horizontal">
+                                                    <TextBlock Margin="5 0 0 0"
+                                                               VerticalAlignment="Center"
+                                                               FontWeight="Bold"
+                                                               Text="{Binding Path=Name}" />
                                                 </StackPanel>
                                             </Border>
                                         </Expander.Header>

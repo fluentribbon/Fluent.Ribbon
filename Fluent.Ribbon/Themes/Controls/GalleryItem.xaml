@@ -14,8 +14,8 @@
     <Style x:Key="Fluent.Ribbon.Styles.GalleryItem"
            TargetType="{x:Type Fluent:GalleryItem}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.GalleryItem}" />
         <Setter Property="Padding" Value="1" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.GalleryItem}" />
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.5" />
