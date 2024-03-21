@@ -426,6 +426,16 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
                 yield return baseEnumerator.Current;
             }
 
+            if (this.Text is not null)
+            {
+                yield return this.Text;
+            }
+
+            if (this.Image is not null)
+            {
+                yield return this.Image;
+            }
+
             if (this.HelpTopic is not null)
             {
                 yield return this.HelpTopic;
