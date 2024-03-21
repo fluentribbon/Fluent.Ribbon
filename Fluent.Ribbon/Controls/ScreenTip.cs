@@ -230,7 +230,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
     /// <summary>Identifies the <see cref="Text"/> dependency property.</summary>
     public static readonly DependencyProperty TextProperty =
 #pragma warning disable WPF0010 // Default value type must match registered type.
-        DependencyProperty.Register(nameof(Text), typeof(object), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty));
+        DependencyProperty.Register(nameof(Text), typeof(object), typeof(ScreenTip), new PropertyMetadata(StringBoxes.Empty, LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 #pragma warning restore WPF0010 // Default value type must match registered type.
 
     #endregion
@@ -306,7 +306,7 @@ public class ScreenTip : ToolTip, ILogicalChildSupport
 
     /// <summary>Identifies the <see cref="Image"/> dependency property.</summary>
     public static readonly DependencyProperty ImageProperty =
-        DependencyProperty.Register(nameof(Image), typeof(object), typeof(ScreenTip), new PropertyMetadata());
+        DependencyProperty.Register(nameof(Image), typeof(object), typeof(ScreenTip), new PropertyMetadata(LogicalChildSupportHelper.OnLogicalChildPropertyChanged));
 
     #endregion
 
