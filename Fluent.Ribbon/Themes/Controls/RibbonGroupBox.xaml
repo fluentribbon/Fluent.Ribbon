@@ -98,10 +98,10 @@
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="1">
                 <Fluent:IconPresenter x:Name="iconImage"
-                                      IconSize="Small"
-                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="Small" />
             </Border>
 
             <Popup x:Name="PART_Popup"
@@ -180,13 +180,13 @@
                                                HorizontalAlignment="Stretch"
                                                VerticalAlignment="Bottom"
                                                Background="Transparent"
+                                               Icon="{TemplateBinding LauncherIcon}"
                                                Fluent:RibbonProperties.IconSize="Small"
                                                BorderBrush="Transparent"
                                                Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                                CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                                CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                                Focusable="False"
-                                               Icon="{TemplateBinding LauncherIcon}"
                                                IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                                IsTabStop="False"
                                                Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
@@ -202,13 +202,13 @@
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Bottom"
                                            Background="Transparent"
+                                           Icon="{TemplateBinding LauncherIcon}"
                                            Fluent:RibbonProperties.IconSize="Small"
                                            BorderBrush="Transparent"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                            Focusable="False"
-                                           Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                            IsTabStop="False"
                                            Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
@@ -335,12 +335,12 @@
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Bottom"
                                            Background="Transparent"
+                                           Icon="{TemplateBinding LauncherIcon}"
                                            Fluent:RibbonProperties.IconSize="Small"
                                            BorderBrush="Transparent"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Icon="{TemplateBinding LauncherIcon}"
                                            IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                            Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
                                            ToolTip="{Binding LauncherToolTip, RelativeSource={RelativeSource TemplatedParent}}"
@@ -368,10 +368,10 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                             BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
 
                     <ContentControl x:Name="PART_CollapsedHeaderContentControl"
@@ -499,13 +499,13 @@
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Bottom"
                                        Background="Transparent"
+                                       Icon="{TemplateBinding LauncherIcon}"
                                        Fluent:RibbonProperties.IconSize="Small"
                                        BorderBrush="Transparent"
                                        Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandTarget="{Binding LauncherCommandTarget, RelativeSource={RelativeSource TemplatedParent}}"
                                        Focusable="False"
-                                       Icon="{TemplateBinding LauncherIcon}"
                                        IsEnabled="{Binding IsLauncherEnabled, RelativeSource={RelativeSource TemplatedParent}}"
                                        IsTabStop="False"
                                        Template="{DynamicResource Fluent.Ribbon.Templates.DialogLauncherButton}"
@@ -532,10 +532,10 @@
                           VerticalAlignment="Center"
                           IsHitTestVisible="False">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                              SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                              CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}" />
                         <Border Margin="0"
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                                 BorderThickness="1" />
@@ -625,10 +625,10 @@
             <Fluent:IconPresenter x:Name="iconImage"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Center"
-                                  CustomSize="8,8"
-                                  IconSize="Custom"
+                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                   LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
-                                  SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                  CustomSize="8,8"
+                                  IconSize="Custom" />
         </Border>
         <ControlTemplate.Triggers>
             <MultiTrigger>

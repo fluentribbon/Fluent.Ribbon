@@ -23,9 +23,9 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
+                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="8,8"
-                                      IconSize="Custom"
-                                      SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+                                      IconSize="Custom" />
             </Border>
             <Popup x:Name="PART_Popup"
                    Grid.ColumnSpan="2"
@@ -156,9 +156,9 @@
                                        Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Stretch"
+                                       Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown}"
                                        CanAddToQuickAccessToolBar="False"
                                        DockPanel.Dock="Right"
-                                       Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarDropDown}"
                                        IsEnabled="{TemplateBinding IsEnabled}"
                                        KeyboardNavigation.TabIndex="3"
                                        Size="Small"
@@ -183,9 +183,9 @@
                                    Style="{DynamicResource Fluent.Ribbon.Styles.ToolbarDropDownButton}"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Stretch"
+                                   Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender}"
                                    Fluent:KeyTip.Keys="00"
                                    DockPanel.Dock="Right"
-                                   Icon="{DynamicResource Fluent.Ribbon.Images.QuickAccessToolbarExtender}"
                                    IsEnabled="{TemplateBinding IsEnabled}"
                                    KeyboardNavigation.TabIndex="2"
                                    KeyboardNavigation.TabNavigation="Local"
