@@ -6,50 +6,29 @@
                     mc:Ignorable="d">
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.GalleryItem"
                      TargetType="{x:Type Fluent:GalleryItem}">
-        <Grid Background="Transparent">
-            <Border x:Name="keyboardFocusBorder"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}"
-                    BorderThickness="1"
-                    Visibility="Collapsed" />
-
-            <Border x:Name="hoverBorder"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}"
-                    Visibility="Collapsed" />
-
-            <Border x:Name="selectedBorder"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}"
-                    Visibility="Collapsed" />
-
-            <Border x:Name="pressedBorder"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}"
-                    Visibility="Collapsed" />
-
-            <ContentPresenter x:Name="contentPresenter"
-                              Margin="1"
-                              Opacity="1" />
-        </Grid>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="selectedBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="hoverBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter TargetName="keyboardFocusBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="pressedBorder" Property="Visibility" Value="Visible" />
-            </Trigger>
-        </ControlTemplate.Triggers>
+        <Border Background="{TemplateBinding Background}">
+            <ContentPresenter Margin="{TemplateBinding Padding}" />
+        </Border>
     </ControlTemplate>
 
     <Style x:Key="Fluent.Ribbon.Styles.GalleryItem"
            TargetType="{x:Type Fluent:GalleryItem}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
+        <Setter Property="Padding" Value="1" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.GalleryItem}" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Selected}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.MouseOver}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.GalleryItem.Pressed}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

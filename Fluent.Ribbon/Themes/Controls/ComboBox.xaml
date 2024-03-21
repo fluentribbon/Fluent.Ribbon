@@ -88,8 +88,8 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -159,10 +159,10 @@
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
                              Focusable="True"
-                             Foreground="{TemplateBinding Foreground}"
                              IsReadOnly="{TemplateBinding IsReadOnly}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}"
                              TextWrapping="NoWrap"

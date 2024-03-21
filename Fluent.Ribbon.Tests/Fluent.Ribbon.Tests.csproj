@@ -26,6 +26,6 @@
 
     <PackageReference Include="NUnit" />
 
-    <PackageReference Include="Google.Cloud.Translate.V3" />
+    <!--<PackageReference Include="Google.Cloud.Translate.V3" />-->
   </ItemGroup>
 </Project>

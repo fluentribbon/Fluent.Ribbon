@@ -22,6 +22,8 @@ public class StartScreen : Backstage
     public static readonly DependencyProperty ShownProperty =
         DependencyProperty.Register(nameof(Shown), typeof(bool), typeof(StartScreen), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, null));
 
+    private bool? originalTitleBarIsCollapsed;
+
     static StartScreen()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(StartScreen), new FrameworkPropertyMetadata(typeof(StartScreen)));
@@ -69,6 +71,7 @@ public class StartScreen : Backstage
         {
             var parentRibbon = GetParentRibbon(this);
 
+            this.originalTitleBarIsCollapsed = parentRibbon?.TitleBar?.IsCollapsed;
             parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, BooleanBoxes.TrueBox);
         }
 
@@ -88,7 +91,10 @@ public class StartScreen : Backstage
         {
             var parentRibbon = GetParentRibbon(this);
 
-            parentRibbon?.TitleBar?.ClearValue(RibbonTitleBar.IsCollapsedProperty);
+            if (this.originalTitleBarIsCollapsed.HasValue)
+            {
+                parentRibbon?.TitleBar?.SetCurrentValue(RibbonTitleBar.IsCollapsedProperty, this.originalTitleBarIsCollapsed.Value);
+            }
         }
     }
 }

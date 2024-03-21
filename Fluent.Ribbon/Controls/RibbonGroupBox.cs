@@ -934,14 +934,6 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     }
 
     /// <summary>
-    /// Clears cache
-    /// </summary>
-    [Obsolete("This method does nothing anymore and will be removed in the next major version.")]
-    public void ClearCache()
-    {
-    }
-
-    /// <summary>
     /// Invalidates layout (with children)
     /// </summary>
     internal void InvalidateLayout()

@@ -14,6 +14,7 @@ public class RibbonGroupsContainerScrollViewer : ScrollViewer
     static RibbonGroupsContainerScrollViewer()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(typeof(RibbonGroupsContainerScrollViewer)));
+        VerticalScrollBarVisibilityProperty.OverrideMetadata(typeof(RibbonGroupsContainerScrollViewer), new FrameworkPropertyMetadata(ScrollBarVisibility.Disabled));
     }
 
     /// <inheritdoc />
@@ -30,7 +31,7 @@ public class RibbonGroupsContainerScrollViewer : ScrollViewer
         }
 
         // Prevent scrolling when a popup is open
-        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: { } } and not RibbonTabControl)
+        if (Mouse.Captured is IDropDownControl { IsDropDownOpen: true, DropDownPopup: not null } and not RibbonTabControl)
         {
             return;
         }

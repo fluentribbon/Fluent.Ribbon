@@ -33,18 +33,18 @@ using Windows.Win32.Graphics.Gdi;
 [TemplatePart(Name = "PART_TabsContainer", Type = typeof(Panel))]
 [TemplatePart(Name = "PART_DisplayOptionsButton", Type = typeof(Control))]
 [TemplatePart(Name = "PART_ToolbarPanel", Type = typeof(Panel))]
-[TemplatePart(Name = "PART_SelectedContentPresenter", Type = typeof(ContentPresenter))]
+[TemplatePart(Name = "PART_SelectedContent", Type = typeof(FrameworkElement))]
 public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 {
     /// <summary>
     /// Default value for <see cref="ContentGapHeight"/>.
     /// </summary>
-    public const double DefaultContentGapHeight = 1;
+    public const double DefaultContentGapHeight = 3;
 
     /// <summary>
     /// Default value for <see cref="ContentHeight"/>.
     /// </summary>
-    public const double DefaultContentHeight = 94;
+    public const double DefaultContentHeight = 105;
 
     /// <summary>
     /// Provides a value needed to add space to the popup to accomodate for overlapping keytips.
@@ -111,9 +111,9 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     internal Control? DisplayOptionsControl { get; private set; }
 
     /// <summary>
-    /// Gets the <see cref="ContentPresenter"/> responsible for displaying the selected tabs content.
+    /// Gets the <see cref="ContentControl"/> responsible for displaying the selected tabs content.
     /// </summary>
-    public ContentPresenter? SelectedContentPresenter { get; private set; }
+    public FrameworkElement? SelectedContentPresenter { get; private set; }
 
     /// <inheritdoc />
     public bool IsContextMenuOpened { get; set; }
@@ -480,7 +480,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 
         this.DisplayOptionsControl = this.GetTemplateChild("PART_DisplayOptionsButton") as Control;
 
-        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContentPresenter", this) as ContentPresenter;
+        this.SelectedContentPresenter = this.Template.FindName("PART_SelectedContent", this) as FrameworkElement;
 
         this.DropDownPopup = this.Template.FindName("PART_Popup", this) as Popup;
 
@@ -743,7 +743,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             {
                 if (selectedIndex > 0)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
                     selectedIndex--;
                     visualItems[selectedIndex].IsSelected = true;
                 }
@@ -752,7 +751,6 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             {
                 if (selectedIndex < visualItems.Count - 1)
                 {
-                    visualItems[selectedIndex].IsSelected = false;
                     selectedIndex++;
                     visualItems[selectedIndex].IsSelected = true;
                 }

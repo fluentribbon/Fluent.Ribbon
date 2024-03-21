@@ -147,8 +147,15 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     }
 
     /// <inheritdoc />
-    protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+    protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
+        base.OnMouseLeftButtonDown(e);
+
+        if (e.Handled)
+        {
+            return;
+        }
+
         if (ReferenceEquals(e.Source, this)
             || this.IsSelected == false)
         {
@@ -157,17 +164,11 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     }
 
     /// <inheritdoc />
-    protected override void OnKeyUp(KeyEventArgs e)
+    protected override void OnGotFocus(RoutedEventArgs e)
     {
-        if ((e.Key == Key.Space || e.Key == Key.Enter) 
-            && (ReferenceEquals(e.Source, this) || this.IsSelected == false))
-        {
-            this.IsSelected = true;
-        }
-        else
-        {
-            base.OnKeyUp(e);
-        }
+        base.OnGotFocus(e);
+
+        this.IsSelected = true;
     }
 
     #endregion
@@ -205,7 +206,7 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
             return;
         }
 
-        if (backstageTabControl.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(backstageTabControl.SelectedItem) is BackstageTabItem backstageTabItem)
+        if (backstageTabControl.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(backstageTabControl.SelectedItem) is { } backstageTabItem)
         {
             backstageTabItem.IsSelected = false;
         }
@@ -219,6 +220,8 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <param name="e">The event data.</param>
     protected virtual void OnSelected(RoutedEventArgs e)
     {
+        this.Focus();
+
         this.HandleIsSelectedChanged(e);
     }
 

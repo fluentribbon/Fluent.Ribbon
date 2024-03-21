@@ -20,7 +20,6 @@
 
                     <DockPanel Grid.Row="0"
                                Height="{TemplateBinding TitleBarHeight}"
-                               Margin="0 0 0 -1"
                                HorizontalAlignment="Stretch"
                                VerticalAlignment="Top"
                                Background="{TemplateBinding TitleBackground}"
@@ -96,7 +95,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.RibbonWindow"
            TargetType="{x:Type Fluent:RibbonWindow}">
-        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.White}" />
+        <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />

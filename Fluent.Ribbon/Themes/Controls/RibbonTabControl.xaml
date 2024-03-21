@@ -18,8 +18,8 @@
                                       Margin="2"
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Popup x:Name="PART_Popup"
                        Margin="0 0 -4 0"
@@ -109,8 +109,6 @@
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
-                              ContentTemplate="{TemplateBinding HeaderTemplate}"
-                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                               RecognizesAccessKey="{Binding Path=(Fluent:MenuItem.RecognizesAccessKey), RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
     </ControlTemplate>
@@ -234,45 +232,13 @@
               KeyboardNavigation.TabNavigation="Local">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition x:Name="rowDefinition"
+                <RowDefinition x:Name="contentRow"
                                MinHeight="{TemplateBinding ContentHeight}"
                                MaxHeight="{TemplateBinding ContentHeight}" />
-                <RowDefinition x:Name="rowDefinition1"
+                <RowDefinition x:Name="contentGapRow"
                                MinHeight="{TemplateBinding ContentGapHeight}"
                                MaxHeight="{TemplateBinding ContentGapHeight}" />
             </Grid.RowDefinitions>
-            <Border x:Name="border"
-                    Grid.Row="1"
-                    Width="Auto"
-                    Margin="0 -1 0 0"
-                    HorizontalAlignment="Stretch"
-                    BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                    BorderThickness="0 1" />
-
-            <Border Grid.Row="1"
-                    Grid.RowSpan="1"
-                    HorizontalAlignment="Stretch"
-                    Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
-                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
-                    BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
-                    KeyboardNavigation.DirectionalNavigation="Contained"
-                    KeyboardNavigation.TabIndex="2"
-                    KeyboardNavigation.TabNavigation="Local"
-                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
-                <ContentControl x:Name="mainContentControl"
-                                Margin="0"
-                                Focusable="False">
-                    <ContentPresenter x:Name="PART_SelectedContentPresenter"
-                                      Margin="0"
-                                      HorizontalAlignment="Stretch"
-                                      ContentSource="SelectedContent" />
-                </ContentControl>
-            </Border>
-
-            <Border Grid.Row="2"
-                    Margin="0"
-                    VerticalAlignment="Stretch"
-                    Background="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}" />
 
             <Grid x:Name="TabsGrid"
                   Grid.Row="0"
@@ -291,9 +257,7 @@
 
                 <Fluent:WindowSteeringHelperControl Grid.ColumnSpan="4" />
 
-                <!-- Margin on bottom is need to keep the border surrounding the content area visible below the menu presenter -->
                 <ContentPresenter Grid.Column="0"
-                                  Margin="0 0 0 1"
                                   VerticalAlignment="Stretch"
                                   ContentSource="Menu" />
 
@@ -309,7 +273,6 @@
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
                                                 Height="Auto"
-                                                Margin="0"
                                                 HorizontalAlignment="Stretch"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.TabIndex="1" />
@@ -333,8 +296,8 @@
                                            ToolTip="{DynamicResource Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip}"
                                            Visibility="{Binding IsDisplayOptionsButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.ShowRibbon, Mode=OneWay}"
-                                         FontWeight="Bold"
                                          Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                         FontWeight="Bold"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanMinimize, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"
@@ -351,8 +314,8 @@
                                    Style="{x:Null}"
                                    Visibility="Collapsed" />
                         <Fluent:MenuItem Header="{Binding Source={x:Static Fluent:RibbonLocalization.Current}, Path=Localization.RibbonLayout, Mode=OneWay}"
-                                         FontWeight="Bold"
                                          Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                         FontWeight="Bold"
                                          IsEnabled="False"
                                          Template="{DynamicResource Fluent.Ribbon.Templates.MenuItem.HeaderOnly}"
                                          Visibility="{Binding CanUseSimplified, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}"
@@ -368,6 +331,31 @@
                     </Fluent:DropDownButton>
                 </StackPanel>
             </Grid>
+
+            <Border Grid.Row="1"
+                    Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                    BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border}"
+                    BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
+                    CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                    Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
+                    KeyboardNavigation.DirectionalNavigation="Contained"
+                    KeyboardNavigation.TabIndex="2"
+                    KeyboardNavigation.TabNavigation="Local"
+                    TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                <ContentControl x:Name="mainContentControl"
+                                Margin="0"
+                                Focusable="False">
+                    <Fluent:TransitioningControl x:Name="PART_SelectedContent"
+                                                 HorizontalAlignment="Stretch"
+                                                 VerticalAlignment="Stretch"
+                                                 HorizontalContentAlignment="Stretch"
+                                                 VerticalContentAlignment="Stretch"
+                                                 NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                                 TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}" />
+                </ContentControl>
+            </Border>
 
             <!-- Placement target must be the selected item. Otherwise things like DPI and monitor are selected wrong if the tabcontrol 0,0 is on a different screen than the selected tabs 0,0 -->
             <Popup x:Name="PART_Popup"
@@ -386,27 +374,30 @@
                         <!-- Needed for overlapping Keytips -->
                     </Grid.RowDefinitions>
                     <Border Grid.Row="1"
-                            Margin="1 0"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
-                            BorderBrush="{Binding Path=SelectedTabItem.BorderBrush, RelativeSource={RelativeSource TemplatedParent}, FallbackValue=Transparent}"
-                            BorderThickness="0 0 0 1"
-                            KeyboardNavigation.DirectionalNavigation="Contained"
-                            KeyboardNavigation.TabNavigation="Local"
-                            TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
-                        <ContentControl x:Name="popupContentControl"
-                                        Margin="0"
-                                        Focusable="False" />
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background}">
+                        <Border Margin="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Margin}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
+                                BorderThickness="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness}"
+                                CornerRadius="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius}"
+                                Effect="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect}"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabNavigation="Local"
+                                TextElement.Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground}">
+                            <ContentControl x:Name="popupContentControl"
+                                            Margin="0"
+                                            Focusable="False" />
+                        </Border>
                     </Border>
                 </Grid>
             </Popup>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMinimized" Value="True">
+                <Setter TargetName="contentGapRow" Property="MinHeight" Value="0" />
+                <Setter TargetName="contentRow" Property="MinHeight" Value="0" />
                 <!-- Switch content to popup -->
                 <Setter TargetName="mainContentControl" Property="Content" Value="{x:Null}" />
-                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContentPresenter, Mode=OneWay}" />
-                <Setter TargetName="rowDefinition" Property="MinHeight" Value="0" />
-                <Setter TargetName="rowDefinition1" Property="MinHeight" Value="0" />
+                <Setter TargetName="popupContentControl" Property="Content" Value="{Binding ElementName=PART_SelectedContent, Mode=OneWay}" />
                 <!-- Switch content to popup END -->
             </Trigger>
             <MultiTrigger>

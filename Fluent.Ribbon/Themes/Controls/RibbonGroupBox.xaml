@@ -67,6 +67,7 @@
         <Setter Property="HeaderTemplateSelector" Value="{Binding Source={x:Static templateSelectors:RibbonGroupBoxHeaderTemplateSelector.Instance}}" />
         <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="0 4 0 0" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonGroupBox}" />
         <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
@@ -163,11 +164,11 @@
                                                 Margin="2 0"
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Center"
+                                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                                 Content="{TemplateBinding Header}"
                                                 ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                                 ContentTemplate="{TemplateBinding HeaderTemplate}"
                                                 ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                                Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                                 KeyboardNavigation.IsTabStop="False" />
 
                                 <Fluent:Button x:Name="PART_DialogLauncherButton"
@@ -178,8 +179,8 @@
                                                Margin="0 0 1 1"
                                                HorizontalAlignment="Stretch"
                                                VerticalAlignment="Bottom"
-                                               Fluent:RibbonProperties.IconSize="Small"
                                                Background="Transparent"
+                                               Fluent:RibbonProperties.IconSize="Small"
                                                BorderBrush="Transparent"
                                                Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                                CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
@@ -200,8 +201,8 @@
                                            Margin="-4 0 2 0"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Bottom"
-                                           Fluent:RibbonProperties.IconSize="Small"
                                            Background="Transparent"
+                                           Fluent:RibbonProperties.IconSize="Small"
                                            BorderBrush="Transparent"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
@@ -279,6 +280,7 @@
         </ControlTemplate.Resources>
 
         <Grid x:Name="grid2"
+              Margin="{TemplateBinding Padding}"
               HorizontalAlignment="Stretch">
             <Border Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" />
@@ -317,11 +319,11 @@
                                             Margin="2 0"
                                             HorizontalAlignment="Stretch"
                                             VerticalAlignment="Center"
+                                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             Content="{TemplateBinding Header}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                             ContentTemplate="{TemplateBinding HeaderTemplate}"
                                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                            Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                             KeyboardNavigation.IsTabStop="False" />
 
                             <Fluent:Button x:Name="PART_DialogLauncherButton"
@@ -332,8 +334,8 @@
                                            Margin="0 0 1 1"
                                            HorizontalAlignment="Stretch"
                                            VerticalAlignment="Bottom"
-                                           Fluent:RibbonProperties.IconSize="Small"
                                            Background="Transparent"
+                                           Fluent:RibbonProperties.IconSize="Small"
                                            BorderBrush="Transparent"
                                            Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                            CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
@@ -366,8 +368,8 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border}"
                             BorderThickness="1">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
@@ -378,12 +380,12 @@
                                     Margin="5 0 5 0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
+                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                     Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
                                     Content="{TemplateBinding Header}"
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                     KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"
@@ -496,8 +498,8 @@
                                        Margin="-4 0 2 0"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Bottom"
-                                       Fluent:RibbonProperties.IconSize="Small"
                                        Background="Transparent"
+                                       Fluent:RibbonProperties.IconSize="Small"
                                        BorderBrush="Transparent"
                                        Command="{Binding LauncherCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                        CommandParameter="{Binding LauncherCommandParameter, RelativeSource={RelativeSource TemplatedParent}}"
@@ -530,8 +532,8 @@
                           VerticalAlignment="Center"
                           IsHitTestVisible="False">
                         <Fluent:IconPresenter x:Name="iconImage"
-                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                              IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                               MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                               SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                         <Border Margin="0"
@@ -545,12 +547,12 @@
                                     Margin="2 0 0 0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
+                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                     Fluent:RibbonGroupBox.IsCollapsedHeaderContentPresenter="True"
                                     Content="{TemplateBinding Header}"
                                     ContentStringFormat="{TemplateBinding HeaderStringFormat}"
                                     ContentTemplate="{TemplateBinding HeaderTemplate}"
                                     ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                                    Foreground="{DynamicResource Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}"
                                     KeyboardNavigation.IsTabStop="False" />
 
                     <Popup x:Name="PART_Popup"

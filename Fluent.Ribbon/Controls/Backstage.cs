@@ -313,6 +313,9 @@ public class Backstage : RibbonControl
     private Window? ownerWindow;
     private Ribbon? parentRibbon;
 
+    private bool? originalQATVisibility;
+    private bool? originalHideContextTabs;
+
     /// <summary>
     /// Shows the <see cref="Backstage"/>
     /// </summary>
@@ -344,6 +347,7 @@ public class Backstage : RibbonControl
         this.ShowAdorner();
 
         this.parentRibbon = GetParentRibbon(this);
+
         if (this.parentRibbon is not null)
         {
             if (this.parentRibbon.TabControl is not null)
@@ -353,14 +357,18 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.QuickAccessToolBar is not null)
+            if (this.parentRibbon.IsQuickAccessToolBarVisible)
             {
-                this.parentRibbon.QuickAccessToolBar.IsEnabled = false;
+                this.originalQATVisibility = this.parentRibbon.IsQuickAccessToolBarVisible;
+                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, BooleanBoxes.FalseBox);
             }
 
-            if (this.parentRibbon.TitleBar is not null)
+            if (this.HideContextTabsOnOpen
+                && this.parentRibbon.TitleBar is not null
+                && this.parentRibbon.TitleBar.HideContextTabs is false)
             {
-                this.parentRibbon.TitleBar.HideContextTabs = this.HideContextTabsOnOpen;
+                this.originalHideContextTabs = this.parentRibbon.TitleBar.HideContextTabs;
+                this.parentRibbon.TitleBar.SetCurrentValue(RibbonTitleBar.HideContextTabsProperty, BooleanBoxes.TrueBox);
             }
         }
 
@@ -449,11 +457,13 @@ public class Backstage : RibbonControl
         else
         {
             this.adorner.Visibility = Visibility.Visible;
+            MoveFocusToContentAsync();
         }
 
         void HandleStoryboardCurrentStateInvalidated(object? sender, EventArgs e)
         {
             this.adorner.Visibility = Visibility.Visible;
+            MoveFocusToContentAsync();
             storyboard.CurrentStateInvalidated -= HandleStoryboardCurrentStateInvalidated;
         }
 
@@ -461,12 +471,38 @@ public class Backstage : RibbonControl
         {
             this.AdornerLayer?.Update();
 
-            if (this.Content?.IsVisible == true)
+            storyboard.Completed -= HandleStoryboardOnCompleted;
+        }
+
+        void MoveFocusToContentAsync()
+        {
+            this.RunInDispatcherAsync(() => MoveFocusToContent(), DispatcherPriority.Background);
+        }
+
+        void MoveFocusToContent()
+        {
+            if (this.Content?.IsVisible is not true
+                || this.Content.IsKeyboardFocusWithin)
             {
-                this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                return;
             }
 
-            storyboard.Completed -= HandleStoryboardOnCompleted;
+            switch (this.Content)
+            {
+                case StartScreenTabControl { LeftContent: UIElement leftContent } when leftContent.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)):
+                    return;
+                case StartScreenTabControl { RightContent: UIElement rightContent } when rightContent.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)):
+                    return;
+                case BackstageTabControl { SelectedIndex: not -1 } backstageTabControl when backstageTabControl.ItemContainerGenerator.ContainerFromIndex(backstageTabControl.SelectedIndex) is BackstageTabItem backstageTabItem:
+                    backstageTabItem.Focus();
+                    return;
+                case BackstageTabControl { SelectedContentHost: { } selectedContentHost }:
+                    selectedContentHost.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    return;
+                default:
+                    this.Content.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    break;
+            }
         }
     }
 
@@ -604,18 +640,20 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.QuickAccessToolBar is not null)
+            if (this.originalQATVisibility.HasValue)
             {
-                this.parentRibbon.QuickAccessToolBar.IsEnabled = true;
-                this.parentRibbon.QuickAccessToolBar.Refresh();
+                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, this.originalQATVisibility.Value);
             }
 
-            if (this.parentRibbon.TitleBar is not null)
+            if (this.originalHideContextTabs.HasValue
+                && this.parentRibbon.TitleBar is not null)
             {
-                this.parentRibbon.TitleBar.HideContextTabs = false;
+                this.parentRibbon.TitleBar.SetCurrentValue(RibbonTitleBar.HideContextTabsProperty, this.originalHideContextTabs.Value);
             }
 
             this.parentRibbon = null;
+            this.originalQATVisibility = null;
+            this.originalHideContextTabs = null;
         }
 
         if (this.ownerWindow is not null)

@@ -83,6 +83,8 @@
                     Uid="{Binding Close, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:WindowCommands}}}"
                     Style="{DynamicResource Fluent.Ribbon.Styles.WindowCommands.CaptionButton}"
                     Padding="0"
+                    Fluent:RibbonProperties.MouseOverBackground="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}"
+                    Fluent:RibbonProperties.PressedBackground="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}"
                     controlzex:NonClientControlProperties.ClickStrategy="MouseEvent"
                     controlzex:NonClientControlProperties.HitTestResult="CLOSE"
                     AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
@@ -107,12 +109,6 @@
                 <Setter TargetName="PART_Max" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="PART_Restore" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding IsMouseOver, ElementName=PART_Close}" Value="True">
-                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.MouseOver.Background}" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsPressed, ElementName=PART_Close}" Value="True">
-                <Setter TargetName="PART_Close" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.WindowCommands.CloseButton.Pressed.Background}" />
-            </DataTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
@@ -131,7 +127,8 @@
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               RecognizesAccessKey="True"
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                              Opacity=".75" />
 
             <Rectangle x:Name="border"
                        Width="0"
@@ -148,8 +145,8 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
-            <Trigger Property="IsMouseOver" Value="False">
-                <Setter TargetName="contentPresenter" Property="Opacity" Value=".75" />
+            <Trigger Property="controlzex:NonClientControlProperties.IsNCMouseOver" Value="True">
+                <Setter TargetName="contentPresenter" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True" />
             <Trigger Property="ToggleButton.IsChecked" Value="True" />

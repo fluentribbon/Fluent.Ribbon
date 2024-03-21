@@ -63,8 +63,8 @@
                 <Fluent:IconPresenter x:Name="iconImage"
                                       Margin="4 0 0 0"
                                       VerticalAlignment="Center"
-                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Grid>
@@ -107,9 +107,9 @@
                              Padding="2 0 2 0"
                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                              Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                             Foreground="{TemplateBinding Foreground}"
                              BorderThickness="0"
                              CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                             Foreground="{TemplateBinding Foreground}"
                              SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                     <Path x:Name="path"
@@ -238,8 +238,8 @@
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 0 4 0"
                                           VerticalAlignment="Center"
-                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -280,9 +280,9 @@
                                  Padding="2 0 2 0"
                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                                  Background="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Background}"
+                                 Foreground="{TemplateBinding Foreground}"
                                  BorderThickness="0"
                                  CaretBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}"
-                                 Foreground="{TemplateBinding Foreground}"
                                  SelectionBrush="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
 
                         <Path x:Name="path"

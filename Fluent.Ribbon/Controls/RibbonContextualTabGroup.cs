@@ -18,6 +18,18 @@ public class RibbonContextualTabGroup : Control
 {
     #region Properties
 
+    /// <summary>Identifies the <see cref="TabItemForeground"/> dependency property.</summary>
+    public static readonly DependencyProperty TabItemForegroundProperty = DependencyProperty.Register(nameof(TabItemForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush?)));
+
+    /// <summary>
+    /// Gets or sets the foreground brush to be used for a <see cref="RibbonTabItem"/> belonging to this group.
+    /// </summary>
+    public Brush? TabItemForeground
+    {
+        get => (Brush?)this.GetValue(TabItemForegroundProperty);
+        set => this.SetValue(TabItemForegroundProperty, value);
+    }
+
     /// <summary>Identifies the <see cref="TabItemSelectedForeground"/> dependency property.</summary>
     public static readonly DependencyProperty TabItemSelectedForegroundProperty = DependencyProperty.Register(nameof(TabItemSelectedForeground), typeof(Brush), typeof(RibbonContextualTabGroup), new PropertyMetadata(default(Brush)));
 

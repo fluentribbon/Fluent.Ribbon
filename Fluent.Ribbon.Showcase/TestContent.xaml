@@ -106,7 +106,8 @@
 
             <DataTemplate x:Key="largeDataItemTemplate"
                           DataType="{x:Type viewModels:GallerySampleDataItemViewModel}">
-                <Border ToolTip="{Binding Text}">
+                <Border Background="Transparent"
+                        ToolTip="{Binding Text}">
                     <Image Source="{Binding IconLarge}" />
                 </Border>
             </DataTemplate>
@@ -122,20 +123,24 @@
                        CanUseSimplified="True">
             <Fluent:Ribbon.ContextualGroups>
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup1"
-                                                 Header="FIRST"
+                                                 Header="First"
                                                  Background="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
-                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                                  Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}"
                                                  TabItemMouseOverForeground="Red"
                                                  TabItemSelectedForeground="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Foreground}"
                                                  TabItemSelectedMouseOverForeground="OrangeRed"
                                                  Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="tabGroup2"
-                                                 Header="SECOND"
+                                                 Header="Second"
                                                  Background="#FF9D00"
-                                                 BorderBrush="#FF9D00"
                                                  Foreground="#C45300"
+                                                 BorderBrush="#FF9D00"
+                                                 Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
+
+                <Fluent:RibbonContextualTabGroup x:Name="tabGroup3"
+                                                 Header=""
                                                  Visibility="{Binding AreContextGroupsVisible, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
                 <Fluent:RibbonContextualTabGroup x:Name="invisibleTabGroup"
@@ -150,9 +155,9 @@
                     <Fluent:StartScreenTabControl>
                         <Fluent:StartScreenTabControl.LeftContent>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="Fluent.Ribbon"
+                                <Label Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}"
                                        FontSize="48"
-                                       Foreground="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />
+                                       Content="Fluent.Ribbon" />
                             </StackPanel>
                         </Fluent:StartScreenTabControl.LeftContent>
 
@@ -162,8 +167,7 @@
                                            VerticalAlignment="Center">
                                     You can close the start screen by either clicking the button below or by pressing ESC
                                 </TextBlock>
-                                <Fluent:Button HorizontalAlignment="Center"
-                                               IsDefinitive="True"
+                                <Fluent:Button IsDefinitive="True"
                                                LargeIcon="{iconPacks:Material Kind=ExitToApp}">
                                     Close start screen
                                 </Fluent:Button>
@@ -210,7 +214,7 @@
                                                      Visibility="Collapsed" />
                             <Fluent:BackstageTabItem Header="Disabled"
                                                      IsEnabled="False" />
-                            <Fluent:BackstageTabItem Header="Introduction"
+                            <Fluent:BackstageTabItem Header="Home"
                                                      Icon="{DynamicResource Fluent.Ribbon.Images.DefaultPlaceholder}"
                                                      KeyTip="T">
                                 <Fluent:BackstageTabItem.ToolTip>
@@ -309,6 +313,8 @@
                                     <DataTemplate>
                                         <Grid>
                                             <TextBox Width="6000"
+                                                     Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                                                     Foreground="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                                      Text="{Binding Mode=OneWay}" />
                                         </Grid>
                                     </DataTemplate>
@@ -331,9 +337,9 @@
 
                                     <TextBlock Padding="12 4 4 4"
                                                Background="#F6F7F8"
+                                               Foreground="#64647F"
                                                FontSize="12"
                                                FontWeight="SemiBold"
-                                               Foreground="#64647F"
                                                Text="Recent files"
                                                TextAlignment="Left" />
                                 </Border>
@@ -476,7 +482,21 @@
                             <Fluent:ScreenTip Title="Paste (Ctrl+V)"
                                               Width="190"
                                               DisableReason="Enable it to use this function"
-                                              Text="Paste the contents of the Clipboard." />
+                                              Text="Paste the contents of the clipboard.">
+                                <Fluent:ScreenTip.TextTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap">
+                                            <Run Text="Paste the" />
+                                            <Run FontWeight="Bold"
+                                                 Text="content" />
+                                            <Run Text="of the" />
+                                            <Run FontWeight="Bold"
+                                                 Text="clipboard" />
+                                            <Run Text="." />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </Fluent:ScreenTip.TextTemplate>
+                            </Fluent:ScreenTip>
                         </Fluent:SplitButton.ToolTip>
                         <Fluent:Gallery GroupBy="Tag"
                                         ItemHeight="32"
@@ -1182,7 +1202,6 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Insert"
-                                  IsSeparatorVisible="true"
                                   KeyTip="I"
                                   ReduceOrder="groupLL, groupLL, groupLL, (groupLL),(groupLL),(groupLL),(groupLL),(groupLL)">
                 <Fluent:RibbonGroupBox x:Name="groupLL"
@@ -1728,7 +1747,8 @@
                 <Fluent:RibbonGroupBox Header="Split buttons">
                     <ToggleButton x:Name="ToggleButton">Open</ToggleButton>
                     <Popup IsOpen="{Binding ElementName=ToggleButton, Path=IsChecked}"
-                           PlacementTarget="{Binding ElementName=ToggleButton}">
+                           PlacementTarget="{Binding ElementName=ToggleButton}"
+                           StaysOpen="False">
                         <Menu>
                             <MenuItem Header="1">
                                 <MenuItem.ContextMenu>
@@ -2111,15 +2131,15 @@
                     <Fluent:Button Header="Refresh (Galleries)"
                                    Command="{Binding GalleryViewModel.RefreshCommand}"
                                    Icon="Images\Green.png"
-                                   SizeDefinition="Middle"
-                                   LargeIcon="Images\GreenLarge.png" />
-                    
+                                   LargeIcon="Images\GreenLarge.png"
+                                   SizeDefinition="Middle" />
+
                     <Fluent:ToggleButton x:Name="ShowHideGalleries"
                                          Header="Show/Hide (Galleries)"
-                                         IsChecked="True"
                                          Icon="Images\Red.png"
-                                         SizeDefinition="Middle"
-                                         LargeIcon="Images\GreenLarge.png" />
+                                         IsChecked="True"
+                                         LargeIcon="Images\GreenLarge.png"
+                                         SizeDefinition="Middle" />
 
                     <!-- Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
@@ -2147,7 +2167,8 @@
                                             MaxItemsInRow="5"
                                             MinItemsInRow="3"
                                             ResizeMode="Both"
-                                            Selectable="False">
+                                            Selectable="False"
+                                            ToolTip="Items are not selectable here.">
                         <!-- You can also add items to context menu -->
                         <Fluent:InRibbonGallery.Menu>
                             <Fluent:RibbonMenu>
@@ -2765,6 +2786,7 @@
             </Fluent:RibbonTabItem>
 
             <Fluent:RibbonTabItem Header="Binding"
+                                  ActiveTabBackground="{DynamicResource Fluent.Ribbon.Brushes.Gray9}"
                                   Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
                                   KeyTip="B">
                 <Fluent:RibbonGroupBox Header="Bound ItemsSource"
@@ -2772,9 +2794,8 @@
                                        ItemsSource="{Binding DataItems}" />
             </Fluent:RibbonTabItem>
 
-            <Fluent:RibbonTabItem Header="LAYOUT"
-                                  ActiveTabBackground="#FF9D00"
-                                  Group="{Binding ElementName=tabGroup2, Mode=OneWay}"
+            <Fluent:RibbonTabItem Header="Layout"
+                                  Group="{Binding ElementName=tabGroup3, Mode=OneWay}"
                                   KeyTip="L">
                 <Fluent:RibbonGroupBox Header="LongLongGroup"
                                        IsLauncherVisible="False">
@@ -3272,13 +3293,11 @@
                                                          IsChecked="True">
                                             IsStatusBarVisible
                                         </Fluent:CheckBox>
-                                        <ComboBox x:Name="ResizeModeComboBox"
-                                                  AutomationProperties.Name="Window resize mode"
+                                        <ComboBox AutomationProperties.Name="Window resize mode"
                                                   ItemsSource="{Binding Source={StaticResource ResizeModeEnumValues}}"
                                                   SelectedItem="{Binding Path=ResizeMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
-                                        <ComboBox x:Name="FlowDirectionComboBox"
-                                                  AutomationProperties.Name="Window flow direction"
+                                        <ComboBox AutomationProperties.Name="Window flow direction"
                                                   ItemsSource="{Binding Source={StaticResource FlowDirectionEnumValues}}"
                                                   SelectedItem="{Binding Path=FlowDirection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
 
@@ -3346,6 +3365,9 @@
                                         </Fluent:CheckBox>
                                         <Fluent:CheckBox IsChecked="{Binding IsDisplayOptionsButtonVisible, ElementName=ribbon}">
                                             IsDisplayOptionsButtonVisible
+                                        </Fluent:CheckBox>
+                                        <Fluent:CheckBox IsChecked="{Binding TitleBar.HideContextTabs, ElementName=ribbon}">
+                                            HideContextTabs
                                         </Fluent:CheckBox>
                                     </WrapPanel>
                                 </GroupBox>
@@ -3482,28 +3504,28 @@
                                    Canvas.Top="-3"
                                    Padding="0"
                                    Panel.ZIndex="1"
-                                   FontSize="0.2"
-                                   Foreground="Red">
+                                   Foreground="Red"
+                                   FontSize="0.2">
                                 Rectangle and Ellipse should be between green lines and Text 1 to 3 shouldn't overlap
                             </Label>
                             <Label Canvas.Left="-2.2"
                                    Canvas.Top="0"
                                    Padding="0"
-                                   Content="Text 1"
+                                   Foreground="Red"
                                    FontSize="0.5"
-                                   Foreground="Red" />
+                                   Content="Text 1" />
                             <Label Canvas.Left="-2.1"
                                    Canvas.Top="0.5"
                                    Padding="0"
-                                   Content="Text 2"
+                                   Foreground="Red"
                                    FontSize="0.5"
-                                   Foreground="Red" />
+                                   Content="Text 2" />
                             <Label Canvas.Left="-2"
                                    Canvas.Top="1"
                                    Padding="0"
-                                   Content="Text 3"
+                                   Foreground="Red"
                                    FontSize="0.5"
-                                   Foreground="Red" />
+                                   Content="Text 3" />
                             <Line Stroke="Green"
                                   X1="-0.2"
                                   X2="-0.2"
@@ -3708,6 +3730,10 @@
 
             <TabItem Header="Images">
                 <fluentTest:ImagesViewer />
+            </TabItem>
+
+            <TabItem Header="Theme resources">
+                <fluentTest:ResourcesView />
             </TabItem>
         </TabControl>
 

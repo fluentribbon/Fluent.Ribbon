@@ -5,14 +5,31 @@
     "Fluent.Ribbon.Colors.ExtremeHighlight": "#FFFFD232",
     "Fluent.Ribbon.Colors.DarkExtremeHighlight": "#FFF29536",
     "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.Images.RibbonDisplayOptions": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Background": "#FFFCF1C2",
     "Fluent.Ribbon.Brushes.ApplicationMenuItem.CheckBox.Border": "#FFF29536",
-    "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
     "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "Transparent",
     "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
     "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.Accent20}",
-    "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background": "{StaticResource Fluent.Ribbon.Colors.Accent40}"
+    "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background": "{StaticResource Fluent.Ribbon.Colors.Accent40}",
+    "Fluent.Ribbon.Brushes.Backstage.Background": "Transparent",
+    "Fluent.Ribbon.Brushes.Backstage.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.Backstage.BackButton.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
+    "Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
+    "Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
+    "Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
+    "Fluent.Ribbon.Brushes.LabelText": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Border": "Transparent",
+    "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
+    "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
+    "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "Transparent",
+    "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}"
   },
   "BaseColorSchemes": [
     {
@@ -20,7 +37,7 @@
       "Values": {
         "Fluent.Ribbon.Colors.Black": "#FFFFFFFF",
         "Fluent.Ribbon.Colors.Black20": "#51FFFFFF",
-        "Fluent.Ribbon.Colors.White": "#FF252525",
+        "Fluent.Ribbon.Colors.White": "#FF000000",
         "Fluent.Ribbon.Colors.White20": "#51252525",
         "Fluent.Ribbon.Colors.Gray1": "#FFF9F9F9",
         "Fluent.Ribbon.Colors.Gray2": "#FF7F7F7F",
@@ -32,27 +49,28 @@
         "Fluent.Ribbon.Colors.Gray8": "#FF454545",
         "Fluent.Ribbon.Colors.Gray9": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.Gray10": "#FF2F2F2F",
-        "Fluent.Ribbon.Brushes.Backstage.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
-        "Fluent.Ribbon.Brushes.Backstage.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.Backstage.BackButton.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
-        "Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#363636",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background": "{StaticResource Fluent.Ribbon.Colors.Accent20}",
-        "Fluent.Ribbon.Brushes.LabelText": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.Gray5}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#363636",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray6}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray5}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "#363636",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "#444444",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}"
+        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FF1A1A1A",
+        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FF292929",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FF1A1A1A",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FF292929",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FF1A1A1A",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Border": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Colors.AccentLight1": "{{AccentDark1}}",
+        "Fluent.Ribbon.Colors.AccentLight1.Foreground": "{{AccentDark1.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentLight2": "{{AccentDark2}}",
+        "Fluent.Ribbon.Colors.AccentLight2.Foreground": "{{AccentDark2.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentLight3": "{{AccentDark3}}",
+        "Fluent.Ribbon.Colors.AccentLight3.Foreground": "{{AccentDark3.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark1": "{{AccentLight1}}",
+        "Fluent.Ribbon.Colors.AccentDark1.Foreground": "{{AccentLight1.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark2": "{{AccentLight2}}",
+        "Fluent.Ribbon.Colors.AccentDark2.Foreground": "{{AccentLight2.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark3": "{{AccentLight3}}",
+        "Fluent.Ribbon.Colors.AccentDark3.Foreground": "{{AccentLight3.Foreground}}"
       }
     },
     {
@@ -72,48 +90,28 @@
         "Fluent.Ribbon.Colors.Gray8": "#FFE0E0E0",
         "Fluent.Ribbon.Colors.Gray9": "#5EC9C9C9",
         "Fluent.Ribbon.Colors.Gray10": "#FFF7F7F7",
-        "Fluent.Ribbon.Brushes.Backstage.Background": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
-        "Fluent.Ribbon.Brushes.Backstage.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.Backstage.BackButton.Background": "Transparent",
-        "Fluent.Ribbon.Brushes.Backstage.BackButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.Button.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.Black20}",
-        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "{StaticResource Fluent.Ribbon.Colors.AccentBase}",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.Black20}",
-        "Fluent.Ribbon.Brushes.BackstageTabItem.Selected.Background": "{StaticResource Fluent.Ribbon.Colors.White20}",
-        "Fluent.Ribbon.Brushes.LabelText": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Highlight}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Highlight}",
-        "Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray2}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.Black}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Active.Background": "{StaticResource Fluent.Ribbon.Colors.White}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "Transparent",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Highlight}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Highlight}"
-      }
-    }
-  ],
-  "AdditionalColorSchemeVariants": [
-    {
-      "Name": "Colorful",
-      "Values": {
-        "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "{StaticResource Fluent.Ribbon.Colors.Accent80}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Background": "#44FFFFFF",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.White}",
-        "Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground": "{StaticResource Fluent.Ribbon.Colors.Gray1}",
-        "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "{StaticResource Fluent.Ribbon.Colors.Accent80}",
-        "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
-        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.White20}",
-        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background": "{StaticResource Fluent.Ribbon.Colors.White}"
+        "Fluent.Ribbon.Brushes.BackstageTabControl.Background": "#FFFAFAFA",
+        "Fluent.Ribbon.Brushes.BackstageTabControl.ItemsPanelBackground": "#FFFFFFFF",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Background": "#FFFAFAFA",
+        "Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background": "#FFFFFFFF",
+        "Fluent.Ribbon.Brushes.RibbonWindow.Background": "#FFFAFAFA",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonContextualTabGroup.TabItemSelectedMouseOverForeground": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Brushes.RibbonTabItem.Border": "{StaticResource Fluent.Ribbon.Colors.AccentDark3}",
+        "Fluent.Ribbon.Colors.AccentLight1": "{{AccentLight1}}",
+        "Fluent.Ribbon.Colors.AccentLight1.Foreground": "{{AccentLight1.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentLight2": "{{AccentLight2}}",
+        "Fluent.Ribbon.Colors.AccentLight2.Foreground": "{{AccentLight2.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentLight3": "{{AccentLight3}}",
+        "Fluent.Ribbon.Colors.AccentLight3.Foreground": "{{AccentLight3.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark1": "{{AccentDark1}}",
+        "Fluent.Ribbon.Colors.AccentDark1.Foreground": "{{AccentDark1.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark2": "{{AccentDark2}}",
+        "Fluent.Ribbon.Colors.AccentDark2.Foreground": "{{AccentDark2.Foreground}}",
+        "Fluent.Ribbon.Colors.AccentDark3": "{{AccentDark3}}",
+        "Fluent.Ribbon.Colors.AccentDark3.Foreground": "{{AccentDark3.Foreground}}"
       }
     }
   ],
@@ -126,7 +124,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99F0A30A",
         "Fluent.Ribbon.Colors.Accent40": "#66F0A30A",
         "Fluent.Ribbon.Colors.Accent20": "#33F0A30A",
-        "Fluent.Ribbon.Colors.Highlight": "#FFB17807"
+        "Fluent.Ribbon.Colors.Highlight": "#FFB17807",
+        "AccentLight1": "#FFF3AE26",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFF5BA43",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFF8C55F",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFD98F08",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FFC17B06",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FFAA6704",
+        "AccentDark3.Foreground": "#FF000000"
       }
     },
     {
@@ -137,7 +147,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#990078D7",
         "Fluent.Ribbon.Colors.Accent40": "#660078D7",
         "Fluent.Ribbon.Colors.Accent20": "#330078D7",
-        "Fluent.Ribbon.Colors.Highlight": "#FF086F9E"
+        "Fluent.Ribbon.Colors.Highlight": "#FF1651AA",
+        "AccentLight1": "#FF1D89DE",
+        "AccentLight2": "#FF3B9BE5",
+        "AccentLight3": "#FF58ACED",
+        "AccentDark1": "#FF0068C6",
+        "AccentDark2": "#FF0058B4",
+        "AccentDark3": "#FF0048A3",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -148,7 +170,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99825A2C",
         "Fluent.Ribbon.Colors.Accent40": "#66825A2C",
         "Fluent.Ribbon.Colors.Accent20": "#33825A2C",
-        "Fluent.Ribbon.Colors.Highlight": "#FF604220"
+        "Fluent.Ribbon.Colors.Highlight": "#FF604220",
+        "AccentLight1": "#FF936F44",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFA4835D",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFB69875",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF734C23",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF653F1A",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF563112",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -159,7 +193,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#990050EF",
         "Fluent.Ribbon.Colors.Accent40": "#660050EF",
         "Fluent.Ribbon.Colors.Accent20": "#330050EF",
-        "Fluent.Ribbon.Colors.Highlight": "#FF003BB0"
+        "Fluent.Ribbon.Colors.Highlight": "#FF003BB0",
+        "AccentLight1": "#FF1F66F2",
+        "AccentLight1.Foreground": "#FFFFFFFF",
+        "AccentLight2": "#FF3D7CF5",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF5C92F9",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF0045DB",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF0039C7",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF002EB3",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -170,7 +216,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99A20025",
         "Fluent.Ribbon.Colors.Accent40": "#66A20025",
         "Fluent.Ribbon.Colors.Accent20": "#33A20025",
-        "Fluent.Ribbon.Colors.Highlight": "#FF77001B"
+        "Fluent.Ribbon.Colors.Highlight": "#FF77001B",
+        "AccentLight1": "#FFB01F40",
+        "AccentLight1.Foreground": "#FFFFFFFF",
+        "AccentLight2": "#FFBE3E5B",
+        "AccentLight2.Foreground": "#FFFFFFFF",
+        "AccentLight3": "#FFCB5E77",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF93001E",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF830017",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF740010",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -181,7 +239,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#991BA1E2",
         "Fluent.Ribbon.Colors.Accent40": "#661BA1E2",
         "Fluent.Ribbon.Colors.Accent20": "#331BA1E2",
-        "Fluent.Ribbon.Colors.Highlight": "#FF1377A7"
+        "Fluent.Ribbon.Colors.Highlight": "#FF1377A7",
+        "AccentLight1": "#FF34ADE8",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF4EB9ED",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF67C6F3",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF168FCF",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FF107DBD",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FF0B6AAA",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -192,7 +262,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99008A00",
         "Fluent.Ribbon.Colors.Accent40": "#66008A00",
         "Fluent.Ribbon.Colors.Accent20": "#33008A00",
-        "Fluent.Ribbon.Colors.Highlight": "#FF006600"
+        "Fluent.Ribbon.Colors.Highlight": "#FF006600",
+        "AccentLight1": "#FF1F991F",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF3DA83E",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF5CB85C",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF007900",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF006800",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF005600",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -203,7 +285,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#9960A917",
         "Fluent.Ribbon.Colors.Accent40": "#6660A917",
         "Fluent.Ribbon.Colors.Accent20": "#3360A917",
-        "Fluent.Ribbon.Colors.Highlight": "#FF477D11"
+        "Fluent.Ribbon.Colors.Highlight": "#FF477D11",
+        "AccentLight1": "#FF73B432",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF86BF4D",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF9ACB69",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF4F9612",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FF3E830E",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF2D6F09",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -214,7 +308,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#996A00FF",
         "Fluent.Ribbon.Colors.Accent40": "#666A00FF",
         "Fluent.Ribbon.Colors.Accent20": "#336A00FF",
-        "Fluent.Ribbon.Colors.Highlight": "#FF4E00BC"
+        "Fluent.Ribbon.Colors.Highlight": "#FF4E00BC",
+        "AccentLight1": "#FF7D20FF",
+        "AccentLight1.Foreground": "#FFFFFFFF",
+        "AccentLight2": "#FF9040FF",
+        "AccentLight2.Foreground": "#FFFFFFFF",
+        "AccentLight3": "#FFA45FFF",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF5A00E9",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF4A00D3",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF3A00BC",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -225,7 +331,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99A4C400",
         "Fluent.Ribbon.Colors.Accent40": "#66A4C400",
         "Fluent.Ribbon.Colors.Accent20": "#33A4C400",
-        "Fluent.Ribbon.Colors.Highlight": "#FF799100"
+        "Fluent.Ribbon.Colors.Highlight": "#FF799100",
+        "AccentLight1": "#FFAFCC1E",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFBAD33C",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFC5DB5A",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF8FAF00",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FF7A9A00",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FF668500",
+        "AccentDark3.Foreground": "#FF000000"
       }
     },
     {
@@ -236,7 +354,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99D80073",
         "Fluent.Ribbon.Colors.Accent40": "#66D80073",
         "Fluent.Ribbon.Colors.Accent20": "#33D80073",
-        "Fluent.Ribbon.Colors.Highlight": "#FF9F0055"
+        "Fluent.Ribbon.Colors.Highlight": "#FF9F0055",
+        "AccentLight1": "#FFDF1F85",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFE63E97",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFEC5EAA",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFC50064",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FFB10055",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF9E0046",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -247,7 +377,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#9976608A",
         "Fluent.Ribbon.Colors.Accent40": "#6676608A",
         "Fluent.Ribbon.Colors.Accent20": "#3376608A",
-        "Fluent.Ribbon.Colors.Highlight": "#FF574766"
+        "Fluent.Ribbon.Colors.Highlight": "#FF574766",
+        "AccentLight1": "#FF88749B",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF9A87AB",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFAB9BBC",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF67517D",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF584270",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF4A3462",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -258,7 +400,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#996D8764",
         "Fluent.Ribbon.Colors.Accent40": "#666D8764",
         "Fluent.Ribbon.Colors.Accent20": "#336D8764",
-        "Fluent.Ribbon.Colors.Highlight": "#FF50634A"
+        "Fluent.Ribbon.Colors.Highlight": "#FF50634A",
+        "AccentLight1": "#FF7E9776",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF8FA688",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFA1B69A",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF5A7651",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF47653D",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF33552A",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -269,7 +423,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99FA6800",
         "Fluent.Ribbon.Colors.Accent40": "#66FA6800",
         "Fluent.Ribbon.Colors.Accent20": "#33FA6800",
-        "Fluent.Ribbon.Colors.Highlight": "#FFB94C00"
+        "Fluent.Ribbon.Colors.Highlight": "#FFB94C00",
+        "AccentLight1": "#FFFB7B1E",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFFC8D3C",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFFDA05B",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFE35600",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FFCC4500",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FFB43300",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -280,7 +446,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99F472D0",
         "Fluent.Ribbon.Colors.Accent40": "#66F472D0",
         "Fluent.Ribbon.Colors.Accent20": "#33F472D0",
-        "Fluent.Ribbon.Colors.Highlight": "#FFB45499"
+        "Fluent.Ribbon.Colors.Highlight": "#FFB45499",
+        "AccentLight1": "#FFF683D7",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFF894DE",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFFBA5E5",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFDE5CBC",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FFC846A8",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FFB23094",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -291,7 +469,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#996459DF",
         "Fluent.Ribbon.Colors.Accent40": "#666459DF",
         "Fluent.Ribbon.Colors.Accent20": "#336459DF",
-        "Fluent.Ribbon.Colors.Highlight": "#FF5133AB"
+        "Fluent.Ribbon.Colors.Highlight": "#FF5133AB",
+        "AccentLight1": "#FF776EE5",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF8B83EB",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF9E97F2",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF524BCC",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF403EB9",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF2E30A7",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -302,7 +492,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99E51400",
         "Fluent.Ribbon.Colors.Accent40": "#66E51400",
         "Fluent.Ribbon.Colors.Accent20": "#33E51400",
-        "Fluent.Ribbon.Colors.Highlight": "#FFA90E00"
+        "Fluent.Ribbon.Colors.Highlight": "#FFA90E00",
+        "AccentLight1": "#FFEA311F",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFEF4D3E",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFF56A5E",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFD01000",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FFBB0C00",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FFA70800",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -313,7 +515,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99A0522D",
         "Fluent.Ribbon.Colors.Accent40": "#66A0522D",
         "Fluent.Ribbon.Colors.Accent20": "#33A0522D",
-        "Fluent.Ribbon.Colors.Highlight": "#FF763C21"
+        "Fluent.Ribbon.Colors.Highlight": "#FF763C21",
+        "AccentLight1": "#FFAE6746",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFBC7C5E",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFCA9277",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF904424",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF80351B",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF712712",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -324,7 +538,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99647687",
         "Fluent.Ribbon.Colors.Accent40": "#66647687",
         "Fluent.Ribbon.Colors.Accent20": "#33647687",
-        "Fluent.Ribbon.Colors.Highlight": "#FF4A5763"
+        "Fluent.Ribbon.Colors.Highlight": "#FF4A5763",
+        "AccentLight1": "#FF768798",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF8899AA",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF99AABB",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF50677B",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF3C586F",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF284864",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -335,7 +561,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#9987794E",
         "Fluent.Ribbon.Colors.Accent40": "#6687794E",
         "Fluent.Ribbon.Colors.Accent20": "#3387794E",
-        "Fluent.Ribbon.Colors.Highlight": "#FF635939"
+        "Fluent.Ribbon.Colors.Highlight": "#FF635939",
+        "AccentLight1": "#FF978A62",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFA79B76",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFB7AB8A",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF76693E",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF65582F",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF55481F",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -346,7 +584,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#9900ABA9",
         "Fluent.Ribbon.Colors.Accent40": "#6600ABA9",
         "Fluent.Ribbon.Colors.Accent20": "#3300ABA9",
-        "Fluent.Ribbon.Colors.Highlight": "#FF007E7D"
+        "Fluent.Ribbon.Colors.Highlight": "#FF007E7D",
+        "AccentLight1": "#FF1CB6B4",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FF38C1C0",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FF55CDCB",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF009897",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FF008584",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FF007372",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -357,7 +607,19 @@
         "Fluent.Ribbon.Colors.Accent60": "#99AA00FF",
         "Fluent.Ribbon.Colors.Accent40": "#66AA00FF",
         "Fluent.Ribbon.Colors.Accent20": "#33AA00FF",
-        "Fluent.Ribbon.Colors.Highlight": "#FF7D00BC"
+        "Fluent.Ribbon.Colors.Highlight": "#FF7D00BC",
+        "AccentLight1": "#FFB620FF",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFC13FFF",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFCD5FFF",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FF9700E8",
+        "AccentDark1.Foreground": "#FFFFFFFF",
+        "AccentDark2": "#FF8400D2",
+        "AccentDark2.Foreground": "#FFFFFFFF",
+        "AccentDark3": "#FF7200BB",
+        "AccentDark3.Foreground": "#FFFFFFFF"
       }
     },
     {
@@ -369,7 +631,32 @@
         "Fluent.Ribbon.Colors.Accent40": "#66FEDE06",
         "Fluent.Ribbon.Colors.Accent20": "#33FEDE06",
         "Fluent.Ribbon.Colors.Highlight": "#FFBBA404",
-        "Fluent.Ribbon.Colors.IdealForeground": "Black"
+        "Fluent.Ribbon.Colors.IdealForeground": "Black",
+        "AccentLight1": "#FFFEE223",
+        "AccentLight1.Foreground": "#FF000000",
+        "AccentLight2": "#FFFEE640",
+        "AccentLight2.Foreground": "#FF000000",
+        "AccentLight3": "#FFFFEB5C",
+        "AccentLight3.Foreground": "#FF000000",
+        "AccentDark1": "#FFE4C705",
+        "AccentDark1.Foreground": "#FF000000",
+        "AccentDark2": "#FFCAB004",
+        "AccentDark2.Foreground": "#FF000000",
+        "AccentDark3": "#FFB19802",
+        "AccentDark3.Foreground": "#FF000000"
+      }
+    }
+  ],
+  "AdditionalColorSchemeVariants": [
+    {
+      "Name": "Colorful",
+      "Values": {
+        "Fluent.Ribbon.Colors.Images.Default": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
+        "Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground": "{StaticResource Fluent.Ribbon.Colors.Accent80}",
+        "Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
+        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Foreground": "{StaticResource Fluent.Ribbon.Colors.IdealForeground}",
+        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.MouseOver.Background": "{StaticResource Fluent.Ribbon.Colors.White20}",
+        "Fluent.Ribbon.Brushes.WindowCommands.CaptionButton.Pressed.Background": "{StaticResource Fluent.Ribbon.Colors.White}"
       }
     }
   ]

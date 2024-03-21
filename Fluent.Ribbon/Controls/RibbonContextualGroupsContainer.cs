@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Fluent.Internal;
 
 /// <summary>
@@ -65,61 +64,9 @@ public class RibbonContextualGroupsContainer : Panel
                 tabsWidth += item.DesiredSize.Width;
             }
 
-            contextualGroup.Measure(SizeConstants.Infinite);
-            var groupWidth = contextualGroup.DesiredSize.Width;
+            contextualGroup.Measure(new Size(tabsWidth, availableSizeHeight));
 
-            var tabWasChanged = false;
-
-            if (groupWidth > tabsWidth)
-            {
-                // If tab's width is less than group's width we have to stretch tabs
-                var delta = (groupWidth - tabsWidth) / visibleItems.Count;
-
-                foreach (var item in visibleItems)
-                {
-                    var newDesiredWidth = item.DesiredSize.Width + delta;
-
-                    // Update cached DesiredWidth
-                    if (DoubleUtil.AreClose(newDesiredWidth, item.DesiredWidth) == false)
-                    {
-                        item.DesiredWidth = newDesiredWidth;
-                        item.Measure(new Size(item.DesiredWidth, item.DesiredSize.Height));
-                        tabWasChanged = true;
-                    }
-                }
-            }
-
-            if (tabWasChanged)
-            {
-                // If we have changed tabs layout we have
-                // to invalidate down to RibbonTabsContainer
-                var visual = visibleItems[0] as Visual;
-
-                while (visual is not null)
-                {
-                    if (visual is UIElement uiElement)
-                    {
-                        if (uiElement is RibbonTabsContainer)
-                        {
-                            uiElement.InvalidateMeasure();
-                            break;
-                        }
-
-                        uiElement.InvalidateMeasure();
-                    }
-
-                    visual = VisualTreeHelper.GetParent(visual) as Visual;
-                }
-
-                tabsWidth = 0;
-
-                foreach (var item in visibleItems)
-                {
-                    tabsWidth += item.DesiredSize.Width;
-                }
-            }
-
-            // Calc final width and measure the group using it
+           // Calc final width and measure the group using it
             var finalWidth = tabsWidth;
             allGroupsWidth += finalWidth;
 

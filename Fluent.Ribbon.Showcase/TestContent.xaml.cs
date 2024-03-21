@@ -19,6 +19,8 @@ using System.Windows.Media.Imaging;
 using ControlzEx;
 using ControlzEx.Theming;
 using Fluent;
+using Fluent.Extensions;
+using Fluent.Internal;
 using Fluent.Localization;
 using FluentTest.Adorners;
 using FluentTest.Commanding;
@@ -488,8 +490,14 @@ public partial class TestContent
 
     private void ZoomSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        var textFormattingMode = e.NewValue > 1.0 || Math.Abs(e.NewValue - 1.0) < double.Epsilon ? TextFormattingMode.Ideal : TextFormattingMode.Display;
-        TextOptions.SetTextFormattingMode(this, textFormattingMode);
+        if (e.OldValue.AlmostEquals(0)
+            || Window.GetWindow(this) is not { } window)
+        {
+            return;
+        }
+
+        var textFormattingMode = e.NewValue >= 1.0 || DoubleUtil.AreClose(e.NewValue, 1.0) ? TextFormattingMode.Ideal : TextFormattingMode.Display;
+        TextOptions.SetTextFormattingMode(window, textFormattingMode);
     }
 
     private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)

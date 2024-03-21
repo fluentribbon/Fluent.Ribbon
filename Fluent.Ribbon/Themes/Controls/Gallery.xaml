@@ -127,7 +127,8 @@
                               Grid.Row="1"
                               Grid.RowSpan="1"
                               Focusable="False">
-                    <Fluent:GalleryPanel Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                    <Fluent:GalleryPanel Margin="{TemplateBinding Padding}"
+                                         Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"
                                          GroupByAdvanced="{TemplateBinding GroupByAdvanced}"
@@ -136,7 +137,6 @@
                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          ItemHeight="{TemplateBinding ItemHeight}"
                                          ItemWidth="{TemplateBinding ItemWidth}"
-                                         Margin="{TemplateBinding Padding}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          Orientation="{TemplateBinding Orientation}" />

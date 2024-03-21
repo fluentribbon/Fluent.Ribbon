@@ -13,7 +13,6 @@ using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal;
 using Fluent.Internal.KnownBoxes;
-using WindowChrome = ControlzEx.WindowChrome;
 
 /// <summary>
 /// Represents title bar
@@ -94,7 +93,7 @@ public class RibbonTitleBar : HeaderedItemsControl
 
     /// <summary>Identifies the <see cref="HideContextTabs"/> dependency property.</summary>
     public static readonly DependencyProperty HideContextTabsProperty =
-        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+        DependencyProperty.Register(nameof(HideContextTabs), typeof(bool), typeof(RibbonTitleBar), new FrameworkPropertyMetadata(BooleanBoxes.TrueBox, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     /// <summary>
     ///  Gets or sets whether context tabs are hidden.
@@ -161,8 +160,7 @@ public class RibbonTitleBar : HeaderedItemsControl
         }
 
         // Contextual groups shall handle mouse events
-        if (e.Source is RibbonContextualGroupsContainer
-            || e.Source is RibbonContextualTabGroup)
+        if (e.Source is RibbonContextualGroupsContainer or RibbonContextualTabGroup)
         {
             return;
         }
@@ -294,14 +292,16 @@ public class RibbonTitleBar : HeaderedItemsControl
     // Update items size and positions
     private void Update(Size constraint)
     {
-        var visibleGroups = this.Items.OfType<RibbonContextualTabGroup>()
-            .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
-            .ToList();
+        var visibleGroups = this.HideContextTabs
+            ? Array.Empty<RibbonContextualTabGroup>()
+            : this.Items.OfType<RibbonContextualTabGroup>()
+                .Where(group => group.InnerVisibility == Visibility.Visible && group.Items.Count > 0)
+                .ToArray();
 
         var canRibbonTabControlScroll = false;
 
         // Defensively try to find out if the RibbonTabControl can scroll
-        if (visibleGroups.Count > 0)
+        if (visibleGroups.Length > 0)
         {
             var firstVisibleItem = visibleGroups.First().FirstVisibleItem;
 
@@ -324,7 +324,7 @@ public class RibbonTitleBar : HeaderedItemsControl
 
             this.headerRect = this.GetHeaderRect(constraint, left, allTextWidth, headerHolderWidth);
         }
-        else if (visibleGroups.Count == 0
+        else if (visibleGroups.Length is 0
                  || canRibbonTabControlScroll)
         {
             // Collapse itemRect

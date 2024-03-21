@@ -1185,7 +1185,13 @@ public class Ribbon : Control, ILogicalChildSupport
 
     /// <summary>Identifies the <see cref="IsQuickAccessToolBarVisible"/> dependency property.</summary>
     public static readonly DependencyProperty IsQuickAccessToolBarVisibleProperty =
-        DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox));
+        DependencyProperty.Register(nameof(IsQuickAccessToolBarVisible), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.TrueBox, OnIsQuickAccessToolBarVisibleChanged));
+
+    private static void OnIsQuickAccessToolBarVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var ribbon = (Ribbon)d;
+        ribbon.TitleBar?.ScheduleForceMeasureAndArrange();
+    }
 
     /// <summary>
     /// Gets or sets whether user can change location of QAT

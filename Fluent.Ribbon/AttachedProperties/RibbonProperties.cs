@@ -223,6 +223,32 @@ public class RibbonProperties : DependencyObject
 
     #endregion
 
+    #region PressedBackgroundProperty
+
+    /// <summary>
+    /// <see cref="DependencyProperty"/> for specifying PressedBackground.
+    /// </summary>
+    public static readonly DependencyProperty PressedBackgroundProperty = DependencyProperty.RegisterAttached("PressedBackground", typeof(Brush), typeof(RibbonProperties), new PropertyMetadata(default(Brush)));
+
+    /// <summary>
+    /// Sets <see cref="PressedBackgroundProperty"/> for <paramref name="element"/>.
+    /// </summary>
+    public static void SetPressedBackground(DependencyObject element, Brush? value)
+    {
+        element.SetValue(PressedBackgroundProperty, value);
+    }
+
+    /// <summary>
+    /// Gets <see cref="PressedBackgroundProperty"/> for <paramref name="element"/>.
+    /// </summary>
+    //[AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
+    public static Brush? GetPressedBackground(DependencyObject element)
+    {
+        return (Brush)element.GetValue(PressedBackgroundProperty);
+    }
+
+    #endregion
+
     #region MouseOverForegroundProperty
 
     /// <summary>
@@ -379,4 +405,21 @@ public class RibbonProperties : DependencyObject
     }
 
     #endregion
+
+    /// <summary>
+    /// Defines the corner radius used in template parts.
+    /// </summary>
+    public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(RibbonProperties), new PropertyMetadata(default(CornerRadius)));
+
+    /// <summary>Helper for setting <see cref="CornerRadiusProperty"/> on <paramref name="element"/>.</summary>
+    public static void SetCornerRadius(DependencyObject element, CornerRadius value)
+    {
+        element.SetValue(CornerRadiusProperty, value);
+    }
+
+    /// <summary>Helper for getting <see cref="CornerRadiusProperty"/> on <paramref name="element"/>.</summary>
+    public static CornerRadius GetCornerRadius(DependencyObject element)
+    {
+        return (CornerRadius)element.GetValue(CornerRadiusProperty);
+    }
 }
