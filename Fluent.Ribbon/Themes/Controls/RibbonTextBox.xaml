@@ -20,6 +20,7 @@
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
                 <Grid>
@@ -106,7 +107,8 @@
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 0 3 0"
                                           VerticalAlignment="Center"
-                                          IconSize="{TemplateBinding Fluent:RibbonProperties.IconSize}"
+                                          IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                          CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                           MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                           SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -215,7 +217,8 @@
                    TextWrapping="Wrap" />
     </DataTemplate>
 
-    <Style TargetType="{x:Type Fluent:TextBox}"
+    <Style x:Key="Fluent.Ribbon.Styles.TextBox"
+           TargetType="{x:Type Fluent:TextBox}"
            BasedOn="{StaticResource {x:Type TextBoxBase}}">
         <Setter Property="CaretBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Caret}" />
         <Setter Property="Fluent:InputControlProperties.InputMinWidth" Value="30" />

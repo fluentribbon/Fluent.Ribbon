@@ -326,7 +326,7 @@ public class RibbonProperties : DependencyObject
 
     #endregion IsElementInQuickAccessToolBarProperty
 
-    #region DesiredIconSize
+    #region IconSize
 
 #pragma warning disable WPF0010
     /// <summary>
@@ -349,6 +349,33 @@ public class RibbonProperties : DependencyObject
     public static IconSize GetIconSize(DependencyObject element)
     {
         return (IconSize)element.GetValue(IconSizeProperty);
+    }
+
+    #endregion
+
+    #region CustomIconSize
+
+#pragma warning disable WPF0010
+    /// <summary>
+    /// Defines the custom icon size for the element.
+    /// </summary>
+    public static readonly DependencyProperty CustomIconSizeProperty = DependencyProperty.RegisterAttached(
+        "CustomIconSize", typeof(Size), typeof(RibbonProperties), new PropertyMetadata(default(Size)));
+#pragma warning restore WPF0010
+
+    /// <summary>Helper for setting <see cref="CustomIconSizeProperty"/> on <paramref name="element"/>.</summary>
+    public static void SetCustomIconSize(DependencyObject element, Size value)
+    {
+        element.SetValue(CustomIconSizeProperty, value);
+    }
+
+    /// <summary>Helper for getting <see cref="CustomIconSizeProperty"/> from <paramref name="element"/>.</summary>
+    [AttachedPropertyBrowsableForType(typeof(IRibbonControl))]
+    [AttachedPropertyBrowsableForType(typeof(IMediumIconProvider))]
+    [AttachedPropertyBrowsableForType(typeof(ILargeIconProvider))]
+    public static Size GetCustomIconSize(DependencyObject element)
+    {
+        return (Size)element.GetValue(CustomIconSizeProperty);
     }
 
     #endregion

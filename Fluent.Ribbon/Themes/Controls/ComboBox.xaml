@@ -89,6 +89,7 @@
                                       Margin="3 0 0 0"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -189,7 +190,7 @@
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
                                                  MinHeight="{Binding ActualHeight, ElementName=PART_ContentBorder}"
-                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                  IsEnabled="{TemplateBinding IsEnabled}"
                                                  ResizeMode="{TemplateBinding ResizeMode}">
                     <Grid>
@@ -298,7 +299,8 @@
                    TextWrapping="Wrap" />
     </DataTemplate>
 
-    <Style TargetType="{x:Type Fluent:ComboBox}">
+    <Style x:Key="Fluent.Ribbon.Styles.ComboBox"
+           TargetType="{x:Type Fluent:ComboBox}">
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />

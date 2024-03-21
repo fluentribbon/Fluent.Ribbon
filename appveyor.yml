@@ -12,6 +12,13 @@ pull_requests:
   do_not_increment_build_number: false
 
 install:
+  # Appveyor uses git checkout -qf FETCH_HEAD but all GitVersion versions above 5.6.3 doesn't support this detached header
+  # This is a workaround for this issue
+  - ps: |
+      if ($env:APPVEYOR_PULL_REQUEST_HEAD_COMMIT -ne "")
+      {
+        git checkout -qf $($env:APPVEYOR_PULL_REQUEST_HEAD_COMMIT)
+      }
   - ps: Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -OutFile 'dotnet-install.ps1'
   - ps: ./dotnet-install.ps1 -Version 6.0.400 -InstallDir "C:\Program Files\dotnet"
 
@@ -27,10 +34,3 @@ artifacts:
 
 nuget:
   disable_publish_on_pr: true
-
-notifications:
-  - provider: Webhook
-    url: https://webhooks.gitter.im/e/855da764a995f5aa1a24
-    on_build_success: true
-    on_build_failure: true
-    on_build_status_changed: false

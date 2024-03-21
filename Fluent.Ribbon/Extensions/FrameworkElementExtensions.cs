@@ -7,10 +7,10 @@ using System.Windows;
 /// </summary>
 internal static class FrameworkElementExtensions
 {
-    public static void ForceMeasure(this FrameworkElement element)
+    public static void ForceMeasureImmediate(this FrameworkElement element)
     {
         // Calling anything on not loaded elements makes no sense
-        if (element.IsLoaded == false)
+        if (element.IsLoaded is false)
         {
             return;
         }
@@ -20,10 +20,22 @@ internal static class FrameworkElementExtensions
         element.UpdateLayout();
     }
 
-    public static void ForceMeasureAndArrange(this FrameworkElement element)
+    public static void InvalidateMeasureAndArrange(this FrameworkElement element)
     {
         // Calling anything on not loaded elements makes no sense
-        if (element.IsLoaded == false)
+        if (element.IsLoaded is false)
+        {
+            return;
+        }
+
+        element.InvalidateMeasure();
+        element.InvalidateArrange();
+    }
+
+    public static void ForceMeasureAndArrangeImmediate(this FrameworkElement element)
+    {
+        // Calling anything on not loaded elements makes no sense
+        if (element.IsLoaded is false)
         {
             return;
         }

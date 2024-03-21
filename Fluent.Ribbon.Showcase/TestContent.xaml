@@ -2111,7 +2111,15 @@
                     <Fluent:Button Header="Refresh (Galleries)"
                                    Command="{Binding GalleryViewModel.RefreshCommand}"
                                    Icon="Images\Green.png"
+                                   SizeDefinition="Middle"
                                    LargeIcon="Images\GreenLarge.png" />
+                    
+                    <Fluent:ToggleButton x:Name="ShowHideGalleries"
+                                         Header="Show/Hide (Galleries)"
+                                         IsChecked="True"
+                                         Icon="Images\Red.png"
+                                         SizeDefinition="Middle"
+                                         LargeIcon="Images\GreenLarge.png" />
 
                     <!-- Though, you may set children of the Gallery explicitly -->
                     <Fluent:DropDownButton Header="Pink"
@@ -2165,7 +2173,8 @@
                                             KeyTip="GG"
                                             MaxItemsInRow="5"
                                             MinItemsInRow="1"
-                                            ResizeMode="Both">
+                                            ResizeMode="Both"
+                                            Visibility="{Binding IsChecked, ElementName=ShowHideGalleries, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Fluent:InRibbonGallery.Filters>
                             <Fluent:GalleryGroupFilter x:Name="galleryFilterAll"
                                                        Title="All"
@@ -3528,6 +3537,11 @@
                                                Size="Middle">
                                     Add tab
                                 </Fluent:Button>
+                                <Fluent:Button Click="AddButton_OnClick"
+                                               Size="Middle"
+                                               ToolTip="Adds button to current tabs last group">
+                                    Add button
+                                </Fluent:Button>
                             </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Interop">
@@ -3591,7 +3605,7 @@
                         <GroupBox Header="Issue repros">
                             <WrapPanel>
                                 <WrapPanel.Resources>
-                                    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert"/>
+                                    <Fluent:ObjectToImageConverter x:Key="StringToImageConvert" />
                                 </WrapPanel.Resources>
                                 <Fluent:Button x:Name="SleepButton"
                                                VerticalAlignment="Top"
@@ -3608,9 +3622,9 @@
                                 </Fluent:Button>
 
                                 <Fluent:Button VerticalAlignment="Top"
-                                               Tag="/Images/Blue.png"
-                                               Icon="{Binding Path=Tag,RelativeSource={RelativeSource Self},Converter={StaticResource StringToImageConvert}}"
-                                               Size="Middle">
+                                               Icon="{Binding Path=Tag, RelativeSource={RelativeSource Self}, Converter={StaticResource StringToImageConvert}}"
+                                               Size="Middle"
+                                               Tag="/Images/Blue.png">
                                     ObjectToImageConverter for issue #1152
                                 </Fluent:Button>
 

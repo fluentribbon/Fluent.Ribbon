@@ -21,6 +21,7 @@ using ControlzEx.Theming;
 using Fluent;
 using Fluent.Localization;
 using FluentTest.Adorners;
+using FluentTest.Commanding;
 using FluentTest.Helpers;
 using FluentTest.ViewModels;
 #if MahApps_Metro
@@ -51,6 +52,20 @@ public partial class TestContent
         ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"]).Color);
 
         this.Loaded += this.TestContent_Loaded;
+
+        this.InputBindings.Add(new InputBinding(new RelayCommand(() =>
+        {
+            this.Backstage.IsOpen = !this.Backstage.IsOpen;
+            if (this.Backstage.IsOpen
+                && this.Backstage.Content is BackstageTabControl backstageTabControl)
+            {
+                var recentTabItem = backstageTabControl.Items.OfType<BackstageTabItem>().FirstOrDefault(x => x.Header is "Recent");
+                if (recentTabItem is not null)
+                {
+                    recentTabItem.IsSelected = true;
+                }
+            }
+        }), new KeyGesture(Key.F11, ModifierKeys.Control)));
     }
 
     public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
@@ -387,6 +402,25 @@ public partial class TestContent
         tab.Groups.Add(group);
 
         this.ribbon.Tabs.Add(tab);
+    }
+
+    private void AddButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        var group = this.ribbon.SelectedTabItem.Groups.Last();
+
+        if (group.ItemsSource is not null)
+        {
+            return;
+        }
+
+        var button = new Button
+        {
+            Header = "Foo",
+            Icon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Green.png", UriKind.Absolute)),
+            LargeIcon = new BitmapImage(new Uri("pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GreenLarge.png", UriKind.Absolute)),
+            SizeDefinition = new RibbonControlSizeDefinition(RibbonControlSize.Middle, RibbonControlSize.Middle, RibbonControlSize.Middle)
+        };
+        group.Items.Add(button);
     }
 
     private async void HandleSaveAsClick(object sender, RoutedEventArgs e)

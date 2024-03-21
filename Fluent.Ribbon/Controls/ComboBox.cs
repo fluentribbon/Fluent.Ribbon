@@ -26,7 +26,7 @@ using Fluent.Internal.KnownBoxes;
 [TemplatePart(Name = "PART_ContentSite", Type = typeof(ContentPresenter))]
 [TemplatePart(Name = "PART_ContentBorder", Type = typeof(Border))]
 [TemplatePart(Name = "PART_ScrollViewer", Type = typeof(ScrollViewer))]
-[DebuggerDisplay("class{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
+[DebuggerDisplay("{GetType().FullName}: Header = {Header}, Items.Count = {Items.Count}, Size = {Size}, IsSimplified = {IsSimplified}")]
 public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvider, IRibbonControl, IDropDownControl, IMediumIconProvider, ISimplifiedRibbonControl
 {
     #region Fields

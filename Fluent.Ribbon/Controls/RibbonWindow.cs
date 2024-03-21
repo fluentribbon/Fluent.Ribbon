@@ -245,9 +245,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
 
     private void MaintainIsCollapsed()
     {
-        if (this.IsAutomaticCollapseEnabled == false)
+        if (this.IsAutomaticCollapseEnabled is false)
         {
-            this.ClearValue(IsCollapsedProperty);
             return;
         }
 

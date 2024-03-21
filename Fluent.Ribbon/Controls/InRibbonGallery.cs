@@ -1068,7 +1068,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     {
         ContextMenuService.Coerce(this);
 
-        this.IsVisibleChanged += this.OnIsVisibleChanged;
         this.Unloaded += this.OnUnloaded;
     }
 
@@ -1239,19 +1238,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
         this.popupControlPresenter = this.GetTemplateChild("PART_PopupContentPresenter") as ContentControl;
     }
 
-    private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-    {
-        var groupBox = UIHelper.GetParent<RibbonGroupBox>(this);
-
-        // Only notify the parent groupbox if we are not currently being shown in the collapsed popup.
-        // Otherwise we will cause application freezes as we would be constantly flipped between being visible and not visible.
-        // See https://github.com/fluentribbon/Fluent.Ribbon/issues/900 for reference
-        if (groupBox?.IsDropDownOpen == false)
-        {
-            groupBox.TryClearCacheAndResetStateAndScaleAndNotifyParentRibbonGroupsContainer();
-        }
-    }
-
     private void OnPopupPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {
         // Ignore mouse up when mouse donw is on expand button
@@ -1275,7 +1261,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void OnSizePropertyChanged(RibbonControlSize previous, RibbonControlSize current)
     {
-        if (this.CanCollapseToButton)
+        if (this.CanAutomaticallyChangeIsCollapsed())
         {
             if (current == RibbonControlSize.Large
                 && this.galleryPanel?.MinItemsInRow > this.MinItemsInRow)
@@ -1287,6 +1273,18 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
                 this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);
             }
         }
+    }
+
+    private bool CanAutomaticallyChangeIsCollapsed()
+    {
+        if (this.CanCollapseToButton is false)
+        {
+            return false;
+        }
+
+        var valueSource = DependencyPropertyHelper.GetValueSource(this, IsCollapsedProperty);
+        return valueSource.BaseValueSource is BaseValueSource.Default
+            || (valueSource.BaseValueSource is BaseValueSource.Local && valueSource.IsCurrent);
     }
 
     /// <inheritdoc />
@@ -1497,11 +1495,10 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void ResetScale()
     {
-        if (this.CanCollapseToButton
-            && this.IsCollapsed
+        if (this.CanAutomaticallyChangeIsCollapsed()
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
-            this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.FalseBox);
+            this.ClearValue(IsCollapsedProperty);
         }
 
         if (this.galleryPanel is not null
@@ -1516,7 +1513,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public void Enlarge()
     {
-        if (this.CanCollapseToButton
+        if (this.CanAutomaticallyChangeIsCollapsed()
             && this.IsCollapsed
             && RibbonProperties.GetSize(this) == RibbonControlSize.Large)
         {
@@ -1545,7 +1542,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
         {
             this.galleryPanel.MaxItemsInRow = Math.Max(this.galleryPanel.MaxItemsInRow - 1, 0);
         }
-        else if (this.CanCollapseToButton
+        else if (this.CanAutomaticallyChangeIsCollapsed()
                  && this.IsCollapsed == false)
         {
             this.SetCurrentValue(IsCollapsedProperty, BooleanBoxes.TrueBox);

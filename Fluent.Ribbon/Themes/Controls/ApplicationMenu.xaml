@@ -123,7 +123,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <Style TargetType="{x:Type Fluent:ApplicationMenu}">
+    <Style x:Key="Fluent.Ribbon.Styles.ApplicationMenu"
+           TargetType="{x:Type Fluent:ApplicationMenu}">
         <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.IdealForeground}" />

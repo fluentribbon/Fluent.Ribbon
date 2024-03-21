@@ -15,7 +15,7 @@ using Fluent.Internal.KnownBoxes;
 /// Represents toggle button
 /// </summary>
 [ContentProperty(nameof(Header))]
-[DebuggerDisplay("class{GetType().FullName}: Header = {Header}, IsChecked = {IsChecked}, Size = {Size}, IsSimplified = {IsSimplified}")]
+[DebuggerDisplay("{GetType().FullName}: Header = {Header}, IsChecked = {IsChecked}, Size = {Size}, IsSimplified = {IsSimplified}")]
 public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, IToggleButton, IRibbonControl, IQuickAccessItemProvider, ILargeIconProvider, IMediumIconProvider, ISimplifiedRibbonControl
 {
     #region Properties

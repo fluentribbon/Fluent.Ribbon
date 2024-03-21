@@ -18,6 +18,7 @@
                                       HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       IconSize="{Binding Path=(Fluent:RibbonProperties.IconSize), RelativeSource={RelativeSource TemplatedParent}}"
+                                      CustomSize="{Binding Path=(Fluent:RibbonProperties.CustomIconSize), RelativeSource={RelativeSource TemplatedParent}}"
                                       SmallIcon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
                 <ContentControl x:Name="controlLabel"
@@ -203,8 +204,8 @@
                             Grid.Row="0"
                             Padding="22 7 0 7"
                             VerticalAlignment="Top"
-                            AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                             AutomationProperties.AcceleratorKey="ESC"
+                            AutomationProperties.Name="{Binding Uid, RelativeSource={RelativeSource Self}}"
                             Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                             Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                         <Button.Margin>

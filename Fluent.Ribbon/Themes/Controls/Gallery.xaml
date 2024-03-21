@@ -104,7 +104,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
-                BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
+                BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Width="Auto">
                 <Grid.RowDefinitions>
@@ -126,7 +126,6 @@
                 <ScrollViewer x:Name="scrollViewer"
                               Grid.Row="1"
                               Grid.RowSpan="1"
-                              Margin="1"
                               Focusable="False">
                     <Fluent:GalleryPanel Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
@@ -137,6 +136,7 @@
                                          ItemContainerGenerator="{Binding ItemContainerGenerator, RelativeSource={RelativeSource TemplatedParent}}"
                                          ItemHeight="{TemplateBinding ItemHeight}"
                                          ItemWidth="{TemplateBinding ItemWidth}"
+                                         Margin="{TemplateBinding Padding}"
                                          MaxItemsInRow="{TemplateBinding MaxItemsInRow}"
                                          MinItemsInRow="{TemplateBinding MinItemsInRow}"
                                          Orientation="{TemplateBinding Orientation}" />
@@ -152,8 +152,10 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Gallery"
            TargetType="{x:Type Fluent:Gallery}">
+        <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}" />
         <Setter Property="BorderThickness" Value="0 0 0 1" />
         <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="1" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Gallery}" />

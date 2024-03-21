@@ -62,7 +62,7 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.StartScreenTabControl"
            TargetType="{x:Type Fluent:StartScreenTabControl}"
-           BasedOn="{StaticResource {x:Type Fluent:BackstageTabControl}}">
+           BasedOn="{StaticResource Fluent.Ribbon.Styles.BackstageTabControl}">
         <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Fluent:StartScreen}}, FallbackValue=Red}" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.StartScreenTabControl}" />
