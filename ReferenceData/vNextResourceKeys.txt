@@ -188,6 +188,7 @@ Fluent.Ribbon.Images.Warning
 Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip
 Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard
 Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard
+Fluent.Ribbon.Styles.ApplicationMenu
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItem
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel
 Fluent.Ribbon.Styles.Backstage.Button
@@ -200,14 +201,16 @@ Fluent.Ribbon.Styles.BackstageTabControl.Button
 Fluent.Ribbon.Styles.BackstageTabControl.SeparatorTabItem
 Fluent.Ribbon.Styles.BackstageTabItem
 Fluent.Ribbon.Styles.Button
+Fluent.Ribbon.Styles.ColorGallery
 Fluent.Ribbon.Styles.ColorGallery.ListBox.ItemContainer
 Fluent.Ribbon.Styles.ColorGalleryGradientListBox
 Fluent.Ribbon.Styles.ColorGalleryListBox
+Fluent.Ribbon.Styles.ComboBox
 Fluent.Ribbon.Styles.ComboBoxItem
 Fluent.Ribbon.Styles.ContextMenu
 Fluent.Ribbon.Styles.FluentRibbonDefaultContextMenu
 Fluent.Ribbon.Styles.FocusVisual
-Fluent.Ribbon.Styles.FocusVisual.FocusVisual.Empty
+Fluent.Ribbon.Styles.FocusVisual.Empty
 Fluent.Ribbon.Styles.FocusVisual.Rectangle
 Fluent.Ribbon.Styles.Gallery
 Fluent.Ribbon.Styles.GalleryDropDownButton
@@ -219,6 +222,7 @@ Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem
 Fluent.Ribbon.Styles.InnerBackstageTabControl
 Fluent.Ribbon.Styles.InnerBackstageTabControlItem
 Fluent.Ribbon.Styles.InnerButton
+Fluent.Ribbon.Styles.InRibbonGallery
 Fluent.Ribbon.Styles.InRibbonGalleryButton
 Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton
 Fluent.Ribbon.Styles.InRibbonGalleryToggleButton
@@ -228,6 +232,7 @@ Fluent.Ribbon.Styles.MenuItem
 Fluent.Ribbon.Styles.MenuScrollViewer
 Fluent.Ribbon.Styles.MenuSeparator
 Fluent.Ribbon.Styles.QuickAccessToolbar
+Fluent.Ribbon.Styles.RadioButton
 Fluent.Ribbon.Styles.ResizeableContentControl
 Fluent.Ribbon.Styles.Ribbon
 Fluent.Ribbon.Styles.RibbonBackstage
@@ -238,6 +243,7 @@ Fluent.Ribbon.Styles.RibbonDropDownButton
 Fluent.Ribbon.Styles.RibbonGroupBox
 Fluent.Ribbon.Styles.RibbonGroupBox.TwoLineHeaderContentControl
 Fluent.Ribbon.Styles.RibbonGroupsContainerScrollViewer
+Fluent.Ribbon.Styles.RibbonMenu
 Fluent.Ribbon.Styles.RibbonScrollViewer
 Fluent.Ribbon.Styles.RibbonSeparator
 Fluent.Ribbon.Styles.RibbonSplitButton
@@ -253,6 +259,7 @@ Fluent.Ribbon.Styles.RibbonToolBar
 Fluent.Ribbon.Styles.RibbonToolBarControlGroup
 Fluent.Ribbon.Styles.RibbonWindow
 Fluent.Ribbon.Styles.ScreenTip
+Fluent.Ribbon.Styles.ScrollBar
 Fluent.Ribbon.Styles.ScrollBarLineButton
 Fluent.Ribbon.Styles.ScrollBarPageButton
 Fluent.Ribbon.Styles.ScrollBarThumb
@@ -266,11 +273,16 @@ Fluent.Ribbon.Styles.SliderThumb
 Fluent.Ribbon.Styles.Spinner
 Fluent.Ribbon.Styles.SpinnerButton
 Fluent.Ribbon.Styles.StartScreenTabControl
+Fluent.Ribbon.Styles.StatusBar
+Fluent.Ribbon.Styles.StatusBarMenuItem
+Fluent.Ribbon.Styles.TextBox
 Fluent.Ribbon.Styles.ToolbarDropDownButton
 Fluent.Ribbon.Styles.ToolTip
+Fluent.Ribbon.Styles.TransitioningControl
 Fluent.Ribbon.Styles.TwoLineLabel
 Fluent.Ribbon.Styles.VerticalScrollBarLineButton
 Fluent.Ribbon.Styles.VerticalScrollBarThumb
+Fluent.Ribbon.Styles.WindowCommands
 Fluent.Ribbon.Styles.WindowCommands.Button
 Fluent.Ribbon.Styles.WindowCommands.CaptionButton
 Fluent.Ribbon.Styles.ZoomSlider
@@ -360,6 +372,11 @@ Fluent.Ribbon.Templates.WindowCommands.Button
 Fluent.Ribbon.Templates.WindowCommands.CaptionButton
 Fluent.Ribbon.Templates.ZoomSlider
 Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness
+Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius
+Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect
+Fluent.Ribbon.Values.RibbonTabControl.Content.Margin
+Fluent.Ribbon.Values.RibbonTabControl.Content.Transition
+Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness
 Theme.AlternativeColorScheme
 Theme.BaseColorScheme
 Theme.ColorScheme
