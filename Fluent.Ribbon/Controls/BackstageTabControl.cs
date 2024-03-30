@@ -239,6 +239,8 @@ public class BackstageTabControl : Selector, ILogicalChildSupport
 
         this.Loaded += this.HandleLoaded;
         this.Unloaded += this.HandleUnloaded;
+
+        SelectorHelper.SetCanSelectMultiple(this, false);
     }
 
     private void HandleLoaded(object sender, RoutedEventArgs e)

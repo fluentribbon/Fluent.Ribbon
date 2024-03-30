@@ -286,16 +286,6 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
         if ((bool)e.NewValue)
         {
             ((GalleryItem)d).BringIntoView();
-
-            if (ItemsControlHelper.ItemsControlFromItemContainer(d) is Selector parentSelector)
-            {
-                var item = parentSelector.ItemContainerGenerator.ItemFromContainerOrContainerContent(d);
-
-                if (ReferenceEquals(parentSelector.SelectedItem, item) == false)
-                {
-                    parentSelector.SelectedItem = item;
-                }
-            }
         }
     }
 

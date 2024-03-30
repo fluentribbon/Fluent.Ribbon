@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Fluent;
 
 using System;
@@ -448,6 +448,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
 
         this.Loaded += this.OnLoaded;
         this.Unloaded += this.OnUnloaded;
+
+        SelectorHelper.SetCanSelectMultiple(this, false);
     }
 
     #endregion
@@ -458,6 +460,7 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     protected override void OnInitialized(EventArgs e)
     {
         base.OnInitialized(e);
+
         this.ItemContainerGenerator.StatusChanged += this.OnGeneratorStatusChanged;
     }
 
@@ -551,16 +554,10 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
             ? (RibbonTabItem?)e.AddedItems[0]
             : null;
 
-        if (this.SelectedTabItem is not null
-            && ReferenceEquals(this.SelectedTabItem, newSelectedItem) == false)
-        {
-            this.SelectedTabItem.IsSelected = false;
-        }
-
         this.UpdateSelectedContent();
 
         if (this.IsKeyboardFocusWithin
-            && this.IsMinimized == false)
+            && this.IsMinimized is false)
         {
             // If keyboard focus is within the control, make sure it is going to the correct place
             newSelectedItem?.Focus();

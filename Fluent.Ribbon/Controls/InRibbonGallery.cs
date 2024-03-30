@@ -1069,6 +1069,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
         ContextMenuService.Coerce(this);
 
         this.Unloaded += this.OnUnloaded;
+
+        SelectorHelper.SetCanSelectMultiple(this, false);
     }
 
     private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -1121,22 +1123,6 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     protected override void OnSelectionChanged(SelectionChangedEventArgs e)
     {
-        foreach (var item in e.RemovedItems)
-        {
-            if (this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(item) is GalleryItem itemContainer)
-            {
-                itemContainer.IsSelected = false;
-            }
-        }
-
-        foreach (var item in e.AddedItems)
-        {
-            if (this.ItemContainerGenerator.ContainerOrContainerContentFromItem<GalleryItem>(item) is GalleryItem itemContainer)
-            {
-                itemContainer.IsSelected = this.Selectable;
-            }
-        }
-
         base.OnSelectionChanged(e);
 
         if ((!AutomationPeer.ListenerExists(AutomationEvents.SelectionPatternOnInvalidated)

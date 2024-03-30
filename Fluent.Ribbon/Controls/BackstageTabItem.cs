@@ -183,32 +183,11 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
 
         if (newValue)
         {
-            if (container.TabControlParent is not null
-                && ReferenceEquals(container.TabControlParent.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(container.TabControlParent.SelectedItem), container) == false)
-            {
-                UnselectSelectedItem(container.TabControlParent);
-
-                container.TabControlParent.SelectedItem = container.TabControlParent.ItemContainerGenerator.ItemFromContainerOrContainerContent(container);
-            }
-
             container.OnSelected(new RoutedEventArgs(Selector.SelectedEvent, container));
         }
         else
         {
             container.OnUnselected(new RoutedEventArgs(Selector.UnselectedEvent, container));
-        }
-    }
-
-    private static void UnselectSelectedItem(BackstageTabControl? backstageTabControl)
-    {
-        if (backstageTabControl?.SelectedItem is null)
-        {
-            return;
-        }
-
-        if (backstageTabControl.ItemContainerGenerator.ContainerOrContainerContentFromItem<BackstageTabItem>(backstageTabControl.SelectedItem) is { } backstageTabItem)
-        {
-            backstageTabItem.IsSelected = false;
         }
     }
 
@@ -250,8 +229,6 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <inheritdoc />
     public KeyTipPressedResult OnKeyTipPressed()
     {
-        UnselectSelectedItem(this.TabControlParent);
-
         this.IsSelected = true;
 
         return KeyTipPressedResult.Empty;
