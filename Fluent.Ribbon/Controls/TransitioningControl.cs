@@ -94,6 +94,7 @@ public class TransitioningControl : Control
         else
         {
             control.currentStoryBoard = null;
+            control.previousContentPresenter?.SetCurrentValue(ContentPresenter.ContentProperty, null);
         }
     }
 
@@ -116,21 +117,27 @@ public class TransitioningControl : Control
     /// Starts the transtion from old to new content.
     /// </summary>
 #pragma warning disable WPF0005
-    protected virtual void StartTransition(object oldContent, object newContent)
+    protected virtual void StartTransition(object? oldContent, object? newContent)
 #pragma warning restore WPF0005
     {
-        if (this.previousContentPresenter is null
-            || this.currentContentPresenter is null)
+        if (this.currentContentPresenter is null)
         {
             return;
         }
 
         this.StopTransition();
 
-        this.previousContentPresenter.SetCurrentValue(ContentPresenter.ContentProperty, oldContent);
+        if (this.currentStoryBoard is not null)
+        {
+            this.previousContentPresenter?.SetCurrentValue(ContentPresenter.ContentProperty, oldContent);
+        }
+
         this.currentContentPresenter.SetCurrentValue(ContentPresenter.ContentProperty, newContent);
 
-        this.currentStoryBoard?.Begin(this, this.Template);
+        if (oldContent is not null)
+        {
+            this.currentStoryBoard?.Begin(this, this.Template);
+        }
     }
 
     /// <summary>
