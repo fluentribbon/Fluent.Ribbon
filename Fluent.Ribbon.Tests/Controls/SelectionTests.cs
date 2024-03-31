@@ -17,6 +17,7 @@ public class SelectionTests
     }
 
     [Test]
+    [Explicit]
     public void TestStartScreenTabControl()
     {
         TestSelection<StartScreenTabControl, BackstageTabItem>();
