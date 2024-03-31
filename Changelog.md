@@ -6,6 +6,9 @@
 
   - Dropped support for .NET 5.0 and .NET 3.1. Added .NET 6.0 and .NET 8.0 instead
   - **Aligned theming with current office versions**
+  - `Backstage`
+    - Removed default `MinWidth` on the button responsible for opening
+    - Saving and restoring window sizes were removed
   - `BackstageTabControl`
     - `IsWindowSteeringHelperEnabled` and `SelectedContentMargin` were removed
   - `BackstageTabItem`
@@ -41,7 +44,6 @@
   - `ScreenTip`
     - Type for `Image` was changed from `ImageSource` to `object` to allow any image content
     - Type for `Text` was changed from `string` to `object` to allow rich content (see [#716](../../issues/716))
-  - `Backstage` (the button) does not have a `MinWidth` set anymore
   - `DropDownButton`, `SplitButton` and `ApplicationMenu` don't generate `MenuItem` but `ContentPresenter` as containers.<br/>
     This provides more flexibility and also fixes the nested `MenuItem` issues.
   - Themes
@@ -55,6 +57,7 @@
   - Added `TabItemForeground` to `RibbonContextualTabGroup`
   - Added resource `Fluent.Ribbon.Brushes.RibbonWindow.Background`
   - Added `TransitioningControl` to animate content changes
+  - Added `IsBackstageOrStartScreenOpen` on `Ribbon`
   - [#716](../../issues/716) - Unable to use rich content for ScreenTip
     - Changed text from `string` to `object` and added `TextTemplate` to `ScreenTip` to support this
   - `RibbonProperties`
@@ -66,7 +69,7 @@
 
 - ### Bug fixes
 
-  - Values of `IsQuickAccessToolBarVisible` and `HideContextTabs` are now properly restored when `Backstage` is closed
+  - Value of `HideContextTabs` are now properly restored when `Backstage` is closed
   - `RibbonTitleBar`
     - Fixed rendering when `HideContextTabs` is `true`
     - Rendering now updates when QAT is shown/hidden

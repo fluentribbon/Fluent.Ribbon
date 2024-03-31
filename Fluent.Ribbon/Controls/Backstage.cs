@@ -305,15 +305,9 @@ public class Backstage : RibbonControl
     // We have to collapse WindowsFormsHost while Backstate is open
     private readonly Dictionary<FrameworkElement, Visibility> collapsedElements = new();
 
-    // Saved window sizes
-    private double savedWindowMinWidth = double.NaN;
-    private double savedWindowMinHeight = double.NaN;
-    private double savedWindowWidth = double.NaN;
-    private double savedWindowHeight = double.NaN;
     private Window? ownerWindow;
     private Ribbon? parentRibbon;
 
-    private bool? originalQATVisibility;
     private bool? originalHideContextTabs;
 
     /// <summary>
@@ -357,11 +351,7 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose += this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.parentRibbon.IsQuickAccessToolBarVisible)
-            {
-                this.originalQATVisibility = this.parentRibbon.IsQuickAccessToolBarVisible;
-                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, BooleanBoxes.FalseBox);
-            }
+            this.parentRibbon.SetCurrentValue(Ribbon.IsBackstageOrStartScreenOpenProperty, BooleanBoxes.TrueBox);
 
             if (this.HideContextTabsOnOpen
                 && this.parentRibbon.TitleBar is not null
@@ -382,27 +372,9 @@ public class Backstage : RibbonControl
 
         if (this.ownerWindow is not null)
         {
-            this.SaveWindowSize(this.ownerWindow);
-            this.SaveWindowMinSize(this.ownerWindow);
-        }
-
-        if (this.ownerWindow is not null)
-        {
             this.ownerWindow.KeyDown += this.HandleOwnerWindowKeyDown;
 
-            if (this.savedWindowMinWidth < 500)
-            {
-                this.ownerWindow.MinWidth = 500;
-            }
-
-            if (this.savedWindowMinHeight < 400)
-            {
-                this.ownerWindow.MinHeight = 400;
-            }
-
-            this.ownerWindow.SizeChanged += this.HandleOwnerWindowSizeChanged;
-
-            // We have to collapse WindowsFormsHost while Backstage is open
+            // We are using an Adorner, so we have to collapse WindowsFormsHost while Backstage is open to draw above them.
             this.CollapseWindowsFormsHosts(this.ownerWindow);
         }
 
@@ -640,10 +612,7 @@ public class Backstage : RibbonControl
                 this.parentRibbon.TabControl.RequestBackstageClose -= this.HandleTabControlRequestBackstageClose;
             }
 
-            if (this.originalQATVisibility.HasValue)
-            {
-                this.parentRibbon.SetCurrentValue(Ribbon.IsQuickAccessToolBarVisibleProperty, this.originalQATVisibility.Value);
-            }
+            this.parentRibbon.SetCurrentValue(Ribbon.IsBackstageOrStartScreenOpenProperty, BooleanBoxes.FalseBox);
 
             if (this.originalHideContextTabs.HasValue
                 && this.parentRibbon.TitleBar is not null)
@@ -652,34 +621,12 @@ public class Backstage : RibbonControl
             }
 
             this.parentRibbon = null;
-            this.originalQATVisibility = null;
             this.originalHideContextTabs = null;
         }
 
         if (this.ownerWindow is not null)
         {
             this.ownerWindow.KeyDown -= this.HandleOwnerWindowKeyDown;
-            this.ownerWindow.SizeChanged -= this.HandleOwnerWindowSizeChanged;
-
-            if (double.IsNaN(this.savedWindowMinWidth) == false
-                && double.IsNaN(this.savedWindowMinHeight) == false)
-            {
-                this.ownerWindow.MinWidth = this.savedWindowMinWidth;
-                this.ownerWindow.MinHeight = this.savedWindowMinHeight;
-            }
-
-            if (double.IsNaN(this.savedWindowWidth) == false
-                && double.IsNaN(this.savedWindowHeight) == false)
-            {
-                this.ownerWindow.Width = this.savedWindowWidth;
-                this.ownerWindow.Height = this.savedWindowHeight;
-            }
-
-            this.savedWindowMinWidth = double.NaN;
-            this.savedWindowMinHeight = double.NaN;
-
-            this.savedWindowWidth = double.NaN;
-            this.savedWindowHeight = double.NaN;
 
             this.ownerWindow = null;
         }
@@ -700,38 +647,6 @@ public class Backstage : RibbonControl
         // Delaying show so everthing can load properly.
         // If we don't run this in the background setting IsOpen=true on application start we don't have access to the Bastage from the BackstageTabControl.
         this.RunInDispatcherAsync(() => this.Show(), DispatcherPriority.Background);
-    }
-
-    private void SaveWindowMinSize(Window? window)
-    {
-        if (window is null)
-        {
-            this.savedWindowMinWidth = double.NaN;
-            this.savedWindowMinHeight = double.NaN;
-            return;
-        }
-
-        this.savedWindowMinWidth = window.MinWidth;
-        this.savedWindowMinHeight = window.MinHeight;
-    }
-
-    private void SaveWindowSize(Window? window)
-    {
-        if (window is null
-            || window.WindowState == WindowState.Maximized)
-        {
-            this.savedWindowWidth = double.NaN;
-            this.savedWindowHeight = double.NaN;
-            return;
-        }
-
-        this.savedWindowWidth = window.ActualWidth;
-        this.savedWindowHeight = window.ActualHeight;
-    }
-
-    private void HandleOwnerWindowSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        this.SaveWindowSize(Window.GetWindow(this));
     }
 
     private void HandleTabControlRequestBackstageClose(object? sender, EventArgs e)

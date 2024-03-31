@@ -580,6 +580,24 @@ public class Ribbon : Control, ILogicalChildSupport
         AddOrRemoveLogicalChildOnPropertyChanged(d, e);
     }
 
+    /// <summary>Identifies the <see cref="IsBackstageOrStartScreenOpen"/> dependency property.</summary>
+    public static readonly DependencyProperty IsBackstageOrStartScreenOpenProperty = DependencyProperty.Register(nameof(IsBackstageOrStartScreenOpen), typeof(bool), typeof(Ribbon), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsBackstageOrStartScreenOpenChanged));
+
+    /// <summary>
+    /// Defines if the backstage or startscreen is currently open or not.
+    /// </summary>
+    public bool IsBackstageOrStartScreenOpen
+    {
+        get => (bool)this.GetValue(IsBackstageOrStartScreenOpenProperty);
+        set => this.SetValue(IsBackstageOrStartScreenOpenProperty, value);
+    }
+
+    private static void OnIsBackstageOrStartScreenOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var ribbon = (Ribbon)d;
+        ribbon.TitleBar?.ScheduleForceMeasureAndArrange();
+    }
+
     #endregion
 
     #region StartScreen

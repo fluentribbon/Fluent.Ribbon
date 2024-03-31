@@ -49,6 +49,10 @@
                 <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
             </Trigger>
+            <Trigger Property="IsBackstageOrStartScreenOpen" Value="True">
+                <Setter TargetName="PART_QuickAccessToolBar" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
+            </Trigger>
             <Trigger Property="IsCollapsed" Value="True">
                 <Setter TargetName="PART_RibbonTabControl" Property="Visibility" Value="Collapsed" />
                 <Setter TargetName="quickAccessToolBarHolder" Property="Visibility" Value="Collapsed" />
