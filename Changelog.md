@@ -75,6 +75,7 @@
     - Rendering now updates when QAT is shown/hidden
   - Opening `Backstage`/`StartScreen` now properly sets the focus to it's content (`BackstageTabControl`, `StartScreenTabControl` etc.)
   - Fixed mouse over for `Fluent.Ribbon.Templates.WindowCommands.CaptionButton`
+  - Fixed selection events for `BackstageTabControl`, `BackstageTabItem`, `GalleryItem`, `InRibbonGallery`, `RibbonTabControl` and `RibbonTabItem`
 
 ## 10.1.0
 

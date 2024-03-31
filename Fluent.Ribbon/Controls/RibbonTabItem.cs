@@ -749,11 +749,6 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public KeyTipPressedResult OnKeyTipPressed()
     {
-        if (this.TabControlParent?.SelectedItem is RibbonTabItem currentSelectedItem)
-        {
-            currentSelectedItem.IsSelected = false;
-        }
-
         this.SetCurrentValue(IsSelectedProperty, BooleanBoxes.TrueBox);
 
         var result = KeyTipPressedResult.Empty;
