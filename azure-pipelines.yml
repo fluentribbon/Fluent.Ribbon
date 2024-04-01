@@ -24,10 +24,10 @@ steps:
     version: 3.1.416
 
 - task: UseDotNet@2
-  displayName: 'Use .NET Core SDK 5.0'
+  displayName: 'Use .NET Core SDK 6.0'
   inputs:
     packageType: sdk
-    version: 5.0.404
+    version: 6.0.420
 
 - task: UseDotNet@2
   displayName: 'Use .NET Core SDK (json)'
