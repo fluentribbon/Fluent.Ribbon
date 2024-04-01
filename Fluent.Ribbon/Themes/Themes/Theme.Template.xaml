@@ -249,6 +249,8 @@
 
     <!-- RibbonWindow -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.Background" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.Background}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Acrylic" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Acrylic}}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Auto" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Auto}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground" Color="{{Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}}" options:Freeze="True" />
 
