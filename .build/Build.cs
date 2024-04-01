@@ -97,7 +97,7 @@ class Build : NukeBuild
             .SetFileVersion(AssemblySemVer)
             .SetInformationalVersion(InformationalVersion)
 
-            .SetVerbosity(DotNetVerbosity.Minimal));
+            .SetVerbosity(DotNetVerbosity.minimal));
     });
 
     Target Pack => _ => _
@@ -135,7 +135,7 @@ class Build : NukeBuild
             .EnableNoRestore()
             .AddLoggers("trx")
             .SetResultsDirectory(TestResultsDir)
-            .SetVerbosity(DotNetVerbosity.Normal));
+            .SetVerbosity(DotNetVerbosity.normal));
     });
 
     Target FixResourceKeys => _ => _
