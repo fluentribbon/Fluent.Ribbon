@@ -172,7 +172,7 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.ColorGallery.Item.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
 
     <!-- DropDown -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Background" Color="{StaticResource Fluent.Ribbon.Colors.White}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Background" Color="{{Fluent.Ribbon.Brushes.DropDown.Background}}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray5}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Resize.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray7}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.DropDown.Resize.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
@@ -210,7 +210,7 @@
     </LinearGradientBrush>
 
     <!-- Ribbon -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Ribbon.Background" Color="{StaticResource Fluent.Ribbon.Colors.White}" options:Freeze="True" />
+    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.Ribbon.Background" Color="Transparent" options:Freeze="True" />
 
     <!-- RibbonContextualTabGroup -->
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask" Color="#14000000" options:Freeze="True" />

@@ -357,7 +357,8 @@
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
                 <Grid Width="Auto"
-                      Height="Auto">
+                      Height="Auto"
+                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -458,7 +459,6 @@
                         <ContentControl x:Name="PART_ContentPresenter"
                                         Focusable="False">
                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
-                                                 Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                                  Filter="{TemplateBinding SelectedFilterGroups}"
                                                  GroupBy="{TemplateBinding GroupBy}"
                                                  GroupByAdvanced="{TemplateBinding GroupByAdvanced}"

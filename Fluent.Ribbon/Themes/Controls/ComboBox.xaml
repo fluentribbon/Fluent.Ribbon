@@ -207,7 +207,6 @@
                                       Grid.Row="1"
                                       Margin="1"
                                       VerticalAlignment="Stretch"
-                                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                       BorderThickness="0 0 0 1"
                                       Focusable="False"
