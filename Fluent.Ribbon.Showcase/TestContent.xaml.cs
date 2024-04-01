@@ -522,7 +522,8 @@ public partial class TestContent
 
     private void OpenModalRibbonWindow_OnClick(object sender, RoutedEventArgs e)
     {
-        new TestWindow().ShowDialog();
+        var childWindow = new TestWindow { Owner = Window.GetWindow(this) };
+        childWindow.ShowDialog();
     }
 
     private void OpenRibbonWindowOnNewThread_OnClick(object sender, RoutedEventArgs e)
