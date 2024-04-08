@@ -69,6 +69,7 @@
 
 - ### Bug fixes
 
+  - [#1196](../../issues/1196) - GroupName causes the selected ToggleButton to no longer trigger the click event
   - Value of `HideContextTabs` are now properly restored when `Backstage` is closed
   - `RibbonTitleBar`
     - Fixed rendering when `HideContextTabs` is `true`

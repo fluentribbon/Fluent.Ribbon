@@ -6,8 +6,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Markup;
+using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
 
@@ -247,6 +249,14 @@ public class ToggleButton : System.Windows.Controls.Primitives.ToggleButton, ITo
             if (this.IsChecked == false)
             {
                 base.OnClick();
+            }
+            else
+            {
+                // Fix for #1196
+                var newEvent = new RoutedEventArgs(ClickEvent, this);
+                this.RaiseEvent(newEvent);
+
+                this.ExecuteCommand();
             }
         }
         else
