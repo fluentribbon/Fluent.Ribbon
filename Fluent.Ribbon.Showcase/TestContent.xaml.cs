@@ -51,8 +51,6 @@ public partial class TestContent
         this.viewModel = new MainViewModel();
         this.DataContext = this.viewModel;
 
-        ColorGallery.RecentColors.Add(((SolidColorBrush)Application.Current.Resources["Fluent.Ribbon.Brushes.AccentBase"]).Color);
-
         this.Loaded += this.TestContent_Loaded;
 
         this.InputBindings.Add(new InputBinding(new RelayCommand(() =>
@@ -166,6 +164,8 @@ public partial class TestContent
 
     private void InitializeColors()
     {
+        ColorGallery.RecentColors.Add((Color)this.FindResource("Fluent.Ribbon.Colors.AccentBase"));
+
         var currentColors = new[]
         {
             new KeyValuePair<string, Color?>("None", null),
