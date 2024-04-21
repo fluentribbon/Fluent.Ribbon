@@ -118,7 +118,7 @@
                       Margin="0 20">
                     <Border x:Name="border"
                             Height="Auto"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
+                            Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                             BorderThickness="1"
                             d:LayoutOverrides="Width">
@@ -396,7 +396,7 @@
                            PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}">
                         <Border x:Name="border"
                                 Height="Auto"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
@@ -563,7 +563,7 @@
                            PlacementTarget="{Binding ElementName=collapsedStateGrid, Mode=OneWay}">
                         <Border x:Name="border"
                                 Height="Auto"
-                                Background="{DynamicResource Fluent.Ribbon.Brushes.Ribbon.Background}"
+                                Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.Content.Background}"
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabItem.Border}"
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
