@@ -977,7 +977,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     #region GalleryPanelContainerHeight
 
     /// <summary>Identifies the <see cref="GalleryPanelContainerHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty GalleryPanelContainerHeightProperty = DependencyProperty.Register(nameof(GalleryPanelContainerHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(60D));
+    public static readonly DependencyProperty GalleryPanelContainerHeightProperty = DependencyProperty.Register(nameof(GalleryPanelContainerHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(68D));
 
     /// <summary>
     /// Gets or sets the height of the container which hosts the <see cref="GalleryPanel"/>.

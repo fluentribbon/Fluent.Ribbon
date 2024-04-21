@@ -343,8 +343,6 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery"
                      TargetType="{x:Type Fluent:InRibbonGallery}">
         <Grid x:Name="PART_LayoutRoot"
-              Width="Auto"
-              Height="Auto"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
             <Border x:Name="border"
@@ -611,20 +609,20 @@
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
+        <Setter Property="Margin" Value="1 0" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
-                <Setter Property="Margin" Value="2 3 3 0" />
+                <Setter Property="Height" Value="68" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter Property="Margin" Value="2 3 3 0" />
+                <Setter Property="Height" Value="22" />
             </Trigger>
             <Trigger Property="Size" Value="Small">
-                <Setter Property="Margin" Value="0" />
+                <Setter Property="Height" Value="22" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
-                <Setter Property="GalleryPanelContainerHeight" Value="NaN" />
-                <Setter Property="Margin" Value="1 0" />
                 <!-- double.NaN=Auto -->
+                <Setter Property="GalleryPanelContainerHeight" Value="NaN" />
             </Trigger>
         </Style.Triggers>
     </Style>
