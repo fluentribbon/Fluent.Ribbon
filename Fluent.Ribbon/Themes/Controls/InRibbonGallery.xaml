@@ -609,7 +609,7 @@
            TargetType="{x:Type Fluent:InRibbonGallery}">
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery}" />
-        <Setter Property="Margin" Value="1 0" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />

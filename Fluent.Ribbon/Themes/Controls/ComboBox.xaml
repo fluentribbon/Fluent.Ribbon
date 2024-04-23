@@ -311,6 +311,7 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCombobox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="ItemContainerStyleSelector" Value="{x:Null}">
                 <Setter Property="ItemContainerStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ComboBoxItem}" />

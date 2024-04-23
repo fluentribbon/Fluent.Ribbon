@@ -257,6 +257,7 @@
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
         <Setter Property="Width" Value="Auto" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Height" Value="68" />

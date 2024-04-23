@@ -230,6 +230,7 @@
         <Setter Property="SelectionBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.TextBox.Selection}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.TextBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />

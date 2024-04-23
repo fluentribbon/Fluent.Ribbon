@@ -233,7 +233,7 @@
         <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual}" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
-        <Setter Property="Margin" Value="2 2 2 2" />
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonCheckBox}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="ToolTipService.ShowDuration" Value="30000" />
