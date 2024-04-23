@@ -63,6 +63,14 @@
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 
+            <ObjectDataProvider x:Key="WindowBackdropTypeEnumValues"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type controlzEx:WindowBackdropType}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="controlzEx:WindowBackdropType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
             <Style TargetType="Label">
                 <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </Style>
@@ -3311,6 +3319,15 @@
                                         <Fluent:CheckBox IsChecked="{Binding Path=IgnoreTaskbarOnMaximize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Fluent:RibbonWindow}}, FallbackValue=False}">
                                             IgnoreTaskbarOnMaximize
                                         </Fluent:CheckBox>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label>
+                                                WindowBackDropType
+                                            </Label>
+                                            <ComboBox VerticalAlignment="Center"
+                                                      ItemsSource="{Binding Source={StaticResource WindowBackdropTypeEnumValues}}"
+                                                      SelectedItem="{Binding Path=(controlzEx:WindowBackdropManager.BackdropType), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                                        </StackPanel>
                                     </WrapPanel>
                                 </GroupBox>
 
