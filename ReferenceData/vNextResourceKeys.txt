@@ -105,6 +105,8 @@ Fluent.Ribbon.Brushes.RibbonTabItem.MouseOver.Foreground
 Fluent.Ribbon.Brushes.RibbonTabItem.Selected.Foreground
 Fluent.Ribbon.Brushes.RibbonTabItem.Selected.MouseOver.Foreground
 Fluent.Ribbon.Brushes.RibbonWindow.Background
+Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Acrylic
+Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Auto
 Fluent.Ribbon.Brushes.RibbonWindow.TitleBackground
 Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground
 Fluent.Ribbon.Brushes.ScreenTip.Background
@@ -398,6 +400,7 @@ Fluent.Ribbon.Templates.WindowCommands
 Fluent.Ribbon.Templates.WindowCommands.Button
 Fluent.Ribbon.Templates.WindowCommands.CaptionButton
 Fluent.Ribbon.Templates.ZoomSlider
+Fluent.Ribbon.Values.Default.Margin
 Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness
 Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius
 Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect
