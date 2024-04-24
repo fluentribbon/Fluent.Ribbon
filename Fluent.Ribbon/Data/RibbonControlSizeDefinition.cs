@@ -14,6 +14,8 @@ public struct RibbonControlSizeDefinition : IEquatable<RibbonControlSizeDefiniti
 {
     private const int MaxSizeDefinitionParts = 3;
 
+    private static readonly char[] sizeDefinitionSeparators = [' ', ',', ';', '-', '>'];
+
     /// <summary>
     /// Creates a new instance
     /// </summary>
@@ -39,9 +41,9 @@ public struct RibbonControlSizeDefinition : IEquatable<RibbonControlSizeDefiniti
             return;
         }
 
-        var splitted = sizeDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
+        var sizeDefinitionParts = sizeDefinition!.Split(sizeDefinitionSeparators, MaxSizeDefinitionParts, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-        if (splitted.Count == 0)
+        if (sizeDefinitionParts.Count == 0)
         {
             this.Large = RibbonControlSize.Large;
             this.Middle = RibbonControlSize.Large;
@@ -50,14 +52,14 @@ public struct RibbonControlSizeDefinition : IEquatable<RibbonControlSizeDefiniti
         }
 
         // Ensure that we got three sizes
-        for (var i = splitted.Count; i < MaxSizeDefinitionParts; i++)
+        for (var i = sizeDefinitionParts.Count; i < MaxSizeDefinitionParts; i++)
         {
-            splitted.Add(splitted[splitted.Count - 1]);
+            sizeDefinitionParts.Add(sizeDefinitionParts[sizeDefinitionParts.Count - 1]);
         }
 
-        this.Large = ToRibbonControlSize(splitted[0]);
-        this.Middle = ToRibbonControlSize(splitted[1]);
-        this.Small = ToRibbonControlSize(splitted[2]);
+        this.Large = ToRibbonControlSize(sizeDefinitionParts[0]);
+        this.Middle = ToRibbonControlSize(sizeDefinitionParts[1]);
+        this.Small = ToRibbonControlSize(sizeDefinitionParts[2]);
     }
 
     /// <summary>

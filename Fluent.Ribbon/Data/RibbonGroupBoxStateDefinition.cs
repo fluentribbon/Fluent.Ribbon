@@ -12,15 +12,17 @@ using Fluent.Converters;
 [TypeConverter(typeof(RibbonGroupBoxStateDefinitionConverter))]
 public readonly struct RibbonGroupBoxStateDefinition : IEquatable<RibbonGroupBoxStateDefinition>
 {
+    private const int MaxStateDefinitionParts = 4;
+
     private static readonly RibbonGroupBoxState[] defaultStates =
-    {
+    [
         RibbonGroupBoxState.Large,
         RibbonGroupBoxState.Middle,
         RibbonGroupBoxState.Small,
-        RibbonGroupBoxState.Collapsed,
-    };
+        RibbonGroupBoxState.Collapsed
+    ];
 
-    private const int MaxStateDefinitionParts = 4;
+    private static readonly char[] stateDefinitionSeparators = [' ', ',', ';', '-', '>'];
 
     /// <summary>
     /// Creates a new instance
@@ -35,35 +37,35 @@ public readonly struct RibbonGroupBoxStateDefinition : IEquatable<RibbonGroupBox
             return;
         }
 
-        var splitted = stateDefinition!.Split(new[] { ' ', ',', ';', '-', '>' }, MaxStateDefinitionParts, StringSplitOptions.RemoveEmptyEntries);
+        var stateDefinitionParts = stateDefinition!.Split(stateDefinitionSeparators, MaxStateDefinitionParts, StringSplitOptions.RemoveEmptyEntries);
 
-        if (splitted.Length == 0)
+        if (stateDefinitionParts.Length == 0)
         {
             return;
         }
 
-        var states = new List<RibbonGroupBoxState>();
-        foreach (var item in splitted)
+        var newStates = new List<RibbonGroupBoxState>();
+        foreach (var item in stateDefinitionParts)
         {
             var state = ToRibbonGroupBoxState(item);
-            if (!states.Contains(state))
+            if (!newStates.Contains(state))
             {
                 if (state != RibbonGroupBoxState.QuickAccess)
                 {
-                    states.Add(state);
+                    newStates.Add(state);
                 }
             }
 
-            if (states.Count >= MaxStateDefinitionParts)
+            if (newStates.Count >= MaxStateDefinitionParts)
             {
                 break;
             }
         }
 
-        if (states.Count > 0)
+        if (newStates.Count > 0)
         {
-            states.Sort();  // sort large to small
-            this.states = states.ToArray();
+            newStates.Sort();  // sort large to small
+            this.states = newStates.ToArray();
         }
     }
 
