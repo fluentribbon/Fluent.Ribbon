@@ -246,7 +246,7 @@ Fluent.Ribbon.Styles.GalleryDropDownButton
 Fluent.Ribbon.Styles.GalleryGroupContainer
 Fluent.Ribbon.Styles.GalleryItem
 Fluent.Ribbon.Styles.GroupBoxSeparator
-Fluent.Ribbon.Styles.HightlightColorGalleryListBox
+Fluent.Ribbon.Styles.HighlightColorGalleryListBox
 Fluent.Ribbon.Styles.InnerBackstageSeparatorTabItem
 Fluent.Ribbon.Styles.InnerBackstageTabControl
 Fluent.Ribbon.Styles.InnerBackstageTabControlItem
@@ -384,11 +384,11 @@ Fluent.Ribbon.Templates.SliderThumb
 Fluent.Ribbon.Templates.Spinner
 Fluent.Ribbon.Templates.Spinner.Simplified
 Fluent.Ribbon.Templates.SpinnerButton
+Fluent.Ribbon.Templates.SplitApplicationMenuItem
+Fluent.Ribbon.Templates.SplitApplicationMenuSecondLevelItem
 Fluent.Ribbon.Templates.SplitButton.Simplified
 Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified
-Fluent.Ribbon.Templates.SplitedApplicationMenuItem
-Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem
-Fluent.Ribbon.Templates.SplitedMenuItem
+Fluent.Ribbon.Templates.SplitMenuItem
 Fluent.Ribbon.Templates.StartScreenTabControl
 Fluent.Ribbon.Templates.TextBox
 Fluent.Ribbon.Templates.TextBox.Simplified
