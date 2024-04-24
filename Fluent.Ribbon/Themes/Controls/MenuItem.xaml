@@ -213,8 +213,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedMenuItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitMenuItem"
                      TargetType="{x:Type MenuItem}">
         <Grid Background="{TemplateBinding Background}">
             <Grid.ColumnDefinitions>
@@ -473,14 +473,14 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedMenuItem}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitMenuItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HeaderMenuItem}" />

@@ -167,20 +167,20 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
 
     #endregion
 
-    #region IsSplited
+    #region IsSplit
 
     /// <summary>
-    /// Gets or sets a value indicating whether menu item is splited
+    /// Gets or sets a value indicating whether menu item is split.
     /// </summary>
-    public bool IsSplited
+    public bool IsSplit
     {
-        get { return (bool)this.GetValue(IsSplitedProperty); }
-        set { this.SetValue(IsSplitedProperty, BooleanBoxes.Box(value)); }
+        get { return (bool)this.GetValue(IsSplitProperty); }
+        set { this.SetValue(IsSplitProperty, BooleanBoxes.Box(value)); }
     }
 
-    /// <summary>Identifies the <see cref="IsSplited"/> dependency property.</summary>
-    public static readonly DependencyProperty IsSplitedProperty =
-        DependencyProperty.Register(nameof(IsSplited), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
+    /// <summary>Identifies the <see cref="IsSplit"/> dependency property.</summary>
+    public static readonly DependencyProperty IsSplitProperty =
+        DependencyProperty.Register(nameof(IsSplit), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
     #endregion
 
@@ -289,7 +289,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         if (this.HasItems)
         {
-            if (this.IsSplited)
+            if (this.IsSplit)
             {
                 var button = new SplitButton
                 {
@@ -524,7 +524,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         if (e.ClickCount == 1)
         {
-            if (this.IsSplited)
+            if (this.IsSplit)
             {
                 if (this.GetTemplateChild("PART_ButtonBorder") is Border buttonBorder
                     && PopupService.IsMousePhysicallyOver(buttonBorder))
@@ -542,7 +542,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     {
         // Close popup on click
         if (this.IsDefinitive
-            && (!this.HasItems || this.IsSplited))
+            && (!this.HasItems || this.IsSplit))
         {
             PopupService.RaiseDismissPopupEventAsync(this, DismissPopupMode.Always);
         }

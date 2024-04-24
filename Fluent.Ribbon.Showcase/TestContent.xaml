@@ -392,7 +392,7 @@
 
                         <Fluent:MenuItem Header="Save As"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
-                                         IsSplited="True">
+                                         IsSplit="True">
                             <Fluent:MenuItem Header="Standard format"
                                              Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/BlueLarge.png"
                                              Description="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna."
@@ -558,7 +558,7 @@
                         <Separator />
                         <Fluent:MenuItem Header="Set Default Paste..."
                                          Command="Paste"
-                                         IsSplited="True"
+                                         IsSplit="True"
                                          KeyTip="A">
                             <Fluent:MenuItem Header="1"
                                              Click="OnMenuItemClick" />

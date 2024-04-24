@@ -386,8 +386,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitApplicationMenuSecondLevelItem"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -610,14 +610,14 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedApplicationMenuSecondLevelItem}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitApplicationMenuSecondLevelItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HeaderApplicationMenuSecondLevelItem}" />
@@ -981,8 +981,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- Splited Menu Item Template -->
-    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitedApplicationMenuItem"
+    <!-- Split Menu Item Template -->
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitApplicationMenuItem"
                      TargetType="{x:Type Fluent:MenuItem}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
@@ -1271,15 +1271,15 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="True" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="True" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
-                <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:SplitedApplicationMenuItemItemContainerStyleSelector.Instance}" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitedApplicationMenuItem}" />
+                <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:SplitApplicationMenuItemItemContainerStyleSelector.Instance}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitApplicationMenuItem}" />
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="Fluent:MenuItem.IsSplited" Value="False" />
+                    <Condition Property="Fluent:MenuItem.IsSplit" Value="False" />
                     <Condition Property="HasItems" Value="True" />
                 </MultiTrigger.Conditions>
                 <Setter Property="ItemContainerStyleSelector" Value="{x:Static styleSelectors:HeaderApplicationMenuItemItemContainerStyleSelector.Instance}" />
