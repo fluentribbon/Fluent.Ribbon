@@ -9,7 +9,7 @@ using Size = System.Windows.Size;
 public class RibbonTabsContainerTests
 {
     //private static readonly Size zeroSize = default;
-    private const double ReferenceWidth = 316;
+    private const double ReferenceWidth = 326;
 
     private const double ReferenceHeight = 30;
 
@@ -68,7 +68,33 @@ public class RibbonTabsContainerTests
 
         using (var testWindow = new TestRibbonWindow(container) { Width = ReferenceWidth })
         {
+            Assert.That(container.DesiredSize, Is.EqualTo(new Size(306, ReferenceHeight)));
+            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
+
+            Assert.That(childrenWidths, Is.EquivalentTo(new[]
+            {
+                126,
+                82,
+                58,
+                40
+            }));
+
+            container.Measure(new Size(300, ReferenceHeight));
+
             Assert.That(container.DesiredSize, Is.EqualTo(new Size(300, ReferenceHeight)));
+            Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
+
+            Assert.That(childrenWidths, Is.EquivalentTo(new[]
+            {
+                126,
+                82,
+                58,
+                40
+            }));
+
+            container.Measure(new Size(299, ReferenceHeight));
+
+            Assert.That(container.DesiredSize, Is.EqualTo(new Size(299, ReferenceHeight)));
             Assert.That(container.ExtentWidth, Is.EqualTo(container.ViewportWidth));
 
             Assert.That(childrenWidths, Is.EquivalentTo(new[]
@@ -88,7 +114,7 @@ public class RibbonTabsContainerTests
             {
                 124,
                 80,
-                57,
+                56,
                 39
             }));
 
