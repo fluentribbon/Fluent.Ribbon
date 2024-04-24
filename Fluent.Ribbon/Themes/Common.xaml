@@ -8,7 +8,7 @@
     <!-- Set default values -->
     <Thickness x:Key="Fluent.Ribbon.Values.Default.Margin">1 1 1 1</Thickness>
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
-    <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 2</Thickness>
+    <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 0</Thickness>
     <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
 
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness">0 0 0 2</Thickness>
