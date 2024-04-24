@@ -49,8 +49,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public FrameworkElement? QuickAccessToolBar
     {
-        get { return (FrameworkElement?)this.GetValue(QuickAccessToolBarProperty); }
-        set { this.SetValue(QuickAccessToolBarProperty, value); }
+        get => (FrameworkElement?)this.GetValue(QuickAccessToolBarProperty);
+        set => this.SetValue(QuickAccessToolBarProperty, value);
     }
 
     /// <summary>Identifies the <see cref="QuickAccessToolBar"/> dependency property.</summary>
@@ -68,8 +68,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public HorizontalAlignment HeaderAlignment
     {
-        get { return (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty); }
-        set { this.SetValue(HeaderAlignmentProperty, value); }
+        get => (HorizontalAlignment)this.GetValue(HeaderAlignmentProperty);
+        set => this.SetValue(HeaderAlignmentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderAlignment"/> dependency property.</summary>
@@ -81,8 +81,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public bool IsCollapsed
     {
-        get { return (bool)this.GetValue(IsCollapsedProperty); }
-        set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCollapsedProperty);
+        set => this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -100,8 +100,8 @@ public class RibbonTitleBar : HeaderedItemsControl
     /// </summary>
     public bool HideContextTabs
     {
-        get { return (bool)this.GetValue(HideContextTabsProperty); }
-        set { this.SetValue(HideContextTabsProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HideContextTabsProperty);
+        set => this.SetValue(HideContextTabsProperty, BooleanBoxes.Box(value));
     }
 
     #endregion

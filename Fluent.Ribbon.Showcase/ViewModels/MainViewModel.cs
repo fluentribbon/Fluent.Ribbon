@@ -67,7 +67,7 @@ public class MainViewModel : ViewModel
 
     public double Zoom
     {
-        get { return this.zoom; }
+        get => this.zoom;
 
         set
         {
@@ -113,7 +113,7 @@ public class MainViewModel : ViewModel
 
     public ColorViewModel ColorViewModel
     {
-        get { return this.colorViewModel; }
+        get => this.colorViewModel;
 
         private set
         {
@@ -129,7 +129,7 @@ public class MainViewModel : ViewModel
 
     public FontsViewModel FontsViewModel
     {
-        get { return this.fontsViewModel; }
+        get => this.fontsViewModel;
 
         private set
         {
@@ -145,7 +145,7 @@ public class MainViewModel : ViewModel
 
     public GalleryViewModel GalleryViewModel
     {
-        get { return this.galleryViewModel; }
+        get => this.galleryViewModel;
 
         private set
         {
@@ -164,39 +164,28 @@ public class MainViewModel : ViewModel
     /// <summary>
     /// Gets data items (uses as DataContext)
     /// </summary>
-    public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems
-    {
-        get
+    public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems =>
+        this.dataItems ?? (this.dataItems = new ReadOnlyObservableCollection<GallerySampleDataItemViewModel>(new ObservableCollection<GallerySampleDataItemViewModel>
         {
-            return this.dataItems ?? (this.dataItems = new ReadOnlyObservableCollection<GallerySampleDataItemViewModel>(new ObservableCollection<GallerySampleDataItemViewModel>
-            {
-                GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
-                GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
-                GallerySampleDataItemViewModel.Create("Images\\Gray.png", "Images\\GrayLarge.png", "Gray", "Group A"),
-                GallerySampleDataItemViewModel.Create("Images\\Green.png", "Images\\GreenLarge.png", "Green", "Group A"),
-                GallerySampleDataItemViewModel.Create("Images\\Orange.png", "Images\\OrangeLarge.png", "Orange", "Group A"),
-                GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
-                GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
-                GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
-            }));
-        }
-    }
+            GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Gray.png", "Images\\GrayLarge.png", "Gray", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Green.png", "Images\\GreenLarge.png", "Green", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Orange.png", "Images\\OrangeLarge.png", "Orange", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
+            GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
+            GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
+        }));
 
     public Func<object, string> GroupByAdvancedSample { get; private set; }
 
-    public IList<string> ManyItems
-    {
-        get { return this.manyItems ?? (this.manyItems = GenerateStrings(5000)); }
-    }
+    public IList<string> ManyItems => this.manyItems ?? (this.manyItems = GenerateStrings(5000));
 
-    public IList<string> StringItems
-    {
-        get { return this.stringItems ?? (this.stringItems = GenerateStrings(25)); }
-    }
+    public IList<string> StringItems => this.stringItems ?? (this.stringItems = GenerateStrings(25));
 
     public bool? IsCheckedToggleButton3
     {
-        get { return this.isCheckedToggleButton3; }
+        get => this.isCheckedToggleButton3;
 
         set
         {
@@ -216,7 +205,7 @@ public class MainViewModel : ViewModel
 
     public int BoundSpinnerValue
     {
-        get { return this.boundSpinnerValue; }
+        get => this.boundSpinnerValue;
 
         set
         {

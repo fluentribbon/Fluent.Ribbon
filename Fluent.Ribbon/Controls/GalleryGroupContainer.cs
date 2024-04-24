@@ -20,8 +20,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public bool IsHeadered
     {
-        get { return (bool)this.GetValue(IsHeaderedProperty); }
-        set { this.SetValue(IsHeaderedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsHeaderedProperty);
+        set => this.SetValue(IsHeaderedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsHeadered"/> dependency property.</summary>
@@ -38,8 +38,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)this.GetValue(OrientationProperty); }
-        set { this.SetValue(OrientationProperty, value); }
+        get => (Orientation)this.GetValue(OrientationProperty);
+        set => this.SetValue(OrientationProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
@@ -57,8 +57,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public double ItemWidth
     {
-        get { return (double)this.GetValue(ItemWidthProperty); }
-        set { this.SetValue(ItemWidthProperty, value); }
+        get => (double)this.GetValue(ItemWidthProperty);
+        set => this.SetValue(ItemWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
@@ -76,8 +76,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public double ItemHeight
     {
-        get { return (double)this.GetValue(ItemHeightProperty); }
-        set { this.SetValue(ItemHeightProperty, value); }
+        get => (double)this.GetValue(ItemHeightProperty);
+        set => this.SetValue(ItemHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
@@ -94,8 +94,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public int MinItemsInRow
     {
-        get { return (int)this.GetValue(MinItemsInRowProperty); }
-        set { this.SetValue(MinItemsInRowProperty, value); }
+        get => (int)this.GetValue(MinItemsInRowProperty);
+        set => this.SetValue(MinItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
@@ -112,8 +112,8 @@ public class GalleryGroupContainer : HeaderedItemsControl
     /// </summary>
     public int MaxItemsInRow
     {
-        get { return (int)this.GetValue(MaxItemsInRowProperty); }
-        set { this.SetValue(MaxItemsInRowProperty, value); }
+        get => (int)this.GetValue(MaxItemsInRowProperty);
+        set => this.SetValue(MaxItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>

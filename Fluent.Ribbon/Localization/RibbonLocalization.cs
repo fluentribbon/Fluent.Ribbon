@@ -55,7 +55,7 @@ public class RibbonLocalization : INotifyPropertyChanged
     /// </summary>
     public CultureInfo Culture
     {
-        get { return this.culture; }
+        get => this.culture;
 
         set
         {
@@ -73,7 +73,7 @@ public class RibbonLocalization : INotifyPropertyChanged
     /// </summary>
     public RibbonLocalizationBase Localization
     {
-        get { return this.localization; }
+        get => this.localization;
 
         set
         {

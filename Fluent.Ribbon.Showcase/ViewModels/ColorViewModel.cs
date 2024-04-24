@@ -23,7 +23,7 @@ public class ColorViewModel : ViewModel
 
     public Color StandardColor
     {
-        get { return this.standardColor; }
+        get => this.standardColor;
 
         set
         {
@@ -39,7 +39,7 @@ public class ColorViewModel : ViewModel
 
     public Color HighlightColor
     {
-        get { return this.highlightColor; }
+        get => this.highlightColor;
 
         set
         {

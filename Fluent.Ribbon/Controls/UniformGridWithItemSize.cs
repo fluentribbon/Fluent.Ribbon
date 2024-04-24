@@ -22,8 +22,8 @@ public class UniformGridWithItemSize : Panel
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)this.GetValue(OrientationProperty); }
-        set { this.SetValue(OrientationProperty, value); }
+        get => (Orientation)this.GetValue(OrientationProperty);
+        set => this.SetValue(OrientationProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>

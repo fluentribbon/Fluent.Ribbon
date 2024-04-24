@@ -42,8 +42,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public bool IsGrouped
     {
-        get { return (bool)this.GetValue(IsGroupedProperty); }
-        set { this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsGroupedProperty);
+        set => this.SetValue(IsGroupedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsGrouped"/> dependency property.</summary>
@@ -66,8 +66,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public string? GroupBy
     {
-        get { return (string?)this.GetValue(GroupByProperty); }
-        set { this.SetValue(GroupByProperty, value); }
+        get => (string?)this.GetValue(GroupByProperty);
+        set => this.SetValue(GroupByProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
@@ -89,8 +89,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public Func<object?, string>? GroupByAdvanced
     {
-        get { return (Func<object?, string>?)this.GetValue(GroupByAdvancedProperty); }
-        set { this.SetValue(GroupByAdvancedProperty, value); }
+        get => (Func<object?, string>?)this.GetValue(GroupByAdvancedProperty);
+        set => this.SetValue(GroupByAdvancedProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
@@ -112,8 +112,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public ItemContainerGenerator? ItemContainerGenerator
     {
-        get { return (ItemContainerGenerator?)this.GetValue(ItemContainerGeneratorProperty); }
-        set { this.SetValue(ItemContainerGeneratorProperty, value); }
+        get => (ItemContainerGenerator?)this.GetValue(ItemContainerGeneratorProperty);
+        set => this.SetValue(ItemContainerGeneratorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemContainerGenerator"/> dependency property.</summary>
@@ -137,8 +137,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public double ItemWidth
     {
-        get { return (double)this.GetValue(ItemWidthProperty); }
-        set { this.SetValue(ItemWidthProperty, value); }
+        get => (double)this.GetValue(ItemWidthProperty);
+        set => this.SetValue(ItemWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
@@ -156,8 +156,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public double ItemHeight
     {
-        get { return (double)this.GetValue(ItemHeightProperty); }
-        set { this.SetValue(ItemHeightProperty, value); }
+        get => (double)this.GetValue(ItemHeightProperty);
+        set => this.SetValue(ItemHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
@@ -174,8 +174,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public string? Filter
     {
-        get { return (string?)this.GetValue(FilterProperty); }
-        set { this.SetValue(FilterProperty, value); }
+        get => (string?)this.GetValue(FilterProperty);
+        set => this.SetValue(FilterProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Filter"/> dependency property.</summary>
@@ -198,8 +198,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public int MinItemsInRow
     {
-        get { return (int)this.GetValue(MinItemsInRowProperty); }
-        set { this.SetValue(MinItemsInRowProperty, value); }
+        get => (int)this.GetValue(MinItemsInRowProperty);
+        set => this.SetValue(MinItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
@@ -216,8 +216,8 @@ public class GalleryPanel : StackPanel
     /// </summary>
     public int MaxItemsInRow
     {
-        get { return (int)this.GetValue(MaxItemsInRowProperty); }
-        set { this.SetValue(MaxItemsInRowProperty, value); }
+        get => (int)this.GetValue(MaxItemsInRowProperty);
+        set => this.SetValue(MaxItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>

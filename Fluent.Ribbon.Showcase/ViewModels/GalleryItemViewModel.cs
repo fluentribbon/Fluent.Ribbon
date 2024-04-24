@@ -13,7 +13,7 @@ public class GalleryItemViewModel : ViewModel
 
     public string Text
     {
-        get { return this.text; }
+        get => this.text;
 
         set
         {
@@ -29,7 +29,7 @@ public class GalleryItemViewModel : ViewModel
 
     public string Group
     {
-        get { return this.group; }
+        get => this.group;
 
         set
         {

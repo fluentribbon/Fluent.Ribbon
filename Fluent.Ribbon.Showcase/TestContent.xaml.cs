@@ -77,8 +77,8 @@ public partial class TestContent
 
     public List<KeyValuePair<string, Color?>> Colors
     {
-        get { return (List<KeyValuePair<string, Color?>>)this.GetValue(ColorsProperty); }
-        set { this.SetValue(ColorsProperty, value); }
+        get => (List<KeyValuePair<string, Color?>>)this.GetValue(ColorsProperty);
+        set => this.SetValue(ColorsProperty, value);
     }
 
     public List<RibbonLocalizationBase> Localizations { get; } = GetLocalizations();

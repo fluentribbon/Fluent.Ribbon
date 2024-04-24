@@ -47,8 +47,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -61,8 +61,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -75,8 +75,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public RibbonControlSizeDefinition SimplifiedSizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
-        set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty);
+        set => this.SetValue(SimplifiedSizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
@@ -89,8 +89,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -131,8 +131,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -141,8 +141,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -151,8 +151,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -165,8 +165,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -179,8 +179,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public object? LargeIcon
     {
-        get { return this.GetValue(LargeIconProperty); }
-        set { this.SetValue(LargeIconProperty, value); }
+        get => this.GetValue(LargeIconProperty);
+        set => this.SetValue(LargeIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
@@ -193,8 +193,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -209,8 +209,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public bool HasTriangle
     {
-        get { return (bool)this.GetValue(HasTriangleProperty); }
-        set { this.SetValue(HasTriangleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasTriangleProperty);
+        set => this.SetValue(HasTriangleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasTriangle"/> dependency property.</summary>
@@ -224,8 +224,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-        set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDropDownOpenProperty);
+        set => this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -242,8 +242,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
@@ -260,8 +260,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public double MaxDropDownHeight
     {
-        get { return (double)this.GetValue(MaxDropDownHeightProperty); }
-        set { this.SetValue(MaxDropDownHeightProperty, value); }
+        get => (double)this.GetValue(MaxDropDownHeightProperty);
+        set => this.SetValue(MaxDropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
@@ -277,8 +277,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public double DropDownHeight
     {
-        get { return (double)this.GetValue(DropDownHeightProperty); }
-        set { this.SetValue(DropDownHeightProperty, value); }
+        get => (double)this.GetValue(DropDownHeightProperty);
+        set => this.SetValue(DropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DropDownHeight"/> dependency property.</summary>
@@ -294,8 +294,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public bool ClosePopupOnMouseDown
     {
-        get { return (bool)this.GetValue(ClosePopupOnMouseDownProperty); }
-        set { this.SetValue(ClosePopupOnMouseDownProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(ClosePopupOnMouseDownProperty);
+        set => this.SetValue(ClosePopupOnMouseDownProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="ClosePopupOnMouseDown"/> dependency property.</summary>
@@ -311,8 +311,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public int ClosePopupOnMouseDownDelay
     {
-        get { return (int)this.GetValue(ClosePopupOnMouseDownDelayProperty); }
-        set { this.SetValue(ClosePopupOnMouseDownDelayProperty, value); }
+        get => (int)this.GetValue(ClosePopupOnMouseDownDelayProperty);
+        set => this.SetValue(ClosePopupOnMouseDownDelayProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ClosePopupOnMouseDownDelay"/> dependency property.</summary>
@@ -328,8 +328,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
@@ -831,8 +831,8 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

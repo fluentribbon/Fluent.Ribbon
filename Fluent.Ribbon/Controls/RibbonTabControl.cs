@@ -89,8 +89,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public UIElement? Menu
     {
-        get { return (UIElement?)this.GetValue(MenuProperty); }
-        set { this.SetValue(MenuProperty, value); }
+        get => (UIElement?)this.GetValue(MenuProperty);
+        set => this.SetValue(MenuProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
@@ -124,15 +124,9 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public object? SelectedContent
     {
-        get
-        {
-            return this.GetValue(SelectedContentProperty);
-        }
+        get => this.GetValue(SelectedContentProperty);
 
-        internal set
-        {
-            this.SetValue(SelectedContentPropertyKey, value);
-        }
+        internal set => this.SetValue(SelectedContentPropertyKey, value);
     }
 
     // DependencyProperty key for SelectedContent
@@ -146,8 +140,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsMinimized
     {
-        get { return (bool)this.GetValue(IsMinimizedProperty); }
-        set { this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMinimizedProperty);
+        set => this.SetValue(IsMinimizedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMinimized"/> dependency property.</summary>
@@ -158,8 +152,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool CanMinimize
     {
-        get { return (bool)this.GetValue(CanMinimizeProperty); }
-        set { this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanMinimizeProperty);
+        set => this.SetValue(CanMinimizeProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanMinimize"/> dependency property.</summary>
@@ -170,8 +164,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        set { this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        set => this.SetValue(IsSimplifiedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
@@ -182,8 +176,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool CanUseSimplified
     {
-        get { return (bool)this.GetValue(CanUseSimplifiedProperty); }
-        set { this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanUseSimplifiedProperty);
+        set => this.SetValue(CanUseSimplifiedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanUseSimplified"/> dependency property.</summary>
@@ -192,8 +186,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-        set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDropDownOpenProperty);
+        set => this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -221,8 +215,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool HighlightSelectedItem
     {
-        get { return (bool)this.GetValue(HighlightSelectedItemProperty); }
-        set { this.SetValue(HighlightSelectedItemProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HighlightSelectedItemProperty);
+        set => this.SetValue(HighlightSelectedItemProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HighlightSelectedItem"/> dependency property.</summary>
@@ -250,8 +244,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     internal RibbonTabItem? SelectedTabItem
     {
-        get { return (RibbonTabItem?)this.GetValue(SelectedTabItemProperty); }
-        private set { this.SetValue(SelectedTabItemProperty, value); }
+        get => (RibbonTabItem?)this.GetValue(SelectedTabItemProperty);
+        private set => this.SetValue(SelectedTabItemProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedTabItem"/> dependency property.</summary>
@@ -338,8 +332,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public double ContentHeight
     {
-        get { return (double)this.GetValue(ContentHeightProperty); }
-        set { this.SetValue(ContentHeightProperty, value); }
+        get => (double)this.GetValue(ContentHeightProperty);
+        set => this.SetValue(ContentHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ContentHeight"/> dependency property.</summary>
@@ -351,8 +345,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public double ContentGapHeight
     {
-        get { return (double)this.GetValue(ContentGapHeightProperty); }
-        set { this.SetValue(ContentGapHeightProperty, value); }
+        get => (double)this.GetValue(ContentGapHeightProperty);
+        set => this.SetValue(ContentGapHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ContentGapHeight"/> dependency property.</summary>
@@ -367,8 +361,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool AreTabHeadersVisible
     {
-        get { return (bool)this.GetValue(AreTabHeadersVisibleProperty); }
-        set { this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(AreTabHeadersVisibleProperty);
+        set => this.SetValue(AreTabHeadersVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsToolBarVisible"/> dependency property.</summary>
@@ -379,8 +373,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsToolBarVisible
     {
-        get { return (bool)this.GetValue(IsToolBarVisibleProperty); }
-        set { this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsToolBarVisibleProperty);
+        set => this.SetValue(IsToolBarVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabled"/> dependency property.</summary>
@@ -391,8 +385,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsMouseWheelScrollingEnabled
     {
-        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty); }
-        set { this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMouseWheelScrollingEnabledProperty);
+        set => this.SetValue(IsMouseWheelScrollingEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMouseWheelScrollingEnabledEverywhere"/> dependency property.</summary>
@@ -403,8 +397,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsMouseWheelScrollingEnabledEverywhere
     {
-        get { return (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty); }
-        set { this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMouseWheelScrollingEnabledEverywhereProperty);
+        set => this.SetValue(IsMouseWheelScrollingEnabledEverywhereProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDisplayOptionsButtonVisible"/> dependency property.</summary>
@@ -415,8 +409,8 @@ public class RibbonTabControl : Selector, IDropDownControl, ILogicalChildSupport
     /// </summary>
     public bool IsDisplayOptionsButtonVisible
     {
-        get { return (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty); }
-        set { this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDisplayOptionsButtonVisibleProperty);
+        set => this.SetValue(IsDisplayOptionsButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     #endregion

@@ -41,8 +41,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// <inheritdoc />
     public RibbonTitleBar? TitleBar
     {
-        get { return (RibbonTitleBar?)this.GetValue(TitleBarProperty); }
-        private set { this.SetValue(TitleBarPropertyKey, value); }
+        get => (RibbonTitleBar?)this.GetValue(TitleBarProperty);
+        private set => this.SetValue(TitleBarPropertyKey, value);
     }
 
     // ReSharper disable once InconsistentNaming
@@ -58,8 +58,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public double TitleBarHeight
     {
-        get { return (double)this.GetValue(TitleBarHeightProperty); }
-        set { this.SetValue(TitleBarHeightProperty, value); }
+        get => (double)this.GetValue(TitleBarHeightProperty);
+        set => this.SetValue(TitleBarHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TitleBarHeight"/> dependency property.</summary>
@@ -70,8 +70,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public Brush? TitleForeground
     {
-        get { return (Brush?)this.GetValue(TitleForegroundProperty); }
-        set { this.SetValue(TitleForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TitleForegroundProperty);
+        set => this.SetValue(TitleForegroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TitleForeground"/> dependency property.</summary>
@@ -82,8 +82,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public Brush? TitleBackground
     {
-        get { return (Brush?)this.GetValue(TitleBackgroundProperty); }
-        set { this.SetValue(TitleBackgroundProperty, value); }
+        get => (Brush?)this.GetValue(TitleBackgroundProperty);
+        set => this.SetValue(TitleBackgroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TitleBackground"/> dependency property.</summary>
@@ -97,8 +97,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public WindowCommands? WindowCommands
     {
-        get { return (WindowCommands?)this.GetValue(WindowCommandsProperty); }
-        set { this.SetValue(WindowCommandsProperty, value); }
+        get => (WindowCommands?)this.GetValue(WindowCommandsProperty);
+        set => this.SetValue(WindowCommandsProperty, value);
     }
 
     #region Window-Border-Properties
@@ -111,8 +111,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public Brush? NonActiveBorderBrush
     {
-        get { return (Brush?)this.GetValue(NonActiveBorderBrushProperty); }
-        set { this.SetValue(NonActiveBorderBrushProperty, value); }
+        get => (Brush?)this.GetValue(NonActiveBorderBrushProperty);
+        set => this.SetValue(NonActiveBorderBrushProperty, value);
     }
 
     #endregion
@@ -122,8 +122,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public bool IsIconVisible
     {
-        get { return (bool)this.GetValue(IsIconVisibleProperty); }
-        set { this.SetValue(IsIconVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsIconVisibleProperty);
+        set => this.SetValue(IsIconVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsIconVisible"/> dependency property.</summary>
@@ -134,8 +134,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public VerticalAlignment VerticalIconAlignment
     {
-        get { return (VerticalAlignment)this.GetValue(VerticalIconAlignmentProperty); }
-        set { this.SetValue(VerticalIconAlignmentProperty, value); }
+        get => (VerticalAlignment)this.GetValue(VerticalIconAlignmentProperty);
+        set => this.SetValue(VerticalIconAlignmentProperty, value);
     }
 
     /// <summary>Identifies the <see cref="VerticalIconAlignment"/> dependency property.</summary>
@@ -148,8 +148,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public bool IsCollapsed
     {
-        get { return (bool)this.GetValue(IsCollapsedProperty); }
-        set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCollapsedProperty);
+        set => this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -160,8 +160,8 @@ public class RibbonWindow : WindowChromeWindow, IRibbonWindow
     /// </summary>
     public bool IsAutomaticCollapseEnabled
     {
-        get { return (bool)this.GetValue(IsAutomaticCollapseEnabledProperty); }
-        set { this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsAutomaticCollapseEnabledProperty);
+        set => this.SetValue(IsAutomaticCollapseEnabledProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsAutomaticCollapseEnabled"/> dependency property.</summary>

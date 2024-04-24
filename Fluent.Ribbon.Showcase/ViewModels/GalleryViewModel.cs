@@ -18,7 +18,7 @@ public class GalleryViewModel : ViewModel
 
     public ObservableCollection<GalleryItemViewModel> Items
     {
-        get { return this.items; }
+        get => this.items;
 
         private set
         {

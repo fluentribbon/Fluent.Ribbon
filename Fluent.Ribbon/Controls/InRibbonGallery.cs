@@ -77,8 +77,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -91,8 +91,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -105,8 +105,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public RibbonControlSizeDefinition SimplifiedSizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty); }
-        set { this.SetValue(SimplifiedSizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SimplifiedSizeDefinitionProperty);
+        set => this.SetValue(SimplifiedSizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SimplifiedSizeDefinition"/> dependency property.</summary>
@@ -119,8 +119,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -136,8 +136,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -146,8 +146,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -156,8 +156,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -170,8 +170,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -186,8 +186,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public int MinItemsInDropDownRow
     {
-        get { return (int)this.GetValue(MinItemsInDropDownRowProperty); }
-        set { this.SetValue(MinItemsInDropDownRowProperty, value); }
+        get => (int)this.GetValue(MinItemsInDropDownRowProperty);
+        set => this.SetValue(MinItemsInDropDownRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MinItemsInDropDownRow"/> dependency property.</summary>
@@ -203,8 +203,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public int MaxItemsInDropDownRow
     {
-        get { return (int)this.GetValue(MaxItemsInDropDownRowProperty); }
-        set { this.SetValue(MaxItemsInDropDownRowProperty, value); }
+        get => (int)this.GetValue(MaxItemsInDropDownRowProperty);
+        set => this.SetValue(MaxItemsInDropDownRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxItemsInDropDownRow"/> dependency property.</summary>
@@ -220,8 +220,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double ItemWidth
     {
-        get { return (double)this.GetValue(ItemWidthProperty); }
-        set { this.SetValue(ItemWidthProperty, value); }
+        get => (double)this.GetValue(ItemWidthProperty);
+        set => this.SetValue(ItemWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemWidth"/> dependency property.</summary>
@@ -233,8 +233,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double ItemHeight
     {
-        get { return (double)this.GetValue(ItemHeightProperty); }
-        set { this.SetValue(ItemHeightProperty, value); }
+        get => (double)this.GetValue(ItemHeightProperty);
+        set => this.SetValue(ItemHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
@@ -251,8 +251,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public string? GroupBy
     {
-        get { return (string?)this.GetValue(GroupByProperty); }
-        set { this.SetValue(GroupByProperty, value); }
+        get => (string?)this.GetValue(GroupByProperty);
+        set => this.SetValue(GroupByProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupBy"/> dependency property.</summary>
@@ -268,8 +268,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public Func<object, string>? GroupByAdvanced
     {
-        get { return (Func<object, string>?)this.GetValue(GroupByAdvancedProperty); }
-        set { this.SetValue(GroupByAdvancedProperty, value); }
+        get => (Func<object, string>?)this.GetValue(GroupByAdvancedProperty);
+        set => this.SetValue(GroupByAdvancedProperty, value);
     }
 
     /// <summary>Identifies the <see cref="GroupByAdvanced"/> dependency property.</summary>
@@ -284,8 +284,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)this.GetValue(OrientationProperty); }
-        set { this.SetValue(OrientationProperty, value); }
+        get => (Orientation)this.GetValue(OrientationProperty);
+        set => this.SetValue(OrientationProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
@@ -393,8 +393,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public GalleryGroupFilter? SelectedFilter
     {
-        get { return (GalleryGroupFilter?)this.GetValue(SelectedFilterProperty); }
-        set { this.SetValue(SelectedFilterProperty, value); }
+        get => (GalleryGroupFilter?)this.GetValue(SelectedFilterProperty);
+        set => this.SetValue(SelectedFilterProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedFilter"/> dependency property.</summary>
@@ -454,8 +454,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public string? SelectedFilterTitle
     {
-        get { return (string?)this.GetValue(SelectedFilterTitleProperty); }
-        private set { this.SetValue(SelectedFilterTitlePropertyKey, value); }
+        get => (string?)this.GetValue(SelectedFilterTitleProperty);
+        private set => this.SetValue(SelectedFilterTitlePropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey SelectedFilterTitlePropertyKey =
@@ -469,8 +469,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public string? SelectedFilterGroups
     {
-        get { return (string?)this.GetValue(SelectedFilterGroupsProperty); }
-        private set { this.SetValue(SelectedFilterGroupsPropertyKey, value); }
+        get => (string?)this.GetValue(SelectedFilterGroupsProperty);
+        private set => this.SetValue(SelectedFilterGroupsPropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey SelectedFilterGroupsPropertyKey =
@@ -484,8 +484,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public bool HasFilter
     {
-        get { return (bool)this.GetValue(HasFilterProperty); }
-        private set { this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasFilterProperty);
+        private set => this.SetValue(HasFilterPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey HasFilterPropertyKey = DependencyProperty.RegisterReadOnly(nameof(HasFilter), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox));
@@ -533,8 +533,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public bool Selectable
     {
-        get { return (bool)this.GetValue(SelectableProperty); }
-        set { this.SetValue(SelectableProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(SelectableProperty);
+        set => this.SetValue(SelectableProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="Selectable"/> dependency property.</summary>
@@ -560,8 +560,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return (bool)this.GetValue(IsDropDownOpenProperty); }
-        set { this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDropDownOpenProperty);
+        set => this.SetValue(IsDropDownOpenProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
@@ -694,8 +694,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
@@ -711,8 +711,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public bool CanCollapseToButton
     {
-        get { return (bool)this.GetValue(CanCollapseToButtonProperty); }
-        set { this.SetValue(CanCollapseToButtonProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanCollapseToButtonProperty);
+        set => this.SetValue(CanCollapseToButtonProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanCollapseToButton"/> dependency property.</summary>
@@ -728,8 +728,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public bool IsCollapsed
     {
-        get { return (bool)this.GetValue(IsCollapsedProperty); }
-        set { this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCollapsedProperty);
+        set => this.SetValue(IsCollapsedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsCollapsed"/> dependency property.</summary>
@@ -743,8 +743,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public object? LargeIcon
     {
-        get { return this.GetValue(LargeIconProperty); }
-        set { this.SetValue(LargeIconProperty, value); }
+        get => this.GetValue(LargeIconProperty);
+        set => this.SetValue(LargeIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="LargeIcon"/> dependency property.</summary>
@@ -757,8 +757,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public object? MediumIcon
     {
-        get { return this.GetValue(MediumIconProperty); }
-        set { this.SetValue(MediumIconProperty, value); }
+        get => this.GetValue(MediumIconProperty);
+        set => this.SetValue(MediumIconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MediumIcon"/> dependency property.</summary>
@@ -842,8 +842,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public RibbonMenu? Menu
     {
-        get { return (RibbonMenu?)this.GetValue(MenuProperty); }
-        set { this.SetValue(MenuProperty, value); }
+        get => (RibbonMenu?)this.GetValue(MenuProperty);
+        set => this.SetValue(MenuProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Menu"/> dependency property.</summary>
@@ -859,8 +859,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public int MaxItemsInRow
     {
-        get { return (int)this.GetValue(MaxItemsInRowProperty); }
-        set { this.SetValue(MaxItemsInRowProperty, value); }
+        get => (int)this.GetValue(MaxItemsInRowProperty);
+        set => this.SetValue(MaxItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxItemsInRow"/> dependency property.</summary>
@@ -884,8 +884,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public int MinItemsInRow
     {
-        get { return (int)this.GetValue(MinItemsInRowProperty); }
-        set { this.SetValue(MinItemsInRowProperty, value); }
+        get => (int)this.GetValue(MinItemsInRowProperty);
+        set => this.SetValue(MinItemsInRowProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MinItemsInRow"/> dependency property.</summary>
@@ -913,8 +913,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double MaxDropDownHeight
     {
-        get { return (double)this.GetValue(MaxDropDownHeightProperty); }
-        set { this.SetValue(MaxDropDownHeightProperty, value); }
+        get => (double)this.GetValue(MaxDropDownHeightProperty);
+        set => this.SetValue(MaxDropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
@@ -930,8 +930,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double MaxDropDownWidth
     {
-        get { return (double)this.GetValue(MaxDropDownWidthProperty); }
-        set { this.SetValue(MaxDropDownWidthProperty, value); }
+        get => (double)this.GetValue(MaxDropDownWidthProperty);
+        set => this.SetValue(MaxDropDownWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownWidth"/> dependency property.</summary>
@@ -947,8 +947,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double DropDownHeight
     {
-        get { return (double)this.GetValue(DropDownHeightProperty); }
-        set { this.SetValue(DropDownHeightProperty, value); }
+        get => (double)this.GetValue(DropDownHeightProperty);
+        set => this.SetValue(DropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DropDownHeight"/> dependency property.</summary>
@@ -964,8 +964,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double DropDownWidth
     {
-        get { return (double)this.GetValue(DropDownWidthProperty); }
-        set { this.SetValue(DropDownWidthProperty, value); }
+        get => (double)this.GetValue(DropDownWidthProperty);
+        set => this.SetValue(DropDownWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="DropDownWidth"/> dependency property.</summary>
@@ -984,8 +984,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public double GalleryPanelContainerHeight
     {
-        get { return (double)this.GetValue(GalleryPanelContainerHeightProperty); }
-        set { this.SetValue(GalleryPanelContainerHeightProperty, value); }
+        get => (double)this.GetValue(GalleryPanelContainerHeightProperty);
+        set => this.SetValue(GalleryPanelContainerHeightProperty, value);
     }
 
     #endregion
@@ -997,8 +997,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
@@ -1467,8 +1467,8 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

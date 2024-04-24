@@ -52,8 +52,8 @@
         /// </summary>
         public RibbonTitleBar TitleBar
         {
-            get { return (RibbonTitleBar)this.GetValue(TitleBarProperty); }
-            private set { this.SetValue(TitleBarPropertyKey, value); }
+            get => (RibbonTitleBar)this.GetValue(TitleBarProperty);
+            private set => this.SetValue(TitleBarPropertyKey, value);
         }
 
         // ReSharper disable once InconsistentNaming

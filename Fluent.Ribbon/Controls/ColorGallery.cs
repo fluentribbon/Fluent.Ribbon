@@ -230,10 +230,7 @@ public class ColorGallery : Control
     /// <summary>
     /// Gets recent colors collection
     /// </summary>
-    public static ObservableCollection<Color> RecentColors
-    {
-        get { return recentColors ?? (recentColors = new ObservableCollection<Color>()); }
-    }
+    public static ObservableCollection<Color> RecentColors => recentColors ?? (recentColors = new ObservableCollection<Color>());
 
     #endregion
 
@@ -267,8 +264,8 @@ public class ColorGallery : Control
     /// </summary>
     public ColorGalleryMode Mode
     {
-        get { return (ColorGalleryMode)this.GetValue(ModeProperty); }
-        set { this.SetValue(ModeProperty, value); }
+        get => (ColorGalleryMode)this.GetValue(ModeProperty);
+        set => this.SetValue(ModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Mode"/> dependency property.</summary>
@@ -289,8 +286,8 @@ public class ColorGallery : Control
     /// </summary>
     public double ChipWidth
     {
-        get { return (double)this.GetValue(ChipWidthProperty); }
-        set { this.SetValue(ChipWidthProperty, value); }
+        get => (double)this.GetValue(ChipWidthProperty);
+        set => this.SetValue(ChipWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ChipWidth"/> dependency property.</summary>
@@ -313,8 +310,8 @@ public class ColorGallery : Control
     /// </summary>
     public double ChipHeight
     {
-        get { return (double)this.GetValue(ChipHeightProperty); }
-        set { this.SetValue(ChipHeightProperty, value); }
+        get => (double)this.GetValue(ChipHeightProperty);
+        set => this.SetValue(ChipHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ChipHeight"/> dependency property.</summary>
@@ -330,8 +327,8 @@ public class ColorGallery : Control
     /// </summary>
     public bool IsAutomaticColorButtonVisible
     {
-        get { return (bool)this.GetValue(IsAutomaticColorButtonVisibleProperty); }
-        set { this.SetValue(IsAutomaticColorButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsAutomaticColorButtonVisibleProperty);
+        set => this.SetValue(IsAutomaticColorButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsAutomaticColorButtonVisible"/> dependency property.</summary>
@@ -347,8 +344,8 @@ public class ColorGallery : Control
     /// </summary>
     public bool IsNoColorButtonVisible
     {
-        get { return (bool)this.GetValue(IsNoColorButtonVisibleProperty); }
-        set { this.SetValue(IsNoColorButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsNoColorButtonVisibleProperty);
+        set => this.SetValue(IsNoColorButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsNoColorButtonVisible"/> dependency property.</summary>
@@ -364,8 +361,8 @@ public class ColorGallery : Control
     /// </summary>
     public bool IsMoreColorsButtonVisible
     {
-        get { return (bool)this.GetValue(IsMoreColorsButtonVisibleProperty); }
-        set { this.SetValue(IsMoreColorsButtonVisibleProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsMoreColorsButtonVisibleProperty);
+        set => this.SetValue(IsMoreColorsButtonVisibleProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsMoreColorsButtonVisible"/> dependency property.</summary>
@@ -381,8 +378,8 @@ public class ColorGallery : Control
     /// </summary>
     public int Columns
     {
-        get { return (int)this.GetValue(ColumnsProperty); }
-        set { this.SetValue(ColumnsProperty, value); }
+        get => (int)this.GetValue(ColumnsProperty);
+        set => this.SetValue(ColumnsProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Columns"/> dependency property.</summary>
@@ -414,8 +411,8 @@ public class ColorGallery : Control
     /// </summary>
     public int StandardColorGridRows
     {
-        get { return (int)this.GetValue(StandardColorGridRowsProperty); }
-        set { this.SetValue(StandardColorGridRowsProperty, value); }
+        get => (int)this.GetValue(StandardColorGridRowsProperty);
+        set => this.SetValue(StandardColorGridRowsProperty, value);
     }
 
     /// <summary>Identifies the <see cref="StandardColorGridRows"/> dependency property.</summary>
@@ -447,8 +444,8 @@ public class ColorGallery : Control
     /// </summary>
     public int ThemeColorGridRows
     {
-        get { return (int)this.GetValue(ThemeColorGridRowsProperty); }
-        set { this.SetValue(ThemeColorGridRowsProperty, value); }
+        get => (int)this.GetValue(ThemeColorGridRowsProperty);
+        set => this.SetValue(ThemeColorGridRowsProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ThemeColorGridRows"/> dependency property.</summary>
@@ -469,8 +466,8 @@ public class ColorGallery : Control
     /// </summary>
     public Color? SelectedColor
     {
-        get { return (Color?)this.GetValue(SelectedColorProperty); }
-        set { this.SetValue(SelectedColorProperty, value); }
+        get => (Color?)this.GetValue(SelectedColorProperty);
+        set => this.SetValue(SelectedColorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SelectedColor"/> dependency property.</summary>
@@ -582,8 +579,8 @@ public class ColorGallery : Control
     /// </summary>
     public IEnumerable<Color>? ThemeColorsSource
     {
-        get { return (IEnumerable<Color>?)this.GetValue(ThemeColorsSourceProperty); }
-        set { this.SetValue(ThemeColorsSourceProperty, value); }
+        get => (IEnumerable<Color>?)this.GetValue(ThemeColorsSourceProperty);
+        set => this.SetValue(ThemeColorsSourceProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ThemeColorsSource"/> dependency property.</summary>
@@ -614,8 +611,8 @@ public class ColorGallery : Control
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
     public Color[]? ThemeGradients
     {
-        get { return (Color[]?)this.GetValue(ThemeGradientsProperty); }
-        private set { this.SetValue(ThemeGradientsPropertyKey, value); }
+        get => (Color[]?)this.GetValue(ThemeGradientsProperty);
+        private set => this.SetValue(ThemeGradientsPropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey ThemeGradientsPropertyKey =
@@ -634,8 +631,8 @@ public class ColorGallery : Control
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Values get regenerated.")]
     public Color[]? StandardGradients
     {
-        get { return (Color[]?)this.GetValue(StandardGradientsProperty); }
-        private set { this.SetValue(StandardGradientsPropertyKey, value); }
+        get => (Color[]?)this.GetValue(StandardGradientsProperty);
+        private set => this.SetValue(StandardGradientsPropertyKey, value);
     }
 
     private static readonly DependencyPropertyKey StandardGradientsPropertyKey =
@@ -655,15 +652,9 @@ public class ColorGallery : Control
     /// </summary>
     public event RoutedEventHandler SelectedColorChanged
     {
-        add
-        {
-            this.AddHandler(SelectedColorChangedEvent, value);
-        }
+        add => this.AddHandler(SelectedColorChangedEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(SelectedColorChangedEvent, value);
-        }
+        remove => this.RemoveHandler(SelectedColorChangedEvent, value);
     }
 
     /// <summary>

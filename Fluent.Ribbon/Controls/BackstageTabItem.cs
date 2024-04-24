@@ -73,13 +73,7 @@ public class BackstageTabItem : ContentControl, IHeaderedControl, IKeyTipedContr
     /// <summary>
     /// Gets parent tab control
     /// </summary>
-    internal BackstageTabControl? TabControlParent
-    {
-        get
-        {
-            return ItemsControlHelper.ItemsControlFromItemContainer(this) as BackstageTabControl;
-        }
-    }
+    internal BackstageTabControl? TabControlParent => ItemsControlHelper.ItemsControlFromItemContainer(this) as BackstageTabControl;
 
     /// <summary>
     /// Gets or sets tab items text

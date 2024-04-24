@@ -220,8 +220,8 @@ public class RibbonTabsContainer : Panel, IScrollInfo
     /// <inheritdoc />
     public ScrollViewer? ScrollOwner
     {
-        get { return this.ScrollData.ScrollOwner; }
-        set { this.ScrollData.ScrollOwner = value; }
+        get => this.ScrollData.ScrollOwner;
+        set => this.ScrollData.ScrollOwner = value;
     }
 
     /// <inheritdoc />

@@ -34,8 +34,8 @@
 
         public ObservableCollection<ThemeResource> ThemeResources
         {
-            get { return (ObservableCollection<ThemeResource>)this.GetValue(ThemeResourcesProperty); }
-            set { this.SetValue(ThemeResourcesProperty, value); }
+            get => (ObservableCollection<ThemeResource>)this.GetValue(ThemeResourcesProperty);
+            set => this.SetValue(ThemeResourcesProperty, value);
         }
 
         public class ThemeResource

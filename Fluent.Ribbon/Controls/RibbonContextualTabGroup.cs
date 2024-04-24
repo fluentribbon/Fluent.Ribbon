@@ -38,8 +38,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemSelectedForeground
     {
-        get { return (Brush?)this.GetValue(TabItemSelectedForegroundProperty); }
-        set { this.SetValue(TabItemSelectedForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemSelectedForegroundProperty);
+        set => this.SetValue(TabItemSelectedForegroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TabItemMouseOverForeground"/> dependency property.</summary>
@@ -50,8 +50,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemMouseOverForeground
     {
-        get { return (Brush?)this.GetValue(TabItemMouseOverForegroundProperty); }
-        set { this.SetValue(TabItemMouseOverForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemMouseOverForegroundProperty);
+        set => this.SetValue(TabItemMouseOverForegroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="TabItemSelectedMouseOverForeground"/> dependency property.</summary>
@@ -62,8 +62,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Brush? TabItemSelectedMouseOverForeground
     {
-        get { return (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty); }
-        set { this.SetValue(TabItemSelectedMouseOverForegroundProperty, value); }
+        get => (Brush?)this.GetValue(TabItemSelectedMouseOverForegroundProperty);
+        set => this.SetValue(TabItemSelectedMouseOverForegroundProperty, value);
     }
 
     /// <summary>
@@ -71,8 +71,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public string Header
     {
-        get { return (string)this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => (string)this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -99,8 +99,8 @@ public class RibbonContextualTabGroup : Control
     /// </summary>
     public Visibility InnerVisibility
     {
-        get { return (Visibility)this.GetValue(InnerVisibilityProperty); }
-        private set { this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value)); }
+        get => (Visibility)this.GetValue(InnerVisibilityProperty);
+        private set => this.SetValue(InnerVisibilityPropertyKey, VisibilityBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey InnerVisibilityPropertyKey =

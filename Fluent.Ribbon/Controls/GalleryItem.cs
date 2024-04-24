@@ -26,8 +26,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -44,8 +44,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     /// </summary>
     public bool IsPressed
     {
-        get { return (bool)this.GetValue(IsPressedProperty); }
-        private set { this.SetValue(IsPressedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsPressedProperty);
+        private set => this.SetValue(IsPressedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsPressedPropertyKey =
@@ -60,8 +60,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     /// </summary>
     public string? Group
     {
-        get { return (string?)this.GetValue(GroupProperty); }
-        set { this.SetValue(GroupProperty, value); }
+        get => (string?)this.GetValue(GroupProperty);
+        set => this.SetValue(GroupProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Group"/> dependency property.</summary>
@@ -74,8 +74,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     /// </summary>
     public bool IsDefinitive
     {
-        get { return (bool)this.GetValue(IsDefinitiveProperty); }
-        set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefinitiveProperty);
+        set => this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -92,15 +92,9 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Bindable(true)]
     public ICommand? Command
     {
-        get
-        {
-            return (ICommand?)this.GetValue(CommandProperty);
-        }
+        get => (ICommand?)this.GetValue(CommandProperty);
 
-        set
-        {
-            this.SetValue(CommandProperty, value);
-        }
+        set => this.SetValue(CommandProperty, value);
     }
 
     /// <inheritdoc />
@@ -109,15 +103,9 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Category("Action")]
     public object? CommandParameter
     {
-        get
-        {
-            return this.GetValue(CommandParameterProperty);
-        }
+        get => this.GetValue(CommandParameterProperty);
 
-        set
-        {
-            this.SetValue(CommandParameterProperty, value);
-        }
+        set => this.SetValue(CommandParameterProperty, value);
     }
 
     /// <inheritdoc />
@@ -125,15 +113,9 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Category("Action")]
     public IInputElement? CommandTarget
     {
-        get
-        {
-            return (IInputElement?)this.GetValue(CommandTargetProperty);
-        }
+        get => (IInputElement?)this.GetValue(CommandTargetProperty);
 
-        set
-        {
-            this.SetValue(CommandTargetProperty, value);
-        }
+        set => this.SetValue(CommandTargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
@@ -153,8 +135,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Category("Action")]
     public ICommand? PreviewCommand
     {
-        get { return (ICommand?)this.GetValue(PreviewCommandProperty); }
-        set { this.SetValue(PreviewCommandProperty, value); }
+        get => (ICommand?)this.GetValue(PreviewCommandProperty);
+        set => this.SetValue(PreviewCommandProperty, value);
     }
 
     /// <summary>Identifies the <see cref="PreviewCommand"/> dependency property.</summary>
@@ -169,8 +151,8 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Category("Action")]
     public ICommand? CancelPreviewCommand
     {
-        get { return (ICommand?)this.GetValue(CancelPreviewCommandProperty); }
-        set { this.SetValue(CancelPreviewCommandProperty, value); }
+        get => (ICommand?)this.GetValue(CancelPreviewCommandProperty);
+        set => this.SetValue(CancelPreviewCommandProperty, value);
     }
 
     /// <summary>Identifies the <see cref="CancelPreviewCommand"/> dependency property.</summary>
@@ -242,15 +224,9 @@ public class GalleryItem : ListBoxItem, IKeyTipedControl, ICommandSource
     [Category("Behavior")]
     public event RoutedEventHandler Click
     {
-        add
-        {
-            this.AddHandler(ClickEvent, value);
-        }
+        add => this.AddHandler(ClickEvent, value);
 
-        remove
-        {
-            this.RemoveHandler(ClickEvent, value);
-        }
+        remove => this.RemoveHandler(ClickEvent, value);
     }
 
     /// <summary>

@@ -60,10 +60,7 @@ public class KeyTipAdorner : Adorner
     /// <summary>
     /// Determines whether at least one on the adorners in the chain is alive
     /// </summary>
-    public bool IsAdornerChainAlive
-    {
-        get { return this.isAttaching || this.attached || this.childAdorner?.IsAdornerChainAlive == true; }
-    }
+    public bool IsAdornerChainAlive => this.isAttaching || this.attached || this.childAdorner?.IsAdornerChainAlive == true;
 
     /// <summary>
     /// Returns whether any key tips are visibile.
@@ -76,26 +73,15 @@ public class KeyTipAdorner : Adorner
     /// <summary>
     /// Gets the currently active <see cref="KeyTipAdorner"/> by following eventually present child adorners.
     /// </summary>
-    public KeyTipAdorner ActiveKeyTipAdorner
-    {
-        get
-        {
-            return this.childAdorner?.IsAdornerChainAlive == true
-                ? this.childAdorner.ActiveKeyTipAdorner
-                : this;
-        }
-    }
+    public KeyTipAdorner ActiveKeyTipAdorner =>
+        this.childAdorner?.IsAdornerChainAlive == true
+            ? this.childAdorner.ActiveKeyTipAdorner
+            : this;
 
     /// <summary>
     /// Gets a copied list of the currently available <see cref="KeyTipInformation"/>.
     /// </summary>
-    public IReadOnlyList<KeyTipInformation> KeyTipInformations
-    {
-        get
-        {
-            return this.keyTipInformations.ToList();
-        }
-    }
+    public IReadOnlyList<KeyTipInformation> KeyTipInformations => this.keyTipInformations.ToList();
 
     #endregion
 

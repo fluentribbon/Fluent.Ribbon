@@ -50,8 +50,8 @@ public class ContextMenu : System.Windows.Controls.ContextMenu
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>

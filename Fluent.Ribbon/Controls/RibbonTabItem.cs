@@ -60,8 +60,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Brush? ActiveTabBackground
     {
-        get { return (Brush?)this.GetValue(ActiveTabBackgroundProperty); }
-        set { this.SetValue(ActiveTabBackgroundProperty, value); }
+        get => (Brush?)this.GetValue(ActiveTabBackgroundProperty);
+        set => this.SetValue(ActiveTabBackgroundProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ActiveTabBackground"/> dependency property.</summary>
@@ -73,8 +73,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Brush? ActiveTabBorderBrush
     {
-        get { return (Brush?)this.GetValue(ActiveTabBorderBrushProperty); }
-        set { this.SetValue(ActiveTabBorderBrushProperty, value); }
+        get => (Brush?)this.GetValue(ActiveTabBorderBrushProperty);
+        set => this.SetValue(ActiveTabBorderBrushProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ActiveTabBorderBrush"/> dependency property.</summary>
@@ -88,8 +88,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -110,8 +110,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public string? ReduceOrder
     {
-        get { return this.groupsInnerContainer.ReduceOrder; }
-        set { this.groupsInnerContainer.ReduceOrder = value; }
+        get => this.groupsInnerContainer.ReduceOrder;
+        set => this.groupsInnerContainer.ReduceOrder = value;
     }
 
     #region IsContextual
@@ -121,8 +121,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool IsContextual
     {
-        get { return (bool)this.GetValue(IsContextualProperty); }
-        private set { this.SetValue(IsContextualPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsContextualProperty);
+        private set => this.SetValue(IsContextualPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsContextualPropertyKey =
@@ -140,15 +140,9 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     [Category("Appearance")]
     public bool IsSelected
     {
-        get
-        {
-            return (bool)this.GetValue(IsSelectedProperty);
-        }
+        get => (bool)this.GetValue(IsSelectedProperty);
 
-        set
-        {
-            this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
-        }
+        set => this.SetValue(IsSelectedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>
@@ -167,8 +161,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public Thickness HeaderPadding
     {
-        get { return (Thickness)this.GetValue(HeaderPaddingProperty); }
-        set { this.SetValue(HeaderPaddingProperty, value); }
+        get => (Thickness)this.GetValue(HeaderPaddingProperty);
+        set => this.SetValue(HeaderPaddingProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
@@ -183,8 +177,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public double SeparatorOpacity
     {
-        get { return (double)this.GetValue(SeparatorOpacityProperty); }
-        set { this.SetValue(SeparatorOpacityProperty, value); }
+        get => (double)this.GetValue(SeparatorOpacityProperty);
+        set => this.SetValue(SeparatorOpacityProperty, value);
     }
 
     /// <summary>
@@ -192,8 +186,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public RibbonContextualTabGroup? Group
     {
-        get { return (RibbonContextualTabGroup?)this.GetValue(GroupProperty); }
-        set { this.SetValue(GroupProperty, value); }
+        get => (RibbonContextualTabGroup?)this.GetValue(GroupProperty);
+        set => this.SetValue(GroupProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Group"/> dependency property.</summary>
@@ -223,8 +217,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool HasLeftGroupBorder
     {
-        get { return (bool)this.GetValue(HasLeftGroupBorderProperty); }
-        set { this.SetValue(HasLeftGroupBorderProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasLeftGroupBorderProperty);
+        set => this.SetValue(HasLeftGroupBorderProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasLeftGroupBorder"/> dependency property.</summary>
@@ -236,8 +230,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool HasRightGroupBorder
     {
-        get { return (bool)this.GetValue(HasRightGroupBorderProperty); }
-        set { this.SetValue(HasRightGroupBorderProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(HasRightGroupBorderProperty);
+        set => this.SetValue(HasRightGroupBorderProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="HasRightGroupBorder"/> dependency property.</summary>
@@ -342,8 +336,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -352,8 +346,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -362,8 +356,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -423,8 +417,8 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =

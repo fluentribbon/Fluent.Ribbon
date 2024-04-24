@@ -69,8 +69,8 @@ public class QuickAccessMenuItem : MenuItem
     /// </summary>
     public UIElement? Target
     {
-        get { return (UIElement?)this.GetValue(TargetProperty); }
-        set { this.SetValue(TargetProperty, value); }
+        get => (UIElement?)this.GetValue(TargetProperty);
+        set => this.SetValue(TargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Target"/> dependency property.</summary>

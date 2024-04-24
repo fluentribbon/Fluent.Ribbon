@@ -18,8 +18,8 @@ public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
     /// </summary>
     public string? Title
     {
-        get { return (string?)this.GetValue(TitleProperty); }
-        set { this.SetValue(TitleProperty, value); }
+        get => (string?)this.GetValue(TitleProperty);
+        set => this.SetValue(TitleProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Title"/> dependency property.</summary>
@@ -35,8 +35,8 @@ public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
     /// </summary>
     public string? Value
     {
-        get { return (string?)this.GetValue(ValueProperty); }
-        set { this.SetValue(ValueProperty, value); }
+        get => (string?)this.GetValue(ValueProperty);
+        set => this.SetValue(ValueProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Value"/> dependency property.</summary>
@@ -59,8 +59,8 @@ public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
     /// </summary>
     public bool IsChecked
     {
-        get { return (bool)this.GetValue(IsCheckedProperty); }
-        set { this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsCheckedProperty);
+        set => this.SetValue(IsCheckedProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsChecked"/> dependency property.</summary>

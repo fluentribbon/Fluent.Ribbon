@@ -44,8 +44,8 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
     /// </summary>
     public Style? SeparatorStyle
     {
-        get { return (Style?)this.GetValue(SeparatorStyleProperty); }
-        set { this.SetValue(SeparatorStyleProperty, value); }
+        get => (Style?)this.GetValue(SeparatorStyleProperty);
+        set => this.SetValue(SeparatorStyleProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SeparatorStyle"/> dependency property.</summary>
@@ -69,8 +69,8 @@ public class RibbonToolBar : RibbonControl, IRibbonSizeChangedSink, ISimplifiedS
     /// </summary>
     public bool IsSimplified
     {
-        get { return (bool)this.GetValue(IsSimplifiedProperty); }
-        private set { this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSimplifiedProperty);
+        private set => this.SetValue(IsSimplifiedPropertyKey, BooleanBoxes.Box(value));
     }
 
     private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =

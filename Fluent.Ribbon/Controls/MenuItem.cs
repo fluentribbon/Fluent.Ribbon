@@ -41,8 +41,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -55,8 +55,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -69,8 +69,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -94,8 +94,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public string? Description
     {
-        get { return (string?)this.GetValue(DescriptionProperty); }
-        set { this.SetValue(DescriptionProperty, value); }
+        get => (string?)this.GetValue(DescriptionProperty);
+        set => this.SetValue(DescriptionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Description"/> dependency property.</summary>
@@ -109,8 +109,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public bool IsDropDownOpen
     {
-        get { return this.IsSubmenuOpen; }
-        set { this.IsSubmenuOpen = value; }
+        get => this.IsSubmenuOpen;
+        set => this.IsSubmenuOpen = value;
     }
 
     #endregion
@@ -122,8 +122,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public bool IsDefinitive
     {
-        get { return (bool)this.GetValue(IsDefinitiveProperty); }
-        set { this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsDefinitiveProperty);
+        set => this.SetValue(IsDefinitiveProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
@@ -139,8 +139,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public ContextMenuResizeMode ResizeMode
     {
-        get { return (ContextMenuResizeMode)this.GetValue(ResizeModeProperty); }
-        set { this.SetValue(ResizeModeProperty, value); }
+        get => (ContextMenuResizeMode)this.GetValue(ResizeModeProperty);
+        set => this.SetValue(ResizeModeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
@@ -157,8 +157,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public double MaxDropDownHeight
     {
-        get { return (double)this.GetValue(MaxDropDownHeightProperty); }
-        set { this.SetValue(MaxDropDownHeightProperty, value); }
+        get => (double)this.GetValue(MaxDropDownHeightProperty);
+        set => this.SetValue(MaxDropDownHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
@@ -174,8 +174,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public bool IsSplit
     {
-        get { return (bool)this.GetValue(IsSplitProperty); }
-        set { this.SetValue(IsSplitProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(IsSplitProperty);
+        set => this.SetValue(IsSplitProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="IsSplit"/> dependency property.</summary>
@@ -189,15 +189,15 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public string? GroupName
     {
-        get { return (string?)this.GetValue(GroupNameProperty); }
-        set { this.SetValue(GroupNameProperty, value); }
+        get => (string?)this.GetValue(GroupNameProperty);
+        set => this.SetValue(GroupNameProperty, value);
     }
 
     /// <inheritdoc />
     bool? IToggleButton.IsChecked
     {
-        get { return this.IsChecked; }
-        set { this.IsChecked = value == true; }
+        get => this.IsChecked;
+        set => this.IsChecked = value == true;
     }
 
     /// <summary>Identifies the <see cref="GroupName"/> dependency property.</summary>
@@ -278,8 +278,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// </summary>
     public bool RecognizesAccessKey
     {
-        get { return (bool)this.GetValue(RecognizesAccessKeyProperty); }
-        set { this.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(RecognizesAccessKeyProperty);
+        set => this.SetValue(RecognizesAccessKeyProperty, BooleanBoxes.Box(value));
     }
 
     #region QuickAccess
@@ -376,8 +376,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

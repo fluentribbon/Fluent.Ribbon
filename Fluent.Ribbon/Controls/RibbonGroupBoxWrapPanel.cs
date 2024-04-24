@@ -112,8 +112,8 @@ public class RibbonGroupBoxWrapPanel : Panel
     [TypeConverter(typeof(LengthConverter))]
     public double ItemWidth
     {
-        get { return (double)this.GetValue(ItemWidthProperty); }
-        set { this.SetValue(ItemWidthProperty, value); }
+        get => (double)this.GetValue(ItemWidthProperty);
+        set => this.SetValue(ItemWidthProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ItemHeight"/> dependency property.</summary>
@@ -135,8 +135,8 @@ public class RibbonGroupBoxWrapPanel : Panel
     [TypeConverter(typeof(LengthConverter))]
     public double ItemHeight
     {
-        get { return (double)this.GetValue(ItemHeightProperty); }
-        set { this.SetValue(ItemHeightProperty, value); }
+        get => (double)this.GetValue(ItemHeightProperty);
+        set => this.SetValue(ItemHeightProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Orientation"/> dependency property.</summary>
@@ -156,8 +156,8 @@ public class RibbonGroupBoxWrapPanel : Panel
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)this.GetValue(OrientationProperty); }
-        set { this.SetValue(OrientationProperty, value); }
+        get => (Orientation)this.GetValue(OrientationProperty);
+        set => this.SetValue(OrientationProperty, value);
     }
 
     private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -194,7 +194,7 @@ public class RibbonGroupBoxWrapPanel : Panel
 
         internal double Width
         {
-            get { return this.orientation == Orientation.Horizontal ? this.U : this.V; }
+            get => this.orientation == Orientation.Horizontal ? this.U : this.V;
 
             set
             {
@@ -211,7 +211,7 @@ public class RibbonGroupBoxWrapPanel : Panel
 
         internal double Height
         {
-            get { return this.orientation == Orientation.Horizontal ? this.V : this.U; }
+            get => this.orientation == Orientation.Horizontal ? this.V : this.U;
 
             set
             {

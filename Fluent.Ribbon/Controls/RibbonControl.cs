@@ -31,8 +31,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public string? KeyTip
     {
-        get { return (string?)this.GetValue(KeyTipProperty); }
-        set { this.SetValue(KeyTipProperty, value); }
+        get => (string?)this.GetValue(KeyTipProperty);
+        set => this.SetValue(KeyTipProperty, value);
     }
 
     /// <summary>
@@ -48,8 +48,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public object? Header
     {
-        get { return this.GetValue(HeaderProperty); }
-        set { this.SetValue(HeaderProperty, value); }
+        get => this.GetValue(HeaderProperty);
+        set => this.SetValue(HeaderProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Header"/> dependency property.</summary>
@@ -59,8 +59,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public DataTemplate? HeaderTemplate
     {
-        get { return (DataTemplate?)this.GetValue(HeaderTemplateProperty); }
-        set { this.SetValue(HeaderTemplateProperty, value); }
+        get => (DataTemplate?)this.GetValue(HeaderTemplateProperty);
+        set => this.SetValue(HeaderTemplateProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplate"/> dependency property.</summary>
@@ -70,8 +70,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public DataTemplateSelector? HeaderTemplateSelector
     {
-        get { return (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty); }
-        set { this.SetValue(HeaderTemplateSelectorProperty, value); }
+        get => (DataTemplateSelector?)this.GetValue(HeaderTemplateSelectorProperty);
+        set => this.SetValue(HeaderTemplateSelectorProperty, value);
     }
 
     /// <summary>Identifies the <see cref="HeaderTemplateSelector"/> dependency property.</summary>
@@ -85,8 +85,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public object? Icon
     {
-        get { return this.GetValue(IconProperty); }
-        set { this.SetValue(IconProperty, value); }
+        get => this.GetValue(IconProperty);
+        set => this.SetValue(IconProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Icon"/> dependency property.</summary>
@@ -104,15 +104,9 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     [Bindable(true)]
     public ICommand Command
     {
-        get
-        {
-            return (ICommand)this.GetValue(CommandProperty);
-        }
+        get => (ICommand)this.GetValue(CommandProperty);
 
-        set
-        {
-            this.SetValue(CommandProperty, value);
-        }
+        set => this.SetValue(CommandProperty, value);
     }
 
     /// <inheritdoc />
@@ -121,15 +115,9 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     [Category("Action")]
     public object CommandParameter
     {
-        get
-        {
-            return this.GetValue(CommandParameterProperty);
-        }
+        get => this.GetValue(CommandParameterProperty);
 
-        set
-        {
-            this.SetValue(CommandParameterProperty, value);
-        }
+        set => this.SetValue(CommandParameterProperty, value);
     }
 
     /// <inheritdoc />
@@ -137,15 +125,9 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     [Category("Action")]
     public IInputElement CommandTarget
     {
-        get
-        {
-            return (IInputElement)this.GetValue(CommandTargetProperty);
-        }
+        get => (IInputElement)this.GetValue(CommandTargetProperty);
 
-        set
-        {
-            this.SetValue(CommandTargetProperty, value);
-        }
+        set => this.SetValue(CommandTargetProperty, value);
     }
 
     /// <summary>Identifies the <see cref="CommandParameter"/> dependency property.</summary>
@@ -220,8 +202,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public RibbonControlSize Size
     {
-        get { return (RibbonControlSize)this.GetValue(SizeProperty); }
-        set { this.SetValue(SizeProperty, value); }
+        get => (RibbonControlSize)this.GetValue(SizeProperty);
+        set => this.SetValue(SizeProperty, value);
     }
 
     /// <summary>Identifies the <see cref="Size"/> dependency property.</summary>
@@ -234,8 +216,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public RibbonControlSizeDefinition SizeDefinition
     {
-        get { return (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty); }
-        set { this.SetValue(SizeDefinitionProperty, value); }
+        get => (RibbonControlSizeDefinition)this.GetValue(SizeDefinitionProperty);
+        set => this.SetValue(SizeDefinitionProperty, value);
     }
 
     /// <summary>Identifies the <see cref="SizeDefinition"/> dependency property.</summary>
@@ -362,8 +344,8 @@ public abstract class RibbonControl : Control, ICommandSource, IQuickAccessItemP
     /// <inheritdoc />
     public bool CanAddToQuickAccessToolBar
     {
-        get { return (bool)this.GetValue(CanAddToQuickAccessToolBarProperty); }
-        set { this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value)); }
+        get => (bool)this.GetValue(CanAddToQuickAccessToolBarProperty);
+        set => this.SetValue(CanAddToQuickAccessToolBarProperty, BooleanBoxes.Box(value));
     }
 
     /// <summary>Identifies the <see cref="CanAddToQuickAccessToolBar"/> dependency property.</summary>

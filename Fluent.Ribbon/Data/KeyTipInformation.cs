@@ -97,8 +97,8 @@ public class KeyTipInformation
     /// </summary>
     public Visibility Visibility
     {
-        get { return this.KeyTip.Visibility; }
-        set { this.KeyTip.Visibility = value; }
+        get => this.KeyTip.Visibility;
+        set => this.KeyTip.Visibility = value;
     }
 
     /// <summary>

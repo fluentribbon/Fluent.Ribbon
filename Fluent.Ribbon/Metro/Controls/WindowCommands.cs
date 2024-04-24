@@ -174,8 +174,8 @@ public class WindowCommands : ItemsControl, IDisposable
     /// </summary>
     public Visibility ItemsPanelVisibility
     {
-        get { return (Visibility)this.GetValue(ItemsPanelVisibilityProperty); }
-        set { this.SetValue(ItemsPanelVisibilityProperty, value); }
+        get => (Visibility)this.GetValue(ItemsPanelVisibilityProperty);
+        set => this.SetValue(ItemsPanelVisibilityProperty, value);
     }
 
     /// <summary>
@@ -183,8 +183,8 @@ public class WindowCommands : ItemsControl, IDisposable
     /// </summary>
     public Brush ButtonBrush
     {
-        get { return (Brush)this.GetValue(ButtonBrushProperty); }
-        set { this.SetValue(ButtonBrushProperty, value); }
+        get => (Brush)this.GetValue(ButtonBrushProperty);
+        set => this.SetValue(ButtonBrushProperty, value);
     }
 
     /// <summary>Identifies the <see cref="ButtonBrush"/> dependency property.</summary>
