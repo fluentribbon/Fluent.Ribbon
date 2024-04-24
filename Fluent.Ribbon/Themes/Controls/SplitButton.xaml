@@ -15,7 +15,6 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonSplitButton}" />
-        <Setter Property="Width" Value="Auto" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -44,6 +43,7 @@
                 <Setter Property="Fluent:KeyTip.Margin" Value="0,0,-5,0" />
                 <Setter Property="Fluent:KeyTip.VerticalAlignment" Value="Center" />
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
+                <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
@@ -80,8 +80,6 @@
                     <Fluent:ToggleButton x:Name="PART_Button"
                                          Header="{TemplateBinding Header}"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
-                                         Width="Auto"
-                                         Height="Auto"
                                          Margin="0 0 0 0"
                                          Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
@@ -210,8 +208,6 @@
                                          Header="{TemplateBinding Header}"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.InnerButton}"
                                          Grid.Column="0"
-                                         Width="Auto"
-                                         Height="Auto"
                                          Margin="0 0 0 0"
                                          Padding="{TemplateBinding Padding}"
                                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
@@ -347,11 +343,9 @@
                 <Setter Property="Fluent:KeyTip.Margin" Value="-5,0,0,0" />
                 <Setter Property="Fluent:KeyTip.VerticalAlignment" Value="Center" />
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
-                <Setter Property="Height" Value="Auto" />
                 <Setter Property="Padding" Value="6 0" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -366,19 +360,17 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonInnerButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="0"
                 SnapsToDevicePixels="False">
-            <Grid Height="Auto">
+            <Grid>
                 <Rectangle x:Name="rectangle"
                            StrokeThickness="0"
                            Visibility="Collapsed" />
                 <StackPanel x:Name="stackPanel"
-                            Width="Auto"
                             HorizontalAlignment="Stretch"
                             Orientation="Vertical"
                             SnapsToDevicePixels="True">
@@ -441,7 +433,6 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="Transparent"
@@ -449,8 +440,6 @@
                 BorderThickness="0"
                 SnapsToDevicePixels="False">
             <StackPanel x:Name="stackPanel"
-                        Width="Auto"
-                        Height="Auto"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Stretch"
                         Orientation="Horizontal">

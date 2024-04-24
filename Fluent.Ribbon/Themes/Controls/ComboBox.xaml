@@ -17,14 +17,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonComboButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Height="Auto"
-                  HorizontalAlignment="Right">
+            <Grid HorizontalAlignment="Right">
                 <Path x:Name="path"
                       Width="7"
                       Height="5"
@@ -74,9 +72,7 @@
             </ResourceDictionary>
         </ControlTemplate.Resources>
 
-        <Grid Width="Auto"
-              Height="Auto"
-              Background="Transparent">
+        <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -125,7 +121,6 @@
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
                                          Grid.ColumnSpan="2"
-                                         Height="Auto"
                                          MinHeight="0"
                                          Margin="0"
                                          VerticalAlignment="Stretch"
@@ -145,8 +140,6 @@
                                       ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       IsHitTestVisible="False" />
                     <Image x:Name="PART_SelectedImage"
-                           Width="Auto"
-                           Height="Auto"
                            Margin="0"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"

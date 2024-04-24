@@ -43,7 +43,6 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGalleryToggleButton}" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
@@ -61,6 +60,7 @@
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header.Simplified}" />
+                <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
@@ -82,15 +82,13 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGalleryToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="1">
-            <Grid Height="Auto">
+            <Grid>
                 <StackPanel x:Name="stackPanel"
-                            Width="Auto"
                             Orientation="Vertical">
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="2"
@@ -150,15 +148,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <Grid x:Name="stackPanel"
-                  Width="Auto"
-                  Height="Auto"
                   Margin="{TemplateBinding Padding}"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
@@ -346,7 +341,6 @@
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch">
             <Border x:Name="border"
-                    Width="Auto"
                     Height="{TemplateBinding GalleryPanelContainerHeight}"
                     Margin="0 0 0 0"
                     HorizontalAlignment="Stretch"
@@ -354,9 +348,7 @@
                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
-                <Grid Width="Auto"
-                      Height="Auto"
-                      Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
+                <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -412,7 +404,6 @@
                                                                   Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
                                                                   Grid.Row="0"
                                                                   Width="15"
-                                                                  Height="Auto"
                                                                   Margin="0 0 0 -0.5"
                                                                   Command="ScrollBar.PageUpCommand">
                                                         <Path Width="5"
@@ -426,7 +417,6 @@
                                                                   Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
                                                                   Grid.Row="1"
                                                                   Width="15"
-                                                                  Height="Auto"
                                                                   Margin="0 -0.5 0 0"
                                                                   Command="ScrollBar.PageDownCommand">
                                                         <Path Width="5"
@@ -511,7 +501,7 @@
                                 </Grid.RowDefinitions>
                                 <Border BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
                                         BorderThickness="{TemplateBinding BorderThickness}">
-                                    <Grid Width="Auto">
+                                    <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
@@ -525,7 +515,6 @@
                                             <Fluent:DropDownButton x:Name="PART_FilterDropDownButton"
                                                                    Header="{TemplateBinding SelectedFilterTitle}"
                                                                    Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}"
-                                                                   Height="Auto"
                                                                    HorizontalAlignment="Left"
                                                                    VerticalAlignment="Top" />
                                         </Border>

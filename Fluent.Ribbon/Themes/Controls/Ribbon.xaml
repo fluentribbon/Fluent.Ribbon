@@ -14,9 +14,7 @@
         <Border Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid x:Name="PART_LayoutRoot"
-                  Width="Auto"
-                  Height="Auto">
+            <Grid x:Name="PART_LayoutRoot">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />

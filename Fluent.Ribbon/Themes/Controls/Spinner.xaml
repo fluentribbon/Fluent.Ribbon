@@ -10,7 +10,6 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.SpinnerButton"
                      TargetType="{x:Type RepeatButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="Transparent"
@@ -49,8 +48,7 @@
     <!-- Spinner Style -->
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Spinner"
                      TargetType="{x:Type Fluent:Spinner}">
-        <Grid Width="Auto"
-              Height="22"
+        <Grid Height="22"
               Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -127,7 +125,6 @@
 
                     <Path x:Name="path1"
                           Grid.Column="1"
-                          Width="Auto"
                           Height="1"
                           Margin="0 0 -1 0"
                           HorizontalAlignment="Left"
@@ -225,9 +222,7 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Width="Auto"
-                  Height="Auto"
-                  Background="Transparent">
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -300,7 +295,6 @@
 
                         <Path x:Name="path1"
                               Grid.Column="1"
-                              Width="Auto"
                               Height="1"
                               Margin="-1 0 -1 -0.5"
                               HorizontalAlignment="Left"
@@ -421,7 +415,6 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner.Simplified}" />

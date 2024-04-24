@@ -8,7 +8,6 @@
         <Border Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
                 CornerRadius="{Binding Path=(Fluent:RibbonProperties.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
             <Border x:Name="OuterBorder"
-                    Height="Auto"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollViewer.Button.Background}"
@@ -57,7 +56,6 @@
                                                 IsHitTestVisible="True" />
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
-                                      Height="Auto"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineLeftCommand}"
@@ -102,7 +100,6 @@
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
-                                      Height="Auto"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
                                       Command="{x:Static ScrollBar.LineRightCommand}"
@@ -172,7 +169,6 @@
                                                 IsHitTestVisible="True" />
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
-                                      Height="Auto"
                                       Margin="0"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Stretch"
@@ -206,7 +202,6 @@
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
-                                      Height="Auto"
                                       Margin="0"
                                       HorizontalAlignment="Right"
                                       VerticalAlignment="Stretch"
@@ -269,7 +264,6 @@
                                     ContentTemplate="{TemplateBinding ContentTemplate}"
                                     IsHitTestVisible="True" />
             <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
-                          Width="Auto"
                           Height="12"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Top"
@@ -304,7 +298,6 @@
 
             </RepeatButton>
             <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
-                          Width="Auto"
                           Height="12"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Bottom"

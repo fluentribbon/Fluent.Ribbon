@@ -15,8 +15,6 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="1">
                         <Path x:Name="path"
-                              Width="Auto"
-                              Height="Auto"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
@@ -103,8 +101,6 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
                             BorderThickness="1">
                         <Path x:Name="path"
-                              Width="Auto"
-                              Height="Auto"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"

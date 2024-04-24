@@ -63,7 +63,6 @@
                 BorderBrush="Transparent"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <BulletDecorator x:Name="bulletDecorator"
-                             Height="Auto"
                              Margin="{TemplateBinding Padding}"
                              VerticalAlignment="Center"
                              Background="Transparent"
@@ -90,8 +89,7 @@
                                  Opacity="0" />
                     </Grid>
                 </BulletDecorator.Bullet>
-                <StackPanel Width="Auto"
-                            Margin="2 0 0 0"
+                <StackPanel Margin="2 0 0 0"
                             Orientation="Horizontal">
                     <Grid x:Name="iconImageGrid"
                           Margin="0 0 2 0"

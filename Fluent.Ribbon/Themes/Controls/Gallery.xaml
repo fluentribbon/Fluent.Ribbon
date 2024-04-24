@@ -44,13 +44,9 @@
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                         BorderThickness="1"
                                         SnapsToDevicePixels="True">
-                                    <Grid Width="Auto"
-                                          Height="Auto"
-                                          HorizontalAlignment="Stretch"
+                                    <Grid HorizontalAlignment="Stretch"
                                           VerticalAlignment="Top">
-                                        <Border Width="Auto"
-                                                Height="Auto"
-                                                VerticalAlignment="Top"
+                                        <Border VerticalAlignment="Top"
                                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                                 BorderThickness="1" />
                                         <Grid Margin="1"
@@ -58,7 +54,6 @@
                                               VerticalAlignment="Top">
                                             <Rectangle Grid.RowSpan="2"
                                                        Width="1"
-                                                       Height="Auto"
                                                        Margin="24 0 0 0"
                                                        HorizontalAlignment="Left"
                                                        VerticalAlignment="Stretch"
@@ -106,7 +101,7 @@
         <Border x:Name="layoutRoot"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Width="Auto">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -119,7 +114,6 @@
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
                                            Header="{TemplateBinding SelectedFilterTitle}"
                                            Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}"
-                                           Height="Auto"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top" />
                 </Border>

@@ -183,8 +183,7 @@
                         <Separator x:Name="separator">
                             <Separator.Template>
                                 <ControlTemplate>
-                                    <Rectangle Width="Auto"
-                                               Height="1"
+                                    <Rectangle Height="1"
                                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}" />
                                 </ControlTemplate>
                             </Separator.Template>

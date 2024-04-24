@@ -125,8 +125,7 @@
                 <ContentControl Margin="2 0 0 0"
                                 Foreground="{TemplateBinding Foreground}"
                                 IsTabStop="False">
-                    <StackPanel Width="Auto"
-                                Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
                         <Grid x:Name="iconImageGrid"
                               Margin="0 0 2 0"
                               HorizontalAlignment="Center"

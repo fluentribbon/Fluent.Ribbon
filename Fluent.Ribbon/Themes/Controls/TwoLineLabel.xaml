@@ -30,7 +30,6 @@
 
                 <Border x:Name="border"
                         Width="5"
-                        Height="Auto"
                         Margin="0"
                         HorizontalAlignment="Center">
                     <Path x:Name="path"

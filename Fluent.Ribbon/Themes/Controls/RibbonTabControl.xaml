@@ -40,13 +40,9 @@
                                 BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                                 BorderThickness="1"
                                 SnapsToDevicePixels="True">
-                            <Grid Width="Auto"
-                                  Height="Auto"
-                                  HorizontalAlignment="Stretch"
+                            <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">
-                                <Border Width="Auto"
-                                        Height="Auto"
-                                        VerticalAlignment="Top"
+                                <Border VerticalAlignment="Top"
                                         BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                         BorderThickness="1" />
                                 <Grid Margin="1"
@@ -104,8 +100,6 @@
                      TargetType="Fluent:MenuItem">
         <Grid Background="{TemplateBinding Background}">
             <ContentPresenter x:Name="textBlock"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
@@ -153,7 +147,6 @@
                                                         IsHitTestVisible="True" />
                                 <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                               Width="13"
-                                              Height="Auto"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Stretch"
                                               Command="{x:Static ScrollBar.LineLeftCommand}"
@@ -186,7 +179,6 @@
                                 </RepeatButton>
                                 <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                               Width="13"
-                                              Height="Auto"
                                               HorizontalAlignment="Right"
                                               VerticalAlignment="Stretch"
                                               Command="{x:Static ScrollBar.LineRightCommand}"
@@ -226,7 +218,6 @@
         </ControlTemplate.Resources>
 
         <Grid x:Name="ContentGrid"
-              Height="Auto"
               VerticalAlignment="Top"
               Background="{TemplateBinding Background}"
               KeyboardNavigation.TabNavigation="Local">
@@ -242,7 +233,6 @@
 
             <Grid x:Name="TabsGrid"
                   Grid.Row="0"
-                  Width="Auto"
                   Margin="0"
                   HorizontalAlignment="Stretch"
                   Background="{DynamicResource Fluent.Ribbon.Brushes.RibbonTabControl.TabsGrid.Background}"
@@ -263,7 +253,6 @@
 
                 <Fluent:RibbonScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.RibbonTabScrollViewer}"
                                            Grid.Column="1"
-                                           Width="Auto"
                                            Margin="0"
                                            HorizontalAlignment="Left"
                                            HorizontalScrollBarVisibility="Auto"
@@ -272,7 +261,6 @@
                                            VerticalScrollBarVisibility="Disabled"
                                            Visibility="{Binding AreTabHeadersVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:RibbonTabsContainer x:Name="PART_TabsContainer"
-                                                Height="Auto"
                                                 HorizontalAlignment="Stretch"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.TabIndex="1" />

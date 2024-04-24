@@ -14,7 +14,6 @@
                     <Grid>
                         <Rectangle Grid.RowSpan="2"
                                    Width="1"
-                                   Height="Auto"
                                    Margin="24 0 0 0"
                                    HorizontalAlignment="Left"
                                    Fill="{x:Null}"

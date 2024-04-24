@@ -57,7 +57,6 @@
         </Setter>
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonDropDownButton}" />
-        <Setter Property="Width" Value="Auto" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
@@ -77,13 +76,13 @@
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.DropDownButton.Header.Simplified}" />
+                <Setter Property="Width" Value="Auto" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.DropDownButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -103,14 +102,12 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    Height="Auto"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
                 <StackPanel x:Name="stackPanel"
-                            Width="Auto"
                             Margin="{TemplateBinding Padding}"
                             Orientation="Vertical">
                     <Fluent:IconPresenter x:Name="iconImage"
@@ -200,15 +197,12 @@
         </ControlTemplate.Resources>
         <Grid>
             <Border x:Name="PART_ButtonBorder"
-                    Height="Auto"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
                     Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}">
                 <Grid x:Name="stackPanel"
-                      Width="Auto"
-                      Height="Auto"
                       Margin="{TemplateBinding Padding}"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch">

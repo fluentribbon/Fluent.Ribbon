@@ -178,7 +178,6 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Height" Value="Auto" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="4 0 4 0" />

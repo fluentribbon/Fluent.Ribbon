@@ -99,8 +99,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="Description"/> dependency property.</summary>
-    public static readonly DependencyProperty DescriptionProperty =
-        DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(nameof(Description), typeof(string), typeof(MenuItem), new PropertyMetadata(default(string)));
 
     #endregion
 
@@ -127,8 +126,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="IsDefinitive"/> dependency property.</summary>
-    public static readonly DependencyProperty IsDefinitiveProperty =
-        DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+    public static readonly DependencyProperty IsDefinitiveProperty = DependencyProperty.Register(nameof(IsDefinitive), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     #endregion
 
@@ -144,9 +142,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="ResizeMode"/> dependency property.</summary>
-    public static readonly DependencyProperty ResizeModeProperty =
-        DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode),
-            typeof(MenuItem), new PropertyMetadata(ContextMenuResizeMode.None));
+    public static readonly DependencyProperty ResizeModeProperty = DependencyProperty.Register(nameof(ResizeMode), typeof(ContextMenuResizeMode), typeof(MenuItem), new PropertyMetadata(ContextMenuResizeMode.None));
 
     #endregion
 
@@ -162,8 +158,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty MaxDropDownHeightProperty =
-        DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
 
     #endregion
 
@@ -179,8 +174,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="IsSplit"/> dependency property.</summary>
-    public static readonly DependencyProperty IsSplitProperty =
-        DependencyProperty.Register(nameof(IsSplit), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
+    public static readonly DependencyProperty IsSplitProperty = DependencyProperty.Register(nameof(IsSplit), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.FalseBox));
 
     #endregion
 
@@ -254,8 +248,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     #endregion
 
     /// <summary>Identifies the <see cref="RecognizesAccessKey"/> dependency property.</summary>
-    public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(
-        nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+    public static readonly DependencyProperty RecognizesAccessKeyProperty = DependencyProperty.RegisterAttached(nameof(RecognizesAccessKey), typeof(bool), typeof(MenuItem), new PropertyMetadata(BooleanBoxes.TrueBox));
 
     /// <summary>Helper for setting <see cref="RecognizesAccessKeyProperty"/> on <paramref name="element"/>.</summary>
     /// <param name="element"><see cref="DependencyObject"/> to set <see cref="RecognizesAccessKeyProperty"/> on.</param>

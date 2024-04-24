@@ -48,13 +48,9 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Top">
-                            <Border Width="Auto"
-                                    Height="Auto"
-                                    VerticalAlignment="Top"
+                            <Border VerticalAlignment="Top"
                                     BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Background}"
                                     BorderThickness="1" />
                             <Grid HorizontalAlignment="Stretch"
@@ -83,7 +79,6 @@
                                         BorderThickness="0 1 0 0">
                                     <Grid>
                                         <Thumb x:Name="PART_ResizeVerticalThumb"
-                                               Width="Auto"
                                                Height="10"
                                                Margin="0 0 0 -90"
                                                HorizontalAlignment="Stretch"
@@ -199,14 +194,11 @@
                     <ContextMenu />
                 </Fluent:DropDownButton.ContextMenu>
 
-                <StackPanel Width="Auto"
-                            Height="26"
+                <StackPanel Height="26"
                             Margin="-1"
                             Background="{TemplateBinding Background}"
                             Orientation="Horizontal">
                     <StackPanel x:Name="PART_ToolBarOverflowPanel"
-                                Width="Auto"
-                                Height="Auto"
                                 Margin="1 0 0 0"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
@@ -222,8 +214,6 @@
             </Fluent:DropDownButton>
 
             <StackPanel x:Name="PART_ToolBarPanel"
-                        Width="Auto"
-                        Height="Auto"
                         VerticalAlignment="Stretch"
                         KeyboardNavigation.TabIndex="1"
                         KeyboardNavigation.TabNavigation="Local"

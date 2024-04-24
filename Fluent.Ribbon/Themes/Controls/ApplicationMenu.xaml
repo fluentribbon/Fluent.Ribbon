@@ -51,9 +51,7 @@
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.DropDown.Border}"
                             BorderThickness="1"
                             SnapsToDevicePixels="True">
-                        <Grid Width="Auto"
-                              Height="Auto"
-                              HorizontalAlignment="Stretch"
+                        <Grid HorizontalAlignment="Stretch"
                               VerticalAlignment="Top">
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top">

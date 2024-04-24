@@ -120,8 +120,7 @@
                              Stroke="{TemplateBinding Foreground}"
                              StrokeThickness="2" />
 
-                    <Path Width="Auto"
-                          Margin="0"
+                    <Path Margin="0"
                           HorizontalAlignment="Stretch"
                           Data="M0,0 C0,35 0,35 0,35 C0,35 35,35 35,35 L35,0 z"
                           Fill="Transparent"
@@ -240,8 +239,7 @@
                             Command="{x:Static Fluent:RibbonCommands.OpenBackstage}"
                             Visibility="{Binding Path=IsBackButtonVisible, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
 
-                    <ItemsPresenter Grid.Row="1"
-                                    Height="Auto" />
+                    <ItemsPresenter Grid.Row="1" />
                 </Grid>
             </Grid>
 

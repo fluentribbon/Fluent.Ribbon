@@ -17,7 +17,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -26,8 +25,6 @@
                     Visibility="Collapsed" />
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
@@ -54,8 +51,6 @@
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
                        Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"
                        Text="{TemplateBinding InputGestureText}" />
@@ -110,7 +105,6 @@
             <Border x:Name="border"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -119,8 +113,6 @@
                     Visibility="Collapsed" />
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
@@ -231,7 +223,6 @@
 
             <Grid Grid.Column="0"
                   Grid.ColumnSpan="3"
-                  Width="Auto"
                   Margin="0"
                   HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
@@ -247,7 +238,6 @@
                         Visibility="Collapsed" />
                 <Border x:Name="Submenu_Border"
                         Grid.Column="1"
-                        Width="Auto"
                         Margin="0"
                         HorizontalAlignment="Stretch"
                         Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -257,8 +247,6 @@
             </Grid>
             <ContentPresenter x:Name="textBlock"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="5 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Header"
@@ -369,7 +357,6 @@
                     Grid.RowSpan="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    Width="Auto"
                     Margin="0"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}"
@@ -378,8 +365,6 @@
                     Visibility="Collapsed" />
             <ContentControl x:Name="textBlock"
                             Grid.Column="1"
-                            Width="Auto"
-                            Height="Auto"
                             Margin="0 3 3 3"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding Header}"
@@ -390,8 +375,6 @@
             <ContentPresenter x:Name="descriptionPresenter"
                               Grid.Row="1"
                               Grid.Column="1"
-                              Width="Auto"
-                              Height="Auto"
                               Margin="0 3 3 3"
                               VerticalAlignment="Center"
                               ContentSource="Description"
@@ -418,8 +401,6 @@
                    Visibility="Collapsed" />
             <TextBlock x:Name="gestureTextBlock"
                        Grid.Column="2"
-                       Width="Auto"
-                       Height="Auto"
                        Margin="3 3 15 3"
                        VerticalAlignment="Center"
                        Text="{TemplateBinding InputGestureText}" />

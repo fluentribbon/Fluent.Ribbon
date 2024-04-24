@@ -5,8 +5,7 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.TextBox"
                      TargetType="{x:Type Fluent:TextBox}">
-        <Grid Width="Auto"
-              Background="Transparent">
+        <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -93,9 +92,7 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Width="Auto"
-                  Height="Auto"
-                  Background="Transparent">
+            <Grid Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />

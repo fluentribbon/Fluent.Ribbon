@@ -19,7 +19,6 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonToggleButton}" />
-        <Setter Property="Width" Value="Auto" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -39,13 +38,13 @@
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
-                <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Width" Value="Auto" />
+                <Setter Property="Height" Value="Auto" />
                 <Setter Property="MinHeight" Value="30" />
                 <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ToggleButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
@@ -60,14 +59,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonToggleButton"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <StackPanel x:Name="stackPanel"
-                        Width="Auto"
                         Margin="{TemplateBinding Padding}"
                         Orientation="Vertical">
                 <Fluent:IconPresenter x:Name="iconImage"
@@ -137,15 +134,12 @@
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.ToggleButton.Simplified"
                      TargetType="{x:Type Fluent:ToggleButton}">
         <Border x:Name="border"
-                Height="Auto"
                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
                 Background="{TemplateBinding Background}"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
             <StackPanel x:Name="stackPanel"
-                        Width="Auto"
-                        Height="Auto"
                         Margin="{TemplateBinding Padding}"
                         VerticalAlignment="Stretch"
                         Orientation="Horizontal">
