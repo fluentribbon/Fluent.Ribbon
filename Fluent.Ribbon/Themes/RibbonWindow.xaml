@@ -100,7 +100,6 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CaptionColor" Value="Transparent" /> <!-- make the native caption transparent by default -->
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-        <Setter Property="GlassFrameThickness" Value="-1" />
         <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBase}" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />
         <Setter Property="NonActiveGlowColor" Value="#434346" />
@@ -110,17 +109,24 @@
         <Setter Property="TitleForeground" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.TitleForeground}" />
         <Setter Property="controlzex:WindowBackdropManager.BackdropType" Value="Mica" />
         <Style.Triggers>
+            <Trigger Property="UseNativeCaptionButtons" Value="True">
+                <Setter Property="GlassFrameThickness" Value="-1" />
+            </Trigger>
             <Trigger Property="controlzex:WindowBackdropManager.CurrentBackdropType" Value="Acrylic">
                 <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Acrylic}" />
+                <Setter Property="GlassFrameThickness" Value="-1" />
             </Trigger>
             <Trigger Property="controlzex:WindowBackdropManager.CurrentBackdropType" Value="Auto">
                 <Setter Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.RibbonWindow.Background.Backdrop.Auto}" />
+                <Setter Property="GlassFrameThickness" Value="-1" />
             </Trigger>
             <Trigger Property="controlzex:WindowBackdropManager.CurrentBackdropType" Value="Mica">
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="GlassFrameThickness" Value="-1" />
             </Trigger>
             <Trigger Property="controlzex:WindowBackdropManager.CurrentBackdropType" Value="Tabbed">
                 <Setter Property="Background" Value="Transparent" />
+                <Setter Property="GlassFrameThickness" Value="-1" />
             </Trigger>
         </Style.Triggers>
     </Style>
