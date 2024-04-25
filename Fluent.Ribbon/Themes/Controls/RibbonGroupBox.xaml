@@ -374,8 +374,8 @@
                                 BorderThickness="1"
                                 d:LayoutOverrides="Width">
                             <ContentControl x:Name="popupContent"
-                                            Focusable="False"
-                                            Margin="{TemplateBinding Padding}" />
+                                            Margin="{TemplateBinding Padding}"
+                                            Focusable="False" />
                         </Border>
                     </Popup>
                 </Grid>

@@ -1974,7 +1974,7 @@
                                          IsChecked="True" />
                         <Fluent:MenuItem Header="Second"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
-                                         IsCheckable="True"/>
+                                         IsCheckable="True" />
                         <Fluent:MenuItem Header="Third"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=MenuItemGroup1}"
                                          IsCheckable="True" />

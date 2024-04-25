@@ -164,7 +164,7 @@
                                Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                StrokeThickness="0" />
                 </Grid>
-                <Grid                       Margin="1 0 0 0"
+                <Grid Margin="1 0 0 0"
                       HorizontalAlignment="Left">
                     <Rectangle Width="2"
                                Height="2"

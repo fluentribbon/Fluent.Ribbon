@@ -388,7 +388,6 @@
         <Setter Property="FocusVisualStyle" Value="{DynamicResource Fluent.Ribbon.Styles.FocusVisual.Empty}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
-        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -399,6 +398,7 @@
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Spinner}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
