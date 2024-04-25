@@ -121,6 +121,7 @@
                     <Fluent:ToggleButton x:Name="PART_ToggleButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.RibbonComboButton}"
                                          Grid.ColumnSpan="2"
+                                         Height="Auto"
                                          MinHeight="0"
                                          Margin="0"
                                          VerticalAlignment="Stretch"

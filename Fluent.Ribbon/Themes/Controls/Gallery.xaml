@@ -114,6 +114,7 @@
                     <Fluent:DropDownButton x:Name="PART_DropDownButton"
                                            Header="{TemplateBinding SelectedFilterTitle}"
                                            Style="{DynamicResource Fluent.Ribbon.Styles.GalleryDropDownButton}"
+                                           Height="Auto"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top" />
                 </Border>
