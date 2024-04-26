@@ -32,8 +32,8 @@
     - `PART_SelectedContentPresenter` was renamed to `PART_SelectedContent` and can be of type `FrameworkElement`.<br/>
       The default template uses the new `TransitioningControl`.<br/>
       The used transition can be changed by overwriting the resource `Fluent.Ribbon.Values.RibbonTabControl.Content.Transition`.
-    - `DefaultContentGapHeight` changed from 1 to 3
-    - `DefaultContentHeight` changed from 94 to 105
+    - `DefaultContentGapHeight` changed from `1` to `3`
+    - `DefaultContentHeight` changed from `94` to `100`
     - Corner radius for item display can be changed by `Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius`
     - Drop shadow can be changed by overwriting `Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect`
     - Content margin can be changed by overwriting `Fluent.Ribbon.Values.RibbonTabControl.Content.Margin`
