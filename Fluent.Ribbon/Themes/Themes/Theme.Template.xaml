@@ -216,9 +216,6 @@
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonContextualTabGroup.Background.OpacityMask" Color="#14000000" options:Freeze="True" />
 
     <!-- RibbonGroupBox -->
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.Border" Color="{StaticResource Fluent.Ribbon.Colors.Gray6}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Collapsed.MouseOver.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray10}" options:Freeze="True" />
-    <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.DropDownOpen.Background" Color="{StaticResource Fluent.Ribbon.Colors.Gray8}" options:Freeze="True" />
     <SolidColorBrush x:Key="Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground" Color="{{Fluent.Ribbon.Brushes.RibbonGroupBox.Header.Foreground}}" options:Freeze="True" />
 
     <!-- RibbonTabControl -->

@@ -618,7 +618,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     #region IsSimplified
 
     /// <summary>
-    /// Gets or sets whether or not the ribbon is in Simplified mode
+    /// Gets or sets whether or not the ribbon is in simplified mode.
     /// </summary>
     public bool IsSimplified
     {
@@ -627,8 +627,7 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
     }
 
     // ReSharper disable once InconsistentNaming
-    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey =
-        DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
+    private static readonly DependencyPropertyKey IsSimplifiedPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsSimplified), typeof(bool), typeof(RibbonGroupBox), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsSimplifiedChanged));
 
     /// <summary>Identifies the <see cref="IsSimplified"/> dependency property.</summary>
     public static readonly DependencyProperty IsSimplifiedProperty = IsSimplifiedPropertyKey.DependencyProperty;
