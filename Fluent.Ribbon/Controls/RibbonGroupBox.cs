@@ -210,11 +210,11 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         foreach (var item in this.Items)
         {
             var element = this.ItemContainerGenerator.ContainerFromItem(item);
-            this.UpdateChildSizesOfUIElement(element, groupBoxState, isSimplified);
+            this.UpdateChildSizesOfUIElement(item, element, groupBoxState, isSimplified);
         }
     }
 
-    private void UpdateChildSizesOfUIElement(DependencyObject? element, RibbonGroupBoxState groupBoxState, bool isSimplified)
+    private void UpdateChildSizesOfUIElement(object item, DependencyObject? element, RibbonGroupBoxState groupBoxState, bool isSimplified)
     {
         if (element is null)
         {
@@ -225,17 +225,27 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
         {
             for (var i = 0; i < panel.Children.Count; i++)
             {
-                this.UpdateChildSizesOfUIElement(panel.Children[i], groupBoxState, isSimplified);
+                this.UpdateChildSizesOfUIElement(panel.Children[i], panel.Children[i], groupBoxState, isSimplified);
             }
         }
 
-        if (element is ContentPresenter)
+        // Bound items
+        if (element is ContentPresenter contentPresenter
+            && item is not DispatcherObject)
         {
-            element = UIHelper.GetFirstVisualChild(element) ?? element;
+            contentPresenter.WhenLoaded(x => UpdateValues(UIHelper.GetFirstVisualChild(x) ?? x, groupBoxState, isSimplified));
+            return;
         }
 
-        UpdateIsSimplifiedOfUIElement(element, isSimplified);
-        RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
+        UpdateValues(element, groupBoxState, isSimplified);
+
+        return;
+
+        static void UpdateValues(DependencyObject element, RibbonGroupBoxState groupBoxState, bool isSimplified)
+        {
+            UpdateIsSimplifiedOfUIElement(element, isSimplified);
+            RibbonProperties.SetAppropriateSize(element, groupBoxState, isSimplified);
+        }
     }
 
     #endregion
