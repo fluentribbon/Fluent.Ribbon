@@ -124,6 +124,7 @@ public class QuickAccessToolBar : Control, ILogicalChildSupport
         {
             foreach (var item in e.NewItems.OfType<FrameworkElement>())
             {
+                item.Margin = new Thickness(1, 0, 1, 0);
                 item.SizeChanged += this.OnChildSizeChanged;
             }
         }
