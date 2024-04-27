@@ -611,7 +611,7 @@
                 <Setter Property="Height" Value="22" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
-                <!-- double.NaN=Auto -->
+                <Setter Property="Height" Value="Auto" />
                 <Setter Property="GalleryPanelContainerHeight" Value="NaN" />
             </Trigger>
         </Style.Triggers>
