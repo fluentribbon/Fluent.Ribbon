@@ -158,7 +158,7 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(MenuItem), new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
     #endregion
 
@@ -289,8 +289,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
                     CanAddButtonToQuickAccessToolBar = false
                 };
                 RibbonControl.BindQuickAccessItem(this, button);
-                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);
@@ -304,8 +304,8 @@ public class MenuItem : System.Windows.Controls.MenuItem, IQuickAccessItemProvid
             {
                 var button = new DropDownButton();
                 RibbonControl.BindQuickAccessItem(this, button);
-                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
+                RibbonControl.Bind(this, button, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.OneWay);
+                RibbonControl.Bind(this, button, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.DisplayMemberPath), DisplayMemberPathProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.GroupStyleSelector), GroupStyleSelectorProperty, BindingMode.OneWay);
                 RibbonControl.Bind(this, button, nameof(this.ItemContainerStyle), ItemContainerStyleProperty, BindingMode.OneWay);

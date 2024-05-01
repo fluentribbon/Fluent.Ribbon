@@ -477,7 +477,6 @@ public class SplitButton : DropDownButton, IToggleButton, ICommandSource, IKeyTi
         RibbonControl.Bind(this, element, nameof(this.ContextMenu), ContextMenuProperty, BindingMode.Default);
 
         RibbonControl.Bind(this, element, nameof(this.ResizeMode), ResizeModeProperty, BindingMode.Default);
-        RibbonControl.Bind(this, element, nameof(this.MaxDropDownHeight), MaxDropDownHeightProperty, BindingMode.Default);
         RibbonControl.Bind(this, element, nameof(this.HasTriangle), HasTriangleProperty, BindingMode.Default);
 
         RibbonControl.BindQuickAccessItem(this, element);

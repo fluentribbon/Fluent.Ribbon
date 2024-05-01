@@ -11,12 +11,15 @@ using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using Fluent.Extensions;
 using Fluent.Helpers;
 using Fluent.Internal.KnownBoxes;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 /// <summary>
 /// Represents drop down button
@@ -265,8 +268,7 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty MaxDropDownHeightProperty =
-        DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(DropDownButton), new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
     #endregion
 
@@ -651,6 +653,11 @@ public class DropDownButton : ItemsControl, IQuickAccessItemProvider, IRibbonCon
 
         var oldValue = (bool)e.OldValue;
         var newValue = (bool)e.NewValue;
+
+        if (newValue)
+        {
+            d.CoerceValue(MaxDropDownHeightProperty);
+        }
 
         control.OnIsDropDownOpenChanged(newValue);
 

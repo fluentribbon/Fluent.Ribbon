@@ -565,8 +565,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     }
 
     /// <summary>Identifies the <see cref="IsDropDownOpen"/> dependency property.</summary>
-    public static readonly DependencyProperty IsDropDownOpenProperty =
-        DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged));
+    public static readonly DependencyProperty IsDropDownOpenProperty = DependencyProperty.Register(nameof(IsDropDownOpen), typeof(bool), typeof(InRibbonGallery), new PropertyMetadata(BooleanBoxes.FalseBox, OnIsDropDownOpenChanged));
 
     private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -574,6 +573,11 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
 
         var newValue = (bool)e.NewValue;
         var oldValue = !newValue;
+
+        if (newValue)
+        {
+            d.CoerceValue(MaxDropDownHeightProperty);
+        }
 
         // Fire accessibility event
         if (UIElementAutomationPeer.FromElement(inRibbonGallery) is RibbonInRibbonGalleryAutomationPeer peer)
@@ -918,8 +922,7 @@ public class InRibbonGallery : Selector, IScalableRibbonControl, IDropDownContro
     }
 
     /// <summary>Identifies the <see cref="MaxDropDownHeight"/> dependency property.</summary>
-    public static readonly DependencyProperty MaxDropDownHeightProperty =
-        DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(InRibbonGallery), new PropertyMetadata(SystemParameters.PrimaryScreenHeight / 3.0));
+    public static readonly DependencyProperty MaxDropDownHeightProperty = DependencyProperty.Register(nameof(MaxDropDownHeight), typeof(double), typeof(InRibbonGallery), new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
     #endregion
 

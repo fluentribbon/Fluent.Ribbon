@@ -365,6 +365,7 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
 
         DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
         SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(OnSelectedItemChanged, CoerceSelectedItem));
+        MaxDropDownHeightProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(double.NaN, null, DropDownHelper.CoerceMaxDropDownHeight));
 
         ToolTipService.Attach(type);
         PopupService.Attach(type);
@@ -652,6 +653,8 @@ public class ComboBox : System.Windows.Controls.ComboBox, IQuickAccessItemProvid
     /// <inheritdoc />
     protected override void OnDropDownOpened(EventArgs e)
     {
+        this.CoerceValue(MaxDropDownHeightProperty);
+
         base.OnDropDownOpened(e);
 
         Mouse.Capture(this, CaptureMode.SubTree);
