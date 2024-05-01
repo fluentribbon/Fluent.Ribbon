@@ -60,6 +60,8 @@
   - Added `IsBackstageOrStartScreenOpen` on `Ribbon`
   - [#716](../../issues/716) - Unable to use rich content for ScreenTip
     - Changed text from `string` to `object` and added `TextTemplate` to `ScreenTip` to support this
+  - [#719](../../issues/719) - Make StatusBarItems always visible
+    - Added `IsCheckable` to `StatusBarItem` which defaults to `true`
   - `RibbonProperties`
     - Added `PressedBackground` (used in `Fluent.Ribbon.Styles.WindowCommands.CaptionButton` etc.)
     - Added `CornerRadius` (used for `RibbonTabControl`, `Fluent.Ribbon.Templates.ScrollButton` etc.)

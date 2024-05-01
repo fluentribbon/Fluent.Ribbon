@@ -52,7 +52,23 @@ public class StatusBarItem : System.Windows.Controls.Primitives.StatusBarItem
 
     #endregion
 
-    #region isChecked
+    #region IsCheckable
+
+    /// <summary>Identifies the <see cref="IsCheckable"/> dependency property.</summary>
+    public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(StatusBarItem), new PropertyMetadata(BooleanBoxes.TrueBox));
+
+    /// <summary>
+    /// Gets a value that indicates whether a <see cref="StatusBarItem" /> can be added/removed from the <see cref="StatusBar"/>.
+    /// </summary>
+    public bool IsCheckable
+    {
+        get => (bool)this.GetValue(IsCheckableProperty);
+        set => this.SetValue(IsCheckableProperty, value);
+    }
+
+    #endregion
+
+    #region IsChecked
 
     /// <summary>
     /// Gets or sets whether status bar item is checked in menu

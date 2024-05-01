@@ -72,7 +72,7 @@
     <Style x:Key="Fluent.Ribbon.Styles.StatusBarMenuItem"
            TargetType="{x:Type Fluent:StatusBarMenuItem}">
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.LabelText}" />
-        <Setter Property="IsCheckable" Value="True" />
+        <Setter Property="IsCheckable" Value="{Binding StatusBarItem.IsCheckable, RelativeSource={RelativeSource Self}}" />
         <Setter Property="IsChecked" Value="{Binding StatusBarItem.IsChecked, RelativeSource={RelativeSource Self}, Mode=TwoWay}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonStatusBarContextMenuItem}" />
     </Style>

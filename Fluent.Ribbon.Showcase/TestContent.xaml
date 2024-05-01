@@ -3759,7 +3759,7 @@
             <Fluent:StatusBarItem Title="Words Width"
                                   HorizontalAlignment="Left"
                                   IsEnabled="False"
-                                  Value="150">
+                                  Value="150 px">
                 <TextBlock Text="150 px" />
             </Fluent:StatusBarItem>
 
@@ -3787,7 +3787,8 @@
                                   HorizontalAlignment="Right" />
 
             <Fluent:StatusBarItem Title="Zoom Slider"
-                                  HorizontalAlignment="Right">
+                                  HorizontalAlignment="Right"
+                                  IsCheckable="False">
                 <Slider x:Name="zoomSlider"
                         Style="{DynamicResource Fluent.Ribbon.Styles.ZoomSlider}"
                         IsDirectionReversed="False"
