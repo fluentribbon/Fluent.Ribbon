@@ -1215,7 +1215,8 @@
                 <Fluent:RibbonGroupBox x:Name="groupLL"
                                        Header="{Binding Path=Zoom, StringFormat='{}{0} Zoom'}"
                                        IsLauncherVisible="False"
-                                       KeyTip="FG">
+                                       KeyTip="FG"
+                                       StateDefinition="Middle,Collapsed">
                     <Fluent:ComboBox Header="Fonts"
                                      Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/FontColor.png"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -2067,8 +2068,6 @@
                     <Fluent:Spinner Header="My short header" />
                     <Fluent:ComboBox Header="My long long header" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
@@ -2084,7 +2083,6 @@
                 <Fluent:RibbonGroupBox>
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
-                    <Separator />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -2095,8 +2093,6 @@
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
 
-                    <Separator Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
-
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
                                      Visibility="{Binding IsChecked, ElementName=ShowDetailButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}" />
@@ -2105,7 +2101,6 @@
                 <Fluent:RibbonGroupBox Visibility="{Binding IsChecked, ElementName=ShowMoreButton, Converter={StaticResource Fluent.Ribbon.Converters.BoolToVisibilityConverter}}">
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120" />
-                    <Separator />
 
                     <Fluent:ComboBox Header="Test"
                                      Fluent:InputControlProperties.InputWidth="120"
@@ -2828,14 +2823,12 @@
                     <Fluent:Button Header="Button"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
-                    <Separator />
                     <Fluent:Button Header="Button"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
                     <Fluent:Button Header="Button"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
-                    <Separator />
                     <Fluent:Button Header="Button"
                                    Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/GrowFont.png"
                                    Command="ApplicationCommands.Paste" />
@@ -2851,7 +2844,6 @@
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png"
                                          GroupName="{Binding Converter={StaticResource UniqueGroupNameConverter}, ConverterParameter=Group1}"
                                          SizeDefinition="Middle" />
-                    <Separator />
                     <Fluent:ToggleButton Header="Button long text ggggggg gggg"
                                          Icon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test16.png"
                                          LargeIcon="pack://application:,,,/Fluent.Ribbon.Showcase;component/Images/Test32.png"
