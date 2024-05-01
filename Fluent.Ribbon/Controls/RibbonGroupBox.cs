@@ -892,9 +892,9 @@ public class RibbonGroupBox : HeaderedItemsControl, IQuickAccessItemProvider, ID
             return false;
         }
 
-        this.State = RibbonGroupBoxState.Large;
+        this.State = this.StateDefinition.States[0];
         this.Scale = 0;
-        this.StateIntermediate = RibbonGroupBoxState.Large;
+        this.StateIntermediate = this.StateDefinition.States[0];
         this.ScaleIntermediate = 0;
 
         this.ResetScaleableItems();
