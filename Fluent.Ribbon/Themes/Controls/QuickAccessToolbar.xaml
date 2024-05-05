@@ -64,7 +64,8 @@
                                               Margin="1"
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              SnapsToDevicePixels="True">
+                                              SnapsToDevicePixels="True"
+                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle"

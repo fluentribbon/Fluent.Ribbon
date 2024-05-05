@@ -64,7 +64,8 @@
                                             <ScrollViewer Margin="1"
                                                           HorizontalScrollBarVisibility="Disabled"
                                                           SnapsToDevicePixels="True"
-                                                          VerticalScrollBarVisibility="Auto">
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                                                 <StackPanel x:Name="PART_MenuPanel"
                                                             IsItemsHost="True"
                                                             KeyboardNavigation.DirectionalNavigation="Cycle"
@@ -88,16 +89,6 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.Gallery"
                      TargetType="{x:Type Fluent:Gallery}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
         <Border x:Name="layoutRoot"
                 BorderBrush="{TemplateBinding BorderBrush}"
                 BorderThickness="{TemplateBinding BorderThickness}">
@@ -121,7 +112,8 @@
                 <ScrollViewer x:Name="scrollViewer"
                               Grid.Row="1"
                               Grid.RowSpan="1"
-                              Focusable="False">
+                              Focusable="False"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                     <Fluent:GalleryPanel Margin="{TemplateBinding Padding}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"

@@ -132,7 +132,8 @@
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                      VerticalScrollBarVisibility="Auto">
+                                      VerticalScrollBarVisibility="Auto"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                             <StackPanel Margin="0 1 0 1"
                                         Background="{TemplateBinding Background}"
                                         ClipToBounds="True"

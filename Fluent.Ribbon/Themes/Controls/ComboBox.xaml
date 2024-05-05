@@ -61,17 +61,6 @@
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.RibbonCombobox"
                      TargetType="{x:Type Fluent:ComboBox}">
-        <ControlTemplate.Resources>
-            <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                <Style x:Key="{x:Type ScrollViewer}"
-                       TargetType="{x:Type ScrollViewer}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollViewer}" />
-            </ResourceDictionary>
-        </ControlTemplate.Resources>
-
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -174,13 +163,6 @@
                    Placement="Bottom"
                    PlacementTarget="{Binding ElementName=PART_ContentBorder}"
                    PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                <Popup.Resources>
-                    <ResourceDictionary>
-                        <Style x:Key="{x:Type ScrollBar}"
-                               TargetType="{x:Type ScrollBar}"
-                               BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                    </ResourceDictionary>
-                </Popup.Resources>
                 <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                  MinWidth="{Binding ActualWidth, ElementName=PART_ContentBorder}"
                                                  MinHeight="{Binding ActualHeight, ElementName=PART_ContentBorder}"
@@ -198,6 +180,7 @@
                                           ContentSource="TopPopupContent" />
 
                         <ScrollViewer x:Name="PART_ScrollViewer"
+                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                                       Grid.Row="1"
                                       Margin="1"
                                       VerticalAlignment="Stretch"

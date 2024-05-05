@@ -1,4 +1,4 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers">
@@ -354,7 +354,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Visible">
+                                  VerticalScrollBarVisibility="Visible"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                         <ScrollViewer.Resources>
                             <Style TargetType="{x:Type ScrollBar}">
                                 <Setter Property="ContextMenu" Value="{x:Null}" />
@@ -519,7 +520,8 @@
                                                       Grid.Row="1"
                                                       Margin="1"
                                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                                                      BorderThickness="0 0 0 1">
+                                                      BorderThickness="0 0 0 1"
+                                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
                                             <ContentControl x:Name="PART_PopupContentPresenter"
                                                             Content="{x:Null}"
                                                             Focusable="False" />
