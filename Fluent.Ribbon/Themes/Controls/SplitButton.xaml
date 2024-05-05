@@ -182,7 +182,7 @@
                     <Condition Property="IsDropDownOpen" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
-                <Setter TargetName="downBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
+                <Setter TargetName="downBorder" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
                 <Setter TargetName="downBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
             </MultiTrigger>
         </ControlTemplate.Triggers>
