@@ -6,11 +6,9 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Fluent.Automation.Peers;
 using Fluent.Extensions;
-using Fluent.Helpers;
 using Fluent.Internal;
 using Fluent.Internal.KnownBoxes;
 

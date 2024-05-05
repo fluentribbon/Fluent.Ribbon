@@ -1,10 +1,7 @@
 namespace Fluent.Theming;
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Media;
 using ControlzEx.Theming;
 using Fluent.Helpers.ColorHelpers;
