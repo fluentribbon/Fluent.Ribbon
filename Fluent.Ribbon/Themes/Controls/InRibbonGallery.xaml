@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers">
@@ -371,11 +371,10 @@
                                                                   Height="21"
                                                                   Margin="0 0 0 0"
                                                                   Command="ScrollBar.PageUpCommand">
-                                                        <Path Width="5"
-                                                              Height="3"
+                                                        <Path Width="7"
+                                                              Height="5"
                                                               Data="M0,0 L1,-1 2,0z"
                                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
                                                     <RepeatButton x:Name="downButton"
@@ -384,11 +383,10 @@
                                                                   Height="21"
                                                                   Margin="0 -1 0 0"
                                                                   Command="ScrollBar.PageDownCommand">
-                                                        <Path Width="5"
-                                                              Height="3"
+                                                        <Path Width="7"
+                                                              Height="5"
                                                               Data="M0,0 L1,1 2,0z"
                                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
                                                 </StackPanel>
@@ -406,11 +404,10 @@
                                                                   Width="15"
                                                                   Margin="0 0 0 -0.5"
                                                                   Command="ScrollBar.PageUpCommand">
-                                                        <Path Width="5"
-                                                              Height="3"
+                                                        <Path Width="7"
+                                                              Height="5"
                                                               Data="M0,0 L1,-1 2,0z"
                                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
                                                     <RepeatButton x:Name="downButtonSimplified"
@@ -419,11 +416,10 @@
                                                                   Width="15"
                                                                   Margin="0 -0.5 0 0"
                                                                   Command="ScrollBar.PageDownCommand">
-                                                        <Path Width="5"
-                                                              Height="3"
+                                                        <Path Width="7"
+                                                              Height="5"
                                                               Data="M0,0 L1,1 2,0z"
                                                               Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              RenderOptions.EdgeMode="Aliased"
                                                               Stretch="Fill" />
                                                     </RepeatButton>
                                                 </Grid>
