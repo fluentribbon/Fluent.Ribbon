@@ -43,8 +43,7 @@
                   Margin="0 4 0 4"
                   HorizontalAlignment="Right"
                   Opacity="{TemplateBinding SeparatorOpacity}">
-                <Rectangle x:Name="separatorRectangle"
-                           Width="1"
+                <Rectangle Width="1"
                            Fill="{DynamicResource Fluent.Ribbon.Brushes.Separator.Background}"
                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}" />
             </Grid>

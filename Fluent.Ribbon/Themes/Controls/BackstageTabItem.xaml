@@ -65,8 +65,9 @@
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition SourceName="rootGrid" Property="IsMouseOver" Value="True" />
                     <Condition Property="Selector.IsSelected" Value="True" />
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition SourceName="rootGrid" Property="IsMouseOver" Value="True" />
                 </MultiTrigger.Conditions>
                 <MultiTrigger.EnterActions>
                     <BeginStoryboard x:Name="beginStoryboardSelectedMouseOver">
