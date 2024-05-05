@@ -70,9 +70,9 @@ public class ColorViewModel : ViewModel
     }
 #pragma warning restore INPC010 // The property sets a different field than it returns.
 
-    public string CurrentBaseColor
+    public string? CurrentBaseColor
     {
-        get => this.CurrentTheme.BaseColorScheme;
+        get => this.CurrentTheme?.BaseColorScheme;
 
         set
         {
@@ -87,7 +87,7 @@ public class ColorViewModel : ViewModel
         }
     }
 
-    public Theme CurrentTheme
+    public Theme? CurrentTheme
     {
         get => ThemeManager.Current.DetectTheme(Application.Current);
 

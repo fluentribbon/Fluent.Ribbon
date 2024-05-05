@@ -123,7 +123,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     #region Implementation of IValueConverter
 
     /// <inheritdoc />
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo? culture)
     {
         var desiredSize = Size.Empty;
 
@@ -143,7 +143,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     }
 
     /// <inheritdoc />
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return Binding.DoNothing;
     }
@@ -161,7 +161,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
     #region Implementation of IMultiValueConverter
 
     /// <inheritdoc />
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         var desiredSize = Size.Empty;
         var valuesLength = values.Length;
@@ -249,7 +249,7 @@ public class ObjectToImageConverter : MarkupExtension, IValueConverter, IMultiVa
         return multiBinding.ProvideValue(serviceProvider);
     }
 
-    private object Convert(object value, Visual? targetVisual, Size desiredSize, Type targetType)
+    private object? Convert(object? value, Visual? targetVisual, Size desiredSize, Type targetType)
     {
         var imageSource = CreateFrozenImageSource(this.GetValueToConvert(value, desiredSize, targetVisual), targetVisual, desiredSize);
 

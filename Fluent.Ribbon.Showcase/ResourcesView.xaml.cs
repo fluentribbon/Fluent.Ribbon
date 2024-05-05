@@ -32,16 +32,16 @@
         public static readonly DependencyProperty ThemeResourcesProperty = DependencyProperty.Register(
             nameof(ThemeResources), typeof(ObservableCollection<ThemeResource>), typeof(ResourcesView), new PropertyMetadata(default(ObservableCollection<ThemeResource>)));
 
-        public ObservableCollection<ThemeResource> ThemeResources
+        public ObservableCollection<ThemeResource>? ThemeResources
         {
-            get => (ObservableCollection<ThemeResource>)this.GetValue(ThemeResourcesProperty);
+            get => (ObservableCollection<ThemeResource>?)this.GetValue(ThemeResourcesProperty);
             set => this.SetValue(ThemeResourcesProperty, value);
         }
 
         public class ThemeResource
         {
             public ThemeResource(Theme theme, LibraryTheme libraryTheme, ResourceDictionary resourceDictionary, DictionaryEntry dictionaryEntry)
-                : this(theme, libraryTheme, resourceDictionary, dictionaryEntry.Key.ToString(), dictionaryEntry.Value)
+                : this(theme, libraryTheme, resourceDictionary, dictionaryEntry.Key.ToString()!, dictionaryEntry.Value!)
             {
             }
 
@@ -60,7 +60,7 @@
                     _ => null
                 };
 
-                this.StringValue = value.ToString();
+                this.StringValue = value.ToString()!;
             }
 
             public Theme Theme { get; }
@@ -71,18 +71,23 @@
 
             public string Key { get; }
 
-            public object Value { get; }
+            public object? Value { get; }
 
             public string StringValue { get; }
         }
 
-        private void ThemeManager_ThemeChanged(object sender, ThemeChangedEventArgs e)
+        private void ThemeManager_ThemeChanged(object? sender, ThemeChangedEventArgs e)
         {
             this.UpdateThemeAnalyzers(e.NewTheme);
         }
 
-        private void UpdateThemeAnalyzers(Theme theme)
+        private void UpdateThemeAnalyzers(Theme? theme)
         {
+            if (this.ThemeResources is null)
+            {
+                return;
+            }
+
             this.ThemeResources.Clear();
 
             if (theme is null)

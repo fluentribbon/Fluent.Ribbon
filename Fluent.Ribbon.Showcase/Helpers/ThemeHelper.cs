@@ -14,7 +14,7 @@ public static class ThemeHelper
 {
     public static Tuple<string, Theme> CreateTheme(string baseColorScheme, Color accentBaseColor, bool changeImmediately = false)
     {
-        var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, false);
+        var theme = RuntimeThemeGenerator.Current.GenerateRuntimeTheme(baseColorScheme, accentBaseColor, false)!;
 
         // Apply theme
         if (changeImmediately)

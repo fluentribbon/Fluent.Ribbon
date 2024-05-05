@@ -14,7 +14,7 @@ public class ThemeManagerFromThread
 #pragma warning restore CA1001 // Types that own disposable fields should be disposable
 {
     private int currentTheme;
-    private CancellationTokenSource cancellationTokenSource;
+    private CancellationTokenSource? cancellationTokenSource;
 
     public enum ThemeColors
     {
@@ -49,7 +49,7 @@ public class ThemeManagerFromThread
 
             Task.Factory.StartNew(async () =>
             {
-                while (this.cancellationTokenSource.IsCancellationRequested == false)
+                while (this.cancellationTokenSource!.IsCancellationRequested == false)
                 {
                     this.ThreadProc();
 
@@ -99,13 +99,13 @@ public class ThemeManagerFromThread
         }
     }
 
-    private void ThemeManagerThemeChangedHandler(object sender, ThemeChangedEventArgs e)
+    private void ThemeManagerThemeChangedHandler(object? sender, ThemeChangedEventArgs e)
     {
         try
         {
             var theme = ThemeManager.Current.DetectTheme(Application.Current);
             this.Info($"Current theme from args: {e.NewTheme.Name}");
-            this.Info($"Current theme from detection: {theme.Name}");
+            this.Info($"Current theme from detection: {theme?.Name}");
         }
         catch (Exception ex)
         {

@@ -26,8 +26,8 @@ public class GallerySampleDataItemViewModel : ViewModel
 
     private GallerySampleDataItemViewModel(string icon, string iconLarge, string text, string group)
     {
-        this.Icon = (ImageSource)StaticConverters.ObjectToImageConverter.Convert(icon, typeof(BitmapImage), null, null);
-        this.IconLarge = (ImageSource)StaticConverters.ObjectToImageConverter.Convert(iconLarge, typeof(BitmapImage), null, null);
+        this.Icon = (ImageSource?)StaticConverters.ObjectToImageConverter.Convert(icon, typeof(BitmapImage), null, null);
+        this.IconLarge = (ImageSource?)StaticConverters.ObjectToImageConverter.Convert(iconLarge, typeof(BitmapImage), null, null);
         this.Text = text;
         this.Group = group;
 
@@ -37,12 +37,12 @@ public class GallerySampleDataItemViewModel : ViewModel
     /// <summary>
     /// Gets or sets icon
     /// </summary>
-    public ImageSource Icon { get; }
+    public ImageSource? Icon { get; }
 
     /// <summary>
     /// Gets or sets large icon
     /// </summary>
-    public ImageSource IconLarge { get; }
+    public ImageSource? IconLarge { get; }
 
     /// <summary>
     /// Gets or sets text

@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 public class SimpleControlAdorner : Adorner
 {
-    private FrameworkElement child;
+    private FrameworkElement? child;
 
     public SimpleControlAdorner(UIElement adornedElement)
         : base(adornedElement)
@@ -23,10 +23,10 @@ public class SimpleControlAdorner : Adorner
             throw new ArgumentOutOfRangeException(nameof(index), index, "There is only one visual child.");
         }
 
-        return this.child;
+        return this.child!;
     }
 
-    public FrameworkElement Child
+    public FrameworkElement? Child
     {
         get => this.child;
 
@@ -48,13 +48,15 @@ public class SimpleControlAdorner : Adorner
 
     protected override Size MeasureOverride(Size constraint)
     {
-        this.child.Measure(constraint);
-        return this.child.DesiredSize;
+        this.child?.Measure(constraint);
+        return this.child?.DesiredSize ?? default;
     }
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        this.child.Arrange(new Rect(new Point(0, 0), finalSize));
-        return new Size(this.child.ActualWidth, this.child.ActualHeight);
+        this.child?.Arrange(new Rect(new Point(0, 0), finalSize));
+        return this.child is null
+            ? default
+            : new Size(this.child.ActualWidth, this.child.ActualHeight);
     }
 }

@@ -25,7 +25,7 @@ public class DynamicTemplateSelector : DataTemplateSelector
     /// <param name="target">The <see cref="UIElement"/> who's attached template's property you wish to retrieve</param>
     /// <returns>The templates used by the givem <paramref name="target"/> when using the <see cref="DynamicTemplateSelector"/></returns>
     [AttachedPropertyBrowsableForType(typeof(ContentControl))]
-    public static TemplateCollection GetTemplatesCollection(DependencyObject target)
+    public static TemplateCollection? GetTemplatesCollection(DependencyObject target)
     {
         return (TemplateCollection)target.GetValue(TemplatesCollectionProperty);
     }
@@ -34,7 +34,7 @@ public class DynamicTemplateSelector : DataTemplateSelector
     /// <param name="target">The element to set the property on</param>
     /// <param name="value">The collection of <see cref="DataTemplate"/>s to apply to this element</param>
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-    public static void SetTemplatesCollection(DependencyObject target, TemplateCollection value)
+    public static void SetTemplatesCollection(DependencyObject target, TemplateCollection? value)
     {
         target.SetValue(TemplatesCollectionProperty, value);
     }
@@ -45,7 +45,7 @@ public class DynamicTemplateSelector : DataTemplateSelector
     /// <param name="item">The item for which the template should be retrieved</param>
     /// <param name="container">The object containing the current item</param>
     /// <returns>The <see cref="DataTemplate"/> to use when rendering the <paramref name="item"/></returns>
-    public override DataTemplate SelectTemplate(object item, DependencyObject container)
+    public override DataTemplate SelectTemplate(object? item, DependencyObject container)
     {
         //This should ensure that the item we are getting is in fact capable of holding our property
         //before we attempt to retrieve it.

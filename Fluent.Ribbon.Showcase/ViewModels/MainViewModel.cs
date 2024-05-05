@@ -21,23 +21,16 @@ public class MainViewModel : ViewModel
     private readonly Timer memoryTimer;
 
     private int boundSpinnerValue;
-    private ColorViewModel colorViewModel;
-    private FontsViewModel fontsViewModel;
-    private GalleryViewModel galleryViewModel;
+    private ColorViewModel colorViewModel = null!;
+    private FontsViewModel fontsViewModel = null!;
+    private GalleryViewModel galleryViewModel = null!;
 
-    private ReadOnlyObservableCollection<GallerySampleDataItemViewModel> dataItems;
-
-    private RelayCommand exitCommand;
     private double zoom;
-    private ICommand testCommand;
-
-    private IList<string> manyItems;
-    private IList<string> stringItems;
 
     private bool? isCheckedToggleButton3 = true;
 
     private bool areContextGroupsVisible = true;
-    private bool isBackstageOpen = false;
+    private bool isBackstageOpen;
 
     public MainViewModel()
     {
@@ -51,9 +44,25 @@ public class MainViewModel : ViewModel
         this.GalleryViewModel = new GalleryViewModel();
         this.IssueReprosViewModel = new IssueReprosViewModel();
 
+        this.ExitCommand = new RelayCommand(Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
+        this.TestCommand = new RelayCommand(() => MessageBox.Show("Test-Command"));
         this.PreviewCommand = new RelayCommand<GalleryItem>(Preview);
         this.CancelPreviewCommand = new RelayCommand<GalleryItem>(CancelPreview);
 
+        this.DataItems = new(
+        [
+            GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Gray.png", "Images\\GrayLarge.png", "Gray", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Green.png", "Images\\GreenLarge.png", "Green", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Orange.png", "Images\\OrangeLarge.png", "Orange", "Group A"),
+            GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
+            GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
+            GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
+        ]);
+        this.ManyItems = GenerateStrings(5000);
+        this.StringItems = GenerateStrings(25);
+        
         this.GroupByAdvancedSample = x => ((GallerySampleDataItemViewModel)x).Text.Substring(0, 1);
 
         this.memoryTimer = new Timer(TimeSpan.FromSeconds(5).TotalMilliseconds);
@@ -164,24 +173,13 @@ public class MainViewModel : ViewModel
     /// <summary>
     /// Gets data items (uses as DataContext)
     /// </summary>
-    public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems =>
-        this.dataItems ?? (this.dataItems = new ReadOnlyObservableCollection<GallerySampleDataItemViewModel>(new ObservableCollection<GallerySampleDataItemViewModel>
-        {
-            GallerySampleDataItemViewModel.Create("Images\\Blue.png", "Images\\BlueLarge.png", "Blue", "Group A"),
-            GallerySampleDataItemViewModel.Create("Images\\Brown.png", "Images\\BrownLarge.png", "Brown", "Group A"),
-            GallerySampleDataItemViewModel.Create("Images\\Gray.png", "Images\\GrayLarge.png", "Gray", "Group A"),
-            GallerySampleDataItemViewModel.Create("Images\\Green.png", "Images\\GreenLarge.png", "Green", "Group A"),
-            GallerySampleDataItemViewModel.Create("Images\\Orange.png", "Images\\OrangeLarge.png", "Orange", "Group A"),
-            GallerySampleDataItemViewModel.Create("Images\\Pink.png", "Images\\PinkLarge.png", "Pink", "Group B"),
-            GallerySampleDataItemViewModel.Create("Images\\Red.png", "Images\\RedLarge.png", "Red", "Group B"),
-            GallerySampleDataItemViewModel.Create("Images\\Yellow.png", "Images\\YellowLarge.png", "Yellow", "Group B")
-        }));
+    public ReadOnlyObservableCollection<GallerySampleDataItemViewModel> DataItems { get; }
 
     public Func<object, string> GroupByAdvancedSample { get; private set; }
 
-    public IList<string> ManyItems => this.manyItems ?? (this.manyItems = GenerateStrings(5000));
+    public IList<string> ManyItems { get; }
 
-    public IList<string> StringItems => this.stringItems ?? (this.stringItems = GenerateStrings(25));
+    public IList<string> StringItems { get; }
 
     public bool? IsCheckedToggleButton3
     {
@@ -224,34 +222,20 @@ public class MainViewModel : ViewModel
     /// <summary>
     /// Exit from the application
     /// </summary>
-    public ICommand ExitCommand
-    {
-        get
-        {
-            if (this.exitCommand is null)
-            {
-                this.exitCommand = new RelayCommand(Application.Current.Shutdown, () => this.BoundSpinnerValue > 0);
-            }
-
-            return this.exitCommand;
-        }
-    }
+    public ICommand ExitCommand { get; }
 
     #endregion
 
-    public ICommand TestCommand
-    {
-        get { return this.testCommand ?? (this.testCommand = new RelayCommand(() => MessageBox.Show("Test-Command"))); }
-    }
+    public ICommand TestCommand { get; }
 
     #endregion Properties
 
-    private static void Preview(GalleryItem galleryItem)
+    private static void Preview(GalleryItem? galleryItem)
     {
         Trace.WriteLine($"Preview: {galleryItem}");
     }
 
-    private static void CancelPreview(GalleryItem galleryItem)
+    private static void CancelPreview(GalleryItem? galleryItem)
     {
         Trace.WriteLine($"CancelPreview: {galleryItem}");
     }
@@ -263,7 +247,7 @@ public class MainViewModel : ViewModel
             .ToList();
     }
 
-    private void HandleMemoryTimer_Elapsed(object sender, ElapsedEventArgs e)
+    private void HandleMemoryTimer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         this.OnPropertyChanged(nameof(this.UsedMemory));
     }

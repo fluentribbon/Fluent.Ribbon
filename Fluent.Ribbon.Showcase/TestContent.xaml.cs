@@ -38,7 +38,6 @@ using Button = Fluent.Button;
 public partial class TestContent
 {
     private readonly MainViewModel viewModel;
-    private string windowTitle;
 
     public TestContent()
     {
@@ -49,6 +48,8 @@ public partial class TestContent
         this.HookEvents();
 
         this.viewModel = new MainViewModel();
+        this.WindowTitle = GetVersionText(this.GetType());
+
         this.DataContext = this.viewModel;
 
         this.Loaded += this.TestContent_Loaded;
@@ -68,16 +69,16 @@ public partial class TestContent
         }), new KeyGesture(Key.F11, ModifierKeys.Control)));
     }
 
-    public string WindowTitle => this.windowTitle ?? (this.windowTitle = GetVersionText(Window.GetWindow(this).GetType().BaseType));
+    public string WindowTitle { get; }
 
 #pragma warning disable WPF0060
     /// <summary>Identifies the <see cref="Colors"/> dependency property.</summary>
     public static readonly DependencyProperty ColorsProperty = DependencyProperty.Register(nameof(Colors), typeof(List<KeyValuePair<string, Color?>>), typeof(TestContent), new PropertyMetadata(default(List<KeyValuePair<string, Color>>)));
 #pragma warning restore WPF0060
 
-    public List<KeyValuePair<string, Color?>> Colors
+    public List<KeyValuePair<string, Color?>>? Colors
     {
-        get => (List<KeyValuePair<string, Color?>>)this.GetValue(ColorsProperty);
+        get => (List<KeyValuePair<string, Color?>>?)this.GetValue(ColorsProperty);
         set => this.SetValue(ColorsProperty, value);
     }
 
@@ -86,7 +87,7 @@ public partial class TestContent
     private static List<RibbonLocalizationBase> GetLocalizations()
     {
         return RibbonLocalization.Current.LocalizationMap.Values
-            .Select(x => (RibbonLocalizationBase)Activator.CreateInstance(x))
+            .Select(x => (RibbonLocalizationBase)Activator.CreateInstance(x)!)
             .ToList();
     }
 
@@ -97,7 +98,7 @@ public partial class TestContent
             .Where(prop =>
                 typeof(Brush).IsAssignableFrom(prop.PropertyType))
             .Select(prop =>
-                new KeyValuePair<string, Color?>(prop.Name, (Color)prop.GetValue(null, null)));
+                new KeyValuePair<string, Color?>(prop.Name, (Color)prop.GetValue(null, null)!));
         return ThemeManager.Current.Themes.GroupBy(x => x.ColorScheme)
             .Select(x => x.First())
             .Select(x => new KeyValuePair<string, Color?>(x.ColorScheme, ((SolidColorBrush)x.ShowcaseBrush).Color))
@@ -198,8 +199,13 @@ public partial class TestContent
         }
     }
 
-    private static void OnScreenTipHelpPressed(object sender, ScreenTipHelpEventArgs e)
+    private static void OnScreenTipHelpPressed(object? sender, ScreenTipHelpEventArgs e)
     {
+        if (e.HelpTopic is null)
+        {
+            return;
+        }
+
         Process.Start((string)e.HelpTopic);
     }
 
@@ -275,7 +281,7 @@ public partial class TestContent
         this.BuildLogicalTree(this.ribbon, this.logicalTreeView);
     }
 
-    private static string GetDebugInfo(DependencyObject element)
+    private static string GetDebugInfo(DependencyObject? element)
     {
         if (element is null)
         {
@@ -347,7 +353,7 @@ public partial class TestContent
         MessageBox.Show($"From buttom to top:\n{stringBuilder}");
     }
 
-    private void BuildBackLogicalTree(DependencyObject current, StringBuilder stringBuilder)
+    private void BuildBackLogicalTree(DependencyObject? current, StringBuilder stringBuilder)
     {
         if (current is null
             || ReferenceEquals(current, this.ribbon))
@@ -408,6 +414,11 @@ public partial class TestContent
 
     private void AddButton_OnClick(object sender, RoutedEventArgs e)
     {
+        if (this.ribbon.SelectedTabItem is null)
+        {
+            return;
+        }
+
         var group = this.ribbon.SelectedTabItem.Groups.Last();
 
         if (group.ItemsSource is not null)
@@ -444,6 +455,11 @@ public partial class TestContent
         };
         BindingOperations.SetBinding(progressAdornerChild, WidthProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualWidth)) { Source = this.Backstage.AdornerLayer });
         BindingOperations.SetBinding(progressAdornerChild, HeightProperty, new Binding(nameof(this.Backstage.AdornerLayer.ActualHeight)) { Source = this.Backstage.AdornerLayer });
+
+        if (this.Backstage.AdornerLayer is null)
+        {
+            throw new Exception("Backstage does not have an adorner layer.");
+        }
 
         var progressAdorner = new SimpleControlAdorner(this.Backstage.AdornerLayer)
         {
@@ -535,10 +551,10 @@ public partial class TestContent
             testWindow.Show();
             System.Windows.Threading.Dispatcher.Run();
 
-            void OnTestWindowOnClosed(object o, EventArgs args)
+            void OnTestWindowOnClosed(object? o, EventArgs args)
             {
                 testWindow.Closed -= OnTestWindowOnClosed;
-                ((Window)o).Dispatcher?.InvokeShutdown();
+                ((Window)o!).Dispatcher?.InvokeShutdown();
             }
         })
         {

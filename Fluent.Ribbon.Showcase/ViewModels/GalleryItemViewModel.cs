@@ -2,8 +2,8 @@
 
 public class GalleryItemViewModel : ViewModel
 {
-    private string text;
-    private string group;
+    private string text = null!;
+    private string group = null!;
 
     public GalleryItemViewModel(string group, string text)
     {
