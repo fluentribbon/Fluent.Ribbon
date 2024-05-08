@@ -1,7 +1,8 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
-                    xmlns:FluentHelpers="clr-namespace:Fluent.Helpers">
+                    xmlns:FluentHelpers="clr-namespace:Fluent.Helpers"
+                    xmlns:System="clr-namespace:System;assembly=mscorlib">
     <DataTemplate x:Key="Fluent.Ribbon.DataTemplates.InRibbonGallery.ToggleButton.Header">
         <Fluent:TwoLineLabel HorizontalAlignment="Center"
                              VerticalAlignment="Stretch"
@@ -299,35 +300,37 @@
         </Setter>
     </Style>
 
-    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton"
-           TargetType="{x:Type RepeatButton}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border x:Name="border"
-                            Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                            BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                            BorderThickness="1">
-                        <ContentPresenter x:Name="contentPresenter" />
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True" />
-                                <Condition Property="IsPressed" Value="False" />
-                            </MultiTrigger.Conditions>
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
-                        </MultiTrigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar" TargetType="ScrollBar">
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Margin" Value="0 0 0 17" />
+        <Setter Property="BorderThickness" Value="1 1 0 1" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Height" Value="17" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HorizontalScrollBar}" />
+                <Setter Property="Width" Value="Auto" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.VerticalScrollBar}" />
+                <Setter Property="Width" Value="17" />
+            </Trigger>
+        </Style.Triggers>
+        <Style.Resources>
+            <!-- Set the Thumb's minimum height to 10.
+            The Thumb's minimum height is half the
+            value of VerticalScrollBarButtonHeightKey. -->
+            <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
+                10
+            </System:Double>
+            <!-- Set the Thumb's minimum height to 10.
+            The Thumb's minimum height is half the
+            value of VerticalScrollBarButtonHeightKey.-->
+            <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
+                10
+            </System:Double>
+        </Style.Resources>
     </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery"
@@ -344,98 +347,10 @@
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
                     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Visible"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
-                        <ScrollViewer.Resources>
-                            <Style TargetType="{x:Type ScrollBar}">
-                                <Setter Property="ContextMenu" Value="{x:Null}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ScrollBar}">
-                                            <Grid>
-                                                <StackPanel x:Name="upDownButtonPanel"
-                                                            Margin="0 -1 -1 0"
-                                                            HorizontalAlignment="Right">
-                                                    <RepeatButton x:Name="upButton"
-                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
-                                                                  Width="15"
-                                                                  Height="21"
-                                                                  Margin="0 0 0 0"
-                                                                  Command="ScrollBar.PageUpCommand">
-                                                        <Path Width="7"
-                                                              Height="5"
-                                                              Data="M0,0 L1,-1 2,0z"
-                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              Stretch="Fill" />
-                                                    </RepeatButton>
-                                                    <RepeatButton x:Name="downButton"
-                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
-                                                                  Width="15"
-                                                                  Height="21"
-                                                                  Margin="0 -1 0 0"
-                                                                  Command="ScrollBar.PageDownCommand">
-                                                        <Path Width="7"
-                                                              Height="5"
-                                                              Data="M0,0 L1,1 2,0z"
-                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              Stretch="Fill" />
-                                                    </RepeatButton>
-                                                </StackPanel>
-                                                <Grid x:Name="upDownButtonPanelSimplified"
-                                                      Margin="0 -1 -1 -2"
-                                                      HorizontalAlignment="Right"
-                                                      Visibility="Collapsed">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*" />
-                                                        <RowDefinition Height="*" />
-                                                    </Grid.RowDefinitions>
-                                                    <RepeatButton x:Name="upButtonSimplified"
-                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
-                                                                  Grid.Row="0"
-                                                                  Width="15"
-                                                                  Margin="0 0 0 -0.5"
-                                                                  Command="ScrollBar.PageUpCommand">
-                                                        <Path Width="7"
-                                                              Height="5"
-                                                              Data="M0,0 L1,-1 2,0z"
-                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              Stretch="Fill" />
-                                                    </RepeatButton>
-                                                    <RepeatButton x:Name="downButtonSimplified"
-                                                                  Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryRepeatButton}"
-                                                                  Grid.Row="1"
-                                                                  Width="15"
-                                                                  Margin="0 -0.5 0 0"
-                                                                  Command="ScrollBar.PageDownCommand">
-                                                        <Path Width="7"
-                                                              Height="5"
-                                                              Data="M0,0 L1,1 2,0z"
-                                                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                                              Stretch="Fill" />
-                                                    </RepeatButton>
-                                                </Grid>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding IsSimplified, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:InRibbonGallery}}, FallbackValue=False}" Value="True" />
-                                                        <Condition Binding="{Binding IsCollapsed, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Fluent:InRibbonGallery}}, FallbackValue=True}" Value="False" />
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter TargetName="upDownButtonPanel" Property="Visibility" Value="Collapsed" />
-                                                    <Setter TargetName="upDownButtonPanelSimplified" Property="Visibility" Value="Visible" />
-                                                </MultiDataTrigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ScrollViewer.Resources>
-
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                  Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}">
                         <ContentControl x:Name="PART_ContentPresenter"
                                         Focusable="False">
                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
@@ -474,13 +389,6 @@
                            Placement="Custom"
                            PlacementTarget="{Binding ElementName=PART_LayoutRoot}"
                            PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-                        <Popup.Resources>
-                            <ResourceDictionary>
-                                <Style x:Key="{x:Type ScrollBar}"
-                                       TargetType="{x:Type ScrollBar}"
-                                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-                            </ResourceDictionary>
-                        </Popup.Resources>
                         <Fluent:ResizeableContentControl x:Name="PART_PopupContentControl"
                                                          MinWidth="{TemplateBinding ActualWidth}"
                                                          MinHeight="{TemplateBinding ActualHeight}"

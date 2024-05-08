@@ -193,10 +193,6 @@
                      TargetType="{x:Type Fluent:BackstageTabControl}">
         <ControlTemplate.Resources>
             <ResourceDictionary>
-                <Style x:Key="{x:Type ScrollBar}"
-                       TargetType="{x:Type ScrollBar}"
-                       BasedOn="{StaticResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
-
                 <Style x:Key="{x:Type Fluent:Button}"
                        TargetType="{x:Type Fluent:Button}"
                        BasedOn="{StaticResource Fluent.Ribbon.Styles.Backstage.Button}" />
