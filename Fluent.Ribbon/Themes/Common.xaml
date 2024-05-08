@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:theming="clr-namespace:Fluent.Theming">
+                    xmlns:theming="clr-namespace:Fluent.Theming"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <theming:RibbonLibraryThemeProvider x:Key="{x:Static theming:RibbonLibraryThemeProvider.DefaultInstance}" />
 
     <!-- Set default values -->
@@ -49,6 +50,28 @@
                                   Value="0" />
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
+
+    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Left">M 0 0 L -5 5 L 0 10</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Up">M 0 0 L -5 -5 L -10 0</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Down">M 0 0 L 5 5 L 10 0</PathGeometry>
+
+    <!-- <Geometry x:Key="Fluent.Ribbon.Data.UpArrow">M 0 4 L 8 4 L 4 0 Z</Geometry> -->
+    <!-- <Geometry x:Key="Fluent.Ribbon.Data.DownArrow">M 0 0 L 4 4 L 8 0 Z</Geometry> -->
+
+    <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow"
+           TargetType="Path">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="StrokeDashCap" Value="Flat" />
+        <Setter Property="StrokeEndLineCap" Value="Flat" />
+        <Setter Property="StrokeLineJoin" Value="Round" />
+        <Setter Property="StrokeStartLineCap" Value="Flat" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="Width" Value="10" />
+        <Setter Property="Height" Value="6" />
+    </Style>
 
     <!-- Set default styles -->
     <Style TargetType="{x:Type Fluent:Spinner}"

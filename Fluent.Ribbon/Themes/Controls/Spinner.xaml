@@ -139,34 +139,19 @@
                     <RepeatButton x:Name="PART_ButtonUp"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="0"
-                                  Grid.Column="1"
-                                  HorizontalAlignment="Stretch"
-                                  RenderTransformOrigin="0,0.5">
-                        <Path Width="7"
-                              Height="5"
-                              Margin="0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Data="M0,0L1,-1 2,0"
-                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              Stretch="Fill"
-                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              StrokeThickness="0" />
+                                  Grid.Column="1">
+                        <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                              Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                              Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     </RepeatButton>
                     <RepeatButton x:Name="PART_ButtonDown"
                                   Style="{DynamicResource Fluent.Ribbon.Styles.SpinnerButton}"
                                   Grid.Row="1"
                                   Grid.Column="1">
-                        <Path Width="7"
-                              Height="5"
-                              Margin="0"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Data="M0,0L1,1 2,0"
-                              Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              Stretch="Fill"
+                        <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                              Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                              StrokeThickness="0" />
+                              Margin="0 0 0 1" />
                     </RepeatButton>
                 </Grid>
             </Border>

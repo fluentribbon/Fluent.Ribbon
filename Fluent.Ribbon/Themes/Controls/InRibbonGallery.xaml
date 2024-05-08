@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:FluentHelpers="clr-namespace:Fluent.Helpers">
@@ -261,27 +261,22 @@
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                            BorderThickness="1 1 1 1">
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid x:Name="grid">
-                            <Path Width="7"
-                                  Height="1"
-                                  Margin="0 6 0 0"
+                            <Path Width="10"
+                                  Height="2"
+                                  Margin="0 2 0 0"
                                   HorizontalAlignment="Center"
                                   VerticalAlignment="Top"
                                   Data="M0,0L1,0"
-                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.White}"
-                                  Stretch="Fill"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-                            <Path Width="5"
-                                  Height="3"
-                                  Margin="0 8 0 0"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Top"
-                                  Data="M0,0L1,1 2,0z"
-                                  Fill="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   Stretch="Fill"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  StrokeThickness="0" />
+                                  StrokeThickness="2" />
+                            <Path Margin="0 0 0 4"
+                                  VerticalAlignment="Bottom"
+                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -458,9 +453,10 @@
 
                     <Fluent:ToggleButton x:Name="PART_ExpandButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryButton}"
-                                         Width="15"
-                                         Height="20"
-                                         Margin="0 0 -1 -1"
+                                         BorderThickness="1 1 0 0"
+                                         Width="17"
+                                         Height="17"
+                                         Margin="0"
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Bottom"
                                          CanAddToQuickAccessToolBar="False"
@@ -607,6 +603,7 @@
             </Trigger>
             <Trigger Property="Size" Value="Small">
                 <Setter Property="Height" Value="22" />
+                <Setter Property="Width" Value="32" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Height" Value="Auto" />
