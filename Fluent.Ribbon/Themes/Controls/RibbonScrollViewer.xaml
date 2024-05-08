@@ -87,9 +87,9 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
@@ -124,9 +124,9 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                     </Grid>
                 </ControlTemplate>
@@ -175,9 +175,9 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
                                       Width="13"
@@ -201,9 +201,9 @@
                                              RelativeSource="{RelativeSource TemplatedParent}" />
                                 </MultiBinding>
                             </RepeatButton.Visibility>
-                            <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                     </Grid>
                 </ControlTemplate>
@@ -257,9 +257,9 @@
                                  RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
-                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                      Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                      Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
 
             </RepeatButton>
             <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
@@ -284,17 +284,17 @@
                                  RelativeSource="{RelativeSource TemplatedParent}" />
                     </MultiBinding>
                 </RepeatButton.Visibility>
-                <Path Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
-                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                      Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                      Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                      Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
             </RepeatButton>
         </Grid>
     </ControlTemplate>
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollViewer"
            TargetType="{x:Type ScrollViewer}">
-        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollViewer}" />
         <Setter Property="Fluent:ScrollViewerAttachedProperties.ScrollBarStyle" Value="{DynamicResource Fluent.Ribbon.Styles.ScrollBarWhite}" />
+        <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.ScrollViewer}" />
 
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
@@ -337,17 +337,18 @@
                                         Content="{TemplateBinding Content}"
                                         ContentTemplate="{TemplateBinding ContentTemplate}" />
                 <ScrollBar x:Name="PART_VerticalScrollBar"
+                           Style="{Binding Path=(Fluent:ScrollViewerAttachedProperties.ScrollBarStyle), RelativeSource={RelativeSource TemplatedParent}}"
                            Grid.Row="0"
                            Grid.Column="1"
                            AutomationProperties.AutomationId="Fluent.Ribbon.Templates.VerticalScrollBar"
                            Cursor="Arrow"
                            Maximum="{TemplateBinding ScrollableHeight}"
                            Minimum="0"
-                           Style="{Binding Path=(Fluent:ScrollViewerAttachedProperties.ScrollBarStyle), RelativeSource={RelativeSource TemplatedParent}}"
                            ViewportSize="{TemplateBinding ViewportHeight}"
                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
                 <ScrollBar x:Name="PART_HorizontalScrollBar"
+                           Style="{Binding Path=(Fluent:ScrollViewerAttachedProperties.ScrollBarStyle), RelativeSource={RelativeSource TemplatedParent}}"
                            Grid.Row="1"
                            Grid.Column="0"
                            AutomationProperties.AutomationId="Fluent.Ribbon.Templates.HorizontalScrollBar"
@@ -355,7 +356,6 @@
                            Maximum="{TemplateBinding ScrollableWidth}"
                            Minimum="0"
                            Orientation="Horizontal"
-                           Style="{Binding Path=(Fluent:ScrollViewerAttachedProperties.ScrollBarStyle), RelativeSource={RelativeSource TemplatedParent}}"
                            ViewportSize="{TemplateBinding ViewportWidth}"
                            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                            Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />

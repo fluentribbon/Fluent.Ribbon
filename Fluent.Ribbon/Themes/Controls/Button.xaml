@@ -90,14 +90,14 @@
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="Width" Value="Auto" />
@@ -250,6 +250,7 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Padding" Value="{DynamicResource Fluent.Ribbon.Values.Default.Padding}" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button}" />
         <Style.Triggers>
@@ -265,14 +266,13 @@
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Width" Value="22" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
-                <Setter Property="Padding" Value="6 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.Button.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />

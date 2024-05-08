@@ -99,7 +99,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0" />
         <!-- make the native caption transparent by default -->
-        <Setter Property="CaptionColor" Value="Transparent" /> 
+        <Setter Property="CaptionColor" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
         <Setter Property="GlowColor" Value="{DynamicResource Fluent.Ribbon.Colors.AccentBase}" />
         <Setter Property="NonActiveBorderBrush" Value="#434346" />

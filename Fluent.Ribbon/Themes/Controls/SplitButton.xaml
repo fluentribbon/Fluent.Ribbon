@@ -14,6 +14,7 @@
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Padding" Value="{DynamicResource Fluent.Ribbon.Values.Default.Padding}" />
         <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonSplitButton}" />
         <Style.Triggers>
@@ -36,7 +37,7 @@
                 <Setter Property="Fluent:KeyTip.VerticalAlignment" Value="Center" />
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="32" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:KeyTip.HorizontalAlignment" Value="Right" />
@@ -46,7 +47,6 @@
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="MinHeight" Value="30" />
-                <Setter Property="Padding" Value="6 2 2 2" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="Width" Value="Auto" />
@@ -83,6 +83,7 @@
                                          Width="Auto"
                                          Height="Auto"
                                          Margin="0"
+                                         Padding="{TemplateBinding Padding}"
                                          Icon="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                          MediumIcon="{Binding MediumIcon, RelativeSource={RelativeSource TemplatedParent}}"
                                          LargeIcon="{Binding LargeIcon, RelativeSource={RelativeSource TemplatedParent}}"
@@ -345,7 +346,6 @@
                 <Setter Property="Fluent:KeyTip.Margin" Value="-5,0,0,0" />
                 <Setter Property="Fluent:KeyTip.VerticalAlignment" Value="Center" />
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
-                <Setter Property="Padding" Value="6 0" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.SplitButton.ToggleButton.Simplified}" />
                 <Setter Property="VerticalAlignment" Value="Stretch" />
             </Trigger>
@@ -375,7 +375,8 @@
                 <StackPanel x:Name="stackPanel"
                             HorizontalAlignment="Stretch"
                             Orientation="Vertical"
-                            SnapsToDevicePixels="True">
+                            SnapsToDevicePixels="True"
+                            Margin="{TemplateBinding Padding}">
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 1 0 0"
                                           HorizontalAlignment="Center"

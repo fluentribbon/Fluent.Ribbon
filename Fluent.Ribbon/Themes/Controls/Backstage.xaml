@@ -36,8 +36,8 @@
               Background="{TemplateBinding Background}"
               ToolTip="{TemplateBinding ToolTip}">
             <Border x:Name="underlineBorder"
-                    Margin="0 0 0 3"
                     Width="{Binding ElementName=contentPresenter, Path=ActualWidth}"
+                    Margin="0 0 0 3"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom"
                     Background="Transparent"

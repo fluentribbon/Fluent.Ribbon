@@ -19,6 +19,7 @@
         <Setter Property="HeaderTemplate" Value="{DynamicResource Fluent.Ribbon.DataTemplates.Button.Header}" />
         <Setter Property="Height" Value="68" />
         <Setter Property="Margin" Value="{DynamicResource Fluent.Ribbon.Values.Default.Margin}" />
+        <Setter Property="Padding" Value="{DynamicResource Fluent.Ribbon.Values.Default.Padding}" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.RibbonToggleButton}" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
@@ -86,14 +87,14 @@
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 -2 2 2" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Visibility" Value="Collapsed" />
-                <Setter TargetName="iconImage" Property="Margin" Value="1 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 2 2 2" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="border" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="iconImage" Property="Margin" Value="1 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="Width" Value="Auto" />

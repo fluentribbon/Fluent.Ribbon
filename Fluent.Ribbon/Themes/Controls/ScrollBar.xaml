@@ -276,15 +276,19 @@
             </Trigger>
         </Style.Triggers>
         <Style.Resources>
-            <!-- Set the Thumb's minimum height to 36.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey. -->
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
                 36
             </System:Double>
-            <!-- Set the Thumb's minimum height to 36.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey.-->
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
                 36
             </System:Double>
@@ -308,15 +312,19 @@
             </Trigger>
         </Style.Triggers>
         <Style.Resources>
-            <!-- Set the Thumb's minimum height to 36.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey. -->
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
                 36
             </System:Double>
-            <!-- Set the Thumb's minimum height to 36.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey.-->
+            <!--
+                Set the Thumb's minimum height to 36.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
                 36
             </System:Double>

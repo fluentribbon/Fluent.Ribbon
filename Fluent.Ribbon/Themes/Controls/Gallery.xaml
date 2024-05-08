@@ -61,11 +61,11 @@
                                                        Stretch="Fill"
                                                        Stroke="{DynamicResource Fluent.Ribbon.Brushes.Separator.Border}"
                                                        Visibility="Visible" />
-                                            <ScrollViewer Margin="1"
+                                            <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                                          Margin="1"
                                                           HorizontalScrollBarVisibility="Disabled"
                                                           SnapsToDevicePixels="True"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
+                                                          VerticalScrollBarVisibility="Auto">
                                                 <StackPanel x:Name="PART_MenuPanel"
                                                             IsItemsHost="True"
                                                             KeyboardNavigation.DirectionalNavigation="Cycle"
@@ -110,10 +110,10 @@
                                            VerticalAlignment="Top" />
                 </Border>
                 <ScrollViewer x:Name="scrollViewer"
+                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                               Grid.Row="1"
                               Grid.RowSpan="1"
-                              Focusable="False"
-                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
+                              Focusable="False">
                     <Fluent:GalleryPanel Margin="{TemplateBinding Padding}"
                                          Filter="{TemplateBinding SelectedFilterGroups}"
                                          GroupBy="{TemplateBinding GroupBy}"

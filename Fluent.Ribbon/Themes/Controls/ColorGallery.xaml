@@ -131,9 +131,9 @@
                                            Stroke="{DynamicResource Fluent.Ribbon.Brushes.ColorGallery.Item.Border}" />
                             </Fluent:MenuItem.Icon>
                         </Fluent:MenuItem>
-                        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                      VerticalScrollBarVisibility="Auto"
-                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
+                        <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 1 0 1"
                                         Background="{TemplateBinding Background}"
                                         ClipToBounds="True"

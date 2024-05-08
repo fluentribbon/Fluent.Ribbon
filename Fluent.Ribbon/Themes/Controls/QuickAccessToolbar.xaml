@@ -60,12 +60,12 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <ScrollViewer MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                              MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                               Margin="1"
                                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                               ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                              SnapsToDevicePixels="True"
-                                              Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
+                                              SnapsToDevicePixels="True">
                                     <StackPanel x:Name="PART_MenuPanel"
                                                 IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Cycle"

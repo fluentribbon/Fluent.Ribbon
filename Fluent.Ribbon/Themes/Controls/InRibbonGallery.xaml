@@ -56,7 +56,7 @@
             <Trigger Property="Size" Value="Small">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="32" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
@@ -273,11 +273,11 @@
                                   Stretch="Fill"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
                                   StrokeThickness="2" />
-                            <Path Margin="0 0 0 4"
+                            <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                                  Margin="0 0 0 4"
                                   VerticalAlignment="Bottom"
                                   Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
-                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}" />
+                                  Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -300,11 +300,12 @@
         </Setter>
     </Style>
 
-    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar" TargetType="ScrollBar">
-        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Margin" Value="0 0 0 17" />
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar"
+           TargetType="ScrollBar">
         <Setter Property="BorderThickness" Value="1 1 0 1" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+        <Setter Property="Margin" Value="0 0 0 17" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
                 <Setter Property="Height" Value="17" />
@@ -318,15 +319,19 @@
             </Trigger>
         </Style.Triggers>
         <Style.Resources>
-            <!-- Set the Thumb's minimum height to 10.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey. -->
+            <!--
+                Set the Thumb's minimum height to 10.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.HorizontalScrollBarButtonWidthKey}">
                 10
             </System:Double>
-            <!-- Set the Thumb's minimum height to 10.
-            The Thumb's minimum height is half the
-            value of VerticalScrollBarButtonHeightKey.-->
+            <!--
+                Set the Thumb's minimum height to 10.
+                The Thumb's minimum height is half the
+                value of VerticalScrollBarButtonHeightKey.
+            -->
             <System:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">
                 10
             </System:Double>
@@ -347,10 +352,10 @@
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                  VerticalScrollBarVisibility="Visible"
-                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
-                                  Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}">
+                    <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                                  Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Visible">
                         <ContentControl x:Name="PART_ContentPresenter"
                                         Focusable="False">
                             <Fluent:GalleryPanel x:Name="PART_GalleryPanel"
@@ -368,12 +373,12 @@
 
                     <Fluent:ToggleButton x:Name="PART_ExpandButton"
                                          Style="{DynamicResource Fluent.Ribbon.Styles.InRibbonGalleryButton}"
-                                         BorderThickness="1 1 0 0"
                                          Width="17"
                                          Height="17"
                                          Margin="0"
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Bottom"
+                                         BorderThickness="1 1 0 0"
                                          CanAddToQuickAccessToolBar="False"
                                          ClickMode="Press"
                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
@@ -421,11 +426,11 @@
                                                                    VerticalAlignment="Top" />
                                         </Border>
                                         <ScrollViewer x:Name="PART_ScrollViewer"
+                                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                                                       Grid.Row="1"
                                                       Margin="1"
                                                       BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.Control.Border}"
-                                                      BorderThickness="0 0 0 1"
-                                                      Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}">
+                                                      BorderThickness="0 0 0 1">
                                             <ContentControl x:Name="PART_PopupContentPresenter"
                                                             Content="{x:Null}"
                                                             Focusable="False" />
@@ -511,11 +516,11 @@
             </Trigger>
             <Trigger Property="Size" Value="Small">
                 <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="32" />
+                <Setter Property="Width" Value="Auto" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
-                <Setter Property="Height" Value="Auto" />
                 <Setter Property="GalleryPanelContainerHeight" Value="NaN" />
+                <Setter Property="Height" Value="Auto" />
             </Trigger>
         </Style.Triggers>
     </Style>

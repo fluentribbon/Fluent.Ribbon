@@ -2,12 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Fluent="clr-namespace:Fluent"
                     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-                    xmlns:theming="clr-namespace:Fluent.Theming"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:theming="clr-namespace:Fluent.Theming">
     <theming:RibbonLibraryThemeProvider x:Key="{x:Static theming:RibbonLibraryThemeProvider.DefaultInstance}" />
 
     <!-- Set default values -->
     <Thickness x:Key="Fluent.Ribbon.Values.Default.Margin">1 1 1 1</Thickness>
+    <Thickness x:Key="Fluent.Ribbon.Values.Default.Padding">2 0 2 0</Thickness>
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness">0</Thickness>
     <Thickness x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Margin">8 0 8 0</Thickness>
     <CornerRadius x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius">8</CornerRadius>
@@ -61,16 +62,16 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.Path.Arrow"
            TargetType="Path">
+        <Setter Property="Height" Value="6" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Stretch" Value="Uniform" />
         <Setter Property="StrokeDashCap" Value="Flat" />
         <Setter Property="StrokeEndLineCap" Value="Flat" />
         <Setter Property="StrokeLineJoin" Value="Round" />
         <Setter Property="StrokeStartLineCap" Value="Flat" />
         <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Width" Value="10" />
-        <Setter Property="Height" Value="6" />
     </Style>
 
     <!-- Set default styles -->

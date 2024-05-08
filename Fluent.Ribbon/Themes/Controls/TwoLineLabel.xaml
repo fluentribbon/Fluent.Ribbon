@@ -32,8 +32,8 @@
                         Margin="0"
                         HorizontalAlignment="Center">
                     <Path x:Name="path"
-                          Margin="0 2 0 0"
                           Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
+                          Margin="0 2 0 0"
                           Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
                           Stroke="{TemplateBinding Foreground}" />
                 </Border>
