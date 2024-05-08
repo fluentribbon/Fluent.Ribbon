@@ -42,7 +42,7 @@
         <Setter Property="Height" Value="68" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGalleryToggleButton}" />
-        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
         <Style.Triggers>
             <Trigger Property="Size" Value="Large">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Large" />
@@ -55,7 +55,7 @@
             <Trigger Property="Size" Value="Small">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Small" />
                 <Setter Property="Height" Value="22" />
-                <Setter Property="Width" Value="31" />
+                <Setter Property="Width" Value="32" />
             </Trigger>
             <Trigger Property="IsSimplified" Value="True">
                 <Setter Property="Fluent:RibbonProperties.IconSize" Value="Medium" />
@@ -113,8 +113,8 @@
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0" />
-                <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="8" />
-                <Setter TargetName="iconImage" Property="Margin" Value="1 2 0 2" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">

@@ -155,17 +155,17 @@
         <ControlTemplate.Triggers>
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="PART_HeaderContentHost" Property="Content" Value="" />
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="-2 0 2 1" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="PART_HeaderContentHost" Property="Width" Value="10" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 0 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="PART_ButtonBorder" Property="VerticalAlignment" Value="Stretch" />
-                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="2 0 2 1" />
+                <Setter TargetName="PART_HeaderContentHost" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="PART_HeaderContentHost" Property="VerticalAlignment" Value="Center" />
-                <Setter TargetName="iconImage" Property="Margin" Value="2 0 2 0" />
+                <Setter TargetName="iconImage" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="iconImage" Property="VerticalAlignment" Value="Center" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
                 <Setter TargetName="stackPanel" Property="Width" Value="Auto" />

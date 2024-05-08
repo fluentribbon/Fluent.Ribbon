@@ -36,7 +36,8 @@
               Background="{TemplateBinding Background}"
               ToolTip="{TemplateBinding ToolTip}">
             <Border x:Name="underlineBorder"
-                    Margin="4 0 4 3"
+                    Margin="0 0 0 3"
+                    Width="{Binding ElementName=contentPresenter, Path=ActualWidth}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom"
                     Background="Transparent"
@@ -45,8 +46,9 @@
                     Visibility="Collapsed" />
 
             <ContentPresenter x:Name="contentPresenter"
-                              Margin="10 7 10 7"
+                              Margin="9 3 9 3"
                               HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
                               ContentSource="Header" />
         </Grid>
         <ControlTemplate.Triggers>
@@ -60,9 +62,6 @@
                     </Setter.Value>
                 </Setter>
                 <Setter TargetName="root" Property="Opacity" Value="0.5" />
-            </Trigger>
-            <Trigger Property="IsOpen" Value="True">
-                <Setter TargetName="underlineBorder" Property="Visibility" Value="Collapsed" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

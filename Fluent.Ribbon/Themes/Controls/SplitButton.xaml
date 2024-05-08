@@ -101,14 +101,12 @@
                             Background="Transparent"
                             BorderBrush="Transparent"
                             BorderThickness="0">
-                        <Grid>
-                            <Fluent:TwoLineLabel x:Name="controlLabel"
-                                                 Margin="2 1 2 2"
-                                                 HorizontalAlignment="Center"
-                                                 VerticalAlignment="Center"
-                                                 HasGlyph="{TemplateBinding HasTriangle}"
-                                                 Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
-                        </Grid>
+                        <Fluent:TwoLineLabel x:Name="controlLabel"
+                                             Margin="2 1 2 2"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             HasGlyph="{TemplateBinding HasTriangle}"
+                                             Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
                 </StackPanel>
             </Border>
@@ -145,14 +143,14 @@
                 <Setter TargetName="PART_ButtonBorder" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.ToggleButton.Checked.Border}" />
             </Trigger>
             <Trigger Property="Size" Value="Small">
-                <Setter TargetName="controlLabel" Property="Margin" Value="0 -19 0 0" />
+                <Setter TargetName="controlLabel" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="controlLabel" Property="Text" Value="" />
                 <Setter TargetName="controlLabel" Property="Width" Value="10" />
                 <Setter TargetName="downBorder" Property="Padding" Value="1 0 0 0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
-                <Setter TargetName="controlLabel" Property="Margin" Value="0 -19 0 0" />
+                <Setter TargetName="controlLabel" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="controlLabel" Property="Text" Value="" />
                 <Setter TargetName="controlLabel" Property="Width" Value="10" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />

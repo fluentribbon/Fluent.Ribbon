@@ -167,7 +167,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
     public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 7, 9, 7), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
+        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 3, 9, 3), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
     /// <summary>Identifies the <see cref="SeparatorOpacity"/> dependency property.</summary>
     public static readonly DependencyProperty SeparatorOpacityProperty = DependencyProperty.Register(nameof(SeparatorOpacity), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(DoubleBoxes.Zero));
