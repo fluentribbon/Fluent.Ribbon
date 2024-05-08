@@ -149,7 +149,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     /// Using a DependencyProperty as the backing store for IsSelected.
     /// This enables animation, styling, binding, etc...
     /// </summary>
-    public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsParentMeasure, OnIsSelectedChanged));
+    public static readonly DependencyProperty IsSelectedProperty = Selector.IsSelectedProperty.AddOwner(typeof(RibbonTabItem), new FrameworkPropertyMetadata(BooleanBoxes.FalseBox, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnIsSelectedChanged));
 
     /// <summary>
     /// Gets ribbon tab control parent
@@ -166,8 +166,7 @@ public class RibbonTabItem : Control, IKeyTipedControl, IHeaderedControl, ILogic
     }
 
     /// <summary>Identifies the <see cref="HeaderPadding"/> dependency property.</summary>
-    public static readonly DependencyProperty HeaderPaddingProperty =
-        DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 3, 9, 3), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
+    public static readonly DependencyProperty HeaderPaddingProperty = DependencyProperty.Register(nameof(HeaderPadding), typeof(Thickness), typeof(RibbonTabItem), new FrameworkPropertyMetadata(new Thickness(9, 3, 9, 6), FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
     /// <summary>Identifies the <see cref="SeparatorOpacity"/> dependency property.</summary>
     public static readonly DependencyProperty SeparatorOpacityProperty = DependencyProperty.Register(nameof(SeparatorOpacity), typeof(double), typeof(RibbonTabItem), new PropertyMetadata(DoubleBoxes.Zero));

@@ -11,7 +11,7 @@ public class RibbonTabsContainerTests
     //private static readonly Size zeroSize = default;
     private const double ReferenceWidth = 326;
 
-    private const double ReferenceHeight = 30;
+    private const double ReferenceHeight = 25;
 
     [Test]
     public void Empty()

@@ -46,7 +46,7 @@
                     Visibility="Collapsed" />
 
             <ContentPresenter x:Name="contentPresenter"
-                              Margin="9 3 9 3"
+                              Margin="9 3 9 6"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               ContentSource="Header" />
