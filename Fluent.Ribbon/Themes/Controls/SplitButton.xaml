@@ -146,14 +146,14 @@
             <Trigger Property="Size" Value="Small">
                 <Setter TargetName="controlLabel" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="controlLabel" Property="Text" Value="" />
-                <Setter TargetName="controlLabel" Property="Width" Value="10" />
+                <Setter TargetName="controlLabel" Property="Width" Value="14" />
                 <Setter TargetName="downBorder" Property="Padding" Value="1 0 0 0" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
             <Trigger Property="Size" Value="Middle">
                 <Setter TargetName="controlLabel" Property="Margin" Value="0 0 0 0" />
                 <Setter TargetName="controlLabel" Property="Text" Value="" />
-                <Setter TargetName="controlLabel" Property="Width" Value="10" />
+                <Setter TargetName="controlLabel" Property="Width" Value="14" />
                 <Setter TargetName="stackPanel" Property="Orientation" Value="Horizontal" />
             </Trigger>
 

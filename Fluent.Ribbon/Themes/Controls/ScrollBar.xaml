@@ -6,6 +6,7 @@
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -13,7 +14,7 @@
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
-                            BorderThickness="1">
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
@@ -26,8 +27,8 @@
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsPressed" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Background}" />
-                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Border}" />
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Background}" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.MouseOver.Border}" />
                         </MultiTrigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -65,13 +66,14 @@
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
-                            BorderThickness="1" />
+                            BorderThickness="{TemplateBinding BorderThickness}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -92,6 +94,7 @@
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -99,7 +102,7 @@
                             Margin="0"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollButton.Default.Border}"
-                            BorderThickness="1">
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <Path x:Name="path"
                               Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
                               Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}"
@@ -135,13 +138,14 @@
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border x:Name="border"
                             Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Background}"
                             BorderBrush="{DynamicResource Fluent.Ribbon.Brushes.ScrollThumb.Default.Border}"
-                            BorderThickness="1" />
+                            BorderThickness="{TemplateBinding BorderThickness}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDragging" Value="True">
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Fluent.Ribbon.Brushes.Button.Pressed.Background}" />
@@ -161,9 +165,9 @@
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition MaxHeight="17" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="0.00001*" />
-                <RowDefinition MaxHeight="17" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3"
                     Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
@@ -212,9 +216,9 @@
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="18" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="0.00001*" />
-                <ColumnDefinition MaxWidth="18" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="3"
                     Margin="0"

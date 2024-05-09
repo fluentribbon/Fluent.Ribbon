@@ -192,7 +192,7 @@
 
                 <Fluent:TwoLineLabel x:Name="controlLabel2"
                                      Grid.Column="2"
-                                     Margin="0"
+                                     Margin="2 0 0 0"
                                      HorizontalAlignment="Stretch"
                                      VerticalAlignment="Center"
                                      HasGlyph="True"
@@ -300,6 +300,94 @@
         </Setter>
     </Style>
 
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar"
+                     TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.00001*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.RowSpan="3"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
+            <RepeatButton x:Name="repeatButton"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
+                          Grid.Row="0"
+                          Height="17"
+                          BorderThickness="1 1 0 1"
+                          VerticalAlignment="Top"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          Command="ScrollBar.LineUpCommand"
+                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}" />
+            <Track Name="PART_Track"
+                   Grid.Row="1"
+                   IsDirectionReversed="true"
+                   ViewportSize="{TemplateBinding ViewportSize}">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}"
+                                  Command="ScrollBar.PageUpCommand" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarThumb}"
+                           RenderTransformOrigin="0.5,0.5" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollBarPageButton}"
+                                  Command="ScrollBar.PageDownCommand" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <RepeatButton x:Name="repeatButton1"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
+                          Grid.Row="2"
+                          Height="17"
+                          BorderThickness="1 1 0 1"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          Command="ScrollBar.LineDownCommand"
+                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="repeatButton" Property="Background" Value="{x:Null}" />
+                <Setter TargetName="repeatButton1" Property="Background" Value="{x:Null}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+        <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar.Simplified"
+                     TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.RowSpan="3"
+                    Background="{DynamicResource Fluent.Ribbon.Brushes.ScrollBar.Background}" />
+            <RepeatButton x:Name="repeatButton"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
+                          Grid.Row="0"
+                          Height="10"
+                          BorderThickness="1 1 0 1"
+                          VerticalAlignment="Top"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          Command="ScrollBar.LineUpCommand"
+                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}" />
+            <RepeatButton x:Name="repeatButton1"
+                          Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
+                          Grid.Row="1"
+                          Height="10"
+                          BorderThickness="1 1 0 1"
+                          Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          Command="ScrollBar.LineDownCommand"
+                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="repeatButton" Property="Background" Value="{x:Null}" />
+                <Setter TargetName="repeatButton1" Property="Background" Value="{x:Null}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar"
            TargetType="ScrollBar">
         <Setter Property="BorderThickness" Value="1 1 0 1" />
@@ -307,11 +395,6 @@
         <Setter Property="Margin" Value="0 0 0 17" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Style.Triggers>
-            <Trigger Property="Orientation" Value="Horizontal">
-                <Setter Property="Height" Value="17" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.HorizontalScrollBar}" />
-                <Setter Property="Width" Value="Auto" />
-            </Trigger>
             <Trigger Property="Orientation" Value="Vertical">
                 <Setter Property="Height" Value="Auto" />
                 <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.VerticalScrollBar}" />
@@ -337,6 +420,21 @@
             </System:Double>
         </Style.Resources>
     </Style>
+    
+    <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar.Simplified"
+           TargetType="ScrollBar">
+        <Setter Property="BorderThickness" Value="1 1 0 1" />
+        <Setter Property="Foreground" Value="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
+        <Setter Property="Margin" Value="0 0 0 17" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Height" Value="Auto" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar.Simplified}" />
+                <Setter Property="Width" Value="17" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery"
                      TargetType="{x:Type Fluent:InRibbonGallery}">
@@ -352,7 +450,8 @@
                     BorderThickness="1 1 1 1"
                     ClipToBounds="True">
                 <Grid Background="{DynamicResource Fluent.Ribbon.Brushes.White}">
-                    <ScrollViewer Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
+                    <ScrollViewer x:Name="ScrollViewer"
+                                  Style="{DynamicResource Fluent.Ribbon.Styles.ScrollViewer}"
                                   Fluent:ScrollViewerAttachedProperties.ScrollBarStyle="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar}"
                                   HorizontalScrollBarVisibility="Disabled"
                                   VerticalScrollBarVisibility="Visible">
@@ -493,6 +592,7 @@
                     <Condition Property="IsCollapsed" Value="False" />
                 </MultiTrigger.Conditions>
                 <Setter TargetName="PART_ExpandButton" Property="Grid.Column" Value="1" />
+                <Setter TargetName="ScrollViewer" Property="Fluent:ScrollViewerAttachedProperties.ScrollBarStyle" Value="{DynamicResource Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar.Simplified}" />
             </MultiTrigger>
             <Trigger Property="Menu" Value="{x:Null}">
                 <Setter TargetName="PART_ScrollViewer" Property="BorderThickness" Value="0" />
