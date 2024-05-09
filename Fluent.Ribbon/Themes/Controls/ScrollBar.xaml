@@ -3,10 +3,10 @@
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
     <Style x:Key="Fluent.Ribbon.Styles.ScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -62,11 +62,11 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.ScrollBarThumb"
            TargetType="{x:Type Thumb}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -91,10 +91,10 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarLineButton"
            TargetType="{x:Type RepeatButton}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -134,11 +134,11 @@
 
     <Style x:Key="Fluent.Ribbon.Styles.VerticalScrollBarThumb"
            TargetType="{x:Type Thumb}">
+        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Focusable" Value="false" />
         <Setter Property="IsTabStop" Value="false" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">

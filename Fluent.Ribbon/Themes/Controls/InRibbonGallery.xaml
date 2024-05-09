@@ -314,9 +314,9 @@
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
                           Grid.Row="0"
                           Height="17"
-                          BorderThickness="1 1 0 1"
                           VerticalAlignment="Top"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineUpCommand"
                           Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}" />
             <Track Name="PART_Track"
@@ -340,8 +340,8 @@
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
                           Grid.Row="2"
                           Height="17"
-                          BorderThickness="1 1 0 1"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineDownCommand"
                           Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
         </Grid>
@@ -366,17 +366,17 @@
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
                           Grid.Row="0"
                           Height="10"
-                          BorderThickness="1 1 0 1"
                           VerticalAlignment="Top"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineUpCommand"
                           Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}" />
             <RepeatButton x:Name="repeatButton1"
                           Style="{DynamicResource Fluent.Ribbon.Styles.VerticalScrollBarLineButton}"
                           Grid.Row="1"
                           Height="10"
-                          BorderThickness="1 1 0 1"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
+                          BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineDownCommand"
                           Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
         </Grid>
@@ -387,7 +387,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar"
            TargetType="ScrollBar">
         <Setter Property="BorderThickness" Value="1 1 0 1" />
@@ -420,7 +420,7 @@
             </System:Double>
         </Style.Resources>
     </Style>
-    
+
     <Style x:Key="Fluent.Ribbon.Styles.InRibbonGallery.ScrollBar.Simplified"
            TargetType="ScrollBar">
         <Setter Property="BorderThickness" Value="1 1 0 1" />

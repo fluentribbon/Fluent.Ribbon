@@ -373,10 +373,10 @@
                            StrokeThickness="0"
                            Visibility="Collapsed" />
                 <StackPanel x:Name="stackPanel"
+                            Margin="{TemplateBinding Padding}"
                             HorizontalAlignment="Stretch"
                             Orientation="Vertical"
-                            SnapsToDevicePixels="True"
-                            Margin="{TemplateBinding Padding}">
+                            SnapsToDevicePixels="True">
                     <Fluent:IconPresenter x:Name="iconImage"
                                           Margin="0 1 0 0"
                                           HorizontalAlignment="Center"
