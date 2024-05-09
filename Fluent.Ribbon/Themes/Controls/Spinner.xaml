@@ -150,7 +150,7 @@
                                   Grid.Column="1">
                         <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
                               Margin="0 0 0 1"
-                              Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                              Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     </RepeatButton>
                 </Grid>

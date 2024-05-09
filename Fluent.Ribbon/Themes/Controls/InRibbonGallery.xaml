@@ -276,7 +276,7 @@
                             <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
                                   Margin="0 0 0 4"
                                   VerticalAlignment="Bottom"
-                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </Grid>
                     </Border>
@@ -343,7 +343,7 @@
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineDownCommand"
-                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -378,7 +378,7 @@
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           BorderThickness="1 1 0 1"
                           Command="ScrollBar.LineDownCommand"
-                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

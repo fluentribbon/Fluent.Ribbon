@@ -34,7 +34,7 @@
                     <Path x:Name="path"
                           Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
                           Margin="0 2 0 0"
-                          Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}"
+                          Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}"
                           Stroke="{TemplateBinding Foreground}" />
                 </Border>
             </StackPanel>

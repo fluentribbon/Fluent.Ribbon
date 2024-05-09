@@ -202,7 +202,7 @@
                           Height="17"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineDownCommand"
-                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Down}" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Down}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
