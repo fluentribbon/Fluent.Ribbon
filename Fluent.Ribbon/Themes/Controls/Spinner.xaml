@@ -141,7 +141,7 @@
                                   Grid.Row="0"
                                   Grid.Column="1">
                         <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                              Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                              Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
                               Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                     </RepeatButton>
                     <RepeatButton x:Name="PART_ButtonDown"

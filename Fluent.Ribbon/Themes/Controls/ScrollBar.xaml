@@ -178,7 +178,7 @@
                           VerticalAlignment="Top"
                           Background="{DynamicResource Fluent.Ribbon.Brushes.White}"
                           Command="ScrollBar.LineUpCommand"
-                          Content="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}" />
+                          Content="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}" />
             <Track Name="PART_Track"
                    Grid.Row="1"
                    IsDirectionReversed="true"

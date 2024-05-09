@@ -252,7 +252,7 @@
                                                  HorizontalContentAlignment="Stretch"
                                                  VerticalContentAlignment="Stretch"
                                                  NextContent="{Binding SelectedContent, RelativeSource={RelativeSource TemplatedParent}}"
-                                                 TransitionStoryboard="{DynamicResource Fluent.Ribbon.Values.RibbonTabControl.Content.Transition}" />
+                                                 TransitionStoryboard="{DynamicResource Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition}" />
                 </ContentControl>
             </Border>
 

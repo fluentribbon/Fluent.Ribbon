@@ -20,7 +20,7 @@
                       ShadowDepth="0"
                       Color="{DynamicResource Fluent.Ribbon.Colors.Gray6}" />
 
-    <Storyboard x:Key="Fluent.Ribbon.Values.RibbonTabControl.Content.Transition">
+    <Storyboard x:Key="Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition">
         <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_CurrentContent"
                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
             <SplineDoubleKeyFrame KeyTime="00:00:00"
@@ -52,10 +52,10 @@
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
 
-    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Left">M 0 0 L -5 5 L 0 10</PathGeometry>
-    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Up">M 0 0 L -5 -5 L -10 0</PathGeometry>
-    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>
-    <PathGeometry x:Key="Fluent.Ribbon.Data.Arrow.Down">M 0 0 L 5 5 L 10 0</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Left">M 0 0 L -5 5 L 0 10</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Up">M 0 0 L -5 -5 L -10 0</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Right">M 0 0 L 5 -5 L -0 -10</PathGeometry>
+    <PathGeometry x:Key="Fluent.Ribbon.Values.Arrow.Down">M 0 0 L 5 5 L 10 0</PathGeometry>
 
     <!-- <Geometry x:Key="Fluent.Ribbon.Data.UpArrow">M 0 4 L 8 4 L 4 0 Z</Geometry> -->
     <!-- <Geometry x:Key="Fluent.Ribbon.Data.DownArrow">M 0 0 L 4 4 L 8 0 Z</Geometry> -->

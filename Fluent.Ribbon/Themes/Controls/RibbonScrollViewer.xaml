@@ -88,7 +88,7 @@
                                 </MultiBinding>
                             </RepeatButton.Visibility>
                             <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
@@ -176,7 +176,7 @@
                                 </MultiBinding>
                             </RepeatButton.Visibility>
                             <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                                  Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                                  Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
                                   Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
                         </RepeatButton>
                         <RepeatButton Style="{DynamicResource Fluent.Ribbon.Styles.ScrollButton}"
@@ -258,7 +258,7 @@
                     </MultiBinding>
                 </RepeatButton.Visibility>
                 <Path Style="{DynamicResource Fluent.Ribbon.Styles.Path.Arrow}"
-                      Data="{DynamicResource Fluent.Ribbon.Data.Arrow.Up}"
+                      Data="{DynamicResource Fluent.Ribbon.Values.Arrow.Up}"
                       Stroke="{DynamicResource Fluent.Ribbon.Brushes.Black}" />
 
             </RepeatButton>
