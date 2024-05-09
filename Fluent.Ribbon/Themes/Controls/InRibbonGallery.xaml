@@ -353,7 +353,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-        <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar.Simplified"
+    <ControlTemplate x:Key="Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar.Simplified"
                      TargetType="{x:Type ScrollBar}">
         <Grid>
             <Grid.RowDefinitions>
@@ -397,7 +397,7 @@
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Vertical">
                 <Setter Property="Height" Value="Auto" />
-                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.VerticalScrollBar}" />
+                <Setter Property="Template" Value="{DynamicResource Fluent.Ribbon.Templates.InRibbonGallery.VerticalScrollBar}" />
                 <Setter Property="Width" Value="17" />
             </Trigger>
         </Style.Triggers>
