@@ -138,21 +138,6 @@ class Build : NukeBuild
             .SetVerbosity(DotNetVerbosity.normal));
     });
 
-    Target FixResourceKeys => _ => _
-        .DependsOn(Compile)
-        .Executes(() =>
-        {
-            var resourceKeys = new ResourceKeys(FluentRibbonDirectory / "Themes" / "Styles.xaml", FluentRibbonDirectory / "Themes" / "Themes" / "Theme.Template.xaml");
-
-            Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
-
-            Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
-
-            //resourceKeys.CheckKeys();
-
-            resourceKeys.FixKeys(Glob.Files(FluentRibbonDirectory / "Themes", "**/*.{xaml,json}").Select(x => Path.Combine(FluentRibbonDirectory / "Themes", x)).ToArray());
-        });
-
     Target ResourceKeys => _ => _
         .After(Compile)
         .Executes(() =>
@@ -162,6 +147,11 @@ class Build : NukeBuild
             Serilog.Log.Information($"Peeked keys  : {resourceKeys.PeekedKeys.Count}");
 
             Serilog.Log.Information($"Filtered keys: {resourceKeys.ElementsWithNonTypeKeys.Count}");
+
+            if (resourceKeys.CheckKeys() is false)
+            {
+                Assert.Fail("Wrong resource keys found.");
+            }
 
             var vNextResourceKeys = resourceKeys.ElementsWithNonTypeKeys
                 .Select(x => x.Key)

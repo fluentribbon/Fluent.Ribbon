@@ -214,6 +214,7 @@ Fluent.Ribbon.Images.Warning
 Fluent.Ribbon.ScreenTips.Resources.RibbonTabControl.DisplayOptionsScreenTip
 Fluent.Ribbon.Storyboards.Backstage.IsOpenFalseStoryboard
 Fluent.Ribbon.Storyboards.Backstage.IsOpenTrueStoryboard
+Fluent.Ribbon.Storyboards.RibbonTabControl.Content.Transition
 Fluent.Ribbon.Styles.ApplicationMenu
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItem
 Fluent.Ribbon.Styles.ApplicationMenu.MenuItemSecondLevel
@@ -409,7 +410,6 @@ Fluent.Ribbon.Values.RibbonTabControl.Content.BorderThickness
 Fluent.Ribbon.Values.RibbonTabControl.Content.CornerRadius
 Fluent.Ribbon.Values.RibbonTabControl.Content.DropShadowEffect
 Fluent.Ribbon.Values.RibbonTabControl.Content.Margin
-Fluent.Ribbon.Values.RibbonTabControl.Content.Transition
 Fluent.Ribbon.Values.RibbonTabItem.Active.BorderThickness
 Theme.AlternativeColorScheme
 Theme.BaseColorScheme
